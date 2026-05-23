@@ -49,7 +49,7 @@ El *controller* reacciona a las *Node Conditions* (condiciones del nodo) en luga
 
 ### Seguridad operativa con Dry Run
 
-Desplegar nuevas reglas de preparación a lo largo de una flota de *nodes* conlleva un riesgo inherente. Para mitigarlo, el modo *dry run* permite a los operadores simular primero el impacto en el *cluster*.
+Desplegar nuevas reglas de preparación a lo largo de una flota de nodos conlleva un riesgo inherente. Para mitigarlo, el modo *dry run* permite a los operadores simular primero el impacto en el cluster.
 En este modo, el *controller* registra las acciones previstas y actualiza el estado (*status*) de la regla para mostrar los *nodes* afectados sin aplicar los *taints* reales, lo que permite una validación segura antes de su aplicación definitiva.
 
 ## Ejemplo: Bootstrapping de CNI
