@@ -49,8 +49,8 @@ profiles:
 With this configuration, nodes are scored using a weighted average of utilization across all four
 resources. Because `intel.com/foo` and `intel.com/bar` each carry a weight of `3` versus `1` for
 CPU and memory, the utilization of those extended resources has three times more influence on the
-final node score. The scheduler selects the highest-scoring node, consolidating workloads onto
-nodes that are already heavily utilized and leaving others free for scale-down.
+final node score. The scheduler selects the highest-scoring node, aiming to schedule pods on
+highly utilized nodes. This helps prepare for scale-down of the least utilized nodes.
 
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
