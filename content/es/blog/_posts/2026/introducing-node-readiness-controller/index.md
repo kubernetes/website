@@ -44,7 +44,7 @@ Bootstrap-only enforcement (Aplicación solo en bootstrap)
 
 El *controller* reacciona a las condiciones del nodo (Node Conditions) en lugar de realizar las verificaciones de estado por sí mismo. Este diseño desacoplado le permite integrarse sin problemas con otras herramientas del ecosistema, así como con soluciones personalizadas:
 
-- **[Node Problem Detector](https://github.com/kubernetes/node-problem-detector) (NPD)**: Utiliza tus configuraciones existentes de NPD y *scripts* personalizados para reportar el estado del *node*.
+- **[Node Problem Detector](https://github.com/kubernetes/node-problem-detector) (NPD)**: Utiliza tus configuraciones existentes de NPD y *scripts* personalizados para reportar el estado del nodo.
 - **Readiness Condition Reporter**: Un agente ligero provisto por el proyecto que puede desplegarse para realizar comprobaciones periódicas en endpoints HTTP locales y actualizar (*patch*) las condiciones del *node* según corresponda.
 
 ### Seguridad operativa con Dry Run
