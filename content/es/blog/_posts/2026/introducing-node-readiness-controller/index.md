@@ -12,7 +12,7 @@ En el modelo estándar de Kubernetes, que un nodo sea adecuado para ejecutar car
 
 Hoy, en nombre del proyecto Kubernetes, me complace anunciar el [Node Readiness Controller](https://node-readiness-controller.sigs.k8s.io/).
 Este proyecto introduce un sistema declarativo para gestionar los *taints* de los nodos, extendiendo las medidas de seguridad de disponibilidad durante el arranque del nodo, más allá de las condiciones estándar.
-Al gestionar dinámicamente los *taints* en función de señales de estado personalizadas, el *controller* garantiza que las cargas de trabajo solo se programen (*scheduled*) en *nodes* que cumplan con todos los requisitos específicos de la infraestructura.
+Al gestionar dinámicamente los *taints* en función de señales de estado personalizadas, el *controller* garantiza que las cargas de trabajo solo se programen en nodos que cumplan con todos los requisitos específicos de la infraestructura.
 
 ## ¿Por qué el Node Readiness Controller?
 
