@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Reconciling the Past: Correcting Records for Unfixed Kubernetes CVEs"
-draft: true
+date: 2026-05-26T09:30:00-08:00
 slug: reconciling-unfixed-kubernetes-cves
 author: >
   [Pushkar Joglekar](https://github.com/PushkarJ) (Broadcom / SIG Security),
