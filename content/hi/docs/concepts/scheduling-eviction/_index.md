@@ -5,7 +5,7 @@ content_type: concept
 no_list: true
 ---
 
-कुबेरनेट्स में शेड्यूलिंग का मतलब है कि, किस {{<glossary_tooltip text="पॉड" term_id="pod">}} को किस {{<glossary_tooltip text="नोड" term_id="node">}} पे चलाना है ये निर्धारित किया जा सके ताकि {{<glossary_tooltip text="कुबेलेट" term_id="kubelet">}} उन्हें उस नोड पर चला सके।
+कुबेरनेट्स में शेड्यूलिंग का मतलब है कि, किस {{<glossary_tooltip text="पॉड" term_id="pod">}} को किस {{<glossary_tooltip text="नोड" term_id="node">}} पे चलाना है ये निर्धारित किया जा सके ताकि {{<glossary_tooltip text="क्यूबलेट" term_id="kubelet">}} उन्हें उस नोड पर चला सके।
 
 प्रीइम्प्शन का मतलब है कि वो पॉड्स जिनकी {{<glossary_tooltip text="प्रायोरिटी" term_id="pod-priority">}} कम है उन्हें किसी नोड से हटा के वो पॉड्स चला सकें जिनकी प्रायोरिटी ज्यादा है।
 

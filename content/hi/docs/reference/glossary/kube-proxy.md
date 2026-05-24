@@ -1,5 +1,5 @@
 ---
-title: कुबे-प्रॉक्सी
+title: क्यूब-प्रॉक्सी
 id: kube-proxy
 full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
