@@ -28,7 +28,7 @@ Ofrece tres ventajas principales:
 
 ## Conceptos clave y características
 
-El *controller* se basa en la API `NodeReadinessRule` (NRR), la cual permite definir *gates* declarativos para tus *nodes*.
+El *controller* se basa en la API `NodeReadinessRule` (NRR), la cual permite definir *Gates* declarativos para tus nodos.
 
 ### Modos de aplicación flexibles
 
