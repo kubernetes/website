@@ -23,7 +23,7 @@ El Node Readiness Controller resuelve esta brecha al permitir a los operadores d
 Ofrece tres ventajas principales:
 
 - **Definiciones de Readiness personalizadas**: Define qué significa que un nodo esté *listo* (ready) para tu plataforma específica.
-- **Gestión automatizada de Taints**: El *controller* aplica o elimina automáticamente los *taints* de los *nodes* según el estado de sus condiciones, evitando que los *pods* caigan en una infraestructura que no está lista.
+- **Gestión automatizada de Taints**: El *controller* aplica o elimina automáticamente los *taints* de los nodos según el estado de sus condiciones, evitando que los Pods caigan en una infraestructura que no está lista.
 - **Bootstrapping declarativo de Nodes**: Gestiona la inicialización de los *nodes* en múltiples pasos de forma confiable, aportando una clara observabilidad al proceso de *bootstrapping*.
 
 ## Conceptos clave y características
