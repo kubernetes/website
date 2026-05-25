@@ -47,7 +47,7 @@ Kubernetes API 服务器提供 3 个 API 端点（`healthz`、`livez` 和 `ready
 以下更详细的选项供操作人员使用，用来调试其集群或了解 API 服务器的状态。
 
 <!--
-These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/configuration/liveness-readiness-startup-probes/) function:
+These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/workloads/pods/probes/#http-probes) function:
 
 * **livez**: Use this to determine if the API server should be restarted.
   If `/livez` returns a failure status code (such as 500), the API server is likely in a non-recoverable state, such as a deadlock, and requires a restart.
@@ -55,7 +55,7 @@ These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/configura
   If `/readyz` returns a failure status code, it indicates the server is still initializing or temporarily unable to serve requests (for example, waiting for etcd to be available), and traffic should be routed away from it.
 -->
 这些端点与 Kubernetes
-[HTTP 探测](/docs/concepts/configuration/liveness-readiness-startup-probes/)的特性相对应：
+[HTTP 探测](/zh-cn/docs/concepts/workloads/pods/probes/#http-probes)的特性相对应：
 
 * **livez**：使用此端点来确定是否需要重启 API 服务器。
   如果 `/livez` 返回失败状态码（例如 500），则表示 API 服务器可能处于不可恢复的状态，
