@@ -1,4 +1,4 @@
-# i18n strings for the English (main) site.
+# i18n strings for the Spanish (main) site.
 # NOTE: Por favor, mantenga las entradas en orden alfabético al editar.
 
 # Para "y", véase [conjunction_1]
@@ -61,7 +61,8 @@ other = "Contribuar"
 [community_contributor_site_name]
 other = "Sitio web de contribuidores"
 
-# Also cover [community_develop] if localizing this site
+[community_develop]
+other = FIXME
 
 [community_forum_name]
 other = "Foro"
@@ -69,11 +70,14 @@ other = "Foro"
 [community_github_name]
 other = "GitHub"
 
-# Also cover [community_introduce] if localizing this site
+[community_introduce]
+other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese. Para obtener más información sobre cómo contribuir a Kubernetes, consulta nuestra {{ .link }}."
 
-# Also cover [community_join] if localizing this site
+[community_join]
+other= "Únete a la comunidad"
 
-# Also cover [community_learn] if localizing this site
+[community_learn]
+other = "Aprender"
 
 [community_linkedin_name]
 other = "LinkedIn"
@@ -90,7 +94,8 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "X (anteriormente Twitter)"
 
-# Also cover [community_using] if localizing this site
+[community_using]
+other = "Usar"
 
 [community_x_name]
 other = "X (anteriormente Twitter)"
@@ -226,13 +231,13 @@ other = "Hasta"
 other = "Hasta"
 
 [feature_state]
-other = "ESTADO DE LA CARACTERÍSTICA:"
+other = "ESTADO DE LA RECURSOS:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
 
 [feature_state_feature_gate_tooltip]
-other = "Feature Gate:"
+other = "El estado de esta característica se determina por la configuración de su feature gate. Para más información, consulta la {{ .link }}."
 
 [feedback_heading]
 other = "Comentarios"
