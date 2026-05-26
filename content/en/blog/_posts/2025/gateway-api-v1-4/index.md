@@ -155,7 +155,7 @@ Some of the key use cases include:
 
 - **Status:** Allowing status conditions to reference specific rules directly by name.
 - **Observability:** Making it easier to identify individual rules in logs, traces, and metrics.
-- **Policies:** Enabling policies ([GEP-713](https://gateway-api.sigs.k8s.io/geps/gep-773)) to target specific route rules via the `sectionName` field in their `targetRef[s]`.
+- **Policies:** Enabling policies ([GEP-713](https://gateway-api.sigs.k8s.io/geps/gep-713)) to target specific route rules via the `sectionName` field in their `targetRef[s]`.
 - **Tooling:** Simplifying filtering and referencing of route rules in tools such as `gwctl`, `kubectl`, and general-purpose utilities like `jq` and `yq`.
 - **Internal configuration mapping:** Facilitating the generation of internal configurations that reference route rules by name within gateway and mesh implementations.
 
