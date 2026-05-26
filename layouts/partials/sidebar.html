@@ -55,7 +55,7 @@
     });
   </script>
   {{ $variant := printf "%s|%s|%s|%s|%s|%s|%s|%t|%t|%t" $cacheRoot $renderMode $idPrefix $sectionNavID $sidebarMenuID $contentMobileID $contentDesktopID $showMobileToggle $showLanguageSelector $collapseNav -}}
-  {{ partialCached "blog-sidebar-tree.html" $treeContext $variant }}
+  {{ partialCached "sidebar-tree.html" $treeContext $variant }}
 {{ else -}}
-  {{ partial "blog-sidebar-tree.html" $treeContext }}
+  {{ partial "sidebar-tree.html" $treeContext }}
 {{- end }}

@@ -2,32 +2,54 @@
 sidebar-tree in use elsewhere on the site. */}}
 
 {{/* We cache this partial for bigger sites and set the active class client side. */}}
-{{ $sidebarCacheLimit := cond (isset .Site.Params.ui "sidebar_cache_limit") .Site.Params.ui.sidebar_cache_limit 2000 -}}
-{{ $shouldDelayActive := ge (len .Site.Pages) $sidebarCacheLimit -}}
-<div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
-  {{ if not .Site.Params.ui.sidebar_search_disable -}}
+{{ $page := . -}}
+{{ $sidebarMenuID := "td-sidebar-menu" -}}
+{{ $sectionNavID := "td-section-nav" -}}
+{{ $idPrefix := "m-" -}}
+{{ $showMobileToggle := true -}}
+{{ $collapseNav := true -}}
+{{ $contentMobileID := "content-mobile" -}}
+{{ $contentDesktopID := "content-desktop" -}}
+{{ if reflect.IsMap . -}}
+  {{ $page = .page -}}
+  {{ with .sidebarMenuID }}{{ $sidebarMenuID = . }}{{ end -}}
+  {{ with .sectionNavID }}{{ $sectionNavID = . }}{{ end -}}
+  {{ with .idPrefix }}{{ $idPrefix = . }}{{ end -}}
+  {{ if isset . "showMobileToggle" }}{{ $showMobileToggle = index . "showMobileToggle" }}{{ end -}}
+  {{ if isset . "collapseNav" }}{{ $collapseNav = index . "collapseNav" }}{{ end -}}
+  {{ with .contentMobileID }}{{ $contentMobileID = . }}{{ end -}}
+  {{ with .contentDesktopID }}{{ $contentDesktopID = . }}{{ end -}}
+{{ end -}}
+{{ $sidebarCacheLimit := cond (isset $page.Site.Params.ui "sidebar_cache_limit") $page.Site.Params.ui.sidebar_cache_limit 2000 -}}
+{{ $shouldDelayActive := ge (len $page.Site.Pages) $sidebarCacheLimit -}}
+<div id="{{ $sidebarMenuID }}" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
+  {{ if not $page.Site.Params.ui.sidebar_search_disable -}}
   <form class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    {{ partial "search-input.html" $page }}
+    {{ if $showMobileToggle -}}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $sectionNavID }}" aria-controls="{{ $sectionNavID }}" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
     </button>
+    {{ end -}}
   </form>
   {{ else -}}
-  <div id="content-mobile">
+  <div id="{{ $contentMobileID }}">
   <form class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    {{ partial "search-input.html" $page }}
+    {{ if $showMobileToggle -}}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $sectionNavID }}" aria-controls="{{ $sectionNavID }}" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
     </button>
+    {{ end -}}
   </form>
   </div>
-  <div id="content-desktop"></div>
+  <div id="{{ $contentDesktopID }}"></div>
   {{ end -}}
-  <nav class="collapse td-sidebar-nav{{ if .Site.Params.ui.sidebar_menu_foldable }} foldable-nav{{ end }}" id="td-section-nav">
-    {{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
+  <nav class="{{ if $collapseNav }}collapse {{ end }}td-sidebar-nav{{ if $page.Site.Params.ui.sidebar_menu_foldable }} foldable-nav{{ end }}" id="{{ $sectionNavID }}">
+    {{ $navRoot := cond (and (ne $page.Params.toc_root true) (eq $page.Site.Home.Type "docs")) $page.Site.Home $page.FirstSection -}}
     {{ $ulNr := 0 -}}
-    {{ $ulShow := cond (isset .Site.Params.ui "ul_show") .Site.Params.ui.ul_show 1 -}}
-    {{ $sidebarMenuTruncate := cond (isset .Site.Params.ui "sidebar_menu_truncate") .Site.Params.ui.sidebar_menu_truncate 50 -}}
+    {{ $ulShow := cond (isset $page.Site.Params.ui "ul_show") $page.Site.Params.ui.ul_show 1 -}}
+    {{ $sidebarMenuTruncate := cond (isset $page.Site.Params.ui "sidebar_menu_truncate") $page.Site.Params.ui.sidebar_menu_truncate 50 -}}
     <ul class="td-sidebar-nav__section pe-md-3 ul-{{ $ulNr }}">
-      {{ template "blog-section-tree-nav-section" (dict "page" . "section" $navRoot "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" (add $ulShow 1)) }}
+      {{ template "blog-section-tree-nav-section" (dict "page" $page "section" $navRoot "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" (add $ulShow 1) "idPrefix" $idPrefix) }}
     </ul>
   </nav>
 </div>
@@ -38,17 +60,18 @@ sidebar-tree in use elsewhere on the site. */}}
 {{ $sidebarMenuTruncate := .sidebarMenuTruncate -}}
 {{ $ulNr := .ulNr -}}
 {{ $ulShow := .ulShow -}}
+{{ $idPrefix := .idPrefix -}}
 {{ $postsByYear := $s.Pages.GroupByDate "2006" }}
 {{ $active := and (not $shouldDelayActive) (eq $s $p) -}}
 {{ $activePath := and (not $shouldDelayActive) (or (eq $p $s) ($p.IsDescendant $s)) -}}
 {{ $show := cond (or (lt $ulNr $ulShow) $activePath (and (not $shouldDelayActive) (eq $s.Parent $p.Parent)) (and (not $shouldDelayActive) (eq $s.Parent $p)) (not $p.Site.Params.ui.sidebar_menu_compact) (and (not $shouldDelayActive) ($p.IsDescendant $s.Parent))) true false -}}
-{{ $mid := printf "m-%s" ($s.RelPermalink | anchorize) -}}
+{{ $mid := printf "%s%s" $idPrefix ($s.RelPermalink | anchorize) -}}
 <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path{{ if (not (or $show $p.Site.Params.ui.sidebar_menu_foldable )) }} collapse{{ end }}" id="{{ $mid }}-li">
   {{- $ulNr := 1 }}
   <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
     {{ range $postsByYear -}}
     {{ $year := .Key }}
-    {{ $mid := printf "m-%s-%s" ($s.RelPermalink | anchorize) ($year) -}}
+    {{ $mid := printf "%s%s-%s" $idPrefix ($s.RelPermalink | anchorize) ($year) -}}
     {{ $active := and (not $shouldDelayActive) (in .Pages $p) -}}
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child{{ if $active }} active-path{{ end }}{{ if (not (or $show $p.Site.Params.ui.sidebar_menu_foldable )) }} collapse{{ end }}" id="{{ $mid }}-li">
       {{ if (and $p.Site.Params.ui.sidebar_menu_foldable (ge $ulNr 1)) -}}
@@ -60,7 +83,7 @@ sidebar-tree in use elsewhere on the site. */}}
       {{- $ulNr := 2 }}
       <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
         {{ range .Pages -}}
-        {{ $mid := printf "m-%s" (.RelPermalink | anchorize) -}}
+        {{ $mid := printf "%s%s" $idPrefix (.RelPermalink | anchorize) -}}
         {{ $active := and (not $shouldDelayActive) (eq . $p) -}}
         {{ $activePath := and (not $shouldDelayActive) (eq . $p) -}}
         {{ $manualLink := cond (isset .Params "manuallink") .Params.manualLink ( cond (isset .Params "manuallinkrelref") (relref . .Params.manualLinkRelref) .RelPermalink) -}}

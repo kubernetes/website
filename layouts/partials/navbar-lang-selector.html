@@ -32,7 +32,7 @@
                 <span class="dropdown-item text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .LanguageName) }}">
                     {{ with index $homeMap .Lang }}
                         {{ .Language.LanguageName }}
-                        <a href="{{ .RelPermalink }}" class="ms-1" data-auto-burger-exclude><i class="fas fa-home fa-xs"></i></a>
+                        <a href="{{ .RelPermalink }}" class="ms-1"><i class="fas fa-home fa-xs"></i></a>
                     {{- end }}
                 </span>
             </li>

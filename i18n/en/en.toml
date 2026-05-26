@@ -704,6 +704,9 @@ other = "See Also"
 [sidebar_toggle_nav]
 other = "Toggle section navigation"
 
+[sidebar_navigation]
+other = "Section navigation"
+
 [subscribe_button]
 other = "Subscribe"
 
@@ -742,6 +745,15 @@ other = "Translated By"
 
 [ui_search]
 other = "Search this site"
+
+[ui_navigation]
+other = "Navigation"
+
+[ui_toggle_navigation]
+other = "Toggle navigation"
+
+[ui_close_navigation]
+other = "Close navigation"
 
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
