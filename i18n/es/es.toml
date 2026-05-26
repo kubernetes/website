@@ -55,7 +55,8 @@ other = "Cargando las últimas noticias desde Bluesky..."
 [community_calendar_name]
 other = "Calendario de eventos"
 
-# Also cover [community_contribute] if localizing this site
+[community_contribute]
+other = "Contribuar"
 
 [community_contributor_site_name]
 other = "Sitio web de contribuidores"
