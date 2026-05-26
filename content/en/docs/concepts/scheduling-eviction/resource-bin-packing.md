@@ -46,6 +46,12 @@ profiles:
     name: NodeResourcesFit
 ```
 
+With this configuration, nodes are scored using a weighted average of utilization across all four
+resources. Because `intel.com/foo` and `intel.com/bar` each carry a weight of `3` versus `1` for
+CPU and memory, the utilization of those extended resources has three times more influence on the
+final node score. The scheduler selects the highest-scoring node, aiming to schedule pods on
+highly utilized nodes. This helps prepare for scale-down of the least utilized nodes.
+
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
@@ -90,6 +96,17 @@ profiles:
         type: RequestedToCapacityRatio
     name: NodeResourcesFit
 ```
+
+In this example, only the extended resources `intel.com/foo` and `intel.com/bar` are listed in
+`resources`. The `NodeResourcesFit` plugin therefore scores nodes based solely on the utilization
+of those two resources; CPU and memory do not contribute to the score from this plugin. Because the
+configured shape assigns a higher score as utilization increases (`score: 0` at `utilization: 0`
+rising to `score: 10` at `utilization: 100`), the scheduler prefers nodes where more of these
+extended resources are already in use, bin-packing requests for them onto as few nodes as possible.
+
+To include CPU and memory in this scoring strategy, add them to the `resources` list. Note that all
+resources in the list share the same `shape` function, so doing so will apply the same bin-packing
+curve to those resources as well.
 
 Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler
 flag `--config=/path/to/config/file` will pass the configuration to the
