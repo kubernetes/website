@@ -44,6 +44,11 @@
     right: 0.75rem;
     font-size: xx-large;
 
+    :dir(rtl) & {
+      right: auto;
+      left: 0.75rem;
+    }
+
     // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
     &:focus,
     &:active {
