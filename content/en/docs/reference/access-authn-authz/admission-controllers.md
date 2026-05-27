@@ -488,8 +488,8 @@ In any case, the annotations are provided by the user and are not validated by K
 
 **Type**: Validating.
 
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 
@@ -597,10 +597,10 @@ kubelets are not allowed to update or remove taints from their `Node` API object
 The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 
-* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
-  This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
-  and kubelets will not be allowed to modify labels with that prefix.
-* **Allows** kubelets to add/remove/update these labels and label prefixes:
+* **Forbidden** (Kubelets are blocked from modifying these):
+  * Labels with a `node-restriction.kubernetes.io/` prefix. This prefix is reserved for administrators to label `Node` objects for workload isolation.
+  * Labels with a `node-role.kubernetes.io/` prefix (for example: `node-role.kubernetes.io/control-plane`). These are restricted to prevent unprivileged nodes from self-declaring cluster roles.
+* **Allowed** (Kubelets can add/remove/update these):
   * `kubernetes.io/hostname`
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
@@ -612,9 +612,18 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
+* **Reserved**:
+  Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved.
+  The `NodeRestriction` admission plugin generally disallows these to prevent unauthorized self-labeling,
+  but may allow additional labels under these prefixes in the future as part of future features.
 
-Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
-and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this admission plugin also restricts the audiences for which a kubelet can
+request service account tokens via the `TokenRequest` API. The kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests), or for audiences explicitly granted
+through RBAC using the `request-serviceaccounts-token-audience` verb. For more details,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
 
 Future versions may add additional restrictions to ensure kubelets have the minimal set of
 permissions required to operate correctly.

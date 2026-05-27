@@ -5,6 +5,8 @@ date: 2022-08-23
 slug: kubernetes-v1-25-release
 release_announcement:
   minor_version: "1.25"
+  themes:
+    - "Combiner"
 author: >
   [Kubernetes 1.25 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.25/release-team.md)
 ---

@@ -267,7 +267,7 @@ graph TD
 
 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 and [Karpenter](https://github.com/kubernetes-sigs/karpenter) are the two Node autoscalers currently
-sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling).
+sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling).
 
 From the perspective of a cluster user, both autoscalers should provide a similar Node autoscaling
 experience. Both will provision new Nodes for unschedulable Pods, and both will consolidate the
@@ -277,7 +277,7 @@ Nodes that are no longer optimally utilized.
 
 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 和 [Karpenter](https://github.com/kubernetes-sigs/karpenter)
-是目前由 [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling)
+是目前由 [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling)
 维护的两个 Node Autoscaler。
 
 对于集群用户来说，这两个 Autoscaler 都应提供类似的 Node 自动扩缩容体验。
@@ -318,14 +318,14 @@ Additional context:
 * [Documentation overview](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [Cloud provider integrations](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
 * [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-* [Contact](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
+* [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 -->
 更多信息：
 
 * [文档概述](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [云驱动集成](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
 * [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-* [联系方式](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
+* [联系方式](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
 
