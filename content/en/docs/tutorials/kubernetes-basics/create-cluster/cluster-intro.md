@@ -1,5 +1,6 @@
 ---
 title: Using Minikube to Create a Cluster
+content_type: tutorial
 weight: 10
 ---
 
@@ -11,6 +12,15 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+This tutorial assumes that you have already installed `minikube`.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+{{< note >}}
+Only execute instructions in **step 1: Installation**. The rest is covered in this tutorial.
+{{< /note >}}
+
+You also need to install `kubectl`.
+See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
+
 The shell commands in this tutorial use POSIX shell syntax, which is supported by
 the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
 Windows users must use a POSIX-compatible shell such as
@@ -19,6 +29,60 @@ or [Git Bash](https://gitforwindows.org/) to run the commands as written.
 Commands that use `export`, `$()`, and similar constructs are **not** compatible
 with PowerShell or the Windows Command Prompt.
 
+## Create a minikube cluster
+
+```shell
+minikube start
+```
+
+## Check the status of minikube cluster
+
+Verify the status of minikube cluster to ensure all the components are in a running state.
+
+```shell
+minikube status
+```
+
+The output from above command should show all components Running or Configured, as shown in the example output below:
+
+```shell
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+## Open the Dashboard
+
+Open the Kubernetes dashboard. You can do this two different ways:
+
+{{< tabs name="dashboard" >}}
+{{% tab name="Launch a browser" %}}
+Open a new terminal, and run:
+
+```shell
+minikube dashboard
+```
+
+Now, switch back to terminal where you ran `minikube start`.
+{{% /tab %}}
+{{% tab name="URL copy and paste" %}}
+
+If you don't want minikube to open a web browser for you, run the `dashboard` subcommand with the `--url` flag. `minikube` output URL that you can open in the browser you prefer.
+
+Open a **new** terminal, and run:
+
+```shell
+# start a new terminal, and leave this running
+minikube dashboard --url
+```
+
+Now, you can use this URL and switch back to terminal where you ran `minikube start`.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Kubernetes Clusters
 
@@ -82,5 +146,5 @@ working with your cluster, including start, stop, status, and delete.
 
 ## {{% heading "whatsnext" %}}
 
-* Tutorial [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Tutorial [Deploy an App](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 * Learn more about [Cluster Architecture](/docs/concepts/architecture/).
