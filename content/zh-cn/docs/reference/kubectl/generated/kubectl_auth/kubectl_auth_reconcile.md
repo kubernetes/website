@@ -6,12 +6,14 @@ description: >-
   协调基于角色的访问控制（RBAC）角色、角色绑定、集群角色和集群角色绑定对象的规则
 ---
 <!--
-title: kubectl auth reconcile
-content_type: tool-reference
-weight: 30
-auto_generated: true
-description: >-
-  Reconciles rules for RBAC role, role binding, cluster role, and cluster role binding objects
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

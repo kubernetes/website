@@ -7,13 +7,14 @@ description: >-
   将实际版本与拟应用的版本进行比较
 ---
 <!--
-title: kubectl diff
-content_type: tool-reference
-weight: 30
-auto_generated: true
-no_list: true
-description: >-
-  Diff the live version against a would-be applied version
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

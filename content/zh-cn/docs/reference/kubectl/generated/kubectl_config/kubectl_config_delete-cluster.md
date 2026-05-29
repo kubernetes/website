@@ -6,12 +6,14 @@ description: >-
   从 kubeconfig 中删除指定的集群
 ---
 <!--
-title: kubectl config delete-cluster
-content_type: tool-reference
-weight: 30
-auto_generated: true
-description: >-
-  Delete the specified cluster from the kubeconfig
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

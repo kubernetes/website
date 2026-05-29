@@ -6,12 +6,14 @@ description: >-
   使用 Pod 模板更新对象的资源请求/限制
 ---
 <!--
-title: kubectl set resources
-content_type: tool-reference
-weight: 30
-auto_generated: true
-description: >-
-  Update resource requests/limits on objects with pod templates
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

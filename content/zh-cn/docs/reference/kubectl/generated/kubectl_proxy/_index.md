@@ -7,13 +7,14 @@ description: >-
   运行到 Kubernetes API 服务器的代理
 ---
 <!--
-title: kubectl proxy
-content_type: tool-reference
-weight: 30
-auto_generated: true
-no_list: true
-description: >-
-  Run a proxy to the Kubernetes API server
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

@@ -6,12 +6,14 @@ description: >-
   导出相关信息以进行调试和诊断
 ---
 <!--
-title: kubectl cluster-info dump
-content_type: tool-reference
-weight: 30
-auto_generated: true
-description: >-
-  Dump relevant information for debugging and diagnosis
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}

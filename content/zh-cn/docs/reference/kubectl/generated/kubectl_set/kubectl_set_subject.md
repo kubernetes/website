@@ -6,12 +6,14 @@ description: >-
   更新角色绑定或集群角色绑定中的用户、组或服务账户
 ---
 <!--
-title: kubectl set subject
-content_type: tool-reference
-weight: 30
-auto_generated: true
-description: >-
-  Update the user, group, or service account in a role binding or cluster role binding
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 ## {{% heading "synopsis" %}}
