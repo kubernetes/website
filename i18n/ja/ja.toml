@@ -264,7 +264,7 @@ other = "コミュニティを探す"
 other = "コントリビュート"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. ウェブサイトの利用規約、商標ポリシー、およびその他のプロジェクトポリシーについては、<a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a> を参照してください。"""
 
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""

@@ -407,7 +407,7 @@ other = "Познайомитись із спільнотою"
 other = "Участь"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Всі права застережено. The Linux Foundation є зареєстрованою торговою маркою. Перелік торгових марок The Linux Foundation ви знайдете на нашій сторінці <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Використання торгових марок</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Умови використання веб-сайту, політика щодо торгових марок та інші політики проекту дивіться на <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Автори Kubernetes | Документація розповсюджується на умовах Ліцензії <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
