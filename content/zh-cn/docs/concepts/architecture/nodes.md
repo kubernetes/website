@@ -517,7 +517,7 @@ Nodes that [self register](#self-registration-of-nodes) report their capacity du
 registration. If you [manually](#manual-node-administration) add a Node, then
 you need to set the node's capacity information when you add it.
 -->
-### 资源容量跟踪   {#node-capacity}
+## 资源容量跟踪   {#node-capacity}
 
 Node 对象会跟踪节点上资源的容量（例如可用内存和 CPU 数量）。
 通过[自注册](#self-registration-of-nodes)机制生成的 Node 对象会在注册期间报告自身容量。

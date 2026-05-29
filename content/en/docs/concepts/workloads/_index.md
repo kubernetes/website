@@ -74,8 +74,7 @@ While standard workload resources (like Deployments and Jobs) manage the lifecyc
 you may have complex scheduling requirements where groups of Pods must be treated as a single unit.
 
 The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define `PodGroupTemplates` to group Pods and apply advanced scheduling policies to them, 
-such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) and apply 
-advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
 Controllers create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates at runtime, 
 and `Pods` reference their `PodGroup` via the
 `spec.schedulingGroup` field. This is particularly useful for batch processing and machine

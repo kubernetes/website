@@ -578,10 +578,12 @@ Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: ResourceClaim
 
-This annotation is assigned to generated ResourceClaims. 
+This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
-You should not need to read or modify the value of this annotation.
+Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
+discoverable device metadata feature uses this annotation to map a generated ResourceClaim
+back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
+Kubernetes manages this annotation, so you should not modify it.
 -->
 ### resource.kubernetes.io/pod-claim-name {#resource-kubernetes-io-pod-claim-name}
 
@@ -593,8 +595,10 @@ You should not need to read or modify the value of this annotation.
 
 该注解被赋予自动生成的 ResourceClaim。
 注解的值对应于触发 ResourceClaim 创建的 Pod 在 `.spec` 中的资源声明名称。
-此注解是[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)的内部实现细节。
-你不需要读取或修改此注解的值。
+在[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)中，
+可发现设备元数据特性使用此注解将生成的 ResourceClaim 映射回基于模板的资源申领的
+Pod 申领名称（`pod.spec.resourceClaims[].name`）。
+Kubernetes 管理此注解，因此你不应修改它。
 
 <!--
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
@@ -5407,7 +5411,7 @@ pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the 
 <!--
 ## Annotations used for audit
 -->
-## 用于审计的注解    {#annonations-used-for-audit}
+## 用于审计的注解    {#annotations-used-for-audit}
 
 <!-- sorted by annotation -->
 <!--
@@ -5438,7 +5442,7 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 <!--
 ### kubeadm.alpha.kubernetes.io/cri-socket (deprecated) {#kubeadm-alpha-kubernetes-io-cri-socket}
 -->
-## kubeadm.alpha.kubernetes.io/cri-socket (已弃用) {#kubeadm-alpha-kubernetes-io-cri-socket}
+### kubeadm.alpha.kubernetes.io/cri-socket (已弃用) {#kubeadm-alpha-kubernetes-io-cri-socket}
 
 <!--
 Type: Annotation

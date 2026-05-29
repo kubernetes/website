@@ -6,6 +6,8 @@ evergreen: true
 slug: kubernetes-v1-36-release
 release_announcement:
   minor_version: "1.36"
+  themes:
+    - "ハル (Haru)"
 author: >
   [Kubernetes v1.36 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.36/release-team.md)
 ---
@@ -649,6 +651,7 @@ and other notable conferences worldwide. Stay informed and get involved with the
  
 **June 2026**
 - KCD - [Kubernetes Community Days: New York](https://community.cncf.io/events/details/cncf-kcd-new-york-presents-kcd-new-york-2026/): June 10, 2026 | New York, USA
+- KCD - [Kubernetes Community Days: Kuala Lumpur](https://community2.cncf.io/events/details/cncf-kcd-kuala-lumpur-2026-presents-kcd-kuala-lumpur-2026/): June 27, 2026 | Kuala Lumpur, Malaysia
 - [KubeCon + CloudNativeCon India 2026: June 18-19, 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/) | Mumbai, India
 
 **July 2026**

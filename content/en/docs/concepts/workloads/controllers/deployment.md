@@ -1322,8 +1322,7 @@ spec:
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `type: Progressing`, `status: "False"`.
 and `reason: ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
-controller will roll back a Deployment as soon as it observes such a condition.
+retrying the Deployment. This defaults to 600.
 
 If specified, this field needs to be greater than `.spec.minReadySeconds`.
 
@@ -1368,7 +1367,7 @@ it is created.
 
 * Learn more about [Pods](/docs/concepts/workloads/pods).
 * [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
+* Read the {{< api-reference page="apps/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 * Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).

@@ -74,7 +74,7 @@ With the following example, you can learn how to use Pod failure policy to
 avoid unnecessary Pod restarts when a Pod failure indicates a non-retriable
 software bug.
 -->
-## 使用 Pod 失效策略以避免不必要的 Pod 重试  {#using-pod-failure-policy-to-avoid-unecessary-pod-retries}
+### 使用 Pod 失效策略以避免不必要的 Pod 重试  {#pod-failure-policy-failjob}
 
 借用以下示例，你可以学习在 Pod 失效表明有一个不可重试的软件漏洞时如何使用
 Pod 失效策略来避免不必要的 Pod 重启。

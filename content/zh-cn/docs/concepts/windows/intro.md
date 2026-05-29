@@ -728,7 +728,7 @@ in this section. Logs are an important element of troubleshooting
 issues in Kubernetes. Make sure to include them any time you seek
 troubleshooting assistance from other contributors. Follow the
 instructions in the
-SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
+SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs).
 -->
 ## 获取帮助和故障排查   {#troubleshooting}
 
@@ -738,13 +738,13 @@ SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes
 日志是解决 Kubernetes 中问题的重要元素。
 确保在任何时候向其他贡献者寻求故障排查协助时随附了日志信息。
 遵照 SIG Windows
-[日志收集贡献指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)中的指示说明。
+[日志收集贡献指南](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs)中的指示说明。
 
 <!--
 ### Reporting issues and feature requests
 
 If you have what looks like a bug, or you would like to
-make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
+make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
 You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
 logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
@@ -753,7 +753,7 @@ troubleshooting ideas prior to creating a ticket.
 ### 报告问题和功能请求   {#report-issue-and-feature-request}
 
 如果你发现疑似 bug，或者你想提出功能请求，请按照
-[SIG Windows 贡献指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)
+[SIG Windows 贡献指南](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)
 新建一个 Issue。你应该先搜索 Issue 列表，以防之前报告过这个问题，凭你对该问题的经验添加评论，
 并随附日志信息。Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 可以在创建工单之前获得一些初始支持和故障排查思路。

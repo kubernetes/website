@@ -421,18 +421,7 @@ Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} o
 The main use for static Pods is to run a self-hosted control plane: in other words,
 using the kubelet to supervise the individual [control plane components](/docs/concepts/architecture/#control-plane-components).
 
-The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
-on the Kubernetes API server for each static Pod.
-This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod)
-for more information.
-
-{{< note >}}
-The `spec` of a static Pod cannot refer to other API objects
-(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
-{{< /note >}}
+For details, see [Static Pods](/docs/concepts/workloads/pods/static-pods/).
 
 ## Pods with multiple containers {#how-pods-manage-multiple-containers}
 
@@ -503,7 +492,7 @@ in the Pod Lifecycle documentation.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)
   and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
-  The {{< api-reference page="workload-resources/pod-v1" >}}
+  The {{< api-reference page="core/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)

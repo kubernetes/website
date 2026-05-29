@@ -1536,13 +1536,13 @@ the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
 For storage vendors looking to create an out-of-tree volume plugin, please refer
-to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 -->
 CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并作为扩展部署（安装）在
 Kubernetes 集群上。
 
 对于希望创建树外（Out-Of-Tree）卷插件的存储供应商，
-请参考[卷插件常见问题](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
+请参考[卷插件常见问题](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)。
 
 ### CSI
 
@@ -1558,7 +1558,8 @@ Kubernetes) to expose arbitrary storage systems to their container workloads.
 Please read the [CSI design proposal](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
 for more information.
 -->
-更多详情请阅读 [CSI 设计方案](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)。
+更多详情请阅读
+[CSI 设计方案](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)。
 
 {{< note >}}
 <!--
@@ -1990,8 +1991,8 @@ in `containers[*].volumeMounts`. Its values are:
   类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为
   `HostToContainer` 的容器都将能看到这一变化。
 
-  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
-  `rslave` 挂载传播选项。
+  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
+  中描述的 `rslave` 挂载传播选项。
 
 <!--
 * `Bidirectional` - This volume mount behaves the same as the `HostToContainer` mount.
