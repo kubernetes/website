@@ -125,7 +125,7 @@ spec:
   conversion:
     # None変換はすべてのバージョンで同じスキーマを前提とし、カスタムリソースのapiVersionフィールドのみを適切な値に設定します
     strategy: None
-  # NamespacedまたはClusterのいずれかです
+  # NamespacedまたはClusterのいずれか
   scope: Namespaced
   names:
     # URLで使用する複数形の名前: /apis/<group>/<version>/<plural>
@@ -173,7 +173,7 @@ spec:
     # None変換はすべてのバージョンで同じスキーマを前提とし、
     # カスタムリソースのapiVersionフィールドのみを適切な値に設定します。
     strategy: None
-  # NamespacedまたはClusterのいずれかです。
+  # NamespacedまたはClusterのいずれか
   scope: Namespaced
   names:
     # URLで使用する複数形の名前: /apis/<group>/<version>/<plural>
@@ -454,7 +454,7 @@ spec:
           name: example-conversion-webhook-server
           path: /crdconvert
         caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
-  # NamespacedまたはClusterのいずれかです。
+  # NamespacedまたはClusterのいずれか
   scope: Namespaced
   names:
     # URLで使用する複数形の名前: /apis/<group>/<version>/<plural>
@@ -516,7 +516,7 @@ spec:
         name: example-conversion-webhook-server
         path: /crdconvert
       caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
-  # NamespacedまたはClusterのいずれかです。
+  # NamespacedまたはClusterのいずれか
   scope: Namespaced
   names:
     # URLで使用する複数形の名前: /apis/<group>/<version>/<plural>
