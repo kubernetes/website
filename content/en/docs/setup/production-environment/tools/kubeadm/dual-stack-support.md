@@ -108,7 +108,7 @@ The kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-s
 are set with default values. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack).
 
 {{< note >}}
-The `--apiserver-advertise-address` flag does not support dual-stack.
+The `--apiserver-advertise-address` flag does not support dual-stack, hence you should configure your primary service subnet (e.g. the one specified first in the `networking.serviceSubnet` list in your kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)) with the same IP family in order for `kubernetes.default.svc.` service to work.
 {{< /note >}}
 
 ### Join a node to dual-stack cluster
