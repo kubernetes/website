@@ -28,11 +28,11 @@ Our testing focused on two primary scenarios to isolate the impact of the Kubele
 2. **Kernel PSI OFF / Kubelet Feature ON** vs **Kernel PSI ON / Kubelet Feature ON** (Kernel overhead)
 
 #### Scenario 1: The Kubelet Overhead
-First, we looked at the kubelet usage on 4 core machines (Case 1). For these, the Linux kernel was already tracking pressure on both clusters by default(`psi=1`), but we toggled the `KubeletPSI` feature gate to see if the Kubelet actively querying and exposing these metrics impacted the resource usage. The synchronized bursts seen in the graph are practically identical in both magnitude and frequency, confirming that the Kubelet's collection logic is highly lightweight and blends seamlessly into standard housekeeping cycles. There is no issue about the feature affecting the pre-existing resource use, staying within the normal 0.1 cores or **2.5% of the total node capacity**, and is therefore safe for production-scale deployments.
+First, we looked at the kubelet usage on 4 core machines (Case 1). For these, the Linux kernel was already tracking pressure on both clusters by default (`psi=1`), but we toggled the `KubeletPSI` feature gate to see if the Kubelet actively querying and exposing these metrics impacted the resource usage. The synchronized bursts seen in the graph are practically identical in both magnitude and frequency, confirming that the Kubelet's collection logic is highly lightweight and blends seamlessly into standard housekeeping cycles. There is no issue about the feature affecting the pre-existing resource use, staying within the normal 0.1 cores or **2.5% of the total node capacity**, and is therefore safe for production-scale deployments.
 
 {{< figure src="/images/kubeletPSI_kubelet_cpu_usage_rate_graph.png" alt="A line graph comparing the kubelet CPU usage rate over elapsed time with the Kubelet PSI feature turned off versus on and kernel PSI always on." caption="Figure 1: Kubelet CPU Usage Rate Comparison." >}}
 
-Next, we evaluated the system overhead in the same run. As seen in the following graph, the **System CPU** usage lines for the Kubelet PSI-enabled (red) follows the same pattern as the Kubelet PSI-disabled (blue) clusters, with a slight expected increase from the baseline. This visualizes that once the OS is tracking PSI, at around **2.5 cores**, the act of Kubernetes reading those cgroup metrics is negligible to performance. 
+Next, we evaluated the system overhead in the same run. As seen in the following graph, the **System CPU** usage lines for the Kubelet PSI-enabled (red) follow the same pattern as the Kubelet PSI-disabled (blue) clusters, with a slight expected increase from the baseline. This visualizes that once the OS is tracking PSI, at around **2.5 cores**, the act of Kubernetes reading those cgroup metrics is negligible to performance. 
 
 {{< figure src="/images/kubeletPSI_sys_cpu_usage_rate_graph.png" alt="A line graph comparing the system CPU usage rate over elapsed time with the PSI feature turned off versus on and kernel PSI default ON." caption="Figure 2: Node System CPU Usage Rate Comparison." >}}
 
@@ -41,7 +41,7 @@ Shifting gears, we evaluated the underlying overhead of enabling PSI on the Linu
 
 {{< figure src="/images/node_sys_cpu_usage_rate_comparison.png" alt="A line graph comparing the Node System (Kernel) CPU usage rate with Kernel PSI ON and OFF over elapsed time." caption="Figure 3: Node System CPU Usage Rate Comparison." >}}
 
-Figure 4 zooms in on the kubelet process itself, which serves as the primary collector for these metrics. . The results show that even while the kubelet performs periodic _sweeps_ to aggregate data from the cgroup hierarchy, its CPU usage remains remarkably low with interchangeable spikes and nothing exceeding **0.25 cores** or **6.25%** of total capacity for longer than a second.
+Figure 4 zooms in on the kubelet process itself, which serves as the primary collector for these metrics. The results show that even while the kubelet performs periodic _sweeps_ to aggregate data from the cgroup hierarchy, its CPU usage remains remarkably low with interchangeable spikes and nothing exceeding **0.25 cores** or **6.25%** of total capacity for longer than a second.
 
 {{< figure src="/images/kubelet_cpu_usage_rate_comparison.png" alt="A line graph comparing the kubelet CPU usage rate over elapsed time with the Kernel PSI feature turned off versus on." caption="Figure 4: Kubelet CPU Usage Rate Comparison." >}}
 
