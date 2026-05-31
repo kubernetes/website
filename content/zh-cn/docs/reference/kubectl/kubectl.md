@@ -11,10 +11,7 @@ weight: 30
 
 ## {{% heading "synopsis" %}}
 
-<!--
-kubectl controls the Kubernetes cluster manager.
--->
-kubectl 管理控制 Kubernetes 集群。
+{{< glossary_definition term_id="kubectl" length="short" >}}
 
 <!--
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
@@ -37,7 +34,8 @@ kubectl [flags]
       <td colspan="2">--add-dir-header</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, adds the file directory to the header of the log messages
       -->
@@ -48,7 +46,8 @@ kubectl [flags]
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       log to standard error as well as files
       -->
@@ -59,7 +58,8 @@ kubectl [flags]
       <td colspan="2">--as string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Username to impersonate for the operation
       -->
@@ -70,7 +70,8 @@ kubectl [flags]
       <td colspan="2">--as-group stringArray</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
       -->
@@ -81,7 +82,8 @@ kubectl [flags]
       <td colspan="2">--azure-container-registry-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to the file containing Azure container registry configuration information.
       -->
@@ -92,7 +94,8 @@ kubectl [flags]
       <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："$HOME/.kube/cache"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Default cache directory
       -->
@@ -103,7 +106,8 @@ kubectl [flags]
       <td colspan="2">--certificate-authority string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a cert file for the certificate authority
       -->
@@ -114,7 +118,8 @@ kubectl [flags]
       <td colspan="2">--client-certificate string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a client certificate file for TLS
       -->
@@ -125,7 +130,8 @@ kubectl [flags]
       <td colspan="2">--client-key string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a client key file for TLS
       -->
@@ -136,8 +142,11 @@ kubectl [flags]
       <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-        <!--CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks-->
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
+        <!--
+        CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks
+        -->
         在 GCE 防火墙中开放的 CIDR，用来进行 L7 LB 流量代理和健康检查。
       </td>
     </tr>
@@ -145,7 +154,8 @@ kubectl [flags]
       <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       CIDRs opened in GCE firewall for L4 LB traffic proxy & health checks
       -->
@@ -156,7 +166,8 @@ kubectl [flags]
       <td colspan="2">--cluster string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The name of the kubeconfig cluster to use
       -->
@@ -167,7 +178,8 @@ kubectl [flags]
       <td colspan="2">--context string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The name of the kubeconfig context to use
       -->
@@ -178,7 +190,8 @@ kubectl [flags]
       <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
       -->
@@ -189,7 +202,8 @@ kubectl [flags]
       <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
       -->
@@ -200,7 +214,8 @@ kubectl [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       help for kubectl
       -->
@@ -211,7 +226,8 @@ kubectl [flags]
       <td colspan="2">--insecure-skip-tls-verify</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       -->
@@ -222,7 +238,8 @@ kubectl [flags]
       <td colspan="2">--kubeconfig string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to the kubeconfig file to use for CLI requests.
       -->
@@ -233,7 +250,8 @@ kubectl [flags]
       <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：0</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       when logging hits line file:N, emit a stack trace
       -->

@@ -1,4 +1,5 @@
-{{ if not .Params.hide_feedback }}
+{{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable)) -}}
+{{ with .Site.Params.ui.feedback -}}
 <div id="pre-footer">
   <h2 id="feedback">{{ T "feedback_heading" }}</h2>
     <p class="feedback--prompt">{{ T "feedback_question" }} </p>
@@ -27,7 +28,7 @@
     });
     const sendFeedback = (value) => {
       if (typeof gtag === 'function') {
-        gtag('event', 'click', {
+        gtag('event', 'page_helpful', {
           'event_category': 'Helpful',
           'event_label': window.location.pathname,
           value
@@ -43,7 +44,8 @@
       no.classList.add('feedback--button__disabled');
     };
     yes.addEventListener('click', () => {
-      sendFeedback(1);
+      {{ $maxValue := .max_value | default 100 -}}
+      sendFeedback({{ $maxValue }});
       disableButtons();
       document.querySelector('.feedback--response').classList.remove('feedback--response__hidden');
     });
@@ -53,4 +55,5 @@
       document.querySelector('.feedback--response').classList.remove('feedback--response__hidden');
     });
   </script>
-{{ end }}
+{{ end -}}
+{{ end -}}

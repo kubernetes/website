@@ -17,33 +17,32 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.36" state="beta" >}}
 
 <!--
 Kubernetes core components can expose a suite of _z-endpoints_ to make it easier for users
 to debug their cluster and its components. These endpoints are strictly to be used for human
 inspection to gain real time debugging information of a component binary.
-Avoid automated scraping of data returned by these endpoints; in Kubernetes {{< skew currentVersion >}}
-these are an **alpha** feature and the response format may change in future releases.
+In Kubernetes {{< skew currentVersion >}} these are **beta** features.
 -->
 Kubernetes 的核心组件可以暴露一系列 **z-endpoints**，以便用户更轻松地调试他们的集群及其组件。
-这些端点仅用于人工检查，以获取组件二进制文件的实时调试信息。请不要自动抓取这些端点返回的数据；
-在 Kubernetes {{< skew currentVersion >}} 中，这些是 **Alpha** 特性，响应格式可能会在未来版本中发生变化。
+这些端点仅用于人工检查，以获取组件二进制文件的实时调试信息。
+在 Kubernetes {{< skew currentVersion >}} 中，这些是 **Beta** 特性。
 
 <!-- body -->
 
-<!--
 ## z-pages
 
+<!--
 Kubernetes v{{< skew currentVersion >}} allows you to enable _z-pages_ to help you troubleshoot
 problems with its core control plane components. These special debugging endpoints provide internal
 information about running components. For Kubernetes {{< skew currentVersion >}}, components
 serve the following endpoints (when enabled):
 -->
-## z-pages
-
-Kubernetes v{{< skew currentVersion >}} 允许你启用 **z-pages** 来帮助排查其核心控制平面组件的问题。
-这些特殊的调试端点提供与正在运行的组件有关的内部信息。对于 Kubernetes {{< skew currentVersion >}}，
+Kubernetes v{{< skew currentVersion >}} 允许你启用 **z-pages**
+来帮助排查其核心控制平面组件的问题。
+这些特殊的调试端点提供与正在运行的组件有关的内部信息。
+对于 Kubernetes {{< skew currentVersion >}}，
 这些组件提供以下端点（当启用 z-pages 后）：
 
 - [z-pages](#z-pages)
@@ -52,19 +51,18 @@ Kubernetes v{{< skew currentVersion >}} 允许你启用 **z-pages** 来帮助排
 	- [flagz](#flagz)
 		- [flagz (structured)](#flagz-structured)
 
-<!--
 ### statusz
 
+<!--
 Enabled using the `ComponentStatusz` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#ComponentStatusz),
 the `/statusz` endpoint displays high level information about the component such as its Kubernetes version, emulation version, start time and more.
 
 The `/statusz` plain text response from the API server is similar to:
 -->
-### statusz
-
 使用 `ComponentStatusz`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#ComponentStatusz)启用后，
-`/statusz` 端点显示有关组件的高级信息，例如其 Kubernetes 版本、仿真版本、启动时间等。
+`/statusz` 端点显示有关组件的高级信息，例如其 Kubernetes
+版本、仿真版本、启动时间等。
 
 来自 API 服务器的 `/statusz` 纯文本响应类似于：
 
@@ -101,7 +99,7 @@ To request the structured response, use:
 如需获取结构化回复，请使用：
 
 ```
-Accept: application/json;v=v1alpha1;g=config.k8s.io;as=Statusz
+Accept: application/json;v=v1beta1;g=config.k8s.io;as=Statusz
 ```
 
 {{< note >}}
@@ -121,7 +119,7 @@ Example structured response:
 ```json
 {
   "kind": "Statusz",
-  "apiVersion": "config.k8s.io/v1alpha1",
+  "apiVersion": "config.k8s.io/v1beta1",
   "metadata": {
     "name": "kube-apiserver"
   },
@@ -142,16 +140,16 @@ Example structured response:
 ```
 
 <!--
-The `config.k8s.io/v1alpha1` schema for the structured `/statusz` response is as follows:
+The `config.k8s.io/v1beta1` schema for the structured `/statusz` response is as follows:
 -->
-结构化 `/statusz` 响应的 `config.k8s.io/v1alpha1` 模式如下：
+结构化 `/statusz` 响应的 `config.k8s.io/v1beta1` 模式如下：
 
 ```go
-// Statusz is the config.k8s.io/v1alpha1 schema for the /statusz endpoint.
+// Statusz is the config.k8s.io/v1beta1 schema for the /statusz endpoint.
 type Statusz struct {
        // Kind is "Statusz".
        Kind string `json:"kind"`
-       // APIVersion is the version of the object, e.g., "config.k8s.io/v1alpha1".
+       // APIVersion is the version of the object, e.g., "config.k8s.io/v1beta1".
        APIVersion string `json:"apiVersion"`
        // Standard object's metadata.
        // +optional
@@ -181,16 +179,13 @@ type Statusz struct {
 }
 ```
 
-
-<!--
 ### flagz
 
+<!--
 Enabled using the `ComponentFlagz` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz), the `/flagz` endpoint shows you the command line arguments that were used to start a component.
 
 The `/flagz` plain text response from the API server looks something like:
 -->
-### flagz
-
 使用 `ComponentFlagz`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz)启用后，
 `/flagz` 端点为你显示用于启动某组件的命令行参数。
@@ -212,7 +207,10 @@ authorization-webhook-version=v1beta1
 default-watch-cache-size=100
 ```
 
+<!--
 #### flagz (structured)
+-->
+#### flagz（结构化的）
 
 {{< feature-state feature_gate_name="ComponentFlagz" >}}
 
@@ -242,11 +240,15 @@ the server will respond with `406 Not Acceptable`.
 服务器将响应 `406 Not Acceptable`。
 {{< /note >}}
 
+<!--
 Example structured response:
+-->
+结构化响应示例：
+
 ```json
 {
   "kind": "Flagz",
-  "apiVersion": "config.k8s.io/v1alpha1",
+  "apiVersion": "config.k8s.io/v1beta1",
   "metadata": {
     "name": "kube-apiserver"
   },
@@ -262,14 +264,17 @@ Example structured response:
 }
 ```
 
-The `config.k8s.io/v1alpha1` schema for the structured `/flagz` response is as follows:
+<!--
+The `config.k8s.io/v1beta1` schema for the structured `/flagz` response is as follows:
+-->
+结构化 `/flagz` 响应的 `config.k8s.io/v1beta1` 模式如下：
 
 ```go
-// Flagz is the config.k8s.io/v1alpha1 schema for the /flagz endpoint.
+// Flagz is the config.k8s.io/v1beta1 schema for the /flagz endpoint.
 type Flagz struct {
        // Kind is "Flagz".
        Kind string `json:"kind"`
-       // APIVersion is the version of the object, e.g., "config.k8s.io/v1alpha1".
+       // APIVersion is the version of the object, e.g., "config.k8s.io/v1beta1".
        APIVersion string `json:"apiVersion"`
        // Standard object's metadata.
        // +optional
@@ -284,10 +289,9 @@ type Flagz struct {
 
 {{< note >}}
 <!--
-The structured responses for both `/statusz` and `/flagz` are alpha features in v1.35
-and are subject to change in future releases.
-They are intended to provide machine-parseable output for debugging and introspection tools. 
+The structured responses for both `/statusz` and `/flagz` are beta features in v1.36.
+They are intended to provide machine-parseable output for debugging and introspection tools.
 -->
-`/statusz` 和 `/flagz` 的结构化响应在 v1.35 版本中仍处于 Alpha 阶段，未来版本可能会有所更改。
+`/statusz` 和 `/flagz` 的结构化响应在 v1.36 版本中处于 Beta 阶段，未来版本可能会有所更改。
 它们旨在为调试和自省工具提供机器可解析的输出。
 {{< /note >}}

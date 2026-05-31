@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 
 <!--
@@ -16,5 +20,5 @@ Enables support for the [Extended Resource allocation by DRA](/docs/concepts/con
 It makes it possible to specify an extended resource name in a DeviceClass.
 -->
 启用对
-[DRA 扩展资源分配](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources-allocation-by-dra)特性的支持。  
-这使得在 DeviceClass 中可以指定扩展的资源名称。
+[DRA 扩展资源分配](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources-allocation-by-dra)
+特性的支持。这使得在 DeviceClass 中可以指定扩展的资源名称。

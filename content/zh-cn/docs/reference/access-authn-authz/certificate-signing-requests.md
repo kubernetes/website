@@ -426,29 +426,68 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 允许/不允许 CA 位 - 不允许。
 
 <!--
-The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
-signers. Failures for all of these are only reported in kube-controller-manager logs.
+1. `kubernetes.io/kube-apiserver-serving`: signs certificates that can be used to verify kube-apiserver serving
+   certificates. Signing and approval are handled outside kube-controller-manager.
+    - {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
+    1. Trust distribution: signed certificates are used by the kube-apiserver for TLS
+       server authentication. The CA bundle is distributed using a ClusterTrustBundle object
+       identifiable by the `kubernetes.io/kube-apiserver-serving` signer name.
+    1. Permitted subjects - "Subject" itself is deprecated for TLS server authentication by RFC2818. However,
+       it should still follow the same rules on DNS/IP {{< glossary_tooltip text="SANs" term_id="san" >}}
+       from the "Permitted x509 extensions" section below.
+    1. Permitted x509 extensions - honors subjectAltName and key usage extensions. At
+       least one DNS or IP subjectAltName must be present. The SAN DNS/IP of the certificates
+       must resolve/point to kube-apiserver's hostname/IP.
+    1. Permitted key usages - ["key encipherment", "digital signature", "server auth"] or ["digital signature", "server auth"].
+    1. Expiration/certificate lifetime - The recommended maximum lifetime is 30 days.
+    1. CA bit allowed/disallowed - not recommended by the Kubernetes project.
 -->
-kube-controller-manager 为每个内置签名者实现了[控制平面签名](#signer-control-plane)。
-注意：所有这些故障仅在 kube-controller-manager 日志中报告。
+5. `kubernetes.io/kube-apiserver-serving`：签署可用于验证 kube-apiserver 服务证书的证书。
+   签署和批准都在 kube-controller-manager 外部处理。
+    - {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
+    1. 信任分发：签署的证书被 kube-apiserver 用于 TLS 服务器认证。
+       CA 包通过 ClusterTrustBundle 对象分发，该对象可通过
+       `kubernetes.io/kube-apiserver-serving` 签名者名称识别。
+    1. 允许的主体 - 根据 RFC2818，用于 TLS 服务器认证的 "Subject" 字段本身已被弃用。
+       不过，它仍应遵循下面 "允许的 x509 扩展" 部分中关于 DNS/IP
+       {{< glossary_tooltip text="SANs" term_id="san" >}} 的相同规则。
+    1. 允许的 x509 扩展 - 支持 subjectAltName 和密钥使用扩展。
+       至少需要一个 DNS 或 IP subjectAltName。
+       证书的 SAN DNS/IP 必须解析/指向 kube-apiserver 的主机名/IP。
+    1. 允许的密钥用途 - ["key encipherment", "digital signature", "server auth"]
+       或 ["digital signature", "server auth"]。
+    1. 过期/证书生命周期 - 推荐的最大生命周期为 30 天。
+    1. CA 位允许/不允许 - Kubernetes 项目不推荐使用。
 
 {{< note >}}
 <!--
 The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 -->
-`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的，早期的 Kubernetes 版本并不认识该字段，
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的，
+早期的 Kubernetes 版本并不认识该字段，
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
 <!--
-Distribution of trust happens out of band for these signers. Any trust outside of those described above are strictly
+The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
+signers except for `kubernetes.io/kube-apiserver-serving`. Failures for all of these are only reported in kube-controller-manager logs.
+Signing of certificates in the trust domain of the `kubernetes.io/kube-apiserver-serving` signer is in full control of
+the cluster administrator(s).
+-->
+kube-controller-manager 为除 `kubernetes.io/kube-apiserver-serving` 外的每个内置签名者
+实现了[控制平面签名](#signer-control-plane)。
+所有这些失败仅在 kube-controller-manager 日志中报告。
+属于 `kubernetes.io/kube-apiserver-serving` 签名者信任域的证书的签名完全由集群管理员控制。
+
+<!--
+Any trust outside of those described above are strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only
 guaranteed to verify a connection to the API server using the default service (`kubernetes.default.svc`).
 -->
-对于这些签名者，信任的分发发生在带外（out of band）。上述信任之外的任何信任都是完全巧合的。
+上述信任之外的任何信任都是完全巧合的。
 例如，一些发行版可能会将 `kubernetes.io/legacy-unknown` 作为 kube-apiserver 的客户端证书，
 但这个做法并不标准。
 这些用途都没有以任何方式涉及到 ServiceAccount 中的 Secrets `.data[ca.crt]`。
@@ -568,7 +607,13 @@ status:
 
 Before a [signer](#signers) issues a certificate based on a CertificateSigningRequest,
 the signer typically checks that the issuance for that CSR has been _approved_.
+-->
+## 批准和驳回 {#approval-rejection}
 
+[签名者](#signers)基于 CertificateSigningRequest 签发证书之前，
+通常会检查 CSR 的签发是否已被**批准**。
+
+<!--
 ### Control plane automated approval {#approval-rejection-control-plane}
 
 The kube-controller-manager ships with a built-in approver for certificates with
@@ -577,11 +622,6 @@ permissions on CSRs for node credentials to authorization.
 The kube-controller-manager POSTs SubjectAccessReview resources to the API server
 in order to check authorization for certificate approval.
 -->
-## 批准和驳回 {#approval-rejection}
-
-[签名者](#signers)基于 CertificateSigningRequest 签发证书之前，
-通常会检查 CSR 的签发是否已被**批准**。
-
 ### 控制平面的自动化批准 {#approval-rejection-control-plane}
 
 kube-controller-manager 内建了一个证书批准者，其 signerName 为
@@ -759,28 +799,33 @@ A PodCertificateRequest has the following spec fields:
 * `nodeName` and `nodeUID`: The Node corresponding to the Pod.
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
-* `pkixPublicKey`: The public key for which the certificate should be issued.
-* `proofOfPossession`: A signature demonstrating that the requester controls the
-  private key corresponding to `pkixPublicKey`.
+* `stubPKCS10Request`: A minimal
+  [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR. Signers should extract
+  the public key from this CSR. Typically, no other actions need to be taken
+  with this field from the signer side, the CSR signature is checked by the API
+  server. Requests from the Kubelet will only include the public key information
+  in the CSR.
 -->
-PodCertificateRequest 包含以下 spec 字段：
+PodCertificateRequest 包含以下 `spec` 字段：
 
 * `signerName`：此请求所指向的签名者。
 * `podName` 和 `podUID`：kubelet 为其请求证书的 Pod。
 * `serviceAccountName` 和 `serviceAccountUID`：与 Pod 对应的 ServiceAccount。
 * `nodeName` 和 `nodeUID`：与 Pod 对应的 Node。
 * `maxExpirationSeconds`：工作负载作者将接受的此证书的最长生命周期。如果未指定，默认为 24 小时。
-* `pkixPublicKey`：应为其颁发证书的公钥。
-* `proofOfPossession`：一个签名，证明请求者控制着与 `pkixPublicKey` 对应的私钥。
+* `stubPKCS10Request`：一个最小的 [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR。
+  签名者应从此 CSR 中提取公钥。通常，签名者这边无需对此字段执行其他操作，CSR
+  签名由 API 服务器检查。来自 kubelet 的请求仅在 CSR 中包含公钥信息。
 
 <!--
 * `unverifiedUserAnnotations`: A map that allows the user to pass additional
   information to the signer implementation. It is copied verbatim from the
-  `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
-  Entries are subject to the same validation as object metadata annotations,
-  with the addition that all keys must be domain-prefixed. No restrictions are
-  placed on values, except an overall size limitation on the entire field. Other
-  than these basic validations, the API server does not conduct any extra
+  `userAnnotations` field of the [podCertificate projected volume
+  source](/docs/concepts/storage/projected-volumes#podcertificate). Entries are
+  subject to the same validation as object metadata annotations, with the
+  addition that all keys must be domain-prefixed. No restrictions are placed on
+  values, except an overall size limitation on the entire field. Other than
+  these basic validations, the API server does not conduct any extra
   validations. The signer implementations should be very careful when consuming
   this data. Signers must not inherently trust this data without first
   performing the appropriate verification steps. Signers should document the
@@ -820,7 +865,11 @@ approval phase.  Once the PodCertificateRequest is created, the signer's
 controller directly decides to issue or deny the request.  It also has the
 option to mark the request as failed, if it encountered a permanent error when
 attempting to issue the request.
+-->
+与 CSR 不同，PodCertificateRequests 没有批准阶段。一旦创建了 PodCertificateRequest，
+签名者的控制器会直接决定是签发还是拒绝请求。它还有权在尝试签发请求时遇到永久性错误的情况下，将请求标记为失败。
 
+<!--
 To take any of these actions, the signing controller needs to have the
 appropriate permissions on both the PodCertificateRequest type, as well as on
 the signer name:
@@ -829,9 +878,6 @@ the signer name:
 * Verbs: **sign**, group: `certificates.k8s.io`, resource: `signers`,
   resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 -->
-与 CSR 不同，PodCertificateRequests 没有批准阶段。一旦创建了 PodCertificateRequest，
-签名者的控制器会直接决定是发放还是拒绝请求。它还有权在尝试发放请求时遇到永久性错误的情况下，将请求标记为失败。
-
 要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest 类型以及签名者的适当权限：
 
 * verbs（动词）：**update**，

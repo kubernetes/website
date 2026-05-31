@@ -139,7 +139,7 @@ Format in which to render the schema (plaintext, plaintext-openapiv2)
 </tr>
 
 <tr>
-<td colspan="2">--recursive</td>
+<td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
 <td></td>
@@ -577,7 +577,8 @@ table name
 </tr>
 <tr>
 <td></td>
-<td style="line-height: 130%; word-wrap: break-word;"><p>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -590,7 +591,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used

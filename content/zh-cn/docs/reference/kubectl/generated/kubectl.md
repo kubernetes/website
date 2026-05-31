@@ -555,14 +555,12 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 ## {{% heading "seealso" %}}
 
 <!--
-* [kubectl alpha](../kubectl_alpha/)    - Commands for features in alpha
 * [kubectl annotate](../kubectl_annotate/) - Update the annotations on a resource
 * [kubectl api-resources](../kubectl_api-resources/) - Print the supported API resources on the server
 * [kubectl api-versions](../kubectl_api-versions/) - Print the supported API versions on the server, in the form of "group/version"
 * [kubectl apply](../kubectl_apply/) - Apply a configuration to a resource by file name or stdin
 * [kubectl attach](../kubectl_attach/) - Attach to a running container
 -->
-* [kubectl alpha](../kubectl_alpha/) - 处于 Alpha 阶段特性的命令
 * [kubectl annotate](../kubectl_annotate/) - 更新资源上的注解
 * [kubectl api-resources](../kubectl_api-resources/) - 打印服务器上所支持的 API 资源
 * [kubectl api-versions](../kubectl_api-versions/) - 以“组/版本”的格式输出服务端所支持的 API 版本
@@ -617,6 +615,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
   将其暴露为新的 kubernetes Service
 <!--
 * [kubectl get](../kubectl_get/) - Display one or many resources
+* [kubectl kuberc](../kubectl_kuberc/)  - Manage kuberc configuration files
 * [kubectl kustomize](../kubectl_kustomize/) - Build a kustomization target from a directory or URL
 * [kubectl label](../kubectl_label/) - Update the labels on a resource
 * [kubectl logs](../kubectl_logs/) - Print the logs for a container in a pod
@@ -624,6 +623,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl patch](../kubectl_patch/) - Update fields of a resource
 -->
 * [kubectl get](../kubectl_get/) - 显示一个或者多个资源
+* [kubectl kuberc](../kubectl_kuberc/) - 管理 kuberc 配置文件
 * [kubectl kustomize](../kubectl_kustomize/) - 基于目录或远程 URL 内容构建 kustomization 目标
 * [kubectl label](../kubectl_label/) - 更新资源的标签
 * [kubectl logs](../kubectl_logs/) - 输出 Pod 中某容器的日志

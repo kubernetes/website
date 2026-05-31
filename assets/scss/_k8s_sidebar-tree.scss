@@ -31,4 +31,9 @@ aside.td-sidebar-toc {
   a#print {
     margin-top: 0.5rem;
   }
+
+  a:focus,
+  a:hover {
+    text-decoration: underline;
+  }
 }

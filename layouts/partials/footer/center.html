@@ -1,0 +1,7 @@
+<p><span class="copyright-notice">&copy; {{ now.Year }} {{ T "main_documentation_license" | safeHTML }}</span></p>
+<p><span class="copyright-notice">&copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}</span></p>
+<p><span class="certification-notice">{{ T "china_icp_license" }} 京ICP备17074266号-3</span></p>
+{{ with .Site.Params.privacy_policy }}<p><span class="ms-1 privacy-policy"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></span></p>{{ end }}
+{{ if .Site.Params.ui.footer_about_enable }}
+  {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
+{{ end }}

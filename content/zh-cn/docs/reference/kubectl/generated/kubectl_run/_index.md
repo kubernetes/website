@@ -101,21 +101,24 @@ kubectl run nginx --image=nginx --command -- <cmd> <arg1> ... <argN>
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--annotations strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Annotations to apply to the pod.
@@ -129,7 +132,8 @@ Annotations to apply to the pod.
 <td colspan="2">--attach</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true. With '--restart=Never' the exit code of the container process is returned.
@@ -145,7 +149,8 @@ If true, wait for the Pod to start running, and then attach to the Pod as if 'ku
 <td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："background"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
@@ -161,7 +166,8 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 <td colspan="2">--command</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
@@ -172,10 +178,26 @@ If true and extra arguments are present, use them as the 'command' field in the 
 </tr>
 
 <tr>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: "ctrl-p,ctrl-q" -->默认值："ctrl-p,ctrl-q"</td>
+</tr>
+<tr>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Override the key sequence for detaching a container
+-->
+覆盖解除挂接容器的 key 序列。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
@@ -190,7 +212,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--env strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Environment variables to set in the container.
@@ -204,7 +227,8 @@ Environment variables to set in the container.
 <td colspan="2">--expose --port</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, create a ClusterIP service associated with the pod.  Requires --port.
@@ -218,7 +242,8 @@ If true, create a ClusterIP service associated with the pod.  Requires --port.
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-run"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Name of the manager used to track field ownership.
@@ -232,7 +257,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 to use to replace the resource.

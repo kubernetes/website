@@ -7,6 +7,7 @@
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
+| `fetch_kubecon_events.py` | This script fetches upcoming KubeCon events from the Linux Foundation calendar and writes `data/events/kubecon.yaml`.               |
 | `hash-files.sh`         | This script emits as hash for the files listed in $@                                                                                  |
 | `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
 | `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
@@ -94,6 +95,14 @@ Options:
   --src-lang TEXT  Source language
   --help           Show this message and exit.
 ```
+
+## fetch_kubecon_events.py
+
+This script fetches upcoming KubeCon + CloudNativeCon events from the
+Linux Foundation events calendar and regenerates `data/events/kubecon.yaml`,
+which powers the events list on the site homepage.
+
+    $ python3 scripts/fetch_kubecon_events.py
 
 ## hash-files.sh
 

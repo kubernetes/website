@@ -7,39 +7,10 @@ content_type: task
 ---
 
 <!-- overview -->
-
-
-*Static Pods* are managed directly by the kubelet daemon on a specific node,
-without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-observing them.
-Unlike Pods that are managed by the control plane (for example, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}});
-instead, the kubelet watches each static Pod (and restarts it if it fails).
-
-Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
-
-The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
-on the Kubernetes API server for each static Pod.
-This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
-The Pod names will be suffixed with the node hostname with a leading hyphen.
-
-{{< note >}}
-If you are running clustered Kubernetes and are using static
-Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
-{{< /note >}}
-
-{{< note >}}
-The `spec` of a static Pod cannot refer to other API objects
-(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
-{{< /note >}}
-
-{{< note >}}
-Static pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
-{{< /note >}}
+ 
+This page shows you how to create _static Pods_ on a node.
+For an overview of what static Pods are and when to use them, see
+[Static Pods](/docs/concepts/workloads/pods/static-pods/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -284,6 +255,7 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 ```
 ## {{% heading "whatsnext" %}}
 
+* [Static Pods](/docs/concepts/workloads/pods/static-pods/)
 * [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)

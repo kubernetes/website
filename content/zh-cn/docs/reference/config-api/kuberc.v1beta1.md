@@ -13,7 +13,7 @@ auto_generated: true
 <!--
 ## Resource Types 
 -->
-## 资源类型  {#resource-types}
+## 资源类型    {#resource-types}
 
 - [Preference](#kubectl-config-k8s-io-v1beta1-Preference)
 
@@ -101,15 +101,15 @@ this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1
 例如，如果用户调用 <code>&quot;kubectl runx test-pod&quot;</code> 命令，
 这将被展开为 <code>&quot;kubectl run --image=nginx test-pod -- custom-arg1&quot;</code>
 
- ```yaml
- - name: getn
-   command: get
-   options:
-   - name: output
-     default: wide
-   prependArgs:
-   - node
- ```
+  ```yaml
+  - name: getn
+    command: get
+    options:
+    - name: output
+      default: wide
+    prependArgs:
+    - node
+  ```
 
 <!--
 &quot;kubectl getn control-plane-1&quot; expands to &quot;kubectl get node control-plane-1 --output=wide&quot;
@@ -153,9 +153,9 @@ then the executable in question may execute. That is, the result is the
 logical OR of all entries in the allowlist. This list MUST NOT be
 supplied if the policy is not &quot;Allowlist&quot;.
 -->
-`credentialPluginAllowlist` 是 AllowList 条目的列表。
+<code>credentialPluginAllowlist</code> 是 AllowList 条目的列表。
 如果其中任何一个条目匹配，则相关的可执行文件可以执行。
-也就是说，结果是对 credentialPluginAllowList 列表中所有条目的逻辑“或”操作。
+也就是说，结果是对 <code>credentialPluginAllowList</code> 列表中所有条目的逻辑“或”操作。
 如果策略不是 &quot;Allowlist&quot;，则此列表**不得**提供。
 </p>
 <p>
@@ -278,6 +278,86 @@ user explicitly passes a value, explicit one is used.
 </tbody>
 </table>
 
+## `AllowlistEntry`     {#kubectl-config-k8s-io-v1beta1-AllowlistEntry}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+  
+- [Preference](#kubectl-config-k8s-io-v1beta1-Preference)
+  
+<p>
+<!--
+AllowlistEntry is an entry in the allowlist. For each allowlist item, at
+least one field must be nonempty. A struct with all empty fields is
+considered a misconfiguration error. Each field is a criterion for
+execution. If multiple fields are specified, then the criteria of all
+specified fields must be met. That is, the result of an individual entry is
+the logical AND of all checks corresponding to the specified fields within
+the entry.
+-->
+AllowlistEntry 是 allowlist 中的一个条目。
+对于每个 allowlist 项，至少需要一个非空字段。
+所有字段均为空的结构体被视为配置错误。
+每个字段都是一个执行条件。
+如果指定了多个字段，则必须满足所有指定字段的条件。
+也就是说，单个条目的结果是该条目中所有指定字段对应的检查结果的逻辑与运算结果。
+</p>
+  
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Name matching is performed by first resolving the absolute path of both
+the plugin and the name in the allowlist entry using <code>exec.LookPath</code>. It
+will be called on both, and the resulting strings must be equal. If
+either call to <code>exec.LookPath</code> results in an error, the <code>Name</code> check
+will be considered a failure.
+-->
+<code>name</code> 匹配首先使用 <code>exec.LookPath</code>
+解析插件和允许列表条目中名称的绝对路径。
+它会对两者分别调用，并且解析结果字符串必须相等。
+如果其中任何一个 <code>exec.LookPath</code> 调用导致错误，
+则 <code>name</code> 检查将被视为失败。
+</p>
+<p>
+<!--
+Deprecated: use Command instead.
+-->
+已弃用：请改用 <code>command</code>。
+</p>
+</td>
+</tr>
+<tr><td><code>command</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Command matching is performed by first resolving the absolute path of both
+the plugin and the name in the allowlist entry using <code>exec.LookPath</code>. It
+will be called on both, and the resulting strings must be equal. If
+either call to <code>exec.LookPath</code> results in an error, the <code>Command</code> check
+will be considered a failure.
+-->
+<code>command</code> 匹配首先使用 <code>exec.LookPath</code>
+解析插件和允许列表条目中名称的绝对路径。
+它会对两者分别调用，并且解析结果字符串必须相等。
+如果其中任何一个 <code>exec.LookPath</code> 调用导致错误，
+则 <code>command</code> 检查将被视为失败。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `CommandDefaults`     {#kubectl-config-k8s-io-v1beta1-CommandDefaults}
 
 <!--
@@ -377,7 +457,7 @@ by kubectl to the compatible value of the option.
 </table>
 
 ## `CredentialPluginPolicy`     {#kubectl-config-k8s-io-v1beta1-CredentialPluginPolicy}
-    
+  
 <!--
 (Alias of `string`)
 -->
@@ -401,11 +481,11 @@ plugins meeting the criteria specified in the <code>credentialPluginAllowlist</c
 field may run. If the policy is not <code>Allowlist</code> but one is provided, it
 is considered a configuration error.
 -->
-CredentialPluginPolicy 指定的是一种策略，控制执行哪些 client-go 凭证插件（如果有的话）。
+<code>credentialPluginPolicy</code> 指定的是一种策略，控制执行哪些 client-go 凭证插件（如果有的话）。
 取值必须是 { &quot;&quot;, &quot;AllowAll&quot;, &quot;DenyAll&quot;, &quot;Allowlist&quot; } 中的一个。
 如果策略是 &quot;&quot;，那么它会回退到 &quot;AllowAll&quot;（这是为了保持向后兼容性所必需的）。
 如果策略是 DenyAll，不允许任何凭证插件运行。
 如果策略是 Allowlist，只有那些满足 <code>credentialPluginAllowlist</code>
 字段中指定条件的插件才能运行。
-如果策略不是 <code>Allowlist</code> 但是提供了 credentialPluginAllowList，将被视为配置错误。
+如果策略不是 <code>Allowlist</code> 但是提供了 <code>credentialPluginAllowList</code>，将被视为配置错误。
 </p>

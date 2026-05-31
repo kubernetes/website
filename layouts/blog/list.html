@@ -1,46 +1,43 @@
 {{ define "main" }}
-{{ if .Parent.IsHome }}
-{{ $.Scratch.Set "blog-pages" (where .Site.RegularPages "Section" .Section) }}
-{{ else }}
-{{$.Scratch.Set "blog-pages" .Pages }}
-{{ end }}
+{{ if (and .Parent .Parent.IsHome) -}}
+  {{ $.Scratch.Set "blog-pages" (where .Site.RegularPages "Section" .Section) -}}
+{{ else -}}
+  {{ $.Scratch.Set "blog-pages" .Pages -}}
+{{ end -}}
+
 <!-- This file is identical to the Docsy template, except for a check to length before
 calling Paginate. Kubernetes includes blog/index.html pages for languages which do not
 have blog posts -->
-{{ if gt (len ($.Scratch.Get "blog-pages")) 0 }}
-{{ $pag := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006")}}
-{{ $pageGroups := $pag.PageGroups}}
-{{ if eq $pag.PageNumber 1 }}
-{{ end }}
-<div class="row">
-	<div class="col-12">
-		{{ range $pageGroups }}
-		<h2>{{ T "post_posts_in" }} {{ .Key }}</h2>
-		<ul class="list-unstyled mt-4">
-			{{ range .Pages }}
-			<li class="d-flex mb-4">
-				<div class="flex-grow-1">
-					<h5 class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
-					<p class="mb-2 mb-md-3">
-						<small class="text-muted">
-							{{ with .Params.author }}{{ T "post_byline_by" }} <b>{{ . | markdownify }}</b> |{{ end}}
-							{{ .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}
-						</small>
-					</p>
-					{{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") }}
-					<p class="pt-0 mt-0">{{ .Plain | safeHTML | truncate 250 }}</p>
-					<p class="pt-0"><a href="{{ .RelPermalink }}">{{ T "ui_read_more"}}</a></p>
-				</div>
-			</li>
-			{{ end }}
-		</ul>
-		{{ end }}
-	</div>
+<div class="td-blog-posts">
+  {{ if gt (len ($.Scratch.Get "blog-pages")) 0 -}}
+    {{ $pag := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) -}}
+    {{ range $pag.PageGroups -}}
+    <h2>{{ T "post_posts_in" }} {{ .Key }}</h2>
+    <ul class="td-blog-posts-list">
+      {{ range .Pages -}}
+      <li class="td-blog-posts-list__item">
+        <div class="td-blog-posts-list__body">
+          <h5 class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
+          <p class="mb-2 mb-md-3"><small class="text-body-secondary">{{ with .Params.author }}{{ T "post_byline_by" }} {{ . | markdownify }} |{{ end }} {{ .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}</small></p>
+          <header class="article-meta">
+            {{ partial "taxonomy_terms_article_wrapper.html" . -}}
+            {{ if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) -}}
+              {{ partial "reading-time.html" . -}}
+            {{ end -}}
+          </header>
+          {{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") -}}
+          <p class="pt-0 mt-0">{{ .Plain | safeHTML | truncate 250 }}</p>
+          <p class="pt-0"><a href="{{ .RelPermalink }}" aria-label="{{ T "ui_read_more"}} - {{ .LinkTitle }}">{{ T "ui_read_more"}}</a></p>
+        </div>
+      </li>
+      {{ end -}}
+    </ul>
+    {{ end -}}
+  {{ end }}
 </div>
-<div class="row ps-2 pt-2">
-	<div class="col">
-		{{ template "_internal/pagination.html" . }}
-	</div>
+<div class="td-blog-posts__pagination">
+  {{ if gt (len ($.Scratch.Get "blog-pages")) 0 -}}
+    {{ template "_internal/pagination.html" . -}}
+  {{ end -}}
 </div>
-{{ end }}
-{{ end }}
+{{ end -}}

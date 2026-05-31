@@ -156,15 +156,23 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
       `Exists` 等价于将值设置为通配符的情况，因此一个 Pod 可以容忍特定类别的所有污点。
       `Lt` 和 `Gt` 执行数值比较（需要启用 TaintTolerationComparisonOperators 特性门控）。
   
+      <!--
+      Possible enum values:
+      -->
+
+      可能的枚举值：
+
+      - `"Equal"`
+      - `"Exists"`
+      - `"Gt"`
+      - `"Lt"`
+
     <!--
     - **scheduling.tolerations.value** (string)
       Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
 
     - **scheduling.tolerations.effect** (string)
       Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-  
-    - **scheduling.tolerations.tolerationSeconds** (int64)
-      TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
     -->
     
     - **scheduling.tolerations.value** (string)
@@ -175,6 +183,32 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
       `effect` 表示匹配度污点效果。空意味着匹配所有污点效果。
       当指定值时，允许的值为 `NoSchedule`、`PreferNoSchedule` 或 `NoExecute`。
+
+      <!--
+      Possible enum values:
+       - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+       - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+       - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
+      -->
+
+      可能的枚举值：
+
+      - `"NoExecute"`
+        驱逐所有未容忍此污点的已运行 Pod。当前由 NodeController 强制执行。
+
+      - `"NoSchedule"`
+        不允许新的 Pod 调度到此节点，除非这些 Pod 能够容忍此污点；
+        但允许所有未经过调度器、直接提交给 kubelet 的 Pod 启动，
+        并允许所有已经运行的 Pod 继续运行。由调度器强制执行。
+
+      - `"PreferNoSchedule"`
+        类似于 `TaintEffectNoSchedule`，但调度器只是尽量避免将新的 Pod 调度到节点，
+        而不是完全禁止新的 Pod 调度到节点。由调度器强制执行。
+
+    <!--
+    - **scheduling.tolerations.tolerationSeconds** (int64)
+      TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
+    -->
 
     - **scheduling.tolerations.tolerationSeconds** (int64)
 
@@ -235,11 +269,11 @@ GET /apis/node.k8s.io/v1/runtimeclasses/{name}
 -->
 ##### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   RuntimeClass 的名称。
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -279,51 +313,51 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 -->
 ##### 参数
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **shardSelector** (**查询参数**): string
+- **shardSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -358,19 +392,19 @@ POST /apis/node.k8s.io/v1/runtimeclasses
 
 - **body**: <a href="{{< ref "../cluster-resources/runtime-class-v1#RuntimeClass" >}}">RuntimeClass</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -410,25 +444,25 @@ PUT /apis/node.k8s.io/v1/runtimeclasses/{name}
 -->
 ##### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   RuntimeClass 的名称
 
 - **body**: <a href="{{< ref "../cluster-resources/runtime-class-v1#RuntimeClass" >}}">RuntimeClass</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -467,29 +501,29 @@ PATCH /apis/node.k8s.io/v1/runtimeclasses/{name}
 -->
 ##### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   RuntimeClass 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -528,29 +562,29 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses/{name}
 -->
 ##### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   RuntimeClass 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -598,59 +632,59 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **shardSelector** (**查询参数**): string
+- **shardSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 

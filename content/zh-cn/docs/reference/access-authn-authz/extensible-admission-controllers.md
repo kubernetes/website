@@ -287,8 +287,6 @@ Webhook 提供身份证明。完成此配置需要三个步骤。
   凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
   以下是一个准入控制配置文件示例：
 
-{{< tabs name="admissionconfiguration_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -304,49 +302,6 @@ plugins:
     kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-<!--
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
--->
-```yaml
-# 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1，kind = WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1，kind = WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 For more information about `AdmissionConfiguration`, see the
@@ -908,7 +863,26 @@ If more than 4096 characters of warning messages are added (from all sources), a
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
 The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+-->
+要注册准入 Webhook，请创建 `MutatingWebhookConfiguration` 或 `ValidatingWebhookConfiguration` API 对象。
+`MutatingWebhookConfiguration` 或`ValidatingWebhookConfiguration` 对象的名称必须是有效的
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
+{{< note >}}
+<!--
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based webhook configurations. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) is enabled.
+-->
+以 `.static.k8s.io` 结尾的名字保留给
+[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)使用，
+不能用于基于 API 的 Webhook 配置。
+当启用了 `ManifestBasedAdmissionControlConfig` **特性门控**时，将强制执行此保留。
+{{< /note >}}
+
+<!--
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each must be given a unique name.
 This is required in order to make resulting audit logs and metrics easier to match up to active
@@ -916,10 +890,6 @@ configurations.
 
 Each webhook defines the following things.
 -->
-要注册准入 Webhook，请创建 `MutatingWebhookConfiguration` 或 `ValidatingWebhookConfiguration` API 对象。
-`MutatingWebhookConfiguration` 或`ValidatingWebhookConfiguration` 对象的名称必须是有效的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-
 每种配置可以包含一个或多个 Webhook。如果在单个配置中指定了多个
 Webhook，则应为每个 Webhook 赋予一个唯一的名称。
 这是必需的，以使生成的审计日志和指标更易于与激活的配置相匹配。
@@ -1076,8 +1046,8 @@ the admission webhook by setting the labels.
 <!--
 This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
 -->
-这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar` 的所有资源（但不包括子资源）的
-`CREATE` 操作：
+这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar`
+的所有资源（但不包括子资源）的 `CREATE` 操作：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
