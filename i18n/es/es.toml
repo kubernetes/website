@@ -22,7 +22,7 @@ other = "Mostrar más publicaciones..."
 other = "Lo sentimos, tu navegador no soporta la copia de este ejemplo al portapapeles."
 
 [case_study_prefix]
-other = "Estudio de caso:"
+other = "Caso de estudio:"
 
 [caution]
 other = "Precaución:"
@@ -56,7 +56,7 @@ other = "Cargando las últimas noticias desde Bluesky..."
 other = "Calendario de eventos"
 
 [community_contribute]
-other = "Contribuar"
+other = "Contribuir"
 
 [community_contributor_site_name]
 other = "Sitio web de contribuidores"
@@ -94,8 +94,7 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "X (anteriormente Twitter)"
 
-[community_using]
-other = "Usar"
+# Also cover [community_using] if localizing this site
 
 [community_x_name]
 other = "X (anteriormente Twitter)"
@@ -123,7 +122,7 @@ other = "URL del Issue de CVE en GitHub"
 other = "Resumen del problema"
 
 [cve_table]
-other = "Lista oficial de CVE de Kubernetes"
+other = "Lista oficial de CVEs de Kubernetes"
 
 [cve_table_date_format]
 other = "02 Jan 2006 15:04:05 MST"
@@ -409,7 +408,7 @@ other = "o"
 other = "reportar un problema"
 
 [layouts_docs_partials_feedback_thanks]
-other = "Gracias por tus comentarios. Si tienes una pregunta específica y respondible sobre cómo usar Kubernetes, hazla en"
+other = "Gracias por la retroalimentacion. Si tienes una pregunta específica y respondible sobre cómo usar Kubernetes, hazla en"
 
 [layouts_docs_search_fetching]
 other = "Buscando resultados..."
@@ -537,13 +536,13 @@ other = "firma"
 other = "copiar al portapapeles"
 
 [release_binary_download]
-other  = "Descargar binario"
+other = "Descargar binario"
 
 [release_binary_download_tooltip]
 other = "descargar archivo binario"
 
 [release_binary_options]
-other  = "Opciones de descarga"
+other = "Opciones de descarga"
 
 [release_binary_os]
 other = "Sistema operativo"
