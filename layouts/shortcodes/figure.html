@@ -1,6 +1,9 @@
 {{ $src := (.Page.Resources.GetMatch (printf "**%s*" (.Get "src"))) }}
 {{ $clickToZoom := .Get "clicktozoom" }}
 <figure{{ with .Get "class" }} class="{{ . }} {{ if $clickToZoom }}clickable-zoom{{ end }}"{{ end }}>
+    {{- if .Get "title" -}}
+        <p class="figure-title">{{ .Get "title" }}</p>
+    {{- end -}}
     {{- if .Get "link" -}}
         <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
     {{- end }}
@@ -12,11 +15,8 @@
          {{- with .Get "height" }} height="{{ . }}"{{ end -}}
     /> <!-- Closing img tag -->
     {{- if .Get "link" }}</a>{{ end -}}
-    {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
+    {{- if or (.Get "caption") (.Get "attr") -}}
         <figcaption>
-            {{ with (.Get "title") -}}
-                <h4>{{ . }}</h4>
-            {{- end -}}
             {{- if or (.Get "caption") (.Get "attr") -}}<p>
                 {{- .Get "caption" | markdownify -}}
                 {{- with .Get "attrlink" }}

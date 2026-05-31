@@ -1660,9 +1660,17 @@ html.no-js body div#announcement {
 }
 
 figure {
+  > .figure-title {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
   > figcaption {
     padding-top: 1em;
     margin-bottom: 3em;
+    text-align: center;
+    font-style: italic;
   }
 }
 
