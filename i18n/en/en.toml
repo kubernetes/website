@@ -252,6 +252,9 @@ other = "Yes"
 [final_patch_release]
 other = "Final Patch Release"
 
+[heading_self_link]
+other = "Heading self-link"
+
 [inline_list_separator]
 other = ","
 
