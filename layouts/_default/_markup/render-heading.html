@@ -1,1 +1,4 @@
-{{ template "_default/_markup/td-render-heading.html" . -}}
+<h{{ .Level }} id="{{- .Anchor | safeURL -}}">
+  {{- .Text | safeHTML -}}
+  <a class="td-heading-self-link" href="#{{ .Anchor | safeURL }}" aria-label="Heading self-link"></a>
+</h{{ .Level }}>
