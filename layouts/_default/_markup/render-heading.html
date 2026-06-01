@@ -1,4 +1,4 @@
 <h{{ .Level }} id="{{- .Anchor | safeURL -}}">
   {{- .Text | safeHTML -}}
-  <a class="td-heading-self-link" href="#{{ .Anchor | safeURL }}" aria-label="Heading self-link"></a>
+  <a class="td-heading-self-link" href="#{{ .Anchor | safeURL }}" aria-label="{{ T "heading_self_link" }}"></a>
 </h{{ .Level }}>
