@@ -1,15 +1,31 @@
-{{- $caseStudiesSection := site.GetPage "case-studies" -}}
-{{- if not $caseStudiesSection -}}
-{{ errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md"  $.Page.Lang $.Page.Lang }}
+{{- $flags := site.Data.site_rendering.behaviors.website_rendering.feature_flags_enabled -}}
+{{- $linkOnly := eq (.Get "linkOnly" | default "false") "true" -}}
+{{- $caseStudies := site.GetPage "case-studies" -}}
+{{- if not $caseStudies -}}
+{{- errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md" $.Page.Lang $.Page.Lang -}}
 {{- else -}}
-{{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
+{{- $cncfURL := $caseStudies.Params.cncf_url -}}
+{{- $useCNCF := and (in $flags "case_studies_are_cncf") $cncfURL -}}
+{{- if $linkOnly -}}
+  {{- if $useCNCF -}}
+<a href="{{ $cncfURL }}" target="_blank" rel="noopener">{{ $caseStudies.LinkTitle }}</a>
+  {{- else -}}
+<a href="{{ $caseStudies.RelPermalink }}">{{ $caseStudies.LinkTitle }}</a>
+  {{- end -}}
+{{- else if $useCNCF -}}
+<section class="case-studies case-studies--cncf">
+  <h3>{{ $caseStudies.LinkTitle }}</h3>
+  <p>{{ T "case_study_description" (dict "link" (printf "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">%s</a>" $cncfURL $caseStudies.LinkTitle)) | safeHTML }}</p>
+</section>
+{{- else -}}
+{{ $caseStudiesPages := where $caseStudies.Pages "Params.featured" true | first 4 }}
 <section class="case-studies">
-  <h3><a href="{{ $caseStudiesSection.RelPermalink }}">{{ $caseStudiesSection.LinkTitle }}</a></h3>
+  <h3><a href="{{ $caseStudies.RelPermalink }}">{{ $caseStudies.LinkTitle }}</a></h3>
   <div class="case-study-list">
       {{- range $caseStudiesPages -}}
 			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}
 			{{ $logo := .Resources.GetMatch "**{featured_logo}*.svg" }}
-			
+
 			{{ if not $logo }}
 				{{ $logo = .Resources.GetMatch "**logo*.png" }}
 			{{ end }}
@@ -24,7 +40,8 @@
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>
-     {{- end -}}  
+     {{- end -}}
   </div>
 </section>
+{{- end -}}
 {{- end -}}

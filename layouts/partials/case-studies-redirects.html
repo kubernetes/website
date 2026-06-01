@@ -1,0 +1,20 @@
+{{- /*
+Emit Netlify redirects for /case-studies pages when the
+case_studies_are_cncf feature flag is enabled. Each locale whose
+case-studies/_index.html sets `cncf_url` in its front matter gets
+its /case-studies paths redirected to that URL.
+*/ -}}
+{{- $flags := site.Data.site_rendering.behaviors.website_rendering.feature_flags_enabled -}}
+{{- if in $flags "case_studies_are_cncf" }}
+
+# Redirect case studies to CNCF (case_studies_are_cncf feature flag)
+  {{- range site.Sites }}
+    {{- $cs := .GetPage "case-studies" -}}
+    {{- with $cs }}
+      {{- with .Params.cncf_url }}
+{{ $cs.RelPermalink }}    {{ . }}    301!
+{{ $cs.RelPermalink }}*   {{ . }}    301!
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
