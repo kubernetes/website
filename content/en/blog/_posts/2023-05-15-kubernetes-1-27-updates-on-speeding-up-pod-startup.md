@@ -65,7 +65,7 @@ Previously, we often encountered `volume mount timeout` on kubelet in node with 
 during pod start up. We suggest that cluster operators bump `kubeAPIQPS` to 20 and `kubeAPIBurst` to 40,
  especially if using bare metal nodes.
 
-More detials can be found in the KEP <https://kep.k8s.io/1040> and the pull request [#116121](https://github.com/kubernetes/kubernetes/pull/116121).
+More details can be found in the KEP <https://kep.k8s.io/1040> and the pull request [#116121](https://github.com/kubernetes/kubernetes/pull/116121).
 
 ## Event triggered updates to container status
 

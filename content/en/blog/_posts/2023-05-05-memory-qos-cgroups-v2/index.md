@@ -8,7 +8,7 @@ author: >
 ---
 
 Kubernetes v1.27, released in April 2023, introduced changes to
-Memory QoS (alpha) to improve memory management capabilites in Linux nodes.  
+Memory QoS (alpha) to improve memory management capabilities in Linux nodes.  
 
 Support for Memory QoS was initially added in Kubernetes v1.22, and later some
 [limitations](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2570-memory-qos#reasons-for-changing-the-formula-of-memoryhigh-calculation-in-alpha-v127)
@@ -201,7 +201,7 @@ If a container has no memory limits specified, `limits.memory` is substituted fo
 container, pod, and node level cgroups.
 {{< /note >}}
 
-### `memory.min` calculations for cgroups heirarchy
+### `memory.min` calculations for cgroups hierarchy
 
 When container memory requests are made, kubelet passes `memory.min` to the back-end 
 CRI runtime (such as containerd or CRI-O) via the `Unified` field in CRI during 

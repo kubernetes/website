@@ -96,7 +96,7 @@ pod untolerated taint will also be included.
 For backwards compatibility, `nodeTaintsPolicy` defaults to `Ignore`.
 
 The feature was introduced in v1.25 as alpha. By default, it was disabled, so if you want to use this feature in v1.25,
-you had to explictly enable the feature gate `NodeInclusionPolicyInPodTopologySpread`. In the following v1.26
+you had to explicitly enable the feature gate `NodeInclusionPolicyInPodTopologySpread`. In the following v1.26
 release, that associated feature graduated to beta and is enabled by default.
 
 ## KEP-3243: Respect Pod topology spread after rolling upgrades

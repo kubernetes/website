@@ -227,7 +227,7 @@ achievements include:
     crucial. The contributors in this subproject organize fair and
     consistent elections, which helps keep the project running
     effectively.
-2.  _New issue triage proces_: With such a large open-source project
+2.  _New issue triage process_: With such a large open-source project
     like Kubernetes, there's always a lot of work to be done. To
     ensure things progress safely, we implemented new labels and
     updated functionality for issue triage using our PROW tool. This

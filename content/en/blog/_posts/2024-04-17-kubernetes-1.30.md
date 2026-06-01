@@ -214,7 +214,7 @@ From the v1.27 release, Kubernetes already included an optimization that sets SE
 contents of volumes, using only constant time. Kubernetes achieves that speed up using a mount
 option. The slower legacy behavior requires the container runtime to recursively walk through the
 whole volumes and apply SELinux labelling individually to each file and directory; this is
-especially noticable for volumes with large amount of files and directories.
+especially noticeable for volumes with large amount of files and directories.
 
 Kubernetes v1.27 graduated this feature as beta, but limited it to ReadWriteOncePod volumes. The
 corresponding feature gate is `SELinuxMountReadWriteOncePod`. It's still enabled by default and

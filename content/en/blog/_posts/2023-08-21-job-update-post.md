@@ -218,7 +218,7 @@ Working groups are relatively short-lived initiatives focused on specific goals.
 The goal of the WG Batch is to improve experience for batch workload users, offer support for
 batch processing use cases, and enhance the
 Job API for common use cases.  If that interests you, please join the working
-group either by subscriping to our
+group either by subscribing to our
 [mailing list](https://groups.google.com/a/kubernetes.io/g/wg-batch) or on
 [Slack](https://kubernetes.slack.com/messages/wg-batch).
 

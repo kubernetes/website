@@ -136,7 +136,7 @@ command in the new pull request.
 
 We’re looking to improve our curated list of Windows-specific tests by adding 
 new tests to the Kubernetes repository and also identifying existing test cases 
-that can be targetted. The long term goal for the specification is to continually 
+that can be targeted. The long term goal for the specification is to continually 
 enhance test coverage for Windows worker nodes and improve the robustness of 
 Windows support, facilitating a seamless experience across diverse cloud 
 environments. We also have plans to integrate the Windows Operational Readiness 
