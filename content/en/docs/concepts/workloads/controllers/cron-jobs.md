@@ -261,5 +261,5 @@ the Job in turn is responsible for the management of the Pods it represents.
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
 * `CronJob` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
+  Read the {{< api-reference page="batch/cron-job-v1" >}}
   API reference for more details.

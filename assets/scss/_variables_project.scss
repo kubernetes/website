@@ -10,6 +10,11 @@ $medium-grey: #4c4c4c;
 $dark-grey: #303030;
 $white: #ffffff;
 
+// Navbar colors
+$navbar-dark-color: #ffffff;
+$navbar-dark-hover-color: $primary;
+$navbar-dark-active-color: $primary;
+
 // feature gate colors
 $feature: #daeaf9;
 $feature-inset: #eeeeee;
@@ -18,10 +23,9 @@ $feature-inset: #eeeeee;
 $metric-labels-varying: #efefef;
 $metric-labels-varying-border: #e2e2e2;
 
-$td-sidebar-bg-color: rgba($secondary, 0.05);
-
 $link-color: $primary;
 
+$link-decoration: none;
 $link-hover-decoration: underline;
 
 // tooltip

@@ -3,6 +3,8 @@ title: kubectl config set-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a context entry in kubeconfig
 ---
 
 

@@ -117,12 +117,10 @@ Online Kubernetes playgrounds let you try Kubernetes without installing anything
 
 <!--
 - **[Killercoda](https://killercoda.com/kubernetes)** provides interactive Kubernetes scenarios and a playground environment
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** gives you a temporary Kubernetes cluster in your browser
 
 These platforms are useful for quick experiments and following tutorials without local setup.
 -->
 - **[Killercoda](https://killercoda.com/kubernetes)** 提供交互式 Kubernetes 场景和实验环境。
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** 可在浏览器中创建一个临时的 Kubernetes 集群。
 
 这些平台非常适合快速实验和学习教程，无需本地配置。
 
@@ -138,7 +136,7 @@ For learning about production environments, see [Production environment](/docs/s
 如果你想练习搭建更接近生产环境的集群，可以使用 **kubeadm**。
 使用 kubeadm 搭建集群是一项高级任务，需要多台机器（物理机或虚拟机）以及细致的配置。
 
-有关生产环境的更多信息，请参阅[生产环境](/docs/setup/production-environment/)。
+有关生产环境的更多信息，请参阅[生产环境](/zh-cn/docs/setup/production-environment/)。
 
 {{< note >}}
 <!--
@@ -155,6 +153,6 @@ Setting up a production-like cluster is significantly more complex than the lear
 - Learn about [Kubernetes components](/docs/concepts/overview/components/)
 - Explore [kubectl commands](/docs/reference/kubectl/)
 -->
-- 按照 [Hello Minikube](/docs/tutorials/hello-minikube/) 教程部署你的第一个应用程序
-- 了解 [Kubernetes 组件](/docs/concepts/overview/components/)
-- 探索 [kubectl 命令](/docs/reference/kubectl/)
+- 按照 [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/) 教程部署你的第一个应用程序
+- 了解 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
+- 探索 [kubectl 命令](/zh-cn/docs/reference/kubectl/)

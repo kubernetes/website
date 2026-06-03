@@ -32,7 +32,7 @@ Anyone can:
 - Suggest improvements on [Slack](https://slack.k8s.io/) or the
   [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/main/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos
@@ -64,7 +64,7 @@ Members can:
 ### Becoming a member
 
 After submitting at least 5 substantial pull requests and meeting the other
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#member):
+[requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#member):
 
 1. Find two [reviewers](#reviewers) or [approvers](#approvers) to
    [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor) your
@@ -140,7 +140,7 @@ A `/lgtm` comment from reviewer is binding and triggers automation that adds the
 ### Becoming a reviewer
 
 When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer),
+[requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer),
 you can become a SIG Docs reviewer. Reviewers in other SIGs must apply
 separately for reviewer status in SIG Docs.
 
@@ -212,7 +212,7 @@ into the website repository. This comes with certain responsibilities.
 ### Becoming an approver
 
 When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver),
+[requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#approver),
 you can become a SIG Docs approver. Approvers in other SIGs must apply
 separately for approver status in SIG Docs.
 

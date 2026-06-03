@@ -3,6 +3,8 @@ title: kubectl config rename-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Rename a context from the kubeconfig file
 ---
 
 

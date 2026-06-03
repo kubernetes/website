@@ -82,12 +82,14 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
   -->
+  
   已弃用：以前用于为 DynamicKubeletConfig 功能指定节点配置的来源。此功能已删除。
 
   <a name="NodeConfigSource"></a>
   <!-- 
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22* 
   -->
+  
   **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。
   此 API 自 1.22的版本起已被弃用**
 
@@ -174,7 +176,7 @@ NodeSpec 描述了创建节点时使用的属性。
   PodCIDR represents the pod IP range assigned to the node. 
   -->
   
-  podCIDR 表示分配给节点的 Pod IP 范围。
+  `podCIDR` 表示分配给节点的 Pod IP 范围。
 
 - **podCIDRs** ([]string)
 
@@ -220,17 +222,12 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   - **taints.effect** (string), required
 
-    Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute. 
-
-    Possible enum values:
-     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
+    Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
   -->
 
   - **taints.effect** (string)，必需
 
-    必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 `NoSchedule`、`PreferNoSchedule` 和 `NoExecute`。
+    必需的。污点对不容忍污点的 Pod 的影响。合法的 `effect` 值有 `NoSchedule`、`PreferNoSchedule` 和 `NoExecute`。
 
     可能的枚举值：
       - `"NoExecute"` 驱逐已经在运行且不容忍污点的所有 Pod。
@@ -240,7 +237,7 @@ NodeSpec 描述了创建节点时使用的属性。
         并允许所有已经在运行的 Pod 继续运行。由调度器执行。
       - `"PreferNoSchedule"` 类似于 NoSchedule，但是调度器尝试避免将新 Pod 
         调度到该节点上，而不是完全禁止新 Pod 调度到节点。由调度器执行。
- 
+
   <!-- 
   - **taints.key** (string), required
 
@@ -322,7 +319,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *NodeAddress contains information for the node's address.* 
   -->
-  
+
   **NodeAddress 包含节点地址的信息。**
 
   <!--
@@ -350,7 +347,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity. 
   -->
-  
+
   `allocatable` 表示节点的可用于调度的资源。默认为容量。
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -358,7 +355,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
   -->
-  
+
   `capacity` 代表一个节点的总资源。更多信息：
   https://kubernetes.io/zh-cn/docs/reference/node/node-status/#capacity
 
@@ -383,7 +380,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *NodeCondition contains condition information for a node.* 
   -->
-  
+
   **NodeCondition 包含节点状况的信息。**
 
   <!--
@@ -466,7 +463,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!-- 
   *NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.* 
   -->
-  
+
   **NodeConfigStatus 描述了由 Node.spec.configSource 分配的配置的状态。**
 
   - **config.active** (NodeConfigSource)
@@ -484,7 +481,8 @@ NodeStatus 是有关节点当前状态的信息。
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。此 API 自 1.22 版本起已弃用**
+    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。
+    此 API 自 1.22 版本起已弃用**
 
     - **config.active.configMap** (ConfigMapNodeConfigSource)
 
@@ -750,12 +748,14 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Endpoints of daemons running on the Node. 
   -->
+  
   在节点上运行的守护进程的端点。
 
   <a name="NodeDaemonEndpoints"></a>
   <!--
   *NodeDaemonEndpoints lists ports opened by daemons running on the Node.* 
   -->
+  
   **NodeDaemonEndpoints 列出了节点上运行的守护进程打开的端口。**
 
   - **daemonEndpoints.kubeletEndpoint** (DaemonEndpoint)
@@ -835,6 +835,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *Describe a container image* 
   -->
+  
   **描述一个容器镜像**
 
   - **images.names** ([]string)
@@ -863,6 +864,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
   -->
+  
   用于唯一标识节点的 `ids/uuids` 集。
   更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
 
@@ -870,6 +872,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *NodeSystemInfo is a set of ids/uuids to uniquely identify the node.* 
   -->
+  
   **NodeSystemInfo 是一组用于唯一标识节点的 `ids/uuids`。**
 
   <!--
@@ -942,7 +945,8 @@ NodeStatus 是有关节点当前状态的信息。
 
     节点上报的 `machineID`。
     对于集群中的唯一机器标识，此字段是首选。
-    从 man(5) machine-id 了解更多信息：http://man7.org/linux/man-pages/man5/machine-id.5.html
+    从 man(5) machine-id 了解更多信息：
+    http://man7.org/linux/man-pages/man5/machine-id.5.html
 
   <!--
   - **nodeInfo.operatingSystem** (string), required
@@ -1003,13 +1007,9 @@ NodeStatus 是有关节点当前状态的信息。
 - **phase** (string)
 
   <!--
-  NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated. 
-
-  Possible enum values:
-   - `"Pending"` means the node has been created/added by the system, but not configured.
-   - `"Running"` means the node has been configured and has Kubernetes components running.
-   - `"Terminated"` means the node has been removed from the cluster.
+  NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
   -->
+  
   `NodePhase` 是最近观测到的节点的生命周期阶段。
   更多信息：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
 
@@ -1125,6 +1125,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   List of attachable volumes in use (mounted) by the node. 
   -->
+  
   节点正在使用（安装）的可附加卷的列表。
 
 ## NodeList {#NodeList}
@@ -1145,6 +1146,7 @@ NodeList 是已注册到 master 的所有节点的完整列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
+  
   标准的列表元数据。
   更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1159,22 +1161,24 @@ NodeList 是已注册到 master 的所有节点的完整列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified Node
-#### HTTP Request
-GET /api/v1/nodes/{name}
-#### Parameters 
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified Node
+#### HTTP Request
+-->
 ### `get` 读取指定节点
 
 #### HTTP 请求
 
 GET /api/v1/nodes/{name}
 
+<!--
+#### Parameters 
+-->
 #### 参数
 
 <!--
@@ -1200,8 +1204,6 @@ GET /api/v1/nodes/{name}
 <!-- 
 ### `get` read status of the specified Node
 #### HTTP Request
-GET /api/v1/nodes/{name}/status
-#### Parameters 
 -->
 ### `get` 读取指定节点的状态
 
@@ -1209,6 +1211,9 @@ GET /api/v1/nodes/{name}/status
 
 GET /api/v1/nodes/{name}/status
 
+<!--
+#### Parameters 
+-->
 #### 参数
 
 <!--
@@ -1234,8 +1239,6 @@ GET /api/v1/nodes/{name}/status
 <!--
 ### `list` list or watch objects of kind Node
 #### HTTP Request
-GET /api/v1/nodes
-#### Parameters
 -->
 ### `list` 列出或监视节点类型的对象
 
@@ -1281,6 +1284,10 @@ GET /api/v1/nodes
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (*in query*): integer
 
@@ -1328,6 +1335,10 @@ GET /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1348,8 +1359,6 @@ GET /api/v1/nodes
 <!--
 ### `create` create a Node
 #### HTTP Request
-POST /api/v1/nodes
-#### Parameters 
 -->
 ### `create` 创建一个节点
 
@@ -1357,6 +1366,9 @@ POST /api/v1/nodes
 
 POST /api/v1/nodes
 
+<!--
+#### Parameters 
+-->
 #### 参数
 
 <!--
@@ -1398,8 +1410,6 @@ POST /api/v1/nodes
 <!--
 ### `update` replace the specified Node
 #### HTTP Request
-PUT /api/v1/nodes/{name}
-#### Parameters 
 -->
 ### `update` 替换指定节点
 
@@ -1407,6 +1417,9 @@ PUT /api/v1/nodes/{name}
 
 PUT /api/v1/nodes/{name}
 
+<!--
+#### Parameters 
+-->
 #### 参数
 
 <!--
@@ -1417,7 +1430,6 @@ PUT /api/v1/nodes/{name}
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
 - **pretty** (*in query*): string
-#### Response 
 -->
 - **name** (**路径参数**): string，必需
 
@@ -1441,6 +1453,9 @@ PUT /api/v1/nodes/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
+<!--
+#### Response 
+-->
 #### 响应
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
@@ -1453,10 +1468,6 @@ PUT /api/v1/nodes/{name}
 ### `update` replace status of the specified Node
 
 #### HTTP Request
-
-PUT /api/v1/nodes/{name}/status
-
-#### Parameters 
 -->
 ### `update` 替换指定节点的状态
 
@@ -1464,6 +1475,9 @@ PUT /api/v1/nodes/{name}/status
 
 PUT /api/v1/nodes/{name}/status
 
+<!--
+#### Parameters 
+-->
 #### 参数
 
 <!--
@@ -1747,6 +1761,10 @@ DELETE /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1798,6 +1816,10 @@ DELETE /api/v1/nodes
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

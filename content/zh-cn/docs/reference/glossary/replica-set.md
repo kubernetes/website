@@ -1,7 +1,6 @@
 ---
 title: ReplicaSet
 id: replica-set
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/replicaset/
 short_description: >
   ReplicaSet 确保一次运行指定数量的 Pod 副本。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: ReplicaSet
 id: replica-set
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
  ReplicaSet ensures that a specified number of Pod replicas are running at one time
@@ -28,7 +26,7 @@ tags:
 -->
 
 <!--
- A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
+A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
 -->
 ReplicaSet（旨在）在任何给定时间确保运行一组 Pod 副本。
 

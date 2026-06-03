@@ -414,7 +414,7 @@ kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment.yaml -
 Then later, automatic scaling is enabled for the Deployment; for example:
 
 ```shell
-kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment nginx-deployment --cpu=50% --min=1 --max=10
 ```
 
 Now, the user would like to remove `replicas` from their configuration, so they

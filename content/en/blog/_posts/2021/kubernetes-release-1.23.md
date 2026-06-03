@@ -4,6 +4,10 @@ title: 'Kubernetes 1.23: The Next Frontier'
 date: 2021-12-07
 slug: kubernetes-1-23-release-announcement
 evergreen: true
+release_announcement:
+  minor_version: "1.23"
+  themes:
+    - "The Next Frontier"
 author: >
   [Kubernetes 1.23 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.23/release-team.md)
 ---

@@ -225,6 +225,14 @@ the following fields are required:
 * `serviceAccountTokenAudience`:
   the intended audience for the projected service account token.
   This cannot be the empty string.
+  When the `ServiceAccountNodeAudienceRestriction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+  the kubelet must be authorized to request tokens for this audience;
+  otherwise the credential provider will not be invoked. You must grant
+  the `system:nodes` group permission to use the
+  `request-serviceaccounts-token-audience` verb on this audience via RBAC.
+  For details and examples, see
+  [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
 * `cacheType`:
   the type of cache key used for caching the credentials returned by the plugin
   when the service account token is used.

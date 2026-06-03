@@ -38,7 +38,9 @@
 <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">{{ T "release_schedule" }}</a> {{ T "conjunction_1" }}
 <a hreflang="en" href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">{{ T "release_changelog" }}</a>
 </p>
-
+<p>
+    <a href="{{ relLangURL (printf "/releases/%s/" $dataVersion) }}/">{{ T "release_details" }}</a>
+</p>
 </div>
 
 {{ end }}

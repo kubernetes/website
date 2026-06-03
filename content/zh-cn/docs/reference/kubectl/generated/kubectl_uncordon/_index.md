@@ -3,6 +3,8 @@ title: kubectl uncordon
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  将节点标记为可调度。
 ---
 <!--
 title: kubectl uncordon
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Mark node as schedulable
 -->
 
 ## {{% heading "synopsis" %}}

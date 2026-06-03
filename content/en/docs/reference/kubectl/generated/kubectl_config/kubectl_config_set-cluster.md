@@ -3,6 +3,8 @@ title: kubectl config set-cluster
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a cluster entry in kubeconfig
 ---
 
 

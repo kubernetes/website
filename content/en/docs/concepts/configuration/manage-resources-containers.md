@@ -53,11 +53,9 @@ container that over allocates memory may not be immediately killed. This means
 its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
-There is an alpha feature `MemoryQoS` which attempts to add more preemptive
-limit enforcement for memory (as opposed to reactive enforcement by the OOM
-killer). However, this effort is
-[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
-due to a potential livelock situation a memory hungry can cause.
+There is an alpha feature `MemoryQoS` which adds memory throttling and optional
+tiered memory reservation on Linux nodes using cgroup v2. For details, see
+[Memory QoS with cgroup v2](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2).
 {{< /note >}}
 
 {{< note >}}
@@ -68,9 +66,22 @@ you specified and uses it as the requested value for the resource.
 
 ## Resource types
 
-*CPU* and *memory* are each a *resource type*. A resource type has a base unit.
-CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
-Memory is specified in units of bytes.
+A *resource type* has a base unit and can be requested, limited, or both.
+Kubernetes has the following built-in resource types:
+
+| Resource type | Description | Base unit |
+|---|---|---|
+| `cpu` | Compute processing | cpu (core) |
+| `memory` | RAM | Bytes |
+| `ephemeral-storage` | [Local ephemeral storage](/docs/concepts/storage/ephemeral-storage/) | Bytes |
+| `hugepages-<size>` | [Huge pages](#huge-pages) (Linux only) | Bytes |
+
+Clusters can also provide
+[extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+(resources with a custom name, typically exposed by device plugins).
+
+### Huge pages
+
 For Linux workloads, you can specify _huge page_ resources.
 Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
 that are much larger than the default page size.
@@ -98,9 +109,11 @@ including the following:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.limits.hugepages-<size>`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.ephemeral-storage`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
 Although you can only specify requests and limits for individual containers,
@@ -169,14 +182,16 @@ Limits and requests for `memory` are measured in bytes. You can express memory a
 a plain integer or as a fixed-point number using one of these
 [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) suffixes:
 E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
+Mi, Ki. The Kubernetes API also allows m as a suffix (for millibytes: 1/1000 of a byte),
+but this isn't useful to specify: you must always assign whole numbers of bytes, or sometimes larger chunks such as multiples of 1 gibibyte.
+
+Here are some examples of memory quantities that represent roughly the same value:
 
 ```shell
 128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
-Pay attention to the case of the suffixes. If you request `400m` of memory, this is a request
-for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+Pay attention to the case of the suffixes. "M" means megabytes, while "m" means millibytes. If you request `400m` of memory, this is a request for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 
 ## Container resources example {#example-1}

@@ -2,12 +2,16 @@
 title: kubectl create serviceaccount
 content_type: tool-reference
 weight: 30
+description: >-
+  创建指定名称的服务账号
 ---
 <!--
 title: kubectl create serviceaccount
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a service account with the specified name
 -->
 
 ## {{% heading "synopsis" %}}

@@ -3,6 +3,8 @@ title: kubectl apply
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Apply a configuration to a resource by file name or stdin
 no_list: true
 ---
 

@@ -3,6 +3,8 @@ title: kubectl taint
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  更新一个或多个节点上的污点
 ---
 <!--
 title: kubectl taint
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Update the taints on one or more nodes
 -->
 
 ## {{% heading "synopsis" %}}

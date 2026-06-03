@@ -3,6 +3,8 @@ title: kubectl config use-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set the current-context in a kubeconfig file
 ---
 
 

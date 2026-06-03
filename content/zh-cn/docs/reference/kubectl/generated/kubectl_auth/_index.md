@@ -3,6 +3,8 @@ title: kubectl auth
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  检查授权
 ---
 <!--
 title: kubectl auth
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Inspect authorization
 -->
 
 ## {{% heading "synopsis" %}}

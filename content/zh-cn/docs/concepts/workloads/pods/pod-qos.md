@@ -84,14 +84,14 @@ For a Pod to be given a QoS class of `Guaranteed`:
 Pod 被赋予 `Guaranteed` QoS 类的几个判据：
 
 <!--
-* Every Container in the Pod must have a memory limit and a memory request.
+* Every Container in the Pod must have a memory limit and a memory request, both greater than zero.
 * For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
+* Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 -->
-* Pod 中的每个容器必须有内存 limit 和内存 request。
+* Pod 中的每个容器必须有内存 limit 和内存 request，两者都必须大于零。
 * 对于 Pod 中的每个容器，内存 limit 必须等于内存 request。
-* Pod 中的每个容器必须有 CPU limit 和 CPU request。
+* Pod 中的每个容器必须有 CPU limit 和 CPU request，两者都必须大于零。
 * 对于 Pod 中的每个容器，CPU limit 必须等于 CPU request。
 
 <!--
@@ -102,7 +102,8 @@ If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manag
 * The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
 * The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
 -->
-如果 Pod 使用的是 [Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
+如果 Pod 使用的是
+[Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
@@ -140,7 +141,8 @@ A Pod is given a QoS class of `Burstable` if:
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
 * Pod 不满足针对 QoS 类 `Guaranteed` 的判据。
-* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或 CPU 的 request 或 limit。
+* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或
+  CPU 的 request 或 limit。
 
 ### BestEffort
 
@@ -239,6 +241,16 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * Pod 的资源 request 等于其成员容器的资源 request 之和，Pod 的资源 limit 等于其成员容器的资源 limit 之和。
 * kube-scheduler 在选择要[抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)的
   Pod 时不考虑 QoS 类。当集群没有足够的资源来运行你所定义的所有 Pod 时，就会发生抢占。
+
+<!--
+* The QoS class is determined when the Pod is created and remains unchanged for the
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
+-->
+* QoS 类在 Pod 创建时确定，并在 Pod 的整个生命周期内保持不变。
+  如果你之后尝试进行一次[原地资源调整](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)，
+  且该调整会导致 QoS 类发生变化，则该调整请求会在准入阶段被拒绝。
 
 ## {{% heading "whatsnext" %}}
 

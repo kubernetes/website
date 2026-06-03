@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StatefulSet 表示一组具有一致身份的 Pod"
 title: "StatefulSet"
-weight: 7
+weight: 8
 auto_generated: true
 ---
 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StatefulSet represents a set of pods with consistent identities."
 title: "StatefulSet"
-weight: 7
+weight: 8
 auto_generated: true
 -->
 
@@ -53,7 +53,7 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
   -->
-  
+
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
@@ -70,19 +70,19 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time. 
   -->
-  
+
   `status` 是 StatefulSet 中 Pod 的当前状态，此数据可能会在某个时间窗口内过时。
 
 ## StatefulSetSpec {#StatefulSetSpec}
 
 <!--
-A StatefulSetSpec is the specification of a StatefulSet. 
+A StatefulSetSpec is the specification of a StatefulSet.
 -->
 StatefulSetSpec 是 StatefulSet 的规约。
 
 <hr>
 
-<!-- 
+<!--
 - **serviceName** (string)
 
   serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.  
@@ -105,7 +105,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   此选择算符必须与 Pod 模板中的 label 匹配。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-<!-- 
+<!--
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
   template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format \<statefulsetname>-\<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
@@ -118,7 +118,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   例如，名为 "web" 且索引号为 "3" 的 StatefulSet 中的 Pod 将被命名为 "web-3"。
   `template.spec.restartPolicy` 唯一被允许的值是 `Always`。
 
-<!-- 
+<!--
 - **replicas** (int32)
 
   replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. 
@@ -129,7 +129,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   `replicas` 是给定模板的所需的副本数。之所以称作副本，是因为它们是相同模板的实例，
   不过各个副本也具有一致的身份。如果未指定，则默认为 1。
 
-<!-- 
+<!--
 - **updateStrategy** (StatefulSetUpdateStrategy)
 
   updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template. 
@@ -139,7 +139,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   `updateStrategy` 是一个 StatefulSetUpdateStrategy，表示当对
   `template` 进行修订时，用何种策略更新 StatefulSet 中的 Pod 集合。
 
-  <!-- 
+  <!--
   <a name="StatefulSetUpdateStrategy"></a>
   *StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.*
   -->
@@ -156,25 +156,10 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
     `type` 表示 StatefulSetUpdateStrategy 的类型，默认为 `RollingUpdate`。
 
-    <!--
-    Possible enum values:
-     - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
-     - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
-    -->
-
-    可能的枚举值：
-
-      - `"OnDelete"` 触发传统行为。版本跟踪和有序滚动重启被禁用。
-        当 Pod 被手动删除时，它们会根据 `StatefulSetSpec` 重新创建。
-        使用此策略执行扩缩操作时，将依据 StatefulSet 的 `currentRevision` 指示的版本。
-      - `"RollingUpdate"` 表示更新将应用于 StatefulSet 中的所有 Pod，
-        并遵循 StatefulSet 的排序约束。使用此策略执行扩缩操作时，新 Pod
-        将根据 StatefulSet 的 `updateRevision` 指示的版本创建。
-
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
-    <!-- 
-    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType. 
+    <!--
+    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
     -->
 
     当 `type` 为 RollingUpdate 时，使用 `rollingUpdate` 来传递参数。
@@ -189,7 +174,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
     - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
 
-      <!-- 
+      <!--
       The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
       -->
 
@@ -200,7 +185,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
       这些 Pod 将被计入 `maxUnavailable` 中。此设置可能对 OrderedReady Pod 管理策略无效。
       此策略确保 Pod 按顺序创建并就绪。
 
-      <!-- 
+      <!--
       <a name="IntOrString"></a>
       *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
       -->
@@ -211,7 +196,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
     - **updateStrategy.rollingUpdate.partition** (int32)
 
-      <!-- 
+      <!--
       Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
       -->
 
@@ -222,7 +207,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
 - **podManagementPolicy** (string)
 
-  <!-- 
+  <!--
   podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once. 
   -->
 
@@ -233,7 +218,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   
 - **revisionHistoryLimit** (int32)
 
-  <!-- 
+  <!--
   revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10. 
 
   *Atomic: will be replaced during a merge*
@@ -246,7 +231,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   **原子：将在合并期间被替换**
 
-  <!-- 
+  <!--
   volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
   -->
 
@@ -257,7 +242,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
 - **minReadySeconds** (int32)
 
-  <!-- 
+  <!--
   Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
   -->
 
@@ -275,7 +260,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   此策略允许更改申领的生命周期，例如在 StatefulSet 被删除或其中 Pod 集合被缩容时删除持久卷申领。
   此属性需要启用 StatefulSetAutoDeletePVC 特性门控。特性处于 Beta 阶段。
 
-  <!-- 
+  <!--
   <a name="StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
   *StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.*
   -->
@@ -285,7 +270,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   - **persistentVolumeClaimRetentionPolicy.whenDeleted** (string)
 
-    <!-- 
+    <!--
     WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted. 
     -->
 
@@ -325,7 +310,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
     If unset, defaults to 0. Replica indices will be in the range:
       [0, .spec.replicas).
     -->
-  
+
     `start` 是代表第一个副本索引的数字。它可用于从替代索引（例如：从 1 开始索引）而非默认的从 0 索引来为副本设置编号，
     还可用于编排从一个 StatefulSet 到另一个 StatefulSet 的渐进式副本迁移动作。如果设置了此值，副本索引范围为
     [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)。如果不设置，则默认为 0。
@@ -333,14 +318,14 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
 ## StatefulSetStatus {#StatefulSetStatus}
 
-<!-- 
+<!--
 StatefulSetStatus represents the current state of a StatefulSet. 
 -->
 StatefulSetStatus 表示 StatefulSet 的当前状态。
 
 <hr>
 
-<!-- 
+<!--
 - **replicas** (int32), required
 
   replicas is the number of Pods created by the StatefulSet controller.  
@@ -351,14 +336,14 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 
 - **readyReplicas** (int32)
 
-  <!-- 
+  <!--
   readyReplicas is the number of pods created for this StatefulSet with a Ready Condition. 
   -->
   `readyReplicas` 是为此 StatefulSet 创建的、状况为 Ready 的 Pod 个数。
 
 - **currentReplicas** (int32)
 
-  <!-- 
+  <!--
   currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision. 
   -->
   `currentReplicas` 是 StatefulSet 控制器根据 `currentReplicas` 所指的
@@ -366,7 +351,7 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 
 - **updatedReplicas** (int32)
 
-  <!-- 
+  <!--
   updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
   -->
   `updatedReplicas` 是 StatefulSet 控制器根据 `updateRevision` 所指的
@@ -374,14 +359,14 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 
 - **availableReplicas** (int32)
 
-  <!-- 
+  <!--
   Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   -->
   此 StatefulSet 所对应的可用 Pod 总数（就绪时长至少为 `minReadySeconds`）。
 
 - **collisionCount** (int32)
 
-  <!-- 
+  <!--
   collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision. 
   -->
   `collisionCount` 是 StatefulSet 的哈希冲突计数。
@@ -738,6 +723,15 @@ GET /apis/apps/v1/namespaces/{namespace}/statefulsets
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 <!-- 
 - **timeoutSeconds** (*in query*): integer
 
@@ -860,6 +854,15 @@ GET /apis/apps/v1/statefulsets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer
@@ -1548,6 +1551,15 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer

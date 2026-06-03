@@ -9,6 +9,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Enables declarative validation of in-tree Kubernetes APIs. When enabled, APIs with declarative validation rules
 (defined using IDL tags in the Go code) will have both the generated declarative validation code
@@ -17,6 +21,6 @@ The results are compared, and any discrepancies are reported via the `declarativ
 Only the hand-written validation result is returned to the user (eg: actually validates in the request path).
 The original hand-written validation are still the authoritative validations
 when this is enabled but this can be changed if the
-[DeclarativeValidationTakeover feature gate](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationTakeover/)
+[DeclarativeValidationBeta feature gate](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/)
 is enabled in addition to this gate.
 This feature gate only operates on the `kube-apiserver` component.

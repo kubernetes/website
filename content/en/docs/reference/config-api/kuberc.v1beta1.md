@@ -208,6 +208,18 @@ the plugin and the name in the allowlist entry using <code>exec.LookPath</code>.
 will be called on both, and the resulting strings must be equal. If
 either call to <code>exec.LookPath</code> results in an error, the <code>Name</code> check
 will be considered a failure.</p>
+<p>Deprecated: use Command instead.</p>
+</td>
+</tr>
+<tr><td><code>command</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Command matching is performed by first resolving the absolute path of both
+the plugin and the name in the allowlist entry using <code>exec.LookPath</code>. It
+will be called on both, and the resulting strings must be equal. If
+either call to <code>exec.LookPath</code> results in an error, the <code>Command</code> check
+will be considered a failure.</p>
 </td>
 </tr>
 </tbody>

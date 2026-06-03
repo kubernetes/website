@@ -522,3 +522,47 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
+
+<!--
+- Also verify that the CRD's stored version status is now only v2:
+-->
+- 还需确认该 CRD 的存储版本状态目前是否仅为 v2：
+
+  ```shell
+  kubectl get crd testcrds.example.com -o yaml
+  ```
+
+  <!--
+  The output is similar to:
+  -->
+
+  输出示例如下：
+
+  ```yaml
+  kind: CustomResourceDefinition
+  apiVersion: apiextensions.k8s.io/v1
+  metadata:
+    name: testcrds.example.com
+  spec:
+    group: example.com
+    names:
+      kind: TestCRD
+      plural: testcrds
+    scope: Namespaced
+    versions:
+      - name: v1
+        served: true
+        storage: false
+      - name: v2
+        served: true
+        storage: true
+  status:
+    acceptedNames:
+      kind: TestCRD
+      plural: testcrds
+    conditions:
+      - type: Established
+        status: "True"
+    storedVersions:
+      - v2
+  ```

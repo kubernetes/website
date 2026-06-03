@@ -59,8 +59,8 @@ Kubernetes 支持工作负载的手动扩缩。水平扩缩可以使用 `kubectl
 - **Horizontal scaling**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **Vertical scaling**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 -->
-- **水平扩缩**：[运行应用程序的多个实例](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-- **垂直扩缩**：[调整分配给容器的 CPU 和内存资源](/docs/tasks/configure-pod-container/resize-container-resources)
+- **水平扩缩**：[运行应用程序的多个实例](/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **垂直扩缩**：[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources)
 
 <!--
 ## Scaling workloads automatically
@@ -98,13 +98,14 @@ and periodically adjusts the number of {{< glossary_tooltip text="replicas" term
 in a workload to match observed resource utilization such as CPU or memory usage.
 -->
 它以 Kubernetes API 资源和{{< glossary_tooltip text="控制器" term_id="controller" >}}的方式实现，
-并定期调整工作负载中{{< glossary_tooltip text="副本" term_id="replica" >}}的数量
-以满足设置的资源利用率，如 CPU 或内存利用率。
+并定期调整工作负载中{{< glossary_tooltip text="副本" term_id="replica" >}}的数量以满足设置的资源利用率，如
+CPU 或内存利用率。
 
 <!--
 There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
 -->
-这是一个为 Deployment 部署配置 HorizontalPodAutoscaler 的[示例教程](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)。
+这是一个为 Deployment 部署配置 HorizontalPodAutoscaler
+的[示例教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)。
 
 <!--
 ### Scaling workloads vertically
@@ -127,7 +128,7 @@ Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a an add
 Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
 (CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
 -->
-安装后，你可以为工作负载创建 {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}(CRDs)，
+安装后，你可以为工作负载创建 {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}} (CRD)，
 定义**如何**以及**何时**扩缩被管理副本的资源。
 
 {{< note >}}
@@ -151,7 +152,7 @@ but this integration is being worked on.
 For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
 -->
 截至 Kubernetes {{< skew currentVersion >}}，VPA（垂直 Pod 自动伸缩）尚不支持就地调整 Pod 大小，但该集成正在开发中。
-如需手动进行就地扩缩容，请参阅 [就地调整容器资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
+如需手动进行就地扩缩容，请参阅[就地调整容器资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
 
 <!--
 ### Autoscaling based on cluster size
@@ -173,7 +174,7 @@ own project on GitHub.
 The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
 and cores and scales the number of replicas of the target workload accordingly.
 -->
-集群弹性伸缩器 (Cluster Proportional Autoscaler)会观测可调度 {{< glossary_tooltip text="节点" term_id="node" >}}和处理器核数量，
+集群弹性伸缩器（Cluster Proportional Autoscaler）会观测可调度{{< glossary_tooltip text="节点" term_id="node" >}}和处理器核数量，
 并调整目标工作负载的副本数量。
 
 <!--
@@ -184,15 +185,15 @@ The project is **currently in beta** and can be found on GitHub.
 如果副本的数量需要保持一致，
 你可以使用 [Cluster Proportional Vertical Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)
 来根据集群规模进行垂直扩缩。
-这个项目目前处于 **beta** 阶段，你可以在 GitHub 上找到它。
+这个项目目前处于 **Beta** 阶段，你可以在 GitHub 上找到它。
 
 <!--
 While the Cluster Proportional Autoscaler scales the number of replicas of a workload,
 the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
 (for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
 -->
-集群弹性伸缩器 (Cluster Proportional Autoscaler) 通过调整工作负载副本数量实现扩缩容，
-而垂直集群弹性伸缩器 (Cluster Proportional Vertical Autoscaler) 则根据集群中的节点数和 / 或 CPU 核心数，
+集群弹性伸缩器（Cluster Proportional Autoscaler）通过调整工作负载副本数量实现扩缩容，
+而垂直集群弹性伸缩器 (Cluster Proportional Vertical Autoscaler) 则根据集群中的节点数和/或 CPU 核数，
 调整工作负载（例如 Deployment 或 DaemonSet）的资源请求值。
 
 <!--

@@ -1,7 +1,7 @@
 ---
 title: Code Contributor
 id: code-contributor
-full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
+full_link: https://github.com/kubernetes/community/tree/main/contributors/devel
 short_description: >
   A person who develops and contributes code to the Kubernetes open source codebase.
 
