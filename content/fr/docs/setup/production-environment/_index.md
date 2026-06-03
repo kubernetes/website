@@ -66,7 +66,7 @@ Que vous construisiez votre cluster Kubernetes de production vous-même ou avec 
 consultez les sections suivantes pour évaluer vos besoins concernant le *plan de contrôle*, les *nœuds de travail*,
 les *accès utilisateurs* et les *ressources des charges de travail*.
 
-## configuration du cluster de production
+## Configuration du cluster de production
 
 Dans un cluster Kubernetes de qualité production, le plan de contrôle gère le cluster à partir de services
 pouvant être répartis sur plusieurs machines de différentes manières.
