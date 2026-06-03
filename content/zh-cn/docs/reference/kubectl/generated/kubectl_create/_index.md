@@ -2,8 +2,6 @@
 title: kubectl create
 content_type: tool-reference
 weight: 30
-description: >-
-  基于文件或标准输入创建一个资源
 no_list: true
 description: >-
   基于文件或标准输入创建一个资源
