@@ -69,8 +69,8 @@ installed to your cluster for the VPA to work.
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-As of Kubernetes {{< skew currentVersion >}}, VPA does not support resizing pods in-place,
-but this integration is being worked on.
+As of VPA 1.6.0, the `InPlaceOrRecreate` update mode is generally available (GA),
+enabling VPA to resize pods in-place on clusters running Kubernetes 1.33 or later.
 For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
 
 ### Autoscaling based on cluster size
