@@ -1,5 +1,5 @@
 ---
-title: Create a custom metrics exporter
+title: Create Custom Metrics Exporter
 linkTitle: Custom metrics exporter
 content_type: task
 weight: 81
