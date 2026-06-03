@@ -1,7 +1,6 @@
 ---
 titre: cAdvisor
 id: cadvisor
-date: 2024-09-12
 full_link: https://github.com/google/cadvisor/
 short_description: >
   Outil qui permet de comprendre l'utilisation des ressources et les caractéristiques de performance des conteneurs

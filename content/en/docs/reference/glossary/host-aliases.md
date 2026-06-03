@@ -1,7 +1,6 @@
 ---
 title: HostAliases
 id: HostAliases
-date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
 short_description: >
   A HostAliases is a mapping between the IP address and hostname to be injected into a Pod's hosts file.

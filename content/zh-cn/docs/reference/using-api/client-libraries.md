@@ -48,9 +48,9 @@ format to read the credentials and the API Server address.
 
 <!--
 The following client libraries are officially maintained by
-[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/main/sig-api-machinery).
 -->
-以下客户端库由 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+以下客户端库由 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/main/sig-api-machinery)
 正式维护。
 
 <!--

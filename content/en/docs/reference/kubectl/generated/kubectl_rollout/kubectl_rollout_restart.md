@@ -3,6 +3,8 @@ title: kubectl rollout restart
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Restart a resource
 ---
 
 

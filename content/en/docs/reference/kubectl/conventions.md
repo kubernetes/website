@@ -45,6 +45,23 @@ For `kubectl run` to satisfy infrastructure as code:
 
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
 
+### `kubectl proxy`
+
+{{< caution >}}
+Browsing untrusted pod or service endpoints through `kubectl proxy` is dangerous,
+as the served content has implicit access to the Kubernetes API using the proxy's
+credentials. Use caution and avoid accessing untrusted endpoints while using
+privileged credentials.
+
+To reduce risk:
+
+* Avoid browsing to untrusted pods or services through `kubectl proxy`.
+* Use `--reject-methods='POST,PUT,PATCH,DELETE'` to restrict the proxy to
+  read-only operations when you only need to view resources.
+* Use `--reject-paths` to limit which API paths the proxy exposes.
+* Do not run `kubectl proxy` with cluster-admin credentials unless necessary.
+{{< /caution >}}
+
 ### `kubectl apply`
 
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).

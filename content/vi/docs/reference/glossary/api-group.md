@@ -1,7 +1,6 @@
 ---
 title: API Group
 id: api-group
-date: 2019-12-16
 full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   Một tập những đường dẫn tương đối đến Kubernetes API.

@@ -514,15 +514,29 @@ scenarios where multiple labels should be used to distinguish sets from one anot
 <!--
 For instance, different applications would use different values for the `app` label, but a
 multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
-would additionally need to distinguish each tier. The frontend could carry the following labels:
+would additionally need to distinguish each tier.
 -->
 例如，不同的应用可能会为 `app` 标签设置不同的值。
 但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/web/guestbook/)
-这样的多层应用，还需要区分每一层。前端可能会带有以下标签：
+这样的多层应用，还需要区分每一层。
+
+<!--
+In the following examples, the `app` label is included for convenience in manual queries
+and simple CLI usage. The `app.kubernetes.io/name` label follows the recommended Kubernetes
+labeling conventions and is better suited for tooling and automation.
+
+The frontend could carry the following labels:
+-->
+以下示例中包含 `app` 标签是为了方便手动查询和简单的命令行操作。
+`app.kubernetes.io/name` 标签遵循 Kubernetes 推荐的标签约定，
+更适合工具和自动化。
+
+前端可能会带有以下标签：
 
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -535,6 +549,7 @@ Redis 的主从节点会有不同的 `tier` 标签，甚至还有一个额外的
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -547,6 +562,7 @@ and
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```

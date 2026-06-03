@@ -1,19 +1,14 @@
 {{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
-{{ $lang := .Site.Language.Lang }}
-{{ $searchFile := printf "content/%s/search.md" $lang }}
-
+{{- $searchPage := .Site.GetPage "/search" -}}
+{{- $searchLink := $searchPage.RelPermalink | default ("/search" | relURL) -}}
 <div class="td-search">
   <div class="td-search__icon"></div>
   <input
     type="search"
-    {{ if fileExists $searchFile }}
-    data-search-page="{{ "search/" | relLangURL  }}"
-    {{ else }}
-    data-search-page="{{ "search/" | relURL }}"
-    {{ end }}
     class="td-search__input form-control dark-theme-focus td-search-input"
     placeholder="{{ T "ui_search" }}"
     aria-label="{{ T "ui_search" }}"
     autocomplete="off"
+    data-search-page="{{ $searchLink }}"
   >
 </div>

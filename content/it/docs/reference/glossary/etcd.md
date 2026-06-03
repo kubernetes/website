@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   È un database key-value altamente disponibile che è usato da Kubernetes per salvare tutte le informazioni del cluster.

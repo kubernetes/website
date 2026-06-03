@@ -297,10 +297,12 @@ Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: ResourceClaim
 
-This annotation is assigned to generated ResourceClaims. 
+This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
-You should not need to read or modify the value of this annotation.
+Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
+discoverable device metadata feature uses this annotation to map a generated ResourceClaim
+back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
+Kubernetes manages this annotation, so you should not modify it.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -402,6 +404,23 @@ This annotation is used to track the rollout history and enables rollback to pre
 revisions using `kubectl rollout undo`.
 
 The revision number is also visible when running `kubectl rollout history deployment/<name>`.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+
+### deployment.kubernetes.io/revision-history
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision-history: "1,3"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on a ReplicaSet when a rollback
+causes that ReplicaSet to be reused. The value is a comma-separated list of all
+previous revision numbers that the ReplicaSet has served for a Deployment, maintained
+as a history when the `deployment.kubernetes.io/revision` annotation is updated to a
+new revision number.
 
 This is an internal annotation used by the Deployment controller and should not be
 modified manually.
@@ -1474,6 +1493,20 @@ Starting from v1.20, this annotation is deprecated.
 Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
+### gateway.networking.k8s.io/generator
+
+Type: Annotation
+
+Example: `gateway.networking.k8s.io/generator: "ingress2gateway"`
+
+Used on: Gateway, HTTPRoute, and other Gateway API resources
+
+This annotation is added by tools that automatically generate
+[Gateway API](/docs/concepts/services-networking/gateway/) resources.
+The value identifies the tool that created the resource (for example,
+`ingress2gateway`). The annotation is informational only and does not
+affect the behavior of any Gateway API implementation.
+
 ### ingressclass.kubernetes.io/is-default-class
 
 Type: Annotation
@@ -1561,6 +1594,18 @@ This annotation is used to record the original (expected) creation timestamp for
 when that Job is part of a CronJob.
 The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
 with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
+
+### cronjob.kubernetes.io/instantiate {#cronjob-kubernetes-io-instantiate}
+
+Type: Annotation
+
+Example: `cronjob.kubernetes.io/instantiate: "manual"`
+
+Used on: Jobs
+
+When you use `kubectl create job` with the `--from=cronjob/<cronjob-name>` flag to manually create a Job from an existing CronJob template, `kubectl` sets this annotation on the newly created Job. 
+The value of this annotation is always `manual`. This annotation allows you to distinguish 
+Jobs that were created on demand by a user from Jobs that the CronJob controller automatically creates on their scheduled time.
 
 ### kubectl.kubernetes.io/default-container
 

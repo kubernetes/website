@@ -1,7 +1,6 @@
 ---
 title: Operator 模式
 id: operator-pattern
-date: 2019-05-21
 full_link: /zh-cn/docs/concepts/extend-kubernetes/operator/
 short_description: >
   一种用于管理自定义资源的专用控制器
@@ -10,11 +9,9 @@ aka:
 tags:
 - architecture
 ---
-
 <!--
 title: Operator pattern
 id: operator-pattern
-date: 2019-05-21
 full_link: /docs/concepts/extend-kubernetes/operator/
 short_description: >
   A specialized controller used to manage a custom resource
@@ -23,13 +20,15 @@ aka:
 tags:
 - architecture
 -->
+
 <!--
 The [operator pattern](/docs/concepts/extend-kubernetes/operator/) is a system
 design that links a {{< glossary_tooltip term_id="controller" >}} to one or more custom
 resources.
 -->
-[Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)是一种系统设计， 
+[Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)是一种系统设计，
 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
+
 <!--more-->
 
 <!--

@@ -7,39 +7,10 @@ content_type: task
 ---
 
 <!-- overview -->
-
-
-*Static Pods* are managed directly by the kubelet daemon on a specific node,
-without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-observing them.
-Unlike Pods that are managed by the control plane (for example, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}});
-instead, the kubelet watches each static Pod (and restarts it if it fails).
-
-Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
-
-The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
-on the Kubernetes API server for each static Pod.
-This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
-The Pod names will be suffixed with the node hostname with a leading hyphen.
-
-{{< note >}}
-If you are running clustered Kubernetes and are using static
-Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
-{{< /note >}}
-
-{{< note >}}
-The `spec` of a static Pod cannot refer to other API objects
-(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
-{{< /note >}}
-
-{{< note >}}
-Static pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
-{{< /note >}}
+ 
+This page shows you how to create _static Pods_ on a node.
+For an overview of what static Pods are and when to use them, see
+[Static Pods](/docs/concepts/workloads/pods/static-pods/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -53,9 +24,8 @@ Instructions for other distributions or Kubernetes installations may vary.
 
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a
-[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a [file system hosted configuration file](#configuration-files)
+or a [web hosted configuration file](#pods-created-via-http).
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
@@ -65,13 +35,24 @@ Use the `staticPodPath: <the directory>` field in the
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
+{{< caution >}}
+The kubelet processes **all files not starting with a dot** in the static Pod directory
+— there is no filtering by file extension. For example, if you create a backup of a
+manifest by running `cp kube-apiserver.yaml kube-apiserver.yaml.backup`, the kubelet
+will read **both** files and attempt to create a static Pod from each. When two files
+define a Pod with the same name, the resulting behavior is undefined and can cause the
+backup's outdated spec to silently take effect instead of the current manifest. If you
+do create a backup, store it **outside** the static Pod directory (for example, in
+`/etc/kubernetes/backup/`).
+{{< /caution >}}
+
 For example, this is how to start a simple web server as a static Pod:
 
 1. Choose a node where you want to run the static Pod. In this example, it's `my-node1`.
 
-    ```shell
-    ssh my-node1
-    ```
+   ```shell
+   ssh my-node1
+   ```
 
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
@@ -126,22 +107,22 @@ To use this approach:
 
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
-        - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    ```
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   ```
 
 1. Configure the kubelet on your selected node to use this web manifest by
    running it with `--manifest-url=<manifest-url>`.
@@ -274,10 +255,9 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 ```
 ## {{% heading "whatsnext" %}}
 
+* [Static Pods](/docs/concepts/workloads/pods/static-pods/)
 * [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
-

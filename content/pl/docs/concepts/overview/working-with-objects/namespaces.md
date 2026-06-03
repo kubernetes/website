@@ -132,11 +132,9 @@ tworzenie jakiejkolwiek przestrzeni nazw o nazwie z listy
 
 ## Nie wszystkie obiekty znajdują się w przestrzeni nazw. {#not-all-objects-are-in-a-namespace}
 
-Większość zasobów Kubernetesa (np. pody, usługi, kontrolery replikacji i
-inne) znajduje się w jakiś przestrzeniach nazw. Jednak zasoby przestrzeni
-nazw nie są same w sobie w przestrzeni nazw. Zasoby niskiego poziomu, takie
-jak [węzły](/docs/concepts/architecture/nodes/) i
-[persistentVolumes](/docs/concepts/storage/persistent-volumes/), nie znajdują się w żadnej przestrzeni nazw.
+Większość zasobów Kubernetesa (np. pody, usługi, deploymenty i inne) znajduje się w jakiś przestrzeniach nazw. Jednak
+zasoby przestrzeni nazw nie są same w sobie w przestrzeni nazw. Zasoby niskiego poziomu, takie jak
+[Node](/docs/concepts/architecture/nodes/) i [PersistentVolume](/docs/concepts/storage/persistent-volumes/), nie znajdują się w żadnej przestrzeni nazw.
 
 Aby zobaczyć, które zasoby Kubernetesa znajdują się w przestrzeni nazw, a które nie:
 

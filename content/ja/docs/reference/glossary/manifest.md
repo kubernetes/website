@@ -1,7 +1,6 @@
 ---
 title: マニフェスト
 id: manifest
-date: 2019-06-28
 short_description: >
   1つ以上のKubernetes APIオブジェクトをシリアライズした仕様です。
 

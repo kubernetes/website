@@ -143,7 +143,7 @@ sig-release 팀이 이를 인지할 수 있도록 한다. 기능에 문서화가
 또한, 당신의 기능 게이트가 
 [알파 또는 베타 기능을 위한 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
 표에 표시되도록 하려면, 당신의 마크다운 설명 파일의
-[front matter (문서 헤더)](https://gohugo.io/content-management/front-matter/)에
+[프론트 매터(front matter)](https://gohugo.io/content-management/front-matter/)에
 다음 정보를 포함해야 한다.
 
 ```yaml
@@ -192,7 +192,7 @@ stages:
 
 결국 쿠버네티스는 해당 기능 게이트를 아예 포함하지 않게 될 것이다.
 기능 게이트가 제거되었음을 명시하려면, 해당 설명 파일의 
-front matter(문서 헤더)에 `removed: true`를 추가한다.
+프론트 매터에 `removed: true`를 추가한다.
 이렇게 변경하면 해당 기능 게이트 정보는 
 [승급 또는 사용 중단된 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/#승급-또는-사용-중단된-기능을-위한-기능-게이트) 
 섹션에서

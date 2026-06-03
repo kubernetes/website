@@ -122,9 +122,9 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
   [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
-  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
-  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
   In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
 - Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -178,7 +178,7 @@ Begin and end meetings on time.
 
 **Use Zoom effectively**:
 
-- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - Claim the host role when you log in by entering the host key
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Claiming the host role in Zoom" />
@@ -193,4 +193,4 @@ The video uploads automatically to YouTube.
 
 ### Offboarding a SIG Co-chair (Emeritus)
 
-See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/main/sig-docs/offboarding.md)

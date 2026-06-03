@@ -80,18 +80,8 @@ Kubernetes API 服务器跟踪所有新建对象的**受控字段（Managed Fiel
 <!--
 Whenever a field's value does change, ownership moves from its current manager to the
 manager making the change.
-
-Apply checks if there are any other field managers that also own the
-field.  If the field is not owned by any other field managers, that field is
-set to its default value (if there is one), or otherwise is deleted from the
-object.
-The same rule applies to fields that are lists, associative lists, or maps.
 -->
 每当字段的值确实发生变化时，所有权就会从其当前管理器转移到进行更改的管理器。
-
-服务器端应用会检查是否存在其他字段管理器也拥有该字段。
-如果该字段不属于任何其他字段管理器，则该字段将被设置为其默认值（如果有），或者以其他方式从对象中删除。
-同样的规则也适用于作为列表（list）、关联列表或键值对（map）的字段。
 
 <!--
 For a user to manage a field, in the Server-Side Apply sense, means that the
@@ -279,14 +269,14 @@ You should avoid updating it manually.
 {{< /caution >}}
 
 <!--
-## Conflicts
+### Conflicts
 
 A _conflict_ is a special status error that occurs when an `Apply` operation tries
 to change a field that another manager also claims to manage. This prevents an
 applier from unintentionally overwriting the value set by another user. When
 this occurs, the applier has 3 options to resolve the conflicts:
 -->
-## 冲突 {#conflicts}
+### 冲突 {#conflicts}
 
 **冲突**是一种特定的错误状态，
 发生在执行 `Apply` 改变一个字段，而恰巧该字段被其他用户声明过主权时。
@@ -345,7 +335,7 @@ For other updates, the API server infers a field manager identity from the
 When you use the `kubectl` tool to perform a Server-Side Apply operation, `kubectl`
 sets the manager identity to `"kubectl"` by default.
 -->
-## 字段管理器 {#managers}
+### 字段管理器 {#managers}
 
 管理器识别出正在修改对象的工作流程（在冲突时尤其有用）,
 并且可以作为修改请求的一部分，通过
@@ -576,7 +566,7 @@ comments and code authors need not repeat them as field tags).
 By default, Server-Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
 -->
-### 自定义资源和服务器端应用  {#custom-resources-and-server-side-apply}
+## 自定义资源和服务器端应用  {#custom-resources-and-server-side-apply}
 
 默认情况下，服务器端应用将自定义资源视为无结构的数据。
 所有键被视为 struct 数据类型的字段，所有列表都被视为 atomic 形式。
@@ -745,7 +735,7 @@ Then later, automatic scaling is enabled for the Deployment; for example:
 然后，为 Deployment 启用自动扩缩，例如：
 
 ```shell
-kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment nginx-deployment --cpu=50% --min=1 --max=10
 ```
 
 <!--

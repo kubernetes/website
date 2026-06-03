@@ -1,7 +1,6 @@
 ---
 title: ResourceSlice
 id: resourceslice
-date: 2025-05-26
 full_link: /docs/reference/kubernetes-api/workload-resources/resource-slice-v1beta1/
 short_description: >
   Represents one or more infrastructure resources, like devices, in a pool of

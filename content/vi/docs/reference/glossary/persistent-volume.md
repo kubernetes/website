@@ -1,7 +1,6 @@
 ---
 title: Persistent Volume
 id: persistent-volume
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
   Đối tượng API đại diện cho một phần lưu trữ trong cụm.

@@ -138,7 +138,7 @@ secret/db-user-pass created
 <!--
 ### Verify the Secret {#verify-the-secret}
 -->
-## 验证 Secret  {#verify-the-secret}
+### 验证 Secret  {#verify-the-secret}
 
 <!--
 Check that the Secret was created:

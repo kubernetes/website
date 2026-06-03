@@ -1,7 +1,6 @@
 ---
 title: Replica
 id: replica
-date: 2023-06-11
 full_link: 
 short_description: >
   Replicas là các bản sao của các pod, giúp đảm bảo tính sẵn sàng, 

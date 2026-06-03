@@ -3,6 +3,8 @@ title: kubectl autoscale
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  自动扩缩 Deployment、ReplicaSet、StatefulSet 或 Replication 控制器
 ---
 <!--
 title: kubectl autoscale
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Auto-scale a deployment, replica set, stateful set, or replication controller
 -->
 
 ## {{% heading "synopsis" %}}
@@ -34,24 +38,24 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 
 <!--
 ```
-  # Auto scale a deployment "foo", with the number of pods between 2 and 10, no target CPU utilization specified so a default autoscaling policy will be used
-  kubectl autoscale deployment foo --min=2 --max=10
-  
-  # Auto scale a replication controller "foo", with the number of pods between 1 and 5, target CPU utilization at 80%
-  kubectl autoscale rc foo --max=5 --cpu=80%
-  
-  # Auto scale a deployment "bar", with the number of pods between 3 and 6, target average CPU of 500m and memory of 200Mi
-  kubectl autoscale deployment bar --min=3 --max=6 --cpu=500m --memory=200Mi
-  
-  # Auto scale a deployment "bar", with the number of pods between 2 and 8, target CPU utilization 60% and memory utilization 70%
-  kubectl autoscale deployment bar --min=3 --max=6 --cpu=60% --memory=70%
+# Auto scale a deployment "foo", with the number of pods between 2 and 10, no target CPU utilization specified so a default autoscaling policy will be used
+kubectl autoscale deployment foo --min=2 --max=10
+
+# Auto scale a replication controller "foo", with the number of pods between 1 and 5, target CPU utilization at 80%
+kubectl autoscale rc foo --max=5 --cpu=80%
+
+# Auto scale a deployment "bar", with the number of pods between 3 and 6, target average CPU of 500m and memory of 200Mi
+kubectl autoscale deployment bar --min=3 --max=6 --cpu=500m --memory=200Mi
+
+# Auto scale a deployment "bar", with the number of pods between 2 and 8, target CPU utilization 60% and memory utilization 70%
+kubectl autoscale deployment bar --min=3 --max=6 --cpu=60% --memory=70%
 ```
 -->
 ```shell
 # 自动扩缩名为 "foo" 的 Deployment，其 Pod 数量在 2 到 10 之间，
 # 未指定目标 CPU 利用率，因此将使用默认的自动扩缩策略
 kubectl autoscale deployment foo --min=2 --max=10
-  
+
 # 自动扩缩名为 "foo" 的 ReplicationController，其 Pod 数量在 1 到 5 之间，
 # 目标 CPU 利用率为 80%
 kubectl autoscale rc foo --max=5 --cpu-percent=80
@@ -59,7 +63,7 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
 # 自动扩缩名为 "bar" 的 Deployment，其 Pod 数量在 3 到 6 之间，
 # 目标平均 CPU 为 500m，内存为 200Mi
 kubectl autoscale deployment bar --min=3 --max=6 --cpu=500m --memory=200Mi
-  
+
 # 自动扩缩名为 "bar" 的 Deployment，其 Pod 数量在 2 到 8 之间，
 # 目标 CPU 利用率为 60%，内存利用率为 70%
 kubectl autoscale deployment bar --min=3 --max=6 --cpu=60% --memory=70%
@@ -85,7 +89,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，则当模板中缺少字段或映射键时，忽略模板中的任何错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -102,7 +107,8 @@ Target CPU utilization over all the pods. When specified as a percentage (e.g.&q
 - 当以百分比指定时（例如 `"70%"` 表示请求 70% 的 CPU），目标为平均利用率。
 - 当以数值指定时（例如 `"500m"` 表示 500 milliCPU），目标为平均值。
 - 未带单位的数值会被视为 milliCPU 单位（例如 `"500"` 等同于 `"500m"`）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -116,7 +122,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -129,7 +136,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -142,7 +150,8 @@ Name of the manager used to track field ownership.
 Filename, directory, or URL to files identifying the resource to autoscale.
 -->
 用于标识要自动扩缩的资源的文件名、目录或文件 URL 列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -155,7 +164,8 @@ Filename, directory, or URL to files identifying the resource to autoscale.
 help for autoscale
 -->
 关于 autoscale 的帮助信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -168,7 +178,8 @@ help for autoscale
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -181,7 +192,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 The upper limit for the number of pods that can be set by the autoscaler. Required.
 -->
 自动扩缩器可设置的 Pod 数量上限（必需）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -193,12 +205,13 @@ The upper limit for the number of pods that can be set by the autoscaler. Requir
 <!--
 Target memory utilization over all the pods. When specified  as a percentage (e.g.&quot;60%&quot; for 60% of requested memory) it will target average utilization. When specified as quantity (e.g.&quot;200Mi&quot; for 200 MiB, &quot;1Gi&quot; for 1 GiB) it will target average value. Value without units is treated as a quantity with mebibytes being the unit (e.g.&quot;200&quot; is &quot;200Mi&quot;).
 -->
-所有 Pod 的目标内存利用率。  
+所有 Pod 的目标内存利用率。
 
-- 当以百分比指定时（例如 `"60%"` 表示请求 60% 内存），目标为平均利用率。  
+- 当以百分比指定时（例如 `"60%"` 表示请求 60% 内存），目标为平均利用率。
 - 当以数值指定时（例如 `"200Mi"` 表示 200 MiB，`"1Gi"` 表示 1 GiB），目标为平均值。  
 - 未带单位的数值会被视为以 MiB 为单位（例如 `"200"` 等同于 `"200Mi"`）。  
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -211,7 +224,8 @@ Target memory utilization over all the pods. When specified  as a percentage (e.
 The lower limit for the number of pods that can be set by the autoscaler. If it's not specified or negative, the server will apply a default value.
 -->
 自动扩缩器可以设置的 Pod 数量下限。如果未指定或为负数，服务器将应用默认值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -224,7 +238,8 @@ The lower limit for the number of pods that can be set by the autoscaler. If it'
 The name for the newly created object. If not specified, the name of the input resource will be used.
 -->
 新创建对象的名称。如果未指定，则将使用输入资源的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -234,11 +249,12 @@ The name for the newly created object. If not specified, the name of the input r
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -251,7 +267,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -265,7 +282,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -278,7 +296,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -292,7 +311,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -317,7 +337,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -330,7 +351,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -343,7 +365,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -356,7 +393,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -369,7 +407,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -382,7 +421,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -395,7 +435,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -408,7 +449,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -421,7 +463,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -434,7 +477,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -447,7 +491,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -460,7 +505,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -474,7 +520,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 -->
 用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
 特性门控或关闭 KUBERC=off 特性来禁用此功能。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -487,7 +534,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -500,7 +548,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -513,7 +562,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -523,10 +573,11 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -539,7 +590,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -553,7 +605,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -566,7 +619,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -579,7 +633,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -592,7 +647,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -605,7 +661,8 @@ database name
 database host:port
 -->
 数据库 host:port。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -618,7 +675,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -631,7 +689,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -644,7 +703,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -657,7 +717,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -684,7 +745,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -697,7 +759,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -710,7 +773,8 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -723,7 +787,8 @@ Username for basic authentication to the API server
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -736,7 +801,8 @@ Username for basic authentication to the API server
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>

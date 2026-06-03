@@ -8,31 +8,30 @@ weight: 30
 ---
 
 <!-- overview -->
+
 This page shows how to use Cilium for NetworkPolicy.
 
 For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
 
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
-
 <!-- steps -->
+
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
 [Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
-To start minikube, minimal version required is >= v1.5.2, run the with the
+To start minikube, which requires version v1.5.2 or higher, run it with the
 following arguments:
 
 ```shell
 minikube version
 ```
+
 ```
 minikube version: v1.5.2
 ```
@@ -86,9 +85,8 @@ For detailed instructions around deploying Cilium for production, see:
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
 
-
-
 <!-- discussion -->
+
 ##  Understanding Cilium components
 
 Deploying a cluster with Cilium adds Pods to the `kube-system` namespace. To see
@@ -109,8 +107,6 @@ cilium-kkdhz   1/1     Running   0          3m23s
 A `cilium` Pod runs on each node in your cluster and enforces network policy
 on the traffic to/from Pods on that node using Linux BPF.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 Once your cluster is running, you can follow the
@@ -118,6 +114,3 @@ Once your cluster is running, you can follow the
 to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
 [Cilium Slack Channel](https://slack.cilium.io/).
-
-
-

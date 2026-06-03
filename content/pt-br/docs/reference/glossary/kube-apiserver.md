@@ -1,7 +1,6 @@
 ---
 title: Servidor da API
 id: kube-apiserver
-date: 2018-04-12
 full_link: /pt-br/docs/concepts/overview/components/#kube-apiserver
 short_description: >
   O componente da camada de gerenciamento que serve a API do Kubernetes.

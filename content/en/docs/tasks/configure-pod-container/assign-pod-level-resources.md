@@ -51,9 +51,11 @@ following limitations:
 * **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
 * **Operating System:** Pod-level resources are not supported for Windows
   pods.
-* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
-  align pods and containers based on pod-level resources as these resource managers 
-  don't currently support pod-level resources.
+* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager
+  support pod-level resources when the `PodLevelResourceManagers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled. See [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+  for more details. Without this feature gate enabled, they do not align pods
+  and containers based on pod-level resources.
 * **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
   of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
   which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
@@ -108,8 +110,8 @@ and a memory limit of 200 MiB.
 
 ```yaml
 ...
-spec: 
-  containers:    
+spec:
+  containers:
   ...
   resources:
     requests:
@@ -222,13 +224,13 @@ kubectl apply -f https://k8s.io/examples/pods/resource/pod-level-resources.yaml 
 Verify that the Pod Container is running:
 
 ```shell
-kubectl get pod-resources-demo --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --namespace=pod-resources-example
 ```
 
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
 ```
 
 The output shows that one container in the Pod has a memory request of 50 MiB and a
@@ -238,24 +240,27 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 
 ```yaml
 ...
-containers:
-  name: pod-resources-demo-ctr-1
-  resources:
-      requests:
-        cpu: 500m
-        memory: 50Mi
+  containers:
+  -
+    name: pod-resources-demo-ctr-1
+    resources:
       limits:
         cpu: 500m
         memory: 100Mi
-  ...
-  name: pod-resources-demo-ctr-2
-  resources: {}  
-resources:
-  limits:
-      cpu: 1
+      requests:
+        cpu: 500m
+        memory: 50Mi
+...
+  -
+    name: pod-resources-demo-ctr-2
+    resources: {}
+...
+  resources:
+    limits:
+      cpu: "1"
       memory: 200Mi
     requests:
-      cpu: 1
+      cpu: "1"
       memory: 100Mi
 ...
 ```
@@ -294,3 +299,5 @@ kubectl delete namespace pod-resources-example
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
+* [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)

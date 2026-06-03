@@ -1,7 +1,6 @@
 ---
 title: ResourceQuota
 id: resource-quota
-date: 2018-04-12
 full_link: /docs/concepts/policy/resource-quotas/
 short_description: >
   Áp đặt các ràng buộc để giới hạn lượng tài nguyên tiêu thụ trong mỗi namespace.

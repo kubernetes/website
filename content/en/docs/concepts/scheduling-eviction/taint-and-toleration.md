@@ -183,8 +183,8 @@ In addition to `Equal` and `Exists`, you can use numeric comparison operators
 (`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based
 scheduling, such as matching nodes by reliability level or SLA tier.
 
-* `Gt` matches when the toleration value is greater than the taint value.
-* `Lt` matches when the toleration value is less than the taint value.
+* `Gt` matches when the taint value is greater than the toleration value.
+* `Lt` matches when the taint value is less than the toleration value.
 
 For numeric operators, both the toleration and taint values must be valid integers.
 If either value cannot be parsed as an integer, the toleration does not match.
@@ -228,7 +228,7 @@ When using numeric comparison operators:
 * If a value cannot be parsed as an integer, the toleration does not match.
 * Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
 * For `PreferNoSchedule` with numeric operators: if a pod's toleration doesn't satisfy the numeric comparison
-  (e.g., toleration value < taint value when using `Gt`), the scheduler gives the node a lower priority
+  (e.g., taint value < toleration value when using `Gt`), the scheduler gives the node a lower priority
   but may still schedule there if no better options exist.
 {{< /note >}}
 

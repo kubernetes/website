@@ -22,7 +22,7 @@ For many steps here you will want to see what a Pod running in the cluster
 sees.  The simplest way to do this is to run an interactive busybox Pod:
 
 ```none
-kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
+kubectl run -it --rm --restart=Never busybox --image=registry.k8s.io/busybox:1.27.2 sh
 ```
 
 {{< note >}}
