@@ -503,8 +503,8 @@ w dokumentacji dotyczącej cyklu życia Podów.
 * Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i
   dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
 * Pod jest zasobem najwyższego poziomu w REST API
-  Kubernetesa. Definicja obiektu {{< api-reference page="workload-resources/pod-v1" >}}
-  opisuje szczegółowo ten obiekt.
+  Kubernetesa. Definicja obiektu
+  {{< api-reference page="core/pod-v1" >}} opisuje szczegółowo ten obiekt.
 * [Toolkit systemu rozproszonego: Wzorce dla kontenerów złożonych](/blog/2015/06/the-distributed-system-toolkit-patterns/) wyjaśnia typowe układy dla Podów z więcej niż jednym kontenerem.
 * Przeczytaj o [ograniczeniach topologii Podów](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Przeczytaj [Zaawansowaną Konfigurację Podów](/docs/concepts/workloads/pods/advanced-pod-config/), aby

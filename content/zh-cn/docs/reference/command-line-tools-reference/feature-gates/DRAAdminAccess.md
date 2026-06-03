@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 
 <!--
@@ -25,7 +29,7 @@ with `resource.kubernetes.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
 feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 -->
-启用在 ResourceClaim 或 ResourceClaimTemplate
+启用在 `ResourceClaim` 或 `ResourceClaimTemplate`
 中对请求[管理员访问权限](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access)的支持。
 管理员访问权限允许访问正在使用的设备，并且可以在允许容器访问设备时启用额外的访问权限。
 从 Kubernetes v1.33 开始，只有被授权在带有标签 `resource.kubernetes.io/admin-access: "true"`
