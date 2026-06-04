@@ -295,8 +295,8 @@ The complete list of options that can be used are:
 | `boot`      | boot show messages from a specific system boot                                                      |
 | `pattern`   | pattern filters log entries by the provided PERL-compatible regular expression                      |
 | `query`     | query specifies services(s) or files from which to return logs (required)                           |
-| `sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)  |
-| `untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive) |
+| `sinceTime` | an [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp from which to show logs (inclusive)  |
+| `untilTime` | an [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp until which to show logs (inclusive) |
 | `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log   |
 
 Example of a more complex query:

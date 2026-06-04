@@ -1,7 +1,7 @@
 ---
 title: JSON Web Token (JWT)
 id: jwt
-full_link: https://www.rfc-editor.org/rfc/rfc7519
+full_link: https://datatracker.ietf.org/doc/html/rfc7519
 short_description: >
   Un moyen de représenter des assertions à transférer entre deux parties.
 aka:

@@ -505,8 +505,8 @@ kubelet 使用启发方式来检索日志。
 | `boot`      | boot show messages from a specific system boot                                                      |
 | `pattern`   | pattern filters log entries by the provided PERL-compatible regular expression                      |
 | `query`     | query specifies services(s) or files from which to return logs (required)                           |
-| `sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)  |
-| `untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive) |
+| `sinceTime` | an [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp from which to show logs (inclusive)  |
+| `untilTime` | an [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp until which to show logs (inclusive) |
 | `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log   |
 -->
 选项           | 描述
@@ -514,8 +514,8 @@ kubelet 使用启发方式来检索日志。
 `boot`        | `boot` 显示来自特定系统引导的消息
 `pattern`     | `pattern` 通过提供的兼容 PERL 的正则表达式来过滤日志条目
 `query`       | `query` 是必需的，指定返回日志的服务或文件
-`sinceTime`   | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 起始时间戳（包含）
-`untilTime`   | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 结束时间戳（包含）
+`sinceTime`   | 显示日志的 [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) 起始时间戳（包含）
+`untilTime`   | 显示日志的 [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) 结束时间戳（包含）
 `tailLines`   | 指定要从日志的末尾检索的行数；默认为获取全部日志
 
 <!--

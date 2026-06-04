@@ -343,7 +343,7 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
 <!--
 ### YAML resource encoding {#yaml-encoding}
 
-Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+Kubernetes also supports the [`application/yaml`](https://datatracker.ietf.org/doc/html/rfc9512)
 media type for both requests and responses. [`YAML`](https://yaml.org/)
 can be used for defining Kubernetes manifests and API interactions.
 
@@ -351,7 +351,7 @@ For example:
 -->
 ### YAML 资源编码   {#yaml-encoding}
 
-Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+Kubernetes 还支持 [`application/yaml`](https://datatracker.ietf.org/doc/html/rfc9512)
 媒体类型用于请求和响应。[`YAML`](https://yaml.org/) 可用于定义 Kubernetes 清单和 API 交互。
 
 例如：
@@ -617,37 +617,37 @@ Accept: application/vnd.kubernetes.protobuf, application/json
 With the `CBORServingAndStorage` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled, request and response bodies for all built-in resource types and all resources defined by a
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
-[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the
+[CBOR](https://datatracker.ietf.org/doc/html/rfc8949) binary data format. CBOR is also supported at the
 {{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
 individual aggregated API servers.
 -->
 启用 `CBORServingAndStorage` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
 所有内置资源类型及所有由 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-所定义的资源的请求体和响应体都可以被编码为 [CBOR](https://www.rfc-editor.org/rfc/rfc8949) 二进制数据格式。
+所定义的资源的请求体和响应体都可以被编码为 [CBOR](https://datatracker.ietf.org/doc/html/rfc8949) 二进制数据格式。
 如果在各个聚合 API 服务器中启用了 CBOR，
 则在{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}中也支持 CBOR。
 
 <!--
 Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
 header when the request body contains a single CBOR
-[encoded data item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+[encoded data item](https://datatracker.ietf.org/doc/html/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
 header when prepared to accept a CBOR encoded data item in the response. API servers will use
 `application/cbor` in the `Content-Type` HTTP response header when the response body contains a
 CBOR-encoded object.
 -->
-当请求体包含单个 CBOR [编码数据项](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2)时，
+当请求体包含单个 CBOR [编码数据项](https://datatracker.ietf.org/doc/html/rfc8949.html#section-1.2-4.2)时，
 客户端应在 `Content-Type` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`，
 当准备接受响应中以 CBOR 编码的数据项时，客户端应在 `Accept` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`。
 API 服务器将在响应体包含以 CBOR 编码的对象时在 `Content-Type` HTTP 响应头中使用 `application/cbor`。
 
 <!--
 If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
-CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+CBOR, the response body will be a [CBOR Sequence](https://datatracker.ietf.org/doc/html/rfc8742) and the
 `Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
 of the sequence (if any) is a single CBOR-encoded watch event.
 -->
 如果 API 服务器使用 CBOR 对 [watch 请求](#efficient-detection-of-changes)的响应进行编码，
-则响应体将是一个 [CBOR 序列](https://www.rfc-editor.org/rfc/rfc8742)，
+则响应体将是一个 [CBOR 序列](https://datatracker.ietf.org/doc/html/rfc8742)，
 而 `Content-Type` HTTP 响应头将使用 IANA 媒体类型 `application/cbor-seq`。
 此序列的每个条目（如果有的话）是一个以 CBOR 编码的 watch 事件。
 

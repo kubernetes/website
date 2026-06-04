@@ -206,7 +206,7 @@ representations of this encoding.
 
 ### YAML resource encoding {#yaml-encoding}
 
-Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+Kubernetes also supports the [`application/yaml`](https://datatracker.ietf.org/doc/html/rfc9512)
 media type for both requests and responses. [`YAML`](https://yaml.org/)
 can be used for defining Kubernetes manifests and API interactions.
 
@@ -364,19 +364,19 @@ Accept: application/vnd.kubernetes.protobuf, application/json
 With the `CBORServingAndStorage` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled, request and response bodies for all built-in resource types and all resources defined by a
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
-[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the
+[CBOR](https://datatracker.ietf.org/doc/html/rfc8949) binary data format. CBOR is also supported at the
 {{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
 individual aggregated API servers.
 
 Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
 header when the request body contains a single CBOR
-[encoded data item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+[encoded data item](https://datatracker.ietf.org/doc/html/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
 header when prepared to accept a CBOR encoded data item in the response. API servers will use
 `application/cbor` in the `Content-Type` HTTP response header when the response body contains a
 CBOR-encoded object.
 
 If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
-CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+CBOR, the response body will be a [CBOR Sequence](https://datatracker.ietf.org/doc/html/rfc8742) and the
 `Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
 of the sequence (if any) is a single CBOR-encoded watch event.
 
