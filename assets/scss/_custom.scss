@@ -167,12 +167,10 @@ body.td-404 main .error-details {
     text-decoration: underline; // exception from usual convention
   }
 
-  picture {
+  > img.cncf-img {
     display: block;
-    > * {
-      min-height: 4em;
-      width: calc(clamp(20em,18em + 20mm,100vw));
-    }
+    min-height: 4em;
+    width: calc(clamp(20em,18em + 20mm,100vw));
   }
 }
 
@@ -331,7 +329,7 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
 // Home page dark-mode
-@media (prefers-color-scheme: dark) {
+[data-bs-theme="dark"] {
   body.cid-home {
     main {
       background-color: $dark-bg-color-2;
@@ -413,17 +411,6 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         background-color: #a9a9a9 !important;
       }
     }
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .td-main .td-search__input.form-control.dark-theme-focus {
-    &, &::placeholder {
-      background-color: #d3d3d3;
-    }
-  }
-  .td-search__input.form-control.dark-theme-focus:focus {
-    color: #222;
   }
 }
 
@@ -520,10 +507,9 @@ body.cid-community {
     visibility: hidden;
   }
 
-  section.linkbox {
-    max-width: calc(clamp(50%, calc(100em + 2vw), 100vw));
-    margin-left: auto;
-    margin-right: auto;
+  [data-bs-theme="dark"] & section.linkbox {
+    background: var(--bs-secondary-bg);
+    color: var(--bs-body-color);
   }
 
   #banner {
@@ -842,8 +828,8 @@ body.cid-community #navigation-items {
 
   gap: 1.25em;
 
-  border-bottom: 1px solid #aaaaaa;
-  border-top: 1px solid #aaaaaa;
+  border-bottom: 1px solid var(--bs-border-color);
+  border-top: 1px solid var(--bs-border-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -860,8 +846,8 @@ body.cid-community #navigation-items .community-nav-item {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 400;
-  color: #303030;
-  background: #ffffff;
+  color: var(--bs-body-color);
+  background: var(--bs-secondary-bg);
   font-size: 1.1em;
   padding: 0.2em;
   margin: 0;
@@ -1011,7 +997,7 @@ body.cid-community .fullbutton {
  ------------------------------------- */
 body.cid-community #videos {
   width: 100%;
-  background-color: #eeeeee;
+  background-color: var(--bs-tertiary-bg);
 }
 
 body.cid-community #videos .container {
@@ -1102,7 +1088,7 @@ body.cid-community .community-section.community-frame .twittercol1 {
 }
 
 body.cid-community details > summary {
-  color: #303030;
+  color: var(--bs-body-color);
 }
 
 body.cid-community #cncf-code-of-conduct-intro,
@@ -1263,17 +1249,17 @@ body.cid-partners {
     /*  GRID OF THREE  */
     .span_3_of_3 {
         width: 35%;
-        background-color: $light-grey;
+        background-color: var(--bs-tertiary-bg);
         padding: 20px;
     }
     .span_2_of_3 {
         width: 35%;
-        background-color: $light-grey;
+        background-color: var(--bs-tertiary-bg);
         padding: 20px;
     }
     .span_1_of_3 {
         width: 35%;
-        background-color: $light-grey;
+        background-color: var(--bs-tertiary-bg);
         padding: 20px;
     }
 
@@ -1286,9 +1272,9 @@ body.cid-partners {
     .col-nav {
         display: table-cell; /* Make elements inside the container behave like table cells */
             width: 18%;
-            background-color: $light-grey;
+            background-color: var(--bs-secondary-bg);
             padding: 20px;
-            border: 5px solid white;
+            border: 5px solid var(--bs-body-bg);
     }
 
     /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
@@ -1327,7 +1313,7 @@ body.cid-partners {
 
     #usersGrid a {
         display: inline-block;
-        background-color: $light-grey;
+        background-color: var(--bs-tertiary-bg);
     }
 
     #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
@@ -1368,7 +1354,7 @@ body.cid-partners {
     }
 
     .partner-box img {
-        background-color: $light-grey;
+        background-color: var(--bs-tertiary-bg);
     }
 
     .partner-box > div {
@@ -1376,7 +1362,7 @@ body.cid-partners {
     }
 
     .partner-box a {
-        color: #3576E3;
+        color: var(--bs-link-color);
     }
 
     @media screen and (max-width: 1024px) {
@@ -1542,8 +1528,8 @@ body.td-documentation {
 /* glossary tooltip */
 .glossary-tooltip {
   display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-  color: black;
+  border-bottom: 1px dotted var(--bs-body-color); /* If you want dots under the hoverable text */
+  color: var(--bs-body-color);
   text-decoration: none !important;
 }
 
@@ -1833,7 +1819,7 @@ div.alert > em.javascript-required {
 .search-bar .td-search {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
   outline: 1px solid $secondary;
   border: none;
   border-radius: 20px;
@@ -1870,8 +1856,8 @@ div.alert > em.javascript-required {
 // PageFind Styles
 
 #search .pagefind-ui form input  {
-  background-color: #fff;
-  border: 1px solid #4c4c4c;
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
   border-radius: 20px;
   overflow-x: hidden;
   width: auto;
@@ -2009,7 +1995,7 @@ body.td-home section#upcoming-events > .col > .row {
 
   flex-direction: row;
   row-gap: 0.25rem;
-  column-gap: calc(clamp(1rem, 5vw, 6rem);
+  column-gap: calc(clamp(1rem, 5vw, 6rem));
   justify-content: center;
   flex-wrap: wrap;
 
@@ -2075,9 +2061,11 @@ body.td-home section.case-studies {
       justify-content: space-between;
       text-align: center;
       width: clamp(6rem, 20%, 50vw);
-      picture, picture img {
+      > img {
         height: 4.8rem;
-        text-align: center;
+        width: auto;
+        object-fit: contain;
+        align-self: center;
       }
       > a {
         display: block;

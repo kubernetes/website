@@ -33,7 +33,11 @@
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBs $jsBase $jsNav $jsSearch) | resources.Concat "js/main.js" -}}
+{{ $jsArray := slice $jsBs $jsBase $jsNav $jsSearch -}}
+{{ if .Site.Params.ui.showLightDarkModeMenu -}}
+  {{ $jsArray = $jsArray | append (resources.Get "js/dark-mode.js") -}}
+{{ end -}}
+{{ $js := $jsArray | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
@@ -54,5 +58,15 @@
 {{ end -}}
 
 <script src='{{ "js/tabpane-persist.js" | relURL }}'></script>
+
+{{ if .Site.Params.ui.showLightDarkModeMenu -}}
+  {{ $themeSwap := resources.Get "js/theme-image-swap.js" -}}
+  {{ if hugo.IsProduction -}}
+    {{ $themeSwap = $themeSwap | minify | fingerprint -}}
+    <script src="{{ $themeSwap.RelPermalink }}" integrity="{{ $themeSwap.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ else -}}
+    <script src="{{ $themeSwap.RelPermalink }}"></script>
+  {{ end -}}
+{{ end -}}
 
 {{ partial "hooks/body-end.html" . }}

@@ -62,7 +62,7 @@ enableGitInfo = true
     lineNoStart = 1
     lineNos = false
     lineNumbersInTable = true
-    noClasses = true
+    noClasses = false
     style = "emacs"
     tabWidth = 4
   [markup.tableOfContents]
@@ -229,6 +229,8 @@ sidebar_search_disable = false
 navbar_logo = true
 # Set to true to disable the About link in the site footer
 footer_about_enable = true
+# Light/dark mode switcher (Docsy 0.10+ feature).
+showLightDarkModeMenu = true
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
