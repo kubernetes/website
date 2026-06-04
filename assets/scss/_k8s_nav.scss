@@ -77,10 +77,20 @@
   background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
 
-  .navbar-nav .nav-link, #hamburger {
+  .navbar-nav .nav-link {
     color: $dark-grey;
 
-    &:hover:focus {
+    &:hover,
+    &:focus {
+      color: $primary;
+    }
+  }
+
+  #hamburger {
+    color: $dark-grey;
+
+    &:hover,
+    &:focus {
       color: $medium-grey;
     }
   }
