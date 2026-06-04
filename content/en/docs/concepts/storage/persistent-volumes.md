@@ -1199,7 +1199,7 @@ a namespace in the dataSourceRef field.
 When you specify a namespace for a volume data source, Kubernetes checks for a
 ReferenceGrant in the other namespace before accepting the reference.
 ReferenceGrant is part of the `gateway.networking.k8s.io` extension APIs.
-See [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)
+See [ReferenceGrant](https://gateway-api.sigs.k8s.io/reference/api-types/referencegrant/)
 in the Gateway API documentation for details.
 This means that you must extend your Kubernetes cluster with at least ReferenceGrant from the
 Gateway API before you can use this mechanism.

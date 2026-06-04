@@ -211,7 +211,7 @@ para encaminhar o tráfego para o backend correto. Como há apenas uma correspon
 para o método com.example.User.Login para svc.example.com serão encaminhadas.
 RPCs de qualquer outro método não serão correspondidos por esta Rota.
 
-Consulte a referência de [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+Consulte a referência de [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/#grpcroute)
 para uma definição completa deste tipo de API.
 
 ## Fluxo de requisição
@@ -240,7 +240,7 @@ O Gateway API cobre um amplo conjunto de funcionalidades e é amplamente impleme
 definições e testes de conformidade claros para garantir que a API forneça uma experiência consistente
 onde quer que seja usada.
 
-Consulte a documentação de [conformidade](https://gateway-api.sigs.k8s.io/concepts/conformance/) para
+Consulte a documentação de [conformidade](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) para
 entender detalhes como canais de lançamento, níveis de suporte e execução de testes de conformidade.
 
 ## Migrando do Ingress
@@ -266,5 +266,5 @@ a começar rapidamente a trabalhar com o Gateway API.
 Certifique-se de revisar a documentação da sua implementação selecionada para entender quaisquer ressalvas.
 {{< /note >}}
 
-Consulte a [especificação da API](https://gateway-api.sigs.k8s.io/reference/spec/) para detalhes
+Consulte a [especificação da API](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/) para detalhes
 adicionais de todos os tipos do Gateway API.

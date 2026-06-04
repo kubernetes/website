@@ -2114,14 +2114,14 @@ Kubernetes 支持跨名字空间卷数据源。
 When you specify a namespace for a volume data source, Kubernetes checks for a
 ReferenceGrant in the other namespace before accepting the reference.
 ReferenceGrant is part of the `gateway.networking.k8s.io` extension APIs.
-See [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)
+See [ReferenceGrant](https://gateway-api.sigs.k8s.io/reference/api-types/referencegrant/)
 in the Gateway API documentation for details.
 This means that you must extend your Kubernetes cluster with at least ReferenceGrant from the
 Gateway API before you can use this mechanism.
 -->
 当你为卷数据源指定名字空间时，Kubernetes 在接受此引用之前在另一个名字空间中检查 ReferenceGrant。
 ReferenceGrant 是 `gateway.networking.k8s.io` 扩展 API 的一部分。更多细节请参见 Gateway API 文档中的
-[ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)。
+[ReferenceGrant](https://gateway-api.sigs.k8s.io/reference/api-types/referencegrant/)。
 这意味着你必须在使用此机制之前至少使用 Gateway API 的 ReferenceGrant 来扩展 Kubernetes 集群。
 {{< /note >}}
 
