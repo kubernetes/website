@@ -102,7 +102,12 @@ the Kubernetes project can publish your changes to the live
 website.
 
 SIG Docs can help you work on a separate branch so that you
-can incrementally work towards that goal.
+can incrementally work towards that goal.In practice, opening a series of
+small, focused pull requests is strongly preferred over a single large PR.
+Smaller PRs are easier for reviewers to evaluate, allow Netlify preview builds
+to be validated incrementally, and reduce the chance of merge conflicts. Aim to
+submit one logical change per PR rather than bundling all minimum required
+content into one submission.
 
 ### Find community
 
@@ -126,6 +131,12 @@ You can also create a Slack channel for your localization in the
 `kubernetes/community` repository. For an example of adding a Slack channel, see
 the PR for [adding a channel for Persian](https://github.com/kubernetes/community/pull/4980).
 
+Before diving into technical setup, announce your intent publicly in the
+[SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
+Share your language, your team members, and your goals. Work openly rather than
+in the background — other localization teams and SIG Docs leads can offer
+guidance that saves significant time.
+
 ### Join the Kubernetes GitHub organization
 
 When you've opened a localization PR, you can become members of the Kubernetes
@@ -134,6 +145,12 @@ GitHub organization. Each person on the team needs to create their own
 in the `kubernetes/org` repository.
 
 ### Add your localization team in GitHub
+
+{{< note >}}
+Create your GitHub org teams **after** your localization branch is stable and
+approaching readiness to merge into `main` — not at the very start of the
+project. Setting up teams too early adds overhead before it's needed.
+{{< /note >}}
 
 Next, add your Kubernetes localization team to
 [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml).
