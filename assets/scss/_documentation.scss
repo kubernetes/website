@@ -620,3 +620,11 @@ main {
   overflow-x: scroll;
   width: 100%;
 }
+
+/* Hugo's native math render hook emits .katex-display without a .math wrapper,
+   so wide display formulas need their own horizontal scroll container */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
