@@ -16,15 +16,17 @@ min-kubernetes-server-version: v1.22
 
 {{< note >}}
 `ReadWriteOncePod` 접근 모드는 Kubernetes v1.29 릴리스에서 안정(stable) 단계로 
-졸업했다. v1.29보다 이전 버전의 Kubernetes를 실행 중인 경우, 기능 게이트(feature gate)를 
-활성화해야 할 수도 있다. 사용 중인 Kubernetes 버전의 문서를 확인한다.
+졸업했다. v1.29보다 이전 버전의 Kubernetes를 실행 중인 경우, 
+기능 게이트(feature gate)를 활성화해야 할 수도 있다. 사용 중인 버전의
+Kubernetes 문서를 확인한다.
 {{< /note >}}
 
 {{< note >}}
-`ReadWriteOncePod` 접근 모드는 {{< glossary_tooltip text="CSI" term_id="csi" >}}
-볼륨에서만 지원된다. 이 볼륨 접근 모드를 사용하려면 다음 
+`ReadWriteOncePod` 접근 모드는 
+{{< glossary_tooltip text="CSI" term_id="csi" >}} 볼륨에서만 지원된다. 
+이 볼륨 접근 모드를 사용하려면 다음 
 [CSI 사이드카(sidecar)](https://kubernetes-csi.github.io/docs/sidecar-containers.html)
-를 아래 버전 이상으로 업데이트해야 한다.
+를 아래 버전 이상으로 업데이트해야 한다:
 
 * [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
 * [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
@@ -33,11 +35,12 @@ min-kubernetes-server-version: v1.22
 
 ## 왜 `ReadWriteOncePod`를 사용해야 하는가?
 
-Kubernetes v1.22 이전에는 스토리지에 단일 쓰기 접근이 필요한 워크로드에 대해 퍼시스턴트볼륨 접근을 
-제한하기 위해 ReadWriteOnce 접근 모드가 주로 사용되었다. 그러나 이 접근 모드에는 한계가 있었다. 
-볼륨 접근을 단일 *노드*로만 제한했기 때문에, 동일한 노드 위의 여러 파드가 동시에 같은 볼륨에 읽기/쓰기를 
-할 수 있었다. 이는 데이터 안전을 위해 엄격한 단일 쓰기 접근이 필요한 애플리케이션에 위험을 초래할 수 
-있다.
+Kubernetes v1.22 이전에는 `ReadWriteOnce` 접근 모드가 스토리지에 단일 쓰기 접근이 필요한
+워크로드에 대해 퍼시스턴트볼륨 접근을 제한하기 위해 주로 사용되었다. 
+그러나 이 접근 모드에는 한계가 있었다:
+볼륨 접근을 단일 *노드*로만 제한했기 때문에, 동일한 노드 위의 여러 파드가 
+동시에 같은 볼륨에 읽기/쓰기를 할 수 있었다. 이는 데이터 안전을 위해 엄격한 단일 쓰기 접근이 
+필요한 애플리케이션에 위험을 초래할 수 있다.
 
 워크로드에서 단일 쓰기 접근 보장이 중요하다면, 볼륨을 `ReadWriteOncePod`로 마이그레이션하는 것을 
 고려해야 한다.
@@ -46,7 +49,8 @@ Kubernetes v1.22 이전에는 스토리지에 단일 쓰기 접근이 필요한 
 
 ## 기존 퍼시스턴트볼륨 마이그레이션
 
-기존 퍼시스턴트 볼륨이 있다면, `ReadWriteOncePod`를 사용하도록 마이그레이션할 수 있다.
+기존 퍼시스턴트 볼륨이 있다면, `ReadWriteOncePod`를 사용하도록 
+마이그레이션할 수 있다.
 `ReadWriteOnce`에서 `ReadWriteOncePod`로의 마이그레이션만 지원된다.
 
 이 예시에서는 이미 "cat-pictures-pvc" 퍼시스턴트볼륨에 바인딩된 `ReadWriteOnce` 
@@ -65,7 +69,8 @@ kubectl get pvc cat-pictures-pvc -o jsonpath='{.spec.volumeName}'
 {{< /note >}}
 
 변경하기 전에 PVC를 확인할 수 있다. 매니페스트를 로컬에서 확인하거나, 
-`kubectl get pvc <pvc-이름> -o yaml` 명령어를 실행한다. 출력 결과는 다음과 비슷하다.
+`kubectl get pvc <pvc-이름> -o yaml` 명령어를 실행한다. 
+출력 결과는 다음과 비슷하다.
 
 ```yaml
 # cat-pictures-pvc.yaml
@@ -114,17 +119,20 @@ spec:
           readOnly: false
 ```
 
-첫 번째 단계로, 퍼시스턴트볼륨의 `spec.persistentVolumeReclaimPolicy`를 편집하여 `Retain`
-으로 설정해야 한다. 이렇게 하면 대응하는 퍼시스턴트볼륨클레임을 삭제했을 때 퍼시스턴트볼륨이 삭제되지 
+첫 번째 단계로, 퍼시스턴트볼륨의 
+`spec.persistentVolumeReclaimPolicy`를 편집하여 `Retain`으로 설정해야 한다. 
+이렇게 하면 대응하는 퍼시스턴트볼륨클레임을 삭제했을 때 퍼시스턴트볼륨이 삭제되지 
 않는다.
 
 ```shell
 kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 ```
 
-다음으로, 마이그레이션하려는 퍼시스턴트볼륨에 바인딩된 퍼시스턴트볼륨클레임을 사용하는 모든 워크로드를 
-중지하고, 퍼시스턴트볼륨클레임을 삭제해야 한다. 마이그레이션이 완료될 때까지 볼륨 크기 조정 등 
-퍼시스턴트볼륨클레임을 변경하지 않는다.
+다음으로, 마이그레이션하려는 퍼시스턴트볼륨에 바인딩된 
+퍼시스턴트볼륨클레임을 사용하는 모든 워크로드를 중지하고, 
+퍼시스턴트볼륨클레임을 삭제해야 한다. 마이그레이션이 완료될 때까지 
+볼륨 크기 조정 등 퍼시스턴트볼륨클레임에 다른 변경을
+가하지 않도록 한다.
 
 완료되면, 퍼시스턴트볼륨클레임을 재생성할 때 바인딩될 수 있도록 퍼시스턴트볼륨의 `spec.claimRef.uid`
 를 초기화한다.
@@ -135,7 +143,8 @@ kubectl delete pvc cat-pictures-pvc
 kubectl patch pv cat-pictures-pv -p '{"spec":{"claimRef":{"uid":""}}}'
 ```
 
-이후, 퍼시스턴트볼륨의 유효한 접근 모드 목록을 `ReadWriteOncePod`(만)로 교체한다.
+이후, 퍼시스턴트볼륨의 유효한 접근 모드 목록을 
+`ReadWriteOncePod`(만)로 교체한다.
 
 ```shell
 kubectl patch pv cat-pictures-pv -p '{"spec":{"accessModes":["ReadWriteOncePod"]}}'
@@ -147,11 +156,13 @@ kubectl patch pv cat-pictures-pv -p '{"spec":{"accessModes":["ReadWriteOncePod"]
 실패한다.
 {{< /note >}}
 
-다음으로, 퍼시스턴트볼륨클레임을 수정하여 `ReadWriteOncePod`를 유일한 접근 모드로 설정해야 한다. 
-또한 퍼시스턴트볼륨클레임의 `spec.volumeName`을 퍼시스턴트볼륨의 이름으로 설정하여 해당 
+다음으로, 퍼시스턴트볼륨클레임을 수정하여 `ReadWriteOncePod`를 유일한 
+접근 모드로 설정해야 한다. 또한 퍼시스턴트볼륨클레임의 
+`spec.volumeName`을 퍼시스턴트볼륨의 이름으로 설정하여 해당 
 퍼시스턴트볼륨에 바인딩되도록 해야 한다.
 
-완료되면, 퍼시스턴트볼륨클레임을 재생성하고 워크로드를 시작할 수 있다.
+완료되면, 퍼시스턴트볼륨클레임을 재생성하고 
+워크로드를 시작할 수 있다.
 
 ```shell
 # 중요: 적용하기 전에 cat-pictures-pvc.yaml에서 PVC를 편집해야 합니다. 다음 사항을 변경하세요:
