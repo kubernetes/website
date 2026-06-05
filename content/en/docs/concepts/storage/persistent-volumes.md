@@ -55,7 +55,7 @@ offer a variety of PersistentVolumes that differ in more ways than size and acce
 modes, without exposing users to the details of how those volumes are implemented.
 For these needs, there is the _StorageClass_ resource.
 
-See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+See the [detailed walkthrough with working examples](/docs/tutorials/configuration/configure-persistent-volume-storage).
 
 ## Lifecycle of a volume and claim
 
@@ -937,6 +937,42 @@ there is no default causes PVCs without `storageClassName` created at that time
 to not have any default, but due to the retroactive default StorageClass
 assignment this way of changing defaults is safe.
 
+### Unused PVC tracking
+
+{{< feature-state feature_gate_name="PersistentVolumeClaimUnusedSinceTime" >}}
+
+When enabled, the PVC protection controller adds an `Unused`
+[condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) to each
+PersistentVolumeClaim to indicate whether it is currently referenced by any
+non-terminal Pod.
+
+The condition has two states:
+
+`Unused` with status `"True"` (reason `NoPodsUsingPVC`)
+: No non-terminal Pod references this PVC. The `lastTransitionTime` records when
+  the PVC became unused.
+
+`Unused` with status `"False"` (reason `PodUsingPVC`)
+: At least one non-terminal Pod currently references this PVC. The
+  `lastTransitionTime` records when the PVC started being used.
+
+A Pod is considered non-terminal if its phase is not `Succeeded` or `Failed`.
+This means that a Pending Pod (even one that has not yet been scheduled) counts
+as using the PVC.
+
+The `lastTransitionTime` of the `Unused` condition can be used by cluster
+administrators, monitoring tools, and external controllers to identify PVCs that
+have been unused for a long time. For example, to find all PVCs that have been
+unused for more than 30 days, you could query for PVCs where the `Unused`
+condition has `status: "True"` and `lastTransitionTime` is older than 30 days.
+
+{{< note >}}
+The unused duration indicated by this condition may be shorter than the actual
+unused time because of processing delays in the controller or because the
+feature was enabled after the PVC was already unused. The condition is not
+updated when a PVC has `deletionTimestamp` set (that is, PVCs that are being deleted).
+{{< /note >}}
+
 ## Claims As Volumes
 
 Pods access storage by using the claim as a volume. Claims must exist in the
@@ -972,7 +1008,8 @@ possible within one namespace.
 
 A `hostPath` PersistentVolume uses a file or directory on the Node to emulate
 network-attached storage. See
-[an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+[an example of `hostPath` typed volume](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume).
+
 
 ## Raw Block Volume Support
 
@@ -1083,7 +1120,7 @@ Volume snapshots only support the out-of-tree CSI volume plugins.
 For details, see [Volume Snapshots](/docs/concepts/storage/volume-snapshots/).
 In-tree volume plugins are deprecated. You can read about the deprecated volume
 plugins in the
-[Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+[Volume Plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### Create a PersistentVolumeClaim from a Volume Snapshot {#create-persistent-volume-claim-from-volume-snapshot}
 
@@ -1306,8 +1343,8 @@ and need persistent storage, it is recommended that you use the following patter
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
-* Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
+* Learn more about [Creating a PersistentVolume](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume).
+* Learn more about [Creating a PersistentVolumeClaim](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### API references {#reference}

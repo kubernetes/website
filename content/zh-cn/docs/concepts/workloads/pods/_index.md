@@ -293,25 +293,28 @@ Here are some examples of workload resources that manage one or more Pods:
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
 <!--
-### Specifying a Workload reference
+### Specifying a scheduling group
 -->
-### 指定工作负载引用
+### 指定调度组
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
 
 <!--
 By default, Kubernetes schedules every Pod individually. However, some tightly-coupled applications
 need a group of Pods to be scheduled simultaneously to function correctly.
 
-You can link a Pod to a [Workload](/docs/concepts/workloads/workload-api/) object
-using a [Workload reference](/docs/concepts/workloads/pods/workload-reference/).
-This tells the `kube-scheduler` that the Pod is part of a specific group,
-enabling it to make coordinated placement decisions for the entire group at once.
+You can link a Pod to a [PodGroup](/docs/concepts/workloads/podgroup-api/) using the
+[scheduling group](/docs/concepts/workloads/pods/scheduling-group/) field
+(`spec.schedulingGroup`). This tells the `kube-scheduler` that the `Pod` belongs to a specific
+group, enabling it to apply group-level coordinated placement decisions for the entire group at once.
 -->
 默认情况下，Kubernetes 会单独调度每一个 Pod。
 然而，一些紧密耦合的应用程序需要一组 Pod 能够同时被调度，才能正确运行。
 
-你可以使用[工作负载引用](/zh-cn/docs/concepts/workloads/pods/workload-reference/)将一个
-Pod 链接到一个[工作负载](/zh-cn/docs/concepts/workloads/workload-api/)对象。
-这会告诉 `kube-scheduler` 该 Pod 是特定组的一部分，使其能够为整个组做出协调一致的放置决策。
+你可以使用[调度组](/zh-cn/docs/concepts/workloads/pods/scheduling-group/)字段
+（`spec.schedulingGroup`）将 Pod 链接到 [PodGroup](/zh-cn/docs/concepts/workloads/podgroup-api/)。
+这会告诉 `kube-scheduler` 该 `Pod` 属于特定组，
+使其能够为整个组应用组级协调放置决策。
 
 <!--
 ### Pod templates
@@ -558,18 +561,19 @@ directly in the `status` or is an indirect result of a running process.
 
 For status fields where the allocated spec is directly reflected, the `observedGeneration` will
 be associated with the current `metadata.generation` (Generation N).
-
-This behavior applies to:
-
-- **Resize Status**: The status of a resource resize operation.
-- **Allocated Resources**: The resources allocated to the Pod after a resize.
-- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
 -->
 #### 直接状态更新
 
 对于那些直接反映分配的 spec 的状态字段，`observedGeneration`
 将与当前的 `metadata.generation`（第 N 代）相关联。
 
+<!--
+This behavior applies to:
+
+- **Resize Status**: The status of a resource resize operation.
+- **Allocated Resources**: The resources allocated to the Pod after a resize.
+- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
+-->
 此行为适用于：
 
 - **扩缩状态**：资源扩缩操作的状态。
@@ -612,7 +616,7 @@ This behavior applies to:
 Pods enable data sharing and communication among their constituent
 containers.
 -->
-### 资源共享和通信 {#resource-sharing-and-communication}
+## 资源共享和通信 {#resource-sharing-and-communication}
 
 Pod 使它的成员容器间能够进行数据共享和通信。
 
@@ -839,7 +843,7 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< /note >}}
 
 <!--
-### Pods manage multiple containers  {#how-pods-manage-multiple-containers}
+## Pods with multiple containers {#how-pods-manage-multiple-containers}
 
 Pods are designed to support multiple cooperating processes (as containers) that form
 a cohesive unit of service. The containers in a Pod are automatically co-located and
@@ -847,7 +851,7 @@ co-scheduled on the same physical or virtual machine in the cluster. The contain
 can share resources and dependencies, communicate with one another, and coordinate
 when and how they are terminated.
 -->
-### Pod 管理多个容器   {#how-pods-manage-multiple-containers}
+## 包含多个容器的 Pod   {#how-pods-manage-multiple-containers}
 
 Pod 被设计成支持构造内聚的服务单元的多个协作进程（形式为容器）。
 Pod 中的容器被自动并置到集群中的同一物理机或虚拟机上，并可以一起进行调度。
@@ -916,16 +920,17 @@ that provide auxiliary services to the main application Pod (for example: a serv
 <!--
 Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 allows you to specify `restartPolicy: Always` for init containers.
-Setting the `Always` restart policy ensures that the init containers where you set it are
+Setting the `Always` restart policy ensures that the containers where you set it are
 treated as _sidecars_ that are kept running during the entire lifetime of the Pod.
-See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
-for more details.
+Containers that you explicitly define as sidecar containers
+start up before the main application Pod and remain running until the Pod is
+shut down.
 -->
 启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
 Init 容器指定 `restartPolicy: Always`。
-设置重启策略为 `Always` 会确保设置的 Init 容器被视为**边车**，
+设置重启策略为 `Always` 会确保设置的容器被视为**边车**，
 并在 Pod 的整个生命周期内保持运行。
-更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)。
+你显式定义为边车容器的容器会在主应用 Pod 之前启动，并保持运行直至 Pod 关闭。
 
 <!--
 ## Container probes

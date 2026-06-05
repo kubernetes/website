@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 
 <!--
@@ -16,5 +20,6 @@ Enables support for requesting [Partitionable Devices](/docs/concepts/scheduling
 for DRA. This lets drivers advertise multiple devices that maps to the same resources
 of a physical device.
 -->
-启用在动态资源分配（DRA）中请求[可分区设备](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices)的支持。
-这允许驱动将多个设备广播为映射到某个物理设备的相同资源。
+启用在动态资源分配（DRA）中请求
+[可分区设备](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices)
+的支持。这允许驱动将多个设备广播为映射到某个物理设备的相同资源。

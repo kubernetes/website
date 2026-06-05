@@ -55,7 +55,7 @@ installation instructions. The list does not try to be exhaustive.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is
   an overlay network provider that can be used with Kubernetes.
 * [Gateway API](/docs/concepts/services-networking/gateway/) is an open source project managed by
-  the [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) community and
+  the [SIG Network](https://github.com/kubernetes/community/tree/main/sig-network) community and
   provides an expressive, extensible, and role-oriented API for modeling service networking.
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network
   interfaces in a Kubernetes pod.

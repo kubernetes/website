@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Ein StatefulSet verwaltet die Bereitstellung und die Skalierung eines Satzes Pods, mit langlebigem Speicher und persistenter Identifzierung für jeden Pod.

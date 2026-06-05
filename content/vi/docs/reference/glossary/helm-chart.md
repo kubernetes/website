@@ -1,7 +1,6 @@
 ---
 title: Helm Chart
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
 short_description: >
   Một gói tài nguyên Kubernetes được cấu hình sẵn có thể được quản lý bằng công cụ Helm.

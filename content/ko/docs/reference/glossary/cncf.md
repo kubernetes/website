@@ -1,7 +1,6 @@
 ---
 title: 클라우드 네이티브 컴퓨팅 재단(CNCF) (원문, Cloud Native Computing Foundation (CNCF))
 id: cncf
-date: 2019-05-26
 full_link: https://cncf.io/
 short_description: >
   클라우드 네이티브 컴퓨팅 재단

@@ -1,7 +1,6 @@
 ---
 title: kOps (Kubernetes Operations)
 id: kops
-date: 2018-04-12
 full_link: /docs/setup/production-environment/kops/
 short_description: >
   kOps không chỉ hỗ trợ khởi tạo, hủy bỏ, nâng cấp và duy trì các cụm (cluster) Kubernetes chuẩn vận hành (production-grade) với độ sẵn sàng cao, mà còn tự động cấp phát các hạ tầng cloud cần thiết.

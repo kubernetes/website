@@ -239,6 +239,23 @@ The copy is called a "fork". | The copy is called a "fork."
 {{< /table >}}
 
 <!--
+### Use start case for enhancement graduation phases
+
+{{< table caption = "Do and Don't - Use start case for enhancement graduation phases" >}}
+Do | Don't
+:--| :-----
+Dynamic Resource Allocation (DRA) is Beta. | Dynamic Resource Allocation (DRA) is beta.
+{{< /table >}}
+-->
+### 对增强功能毕业阶段使用首字母大写
+
+{{< table caption = "可以和不可以 - 对增强功能毕业阶段使用首字母大写" >}}
+可以 | 不可以
+:--| :-----
+动态资源分配（DRA）目前处于 Beta 阶段。 | 动态资源分配（DRA）目前处于 beta 阶段。
+{{< /table >}}
+
+<!--
 ## Inline code formatting
 
 ### Use code style for inline code, commands {#code-style-inline-code}
@@ -552,21 +569,8 @@ Do | Don't
 ### Separate commands from output
 
 Verify that the pod is running on your chosen node:
-
-```shell
-kubectl get pods --output=wide
-```
-
-The output is similar to this:
-
-```console
-NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-nginx    1/1       Running   0          13s    10.200.0.4   worker0
-```
 -->
 ### 将命令和输出分开   {#separate-commands-from-output}
-
-例如：
 
 验证 Pod 已经在你所选的节点上运行：
 
@@ -574,6 +578,9 @@ nginx    1/1       Running   0          13s    10.200.0.4   worker0
 kubectl get pods --output=wide
 ```
 
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```console

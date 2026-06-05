@@ -1,18 +1,15 @@
 ---
 title: 边车容器
 id: sidecar-container
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   在 Pod 的整个生命期内保持运行的辅助容器。
 tags:
 - fundamental
 ---
-
 <!--
 title: Sidecar Container
 id: sidecar-container
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   An auxilliary container that stays running throughout the lifecycle of a Pod.
@@ -25,7 +22,7 @@ One or more {{< glossary_tooltip text="containers" term_id="container" >}} that 
 -->
 通常在任意应用容器运行之前启动的一个或多个{{< glossary_tooltip text="容器" term_id="container" >}}。
 
-<!--more--> 
+<!--more-->
 
 <!--
 Sidecar containers are like regular app containers, but with a different purpose: 

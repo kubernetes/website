@@ -1,7 +1,7 @@
 ---
 title: コードコントリビューター
 id: code-contributor
-full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
+full_link: https://github.com/kubernetes/community/tree/main/contributors/devel
 short_description: >
   Kubernetesのオープンソースのコードベースを開発し、貢献する人。
 

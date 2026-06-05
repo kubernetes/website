@@ -123,7 +123,7 @@ kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)
 <td colspan="2">--show-events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, display events related to the described object.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, display events related to the described object. Defaults to true for a single object, false for multiple objects and prefix matching.</p></td>
 </tr>
 
 </tbody>

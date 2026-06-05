@@ -1,7 +1,6 @@
 ---
 title: 개발자(의미 명확화) (원문, Developer (disambiguation))
 id: developer
-date: 2018-04-12
 full_link: 
 short_description: >
   애플리케이션 개발자, 코드 컨트리뷰터, 또는 플랫폼 개발자를 가리킨다.

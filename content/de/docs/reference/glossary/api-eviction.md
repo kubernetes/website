@@ -1,7 +1,6 @@
 ---
 title: API-initiierte Räumung
 id: api-eviction
-date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   API-initiierte Räumung ist der Prozess, durch den Sie die Räumungs API verwenden, um ein Räumungsobjekt zu erstellen, dass eine geordnete Beendung des Pods auslöst.

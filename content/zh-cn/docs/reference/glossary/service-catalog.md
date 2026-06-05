@@ -9,7 +9,6 @@ aka:
 tags:
 - extension
 ---
-
 <!--
 title: Service Catalog
 id: service-catalog
@@ -28,7 +27,7 @@ A former extension API that enables applications running in Kubernetes clusters 
 服务目录是一种过去曾经存在的扩展 API，它能让 Kubernetes
 集群中运行的应用易于使用外部托管的软件服务，例如云供应商提供的数据仓库服务。
 
-<!--more--> 
+<!--more-->
 
 <!--
 It provided a way to list, provision, and bind with external {{< glossary_tooltip text="Managed Services" term_id="managed-service" >}} without needing detailed knowledge about how those services would be created or managed.

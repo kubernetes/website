@@ -42,9 +42,9 @@ FlexVolume 驱动程序的二进制文件和依赖项必须安装在主机上。
 
 <!-- 
 * [FlexVolume in the Kubernetes documentation](/docs/concepts/storage/volumes/#flexvolume)
-* [More information on FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-* [Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) 
+* [More information on FlexVolumes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md)
+* [Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md) 
 -->
 * [Kubernetes 文档中的 FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
-* [更多关于 FlexVolume 的信息](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-* [存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)
+* [更多关于 FlexVolume 的信息](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md)
+* [存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)
