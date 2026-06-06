@@ -17,7 +17,7 @@ HPA coexistence, confidence-based recommendations, and change filtering.
 
 ## The waste problem
 
-According to CAST AI's 2025 Kubernetes cost report, clusters in their
+According to [CAST AI's 2025 Kubernetes cost report](https://cast.ai/blog/kubernetes-cost-report/), clusters in their
 dataset averaged roughly 8% CPU utilization. While that number reflects
 their customer base rather than every cluster in existence, the
 directional signal is consistent across vendors: the vast majority of
@@ -51,8 +51,8 @@ anything with a slow startup, this is unacceptable.
 When VPA lowers CPU requests, utilization percentage jumps, triggering
 HPA to scale out. More replicas lower utilization again, so VPA lowers
 requests further. This feedback loop destabilizes workloads. The
-official Kubernetes documentation warns against using VPA with HPA on
-CPU or memory metrics.
+official Kubernetes documentation
+[warns against using VPA with HPA on CPU or memory metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics).
 
 **Problem 3: Opaque recommendations.** VPA relies on a histogram-based
 historical usage model whose decision process can be difficult for
@@ -148,7 +148,7 @@ The critical signals to monitor after a resize:
 - **OOM kills**: If the container is OOM-killed after a memory decrease,
   revert immediately. Check `lastState.terminated.reason == "OOMKilled"`
   with a timestamp after the resize.
-- **CPU throttling**: Query `rate(container_cpu_throttled_periods_total[5m])
+- **CPU throttling**: Query `rate(container_cpu_cfs_throttled_periods_total[5m])
   / rate(container_cpu_cfs_periods_total[5m])`. If throttling exceeds a
   threshold (e.g., 50%), the workload may be CPU-constrained and warrants
   investigation of limits, requests, and observed demand. Note that
@@ -205,7 +205,10 @@ A right-sizing recommendation based on 2 hours of data should be
 more conservative than one based on 7 days. The recommendation
 pipeline should include a confidence dimension.
 
-A confidence score combines time coverage and data density:
+A confidence score combines time coverage and data density. Here,
+`dataPoints` is the number of resource usage samples returned by the
+metrics source (for example, individual data points from a Prometheus
+range query) over the observation window:
 
 ```
 timeComponent = days of data collected
@@ -265,57 +268,10 @@ A 4x burst magnitude adds 20% headroom. An 8x burst adds 30%. The
 logarithmic curve prevents extreme bursts from inflating recommendations
 excessively.
 
-## Implementation: Attune
-
-[Attune](https://github.com/attune-io/attune) is an open-source
-Kubernetes operator (Apache 2.0) that implements all of the patterns
-described above. It requires Kubernetes 1.32+ and queries Prometheus
-(including Thanos, VictoriaMetrics, and Grafana Mimir), Datadog,
-or Amazon CloudWatch Container Insights for usage data.
-
-Attune uses two CRDs: `AttunePolicy` for per-workload configuration
-and `AttuneDefaults` for cluster-wide defaults. A minimal policy
-in recommend mode:
-
-```yaml
-apiVersion: attune.io/v1alpha1
-kind: AttunePolicy
-metadata:
-  name: api-server
-spec:
-  targetRef:
-    kind: Deployment
-    name: api-server
-  metricsSource:
-    prometheus:
-      address: http://prometheus.monitoring:9090
-  updateStrategy:
-    type: Recommend
-```
-
-The `kubectl attune` plugin provides an `explain` command that shows
-the full recommendation pipeline with intermediate values at each
-stage, making the recommendation process fully transparent:
-
-```
-$ kubectl attune explain -n production api-server
-Container: app
-  Percentile (p95):     200m CPU,  800Mi memory
-  + Overhead (20%/30%): 240m CPU, 1040Mi memory
-  + Confidence (0.92):  253m CPU, 1097Mi memory
-  + Burst (1.0x):       253m CPU, 1097Mi memory
-  Bounds [1m-4000m]:    253m CPU, 1097Mi memory
-  Change filter:        253m CPU, 1097Mi memory (current: 2000m/4Gi)
-  Estimated savings:    $37.42/month
-```
-
-Attune supports all six workload types (Deployment, StatefulSet,
-DaemonSet, CronJob, Job, ReplicaSet) and exposes 21 Prometheus
-metrics for operational visibility, including resize counters, revert
-reasons, recommendation values, confidence scores, and estimated
-cost savings.
-
 ## The path forward
+
+The patterns described here are implemented in open-source projects
+such as [Attune](https://github.com/attune-io/attune).
 
 In-place pod resize removes the last architectural barrier to
 automated vertical scaling in Kubernetes. The patterns described
