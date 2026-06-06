@@ -460,7 +460,7 @@ idempotentes. Em resumo, são as seguintes:
 Webhooks de admissão de mutação não são executados em uma ordem consistente. Vários fatores
 podem mudar o momento em que um webhook específico é chamado. Não dependa do seu webhook
 sendo executado em um ponto específico do processo de admissão. Outros webhooks ainda podem
-mutar seu objeto modificado.
+fazer modificações adicionais no seu objeto modificado.
 
 As recomendações a seguir podem ajudar a minimizar o risco de mudanças não intencionais:
 
