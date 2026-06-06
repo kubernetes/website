@@ -533,6 +533,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
         
         Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
       -->
+      
       - **projected.sources.podCertificate.keyType** (string)，必需
 
         kubelet 将为 Pod 生成的密钥对类型。
@@ -771,7 +772,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **emptyDir** (EmptyDirVolumeSource)
 
-  emptyDir 表示与 Pod 生命周期相同的临时目录。更多信息：
+  `emptyDir` 表示与 Pod 生命周期相同的临时目录。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
   <a name="EmptyDirVolumeSource"></a>
@@ -779,7 +780,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **emptyDir.medium** (string)
 
-    medium 表示此目录应使用哪种类别的存储介质。默认为 ""，这意味着使用节点的默认介质。
+    `medium` 表示此目录应使用哪种类别的存储介质。默认为 ""，这意味着使用节点的默认介质。
     必须是空字符串（默认值）或 Memory。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
@@ -791,8 +792,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    sizeLimit 是这个 EmptyDir 卷所需的本地存储总量。这个大小限制也适用于内存介质。
-    EmptyDir 的内存介质最大使用量将是此处指定的 sizeLimit 与 Pod 中所有容器内存限制总和这两个值之间的最小值。
+    `sizeLimit` 是这个 EmptyDir 卷所需的本地存储总量。这个大小限制也适用于内存介质。
+    EmptyDir 的内存介质最大使用量将是此处指定的 `sizeLimit` 与 Pod 中所有容器内存限制总和这两个值之间的最小值。
     默认为 nil，这意味着限制未被定义。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
@@ -830,32 +831,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **hostPath.type** (string)
 
-    HostPath 卷的类型。默认为 ""。更多信息：
+    `hostPath` 卷的类型。默认为 ""。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
-
-     <!--
-    Possible enum values:
-     - `""` For backwards compatible, leave it empty if unset
-     - `"BlockDevice"` A block device must exist at the given path
-     - `"CharDevice"` A character device must exist at the given path
-     - `"Directory"` A directory must exist at the given path
-     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
-     - `"File"` A file must exist at the given path
-     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
-     - `"Socket"` A UNIX socket must exist at the given path
-     -->
-  
-    可能的枚举值：
-      - `""`：用于向后兼容，如果没有设置则留空。
-      - `"BlockDevice"`：给定路径必须存在一个块设备。
-      - `"CharDevice"`：给定路径必须存在一个字符设备。
-      - `"Directory"`：给定路径必须存在一个目录。
-      - `"DirectoryOrCreate"`：如果在给定路径没有文件或目录，将根据需要创建一个空目录，文件模式为 0755，
-        具有与 kubelet 相同的组和所有权。
-      - `"File"`：给定路径必须存在一个文件。
-      - `"FileOrCreate"`：如果在给定路径不存在文件或目录，将根据需要创建一个空文件，文件模式为 0644，
-        具有与 kubelet 相同的组和所有权。
-      - `"Socket"`：给定路径必须存在一个 UNIX 套接字。
   
 <!--
 ### Persistent volumes
@@ -873,9 +850,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
-  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 awsElasticBlockStore 类型的操作都被重定向到
-  ebs.csi.aws.com CSI 驱动。
+  `awsElasticBlockStore` 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
+  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 `awsElasticBlockStore` 类型的操作都被重定向到
+  `ebs.csi.aws.com` CSI 驱动。
   更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
@@ -895,12 +872,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **awsElasticBlockStore.volumeID** (string)，必需
 
-    volumeID 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
+    `volumeID` 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.fsType** (string)
 
-    fsType 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
+    `fsType` 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
     例如：“ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为 “ext4”。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
@@ -916,12 +893,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **awsElasticBlockStore.partition** (int32)
 
-    partition 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。例如：对于卷 /dev/sda1，
+    `partition` 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。例如：对于卷 /dev/sda1，
     将分区指定为 “1”。类似地，/dev/sda 的卷分区为 “0”（或可以将属性留空）。
 
   - **awsElasticBlockStore.readOnly** (boolean)
 
-    readOnly 值为 true 将使得卷挂载被强制设置为 readOnly。更多信息：
+    `readOnly` 值为 true 将使得卷挂载被强制设置为 readOnly。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
 <!--
@@ -934,9 +911,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk 表示挂载到主机上并绑定挂载到 Pod 上的 Azure 数据盘。
-  已弃用：AzureDisk 已被弃用。所有针对树内 azureDisk 类型的操作都被重定向到
-  disk.csi.azure.com CSI 驱动。
+  `azureDisk` 表示挂载到主机上并绑定挂载到 Pod 上的 Azure 数据盘。
+  已弃用：AzureDisk 已被弃用。所有针对树内 `azureDisk` 类型的操作都被重定向到
+  `disk.csi.azure.com` CSI 驱动。
 
   <a name="AzureDiskVolumeSource"></a>
   **azureDisk 表示挂载到主机上并绑定挂载到 Pod 上的 Azure 数据盘。**
@@ -957,27 +934,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **azureDisk.diskName** (string)，必需
 
-    diskName 是 Blob 存储中数据盘的名称。
+    `diskName` 是 Blob 存储中数据盘的名称。
 
   - **azureDisk.diskURI** (string)，必需
 
-    diskURI 是 Blob 存储中数据盘的 URI。
+    `diskURI` 是 Blob 存储中数据盘的 URI。
 
   - **azureDisk.cachingMode** (string)
 
-    cachingMode 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
-  
-   <!--
-   Possible enum values:
-    - `"None"`
-    - `"ReadOnly"`
-    - `"ReadWrite"`
-   -->
- 
-   可能的枚举值：
-   - `"None"`
-   - `"ReadOnly"`
-   - `"ReadWrite"`
+    `cachingMode` 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
 
   <!--
   - **azureDisk.fsType** (string)
@@ -987,11 +952,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
-
-    Possible enum values:
-     - `"Dedicated"`
-     - `"Managed"`
-     - `"Shared"`
   
   - **azureDisk.readOnly** (boolean)
 
@@ -1012,11 +972,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     - Managed：azure 托管的数据盘（仅托管的可用性集合中）。
 
     默认为 Shared。
-
-    可能的枚举值：
-    - `"None"`
-    - `"ReadOnly"`
-    - `"ReadWrite"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -1783,6 +1738,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
   -->
 
   如果 Pod 被删除并重新创建，此卷会被重新解析，这意味着在 Pod 重新创建时将可以访问新的远程内容。
@@ -1790,7 +1746,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   如果失败，将使用正常的卷回退机制进行重试，并输出 Pod 失败的原因和相关消息。
   此卷可以挂载的对象类型由主机上的容器运行时实现负责定义，至少必须包含容器镜像字段所支持的所有有效类型。
   OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volumeMounts.mountPath`）中。
-  在 Linux 上，容器运行时通常还会挂载阻止文件执行（`noexec`）的卷。
   1.33 版本之前不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
   `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
 
@@ -1815,18 +1770,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     - IfNotPresent：如果磁盘上尚不存在此引用，kubelet 执行拉取操作。
       如果引用不存在且拉取失败，容器创建将失败。
       如果指定了 `:latest` 标签，则默认为 Always，否则默认为 IfNotPresent。
-
-    <!--
-    Possible enum values:
-     - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-     - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-     - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
-    -->
-  
-    可能的枚举值：
-    - `"Always"` 表示 kubelet 总是尝试拉取最新的镜像。如果拉取失败，容器将失败。
-    - `"IfNotPresent"` 表示如果磁盘上没有所指定的镜像，则 kubelet 会拉取。如果镜像不存在且拉取失败，容器将失败。
-    - `"Never"` 表示 kubelet 从不拉取镜像，仅使用本地镜像。如果镜像不存在，容器将失败。
   
   - **image.reference** (string)
 
@@ -1921,7 +1864,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -1933,7 +1876,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **portworxVolume** (PortworxVolumeSource)
 
   portworxVolume 表示 kubelet 主机上挂接和挂载的 portworx 卷。
-  已弃用：PortworxVolume 已被弃用。当 CSIMigrationPortworx 特性开关开启时，
+  已弃用：PortworxVolume 已被弃用。
   所有树内 PortworxVolume 类型的操作都将重定向到 pxd.portworx.com CSI 驱动。
 
   <a name="PortworxVolumeSource"></a>

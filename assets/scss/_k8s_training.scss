@@ -90,9 +90,9 @@ body.training .col-nav {
   display: flex;
   flex-grow: 1;
   width: 18%;
-  background-color: $light-grey;
+  background-color: var(--bs-secondary-bg);
   padding: 20px;
-  border: 5px solid $white;
+  border: 5px solid var(--bs-body-bg);
 }
 
 body.training #get-certified .col-nav {
@@ -277,7 +277,7 @@ body.training .blue-bg {
 }
 
 body.training .lighter-gray-bg {
-  background-color: darken($light-grey, 2%);
+  background-color: var(--bs-tertiary-bg);
 }
 
 body.training .two-thirds-centered {

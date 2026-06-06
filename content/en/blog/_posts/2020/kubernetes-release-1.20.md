@@ -6,6 +6,8 @@ slug: kubernetes-1-20-release-announcement
 evergreen: true
 release_announcement:
   minor_version: "1.20"
+  themes:
+    - "The Raddest Release"
 author: >
   [Kubernetes 1.20 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.20/release_team.md)
 ---

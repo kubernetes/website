@@ -6,10 +6,10 @@ evergreen: true
 slug: kubernetes-v1-36-release
 release_announcement:
   minor_version: "1.36"
+  themes:
+    - "ハル (Haru)"
 author: >
   [Kubernetes v1.36 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.36/release-team.md)
-release_announcement:
-  minor_version: "1.36"
 ---
 
 **Editors:** Chad M. Crowell, Kirti Goyal, Sophia Ugochukwu, Swathi Rao, Utkarsh Umre
@@ -651,12 +651,14 @@ and other notable conferences worldwide. Stay informed and get involved with the
  
 **June 2026**
 - KCD - [Kubernetes Community Days: New York](https://community.cncf.io/events/details/cncf-kcd-new-york-presents-kcd-new-york-2026/): June 10, 2026 | New York, USA
+- KCD - [Kubernetes Community Days: Kuala Lumpur](https://community2.cncf.io/events/details/cncf-kcd-kuala-lumpur-2026-presents-kcd-kuala-lumpur-2026/): June 27, 2026 | Kuala Lumpur, Malaysia
 - [KubeCon + CloudNativeCon India 2026: June 18-19, 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/) | Mumbai, India
 
 **July 2026**
 - [KubeCon + CloudNativeCon Japan 2026: July 29-30, 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/) | Yokohama, Japan
 
 **September 2026**
+- KCD - [Kubernetes Community Days: San Francisco Bay Area](https://community2.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area-2026/): September 1, 2026 | Mountain View, USA
 - [KubeCon + CloudNativeCon China 2026: September 8-9, 2026](https://www.lfopensource.cn/kubecon-cloudnativecon-openinfra-summit-pytorch-conference-china/) | Shanghai, China
 
 **October 2026**
@@ -664,7 +666,7 @@ and other notable conferences worldwide. Stay informed and get involved with the
 
 **November 2026**
 - KCD - [Kubernetes Community Days: Porto](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2026-collab-with-devops-days-portugal/): Nov 19, 2026 | Porto, Portugal
-- [KubeCon + CloudNativeCon North America 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 9-12, 2026 | Salt Lake, USA
+- [KubeCon + CloudNativeCon North America 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 9-12, 2026 | Salt Lake City, USA
 
 You can find the latest event details [here](https://community.cncf.io/events/#/list).
 

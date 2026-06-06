@@ -5,6 +5,8 @@ date: 2024-04-17
 slug: kubernetes-v1-30-release
 release_announcement:
   minor_version: "1.30"
+  themes:
+    - "Uwubernetes"
 author: >
   [Kubernetes v1.30 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md)
 ---

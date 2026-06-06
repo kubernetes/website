@@ -271,7 +271,7 @@ lack of data, using this policy option with Kubernetes {{< skew currentVersion >
 at your own risk.
 {{< /note >}}
 
-You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+You can enable this option by adding `max-allowable-numa-nodes=<integer>` to the Topology Manager policy options, where the integer value must be greater than 8. The default is 8, which preserves the existing limit.
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
 latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.

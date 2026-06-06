@@ -6,6 +6,9 @@ slug: kubernetes-1-17-release-announcement
 evergreen: true
 release_announcement:
   minor_version: "1.17"
+  themes:
+    - "Stability"
+    - "The Chillest Release"
 author: >
   [Kubernetes 1.17 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md)
 ---

@@ -3,31 +3,29 @@
 {{ .Page.Store.Set "hasmermaid" true -}}
 {{- end -}}
 
-{{/* future Docsy versions move this to partials/mermaid.html */}}
 {{- if .Page.Store.Get "hasmermaid" -}}
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.2.2/dist/mermaid.min.js" integrity="sha512-IX+bU+wShHqfqaMHLMrtwi4nK6W/Z+QdZoL4kPNtRxI2wCLyHPMAdl3a43Fv1Foqv4AP+aiW6hg1dcrTt3xc+Q==" crossorigin="anonymous"></script>
-{{- end }}
+{{- partial "scripts/mermaid.html" . -}}
+{{- end -}}
 
 {{ $needKaTeX  := or .Site.Params.katex.enable .Params.math .Params.chem -}}
 {{ if  $needKaTeX -}}
 {{/* load stylesheet and scripts for KaTeX support */ -}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css"
-      integrity="sha512-6VMVcy7XQNyarhVuiL50FzpgCFKsyTd6YO93aaQEyET+BNaWvj0IgKR86Bf6+AmWczxAcSnL+JGjo+iStgO1gQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+      integrity="sha512-r2+FkHzf1u0+SQbZOoIz2RxWOIWfdEzRuYybGjzKq18jG9zaSfEy9s3+jMqG/zPtRor/q4qaUCYQpmSjTw8M+g==" crossorigin="anonymous">
   {{/* The loading of KaTeX is deferred to speed up page rendering */ -}}
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js"
-        integrity="sha512-b9IKj4LCNrtCPBhceRcoYOHWW/S2q9fpl7iAJlyxYpykRj1SKM7FE9+E0NEnJ8g8ni47LBr2GuX9qzg/xeuwzQ=="
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+        integrity="sha512-INps9zQ2GUEMCQD7xiZQbGUVnqnzEvlynVy6eqcTcHN4+aQiLo9/uaQqckDpdJ8Zm3M0QBs+Pktg4pz0kEklUg=="
         crossorigin="anonymous">
 </script>
   {{/* To automatically render math in text elements, include the auto-render extension: */ -}}
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/contrib/auto-render.min.js"
-       integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous"
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+       integrity="sha512-YJVxTjqttjsU3cSvaTRqsSl0wbRgZUNF+NGGCgto/MUbIvaLdXQzGTCQu4CvyJZbZctgflVB0PXw9LLmTWm5/w==" crossorigin="anonymous"
        {{ printf "onload='renderMathInElement(%s, %s);'" (( $.Page.Site.Params.katex.html_dom_element | default "document.body" ) | safeJS ) ( printf "%s" ( $.Page.Site.Params.katex.options | jsonify )) | safeHTMLAttr }}>
 </script>
 {{ end -}}
 
 {{ $jsBs := resources.Get "vendor/bootstrap/dist/js/bootstrap.bundle.js" -}}
 {{ $jsBase := resources.Get "js/base.js" }}
-{{ $jsAnchor := resources.Get "js/anchor.js" }}
 {{ $jsNav := resources.Get "js/nav.js" | resources.ExecuteAsTemplate "js/nav.js" .Site.Params }}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
 {{ if .Site.Params.offlineSearch }}
@@ -35,7 +33,11 @@
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSearch) | resources.Concat "js/main.js" -}}
+{{ $jsArray := slice $jsBs $jsBase $jsNav $jsSearch -}}
+{{ if .Site.Params.ui.showLightDarkModeMenu -}}
+  {{ $jsArray = $jsArray | append (resources.Get "js/dark-mode.js") -}}
+{{ end -}}
+{{ $js := $jsArray | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
@@ -53,6 +55,18 @@
   <script defer src="{{ $c2cJS.RelPermalink }}" {{ with $c2cJS.Data.Integrity -}}
     integrity="{{ . }}" {{ end -}}
     crossorigin="anonymous"></script>
+{{ end -}}
+
+<script src='{{ "js/tabpane-persist.js" | relURL }}'></script>
+
+{{ if .Site.Params.ui.showLightDarkModeMenu -}}
+  {{ $themeSwap := resources.Get "js/theme-image-swap.js" -}}
+  {{ if hugo.IsProduction -}}
+    {{ $themeSwap = $themeSwap | minify | fingerprint -}}
+    <script src="{{ $themeSwap.RelPermalink }}" integrity="{{ $themeSwap.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ else -}}
+    <script src="{{ $themeSwap.RelPermalink }}"></script>
+  {{ end -}}
 {{ end -}}
 
 {{ partial "hooks/body-end.html" . }}

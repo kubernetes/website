@@ -662,6 +662,13 @@ other = "Informacje o wydaniu"
 [release_minor_version]
 other = "Podwersja (Minor)"
 
+[release_patch_releases_heading]
+one = "Poprawka"
+other = "Poprawki"
+
+[release_upcoming_patch_heading]
+other = "Nadchodząca poprawka"
+
 [release_info_next_patch]
 other = "Następne wydanie zawierające poprawki: **%s**."
 
@@ -705,6 +712,9 @@ other = "Sukces"
 
 [synopsis_heading]
 other = "Streszczenie"
+
+[tab_default]
+other = "Zakładka {{ . }}"
 
 [thirdparty_message]
 other = """Ta sekcja przekierowuje do projektów zewnętrznych (niżej ich lista alfabetyczna), które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie odpowiadają za te projekty. Jeśli chcesz dodać projekt do tego wykazu, zanim wprowadzisz zmiany, przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">nasz przewodnik</a>."""
