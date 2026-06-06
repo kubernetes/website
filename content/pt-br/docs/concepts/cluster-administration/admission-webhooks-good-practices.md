@@ -160,7 +160,7 @@ a latência. Em resumo, são as seguintes:
 * Use logs de auditoria para verificar webhooks que repetidamente fazem a mesma ação.
 * Use balanceamento de carga para a disponibilidade dos webhooks.
 * Defina um valor de tempo limite pequeno para cada webhook.
-* Considere as necessidades de disponibilidade do cluster durante o design do webhook.
+* Considere as necessidades de disponibilidade do cluster ao projetar o webhook.
 
 ### Projete webhooks de admissão para baixa latência {#design-admission-webhooks-low-latency}
 
