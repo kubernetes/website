@@ -71,7 +71,7 @@ de API. Para mais informações sobre como fazer isso, leia
 - [Verifique](/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)
   se os dados serializados desse objeto Secret possuem o prefixo `k8s:enc:aescbc:v1:key1`.
 
-- Atualize o arquivo de configuração de criptografia conforme a seguir para rotacionar a chave de criptografia.
+- Atualize o arquivo de configuração de criptografia conforme exemplo abaixo para rotacionar a chave de criptografia.
 
   ```yaml
   kind: EncryptionConfiguration
@@ -106,7 +106,7 @@ de API. Para mais informações sobre como fazer isso, leia
       resource: secrets
   ```
 
-  Crie o objeto usando `kubectl` conforme a seguir:
+  Crie o objeto usando `kubectl` conforme exemplo abaixo:
 
   ```shell
   kubectl apply -f migrate-secret.yaml
@@ -114,7 +114,7 @@ de API. Para mais informações sobre como fazer isso, leia
 
 - Monitore a migração dos Secrets verificando o `.status` do StorageVersionMigration.
   Uma migração bem-sucedida deve ter sua condição
-  `Succeeded` definida como true. Obtenha o objeto StorageVersionMigration conforme a seguir:
+  `Succeeded` definida como true. Obtenha o objeto StorageVersionMigration conforme exemplo abaixo:
 
   ```shell
   kubectl wait --for=condition=Succeeded storageversionmigration.storagemigration.k8s.io/secrets-migration
@@ -161,7 +161,7 @@ de esquema necessária entre eles. Antes de definir a v2 como a versão preferid
 armazenamento, é importante garantir que todos os CRs existentes armazenados como v1 sejam migrados para v2.
 Essa migração pode ser realizada por meio da _Migração de Versão de Armazenamento_ para migrar todos os CRs de v1 para v2.
 
-- Crie um manifesto para o CRD, chamado `test-crd.yaml`, conforme a seguir:
+- Crie um manifesto para o CRD, chamado `test-crd.yaml`, conforme exemplo abaixo:
 
   ```yaml
   apiVersion: apiextensions.k8s.io/v1
@@ -233,7 +233,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
   onde `[...]` contém os argumentos adicionais para conexão com o servidor etcd.
 
 - Atualize o CRD `test-crd.yaml` para incluir a versão v2 para servir e armazenar
-  e v1 apenas para servir, conforme a seguir:
+  e v1 apenas para servir, conforme exemplo abaixo:
 
   ```yaml
   apiVersion: apiextensions.k8s.io/v1
@@ -291,7 +291,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
   kubectl apply -f test-crd.yaml
   ```
 
-- Crie o arquivo de recurso CR com o nome `cr2.yaml` conforme a seguir:
+- Crie o arquivo de recurso CR com o nome `cr2.yaml` conforme exemplo abaixo:
 
   ```yaml
   apiVersion: example.com/v2
@@ -315,7 +315,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
 
   onde `[...]` contém os argumentos adicionais para conexão com o servidor etcd.
 
-- Crie um manifesto StorageVersionMigration chamado `migrate-crd.yaml`, com o conteúdo conforme a seguir:
+- Crie um manifesto StorageVersionMigration chamado `migrate-crd.yaml`, com o conteúdo conforme exemplo abaixo:
 
   ```yaml
   kind: StorageVersionMigration
@@ -328,7 +328,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
       resource: SelfieRequest
   ```
 
-  Crie o objeto usando _kubectl_ conforme a seguir:
+  Crie o objeto usando _kubectl_ conforme exemplo abaixo:
 
   ```shell
   kubectl apply -f migrate-crd.yaml
@@ -336,7 +336,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
 
 - Monitore a migração dos secrets usando o status. Uma migração bem-sucedida deve ter
   a condição `Succeeded` definida como "True" no campo de status. Obtenha o recurso de
-  migração conforme a seguir:
+  migração conforme exemplo abaixo:
 
   ```shell
   kubectl get storageversionmigration.storagemigration.k8s.io/crdsvm -o yaml
