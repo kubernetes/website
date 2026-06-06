@@ -384,7 +384,7 @@ Para evitar esses loops de dependência, tente o seguinte:
 * Use
   [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
   para evitar introduzir dependências.
-* Evite que webhooks validem ou mutem outros webhooks. Considere
+* Evite que webhooks validem ou modifiquem outros webhooks. Considere
   [excluir namespaces específicos](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector)
   para que não acionem seu webhook.
 * Evite que seus webhooks atuem em complementos dependentes usando um
