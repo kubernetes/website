@@ -270,6 +270,24 @@ other = """<h4>Likwidacja przewodników interaktywnych</h4>
 
 
 
+[kubecon_region_china]
+other = "Chiny"
+
+[kubecon_region_europe]
+other = "Europa"
+
+[kubecon_region_event]
+other = "Wydarzenie"
+
+[kubecon_region_india]
+other = "Indie"
+
+[kubecon_region_japan]
+other = "Japonia"
+
+[kubecon_region_north_america]
+other = "Ameryka Północna"
+
 [kubectl_ref_collapse_all]
 other = "Zwiń wszystko"
 
@@ -698,6 +716,9 @@ other = "Planowany termin"
 [release_changelog]
 other = "Rejestr zmian"
 
+[rss_link_label]
+other = "RSS"
+
 [seealso_heading]
 other = "Zobacz też"
 
@@ -715,6 +736,9 @@ other = "Streszczenie"
 
 [tab_default]
 other = "Zakładka {{ . }}"
+
+[theme_locked_notice]
+other = "Motyw ustawiony dla tej strony"
 
 [thirdparty_message]
 other = """Ta sekcja przekierowuje do projektów zewnętrznych (niżej ich lista alfabetyczna), które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie odpowiadają za te projekty. Jeśli chcesz dodać projekt do tego wykazu, zanim wprowadzisz zmiany, przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">nasz przewodnik</a>."""
