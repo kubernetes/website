@@ -307,7 +307,7 @@ especiais sobre campos de objetos. Em resumo, são as seguintes:
 
 Servidores de webhook de admissão enviam respostas HTTP para indicar o que fazer com uma
 requisição específica da API do Kubernetes. Essa resposta é um objeto AdmissionReview.
-Um webhook de mutação pode adicionar campos específicos para mutar antes de permitir a admissão
+Um webhook de mutação pode adicionar campos específicos para modificar antes de permitir a admissão
 usando o campo `patchType` e o campo `patch` na resposta. Certifique-se
 de modificar somente os campos que requerem uma mudança.
 
