@@ -439,7 +439,7 @@ kubelet no nó cria um
 API para rastrear o Pod estático. No entanto, mudanças no Pod espelho não
 são propagadas para o Pod estático.
 
-Não tente mutar esses objetos durante a admissão. Todos os Pods espelho têm a
+Não tente modificar esses objetos durante a admissão. Todos os Pods espelho têm a
 anotação `kubernetes.io/config.mirror`. Para excluir Pods espelho enquanto reduz
 o risco de segurança de ignorar uma anotação, permita que Pods estáticos sejam executados somente em
 namespaces específicos.
