@@ -448,6 +448,10 @@ var pushmenu = (function(){
         sled.appendChild(content);
 
         var closeButton = newDOMElement('button', 'btn fa fa-times');
+        var closeButtonLabel = el.getAttribute('data-auto-burger-close-label');
+        if (closeButtonLabel) {
+            closeButton.setAttribute('aria-label', closeButtonLabel);
+        }
         closeButton.onclick = closeMe;
 
         sled.appendChild(closeButton);
