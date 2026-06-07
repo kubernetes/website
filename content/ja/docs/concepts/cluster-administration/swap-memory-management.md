@@ -50,7 +50,7 @@ Linuxノードで選択できるスワップの挙動は以下の通りです:
 {{< note >}}
 NoSwapの動作を選択し、kubeletがスワップスペースを許容するように構成した場合(`failSwapOn: false`)、ワークロードはスワップを使用しません。
 
-ただし、Kubernetesが管理するコンテナ外のプロセス(systemdサービスやkubelet自体など)はスワップを利用**できます**。
+ただし、Kubernetesが管理するコンテナ外のプロセス(systemdサービスやkubelet自体までも！)はスワップを利用**できます**。
 {{< /note >}}
 
 クラスターでスワップを有効にする方法については、[Kubernetesノードでのスワップメモリの構成](/docs/tutorials/cluster-management/provision-swap-memory/)を参照してください。
