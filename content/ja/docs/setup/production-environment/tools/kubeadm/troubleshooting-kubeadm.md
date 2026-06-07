@@ -19,7 +19,7 @@ weight: 20
 <!-- body -->
 
 ## RBACがないため、v1.18ノードをv1.17クラスターに結合できない
-v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
+v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザーがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
 
 しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスターに参加できないという問題が発生します。
 
@@ -173,7 +173,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   export KUBECONFIG=/etc/kubernetes/admin.conf
   ```
 
-- もう一つの回避策は、既存の`kubeconfig`を"admin"ユーザに上書きすることです:
+- もう一つの回避策は、既存の`kubeconfig`を"admin"ユーザーに上書きすることです:
 
   ```sh
   mv  $HOME/.kube $HOME/.kube.bak
