@@ -222,7 +222,7 @@ cat /proc/sys/vm/min_free_kbytes
 この設計により、通常、Kubernetesワークロードに対して制限されたままとなるスワップの一部が存在します。
 たとえば、Kubernetes {{< skew currentVersion >}}はGuaranteed {{< glossary_tooltip text="QoSクラス" term_id="qos-class" >}}のPodに対してスワップの使用を許可していないため、Guaranteed Podのメモリリクエストに比例するスワップの量は、Kubernetesワークロードによって使用されずに残ります。
 
-この動作は、多くのPodがスワップの対象外である場合にリスクを伴います。
+この挙動は、多くのPodがスワップの対象外である場合にリスクを伴います。
 一方で、これはKubernetesの管理範囲外のプロセス(システムデーモンやkubelet自体など)が使用できる、システム予約量のスワップメモリを効果的に維持します。
 
 ## Kubernetesクラスターでスワップを使用するための推奨プラクティス {#good-practice-for-using-swap-in-a-kubernetes-cluster}
