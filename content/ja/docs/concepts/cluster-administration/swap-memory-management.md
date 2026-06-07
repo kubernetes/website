@@ -136,7 +136,7 @@ node3: <unknown>
 
 ### Node Feature Discovery(NFD)を使用したスワップの検出 {#node-feature-discovery}
 
-[Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)は、ハードウェア機能と構成を検出するためのKubernetesアドオンです。
+[Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)は、ハードウェアの機能と構成を検出するためのKubernetesアドオンです。
 これを利用して、どのノードにスワップがプロビジョニングされているかを検出できます。
 
 たとえば、どのノードにスワップがプロビジョニングされているかを確認するには、以下のコマンドを使用します:
