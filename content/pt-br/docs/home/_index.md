@@ -55,7 +55,7 @@ cards:
   button_path: "/training"
 - name: Download
   title: Download Kubernetes
-  description: Se você estiver instalando o Kubernetes ou atualizando para a versão mais recente, consulte as notas de versão atuais.
+  description: Instale o Kubernetes ou atualize-o para a versão mais recente.
   button: "Download Kubernetes"
   button_path: "/releases/download"
 - name: about
