@@ -209,7 +209,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 自分が誰であるかを確認するために必要なデータはすべて`id_token`の中にあるので、KubernetesはIDプロバイダーと通信する必要がありません。すべてのリクエストがステートレスであるモデルでは、これは非常に認証のためのスケーラブルなソリューションを提供します。一方で、以下のようにいくつか課題があります。
 
-1. Kubernetesには、認証プロセスを起動するための"Webインターフェース"がありません。クレデンシャルを収集するためのブラウザやインターフェースがないため、まずIDプロバイダに認証を行う必要があります。
+1. Kubernetesには、認証プロセスを起動するための"Webインターフェース"がありません。クレデンシャルを収集するためのブラウザやインターフェースがないため、まずIDプロバイダーに認証を行う必要があります。
 2. `id_token`は、取り消すことができません。これは証明書のようなもので、有効期限が短い(数分のみ)必要があるので、数分ごとに新しいトークンを取得しなければならないのは非常に面倒です。
 3. Kubernetesダッシュボードへの認証において、`kubectl proxy`コマンドや`id_token`を注入するリバースプロキシを使う以外に、簡単な方法はありません。
 
@@ -220,7 +220,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 | パラメーター | 説明 | 例 | 必須か |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | APIサーバーが公開署名鍵を発見できるようにするプロバイダーのURLです。 `https://`スキームを使用するURLのみが受け入れられます。これは通常、"https://accounts.google.com"や"https://login.salesforce.com"のようにパスを持たないプロバイダのディスカバリーURLです。このURLは、`.well-known/openid-configuration`の下のレベルを指す必要があります。 | ディスカバリーURLが`https://accounts.google.com/.well-known/openid-configuration`である場合、値は`https://accounts.google.com`とします。 | はい |
+| `--oidc-issuer-url` | APIサーバーが公開署名鍵を発見できるようにするプロバイダーのURLです。 `https://`スキームを使用するURLのみが受け入れられます。これは通常、"https://accounts.google.com"や"https://login.salesforce.com"のようにパスを持たないプロバイダーのディスカバリーURLです。このURLは、`.well-known/openid-configuration`の下のレベルを指す必要があります。 | ディスカバリーURLが`https://accounts.google.com/.well-known/openid-configuration`である場合、値は`https://accounts.google.com`とします。 | はい |
 | `--oidc-client-id` | すべてのトークンが発行されなければならないクライアントIDです。 | kubernetes | はい |
 | `--oidc-username-claim` | ユーザー名として使用するJWTのクレームを指定します。デフォルトでは`sub`が使用されますが、これはエンドユーザーの一意の識別子であることが期待されます。管理者はプロバイダーに応じて`email`や`name`などの他のクレームを選択することができます。ただし、他のプラグインとの名前の衝突を防ぐために、`email`以外のクレームには、プレフィックスとして発行者のURLが付けられます。 | sub | いいえ |
 | `--oidc-username-prefix` | 既存の名前(`system:`ユーザーなど)との衝突を防ぐために、ユーザー名の前にプレフィックスを付加します。例えば`oidc:`という値は、`oidc:jane.doe`のようなユーザー名を生成します。このフラグが指定されておらず、`--oidc-username-claim`が`email`以外の値である場合、プレフィックスのデフォルトは`(Issuer URL)#`で、`(Issuer URL)`は`--oidc-issuer-url`の値です。すべてのプレフィックスを無効にするためには、`-`という値を使用できます。 | `oidc:` | いいえ |
@@ -229,7 +229,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 | `--oidc-required-claim` | IDトークンの中の必須クレームを記述するkey=valueのペアです。設定されている場合、クレームが一致する値でIDトークンに存在することが検証されます。このフラグを繰り返して複数のクレームを指定します。 | `claim=value` | いいえ |
 | `--oidc-ca-file` | IDプロバイダーのWeb証明書に署名した認証局の証明書へのパスです。デフォルトはホストのルート認証局が指定されます。 | `/etc/kubernetes/ssl/kc-ca.pem` | いいえ |
 
-重要なのは、APIサーバーはOAuth2クライアントではなく、ある単一の発行者を信頼するようにしか設定できないことです。これにより、サードパーティーに発行されたクレデンシャルを信頼せずに、Googleのようなパブリックプロバイダーを使用することができます。複数のOAuthクライアントを利用したい管理者は、`azp`クレームをサポートしているプロバイダや、あるクライアントが別のクライアントに代わってトークンを発行できるような仕組みを検討する必要があります。
+重要なのは、APIサーバーはOAuth2クライアントではなく、ある単一の発行者を信頼するようにしか設定できないことです。これにより、サードパーティーに発行されたクレデンシャルを信頼せずに、Googleのようなパブリックプロバイダーを使用することができます。複数のOAuthクライアントを利用したい管理者は、`azp`クレームをサポートしているプロバイダーや、あるクライアントが別のクライアントに代わってトークンを発行できるような仕組みを検討する必要があります。
 
 KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
 
