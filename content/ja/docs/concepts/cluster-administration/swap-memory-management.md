@@ -141,7 +141,7 @@ node3: <unknown>
 
 たとえば、どのノードにスワップがプロビジョニングされているかを確認するには、以下のコマンドを使用します:
 ```shell
-kubectl get nodes -o jsonpath='{range .items[?(@.metadata.labels.feature\.node\.kubernetes\.io/memory-swap)]}{.metadata.name}{"\t"}{.metadata.labels.feature\.node\.kubernetes\.io/memory-swap}{"\n"}{end}}'
+kubectl get nodes -o jsonpath='{range .items[?(@.metadata.labels.feature\.node\.kubernetes\.io/memory-swap)]}{.metadata.name}{"\t"}{.metadata.labels.feature\.node\.kubernetes\.io/memory-swap}{"\n"}{end}'
 ```
 
 出力は次のようになります:
