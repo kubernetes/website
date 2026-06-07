@@ -387,6 +387,13 @@ var pushmenu = (function(){
                         aTag.href = '';
                         aTag.innerHTML = clone.innerHTML;
                         aTag.onclick = clone.onclick;
+                        // Preserve data-* attributes (e.g. data-bs-theme-value) so cloned controls can be identified.
+                        for (var i = 0; i < clone.attributes.length; i++) {
+                            var attr = clone.attributes[i];
+                            if (attr.name.indexOf('data-') === 0) {
+                                aTag.setAttribute(attr.name, attr.value);
+                            }
+                        }
                         clone = aTag;
                     }
                     var li = newDOMElement('li');
@@ -402,6 +409,24 @@ var pushmenu = (function(){
         $(".pi-pushmenu").each(function(){
             allPushMenus[this.id] = PushMenu(this);
         });
+
+        // Cloned theme buttons lose Docsy's addEventListener bindings; forward clicks to the original.
+        // Capture-phase listener runs before sled.onclick's stopPropagation kills the bubble.
+        document.addEventListener('click', function (e) {
+            var target = e.target.closest('.pi-pushmenu [data-bs-theme-value]');
+            if (!target) return;
+            e.preventDefault();
+            var theme = target.getAttribute('data-bs-theme-value');
+            var original = document.querySelector('#bd-theme ~ ul [data-bs-theme-value="' + theme + '"]');
+            if (original) {
+                original.click();
+            }
+            var pushmenuEl = target.closest('.pi-pushmenu');
+            if (pushmenuEl) {
+                pushmenuEl.classList.remove('on');
+                setTimeout(function () { pushmenuEl.style.display = 'none'; }, 300);
+            }
+        }, true);
     });
 
     function show(objId) {

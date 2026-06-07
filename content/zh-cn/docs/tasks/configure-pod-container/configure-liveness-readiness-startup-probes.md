@@ -19,9 +19,9 @@ containers.
 
 <!--
 For more information about probes, see
-[Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes).
+[Liveness, Readiness and Startup Probes](/docs/concepts/workloads/pods/probes).
 -->
-有关探测的更多信息，请参阅[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
+有关探测的更多信息，请参阅[存活、就绪和启动探针](/zh-cn/docs/concepts/workloads/pods/probes)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -530,13 +530,13 @@ HTTP 和 TCP 的就绪探针配置也和存活探针的配置完全相同。
 
 <!--
 * Learn more about
-  [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes/).
+  [Liveness, Readiness and Startup Probes](/docs/concepts/workloads/pods/probes).
 * For the full specification of probe-related fields, see the API reference:
   [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/),
   [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container),
   [Probe](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
 -->
-* 进一步了解关于[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes/)的信息。
+* 进一步了解关于[存活、就绪和启动探针](/zh-cn/docs/concepts/workloads/pods/probes)的信息。
 * 有关探针相关字段的完整规范，请参阅 API 参考：
   * [Pod](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)
   * [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)

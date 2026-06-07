@@ -6,6 +6,7 @@ content_type: concept
 description: >
   An overview of the key components that make up a Kubernetes cluster.
 weight: 10
+theme_lock: light
 card:
   title: Components of a cluster
   name: concepts
