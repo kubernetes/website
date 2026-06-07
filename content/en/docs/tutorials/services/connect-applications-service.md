@@ -355,8 +355,8 @@ Following are the manual steps to follow in case you run into problems running m
 # Create a public private key pair
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
  
 Use the output from the previous commands to create a yaml file as follows.

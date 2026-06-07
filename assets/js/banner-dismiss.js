@@ -1,11 +1,13 @@
 $(document).ready(function() {
-  function setCookie(name, value, days) {
+  function setCookie(name, value, days, expiresAtUnix) {
     let expires = "";
-    let date = new Date(); // Create a new Date object
-    let dateToSecond = 24 * 60 * 60 * 1000;
+    let dayInMs = 24 * 60 * 60 * 1000;
 
-    if (days) {
-      date.setTime(date.getTime() + days * dateToSecond); // Modify the existing Date object
+    if (expiresAtUnix) {
+      expires = "; expires=" + new Date(expiresAtUnix * 1000).toUTCString();
+    } else if (days) {
+      let date = new Date();
+      date.setTime(date.getTime() + days * dayInMs);
       expires = "; expires=" + date.toUTCString();
     }
 
@@ -47,7 +49,8 @@ $(document).ready(function() {
     button.removeAttribute('style');
     button.addEventListener('click', function() {
       setCookie(tokenName, "true",
-      button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
+        button.getAttribute('data-ttl'),
+        button.getAttribute('data-expires-at'));
       announcement.remove();
     });
   }

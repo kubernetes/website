@@ -278,5 +278,5 @@ you quickly start working with Gateway API.
 Make sure to review the documentation of your selected implementation to understand any caveats.
 {{< /note >}}
 
-Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/spec/) for additional
+Refer to the [API specification](https://gateway-api.sigs.k8s.io/references/spec/) for additional
 details of all Gateway API kinds.

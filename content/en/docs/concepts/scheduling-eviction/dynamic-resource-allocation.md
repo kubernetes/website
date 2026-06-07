@@ -549,7 +549,7 @@ driver, to update an existing ResourceClaim where the `status.devices` field is
 set.
 
 For details about the `status.devices` field, see the
-{{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
+{{< api-reference page="resource/resource-claim-v1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
 
 ### Device Health Monitoring {#device-health-monitoring}
 

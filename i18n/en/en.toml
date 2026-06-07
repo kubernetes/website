@@ -270,6 +270,24 @@ of Katacoda.</p>
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
 
+[kubecon_region_china]
+other = "China"
+
+[kubecon_region_europe]
+other = "Europe"
+
+[kubecon_region_event]
+other = "Event"
+
+[kubecon_region_india]
+other = "India"
+
+[kubecon_region_japan]
+other = "Japan"
+
+[kubecon_region_north_america]
+other = "North America"
+
 [kubectl_ref_collapse_all]
 other = "Collapse all"
 
@@ -698,6 +716,9 @@ other = "Target Date"
 [release_changelog]
 other = "Changelog"
 
+[rss_link_label]
+other = "RSS"
+
 [seealso_heading]
 other = "See Also"
 
@@ -712,6 +733,12 @@ other = "Success"
 
 [synopsis_heading]
 other = "Synopsis"
+
+[tab_default]
+other = "Tab {{ . }}"
+
+[theme_locked_notice]
+other = "Theme fixed for this page"
 
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

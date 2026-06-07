@@ -15,6 +15,7 @@ timeZone = "UTC"
 
 enableRobotsTXT = true
 disableBrowserError = true
+disableAliases = true
 
 disableKinds = ["taxonomy"]
 
@@ -61,7 +62,7 @@ enableGitInfo = true
     lineNoStart = 1
     lineNos = false
     lineNumbersInTable = true
-    noClasses = true
+    noClasses = false
     style = "emacs"
     tabWidth = 4
   [markup.tableOfContents]
@@ -129,10 +130,6 @@ contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheat
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
-
-# Menu title if your navbar has a versions selector to access old versions of your site.
-# This menu appears only if you have at least one [params.versions] set.
-version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
 time_format_default = "January 02, 2006 at 3:04 PM PST"
@@ -214,6 +211,8 @@ url = "https://v1-32.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Allow resizing the sidebar gutter
+sidebar_resizable = false
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show this many levels in compact mode
@@ -229,7 +228,9 @@ sidebar_search_disable = false
 # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
 navbar_logo = true
 # Set to true to disable the About link in the site footer
-footer_about_disable = false
+footer_about_enable = true
+# Light/dark mode switcher (Docsy 0.10+ feature).
+showLightDarkModeMenu = true
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
@@ -525,6 +526,15 @@ languagedirection = "ltr"
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 language_alternatives = ["en"]
+
+# Use npm-installed copies of Docsy's Hugo Module deps so Hugo skips `go get`
+# at build time. The `go get` walks go.mod's `replace ../kubernetes` and fails
+# wherever the sibling directory is absent (e.g. Netlify).
+[module]
+replacements = [
+  "github.com/twbs/bootstrap -> bootstrap",
+  "github.com/FortAwesome/Font-Awesome -> @fortawesome/fontawesome-free",
+]
 
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]

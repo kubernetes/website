@@ -4,6 +4,7 @@ content_type: concept
 description: >
   Omówienie głównych elementów tworzących klaster Kubernetesa.
 weight: 10
+theme_lock: light
 card:
   title: Komponenty klastra
   name: concepts
