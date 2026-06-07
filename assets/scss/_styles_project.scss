@@ -10,11 +10,16 @@ Add styles or import other files. */
 @import "k8s_community";
 @import "k8s_nav";
 @import "k8s_search";
+@import "k8s_gcs-search-dark";
 @import "k8s_sidebar-tree";
 @import "k8s_training";
 
 //Media queries
 @import "base";
+
+// Docsy 0.10's chroma helper: imports light + dark syntax-highlight CSS
+// gated on data-bs-theme. Requires hugo.toml [markup.highlight] noClasses = false.
+@import "td/code-dark";
 
 // This is based on Bootstrap's grid system with classes like d-lg-block and d-xl-block
 // Bootstrap 5 included in Docsy 0.7 has a breakpoint at 1400px and it can be used once 0.7 upgrade is done
