@@ -8,7 +8,7 @@ no_list: true
 card:
   name: contribute
   weight: 10
-  title: Comece a contribuir para o K8s
+  title: Contribua com o Kubernetes
 ---
 ---
 
