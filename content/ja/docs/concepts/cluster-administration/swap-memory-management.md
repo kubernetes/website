@@ -131,7 +131,7 @@ node3: <unknown>
 
 {{< note >}}
 `<unknown>`の値は、そのノードの`.status.nodeInfo.swap.capacity`フィールドが設定されていないことを示します。
-これは通常、ノードにスワップがプロビジョニングされていないか、kubeletがノードのスワップ容量を判断できなかった可能性が低いケースを意味します。
+これはおそらく、ノードにスワップがプロビジョニングされていないか、または、より可能性は低いですが、kubeletがノードのスワップ容量を判定できないことを意味します。
 {{< /note >}}
 
 ### Node Feature Discovery(NFD)を使用したスワップの検出 {#node-feature-discovery}
