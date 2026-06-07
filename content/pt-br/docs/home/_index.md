@@ -56,7 +56,7 @@ cards:
 - name: Download
   title: Download Kubernetes
   description: Instale o Kubernetes ou atualize-o para a versão mais recente.
-  button: "Download Kubernetes"
+  button: "Faça download do Kubernetes"
   button_path: "/releases/download"
 - name: about
   title: Sobre a documentação
