@@ -366,7 +366,7 @@ precise allocation of resources specified by the workload, with memory being imm
 To maintain the aforementioned security and node health guarantees,
 these Pods are not permitted to use swap memory when `LimitedSwap` is in effect.
 In addition, high-priority pods are not permitted to use swap in order to ensure the memory
-they consume always resides on disk, hence ready to use.
+they consume always resides in RAM, hence ready to use.
 
 Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
 * `nodeTotalMemory`: The total amount of physical memory available on the node.
