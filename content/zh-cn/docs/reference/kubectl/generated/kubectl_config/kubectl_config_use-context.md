@@ -6,14 +6,12 @@ description: >-
   在 kubeconfig 文件中设置当前上下文
 ---
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+title: kubectl config use-context
+content_type: tool-reference
+weight: 30
+auto_generated: true
+description: >-
+  Set the current-context in a kubeconfig file
 -->
 
 ## {{% heading "synopsis" %}}
