@@ -128,26 +128,26 @@ journalctl -u docker
 `kubeadm init`の直後には、これらの状態ではPodは存在しないはずです。
 
 - `kubeadm init`の _直後_ にこれらの状態のいずれかにPodがある場合は、kubeadmのリポジトリにIssueを立ててください。ネットワークソリューションをデプロイするまでは`coredns`(または`kube-dns`)は`Pending`状態でなければなりません。
-- ネットワークソリューションをデプロイしても`coredns`(または`kube-dns`)に何も起こらない場合にRunContainerError`、`CrashLoopBackOff`、`Error`の状態でPodが表示された場合は、インストールしたPodネットワークソリューションが壊れている可能性が高いです。より多くのRBACの特権を付与するか、新しいバージョンを使用する必要があるかもしれません。PodネットワークプロバイダのイシュートラッカーにIssueを出して、そこで問題をトリアージしてください。
+- ネットワークソリューションをデプロイしても`coredns`(または`kube-dns`)に何も起こらない場合にRunContainerError`、`CrashLoopBackOff`、`Error`の状態でPodが表示された場合は、インストールしたPodネットワークソリューションが壊れている可能性が高いです。より多くのRBACの特権を付与するか、新しいバージョンを使用する必要があるかもしれません。PodネットワークプロバイダーのイシュートラッカーにIssueを出して、そこで問題をトリアージしてください。
 - 1.12.1よりも古いバージョンのDockerをインストールした場合は、`systemd`で`dockerd`を起動する際に`MountFlags=slave`オプションを削除して`docker`を再起動してください。マウントフラグは`/usr/lib/systemd/system/docker.service`で確認できます。MountFlagsはKubernetesがマウントしたボリュームに干渉し、Podsを`CrashLoopBackOff`状態にすることがあります。このエラーは、Kubernetesが`var/run/secrets/kubernetes.io/serviceaccount`ファイルを見つけられない場合に発生します。
 
 ## `coredns`(もしくは`kube-dns`)が`Pending`状態でスタックする
 
-kubeadmはネットワークプロバイダに依存しないため、管理者は選択した[Podネットワークソリューションをインストール](/docs/concepts/cluster-administration/addons/)をする必要があります。CoreDNSを完全にデプロイする前にPodネットワークをインストールする必要があります。したがって、ネットワークがセットアップされる前の `Pending`状態になります。
+kubeadmはネットワークプロバイダーに依存しないため、管理者は選択した[Podネットワークソリューションをインストール](/docs/concepts/cluster-administration/addons/)をする必要があります。CoreDNSを完全にデプロイする前にPodネットワークをインストールする必要があります。したがって、ネットワークがセットアップされる前の `Pending`状態になります。
 
 ## `HostPort`サービスが動かない
 
-`HostPort`と`HostIP`の機能は、ご使用のPodネットワークプロバイダによって利用可能です。Podネットワークソリューションの作者に連絡して、`HostPort`と`HostIP`機能が利用可能かどうかを確認してください。
+`HostPort`と`HostIP`の機能は、ご使用のPodネットワークプロバイダーによって利用可能です。Podネットワークソリューションの作者に連絡して、`HostPort`と`HostIP`機能が利用可能かどうかを確認してください。
 
-Calico、Canal、FlannelのCNIプロバイダは、HostPortをサポートしていることが確認されています。
+Calico、Canal、FlannelのCNIプロバイダーは、HostPortをサポートしていることが確認されています。
 
 詳細については、[CNI portmap documentation] (https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md) を参照してください。
 
-ネットワークプロバイダが portmap CNI プラグインをサポートしていない場合は、[NodePortサービス](/ja/docs/concepts/services-networking/service/#nodeport)を使用するか、`HostNetwork=true`を使用してください。
+ネットワークプロバイダーが portmap CNI プラグインをサポートしていない場合は、[NodePortサービス](/ja/docs/concepts/services-networking/service/#nodeport)を使用するか、`HostNetwork=true`を使用してください。
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug/debug-application/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
+- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug/debug-application/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダーにお問い合わせください。
 
 - VirtualBoxを使用している場合(直接またはVagrant経由)は、`hostname -i`がルーティング可能なIPアドレスを返すことを確認する必要があります。デフォルトでは、最初のインターフェースはルーティング可能でないホスト専用のネットワークに接続されています。これを回避するには`/etc/hosts`を修正する必要があります。例としてはこの[Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)を参照してください。
 
@@ -204,7 +204,7 @@ Error from server (NotFound): the server could not find the requested resource
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
 ```
 
-- これには、おそらくマシンプロバイダのポリシーによって、一見同じサブネット上の他のIPと通信できないIPをKubernetesが使用している可能性があります。
+- これには、おそらくマシンプロバイダーのポリシーによって、一見同じサブネット上の他のIPと通信できないIPをKubernetesが使用している可能性があります。
 - DigitalOceanはパブリックIPとプライベートIPを`eth0`に割り当てていますが、`kubelet`はパブリックIPではなく、ノードの`InternalIP`として後者を選択します。
 
   `ifconfig`ではエイリアスIPアドレスが表示されないため、`ifconfig`の代わりに`ip addr show`を使用してこのシナリオをチェックしてください。あるいは、DigitalOcean専用のAPIエンドポイントを使用して、ドロップレットからアンカーIPを取得することもできます:
@@ -277,7 +277,7 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 
 ## cloud-controller-managerによってノードが初期化される前にkube-proxyがスケジューリングされる
 
-クラウドプロバイダのシナリオでは、クラウドコントローラーマネージャがノードアドレスを初期化する前に、kube-proxyが新しいワーカーノードでスケジューリングされてしまうことがあります。これにより、kube-proxyがノードのIPアドレスを正しく拾えず、ロードバランサを管理するプロキシ機能に悪影響を及ぼします。
+クラウドプロバイダーのシナリオでは、クラウドコントローラーマネージャがノードアドレスを初期化する前に、kube-proxyが新しいワーカーノードでスケジューリングされてしまうことがあります。これにより、kube-proxyがノードのIPアドレスを正しく拾えず、ロードバランサを管理するプロキシ機能に悪影響を及ぼします。
 
 kube-proxy Podsでは以下のようなエラーが発生します:
 ```
