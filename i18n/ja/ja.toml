@@ -10,16 +10,16 @@ other = "APIリファレンス"
 other = "(自動生成ページ)"
 
 [auto_generated_pageinfo]
-other = "<p>このページは自動生成されています。</p><p>このページに関する問題を報告する際は、問題の説明にこのページが自動生成されたものであることを明記してください。修正はKubernetesプロジェクトの他の場所で行う必要があるかもしれません。</p>"
+other = """<p>このページは自動生成されています。</p><p>このページに関する問題を報告する際は、問題の説明にこのページが自動生成されたものであることを明記してください。修正はKubernetesプロジェクトの他の場所で行う必要があるかもしれません。</p>"""
 
 [banner_acknowledgement]
 other = "この通知を隠す"
 
 [blog_post_show_more]
-other = "投稿をもっと見る..."
+other = "投稿をさらに表示..."
 
 [browser_clipboard_support_warning]
-other = "申し訳ございませんが、お使いのブラウザはこの例をクリップボードにコピーする機能をサポートしていません。"
+other = "申し訳ありませんが、お使いのブラウザーはこの例をクリップボードにコピーする機能をサポートしていません。"
 
 [case_study_prefix]
 other = "ケーススタディ:"
@@ -79,12 +79,12 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "X (旧Twitter)"
+other = "X(旧Twitter)"
 
 # Also cover [community_using] if localizing this site
 
 [community_x_name]
-other = "X (旧Twitter)"
+other = "X(旧Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
@@ -279,10 +279,10 @@ other = "Kubernetes内部のコンポーネント。"
 other = "アーキテクチャ"
 
 [layouts_docs_glossary_click_details_after]
-other = "特定の用語の詳細な説明を取得するには、以下のインジケータを使用します。"
+other = "をクリックしてください。"
 
 [layouts_docs_glossary_click_details_before]
-other = "クリックしてください"
+other = "特定の用語の詳細な説明を表示するには、末尾にある"
 
 [layout_docs_glossary_community_description]
 other = "Kubernetesのオープンソース開発に関連する用語。"
@@ -309,7 +309,7 @@ other = "Kubernetesによってサポートされているカスタマイズ。"
 other = "拡張"
 
 [layouts_docs_glossary_filter]
-other = "タグに従って用語をフィルタ"
+other = "タグに従って用語をフィルター"
 
 [layout_docs_glossary_fundamental_description]
 other = "Kubernetesを初めて使用するユーザーに関連する用語。"
@@ -324,7 +324,7 @@ other = "Kubernetesコンポーネントが互いに(およびクラスター外
 other = "ネットワーキング"
 
 [layout_docs_glossary_operation_description]
-other = "Kubernetesの起動とメンテナンス。"
+other = "Kubernetesの導入とメンテナンス。"
 
 [layout_docs_glossary_operation_name]
 other = "オペレーション"
@@ -366,7 +366,7 @@ other = "ワークロード"
 other = "改善を提案"
 
 [layouts_docs_partials_feedback_issue]
-other = "報告する問題がある場合は、GitHubリポジトリでIssueを開いてください: "
+other = """報告する問題がある場合は、[GitHubリポジトリ](https://www.github.com/kubernetes/website/)でIssueを開いてください: """
 
 [layouts_docs_partials_feedback_or]
 other = "または"
@@ -390,7 +390,7 @@ other = """古いパッケージリポジトリ(`apt.kubernetes.io`および`yum
 other = "by"
 
 [main_cncf_project]
-other = """私達は<a href="https://cncf.io/">CNCF</a> graduated プロジェクトです</p>"""
+other = """私達は<a href="https://cncf.io/">CNCF</a> graduatedプロジェクトです</p>"""
 
 [main_community_explore]
 other = "コミュニティを探す"
@@ -429,7 +429,7 @@ other = "ページ履歴"
 other = "ページの最終更新"
 
 [main_read_about]
-other = "について参照する"
+other = "事例を読む:"
 
 [main_read_more]
 other = "続きを読む"
@@ -469,7 +469,7 @@ other = "Issueを作成"
 other = "始める前に"
 
 [previous_patches]
-other = "パッチリリース"
+other = "パッチリリース:"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -623,19 +623,19 @@ other = "成功"
 other = "概要"
 
 [thirdparty_message]
-other = """このセクションでは、Kubernetesが必要とする機能を提供するサードパーティープロジェクトにリンクしています。これらのプロジェクトはアルファベット順に記載されていて、Kubernetesプロジェクトの作者は責任を持ちません。このリストにプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>をお読みください。<a href="#third-party-content-disclaimer">詳細はこちら。</a>"""
+other = """このセクションでは、Kubernetesが必要とする機能を提供するサードパーティプロジェクトにリンクしています。これらのプロジェクトはアルファベット順に記載されていて、Kubernetesプロジェクトの作者は責任を持ちません。このリストにプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>をお読みください。<a href="#third-party-content-disclaimer">詳細はこちら。</a>"""
 
 [thirdparty_message_edit_disclaimer]
-other = "サードパーティコンテンツに関する注意事項"
+other = """サードパーティコンテンツに関する注意事項"""
 
 [thirdparty_message_single_item]
 other = """&#128711; この項目は、Kubernetes自体の一部ではないサードパーティのプロジェクトまたは製品にリンクしています。<a class="alert-more-info" href="#third-party-content-disclaimer">詳細情報</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>を読んでから、サードパーティリンクを追加する変更を提案してください。</p>"""
+other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティ製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティ製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読んでから、サードパーティリンクを追加する変更を提案してください。</p>"""
 
 [thirdparty_message_vendor]
-other = """このページの項目は、Kubernetes外部のベンダーを参照しています。Kubernetesプロジェクトの作者は、それらのサードパーティ製品またはプロジェクトに責任を負いません。このリストにベンダー、製品、またはプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>をお読みください。<a href="#third-party-content-disclaimer">詳細情報。</a>"""
+other = """このページの項目は、Kubernetes外部のベンダーを参照しています。Kubernetesプロジェクトの作者は、それらのサードパーティ製品またはプロジェクトに責任を負いません。このリストにベンダー、製品、またはプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>をお読みください。<a href="#third-party-content-disclaimer">詳細情報。</a>"""
 
 [toast_failure_copycode]
 other = "クリップボードへのコピーに失敗しました: "
