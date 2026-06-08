@@ -29,61 +29,6 @@ or [Git Bash](https://gitforwindows.org/) to run the commands as written.
 Commands that use `export`, `$()`, and similar constructs are **not** compatible
 with PowerShell or the Windows Command Prompt.
 
-## Create a minikube cluster
-
-```shell
-minikube start
-```
-
-## Check the status of minikube cluster
-
-Verify the status of minikube cluster to ensure all the components are in a running state.
-
-```shell
-minikube status
-```
-
-The output from above command should show all components Running or Configured, as shown in the example output below:
-
-```shell
-minikube
-type: Control Plane
-host: Running
-kubelet: Running
-apiserver: Running
-kubeconfig: Configured
-```
-
-## Open the Dashboard
-
-Open the Kubernetes dashboard. You can do this two different ways:
-
-{{< tabs name="dashboard" >}}
-{{% tab name="Launch a browser" %}}
-Open a new terminal, and run:
-
-```shell
-minikube dashboard
-```
-
-Now, switch back to terminal where you ran `minikube start`.
-{{% /tab %}}
-{{% tab name="URL copy and paste" %}}
-
-If you don't want minikube to open a web browser for you, run the `dashboard` subcommand with the `--url` flag. `minikube` output URL that you can open in the browser you prefer.
-
-Open a **new** terminal, and run:
-
-```shell
-# start a new terminal, and leave this running
-minikube dashboard --url
-```
-
-Now, you can use this URL and switch back to terminal where you ran `minikube start`.
-
-{{% /tab %}}
-{{< /tabs >}}
-
 ## Kubernetes Clusters
 
 {{% alert %}}
@@ -143,6 +88,22 @@ Kubernetes implementation that creates a VM on your local machine and deploys a
 simple cluster containing only one node. Minikube is available for Linux, macOS,
 and Windows systems. The Minikube CLI provides basic bootstrapping operations for
 working with your cluster, including start, stop, status, and delete.
+
+## Create a minikube cluster
+
+To start a minikube cluster:
+
+```shell
+minikube start
+```
+
+To verify the cluster status:
+
+```shell
+minikube status
+```
+
+For a complete walkthrough including deploying your first app and exploring the Kubernetes dashboard, see the [Hello Minikube](/docs/tutorials/hello-minikube/) tutorial.
 
 ## {{% heading "whatsnext" %}}
 
