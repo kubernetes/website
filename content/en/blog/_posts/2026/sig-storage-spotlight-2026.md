@@ -58,14 +58,14 @@ system?**
 When Kubernetes was first introduced, it was meant for stateless workloads only. Container
 applications were regarded as ephemeral and therefore did not need to persist data. However, that
 changed drastically. Stateful workloads started running in Kubernetes, and we needed a dedicated
-SIG to tackle the associated storage challenges. `PersistentVolumeClaims`, `PersistentVolumes`, and
-`StorageClasses` were all introduced to provision data volumes for applications running in Kubernetes.
+SIG to tackle the associated storage challenges. PersistentVolumeClaims, PersistentVolumes, and
+StorageClasses were all introduced to provision data volumes for applications running in Kubernetes.
 
 **How did SIG Storage originally form, and how has its mission changed over time?**
 
 SIG Storage was formed to address the challenges of handling persistent data within Kubernetes.
-Initially, `PersistentVolumes` were implemented as in-tree plugins, and the SIG managed those plugins
-while developing core storage primitives like `PersistentVolumes` and `PersistentVolumeClaims`.
+Initially, PersistentVolumes were implemented as in-tree plugins, and the SIG managed those plugins
+while developing core storage primitives like PersistentVolumes and PersistentVolumeClaims.
 
 Container Storage Interface (CSI) was introduced later and played a crucial role in simplifying
 storage integration, enabling third-party storage providers to develop and maintain their own
