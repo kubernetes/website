@@ -23,7 +23,10 @@ no_list: true
 * [शेड्यूलर परफॉरमेंस ट्यूनिंग](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [विस्तारित संसाधनों के लिए संसाधन बिन पैकिंग](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [पॉड शेड्यूलिंग तत्परता](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [पॉड-समूह शेड्यूलिंग](/docs/concepts/scheduling-eviction/podgroup-scheduling/)
 * [गैंग शेड्यूलिंग](/docs/concepts/scheduling-eviction/gang-scheduling/)
+* [टोपोलॉजी-सचेत शेड्यूलिंग](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
+* [वर्कलोड-सचेत प्रिएम्प्शन](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [डीशेड्यूलर](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 * [नोड घोषित विशेषताएं](/docs/concepts/scheduling-eviction/node-declared-features/)
 
