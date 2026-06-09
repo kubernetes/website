@@ -76,13 +76,12 @@ you can view processes in other containers.
 
 Adding an ephemeral container to a running Pod uses the Pod's
 `ephemeralcontainers` subresource rather than being writable via `pod.spec`.
-This is a deliberate design choice: admission plugins and security policies
-that predate this API may not be aware of ephemeral containers, and treating
+This is a deliberate design choice. Older admission plugins and security policies don't always recognize ephemeral containers, and treating
 ephemeral container creation as a distinct API surface lets cluster
 administrators make an explicit decision about who may add containers to
 already-running Pods.
 
-For the same reason, the `pods/ephemeralcontainers` subresource is **not**
+For the same reason, the `pods/ephemeralcontainers` subresource is *not*
 included in the default `admin` and `edit`
 [user-facing ClusterRoles](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
 To allow users to add ephemeral containers (for example, by running
