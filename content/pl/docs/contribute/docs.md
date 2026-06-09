@@ -44,7 +44,7 @@ aby efektywnie pracować w społeczności Kubernetesa.
 
 Aby zaangażować się w tworzenie dokumentacji:
 
-1. Podpisz [umowę licencyjną współtwórcy](https://github.com/kubernetes/community/blob/master/CLA.md) CNCF.
+1. Podpisz [umowę licencyjną współtwórcy](https://github.com/kubernetes/community/blob/main/CLA.md) CNCF.
 2. Zapoznaj się z [repozytorium dokumentacji](https://github.com/kubernetes/website)
    oraz [generatorem statycznych stron](https://gohugo.io) witryny.
 3. Upewnij się, że rozumiesz podstawowe procesy
@@ -177,7 +177,7 @@ SIG Dokumentacja komunikuje się za pomocą różnych metod:
   I nie zapomnij się przedstawić!
 - [Dołącz do listy mailingowej `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   gdzie odbywają się szersze dyskusje i zapisywane są oficjalne decyzje.
-- Dołącz do [spotkania wideo SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) odbywającego się
+- Dołącz do [spotkania wideo SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs) odbywającego się
   co dwa tygodnie. Spotkania są zawsze ogłaszane na `#sig-docs` i dodawane do
   [kalendarza spotkań społeczności Kubernetes](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
   Będziesz musiał pobrać [klienta Zoom](https://zoom.us/download) lub zadzwonić z telefonu.

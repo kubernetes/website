@@ -766,7 +766,7 @@ this impacts removal of a metric during a Kubernetes release. These classes
 are determined by the perceived importance of the metric. The rules for
 deprecating and removing a metric are as follows:
 -->
-### 弃用度量值    {#deprecating-a-metric}
+## 弃用度量值    {#deprecating-a-metric}
 
 Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 端点），它们通常由集群管理员使用。
 并不是所有的度量值都是同样重要的：一些度量值通常用作 SLIs 或被使用来确定 SLOs，这些往往比较重要。

@@ -56,7 +56,7 @@ PriorityLevelConfigurations.
 With the `APIPriorityAndFairness` feature enabled, the `kube-apiserver`
 serves the following additional paths at its HTTP(S) ports.
 -->
-### 调试端点    {#debug-endpoints}
+## 调试端点    {#debug-endpoints}
 
 启用 APF 特性后，`kube-apiserver` 会在其 HTTP/HTTPS 端口额外提供以下路径：
 
@@ -234,7 +234,7 @@ to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
 At `-v=3` or more verbosity, the API server outputs an httplog line for every
 request in the API server log, and it includes the following attributes.
 -->
-### 调试日志生成行为  {#debug-logging}
+## 调试日志生成行为  {#debug-logging}
 
 在 `-v=3` 或更详细的情况下，API 服务器会为在 API 服务日志中为每个请求输出一行 httplog，
 其中包括以下属性：
@@ -274,7 +274,7 @@ For client using `klog`, use verbosity `-v=8` or higher to view these headers.
 - `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
   PriorityLevelConfiguration object associated with that FlowSchema.
 -->
-### 响应头  {#response-headers}
+## 响应头  {#response-headers}
 
 APF 将以下两个头添加到每个 HTTP 响应消息中。
 这些信息不会出现在审计日志中，但可以从客户端查看。

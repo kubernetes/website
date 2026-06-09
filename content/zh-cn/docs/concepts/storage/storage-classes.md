@@ -91,7 +91,7 @@ For instructions on setting the default StorageClass, see
 When a PVC does not specify a `storageClassName`, the default StorageClass is
 used.
 -->
-### 默认 StorageClass  {#default-storageclass}
+## 默认 StorageClass  {#default-storageclass}
 
 你可以将某个 StorageClass 标记为集群的默认存储类。
 关于如何设置默认的 StorageClass，
@@ -167,7 +167,7 @@ of the associated PVC to `""`.
 Each StorageClass has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 -->
-### 存储制备器  {#provisioner}
+## 存储制备器  {#provisioner}
 
 每个 StorageClass 都有一个制备器（Provisioner），用来决定使用哪个卷插件制备 PV。
 该字段必须指定。

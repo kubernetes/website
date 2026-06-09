@@ -4,6 +4,10 @@ title: 'Kubernetes  1.19: Accentuate the Paw-sitive'
 date: 2020-08-26
 slug: kubernetes-release-1.19-accentuate-the-paw-sitive
 evergreen: true
+release_announcement:
+  minor_version: "1.19"
+  themes:
+    - "Accentuate the Paw-sitive"
 author: >
   [Kubernetes 1.19 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.19/release_team.md)
 ---

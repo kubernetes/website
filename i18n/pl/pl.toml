@@ -167,6 +167,9 @@ other = "Najnowsza wersja"
 [docs_version_other_heading]
 other = "Starsze wersje"
 
+[docs_version_release_information]
+other = "informacje o wydaniu"
+
 [end_of_life]
 other = "Zakończenie wsparcia:"
 
@@ -266,6 +269,24 @@ other = """<h4>Likwidacja przewodników interaktywnych</h4>
 
 
 
+
+[kubecon_region_china]
+other = "Chiny"
+
+[kubecon_region_europe]
+other = "Europa"
+
+[kubecon_region_event]
+other = "Wydarzenie"
+
+[kubecon_region_india]
+other = "Indie"
+
+[kubecon_region_japan]
+other = "Japonia"
+
+[kubecon_region_north_america]
+other = "Ameryka Północna"
 
 [kubectl_ref_collapse_all]
 other = "Zwiń wszystko"
@@ -507,6 +528,9 @@ other = "Poprawki:"
 [release_actively_supported]
 other = "Aktywnie wspierane"
 
+[release_announcement_blog]
+other = "Blog z informacjami o nowych wydaniach"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other = """Odnośniki do plików binarnych z komponentami Kubernetesa (i ich sumy kontrolne) znajdziesz w [rejestrze zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG). Możesz też skorzystać ze strony [downloadkubernetes.com](https://www.downloadkubernetes.com/), gdzie szukane komponenty możesz filtrować w zależności od wersji i architektury sprzętowej."""
@@ -656,6 +680,13 @@ other = "Informacje o wydaniu"
 [release_minor_version]
 other = "Podwersja (Minor)"
 
+[release_patch_releases_heading]
+one = "Poprawka"
+other = "Poprawki"
+
+[release_upcoming_patch_heading]
+other = "Nadchodząca poprawka"
+
 [release_info_next_patch]
 other = "Następne wydanie zawierające poprawki: **%s**."
 
@@ -685,6 +716,9 @@ other = "Planowany termin"
 [release_changelog]
 other = "Rejestr zmian"
 
+[rss_link_label]
+other = "RSS"
+
 [seealso_heading]
 other = "Zobacz też"
 
@@ -699,6 +733,12 @@ other = "Sukces"
 
 [synopsis_heading]
 other = "Streszczenie"
+
+[tab_default]
+other = "Zakładka {{ . }}"
+
+[theme_locked_notice]
+other = "Motyw ustawiony dla tej strony"
 
 [thirdparty_message]
 other = """Ta sekcja przekierowuje do projektów zewnętrznych (niżej ich lista alfabetyczna), które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie odpowiadają za te projekty. Jeśli chcesz dodać projekt do tego wykazu, zanim wprowadzisz zmiany, przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">nasz przewodnik</a>."""

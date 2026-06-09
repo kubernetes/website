@@ -262,10 +262,14 @@ The Kubernetes project suggests that you use the
 [Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 third party storage driver instead.
 
-### gitRepo (deprecated) {#gitrepo}
+### gitRepo (disabled) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume plugin is deprecated and is disabled by default.
+
+Kubernetes {{< skew latestVersion >}} does *not* include the `gitRepo` volume
+driver. The last version that provided a way to use this driver was Kubernetes
+v1.35, and it has been deprecated since the [v1.11](/releases/1.11) minor
+release.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
@@ -284,35 +288,6 @@ part of a policy to reject use of `gitRepo` volumes:
 ```
 
 {{< /warning >}}
-
-You can use this deprecated storage plugin in your cluster if you explicitly
-enable the `GitRepoVolumeDriver`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-A `gitRepo` volume is an example of a volume plugin. This plugin
-mounts an empty directory and clones a git repository into this directory
-for your Pod to use.
-
-Here is an example of a `gitRepo` volume:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: server
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    volumeMounts:
-    - mountPath: /mypath
-      name: git-volume
-  volumes:
-  - name: git-volume
-    gitRepo:
-      repository: "git@somewhere:me/my-git-repository.git"
-      revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-```
 
 ### hostPath {#hostpath}
 

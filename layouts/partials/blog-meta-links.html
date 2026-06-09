@@ -1,4 +1,4 @@
-<div class="td-page-blog-meta ml-2 pb-1 pt-2 mb-4">
+<div class="td-page-blog-meta ms-2 pb-1 pt-2 mb-4">
   {{ with site.Home.OutputFormats.Get "rss" -}}
   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
   <a class="widget-link" href="{{ .Permalink | safeURL }}" target="_blank"><div> <i class="fa-solid fa-rss"> </i> <span class="widget-link-text">RSS Feed</span></div> </a>

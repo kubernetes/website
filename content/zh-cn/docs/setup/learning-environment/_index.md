@@ -136,7 +136,7 @@ For learning about production environments, see [Production environment](/docs/s
 如果你想练习搭建更接近生产环境的集群，可以使用 **kubeadm**。
 使用 kubeadm 搭建集群是一项高级任务，需要多台机器（物理机或虚拟机）以及细致的配置。
 
-有关生产环境的更多信息，请参阅[生产环境](/docs/setup/production-environment/)。
+有关生产环境的更多信息，请参阅[生产环境](/zh-cn/docs/setup/production-environment/)。
 
 {{< note >}}
 <!--
@@ -153,6 +153,6 @@ Setting up a production-like cluster is significantly more complex than the lear
 - Learn about [Kubernetes components](/docs/concepts/overview/components/)
 - Explore [kubectl commands](/docs/reference/kubectl/)
 -->
-- 按照 [Hello Minikube](/docs/tutorials/hello-minikube/) 教程部署你的第一个应用程序
-- 了解 [Kubernetes 组件](/docs/concepts/overview/components/)
-- 探索 [kubectl 命令](/docs/reference/kubectl/)
+- 按照 [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/) 教程部署你的第一个应用程序
+- 了解 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
+- 探索 [kubectl 命令](/zh-cn/docs/reference/kubectl/)

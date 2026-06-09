@@ -29,7 +29,7 @@ of Services, and how you can toggle this behavior according to your needs.
 
 This document makes use of the following terms:
 -->
-## 术语表  {#terminology}
+### 术语表  {#terminology}
 
 本文使用了下列术语：
 
@@ -75,7 +75,7 @@ the target localization.
 <!-- 
 ### Prerequisites
 -->
-## 先决条件  {#prerequisites}
+### 先决条件  {#prerequisites}
 
 {{< include "task-tutorial-prereqs.md" >}}
 

@@ -25,7 +25,7 @@ Security Account Manager(SAM)が分離されているため、コンテナはホ
 ## メモリ管理 {#resource-management-memory}
 
 WindowsではLinuxのようなOut-Of-Memoryによるプロセスの終了は提供されていません。
-Windowsではすべてのユーザモードでのメモリアロケーションを仮想的に取り扱います。
+Windowsではすべてのユーザーモードでのメモリアロケーションを仮想的に取り扱います。
 そのためpagefilesが必ず必要になります。
 
 Windowsノードではプロセスのメモリオーバーコミットを行いません。

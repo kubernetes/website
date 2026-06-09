@@ -130,7 +130,7 @@ Przedstawiony sposób powinien działać dla MacOS w wersjach Catalina i Mojave.
 
 ## Zaangażowanie w prace SIG Docs
 
-O społeczności SIG Docs i terminach spotkań dowiesz z [jej strony](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).
+O społeczności SIG Docs i terminach spotkań dowiesz z [jej strony](https://github.com/kubernetes/community/tree/main/sig-docs#meetings).
 
 Możesz kontaktować się z gospodarzami projektu za pomocą:
 

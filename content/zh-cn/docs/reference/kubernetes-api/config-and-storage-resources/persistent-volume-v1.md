@@ -304,7 +304,8 @@ PersistentVolumeSpec 是持久卷的规约。
   - **hostPath.path** (string)，必需
 
     目录在主机上的路径。如果该路径是一个符号链接，则它将沿着链接指向真实路径。
-    更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+    更多信息：
+    https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   - **hostPath.type** (string)
 
@@ -533,7 +534,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureDisk.readOnly** (boolean)
 
-    readOnly 默认为 false（读/写）。此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
+    `readOnly` 默认为 false（读/写）。此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
 
 <!--
 - **azureFile** (AzureFilePersistentVolumeSource)
@@ -560,7 +561,17 @@ PersistentVolumeSpec 是持久卷的规约。
   - **azureFile.shareName** (string), required
 
     shareName is the azure Share Name
+  -->
+  
+  - **azureFile.secretName** (string)，必需
 
+    `secretName` 是包含 Azure 存储账号名称和主键的 Secret 的名称。
+
+  - **azureFile.shareName** (string)，必需
+
+   `shareName` 是 azure Share Name。
+  
+  <!--
   - **azureFile.readOnly** (boolean)
 
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -569,14 +580,6 @@ PersistentVolumeSpec 是持久卷的规约。
 
     secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
   -->
-
-  - **azureFile.secretName** (string)，必需
-
-    `secretName` 是包含 Azure 存储账号名称和主键的 Secret 的名称。
-
-  - **azureFile.shareName** (string)，必需
-
-   `shareName` 是 azure Share Name。
 
   - **azureFile.readOnly** (boolean)
 
@@ -637,13 +640,16 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.readOnly** (boolean)
 
-    readOnly 是可选的。默认为 false（读/写）。此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
-    更多信息： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+    `readOnly` 是可选的。默认为 false（读/写）。
+    此处 `readOnly` 将在 VolumeMounts 中强制设置 `readOnly`。
+    更多信息：
+    https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.secretFile** (string)
 
-    secretFile 是可选的。secretFile 是 user 对应的密钥环的路径，默认为 /etc/ceph/user.secret。
-    更多信息： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+    `secretFile` 是可选的。secretFile 是 user 对应的密钥环的路径，
+    默认为 `/etc/ceph/user.secret`。更多信息：
+    https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
   - **cephfs.secretRef** (SecretReference)
@@ -668,7 +674,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.secretRef** (SecretReference)
 
-    secretRef 是可选的。secretRef 是针对用户到身份认证 Secret 的引用，默认为空。更多信息：
+    `secretRef` 是可选的。`secretRef` 是针对用户到身份认证 Secret 的引用，默认为空。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
     <a name="SecretReference"></a>
@@ -676,11 +682,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **cephfs.secretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **cephfs.secretRef.namespace** (string)
 
-      namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
+      `namespace` 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
   - **cephfs.user** (string)
 
@@ -697,8 +703,8 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **cinder** (CinderPersistentVolumeSource)
 
-  cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。
-  所有针对树内 cinder 类型的操作都被重定向到 cinder.csi.openstack.org
+  `cinder` 表示 kubelet 主机上挂接和挂载的 Cinder 卷。
+  所有针对树内 cinder 类型的操作都被重定向到 `cinder.csi.openstack.org`
   CSI 驱动。更多信息：
   https://examples.k8s.io/mysql-cinder-pd/README.md
 
@@ -722,19 +728,19 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cinder.volumeID** (string)，必需
 
-    volumeID 用于标识 Cinder 中的卷。更多信息：
+    `volumeID` 用于标识 Cinder 中的卷。更多信息：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.fsType** (string)
 
-    fsType 是要挂载的文件系统类型。必须是主机操作系统支持的文件系统类型。
+    `fsType` 是要挂载的文件系统类型。必须是主机操作系统支持的文件系统类型。
     例如：“ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为 “ext4”。更多信息：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.readOnly** (boolean)
 
-    readOnly 是可选的。默认为 false（读/写）。
-    此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。更多信息：
+    `readOnly` 是可选的。默认为 false（读/写）。
+    此处 `readOnly` 将在 VolumeMounts 中强制设置 `readOnly`。更多信息：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <!--
@@ -756,18 +762,18 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cinder.secretRef** (SecretReference)
 
-    secretRef 是可选的。指向 Secret 对象，内含的参数用于连接到 OpenStack。
+    `secretRef` 是可选的。指向 Secret 对象，内含的参数用于连接到 OpenStack。
 
     <a name="SecretReference"></a>
     **SecretReference 表示对某 Secret 的引用，其中包含足够的信息来访问任何名字空间中的 Secret。**
 
     - **cinder.secretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **cinder.secretRef.namespace** (string)
 
-      namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
+      `namespace` 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
 <!--
 - **csi** (CSIPersistentVolumeSource)
@@ -788,7 +794,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **csi** (CSIPersistentVolumeSource)
 
-  csi 表示由一个外部 CSI 驱动处理的存储。
+  `csi` 表示由一个外部 CSI 驱动处理的存储。
 
   <a name="CSIPersistentVolumeSource"></a>
   **表示由一个外部 CSI 卷驱动管理的存储。**
@@ -799,7 +805,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.volumeHandle** (string)，必需
 
-    volumeHandle 是 CSI 卷插件的 CreateVolume 所返回的唯一卷名称，用于在所有后续调用中引用此卷。必需。
+    `volumeHandle` 是 CSI 卷插件的 CreateVolume 所返回的唯一卷名称，用于在所有后续调用中引用此卷。必需。
 
   <!--
   - **csi.controllerExpandSecretRef** (SecretReference)
@@ -820,7 +826,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.controllerExpandSecretRef** (SecretReference)
 
-    controllerExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    `controllerExpandSecretRef` 是对包含敏感信息的 Secret 对象的引用，
     该 Secret 会被传递到 CSI 驱动以完成 CSI ControllerExpandVolume 调用。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
@@ -830,11 +836,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.controllerExpandSecretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **csi.controllerExpandSecretRef.namespace** (string)
 
-      namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
+      `namespace` 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
   <!--
   - **csi.controllerPublishSecretRef** (SecretReference)
@@ -855,7 +861,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.controllerPublishSecretRef** (SecretReference)
 
-    controllerPublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    `controllerPublishSecretRef` 是对包含敏感信息的 Secret 对象的引用，
     该 Secret 会被传递到 CSI 驱动以完成 CSI ControllerPublishVolume 和 ControllerUnpublishVolume 调用。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
@@ -865,11 +871,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.controllerPublishSecretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **csi.controllerPublishSecretRef.namespace** (string)
 
-      namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
+      `namespace` 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
   <!--
   - **csi.fsType** (string)
@@ -894,11 +900,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.fsType** (string)
 
-    要挂载的 fsType。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
+    要挂载的 `fsType`。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    `nodeExpandSecretRef` 是对包含敏感信息的 Secret 对象的引用，
     从而传递到 CSI 驱动以完成 CSI NodeExpandVolume 调用。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
@@ -908,7 +914,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.nodeExpandSecretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **csi.nodeExpandSecretRef.namespace** (string)
 
@@ -933,7 +939,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.nodePublishSecretRef** (SecretReference)
 
-    nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    `nodePublishSecretRef` 是对包含敏感信息的 Secret 对象的引用，
     以传递到 CSI 驱动以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 调用。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
@@ -942,11 +948,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.nodePublishSecretRef.name** (string)
 
-      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+      `name` 在名字空间内是唯一的，以引用一个 Secret 资源。
 
     - **csi.nodePublishSecretRef.namespace** (string)
 
-      namespace 定义了 Secret 名称必须唯一的空间。
+      `namespace` 定义了 Secret 名称必须唯一的空间。
 
   <!--
   - **csi.nodeStageSecretRef** (SecretReference)
@@ -1530,7 +1536,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -1550,7 +1556,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **portworxVolume** (PortworxVolumeSource)
 
   portworxVolume 表示 kubelet 主机上挂接和挂载的 portworx 卷。
-  已弃用：PortworxVolume 已被弃用。当 CSIMigrationPortworx 特性开关开启时，
+  已弃用：PortworxVolume 已被弃用。
   所有树内 PortworxVolume 类型的操作都将重定向到 pxd.portworx.com CSI 驱动。
 
   <a name="PortworxVolumeSource"></a>
@@ -2203,6 +2209,8 @@ GET /api/v1/persistentvolumes
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (**in query**): boolean
+- **shardSelector** (**in query**): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -2243,6 +2251,10 @@ GET /api/v1/persistentvolumes
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -2626,6 +2638,8 @@ DELETE /api/v1/persistentvolumes
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (**in query**): boolean
+- **shardSelector** (**in query**): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -2679,6 +2693,10 @@ DELETE /api/v1/persistentvolumes
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

@@ -361,7 +361,7 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 `maxUnavailable`.
 
 {{< note >}}
-The `maxUnavailable` field is in Beta stage and it is enabled by default.
+The `maxUnavailable` field is in Beta stage and it is disabled by default.
 {{< /note >}}
 
 ### Forced rollback
@@ -579,7 +579,7 @@ the `.spec.replicas` field automatically.
   * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
   * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tutorials/configuration/configure-persistent-volume-storage/).
 * `StatefulSet` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  Read the {{< api-reference page="apps/stateful-set-v1" >}}
   object definition to understand the API for stateful sets.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
