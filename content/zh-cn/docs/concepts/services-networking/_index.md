@@ -99,7 +99,7 @@ Kubernetes 网络模型由几个部分构成：
   the outside world.
 -->
 * [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) API
-  （或其前身 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+  （或其前身 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)）
   使得集群外部的客户端能够访问 Service。
 
   * 当使用受支持的 {{< glossary_tooltip term_id="cloud-provider">}} 时，通过 Service API 的
@@ -153,7 +153,7 @@ of which are optional:
 -->
 * Pod 网络本身由
   [Pod 网络实现](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)管理。
-  在 Linux 上，大多数容器运行时使用{{< glossary_tooltip text="容器网络接口 (CNI)" term_id="cni" >}}
+  在 Linux 上，大多数容器运行时使用{{< glossary_tooltip text="容器网络接口（CNI）" term_id="cni" >}}
   与 Pod 网络实现进行交互，因此这些实现通常被称为 **CNI 插件**。
 
 * Kubernetes 提供了一个默认的服务代理实现，称为 {{< glossary_tooltip term_id="kube-proxy">}}，
@@ -191,3 +191,22 @@ Service 和 Kubernetes 如何联网。
 
 [集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)解释了如何为集群设置网络，
 还概述了所涉及的技术。
+
+<!--
+To learn about specific networking concepts, see:
+
+* [Service](/docs/concepts/services-networking/service/) - expose an application behind a single outward-facing endpoint
+* [Ingress](/docs/concepts/services-networking/ingress/) - protocol-aware HTTP/HTTPS routing using URIs, hostnames, and paths
+* [Gateway API](/docs/concepts/services-networking/gateway/) - dynamic infrastructure provisioning and advanced traffic routing
+* [Network Policies](/docs/concepts/services-networking/network-policies/) - control traffic flow at the IP address or port level (OSI layer 3 or 4)
+* [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/) - discover services within your cluster using DNS
+-->
+要了解具体的网络概念，请参阅：
+
+* [Service](/zh-cn/docs/concepts/services-networking/service/) - 将应用程序暴露在单个面向外部的端点之后
+* [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) - 使用
+  URI、主机名和路径实现协议感知的 HTTP/HTTPS 路由
+* [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/) - 动态基础设施制备和高级流量路由
+* [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) - 在
+  IP 地址或端口级别（OSI 第 3 层或第 4 层）控制流量
+* [Service 和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/) - 使用 DNS 发现集群中的服务

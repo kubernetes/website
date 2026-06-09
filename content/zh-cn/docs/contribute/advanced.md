@@ -226,9 +226,9 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
   [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
-  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
-  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
   In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
 - Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -238,7 +238,7 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
 - 理解 SIG Docs 工作流程和工具：git、Hugo、本地化、博客子项目
 - 理解其他 Kubernetes SIG 和仓库会如何影响 SIG Docs 工作流程，包括：
   [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
-  [k/community 中的流程](https://github.com/kubernetes/community/tree/master/sig-docs)、
+  [k/community 中的流程](https://github.com/kubernetes/community/tree/main/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
   [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture) 中的角色。
   此外，了解 [Kubernetes 文档发布流程](/zh-cn/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release)的工作原理。
@@ -358,14 +358,14 @@ Begin and end meetings on time.
 <!--
 **Use Zoom effectively**:
 
-- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - Claim the host role when you log in by entering the host key
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Claiming the host role in Zoom" />
 -->
 **有效利用 Zoom**：
 
-- 熟悉 [Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- 熟悉 [Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - 输入主持人密钥登录时声明主持人角色
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="声明 Zoom 主持人角色" />
@@ -390,8 +390,8 @@ The video uploads automatically to YouTube.
 <!--
 ### Offboarding a SIG Co-chair (Emeritus)
 
-See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/main/sig-docs/offboarding.md)
 -->
 ### SIG 联合主席 (Emeritus) 离职  {#offboarding-a-sig-cochair}
 
-参见 [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+参见 [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/main/sig-docs/offboarding.md)

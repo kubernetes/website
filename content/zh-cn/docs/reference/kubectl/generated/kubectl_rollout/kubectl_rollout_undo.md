@@ -2,12 +2,16 @@
 title: kubectl rollout undo
 content_type: tool-reference
 weight: 30
+description: >-
+  撤销前一次上线的版本
 ---
 <!--
 title: kubectl rollout undo
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Undo a previous rollout
 -->
 
 ## {{% heading "synopsis" %}}
@@ -25,14 +29,14 @@ kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]
 
 <!--
 ```
-  # Roll back to the previous deployment
-  kubectl rollout undo deployment/abc
+# Roll back to the previous deployment
+kubectl rollout undo deployment/abc
   
-  # Roll back to daemonset revision 3
-  kubectl rollout undo daemonset/abc --to-revision=3
+# Roll back to daemonset revision 3
+kubectl rollout undo daemonset/abc --to-revision=3
   
-  # Roll back to the previous deployment with dry-run
-  kubectl rollout undo --dry-run=server deployment/abc
+# Roll back to the previous deployment with dry-run
+kubectl rollout undo --dry-run=server deployment/abc
 ```
 -->
 ```shell
@@ -166,7 +170,7 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'！='、'in'、'notin'。
-（例如 -l key1=value1,key2=value2,key3 in (value3)）。匹配的对象必须满足所有指定的标签约束。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
 </tr>

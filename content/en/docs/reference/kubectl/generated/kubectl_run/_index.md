@@ -106,6 +106,13 @@ kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=serv
 </tr>
 
 <tr>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "ctrl-p,ctrl-q"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Override the key sequence for detaching a container.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>

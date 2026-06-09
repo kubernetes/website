@@ -1,7 +1,7 @@
 ---
 title: DeviceClass
 id: deviceclass
-full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
+full_link: /zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
   集群中设备的一种分类。使用户可以申领 DeviceClass 中的特定设备。
 tags:
@@ -20,7 +20,7 @@ tags:
 
 <!--
 A category of {{< glossary_tooltip text="devices" term_id="device" >}} in the
- cluster that can be used with dynamic resource allocation (DRA).
+cluster that can be used with dynamic resource allocation (DRA).
 -->
 集群中可用于动态资源分配（DRA）的一类{{< glossary_tooltip text="设备" term_id="device" >}}。
 

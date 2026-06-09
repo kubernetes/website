@@ -90,6 +90,99 @@ To limit the API objects kubelets are able to write, enable the
 admission plugin by starting the apiserver with
 `--enable-admission-plugins=...,NodeRestriction,...`
 
+## Service account token audience restriction {#service-account-token-audience-restriction}
+
+{{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
+
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled and the `NodeRestriction` admission plugin is active, the kubelet can only
+request service account tokens for audiences that are already referenced by pods running
+on that node. This prevents a compromised node from obtaining tokens for arbitrary audiences.
+
+The allowed audiences are determined from the pod spec:
+
+- The default API server audience (empty or the API server's configured audience).
+- Audiences set in projected service account token volume sources.
+- Audiences configured in CSI driver `spec.tokenRequests` for any CSI driver used by
+  the pod, whether through inline CSI volumes, PersistentVolumeClaim-backed volumes,
+  or ephemeral volumes.
+
+This is particularly relevant when using [service account tokens for image credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/#service-account-token-for-image-pulls),
+where the kubelet requests tokens with a registry-specific audience on behalf of pods.
+
+### Allowing additional audiences with RBAC {#allowing-additional-audiences}
+
+You can grant kubelets permission to request tokens for audiences beyond what
+the pod spec references. When the kubelet requests a token with an audience that
+is not found in the pod spec, the NodeRestriction admission plugin checks whether
+the kubelet is authorized by performing an authorization check with the following
+attributes:
+
+| Attribute  | Value |
+| ---------- | ----- |
+| Verb       | `request-serviceaccounts-token-audience` |
+| API Group  | (empty string, meaning the core API group) |
+| Resource   | The requested audience value |
+| Name       | The service account name |
+| Namespace  | The service account namespace |
+
+You can use standard RBAC rules to authorize these checks. The `resources` field
+controls which audiences are allowed, and the `resourceNames` field controls which
+service accounts the rule applies to.
+
+For example, to allow the kubelet to request audience `my-registry-audience` for
+a specific service account:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-audience-my-registry
+rules:
+- verbs: ["request-serviceaccounts-token-audience"]
+  apiGroups: [""]
+  resources: ["my-registry-audience"]
+  resourceNames: ["my-service-account"]
+```
+
+Omitting `resourceNames` allows the audience for any service account. Using a
+wildcard (`"*"`) for `resources` allows any audience:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-audience-unrestricted
+rules:
+- verbs: ["request-serviceaccounts-token-audience"]
+  apiGroups: [""]
+  resources: ["*"]  # any audience
+  # no resourceNames: any service account
+```
+
+Bind the ClusterRole to the `system:nodes` group to apply it to all kubelets:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: node-audience-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: node-audience-my-registry
+subjects:
+- kind: Group
+  name: system:nodes
+  apiGroup: rbac.authorization.k8s.io
+```
+
+{{< note >}}
+This restriction is part of the NodeRestriction admission plugin and only applies to
+node identities (kubelets). It does not restrict which audiences other callers of the
+`TokenRequest` API can request. If you need to restrict other callers, consider using a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+{{< /note >}}
+
 ## Migration considerations
 
 ### Kubelets outside the `system:nodes` group

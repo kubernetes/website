@@ -18,7 +18,7 @@ no_list: true
   FlexVolumeストレージに依存するPodを実行すると、kubeletはバイナリプラグインを呼び出してボリュームをマウントします。
   アーカイブされた[FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)デザインの提案には、このアプローチの詳細が記載されています。
 
-  [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)には、ストレージプラグインに関する一般的な情報が含まれています。
+  [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)には、ストレージプラグインに関する一般的な情報が含まれています。
 
 * [デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 

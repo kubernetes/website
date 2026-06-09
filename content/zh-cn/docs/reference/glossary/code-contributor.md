@@ -1,7 +1,7 @@
 ---
 title: 代码贡献者（Code Contributor）
 id: code-contributor
-full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
+full_link: https://github.com/kubernetes/community/tree/main/contributors/devel
 short_description: >
   为 Kubernetes 开源代码库开发并贡献代码的人。
 
@@ -13,7 +13,7 @@ tags:
 <!--
 title: Code Contributor
 id: code-contributor
-full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
+full_link: https://github.com/kubernetes/community/tree/main/contributors/devel
 short_description: >
   A person who develops and contributes code to the Kubernetes open source codebase.
 
@@ -24,7 +24,7 @@ tags:
 -->
 
 <!--
- A person who develops and contributes code to the Kubernetes open source codebase.
+A person who develops and contributes code to the Kubernetes open source codebase.
 -->
 为 Kubernetes 开源代码库开发并贡献代码的人。
 
@@ -33,4 +33,5 @@ tags:
 <!--
 They are also an active {{< glossary_tooltip text="community member" term_id="member" >}} who participates in one or more {{< glossary_tooltip text="Special Interest Groups (SIGs)" term_id="sig" >}}.
 -->
-他们也是加入一个或多个{{< glossary_tooltip text="特别兴趣小组 (Special Interest Group；SIG)" term_id="sig" >}}的活跃{{< glossary_tooltip text="成员" term_id="member" >}}。
+他们也是加入一个或多个{{< glossary_tooltip text="特别兴趣小组（Special Interest Group；SIG）" term_id="sig" >}}
+的活跃{{< glossary_tooltip text="成员" term_id="member" >}}。

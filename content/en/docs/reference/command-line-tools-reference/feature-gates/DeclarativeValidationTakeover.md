@@ -9,7 +9,13 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: deprecated
+    defaultValue: false
+    fromVersion: "1.36"
 ---
+Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/).
+
 When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)
 feature gate, declarative validation errors are returned directly to the caller,
 replacing hand-written validation errors for rules that have declarative implementations.

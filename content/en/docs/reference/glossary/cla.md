@@ -1,7 +1,7 @@
 ---
 title: CLA (Contributor License Agreement)
 id: cla
-full_link: https://github.com/kubernetes/community/blob/master/CLA.md
+full_link: https://github.com/kubernetes/community/blob/main/CLA.md
 short_description: >
   Terms under which a contributor grants a license to an open source project for their contributions.
 

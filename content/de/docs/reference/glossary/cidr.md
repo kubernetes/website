@@ -1,7 +1,6 @@
 ---
 title: CIDR
 id: cidr
-date: 2019-11-12
 full_link: 
 short_description: >
   CIDR ist eine Notation, um Blöcke von IP Adressen zu beschreiben und wird viel verwendet in verschiedenen Netzwerkkonfigurationen.

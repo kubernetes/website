@@ -84,14 +84,14 @@ For a Pod to be given a QoS class of `Guaranteed`:
 Pod 被赋予 `Guaranteed` QoS 类的几个判据：
 
 <!--
-* Every Container in the Pod must have a memory limit and a memory request.
+* Every Container in the Pod must have a memory limit and a memory request, both greater than zero.
 * For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
+* Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 -->
-* Pod 中的每个容器必须有内存 limit 和内存 request。
+* Pod 中的每个容器必须有内存 limit 和内存 request，两者都必须大于零。
 * 对于 Pod 中的每个容器，内存 limit 必须等于内存 request。
-* Pod 中的每个容器必须有 CPU limit 和 CPU request。
+* Pod 中的每个容器必须有 CPU limit 和 CPU request，两者都必须大于零。
 * 对于 Pod 中的每个容器，CPU limit 必须等于 CPU request。
 
 <!--
@@ -102,7 +102,8 @@ If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manag
 * The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
 * The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
 -->
-如果 Pod 使用的是 [Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
+如果 Pod 使用的是
+[Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
@@ -140,7 +141,8 @@ A Pod is given a QoS class of `Burstable` if:
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
 * Pod 不满足针对 QoS 类 `Guaranteed` 的判据。
-* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或 CPU 的 request 或 limit。
+* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或
+  CPU 的 request 或 limit。
 
 ### BestEffort
 

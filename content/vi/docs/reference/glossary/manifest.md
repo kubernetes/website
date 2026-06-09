@@ -1,7 +1,6 @@
 ---
 title: Manifest
 id: manifest
-date: 2019-06-28
 short_description: >
   Đặc tả được tuần tự hóa của một hoặc nhiều Kubernetes API objects.
 

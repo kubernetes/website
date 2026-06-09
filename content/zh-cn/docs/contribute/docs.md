@@ -71,7 +71,7 @@ to work effectively in the Kubernetes community.
 -->
 ## 入门 {#getting-started}
 
-任何人都可以提出文档方面的问题（issue），或贡献一个变更，用拉取请求（PR）的方式提交到
+任何人都可以提出文档方面的问题（Issue），或贡献一个变更，用拉取请求（PR）的方式提交到
 [GitHub 上的 `kubernetes/website` 仓库](https://github.com/kubernetes/website)。
 当然你需要熟练使用 [git](https://git-scm.com/) 和 [GitHub](https://lab.github.com/)
 才能在 Kubernetes 社区中有效工作。
@@ -79,7 +79,7 @@ to work effectively in the Kubernetes community.
 <!--
 To get involved with documentation:
 
-1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md).
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website)
    and the website's [static site generator](https://gohugo.io).
 3. Make sure you understand the basic processes for
@@ -88,7 +88,7 @@ To get involved with documentation:
 -->
 如何参与文档编制：
 
-1. 签署 CNCF 的[贡献者许可协议](https://github.com/kubernetes/community/blob/master/CLA.md)。
+1. 签署 CNCF 的[贡献者许可协议](https://github.com/kubernetes/community/blob/main/CLA.md)。
 2. 熟悉[文档仓库](https://github.com/kubernetes/website)和网站的[静态站点生成器](https://gohugo.io)。
 3. 确保理解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)
    和[审查变更](/zh-cn/docs/contribute/review/reviewing-prs/)的基本流程。
@@ -275,7 +275,7 @@ SIG Docs 的几种沟通方式：
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Join the [SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs)
+- Join the [SIG Docs video meeting](https://github.com/kubernetes/community/tree/main/sig-docs)
   held every two weeks. Meetings are always announced on `#sig-docs` and added to the
   [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
   You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
@@ -287,7 +287,7 @@ SIG Docs 的几种沟通方式：
   一定记得自我介绍!
 - [加入 `kubernetes-sig-docs` 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)，
   这里有更广泛的讨论，和官方决策的记录。
-- 参加每两周召开一次的 [SIG Docs 视频会议](https://github.com/kubernetes/community/tree/master/sig-docs)。
+- 参加每两周召开一次的 [SIG Docs 视频会议](https://github.com/kubernetes/community/tree/main/sig-docs)。
   会议总是在 `#sig-docs` 上发出公告，同时添加到
   [Kubernetes 社区会议日历](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)。
   你需要下载 [Zoom 客户端软件](https://zoom.us/download)，或电话拨号接入。

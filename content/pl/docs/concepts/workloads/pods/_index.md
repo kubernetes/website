@@ -155,17 +155,17 @@ Oto kilka przykładów zasobów workload, które zarządzają Podami:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} - komponent Kubernetesa służący do zarządzania aplikacjami stateful. StatefulSet zapewnia zachowanie kolejności i spójności danych w ramach aplikacji, co jest kluczowe dla usług wymagających takiego funkcjonowania. StatefulSet śledzi, które identyfikatory Podów są skojarzone z określonymi zasobami pamięci masowej i w jakiej kolejności powinny być tworzone oraz usuwane.
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Określanie referencji do Workloadu {#specifying-a-workload-reference}
+### Definiowanie grupy harmonogramowania (`scheduling group`) {#specifying-a-scheduling-group}
 
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
 Standardowo Kubernetes uruchamia (ang. schedule) każdy Pod osobno. W przypadku niektórych silnie
 sprzężonych aplikacji konieczne jest jednoczesne zaplanowanie całej grupy Podów, aby mogły działać poprawnie.
 
-Możesz powiązać Poda z obiektem [Workload](/docs/concepts/workloads/workload-api/) ,
-używając specjalnej [referencji do Workloadu](/docs/concepts/workloads/pods/workload-reference/).
-Informuje to `kube-scheduler`, że Pod należy do określonej grupy, co umożliwia mu
-podejmowanie skoordynowanych decyzji dotyczących rozmieszczenia całej grupy jednocześnie.
+Możesz powiązać Pod z [PodGroup](/docs/concepts/workloads/podgroup-api/) za pomocą pola [scheduling group](/docs/concepts/workloads/pods/scheduling-group/)
+(
+`spec.schedulingGroup`). Informuje to `kube-scheduler`, że dany `Pod` należy do określonej grupy, co
+pozwala na stosowanie skoordynowanych decyzji dotyczących rozmieszczenia na poziomie całej grupy.
 
 ### Szablony Poda {#pod-templates}
 
@@ -503,8 +503,8 @@ w dokumentacji dotyczącej cyklu życia Podów.
 * Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i
   dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
 * Pod jest zasobem najwyższego poziomu w REST API
-  Kubernetesa. Definicja obiektu {{< api-reference page="workload-resources/pod-v1" >}}
-  opisuje szczegółowo ten obiekt.
+  Kubernetesa. Definicja obiektu
+  {{< api-reference page="core/pod-v1" >}} opisuje szczegółowo ten obiekt.
 * [Toolkit systemu rozproszonego: Wzorce dla kontenerów złożonych](/blog/2015/06/the-distributed-system-toolkit-patterns/) wyjaśnia typowe układy dla Podów z więcej niż jednym kontenerem.
 * Przeczytaj o [ograniczeniach topologii Podów](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Przeczytaj [Zaawansowaną Konfigurację Podów](/docs/concepts/workloads/pods/advanced-pod-config/), aby

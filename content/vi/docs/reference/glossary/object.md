@@ -1,7 +1,6 @@
 ---
 title: Object
 id: object
-date: 2020-10-12
 full_link: /docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
    Một thực thể trong hệ thống Kubernetes, đại diện cho một phần trạng thái của cluster của bạn.
