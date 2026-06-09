@@ -82,7 +82,7 @@ storage through the [Container Object Storage Interface](https://github.com/kube
 The Data Protection WG has been working on a couple of exciting features:
 
 - **VolumeGroupSnapshot** is a Kubernetes feature enabling a crash-consistent, point-in-time
-  snapshot of multiple `PersistentVolumes` simultaneously. This ensures data integrity for
+  snapshot of multiple PersistentVolumes simultaneously. This ensures data integrity for
   applications — like databases — that rely on multiple volumes by capturing all volumes in the
   group atomically, at the exact same point in time. It just moved to GA in Kubernetes v1.36.
 
@@ -105,7 +105,7 @@ operations. Now, users can dynamically tune storage properties such as IOPS or t
 through the Kubernetes API — scaling up for peak loads or down to optimize costs — without external
 processes or downtime.
 
-`VolumeAttributesClass` enables dynamic modification of storage characteristics without recreating
+VolumeAttributesClass enables dynamic modification of storage characteristics without recreating
 the volume. This completes the picture by allowing users to tune both capacity and other storage
 properties dynamically, just as they can now tune both CPU and memory for compute.
 
@@ -168,7 +168,7 @@ the "Operating System" for AI:
 
 - **Object Storage as a First-Class Citizen**: AI datasets now frequently reach exabyte scale,
   making object storage the preferred choice for AI workloads. COSI is standardizing bucket
-  management just as CSI did for disks, allowing data scientists to use a `BucketClaim` to
+  management just as CSI did for disks, allowing data scientists to use a BucketClaim to
   provision S3-compatible storage natively and unifying object, file, and block storage into a
   single workflow.
 
