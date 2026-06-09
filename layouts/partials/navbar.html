@@ -4,7 +4,7 @@
 -}}
 
 <nav class="js-navbar-scroll navbar navbar-expand
-            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-bs-theme="dark" data-auto-burger="primary" data-auto-burger-close-label="{{ T "ui_nav_close_menu" }}">
+            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-bs-theme="dark" data-auto-burger="primary" data-auto-burger-open-label="{{ T "ui_nav_open_menu" }}" data-auto-burger-close-label="{{ T "ui_nav_close_menu" }}">
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">

@@ -56,6 +56,27 @@ function px(n){
     return n + 'px';
 }
 
+function mobileNavElement() {
+    return document.querySelector('[data-auto-burger="primary"]');
+}
+
+function mobileNavLabel(attributeName) {
+    var mobileNav = mobileNavElement();
+
+    if (mobileNav) {
+        return mobileNav.getAttribute(attributeName);
+    }
+}
+
+function setHamburgerNavLabel(attributeName) {
+    var hamburger = document.getElementById('hamburger');
+    var label = mobileNavLabel(attributeName);
+
+    if (hamburger && label) {
+        hamburger.setAttribute('aria-label', label);
+    }
+}
+
 var kub = (function () {
     var HEADER_HEIGHT;
     var html, header, mainNav, quickstartButton, hero, encyclopedia, footer, headlineWrapper;
@@ -71,6 +92,7 @@ var kub = (function () {
         footer = $('footer');
         headlineWrapper = $('#headlineWrapper');
         HEADER_HEIGHT = header.outerHeight();
+        setHamburgerNavLabel('data-auto-burger-open-label');
 
         resetTheView();
 
@@ -376,6 +398,16 @@ var pushmenu = (function(){
 
             var autoBurger = document.getElementById(id) || newDOMElement('div', 'pi-pushmenu', id);
             var ul = autoBurger.querySelector('ul') || newDOMElement('ul');
+            var labelAttrs = ['data-auto-burger-open-label', 'data-auto-burger-close-label'];
+
+            for (var i = 0; i < labelAttrs.length; i++) {
+                var labelAttr = labelAttrs[i];
+                var labelValue = container.getAttribute(labelAttr);
+
+                if (labelValue) {
+                    autoBurger.setAttribute(labelAttr, labelValue);
+                }
+            }
 
             $(container).find('a[href], button').each(function () {
                 if (!booleanAttributeValue(this, 'data-auto-burger-exclude', false)) {
@@ -423,6 +455,7 @@ var pushmenu = (function(){
             }
             var pushmenuEl = target.closest('.pi-pushmenu');
             if (pushmenuEl) {
+                setHamburgerNavLabel('data-auto-burger-open-label');
                 pushmenuEl.classList.remove('on');
                 setTimeout(function () { pushmenuEl.style.display = 'none'; }, 300);
             }
@@ -471,6 +504,7 @@ var pushmenu = (function(){
         function closeMe(e) {
             if (e.target == sled) return;
 
+            setHamburgerNavLabel('data-auto-burger-open-label');
             $(el).removeClass('on');
             setTimeout(function(){
                 $(el).css({display: 'none'});
@@ -478,6 +512,7 @@ var pushmenu = (function(){
         }
 
         function exposeMe(){
+            setHamburgerNavLabel('data-auto-burger-close-label');
             $(el).css({
                 display: 'block',
                 zIndex: highestZ()
