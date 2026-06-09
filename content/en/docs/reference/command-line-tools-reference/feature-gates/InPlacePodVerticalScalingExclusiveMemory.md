@@ -8,8 +8,9 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.34"
 ---
+
 Allow resource resize for containers in Guaranteed Pods when the memory manager policy is set to `"Static"`.
 Applies only to nodes with `InPlacePodVerticalScaling` and memory manager features enabled.
-

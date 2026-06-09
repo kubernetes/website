@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 
 Enables the support for [Workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
 

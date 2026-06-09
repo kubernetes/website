@@ -8,10 +8,13 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.29"
     toVersion: "1.32"
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
 ---
+
 [`clusterTrustBundle` projected volume sources](/docs/concepts/storage/projected-volumes#clustertrustbundle).

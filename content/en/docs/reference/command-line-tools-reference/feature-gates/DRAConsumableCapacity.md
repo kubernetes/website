@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables device sharing across multiple ResourceClaims or requests.
 
 Additionally, if a device supports sharing, its resource (capacity) can be managed through a defined sharing policy.

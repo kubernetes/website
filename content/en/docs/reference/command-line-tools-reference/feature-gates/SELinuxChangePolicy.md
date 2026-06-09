@@ -8,16 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.32"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
+
 Enables `spec.securityContext.seLinuxChangePolicy` field.
 This field can be used to opt-out from applying the SELinux label to the pod
 volumes using mount options. This is required when a single volume that supports

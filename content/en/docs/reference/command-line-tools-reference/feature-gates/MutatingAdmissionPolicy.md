@@ -8,16 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.30"
+    locked: false
+    fromVersion: "1.32"
     toVersion: "1.33"
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 
 Enable [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/) support, which allows
 [CEL](/docs/reference/using-api/cel/) mutations to

@@ -6,8 +6,10 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 When enabled, pods are allowed to use both `hostNetwork` and [User Namespaces](/docs/concepts/workloads/pods/user-namespaces) simultaneously.

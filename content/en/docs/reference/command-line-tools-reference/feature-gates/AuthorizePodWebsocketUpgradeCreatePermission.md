@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.35"
 ---
+
 When the `AuthorizePodWebsocketUpgradeCreatePermission` feature gate is `true`,
 clients must be authorized to **create** Pod subresources even when triggering their
 creation using a WebSocket.

@@ -8,15 +8,18 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.33"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.36"
     locked: true
+    fromVersion: "1.36"
 ---
+
 Enable kubelet to surface Pressure Stall Information (PSI) metrics in the Summary API and Prometheus metrics.

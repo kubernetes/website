@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
 ---
+
 Enables APF to use size of objects for estimating request cost.

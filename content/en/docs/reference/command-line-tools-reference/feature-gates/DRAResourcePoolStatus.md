@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables the ResourcePoolStatusRequest API for querying the
 [availability of devices in DRA resource pools](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resource-pool-status).
 When enabled, users can create ResourcePoolStatusRequest objects to get a

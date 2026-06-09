@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.15"
     toVersion: "1.30"
-  - stage: beta 
+  - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.31"
 ---
+
 When `LocalStorageCapacityIsolation` 
 is enabled for 
 [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/), 

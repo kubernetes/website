@@ -8,15 +8,19 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.26"
     toVersion: "1.27"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.28"
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.32"
 ---
+
 Enable [fine-tuning](/docs/tasks/administer-cluster/topology-manager/#topology-manager-policy-options)
 of topology manager policies.

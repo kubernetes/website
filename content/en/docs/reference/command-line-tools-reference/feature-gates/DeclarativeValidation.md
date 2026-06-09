@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
+
 Enables declarative validation of in-tree Kubernetes APIs. When enabled, APIs with declarative validation rules
 (defined using IDL tags in the Go code) will have both the generated declarative validation code
 and the original hand-written validation code executed.

@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 
 Enables support for granular authorization of ResourceClaim status updates.
 This feature requires additional fine-grained access permissions when modifying
