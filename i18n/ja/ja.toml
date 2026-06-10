@@ -727,7 +727,7 @@ other = "成功"
 other = "概要"
 
 [tab_default]
-other = "タブ {{ . }}"
+other = "タブ{{ . }}"
 
 [theme_locked_notice]
 other = "このページではテーマが固定されています"
