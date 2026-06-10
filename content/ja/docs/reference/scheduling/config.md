@@ -99,7 +99,7 @@ profiles:
   `score`拡張点は、`VolumeCapacityPriority`機能が有効になっている時に有効化されます。
   要求されたボリュームに適合する最小のPVを優先的に使用します。
   {{< /note >}}
-- `VolumeRestrictions`:Nodeにマウントされたボリュームが、ボリュームプロバイダ固有の制限を満たしているかを確認します。
+- `VolumeRestrictions`:Nodeにマウントされたボリュームが、ボリュームプロバイダー固有の制限を満たしているかを確認します。
   拡張点:`filter`
 - `VolumeZone`:要求されたボリュームがゾーン要件を満たしているかどうかを確認します。
   拡張点:`filter`

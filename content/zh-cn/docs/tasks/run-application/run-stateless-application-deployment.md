@@ -246,5 +246,7 @@ added to Kubernetes, replicated applications were configured using a
 
 <!--
 - Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn how to [update a Deployment without downtime](/docs/tasks/run-application/update-deployment-rolling/).
 -->
 - 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+- 进一步了解如何[在不中断服务的情况下更新 Deployment](/zh-cn/docs/tasks/run-application/update-deployment-rolling/)。

@@ -1,10 +1,9 @@
 ---
 title: "From Kubernetes Dashboard to Headlamp: Understanding the Transition"
-date: 2026-03-27
+date: 2026-06-01T10:00:00-08:00
 layout: blog
 slug: dashboard-to-headlamp
 author: "Will Case (Headlamp)"
-draft: true
 ---
 
 For many people, Kubernetes Dashboard was their first window into Kubernetes. It offered a simple visual way to see what was running in a cluster, inspect resources, and build confidence without relying on the command line. For years, it helped developers, students, and operators make sense of Kubernetes, and it served as an important onramp into the ecosystem.
