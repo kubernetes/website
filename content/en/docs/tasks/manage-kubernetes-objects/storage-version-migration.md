@@ -328,7 +328,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   spec:
     resource:
       group: example.com
-      resource: SelfieRequest
+      resource: selfierequests
   ```
 
   Create the object using _kubectl_ as follows:

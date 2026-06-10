@@ -448,7 +448,7 @@ Inside the Kubernetes system is a control loop which evaluates the selector of
 every Service and saves the results into one or more EndpointSlice objects.
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=hostnames
+kubectl get endpointslices -l kubernetes.io/service-name=hostnames
 
 NAME              ADDRESSTYPE   PORTS   ENDPOINTS
 hostnames-ytpni   IPv4          9376    10.244.0.5,10.244.0.6,10.244.0.7
