@@ -47,7 +47,7 @@ Each day in a week-long shift as PR Wrangler:
   - 首先查看最小的 PR（`size/XS`），然后逐渐扩展到最大的
     PR（`size/XXL`），尽可能多地评审 PR。
 <!-- 
-- Make sure PR contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
+- Make sure PR contributors sign the [CLA](https://github.com/kubernetes/community/blob/main/CLA.md).
   - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors
     that haven't signed the CLA to do so.
 - Provide feedback on changes and ask for technical reviews from members of other SIGs.
@@ -55,10 +55,10 @@ Each day in a week-long shift as PR Wrangler:
   - If you need to verify content, comment on the PR and request more details.
   - Assign relevant `sig/` label(s).
   - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
-  - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)
+  - You can also tag a [SIG](https://github.com/kubernetes/community/blob/main/sig-list.md)
     for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 -->
-- 确保贡献者签署 [CLA](https://github.com/kubernetes/community/blob/master/CLA.md)。
+- 确保贡献者签署 [CLA](https://github.com/kubernetes/community/blob/main/CLA.md)。
   - 使用[此脚本](https://github.com/zparnold/k8s-docs-pr-botherer)自动提醒尚未签署
     CLA 的贡献者签署 CLA。
 - 针对变更提供反馈，请求其他 SIG 的成员进行技术审核。
@@ -67,7 +67,7 @@ Each day in a week-long shift as PR Wrangler:
   - 设置相关的 `sig/` 标签。
   - 如果需要，根据文件开头的 `reviewers:` 块来指派评审人。
   - 你也可以通过在 PR 上作出 `@kubernetes/<sig>-pr-reviews` 的评论以标记需要某个
-    [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) 来评审。
+    [SIG](https://github.com/kubernetes/community/blob/main/sig-list.md) 来评审。
 <!-- 
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
   - PRs should have a `/lgtm` comment from another member before merging.
@@ -264,7 +264,7 @@ The program was introduced to help new contributors understand the PR wrangling 
 
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
   for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to one of
-  the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+  the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/main/sig-docs#leadership).
 
 - Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the
   [Kubernetes Slack](https://slack.k8s.io).
@@ -277,7 +277,7 @@ The program was introduced to help new contributors understand the PR wrangling 
 
 - 其他人可以通过 [#sig-docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)申请成为指定
   PR 管理者某一周的影子。可以随时咨询某一位
-  [SIG Docs 联席主席/主管](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)。
+  [SIG Docs 联席主席/主管](https://github.com/kubernetes/community/tree/main/sig-docs#leadership)。
 
 - 注册成为一名 PR 管理者的影子时，
   请你在 [Kubernetes Slack](https://slack.k8s.io) 向这名 PR 管理者做一次自我介绍。
