@@ -4,7 +4,7 @@ title: "Building a Custom Metrics Exporter for Kubernetes"
 draft: true
 slug: custom-metrics-exporter-kubernetes
 author: >
-Victor David (independent)
+  Victor David (independent)
   
 ---
 
