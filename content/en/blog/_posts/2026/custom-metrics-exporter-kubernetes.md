@@ -374,7 +374,7 @@ HorizontalPodAutoscaler in the cluster can reference `worker_queue_depth`
 or `worker_jobs_processed_total` directly in its `metrics` block.
 
 For a walkthrough of that setup, see
-[Implementing Custom Metrics in Kubernetes]https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+[Implementing Custom Metrics in Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 For a catalog of ready-made exporters covering databases, message
 brokers, and cloud services, the
 [Prometheus exporters and integrations](https://prometheus.io/docs/instrumenting/exporters/)
