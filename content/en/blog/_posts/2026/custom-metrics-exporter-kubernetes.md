@@ -4,7 +4,8 @@ title: "Building a Custom Metrics Exporter for Kubernetes"
 draft: true
 slug: custom-metrics-exporter-kubernetes
 author: >
-  Victor David (independent)
+Victor David (independent)
+  
 ---
 
 Kubernetes ships with built-in awareness of CPU and memory, but most
