@@ -15,8 +15,8 @@ holding. When the built-in metrics are not enough, a _metrics exporter_
 bridges that gap.
 
 This post walks through writing one from scratch, packaging it as a
-container, and wiring it into a cluster so that Prometheus — and
-ultimately the Horizontal Pod Autoscaler — can consume it.
+container, and wiring it into a cluster so that Prometheus and
+ultimately the Horizontal Pod Autoscaler, can consume it.
 
 ## What a metrics exporter actually does
 
