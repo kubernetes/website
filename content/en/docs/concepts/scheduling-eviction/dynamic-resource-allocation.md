@@ -404,7 +404,7 @@ This works for any DeviceClass, even if it does not specify an extended resource
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
-Extended resource allocation by DRA is a *ga feature* and is enabled by default with the 
+Extended resource allocation by DRA is a *GA feature* and is enabled by default with the 
 [`DRAExtendedResource` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)
 in the kube-apiserver, kube-scheduler, kube-controller-manager, and kubelet.
 
