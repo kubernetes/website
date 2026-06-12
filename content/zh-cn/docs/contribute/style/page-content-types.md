@@ -32,6 +32,13 @@ Kubernetes 文档包含以下几种页面内容类型：
 - 教程（Tutorial）
 - 参考（Reference）
 
+<!--
+You may also find the [Diátaxis](https://diataxis.fr/) documentation framework
+helpful as a reference for how to write each of these page content types.
+-->
+你还可以参考 [Diátaxis](https://diataxis.fr/) 文档框架，
+了解如何编写每种页面内容类型。
+
 <!-- body -->
 
 <!--
@@ -65,16 +72,6 @@ To create common headings in your content pages, use the `heading` shortcode wit
 a heading string.
 
 Examples of heading strings:
-
-- whatsnext
-- prerequisites
-- objectives
-- cleanup
-- synopsis
-- seealso
-- options
-
-For example, to create a `whatsnext` heading, add the heading shortcode with the "whatsnext" string:
 -->
 要在内容页面中创建通用的标题，可以使用 `heading` 短代码加上标题字符串。
 
@@ -88,6 +85,9 @@ For example, to create a `whatsnext` heading, add the heading shortcode with the
 - seealso
 - options
 
+<!--
+For example, to create a `whatsnext` heading, add the heading shortcode with the "whatsnext" string:
+-->
 例如，要创建一个 `whatsnext` 标题，添加 `heading` 短代码并指定 "whatsnext" 字符串：
 
 ```none
@@ -224,7 +224,7 @@ To write a new task page, create a Markdown file in a subdirectory of the
 任务页面的讲解文字很少，不过通常会包含指向概念主题的链接，以便读者能够了解相关的背景和知识。
 
 编写新的任务页面时，在 `/content/en/docs/tasks` 目录下的子目录中创建一个新的 Markdown 文件。
-该文件特点如下。
+该文件特点如下：
 
 | 页面章节                  |
 |---------------------------|
@@ -240,34 +240,44 @@ You can add the `prerequisites` and `whatsnext` sections to your page
 with the `heading` shortcode.
 
 Within each section, write your content. Use the following guidelines:
+-->
+其中的 `overview`、`steps` 和 `discussion` 节在任务页面中显示为注释。
+你可以使用 `heading` 短代码添加 `prerequisites` 和 `whatsnext` 小节。
+  
+在每个小节内撰写内容时注意以下规定：
 
+<!--
 - Use a minimum of H2 headings (with two leading `#` characters). The sections
   themselves are titled automatically by the template.
 - For `overview`, use a paragraph to set context for the entire topic.
+  Briefly explain why a reader would want to perform this task (the motivation
+  or use case), so the reader can decide whether the page is relevant to them
+  before reading the steps.
 - For `prerequisites`, use bullet lists when possible. Start adding additional
   prerequisites below the `include`. The default prerequisites include a running Kubernetes cluster.
-- For `steps`, use numbered lists.
+- For `steps`, use numbered lists. Keep the focus on the task itself. If a
+  step requires substantial background, link to the relevant concept page
+  rather than repeating the explanation here.
 - For discussion, use normal content to expand upon the information covered
   in `steps`.
 - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
   interested in reading next.
-
-An example of a published task topic is [Using an HTTP proxy to access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/).
 -->
-其中的 `overview`、`steps` 和 `discussion` 节在任务页面中显示为注释。
-你可以使用 `heading` 短代码添加 `prerequisites` 和 `whatsnext` 小节。
-
-在每个小节内撰写内容时注意以下规定：
-
 - 最低使用二级标题（H2，标题行前带两个 `#` 字符）。每个小节都会由模板自动给出标题。
 - 在 `overview` 节中，用一个段落为整个任务主题设定语境；
+  简要解释读者为什么要执行此任务（动机或用例），
+  以便读者在阅读步骤之前可以决定该页面是否与他们相关。
 - 在 `prerequisites` 节中，尽可能使用项目符号列表。
   额外的环境准备条件要加在 `include` 短代码之后。
   默认的环境准备条件是拥有一个在运行的 Kubernetes 集群。
-- 在 `steps` 节中，使用编号符号列表。
+- 在 `steps` 节中，使用编号符号列表。务必将重点放在任务本身。
+  如果某个步骤需要大量背景知识，请链接到相关的概念页面，而不是在此处重复解释。
 - 在 `discussion` 节中，使用正常文字内容来对 `steps` 节中内容展开叙述。
 - 在 `whatsnext` 节中，使用项目符号列表（不超过 5 项），列举读者可能接下来有兴趣阅读的主题。
 
+<!--
+An example of a published task topic is [Using an HTTP proxy to access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/).
+-->
 已上线的任务主题示例之一是[使用 HTTP 代理访问 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)。
 
 <!--
@@ -279,7 +289,15 @@ sequence of steps. For example, a tutorial might provide a walkthrough of a
 code sample that illustrates a certain feature of Kubernetes. Tutorials can
 include surface-level explanations, but should link to related concept topics
 for deep explanations.
+-->
+### 教程（Tutorial）  {#tutorial}
 
+教程页面描述如果完成一个比单一任务规模更大的目标。通常教程页面会有多个小节，
+每个小节由一系列步骤组成。例如，每个教程可能提供对代码示例的讲解，
+便于用户了解 Kubernetes 的某个功能特性。教程可以包含表面层面的概念解释，
+对于更深层面的概念主题应该使用链接。
+
+<!--
 To write a new tutorial page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tutorials` directory, with the following characteristics:
 
@@ -292,15 +310,8 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 | cleanup        |
 | whatsnext      |
 -->
-### 教程（Tutorial）  {#tutorial}
-
-教程页面描述如果完成一个比单一任务规模更大的目标。通常教程页面会有多个小节，
-每个小节由一系列步骤组成。例如，每个教程可能提供对代码示例的讲解，
-便于用户了解 Kubernetes 的某个功能特性。教程可以包含表面层面的概念解释，
-对于更深层面的概念主题应该使用链接。
-
 撰写新的教程页面时，在 `/content/en/docs/tutorials` 目录下面的子目录中创建新的
-Markdown 文件。该文件有以下特点。
+Markdown 文件。该文件有以下特点：
 
 | 页面节区                  |
 |---------------------------|
@@ -315,7 +326,12 @@ Markdown 文件。该文件有以下特点。
 The `overview`, `objectives`, and `lessoncontent` sections appear as comments in the tutorial page.
 You can add the `prerequisites`, `cleanup`, and `whatsnext` sections to your page
 with the `heading` shortcode.
+-->
+教程页面的 `overview`、`objectives` 和 `lessoncontent` 小节显示为注释形式。
+你可以使用 `heading` 短代码根据需要添加 `prerequisites`、`cleanup` 和
+`whatsnext` 小节。
 
+<!
 Within each section, write your content. Use the following guidelines:
 
 - Use a minimum of H2 headings (with two leading `#` characters). The sections
@@ -330,16 +346,9 @@ Within each section, write your content. Use the following guidelines:
   state of the cluster after finishing the task.
 - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
   interested in reading next.
-
-An example of a published tutorial topic is
-[Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 -->
-教程页面的 `overview`、`objectives` 和 `lessoncontent` 小节显示为注释形式。
-你可以使用 `heading` 短代码根据需要添加 `prerequisites`、`cleanup` 和
-`whatsnext` 小节。
-
 在每个小节中编写内容时，请注意以下规定：
-
+  
 - 最低使用二级标题（H2，标题前面有两个 `#` 字符）。模板会自动为每个小节设置标题。
 - 在 `overview` 节中，用一个段落为整个主题设定语境；
 - 在 `prerequisites` 节中，尽可能使用项目符号列表。
@@ -349,6 +358,10 @@ An example of a published tutorial topic is
 - 在 `cleanup` 节中，使用编号符号列表来描述任务结束后清理集群状态所需要的步骤。
 - 在 `whatsnext` 节中，使用项目符号列表（不超过 5 项），列举读者可能接下来有兴趣阅读的主题。
 
+<!--
+An example of a published tutorial topic is
+[Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+-->
 已发布的教程主题的一个例子是
 [使用 Deployment 运行无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/).
 
@@ -357,7 +370,13 @@ An example of a published tutorial topic is
 
 A component tool reference page shows the description and flag options output for
 a Kubernetes component tool. Each page generates from scripts using the component tool commands.
+-->
+### 参考（Reference）  {#reference}
 
+组件工具的参考页面给出的是某个 Kubernetes 组件工具的描述和参数选项输出。
+每个页面都是使用组件工具命令基于脚本生成的。
+
+<!--
 A tool reference page has several possible sections:
 
 | Page section                 |
@@ -367,18 +386,7 @@ A tool reference page has several possible sections:
 | options from parent commands |
 | examples                     |
 | seealso                      |
-
-Examples of published tool reference pages are:
-
-- [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-- [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [kubectl](/docs/reference/kubectl/kubectl/)
 -->
-### 参考（Reference）  {#reference}
-
-组件工具的参考页面给出的是某个 Kubernetes 组件工具的描述和参数选项输出。
-每个页面都是使用组件工具命令基于脚本生成的。
-
 每个工具参考页面可能包含以下小节：
 
 | 页面小节        |
@@ -389,6 +397,13 @@ Examples of published tool reference pages are:
 | examples（示例）|
 | seealso（参考）|
 
+<!--
+Examples of published tool reference pages are:
+
+- [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+- [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [kubectl](/docs/reference/kubectl/kubectl/)
+-->
 已发布的工具参考页面示例包括：
 
 - [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
