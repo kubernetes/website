@@ -378,8 +378,7 @@ You can provide an extended resource name for a DeviceClass. The scheduler will 
 select the devices matching the class for the extended resource requests.
 This allows users to continue using extended resource requests in a pod to request
 either extended resources provided by device plugin, or DRA devices.
-The same extended resource can be provided either by device plugin, or DRA on one single cluster node.
-The same extended resource can be provided by device plugin on some nodes, and DRA on other nodes in the same cluster.
+The same extended resource can also be provided by a device plugin on some nodes, and a DRA driver on other nodes in the same cluster.
 
 In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
 If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
