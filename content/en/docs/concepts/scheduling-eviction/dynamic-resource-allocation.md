@@ -381,7 +381,7 @@ either extended resources provided by device plugin, or DRA devices.
 The same extended resource can also be provided by a device plugin on some nodes, and a DRA driver on other nodes in the same cluster.
 
 In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
-If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
+A pod requesting 2  extended resources with `example.com/gpu: 2` can be scheduled to
 a node with two or more devices matching the DeviceClass.
 
 ```yaml
