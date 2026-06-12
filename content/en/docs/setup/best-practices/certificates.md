@@ -57,8 +57,9 @@ In this scenario, there are two approaches for certificate usage:
   `kubelet-client.key` are created.
 
 {{< note >}}
-`front-proxy` certificates are required only if you run kube-proxy to support
-[an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
+`front-proxy` certificates are required only when using the
+[aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+to enable an [extension (aggregated) API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 {{< /note >}}
 
 etcd also implements mutual TLS to authenticate clients and peers.
