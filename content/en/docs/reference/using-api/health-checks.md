@@ -34,7 +34,7 @@ For all endpoints, you can use the `verbose` parameter to print out the checks a
 This can be useful for a human operator to debug the current status of the API server, it is not intended to be consumed by a machine:
 
 ```shell
-curl -k https://localhost:6443/livez?verbose
+curl -k https://localhost:6443/readyz?verbose
 ```
 
 or from a remote host with authentication:
@@ -63,7 +63,7 @@ The output will look like this:
     [+]poststarthook/kube-apiserver-autoregistration ok
     [+]autoregister-completion ok
     [+]poststarthook/apiservice-openapi-controller ok
-    healthz check passed
+    readyz check passed
 
 The Kubernetes API server also supports to exclude specific checks.
 The query parameters can also be combined like in this example:
@@ -93,7 +93,7 @@ The output show that the `etcd` check is excluded:
     [+]autoregister-completion ok
     [+]poststarthook/apiservice-openapi-controller ok
     [+]shutdown ok
-    healthz check passed
+    readyz check passed
 
 ## Individual health checks
 
