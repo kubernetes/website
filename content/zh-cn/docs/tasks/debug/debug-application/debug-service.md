@@ -40,7 +40,7 @@ sees.  The simplest way to do this is to run an interactive busybox Pod:
 最简单的方法是运行一个交互式的 busybox Pod：
 
 ```none
-kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
+kubectl run -it --rm --restart=Never busybox --image=registry.k8s.io/busybox:1.27.2 sh
 ```
 
 <!--
