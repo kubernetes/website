@@ -27,7 +27,7 @@ This feature enhances resource management in Kubernetes by offering *flexible re
 * It provides a consolidated approach to resource declaration, reducing the need for
   meticulous, per-container management, especially for Pods with multiple
   containers. 
-* Pod-level resources enable containers within a pod to share unused resoures
+* Pod-level resources enable containers within a pod to share unused resources
   amongst themselves, promoting efficient utilization within the pod. For example,
   it prevents sidecar containers from becoming performance bottlenecks. Previously,
   a sidecar (e.g., a logging agent or service mesh proxy) hitting its individual CPU

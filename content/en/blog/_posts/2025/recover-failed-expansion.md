@@ -12,7 +12,7 @@ but specified `20TiB`? This seemingly innocuous problem was kinda hard to fix - 
 [Automated recovery from storage expansion](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) has been around for a while in beta; however, with the v1.34 release, we have graduated this to
 **general availability**.
 
-While it was always possible to recover from failing volume expansions manually, it usually required cluster-admin access and was tedious to do (See aformentioned link for more information).
+While it was always possible to recover from failing volume expansions manually, it usually required cluster-admin access and was tedious to do (See aforementioned link for more information).
 
 What if you make a mistake and then realize immediately?
 With Kubernetes v1.34, you should be able to reduce the requested size of the PersistentVolumeClaim (PVC) and, as long as the expansion to previously requested
