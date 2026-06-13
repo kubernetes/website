@@ -49,7 +49,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
-# e2eユーザのパスワードを取得します。
+# e2eユーザーのパスワードを取得します。
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # 最初のユーザー名を表示します

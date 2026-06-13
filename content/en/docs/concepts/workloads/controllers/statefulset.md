@@ -361,7 +361,7 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 `maxUnavailable`.
 
 {{< note >}}
-The `maxUnavailable` field is in Beta stage and it is enabled by default.
+The `maxUnavailable` field is in Beta stage and it is disabled by default.
 {{< /note >}}
 
 ### Forced rollback
