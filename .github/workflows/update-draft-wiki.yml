@@ -3,9 +3,10 @@ name: Update Draft Blogs Wiki
 on:
   schedule:
     - cron: '0 6 * * *'
-  workflow_dispatch:
+  workflow_dispatch: {}
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'content/en/blog/_posts/**'
 
