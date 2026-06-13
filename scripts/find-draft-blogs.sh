@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO="${REPO:-KashishV999/website}"          # override via env
 BASE_REF="${BASE_REF:-main}"
-WIKI_REPO="https://github.com/${REPO}.wiki.git"
+WIKI_REPO="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.wiki.git"
 WIKI_DIR="$(mktemp -d)/wiki"
 WIKI_PAGE="Draft-Blogs.md"
 
