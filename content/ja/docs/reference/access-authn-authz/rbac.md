@@ -94,7 +94,7 @@ RoleまたはClusterRoleオブジェクトの名前は有効な
 
 ### RoleBindingとClusterRoleBinding
 
-RoleBindingはRoleで定義された権限をユーザーまたはユーザのセットに付与します。
+RoleBindingはRoleで定義された権限をユーザーまたはユーザーのセットに付与します。
 RoleBindingは*subjects* (ユーザー、グループ、サービスアカウント)のリストと、付与されるRoleへの参照を保持します。
 RoleBindingは特定のNamespace内の権限を付与しますが、ClusterRoleBindingはクラスター全体にアクセスする権限を付与します。
 
@@ -559,7 +559,7 @@ ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるA
 
 ### ユーザー向けRole
 
-一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスター全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
+一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザーのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスター全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
 
 ユーザー向けのClusterRolesは[ClusterRoleの集約](#集約clusterrole)を使用して、管理者がこれらのClusterRolesにカスタムリソースのルールを含めることができるようにします。ルールを`admin`、`edit`、または`view` Roleに追加するには、次のラベルの一つ以上でClusterRoleを作成します。
 

@@ -289,7 +289,7 @@ Kubernetes v1.32リリースの詳細については、[リリースノート](h
 
 Kubernetes v1.32は、[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.32.0)または[Kubernetesダウンロードページ](/ja/releases/download/)からダウンロードできます。
 
-Kubernetesを始めるには、[対話式のチュートリアル](/ja/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスタを実行してください。
+Kubernetesを始めるには、[対話式のチュートリアル](/ja/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
 また、[kubeadm](/ja/docs/setup/independent/create-cluster-kubeadm/)を使用して簡単にv1.32をインストールすることもできます。
 
 ## リリースチーム
