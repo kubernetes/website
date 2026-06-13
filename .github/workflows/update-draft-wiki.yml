@@ -1,0 +1,30 @@
+name: Update Draft Blogs Wiki
+
+on:
+  schedule:
+    - cron: '0 6 * * *'        # daily at 6am UTC
+  workflow_dispatch:             # manual trigger button in Actions tab
+  push:
+    branches: [main]
+    paths:
+      - 'content/en/blog/_posts/**'   # only run when blog files change
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write       # needed to push to wiki
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup gh cli
+        run: gh --version    # already available on ubuntu-latest runners
+
+      - name: Run draft blog scanner
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: bash scripts/find-draft-blogs.sh
