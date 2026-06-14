@@ -1,6 +1,7 @@
 ---
 title: "Introducing the Cluster API plugin for Headlamp (headlamp-k8s/plugins)"
-draft: true
+date: 2026-06-17
+canonical_url: https://www.kubernetes.dev/blog/2026/06/17/headlamp-cluster-api-plugin
 layout: blog
 slug: headlamp-cluster-api-plugin
 author: "[Chayan Das](https://github.com/ChayanDass) (independent)"
