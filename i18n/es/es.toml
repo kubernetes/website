@@ -115,7 +115,7 @@ other = "por"
 other = """Los autores de Kubernetes | Documentación distribuida bajo <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Todos los derechos reservados. The Linux Foundation tiene marcas registradas y utiliza marcas registradas. Para obtener una lista de marcas registradas por The Linux Foundation, visita <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Para los términos de uso del sitio web, la política de marcas y otras políticas del proyecto, consulte <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 # Labels for the docs portal home page.
 [docs_label_browse]

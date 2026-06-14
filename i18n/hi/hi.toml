@@ -174,7 +174,7 @@ other = "समुदाय का अन्वेषण करें"
 other = "योगदान करें"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;। सभी अधिकार सुरक्षित। The Linux Foundation ने ट्रेडमार्क पंजीकृत किया है और ट्रेडमार्क का उपयोग करता है। Linux Foundation के ट्रेडमार्क की सूची के लिए, कृपया हमारा <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ट्रेडमार्क उपयोग पृष्ठ</a> देखें।"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. वेबसाइट के उपयोग की शर्तों, ट्रेडमार्क नीति और अन्य परियोजना नीतियों के लिए कृपया देखें <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """कुबेरनेट्स लेखक | <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> के अंतर्गत वितरित दस्तावेज़"""
