@@ -453,19 +453,24 @@ Kubernetes 项目建议你转为使用
 第三方存储驱动插件。
 
 <!--
-### gitRepo (deprecated) {#gitrepo}
+### gitRepo (disabled) {#gitrepo}
 -->
-### gitRepo（已弃用）   {#gitrepo}
+### gitRepo（已禁用）   {#gitrepo}
 
 {{< warning >}}
 <!--
-The `gitRepo` volume plugin is deprecated and is disabled by default.
+Kubernetes {{< skew latestVersion >}} does *not* include the `gitRepo` volume
+driver. The last version that provided a way to use this driver was Kubernetes
+v1.35, and it has been deprecated since the [v1.11](/releases/1.11) minor
+release.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
 that clones the repo using Git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 -->
-`gitRepo` 卷插件已经被弃用且默认禁用。
+Kubernetes {{< skew latestVersion >}} **不**包含 `gitRepo` 卷驱动。
+提供使用此驱动方法的最后一个版本是 Kubernetes v1.35，
+并且自从 [v1.11](/zh-cn/releases/1.11) 小版本发布以来，它已被弃用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
 [EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
@@ -488,46 +493,6 @@ part of a policy to reject use of `gitRepo` volumes:
 !has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))
 ```
 {{< /warning >}}
-
-<!--
-You can use this deprecated storage plugin in your cluster if you explicitly
-enable the `GitRepoVolumeDriver`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
--->
-如果你明确启用 `GitRepoVolumeDriver`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以在集群中使用这个已废弃的存储插件。
-
-<!--
-A `gitRepo` volume is an example of a volume plugin. This plugin
-mounts an empty directory and clones a git repository into this directory
-for your Pod to use.
-
-Here is an example of a `gitRepo` volume:
--->
-`gitRepo` 卷是一个卷插件的例子。
-该查卷挂载一个空目录，并将一个 Git 代码仓库克隆到这个目录中供 Pod 使用。
-
-下面给出一个 `gitRepo` 卷的示例：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: server
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    volumeMounts:
-    - mountPath: /mypath
-      name: git-volume
-  volumes:
-  - name: git-volume
-    gitRepo:
-      repository: "git@somewhere:me/my-git-repository.git"
-      revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-```
 
 ### hostPath {#hostpath}
 
@@ -758,7 +723,8 @@ spec:
 -->
 {{< tab name="Windows 节点" codelang="yaml" >}}
 ---
-# 此清单将主机上的 "C:\Data\foo" 目录挂载为 hostpath-example-windows Pod 中运行的单个容器内的 "C:\foo" 目录
+# 此清单将主机上的 "C:\Data\foo" 目录挂载为 hostpath-example-windows Pod
+# 中运行的单个容器内的 "C:\foo" 目录
 #
 # 容器中的挂载是只读的
 apiVersion: v1
