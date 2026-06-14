@@ -11,6 +11,6 @@ spec:
       memory: "200Mi"
   containers:
   - name: memory-demo-ctr
-    image: nginx
+    image: polinux/stress
     command: ["stress"]
     args: ["--vm", "1", "--vm-bytes", "150M", "--vm-hang", "1"]
