@@ -265,6 +265,10 @@ Credentials can be provided in several ways:
 
   Only Pods which provide their own keys can access the private registry.
 
+- [Add image pull secrets to a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+
+  Add `imagePullSecrets` to the ServiceAccount (for example, the default service account) that will be used to deploy the Pod. In contrast to the per-Pod approach above, the pull secret only has to be stored once in the ServiceAccount configuration, so the Pod spec can remain independent of the cluster.
+
 - [Configuring Nodes to Authenticate to a Private Registry](#configuring-nodes-to-authenticate-to-a-private-registry)
   - All Pods can read any configured private registries.
   - Requires node configuration by cluster administrator.
