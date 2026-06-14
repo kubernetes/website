@@ -1,4 +1,12 @@
-# Open source maintainership in the age of AI
+---
+layout: blog
+title: "Open source maintainership in the age of AI"
+draft: true
+slug: open-source-maintainership-in-the-age-of-ai
+author: >
+  Kevin Hannon (Red Hat)
+---
+
 
 AI has really changed the game around software development.
 More people are leveraging AI than ever to contribute patches to projects they use.
@@ -28,7 +36,7 @@ While AI tools can assist, the human contributor remains fully responsible for e
 
 This isn't about diminishing AI's role as a tool—it's about maintaining clear accountability. If something breaks, there needs to be a human who understands why and can fix it.
 
-### Tooling enforcement to avoid co-authors from AI
+### CLA enforcement for co-authors
 
 The CNCF provides a [tool](https://github.com/cncf/cla) for verifying the contributor license agreements on each pull request.
 AI agents are not able to solve these contributor license agreements so one enforcement the project made is to enable the CLA check for co-authors.
@@ -50,21 +58,21 @@ These policies reflect a mature approach to AI: embrace it as a tool, but never 
 
 ## Automated AI Reviews
 
-There exist many tools to aid in reviewing code. AI pull request tools provide interesting challenges from governance so one of the first tasks the community took on was to [document the process](https://github.com/kubernetes/community/blob/main/github-management/ai-code-review-tools.md) for what is needed to bring in new AI tools.
+There exist many tools to aid in reviewing code. AI pull request tools introduce governance challenges so one of the first tasks the community took on was to [document the process](https://github.com/kubernetes/community/blob/main/github-management/ai-code-review-tools.md) for what is needed to bring in new AI tools.
 One of the major evaluation criteria for these tools is to find maintainers willing to test drive them in kubernetes-sigs repositories. Kueue, JobSet and Agent-Sandbox have been experimenting with these tools to provide more support for maintainers.
 
 ### Copilot
 
-One tool that many maintainers started using was Github Copilot.
+One tool that many maintainers started using was GitHub Copilot.
 The CNCF provides [access for maintainers](https://contribute.cncf.io/blog/2025/12/16/github-copilot-enterprise-for-maintainers/) so this ended up being the first tool many started using.
 It provides some good experience on tuning reviews but there were some growing pains with this tool.
 The biggest blocker for community adoption is relying on contributors to have a copilot license. Only maintainers were able to request copilot reviews and automated reviews of pull requests was out of reach for the community.
 One of the goals of AI review tools is to provide an automated review tool that maintainers don't need to request.
 This demonstrated the need for organization control rather than relying on contributors having access.
 
-### Coderabbit
+### CodeRabbit
 
-In the last few weeks, the Kubernetes community has rolled out Coderabbit to a few projects.
+In mid 2026, the Kubernetes community has rolled out CodeRabbit to a few projects.
 As with copilot, some tuning has been required to provide better reviews but the overall feedback has been positive.
 There is a lot of configuration available for this tool and one of the most interesting uses of this tool comes from agent-sandbox.
 
@@ -79,6 +87,5 @@ The community could use your help in tuning reviews tools, evaluating tools or e
 Some areas we are exploring more:
 
 - The use of AI skills to reduce maintainer burnout.
-- AI assisted triage of github issues through use of [Dosu](https://dosu.dev/).
 - AI assisted triage of failing tests.
 - Skills to aid the operational aspects of Kubernetes.
