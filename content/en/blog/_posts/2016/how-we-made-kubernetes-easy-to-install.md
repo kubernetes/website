@@ -7,7 +7,7 @@ author: >
   [Luke Marsden](https://twitter.com/lmarsden) (Weaveworks)  
 ---
 
-Over at&nbsp;[SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/master/sig-cluster-lifecycle/README.md), we've been hard at work the last few months on kubeadm, a tool that makes Kubernetes dramatically easier to install. We've heard from users that installing Kubernetes is harder than it should be, and we want folks to be focused on writing great distributed apps not wrangling with infrastructure!  
+Over at&nbsp;[SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/main/sig-cluster-lifecycle/README.md), we've been hard at work the last few months on kubeadm, a tool that makes Kubernetes dramatically easier to install. We've heard from users that installing Kubernetes is harder than it should be, and we want folks to be focused on writing great distributed apps not wrangling with infrastructure!  
 
 There are three stages in setting up a Kubernetes cluster, and we decided to focus on the second two (to begin with):  
 

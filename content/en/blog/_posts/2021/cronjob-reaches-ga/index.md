@@ -49,7 +49,7 @@ written. In hindsight, we can certainly say that such an approach can
 overload the API server at scale.
 
 These days, every core controller in kubernetes must follow the guidelines 
-described in [Writing Controllers](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/controllers.md#readme).
+described in [Writing Controllers](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-api-machinery/controllers.md#readme).
 Among many details, that document prescribes using
 [shared informers](https://www.cncf.io/blog/2019/10/15/extend-kubernetes-via-a-shared-informer/)
 to “receive notifications of adds, updates, and deletes for a particular

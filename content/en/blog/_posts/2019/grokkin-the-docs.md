@@ -70,7 +70,7 @@ and another one for [documentation](https://kubernetes.io/docs/contribute/). The
 guides contain conflicting information on the same topic. For example, the SIG
 Docs GitHub process recommends creating a local branch based on
 `upstream/master`.  The [Kubernetes Community Contributor
-Guide](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)
+Guide](https://github.com/kubernetes/community/blob/main/contributors/guide/github-workflow.md)
 advocates updating your fork from upstream and then creating a local branch
 based on your fork. Which process should a new contributor follow? Are the two
 processes interchangeable? The best place to ask questions about conflicting
@@ -145,7 +145,7 @@ support, bug, and feature requests not only for the documentation but also for
 Kubernetes code projects. How to route, label, and prioritize issues has become
 easier week by week. I'm still not 100% clear on which SIG and/or project is
 responsible for which parts of the documentation. The SIGs and Working Groups
-[page](https://github.com/kubernetes/community/blob/master/sig-list.md) helps,
+[page](https://github.com/kubernetes/community/blob/main/sig-list.md) helps,
 but it is not enough. At a page level in the documentation, it's not
 always obvious which SIG or project has domain expertise. The page's front
 matter sometimes list reviewers but never lists a SIG or project. Each page should
@@ -184,7 +184,7 @@ SIG Docs faces challenges due to lack of technical writers:
     forget to remove themselves from the reviewer and approver assignment file.
     A large part of the time-to-merge problem is not having enough reviewers and
     approvers. The other part is the [high
-    barrier](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)
+    barrier](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer)
     to becoming a reviewer or approver, much higher than what I've seen on other
     open source projects. Experienced open source tech writers who want to
     contribute to SIG Docs aren't fast-tracked into approver and reviewer roles.
@@ -199,7 +199,7 @@ SIG Docs faces challenges due to lack of technical writers:
     Terms should be identical to what is used in the **Standardized Glossary**. Being consistent reduces confusion.
     Tracking down and fixing these occurrences is time-consuming but worthwhile for readers.
 - **Working with the Steering Committee to create project documentation guidelines**:
-    The [Kubernetes Repository Guidelines](https://github.com/kubernetes/community/blob/master/github-management/kubernetes-repositories.md) don't mention documentation at all. Between a
+    The [Kubernetes Repository Guidelines](https://github.com/kubernetes/community/blob/main/github-management/kubernetes-repositories.md) don't mention documentation at all. Between a
     project's GitHub docs and the Kubernetes docs, some projects have almost
     duplicate content, whereas others have conflicting content. Create clear
     guidelines so projects know to put roadmaps, milestones, and comprehensive

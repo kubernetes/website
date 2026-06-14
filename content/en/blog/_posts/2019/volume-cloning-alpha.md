@@ -33,7 +33,7 @@ There are no new objects introduced to enable cloning. Instead, the existing dat
 
 ## Which volume plugins support Kubernetes Cloning?
 
-Kubernetes supports three types of volume plugins: in-tree, Flex, and [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI). See [Kubernetes Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for details.
+Kubernetes supports three types of volume plugins: in-tree, Flex, and [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI). See [Kubernetes Volume Plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md) for details.
 
 Cloning is only supported for CSI drivers (not for in-tree or Flex). To use the Kubernetes cloning feature, ensure that a CSI Driver that implements cloning is deployed on your cluster.
 For a list of CSI drivers that currently support cloning see the [CSI Drivers doc](https://kubernetes-csi.github.io/docs/drivers.html).

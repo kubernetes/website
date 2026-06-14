@@ -12,7 +12,7 @@ Figure 1: Kubernetes [Rankings](https://www.cncf.io/blog/2017/02/27/measuring-po
 
 
 
-At the center of the community are [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) with members from different companies and organizations, all with a common interest in a specific topic. Given how fast Kubernetes is growing, SIGs help nurture and distribute leadership, while advancing new proposals, designs and release updates. Here's a look at the SIG building blocks supporting Kubernetes:
+At the center of the community are [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) with members from different companies and organizations, all with a common interest in a specific topic. Given how fast Kubernetes is growing, SIGs help nurture and distribute leadership, while advancing new proposals, designs and release updates. Here's a look at the SIG building blocks supporting Kubernetes:
 
 
 

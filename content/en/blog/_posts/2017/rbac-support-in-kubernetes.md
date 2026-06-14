@@ -114,7 +114,7 @@ Two different talks at the at the Google Cloud Next conference touched on RBAC r
 If you’d like to contribute or simply help provide feedback and drive the roadmap, [join our community](https://github.com/kubernetes/community#kubernetes-community). Specifically interested in security and RBAC related conversation, participate through one of these channels:  
 
 - Chat with us on the Kubernetes [Slack sig-auth channel](https://kubernetes.slack.com/messages/sig-auth/)
-- Join the biweekly [SIG-Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md) on Wednesday at 11:00 AM PT
+- Join the biweekly [SIG-Auth meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md) on Wednesday at 11:00 AM PT
 
 Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6).
 

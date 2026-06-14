@@ -196,6 +196,6 @@ To learn more about StorageClass based dynamic provisioning in Kubernetes, pleas
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 Please get involved by joining the Kubernetes
-[Storage SIG](https://github.com/kubernetes/community/blob/master/sig-storage/README.md)
+[Storage SIG](https://github.com/kubernetes/community/blob/main/sig-storage/README.md)
 (Special Interest Group) to help us enhance this feature.
 There are a lot of good ideas already and we'd be thrilled to have more!

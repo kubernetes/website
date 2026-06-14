@@ -105,7 +105,7 @@ a community where everyone is busy with their own tasks, how can I find the righ
 
     Everyone's way of getting involved within the Open Source community is different. SIG Release 
     is a self-serving team, meaning that we write our own tools to be able to ship releases. We 
-    collaborate a lot with other SIGs, such as [SIG K8s Infra](https://github.com/kubernetes/community/blob/master/sig-k8s-infra/README.md), but all the tools that we used needs to be 
+    collaborate a lot with other SIGs, such as [SIG K8s Infra](https://github.com/kubernetes/community/blob/main/sig-k8s-infra/README.md), but all the tools that we used needs to be 
     tailor-made for our massive technical needs, while reducing costs. This means that we are 
     constantly looking for volunteers who’d like to help with different types of projects, beyond “just” cutting a release.
 

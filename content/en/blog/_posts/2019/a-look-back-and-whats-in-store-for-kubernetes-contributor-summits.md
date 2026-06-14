@@ -89,13 +89,13 @@ Jonas Rosland, Josh Berkus, Paris Pittman, Jorge Castro, Bob Killen, Deb Giles, 
 “great work! really useful and fun!” - coffeepac
 
 [Contributor Experience]: https://github.com/kubernetes/community/tree/master/sig-contributor-experience
-[Subproject OWNERs]: https://github.com/kubernetes/community/blob/master/community-membership.md
-[Chair or Tech Lead]: https://github.com/kubernetes/community/blob/master/committee-steering/governance/sig-governance.md
+[Subproject OWNERs]: https://github.com/kubernetes/community/blob/main/community-membership.md
+[Chair or Tech Lead]: https://github.com/kubernetes/community/blob/main/committee-steering/governance/sig-governance.md
 [contributor patches]: https://store.cncf.io/collections/kubernetes/products/copy-of-kubernetes-decal
 [An event website]: https://events.linuxfoundation.org/events/contributor-summit-europe-2019/
-[Thursday Kubernetes Community Meeting]: https://github.com/kubernetes/community/blob/master/events/community-meeting.md
+[Thursday Kubernetes Community Meeting]: https://github.com/kubernetes/community/blob/main/events/community-meeting.md
 [twitter]: https://twitter.com/kubernetesio
-[Special Interest Group]: https://github.com/kubernetes/community/blob/master/sig-list.md
+[Special Interest Group]: https://github.com/kubernetes/community/blob/main/sig-list.md
 [steering committee election]: https://github.com/kubernetes/steering/blob/master/elections.md
 [Sessions]: https://www.youtube.com/playlist?list=PL69nYSiGNLP0kaZWKZc9KizriafE4pzh0
 [Garage]: https://www.garagebilliards.com/

@@ -17,7 +17,7 @@ Today, I have the privilege of speaking with [Matthias
 Bertschy](https://www.linkedin.com/in/matthias-bertschy-b427b815/), [Gunju
 Kim](https://www.linkedin.com/in/gunju-kim-916b33190/), and [Sergey
 Kanzhelev](https://www.linkedin.com/in/sergeykanzhelev/), members of [SIG
-Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md), who will shed some
+Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md), who will shed some
 light on their roles, challenges, and the exciting developments within SIG Node.
 
 _Answers given collectively by all interviewees will be marked by their initials._

@@ -120,7 +120,7 @@ REY LEJANO: Yes, that is correct.
 
 REY LEJANO: [CHUCKLES] Yes.
 
-**CRAIG BOX: Now, I understand that the theme comes from a part of the [SIG Release charter](https://github.com/kubernetes/community/blob/master/sig-release/charter.md)?**
+**CRAIG BOX: Now, I understand that the theme comes from a part of the [SIG Release charter](https://github.com/kubernetes/community/blob/main/sig-release/charter.md)?**
 
 REY LEJANO: Yes. There's a line in the SIG Release charter, "ensure there is a consistent group of community members in place to support the release process across time." With the release team, we have new shadows that join every single release cycle. With this, we're growing with this community. We're growing the release team members. We're growing SIG Release. We're growing the Kubernetes community itself. For a lot of people, this is their first time contributing to open source, so that's why I say it's their new open source frontier.
 
@@ -202,7 +202,7 @@ REY LEJANO: CronJobs is a funny one, because it was stable before 1.23. For 1.23
 
 **CRAIG BOX: Were there any other duplications or major cleanups of note in this release?**
 
-REY LEJANO: Yeah. There were a few you might see in the major themes. One's a little tricky, around FlexVolumes. This is one of the efforts from SIG Storage. They have an effort to migrate in-tree plugins to CSI drivers. This is a little tricky, because FlexVolumes were actually deprecated in November 2020. We're [formally announcing it in 1.23](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors).
+REY LEJANO: Yeah. There were a few you might see in the major themes. One's a little tricky, around FlexVolumes. This is one of the efforts from SIG Storage. They have an effort to migrate in-tree plugins to CSI drivers. This is a little tricky, because FlexVolumes were actually deprecated in November 2020. We're [formally announcing it in 1.23](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors).
 
 **CRAIG BOX: FlexVolumes, in my mind, predate CSI as a concept. So it's about time to get rid of them.**
 

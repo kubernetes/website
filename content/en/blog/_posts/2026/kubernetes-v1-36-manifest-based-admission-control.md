@@ -241,5 +241,5 @@ If you're interested in contributing to this feature or other
 SIG API Machinery projects, join us on
 [#sig-api-machinery](https://kubernetes.slack.com/archives/C0EG7JC6T)
 on Kubernetes Slack. You're also welcome to attend the
-[SIG API Machinery meetings](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md#meetings),
+[SIG API Machinery meetings](https://github.com/kubernetes/community/blob/main/sig-api-machinery/README.md#meetings),
 held every other Wednesday.

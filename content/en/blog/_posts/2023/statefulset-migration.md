@@ -219,5 +219,5 @@ layer of complexity to migration.
 
 If you're interested in building enhancements to make these processes easier,
 get involved with
-[SIG Multicluster](https://github.com/kubernetes/community/blob/master/sig-multicluster)
+[SIG Multicluster](https://github.com/kubernetes/community/blob/main/sig-multicluster)
 to contribute!

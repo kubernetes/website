@@ -97,7 +97,7 @@ and review of this feature:
 - Ruquan Zhao([ruquanzhao](https://github.com/ruquanzhao))
 
 For those interested in getting involved in future discussions on kubeadm configuration,
-you can reach out kubeadm or [SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/master/sig-cluster-lifecycle/README.md) by several means:
+you can reach out kubeadm or [SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/main/sig-cluster-lifecycle/README.md) by several means:
 
 - v1beta4 related items are tracked in [kubeadm issue #2890](https://github.com/kubernetes/kubeadm/issues/2890).
 - Slack: [#kubeadm](https://kubernetes.slack.com/messages/kubeadm) or [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle)

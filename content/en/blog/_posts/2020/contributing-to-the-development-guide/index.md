@@ -41,7 +41,7 @@ working with the Kubernetes community.
 enemies?" These were all questions that raced through my mind and made me feel like I was
 approaching a field of eggshells when I first joined the `#sig-contribex` channel on the Kubernetes
 Slack and announced that I would be working on the
-[Development Guide](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md).
+[Development Guide](https://github.com/kubernetes/community/blob/main/contributors/devel/development.md).
 
 {{< imgproc jorge-castro-code-of-conduct Fit "800x450" >}}
 "The Kubernetes Code of Conduct is in effect, so please be excellent to each other." &mdash; Jorge

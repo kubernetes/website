@@ -22,7 +22,7 @@ In a Kubernetes context, an *AI Gateway* refers to network gateway infrastructur
 
 ## Working group charter and mission
 
-The AI Gateway Working Group operates under a clear [charter](https://github.com/kubernetes/community/blob/master/wg-ai-gateway/charter.md) with the mission to develop proposals for Kubernetes Special Interest Groups (SIGs) and their sub-projects.
+The AI Gateway Working Group operates under a clear [charter](https://github.com/kubernetes/community/blob/main/wg-ai-gateway/charter.md) with the mission to develop proposals for Kubernetes Special Interest Groups (SIGs) and their sub-projects.
 Its primary goals include:
 - **Standards Development**: Create declarative APIs, standards, and guidance for AI workload networking in Kubernetes.
 - **Community Collaboration**: Foster discussions and build consensus around best practices for AI infrastructure.
@@ -87,7 +87,7 @@ Whether you're a gateway implementer, platform operator, AI application develope
 To learn more:
 
 - Visit the working group's umbrella [GitHub repository](https://github.com/kubernetes-sigs/wg-ai-gateway).
-- Read the working group's [charter](https://github.com/kubernetes/community/blob/master/wg-ai-gateway/charter.md).
+- Read the working group's [charter](https://github.com/kubernetes/community/blob/main/wg-ai-gateway/charter.md).
 - Join the [weekly meeting](https://docs.google.com/document/d/1nRRkRK2e82mxkT8zdLoAtuhkom2X6dEhtYOJ9UtfZKs) on Thursdays at 2PM EST.
 - Connect with the working group on [Slack (#wg-ai-gateway)](https://kubernetes.slack.com/messages/wg-ai-gateway) (visit https://slack.k8s.io/ for an invitation).
 - Join the AI Gateway [mailing list](https://groups.google.com/a/kubernetes.io/g/wg-ai-gateway).

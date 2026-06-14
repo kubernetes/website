@@ -42,7 +42,7 @@ These co-chairs explained what the Policy Working Group was all about.
 
 Unlike SIGs, working groups are temporary and focused on tackling specific, cross-cutting issues or projects that may involve multiple SIGs. Their lifespan is defined, and they disband once they've achieved their objective. Generally, working groups don't own code or have long-term responsibility for managing a particular area of the Kubernetes project.
 
-(To know more about SIGs, visit the [list of Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md))
+(To know more about SIGs, visit the [list of Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md))
  
 **You mentioned that Working Groups involve multiple SIGS. What SIGS was the Policy WG closely involved with, and how did you coordinate with them?**
 
@@ -99,4 +99,4 @@ Additionally, differences of opinion were valued and encouraged within the Polic
 
 ---
 
-This is where our discussion about the Policy Working Group ends. The working group, and especially the people who took part in this article, hope this gave you some insights into the group's aims and workings. You can get more info about Working Groups [here](https://github.com/kubernetes/community/blob/master/committee-steering/governance/wg-governance.md).
+This is where our discussion about the Policy Working Group ends. The working group, and especially the people who took part in this article, hope this gave you some insights into the group's aims and workings. You can get more info about Working Groups [here](https://github.com/kubernetes/community/blob/main/committee-steering/governance/wg-governance.md).

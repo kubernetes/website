@@ -76,7 +76,7 @@ commercial use of the content for commercial purposes, but not the other way aro
 ## Special interest groups and working groups
 
 Topics related to participation in or results of Kubernetes SIG activities are always on
-topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
+topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/main/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
 for support on these posts).
 
 The project typically [mirrors](/docs/contribute/blog/mirroring/) these articles to both blogs.

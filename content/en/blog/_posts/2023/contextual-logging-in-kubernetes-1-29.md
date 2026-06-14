@@ -9,7 +9,7 @@ author: >
   [Patrick Ohly](https://github.com/pohly) (Intel)
 ---
 
-On behalf of the [Structured Logging Working Group](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md) 
+On behalf of the [Structured Logging Working Group](https://github.com/kubernetes/community/blob/main/wg-structured-logging/README.md) 
 and [SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation#readme), 
 we are pleased to announce that the contextual logging feature
 introduced in Kubernetes v1.24 has now been successfully migrated to
