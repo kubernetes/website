@@ -43,6 +43,7 @@ client libraries:
 * [kubectl](/docs/reference/kubectl/) - Main CLI tool for running commands and managing Kubernetes clusters.
   * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
+* [CLI tool references](/docs/reference/cli-tool-references/) - Reference pages for kubectl, Kustomize, and Helm.
 
 ## Components
 

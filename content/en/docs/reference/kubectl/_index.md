@@ -22,6 +22,8 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
 For details about each command, including all the supported flags and subcommands, see the
 [kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
+The generated command reference focuses on command syntax and options. For task-oriented
+examples, start with the [kubectl Quick Reference](/docs/reference/kubectl/quick-reference/).
 
 For a overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
