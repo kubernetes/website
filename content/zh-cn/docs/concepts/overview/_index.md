@@ -110,7 +110,7 @@ Kubernetes 为你提供：
   For example, you can automate Kubernetes to create new containers for your
   deployment, remove existing containers and adopt all their resources to the new container.
 -->
-* **自动部署和回滚**
+* **自动发布和回滚**
 
   你可以使用 Kubernetes 描述已部署容器的所需状态，
   它可以以受控的速率将实际状态更改为期望状态。
