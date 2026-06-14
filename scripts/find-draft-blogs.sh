@@ -16,6 +16,11 @@ echo
 # Step 1: Find all draft blogs from main file tree
 echo "DEBUG: fetching file tree from API..." >&2
 
+# Separate call just to check truncation
+gh api "repos/${REPO}/git/trees/${BASE_REF}?recursive=1" \
+  --jq '"DEBUG: tree truncated: " + (.truncated | tostring)' >&2
+
+# Original call for the actual paths
 gh api "repos/${REPO}/git/trees/${BASE_REF}?recursive=1" \
   --jq '.tree[].path' \
 | grep -E "^content/en/blog/_posts/(${CURRENT_YEAR}|${LAST_YEAR})/([^/]+/)?[^/]+\.md$" \
