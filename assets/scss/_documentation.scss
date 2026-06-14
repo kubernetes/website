@@ -1,5 +1,31 @@
 /* DOCUMENTATION */
 
+$docs-fragment-anchor-offset: 5rem;
+
+.td-offset-anchor {
+  display: block;
+  scroll-margin-top: $docs-fragment-anchor-offset;
+}
+
+body .td-offset-anchor:target {
+  position: static;
+  top: auto;
+  visibility: hidden;
+}
+
+.td-content {
+  :is(h1, h2, h3, h4, h5, h6)[id] {
+    scroll-margin-top: $docs-fragment-anchor-offset;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6)[id]::before {
+    content: none;
+    display: none;
+    height: 0;
+    margin-top: 0;
+  }
+}
+
 .td-content .tab-content .highlight {
   margin: 0;
 }
@@ -342,8 +368,7 @@ body.glossary {
 
     .term-anchor {
       display: block;
-      position: relative;
-      top: -4rem; // adjust scrolling to target
+      scroll-margin-top: $docs-fragment-anchor-offset;
       visibility: hidden;
     }
 
