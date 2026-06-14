@@ -38,7 +38,7 @@ gh api "repos/${REPO}/git/trees/${BASE_REF}?recursive=1" \
 
   # Show raw draft line with cat -A so \r shows up as ^M if present
   echo "DEBUG: raw draft line in $path:" >&2
-  echo "$content" | grep -iE 'draft' | cat -A >&2
+  echo "$content" | grep -iE 'draft' | cat -A >&2 || true
 
   DRAFT_LINE=$(echo "$content" | tr -d '\r' | grep -iE '^draft:[[:space:]]*true[[:space:]]*$' || true)
 
