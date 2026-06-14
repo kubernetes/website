@@ -12,7 +12,6 @@ WIKI_PAGE="Draft-Blog-Tracker.md"
 CURRENT_YEAR=$(date +%Y)
 
 
-
 # Fetch the full file tree, filter to this year's blog posts, then check each
 # file's front matter for draft: true. Outputs one markdown table row per match.
 gh api "repos/${REPO}/git/trees/${BASE_REF}?recursive=1" \
