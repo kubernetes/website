@@ -270,9 +270,6 @@ excessively.
 
 ## The path forward
 
-The patterns described here are implemented in open-source projects
-such as [Attune](https://github.com/attune-io/attune).
-
 In-place pod resize removes the last architectural barrier to
 automated vertical scaling in Kubernetes. The patterns described
 here, graduated rollout, multi-signal safety, HPA coexistence,
