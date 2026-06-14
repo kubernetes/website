@@ -67,7 +67,8 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 <!--
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 -->
-要启用 API 持有者令牌（包括服务账号令牌）以对 kubelet 的 HTTPS 端点进行身份认证，请执行以下操作：
+要启用 API 持有者令牌（包括服务账号令牌）以对 kubelet 的 HTTPS 端点进行身份认证，
+请执行以下操作：
 
 <!--
 * ensure the `authentication.k8s.io/v1` API group is enabled in the API server
@@ -166,6 +167,7 @@ kubelet API  | 资源 | 子资源
 **其它所有**  | nodes    | proxy
 
 <a name="get-nodes-proxy-warning"></a>
+
 {{< warning >}}
 <!--
 `nodes/proxy` permission grants access to all other kubelet APIs.
@@ -180,7 +182,8 @@ and authorizes executing commands in any container running on the node.
 
 其中一些端点支持通过 HTTP `GET` 请求使用 WebSocket 协议，这些请求在鉴权时使用 **get** 动词。
 
-这意味着对 `nodes/proxy` 的 **get** 权限并非只读权限，它会授权在节点上运行的任何容器中执行命令。
+这意味着对 `nodes/proxy` 的 **get** 权限并非只读权限，
+它会授权在节点上运行的任何容器中执行命令。
 {{< /warning >}}
 
 <!--
@@ -211,14 +214,14 @@ flags passed to the apiserver is authorized for the following attributes:
 {{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
 
 <!--
-When the feature gate `KubeletFineGrainedAuthz` is enabled kubelet performs a
-fine-grained check before falling back to the `proxy` subresource for the `/pods`,
-`/runningPods`, `/configz` and `/healthz` endpoints. The resource and subresource 
-are determined from the incoming request's path:
+Kubelet performs a fine-grained check before falling back to the `proxy`
+subresource for the `/pods`, `/runningPods`, `/configz` and `/healthz`
+endpoints. The resource and subresource are determined from the incoming
+request's path:
 -->
-当特性门控 `KubeletFineGrainedAuthz` 被启用时，kubelet 处理对
-`/pods`、`/runningPods`、`/configz` 和 `/healthz` 等端点的请求时，在回退到 `proxy` 子资源之前，
-会执行一次细粒度的检查。资源和子资源是根据传入请求的路径确定的：
+kubelet 处理对 `/pods`、`/runningPods`、`/configz` 和 `/healthz`
+等端点的请求时，在回退到 `proxy` 子资源之前，会执行一次细粒度的检查。
+资源和子资源是根据传入请求的路径确定的：
 
 <!--
 Kubelet API   | resource | subresource
@@ -237,10 +240,10 @@ kubelet API   | 资源      | 子资源
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
-/pods         | nodes    | pods, proxy
-/runningPods/ | nodes    | pods, proxy
-/healthz      | nodes    | healthz, proxy
-/configz      | nodes    | configz, proxy
+/pods         | nodes    | pods、proxy
+/runningPods/ | nodes    | pods、proxy
+/healthz      | nodes    | healthz、proxy
+/configz      | nodes    | configz、proxy
 **其他所有**   | nodes    | proxy
 
 <!--
