@@ -150,7 +150,7 @@ Alternately, install and use the `hugo` command on your computer:
    如果你使用的是 Windows，或者无法运行 `make` 命令，可以使用以下命令：
 
    ```shell
-   hugo server --buildFuture
+   hugo server --config hugo.toml,hugo.server.toml --buildFuture
    ```
 
 <!--
