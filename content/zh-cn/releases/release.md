@@ -222,7 +222,7 @@ The general labeling process should be consistent across artifact types.
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
+  [release versioning](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 
@@ -236,7 +236,7 @@ The general labeling process should be consistent across artifact types.
   [GitHub 里程碑](https://help.github.com/en/github/managing-your-work-on-github/associating-milestones-with-issues-and-pull-requests)
   指的是发布 主.次 `vX.Y` 版本。
 
-  另请参阅[发布版本控制](https://git.k8s.io/sig-release/release-engineering/versioning.md)。
+  另请参阅[发布版本控制](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md)。
 
 - **发布分支**：为 `vX.Y` 里程碑创建的 Git 分支 `release-X.Y`。
 

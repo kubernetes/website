@@ -18,7 +18,7 @@ Chú ý: Các công cụ triển khai cụm có thể có các hạn chế khác
 ## Các phiên bản được hỗ trợ
 
 Phiên bản Kubernetes được biểu thị dưới dạng **x.y.z**.
-Ở đây, **x** chỉ phiên bản chính (major), **y** chỉ phiên bản phụ (minor) và **z** chỉ phiên bản vá (patch), theo thuật ngữ Phiên bản ngữ nghĩa ([Semantic Versioning](https://semver.org/)). Tham khảo thêm tại [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
+Ở đây, **x** chỉ phiên bản chính (major), **y** chỉ phiên bản phụ (minor) và **z** chỉ phiên bản vá (patch), theo thuật ngữ Phiên bản ngữ nghĩa ([Semantic Versioning](https://semver.org/)). Tham khảo thêm tại [Kubernetes Release Versioning](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 Kubernetes duy trì các nhánh phát hành cho ba bản phát hành phụ gần đây nhất: ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
 Kubernetes phiên bản 1.19 trở lên sẽ nhận được hỗ trợ bản vá trong [khoảng một năm](/releases/patch-releases/#support-period).

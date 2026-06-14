@@ -14,7 +14,7 @@ weight: 60
 
 ## Підтримувані версії {#supported-versions}
 
-Версії Kubernetes позначаються як **x.y.z**, де **x** — основна версія, **y** — мінорна версія, а **z** — патч-версія, згідно з термінологією [Семантичного Версіонування](https://semver.org/). Для отримання додаткової інформації дивіться [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
+Версії Kubernetes позначаються як **x.y.z**, де **x** — основна версія, **y** — мінорна версія, а **z** — патч-версія, згідно з термінологією [Семантичного Версіонування](https://semver.org/). Для отримання додаткової інформації дивіться [Kubernetes Release Versioning](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 Проєкт Kubernetes підтримує гілки випусків для останніх трьох мінорних випусків ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 та новіші версії отримують [приблизно 1 рік патч-підтримки](/releases/patch-releases/#support-period). Kubernetes 1.18 та старіші отримували приблизно 9 місяців патч-підтримки.
 
