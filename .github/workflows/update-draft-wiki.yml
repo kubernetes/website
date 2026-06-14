@@ -1,14 +1,10 @@
 name: Update Draft Blogs Wiki
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 6 * * *'
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
-    paths:
-      - 'content/en/blog/_posts/**'
+    - cron: '0 0 * * *'  # daily
+
 
 jobs:
   update-wiki:
