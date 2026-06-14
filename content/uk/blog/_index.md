@@ -3,7 +3,6 @@ title: Блог Kubernetes
 linkTitle: Блог
 menu:
   main:
-    title: "Блог"
     weight: 20
 ---
 {{< comment >}}
