@@ -268,7 +268,7 @@ the many and diverse details that make up the path to a successful release.
 
 ### User highlights
     
-* Wortell faced increasingly higher ammounts of developer expertise and time for daily
+* Wortell faced increasingly higher amounts of developer expertise and time for daily
   infrastructure management. [They used Dapr to reduce the complexity and amount of required
   infrastructure-related code, allowing them to focus more time on new
   features](https://www.cncf.io/case-studies/wortell/).

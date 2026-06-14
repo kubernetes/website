@@ -278,7 +278,7 @@ exponential backoff slows down future attempts.</p>
 <p>The default is 10 seconds.
 This is sufficient to prevent worst-case scenarios while not impacting normal
 usage of DRA. However, slow filtering can slow down Pod scheduling
-also for Pods not using DRA. Administators can reduce the timeout
+also for Pods not using DRA. Administrators can reduce the timeout
 after checking the
 <code>scheduler_framework_extension_point_duration_seconds</code> metrics.</p>
 <p>Setting it to zero completely disables the timeout.</p>

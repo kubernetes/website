@@ -165,7 +165,7 @@ Specifically, I need:
    Note: For the PV/PVC, this procedure only works if the underlying storage system
          that your PVs use can support being copied into `destination`. Storage
          that is associated with a specific node or topology may not be supported.
-         Additionally, some storage systems may store addtional metadata about
+         Additionally, some storage systems may store additional metadata about
          volumes outside of a PV object, and may require a more specialized
          sequence to import a volume.
 

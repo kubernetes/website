@@ -98,7 +98,7 @@ If a volume attachment operation fails with a `ResourceExhausted` error (gRPC co
 
 {{< feature-state feature_gate_name="VolumeLimitScaling" >}}
 
-If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing` set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.  For exmaple:
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing` set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.  For example:
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -125,4 +125,3 @@ feature remains in alpha is - preventing pod placement can break scheduling simu
 Command line `--enable-csi-node-aware-scheduling` in cluster-autoscaler can be enabled regardless of `VolumeLimitScaling` feature state in Kubernetes. We recommend enabling it if your cluster is
 using CSI volumes and you are running into issues related to, too many pods crowding a node when a new node is spun via cluster-autoscaler, because current version of
 cluster-autoscaler does not compute correct number of nodes required to satisfy all pending pods.
-

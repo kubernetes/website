@@ -98,7 +98,7 @@ The Ceph RBD volume plugin was formally marked as deprecated in v1.28.
 ### Deprecation of non-CSI volume limit plugins in kube-scheduler
 
 The v1.31 release will deprecate all non-CSI volume limit scheduler plugins, and will remove some
-already deprected plugins from the [default plugins](/docs/reference/scheduling/config/), including:
+already deprecated plugins from the [default plugins](/docs/reference/scheduling/config/), including:
 
 - `AzureDiskLimits`
 - `CinderLimits`
