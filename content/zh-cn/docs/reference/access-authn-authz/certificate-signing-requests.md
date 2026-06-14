@@ -4,8 +4,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle"
 content_type: concept
 weight: 60
 ---
@@ -20,8 +20,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle"
 content_type: concept
 weight: 60
 -->
