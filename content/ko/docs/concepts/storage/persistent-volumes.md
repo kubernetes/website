@@ -962,7 +962,7 @@ kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource`
 볼륨 데이터 소스의 네임스페이스를 명시하면, 쿠버네티스는
 참조를 받아들이기 전에 다른 네임스페이스의 레퍼런스그랜트를 확인한다.
 레퍼런스그랜트는 `gateway.networking.k8s.io` 확장 API에 속한다.
-자세한 정보는 게이트웨이 API 문서의 [레퍼런스그랜트](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)를 참고하라.
+자세한 정보는 게이트웨이 API 문서의 [레퍼런스그랜트](https://gateway-api.sigs.k8s.io/reference/api-types/referencegrant/)를 참고하라.
 즉 이 방법을 사용하려면 우선 게이트웨이 API에서 최소한 레퍼런스그랜트 이상을 사용하여
 쿠버네티스 클러스터를 확장해야 한다는 것을 의미한다.
 {{< /note >}}

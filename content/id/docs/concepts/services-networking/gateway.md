@@ -112,7 +112,7 @@ Dalam contoh ini, aliran permintaan untuk Gateway yang diimplementasikan sebagai
 
 Gateway API mencakup beragam fitur dan diimplementasikan secara luas. Kombinasi ini memerlukan definisi dan pengujian kesesuaian yang jelas untuk memastikan bahwa API memberikan pengalaman yang konsisten di mana pun digunakan.
 
-Lihat dokumentasi [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) untuk memahami rincian seperti saluran rilis (_release channel_), tingkat dukungan, dan menjalankan tes kesesuaian (_conformance test_).
+Lihat dokumentasi [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) untuk memahami rincian seperti saluran rilis (_release channel_), tingkat dukungan, dan menjalankan tes kesesuaian (_conformance test_).
 
 ## Migrasi dari Ingress
 
@@ -129,4 +129,4 @@ Alih-alih sumber daya Gateway API yang diimplementasikan secara natif oleh Kuber
 Pastikan untuk meninjau dokumentasi dari implementasi yang kamu pilih untuk memahami hal-hal yang perlu diperhatikan.
 {{< /note >}}
 
-Referensi [spesifikasi API](https://gateway-api.sigs.k8s.io/reference/spec/) untuk rincian tambahan dari semua jenis Gateway API.
+Referensi [spesifikasi API](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/) untuk rincian tambahan dari semua jenis Gateway API.

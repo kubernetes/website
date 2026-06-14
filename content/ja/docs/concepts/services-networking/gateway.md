@@ -147,7 +147,7 @@ spec:
 Gateway APIは幅広い機能をカバーし、広く実装されています。
 この組み合わせは、APIがどこで使われても一貫した体験を提供することを保証するために、明確な適合性の定義とテストを必要とします。
 
-リリースチャンネル、サポートレベル、そして適合テストの実行などの詳細を理解するためには、[適合性](https://gateway-api.sigs.k8s.io/concepts/conformance/)のドキュメントを参照してください。
+リリースチャンネル、サポートレベル、そして適合テストの実行などの詳細を理解するためには、[適合性](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/)のドキュメントを参照してください。
 
 ## Ingressからの移行
 
@@ -167,4 +167,4 @@ Gateway API CRDを[インストール](https://gateway-api.sigs.k8s.io/guides/#i
 選択した実装のドキュメントを必ず確認し、注意点を理解するようにしてください。
 {{< /note >}}
 
-すべてのGateway API種別の追加の詳細については[API仕様](https://gateway-api.sigs.k8s.io/reference/spec/)を参照してください。
+すべてのGateway API種別の追加の詳細については[API仕様](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/)を参照してください。
