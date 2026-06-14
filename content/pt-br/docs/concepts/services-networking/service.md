@@ -366,9 +366,9 @@ Este campo segue a sintaxe de rótulo padrão do Kubernetes. Valores válidos s�
 
 | Protocolo | Descrição |
 |----------|-------------|
-| `kubernetes.io/h2c` | HTTP/2 sobre cleartext conforme descrito na [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
-| `kubernetes.io/ws`  | WebSocket sobre cleartext conforme descrito na [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
-| `kubernetes.io/wss` | WebSocket sobre TLS conforme descrito na [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
+| `kubernetes.io/h2c` | HTTP/2 sobre cleartext conforme descrito na [RFC 7540](https://datatracker.ietf.org/doc/html/rfc7540) |
+| `kubernetes.io/ws`  | WebSocket sobre cleartext conforme descrito na [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455) |
+| `kubernetes.io/wss` | WebSocket sobre TLS conforme descrito na [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455) |
 
 ### Services multi-porta {#multi-port-services}
 

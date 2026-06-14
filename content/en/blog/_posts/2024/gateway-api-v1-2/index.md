@@ -144,13 +144,13 @@ Service supports. With the adoption of
 Kubernetes now supports three new `appProtocol` values:
 
 `kubernetes.io/h2c`
-: HTTP/2 over cleartext as described in [RFC7540](https://www.rfc-editor.org/rfc/rfc7540)
+: HTTP/2 over cleartext as described in [RFC7540](https://datatracker.ietf.org/doc/html/rfc7540)
 
 `kubernetes.io/ws`
-: WebSocket over cleartext as described in [RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
+: WebSocket over cleartext as described in [RFC6455](https://datatracker.ietf.org/doc/html/rfc6455)
 
 `kubernetes.io/wss`
-: WebSocket over TLS as described in [RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
+: WebSocket over TLS as described in [RFC6455](https://datatracker.ietf.org/doc/html/rfc6455)
 
 With Gateway API 1.2.0, support for honoring `appProtocol` is now Standard.
 For example, given the following Service:

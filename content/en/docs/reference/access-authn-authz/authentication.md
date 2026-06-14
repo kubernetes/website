@@ -363,7 +363,7 @@ kubectl create token jenkins
 eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
-The created token is a signed [JSON Web Token](https://www.rfc-editor.org/rfc/rfc7519) (JWT).
+The created token is a signed [JSON Web Token](https://datatracker.ietf.org/doc/html/rfc7519) (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
@@ -401,7 +401,7 @@ suitable level of security.
 
 ### JSON Web Token authentication
 
-You can configure Kubernetes to authenticate users using [JSON Web Token](https://www.rfc-editor.org/rfc/rfc7519)
+You can configure Kubernetes to authenticate users using [JSON Web Token](https://datatracker.ietf.org/doc/html/rfc7519)
 (JWT) compliant tokens. JWT authentication mechanism is used for the ServiceAccount tokens that Kubernetes itself issues,
 and you can also use it to integrate with other identity sources.
 
@@ -1343,7 +1343,7 @@ describes all of the relevant command line arguments in more detail.
 : Identifier of the service account token issuer. The issuer asserts this identifier in `iss` claim of each issued token. The Kubernetes project recommends using a URL here, with the scheme set to `https`.
 
 `--service-account-jwks-uri`
-: Overrides the URI for the [JSON Web Key Set](https://www.rfc-editor.org/rfc/rfc7517) in the discovery document that is served at `/.well-known/openid-configuration`
+: Overrides the URI for the [JSON Web Key Set](https://datatracker.ietf.org/doc/html/rfc7517) in the discovery document that is served at `/.well-known/openid-configuration`
 
 `--service-account-key-file`
 : Path to a file containing PEM-encoded X.509 public or private keys (RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain multiple keys, and you can specify the argument multiple times with different paths.
