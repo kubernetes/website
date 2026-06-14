@@ -664,7 +664,7 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
 
 * Ensure that the 10 replicas in your Deployment are running.
   ```shell
-  kubectl get deploy
+  kubectl get replicaset
   ```
   The output is similar to this:
 
