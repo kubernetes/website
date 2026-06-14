@@ -84,7 +84,7 @@ It iterates over the Pods and performs the following for each:
 
 Placement scheduling algorithm is an alternative PodGroup scheduling algorithm, which uses
 [scheduling plugins](/docs/reference/scheduling/config/#scheduling-plugins) to find the optimal
-placement for the considered PodGroup. Users can accomodate the algorithm to their specific needs
+placement for the considered PodGroup. Users can accommodate the algorithm to their specific needs
 by using and configuring plugins.
 
 The algorithm proceeds in three main phases for a given PodGroup:
