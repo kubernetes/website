@@ -88,7 +88,8 @@ up to 127 volumes can be attached to a node, [depending on the node
 type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 -->
 * 在 <a href="https://cloud.google.com/compute/">Google Compute Engine</a> 环境中，
-  [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将 127 个卷挂接到节点。
+  [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将
+  127 个卷挂接到节点。
 
 <!--
 * For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
@@ -99,11 +100,12 @@ Kubernetes allows 39 volumes to be attached to a Node.
 * On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 -->
 * 对于 M5、C5、R5、T3 和 Z1D 实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许 25 个卷挂接到节点。
-  对于 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a> 上的其他实例类型，
-  Kubernetes 允许 39 个卷挂接至节点。
+  对于 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>
+  上的其他实例类型，Kubernetes 允许 39 个卷挂接至节点。
 
 * 在 Azure 环境中，根据节点类型，最多 64 个磁盘可以挂接至一个节点。
-  更多详细信息，请参阅 [Azure 虚拟机的数量大小](https://docs.microsoft.com/zh-cn/azure/virtual-machines/windows/sizes)。
+  更多详细信息，请参阅
+  [Azure 虚拟机的数量大小](https://docs.microsoft.com/zh-cn/azure/virtual-machines/windows/sizes)。
 
 <!--
 * If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
@@ -112,8 +114,9 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 * For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 -->
 * 如果 CSI 存储驱动（使用 `NodeGetInfo`）为节点通告卷数上限，则
-  {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 将遵守该限制值。
-  参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)获取更多详细信息。
+  {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+  将遵守该限制值。参考
+  [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)获取更多详细信息。
 
 * 对于由已迁移到 CSI 驱动的树内插件管理的卷，最大卷数将是 CSI 驱动报告的卷数。
 
@@ -185,11 +188,74 @@ Kubernetes 会立即触发对此节点可分配卷数量的更新。此外，kub
 {{< feature-state feature_gate_name="VolumeLimitScaling" >}}
 
 <!--
-If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed,
-then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
-only applies to pods that require corresponding CSI volume.
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)
+is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing`
+set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.
+For example:
 -->
+如果启用了 `VolumeLimitScaling`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)，
+并且已安装了相应的 `CSIDriver` 对象，且 `spec.preventPodSchedulingIfMissing`
+设置为 true，则调度器将阻止将 Pod 放置到尚未安装 CSI 驱动程序的节点上。
+例如：
 
-如果启用了 `VolumeLimitScaling` 特性，并且已安装了相应的
-`CSIDriver` 对象，则调度程序将阻止将 Pod 放置到尚未安装
-CSI 驱动程序的节点上。此限制仅适用于需要相应 CSI 卷的 Pod。
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: hostpath.csi.k8s.io
+spec:
+  preventPodSchedulingIfMissing: true
+```
+
+<!--
+This limitation only applies to pods that require corresponding CSI volume.
+-->
+此限制仅适用于需要相应 CSI 卷的 Pod。
+
+<!--
+### CSI volume attach limits and cluster autoscaler
+
+If `--enable-csi-node-aware-scheduling` option is enabled in cluster-autoscaler,
+then cluster-autoscaler can accurately calculate number of nodes required to
+satisfy pending pods that require CSI volumes.
+-->
+### CSI 卷附加限制和集群自动扩缩器
+
+如果在 cluster-autoscaler 中启用了 `--enable-csi-node-aware-scheduling` 选项，
+则 cluster-autoscaler 可以准确地计算满足需要 CSI 卷的待处理 Pod 所需的节点数。
+
+<!--
+If you are using cluster-autoscaler in your
+Kubernetes cluster, we do not recommend preventing pod placement via `PreventPodSchedulingIfMissing` field,
+unless cluster-autoscaler also has `--enable-csi-node-aware-scheduling` command line option enabled.
+Underlying reason for this limitation while `VolumeLimitScaling`
+feature remains in alpha is - preventing pod placement can break scheduling
+simulation cluster-autoscaler runs if cluster-autoscaler is not already aware of CSI volume limits.
+We expect this limitation to go away once `--enable-csi-node-aware-scheduling`
+becomes enabled by default in cluster-autoscaler.
+-->
+如果你在 Kubernetes 集群中使用 cluster-autoscaler，
+我们不建议通过 `PreventPodSchedulingIfMissing` 字段阻止 Pod 部署，
+除非 cluster-autoscaler 同时启用了 `--enable-csi-node-aware-scheduling`
+命令行选项。此限制的根本原因是，在 `VolumeLimitScaling` 特性仍处于
+Alpha 测试阶段时，阻止 Pod 部署可能会破坏 cluster-autoscaler 运行的调度模拟，
+尤其是在 cluster-autoscaler 尚未感知 CSI 卷限制的情况下。
+我们预计，一旦 cluster-autoscaler 默认启用 `--enable-csi-node-aware-scheduling`，
+此限制将不复存在。
+
+<!--
+Command line `--enable-csi-node-aware-scheduling` in cluster-autoscaler can be
+enabled regardless of `VolumeLimitScaling` feature state in Kubernetes.
+We recommend enabling it if your cluster is
+using CSI volumes and you are running into issues related to, too many pods
+crowding a node when a new node is spun via cluster-autoscaler, because current version of
+cluster-autoscaler does not compute correct number of nodes required to satisfy all pending pods.
+-->
+无论 Kubernetes 中的 `VolumeLimitScaling` 特性状态如何，
+都可以在 cluster-autoscaler 中启用命令行参数
+`--enable-csi-node-aware-scheduling`。
+如果你的集群使用 CSI 卷，并且遇到通过 cluster-autoscaler
+启动新节点时，节点上 Pod 过多导致资源占用过高的问题，我们建议启用此特性，
+因为当前版本的 cluster-autoscaler 无法正确计算满足所有待处理 Pod
+所需的节点数量。
