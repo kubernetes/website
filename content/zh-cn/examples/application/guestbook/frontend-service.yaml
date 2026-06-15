@@ -9,7 +9,6 @@ metadata:
 spec:
   # 如果你的集群支持，请取消注释以下内容以自动为前端服务创建一个外部负载均衡 IP。
   # type: LoadBalancer
-  #type: LoadBalancer
   ports:
     # 此服务应使用的端口
   - port: 80
