@@ -91,7 +91,7 @@ In addition to the project board, we also maintain a table which summarizes all 
 | KEP | Description | Release |  |  |  |  |
 | :---: | :---- | :---: | :---: | :---: | :---: | :---: |
 |  |  | **1.32** | **1.33** | **1.34** | **1.35** | **1.36** |
-| [4831](https://www.kubernetes.dev/resources/keps/4381) | DRA: Structured Parameters | Beta | Beta | Stable |  |  |
+| [4381](https://www.kubernetes.dev/resources/keps/4381) | DRA: Structured Parameters | Beta | Beta | Stable |  |  |
 | [5004](https://www.kubernetes.dev/resources/keps/5004) | DRA: Extended Resource Requests via DRA |  |  | Alpha | Alpha | Beta |
 | [4817](https://www.kubernetes.dev/resources/keps/4817)  | DRA: Resource Claim Status | Alpha | Beta | Beta | Beta | Beta  |
 | [5018](https://www.kubernetes.dev/resources/keps/5018) | DRA: Namespace Controlled Admin Access |  | Alpha | Beta | Beta | Stable |
