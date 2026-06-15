@@ -44,7 +44,7 @@ The problem we set out to solve is that the legacy Device Plugin API  (which has
 
 The working group's primary deliverable is Dynamic Resource Allocation (DRA), a new framework that replaces the rigid device plugin model with a flexible, declarative API.
 With DRA, workloads can describe their hardware requirements (e.g., GPU type, memory capacity, interconnect topology, desired partitioning) and drivers can publish fine-grained device attributes that the scheduler can act on.
-DRA [graduated](https://kubernetes.io/blog/2025/09/01/kubernetes-v1-34-dra-updates/) to GA in Kubernetes 1.34], and the ecosystem around it (e.g., drivers, tooling, and new API extensions) is growing rapidly.
+DRA [graduated](https://kubernetes.io/blog/2025/09/01/kubernetes-v1-34-dra-updates/) to GA in Kubernetes 1.34, and the ecosystem around it (e.g., drivers, tooling, and new API extensions) is growing rapidly.
 
 **PO:** As Kevin said, the working group was formed around the existing effort to develop DRA. The initial work was done with only a handful of people actively involved, and perhaps also could only be done successfully in such a setup. But because it touches on so many different areas of Kubernetes, we also needed a place to discuss that and get the broader community of Kubernetes maintainers, device vendors, and, to a lesser extent, also end-users involved. The working group provides that place, with regular meetings online (one slot for Americas/EMEA, one for EMEA/Asia) and at KubeCon.
 
