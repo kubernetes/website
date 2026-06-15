@@ -19,6 +19,10 @@ $navbar-dark-active-color: $primary;
 $feature: #daeaf9;
 $feature-inset: #eeeeee;
 
+// API infobox colors
+$api-infobox: hsl(209, 0%, 92%);
+$api-infobox-shown: hsl(209, 72%, 92%);
+
 // metrics reference colors
 $metric-labels-varying: #efefef;
 $metric-labels-varying-border: #e2e2e2;
