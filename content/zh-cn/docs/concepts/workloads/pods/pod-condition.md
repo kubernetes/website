@@ -108,9 +108,9 @@ Kubernetes 管理以下 Pod 状况：
 
 <!--
 In addition to the built-in conditions above, you can define custom conditions
-using [Pod readiness gates](#pod-readiness).
+using [Pod readiness gates](#enhanced-pod-readiness).
 -->
-除了上述内置状况外，你还可以使用 [Pod 就绪门控](#pod-readiness)定义自定义状况。
+除了上述内置状况外，你还可以使用 [Pod 就绪门控](#enhanced-pod-readiness)定义自定义状况。
 
 <!--
 ## Lifecycle Pod conditions {#lifecycle-pod-conditions}
@@ -126,7 +126,7 @@ As a Pod progresses through its lifecycle, the kubelet sets the following condit
 1. `PodScheduled`: the Pod has been scheduled to a node.
 1. `PodReadyToStartContainers`: the Pod sandbox has been successfully created and networking configured. The sandbox and network are set up by the {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} and {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin.
 1. `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/) have completed successfully. For a Pod without init containers, this is set to `True` before sandbox creation.
-1. `ContainersReady`: all containers in the Pod are ready. A container's readiness is determined by its [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/), if configured.
+1. `ContainersReady`: all containers in the Pod are ready. A container's readiness is determined by its [readiness probe](/docs/concepts/workloads/pods/probes/#readiness-probe), if configured.
 1. `Ready`: the Pod is able to serve requests and should be added to the load balancing pools of all matching [Services](/docs/concepts/services-networking/service/). Pods that are not `Ready` are removed from Service endpoints.
 -->
 1. `PodScheduled`：Pod 已调度到节点。
@@ -136,17 +136,17 @@ As a Pod progresses through its lifecycle, the kubelet sets the following condit
 1. `Initialized`：所有[初始容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)均已成功完成。
    对于没有初始容器的 Pod，此状况在 sandbox 创建之前设置为 `True`。
 1. `ContainersReady`：Pod 中的所有容器都已就绪。
-   容器的就绪状态由其[就绪探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes/)确定（如果已配置）。
+   容器的就绪状态由其[就绪探针](/zh-cn/docs/concepts/workloads/pods/probes/#readiness-probe)确定（如果已配置）。
 1. `Ready`：Pod 能够处理请求，应添加到所有匹配的 [Service](/zh-cn/docs/concepts/services-networking/service/) 的负载均衡池中。
    未 `Ready` 的 Pod 会从 Service 端点中移除。
 
 {{< note >}}
 <!--
-The `Ready` condition depends on more than just `ContainersReady`. If the Pod specifies `readinessGates`, all of those custom conditions must also be `True` for the Pod to be `Ready`. See [Pod readiness](#pod-readiness) for details.
+The `Ready` condition depends on more than just `ContainersReady`. If the Pod specifies `readinessGates`, all of those custom conditions must also be `True` for the Pod to be `Ready`. See [Pod readiness](#enhanced-pod-readiness) for details.
 -->
 `Ready` 状况不仅取决于 `ContainersReady`。
 如果 Pod 指定了 `readinessGates`，则所有这些自定义状况也必须为 `True`，Pod 才能为 `Ready`。
-有关详细信息，请参阅 [Pod 就绪](#pod-readiness)。
+有关详细信息，请参阅 [Pod 就绪](#enhanced-pod-readiness)。
 {{< /note >}}
 
 <!--
@@ -508,10 +508,10 @@ kubelet 将 Pod 的 `Ready` 状况设置为 `status: "False"` 及 `reason: Readi
 <!--
 - Learn about the [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 - Learn about [Disruptions](/docs/concepts/workloads/pods/disruptions/).
-- Learn about [container probes](/docs/concepts/configuration/liveness-readiness-startup-probes/) and how they affect Pod readiness.
+- Learn about [container probes](/docs/concepts/workloads/pods/probes/) and how they affect Pod readiness.
 - Learn how to [resize Pod resources in-place](/docs/tasks/configure-pod-container/resize-container-resources/).
 -->
 - 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 - 了解[干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
-- 了解[容器探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes/)以及它们如何影响 Pod 就绪。
+- 了解[容器探针](/zh-cn/docs/concepts/workloads/pods/probes/)以及它们如何影响 Pod 就绪。
 - 了解如何[就地调整 Pod 资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
