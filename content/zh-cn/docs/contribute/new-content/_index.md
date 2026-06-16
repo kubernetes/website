@@ -129,8 +129,8 @@ prior to submitting new content. The information details follow.
 ### Sign the CNCF CLA {#sign-the-cla}
 
 All Kubernetes contributors **must** read
-the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)
-and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
+the [Contributor guide](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md)
+and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/main/CLA.md).
 
 Pull requests from contributors who haven't signed the CLA fail the automated
 tests. The name and email you provide must match those found in
@@ -141,8 +141,8 @@ CNCF CLA.
 
 ### 签署 CNCF CLA   {#sign-the-cla}
 
-所有 Kubernetes 贡献者**必须**阅读[贡献者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)
-并[签署贡献者授权同意书 (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/master/CLA.md)。  
+所有 Kubernetes 贡献者**必须**阅读[贡献者指南](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md)
+并[签署贡献者授权同意书 (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/main/CLA.md)。  
 
 若贡献者尚未签署 CLA，其发起的 PR 将无法通过自动化测试。
 你所提供的姓名和邮件地址必须与 `git config` 中配置的完全相同，

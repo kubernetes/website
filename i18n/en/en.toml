@@ -6,6 +6,10 @@
 [api_reference_title]
 other = "API reference"
 
+[api_reference_page_related_concepts]
+one = "Concept documentation for {{ .title }}"
+other = "Related concept pages"
+
 [auto_generated_edit_notice]
 other = "(auto-generated page)"
 
@@ -42,6 +46,15 @@ other = "You can also read about our {{ .link }}."
 
 [community_bluesky_name]
 other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Follow us on"
+
+[community_bluesky_link]
+other = "View on Bluesky"
+
+[community_bluesky_loading]
+other = "Loading the latest news from Bluesky..."
 
 [community_calendar_name]
 other = "Events Calendar"
@@ -158,6 +171,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[docs_version_release_information]
+other = "release information"
+
 [end_of_life]
 other = "End of Life:"
 
@@ -257,6 +273,36 @@ of Katacoda.</p>
 <p>The tutorials ceased to function after the <b>31<sup>st</sup> of March,
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
+
+[kubecon_region_china]
+other = "China"
+
+[kubecon_region_europe]
+other = "Europe"
+
+[kubecon_region_event]
+other = "Event"
+
+[kubecon_region_india]
+other = "India"
+
+[kubecon_region_japan]
+other = "Japan"
+
+[kubecon_region_north_america]
+other = "North America"
+
+[kubectl_ref_collapse_all]
+other = "Collapse all"
+
+[kubectl_ref_expand_all]
+other = "Expand all"
+
+[kubectl_ref_search_placeholder]
+other = "Search commands or description (e.g. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "View full reference"
 
 [kubernetes]
 other = "Kubernetes"
@@ -465,6 +511,9 @@ other = "This article is more than one year old. Older articles may contain outd
 [page_deprecated]
 other = "(stale page)"
 
+[page_not_available_in_language]
+other = "This page is not available in {{ .Language }}"
+
 [parentoptions_heading]
 other = "Parent Options Inherited"
 
@@ -482,6 +531,9 @@ other = "Patch Releases:"
 
 [release_actively_supported]
 other = "Actively Supported"
+
+[release_announcement_blog]
+other = "Release Announcement Blog"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -591,6 +643,9 @@ other = "End Of Life Date"
 other = """This release has reached End of Life on {{ .release_eol_date }}.
 Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
 
+[release_github_tag]
+other = "GitHub Tag"
+
 [release_latest_patch]
 other = "Latest patch release"
 
@@ -629,6 +684,13 @@ other = "Release Information"
 [release_minor_version]
 other = "Minor Version"
 
+[release_patch_releases_heading]
+one = "Patch Release"
+other = "Patch Releases"
+
+[release_upcoming_patch_heading]
+other = "Upcoming Patch"
+
 [release_info_next_patch]
 other = "Next patch release is **%s**."
 
@@ -658,6 +720,9 @@ other = "Target Date"
 [release_changelog]
 other = "Changelog"
 
+[rss_link_label]
+other = "RSS"
+
 [seealso_heading]
 other = "See Also"
 
@@ -672,6 +737,12 @@ other = "Success"
 
 [synopsis_heading]
 other = "Synopsis"
+
+[tab_default]
+other = "Tab {{ . }}"
+
+[theme_locked_notice]
+other = "Theme fixed for this page"
 
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

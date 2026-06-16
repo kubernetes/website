@@ -69,7 +69,7 @@ For deploying in production, advanced hardware configuration is required.
 Before deploying etcd in production, see
 [resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
 -->
-## etcd 资源需求    {#resource-requirements-for-etcd}
+### etcd 资源需求    {#resource-requirements-for-etcd}
 
 使用有限的资源运行 etcd 只适合测试目的。在生产环境中部署 etcd，你需要有先进的硬件配置。
 在生产中部署 etcd 之前，请查阅[所需资源参考文档](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)。

@@ -1,7 +1,6 @@
 ---
 title: 节点压力驱逐
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   节点压力驱逐是 kubelet 主动使 Pod 失败以回收节点上{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}的过程。
@@ -13,7 +12,6 @@ tags:
 <!-- 
 title: Node-pressure eviction
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   Node-pressure eviction is the process by which the kubelet proactively fails

@@ -2,12 +2,16 @@
 title: kubectl set resources
 content_type: tool-reference
 weight: 30
+description: >-
+  使用 Pod 模板更新对象的资源请求/限制
 ---
 <!--
 title: kubectl set resources
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update resource requests/limits on objects with pod templates
 -->
 
 ## {{% heading "synopsis" %}}
@@ -78,7 +82,8 @@ kubectl set resources -f path/to/file.yaml --limits=cpu=200m,memory=512Mi --loca
 Select all resources, in the namespace of the specified resource types
 -->
 在指定资源类型的命名空间中，选择所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -92,7 +97,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -105,7 +111,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 The names of containers in the selected pod templates to change, all containers are selected by default - may use wildcards
 -->
 在所选 Pod 模板中要更改的容器名称，默认会选择所有容器 - 可以使用通配符。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -119,7 +126,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -146,7 +154,8 @@ Name of the manager used to track field ownership.
 Filename, directory, or URL to files identifying the resource to get from a server.
 -->
 文件名、目录或文件 URL 的列表，用于标识要从服务器获取的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -159,7 +168,8 @@ Filename, directory, or URL to files identifying the resource to get from a serv
 help for resources
 -->
 resources 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -172,7 +182,8 @@ resources 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -186,7 +197,8 @@ The resource requirement requests for this container.  For example, 'cpu=100m,me
 -->
 指定容器的资源请求。例如，“cpu=100m,memory=256Mi”。
 请注意，服务器端组件可能会根据服务器配置（例如 LimitRange）分配请求。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -199,7 +211,8 @@ The resource requirement requests for this container.  For example, 'cpu=100m,me
 If true, set resources will NOT contact api-server but run locally.
 -->
 如果为真，`set resources` 将不会与 API 服务器通信，而是在本地运行。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -213,7 +226,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -226,7 +240,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -240,7 +255,8 @@ The resource requirement requests for this container.  For example, 'cpu=100m,me
 -->
 指定容器的资源请求。例如，“cpu=100m,memory=256Mi”。
 请注意，服务器端组件可能会根据服务器配置（例如 LimitRange）分配请求。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -269,7 +285,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为真，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -283,7 +300,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -308,7 +326,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -321,7 +340,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -334,7 +354,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -347,7 +368,8 @@ UID to impersonate for the operation.
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 --> 
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -360,7 +382,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -373,7 +396,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -386,7 +410,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -399,7 +424,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -412,7 +438,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -425,7 +452,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -438,7 +466,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为真，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -451,7 +480,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为真，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -464,7 +494,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -492,7 +523,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -505,7 +537,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -518,7 +551,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -531,7 +565,8 @@ Password for basic authentication to the API server
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
 要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -544,7 +579,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>

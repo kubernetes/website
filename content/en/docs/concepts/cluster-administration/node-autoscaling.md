@@ -153,7 +153,7 @@ graph TD
 
 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 and [Karpenter](https://github.com/kubernetes-sigs/karpenter) are the two Node autoscalers currently
-sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling).
+sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling).
 
 From the perspective of a cluster user, both autoscalers should provide a similar Node autoscaling
 experience. Both will provision new Nodes for unschedulable Pods, and both will consolidate the
@@ -179,7 +179,7 @@ Additional context:
 * [Documentation overview](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [Cloud provider integrations](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
 * [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-* [Contact](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
+* [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
 
@@ -207,7 +207,7 @@ Main differences between Cluster Autoscaler and Karpenter:
   them to new versions).
 * Cluster Autoscaler doesn't support auto-provisioning, the Node groups it can provision from have
   to be pre-configured. Karpenter supports auto-provisioning, so the user only has to configure a
-  set of constraints for the provisioned Nodes, instead of fully configuring homogenous groups.
+  set of constraints for the provisioned Nodes, instead of fully configuring homogeneous groups.
 * Cluster Autoscaler provides cloud provider integrations directly, which means that they're a part
   of the Kubernetes project. For Karpenter, the Kubernetes project publishes Karpenter as a library
   that cloud providers can integrate with to build a Node autoscaler.

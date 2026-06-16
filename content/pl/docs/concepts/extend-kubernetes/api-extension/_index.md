@@ -1,6 +1,7 @@
 ---
 title: Rozszerzanie API Kubernetesa
 weight: 30
+no_list: true
 ---
 
 Niestandardowe zasoby Kubernetesa (ang. Custom Resources) stanowią rozszerzenie API. Kubernetes udostępnia dwie metody ich integracji z klastrem:

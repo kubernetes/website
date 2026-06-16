@@ -48,6 +48,9 @@ a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to membe
 of the control plane, must authenticate when making requests to the API server,
 or be treated as an anonymous user.
 
+If you attempt to authenticate and it succeeds, the API server automatically
+marks that you are a member of the special group `system:authenticated`.
+
 ## Authentication strategies
 
 Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
@@ -123,18 +126,24 @@ anonymously, even if your authorization configuration would allow it.
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
-- service account tokens for service accounts
-- at least one other method for user authentication.
+- [service account tokens](/docs/concepts/security/service-accounts/#authenticating-credentials) for ServiceAccounts
+- at least one other method for (normal) user authentication
+
+Available authentication methods include:
+
+* [X.509 client certificates](#x509-client-certificates)
+* [Bootstrap tokens](#bootstrap-tokens)
+* [Service account tokens](#service-account-tokens)
+* [Static token file](#static-token-file)
+* [External integrations](#external-integrations)
+  * [JSON Web Tokens](#json-web-token-authentication)
+  * [OpenID Connect Tokens](#openid-connect-tokens)
+  * [Webhook token authentication](#webhook-token-authentication)
+  * [Authenticating reverse proxy](#authenticating-proxy)
 
 When multiple authenticator modules are enabled, the first module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
-
-The `system:authenticated` group is included in the list of groups for all authenticated users.
-
-[Integrations](#external-integrations) with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
-are available; for example using an [authenticating proxy](#authenticating-proxy) or the
-[authentication webhook](#webhook-token-authentication).
 
 ### X.509 client certificates {#x509-client-certificates}
 

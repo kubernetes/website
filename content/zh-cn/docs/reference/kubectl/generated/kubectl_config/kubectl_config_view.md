@@ -2,12 +2,16 @@
 title: kubectl config view
 content_type: tool-reference
 weight: 30
+description: >-
+  显示合并的 kubeconfig 配置或指定的 kubeconfig 文件
 ---
 <!--
 title: kubectl config view
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display merged kubeconfig settings or a specified kubeconfig file
 -->
 
 ## {{% heading "synopsis" %}}
@@ -28,9 +32,16 @@ kubectl config view [flags]
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Show merged kubeconfig settings
+kubectl config view
+  
 # Show merged kubeconfig settings, raw certificate data, and exposed secrets
+kubectl config view --raw
+  
 # Get the password for the e2e user
+kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+```
 -->
 ```shell
 # 显示合并的 kubeconfig 设置
@@ -175,7 +186,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当指定 <code>-o=go-template</code> 、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
+当指定 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p>
 </td>

@@ -2,12 +2,16 @@
 title: kubectl create secret docker-registry
 content_type: tool-reference
 weight: 30
+description: >-
+  创建一个 Docker 仓库所用的 Secret
 ---
 <!--
 title: kubectl create secret docker-registry
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a secret for use with a Docker registry
 -->
 
 ## {{% heading "synopsis" %}}
@@ -348,9 +352,9 @@ UID to impersonate for the operation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--  
+<!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
---> 
+-->
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>

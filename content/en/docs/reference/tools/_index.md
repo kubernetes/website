@@ -51,6 +51,12 @@ Use Helm to:
 * Intelligently manage your Kubernetes manifest files
 * Manage releases of Helm packages
 
+## kind
+
+[`kind`](https://kind.sigs.k8s.io/) is a tool for running local Kubernetes
+clusters using Docker container nodes. kind is primarily designed for testing
+Kubernetes itself, but may also be used for local development or CI.
+
 ## Kompose
 
 [`Kompose`](https://github.com/kubernetes/kompose) is a tool to help Docker Compose users move to Kubernetes.

@@ -1,4 +1,11 @@
 {{ define "main" }}
+
+{{/* Map minor version -> release blog URL and theme for the current language,
+     falling back to English. Cached per language so the scan runs once per
+     language per build. */}}
+{{ $releaseBlogMap := partialCached "docs/release-announcement-map.html" . site.Language.Lang }}
+{{ $currentBlog := index $releaseBlogMap .Params.minorVersion }}
+
 <article class="td-content">
   {{ if eq .Params.status "end-of-life" }}
   <div class="pageinfo pageinfo-warning">
@@ -25,7 +32,13 @@
   </div>
   {{ end }}
 
-  <h1>{{ .Title }}</h1>
+  <h1>
+    {{ .Title }}
+      {{ with $currentBlog }}
+        {{ with .theme }}: {{ . }}
+      {{ end }}
+    {{ end }}
+  </h1>
 
   <p>
     {{ T "release_series_page_intro"
@@ -37,11 +50,11 @@
     <dt>{{ T "release_status" }}</dt>
     <dd>
       {{ if eq .Params.status "supported" }}
-      <span class="badge badge-success">{{ T "release_actively_supported" }}</span>
+      <span class="badge text-bg-primary">{{ T "release_actively_supported" }}</span>
       {{ else if eq .Params.status "maintenance" }}
-      <span class="badge badge-warning">{{ T "release_maintenance_mode" }}</span>
+      <span class="badge text-bg-secondary">{{ T "release_maintenance_mode" }}</span>
       {{ else }}
-      <span class="badge badge-danger">{{ T "release_end_of_life" }}</span>
+      <span class="badge text-bg-danger">{{ T "release_end_of_life" }}</span>
       {{ end }}
     </dd>
 
@@ -64,9 +77,55 @@
     {{ end }}
   </dl>
 
+  {{ with .Params.patchReleases }}
+  <h2>{{ T "release_patch_releases_heading" (len .) }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ T "patch_release" }}</th>
+        <th>{{ T "release_cherry_pick_deadline" }}</th>
+        <th>{{ T "release_target_date" }}</th>
+        <th>{{ T "release_note" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td>{{ .release }}</td>
+        <td>{{ with .cherryPickDeadline }}{{ . }}{{ end }}</td>
+        <td>{{ .targetDate }}</td>
+        <td>{{ with .note }}{{ . | markdownify }}{{ end }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  {{ with .Params.nextPatch }}
+  <h2>{{ T "release_upcoming_patch_heading" }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ T "patch_release" }}</th>
+        <th>{{ T "release_cherry_pick_deadline" }}</th>
+        <th>{{ T "release_target_date" }}</th>
+        <th>{{ T "release_note" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ .release }}</td>
+        <td>{{ .cherryPickDeadline }}</td>
+        <td>{{ .targetDate }}</td>
+        <td>{{ with .note }}{{ . | markdownify }}{{ end }}</td>
+      </tr>
+    </tbody>
+  </table>
+  {{ end }}
+
   <h2>{{ T "release_links" }}</h2>
-  {{ if .Params.status | in (slice "supported" "maintenance") }}
   <ul>
+    {{ if .Params.status | in (slice "supported" "maintenance") }}
     <li>
       {{ if .Params.isLatestVersion }}
       <a href="/releases/download/">
@@ -83,7 +142,40 @@
       </a>
       {{ end }}
     </li>
+    {{ end }}
+    <li>
+      {{ $changelogAnchor := "changelog-since" }}
+      {{ $changelogHash := "" }}
+      {{ if eq .Params.minorVersion "1.2" }}
+        {{ $changelogAnchor = "changes-since" }}
+        {{ $changelogHash = "111" }}
+      {{ else if eq .Params.minorVersion "1.3" }}
+        {{ $changelogAnchor = "changes-since" }}
+        {{ $changelogHash = "120" }}
+      {{ else if eq .Params.minorVersion "1.4" }}
+        {{ $changelogHash = "130" }}
+      {{ else if eq .Params.minorVersion "1.5" }}
+        {{ $changelogHash = "140-alpha3" }}
+      {{ else }}
+        {{ $combined := replace .Params.previousMinorVersion "." "" }}
+        {{ $changelogHash = print $combined "0" }}
+      {{ end }}
+      <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-{{ .Params.minorVersion }}.md#{{ $changelogAnchor }}-v{{ $changelogHash }}">
+        {{ T "release_changelog" | upper }}
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/kubernetes/kubernetes/releases/tag/v{{ .Params.latestPatchVersion }}">
+        {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
+      </a>
+    </li>
+    {{ with $currentBlog }}{{ with .url }}
+      <li>
+        <a href="{{ . }}">
+          {{ T "release_announcement_blog" }}
+        </a>
+      </li>
+    {{ end }}{{ end }}
   </ul>
-  {{ end }}
 </article>
 {{ end }}

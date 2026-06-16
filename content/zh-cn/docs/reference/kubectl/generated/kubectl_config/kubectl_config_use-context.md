@@ -2,12 +2,16 @@
 title: kubectl config use-context
 content_type: tool-reference
 weight: 30
+description: >-
+  在 kubeconfig 文件中设置当前上下文
 ---
 <!--
 title: kubectl config use-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set the current-context in a kubeconfig file
 -->
 
 ## {{% heading "synopsis" %}}
@@ -24,7 +28,10 @@ kubectl config use-context CONTEXT_NAME
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Use the context for the minikube cluster
+kubectl config use-context minikube
+```
 -->
 ```shell
 # 使用 minikube 集群的上下文

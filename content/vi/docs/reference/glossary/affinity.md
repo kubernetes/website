@@ -1,7 +1,6 @@
 ---
 title: Affinity
 id: affinity
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      Các quy tắc được scheduler sử dụng để xác định vị trí phân phối pod

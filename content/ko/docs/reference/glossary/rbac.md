@@ -1,7 +1,6 @@
 ---
 title: RBAC(역할 기반 액세스 제어) (원문, RBAC (Role-Based Access Control))
 id: rbac
-date: 2018-04-12
 full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   인가 결정을 관리하며, 운영자가 쿠버네티스 API를 통해서 동적으로 액세스 정책을 설정하게 한다.

@@ -3,6 +3,11 @@ layout: blog
 title:  'Kubernetes 1.12: Kubelet TLS Bootstrap and Azure Virtual Machine Scale Sets (VMSS) Move to General Availability'
 date:   2018-09-27
 evergreen: true
+slug: kubernetes-1-12-release-announcement
+release_announcement:
+  minor_version: "1.12"
+  themes:
+    - "A next iteration in the evolving stable distributed system"
 author: >
   [Kubernetes v1.12 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.12/release_team.md)
 ---

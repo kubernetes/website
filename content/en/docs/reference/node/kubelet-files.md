@@ -87,6 +87,7 @@ Names of files:
 ### Checkpoint file for device manager {#device-manager-state}
 
 Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet root directory.
 The name of a checkpoint file is `kubelet_internal_checkpoint` for
 [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
@@ -125,13 +126,15 @@ various [Device Plugins to register](/docs/concepts/extend-kubernetes/compute-st
 
 When a device plugin registers itself, it provides its socket path for the kubelet to connect.
 
-The device plugin socket should be in the directory `device-plugins` within the kubelet base
-directory. On a typical Linux node, this means `/var/lib/kubelet/device-plugins`.
+The device plugin socket must be in the directory `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet base directory (root directory).
+On Linux, this path is always `/var/lib/kubelet/device-plugins`.
 
 ### Pod resources API
 
 [Pod Resources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-will be exposed at the path `/var/lib/kubelet/pod-resources`.
+will be exposed at the path `pod-resources` within the kubelet base directory (root directory).
+On a typical Linux node, this means `/var/lib/kubelet/pod-resources`.
 
 ### DRA, CSI, and Device plugins
 
