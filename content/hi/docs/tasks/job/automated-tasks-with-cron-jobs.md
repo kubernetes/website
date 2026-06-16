@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-यह पेज दिखाता है कि कैसे Kubernetes {{< glossary_tooltip text="क्रॉनजॉब" term_id="cronjob" >}} ऑब्जेक्ट का उपयोग करके स्वचालित कार्य चलाए जाते हैं।
+यह पेज दिखाता है कि कैसे कुबेरनेट्स {{< glossary_tooltip text="क्रॉनजॉब" term_id="cronjob" >}} ऑब्जेक्ट का उपयोग करके स्वचालित कार्य चलाए जाते हैं।
 
 ## {{% heading "prerequisites" %}}
 
