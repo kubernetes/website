@@ -39,6 +39,37 @@ As well as the above, you should ideally contact the Release Comms team via Slac
 (channel [`#release-comms`](https://kubernetes.slack.com/archives/CNT9Y603D)) to let them
 know that you have done this and would like to opt in.
 
+### Placeholder PR template
+
+Use the following skeleton as the starting point for your placeholder PR.
+Create a new file in the `content/en/blog/_posts/` directory:
+
+```yaml
+---
+layout: blog
+title: "Kubernetes v<nextMinorVersion>: <Your Feature Title>"
+date: XXXX-XX-XX
+slug: kubernetes-v<nextMinorVersion>-<your-feature-slug>
+author: >
+  <Your Name> (<Your Company>),
+---
+```
+
+The file path should follow this pattern (replace the placeholders as shown):
+
+```
+content/en/blog/_posts/YYYY/kubernetes-v<nextMinorVersion>-<your-feature-slug>.md
+```
+
+Where:
+- `YYYY` — the year of the release (for example, `2026`)
+- `<nextMinorVersion>` — the next Kubernetes minor version (for example, `1.37`); this is `{{< skew nextMinorVersion >}}` in the current release cycle
+- `<your-feature-slug>` — a short kebab-case description of your feature
+- `XXXX-XX-XX` — placeholder for the publication date; replace each `X` with a digit. The Release Comms team will update this once the blog schedule is finalized.
+
+> **Note:** For documentation of new features (not feature blogs), use the separate
+> [documentation placeholder PR process](/docs/contribute/new-content/new-features/#open-a-placeholder-pr).
+
 ## Preparing the article content {#preparation}
 
 You should follow the usual [article submission](/docs/contribute/blog/article-submission/)
