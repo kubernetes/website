@@ -45,14 +45,37 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 {{< glossary_definition term_id="name" length="all" >}}
 
 <!--
-**Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)
-of the same resource. API resources are distinguished by their API group, resource type, namespace
-(for namespaced resources), and name. In other words, API version is irrelevant in this context.**
+Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) of the same resource.
 -->
-**名称在同一资源的所有
-[API 版本](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)中必须是唯一的。
-这些 API 资源通过各自的 API 组、资源类型、名字空间（对于划分名字空间的资源）和名称来区分。
-换言之，API 版本在此上下文中是不相关的。**
+名称在同一资源的所有
+[API 版本](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)
+中必须是唯一的。
+
+<!--
+Kubernetes uniquely identifies objects using a combination of four
+attributes:
+* **API group** (e.g., `apps`)
+* **Resource type** (e.g., `deployments`)
+* **Namespace** (for namespaced resources)
+* **Name**
+-->
+Kubernetes 使用四个属性的组合来唯一标识对象：
+* **API 组**（例如 `apps`）
+* **资源类型**（例如 `deployments`）
+* **名字空间**（对于受名字空间约束的资源）
+* **名称**
+
+<!--
+While you can access a resource through different API versions (such as
+`v1` or `v1beta1`), the version is simply a different representation of the
+same underlying object. Because the version is not part of the unique
+identification, you cannot create two objects with the same name and
+resource type in the same namespace by using different API versions.
+-->
+虽然可以通过不同的 API 版本（例如 `v1` 或 `v1beta1`）
+访问同一资源，但版本仅是同一底层对象的不同表现形式。
+由于版本不属于唯一标识的一部分，所以不能借助不同的 API
+版本在同一名字空间中创建两个具有相同名称和资源类型的对象。
 
 {{< note >}}
 <!--
