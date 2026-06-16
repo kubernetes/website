@@ -527,16 +527,16 @@ Following are the manual steps to follow in case you run into problems running m
 # Create a public private key pair
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
 -->
 ```shell
 # 创建公钥和相对应的私钥
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # 对密钥实施 base64 编码
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
 
 <!--
