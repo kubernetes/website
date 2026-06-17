@@ -112,7 +112,7 @@ Wenn Sie mit Windows arbeiten und den [Powershell Gallery](https://www.powershel
 
     {{< note >}}Wenn Sie keine `DownloadLocation` angeben, wird `kubectl` im temporären Verzeichnis des Benutzers installiert.{{< /note >}}
 
-    Das Installationsprogramm erstellt `$HOME/.kube` erstellt eine Konfigurationsdatei.
+    Das Installationsprogramm erstellt `$HOME/.kube` und erzeugt eine Konfigurationsdatei.
 
 2. Testen Sie, ob die installierte Version ausreichend aktuell ist:
 
