@@ -356,6 +356,10 @@ A Deployment's label selector is **immutable** after creation;
 it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
 If you must change the selector, you have to delete the Deployment and recreate it.
+If you delete the Deployment normally, Kubernetes also deletes the Deployment's dependent
+ReplicaSets and Pods. The orphaning behavior described below applies when you intentionally
+keep those dependents, for example by deleting the Deployment with `--cascade=orphan`
+before creating the replacement Deployment.
 Exercise great caution and ensure you grasp the following implications:
 
 * **Additions:** When you create a new Deployment with a narrower selector, the new Deployment **must** also have a suitable Pod template.
