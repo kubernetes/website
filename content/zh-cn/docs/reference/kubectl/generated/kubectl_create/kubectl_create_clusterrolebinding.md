@@ -2,22 +2,22 @@
 title: kubectl create clusterrolebinding
 content_type: tool-reference
 weight: 30
+description: >-
+  为特定的集群角色创建一个集群角色绑定
 ---
 <!--
 title: kubectl create clusterrolebinding
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a cluster role binding for a particular cluster role
 -->
 
 ## {{% heading "synopsis" %}}
 
 <!--
 Create a cluster role binding for a particular cluster role.
-
-```
-kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]
-```
 -->
 为特定的集群角色创建一个集群角色绑定。
 
@@ -29,8 +29,8 @@ kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--g
 
 <!--
 ```
-  # Create a cluster role binding for user1, user2, and group1 using the cluster-admin cluster role
-  kubectl create clusterrolebinding cluster-admin --clusterrole=cluster-admin --user=user1 --user=user2 --group=group1
+# Create a cluster role binding for user1, user2, and group1 using the cluster-admin cluster role
+kubectl create clusterrolebinding cluster-admin --clusterrole=cluster-admin --user=user1 --user=user2 --group=group1
 ```
 -->
 ```shell
@@ -40,7 +40,7 @@ kubectl create clusterrolebinding cluster-admin --clusterrole=cluster-admin --us
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -51,7 +51,8 @@ kubectl create clusterrolebinding cluster-admin --clusterrole=cluster-admin --us
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
@@ -64,7 +65,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <td colspan="2">--clusterrole string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 ClusterRole this ClusterRoleBinding should reference
 -->
@@ -76,7 +78,8 @@ ClusterRole this ClusterRoleBinding should reference
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -89,7 +92,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-create"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
@@ -101,7 +105,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">--group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Groups to bind to the clusterrole. The flag can be repeated to add multiple groups.
 -->
@@ -113,7 +118,8 @@ Groups to bind to the clusterrole. The flag can be repeated to add multiple grou
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for clusterrolebinding
 -->
@@ -125,12 +131,13 @@ clusterrolebinding 操作的帮助命令。
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
 </p></td>
 </tr>
 
@@ -138,7 +145,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 <td colspan="2">--save-config</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
 -->
@@ -271,6 +279,20 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -365,7 +387,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
@@ -377,7 +400,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
@@ -389,7 +413,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Require server version to match client version
 -->
@@ -401,7 +426,8 @@ Require server version to match client version
 <td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, the namespace scope for this CLI request
 -->
@@ -413,7 +439,8 @@ If present, the namespace scope for this CLI request
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
@@ -425,11 +452,12 @@ Password for basic authentication to the API server
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
@@ -437,7 +465,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the file to write the profile to
 -->
@@ -449,7 +478,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -462,7 +492,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -474,7 +505,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -486,7 +518,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -498,7 +531,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -510,7 +544,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -522,7 +557,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -534,7 +570,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->

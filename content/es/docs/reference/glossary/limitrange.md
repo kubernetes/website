@@ -1,7 +1,6 @@
 ---
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link: /docs/concepts/policy/limit-range/
 short_description: >
   Proporciona restricciones para limitar el consumo de recursos por Contenedores o Pods en un espacio de nombres

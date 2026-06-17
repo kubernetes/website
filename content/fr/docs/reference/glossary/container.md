@@ -1,7 +1,6 @@
 ---
 title: Container
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   Une image exécutable légère et portable qui contient le logiciel et toutes ses dépendances.

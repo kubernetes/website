@@ -165,6 +165,68 @@ Some checks to consider:
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 
+### Website infrastructure
+
+For changes involving the website framework (such as Hugo upgrades, Docsy theme updates),
+Reviewers must ask the PR author to confirm the site builds without errors in production mode, or verify it themselves.
+This is necessary because automated Netlify previews may not catch specific asset transformation 
+or path resolution errors that only trigger during a full production build.
+
+Reviewers can verify the build using one of the following methods:
+
+- **Container-based (recommended):** Ensures environment parity without needing Hugo installed locally.
+ 
+  {{< note >}}
+  The default `container-serve` target runs in development mode. 
+  For a production-equivalent build, temporarily edit the `Makefile` and change 
+  `--environment development` to `--environment production` in the `container-serve` target, then run:
+
+  ```bash
+  make container-image
+  make container-serve
+  ```
+
+  {{< /note >}}
+
+
+- **Local Hugo via Make:** Uses the existing Makefile target for a production build. Note that this performs a full build and is slower than serving the site.
+
+  ```bash
+  make production-build
+  ```
+ 
+- **Direct Hugo command:** The fastest way to perform the production build without serving the site.
+
+  ```bash
+  hugo --gc --minify --templateMetrics --environment production
+  ```
+
+#### Verify the output
+ 
+A successful build will display a summary table:
+
+```text
+| EN  | ZH-CN | JA | ...
+---+------+-------+-----+
+Pages | 2601 | 2148 | 747 | ...
+
+Built in 95753 ms
+Environment: "production"
+```
+
+If the build fails, you will see explicit ERROR logs;
+a failure such as a shortcode or asset transformation might look like:
+
+```text
+ERROR render of "page" failed: "/src/layouts/shortcodes/cve-feed.html:3:14": 
+execute of template failed: template: shortcodes/cve-feed.html:3:14: 
+failed to transform "scss/main.scss" (text/x-scss): SCSS processing failed
+```
+
+Review the Netlify preview to see how the failure is rendered on the site.
+If the production build fails, the PR must not be merged until the author addresses the
+transformation or template errors.
+
 ### Blog
 
 Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).

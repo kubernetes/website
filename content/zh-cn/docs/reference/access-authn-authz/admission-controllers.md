@@ -113,7 +113,7 @@ admission time.
 你可以使用这三个准入控制器来定制准入时的集群行为。
 
 <!--
-## Admission control phases
+### Admission control phases
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -123,7 +123,7 @@ both.
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
-## 准入控制阶段   {#admission-control-phases}
+### 准入控制阶段   {#admission-control-phases}
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。
@@ -494,10 +494,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -563,11 +563,11 @@ There are four types of limits that can be specified in the configuration:
 可以在配置中指定的限制有四种类型：
 
 <!--
- * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
- * `Namespace`: Each namespace has a dedicated bucket.
- * `User`: Each user is allocated a bucket.
- * `SourceAndObject`: A bucket is assigned by each combination of source and
-   involved object of the event.
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
+  involved object of the event.
 -->
 * `Server`：API 服务器收到的所有（创建或修改）Event 请求共享一个桶。
 * `Namespace`：每个名字空间都对应一个专用的桶。
@@ -702,6 +702,21 @@ Alternatively, you can embed the configuration directly in the file:
 -->
 或者，你也可以直接将配置嵌入到该文件中：
 
+<!--
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+  - name: ImagePolicyWebhook
+    configuration:
+      imagePolicy:
+        kubeConfigFile: <path-to-kubeconfig-file>
+        allowTTL: 50
+        denyTTL: 50
+        retryBackoff: 500
+        defaultAllow: true
+```
+-->
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -909,13 +924,13 @@ In any case, the annotations are provided by the user and are not validated by K
 **类别**：验证。
 
 <!--
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 -->
 此准入控制器拒绝定义了 `AntiAffinity` 拓扑键的任何 Pod
-（`requiredDuringSchedulingRequiredDuringExecution` 中的 `kubernetes.io/hostname` 除外）。
+（`requiredDuringSchedulingIgnoredDuringExecution` 中的 `kubernetes.io/hostname` 除外）。
 
 此准入控制器默认被禁用。
 
@@ -972,7 +987,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 -->
 如果由此准入控制器调用的 Webhook 有副作用（如：减少配额），
-则它 **必须** 具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
+则它**必须**具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
 
 <!--
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -1128,6 +1143,17 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
   and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
+  * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
 -->
 * **禁止** kubelet 添加、删除或更新前缀为 `node-restriction.kubernetes.io/` 的标签。
   这类前缀的标签是保留给管理员的，用于为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
@@ -1148,13 +1174,30 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
 <!--
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
 and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
-
-Future versions may add additional restrictions to ensure kubelets have the minimal set of
-permissions required to operate correctly.
 -->
 以 `kubernetes.io` 或 `k8s.io` 为前缀的所有其他标签都限制 kubelet 使用，并且将来可能会被
 `NodeRestriction` 准入插件允许或禁止。
 
+<!--
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this admission plugin also restricts the audiences for which a kubelet can
+request service account tokens via the `TokenRequest` API. The kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests), or for audiences explicitly granted
+through RBAC using the `request-serviceaccounts-token-audience` verb. For more details,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
+-->
+当启用了 `ServiceAccountNodeAudienceRestriction` **特性门控**时，
+此准入插件还会限制 kubelet 可以通过 `TokenRequest` API 请求服务账号令牌的受众。
+kubelet 只能为已在该节点上的 Pod 中引用（通过投影的服务账号令牌卷或
+CSI 驱动令牌请求）的受众请求令牌，或者通过使用 `request-serviceaccounts-token-audience`
+动词通过 RBAC 明确授予的受众请求令牌。更多详情，
+请参阅[服务账号令牌受众限制](/zh-cn/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction)。
+
+<!--
+Future versions may add additional restrictions to ensure kubelets have the minimal set of
+permissions required to operate correctly.
+-->
 将来的版本可能会增加其他限制，以确保 kubelet 具有正常运行所需的最小权限集。
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
@@ -1463,8 +1506,8 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
-[Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
+[ResourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
+[ResourceQuota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}
 

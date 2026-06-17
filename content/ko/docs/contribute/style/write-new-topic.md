@@ -52,11 +52,11 @@ hugo new docs/concepts/my-first-concept.md
 
        /docs/tasks/extend-kubernetes/http-proxy-access-api/
 
-## 전문에 항목 제목 추가
+## 프론트 매터(front matter)에 항목 제목 추가
 
-문서에서 [전문](https://gohugo.io/content-management/front-matter/)
+문서에서 [프론트 매터](https://gohugo.io/content-management/front-matter/)
 에 `title` 필드를 입력하자.
-전문은 페이지 상단의 3중 점선 사이에 있는
+프론트 매터는 페이지 상단의 3중 점선 사이에 있는
 YAML 블록이다. 여기 예시가 있다.
 
     ---

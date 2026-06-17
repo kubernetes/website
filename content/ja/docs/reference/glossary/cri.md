@@ -1,7 +1,6 @@
 ---
 title: コンテナランタイムインターフェース(CRI)
 id: cri
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   kubeletとローカルコンテナランタイム間の通信のためのプロトコルです。

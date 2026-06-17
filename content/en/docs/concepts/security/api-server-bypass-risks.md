@@ -64,6 +64,10 @@ distribution in use. Direct access to the API allows for disclosure of informati
 the pods running on a node, the logs from those pods, and execution of commands in
 every container running on the node.
 
+Some of these endpoints support Websocket protocols via HTTP `GET` requests, which are authorized with the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission,
+and authorizes access to endpoints which can be used to execute commands in any container running on the node.
+
 When Kubernetes cluster users have RBAC access to `Node` object sub-resources, that access
 serves as authorization to interact with the kubelet API. The exact access depends on
 which sub-resource access has been granted, as detailed in
@@ -84,6 +88,8 @@ The default anonymous access doesn't make this assertion with the control plane.
 - Restrict access to sub-resources of the `nodes` API object using mechanisms such as
   [RBAC](/docs/reference/access-authn-authz/rbac/). Only grant this access when required,
   such as by monitoring services.
+- Avoid granting the `nodes/proxy` catch-all permission, even with just the **get** verb.
+  Instead, grant [granular permissions](/docs/reference/access-authn-authz/kubelet-authn-authz/#fine-grained-authorization).
 - Restrict access to the kubelet port. Only allow specified and trusted IP address
   ranges to access the port.
 - Ensure that [kubelet authentication](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication).

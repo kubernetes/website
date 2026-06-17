@@ -1,7 +1,6 @@
 ---
 title: Katalog Servis
 id: service-catalog
-date: 2018-04-12
 full_link: 
 short_description: >
   Sebuah ekstensi API yang memungkinkan aplikasi berjalan pada klaster Kubernetes untuk

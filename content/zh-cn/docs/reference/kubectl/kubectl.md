@@ -11,10 +11,7 @@ weight: 30
 
 ## {{% heading "synopsis" %}}
 
-<!--
-kubectl controls the Kubernetes cluster manager.
--->
-kubectl 管理控制 Kubernetes 集群。
+{{< glossary_definition term_id="kubectl" length="short" >}}
 
 <!--
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
@@ -27,7 +24,7 @@ kubectl [flags]
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -37,40 +34,44 @@ kubectl [flags]
       <td colspan="2">--add-dir-header</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, adds the file directory to the header of the log messages
       -->
-      设置为 true 表示添加文件目录到日志信息头中
+      设置为 true 表示添加文件目录到日志信息头中。
       </td>
     </tr>
     <tr>
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       log to standard error as well as files
       -->
-      表示将日志输出到文件的同时输出到 stderr
+      表示将日志输出到文件的同时输出到 stderr。
       </td>
     </tr>
     <tr>
       <td colspan="2">--as string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Username to impersonate for the operation
       -->
-      以指定用户的身份执行操作
+      以指定用户的身份执行操作。
       </td>
     </tr>
     <tr>
       <td colspan="2">--as-group stringArray</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
       -->
@@ -81,7 +82,8 @@ kubectl [flags]
       <td colspan="2">--azure-container-registry-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to the file containing Azure container registry configuration information.
       -->
@@ -89,63 +91,71 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："$HOME/.kube/cache"</td>
+      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："$HOME/.kube/cache"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Default cache directory
       -->
-      默认缓存目录
+      默认缓存目录。
       </td>
     </tr>
     <tr>
       <td colspan="2">--certificate-authority string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a cert file for the certificate authority
       -->
-      指向证书机构的 cert 文件路径
+      指向证书机构的 cert 文件路径。
       </td>
     </tr>
     <tr>
       <td colspan="2">--client-certificate string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a client certificate file for TLS
       -->
-      TLS 使用的客户端证书路径
+      TLS 使用的客户端证书路径。
       </td>
     </tr>
     <tr>
       <td colspan="2">--client-key string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to a client key file for TLS
       -->
-      TLS 使用的客户端密钥文件路径
+      TLS 使用的客户端密钥文件路径。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：130.211.0.0/22,35.191.0.0/16</td>
+      <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-        <!--CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks-->
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
+        <!--
+        CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks
+        -->
         在 GCE 防火墙中开放的 CIDR，用来进行 L7 LB 流量代理和健康检查。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
+      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       CIDRs opened in GCE firewall for L4 LB traffic proxy & health checks
       -->
@@ -156,29 +166,32 @@ kubectl [flags]
       <td colspan="2">--cluster string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The name of the kubeconfig cluster to use
       -->
-      要使用的 kubeconfig 集群的名称
+      要使用的 kubeconfig 集群的名称。
       </td>
     </tr>
     <tr>
       <td colspan="2">--context string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The name of the kubeconfig context to use
       -->
-      要使用的 kubeconfig 上下文的名称
+      要使用的 kubeconfig 上下文的名称。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300</td>
+      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
       -->
@@ -186,10 +199,11 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300</td>
+      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
       -->
@@ -200,7 +214,8 @@ kubectl [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       help for kubectl
       -->
@@ -211,7 +226,8 @@ kubectl [flags]
       <td colspan="2">--insecure-skip-tls-verify</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       -->
@@ -222,7 +238,8 @@ kubectl [flags]
       <td colspan="2">--kubeconfig string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Path to the kubeconfig file to use for CLI requests.
       -->
@@ -230,10 +247,11 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：0</td>
+      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：0</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       when logging hits line file:N, emit a stack trace
       -->
@@ -263,7 +281,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1800</td>
+      <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：1800</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -286,7 +304,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true</td>
+      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：true</td>
     </tr>
     <tr>
       <td></td>
@@ -346,7 +364,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："none"</td>
+      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："none"</td>
     </tr>
     <tr>
       <td></td>
@@ -358,7 +376,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："profile.pprof"</td>
+      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："profile.pprof"</td>
     </tr>
     <tr>
       <td></td>
@@ -366,11 +384,11 @@ kubectl [flags]
       <!--
       Name of the file to write the profile to
       -->
-      用于转储所记录的性能信息的文件名
+      用于转储所记录的性能信息的文件名。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："0"</td>
+      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："0"</td>
     </tr>
     <tr>
       <td></td>
@@ -391,7 +409,7 @@ kubectl [flags]
       <!--
       The address and port of the Kubernetes API server
       -->
-      Kubernetes API 服务器的地址和端口
+      Kubernetes API 服务器的地址和端口。
       </td>
     </tr>
     <tr>
@@ -403,7 +421,7 @@ kubectl [flags]
       <!--
       If true, avoid header prefixes in the log messages
       -->
-      设置为 true 则表示跳过在日志消息中出现 header 前缀信息
+      设置为 true 则表示跳过在日志消息中出现 header 前缀信息。
       </td>
     </tr>
     <tr>
@@ -415,11 +433,11 @@ kubectl [flags]
       <!--
       If true, avoid headers when opening log files
       -->
-      设置为 true 则表示在打开日志文件时跳过 header 信息
+      设置为 true 则表示在打开日志文件时跳过 header 信息。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：2</td>
+      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：2</td>
     </tr>
     <tr>
       <td></td>
@@ -527,20 +545,6 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值："$HOME/.kube/conf
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
-</tr>
-<tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<!--
-When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
--->
-设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl
-命令（此变量适用于 Kubernetes v1.22 或更高版本）
-</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
@@ -549,7 +553,8 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 <!--
 Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source available. OpenAPIV3 is enabled by default since Kubernetes 1.24.
 -->
-切换对 <code>kubectl explain</code> 的调用是否使用可用的新 OpenAPIv3 数据源。OpenAPIV3 自 Kubernetes 1.24 起默认被启用。
+切换对 <code>kubectl explain</code> 的调用是否使用可用的新 OpenAPIv3 数据源。
+OpenAPIV3 自 Kubernetes 1.24 起默认被启用。
 </td>
 </tr>
 

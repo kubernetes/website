@@ -1,7 +1,6 @@
 ---
 title: アプリケーションアーキテクト
 id: application-architect
-date: 2018-04-12
 full_link: 
 short_description: >
   アプリケーションの高レベルの設計を担当する人。

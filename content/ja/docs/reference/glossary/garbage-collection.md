@@ -1,7 +1,6 @@
 ---
 title: ガベージコレクション
 id: garbage-collection
-date: 2021-07-07
 full_link: /ja/docs/concepts/architecture/garbage-collection/
 short_description: >
   Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。

@@ -1,7 +1,6 @@
 ---
 title: イミュータブルインフラストラクチャ
 id: immutable-infrastructure
-date: 2024-03-25
 full_link:
 short_description: >
   イミュータブルインフラストラクチャはデプロイ後に変更できないコンピューターインフラストラクチャ(仮想マシン、コンテナ、ネットワークアプライアンス)を指します。

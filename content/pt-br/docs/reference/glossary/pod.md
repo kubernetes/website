@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2020-04-19
 full_link: /docs/concepts/workloads/pods/
 short_description: >
   O menor e mais simples objeto Kubernetes. Um Pod representa um conjunto de contêineres em execução no seu cluster.

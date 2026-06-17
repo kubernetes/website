@@ -7,6 +7,7 @@ description: >
   Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitate both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 content_type: concept
 weight: 20
+theme_lock: light
 card:
   name: concepts
   weight: 10
@@ -43,7 +44,7 @@ can easily manage a canary deployment for your system.
 Kubernetes provides you with:
 
 * **Service discovery and load balancing**
-  Kubernetes can expose a container using a DNS name or their own IP address.
+  Kubernetes can expose a container using a DNS name or its own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
 * **Storage orchestration**
@@ -71,7 +72,7 @@ Kubernetes provides you with:
 * **Horizontal scaling**
   Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 * **IPv4/IPv6 dual-stack**
-  Allocation of IPv4 and IPv6 addresses to Pods and Services
+  Allocation of IPv4 and IPv6 addresses to Pods and Services.
 * **Designed for extensibility**
   Add features to your Kubernetes cluster without changing upstream source code.
 
@@ -179,6 +180,7 @@ Containers have become popular because they provide extra benefits, such as:
 ## {{% heading "whatsnext" %}}
 
 * Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
-* Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* Take a look at the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* Take a look at [kubectl](/docs/concepts/overview/kubectl/): the primary CLI for Kubernetes
 * Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
 * Ready to [Get Started](/docs/setup/)?

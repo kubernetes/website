@@ -1,7 +1,6 @@
 ---
 title: Revisor
 id: reviewer
-date: 2018-04-12
 full_link: 
 short_description: >
   Uma pessoa que revisa o código quanto à qualidade e correção em alguma parte do projeto.

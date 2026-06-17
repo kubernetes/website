@@ -271,8 +271,8 @@ kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"D
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
-* Learn more about [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+* Learn more about [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tutorials/configuration/configure-persistent-volume-storage/)
 -->
 * 进一步了解 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 * 进一步了解 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
-* 进一步了解[配置 Pod 以使用 PersistentVolume 作为存储](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+* 进一步了解[配置 Pod 以使用 PersistentVolume 作为存储](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/)。

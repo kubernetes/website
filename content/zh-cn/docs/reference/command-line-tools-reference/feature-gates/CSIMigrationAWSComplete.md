@@ -14,7 +14,7 @@ stages:
     toVersion: "1.20"
   - stage: deprecated
     fromVersion: "1.21"
-    toVersion: "1.21"    
+    toVersion: "1.21"
 
 removed: true
 ---

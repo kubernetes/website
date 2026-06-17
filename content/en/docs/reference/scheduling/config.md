@@ -56,6 +56,13 @@ extension points:
 1. `queueSort`: These plugins provide an ordering function that is used to
    sort pending Pods in the scheduling queue. Exactly one queue sort plugin
    may be enabled at a time.
+1. `placementGenerate`: These plugins generate potential placements (sets of
+   nodes) where a considered PodGroup could be scheduled. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
+1. `placementScore`: These plugins score the placements proposed by
+   `placementGenerate`, to pick the optimal placement for the considered
+    PodGroup.
 1. `preFilter`: These plugins are used to pre-process or check information
    about a Pod or the cluster before filtering. They can mark a pod as
    unschedulable.
@@ -132,10 +139,13 @@ extension points:
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
   true.
   Extension points: `filter`.
-- `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
-  requesting. The score can use one of three strategies: `LeastAllocated`
-  (default), `MostAllocated` and `RequestedToCapacityRatio`.
-  Extension points: `preFilter`, `filter`, `score`.
+- `NodeResourcesFit`: For pod-by-pod scheduling checks if the node has all
+  the resources that the Pod is requesting. The score can use one of three
+  strategies: `LeastAllocated` (default), `MostAllocated` and
+  `RequestedToCapacityRatio`.
+  For PodGroup scheduling calculates the resource utilization in the entire evaluated placement.
+  The score uses the `MostAllocated` strategy.
+  Extension points: `preFilter`, `filter`, `score`, `placementScore`.
 - `NodeResourcesBalancedAllocation`: Favors nodes that would obtain a more
   balanced resource usage if the Pod is scheduled there.
   Extension points: `score`.
@@ -175,6 +185,12 @@ extension points:
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `postFilter`.
+- `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
+  constraints.
+  Extension points: `placementGenerate`.
+- `PodGroupPodsCount`: Provides the placement scoring algorithm based on the number of pods that
+  can be scheduled in the given placement.
+  Extension points: `placementScore`.
 
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:

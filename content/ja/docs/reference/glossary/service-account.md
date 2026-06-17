@@ -1,7 +1,6 @@
 ---
 title: サービスアカウント
 id: service-account
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   Pod内で動作するプロセスのアイデンティティを提供します。

@@ -65,7 +65,7 @@ sudo docker run -it --rm --privileged --net=host \
   registry.k8s.io/node-test:0.2
 ```
 
-ノード適合テストは、[node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)のコンテナ化されたバージョンです。
+ノード適合テストは、[node e2e test](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/e2e-node-tests.md)のコンテナ化されたバージョンです。
 デフォルトでは、すべての適合テストが実行されます。
 
 理論的には、コンテナを構成し必要なボリュームを適切にマウントすれば、どのノードのe2eテストも実行できます。しかし、不適合テストを実行するためにはより複雑な設定が必要となるため、**適合テストのみを実行することを強く推奨します**。

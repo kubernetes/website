@@ -121,7 +121,7 @@ Tools such as {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 can work with different formats / encodings. These include:
 
 * [CBOR](https://cbor.io/), used on the network but **not** available as a kubectl output format
-  * See [CBOR resource encoding](https://kubernetes.io/docs/reference/using-api/api-concepts/#cbor-encoding)
+  * See [CBOR resource encoding](/docs/reference/using-api/api-concepts/#cbor-encoding)
 * [JSON](https://www.json.org/), available as a `kubectl` output format and also used at the HTTP layer
 * [KYAML](/docs/reference/encodings/kyaml), a Kubernetes dialect of YAML
   * KYAML is essentially an _output format_; any place where you can provide KYAML to Kubernetes, you can also provide any other valid YAML input

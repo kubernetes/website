@@ -1,7 +1,6 @@
 ---
 title: Контролер допуску
 id: admission-controller
-date: 2019-06-28
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
   Фрагмент коду, який перехоплює запити до сервера API Kubernetes перед збереженням обʼєкта.

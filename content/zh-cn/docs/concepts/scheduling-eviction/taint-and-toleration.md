@@ -141,7 +141,8 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 <!--
 There are two special cases:
 
-If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values. Note that the `effect` still needs to be matched at the same time.
+If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values.
+Note that the `effect` still needs to be matched at the same time.
 
 An empty `effect` matches all effects with key `key1`.
 -->
@@ -298,6 +299,122 @@ taint is removed before that time, the pod will not be evicted.
 这表示如果这个 Pod 正在运行，同时一个匹配的污点被添加到其所在的节点，
 那么 Pod 还将继续在节点上运行 3600 秒，然后被驱逐。
 如果在此之前上述污点被删除了，则 Pod 不会被驱逐。
+
+<!--
+## Numeric comparison operators {#numeric-comparison-operators}
+-->
+## 数值比较运算符 {#numeric-comparison-operators}
+
+{{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
+
+<!--
+In addition to `Equal` and `Exists`, you can use numeric comparison operators
+(`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based
+scheduling, such as matching nodes by reliability level or SLA tier.
+
+* `Gt` matches when the taint value is greater than the toleration value.
+* `Lt` matches when the taint value is less than the toleration value.
+
+For numeric operators, both the toleration and taint values must be valid integers.
+If either value cannot be parsed as an integer, the toleration does not match.
+-->
+除了 `Equal` 和 `Exists` 之外，你还可以使用数值比较运算符（`Gt` 和 `Lt`）
+来匹配具有整数值的污点。这对于基于阈值的调度非常有用，
+例如根据可靠性等级或 SLA 等级来匹配节点。
+
+* `Gt`：当污点值大于容忍值时匹配。
+* `Lt`：当污点值小于容忍值时匹配。
+
+对于数值运算符，容忍值和污点值都必须是有效的整数。
+如果二者中任一个值无法被解析为整数，则此容忍度不匹配。
+
+{{< note >}}
+<!--
+When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server validates that
+the toleration values are valid integers. Taint values on nodes are not validated at node
+registration time. If a node has a non-numeric taint value (for example,
+`servicelevel.organization.example/agreed-service-level=high:NoSchedule`),
+pods with numeric comparison operators will not match that taint and cannot schedule on that node.
+-->
+当你创建一个使用 `Gt` 或 `Lt` 容忍度运算符的 Pod 时，API
+服务器会校验这些容忍度取值是否为有效整数。节点上的污点值在节点注册时不会被校验。
+如果某个节点具有非数值的污点值（例如
+`servicelevel.organization.example/agreed-service-level=high:NoSchedule`），
+那么使用数值比较运算符的 Pod 将无法匹配该污点，因此也无法调度到该节点上。
+{{< /note >}}
+
+<!--
+For example, if nodes are tainted with a value representing a service level agreement (SLA):
+-->
+例如，如果节点被打上表示服务级别协议（SLA）的污点：
+
+```shell
+kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level=950:NoSchedule
+```
+
+<!--
+A pod can tolerate nodes with SLA greater than 900:
+-->
+Pod 可以容忍 SLA 大于 900 的节点：
+
+{{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
+
+<!--
+This toleration matches the taint on `node1` because `950 > 900` (the taint value  
+is greater than the toleration value for the `Gt` operator).  
+Similarly, you can use the `Lt` operator to match taints where the taint value is  
+less than the toleration value:
+-->
+此容忍度匹配 `node1` 上的污点，因为 `950 > 900`（对于 `Gt` 运算符来说，污点值大于容忍度值）。
+同样地，你也可以使用 `Lt` 运算符来匹配污点值小于容忍度值的情况：
+
+```yaml
+tolerations:
+- key: "servicelevel.organization.example/agreed-service-level"
+  operator: "Lt"
+  value: "1000"
+  effect: "NoSchedule"
+```
+
+{{< note >}}
+<!--
+When using numeric comparison operators:
+
+* Both the toleration and taint values must be valid signed 64-bit integers
+  (zero leading numbers (e.g., "0550") are not allowed).
+* If a value cannot be parsed as an integer, the toleration does not match.
+* Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
+* For `PreferNoSchedule` with numeric operators: if a pod's toleration doesn't satisfy the numeric comparison
+  (e.g., taint value < toleration value when using `Gt`), the scheduler gives the node a lower priority
+  but may still schedule there if no better options exist.
+-->
+当使用数值比较运算符时：
+
+* 容忍度值和污点值都必须是有效的、带符号的 64 位整数
+  （不允许带前导零的数字，例如 `"0550"`）。
+* 如果某个值无法被解析为整数，则此容忍度不匹配。
+* 数值运算符适用于所有污点效果：`NoSchedule`、`PreferNoSchedule` 和 `NoExecute`。
+* 对于使用数值运算符的 `PreferNoSchedule`：如果 Pod 的容忍度不满足数值比较条件
+  （例如在使用 `Gt` 时，污点值 < 容忍度值），调度器降低相应节点的优先级，
+  但在没有更优选择的情况下，仍可能将 Pod 调度到该节点。
+{{< /note >}}
+
+{{< warning >}}
+<!--
+Before disabling the `TaintTolerationComparisonOperators` feature gate:
+
+* You should identify all workloads using the `Gt` or `Lt` operators to avoid controller hot-loops.
+* Update all workload controller templates to use `Equal` or `Exists` operators instead
+* Delete any pending pods that use `Gt` or `Lt` operators
+* Monitor the `apiserver_request_total` metric for spikes in validation errors
+-->
+在禁用 `TaintTolerationComparisonOperators` 特性门控之前：
+
+* 你应定位所有使用 `Gt` 或 `Lt` 运算符的工作负载，以避免控制器出现热循环。
+* 更新所有工作负载控制器模板，改为使用 `Equal` 或 `Exists` 运算符。
+* 删除所有使用 `Gt` 或 `Lt` 运算符的 Pending Pod。
+* 监控 `apiserver_request_total` 指标，关注校验错误是否突增。
+{{< /warning >}}
 
 <!--
 ## Example Use Cases

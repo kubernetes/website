@@ -1,7 +1,6 @@
 ---
 title: Chú thích (Annotation)
 id: annotation
-date: 2019-12-16
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   Một cặp khóa-giá trị được sử dụng để đính kèm tùy ý một metadata không xác định cụ thể vào các đối tượng.

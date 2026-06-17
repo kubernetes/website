@@ -46,7 +46,8 @@ and the regular containers reference both the file and the environment variable 
 through the `fileKeyRef` field without needing to mount the volume. 
 When `optional` field is set to false, the specified `key` in `fileKeyRef` must exist in the environment variables file.
 -->
-在上述清单中，你可以看到 `initContainer` 挂载一个 `emptyDir` 卷，并将环境变量写入到其中的某个文件，
+在上述清单中，你可以看到 `initContainer` 挂载一个 `emptyDir` 卷，
+并将环境变量写入到其中的某个文件，
 而普通容器无需挂载卷，通过 `fileKeyRef` 字段引用此文件和环境变量键。
 当 `optional` 字段设置为 false 时，`fileKeyRef` 中指定的 `key` 必须存在于环境变量文件中。
 
@@ -64,7 +65,8 @@ from specified files in the `emptyDir` volume and exposes them to the container.
 环境变量文件格式遵循
 [Kubernetes Env 文件标准](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-via-file/#env-file-syntax)。
 
-在容器初始化期间，kubelet 从 `emptyDir` 卷中指定的文件中获取环境变量，并将这些环境变量暴露给容器。
+在容器初始化期间，kubelet 从 `emptyDir` 卷中指定的文件中获取环境变量，
+并将这些环境变量暴露给容器。
 
 {{< note >}}
 <!--
@@ -125,66 +127,82 @@ DB_ADDRESS=address
 ```
 
 <!--
-## Env File Syntax {#env-file-syntax}
+## Env File syntax {#env-file-syntax}
 
-The format of Kubernetes env files originates from `.env` files.
+The env file format used by Kubernetes is a well-defined subset of the environment variable semantics for POSIX-compliant bash. Any env file supported by Kubernetes will produce the same environment variables as when interpreted by a POSIX-compliant bash. However, POSIX-compliant bash supports some additional formats that Kubernetes does not accept.
 
-In a shell environment, `.env` files are typically loaded using the `source .env` command.
-
-For Kubernetes, the defined env file format adheres to stricter syntax rules:
+Example:
 -->
 ## Env 文件语法 {#env-file-syntax}
 
-Kubernetes Env 文件格式源自 `.env` 文件。
+Kubernetes 使用的 Env 文件格式是符合 POSIX 标准的 Bash 环境变量语义的一个定义明确的子集。
+Kubernetes 所支持的所有 Env 文件都会生成与被符合 POSIX 标准的 Bash
+解释时相同的环境变量。但是，符合 POSIX 标准的 Bash 支持一些 Kubernetes 不接受的额外格式。
 
-在 Shell 环境中，`.env` 文件通常使用 `source .env` 命令加载。
+事例：
 
-对于 Kubernetes，定义的 Env 文件格式遵循更严格的语法规则：
-
-<!--
-* Blank Lines: Blank lines are ignored.
-
-* Leading Spaces: Leading spaces on all lines are ignored.
-
-* Variable Declaration: Variables must be declared as `VAR=VAL`. Spaces surrounding `=` and trailing spaces are ignored.
--->
-* 空行：空行会被忽略。
-* 行首空格：所有行的行首空格会被忽略。
-* 变量声明：变量必须声明为 `VAR=VAL`。`=` 两侧的空格和行尾空格会被忽略。
-
-  ```
-  VAR=VAL → VAL
-  ```
+```
+MY_VAR='my-literal-value'
+```
 
 <!--
-* Comments: Lines beginning with # are treated as comments and ignored.
+### Rules
 
-  ```
-  # comment
-  VAR=VAL → VAL
-
-  VAR=VAL # not a comment → VAL # not a comment
-  ```
+* Variable declaration: Use the form `VAR='value'`. Spaces surrounding `=` are ignored; leading spaces on a line are ignored; blank lines are ignored.
+* Quoted values: Values must be enclosed in single quotes (`'`).
+  * The content inside single quotes is preserved literally. No escape-sequence processing, whitespace folding, or character interpretation is applied.
+  * Newlines inside single quotes are preserved (multi-line values are supported).
+* Comments: Lines that begin with `#` are treated as comments and ignored. A `#` character inside a single-quoted value is not a comment.
 -->
-* 注释：以 # 开头的行被视为注释并忽略。
+### 规则
 
-  ```
-  # 注释
-  VAR=VAL → VAL
-
-  VAR=VAL # 不是注释 → VAL # 不是注释
-  ```
+* 变量声明：使用 `VAR='value'` 的形式。`=` 前后空格将被忽略；行首空格将被忽略；空行将被忽略。
+* 带引号的值：值必须用单引号（`'`）括起来。 
+  * 单引号内的内容将按原样保留。不会进行转义序列处理、空格折叠或字符解释。 
+  * 单引号内的换行符将被保留（支持多行值）。
+* 注释：以 `#` 开头的行将被视为注释并被忽略。单引号内的值中的 `#` 字符不是注释。
 
 <!--
-* Line Continuation: A backslash (`\`) at the end of a variable declaration line indicates the value continues on the next line. The lines are joined with a single space.
+Examples:
 -->
-* 换行续行：在变量声明行末使用反斜杠 (`\`) 表示值在下一行继续。行与行之间用单个空格连接。
+事例：
 
-  ```
-  VAR=VAL \
-  VAL2
-  → VAL VAL2
-  ```
+```
+# comment
+DB_ADDRESS='address'
+
+MULTI='line1
+line2'
+```
+
+<!--
+### Unsupported forms
+-->
+### 不支持的表单
+
+<!--
+* Unquoted values are **prohibited**:
+  * `VAR=value` — not supported.
+* Double-quoted values are **prohibited**:
+  * `VAR="value"` — not supported.
+* Multiple adjacent quoted strings are **not** supported:
+  * `VAR='val1''val2'` — not supported.
+* Any form of interpolation, expansion, or concatenation is **not** supported:
+  * `VAR='a'$OTHER` or `VAR=${OTHER}` — not supported.
+-->
+* 禁止使用未加引号的值：
+  * `VAR=value` — 不支持。
+* 禁止使用双引号的值：
+  * `VAR="value"` — 不支持。
+* 禁止使用多个相邻的带引号的字符串：
+  * `VAR='val1''val2'` — 不支持。
+* 禁止使用任何形式的插值、扩展或连接：
+  * `VAR='a'$OTHER` 或 `VAR=${OTHER}` — 不支持。
+
+<!--
+The strict single-quote requirement ensures the value is taken literally by the kubelet when loading environment variables from files
+-->
+严格的单引号要求确保 kubelet 在从文件中加载环境变量时，能够按字面意思理解该值。
 
 ## {{% heading "whatsnext" %}}
 

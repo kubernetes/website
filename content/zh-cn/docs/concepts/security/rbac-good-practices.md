@@ -279,16 +279,34 @@ PersistentVolumeClaim 来访问该存储。
 <!--
 ### Access to `proxy` subresource of Nodes
 
-Users with access to the proxy sub-resource of node objects have rights to the Kubelet API,
+Users with access to the `nodes/proxy` sub-resource have rights to the Kubelet API,
 which allows for command execution on every pod on the node(s) to which they have rights.
 This access bypasses audit logging and admission control, so care should be taken before
-granting rights to this resource.
+granting any rights to this resource.
+These APIs can be exercised via websocket HTTP `GET` requests, which only requires authorization of the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission.
+For example, permission to **get** `nodes/proxy` provides access to privileged kubelet
+APIs that can retrieve container logs or execute and attach to pod processes,
+even when a caller does not have the equivalent permissions through the
+Kubernetes API.
 -->
 ### 访问 Node 的 `proxy` 子资源  {#access-to-proxy-subresource-of-nodes}
 
-有权访问 Node 对象的 proxy 子资源的用户有权访问 kubelet API，
+有权访问 Node 对象的 `nodes/proxy` 子资源的用户有权访问 kubelet API，
 这允许在他们有权访问的节点上的所有 Pod 上执行命令。
-此访问绕过审计日志记录和准入控制，因此在授予对此资源的权限前应小心。
+此访问绕过审计日志记录和准入控制，因此在授予对任何资源的权限前应小心。
+这些 API 可以通过 WebSocket HTTP `GET` 请求来调用，而这只需要授权 **get** 操作。
+这意味着对 `nodes/proxy` 的 **get** 权限并非只读权限。
+例如，**get** `nodes/proxy` 权限提供了对特权 kubelet API 的访问权限，
+即使调用者没有通过 Kubernetes API 获得相应的权限，
+这些 API 也可以检索容器日志或执行并附加到 Pod 进程。
+
+<!--
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
+-->
+有关更多信息，请参阅
+[kubelet 身份验证/鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)。
 
 <!--
 ### Escalate verb
