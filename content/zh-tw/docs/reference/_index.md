@@ -39,12 +39,12 @@ This section of the Kubernetes documentation contains references.
 -->
 ## API 參考 {#api-reference}
 
-* [詞彙表](/zh-tw/docs/reference/glossary/) - Kubernetes 術語的完整標準化清單
-* [Kubernetes API 參考](/zh-tw/docs/reference/kubernetes-api/)
-* [Kubernetes API 單頁參考 {{< param "version" >}}](/zh-tw/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-* [使用 Kubernetes API ](/zh-tw/docs/reference/using-api/) - Kubernetes API 的概覽
-* [API 存取控制](/zh-tw/docs/reference/access-authn-authz/) - 說明 Kubernetes 如何控管 API 的存取
-* [常見標籤、註解與污點](/zh-tw/docs/reference/labels-annotations-taints/)
+* [詞彙表](/docs/reference/glossary/) - Kubernetes 術語的完整標準化清單
+* [Kubernetes API 參考](/docs/reference/kubernetes-api/)
+* [Kubernetes API 單頁參考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [使用 Kubernetes API ](/docs/reference/using-api/) - Kubernetes API 的概覽
+* [API 存取控制](/docs/reference/access-authn-authz/) - 說明 Kubernetes 如何控管 API 的存取
+* [常見標籤、註解與污點](/docs/reference/labels-annotations-taints/)
 
 <!--
 ## Officially supported client libraries
@@ -62,7 +62,7 @@ client libraries:
 -->
 ## 官方支援的用戶端程式庫 {#officially-supported-client-libraries}
 
-若要透過程式語言呼叫 Kubernetes API，可以使用[用戶端程式庫](/zh-tw/docs/reference/using-api/client-libraries/)。以下為官方支援的用戶端程式庫：
+若要透過程式語言呼叫 Kubernetes API，可以使用[用戶端程式庫](/docs/reference/using-api/client-libraries/)。以下為官方支援的用戶端程式庫：
 
 - [Kubernetes Go 用戶端程式庫](https://github.com/kubernetes/client-go/)
 - [Kubernetes Python 用戶端程式庫](https://github.com/kubernetes-client/python)
@@ -80,10 +80,10 @@ client libraries:
 -->
 ## CLI
 
-* [kubectl](/zh-tw/docs/reference/kubectl/) - 用於執行指令及管理 Kubernetes 叢集的主要 CLI 工具。
-  * [JSONPath](/zh-tw/docs/reference/kubectl/jsonpath/) - 說明如何在 kubectl 中使用  
+* [kubectl](/docs/reference/kubectl/) - 用於執行指令及管理 Kubernetes 叢集的主要 CLI 工具。
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - 說明如何在 kubectl 中使用  
     [JSONPath 表達式](https://goessner.net/articles/JsonPath/) 的語法指南。
-* [kubeadm](/zh-tw/docs/reference/setup-tools/kubeadm/) - 用於快速建立安全 Kubernetes 叢集的 CLI 工具。
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - 用於快速建立安全 Kubernetes 叢集的 CLI 工具。
 
 <!--
 ## Components
@@ -110,21 +110,21 @@ client libraries:
 -->
 ## 組件 {#components}
 
-* [kubelet](/zh-tw/docs/reference/command-line-tools-reference/kubelet/) -
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) -
   在每個節點上執行的主要代理程式。kubelet 會接收一組 PodSpec，並確保其描述的容器維持正常且健康的運作狀態。
-* [kube-apiserver](/zh-tw/docs/reference/command-line-tools-reference/kube-apiserver/) -
+* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   提供 REST API，用於驗證與設定 API 物件（例如 Pod、Service 或 ReplicationController）的資料。
-* [kube-controller-manager](/zh-tw/docs/reference/command-line-tools-reference/kube-controller-manager/) -
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) -
   執行 Kubernetes 核心控制迴圈的常駐程式。
-* [kube-proxy](/zh-tw/docs/reference/command-line-tools-reference/kube-proxy/) -
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) -
   可進行簡單的 TCP/UDP 流量轉發，或在一組後端之間進行輪詢式 TCP/UDP 轉發。
-* [kube-scheduler](/zh-tw/docs/reference/command-line-tools-reference/kube-scheduler/) -
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
   負責管理資源可用性、效能與容量的排程器。
   
-  * [排程策略](/zh-tw/docs/reference/scheduling/policies)
-  * [排程設定檔](/zh-tw/docs/reference/scheduling/config#profiles)
+  * [排程策略](/docs/reference/scheduling/policies)
+  * [排程設定檔](/docs/reference/scheduling/config#profiles)
 
-* 控制平面與工作節點上需開放的[連接埠與通訊協定](/zh-tw/docs/reference/networking/ports-and-protocols/)
+* 控制平面與工作節點上需開放的[連接埠與通訊協定](/docs/reference/networking/ports-and-protocols/)
 
 <!--
 ## Config APIs
@@ -162,26 +162,26 @@ operator to use or manage a cluster.
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 -->
-* [kubeconfig（v1）](/zh-tw/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc（v1alpha1）](/zh-tw/docs/reference/config-api/kuberc.v1alpha1/)和
-  [kuberc (v1beta1)](/zh-tw/docs/reference/config-api/kuberc.v1beta1/)
-* [kube-apiserver 准入（v1）](/zh-tw/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver 設定（v1alpha1）](/zh-tw/docs/reference/config-api/apiserver-config.v1alpha1/)和
-  [kube-apiserver 設定（v1beta1）](/zh-tw/docs/reference/config-api/apiserver-config.v1beta1/)和
-  [kube-apiserver 設定（v1）](/zh-tw/docs/reference/config-api/apiserver-config.v1/)
-* [kube-apiserver 事件速率限制（v1alpha1）](/zh-tw/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet 設定（v1alpha1）](/zh-tw/docs/reference/config-api/kubelet-config.v1alpha1/)、
-  [kubelet 設定（v1beta1）](/zh-tw/docs/reference/config-api/kubelet-config.v1beta1/)和
-  [kubelet 設定（v1）](/zh-tw/docs/reference/config-api/kubelet-config.v1/)
-* [kubelet 憑證提供者（v1）](/zh-tw/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler 設定（v1）](/zh-tw/docs/reference/config-api/kube-scheduler-config.v1/)
-* [kube-controller-manager 設定（v1alpha1）](/zh-tw/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
-* [kube-proxy 設定（v1alpha1）](/zh-tw/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-* [`audit.k8s.io/v1` API](/zh-tw/docs/reference/config-api/apiserver-audit.v1/)
-* [用戶端身分驗證 API（v1beta1）](/zh-tw/docs/reference/config-api/client-authentication.v1beta1/)及
-  [用戶端身分驗證 API（v1）](/zh-tw/docs/reference/config-api/client-authentication.v1/)
-* [WebhookAdmission 設定（v1）](/zh-tw/docs/reference/config-api/apiserver-webhookadmission.v1/)
-* [ImagePolicy API（v1alpha1）](/zh-tw/docs/reference/config-api/imagepolicy.v1alpha1/)
+* [kubeconfig（v1）](/docs/reference/config-api/kubeconfig.v1/)
+* [kuberc（v1alpha1）](/docs/reference/config-api/kuberc.v1alpha1/)和
+  [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
+* [kube-apiserver 准入（v1）](/docs/reference/config-api/apiserver-admission.v1/)
+* [kube-apiserver 設定（v1alpha1）](/docs/reference/config-api/apiserver-config.v1alpha1/)和
+  [kube-apiserver 設定（v1beta1）](/docs/reference/config-api/apiserver-config.v1beta1/)和
+  [kube-apiserver 設定（v1）](/docs/reference/config-api/apiserver-config.v1/)
+* [kube-apiserver 事件速率限制（v1alpha1）](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
+* [kubelet 設定（v1alpha1）](/docs/reference/config-api/kubelet-config.v1alpha1/)、
+  [kubelet 設定（v1beta1）](/docs/reference/config-api/kubelet-config.v1beta1/)和
+  [kubelet 設定（v1）](/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet 憑證提供者（v1）](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+* [kube-scheduler 設定（v1）](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager 設定（v1alpha1）](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+* [kube-proxy 設定（v1alpha1）](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
+* [用戶端身分驗證 API（v1beta1）](/docs/reference/config-api/client-authentication.v1beta1/)及
+  [用戶端身分驗證 API（v1）](/docs/reference/config-api/client-authentication.v1/)
+* [WebhookAdmission 設定（v1）](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [ImagePolicy API（v1alpha1）](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 <!--
 ## Config API for kubeadm
@@ -191,8 +191,8 @@ operator to use or manage a cluster.
 -->
 ## kubeadm 設定 API {#config-api-for-kubeadm}
 
-* [v1beta3](/zh-tw/docs/reference/config-api/kubeadm-config.v1beta3/)
-* [v1beta4](/zh-tw/docs/reference/config-api/kubeadm-config.v1beta4/)
+* [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
 
 <!--
 ## External APIs
@@ -208,9 +208,9 @@ by the core project:
 
 這些 API 由 Kubernetes 專案所定義，但並非由核心專案實作：
 
-* [指標 API（v1beta1）](/zh-tw/docs/reference/external-api/metrics.v1beta1/)
-* [自訂指標 API（v1beta2）](/zh-tw/docs/reference/external-api/custom-metrics.v1beta2)
-* [外部指標 API（v1beta1）](/zh-tw/docs/reference/external-api/external-metrics.v1beta1)
+* [指標 API（v1beta1）](/docs/reference/external-api/metrics.v1beta1/)
+* [自訂指標 API（v1beta2）](/docs/reference/external-api/custom-metrics.v1beta2)
+* [外部指標 API（v1beta1）](/docs/reference/external-api/external-metrics.v1beta1)
 
 <!--
 ## Design Docs
@@ -245,9 +245,9 @@ can work with different formats / encodings. These include:
 * [YAML](https://yaml.org/), available as a `kubectl` output format and also used at the HTTP layer
 -->
 * [CBOR](https://cbor.io/)，用於網路傳輸，但**不**支援作為 kubectl 的輸出格式。
-  * 請參閱 [CBOR 資源編碼](/zh-tw/docs/reference/using-api/api-concepts/#cbor-encoding)
+  * 請參閱 [CBOR 資源編碼](/docs/reference/using-api/api-concepts/#cbor-encoding)
 * [JSON](https://www.json.org/)，可作為 `kubectl` 的輸出格式，也用於 HTTP 層。
-* [KYAML](/zh-tw/docs/reference/encodings/kyaml)，為 Kubernetes 所使用的 YAML 方言。
+* [KYAML](/docs/reference/encodings/kyaml)，為 Kubernetes 所使用的 YAML 方言。
   * KYAML 本質上是一種**輸出格式**；在任何可提供 KYAML 給 Kubernetes 的情境中，
     也可提供其他任何有效的 YAML 輸入。
 * [YAML](https://yaml.org/)，可作為 `kubectl` 的輸出格式，也用於 HTTP 層。
@@ -259,8 +259,8 @@ The `kubectl` tool supports some other output formats, such as _custom columns_;
 see [output formats](/docs/reference/kubectl/#output-options) in the kubectl reference.
 -->
 Kubernetes 也提供一種自訂的
-[protobuf 編碼](/zh-tw/docs/reference/using-api/api-concepts/#protobuf-encoding)，
+[protobuf 編碼](/docs/reference/using-api/api-concepts/#protobuf-encoding)，
 僅用於 HTTP 訊息中。
 
 `kubectl` 工具也支援其他輸出格式，例如**自訂欄位**；
-詳情請參閱 kubectl 參考文件中的[輸出格式](/zh-tw/docs/reference/kubectl/#output-options)。
+詳情請參閱 kubectl 參考文件中的[輸出格式](/docs/reference/kubectl/#output-options)。

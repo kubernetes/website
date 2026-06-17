@@ -57,7 +57,7 @@ All [control plane components](/docs/concepts/architecture/#control-plane-compon
 support running as a pool of interchangeable resources, replicated per
 component.
 -->
-所有[控制平面組件](/zh-tw/docs/concepts/architecture/#control-plane-components)都支援以可互換資源池的方式執行，
+所有[控制平面組件](/docs/concepts/architecture/#control-plane-components)都支援以可互換資源池的方式執行，
 並為各個組件建立多個副本
 
 <!--
@@ -110,7 +110,7 @@ These labels can include
 [zone information](/docs/reference/labels-annotations-taints/#topologykubernetesiozone).
 -->
 當節點啟動時，每個節點上的 kubelet 會自動在 Kubernetes API 中代表此特定節點的 Node 物件加上{{< glossary_tooltip text="標籤" term_id="label" >}}。
-這些標籤可以包含[區域資訊](/zh-tw/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
+這些標籤可以包含[區域資訊](/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
 
 <!--
 If your cluster spans multiple zones or regions, you can use node labels
@@ -123,7 +123,7 @@ These hints enable the
 Pods for better expected availability, reducing the risk that a correlated
 failure affects your whole workload.
 -->
-如果您的叢集跨越多個故障區或地區，您可以結合使用節點標籤與 [Pod 拓撲散佈限制](/zh-tw/docs/concepts/scheduling-eviction/topology-spread-constraints/)，
+如果您的叢集跨越多個故障區或地區，您可以結合使用節點標籤與 [Pod 拓撲散佈限制](/docs/concepts/scheduling-eviction/topology-spread-constraints/)，
 來控制 Pod 在叢集中的各個故障域（地區、故障區，甚至特定節點）之間的分佈方式。
 這些提示可讓{{< glossary_tooltip text="排程器" term_id="kube-scheduler" >}}將 Pod 排程到更有利於可用性的位置，
 從而降低相關故障影響整個工作負載的風險。
@@ -169,7 +169,7 @@ You can apply [node selector constraints](/docs/concepts/scheduling-eviction/ass
 to Pods that you create, as well as to Pod templates in workload resources
 such as Deployment, StatefulSet, or Job.
 -->
-您可以套用[節點選擇器限制](/zh-tw/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)到您建立的 Pod，
+您可以套用[節點選擇器限制](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)到您建立的 Pod，
 以及 Deployment、StatefulSet 或 Job 等工作負載資源中的 Pod 模板。
 
 <!--
@@ -205,7 +205,7 @@ see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topolog
 -->
 您可以為 PersistentVolumeClaims 指定一個{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}，
 用來指定該類別中的儲存空間可以使用的故障域（區域）。
-要了解配置能夠感知到故障域或區域的 StorageClass，請參閱[允許的拓撲](/zh-tw/docs/concepts/storage/storage-classes/#allowed-topologies)。
+要了解配置能夠感知到故障域或區域的 StorageClass，請參閱[允許的拓撲](/docs/concepts/storage/storage-classes/#allowed-topologies)。
 
 <!--
 ## Networking
@@ -222,7 +222,7 @@ same zone as the load balancer element processing a given connection.
 Check your cloud provider's documentation for details.
 -->
 Kubernetes 本身並不包含故障區感知的網路功能。
-您可以使用[網路外掛](/zh-tw/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來配置叢集網路，
+您可以使用[網路外掛](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來配置叢集網路，
 而選用的網路解決方案可能包含與特定故障區相關的設定。例如，如果您的雲端供應商支援 `type=LoadBalancer` 的 Service，
 負載平衡器可能只會將流量傳送至與處理此連線的負載平衡器位於相同區域的 Pod。請查看您的雲端供應商文件以瞭解詳情。
 
@@ -271,4 +271,4 @@ To learn how the scheduler places Pods in a cluster, honoring the configured con
 visit [Scheduling and Eviction](/docs/concepts/scheduling-eviction/).
 -->
 若想了解排程器如何在叢集中依照設定的限制來排程 Pod，
-請參閱[排程與驅逐](/zh-tw/docs/concepts/scheduling-eviction/)。
+請參閱[排程與驅逐](/docs/concepts/scheduling-eviction/)。
