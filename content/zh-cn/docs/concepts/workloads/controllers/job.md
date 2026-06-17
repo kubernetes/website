@@ -1500,7 +1500,7 @@ For example:
 
 TTL 控制器清理 Job 时，会级联式地删除 Job 对象。
 换言之，它会删除所有依赖的对象，包括 Pod 及 Job 本身。
-注意，当 Job 被删除时，系统会考虑其生命周期保障，例如其 Finalizers。
+注意，当 Job 被删除时，系统会考虑其生命周期保障，例如其 Finalizer。
 
 例如：
 
@@ -2293,7 +2293,7 @@ Job 与[副本控制器](/zh-cn/docs/concepts/workloads/controllers/replicationc
 副本控制器管理的是那些不希望被终止的 Pod （例如，Web 服务器），
 Job 管理的是那些希望被终止的 Pod（例如，批处理作业）。
 
-正如在 [Pod 生命期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) 中讨论的，
+正如在 [Pod 生命期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)中讨论的，
 `Job` 仅适合于 `restartPolicy` 设置为 `OnFailure` 或 `Never` 的 Pod。
 
 {{< note >}}
@@ -2336,7 +2336,7 @@ object, but maintains complete control over what Pods are created and how work i
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
 * `Job` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/job-v1" >}}
+  Read the {{< api-reference page="batch/job-v1" >}}
   object definition to understand the API for jobs.
 * Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
   can use to define a series of Jobs that will run based on a schedule, similar to
@@ -2353,7 +2353,7 @@ object, but maintains complete control over what Pods are created and how work i
   * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)
   * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
-* `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
+* `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="batch/job-v1" >}}
   对象定义理解关于该资源的 API。
 * 阅读 [`CronJob`](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
   它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。
