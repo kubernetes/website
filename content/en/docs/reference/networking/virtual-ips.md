@@ -198,6 +198,13 @@ and is likely to hurt functionality more than it improves performance.
 
 {{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
 
+{{< note >}}
+The `ipvs` proxy mode is deprecated. The feature will be disabled by default
+from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/))
+and the code will be removed in Kubernetes v1.43.
+{{< /note >}}
+
 _This proxy mode is only available on Linux nodes._
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
@@ -276,15 +283,6 @@ these are:
 These scheduling algorithms are configured through the
 [`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
 field in the kube-proxy configuration.
-
-{{< note >}}
-To run kube-proxy in IPVS mode, you must make IPVS available on
-the node before starting kube-proxy.
-
-When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
-kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-exits with an error.
-{{< /note >}}
 
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 
