@@ -41,6 +41,46 @@ div.feature-state-notice {
   max-width: 80%;
 }
 
+div.api-reference-header-note {
+  background-color: $api-infobox-shown;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1em;
+
+  font-size: 1.1em;
+
+  details > summary, details[open] > summary { 
+    color: $black;
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    > li {
+      margin-top: 1rem;
+
+      div:has(> a) {
+        font-size: 1.4em;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+      .concept-page-toc ol > li {
+        list-style: "";
+      }
+    }
+  }
+}
+
+div.api-reference-header-note:not(:has(details[open])) {
+  background-color: $api-infobox;
+}
+
+div.api-reference-header-note.empty {
+  visibility: hidden;
+}
+
+
 .includecode .highlight {
   margin-top: 0;
   margin-bottom: 0;
@@ -107,8 +147,8 @@ div.feature-state-notice {
 
 .glossary-tooltip {
   display: inline-block;
-  border-bottom: 1px dotted black;
-  color: $black;
+  border-bottom: 1px dotted var(--bs-body-color);
+  color: var(--bs-body-color);
   background: transparent;
   text-decoration: none !important;
 }
@@ -471,12 +511,12 @@ body.docs-portal {
     }
 
     .launch-card:has(button) {
-      background: rgba(210, 210, 210, 0.2);
-      color: $black;
+      background: var(--bs-secondary-bg);
+      color: var(--bs-body-color);
     }
 
     .launch-card:hover {
-      background: rgba(210, 210, 210, 0.4);
+      background: var(--bs-tertiary-bg);
     }
 
     .launch-card:has(button:hover) {
@@ -523,7 +563,7 @@ main {
 
   // Look & Feel , Aesthetics
   div.metric:nth-of-type(odd) {
-    background-color: $light-grey;
+    background-color: var(--bs-tertiary-bg);
   }
 
   div.metrics {
@@ -560,11 +600,11 @@ main {
         li.metric_labels_varying{
           span{
                 display: inline-block;
-                background-color: $metric-labels-varying;
+                background-color: var(--bs-secondary-bg);
                 padding: 0 0.5em;
                 margin-right: .35em;
                 font-family: monospace;
-                border: 1px solid $metric-labels-varying-border;
+                border: 1px solid var(--bs-border-color);
                 border-radius: 5%;
                 margin-bottom: .35em;
           }

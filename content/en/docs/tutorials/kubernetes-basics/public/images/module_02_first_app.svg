@@ -8,6 +8,7 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="476.1"
    height="385.3"
+   viewBox="0 0 476.1 385.3"
    version="1.1"
    id="svg1987">
   <metadata
@@ -181,6 +182,13 @@
   </symbol>
   <g
      id="g1985">
+    <rect
+       x="0"
+       y="0"
+       width="476.1"
+       height="385.3"
+       fill="#FFFFFF"
+       id="background_rect" />
     <title
        id="title1814">Layer 1</title>
     <g
