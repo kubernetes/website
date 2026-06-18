@@ -378,7 +378,7 @@ Cluster Autoscaler 和 Karpenter 之间的主要差异：
 <!--
 * Cluster Autoscaler doesn't support auto-provisioning, the Node groups it can provision from have
   to be pre-configured. Karpenter supports auto-provisioning, so the user only has to configure a
-  set of constraints for the provisioned Nodes, instead of fully configuring homogenous groups.
+  set of constraints for the provisioned Nodes, instead of fully configuring homogeneous groups.
 * Cluster Autoscaler provides cloud provider integrations directly, which means that they're a part
   of the Kubernetes project. For Karpenter, the Kubernetes project publishes Karpenter as a library
   that cloud providers can integrate with to build a Node autoscaler.
@@ -441,7 +441,8 @@ Node 自动扩缩容随之应制备新的 Node 以容纳新的 Pod。
 一旦应用负载减少，负载自动扩缩容应移除不必要的 Pod。
 Node 自动扩缩容应按序整合不再需要的 Node。
 
-如果配置正确，这种模式确保你的应用在需要时始终有足够的 Node 容量处理突发负载，你也无需在闲置时为这些 Node 容量支付费用。
+如果配置正确，这种模式确保你的应用在需要时始终有足够的 Node 容量处理突发负载，
+你也无需在闲置时为这些 Node 容量支付费用。
 
 <!--
 ### Vertical workload autoscaling {#vertical-workload-autoscaling}
