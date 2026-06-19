@@ -2,6 +2,8 @@
 title: kubeconfig (v1)
 content_type: tool-reference
 package: v1
+auto_generated: probably
+source: unknown
 ---
 
 <!--
@@ -56,14 +58,14 @@ Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this afte
 </p>
 </td>
 </tr>
-<tr><td><code>preferences</code><B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>preferences</code><br/>
 <a href="#Preferences"><code>Preferences</code></a>
 </td>
 <td>
 <p>
 <!--
 Preferences holds general information to be use for cli interactions.
-Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
+Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components. 
 -->
 <code>preferences</code>保存用于 CLI 交互的一般信息。
 已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。

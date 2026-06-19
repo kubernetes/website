@@ -3,6 +3,7 @@ title: kubeconfig (v1)
 content_type: tool-reference
 package: v1
 auto_generated: true
+source: unknown
 ---
 
 ## Resource Types 
@@ -44,12 +45,12 @@ TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 </td>
 </tr>
-<tr><td><code>preferences,omitzero</code> <B>[Required]</B><br/>
+<tr><td><code>preferences,omitzero</code><br/>
 <a href="#Preferences"><code>Preferences</code></a>
 </td>
 <td>
    <p>Preferences holds general information to be use for cli interactions
-Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.</p>
+Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.</p> 
 </td>
 </tr>
 <tr><td><code>clusters</code> <B>[Required]</B><br/>
