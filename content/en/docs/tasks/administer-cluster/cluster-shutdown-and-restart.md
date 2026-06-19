@@ -10,24 +10,12 @@ This page outlines the steps required to safely shut down and restart Kubernetes
 
 As cluster administrators, you may need to suspend your running cluster and restart it at a later time. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on operation/resource costs.
 
-At a high level, the steps you perform for shutting down are:
-- Back up the cluster
-- Cordon the nodes (mark as unschedulable)
-- Drain pods from nodes
-- Shut down nodes
-- Shut down any dependencies of your cluster
-
-Meanwhile, the steps you perform for restarting are:
-- Start external dependencies
-- Power on your nodes and wait until they are Ready
-- Mark the nodes as schedulable again
-
 <!-- body -->
 
 ## {{% heading "prerequisites" %}}
 
 - You must have an existing cluster. This page is about shutting down and restarting clusters. You must also have access to the cluster as a user with the cluster admin role.
-- You can't use the node autoscaler to perform this procedure. Disable the node autoscaler.
+- This procedure does not apply to environments using a node autoscaler.
 - In this procedure, you will shut down the nodes in order to shut down the cluster. Some server management systems are configured to delete servers (VMs) that no longer respond to liveness checks. In such cases, the VMs may be deleted automatically, so you should not perform this procedure.
 
 ### (Optional) Check for certificate expiration {#check-certificate-expiration}
@@ -47,7 +35,7 @@ notAfter=Mar  3 09:18:19 2026 GMT
 To ensure that the cluster can restart gracefully after this shut down, plan to restart it on or before the specified date. 
 Note that various certificates may have different expiration dates.
 
-## Backup your cluster
+## (Optional) Backup an etcd cluster
 
 If your Kubernetes cluster uses etcd as its backing store, make sure to create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster does not work.
 
@@ -59,24 +47,27 @@ If your Kubernetes cluster uses etcd as its backing store, make sure to create a
 
 ## Shut down the nodes in your cluster {#node-shutdown}
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will typically allow you to gracefully restart the cluster for later use. While [node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will typically allow you to gracefully restart the cluster for later use. While [node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart. The procedure involves first shutting down the worker nodes, and then shutting down the control plane.
 
 ### Mark worker nodes unschedulable
 
 Make all nodes in the cluster unschedulable using `kubectl cordon`
 
 ```bash
-kubectl cordon node1 node2 node3
+kubectl cordon --selector='!node-role.kubernetes.io/control-plane'
+kubectl cordon --selector='node-role.kubernetes.io/control-plane'
 ```
 
 ### Terminating pods in the nodes
 
 Evict all the pods using `kubectl drain`
 
-While `kubectl drain` should basically be enough due to it capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`
+While `kubectl drain` should basically be enough due to it capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`.
+First, drain the worker nodes, then drain the control plane nodes.
 
 ```bash
-kubectl drain --ignore-daemonsets node1 node2 node3
+kubectl drain --ignore-daemonsets --selector='!node-role.kubernetes.io/control-plane'
+kubectl drain --ignore-daemonsets --selector='node-role.kubernetes.io/control-plane'
 ```
 
 ### Shutting down nodes in the cluster
@@ -108,12 +99,14 @@ Power on any cluster dependencies you need for your cluster, such as external st
 
 ### Powering on cluster machines
 
-Start all cluster machines (i.e. your nodes). Use the method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
+First, start the machines for all control plane nodes in the cluster. Use the method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
+Allow a few minutes for the cluster's control plane nodes to become `Ready`. Control plane components (kube-apiserver, etcd) may take longer. Verify that all nodes are `Ready`. 
 
-Allow a few minutes for the cluster's control plane nodes and worker nodes to become `Ready`. Control plane components (kube-apiserver, etcd) may take longer. Verify that all nodes are `Ready`. 
+Next, start the machines for all worker nodes in the cluster and verify that they are in the "Ready" state.
 
 ```bash
-kubectl get nodes
+kubectl get nodes --selector='node-role.kubernetes.io/control-plane'
+kubectl get nodes --selector='!node-role.kubernetes.io/control-plane'
 ```
 
 ### Making control plane nodes schedulable
@@ -121,7 +114,7 @@ kubectl get nodes
 Once the control plane nodes are `Ready`, mark all control plane nodes in the cluster schedulable using `kubectl uncordon`
 
 ```bash
-kubectl uncordon control-plane-node1 control-plane-node2 control-plane-node3
+kubectl uncordon --selector='node-role.kubernetes.io/control-plane'
 ```
 
 ### Making worker nodes schedulable
@@ -129,7 +122,7 @@ kubectl uncordon control-plane-node1 control-plane-node2 control-plane-node3
 Once the worker nodes are `Ready`, mark all worker nodes in the cluster schedulable using `kubectl uncordon`
 
 ```bash
-kubectl uncordon worker-node1 worker-node2 worker-node3
+kubectl uncordon --selector='!node-role.kubernetes.io/control-plane'
 ```
 
 Wait until all pods are back in operation. Verify that the pods are `Running`
