@@ -200,7 +200,7 @@ The PodGroup API defines a `spec.resourceClaims` field with the same structure
 and similar meaning as the `spec.resourceClaims` field in the Pod API:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
@@ -237,6 +237,14 @@ for each Pod. Whether or not a `resourceClaimTemplateName` claim matches a
 PodGroup claim, the name of the generated ResourceClaim is recorded in the Pod's
 `status.resourceClaimStatuses`.
 
+A matching PodGroup claim for a ResourceClaimTemplate only prompts the creation
+of a ResourceClaim when the
+[`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
+feature is enabled. Instead of creating per-Pod ResourceClaims when the feature
+is disabled, no ResourceClaim is created to prevent creating spurious per-Pod
+ResourceClaims during cluster upgrades or rollouts/rollbacks of the feature
+between `kube-apiserver` and `kube-controller-manager`.
+
 ResourceClaims generated from a ResourceClaimTemplate for a
 PodGroup follow the lifecycle of the PodGroup. The ResourceClaim is first
 created when both the PodGroup and its ResourceClaimTemplate exist. The
@@ -246,7 +254,7 @@ ResourceClaim is no longer reserved.
 Consider the following example:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group

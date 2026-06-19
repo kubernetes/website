@@ -67,7 +67,7 @@ spec:
 can be requested by a PodGroup through its `spec.resourceClaims` field:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
