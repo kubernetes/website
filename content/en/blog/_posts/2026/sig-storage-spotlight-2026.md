@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: "Spotlight on SIG Storage"
-draft: true
+date: 2026-06-15
+canonical_url: https://www.kubernetes.dev/blog/2026/06/15/sig-storage-spotlight-2026
 slug: sig-storage-spotlight-2026
 author: "Darshan Murthy (Apple)"
 ---
