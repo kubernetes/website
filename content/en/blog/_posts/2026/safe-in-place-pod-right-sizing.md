@@ -2,13 +2,14 @@
 layout: blog
 title: "Safe In-Place Pod Right-Sizing in Kubernetes 1.33+"
 draft: true
+math: true
 slug: safe-in-place-pod-right-sizing
 author: >
   [Sebastien Tardif](https://github.com/SebTardif)
 ---
 
-With in-place pod resize now GA in Kubernetes 1.35, the ecosystem has a
-powerful new primitive for adjusting container resources without eviction.
+With in-place pod resize GA since Kubernetes 1.35, the ecosystem has a
+powerful primitive for adjusting container resources without eviction.
 But the API is just the mechanism. This post covers the patterns needed
 to use it safely in production: graduated rollout, multi-signal auto-revert,
 HPA coexistence, confidence-based recommendations, and change filtering.
@@ -17,14 +18,14 @@ HPA coexistence, confidence-based recommendations, and change filtering.
 
 ## The waste problem
 
-According to [CAST AI's 2025 Kubernetes cost report](https://cast.ai/blog/kubernetes-cost-report/), clusters in their
-dataset averaged roughly 8% CPU utilization. While that number reflects
-their customer base rather than every cluster in existence, the
-directional signal is consistent across vendors: the vast majority of
-provisioned compute sits idle. CAST AI found 99.94% of clusters
-overprovisioned, with 83% of container costs going to idle resources.
-Industry estimates put the resulting cloud infrastructure waste at
-$44.5 billion annually.
+According to CAST AI's 2026
+[State of Kubernetes Optimization report](https://cast.ai/reports/state-of-kubernetes-optimization/),
+clusters in their dataset averaged 8% CPU utilization and 20% memory
+utilization. CPU overprovisioning jumped from 40% to 69% year over year,
+with memory overprovisioning at 79%. While those numbers reflect their
+customer base rather than every cluster in existence, the directional
+signal is consistent across vendors: the vast majority of provisioned
+compute sits idle.
 
 The root cause is not laziness. It is rational fear. Setting a CPU
 request to 2 cores when you only use 400 millicores is the rational
@@ -32,27 +33,27 @@ choice when the alternative is getting OOM-killed at 3 AM. Developers
 over-provision because under-provisioning has immediate, painful
 consequences, while over-provisioning only has a slow, invisible cost.
 
-Kubernetes has had the Vertical Pod Autoscaler (VPA) since 2018, yet
+Kubernetes has had the VerticalPodAutoscaler (VPA) since 2018, yet
 VPA in fully automated mode remains far less common than HPA in
 production environments. Why?
 
 ## Why VPA adoption stalled
 
-VPA's approach to right-sizing has three fundamental problems that have
+VPA's approach to right-sizing had three fundamental problems that
 kept it out of production for most teams:
 
-**Problem 1: Eviction-based updates.** VPA changes pod resources by
-evicting the pod and letting the controller recreate it with new values.
-This means downtime, rescheduling, cold cache starts, and connection
-interruptions. For stateful workloads, single-replica services, or
-anything with a slow startup, this is unacceptable.
+**Problem 1: Eviction-based updates.** VPA originally changed pod
+resources by evicting the pod and letting the controller recreate it
+with new values. This meant downtime, rescheduling, cold cache starts,
+and connection drops. VPA's `InPlaceOrRecreate` update mode now addresses
+this by leveraging in-place resize when possible.
 
 **Problem 2: HPA conflicts.** VPA and HPA fight over the same axis.
 When VPA lowers CPU requests, utilization percentage jumps, triggering
 HPA to scale out. More replicas lower utilization again, so VPA lowers
 requests further. This feedback loop destabilizes workloads. The
 official Kubernetes documentation
-[warns against using VPA with HPA on CPU or memory metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics).
+[cautions readers about using VPA with HPA on CPU or memory metrics](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/#support-for-resource-metrics).
 
 **Problem 3: Opaque recommendations.** VPA relies on a histogram-based
 historical usage model whose decision process can be difficult for
@@ -62,10 +63,11 @@ specific workload requires digging into internal state that most
 teams never see. When a recommendation is surprising, there is no
 straightforward way to audit the reasoning.
 
-These are not implementation bugs. They are architectural constraints
-that stem from VPA being designed before in-place resize existed.
+VPA's adoption of in-place resize solved the first problem. The
+remaining challenges, HPA conflicts and recommendation transparency,
+are open problems for any controller that automates resource changes.
 
-## In-place pod resize changes everything
+## In-place pod resize changed everything
 
 Kubernetes 1.27 introduced in-place pod resize as an alpha feature.
 In 1.33, it graduated to beta and became enabled by default. In 1.35,
@@ -182,14 +184,14 @@ utilization instead of 48% and scales out.
 One strategy for preserving equivalent absolute CPU thresholds is to
 recalculate HPA's utilization target proportionally after a resize:
 
-```
-newTarget = originalTarget * (oldRequest / newRequest)
+```math
+\text{newTarget} = \text{originalTarget} \times \frac{\text{oldRequest}}{\text{newRequest}}
 ```
 
 If the original HPA target was 70% and requests dropped from 500m to
-300m, the new target becomes `70% * (500/300) = 116%`, capped at 100%.
-This preserves the same absolute CPU threshold (350m of actual usage)
-while letting HPA continue to function correctly.
+300m, the new target becomes `70% * (500/300) ≈ 117%`. This preserves
+the same absolute CPU threshold (350m of actual usage) while letting
+HPA continue to function correctly.
 
 This approach has caveats. The adjusted target may exceed 100% and
 require capping. HPA stabilization windows add complexity. Custom
@@ -210,23 +212,26 @@ A confidence score combines time coverage and data density. Here,
 metrics source (for example, individual data points from a Prometheus
 range query) over the observation window:
 
-```
-timeComponent = days of data collected
-dataComponent = sqrt(dataPoints / 24)
-confidence = clamp(min(timeComponent, dataComponent) / 7, 0, 1)
+```math
+\begin{aligned}
+\text{timeComponent} &= \text{days of data collected} \\
+\text{dataComponent} &= \sqrt{\frac{\text{dataPoints}}{24}} \\
+\text{confidence} &= \operatorname{clamp}\!\left(\frac{\min(\text{timeComponent},\;\text{dataComponent})}{7},\; 0,\; 1\right)
+\end{aligned}
 ```
 
 At low confidence, apply a buffer that adds headroom. At full
 confidence, the buffer shrinks to zero:
 
-```
-confidenceFactor = 1 + multiplier * (1 - confidence)^exponent
+```math
+\text{confidenceFactor} = 1 + \text{multiplier} \times (1 - \text{confidence})^{\text{exponent}}
 ```
 
 With the defaults of multiplier=1.0 and exponent=2.0, a workload with
-minimal data gets an 80% safety buffer, while a workload with a full
-week of metrics gets none. This prevents aggressive right-sizing of
-newly deployed or recently changed workloads.
+no data gets a 100% safety buffer that decays quadratically as
+confidence grows, reaching zero at full confidence (one week of data).
+This prevents aggressive right-sizing of newly deployed or recently
+changed workloads.
 
 ### Pattern 5: Change filtering to prevent thrashing
 
@@ -256,12 +261,12 @@ percentile across all hours ensures the recommendation covers the
 peak hour without over-provisioning for the rest of the day.
 
 Burst detection adds another layer. If the maximum observed usage
-exceeds 3x the 95th percentile, the workload exhibits bursty behavior.
+exceeds 3× the 95th percentile, the workload exhibits bursty behavior.
 A logarithmic boost based on burst magnitude adds proportional
 headroom:
 
-```
-burstFactor = 1 + sensitivity * log2(max / p95)
+```math
+\text{burstFactor} = 1 + \text{sensitivity} \times \log_2\!\left(\frac{\text{max}}{\text{p95}}\right)
 ```
 
 A 4x burst magnitude adds 20% headroom. An 8x burst adds 30%. The
@@ -276,7 +281,7 @@ here, graduated rollout, multi-signal safety, HPA coexistence,
 confidence-based recommendations, and change filtering, represent
 what the community has learned from years of VPA's limitations.
 
-The ecosystem is still early. As more operators adopt the `/resize`
+The ecosystem is still early. As more controllers adopt the Pod `resize`
 subresource, we will collectively discover new patterns for safe
 resource management. Whether you build your own controller or adopt
 an existing one, the principles are the same: be conservative with
