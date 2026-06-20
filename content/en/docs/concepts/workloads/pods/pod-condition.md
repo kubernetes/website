@@ -115,9 +115,10 @@ and to have any required storage volumes mounted. Once these phases are complete
 the kubelet works with a container runtime
 (using {{< glossary_tooltip text="Container Runtime Interface (CRI)" term_id="cri" >}})
 to set up a runtime sandbox and configure networking for the Pod.
-If the `PodReadyToStartContainersCondition` feature gate is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}),
-the `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
+The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
+Starting with Kubernetes v1.37, the `PodReadyToStartContainersCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to
+`true` and cannot be disabled.
 
 The `PodReadyToStartContainers` condition is set to `False` by the kubelet
 when it detects a Pod does not have a runtime sandbox with networking configured. This occurs in the following scenarios:
