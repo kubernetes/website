@@ -125,7 +125,7 @@ To create a canary Deployment, you can copy the stable Deployment manifest and m
 - Set a lower number of replicas (for example, 1)
 - Update the container image to the new version
 
-Now deploy the canary version alongside the stable version:
+The updated manifest should look like:
 
 {{% code_sample file="application/canary/app-v2-deployment.yaml" %}}
 
