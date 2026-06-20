@@ -174,7 +174,7 @@ Since both Deployments use the same Service selector (`app.kubernetes.io/name: r
 Test the Service multiple times to see traffic distribution:
 
 ```shell
-kubectl run curl-test --image=curlimages/curl:latest --rm -it --restart=Never -- \
+kubectl run curl-test --image=docker.io/library/curlimages/curl:latest --rm -it --restart=Never -- \
   sh -c 'for i in $(seq 1 10); do curl -s http://rollout-demo-service; echo; done'
 ```
 
