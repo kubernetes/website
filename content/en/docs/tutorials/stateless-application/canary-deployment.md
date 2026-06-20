@@ -278,7 +278,7 @@ rollout-demo-canary-8e5c0d9f6a-def34   1/1     Running   0          2m
 Test the Service to confirm all responses are from the canary:
 
 ```shell
-kubectl run curl-test --image=curlimages/curl:latest --rm -it --restart=Never -- curl http://rollout-demo-service
+kubectl run curl-test --image=docker.io/library/curlimages/curl:latest --rm -it --restart=Never -- curl http://rollout-demo-service
 ```
 
 All responses should now show version v2.
