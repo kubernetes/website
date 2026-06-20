@@ -243,7 +243,8 @@ Continue monitoring. If everything looks good, you can scale the canary further 
 
 ## Completing the rollout
 
-If your monitoring instead uncovered issues with the canary, skip ahead to [Rolling back a canary deployment](#rolling-back-a-canary-deployment).
+If your monitoring instead uncovered issues with the canary, you would roll back instead.
+To practice for a problem scenario, you could skip ahead to [Rolling back a canary deployment](#rolling-back-a-canary-deployment).
 
 Once you're confident that the canary is stable and performing well, complete the rollout:
 
