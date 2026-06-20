@@ -288,6 +288,11 @@ To complete the rollout with a single Deployment, first scale the stable Deploym
 
 ```shell
 kubectl scale deployment/rollout-demo-stable --replicas=3
+
+# Outside of this tutorial, you wouldn't set the
+# environment variable $VERSION.
+# However, your new application code might need
+# other configuration changes after an upgrade.
 kubectl set image deployment/rollout-demo-stable rollout-demo=gcr.io/google-samples/hello-app:2.0
 kubectl set env deployment/rollout-demo-stable VERSION=v2
 
