@@ -129,7 +129,7 @@ The updated manifest should look like:
 
 {{% code_sample file="application/canary/app-v2-deployment.yaml" %}}
 
-Apply the canary Deployment:
+You can use `kubectl` to apply your local manifest, or if you prefer you can use this checked example:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/canary/app-v2-deployment.yaml
