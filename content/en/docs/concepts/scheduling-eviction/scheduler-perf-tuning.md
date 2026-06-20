@@ -187,6 +187,17 @@ Also, to enable this feature, the scheduler configuration needs to:
 1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 to `true` to make the batching more efficient
 
+### Rescoring for multi-pod-per-node workloads
+
+<!-- TODO(KEP-5598): Add content once rescoring implementation is confirmed for v1.37 -->
+<!-- 
+  This section will describe the rescoring enhancement:
+  When the last chosen node remains feasible for the next pod,
+  the scheduler rescores it in-place and continues batching,
+  rather than flushing the cache.
+  Reference: https://github.com/kubernetes/enhancements/pull/6039
+-->
+
 Note that whenever:
 1. Existing pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
 1. Custom plugins are used, they need to implement the Signature extension point
