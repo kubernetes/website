@@ -4,7 +4,7 @@ content_type: tutorial
 weight: 10
 card:
   name: tutorials
-  weight: 40
+  weight: 60
   title: "Deploy a Canary Deployment"
 ---
 
