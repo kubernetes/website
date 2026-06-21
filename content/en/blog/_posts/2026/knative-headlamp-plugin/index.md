@@ -1,8 +1,7 @@
 ---
 layout: blog
-title: "See your serverless: Introducing Headlamp plugin for Knative"
-date: 2026-05-25
-draft: true
+title: "See your serverless: introducing the Headlamp plugin for Knative"
+date: 2026-06-25T10:00:00-08:00
 slug: headlamp-knative-plugin
 author: >
   [Mudit Maheshwari](https://github.com/mudit06mah) (independent),
