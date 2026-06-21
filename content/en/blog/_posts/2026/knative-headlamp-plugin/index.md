@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "See your serverless: Introducing Headlamp plugin for Knative"
+title: "See your serverless: introducing the Headlamp plugin for Knative"
 date: 2026-06-25T10:00:00-08:00
 slug: headlamp-knative-plugin
 author: >

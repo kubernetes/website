@@ -1,5 +1,5 @@
 ---
-title: "Introducing the Cluster API plugin for Headlamp (headlamp-k8s/plugins)"
+title: "Introducing the Cluster API plugin for Headlamp"
 layout: blog
 date: 2026-06-25T14:00:00-08:00
 slug: headlamp-cluster-api-plugin
