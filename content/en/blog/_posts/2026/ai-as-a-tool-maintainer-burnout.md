@@ -17,16 +17,16 @@ In this post, we will highlight the ways the Kubernetes community is adapting to
 The first step of this journey was to develop an AI policy. This seems mundane and bureaucratic but there were many PRs that derailed into discussions around AI usage.
 The AI policy helps steer the conversation around the project's stance on AI and provides a clear signal to contributors on how to use these tools responsibly.
 
-## Kubernetes AI Policy
+## Kubernetes AI policy
 
 The Kubernetes project has established [clear guidelines for AI-assisted contributions](https://www.kubernetes.dev/docs/guide/pull-requests/#ai-guidance) that balance innovation with accountability.
 These policies are designed to maintain code quality and ensure human oversight while acknowledging that AI tools can be valuable aids in the development process.
 
-### Transparency First
+### Transparency first
 
 Contributors must disclose when AI tools have been used to assist with a pull request. A simple statement in the PR description such as "This PR was written in part with the assistance of generative AI" is sufficient. This transparency helps reviewers understand the context and apply appropriate scrutiny.
 
-### Human Accountability
+### Human accountability
 
 While AI tools can assist, the human contributor remains fully responsible for every change. The policy explicitly prohibits:
 
@@ -42,21 +42,21 @@ The CNCF provides a [tool](https://github.com/cncf/cla) for verifying the contri
 AI agents are not able to solve these contributor license agreements so one enforcement the project made is to enable the CLA check for co-authors.
 This provides a flag to reviewers that the PR is not ready to merge.
 
-### Human Engagement Required
+### Human engagement required
 
 Perhaps the most critical aspect of the policy: reviewers expect to engage with humans, not with AI.
 Contributors cannot rely on AI to respond to review comments.
 If you cannot personally explain changes that AI helped generate, your PR will be closed.
 This requirement ensures that knowledge transfer happens and that contributors genuinely understand the code they're submitting.
 
-### Verification Obligations
+### Verification obligations
 
 Contributors must verify AI-generated changes through code review, testing, and personal understanding.
 It's not enough for the code to work—you need to know why it works and be able to maintain it.
 
 These policies reflect a mature approach to AI: embrace it as a tool, but never let it replace human judgment, understanding, or responsibility.
 
-## Automated AI Reviews
+## Automated AI reviews
 
 There exist many tools to aid in reviewing code. AI pull request tools introduce governance challenges so one of the first tasks the community took on was to [document the process](https://github.com/kubernetes/community/blob/main/github-management/ai-code-review-tools.md) for what is needed to bring in new AI tools.
 One of the major evaluation criteria for these tools is to find maintainers willing to test drive them in kubernetes-sigs repositories. Kueue, JobSet and Agent-Sandbox have been experimenting with these tools to provide more support for maintainers.
