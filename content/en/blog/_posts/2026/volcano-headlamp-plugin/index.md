@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Inspect Volcano workloads faster with Headlamp"
+title: Inspect Volcano workloads faster with Headlamp
 date: 2026-06-25T12:00:00-08:00
 slug: visual-context-volcano-headlamp-plugin
 author: >
