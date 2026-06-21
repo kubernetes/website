@@ -37,10 +37,10 @@ weight: 80
 शीर्षक स्ट्रिंग के उदाहरण:
 
 - whatsnext
-- prerequisites
-- objectives
+- आवश्यकताएँ
+- उद्देश्य
 - cleanup
-- synopsis
+- सारांश
 - seealso
 - options
 
@@ -94,9 +94,9 @@ other = "आगे क्या है"
 
 | पृष्ठ अनुभाग  |
 |---------------|
-| overview      |
-| body          |
-| whatsnext     |
+|  सारांश         |
+|   मुख्य भाग      |
+|  अगले कदम      |
 
 `overview` और `body` अनुभाग अवधारणा पृष्ठ में टिप्पणियों के रूप में दिखाई देते हैं।
 आप `heading` शॉर्टकोड के साथ अपने पृष्ठ में `whatsnext` अनुभाग जोड़ सकते हैं।
@@ -121,11 +121,11 @@ other = "आगे क्या है"
 
 | पृष्ठ अनुभाग  |
 |---------------|
-| overview      |
-| prerequisites |
-| steps         |
-| discussion    |
-| whatsnext     |
+|    सारांश       |
+|  आवश्यकताएँ     |
+|   कदम         |
+| विचार-विमर्श      |
+|   अगले कदम     |
 
 `overview`, `steps`, और `discussion` अनुभाग कार्य पृष्ठ में टिप्पणियों के रूप में दिखाई देते हैं।
 आप `heading` शॉर्टकोड के साथ अपने पृष्ठ में `prerequisites` और `whatsnext`
@@ -159,12 +159,12 @@ other = "आगे क्या है"
 
 | पृष्ठ अनुभाग  |
 |---------------|
-| overview      |
-| prerequisites |
-| objectives    |
-| lessoncontent |
-| cleanup       |
-| whatsnext     |
+|     सारांश      |
+|   आवश्यकताएँ    |
+|    उद्देश्य        |
+|  पाठ सामग्री      |
+|    सफाई       |
+|  अगले कदम      |
 
 `overview`, `objectives`, और `lessoncontent` अनुभाग ट्यूटोरियल पृष्ठ में टिप्पणियों के रूप में दिखाई देते हैं।
 आप `heading` शॉर्टकोड के साथ अपने पृष्ठ में `prerequisites`, `cleanup`, और `whatsnext`
@@ -197,11 +197,11 @@ other = "आगे क्या है"
 
 | पृष्ठ अनुभाग                 |
 |------------------------------|
-| synopsis                     |
-| options                      |
-| options from parent commands |
-| examples                     |
-| seealso                      |
+|     सारांश                     |
+|     विकल्प                     |
+|      मूल कमांड के विकल्प          |
+|       उदाहरण                   |
+|    यह भी देखें                   |
 
 प्रकाशित उपकरण संदर्भ पृष्ठों के उदाहरण हैं:
 
