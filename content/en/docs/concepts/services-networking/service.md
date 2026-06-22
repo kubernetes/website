@@ -487,6 +487,15 @@ endpoints associated with that Service. You'll be able to contact the `type: Nod
 Service, from outside the cluster, by connecting to any node using the appropriate
 protocol (for example: TCP), and the appropriate port (as assigned to that Service).
 
+NodePort Services are reachable over localhost by default on iptables. They function
+by enabling `route_localnet` on each node. To disable them, either set
+`--nodeport-addresses` so that the range does not contain loopback IPs or set
+`--iptables-localhost-nodeports false`. The nftables backend can support localhost NodePorts using a TCP-only userspace 
+proxy; this avoid the security risks associated with `route_localnet` while also supporting IPv6-only clusters. 
+To activate localhost NodePorts on nftables, enable the feature gate `KubeProxyNFTablesLocalhostNodePorts` and 
+include the keyword `localhost` or a loopback IP in `--nodeport-addresses`. Note that including `all` 
+or `0.0.0.0/0` is not enough; localhost must be explicitly included.
+
 #### Choosing your own port {#nodeport-custom-port}
 
 If you want a specific port number, you can specify a value in the `nodePort`
@@ -549,14 +558,20 @@ If you want to specify particular IP address(es) to proxy the port, you can set 
 field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 to particular IP block(s).
 
-This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`)
-to specify IP address ranges that kube-proxy should consider as local to this node.
+This flag specifies the IP address ranges that kube-proxy considers local to the node. It accepts a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, 
+`192.0.2.0/25`) and the following keywords:
+
+- `primary` - the node's primary IPv4 and/or IPv6 address, according to the Node object.
+- `localhost` - the node's loopback addresses (`127.0.0.0/8`, `::1/128`).
+- `all` - all addresses.
 
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
 kube-proxy only selects the loopback interface for NodePort Services.
-The default for `--nodeport-addresses` is an empty list.
-This means that kube-proxy should consider all available network interfaces for NodePort.
+An empty list for `--nodeport-addresses` means that kube-proxy should consider
+all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases.)
+`--nodeport-addresses` defaults to an empty list for iptables and `primary` for nftables.
+
 {{< note >}}
 This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
 If the `--nodeport-addresses` flag for kube-proxy or the equivalent field

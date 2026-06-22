@@ -331,10 +331,10 @@ differently the `nftables` mode:
   `--nodeport-addresses` range includes `127.0.0.1` (and the option
   `--iptables-localhost-nodeports false` option is not passed), then
   Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
-  In `nftables` mode (and `ipvs` mode), this will not work. If you
-  are not sure if you are depending on this functionality, you can
-  check kube-proxy's
-  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  Localhost NodePorts are reachable on `nftables` only when `--nodeport-addresses`
+  explicitly contains `localhost` or a loopback IP and the feature gate `KubeProxyNFTablesLocalhostNodePorts`
+  is enabled. If you are not sure if you are depending on this functionality, you can
+  check kube-proxy's `iptables_localhost_nodeports_accepted_packets_total` metric; if it
   is non-0, that means that some client has connected to a `type: NodePort`
   Service via localhost/loopback.
 
