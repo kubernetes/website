@@ -11,7 +11,7 @@ author: >
 With in-place pod resize GA since Kubernetes 1.35, the ecosystem has a
 powerful primitive for adjusting container resources without eviction.
 But the API is just the mechanism. This post covers the patterns needed
-to use it safely in production: graduated rollout, multi-signal auto-revert,
+to use it safely in production: staged rollout, multi-signal auto-revert,
 HPA coexistence, confidence-based recommendations, and change filtering.
 
 <!--more-->
@@ -71,7 +71,7 @@ are open problems for any controller that automates resource changes.
 
 Kubernetes 1.27 introduced in-place pod resize as an alpha feature.
 In 1.33, it graduated to beta and became enabled by default. In 1.35,
-it reached GA. This is one of the most significant changes to
+it reached GA. In my view, this is one of the most significant changes to
 Kubernetes resource management since the platform was created.
 
 The `/resize` subresource on the Pod API lets you change a container's
@@ -111,17 +111,17 @@ and how do you coexist with HPA?
 
 ## Patterns for safe in-place right-sizing
 
-Building a safe right-sizing operator on top of the `/resize` subresource
+Building a safe right-sizing controller on top of the `/resize` subresource
 requires solving several problems that the raw API does not address.
-These patterns apply to any operator leveraging in-place resize.
+These patterns apply to any controller leveraging in-place resize.
 
-### Pattern 1: Graduated rollout
+### Pattern 1: Staged rollout
 
-The first rule of production resource changes is: do not change
-everything at once. A graduated rollout model lets teams build
+The first rule of production resource management is: do not change
+everything at once. A progressive rollout model lets teams build
 confidence incrementally.
 
-A practical graduation model has five stages:
+A practical model uses these five stages:
 
 1. **Observe**: Collect metrics silently. No recommendations, no
    changes. This validates that the metrics pipeline is working.
@@ -142,7 +142,7 @@ Each stage can run for days or weeks before progressing.
 ### Pattern 2: Multi-signal safety with auto-revert
 
 In-place resize is non-disruptive going forward, but a bad resize can
-still cause problems. A right-sizing operator needs to detect failures
+still cause problems. A right-sizing controller needs to detect failures
 and revert automatically, also in-place.
 
 The critical signals to monitor after a resize:
@@ -168,7 +168,7 @@ The critical signals to monitor after a resize:
 
 Reverts should use the same `/resize` subresource, not eviction. This
 means recovery is also non-disruptive. When a workload reverts
-repeatedly, exponential backoff prevents the operator from retrying
+repeatedly, exponential backoff prevents the controller from retrying
 every cycle.
 
 ### Pattern 3: HPA coexistence
@@ -176,8 +176,8 @@ every cycle.
 The VPA-HPA conflict is not inherent to vertical scaling. It is
 inherent to changing requests without adjusting HPA's targets.
 
-When a right-sizing operator lowers a pod's CPU request from 500m to
-300m, the CPU utilization percentage (calculated as usage/request)
+When a right-sizing controller lowers a pod's CPU request from 500m to
+300m, the CPU utilization percentage (calculated as usage ÷ request)
 jumps even though absolute usage has not changed. HPA sees 80%
 utilization instead of 48% and scales out.
 
@@ -189,7 +189,7 @@ recalculate HPA's utilization target proportionally after a resize:
 ```
 
 If the original HPA target was 70% and requests dropped from 500m to
-300m, the new target becomes `70% * (500/300) ≈ 117%`. This preserves
+300m, the new target becomes **70% × (500 ÷ 300) ≈ 117%**. This preserves
 the same absolute CPU threshold (350m of actual usage) while letting
 HPA continue to function correctly.
 
@@ -235,8 +235,8 @@ changed workloads.
 
 ### Pattern 5: Change filtering to prevent thrashing
 
-Without dampening, a right-sizing operator can oscillate between
-values each cycle. Two filters are essential:
+Without dampening, a right-sizing controller can oscillate between
+values each cycle. I recommend two filters:
 
 - **Minimum change threshold**: Suppress changes below a percentage
   (e.g., 10%) of the current value. If the recommendation is 460m
@@ -269,7 +269,7 @@ headroom:
 \text{burstFactor} = 1 + \text{sensitivity} \times \log_2\!\left(\frac{\text{max}}{\text{p95}}\right)
 ```
 
-A 4x burst magnitude adds 20% headroom. An 8x burst adds 30%. The
+A 4× burst magnitude adds 20% headroom. An 8× burst adds 30%. The
 logarithmic curve prevents extreme bursts from inflating recommendations
 excessively.
 
@@ -277,7 +277,7 @@ excessively.
 
 In-place pod resize removes the last architectural barrier to
 automated vertical scaling in Kubernetes. The patterns described
-here, graduated rollout, multi-signal safety, HPA coexistence,
+here, staged rollout, multi-signal safety, HPA coexistence,
 confidence-based recommendations, and change filtering, represent
 what the community has learned from years of VPA's limitations.
 
