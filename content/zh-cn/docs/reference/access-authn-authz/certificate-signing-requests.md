@@ -4,8 +4,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
 ---
@@ -20,8 +20,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
 -->
@@ -276,8 +276,8 @@ If you want to make the _trust anchor_ (root certificate) available, this should
 separately from a CertificateSigningRequest and its `status.certificate` field. For example,
 you could use a ClusterTrustBundle.
 -->
-如果要让**信任锚点**（根证书）可用，应该将其与 CertificateSigningRequest 及其 `status.certificate`
-字段分开处理。例如，你可以使用 ClusterTrustBundle。
+如果要让**信任锚点**（根证书）可用，应该将其与 CertificateSigningRequest
+及其 `status.certificate` 字段分开处理。例如，你可以使用 ClusterTrustBundle。
 
 <!--
 The PKCS#10 signing request format does not have a standard mechanism to specify a
@@ -525,7 +525,8 @@ The `spec.expirationSeconds` field was added in Kubernetes v1.22.
 Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 -->
-`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的，早期的 Kubernetes 版本并不认识该字段，
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的，
+早期的 Kubernetes 版本并不认识该字段，
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
@@ -786,10 +787,11 @@ simpler format enabled by their narrower use case.
 PodCertificateRequest 是专门为集群内以 Pod 形式运行的工作负载提供证书的 API 对象。
 用户通常不直接与 PodCertificateRequests 交互，而是使用
 [podCertificate 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#podcertificate)，
-这是 `kubelet` 的一个特性，处理安全密钥配置和自动证书刷新。
+这是 kubelet 的一个特性，处理安全密钥配置和自动证书刷新。
 Pod 内的应用程序只需要知道如何从文件系统读取证书。
 
-PodCertificateRequest 类似于 CertificateSigningRequest，但由于其使用场景更窄，因此格式更简单。
+PodCertificateRequest 类似于 CertificateSigningRequest，但由于其使用场景更窄，
+因此格式更简单。
 
 <!--
 A PodCertificateRequest has the following spec fields:
@@ -878,7 +880,8 @@ the signer name:
 * Verbs: **sign**, group: `certificates.k8s.io`, resource: `signers`,
   resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 -->
-要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest 类型以及签名者的适当权限：
+要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest
+类型以及签名者的适当权限：
 
 * verbs（动词）：**update**，
   group（组）：`certificates.k8s.io`，
@@ -891,8 +894,8 @@ the signer name:
 <!--
 The signing controller is free to consider other information beyond what's
 contained in the request, but it can rely on the information in the request to
-be accurate.  For example, the signing controller might load the Pod and read
-annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.  
+be accurate. For example, the signing controller might load the Pod and read
+annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.
 -->
 签名控制器可以考察除请求中包含的信息之外的其他信息，但它可以相信请求中的信息是准确的。
 例如，签名控制器可能会加载 Pod 并读取 Pod 上设置的注解，或者对 ServiceAccount
@@ -994,11 +997,6 @@ All ClusterTrustBundle objects have strong validation on the contents of their
 `trustBundle` field. That field must contain one or more X.509 certificates,
 DER-serialized, each wrapped in a PEM `CERTIFICATE` block. The certificates
 must parse as valid X.509 certificates.
-
-Esoteric PEM features like inter-block data and intra-block headers are either
-rejected during object validation, or can be ignored by consumers of the object.
-Additionally, consumers are allowed to reorder the certificates in
-the bundle with their own arbitrary but stable ordering.
 -->
 ### 常见属性和验证 {#ctb-common}
 
@@ -1006,8 +1004,14 @@ the bundle with their own arbitrary but stable ordering.
 该字段必须包含一个或多个经 DER 序列化的 X.509 证书，每个证书都封装在 PEM `CERTIFICATE` 块中，
 这些证书必须解析为有效的 X.509 证书。
 
+<!--
+Esoteric PEM features like inter-block data and intra-block headers are either
+rejected during object validation, or can be ignored by consumers of the object.
+Additionally, consumers are allowed to reorder the certificates in
+the bundle with their own arbitrary but stable ordering.
+-->
 诸如块间数据和块内标头之类的 PEM 特性在对象验证期间要么被拒绝，要么可能被对象的消费者忽略。
-此外，消费者被允许使用自己的任意但稳定的排序方式重新排序 bundle 中的证书。
+此外，消费者被允许使用自己的任意但稳定的排序方式重新排序 `bundle` 中的证书。
 
 <!--
 ClusterTrustBundle objects should be considered world-readable within the
@@ -1075,10 +1079,12 @@ controller in the cluster, so they have several security features:
 -->
 * 要创建或更新与一个签名者关联的 ClusterTrustBundle，你必须获准**证明**该签名者
   （自定义鉴权动词 `attest` API 组 `certificates.k8s.io`；资源路径 `signers`）。
-  你可以为特定资源名称 `<signerNameDomain>/<signerNamePath>` 或匹配 `<signerNameDomain>/*` 等模式来配置鉴权。
+  你可以为特定资源名称 `<signerNameDomain>/<signerNamePath>` 或匹配 `<signerNameDomain>/*`
+  等模式来配置鉴权。
 * 与签名者关联的 ClusterTrustBundle **必须**使用从其 `spec.signerName` 字段派生的前缀命名。
   斜杠（`/`）被替换为英文冒号（`:`），最后追加一个英文冒号，后跟任意名称。
-  例如，签名者 `example.com/mysigner` 可以关联到 ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`。
+  例如，签名者 `example.com/mysigner` 可以关联到 ClusterTrustBundle
+  `example.com:mysigner:<arbitrary-name>`。
 
 <!--
 Signer-linked ClusterTrustBundles will typically be consumed in workloads
