@@ -5,7 +5,15 @@ weight: 80
 ---
 
 <!-- overview -->
-{{< feature-state feature_gate_name="WorkloadAwarePreemption">}}
+{{< feature-state feature_gate_name="GenericWorkload">}}
+
+
+{{< note >}}
+In v1.36, the workload-aware preemption logic was gated by
+`WorkloadAwarePreemption` feature gate. This feature gate was merged into
+`GenericWorkload` feature gate in v1.37.
+{{< /note >}}
+
 
 Workload-aware preemption introduces a preemption mechanism specifically designed for PodGroups.
 When a PodGroup cannot be scheduled, the scheduler utilizes a preemption logic that tries to
@@ -17,11 +25,9 @@ rather than evaluating individual pods from a PodGroup in isolation. To make roo
 it searches for victims across the entire cluster,
 and knows how to treat and preempt other PodGroups as victims according to their disruption modes.
 
-This feature depends on the [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
-and the [Workload API](/docs/concepts/workloads/workload-api/).
-Ensure the [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-and [`GangScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#GangScheduling) feature gates
-and the `scheduling.k8s.io/v1alpha2` {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled in the cluster.
+This feature is coupled with [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+and depends on the [Workload API](/docs/concepts/workloads/workload-api/).
+Ensure the [`scheduling.k8s.io/v1beta1`]{{< glossary_tooltip text="API group" term_id="api-group" >}} is enabled in the cluster.
 
 <!-- body -->
 
@@ -49,12 +55,39 @@ with a few differences:
    [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) of a PodGroup
    to evaluate if and how its pods can be preempted during preemption events.
 
+4. Performance and optimality considerations: For the performance reasons,
+   the workload-aware preemption first simulates removal all potential victims and 
+   runs the scheduling once. It then tries to reprieve as many victims as possible
+   for selected placement. This trade off means that there may exists an alternative placement
+   causing less preemptions, but it is not selected by the scheduler due to performance reasons.
+
 {{< note >}}
 When scheduling a single Pod, the default pod preemption applies.
-As of 1.36, when the scheduler performs a default preemption for a single Pod
+In v1.36, when the scheduler performs a default preemption for a single Pod
 and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
-respect the `priority` or `disruptionMode` fields of that PodGroup.
+respect the `priority` or `disruptionMode` fields of that PodGroup. 
+This limitation no longer applies in v1.37.
 {{< /note >}}
+
+### Reprieval algorithm
+
+When running workload-aware preemption, the scheduler runs the simulation where it removes potential preemption victims
+and runs the pod group scheduling algorithm. It then tries to reprieve as many victims as possible for returned placement.
+To do that, the scheduler reuses the CycleStates from pod group scheduling. For each of the potential victims,
+sorted by their importance, the scheduler:
+1. Adds victim pods back to their nodes and CycleStates of preemptor pods.
+2. For each pod in the PodGroup (in the same order as in scheduling algorithm):
+   * Runs Filter plugins for the pod on its proposed node
+   * Adds the pod to its proposed node
+   * Runs Reserve plugins for the pod on its proposed node
+
+If for each pod, the Filtering passes, the victim pods are kept on their nodes.
+
+If filtering fails for at least one pod, victim pods are removed from CycleStates and node.
+
+In both cases the scheduler preemptor pods are removed from their nodes and their Unreserve is called,
+so the next reprieval attempt can validate scheduling of PodGroup. The scheduler then proceeds with
+another potential victim until all victims are processed.
 
 ### Preemption for CompositePodGroups
 
