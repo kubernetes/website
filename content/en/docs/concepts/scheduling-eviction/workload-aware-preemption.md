@@ -56,6 +56,8 @@ and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
 respect the `priority` or `disruptionMode` fields of that PodGroup.
 {{< /note >}}
 
+// TODO: Fill with Beta updates
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [PodGroup Priority and Disruption](/docs/concepts/workloads/workload-api/disruption-and-priority/).
