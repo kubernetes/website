@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" font-family="Arial, Helvetica, sans-serif" font-size="13" role="img" aria-label="Two flows compared: the ghcr.io approach is blocked, while the official path leads to registry.k8s.io.">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#37474f"/>
+    </marker>
+    <marker id="arrowdash" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#c62828"/>
+    </marker>
+  </defs>
+
+  <!-- group A: ghcr.io approach -->
+  <rect x="10" y="20" width="640" height="130" rx="8" fill="#fafafa" stroke="#bdbdbd" stroke-dasharray="4 3"/>
+  <text x="30" y="42" fill="#616161" font-weight="bold">The ghcr.io approach (blocked)</text>
+
+  <g>
+    <rect x="30" y="70" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="95" y="100" text-anchor="middle">tag push</text>
+
+    <rect x="190" y="70" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="255" y="100" text-anchor="middle">GitHub Actions</text>
+
+    <rect x="350" y="70" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="415" y="100" text-anchor="middle">push to ghcr.io</text>
+
+    <rect x="510" y="70" width="130" height="50" rx="6" fill="#fdecea" stroke="#e57373"/>
+    <text x="575" y="94" text-anchor="middle" fill="#c62828">stays private</text>
+    <text x="575" y="110" text-anchor="middle" fill="#c62828">no release path</text>
+
+    <line x1="160" y1="95" x2="186" y2="95" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="320" y1="95" x2="346" y2="95" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="480" y1="95" x2="506" y2="95" stroke="#c62828" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrowdash)"/>
+  </g>
+
+  <!-- group B: official path -->
+  <rect x="10" y="190" width="960" height="150" rx="8" fill="#fafafa" stroke="#bdbdbd"/>
+  <text x="30" y="212" fill="#616161" font-weight="bold">The official path</text>
+
+  <g>
+    <rect x="30" y="245" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="95" y="275" text-anchor="middle">tag push</text>
+
+    <rect x="190" y="245" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="255" y="275" text-anchor="middle">Prow postsubmit</text>
+
+    <rect x="350" y="245" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="415" y="275" text-anchor="middle">Cloud Build</text>
+
+    <rect x="510" y="245" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="575" y="275" text-anchor="middle">staging registry</text>
+
+    <rect x="670" y="245" width="130" height="50" rx="6" fill="#eaf2fd" stroke="#5b8def"/>
+    <text x="735" y="275" text-anchor="middle">image promoter</text>
+
+    <rect x="830" y="245" width="130" height="50" rx="6" fill="#e8f5e9" stroke="#66bb6a"/>
+    <text x="895" y="275" text-anchor="middle" fill="#2e7d32">registry.k8s.io</text>
+
+    <line x1="160" y1="270" x2="186" y2="270" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="320" y1="270" x2="346" y2="270" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="480" y1="270" x2="506" y2="270" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="640" y1="270" x2="666" y2="270" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="800" y1="270" x2="826" y2="270" stroke="#37474f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  </g>
+</svg>

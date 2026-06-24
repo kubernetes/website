@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 720" font-family="Arial, Helvetica, sans-serif" font-size="13" role="img" aria-labelledby="dependency-title dependency-desc">
+  <title id="dependency-title">First-time registry.k8s.io image publishing dependencies</title>
+  <desc id="dependency-desc">The application repo provides the Cloud Build configuration and a signed release tag. The tag triggers a kubernetes/test-infra postsubmit job, which pushes a staging image to the staging registry. In kubernetes/k8s.io, the staging Google Group must be created before the staging registry. The staging image and image promoter configuration, with OWNERS validation from Kubernetes organization membership, promote the image to registry.k8s.io.</desc>
+  <defs>
+    <marker id="dep-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#37474f"/>
+    </marker>
+    <style>
+      .edge { stroke: #37474f; stroke-width: 1.6; fill: none; }
+      .label-box { fill: #ffffff; stroke: #cfd8dc; stroke-width: 1; }
+      .label-text { fill: #37474f; font-size: 11.5px; }
+      .title { fill: #111111; font-weight: 700; }
+      .body { fill: #111111; }
+      .prod-title { fill: #2e7d32; font-weight: 700; }
+      .prod-body { fill: #2e7d32; }
+    </style>
+  </defs>
+  <rect width="980" height="720" fill="#ffffff"/>
+
+  <!-- edges (drawn first, under the boxes) -->
+  <g class="edge">
+    <path d="M165,140 L165,230" marker-end="url(#dep-arrow)"/>                  <!-- APP -> TAG -->
+    <path d="M290,105 L330,105 L330,245 L365,245" marker-end="url(#dep-arrow)"/> <!-- APP -> JOB -->
+    <path d="M815,140 L815,230" marker-end="url(#dep-arrow)"/>                  <!-- GRP -> REG -->
+    <path d="M690,265 L625,265" marker-end="url(#dep-arrow)"/>                  <!-- REG -> JOB -->
+    <path d="M290,265 L365,265" marker-end="url(#dep-arrow)"/>                  <!-- TAG -> JOB -->
+    <path d="M495,300 L495,390" marker-end="url(#dep-arrow)"/>                  <!-- JOB -> STG -->
+    <path d="M495,460 L495,530" marker-end="url(#dep-arrow)"/>                  <!-- STG -> PROM -->
+    <path d="M690,425 L655,425 L655,565 L625,565" marker-end="url(#dep-arrow)"/> <!-- ORG -> PROM -->
+    <path d="M495,600 L495,640" marker-end="url(#dep-arrow)"/>                  <!-- PROM -> PROD -->
+  </g>
+
+  <!-- nodes -->
+  <!-- row 0 -->
+  <g>
+    <rect x="40" y="70" width="250" height="70" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.4"/>
+    <text x="165" y="93" text-anchor="middle" class="title">application repo</text>
+    <text x="165" y="113" text-anchor="middle" class="body">cloudbuild.yaml</text>
+    <text x="165" y="131" text-anchor="middle" class="body">make release-staging</text>
+
+    <rect x="690" y="70" width="250" height="70" rx="6" fill="#eaf2fd" stroke="#5b8def" stroke-width="1.4"/>
+    <text x="815" y="100" text-anchor="middle" class="title">kubernetes/k8s.io</text>
+    <text x="815" y="121" text-anchor="middle" class="body">staging Google Group</text>
+  </g>
+
+  <!-- row 1 -->
+  <g>
+    <rect x="40" y="230" width="250" height="70" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.4"/>
+    <text x="165" y="260" text-anchor="middle" class="title">application repo</text>
+    <text x="165" y="281" text-anchor="middle" class="body">signed release tag</text>
+
+    <rect x="365" y="230" width="260" height="70" rx="6" fill="#e9f7fb" stroke="#2f9ab7" stroke-width="1.4"/>
+    <text x="495" y="260" text-anchor="middle" class="title">kubernetes/test-infra</text>
+    <text x="495" y="281" text-anchor="middle" class="body">image-pushing postsubmit job</text>
+
+    <rect x="690" y="230" width="250" height="70" rx="6" fill="#eaf2fd" stroke="#5b8def" stroke-width="1.4"/>
+    <text x="815" y="260" text-anchor="middle" class="title">kubernetes/k8s.io</text>
+    <text x="815" y="281" text-anchor="middle" class="body">staging registry (Terraform)</text>
+  </g>
+
+  <!-- row 2 -->
+  <g>
+    <rect x="365" y="390" width="260" height="70" rx="6" fill="#eceff1" stroke="#90a4ae" stroke-width="1.4"/>
+    <text x="495" y="420" text-anchor="middle" class="title">staging image</text>
+    <text x="495" y="441" text-anchor="middle" class="body">k8s-staging-images</text>
+
+    <rect x="690" y="390" width="250" height="70" rx="6" fill="#eaf2fd" stroke="#5b8def" stroke-width="1.4"/>
+    <text x="815" y="420" text-anchor="middle" class="title">kubernetes/org</text>
+    <text x="815" y="441" text-anchor="middle" class="body">org membership for OWNERS</text>
+  </g>
+
+  <!-- row 3 -->
+  <g>
+    <rect x="365" y="530" width="260" height="70" rx="6" fill="#eaf2fd" stroke="#5b8def" stroke-width="1.4"/>
+    <text x="495" y="553" text-anchor="middle" class="title">kubernetes/k8s.io</text>
+    <text x="495" y="573" text-anchor="middle" class="body">image promoter config</text>
+    <text x="495" y="591" text-anchor="middle" class="body">OWNERS / images.yaml / manifest</text>
+  </g>
+
+  <!-- row 4 -->
+  <g>
+    <rect x="365" y="640" width="260" height="56" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.4"/>
+    <text x="495" y="664" text-anchor="middle" class="prod-title">registry.k8s.io image</text>
+    <text x="495" y="683" text-anchor="middle" class="prod-body">&lt;project&gt;/&lt;image&gt;:v&lt;version&gt;</text>
+  </g>
+
+  <!-- edge labels -->
+  <g>
+    <rect x="92" y="177" width="146" height="22" rx="4" class="label-box"/>
+    <text x="165" y="192" text-anchor="middle" class="label-text">release target exists</text>
+
+    <rect x="268" y="154" width="124" height="22" rx="4" class="label-box"/>
+    <text x="330" y="169" text-anchor="middle" class="label-text">job runs this build</text>
+
+    <rect x="774" y="177" width="82" height="22" rx="4" class="label-box"/>
+    <text x="815" y="192" text-anchor="middle" class="label-text">create first</text>
+
+    <rect x="593" y="204" width="128" height="22" rx="4" class="label-box"/>
+    <text x="657" y="219" text-anchor="middle" class="label-text">push target exists</text>
+
+    <rect x="268" y="204" width="124" height="22" rx="4" class="label-box"/>
+    <text x="330" y="219" text-anchor="middle" class="label-text">triggers postsubmit</text>
+
+    <rect x="506" y="345" width="132" height="22" rx="4" class="label-box"/>
+    <text x="572" y="360" text-anchor="middle" class="label-text">pushes staging image</text>
+
+    <rect x="401" y="485" width="88" height="22" rx="4" class="label-box"/>
+    <text x="445" y="500" text-anchor="middle" class="label-text">source image</text>
+
+    <rect x="641" y="485" width="122" height="22" rx="4" class="label-box"/>
+    <text x="702" y="500" text-anchor="middle" class="label-text">OWNERS validation</text>
+
+    <rect x="511" y="615" width="72" height="22" rx="4" class="label-box"/>
+    <text x="547" y="630" text-anchor="middle" class="label-text">promotes</text>
+  </g>
+</svg>
