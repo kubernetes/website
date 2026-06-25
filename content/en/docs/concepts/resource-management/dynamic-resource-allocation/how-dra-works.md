@@ -65,8 +65,10 @@ dynamic resource allocation.
    [Naming and prioritization](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#resourceslice-naming-and-prioritization).
 1. **Pod scheduling**: when resource allocation is complete, the scheduler
    places the Pod on a node that can access the allocated resource. The device
-   driver and the kubelet on that node configure the device and the Pod's access
-   to the device.
+   driver and the `kubelet` on that node coordinate via gRPC to configure the
+   device and the Pod's access to the device, unless the driver declared
+   [optional node operations](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#optional-node-operations)
+   for devices that do not require node-local preparation or cleanup.
 
 ## Pre-scheduled Pods
 
