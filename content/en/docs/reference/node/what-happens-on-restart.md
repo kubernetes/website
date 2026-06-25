@@ -75,6 +75,10 @@ containers against the desired state. During this period of time, the following 
   [kubernetes/kubernetes#123859](https://github.com/kubernetes/kubernetes/issues/123859)
   for the discussion and details.
 
+* If the kubelet configuration is updated, restarting the kubelet does not dynamically
+  reapply most configuration settings to already running Pods. Most updated settings
+  apply only to newly created Pods.
+
 Overall, in a healthy cluster a kubelet restart does not break running
 workloads. On large clusters with overcommitted nodes, however, the
 re-initialization load and the paused garbage collection and eviction can

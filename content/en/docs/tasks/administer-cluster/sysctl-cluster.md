@@ -194,3 +194,93 @@ is recommended to use
 [_taints and toleration_ feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) or
 [taints on nodes](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to schedule those pods onto the right nodes.
+
+## Setting Sysctls for All Pods
+
+{{< feature-state feature_gate_name="DefaultPodSysctls" >}}
+
+You can configure a default set of kernel parameters (sysctls) that the `kubelet`
+applies to all Pods running on a Linux Node, including {{< glossary_tooltip text="static Pods" term_id="static-pod" >}}.
+This is useful when Node administrators need to enforce consistent kernel parameter
+tuning across all workloads on a Node or within a Node group (for example,
+adjusting TCP buffer sizes for high-performance networking) without requiring
+every Pod specification to individually set `securityContext.sysctls`.
+
+To use this feature, enable the `DefaultPodSysctls`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+for the `kubelet` and specify key-value pairs in the `defaultPodSysctls` field
+of your
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+
+The `defaultPodSysctls` field supports all namespaced sysctls (`kernel.shm*`,
+`kernel.msg*`, `kernel.sem`, `kernel.domainname`, `fs.mqueue.*`, `net.*`, and
+`user.*`), covering both _safe_ and _unsafe_ sysctls. Because these defaults
+are configured directly by the Node administrator on the `kubelet`, you do not
+need to allow-list unsafe sysctls in `allowedUnsafeSysctls`.
+
+The following example configures the `kubelet` to apply default sysctls across
+multiple namespaced subsystems (networking, IPC, and user namespaces) to all
+Pods on the Node:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  DefaultPodSysctls: true
+defaultPodSysctls:
+  # Network namespace sysctls (skipped if Pod uses hostNetwork: true)
+  net.ipv4.ip_forward: "1"
+  net.ipv4.tcp_rmem: "4096 87380 16777216"
+  net.ipv4.tcp_wmem: "4096 65536 16777216"
+  net.core.somaxconn: "1024"
+  # IPC namespace sysctls (skipped if Pod uses hostIPC: true)
+  kernel.shmall: "1048576"
+  kernel.msgmax: "65536"
+  kernel.sem: "250 32000 32 128"
+  fs.mqueue.msg_max: "1024"
+  # User namespace sysctls (skipped if Pod shares the host user namespace)
+  user.max_user_namespaces: "1000"
+```
+
+### Precedence and Overriding
+
+Values explicitly set in a Pod's `spec.securityContext.sysctls` always override
+the matching default values specified in the `kubelet`'s `defaultPodSysctls`. Overrides
+are applied individually on a per-key basis: if a Pod specifies a value for a sysctl
+that is also defined in `defaultPodSysctls`, the Pod-level setting takes precedence
+for that specific sysctl, while other defaults continue to apply. Note that there are
+no groups of connected sysctl settings; if your workload overrides a sysctl that is part
+of a related group (for example, networking buffer sizes), the Pod specification must
+account for all related settings as needed.
+
+### Host Namespaces and Filtering
+
+The `kubelet` applies default sysctls during Pod sandbox creation only if the Pod
+runs in a separate namespace for the corresponding subsystem. If a Pod shares a
+host namespace, default sysctls for that namespace are skipped for that Pod:
+
+- `net.*` sysctls are skipped if the Pod uses host networking (`hostNetwork: true`).
+- IPC sysctls (`kernel.sem`, `kernel.msg*`, `kernel.shm*`, `fs.mqueue.*`) are
+  skipped if the Pod uses host IPC (`hostIPC: true`).
+- `user.*` sysctls are skipped if the Pod shares the host user namespace
+  (`hostUsers: true` or unset).
+- UTS sysctls (`kernel.domainname`) are skipped if the Pod uses host networking
+  (`hostNetwork: true`).
+
+### Validation and Limitations
+
+The `kubelet` validates `defaultPodSysctls` during startup. Non-namespaced
+sysctls, invalid sysctl names, or duplicate keys will prevent the `kubelet` from
+starting.
+
+In addition, certain `net.*` sysctls might be unnamespaced depending on your
+kernel version. Specifying an unnamespaced `net.*` sysctl in `defaultPodSysctls`
+will cause Pod sandbox creation to fail with a `FailedCreatePodSandBox` error.
+The Pod will keep retrying to create a sandbox forever. Ensure that all
+specified sysctls are namespaced on your Node's kernel.
+
+Changes to `defaultPodSysctls` apply only to newly created Pods. The `kubelet`
+does not dynamically reconfigure existing Pods (see [What Happens After a Node Restart](/docs/reference/node/what-happens-on-restart/#impact-of-a-kubelet-restart)).
+Existing Pods continue to run with the sysctls applied when their sandbox was created.
+If you want existing Pods to adopt the updated default sysctls, you must recreate those
+Pods (for example, by cordoning and draining the Node).
