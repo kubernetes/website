@@ -387,7 +387,9 @@ Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unv
 to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
-After a CertificateSigningRequest has been approved and signed, it contains the signed certificate in the `status.certificate` field. A CertificateSigningRequest containing the example certificate above would look like this:
+After a CertificateSigningRequest has been approved and signed, it contains the signed 
+certificate in the `status.certificate` field. A CertificateSigningRequest containing 
+the example certificate above would look like this:
 
 ```yaml
 apiVersion: certificates.k8s.io/v1
