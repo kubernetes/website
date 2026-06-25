@@ -668,7 +668,7 @@ every Service and saves the results into a corresponding EndpointSlice object.
 EndpointSlice 对象中。
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=hostnames
+kubectl get endpointslices -l kubernetes.io/service-name=hostnames
 ```
 
 ```
