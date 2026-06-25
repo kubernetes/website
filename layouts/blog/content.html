@@ -13,6 +13,15 @@
 		{{ end -}}
 	</header>
 	{{ .Content }}
+
+	{{ with .Params.canonicalUrl }}
+		<p class="fst-italic text-muted">
+			Originally published at <a href="{{ . }}">{{ . }}</a>.
+		</p>
+	{{ end }}
+
+
+
 	{{ if (.Site.Config.Services.Disqus.Shortname) -}}
 		<br />
 		{{- partial "disqus-comment.html" . -}}
