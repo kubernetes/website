@@ -8,7 +8,7 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.32"
+    fromVersion: "1.37"
 ---
 Enable resource resizing for containers in Guaranteed pods with integer CPU requests.
 It applies only in nodes with `InPlacePodVerticalScaling` and `CPUManager` features enabled,
