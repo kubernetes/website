@@ -92,7 +92,7 @@ Stableメトリクスは変更されないことが保証されています。
 * **ALPHA**メトリクスは、非推奨化と同じリリースで非表示または削除される可能性があります。
 
 非表示メトリクスを使用するには、有効化する必要があります。
-詳細については、[非表示メトリクスの表示](#非表示メトリクスの表示)セクションを参照してください。
+詳細については、[非表示メトリクスの表示](#show-hidden-metrics)セクションを参照してください。
 
 削除済みメトリクスは公開されなくなり、使用できません。
 
@@ -170,11 +170,13 @@ Kubernetes 1.21では、これらのメトリクスはAlphaのため、公開す
 
 ### kubelet Pressure Stall Information (PSI)メトリクス {#kubelet-pressure-stall-information-psi-metrics}
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletPSI" >}}
 
-Beta機能として、Kubernetesではkubeletを設定して、CPU、メモリ、I/Oの使用に関するLinuxカーネルの[Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)(PSI)を収集できます。
+カーネルでPSIが有効になっている場合(バージョン4.20以降)、kubeletはCPU、メモリ、I/Oの使用に関する[Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)(PSI)を収集します。
 この情報は、ノード、Pod、コンテナレベルで収集されます。
-メトリクスは`/metrics/cadvisor`エンドポイントで以下の名前で公開されます:
+
+*Prometheusメトリクス*: `/metrics/cadvisor`エンドポイントで、合計ストール時間を秒単位で表す累積カウンター(合計値)として公開されます。
+メトリクスはこのエンドポイントで以下の名前で公開されます:
 
 ```
 container_pressure_cpu_stalled_seconds_total
@@ -185,10 +187,85 @@ container_pressure_io_stalled_seconds_total
 container_pressure_io_waiting_seconds_total
 ```
 
-この機能は、`KubeletPSI`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を設定することで、デフォルトで有効になっています。
-この情報は[Summary API](/docs/reference/instrumentation/node-metrics#psi)でも公開されています。
+*Summary API*: `/stats/summary`エンドポイントで公開され、累積の`totals`と移動平均(`avg10`、`avg60`、`avg300`)の両方をJSON形式で提供します。
+これらの平均は、それぞれ10秒、60秒、5分の間隔において、タスクがリソース上でストールしていた時間の割合を表します。
 
-PSIメトリクスの解釈方法については、[PSIメトリクスの理解](/docs/reference/instrumentation/understand-psi-metrics/)を参照してください。
+これらのメトリクスは、ノードの`/proc/pressure/`内の対応するファイル(cpu、memory、io)を通じて、以下の形式でネイティブにエクスポートもされます:
+
+```
+some avg10=0.00 avg60=0.00 avg300=0.00 total=0
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+```
+
+これらのメトリクスをどのように組み合わせて解釈すればよいでしょうか？
+例として、Summary APIに対する以下のクエリを考えます:
+`kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'`。
+これにより、以下のようなJSON形式で情報が返されます。
+
+```
+{
+  "name": "<CONTAINER_NAME>",
+  "cpu": {
+    "full": {
+      "total": 0,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 35232438,
+      "avg10": 0.74,
+      "avg60": 0.52,
+      "avg300": 0.21,
+    },  
+  },
+  "memory": {
+    "full": {
+      "total": 539105,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 658164,
+      "avg10": 0.01,
+      "avg60": 0.01,
+      "avg300": 0.00,
+    },
+    }
+  },
+  "io": {
+    "full": {
+      "total": 33190987,
+      "avg10": 0.31,
+      "avg60": 0.22,
+      "avg300": 0.05,
+    },
+    "some": {
+      "total": 40809937,
+      "avg10": 0.52,
+      "avg60": 0.45,
+      "avg300": 0.12,
+    }
+  }
+}
+```
+
+以下は単純なスパイクのシナリオです。
+cpu.someの`avg10`値`0.74`は、直近10秒間に、このコンテナ内の少なくとも1つのタスクがCPU上で時間の0.74%(0.0074秒、つまり74ミリ秒)の間ストールしていたことを示します。
+同じリソースにおいて`avg10`(0.74)が`avg300`(0.21)よりも著しく高いため、これは持続的な長期のボトルネックではなく、最近のリソース競合の急増を示唆しています。
+継続的に監視して`avg300`メトリクスも増加する場合は、より深刻で持続的な問題を診断できます。
+
+さらに、この例では`cpu.some`が圧迫を示している一方で、`cpu.full`は0.00のままであることに注目してください。
+これは、一部のプロセスはCPU時間を待って遅延していたものの、コンテナ全体としては依然として処理が進んでいたことを示しています。
+fullの値がゼロでない場合は、アイドル状態でないすべてのタスクが同時にストールしていたことを示し、これははるかに大きな問題です。
+人間にとって読みやすくはありませんが、`total`値の35232438は累積ストール時間をマイクロ秒単位で表しており、平均では現れないようなレイテンシーのスパイクを検出できます。
+また、Prometheusのような監視システムが、特定の時間枠における正確な増加率を計算するのにも役立ちます。
+最後に、高いI/O圧迫が低いメモリ圧迫とともに観測される場合、これはアプリケーションが利用可能なRAMの不足によって失敗しているのではなく、ディスクのスループットを待っていることを示している可能性があります。
+ノードはメモリをオーバーコミットしておらず、ディスク消費に関する別の診断を調査できます。
+
+PSIメトリクスは、すべてのcgroupについてあらゆるレベルでリアルタイムのリソース競合を監視するより堅牢な方法を実現し、システム全体のワークロードを動的に扱う機会を開きます。
+PSIメトリクスの詳細については、[PSIメトリクスの理解](/docs/reference/instrumentation/understand-psi-metrics/)を参照してください。
 
 #### 要件 {#requirements}
 
