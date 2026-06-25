@@ -198,6 +198,25 @@ The Workload acts as a long-lived policy definition, while PodGroups handle the
 transient, per-instance runtime state. This separation means that status updates for
 individual PodGroups do not contend on the shared Workload object.
 
+## Parent group
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, a `PodGroup` can act as a leaf node in a multi-level workload hierarchy by
+specifying its parent group using the `spec.parentCompositePodGroupName` field.
+
+Parent groups allow workload controllers to organize `PodGroup` objects under a non-leaf
+`CompositePodGroup`, enabling multi-level gang scheduling, topology-aware placement, and disruption
+fate-sharing across sub-components.
+
+A `PodGroup` that specifies `spec.parentCompositePodGroupName` must also define `spec.workloadRef`,
+linking the `PodGroup` back to its template in the `Workload`. Standalone `PodGroup` objects
+(created without a `spec.workloadRef`) cannot specify a parent composite group.
+
+For more details on hierarchical workload structures and composite scheduling, see the
+[CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) overview.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [PodGroup lifecycle](/docs/concepts/workloads/podgroup-api/lifecycle/) in detail.

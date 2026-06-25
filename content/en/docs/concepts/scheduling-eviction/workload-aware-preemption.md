@@ -56,6 +56,23 @@ and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
 respect the `priority` or `disruptionMode` fields of that PodGroup.
 {{< /note >}}
 
+## Workload-aware preemption for CompositePodGroups
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+Workload-aware preemption also supports running preemption in case a `CompositePodGroup` cannot fit
+in the cluster during scheduling.
+
+1. **Hierarchical preemptor evaluation**: The scheduler treats the top-level or parent
+   `CompositePodGroup` as the preemption unit to ensure that enough capacity is freed across cluster
+   nodes for the entire group structure.
+2. **Hierarchy-aware victim selection**: Victims are selected based on the priority resolved from
+   each group level in the hierarchy. Higher priority composite groups are spared over lower priority
+   ones.
+3. **Composite disruption fate-sharing**: When disrupting a victim `CompositePodGroup` configured
+   with the `All` disruption mode, the scheduler preempts all descendant `PodGroup` objects and
+   Pods under that composite group together, maintaining fate-sharing across the workload hierarchy.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [PodGroup Priority and Disruption](/docs/concepts/workloads/workload-api/disruption-and-priority/).
