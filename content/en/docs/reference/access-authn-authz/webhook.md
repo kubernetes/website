@@ -109,41 +109,12 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
 
-### Conditional authorization requests {#conditional-authorization-requests}
+### Basic authorization requests {#basic-authorization-requests}
 
-{{< feature-state feature_gate_name="ConditionalAuthorization" >}}
-
-When the `ConditionalAuthorization` feature is enabled, the `SubjectAccessReview`
-request may include a `conditionalAuthorization` field in the spec, indicating
-that the client supports receiving conditional responses:
-
-```json
-{
-  "apiVersion": "authorization.k8s.io/v1",
-  "kind": "SubjectAccessReview",
-  "spec": {
-    "conditionalAuthorization": {
-      "enabled": true
-    },
-    "resourceAttributes": {
-      "namespace": "dev",
-      "verb": "create",
-      "group": "",
-      "resource": "persistentvolumes"
-    },
-    "user": "alice",
-    "groups": ["developers"]
-  }
-}
-```
-
-The `conditionalAuthorization` field controls whether conditional responses are supported:
-- If the field is **omitted** (null/not present), the client does not support conditional authorization,
-  and authorizers must only return unconditional (Allow, Deny, NoOpinion) decisions.
-- If the field is **present** with `enabled: false`, the client does not support conditional authorization
-  for this request, and authorizers must only return unconditional decisions.
-- If the field is **present** with `enabled: true`, the client supports conditional authorization,
-  and authorizers may return conditional (ConditionsMap, Union) or unconditional responses.
+For standard (non-conditional) authorization, the `SubjectAccessReview` request
+contains only the core authorization attributes (user, verb, resource, namespace)
+without the `conditionalAuthorization` field. The webhook must respond with an
+unconditional decision: Allow, Deny, or NoOpinion.
 
 An example request body:
 
@@ -217,6 +188,42 @@ The webhook would return:
 }
 ```
 
+### Conditional authorization requests {#conditional-authorization-requests}
+
+{{< feature-state feature_gate_name="ConditionalAuthorization" >}}
+
+When the `ConditionalAuthorization` feature is enabled, the `SubjectAccessReview`
+request may include a `conditionalAuthorization` field in the spec, indicating
+that the client supports receiving conditional responses:
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "conditionalAuthorization": {
+      "enabled": true
+    },
+    "resourceAttributes": {
+      "namespace": "dev",
+      "verb": "create",
+      "group": "",
+      "resource": "persistentvolumes"
+    },
+    "user": "alice",
+    "groups": ["developers"]
+  }
+}
+```
+
+The `conditionalAuthorization` field controls whether conditional responses are supported:
+- If the field is **omitted** (null/not present), the client does not support conditional authorization,
+  and authorizers must only return unconditional (Allow, Deny, NoOpinion) decisions.
+- If the field is **present** with `enabled: false`, the client does not support conditional authorization
+  for this request, and authorizers must only return unconditional decisions.
+- If the field is **present** with `enabled: true`, the client supports conditional authorization,
+  and authorizers may return conditional (ConditionsMap, Union) or unconditional responses.
+
 ### Conditional responses {#conditional-responses}
 
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
@@ -265,6 +272,61 @@ When conditions are returned, they are evaluated during the admission phase agai
 the actual request and stored objects. If the webhook returns a condition type that
 Kubernetes cannot evaluate natively, Kubernetes will call back to the webhook using
 the `AuthorizationConditionsReview` API.
+
+#### Union responses
+
+When multiple authorizers are configured in a chain (for example, using the
+[AuthorizationConfiguration](/docs/reference/access-authn-authz/authorization/#using-configuration-file-for-authorization)
+file), and at least one returns a conditional decision, the combined response uses
+`type: Union` to represent the decision tree from all authorizers:
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1",
+  "kind": "SubjectAccessReview",
+  "status": {
+    "allowed": false,
+    "denied": false,
+    "conditionalDecision": {
+      "type": "Union",
+      "union": [
+        {
+          "type": "NoOpinion",
+          "reason": "not a privileged user"
+        },
+        {
+          "type": "ConditionsMap",
+          "conditionsMap": {
+            "conditions": [
+              {
+                "id": "allow-safe-prefix",
+                "effect": "Allow",
+                "condition": "object.metadata.name.startsWith('safe-')",
+                "type": "k8s.io/cel",
+                "description": "only allow configmaps with safe- prefix"
+              }
+            ]
+          }
+        },
+        {
+          "type": "NoOpinion",
+          "reason": "no matching RBAC rules"
+        }
+      ]
+    }
+  }
+}
+```
+
+The `union` array contains decisions from each authorizer in the configured chain,
+in order. During evaluation:
+- If any decision is `Deny`, the request is denied (short-circuit)
+- If any decision is `Allow`, the request is allowed (short-circuit)
+- If any decision is `ConditionsMap`, conditions are evaluated during admission
+- If all decisions are `NoOpinion`, the request is denied
+
+The Union type provides full transparency into how the authorization decision was
+made across the entire authorizer chain.
 
 Access to non-resource paths are sent as:
 
@@ -442,6 +504,27 @@ The response must contain:
   - `type`: One of `Allow`, `Deny`, or `NoOpinion`
   - `reason`: Optional explanation of the decision
   - `evaluationError`: Optional error message if evaluation failed
+
+If the webhook encounters an error while evaluating conditions, it can return
+a decision with an `evaluationError`:
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1alpha1",
+  "kind": "AuthorizationConditionsReview",
+  "response": {
+    "decision": {
+      "type": "NoOpinion",
+      "reason": "Could not evaluate condition",
+      "evaluationError": "unable to access external policy database: connection timeout"
+    }
+  }
+}
+```
+
+The `evaluationError` field allows the webhook to communicate non-fatal errors
+that occurred during evaluation. The API server may still allow the request if
+other authorizers in the chain grant access.
 
 For further information, refer to the
 [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)

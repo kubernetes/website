@@ -739,6 +739,8 @@ The API server sends a `SubjectAccessReview` to the webhook authorizer:
 apiVersion: authorization.k8s.io/v1
 kind: SubjectAccessReview
 spec:
+  conditionalAuthorization:
+    enabled: true
   resourceAttributes:
     namespace: ""
     verb: create
@@ -771,6 +773,7 @@ status:
       - id: storage-class-dev-only
         effect: Allow
         condition: "object.spec.storageClassName == 'dev'"
+        type: k8s.io/cel
         description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
 ```
 
@@ -802,6 +805,7 @@ request:
         - id: storage-class-dev-only
           effect: Allow
           condition: "object.spec.storageClassName == 'dev'"
+          type: k8s.io/cel
           description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
   admissionControlData:
     requestKind:
@@ -972,9 +976,11 @@ conditions:
 - id: allow-create-pods
   effect: Allow
   condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.containers.size() <= 5"
+  type: k8s.io/cel
 - id: allow-create-deployments
   effect: Allow
   condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.replicas <= 10"
+  type: k8s.io/cel
 ```
 
 Using NoOpinion, you can factor out the common precondition:
@@ -984,12 +990,15 @@ conditions:
 - id: team-precondition
   effect: NoOpinion
   condition: "namespace.metadata.labels['team'] != 'platform'"
+  type: k8s.io/cel
 - id: allow-create-pods
   effect: Allow
   condition: "object.spec.containers.size() <= 5"
+  type: k8s.io/cel
 - id: allow-create-deployments
   effect: Allow
   condition: "object.spec.replicas <= 10"
+  type: k8s.io/cel
 ```
 
 When `namespace.metadata.labels['team'] != 'platform'`, the NoOpinion condition
@@ -1000,6 +1009,40 @@ normally.
 
 This approach is clearer and more maintainable, especially when you have many Allow
 conditions that share the same precondition.
+
+#### Handling evaluation errors
+
+When a condition fails to evaluate (for example, due to a malformed CEL expression,
+external system timeout, or missing data), the authorizer can communicate this through
+the `evaluationError` field. The error is non-fatal: the authorization system can
+still make a decision based on other conditions or authorizers.
+
+For example, if a webhook encounters an error evaluating conditions, it returns:
+
+```yaml
+apiVersion: authorization.k8s.io/v1alpha1
+kind: AuthorizationConditionsReview
+response:
+  decision:
+    type: NoOpinion
+    reason: "Could not evaluate condition"
+    evaluationError: "unable to access external policy database: connection timeout"
+```
+
+The evaluation error is also reflected in the top-level `SubjectAccessReview` status:
+
+```yaml
+apiVersion: authorization.k8s.io/v1
+kind: SubjectAccessReview
+status:
+  allowed: true
+  reason: "RBAC allowed"
+  evaluationError: "webhook 'policy-checker' timeout, using cached decision"
+```
+
+The presence of `evaluationError` indicates that authorization completed, but with
+partial information. This allows operators to monitor authorization health while
+still serving requests when non-critical authorizers fail.
 
 ## Checking API access
 
@@ -1070,7 +1113,7 @@ SelfSubjectRulesReview
 : A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 
 AuthorizationConditionsReview
-: ({{< feature-state feature_gate_name="ConditionalAuthorization" >}}) Allows evaluating authorization conditions returned by conditional authorizers. Used internally by the API server during admission, and can be called by aggregated API servers.
+: {{< feature-state feature_gate_name="ConditionalAuthorization" >}} Allows evaluating authorization conditions returned by conditional authorizers. Used internally by the API server during admission, and can be called by aggregated API servers.
 
 These APIs can be queried by creating normal Kubernetes resources, where the response `status`
 field of the returned object is the result of the query. For example:
@@ -1106,9 +1149,11 @@ status:
   denied: false
 {{< /highlight >}}
 
-When the `ConditionalAuthorization` feature is enabled and an authorizer returns
-conditional responses, the status includes a `conditionalDecision` field instead of
-simple `allowed: true` or `denied: true`. For example:
+When the `ConditionalAuthorization` feature is enabled, you can request conditional
+authorization by setting `spec.conditionalAuthorization.enabled: true` in your
+`SelfSubjectAccessReview`. If an authorizer returns a conditional response, the
+status includes a `conditionalDecision` field instead of simple `allowed: true`
+or `denied: true`. For example:
 
 {{< highlight yaml "linenos=false,hl_lines=11-20" >}}
 apiVersion: authorization.k8s.io/v1
@@ -1116,8 +1161,6 @@ kind: SelfSubjectAccessReview
 metadata:
   creationTimestamp: null
 spec:
-  conditionalAuthorization:
-    enabled: true
   resourceAttributes:
     group: ""
     resource: persistentvolumes
@@ -1131,12 +1174,55 @@ status:
       - id: storage-class-restriction
         effect: "Allow"
         condition: object.spec.storageClassName == "dev"
+        type: k8s.io/cel
         description: "User can only create PersistentVolumes with storageClassName 'dev'"
 {{< /highlight >}}
 
 The `conditionalDecision` represents an ordered list of condition sets from different
 authorizers. Each condition set contains one or more conditions that must be
 evaluated against the actual request object during the admission phase.
+
+When multiple authorizers are configured in a chain (using
+[AuthorizationConfiguration](#using-configuration-file-for-authorization)),
+and at least one returns a conditional decision, the response uses `type: Union`
+to show the decision tree from all authorizers:
+
+{{< highlight yaml "linenos=false,hl_lines=14-29" >}}
+apiVersion: authorization.k8s.io/v1
+kind: SelfSubjectAccessReview
+metadata:
+  creationTimestamp: null
+spec:
+  conditionalAuthorization:
+    enabled: true
+  resourceAttributes:
+    group: ""
+    resource: configmaps
+    verb: create
+    namespace: default
+status:
+  allowed: false
+  conditionalDecision:
+    type: Union
+    union:
+    - type: NoOpinion
+      reason: "not a privileged user"
+    - type: ConditionsMap
+      conditionsMap:
+        conditions:
+        - id: allow-safe-prefix
+          effect: Allow
+          condition: object.metadata.name.startsWith('safe-')
+          type: k8s.io/cel
+          description: "only allow configmaps with safe- prefix"
+    - type: NoOpinion
+      reason: "no matching RBAC rules"
+{{< /highlight >}}
+
+The `union` array contains decisions from each authorizer in order. During evaluation,
+if any decision is Deny, the request is denied; if any is Allow, it's allowed; if any
+is ConditionsMap, conditions are evaluated during admission; if all are NoOpinion,
+the request is denied.
 
 ## {{% heading "whatsnext" %}}
 
