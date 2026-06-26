@@ -91,14 +91,14 @@ spec:
 EOF
 ```
 
-You can alternatively, create a YAML file and apply it with `kubectl`:
+You can alternatively, create a YAML manifest file and apply it with `kubectl`:
 
 {{% code language="yaml" file="tls/myuser.yaml" %}}
 
 Apply the manifest:
 
 ```bash
-kubectl apply -f myuser.yaml
+kubectl apply -f myuser.yaml --server-side
 ```
 
 

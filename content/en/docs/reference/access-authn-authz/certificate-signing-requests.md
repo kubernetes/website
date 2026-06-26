@@ -254,19 +254,13 @@ The Kubernetes control plane implements each of the
 [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
 as part of the kube-controller-manager.
 
-For a hands-on example of creating a `CertificateSigningRequest` and having it approved and
+For a hands-on example of creating a CertificateSigningRequest and having it approved and
 signed by the Kubernetes control plane, see
 [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/).
 
 {{< note >}}
 Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
 were marked as approved.
-{{< /note >}}
-
-{{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.
-Earlier versions of Kubernetes do not honor this field.
-Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
 ## Approval or rejection  {#approval-rejection}
@@ -347,7 +341,7 @@ you like. If you want to add a note for human consumption, use the
 
 ## API-based signers {#signer-api}
 
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
+Users of the REST API can sign CSRs by submitting an **update** request to the `status`
 subresource of the CSR to be signed.
 
 As part of this request, the `status.certificate` field should be set to contain the
