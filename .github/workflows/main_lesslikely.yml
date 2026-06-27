@@ -68,4 +68,4 @@ jobs:
         with:
           app-name: 'lesslikely'
           slot-name: 'Production'
-          package: public
+          package: .
