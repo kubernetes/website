@@ -17,12 +17,16 @@ from typing import Any, Optional
 import httpx
 from fastmcp import FastMCP
 
-CACHE_TTL = 900
+CACHE_TTL_SECONDS = 900
+HTTP_TIMEOUT_SECONDS = 20
 # Limit cheap paragraph scanning to the page header area where UFC exposes profile summary text.
 HTML_TEXT_SCAN_LIMIT = 12000
 UFC_BASE = "https://www.ufc.com"
 # UFC.com uses this fragment to jump to the "Past" events section on the events page.
 PAST_EVENTS_HASH = "702702e1-80ec-4e69-8ad6-40eca8ff3e5c"
+RANKINGS_CACHE_TTL_SECONDS = 3600
+EVENTS_CACHE_TTL_SECONDS = 1800
+MAX_RANKED_FIGHTERS = 15
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -65,10 +69,13 @@ _BIO_LABELS = {
 
 def _get(key: str) -> Optional[Any]:
     entry = _cache.get(key)
-    return entry[1] if entry and time.time() < entry[0] else None
+    if not entry:
+        return None
+    expiry, value = entry
+    return value if time.time() < expiry else None
 
 
-def _set(key: str, val: Any, ttl: int = CACHE_TTL) -> None:
+def _set(key: str, val: Any, ttl: int = CACHE_TTL_SECONDS) -> None:
     _cache[key] = (time.time() + ttl, val)
 
 
@@ -81,8 +88,7 @@ def _clean(text: str | None) -> str:
 
 
 def _slugify(name: str) -> str:
-    slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
-    return slug
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
 
 def _unique(items: list[dict[str, Any]], key_fields: tuple[str, ...]) -> list[dict[str, Any]]:
@@ -162,10 +168,9 @@ def _guess_division(texts: list[str]) -> Optional[str]:
     return None
 
 
-def _guess_nickname(texts: list[str], name: Optional[str], record: Optional[str], division: Optional[str]) -> Optional[str]:
-    exclusions = {value for value in (name, record, division) if value}
+def _guess_nickname(texts: list[str], excluded_texts: set[str]) -> Optional[str]:
     for text in texts:
-        if text in exclusions or len(text) < 2:
+        if text in excluded_texts or len(text) < 2:
             continue
         if text.startswith('"') and text.endswith('"'):
             return text.strip('"')
@@ -221,7 +226,8 @@ def _parse_fighter_page(html: str, slug: str) -> dict[str, Any]:
 
     record = _guess_record(texts)
     division = _guess_division(texts)
-    nickname = _clean(person.get("alternateName")) or _guess_nickname(texts, name or None, record, division)
+    excluded_texts = {value for value in (name, record, division) if value}
+    nickname = _clean(person.get("alternateName")) or _guess_nickname(texts, excluded_texts)
 
     pairs = _extract_labeled_pairs(html)
     bio: dict[str, str] = {}
@@ -273,7 +279,7 @@ def _parse_rankings(html: str) -> list[dict[str, Any]]:
             {
                 "division": division,
                 "champion": fighters[0],
-                "ranked": fighters[1:16],
+                "ranked": fighters[1 : MAX_RANKED_FIGHTERS + 1],
             }
         )
     return divisions
@@ -361,7 +367,7 @@ def _sort_events(events: list[dict[str, Any]], reverse: bool) -> list[dict[str, 
 
 
 async def _fetch(url: str) -> str:
-    async with httpx.AsyncClient(follow_redirects=True, timeout=20) as client:
+    async with httpx.AsyncClient(follow_redirects=True, timeout=HTTP_TIMEOUT_SECONDS) as client:
         response = await client.get(url, headers=HEADERS)
         response.raise_for_status()
         return response.text
@@ -478,7 +484,7 @@ async def get_rankings() -> str:
         html = await _fetch(f"{UFC_BASE}/rankings")
         rankings = _parse_rankings(html)
         if rankings:
-            _set(cache_key, rankings, ttl=3600)
+            _set(cache_key, rankings, ttl=RANKINGS_CACHE_TTL_SECONDS)
         return json.dumps(
             {
                 "rankings": rankings,
@@ -526,7 +532,7 @@ async def get_events(event_type: str = "upcoming") -> str:
         else:
             filtered = [event for event in events if event.get("date") and event["date"] < now]
             filtered = _sort_events(filtered, reverse=True)
-        _set(cache_key, filtered, ttl=1800)
+        _set(cache_key, filtered, ttl=EVENTS_CACHE_TTL_SECONDS)
         return json.dumps(
             {
                 "events": filtered,
@@ -560,7 +566,7 @@ async def cache_status() -> str:
     return json.dumps(
         {
             "total_entries": len(_cache),
-            "ttl_default_seconds": CACHE_TTL,
+            "ttl_default_seconds": CACHE_TTL_SECONDS,
             "entries": entries,
         },
         ensure_ascii=False,
@@ -586,7 +592,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print(f"[ufc-mcp] Source: {UFC_BASE}")
-    print(f"[ufc-mcp] Cache TTL: {CACHE_TTL}s")
+    print(f"[ufc-mcp] Cache TTL: {CACHE_TTL_SECONDS}s")
 
     if args.port:
         print(f"[ufc-mcp] HTTP on 127.0.0.1:{args.port}")
