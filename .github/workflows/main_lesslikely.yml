@@ -1,8 +1,8 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
+# More info on Azure App Service deployments: https://aka.ms/webapps-deploy
 
-name: Build and deploy Python app to Azure Web App - lesslikely
+name: Build and deploy site to Azure Web App - lesslikely
 
 on:
   push:
@@ -19,33 +19,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
-        uses: actions/setup-python@v5
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          python-version: '3.14'
+          hugo-version: '0.101.0'
+          extended: true
 
-      # 🛠️ Local Build Section (Optional)
-      # The following section in your workflow is designed to catch build issues early on the client side, before deployment. This can be helpful for debugging and validation. However, if this step significantly increases deployment time and early detection is not critical for your workflow, you may remove this section to streamline the deployment process.
-      - name: Create and Start virtual environment and Install dependencies
+      - name: Initialize submodules
         run: |
-          python -m venv antenv
-          source antenv/bin/activate
-          pip install -r requirements.txt
-                
-      # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
+          git submodule update --init --recursive --depth 1
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build site
+        run: make production-build
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
-          path: |
-            .
-            !antenv/
-
-      # 🚫 Opting Out of Oryx Build
-      # If you prefer to disable the Oryx build process during deployment, follow these steps:
-      # 1. Remove the SCM_DO_BUILD_DURING_DEPLOYMENT app setting from your Azure App Service Environment variables.
-      # 2. Refer to sample workflows for alternative deployment strategies: https://github.com/Azure/actions-workflow-samples/tree/master/AppService
-      
+          name: site
+          path: public
+          if-no-files-found: error
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +53,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: python-app
+          name: site
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -73,4 +68,4 @@ jobs:
         with:
           app-name: 'lesslikely'
           slot-name: 'Production'
-          
+          package: .
