@@ -18,7 +18,11 @@ import httpx
 from fastmcp import FastMCP
 
 CACHE_TTL = 900
+# Limit cheap paragraph scanning to the page header area where UFC exposes profile summary text.
+HTML_TEXT_SCAN_LIMIT = 12000
 UFC_BASE = "https://www.ufc.com"
+# UFC.com uses this fragment to jump to the "Past" events section on the events page.
+PAST_EVENTS_HASH = "702702e1-80ec-4e69-8ad6-40eca8ff3e5c"
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -135,7 +139,10 @@ def _extract_json_ld_objects(html: str) -> list[dict[str, Any]]:
 def _extract_text_candidates(html: str) -> list[str]:
     return [
         text
-        for text in (_clean(value) for value in re.findall(r"<p[^>]*>(.*?)</p>", html[:12000], re.I | re.S))
+        for text in (
+            _clean(value)
+            for value in re.findall(r"<p[^>]*>(.*?)</p>", html[:HTML_TEXT_SCAN_LIMIT], re.I | re.S)
+        )
         if text
     ]
 
@@ -503,7 +510,7 @@ async def get_events(event_type: str = "upcoming") -> str:
 
     url_map = {
         "upcoming": f"{UFC_BASE}/events",
-        "past": f"{UFC_BASE}/events#702702e1-80ec-4e69-8ad6-40eca8ff3e5c",
+        "past": f"{UFC_BASE}/events#{PAST_EVENTS_HASH}",
     }
     cache_key = f"events:{event_type}"
     if hit := _get(cache_key):
@@ -560,7 +567,7 @@ async def cache_status() -> str:
     )
 
 
-@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+@mcp.tool(annotations={"readOnlyHint": False, "destructiveHint": True})
 async def clear_cache() -> str:
     """
     Flush all cached data.
