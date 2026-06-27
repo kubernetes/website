@@ -27,6 +27,8 @@ PAST_EVENTS_HASH = "702702e1-80ec-4e69-8ad6-40eca8ff3e5c"
 RANKINGS_CACHE_TTL_SECONDS = 3600
 EVENTS_CACHE_TTL_SECONDS = 1800
 MAX_RANKED_FIGHTERS = 15
+MIN_NAME_LENGTH = 2
+MAX_NICKNAME_WORDS = 4
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -170,11 +172,11 @@ def _guess_division(texts: list[str]) -> Optional[str]:
 
 def _guess_nickname(texts: list[str], excluded_texts: set[str]) -> Optional[str]:
     for text in texts:
-        if text in excluded_texts or len(text) < 2:
+        if text in excluded_texts or len(text) < MIN_NAME_LENGTH:
             continue
         if text.startswith('"') and text.endswith('"'):
             return text.strip('"')
-        if not any(ch.isdigit() for ch in text) and len(text.split()) <= 4:
+        if not any(ch.isdigit() for ch in text) and len(text.split()) <= MAX_NICKNAME_WORDS:
             return text
     return None
 
@@ -270,7 +272,7 @@ def _parse_rankings(html: str) -> list[dict[str, Any]]:
             _clean(name)
             for name in re.findall(r'href="/athlete/[^"]+"[^>]*>(.*?)</a>', block, re.I | re.S)
         ]
-        fighters = [name for name in fighters if len(name) > 2]
+        fighters = [name for name in fighters if len(name) > MIN_NAME_LENGTH]
         fighters = list(dict.fromkeys(fighters))
         if not fighters:
             continue
@@ -592,7 +594,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print(f"[ufc-mcp] Source: {UFC_BASE}")
-    print(f"[ufc-mcp] Cache TTL: {CACHE_TTL_SECONDS}s")
+    print(
+        "[ufc-mcp] Cache TTLs: "
+        f"default={CACHE_TTL_SECONDS}s rankings={RANKINGS_CACHE_TTL_SECONDS}s "
+        f"events={EVENTS_CACHE_TTL_SECONDS}s"
+    )
 
     if args.port:
         print(f"[ufc-mcp] HTTP on 127.0.0.1:{args.port}")
