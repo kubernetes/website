@@ -1,0 +1,560 @@
+---
+title: Resource Management for Pods and Containers
+content_type: concept
+weight: 40
+feature:
+  title: Automatic bin packing
+  description: >
+    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability.
+    Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
+---
+
+<!-- overview -->
+
+وقتی یک {{< glossary_tooltip term_id="pod" >}} مشخص می‌کنید، می‌توانید به صورت اختیاری مشخص کنید که یک {{< glossary_tooltip text="container" term_id="container" >}} به چه مقدار از هر منبع نیاز دارد. رایج‌ترین منابعی که باید مشخص شوند CPU و حافظه (RAM) هستند؛ منابع دیگری نیز وجود دارند.
+
+وقتی درخواست منبع را برای کانتینرها در یک پاد مشخص می‌کنید، {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} از این اطلاعات برای تصمیم‌گیری در مورد اینکه پاد را روی کدام گره قرار دهید، استفاده می‌کند.
+وقتی برای یک کانتینر محدودیت منبع تعیین می‌کنید، {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} آن محدودیت‌ها را اعمال می‌کند تا کانتینر در حال اجرا اجازه استفاده بیشتر از آن منبع را نسبت به محدودیتی که تعیین کرده‌اید، نداشته باشد. kubelet همچنین حداقل مقدار _request_ از آن منبع سیستم را به طور خاص برای استفاده آن کانتینر رزرو می‌کند.
+
+
+<!-- body -->
+
+## درخواست ها و محدودیت ها
+
+
+اگر گره‌ای که یک Pod در آن اجرا می‌شود، منبع کافی در دسترس داشته باشد، یک کانتینر می‌تواند (و مجاز است) از منبعی بیشتر از آنچه «درخواست» آن برای آن منبع تعیین کرده است، استفاده کند.
+
+برای مثال، اگر درخواست «حافظه» برای یک کانتینر ۲۵۶ مگابایت تنظیم کنید، و آن کانتینر در یک Pod برنامه‌ریزی شده برای یک گره با ۸ گیگابایت حافظه و بدون Pod دیگر باشد، آنگاه کانتینر می‌تواند سعی کند از رم بیشتری استفاده کند.
+
+محدودیت‌ها داستان متفاوتی دارند. محدودیت‌های `cpu` و `memory` هر دو توسط kubelet (و
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) اعمال می‌شوند و در نهایت توسط هسته اجرا می‌شوند. در گره‌های لینوکس، هسته لینوکس
+محدودیت‌ها را با
+{{< glossary_tooltip text="cgroups" term_id="cgroup" >}} اعمال می‌کند.
+
+رفتار اعمال محدودیت `cpu` و `memory` کمی متفاوت است.
+
+محدودیت‌های `cpu` توسط کنترل CPU اعمال می‌شوند. وقتی یک کانتینر به محدودیت `cpu` خود نزدیک می‌شود، هسته دسترسی به CPU را متناسب با محدودیت کانتینر محدود می‌کند. بنابراین، محدودیت `cpu` یک محدودیت قطعی است که هسته اعمال می‌کند. کانتینرها نمی‌توانند از CPU بیشتری نسبت به آنچه در محدودیت `cpu` آنها مشخص شده است، استفاده کنند.
+
+محدودیت‌های «حافظه» توسط هسته با حذف‌های «خارج از حافظه» (OOM) اعمال می‌شوند. وقتی یک کانتینر بیش از حد «حافظه» خود استفاده می‌کند، هسته ممکن است آن را خاتمه دهد. با این حال، خاتمه‌ها فقط زمانی اتفاق می‌افتند که هسته فشار حافظه را تشخیص دهد. بنابراین، کانتینری که بیش از حد حافظه اختصاص می‌دهد، ممکن است بلافاصله از بین نرود. این بدان معناست که محدودیت‌های «حافظه» به صورت واکنشی اعمال می‌شوند. یک کانتینر ممکن است از حافظه بیشتری نسبت به حد «حافظه» خود استفاده کند، اما اگر این اتفاق بیفتد، ممکن است از بین برود.
+
+{{< note >}}
+یک ویژگی آلفا به نام «MemoryQoS» وجود دارد که قابلیت تنظیم حافظه و رزرو اختیاری حافظه چندلایه را روی گره‌های لینوکس با استفاده از cgroup نسخه ۲ اضافه می‌کند. برای جزئیات بیشتر، به [Memory QoS with cgroup نسخه ۲](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) مراجعه کنید.
+{{< /note >}}
+
+{{< note >}}
+اگر برای یک منبع محدودیتی تعیین کنید، اما هیچ درخواستی را مشخص نکنید و هیچ مکانیزم زمان پذیرشی درخواست پیش‌فرضی را برای آن منبع اعمال نکرده باشد، کوبرنتیز محدودیتی را که تعیین کرده‌اید کپی می‌کند و از آن به عنوان مقدار درخواستی برای منبع استفاده می‌کند.
+{{< /note >}}
+
+## انواع منابع
+
+یک *نوع منبع* یک واحد پایه دارد و می‌تواند درخواستی، محدود یا هر دو باشد.
+کوبرنتیز انواع منابع داخلی زیر را دارد:
+
+| Resource type | Description | Base unit |
+|---|---|---|
+| `cpu` | Compute processing | cpu (core) |
+| `memory` | RAM | Bytes |
+| `ephemeral-storage` | [Local ephemeral storage](/docs/concepts/storage/ephemeral-storage/) | Bytes |
+| `hugepages-<size>` | [Huge pages](#huge-pages) (Linux only) | Bytes |
+
+کلاسترها همچنین می‌توانند منابع توسعه‌یافته (منابعی با نام سفارشی که معمولاً توسط افزونه‌های دستگاه در معرض دید قرار می‌گیرند) را ارائه دهند.
+
+### صفحات بزرگ
+
+برای بارهای کاری لینوکس، می‌توانید منابع _huge page_ را مشخص کنید.
+
+صفحات عظیم یک ویژگی خاص لینوکس هستند که در آن هسته گره بلوک‌هایی از حافظه را اختصاص می‌دهد که بسیار بزرگتر از اندازه پیش‌فرض صفحه هستند.
+
+برای مثال، در سیستمی که اندازه پیش‌فرض صفحه ۴ کیلوبایت است، می‌توانید محدودیتی مانند «hugepages-2Mi: 80Mi» تعیین کنید. اگر کانتینر سعی کند بیش از ۴۰ صفحه بزرگ ۲ میبایتی (در مجموع ۸۰ میبایت) را اختصاص دهد، این تخصیص با شکست مواجه می‌شود.
+
+{{< note >}}
+شما نمی‌توانید منابع `hugepages-*` را بیش از حد مجاز (overcommit) کنید. این با منابع `memory` و `cpu` متفاوت است.
+{{< /note >}}
+
+CPU و حافظه در مجموع به عنوان *منابع محاسباتی* یا *منابع* شناخته می‌شوند. منابع محاسباتی مقادیر قابل اندازه‌گیری هستند که می‌توانند درخواست، تخصیص و مصرف شوند. آنها با [منابع API](/docs/concepts/overview/kubernetes-api/) متفاوت هستند. منابع API، مانند Pods و [Services](/docs/concepts/services-networking/service/) اشیاء هستند که می‌توانند از طریق سرور API Kubernetes خوانده و اصلاح شوند.
+
+## درخواست‌های منابع و محدودیت‌های Pod و Container
+
+برای هر کانتینر، می‌توانید محدودیت‌ها و درخواست‌های منابع را مشخص کنید، از جمله موارد زیر:
+
+* `spec.containers[].resources.limits.cpu`
+* `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.ephemeral-storage`
+* `spec.containers[].resources.limits.hugepages-<size>`
+* `spec.containers[].resources.requests.cpu`
+* `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.ephemeral-storage`
+* `spec.containers[].resources.requests.hugepages-<size>`
+
+اگرچه شما فقط می‌توانید درخواست‌ها و محدودیت‌های مربوط به کانتینرهای منفرد را مشخص کنید، اما فکر کردن به درخواست‌ها و محدودیت‌های کلی منابع برای یک Pod نیز مفید است.
+برای یک منبع خاص، *Pod resource request/limit* مجموع درخواست‌ها/محدودیت‌های منبع از آن نوع برای هر کانتینر در پاد است.
+
+## مشخصات منبع در سطح پاد
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+اگر قابلیت `PodLevelResources` در کلاستر شما فعال باشد، می‌توانید مقادیر درخواستی (requests) و محدودیت‌های (limits) منابع را در سطح پاد (Pod) تعیین کنید.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+ در سطح پاد، کوبرنتیز (نسخه {{< skew currentVersion >}}) تنها از تعیین درخواست یا محدودیت برای انواع خاصی از منابع پشتیبانی می‌کند: `cpu`، `memory` و/یا `hugepages`. این قابلیت به شما امکان می‌دهد تا یک بودجه کلی برای منابع پاد تعریف کنید؛ امری که به‌ویژه هنگام کار با تعداد زیادی کانتینر—که در آن‌ها برآورد دقیق نیازهای هر کانتینر دشوار است—بسیار مفید واقع می‌شود. علاوه بر این، این ویژگی به کانتینرهای درون یک پاد اجازه می‌دهد تا منابع بلااستفاده را با یکدیگر به اشتراک بگذارند و بدین ترتیب، بهره‌وری منابع را افزایش دهند.
+
+
+برای یک Pod، می‌توانید محدودیت‌های منابع و درخواست‌ها برای CPU و حافظه را با وارد کردن موارد زیر مشخص کنید:
+* `spec.resources.limits.cpu`
+* `spec.resources.limits.memory`
+* `spec.resources.limits.hugepages-<size>`
+* `spec.resources.requests.cpu`
+* `spec.resources.requests.memory`
+* `spec.resources.requests.hugepages-<size>`
+
+## واحدهای منابع در Kubernetes
+
+###واحدهای منابع پردازنده (CPU) {#meaning-of-cpu}
+
+محدودیت‌ها و درخواست‌ها برای منابع CPU با واحدهای *cpu* اندازه‌گیری می‌شوند.
+در Kubernetes، 1 واحد CPU معادل **1 هسته CPU فیزیکی**،
+یا **1 هسته مجازی** است، بسته به اینکه گره یک میزبان فیزیکی باشد
+یا یک ماشین مجازی که درون یک ماشین فیزیکی اجرا می‌شود.
+
+درخواست‌های کسری مجاز هستند. وقتی یک کانتینر با مقدار `spec.containers[].resources.requests.cpu` روی `0.5` تنظیم می‌کنید، در مقایسه با حالتی که `1.0` CPU درخواست می‌کنید، نصف زمان CPU را درخواست می‌کنید. برای واحدهای منابع CPU، عبارت `0.1` معادل عبارت `100m` است که می‌تواند به صورت "صد میلی‌پوینت" خوانده شود. برخی افراد می‌گویند "صد میلی‌کور" و این به معنای یکسانی است.
+
+منبع CPU همیشه به عنوان یک مقدار مطلق از منبع مشخص می‌شود، نه به عنوان یک مقدار نسبی. برای مثال، `500m` CPU تقریباً همان مقدار قدرت محاسباتی را نشان می‌دهد، چه آن کانتینر روی یک دستگاه تک هسته‌ای، دو هسته‌ای یا 48 هسته‌ای اجرا شود.
+
+{{< note >}}
+کوبرنتیز به شما اجازه نمی‌دهد منابع CPU را با دقتی کمتر از `1m` یا `0.001` CPU مشخص کنید. برای جلوگیری از استفاده تصادفی از مقدار CPU نامعتبر، هنگام استفاده از کمتر از 1 واحد CPU، بهتر است واحدهای CPU را با استفاده از فرم milliCPU به جای فرم اعشاری مشخص کنید.
+
+برای مثال، فرض کنید پادی (Pod) دارید که از `5m` یا `0.005` واحد CPU استفاده می‌کند و می‌خواهید منابع CPU آن را کاهش دهید. در صورت استفاده از فرم اعشاری، تشخیص اینکه مقدار `0.0005` برای CPU نامعتبر است دشوارتر است؛ در حالی که با استفاده از فرم milliCPU، تشخیص نامعتبر بودن مقدار `0.5m` آسان‌تر خواهد بود.
+{{< /note >}}
+
+### واحدهای منابع حافظه {#meaning-of-memory}
+
+محدودیت‌ها و درخواست‌ها برای `memory` با واحد بایت اندازه‌گیری می‌شوند. می‌توانید حافظه را به صورت یک عدد صحیح ساده یا به صورت یک عدد با ممیز ثابت با استفاده از یکی از این پسوندهای [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) بیان کنید:
+E، P، T، G، M، k. همچنین می‌توانید از معادل‌های توان دو استفاده کنید: Ei، Pi، Ti، Gi، Mi، Ki. API Kubernetes همچنین m را به عنوان پسوند مجاز می‌داند (برای میلی‌بایت: ۱/۱۰۰۰ یک بایت)، اما این برای مشخص کردن مفید نیست: شما همیشه باید تعداد صحیحی از بایت‌ها یا گاهی اوقات قطعات بزرگتری مانند مضرب‌هایی از ۱ گیگابایت را اختصاص دهید.
+
+در اینجا چند نمونه از مقادیر حافظه که تقریباً همان مقدار را نشان می‌دهند، آورده شده است:
+
+```shell
+128974848, 129e6, 129M,  128974848000m, 123Mi
+```
+
+به کوچکی و بزرگی حروف پسوندها توجه کنید. "M" به معنی مگابایت است، در حالی که "m" به معنی میلی‌بایت است. اگر شما درخواست "400 متر" حافظه را دارید، این درخواست برای 0.4 بایت است. کسی که این را تایپ می‌کند احتمالاً منظورش درخواست 400 مگابایت (`400Mi`) یا 400 مگابایت (`400M`) بوده است.
+
+## مثال منابع کانتینر {#example-1}
+
+
+پاد زیر دو کانتینر دارد. هر دو کانتینر با درخواستی برای ۰.۲۵ واحد پردازش مرکزی و ۶۴ مگابایت (۲۲۶ بایت) حافظه تعریف شده‌اند. هر کانتینر محدودیت ۰.۵ واحد پردازش مرکزی و ۱۲۸ مگابایت حافظه دارد. می‌توان گفت پاد درخواستی برای ۰.۵ واحد پردازش مرکزی و ۱۲۸ مگابایت حافظه و محدودیت ۱ واحد پردازش مرکزی و ۲۵۶ مگابایت حافظه دارد.
+```yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: app
+    image: images.my-company.example/app:v4
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  - name: log-aggregator
+    image: images.my-company.example/log-aggregator:v6
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+```
+
+## مثال منابع پاد {#example-2}
+
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+این قابلیت با تنظیم [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+ (دروازه قابلیت) مربوط به `PodLevelResources` قابل فعال‌سازی است. پاد (Pod) زیر دارای مقادیر درخواستی (request) صریحِ ۱ واحد CPU و ۱۰۰ مگابایت (MiB) حافظه، و همچنین محدودیت‌های (limit) صریحِ ۱ واحد CPU و ۲۰۰ مگابایت حافظه است. برای کانتینر `pod-resources-demo-ctr-1` نیز مقادیر درخواستی و محدودیت‌های صریح تعیین شده است. با این حال، کانتینر `pod-resources-demo-ctr-2` صرفاً از منابع موجود در محدوده منابع پاد استفاده (و با سایرین مشترک) می‌کند، زیرا برای آن مقادیر درخواستی و محدودیت‌های صریحی تعیین نشده است.
+
+{{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
+
+## نحوه زمان‌بندی پادها با درخواست‌های منابع
+
+وقتی یک پاد ایجاد می‌کنید، زمان‌بند کوبرنتیز یک گره را برای اجرا روی پاد انتخاب می‌کند. هر گره برای هر یک از انواع منابع، حداکثر ظرفیتی دارد: مقدار CPU و حافظه‌ای که می‌تواند برای پادها فراهم کند. زمان‌بند تضمین می‌کند که برای هر نوع منبع، مجموع درخواست‌های منبع کانتینرهای زمان‌بندی‌شده کمتر از ظرفیت گره باشد. توجه داشته باشید که اگرچه میزان استفاده واقعی از منابع حافظه یا CPU در گره‌ها بسیار کم است، اما اگر بررسی ظرفیت با شکست مواجه شود، زمان‌بند همچنان از قرار دادن پاد روی یک گره خودداری می‌کند. این امر از کمبود منابع در یک گره در زمانی که استفاده از منابع بعداً افزایش می‌یابد، به عنوان مثال، در طول اوج روزانه نرخ درخواست، جلوگیری می‌کند.
+
+## نحوه اعمال درخواست‌ها و محدودیت‌های منابع توسط کوبرنتیز
+{#how-pods-with-resource-limits-are-run}
+
+وقتی kubelet یک کانتینر را به عنوان بخشی از یک Pod شروع می‌کند، kubelet درخواست‌ها و محدودیت‌های آن کانتینر برای حافظه و CPU را به زمان اجرای کانتینر منتقل می‌کند.
+
+در لینوکس، زمان اجرای کانتینر معمولاً هسته {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} را پیکربندی می‌کند که محدودیت‌های تعریف شده توسط شما را اعمال و اجرا کند.
+
+
+- محدودیت CPU یک سقف مشخص برای میزان زمان CPU که کانتینر می‌تواند استفاده کند، تعریف می‌کند.
+در طول هر بازه زمانی (برش زمانی)، هسته لینوکس بررسی می‌کند که آیا از این محدودیت تجاوز شده است یا خیر. در این صورت، هسته قبل از اجازه دادن به آن گروه c برای از سرگیری اجرا، منتظر می‌ماند.
+
+- درخواست CPU معمولاً یک وزن‌دهی را تعریف می‌کند. اگر چندین کانتینر مختلف (cgroups) بخواهند روی یک سیستم رقابتی اجرا شوند، به بارهای کاری با درخواست‌های CPU بزرگتر، زمان CPU بیشتری نسبت به بارهای کاری با درخواست‌های کوچک اختصاص داده می‌شود.
+- درخواست حافظه عمدتاً در طول زمان‌بندی پاد (Kubernetes) استفاده می‌شود. در گره‌ای که از
+cgroups v2 استفاده می‌کند، زمان اجرای کانتینر ممکن است از درخواست حافظه به عنوان راهنمایی برای تنظیم
+`memory.min` و `memory.low` استفاده کند.
+- محدودیت حافظه، محدودیت حافظه را برای آن گروه c تعریف می‌کند. اگر کانتینر سعی کند حافظه بیشتری از این محدودیت اختصاص دهد، زیرسیستم خارج از حافظه هسته لینوکس فعال می‌شود و معمولاً با متوقف کردن یکی از فرآیندهای کانتینر که سعی در تخصیص حافظه داشته است، مداخله می‌کند. اگر آن فرآیند PID کانتینر ۱ باشد و کانتینر به عنوان قابل راه‌اندازی مجدد علامت‌گذاری شده باشد، Kubernetes کانتینر را مجدداً راه‌اندازی می‌کند.
+- محدودیت حافظه برای پاد یا کانتینر می‌تواند برای صفحات موجود در ولوم‌های دارای پشتیبانی حافظه، مانند `emptyDir`، نیز اعمال شود. kubelet ولوم‌های `tmpfs` emptyDir را به عنوان استفاده از حافظه کانتینر، به جای [ephemeral storage](/docs/concepts/storage/ephemeral-storage/) محلی، ردیابی می‌کند.
+هنگام استفاده از `emptyDir` دارای پشتیبانی حافظه، حتماً نکات [زیر](#memory-backed-emptydir) را بررسی کنید.
+
+اگر یک کانتینر از درخواست حافظه خود فراتر رود و گره‌ای که روی آن اجرا می‌شود به طور کلی با کمبود حافظه مواجه شود، احتمالاً Pod که کانتینر به آن تعلق دارد، 
+{{< glossary_tooltip text="evicted" term_id="eviction" >}}.
+
+ممکن است به یک کانتینر اجازه داده شود که برای مدت زمان طولانی از حد مجاز CPU خود فراتر رود یا اجازه نداشته باشد. با این حال، زمان‌های اجرای کانتینر، پادها یا کانتینرها را به دلیل استفاده بیش از حد از CPU خاتمه نمی‌دهند.
+
+برای تشخیص اینکه آیا یک کانتینر نمی‌تواند زمان‌بندی شود یا به دلیل محدودیت‌های منابع در حال از بین رفتن است، به بخش [Troubleshooting](#troubleshooting) مراجعه کنید.
+
+### تغییر اندازه منابع کانتینر
+
+پس از ایجاد یک Pod، ممکن است نیاز به تنظیم منابع CPU یا حافظه آن بر اساس الگوهای استفاده واقعی داشته باشید. Kubernetes دو رویکرد برای تغییر اندازه منابع Pod ارائه می‌دهد:
+
+#### تغییر اندازه درجا {#pod-resize-inplace}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+شما می‌توانید `requests` و `limits` پردازنده و حافظه و کانتینرها را در یک پاد در حال اجرا بدون ایجاد مجدد آن تغییر دهید. به این کار «مقیاس‌بندی عمودی پاد درجا» یا «تغییر اندازه پاد درجا» می‌گویند. برای انجام تغییر اندازه درجا، مشخصات منابع کانتینر را با استفاده از زیرمنبع «/resize» پاد به‌روزرسانی کنید. می‌توانید با تنظیم فیلد «resizePolicy» در مشخصات کانتینر، کنترل کنید که آیا راه‌اندازی مجدد کانتینر لازم است یا خیر.
+
+
+{{< note >}}
+تغییر اندازه درجا در حال حاضر برای منابع سطح کانتینر اعمال می‌شود. برای تغییر اندازه منابع سطح پاد، به [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/). مراجعه کنید.
+{{< /note >}}
+
+#### تغییر اندازه با راه‌اندازی پادهای جایگزین
+
+رویکرد بومی ابری برای تغییر منابع یک Pod، به‌روزرسانی الگوی Pod در شیء بار کاری (مانند Deployment یا StatefulSet) و اجازه دادن به کنترل‌کننده بار کاری برای جایگزینی Podها با Podهای جدیدی است که منابع به‌روزرسانی‌شده را دارند. این رویکرد با هر نسخه Kubernetes کار می‌کند و می‌تواند هر مشخصات Pod را تغییر دهد.
+
+برای جزئیات بیشتر درباره تغییر اندازه پاد، به [Resizing Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize). مراجعه کنید.
+
+برای مشاهده دستورالعمل‌های دقیق درباره تغییر اندازه درجا [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/). مراجعه کنید.
+همچنین می‌توانید از [Vertical Pod Autoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) برای مدیریت خودکار توصیه‌های منابع Pod استفاده کنید.
+
+### نظارت بر میزان استفاده از منابع محاسباتی و حافظه
+
+kubelet میزان استفاده از منابع یک Pod را به عنوان بخشی از Pod گزارش می‌دهد. [`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
+
+اگر [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) در کلاستر شما موجود باشد، میزان استفاده از منابع Pod را می‌توان یا مستقیماً از [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api) یا از ابزارهای نظارتی خود بازیابی کرد.
+
+
+### ملاحظات مربوط به درایوهای `emptyDir` با پشتیبانی حافظه {#memory-backed-emptydir}
+
+{{< caution >}}
+اگر برای یک حجم (volume) از نوع `emptyDir` مقدار `sizeLimit` را تعیین نکنید، آن حجم ممکن است تا سقفِ محدودیت حافظه‌ی پاد (`Pod.spec.containers[].resources.limits.memory`) را اشغال کند. چنانچه محدودیتی برای حافظه تعیین نکرده باشید، پاد هیچ سقف مشخصی برای مصرف حافظه نخواهد داشت و می‌تواند تمام حافظه‌ی موجود در گره (node) را مصرف کند. کوبرنتیز (Kubernetes) زمان‌بندی پادها را بر اساس درخواست‌های منابع (`Pod.spec.containers[].resources.requests`) انجام می‌دهد و هنگام تصمیم‌گیری درباره‌ی امکان استقرار یک پاد جدید روی گره، میزان مصرف حافظه فراتر از مقدار درخواست‌شده را در نظر نمی‌گیرد. این وضعیت می‌تواند منجر به «محرومیت از سرویس» (DoS) شود و سیستم‌عامل را وادار به اجرای فرآیندهای مدیریت وضعیت کمبود حافظه (OOM) کند. امکان ایجاد هر تعداد `emptyDir` وجود دارد که می‌توانند تمام حافظه‌ی موجود در گره را مصرف کرده و احتمال وقوع خطای OOM را افزایش دهند.
+{{< /caution >}}
+
+از منظر مدیریت حافظه، شباهت‌هایی بین زمانی که یک فرآیند از حافظه به عنوان ناحیه کاری استفاده می‌کند و زمانی که از ‎`emptyDir`‎ با پشتیبانی حافظه استفاده می‌کند، وجود دارد. اما هنگام استفاده از حافظه به عنوان یک حجم، مانند `emptyDir` با پشتیبانی حافظه، نکات دیگری نیز وجود دارد که باید به آنها توجه کنید:
+
+* فایل‌های ذخیره شده در یک درایو حافظه‌دار تقریباً به طور کامل توسط برنامه کاربر مدیریت می‌شوند. برخلاف زمانی که به عنوان یک ناحیه کاری برای یک فرآیند استفاده می‌شود، نمی‌توانید به چیزهایی مانند جمع‌آوری زباله در سطح زبان تکیه کنید.
+* هدف از نوشتن فایل‌ها در یک volume، ذخیره داده‌ها یا انتقال آن بین برنامه‌ها است. نه Kubernetes و نه سیستم عامل ممکن است به طور خودکار فایل‌ها را از یک volume حذف کنند، بنابراین حافظه استفاده شده توسط آن فایل‌ها زمانی که سیستم یا pod تحت فشار حافظه هستند، قابل بازیابی نیست.
+* یک `emptyDir` با پشتیبانی حافظه به دلیل عملکردش مفید است، اما حافظه
+به طور کلی از نظر اندازه بسیار کوچکتر و از نظر هزینه بسیار بالاتر از سایر رسانه‌های ذخیره‌سازی، مانند دیسک‌ها یا SSDها است. استفاده از مقادیر زیاد حافظه برای حجم‌های `emptyDir` ممکن است بر عملکرد عادی پاد شما یا کل گره تأثیر بگذارد، بنابراین باید با دقت استفاده شود.
+
+اگر در حال مدیریت یک کلاستر یا فضای نام هستید، می‌توانید [ResourceQuota](/docs/concepts/policy/resource-quotas/) را نیز تنظیم کنید که استفاده از حافظه را محدود می‌کند؛ همچنین می‌توانید برای اجرای بیشتر، یک [LimitRange](/docs/concepts/policy/limit-range/) تعریف کنید.
+اگر برای هر Pod یک `spec.containers[].resources.limits.memory` تعیین کنید، حداکثر اندازه یک volume با `emptyDir`، محدودیت حافظه آن pod خواهد بود.
+به عنوان یک جایگزین، یک مدیر کلاستر می‌تواند با استفاده از یک مکانیسم سیاست‌گذاری مانند [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy)، محدودیت‌های اندازه را برای volumeهای `emptyDir` در Podهای جدید اعمال کند.
+
+## ذخیره‌سازی موقت محلی
+
+برای مفاهیم کلی در مورد ذخیره‌سازی موقت محلی و نکات مربوط به پیکربندی درخواست‌ها و/یا محدودیت‌های ذخیره‌سازی موقت برای یک کانتینر، لطفاً صفحه [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/) را بررسی کنید.
+
+### نظارت بر منابع برای ذخیره‌سازی موقت محلی
+
+kubelet می‌تواند میزان استفاده از فضای ذخیره‌سازی موقت محلی را اندازه‌گیری کند. این کار را تا زمانی انجام می‌دهد که شما قابلیت جداسازی ظرفیت فضای ذخیره‌سازی موقت محلی را فعال کرده باشید.
+
+کوبرنتیز میزان فضای ذخیره‌سازی موقت مورد استفاده توسط پاد را از موارد زیر پیگیری می‌کند:
+* نوشتن در لایه قابل نوشتن کانتینر (rootfs)، تصاویر کانتینر یا هر دو.
+* نوشتن در والیوم‌های محلی `emptyDir`.
+* گزارش‌های خود پاد (که معمولاً در مسیر `/var/log/pods` ذخیره می‌شوند).
+* فایل‌های سیستمی مدیریت شده توسط کوبرنتیز که در پاد نگاشت شده‌اند، مانند `/etc/hosts`.
+
+## منابع گسترده
+
+منابع توسعه‌یافته، نام‌های منبع کاملاً واجد شرایط خارج از دامنه‌ی `kubernetes.io` هستند. آن‌ها به اپراتورهای خوشه اجازه می‌دهند تا منابع غیر توکار Kubernetes را تبلیغ کنند و به کاربران اجازه می‌دهند تا از آن‌ها استفاده کنند.
+
+برای استفاده از منابع توسعه‌یافته دو مرحله لازم است. اول، اپراتور خوشه باید یک منبع توسعه‌یافته را تبلیغ کند. دوم، کاربران باید منبع توسعه‌یافته را در پادها درخواست کنند.
+
+### مدیریت منابع گسترده
+
+
+#### منابع توسعه‌یافته در سطح گره
+
+
+منابع توسعه‌یافته در سطح گره به گره‌ها گره خورده‌اند.
+
+
+##### منابع مدیریت شده پلاگین دستگاه
+
+برای نحوه‌ی تبلیغ منابع مدیریت‌شده توسط افزونه‌ی دستگاه روی هر گره، به [Device
+Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)مراجعه کنید.
+
+
+##### منابع دیگر
+
+
+برای تبلیغ یک منبع توسعه‌یافته جدید در سطح گره، اپراتور خوشه می‌تواند یک درخواست HTTP از نوع PATCH به سرور API ارسال کند تا مقدار موجود در `status.capacity` را برای یک گره در خوشه مشخص کند. پس از این عملیات، `status.capacity` گره شامل یک منبع جدید خواهد بود. فیلد `status.allocatable` به طور خودکار و غیرهمزمان توسط kubelet با منبع جدید به‌روزرسانی می‌شود.
+
+از آنجا که زمان‌بند (Scheduler) هنگام ارزیابی تناسب پاد (Pod) از مقدار `status.allocatable` گره (Node) استفاده می‌کند، تنها پس از انجام به‌روزرسانی ناهمگام (asynchronous) است که مقدار جدید را در نظر می‌گیرد. ممکن است میان لحظه اعمال تغییرات (patch) در ظرفیت گره برای یک منبع جدید و زمانی که نخستین پادِ نیازمندِ آن منبع بتواند روی آن گره زمان‌بندی شود، تأخیر کوتاهی وجود داشته باشد.
+
+**Example:**
+
+در اینجا مثالی آورده شده است که نحوه استفاده از `curl` برای تشکیل یک درخواست HTTP را نشان می‌دهد که پنج منبع "example.com/foo" را در گره `k8s-node-1` که سرور اصلی آن `k8s-master` است، تبلیغ می‌کند.
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/example.com~1foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
+```
+
+{{< note >}}
+در درخواست قبلی، `~1` کدگذاری کاراکتر `/` در مسیر پچ است. مقدار مسیر عملیات در JSON-Patch به عنوان یک `JSON-Pointer` تفسیر می‌شود. برای جزئیات بیشتر، به [IETF RFC 6901, section 3](https://datatracker.ietf.org/doc/html/rfc6901#section-3). مراجعه کنید.
+{{< /note >}}
+
+#### منابع توسعه‌یافته در سطح خوشه‌ای
+
+منابع توسعه‌یافته در سطح کلاستر به گره‌ها وابسته نیستند. آن‌ها معمولاً توسط توسعه‌دهندگان زمان‌بندی مدیریت می‌شوند که مصرف منابع و سهمیه منابع را مدیریت می‌کنند.
+
+شما می‌توانید منابع توسعه‌یافته‌ای را که توسط توسعه‌دهندگان زمان‌بندی مدیریت می‌شوند، در [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1/) مشخص کنید.
+
+**مثال:**
+
+پیکربندی زیر برای یک سیاست زمان‌بندی نشان می‌دهد که منبع توسعه‌یافته در سطح خوشه "example.com/foo" توسط توسعه‌دهنده زمان‌بندی مدیریت می‌شود.
+
+- زمان‌بندی‌کننده فقط در صورتی یک Pod به توسعه‌دهنده زمان‌بندی‌کننده ارسال می‌کند که Pod درخواست "example.com/foo" را داشته باشد.
+
+- فیلد `ignoredByScheduler` مشخص می‌کند که زمان‌بندی‌کننده منبع "example.com/foo" را در گزاره `PodFitsResources` خود بررسی نمی‌کند.
+
+```json
+{
+  "kind": "Policy",
+  "apiVersion": "v1",
+  "extenders": [
+    {
+      "urlPrefix":"<extender-endpoint>",
+      "bindVerb": "bind",
+      "managedResources": [
+        {
+          "name": "example.com/foo",
+          "ignoredByScheduler": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### تخصیص منابع گسترده توسط DRA
+تخصیص منابع توسعه‌یافته توسط DRA به مدیران کلاستر اجازه می‌دهد تا یک `extendedResourceName` را در DeviceClass مشخص کنند، سپس دستگاه‌های منطبق با DeviceClass می‌توانند از درخواست‌های منابع توسعه‌یافته یک pod درخواست شوند. درباره [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
+ بیشتر بخوانید.
+=
+### مصرف منابع قابل‌توجه (یا منابع گسترده)
+
+
+کاربران می‌توانند از منابع توسعه‌یافته در مشخصات پاد مانند CPU و حافظه استفاده کنند.
+زمانبند، حسابداری منابع را به گونه‌ای انجام می‌دهد که بیش از مقدار موجود به طور همزمان به پادها اختصاص داده نشود.
+
+سرور API، مقادیر منابع توسعه‌یافته را به اعداد صحیح محدود می‌کند.
+مثال‌هایی از مقادیر _معتبر_ عبارتند از `3`، `3000m` و `3Ki`. مثال‌هایی از مقادیر _نامعتبر_ عبارتند از `0.5` و `1500m` (زیرا `1500m` منجر به `1.5` می‌شود).
+
+{{< note >}}
+منابع توسعه‌یافته جایگزین منابع عدد صحیح مات می‌شوند.
+کاربران می‌توانند از هر پیشوند نام دامنه‌ای غیر از `kubernetes.io` که رزرو شده است، استفاده کنند.
+{{< /note >}}
+
+برای استفاده از یک منبع توسعه‌یافته در یک Pod، نام منبع را به عنوان کلید در نگاشت `spec.containers[].resources.limits` در مشخصات کانتینر قرار دهید.
+
+{{< note >}}
+منابع توسعه‌یافته نمی‌توانند بیش از حد تخصیص داده شوند، بنابراین اگر درخواست و محدودیت در مشخصات کانتینر وجود داشته باشند، باید برابر باشند.
+{{< /note >}}
+
+یک پاد (Pod) تنها در صورتی زمان‌بندی می‌شود که تمام درخواست‌های منابع، از جمله پردازنده، حافظه و هرگونه منابع توسعه‌یافته، برآورده شوند. پاد تا زمانی که درخواست منبع برآورده نشود، در حالت «در انتظار» باقی می‌ماند.
+
+**مثال:**
+
+پاد زیر درخواست ۲ پردازنده و ۱ "example.com/foo" (یک منبع توسعه‌یافته) را دارد.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: myimage
+    resources:
+      requests:
+        cpu: 2
+        example.com/foo: 1
+      limits:
+        example.com/foo: 1
+```
+
+## PID limiting
+
+محدودیت‌های شناسه پردازش (PID) امکان پیکربندی kubelet را فراهم می‌کنند تا تعداد PIDهایی که یک Pod خاص می‌تواند مصرف کند، محدود شود. برای کسب اطلاعات بیشتر، به [PID Limiting](/docs/concepts/policy/pid-limiting/) مراجعه کنید.
+
+## عیب یابی
+
+
+### پادهای من با پیام رویداد «زمان‌بندی ناموفق» در حالت انتظار هستند.
+
+اگر زمانبند نتواند هیچ گره‌ای را پیدا کند که یک پاد بتواند در آن قرار گیرد، پاد تا زمانی که مکانی پیدا نشود، بدون زمان‌بندی باقی می‌ماند. هر بار که زمانبند نتواند مکانی برای پاد پیدا کند، یک رویداد [Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/) تولید می‌شود. می‌توانید از `kubectl` برای مشاهده رویدادهای یک پاد استفاده کنید. به عنوان مثال:
+
+```shell
+kubectl describe pod frontend | grep -A 9999999999 Events
+```
+```
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  23s   default-scheduler  0/42 nodes available: insufficient cpu
+```
+
+In the preceding example, the Pod named "frontend" fails to be scheduled due to
+insufficient CPU resource on any node. Similar error messages can also suggest
+failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
+is pending with a message of this type, there are several things to try:
+
+- Add more nodes to the cluster.
+- Terminate unneeded Pods to make room for pending Pods.
+- Check that the Pod is not larger than all the nodes. For example, if all the
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
+  never be scheduled.
+- Check for node taints. If most of your nodes are tainted, and the new Pod does
+  not tolerate that taint, the scheduler only considers placements onto the
+  remaining nodes that don't have that taint.
+
+You can check node capacities and amounts allocated with the
+`kubectl describe nodes` command. For example:
+
+```shell
+kubectl describe nodes e2e-test-node-pool-4lw4
+```
+```
+Name:            e2e-test-node-pool-4lw4
+[ ... lines removed for clarity ...]
+Capacity:
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
+Allocatable:
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
+[ ... lines removed for clarity ...]
+Non-terminated Pods:        (5 in total)
+  Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ---------    ----                                  ------------  ----------  ---------------  -------------
+  kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
+  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
+  kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
+  kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
+  kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
+```
+
+In the preceding output, you can see that if a Pod requests more than 1.120 CPUs
+or more than 6.23Gi of memory, that Pod will not fit on the node.
+
+By looking at the “Pods” section, you can see which Pods are taking up space on
+the node.
+
+The amount of resources available to Pods is less than the node capacity because
+system daemons use a portion of the available resources. Within the Kubernetes API,
+each Node has a `.status.allocatable` field
+(see [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
+for details).
+
+The `.status.allocatable` field describes the amount of resources that are available
+to Pods on that node (for example: 15 virtual CPUs and 7538 MiB of memory).
+For more information on node allocatable resources in Kubernetes, see
+[Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/).
+
+You can configure [resource quotas](/docs/concepts/policy/resource-quotas/)
+to limit the total amount of resources that a namespace can consume.
+Kubernetes enforces quotas for objects in particular namespace when there is a
+ResourceQuota in that namespace.
+For example, if you assign specific namespaces to different teams, you
+can add ResourceQuotas into those namespaces. Setting resource quotas helps to
+prevent one team from using so much of any resource that this over-use affects other teams.
+
+You should also consider what access you grant to that namespace:
+**full** write access to a namespace allows someone with that access to remove any
+resource, including a configured ResourceQuota.
+
+### My container is terminated
+
+Your container might get terminated because it is resource-starved. To check
+whether a container is being killed because it is hitting a resource limit, call
+`kubectl describe pod` on the Pod of interest:
+
+```shell
+kubectl describe pod simmemleak-hra99
+```
+
+The output is similar to:
+```
+Name:                           simmemleak-hra99
+Namespace:                      default
+Image(s):                       saadali/simmemleak
+Node:                           kubernetes-node-tf0f/10.240.216.66
+Labels:                         name=simmemleak
+Status:                         Running
+Reason:
+Message:
+IP:                             10.244.2.75
+Containers:
+  simmemleak:
+    Image:  saadali/simmemleak:latest
+    Limits:
+      cpu:          100m
+      memory:       50Mi
+    State:          Running
+      Started:      Tue, 07 Jul 2019 12:54:41 -0700
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Fri, 07 Jul 2019 12:54:30 -0700
+      Finished:     Fri, 07 Jul 2019 12:54:33 -0700
+    Ready:          False
+    Restart Count:  5
+Conditions:
+  Type      Status
+  Ready     False
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  42s   default-scheduler  Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
+  Normal  Pulled     41s   kubelet            Container image "saadali/simmemleak:latest" already present on machine
+  Normal  Created    41s   kubelet            Created container simmemleak
+  Normal  Started    40s   kubelet            Started container simmemleak
+  Normal  Killing    32s   kubelet            Killing container with id ead3fb35-5cf5-44ed-9ae1-488115be66c6: Need to kill Pod
+```
+
+In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
+container in the Pod was terminated and restarted five times (so far).
+The `OOMKilled` reason shows that the container tried to use more memory than its limit.
+
+Your next step might be to check the application code for a memory leak. If you
+find that the application is behaving how you expect, consider setting a higher
+memory limit (and possibly request) for that container.
+
+## {{% heading "whatsnext" %}}
+
+* Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+* Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
+* Read more about the [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/)
+* Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
