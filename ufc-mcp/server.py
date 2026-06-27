@@ -10,6 +10,7 @@ import argparse
 import html as html_lib
 import json
 import re
+import sys
 import time
 from datetime import datetime, timezone
 from typing import Any, Optional
@@ -19,16 +20,18 @@ from fastmcp import FastMCP
 
 CACHE_TTL_SECONDS = 900
 HTTP_TIMEOUT_SECONDS = 20
-# Limit cheap paragraph scanning to the page header area where UFC exposes profile summary text.
+# Limit paragraph scanning to the early page header area where UFC profile summary text is expected.
 HTML_TEXT_SCAN_LIMIT = 12000
 UFC_BASE = "https://www.ufc.com"
 # UFC.com uses this fragment to jump to the "Past" events section on the events page.
 PAST_EVENTS_HASH = "702702e1-80ec-4e69-8ad6-40eca8ff3e5c"
 RANKINGS_CACHE_TTL_SECONDS = 3600
 EVENTS_CACHE_TTL_SECONDS = 1800
+# UFC rankings list a champion plus ranked positions 1-15 for each division.
 MAX_RANKED_FIGHTERS = 15
 MIN_NAME_LENGTH = 2
 MAX_NICKNAME_WORDS = 4
+FIGHT_RECORD_PATTERN = r"\d+\s*-\s*\d+(?:\s*-\s*\d+)?(?:\s*\([^)]*\))?"
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -157,7 +160,7 @@ def _extract_text_candidates(html: str) -> list[str]:
 
 def _guess_record(texts: list[str]) -> Optional[str]:
     for text in texts:
-        if re.fullmatch(r"\d+\s*-\s*\d+(?:\s*-\s*\d+)?(?:\s*\([^)]*\))?", text):
+        if re.fullmatch(FIGHT_RECORD_PATTERN, text):
             return text
     return None
 
@@ -183,6 +186,7 @@ def _guess_nickname(texts: list[str], excluded_texts: set[str]) -> Optional[str]
 
 def _extract_labeled_pairs(html: str) -> dict[str, str]:
     pairs: dict[str, str] = {}
+    # These patterns mirror current UFC.com CSS hooks and may need updates if the site markup changes.
     patterns = [
         (
             r"<dt[^>]*>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>",
@@ -416,9 +420,12 @@ async def get_fighter(name: str) -> str:
             )
         _set(cache_key, data)
         return json.dumps({**data, "cached": False, "source": "ufc.com"}, ensure_ascii=False)
+    except httpx.TimeoutException:
+        return json.dumps({"error": "Request to UFC.com timed out.", "slug": slug}, ensure_ascii=False)
     except httpx.HTTPStatusError as error:
+        message = "Fighter not found" if error.response.status_code == 404 else "Request failed"
         return json.dumps(
-            {"error": f"HTTP {error.response.status_code}", "slug": slug},
+            {"error": f"{message} (HTTP {error.response.status_code})", "slug": slug},
             ensure_ascii=False,
         )
     except Exception as error:
@@ -452,6 +459,11 @@ async def search_fighter(query: str) -> str:
                     {**data, "slug": attempt, "cached": False, "source": "ufc.com"},
                     ensure_ascii=False,
                 )
+        except httpx.TimeoutException:
+            return json.dumps(
+                {"error": "Request to UFC.com timed out.", "tried_slugs": attempts},
+                ensure_ascii=False,
+            )
         except httpx.HTTPStatusError:
             continue
         except Exception as error:
@@ -496,6 +508,8 @@ async def get_rankings() -> str:
             },
             ensure_ascii=False,
         )
+    except httpx.TimeoutException:
+        return json.dumps({"error": "Request to UFC.com timed out."}, ensure_ascii=False)
     except Exception as error:
         return json.dumps({"error": str(error)}, ensure_ascii=False)
 
@@ -543,6 +557,11 @@ async def get_events(event_type: str = "upcoming") -> str:
                 "source": "ufc.com",
                 "event_type": event_type,
             },
+            ensure_ascii=False,
+        )
+    except httpx.TimeoutException:
+        return json.dumps(
+            {"error": "Request to UFC.com timed out.", "event_type": event_type},
             ensure_ascii=False,
         )
     except Exception as error:
@@ -593,16 +612,17 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=None, help="HTTP port (omit for stdio mode)")
     args = parser.parse_args()
 
-    print(f"[ufc-mcp] Source: {UFC_BASE}")
+    print(f"[ufc-mcp] Source: {UFC_BASE}", file=sys.stderr)
     print(
         "[ufc-mcp] Cache TTLs: "
         f"default={CACHE_TTL_SECONDS}s rankings={RANKINGS_CACHE_TTL_SECONDS}s "
-        f"events={EVENTS_CACHE_TTL_SECONDS}s"
+        f"events={EVENTS_CACHE_TTL_SECONDS}s",
+        file=sys.stderr,
     )
 
     if args.port:
-        print(f"[ufc-mcp] HTTP on 127.0.0.1:{args.port}")
+        print(f"[ufc-mcp] HTTP on 127.0.0.1:{args.port}", file=sys.stderr)
         mcp.run(transport="streamable-http", host="127.0.0.1", port=args.port)
     else:
-        print("[ufc-mcp] stdio transport")
+        print("[ufc-mcp] stdio transport", file=sys.stderr)
         mcp.run(transport="stdio")
