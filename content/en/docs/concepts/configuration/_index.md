@@ -16,7 +16,7 @@ then run that exact same image in a production context. Doing that gives you
 better confidence in your testing, compared with if you deployed the application
 one way for tests and a different way in production.
 
-If you wanted to learn about configuring the `kubectl` command line tool,
+To learn about configuring the `kubectl` command-line tool,
 read [configure access to multiple clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 
 <!-- body -->
