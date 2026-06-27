@@ -32,6 +32,36 @@ MAX_RANKED_FIGHTERS = 15
 MIN_NAME_LENGTH = 2
 MAX_NICKNAME_WORDS = 4
 FIGHT_RECORD_PATTERN = r"\d+\s*-\s*\d+(?:\s*-\s*\d+)?(?:\s*\([^)]*\))?"
+EVENT_DATE_FORMATS = ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%S", "%B %d, %Y")
+_LABELED_PAIR_PATTERNS = [
+    (
+        re.compile(r"<dt[^>]*>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>", re.I | re.S),
+        "label_first",
+    ),
+    (
+        re.compile(
+            r'class="[^"]*(?:c-bio__label|field__label|c-overlap__stats-text|c-stat-3bar__label)[^"]*"[^>]*>(.*?)</[^>]+>\s*'
+            r'<[^>]+class="[^"]*(?:c-bio__text|field__item|c-overlap__stats-value|c-stat-3bar__value)[^"]*"[^>]*>(.*?)</',
+            re.I | re.S,
+        ),
+        "label_first",
+    ),
+    (
+        re.compile(
+            r'class="[^"]*(?:c-overlap__stats-value|c-stat-compare__number)[^"]*"[^>]*>(.*?)</[^>]+>\s*'
+            r'<[^>]+class="[^"]*(?:c-overlap__stats-text|c-stat-compare__label)[^"]*"[^>]*>(.*?)</',
+            re.I | re.S,
+        ),
+        "value_first",
+    ),
+]
+_EVENT_CARD_PATTERN = re.compile(
+    r'<a[^>]+href="(?P<href>/event/[^"]+)"[^>]*>.*?'
+    r'<h3[^>]*>(?P<name>.*?)</h3>.*?'
+    r'(?:<div[^>]*class="[^"]*date[^"]*"[^>]*>(?P<date>.*?)</div>)?.*?'
+    r'(?:<div[^>]*class="[^"]*location[^"]*"[^>]*>(?P<location>.*?)</div>)?',
+    re.I | re.S,
+)
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -179,6 +209,9 @@ def _guess_nickname(texts: list[str], excluded_texts: set[str]) -> Optional[str]
             continue
         if text.startswith('"') and text.endswith('"'):
             return text.strip('"')
+    for text in texts:
+        if text in excluded_texts or len(text) < MIN_NAME_LENGTH:
+            continue
         if not any(ch.isdigit() for ch in text) and len(text.split()) <= MAX_NICKNAME_WORDS:
             return text
     return None
@@ -187,24 +220,8 @@ def _guess_nickname(texts: list[str], excluded_texts: set[str]) -> Optional[str]
 def _extract_labeled_pairs(html: str) -> dict[str, str]:
     pairs: dict[str, str] = {}
     # These patterns mirror current UFC.com CSS hooks and may need updates if the site markup changes.
-    patterns = [
-        (
-            r"<dt[^>]*>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>",
-            "label_first",
-        ),
-        (
-            r'class="[^"]*(?:c-bio__label|field__label|c-overlap__stats-text|c-stat-3bar__label)[^"]*"[^>]*>(.*?)</[^>]+>\s*'
-            r'<[^>]+class="[^"]*(?:c-bio__text|field__item|c-overlap__stats-value|c-stat-3bar__value)[^"]*"[^>]*>(.*?)</',
-            "label_first",
-        ),
-        (
-            r'class="[^"]*(?:c-overlap__stats-value|c-stat-compare__number)[^"]*"[^>]*>(.*?)</[^>]+>\s*'
-            r'<[^>]+class="[^"]*(?:c-overlap__stats-text|c-stat-compare__label)[^"]*"[^>]*>(.*?)</',
-            "value_first",
-        ),
-    ]
-    for pattern, mode in patterns:
-        for first, second in re.findall(pattern, html, re.I | re.S):
+    for pattern, mode in _LABELED_PAIR_PATTERNS:
+        for first, second in pattern.findall(html):
             label, value = (first, second) if mode == "label_first" else (second, first)
             clean_label = _clean(label).rstrip(":")
             clean_value = _clean(value)
@@ -295,7 +312,7 @@ def _parse_event_date(value: str | None) -> Optional[str]:
     if not value:
         return None
     value = value.strip()
-    for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%S", "%B %d, %Y"):
+    for fmt in EVENT_DATE_FORMATS:
         try:
             dt = datetime.strptime(value, fmt)
             return dt.date().isoformat()
@@ -304,6 +321,15 @@ def _parse_event_date(value: str | None) -> Optional[str]:
     if re.match(r"\d{4}-\d{2}-\d{2}", value):
         return value[:10]
     return value
+
+
+def _date_sort_value(value: str | None) -> tuple[int, str]:
+    if not value:
+        return (1, "")
+    parsed = _parse_event_date(value)
+    if parsed and re.fullmatch(r"\d{4}-\d{2}-\d{2}", parsed):
+        return (0, parsed)
+    return (1, parsed or "")
 
 
 def _parse_events(html: str) -> list[dict[str, Any]]:
@@ -345,14 +371,7 @@ def _parse_events(html: str) -> list[dict[str, Any]]:
     if events:
         return _unique(events, ("name", "date"))
 
-    card_pattern = re.compile(
-        r'<a[^>]+href="(?P<href>/event/[^"]+)"[^>]*>.*?'
-        r'<h3[^>]*>(?P<name>.*?)</h3>.*?'
-        r'(?:<div[^>]*class="[^"]*date[^"]*"[^>]*>(?P<date>.*?)</div>)?.*?'
-        r'(?:<div[^>]*class="[^"]*location[^"]*"[^>]*>(?P<location>.*?)</div>)?',
-        re.I | re.S,
-    )
-    for match in card_pattern.finditer(html):
+    for match in _EVENT_CARD_PATTERN.finditer(html):
         events.append(
             {
                 "name": _clean(match.group("name")),
@@ -366,8 +385,7 @@ def _parse_events(html: str) -> list[dict[str, Any]]:
 
 def _sort_events(events: list[dict[str, Any]], reverse: bool) -> list[dict[str, Any]]:
     def sort_key(event: dict[str, Any]) -> tuple[int, str]:
-        date = event.get("date")
-        return (0, date) if date else (1, "")
+        return _date_sort_value(event.get("date"))
 
     return sorted(events, key=sort_key, reverse=reverse)
 
