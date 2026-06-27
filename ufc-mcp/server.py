@@ -302,6 +302,7 @@ def _parse_rankings(html: str) -> list[dict[str, Any]]:
             {
                 "division": division,
                 "champion": fighters[0],
+                # Some UFC.com ranking blocks can be shorter than 15 entries during site updates.
                 "ranked": fighters[1 : MAX_RANKED_FIGHTERS + 1],
             }
         )
@@ -462,7 +463,7 @@ async def search_fighter(query: str) -> str:
     """
     slug = _slugify(query)
     attempts = [slug]
-    parts = [part for part in slug.split("-") if part]
+    parts = [part for part in slug.split("-") if len(part) >= MIN_NAME_LENGTH]
     if len(parts) > 1:
         attempts.extend([parts[-1], parts[0], "-".join(reversed(parts))])
     attempts = list(dict.fromkeys(filter(None, attempts)))
@@ -556,15 +557,15 @@ async def get_events(event_type: str = "upcoming") -> str:
     if hit := _get(cache_key):
         return json.dumps({"events": hit, "cached": True}, ensure_ascii=False)
 
+    today = datetime.now(timezone.utc).date().isoformat()
     try:
         html = await _fetch(url_map[event_type])
         events = _parse_events(html)
-        now = datetime.now(timezone.utc).date().isoformat()
         if event_type == "upcoming":
-            filtered = [event for event in events if not event.get("date") or event["date"] >= now]
+            filtered = [event for event in events if not event.get("date") or event["date"] >= today]
             filtered = _sort_events(filtered, reverse=False)
         else:
-            filtered = [event for event in events if event.get("date") and event["date"] < now]
+            filtered = [event for event in events if event.get("date") and event["date"] < today]
             filtered = _sort_events(filtered, reverse=True)
         _set(cache_key, filtered, ttl=EVENTS_CACHE_TTL_SECONDS)
         return json.dumps(
