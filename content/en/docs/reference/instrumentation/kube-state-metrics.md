@@ -1300,7 +1300,7 @@ Beta metrics observe a looser API contract than its stable counterparts. No labe
 	</div>
 </div>
 
-### List of Alpha kube-state-metrics Metrics
+### List of Alpha kube-state-metrics Metrics [WIP]
 
 Alpha metrics do not have any API guarantees. These metrics must be used at your own risk, subsequent versions of kube-state-metrics may remove these metrics altogether, or mutate the API in such a way that breaks existing dashboards and alerts. 
 
