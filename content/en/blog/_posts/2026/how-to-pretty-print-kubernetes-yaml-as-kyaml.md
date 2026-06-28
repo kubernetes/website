@@ -4,7 +4,7 @@ title: "How to Pretty-Print Your Kubernetes YAML as KYAML and Why You'd Want To"
 draft: true
 slug: how-to-pretty-print-kubernetes-yaml-as-kyaml
 author: >
-  Kashish Verma (https://github.com/KashishV999)
+  [Kashish Verma](https://github.com/KashishV999)
 ---
 
 
@@ -15,14 +15,14 @@ The interesting part is that Kubernetes doesn't actually need most of those feat
 That led the Kubernetes community to ask a simple question: if Kubernetes only needs a small part of YAML, why not *standardize* on that part and avoid the rest? Instead of introducing a new configuration language, it proposes **KYAML**, a stricter, more consistent way to write YAML. 
 
 
-## What is KYAML? ([KEP 5295](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/5295-kyaml/README.md))
+## What is KYAML? 
 
-***KYAML is a strict subset (or "dialect") of standard YAML, designed to be parseable by the existing ecosystem without any changes.*** It does not introduce a new format or a new parser. It just narrows the scope of choices you make when writing YAML, so everyone ends up making the same ones.
+***KYAML is a strict subset (or "dialect") of standard YAML, designed to be parseable by the existing ecosystem without any changes ([KEP 5295](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/5295-kyaml/README.md)).*** It does not introduce a new format or a new parser. It just narrows the scope of choices you make when writing YAML, so everyone ends up making the same ones.
 
 Think of it less like a new language and more like an agreed-upon style. ***Everything valid in KYAML is valid YAML.*** 
 
 
-## How KYAML Solves It
+## How KYAML solves it
 
 Standard YAML has a few well-known traps and JSON is not without its own.
 
@@ -87,7 +87,7 @@ spec:
 ```
 
 
-## Pretty-Printing Your YAML as KYAML
+## How to pretty print YAML as KYAML
 
 There are different ways to get KYAML output.
 
@@ -149,9 +149,9 @@ yamlfmt ./k8s/
 The `kyaml` formatter takes no additional configuration and does not share options with the default formatter so mixing them will cause an error.
 
 
-## Is KYAML Worth Adopting?
+## Is KYAML worth adopting?
 
-Every valid KYAML file is a valid YAML file. So whatever you write in KYAML, your existing tools, your `kubectl`, your CI pipelines , none of them need to change. You can even pass KYAML as input to any version of `kubectl`, not just 1.34+, because at the end of the day it is just YAML.
+Every valid KYAML file is a valid YAML file. So whatever you write in KYAML, your existing tools, your `kubectl`, your CI pipelines, none of them need to change. You can even pass KYAML as input to any version of `kubectl`, not just 1.34+, because at the end of the day it is just YAML.
 
 KYAML is not strictly necessary. You can keep writing block-style YAML and things will work. But it is a *deliberate choice* to make your configs less error-prone and more consistent especially across a team or a larger repo. 
 
