@@ -184,9 +184,7 @@ utilization instead of 48% and scales out.
 One strategy for preserving equivalent absolute CPU thresholds is to
 recalculate HPA's utilization target proportionally after a resize:
 
-```math
-\text{newTarget} = \text{originalTarget} \times \frac{\text{oldRequest}}{\text{newRequest}}
-```
+\\(\text{newTarget} = \text{originalTarget} \times \frac{\text{oldRequest}}{\text{newRequest}}\\)
 
 If the original HPA target was 70% and requests dropped from 500m to
 300m, the new target becomes **70% × (500 ÷ 300) ≈ 117%**. This preserves
@@ -223,9 +221,7 @@ range query) over the observation window:
 At low confidence, apply a buffer that adds headroom. At full
 confidence, the buffer shrinks to zero:
 
-```math
-\text{confidenceFactor} = 1 + \text{multiplier} \times (1 - \text{confidence})^{\text{exponent}}
-```
+\\(\text{confidenceFactor} = 1 + \text{multiplier} \times (1 - \text{confidence})^{\text{exponent}}\\)
 
 With the defaults of multiplier=1.0 and exponent=2.0, a workload with
 no data gets a 100% safety buffer that decays quadratically as
@@ -265,9 +261,7 @@ exceeds 3× the 95th percentile, the workload exhibits bursty behavior.
 A logarithmic boost based on burst magnitude adds proportional
 headroom:
 
-```math
-\text{burstFactor} = 1 + \text{sensitivity} \times \log_2\!\left(\frac{\text{max}}{\text{p95}}\right)
-```
+\\(\text{burstFactor} = 1 + \text{sensitivity} \times \log_2\!\left(\frac{\text{max}}{\text{p95}}\right)\\)
 
 A 4× burst magnitude adds 20% headroom. An 8× burst adds 30%. The
 logarithmic curve prevents extreme bursts from inflating recommendations
