@@ -16,21 +16,15 @@ could build the images, but I could not point users at GHCR as an official
 Kubernetes project distribution path. I learned in the `#github-management`
 channel on the [Kubernetes Slack](https://slack.k8s.io/) that GHCR is not
 supported for that role. Publishing the two images through the official route,
-`registry.k8s.io`, ended up involving four repositories:
-`kubernetes-sigs/cluster-inventory-api`,
+`registry.k8s.io`, ended up involving the application repository
+(`kubernetes-sigs/cluster-inventory-api`) and three Kubernetes infrastructure or
+configuration repositories:
 [`kubernetes/k8s.io`](https://github.com/kubernetes/k8s.io),
 [`kubernetes/test-infra`](https://github.com/kubernetes/test-infra), and
 [`kubernetes/org`](https://github.com/kubernetes/org).
 
-The two images that finally shipped were:
-
-```none
-registry.k8s.io/cluster-inventory-api/secretreader:v0.1.3
-registry.k8s.io/cluster-inventory-api/kubeconfig-secretreader:v0.1.3
-```
-
-The first successful `registry.k8s.io` release was `v0.1.2`; after I found a
-mistake, I re-released the images as `v0.1.3`.
+The two plugin images for the `cluster-inventory-api` project ultimately shipped
+under `registry.k8s.io`.
 
 This post has two parts. Part 1 follows the `cluster-inventory-api` case: how the
 plan changed and where the release path broke down. Part 2 turns that experience
@@ -58,8 +52,8 @@ to be provided as a reusable artifact
 
 ### 1. The original plan was ghcr.io
 
-The first plan was to use a GitHub Actions workflow to build `plugins/*` with
-Docker Buildx on tag pushes and publish to GHCR (`ghcr.io`)
+The first plan was to use a GitHub Actions workflow to build container images for
+`plugins/*` on tag pushes and publish to GHCR (`ghcr.io`)
 ([cluster-inventory-api#40](https://github.com/kubernetes-sigs/cluster-inventory-api/pull/40)).
 Along the way I added a `RELEASE.md`, `v0.1.0` was released, and the push to
 GHCR succeeded.
@@ -148,6 +142,16 @@ After approval from the SIG Multicluster leads, the promotion PR merged and the
 `v0.1.2` images were promoted to `registry.k8s.io/cluster-inventory-api/`. I
 confirmed the production images could be pulled, published the GitHub release,
 and announced the result in the relevant issues and on Slack.
+
+The two images that finally shipped were:
+
+```none
+registry.k8s.io/cluster-inventory-api/secretreader:v0.1.3
+registry.k8s.io/cluster-inventory-api/kubeconfig-secretreader:v0.1.3
+```
+
+The first successful `registry.k8s.io` release was `v0.1.2`; after I found a
+mistake, I re-released the images as `v0.1.3`.
 
 ## Part 2: how to publish a new image to registry.k8s.io
 
