@@ -16,7 +16,7 @@ could build the images, but I could not point users at GHCR as an official
 Kubernetes project distribution path. I learned in the `#github-management`
 channel on the [Kubernetes Slack](https://slack.k8s.io/) that GHCR is not
 supported for that role. Publishing the two images through the official route,
-`registry.k8s.io`, ended up involving the application repository
+`registry.k8s.io`, ended up involving the image-owning repository
 (`kubernetes-sigs/cluster-inventory-api`) and three Kubernetes infrastructure or
 configuration repositories:
 [`kubernetes/k8s.io`](https://github.com/kubernetes/k8s.io),
@@ -81,7 +81,7 @@ Kubernetes-owned infrastructure instead of the project's own CI.
 
 {{< figure src="ghcr-vs-official-path.svg" alt="Two flows compared. In the ghcr.io approach, a tag push triggers GitHub Actions and pushes to ghcr.io, where the image stays private and has no release path. In the official path, a tag push triggers a Prow postsubmit job, which runs Cloud Build and pushes to a staging registry. The image promoter then copies the image to registry.k8s.io." >}}
 
-That PR merged, so the project repository could now describe how to build a
+That PR merged, so the image-owning repository could now describe how to build a
 staging image. But the infrastructure that receives that image did not exist
 yet.
 
@@ -159,7 +159,7 @@ This is the procedure for a Kubernetes SIG publishing images under
 `registry.k8s.io/<project>/...` for the first time. The repositories involved and
 their dependencies look like this:
 
-{{< figure src="dependency-overview.svg" alt="A dependency graph for first-time registry.k8s.io image publishing. The application repo provides cloudbuild.yaml and make release-staging, and a signed release tag triggers the kubernetes/test-infra image-pushing postsubmit job. In kubernetes/k8s.io, a staging Google Group must exist before the staging registry can be created, and that registry is the job's push target. The postsubmit job pushes the staging image. That staging image, together with image promoter config in kubernetes/k8s.io and OWNERS validation through kubernetes/org membership, promotes the image to registry.k8s.io." class="diagram-large" clicktozoom="true" caption="First-time setup dependencies for publishing a Kubernetes SIG's image to registry.k8s.io." >}}
+{{< figure src="dependency-overview.svg" alt="A dependency graph for first-time registry.k8s.io image publishing. The image-owning repository provides cloudbuild.yaml and make release-staging, and a signed release tag triggers the kubernetes/test-infra image-pushing postsubmit job. In kubernetes/k8s.io, a staging Google Group must exist before the staging registry can be created, and that registry is the job's push target. The postsubmit job pushes the staging image. That staging image, together with image promoter config in kubernetes/k8s.io and OWNERS validation through kubernetes/org membership, promotes the image to registry.k8s.io." class="diagram-large" clicktozoom="true" caption="First-time setup dependencies for publishing a Kubernetes SIG's image to registry.k8s.io." >}}
 
 ### Before you start: choose registry paths, tag policy, and owners
 
@@ -180,7 +180,7 @@ Throughout Part 2, `<project>` is the registry path segment (for example
 `secretreader`), `<version>` is the numeric release version (for example
 `0.1.2`, so `v<version>` is `v0.1.2`), and `<yourname>` is your GitHub username.
 
-### 1. Make the application repo build images
+### 1. Make the image-owning repository build images
 
 Set up the repository so that a tag push can build and push a staging image. You
 need:
@@ -222,7 +222,7 @@ are set correctly. Reference:
 
 ### 4. Add an image-pushing postsubmit job in kubernetes/test-infra
 
-Add a job under `config/jobs/image-pushing/` that runs the application repo's
+Add a job under `config/jobs/image-pushing/` that runs the image-owning repository's
 `cloudbuild.yaml` on a tag push or postsubmit and pushes to the staging
 registry. Reference:
 [kubernetes/test-infra#36821](https://github.com/kubernetes/test-infra/pull/36821).
@@ -237,7 +237,7 @@ but fail because the permission or repository is missing.
 
 With everything above in place, push a
 [signed tag](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-tags)
-from the application repo:
+from the image-owning repository:
 
 ```bash
 git tag -s v<version>
@@ -293,11 +293,11 @@ Because of the dependencies, the first time through goes most smoothly in this
 order:
 
 1. `kubernetes/org`: Kubernetes organization membership
-2. application repo: image build, `release-staging` target, `cloudbuild.yaml`
+2. image-owning repository: image build, `release-staging` target, `cloudbuild.yaml`
 3. `kubernetes/k8s.io`: staging Google Group
 4. `kubernetes/k8s.io`: staging registry
 5. `kubernetes/test-infra`: image-pushing postsubmit job
-6. application repo: push the release tag, verify the staging image
+6. image-owning repository: push the release tag, verify the staging image
 7. `kubernetes/k8s.io`: image promoter configuration and promotion entry
 8. verify the release, publish the GitHub release
 
