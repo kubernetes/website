@@ -415,22 +415,14 @@ Events:
   Warning  FailedScheduling  23s   default-scheduler  0/42 nodes available: insufficient cpu
 ```
 
-In the preceding example, the Pod named "frontend" fails to be scheduled due to
-insufficient CPU resource on any node. Similar error messages can also suggest
-failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
-is pending with a message of this type, there are several things to try:
+در مثال قبلی، Pod با نام "frontend" به دلیل کمبود منابع CPU در هر گره، در زمان‌بندی با شکست مواجه می‌شود. پیام‌های خطای مشابه همچنین می‌توانند نشان‌دهنده‌ی شکست به دلیل کمبود حافظه باشند (PodExceedsFreeMemory). به طور کلی، اگر یک Pod با پیامی از این نوع در حال انتظار باشد، چندین کار برای امتحان کردن وجود دارد:
 
-- Add more nodes to the cluster.
-- Terminate unneeded Pods to make room for pending Pods.
-- Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
-  never be scheduled.
-- Check for node taints. If most of your nodes are tainted, and the new Pod does
-  not tolerate that taint, the scheduler only considers placements onto the
-  remaining nodes that don't have that taint.
+- گره‌های بیشتری به خوشه اضافه کنید.
+- پادهای غیرضروری را خاتمه دهید تا جا برای پادهای در حال انتظار باز شود.
+- بررسی کنید که Pod از همه گره‌ها بزرگتر نباشد. برای مثال، اگر همه گره‌ها ظرفیت `cpu: 1` داشته باشند، Pod با درخواست `cpu: 1.1` هرگز زمان‌بندی نخواهد شد.
+- بررسی آلودگی‌های گره. اگر بیشتر گره‌های شما آلوده شده‌اند و پاد جدید آن آلودگی را تحمل نمی‌کند، زمان‌بند فقط قرارگیری‌ها را روی گره‌های باقی‌مانده که آن آلودگی را ندارند، در نظر می‌گیرد.
 
-You can check node capacities and amounts allocated with the
-`kubectl describe nodes` command. For example:
+شما می‌توانید ظرفیت گره‌ها و مقادیر اختصاص داده شده را با دستور `kubectl describe nodes` بررسی کنید. برای مثال:
 
 ```shell
 kubectl describe nodes e2e-test-node-pool-4lw4
@@ -462,40 +454,31 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
-In the preceding output, you can see that if a Pod requests more than 1.120 CPUs
-or more than 6.23Gi of memory, that Pod will not fit on the node.
+در خروجی قبلی، می‌توانید ببینید که اگر یک Pod بیش از ۱.۱۲۰ CPU یا بیش از ۶.۲۳Gi حافظه درخواست کند، آن Pod روی گره جا نمی‌شود.
 
-By looking at the “Pods” section, you can see which Pods are taking up space on
-the node.
+با نگاه کردن به بخش «Pods»، می‌توانید ببینید کدام پادها (Pods) در نود فضا اشغال کرده‌اند.
 
-The amount of resources available to Pods is less than the node capacity because
-system daemons use a portion of the available resources. Within the Kubernetes API,
-each Node has a `.status.allocatable` field
-(see [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
-for details).
+میزان منابع موجود برای پادها کمتر از ظرفیت گره است زیرا
+دِیمن‌های سیستم از بخشی از منابع موجود استفاده می‌کنند. در API کوبرنتیز،
+هر گره یک فیلد `.status.allocatable` دارد
+(برای جزئیات بیشتر به [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
+for details) مراجعه کنید).
 
-The `.status.allocatable` field describes the amount of resources that are available
-to Pods on that node (for example: 15 virtual CPUs and 7538 MiB of memory).
-For more information on node allocatable resources in Kubernetes, see
-[Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/).
+فیلد `.status.allocatable` مقدار منابعی را توصیف می‌کند که برای پادهای (Pods) موجود در آن نود (Node) قابل تخصیص است (برای مثال: ۱۵ پردازنده مجازی و ۷۵۳۸ مگابایت حافظه).
+برای کسب اطلاعات بیشتر درباره منابع قابل تخصیص نود در کوبرنتیز (Kubernetes)، به بخش
+[Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/). مراجعه کنید.
 
-You can configure [resource quotas](/docs/concepts/policy/resource-quotas/)
-to limit the total amount of resources that a namespace can consume.
-Kubernetes enforces quotas for objects in particular namespace when there is a
-ResourceQuota in that namespace.
-For example, if you assign specific namespaces to different teams, you
-can add ResourceQuotas into those namespaces. Setting resource quotas helps to
-prevent one team from using so much of any resource that this over-use affects other teams.
+شما می‌توانید [resource quotas](/docs/concepts/policy/resource-quotas/) را پیکربندی کنید تا میزان کل منابعی را که یک فضای نام می‌تواند مصرف کند، محدود کنید.
+کوبرنتیز سهمیه‌بندی را برای اشیاء در یک فضای نام خاص اعمال می‌کند، زمانی که یک
+ResourceQuota در آن فضای نام وجود داشته باشد.
+برای مثال، اگر فضاهای نام خاصی را به تیم‌های مختلف اختصاص دهید، می‌توانید ResourceQuotas را به آن فضاهای نام اضافه کنید. تعیین سهمیه منابع به جلوگیری از استفاده بیش از حد یک تیم از هر منبعی که این استفاده بیش از حد بر تیم‌های دیگر تأثیر می‌گذارد، کمک می‌کند.
 
-You should also consider what access you grant to that namespace:
-**full** write access to a namespace allows someone with that access to remove any
-resource, including a configured ResourceQuota.
+همچنین باید در نظر بگیرید که چه دسترسی‌هایی را به آن فضای نام اعطا می‌کنید:
+**دسترسی کامل** برای نوشتن به یک فضای نام به فردی که آن دسترسی را دارد، اجازه می‌دهد هر منبعی، از جمله ResourceQuota پیکربندی شده را حذف کند.
 
-### My container is terminated
+### کانتینر من منقضی شده است
 
-Your container might get terminated because it is resource-starved. To check
-whether a container is being killed because it is hitting a resource limit, call
-`kubectl describe pod` on the Pod of interest:
+ممکن است کانتینر شما به دلیل کمبود منابع از کار بیفتد. برای بررسی اینکه آیا یک کانتینر به دلیل رسیدن به محدودیت منابع از کار افتاده است یا خیر، دستور `kubectl describe pod` را در Pod مورد نظر فراخوانی کنید:
 
 ```shell
 kubectl describe pod simmemleak-hra99
@@ -540,21 +523,18 @@ Events:
   Normal  Killing    32s   kubelet            Killing container with id ead3fb35-5cf5-44ed-9ae1-488115be66c6: Need to kill Pod
 ```
 
-In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
-container in the Pod was terminated and restarted five times (so far).
-The `OOMKilled` reason shows that the container tried to use more memory than its limit.
 
-Your next step might be to check the application code for a memory leak. If you
-find that the application is behaving how you expect, consider setting a higher
-memory limit (and possibly request) for that container.
+در مثال قبلی، «تعداد راه‌اندازی مجدد: ۵» نشان می‌دهد که کانتینر «simmemleak» در Pod پنج بار (تاکنون) خاتمه یافته و مجدداً راه‌اندازی شده است. دلیل «OOMKilled» نشان می‌دهد که کانتینر سعی کرده از حافظه بیشتری نسبت به محدودیت خود استفاده کند.
 
-## {{% heading "whatsnext" %}}
+قدم بعدی شما می‌تواند بررسی کد برنامه برای یافتن نشت حافظه باشد. اگر متوجه شدید که برنامه مطابق انتظار شما رفتار می‌کند، تنظیم محدودیت حافظه بالاتر (و احتمالاً درخواست) برای آن کانتینر را در نظر بگیرید.
 
-* Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-* Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-* Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+## {{% heading "بعدی چیست؟" %}}
+
+* تجربه عملی [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* تجربه عملی [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+*نحوه تعریف مرجع API را بخوانید [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
-* Read more about the [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/)
-* Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
-* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
-* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* بیشتر بخوانید در مورد [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/)
+*  تجربه عملی  [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+*  تجربه عملی  [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
+*  تجربه عملی  [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
