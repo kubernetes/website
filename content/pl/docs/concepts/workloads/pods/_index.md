@@ -421,18 +421,7 @@ Statyczne Pody są zawsze powiązane z jednym komponentem {{< glossary_tooltip t
 Głównym zastosowaniem statycznych Podów jest uruchamianie samodzielnie hostowanej warstwy sterowania: innymi słowy, użycie
 kubeleta do nadzorowania poszczególnych [komponentów warstwy sterowania](/docs/concepts/architecture/#control-plane-components).
 
-Kubelet automatycznie próbuje utworzyć {{< glossary_tooltip text="Pod lustrzany" term_id="mirror-pod" >}}
-na serwerze API Kubernetesa dla każdego
-statycznego Poda. Oznacza to, że Pody działające na węźle są widoczne na serwerze
-API, ale nie mogą być z niego kontrolowane. Więcej informacji znajdziesz w
-przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
-
-{{< note >}}
-`spec` statycznego Poda nie może odwoływać się do innych obiektów
-API (np. {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, itp.).
-{{< /note >}}
+Więcej informacji znajdziesz w przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
 
 ## Pody z wieloma kontenerami {#how-pods-manage-multiple-containers}
 

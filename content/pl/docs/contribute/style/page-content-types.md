@@ -13,6 +13,9 @@ Dokumentacja Kubernetesa obejmuje kilka typów treści stron:
 - Samouczek (ang. Tutorial)
 - Materiały źródłowe (ang. Reference)
 
+Jako wskazówkę dotyczącą struktury i stylu pisania poszczególnych typów
+stron możesz wykorzystać framework dokumentacyjny [Diátaxis](https://diataxis.fr/).
+
 <!-- body -->
 
 ## Sekcje treści {#content-sections}
@@ -136,10 +139,15 @@ Każdą sekcję uzupełnij treścią. Użyj następujących wytycznych:
 
 - Użyj nagłówków poziomu H2 lub niższego (z dwoma wiodącymi
   znakami `#`). Sekcje są automatycznie tytułowane przez szablon.
-- Dla `overview` użyj akapitu, aby ustawić kontekst dla całego tematu.
+- Dla `overview`, użyj akapitu, aby ustawić kontekst dla całego
+  tematu. Krótko wyjaśnij, dlaczego czytelnik miałby chcieć wykonać to
+  zadanie - czyli opisz motywację lub przypadek użycia - aby mógł ocenić, czy
+  strona jest dla niego istotna, zanim zacznie czytać kolejne kroki.
 - Dla `prerequisites` używaj list punktowanych, kiedy to możliwe. Zaczynaj dodawać dodatkowe
   wymagania wstępne poniżej `include`. Domyślne wymagania wstępne obejmują działający klaster Kubernetesa.
-- Dla `steps` używaj numerowanych list.
+- Dla `steps` używaj numerowanych list i skup się bezpośrednio na
+  zadaniu. Jeśli wykonanie kroku wymaga dodatkowego wyjaśnienia, skieruj
+  czytelnika do odpowiedniej strony, zamiast duplikować treść w instrukcji.
 - Do omówienia użyj standardowej treści, aby rozwinąć
   informacje zawarte w sekcji `steps`.
 - Dla `whatsnext`, podaj listę punktowaną z maksymalnie 5 tematami,
