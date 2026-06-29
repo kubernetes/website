@@ -39,37 +39,37 @@ container orchestration, combined with best-of-breed ideas from the community.
 {{< tutorials/modules >}}
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_01.svg"
       alt="Module 1"
       title="1. Create a Kubernetes cluster" >}}
 
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_02.svg"
       alt="Module 2"
       title="2. Deploy an app" >}}
 
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/explore/explore-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_03.svg"
       alt="Module 3"
       title="3. Explore your app" >}}
 
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/expose/expose-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_04.svg"
       alt="Module 4"
       title="4. Expose your app publicly" >}}
 
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/scale/scale-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_05.svg"
       alt="Module 5"
       title="5. Scale up your app" >}}
 
   {{< tutorials/module
       path="/docs/tutorials/kubernetes-basics/update/update-intro/"
-      image="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06.svg"
       alt="Module 6"
       title="6. Update your app" >}}
 {{< /tutorials/modules >}}

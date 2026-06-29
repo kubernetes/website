@@ -1,12 +1,43 @@
-{{ $path := .Get "path" }}
-{{ $defaultLang := .Site.Params.defaultContentLanguage | default "en" }}
-{{ $url := $path }}
-{{ if ne .Page.Lang $defaultLang }}
-    {{ $url = printf "/%s%s" .Page.Lang $path }}
-{{ end }}
+{{- $path := .Get "path" -}}
+{{- $imagePath := .Get "image" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $title := .Get "title" | default "" -}}
+
+{{- $url := $path | relLangURL -}}
+
+{{- /* Find SVG on disk: content/{lang} → content/en → static */ -}}
+{{- $cleanSrc := index (split $imagePath "?") 0 -}}
+{{- $svgContent := "" -}}
+{{- if strings.HasSuffix $cleanSrc ".svg" -}}
+  {{- $trimmedSrc := strings.TrimPrefix "/" $cleanSrc -}}
+  {{- $pageLang := $.Page.Language.Lang -}}
+  {{- $defaultLang := $.Site.Params.defaultContentLanguage | default "en" -}}
+  {{- $contentPath := printf "content/%s/%s" $pageLang $trimmedSrc -}}
+  {{- if fileExists $contentPath -}}
+    {{- $svgContent = readFile $contentPath -}}
+  {{- else -}}
+    {{- $fallbackPath := printf "content/%s/%s" $defaultLang $trimmedSrc -}}
+    {{- if fileExists $fallbackPath -}}
+      {{- $svgContent = readFile $fallbackPath -}}
+    {{- else -}}
+      {{- $staticPath := printf "static/%s" $trimmedSrc -}}
+      {{- if fileExists $staticPath -}}
+        {{- $svgContent = readFile $staticPath -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 <div class="module">
-    <a href="{{ $url }}">
-        <img src="{{ .Get "image" }}" alt="{{ .Get "alt" }}">
-        <h5>{{ .Get "title" }}</h5>
-    </a>
+  {{ if $url }}<a href="{{ $url }}">{{ end }}
+    {{- if $svgContent -}}
+      {{- /* Strip explicit color-scheme so inline SVGs inherit the page's data-bs-theme
+             (fixes light-dark() not respecting class-based dark mode toggle) */ -}}
+      {{- $svgContent = replace $svgContent "color-scheme: light dark;" "" -}}
+      {{- $svgContent | safeHTML -}}
+    {{- else -}}
+      <img src="{{ $imagePath }}" alt="{{ $alt }}" />
+    {{- end -}}
+    {{ if $title }}<h5>{{ $title }}</h5>{{ end }}
+  {{ if $url }}</a>{{ end }}
 </div>
