@@ -1,7 +1,7 @@
 ---
-title: "Introducing the Cluster API plugin for Headlamp (headlamp-k8s/plugins)"
-draft: true
+title: "Introducing the Cluster API plugin for Headlamp"
 layout: blog
+date: 2026-06-25T14:00:00-08:00
 slug: headlamp-cluster-api-plugin
 author: "[Chayan Das](https://github.com/ChayanDass) (independent)"
 ---

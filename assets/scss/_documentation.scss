@@ -12,6 +12,7 @@
 
 div.feature-state-notice {
   background-color: $feature;
+  color: #000;
   border-radius: 0.75rem;
   padding: 1rem;
   margin-bottom: 1em;
@@ -111,7 +112,7 @@ div.api-reference-header-note.empty {
   border-color: #428bca;
 
   h4, h4.alert-heading {
-    color: #000;
+    color: var(--bs-body-color);
     display: block;
     float: initial;
     font-size: 1rem;

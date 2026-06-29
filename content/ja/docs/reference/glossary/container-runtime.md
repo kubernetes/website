@@ -1,7 +1,7 @@
 ---
 title: コンテナランタイム
 id: container-runtime
-full_link: /ja/docs/setup/production-environment/container-runtimes
+full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
  コンテナランタイムは、コンテナの実行を担当するソフトウェアです。
 
@@ -10,12 +10,9 @@ tags:
 - fundamental
 - workload
 ---
- コンテナランタイムは、コンテナの実行を担当するソフトウェアです。
+ Kubernetesがコンテナを効果的に実行するために不可欠なコンポーネントです。
+ Kubernetes環境においてコンテナの実行とライフサイクルの管理を担います。
 
 <!--more-->
 
-Kubernetesは次の複数のコンテナランタイムをサポートします。
-{{< glossary_tooltip term_id="docker">}}、{{< glossary_tooltip term_id="containerd" >}}、{{< glossary_tooltip term_id="cri-o" >}}、
-および全ての
-[Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md)
-実装です。
+Kubernetesは{{< glossary_tooltip term_id="containerd" >}}、{{< glossary_tooltip term_id="cri-o" >}}などのコンテナランタイムと、[Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md)のすべての実装をサポートします。

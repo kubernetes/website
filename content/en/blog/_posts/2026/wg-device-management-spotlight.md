@@ -2,9 +2,8 @@
 layout: blog
 title: "Spotlight on WG Device Management"
 slug: wg-device-management-spotlight-2026
-date: 2026-06-17
-canonical_url: https://www.kubernetes.dev/blog/2026/06/17/wg-device-management-spotlight-2026
-draft: true
+date: 2026-06-24T10:00:00-08:00
+canonicalUrl: https://www.kubernetes.dev/blog/2026/06/17/wg-device-management-spotlight-2026
 author: "Natalie Fisher"
 ---
 
