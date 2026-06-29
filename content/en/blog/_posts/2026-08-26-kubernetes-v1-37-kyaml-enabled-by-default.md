@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.37: KYAML is enabled by default"
+title: "Kubernetes v1.37: KYAML graduates to stable (GA)"
 date: 2026-08-26T10:30:00-08:00
 slug: kubernetes-v1-37-kyaml-enabled-by-default
 author: Tim Hockin (Google)
@@ -8,13 +8,11 @@ author: Tim Hockin (Google)
 
 Kubernetes manifests are most commonly authored in YAML, a format whose
 flexibility can introduce ambiguity and subtle errors. To address this, SIG CLI
-introduced KYAML, a Kubernetes-specific output format for `kubectl`, as an alpha
-feature in Kubernetes v1.34, gated behind the `KUBECTL_KYAML` environment
-variable. KYAML graduated to beta in v1.35.
+introduced KYAML, a Kubernetes-specific output format for `kubectl`.
 
-With the release of Kubernetes v1.37, KYAML output is now stable and **enabled
-by default**. Setting the `KUBECTL_KYAML` environment variable is no longer
-required to request KYAML output from `kubectl`.
+With the release of Kubernetes v1.37, KYAML is now **stable**. As a generally
+available feature, KYAML is a permanent part of `kubectl`, and its output format
+is now covered by Kubernetes' compatibility guarantees.
 
 ## What is KYAML?
 
@@ -110,21 +108,31 @@ replacement.
 
 ### Migrating from the environment variable
 
-During the alpha and beta stages, requesting KYAML required setting
-`KUBECTL_KYAML="true"` before `kubectl` would accept `-o kyaml`. As of v1.37
-this is no longer necessary: the format is enabled by default and the
-environment variable is no longer required.
+During the alpha stage (v1.34), requesting KYAML required setting
+`KUBECTL_KYAML="true"` before `kubectl` would accept `-o kyaml`. Beginning with
+the beta in v1.35, KYAML became enabled by default and the environment variable
+was no longer required.
 
-Any existing `KUBECTL_KYAML` setting in a shell profile or CI configuration can
-be removed. Leaving it in place has no effect.
+Any existing `KUBECTL_KYAML` setting left over from the alpha stage can be
+removed from a shell profile or CI configuration. Leaving it in place has no
+effect.
 
 ## What changed in v1.37
 
-The primary change is that **KYAML output is enabled by default**. There is no
-feature gate to enable and no environment variable to set. All other behavior is
-unchanged from the alpha and beta stages: KYAML remains a strict subset of YAML,
-and Kubernetes continues to accept ordinary YAML and JSON as input. The way
-manifests are written is unaffected, and there are no plans to change it.
+The primary change is that **KYAML has graduated to stable**. KYAML was
+already enabled by default as of the beta in v1.35; v1.37 promotes it from beta
+to general availability. In practice this means:
+
+* KYAML is now a permanent part of `kubectl`.
+* Its output format is covered by Kubernetes' compatibility guarantees, so the
+  rendering will not change in backwards-incompatible ways. You can rely on it
+  in scripts, diffs, and other tooling.
+* There is no feature gate to enable and no environment variable to set.
+
+All other behavior is unchanged from the alpha and beta stages: KYAML remains a
+strict subset of YAML, and Kubernetes continues to accept ordinary YAML and JSON
+as input. The way manifests are written is unaffected, and there are no plans to
+change it.
 
 ## Examples
 
