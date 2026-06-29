@@ -5,7 +5,6 @@ date: 2026-06-29T10:00:00-08:00
 slug: kube-resource-orchestrator-kro
 author: >
   [Yash Israni](https://github.com/yashisrani)
-  [Kubernetes SIG Cloud Provider](https://github.com/kubernetes/community/tree/master/sig-cloud-provider)
 ---
 
 If you've ever built a platform on top of Kubernetes, you know the drill. Someone asks for a "simple web app" and suddenly you're stitching together a Deployment, a Service, an Ingress, maybe a ConfigMap, a ServiceAccount, some network policies, and oh right — they also need a database. Before long, you're either writing yet another Helm chart, maintaining a custo$$m controller, or asking your team to carefully copy-paste YAML from a wiki page.
