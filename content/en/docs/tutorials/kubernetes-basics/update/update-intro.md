@@ -41,24 +41,11 @@ versioned and any Deployment update can be reverted to a previous (stable) versi
 
 ## Rolling updates overview
 
-<!-- animation -->
-{{< tutorials/carousel id="myCarousel" interval="3000" >}}
-  {{< tutorials/carousel-item
-      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg"
-      active="true" >}}
-
-  {{< tutorials/carousel-item
-      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg" >}}
-
-  {{< tutorials/carousel-item
-      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg" >}}
-
-  {{< tutorials/carousel-item
-      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg" >}}
-{{< /tutorials/carousel >}}
+<!-- svg animation -->
+{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates.svg" class="diagram-medium" >}}
 
 {{% alert %}}
-If a Deployment is publicly exposed, the Service will send traffic only to Pods that can handle requests.  
+If a Deployment is publicly exposed, the Service will send traffic only to Pods that can handle requests.
 This ensures users continue to access the application during an update.
 {{% /alert %}}
 
