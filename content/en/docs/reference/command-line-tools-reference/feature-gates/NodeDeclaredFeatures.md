@@ -13,6 +13,9 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 Enables Nodes to report supported features via their `.status`. This enables the 
 scheduler and admission controller to prevent operations on nodes lacking features
