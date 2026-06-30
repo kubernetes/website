@@ -34,6 +34,8 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 - `net.ipv4.tcp_syncookies` (namespaced since kernel 4.6+).
 - `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
 - `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_slow_start_after_idle` (since Kubernetes 1.37, needs kernel 4.15+).
+- `net.ipv4.tcp_notsent_lowat` (since Kubernetes 1.37, needs kernel 4.6+).
 - `net.ipv4.vs.conn_reuse_mode` (used in `ipvs` proxy mode, needs kernel 4.1+);
 
 ### kube proxy `nftables` proxy mode
