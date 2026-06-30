@@ -226,6 +226,10 @@ to run the `nftables` proxy mode, you should also consider trying the
 introduced.
 {{< /note >}}
 
+{{< warning >}}
+The `ipvs` proxy mode will be disabled in Kubernetes 1.40 and removed in Kubernetes 1.43.
+{{< /warning >}}
+
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
 
