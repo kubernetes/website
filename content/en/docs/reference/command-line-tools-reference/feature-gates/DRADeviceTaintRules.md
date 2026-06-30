@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.37"
 ---
 Enables support for
 [tainting devices through DeviceTaintRule objects](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-taints-and-tolerations)

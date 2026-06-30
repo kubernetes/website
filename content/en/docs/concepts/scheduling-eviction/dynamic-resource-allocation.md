@@ -28,6 +28,16 @@ api_metadata:
   kind: "DeviceClass"
 - apiVersion: "resource.k8s.io/v1beta2"
   kind: "ResourceSlice"
+- apiVersion: "resource.k8s.io/v1"
+  kind: "DeviceTaintRule"
+- apiVersion: "resource.k8s.io/v1"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1"
+  kind: "ResourceSlice"
 ---
 
 <!-- overview -->
@@ -938,14 +948,6 @@ All devices must be untainted or all of their taints must be tolerated.
 Allocating a device with admin access (described [above](#admin-access))
 is not exempt either. An admin using that mode must explicitly tolerate all taints
 to access tainted devices.
-
-Device taints and tolerations is a *beta feature* and enabled when the
-[`DRADeviceTaints` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceTaints)
-is kept enabled in the kube-apiserver, kube-controller-manager and kube-scheduler.
-To use DeviceTaintRules, the `resource.k8s.io/v1beta2` API version must be
-enabled together with the [`DRADeviceTaintRules` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceTaintRules).
-In contrast to `DRADeviceTaints`, `DRADeviceTaintRules` is off by default because of this dependency
-on the beta API group, which has to be off by default.
 
 You can add taints to devices in the following ways, by using the DeviceTaintRule API kind.
 
