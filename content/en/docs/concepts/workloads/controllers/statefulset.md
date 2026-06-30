@@ -324,6 +324,8 @@ annotations for the Pods in a StatefulSet. There are two possible values:
 
 ## Rolling Updates
 
+<Placeholder for recreate strategy>
+
 When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
 in the same order as Pod termination (from the largest ordinal to the smallest), updating
