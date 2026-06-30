@@ -21,8 +21,8 @@ performance, and finer-grained visibility into distributions.
 
 To use native histograms, you need:
 
-- **Kubernetes v1.36 or later** with the `NativeHistograms`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled.
+- **Kubernetes v1.36 or later**. In v1.36, the `NativeHistograms`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled manually. From v1.37, the feature is in Beta and enabled by default.
 - **Prometheus 2.40 or later** to scrape and store native histograms.
   Prometheus 3.0+ is recommended for per-job configuration.
 
@@ -85,9 +85,11 @@ This dual exposition strategy ensures:
 Enabling native histograms is a two-step process: enable the feature gate on
 Kubernetes components, and configure Prometheus to scrape native histograms.
 
-### Step 1: Enable the Kubernetes feature gate
+### Step 1: Ensure the Kubernetes feature gate is enabled
 
-Enable the `NativeHistograms` feature gate on the Kubernetes components
+The `NativeHistograms` feature gate is enabled by default in Kubernetes v1.37.
+If you are using Kubernetes v1.36, or if you have explicitly disabled the feature,
+enable the `NativeHistograms` feature gate on the Kubernetes components
 you want to expose native histograms from:
 
 ```bash
