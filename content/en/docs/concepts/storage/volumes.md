@@ -1173,6 +1173,27 @@ OCI-level:
 - [runc](https://runc.io/), since v1.1
 - [crun](https://github.com/containers/crun), since v1.8.6
 
+## Bind mount options
+
+{{< feature-state feature_gate_name="VolumeBindMountOptions" >}}
+
+The `.spec.containers[*].volumeMounts[*].bindMountOptions` field lets you apply security-related
+Linux bind mount flags to any volume mount. The allowed values are:
+
+* `noexec` - prevents execution of binaries on the mounted volume
+* `nodev` - ignores device special files on the mounted volume
+* `nosuid` - ignores set-user-identifier or set-group-identifier bits on the mounted volume
+
+These options apply per container, so different containers in the same Pod can mount
+the same volume with different bind mount options. The field is not supported with
+[image volumes](#image).
+
+{{< note >}}
+The container runtime (such as containerd or CRI-O) must support the `mount_options`
+field in the CRI `Mount` message. If the runtime does not advertise support, the kubelet
+rejects Pods that use `bindMountOptions`. This field has no effect on Windows nodes.
+{{< /note >}}
+
 ## {{% heading "whatsnext" %}}
 
 Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
