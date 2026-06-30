@@ -106,7 +106,7 @@ configured, the kubelet subtracts the node's total hugepage capacity from
 Without this adjustment, hugepage-reserved RAM inflates
 `AvailableBytes` because the memory cgroup controller does not track hugetlb
 allocations in its working set. This can delay eviction and lead to OOM kills.
-To restore the previous behavior, disable the `HugepageAwareEviction`
+To restore the previous behavior temporarily while adopting your workloads, disable the `HugepageAwareEviction`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{</note>}}
 
