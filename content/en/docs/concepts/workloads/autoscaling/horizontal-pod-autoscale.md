@@ -614,6 +614,36 @@ For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu=80%`
 will create an autoscaler for ReplicaSet _foo_, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 
+## Scaling to and from zero
+
+{{< feature-state feature_gate_name="HPAScaleToZero" >}}
+
+For HorizontalPodAutoscalers that scale on [custom](#scaling-on-custom-metrics) (object) or
+external metrics, you can set `spec.minReplicas` to `0`. The workload is then scaled all the way
+down to zero replicas when there is no load, and scaled back up again once the metric crosses its
+target. This is useful for workloads that are idle for long periods and expensive to keep running,
+such as consumers of an occasionally-used queue or jobs that require dedicated hardware like GPUs.
+
+Scaling to zero is only supported for object and external metrics. It is not available for
+resource metrics (such as CPU or memory utilization), because those can only be measured on
+running Pods. Setting `minReplicas: 0` requires at least one object or external metric to be
+configured; the API server rejects the HorizontalPodAutoscaler otherwise.
+
+This behavior is controlled by the `HPAScaleToZero`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), which is enabled by
+default. The feature gate must be enabled on both the
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} (which allows
+`minReplicas: 0`) and the
+{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
+(which performs the scaling).
+
+While the HPA is holding a workload at zero replicas, it records a `ScaledToZero` condition set to
+`True` on the HorizontalPodAutoscaler's status. The HPA uses this condition to distinguish a
+workload that it scaled to zero (and will scale back up when the metric returns) from one that was
+[manually deactivated](#implicit-maintenance-mode-deactivation) by setting its replica count to
+`0`. Once the workload is scaled back up, the condition is set to `False` with the reason
+`NotScaledToZero`.
+
 ## Implicit maintenance-mode deactivation
 
 You can implicitly deactivate the HPA for a target without the
