@@ -47,11 +47,14 @@ and actual requests from the status when making scheduling decisions.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodVerticalScaling)
 must be enabled
 for your control plane and for all nodes in your cluster.
 
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
+
+The `InPlacePodVerticalScalingExclusiveCPUs`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodVerticalScalingExclusiveCPUS)
+must be enabled to resize in-place Guaranteed QoS Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 
 ## Pod resize status
 
@@ -148,7 +151,7 @@ to a race condition where memory usage may spike right after the check is perfor
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
-* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
+* **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/memory-manager/)
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
