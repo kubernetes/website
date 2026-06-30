@@ -14,9 +14,10 @@ weight: 100
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
 {{< glossary_tooltip text="CSI" term_id="csi" >}} volume health monitoring allows
-CSI Drivers to detect abnormal volume conditions from the underlying storage systems
-and report them as events on {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}}
-or {{< glossary_tooltip text="Pods" term_id="pod" >}}.
+CSI Drivers to report volume and backend health, and surface those reports on
+{{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}},
+{{< glossary_tooltip text="Pods" term_id="pod" >}}, or
+{{< glossary_tooltip text="CSINode" term_id="csinode" >}} where automation can act on them.
 
 <!-- body -->
 
