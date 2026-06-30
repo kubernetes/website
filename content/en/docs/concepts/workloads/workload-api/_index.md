@@ -83,6 +83,8 @@ This data is not used to schedule or manage the Workload.
 
 {{< feature-state feature_gate_name="WorkloadWithJob" >}}
 
+<Placeholder for Job controller integration>
+
 When the
 [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate is enabled, the
