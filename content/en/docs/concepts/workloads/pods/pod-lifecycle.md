@@ -606,7 +606,7 @@ through which the Pod has or has not passed. The kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-ready-to-start-containers)) the
+* `PodReadyToStartContainers`: (stable feature; enabled by [default](#pod-ready-to-start-containers)) the
   Pod sandbox has been successfully created, networking configured, storage volumes mounted,
   and any dynamic resources (if requested) allocated.
 * `ContainersReady`: all containers in the Pod are ready.
