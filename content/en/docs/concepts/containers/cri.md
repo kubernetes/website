@@ -65,6 +65,31 @@ If the container runtime does not support streaming RPCs, the kubelet
 automatically falls back to the standard unary RPCs for backward
 compatibility.
 
+## Pod-level checkpoint and restore APIs
+
+The CRI v1 `RuntimeService` API defines `CheckpointPod` and `RestorePod` RPCs
+for Pod-level checkpoint and restore.
+
+`CheckpointPod` asks the container runtime to create a checkpoint for a Pod
+sandbox and the containers specified by the CRI client. The runtime writes the
+checkpoint files to the supplied output directory. `RestorePod` restores a Pod
+sandbox and its containers from checkpoint data at the checkpoint path
+supplied by the CRI client. The runtime does not resume the checkpointed
+workload as part of this RPC. On success, the restored containers remain in
+the `CREATED` state. After any pre-start hooks, the CRI client calls
+`StartContainer` for each returned container ID to resume execution from the
+checkpoint. Both operations accept runtime-specific options.
+
+The checkpoint data format is runtime-specific. The container runtime defines
+the format and layout of the files in the specified directory.
+Kubernetes does not interpret the checkpoint data.
+
+The Kubernetes API and kubelet support for Pod checkpoint and restore
+is planned for a future release.
+
+For protocol details, see the CRI
+[RuntimeService definition](https://github.com/kubernetes/cri-api/blob/47789ac/pkg/apis/runtime/v1/api.proto).
+
 ## {{% heading "whatsnext" %}}
 
 - Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)
