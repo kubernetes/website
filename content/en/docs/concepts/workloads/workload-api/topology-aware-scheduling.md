@@ -14,6 +14,13 @@ TAS ensures that all pods within a PodGroup are co-located into a specific topol
 such as a single server rack or zone. This minimizes inter-pod communication latency and prevents
 workload fragmentation across the cluster infrastructure.
 
+Using TAS requires enabling the
+[`TopologyAwareWorkloadScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#TopologyAwareWorkloadScheduling)
+feature gate on both the kube-apiserver and the kube-scheduler. The feature gate is disabled
+by default and depends on the
+[`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
+feature gate.
+
 ## Topology-aware scheduling with gang scheduling policy
 
 When applied to PodGroups with `gang` scheduling policy, TAS simulates the potential assignment
@@ -30,10 +37,10 @@ domain where the existing pods currently reside. If that specific domain lacks s
 for the new pods, the pods will remain pending - even if it means that less than `minCount` pods
 are scheduled at this point.
 
-{{< note >}}
-As of v1.36 Topology-Aware Scheduling does not trigger workload or pod preemption. If no
-feasible placement can be found without triggering preemption, the PodGroup becomes unschedulable.
-{{< /note >}}
+If no feasible placement can be found, the scheduler can use
+[workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
+to make room for the PodGroup. Preemption respects the topology constraint, so the scheduler
+only preempts victims that block the whole PodGroup from running in a single topology domain.
 
 ## Topology-aware scheduling with basic scheduling policy
 
@@ -54,12 +61,15 @@ insufficient capacity (in which case the new pods will remain pending).
 
 Every PodGroup (or PodGroupTemplate) may optionally declare the `schedulingConstraints` field,
 which is interpreted by the [placement-based PodGroup scheduling algorithm](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm).
-If constraints are defined in PodGroupTemplate, they will be copied to referencing PodGroups.
+If constraints are defined in a PodGroupTemplate, the controller that creates PodGroups from
+that template is expected to copy them into each PodGroup.
+The `schedulingConstraints` field is immutable, to change the constraints, you need to
+recreate the PodGroup.
 
-As of Kubernetes v1.36, the API supports topology constraints.
+As of Kubernetes v1.38, the API supports topology constraints.
 
 {{< note >}}
-As of Kubernetes v1.36, you can specify only a single topology constraint in each PodGroup.
+As of Kubernetes v1.38, you can specify only a single topology constraint in each PodGroup.
 {{< /note >}}
 
 ### Topology constraint
@@ -68,6 +78,10 @@ To define a topology constraint for a PodGroup you need to set a `key`, which co
 a Kubernetes node label, representing the target topology domain (for example, a rack or a zone).
 The scheduler strictly enforces that all pods within the PodGroup are placed onto nodes that share
 the exact same value for this specified label.
+
+Nodes where the label is missing, or where its value is empty, do not belong to any topology
+domain. The scheduler does not place pods of the PodGroup onto those nodes. If no labeled
+node can host the PodGroup, its pods remain pending.
 
 Here is an example of a PodGroup configured with a topology constraint:
 
@@ -99,7 +113,7 @@ by specifying topology constraints at different levels of a group hierarchy.
 Using the `CompositePodGroup` API requires enabling the
 [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the
-`scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
+`scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 
 ### Multi-level topology constraints resolution
 
@@ -117,7 +131,7 @@ keys are arbitrary node labels. However, the order in which you specify topology
 parent to child determines the order in which the scheduler subdivides topology domains.
 
 {{< note >}}
-As of Kubernetes v1.37, you can specify only a single topology constraint in each
+As of Kubernetes v1.38, you can specify only a single topology constraint in each
 `CompositePodGroup`.
 {{< /note >}}
 
@@ -129,7 +143,7 @@ two child `PodGroupTemplate` entries (`workers` and `driver`) constrain their re
 Pods to server racks (`topology.example.com/rack`) within that zone:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: example-workload
@@ -166,7 +180,7 @@ After creating the `Workload` object, the corresponding group objects are create
   `CompositePodGroup` as their parent group.
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: workload-root
