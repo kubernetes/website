@@ -1157,6 +1157,72 @@ When this property is recognized by kubelet and kube-apiserver,
 the `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` field is set to either
 `Enabled` or `Disabled`.
 
+## File ownership
+
+### Owner GID
+
+Volume file owner GID can be controlled by `spec.securityContext.fsGroup`.
+
+See the [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
+task for more details.
+
+### Owner UID
+
+{{< feature-state feature_gate_name="AtomicWriteVolumeUserFields" >}}
+
+Atomic write volume data file ownership fields can be enabled by setting the `AtomicWriteVolumeUserFields`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and kube-apiserver.
+
+This allows configuring the volume data file owner UID of `configMap`, `secret`, `downwardAPI` and `projected` volumes
+using `defaultUser` and `user` fields.
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volA
+    - name: volC
+      mountPath: /mnt/volA
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo // Owner=defaultUser
+        path: foo
+      - key: bar // Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: // Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo // Owner=root
+            path: moo
+          - key: baa // Owner=user
+            path: baa
+            user: 1000
+```
+
 #### Implementations {#implementations-rro}
 
 {{% thirdparty-content %}}
