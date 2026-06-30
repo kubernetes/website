@@ -67,3 +67,4 @@ spec:
 
 * Read about [Workload-Aware Preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) algorithm.
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
+* Learn about the [scheduling building blocks and the workloadbuilder library](/docs/concepts/workloads/workload-api/workloadbuilder/), including the disruption mode building block.
