@@ -196,7 +196,7 @@ extension points:
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `postFilter`, `podGroupPostFilter`.
-- `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
+- `TopologyPlacementGenerator`: Provides the default placement generation mechanism for PodGroup's topology
   constraints.
   Extension points: `placementGenerate`.
 - `PodGroupPodsCount`: Provides the placement scoring algorithm based on the number of pods that

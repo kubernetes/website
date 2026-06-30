@@ -16,7 +16,7 @@ needs by changing TAS plugins configuration.
 
 The scheduler includes new and extended in-tree plugins that implement the TAS extension points:
 
-*   `TopologyPlacement`: Implements the `PlacementGeneratePlugin` interface. It generates candidate
+*   `TopologyPlacementGenerator`: Implements the `PlacementGeneratePlugin` interface. It generates candidate
 placements by grouping nodes based on the distinct values of the requested topology `key` (defined
 in the PodGroup).
 
@@ -70,6 +70,43 @@ profiles:
                 weight: 3
 ```
 
+### Limiting the number of placements to score {#percentage-of-placements-to-score}
+
+For a topology key with many distinct values, the `TopologyPlacementGenerator` plugin can generate
+a large number of candidate placements. To bound the scheduling latency, the scheduler stops
+searching once it finds enough feasible placements, and scores only those. This is the placement
+counterpart of
+[`percentageOfNodesToScore`](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/#percentage-of-nodes-to-score).
+
+You control the threshold with the `percentageOfPlacementsToScore` field in your
+KubeSchedulerConfiguration. The field accepts whole numbers between 0 and 100. For example, if
+the plugin generates 500 placements and you set the value to 30, the scheduler stops after it finds
+150 feasible placements. The scheduler always tries to find at least one feasible placement.
+
+This field can be set for the whole scheduler, and overridden for an individual profile. A profile
+that leaves the field unset uses the scheduler-wide value.
+
+If the effective value is 0, or the field is unset at both levels, the scheduler computes an
+adaptive percentage from the sum of the node counts of all generated placements. A node that
+belongs to several placements counts once for each of them. The percentage decreases linearly from
+100% when that sum is 0 to 10% when it reaches 5000, and keeps decreasing for larger sums down to a
+minimum of 5%. Setting a profile's value to 0 selects the adaptive percentage for that profile even
+when the scheduler-wide value is non-zero.
+
+The following configuration sets a scheduler-wide value and overrides it for one profile:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+# Applies to every profile that does not set its own value
+percentageOfPlacementsToScore: 50
+profiles:
+  - schedulerName: default-scheduler
+  - schedulerName: exhaustive-placement-scheduler
+    # Evaluate every generated placement
+    percentageOfPlacementsToScore: 100
+```
+
 ## Multi-level topology placements
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
@@ -82,19 +119,19 @@ are enabled, the Topology-Aware Scheduling plugins extend their support to multi
 
 ### Candidate placement generation
 
-For workloads defined with a `CompositePodGroup` hierarchy, the `TopologyPlacement` plugin generates
+For workloads defined with a `CompositePodGroup` hierarchy, the `TopologyPlacementGenerator` plugin generates
 candidate placements top-down across the group hierarchy by successive subdivision:
 
-* For a root `CompositePodGroup`, `TopologyPlacement` generates candidate placements across all
+* For a root `CompositePodGroup`, `TopologyPlacementGenerator` generates candidate placements across all
   available cluster nodes by grouping nodes based on the distinct values of the requested topology
   `key`.
-* For a child `CompositePodGroup` or leaf `PodGroup`, `TopologyPlacement` generates candidate
+* For a child `CompositePodGroup` or leaf `PodGroup`, `TopologyPlacementGenerator` generates candidate
   placements confined in the placement assumed by the parent group. It subdivides the set of nodes
   from the parent group's placement by grouping those nodes based on the child group's requested
   topology `key`.
 
 {{< note >}}
-If a topology constraint is not specified, the `TopologyPlacement` plugin generates a single
+If a topology constraint is not specified, the `TopologyPlacementGenerator` plugin generates a single
 candidate placement equivalent to the parent placement.
 
 Similarly, if the root group does not specify any topology constraint, the plugin generates a single
