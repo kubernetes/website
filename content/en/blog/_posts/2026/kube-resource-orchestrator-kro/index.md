@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing Kube Resource Orchestrator (kro): Simplifying Kubernetes Resource Composition"
-date: 2026-06-29T10:00:00-08:00
+date: true
 slug: kube-resource-orchestrator-kro
 author: >
   [Yash Israni](https://github.com/yashisrani)
