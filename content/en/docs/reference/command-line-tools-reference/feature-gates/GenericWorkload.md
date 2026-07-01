@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.35"
+    toVersion: "1.36"
+  - stage: beta 
+    defaultValue: false
+    fromVersion: "1.37"
 ---
 
 Enables the support for [Workload API](/docs/concepts/workloads/workload-api/) to express scheduling requirements at the workload level.
