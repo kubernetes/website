@@ -254,6 +254,12 @@ spec:
       medium: Memory
 ```
 
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes without restarting the Pod. For more details, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
+{{< /note >}}
+
 #### emptyDir permissions configuration example
 
 ```yaml
