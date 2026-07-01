@@ -2,7 +2,6 @@
 layout: blog
 title: "Kubernetes Dashboard to Headlamp: A Step-by-Step Guide"
 draft: true
-date: 2026-04-01T10:00:00+08:00
 slug: kubernetes-dashboard-to-headlamp
 author: >
   Vincent T. (Microsoft)
@@ -427,7 +426,7 @@ Confirm your provider allows `https://YOUR_URL/oidc-callback`. If you use ingres
 
 ---
 
-## 6. Manage Multiple Clusters
+## 6. Manage multiple clusters
 
 Kubernetes Dashboard is usually tied to one cluster at a time. Headlamp is built for multi-cluster work. It is a client that follows your kubeconfig, not a single cluster install. That means you can keep one UI open and switch clusters as you work.
 
@@ -465,7 +464,7 @@ Multi-cluster does not change security rules. Each cluster still enforces its ow
 
 ---
 
-## 7. Navigate and Understand Resources
+## 7. Navigate and understand resources
 
 If you used Kubernetes Dashboard, this part will feel familiar. Headlamp keeps the same core resource views, but makes it easier to move around and understand what is connected.
 
@@ -518,7 +517,7 @@ Both views work on the same data. You are just choosing how much context you wan
 
 ---
 
-## 8. Deploy Applications with YAML
+## 8. Deploy applications with YAML
 
 This is the biggest change for most Kubernetes Dashboard users. Dashboard relied on forms. Headlamp relies on manifests. The goal is not to slow you down. It is to align the UI with how Kubernetes is usually run in practice.
 
@@ -592,7 +591,7 @@ Headlamp does not replace those tools. It gives you visibility into what they cr
 
 ---
 
-## 9. Deploy and Debug Workloads
+## 9. Deploy and debug workloads
 
 One of the main reasons people used Kubernetes Dashboard was day-to-day debugging. Headlamp covers the same tasks and adds a few useful upgrades.
 
@@ -724,7 +723,7 @@ Make sure your team knows:
 
 ---
 
-## 11. Post-Migration Checklist
+## 11. Post-migration checklist
 
 This final checklist helps you confirm the migration is complete. It gives you confidence that Headlamp is working as expected and that nothing important was left behind.
 
