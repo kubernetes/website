@@ -356,6 +356,12 @@ below:
 3. Subtract out all of the CPUs from the `GetCpuIds` calls from the `GetAllocatableResources` call
 {{< /note >}}
 
+{{< note >}}
+For more detailed and updated documentation on the `PodResources` API, including its
+schema and semantics across different resource managers, see the
+[PodResources API](/docs/concepts/workloads/resource-managers/#podresources-api) section.
+{{< /note >}}
+
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
 {{< feature-state state="stable" for_k8s_version="v1.28" >}}
