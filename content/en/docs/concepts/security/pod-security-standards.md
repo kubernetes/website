@@ -285,6 +285,23 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
+			<td style="white-space: nowrap">Cgroup Options</td>
+			<td>
+				<p>Setting cgroup options (such as writable cgroups) must be disallowed. {{< feature-state for_k8s_version="v1.37" state="alpha" >}}</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.cgroupOptions.mountMode</code></li>
+					<li><code>spec.initContainers[*].securityContext.cgroupOptions.mountMode</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.cgroupOptions.mountMode</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>ReadOnly</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
   			<td>Seccomp</td>
   			<td>
   				<p>Seccomp profile must not be explicitly set to <code>Unconfined</code>.</p>
