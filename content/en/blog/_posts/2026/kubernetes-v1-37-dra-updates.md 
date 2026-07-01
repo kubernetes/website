@@ -3,5 +3,6 @@ layout: blog
 title: 'Kubernetes v1.37: DRA Updates'
 draft: true
 slug: kubernetes-v1-37-dra-updates
-author: Kashish Verma
+author: >
+  Kashish Verma
 ---
