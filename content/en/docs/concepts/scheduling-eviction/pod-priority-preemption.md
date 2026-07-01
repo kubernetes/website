@@ -283,6 +283,23 @@ gone, and Pod P could possibly be scheduled on Node N.
 We may consider adding cross Node preemption in future versions if there is
 enough demand and if we find an algorithm with reasonable performance.
 
+### Preemption for in-place Pod resize {#preemption-for-in-place-pod-resize}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled, preemption also applies when a running Pod's in-place resize request is `Deferred` due to insufficient node capacity.
+
+If a higher-priority Pod cannot be resized in-place because its node lacks available CPU or memory, `kube-scheduler` attempts to preempt lower-priority Pods on that node to free up the required capacity.
+
+Preemption for in-place Pod resize differs from standard Pod placement preemption in several key ways:
+
+* **Node restriction**: Preemption is strictly restricted to the Pod's currently assigned node. The scheduler does not evaluate other candidate nodes across the cluster.
+* **Resource delta calculation**: Required preemption capacity is calculated based on the resource delta (the difference between the desired resources and currently allocated resources), rather than the total Pod request.
+* **Nominated node status**: The `nominatedNodeName` field in the Pod's status is not set, because the Pod is already assigned to and running on its target node.
+* **Kubelet actuation**: The scheduler triggers preemption to free up node capacity, but does not re-bind the Pod. The Kubelet detects the newly freed capacity on the node and performs the actual in-place resize actuation.
+
+For more details on in-place Pod resizing, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
 ## Troubleshooting
 
 Pod priority and preemption can have unwanted side effects. Here are some
