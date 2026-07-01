@@ -102,9 +102,19 @@ installer or remove the Docker Desktop's `kubectl`.
    ```
    {{% /tab %}}
    {{% tab name="scoop" %}}
+
+   If you don't already have Scoop installed:
+
    ```powershell
-   scoop install kubectl
+   irm get.scoop.sh | iex
    ```
+
+   Then install kubectl:
+
+   ```powershell
+     scoop install kubectl
+   ```
+
    {{% /tab %}}
    {{% tab name="winget" %}}
    ```powershell
