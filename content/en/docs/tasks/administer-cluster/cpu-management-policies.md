@@ -187,4 +187,4 @@ For mode detail about the behavior of the individual options you can configure, 
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).
+* Read about [Pod-level resource managers](/docs/concepts/resource-management/pod-level-resource-managers/).
