@@ -774,6 +774,12 @@ other = "Translated By"
 [ui_search]
 other = "Search this site"
 
+[ui_nav_close_menu]
+other = "Close navigation menu"
+
+[ui_nav_open_menu]
+other = "Open navigation menu"
+
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
 
