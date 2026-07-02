@@ -9,7 +9,18 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: deprecated
+    defaultValue: false
+    fromVersion: "1.36"
 ---
+
+<!--
+Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/).
+-->
+已弃用：由
+[DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/)
+取代。
 
 <!--
 When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)
