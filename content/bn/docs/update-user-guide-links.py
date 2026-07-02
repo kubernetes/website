@@ -27,7 +27,7 @@ def find_documents_to_rewrite():
 # Returns the location of the documentation as we will refer to it in the markdown.
 # /docs/path/to/foo/index.md are available at /docs/path/to/foo/
 # /docs/path/to/foo/bar.md are available at /docs/path/to/foo/bar/
-def doc_location(filename):
+def doc_location(filename) -> str:
     if filename.endswith('/index.md'):
         return "/docs/" + filename[:-9] + "/"
     else:
@@ -35,7 +35,7 @@ def doc_location(filename):
 
 REDIRECT_REGEX = re.compile("^.*\[(.*)\]\((.*)\)$")
 
-def get_destinations_for_doc(filename):
+def get_destinations_for_doc(filename) -> list:
     destination_paths = []
     with open(filename) as f:
         lines = [line.rstrip('\n').rstrip('\r') for line in f.readlines()]
