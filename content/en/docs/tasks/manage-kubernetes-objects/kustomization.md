@@ -1021,9 +1021,9 @@ deployment.apps "dev-my-nginx" deleted
 
 | Field | Type | Explanation |
 |-------|------|-------------|
-| bases | []string | Each entry in this list should resolve to a directory containing a kustomization.yaml file |
+| bases (deprecated) | []string | Each entry in this list should resolve to a directory containing a kustomization.yaml file. Use the `resources` field instead. |
 | commonAnnotations | map[string]string | annotations to add to all resources |
-| commonLabels | map[string]string | labels to add to all resources and selectors |
+| commonLabels (deprecated) | map[string]string | Labels to add to all resources and selectors. Use the `labels` field instead. |
 | configMapGenerator | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7) | Each entry in this list generates a ConfigMap |
 | configurations | []string | Each entry in this list should resolve to a file containing [Kustomize transformer configurations](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) |
 | crds | []string | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
@@ -1032,12 +1032,13 @@ deployment.apps "dev-my-nginx" deleted
 | labels | map[string]string | Add labels without automatically injecting corresponding selectors |
 | namePrefix | string | value of this field is prepended to the names of all resources |
 | nameSuffix | string | value of this field is appended to the names of all resources |
-| patchesJson6902 | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list should resolve to a Kubernetes object and a Json Patch |
-| patchesStrategicMerge | []string | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
+| patches | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list can be either a strategic merge patch or a JSON patch, applied to multiple target objects |
+| patchesJson6902 (deprecated) | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list should resolve to a Kubernetes object and a JSON patch. Use the `patches` field instead. |
+| patchesStrategicMerge (deprecated) | []string | Each entry in this list should resolve a strategic merge patch of a Kubernetes object. Use the `patches` field instead. |
 | replacements | [][Replacements](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/replacement.go#L15) | copy the value from a resource's field into any number of specified targets. |
 | resources | []string | Each entry in this list must resolve to an existing resource configuration file |
 | secretGenerator | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7) | Each entry in this list generates a Secret |
-| vars | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19) | Each entry is to capture text from one resource's field |
+| vars (deprecated) | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19) | Each entry is to capture text from one resource's field. Use the `replacements` field instead. |
 
 ## {{% heading "whatsnext" %}}
 
