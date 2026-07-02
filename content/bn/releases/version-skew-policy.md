@@ -23,7 +23,7 @@ description: >
 কুবারনেটিস ভার্সন x.y.z হিসাবে প্রকাশ করা হয়,
 যেখানে x হল মুখ্য ভার্সন, y হল গৌণ ভার্সন এবং z হল প্যাচ ভার্সন (patch version),
 যা [শব্দার্থিক ভার্সন](https://semver.org/) পরিভাষা অনুসরণ করে হয়। অতিরিক্ত তথ্যসমূহের জন্য, দেখুন
-[কুবারনেটিস রিলিজ ভার্সন](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)।
+[কুবারনেটিস রিলিজ ভার্সন](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md#kubernetes-release-versioning)।
 
 কুবারনেটিস প্রজেক্ট সাম্প্রতিক তিনটি পর্যন্ত ছোট রিলিজের জন্য রিলিজ শাখা বজায় রাখে
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})।

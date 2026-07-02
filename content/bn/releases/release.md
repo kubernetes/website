@@ -124,7 +124,7 @@ auto_generated: true
   যা একটি রিলিজ ভার্সন MAJOR.MINOR `vX.Y` নির্দেশ করে।
 
   আরও দেখ
-  [রিলিজ ভার্সনিং](https://git.k8s.io/sig-release/release-engineering/versioning.md).
+  [রিলিজ ভার্সনিং](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md).
 
 - *রিলিজ ব্রাঞ্চ*: Git ব্রাঞ্চ `release-X.Y` তৈরি করা হয়েছে `vX.Y` মাইলস্টোনের জন্য।
 
