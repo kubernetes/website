@@ -47,7 +47,7 @@ passed down among contributors.
 
 Next, there were three technical sharing sessions:
 
-- [sig-multi-cluster](https://github.com/kubernetes/community/blob/master/sig-multicluster/README.md):
+- [sig-multi-cluster](https://github.com/kubernetes/community/blob/main/sig-multicluster/README.md):
   [Hongcai Ren](https://github.com/RainbowMango), a maintainer of Karmada, provided an introduction to
   the responsibilities and roles of this SIG. Their focus is on designing, discussing, implementing,
   and maintaining APIs, tools, and documentation related to multi-cluster management.
@@ -57,7 +57,7 @@ Next, there were three technical sharing sessions:
   from [GitLab](https://gitlab.cn/) presented how to deploy Kubernetes manifests declaratively,
   customize configurations, and leverage the latest features of Helm, including Helmfile.
 
-- [sig-scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md):
+- [sig-scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md):
   [william-wang](https://github.com/william-wang) from Huawei Cloud shared the recent updates and
   future plans of SIG Scheduling. This SIG is responsible for designing, developing, and testing
   components related to Pod scheduling.

@@ -36,7 +36,7 @@ This feature makes it possible for new Kubelet configurations to be rolled out i
 
 Custom Resource Definitions are no longer restricted to defining a single version of the custom resource, a restriction that was difficult to work around. Now, with this beta [feature](https://github.com/kubernetes/features/issues/544), multiple versions of the resource can be defined. In the future, this will be expanded to support some automatic conversions; for now, this feature allows custom resource authors to “promote with safe changes, e.g. v1beta1 to v1,” and to create a migration path for resources which do have changes.
 
-Custom Resource Definitions now also support ["status" and "scale" subresources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/customresources-subresources.md), which integrate with monitoring and high-availability frameworks. These two changes advance the ability to run cloud-native applications in production using Custom Resource Definitions.
+Custom Resource Definitions now also support ["status" and "scale" subresources](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/customresources-subresources.md), which integrate with monitoring and high-availability frameworks. These two changes advance the ability to run cloud-native applications in production using Custom Resource Definitions.
 
 ## Enhancements to CSI
 
@@ -105,7 +105,7 @@ Join members of the Kubernetes 1.11 release team on July 31st at 10am PDT to lea
 
 ## Get Involved
 
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting), and through the channels below.
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/main/communication.md#weekly-meeting), and through the channels below.
 
 Thank you for your continued feedback and support.
 

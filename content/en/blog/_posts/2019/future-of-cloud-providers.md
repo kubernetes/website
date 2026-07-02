@@ -12,7 +12,7 @@ Approximately 9 months ago, the Kubernetes community agreed to form the Cloud Pr
 
 ## The Mission
 
-First and foremost, I want to share what the mission of the SIG is, because we use it to guide our present & future work. Taken straight from our [charter](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/CHARTER.md), the mission of the SIG is to simplify, develop and maintain cloud provider integrations as extensions, or add-ons, to Kubernetes clusters. The motivation behind this is two-fold: to ensure Kubernetes remains extensible and cloud agnostic.
+First and foremost, I want to share what the mission of the SIG is, because we use it to guide our present & future work. Taken straight from our [charter](https://github.com/kubernetes/community/blob/main/sig-cloud-provider/CHARTER.md), the mission of the SIG is to simplify, develop and maintain cloud provider integrations as extensions, or add-ons, to Kubernetes clusters. The motivation behind this is two-fold: to ensure Kubernetes remains extensible and cloud agnostic.
 
 ## The Current State of Cloud Providers
 

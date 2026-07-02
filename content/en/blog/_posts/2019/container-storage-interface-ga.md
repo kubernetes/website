@@ -143,7 +143,7 @@ spec:
 
 When the pod referencing a CSI volume is scheduled, Kubernetes will trigger the appropriate operations against the external CSI plugin (`ControllerPublishVolume`, `NodeStageVolume`, `NodePublishVolume`, etc.) to ensure the specified volume is attached, mounted, and ready to use by the containers in the pod.
 
-For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](/docs/concepts/storage/volumes/#csi).
+For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](/docs/concepts/storage/volumes/#csi).
 
 ## How to write a CSI Driver?
 
@@ -170,7 +170,7 @@ CSI drivers are developed and maintained by third parties. You can find a non-de
 
 ## What about in-tree volume plugins?
 
-There is a plan to migrate most of the persistent, remote in-tree volume plugins to CSI. For more details see [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/csi-migration.md).
+There is a plan to migrate most of the persistent, remote in-tree volume plugins to CSI. For more details see [design doc](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/csi-migration.md).
 
 ## Limitations of GA
 
@@ -189,7 +189,7 @@ The GA implementation of CSI has the following limitations:
 - Work on migrating remote persistent in-tree volume plugins to CSI.
 
 ## How to get involved?
-The Kubernetes Slack channel [wg-csi](https://kubernetes.slack.com/messages/C8EJ01Z46/details/) and the Google group [kubernetes-sig-storage-wg-csi](https://groups.google.com/forum/#!forum/kubernetes-sig-storage-wg-csi) along with any of the standard [SIG storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are all great mediums to reach out to the SIG Storage team.
+The Kubernetes Slack channel [wg-csi](https://kubernetes.slack.com/messages/C8EJ01Z46/details/) and the Google group [kubernetes-sig-storage-wg-csi](https://groups.google.com/forum/#!forum/kubernetes-sig-storage-wg-csi) along with any of the standard [SIG storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are all great mediums to reach out to the SIG Storage team.
 
 This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. We offer a huge thank you to the new contributors who stepped up this quarter to help the project reach GA:
 

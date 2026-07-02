@@ -126,7 +126,7 @@ have that for unit tests and those tend to be less complex.
 **Sandipan:** Testing is always important, but is there anything
 specific to your work in terms of the Kubernetes release process?
 
-**Patrick:** [test flakes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-testing/flaky-tests.md)…
+**Patrick:** [test flakes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-testing/flaky-tests.md)…
 if we have too many of those, development velocity goes down because
 PRs cannot be merged without clean test runs and those become less
 likely. Developers also lose trust in testing and just "retest" until

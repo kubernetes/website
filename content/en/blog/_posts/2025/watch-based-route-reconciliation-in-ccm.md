@@ -17,7 +17,7 @@ is being introduced in v1.35 to allow changing the behavior of the route control
 ## What's new?
 
 The feature gate `CloudControllerManagerWatchBasedRoutesReconciliation` has been
-introduced to [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provider) in alpha stage by [SIG Cloud Provider](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md).
+introduced to [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provider) in alpha stage by [SIG Cloud Provider](https://github.com/kubernetes/community/blob/main/sig-cloud-provider/README.md).
 To enable this feature you can use `--feature-gate=CloudControllerManagerWatchBasedRoutesReconciliation=true`
 in the CCM implementation you are using.
 

@@ -82,7 +82,7 @@ talk about them? Are there some interesting contributions by those teams you wan
 [Kueue](https://github.com/kubernetes-sigs/kueue)
 : Recently, many people have been trying to manage batch workloads with Kubernetes, and in 2022,
   Kubernetes community founded
-  [WG-Batch](https://github.com/kubernetes/community/blob/master/wg-batch/README.md) for better
+  [WG-Batch](https://github.com/kubernetes/community/blob/main/wg-batch/README.md) for better
   support for such batch workloads in Kubernetes. [Kueue](https://github.com/kubernetes-sigs/kueue)
   is a project that takes a crucial role for it. It’s a job queueing controller, deciding when a job
   should wait, when a job should be admitted to start, and when a job should be preempted. Kueue aims
@@ -217,7 +217,7 @@ are what makes our open source so powerful 😊
 
 Feel free to reach out to us in Slack
 ([#sig-scheduling](https://kubernetes.slack.com/archives/C09TP78DV)) or
-[meetings](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#meetings).
+[meetings](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#meetings).
 I hope this article interests everyone and we can see new contributors!
 
 **AP: Thank you so much for taking the time to do this! I'm confident that many will find this

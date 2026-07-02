@@ -141,7 +141,7 @@ However, if you choose to roll a cluster forward or continue using specification
 
 ## How do I get involved?
 
-The Kubernetes Slack channel csi-migration along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel csi-migration along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
 
 This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. We offer a huge thank you to the contributors who stepped up these last quarters to help the project reach Beta:
 

@@ -221,7 +221,7 @@ The features described here, both in their alpha and beta forms, were a true com
 
 
 
-Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting):
+Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/main/communication.md#weekly-meeting):
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates

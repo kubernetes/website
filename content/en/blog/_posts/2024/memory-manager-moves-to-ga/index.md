@@ -63,7 +63,7 @@ enabling CPU and memory affinity on a Windows operating system.
 
 ## Getting involved
 
-This feature is driven by the [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md) community.
+This feature is driven by the [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md) community.
 Please join us to connect with the community
 and share your ideas and feedback around the above feature and
 beyond.

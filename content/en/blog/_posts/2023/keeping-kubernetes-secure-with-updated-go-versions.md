@@ -22,7 +22,7 @@ At the time this was written, just over half of all [Go patch releases](https://
 Even though many of these issues were not relevant to Kubernetes, some were, so it remained important to use supported Go versions that received those fixes.
 
 An obvious solution would be to simply update Kubernetes release branches to new minor versions of Go.
-However, Kubernetes avoids [destabilizing changes in patch releases](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks),
+However, Kubernetes avoids [destabilizing changes in patch releases](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks),
 and historically, this prevented updating existing release branches to new minor versions of Go, due to changes that were considered prohibitively complex, risky, or breaking to include in a patch release.
 Examples include:
 

@@ -115,7 +115,7 @@ The feature was released as beta in v1.31 release of Kubernetes, where it was en
 
 ## How do I get involved?
 
-The Kubernetes Slack channel [SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel [SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
 
 Special thanks to the following people for the insightful reviews, thorough consideration and valuable contribution:
 

@@ -228,7 +228,7 @@ participate in any other ongoing SIG Auth projects, please reach out on the
 [#sig-auth](https://kubernetes.slack.com/archives/C0EN96KUY) channel on Kubernetes Slack.
 
 You are also welcome to join the bi-weekly [SIG Auth
-meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings), held
+meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings), held
 every-other Wednesday.
 
 ## Acknowledgements

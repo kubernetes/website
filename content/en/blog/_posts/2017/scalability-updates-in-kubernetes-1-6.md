@@ -20,7 +20,7 @@ Now that Kubernetes 1.6 is released, it is a good time to review what it means w
 - **Pod startup time** : 99% of pods and their containers (with pre-pulled images) start within 5s.
 As before, it is possible to run larger deployments than the stated supported 5,000-node cluster (and users have), but performance may be degraded and it may not meet our strict SLO defined above.  
 
-We are aware of the limited scope of these SLOs. There are many aspects of the system that they do not exercise. For example, we do not measure how soon a new pod that is part of a service will be reachable through the service IP address after the pod is started. If you are considering using large Kubernetes clusters and have performance requirements not covered by our SLOs, please contact the Kubernetes [Scalability SIG](https://github.com/kubernetes/community/blob/master/sig-scalability/README.md) so we can help you understand whether Kubernetes is ready to handle your workload now.  
+We are aware of the limited scope of these SLOs. There are many aspects of the system that they do not exercise. For example, we do not measure how soon a new pod that is part of a service will be reachable through the service IP address after the pod is started. If you are considering using large Kubernetes clusters and have performance requirements not covered by our SLOs, please contact the Kubernetes [Scalability SIG](https://github.com/kubernetes/community/blob/main/sig-scalability/README.md) so we can help you understand whether Kubernetes is ready to handle your workload now.  
 
 The top scalability-related priority for upcoming Kubernetes releases is to enhance our definition of what it means to support X-node clusters by:  
 
@@ -64,7 +64,7 @@ However, we were still using JSON as a format in which data was stored in etcd, 
 We made tens of optimizations throughout the Kubernetes codebase during the last three releases, including:  
 
 - optimizing the scheduler (which resulted in 5-10x higher scheduling throughput)
-- switching all controllers to a new recommended design using shared informers, which reduced resource consumption of controller-manager - for reference see [this document](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/controllers.md)
+- switching all controllers to a new recommended design using shared informers, which reduced resource consumption of controller-manager - for reference see [this document](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-api-machinery/controllers.md)
 - optimizing individual operations in the API server (conversions, deep-copies, patch)
 - reducing memory allocation in the API server (which significantly impacts the latency of API calls)
 We want to emphasize that the optimization work we have done during the last few releases, and indeed throughout the history of the project, is a joint effort by many different companies and individuals from the whole Kubernetes community.  
@@ -79,7 +79,7 @@ However, that doesn’t mean we are going to stop working on scalability and per
 If you are interested in scalability and performance, please join our community and help us shape Kubernetes. There are many ways to participate, including:  
 
 - Chat with us in the Kubernetes Slack [scalability channel](https://kubernetes.slack.com/messages/sig-scale/):&nbsp;
-- Join our Special Interest Group, [SIG-Scalability](https://github.com/kubernetes/community/blob/master/sig-scalability/README.md), which meets every Thursday at 9:00 AM PST
+- Join our Special Interest Group, [SIG-Scalability](https://github.com/kubernetes/community/blob/main/sig-scalability/README.md), which meets every Thursday at 9:00 AM PST
 Thanks for the support and contributions! Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6).
 
 

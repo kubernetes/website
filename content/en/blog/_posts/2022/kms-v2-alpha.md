@@ -53,7 +53,7 @@ You can learn more about KMS v2 by reading [Using a KMS provider for data encryp
 ## How to get involved
 If you are interested in getting involved in the development of this feature or would like to share feedback, please reach out on the [#sig-auth-kms-dev](https://kubernetes.slack.com/archives/C03035EH4VB) channel on Kubernetes Slack.
 
-You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings), held every-other Wednesday.
+You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings), held every-other Wednesday.
 
 ## Acknowledgements
 This feature has been an effort driven by contributors from several different companies. We would like to extend a huge thank you to everyone that contributed their time and effort to help make this possible.
