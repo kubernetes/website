@@ -56,14 +56,18 @@ Kubernetes — проєкт з відкритими сирцями. Він до
 {{< /blocks/section >}}
 
 {{< blocks/section id="upcoming-events" >}}
-<h2>Відвідайте наступні події KubeCon + CloudNativeCon</h3>
-  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
-  <div>
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Амстердам, Березень. 23-26, 2026)</a>
-  </div>
-  <div>
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>North America</strong> (Солт-Лейк-Сіті, Листопад. 9-12, 2026)</a>
-  </div>
+<h2>Відвідайте наступні події KubeCon + CloudNativeCon</h2>
+<!--
+  Шорткод {{< kubecon-events >}} відображає список подій з файлу data/events/kubecon.yaml.
+  Примітка для локалізації:
+  - Назви регіонів підтримують i18n через ключі kubecon_region_*.
+  - Назви міст залишаються англійською.
+  - Дати зберігаються у форматі ISO 8601 і форматуються за допомогою Hugo's time.Format.
+  - Локалізовані сторінки можуть замінити цей шорткод на статичну, повністю локалізовану версію, якщо це необхідно.
+  - Якщо використовується статична версія, підтримка актуальності інформації про події стає відповідальністю команди локалізації.
+-->
+{{< kubecon-events >}}
+
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
