@@ -60,6 +60,8 @@ A namespace can configure any or all modes, or even set a different level for di
 
 For each mode, there are two labels that determine the policy used:
 
+{{< tabs name="pod_security_labels" >}}
+{{% tab name="YAML" %}}
 ```yaml
 # The per-mode level label indicates which policy level to apply for the mode.
 #
@@ -74,6 +76,24 @@ pod-security.kubernetes.io/<MODE>: <LEVEL>
 # VERSION must be a valid Kubernetes minor version, or `latest`.
 pod-security.kubernetes.io/<MODE>-version: <VERSION>
 ```
+{{% /tab %}}
+{{% tab name="CLI" %}}
+```shell
+# The per-mode level label indicates which policy level to apply for the mode.
+#
+# MODE must be one of `enforce`, `audit`, or `warn`.
+# LEVEL must be one of `privileged`, `baseline`, or `restricted`.
+kubectl label --overwrite ns <NAMESPACE> pod-security.kubernetes.io/<MODE>=<LEVEL>
+ 
+# Optional: per-mode version label that can be used to pin the policy to the
+# version that shipped with a given Kubernetes minor version (for example v{{< skew currentVersion >}}).
+#
+# MODE must be one of `enforce`, `audit`, or `warn`.
+# VERSION must be a valid Kubernetes minor version, or `latest`.
+kubectl label --overwrite ns <NAMESPACE> pod-security.kubernetes.io/<MODE>-version=<VERSION>
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 Check out [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels) to see example usage.
 
