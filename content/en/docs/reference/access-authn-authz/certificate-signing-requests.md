@@ -254,68 +254,14 @@ The Kubernetes control plane implements each of the
 [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
 as part of the kube-controller-manager.
 
+For a hands-on example of creating a CertificateSigningRequest and having it approved and
+signed by the Kubernetes control plane, see
+[Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/).
+
 {{< note >}}
 Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
 were marked as approved.
 {{< /note >}}
-
-{{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.
-Earlier versions of Kubernetes do not honor this field.
-Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
-{{< /note >}}
-
-### API-based signers {#signer-api}
-
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
-subresource of the CSR to be signed.
-
-As part of this request, the `status.certificate` field should be set to contain the
-signed certificate. This field contains one or more PEM-encoded certificates.
-
-All PEM blocks must have the "CERTIFICATE" label, contain no headers,
-and the encoded data must be a BER-encoded ASN.1 Certificate structure
-as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
-
-Example certificate content:
-
-```
------BEGIN CERTIFICATE-----
-MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
-BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
-BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
-MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
-dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
-+e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
-kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
-Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
-sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
-2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
-YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
-Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
-ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
-L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
-qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
-o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
-aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
-M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
------END CERTIFICATE-----
-```
-
-Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
-
-When encoded in JSON or YAML, this field is base-64 encoded.
-A CertificateSigningRequest containing the example certificate above would look like this:
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
-```
 
 ## Approval or rejection  {#approval-rejection}
 
@@ -393,6 +339,59 @@ code using TitleCase; this is a convention but you can set it to anything
 you like. If you want to add a note for human consumption, use the
 `status.conditions.message` field.
 
+## API-based signers {#signer-api}
+
+Users of the REST API can sign CSRs by submitting an **update** request to the `status`
+subresource of the CSR to be signed.
+
+As part of this request, the `status.certificate` field should be set to contain the
+signed certificate. This field contains one or more PEM-encoded certificates.
+
+All PEM blocks must have the "CERTIFICATE" label, contain no headers,
+and the encoded data must be a BER-encoded ASN.1 Certificate structure
+as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
+
+Example certificate content:
+
+```
+-----BEGIN CERTIFICATE-----
+MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
+BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
+BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
+MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
+dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
++e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
+kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
+Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
+sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
+2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
+YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
+ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
+L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
+qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
+o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
+aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
+M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
+-----END CERTIFICATE-----
+```
+
+Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
+
+When encoded in JSON or YAML, this field is base-64 encoded.
+After a CertificateSigningRequest has been approved and signed, it contains the signed 
+certificate in the `status.certificate` field. A CertificateSigningRequest containing 
+the example certificate above would look like this:
+
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
+```
 
 ## PodCertificateRequests {#pod-certificate-requests}
 
