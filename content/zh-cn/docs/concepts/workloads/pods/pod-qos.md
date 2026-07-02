@@ -186,27 +186,93 @@ Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外
 {{< feature-state feature_gate_name="MemoryQoS" >}}
 
 <!--
-Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
-Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
-and `memory.high` provided by the memory controller. When `memory.min` is set to memory requests,
-memory resources are reserved and never reclaimed by the kernel; this is how Memory QoS ensures
-memory availability for Kubernetes pods. And if memory limits are set in the container,
-this means that the system needs to limit container memory usage; Memory QoS uses `memory.high`
-to throttle workload approaching its memory limit, ensuring that the system is not overwhelmed
-by instantaneous memory allocation.
+Memory QoS uses the memory controller of cgroup v2 to manage memory throttling
+and protection in Kubernetes. It uses the Pod's QoS class to decide which cgroup
+settings to apply, but it is a separate opt-in feature. Disabling Memory QoS
+does not change how Pods are classified.
 -->
-内存 QoS 使用 cgroup v2 的内存控制器来保证 Kubernetes 中的内存资源。
-Pod 中容器的内存请求和限制用于设置由内存控制器所提供的特定接口 `memory.min` 和 `memory.high`。
-当 `memory.min` 被设置为内存请求时，内存资源被保留并且永远不会被内核回收；
-这就是内存 QoS 确保 Kubernetes Pod 的内存可用性的方式。而如果容器中设置了内存限制，
-这意味着系统需要限制容器内存的使用；内存 QoS 使用 `memory.high` 来限制接近其内存限制的工作负载，
-确保系统不会因瞬时内存分配而不堪重负。
+内存 QoS 使用 CGroup v2 的内存控制器来管理 Kubernetes 中的内存抑制和保护。
+它使用 Pod 的 QoS 类来决定应用哪些 CGroup 设置，但是这是一个单独的可选功能。
+禁用内存 QoS 不会改变 Pod 的分类方式。
 
 <!--
-Memory QoS relies on QoS class to determine which settings to apply; however, these are different
-mechanisms that both provide controls over quality of service.
+### Memory throttling
+
+For Burstable pods, the kubelet sets `memory.high` to throttle memory allocation
+before the workload hits its hard limit (`memory.max`). The throttling threshold
+is calculated as:
 -->
-内存 QoS 依赖于 QoS 类来确定应用哪些设置；它们的机制不同，但都提供对服务质量的控制。
+### 内存抑制
+
+对于 Burstable 级别的 Pod，kubelet 设置 `memory.high`
+来在工作负载达到其硬限制（`memory.max`）之前节流内存分配。
+抑制阈值的计算方式为：
+
+```
+memory.high = requests + memoryThrottlingFactor * (limits - requests)
+```
+
+<!--
+where `memoryThrottlingFactor` defaults to 0.9. For example, a container with a
+256 MiB request and a 1 GiB limit gets `memory.high` set to roughly 947 MiB.
+If a Burstable container has no memory limit, node allocatable memory is used in
+place of the limit.
+-->
+其中 `memoryThrottlingFactor` 默认为 0.9。
+例如，一个具有 256 MiB 请求和 1 GiB 限制的容器，其 `memory.high` 大约为 947 MiB。
+如果 Burstable 容器没有内存限制，则使用节点可分配内存来代替限制。
+
+<!--
+Guaranteed pods do not get `memory.high` because their requests equal their
+limits. BestEffort pods do not get `memory.high` because they have no requests
+or limits.
+-->
+Guaranteed 级别的 Pod 不会获得 `memory.high`，因为它们的请求等于其限制。
+BestEffort 级别的 Pod 不会获得 `memory.high`，因为它们没有任何请求或限制。
+
+<!--
+### Configuring memory reservation
+
+Memory reservation is controlled via the kubelet configuration field
+`memoryReservationPolicy`:
+-->
+### 配置内存预留
+
+内存预留通过 kubelet 配置字段 `memoryReservationPolicy` 进行控制：
+
+<!--
+- `None` (default): the kubelet does not set `memory.min` or `memory.low` for
+  containers and pods. No memory is hard-locked by the kernel.
+- `TieredReservation`: the kubelet sets tiered memory protection based on the
+  Pod's QoS class:
+  - **Guaranteed** pods: `memory.min` is set to memory requests. The kernel
+    will not reclaim this memory under any circumstances.
+  - **Burstable** pods: `memory.low` is set to memory requests. The kernel
+    preferentially retains this memory but may reclaim it under extreme pressure.
+  - **BestEffort** pods: no memory protection is set.
+-->
+- `None` （默认）：kubelet 不为容器和 Pod 设置 `memory.min` 或 `memory.low`。内核不会硬锁定任何内存。
+- `TieredReservation`：kubelet 根据 Pod 的 QoS 类设置分层内存保护：
+  - **Guaranteed** Pod：设置 `memory.min` 为内存请求值。内核在任何情况下都不会回收此内存。
+  - **Burstable** Pod：设置 `memory.low` 为内存请求值。内核优先保留此内存，但在极端压力下可能会回收它。
+  - **BestEffort** Pod：不设置内存保护。
+
+<!--
+### System requirements
+
+Memory QoS requires Linux with cgroup v2. Kernel 5.9 or higher is recommended
+because `memory.high` throttling on older kernels can trigger a known
+[livelock bug](https://lore.kernel.org/all/20200710012662.GA29679@chep.ntu.edu.tw/).
+If the `MemoryQoS` feature gate is enabled on an older kernel, the kubelet logs
+a warning at startup.
+-->
+### 系统要求
+
+Memory QoS 需要使用 CGroup v2 的 Linux 系统。
+推荐使用 5.9 或更高版本的内核，因为在旧版本的内核上，
+`memory.high` 节流可能会触发一个已知的
+[livelock bug](https://lore.kernel.org/all/20200710012662.GA29679@chep.ntu.edu.tw/)。
+如果在较旧的内核上启用了 `MemoryQoS` 特性门控，kubelet 在启动时会记录一条警告日志。
 
 <!--
 ## Some behavior is independent of QoS class {#class-independent-behavior}
