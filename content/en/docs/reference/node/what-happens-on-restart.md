@@ -55,7 +55,7 @@ containers against the desired state. During this period of time, the following 
   [Pod behavior during kubelet restarts](/docs/concepts/workloads/pods/pod-lifecycle/#kubelet-restarts).
 
 * During the initial kubelet startup,
-  {{< glossary_tooltip term_id="garbage-collection" text="Garbage collection" >}}
+  {{< glossary_tooltip term_id="garbage-collection" text="garbage collection" >}}
   of unused images and containers, and Pod
   [evictions](/docs/concepts/scheduling-eviction/node-pressure-eviction/) driven
   by node-pressure, are paused. This pause continues for a short
@@ -158,7 +158,7 @@ When the node comes back:
   node. Standalone Pods (without another object or controller managing them) are
   **not** recreated after deletion.
 
-* The node renews the lease and reconcile it's status. It is reported as `NotReady` until the kubelet,
+* The node renews the lease and reconciles its status. It is reported as `NotReady` until the kubelet,
   container runtime, and network are ready.
   While the node is `NotReady`, the node may be
   [tainted](/docs/concepts/scheduling-eviction/taint-and-toleration/)
