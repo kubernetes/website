@@ -23,9 +23,9 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 
 This tutorial assumes that you have already set up `minikube`.
 See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.
-{{< /note >}}
+{{< /alert >}}
 
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
@@ -71,7 +71,7 @@ minikube dashboard
 
 Now, switch back to the terminal where you ran `minikube start`.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
@@ -83,7 +83,7 @@ The `dashboard` command creates a temporary proxy to make the dashboard accessib
 To stop the proxy, run `Ctrl+C` to exit the process.
 After the command exits, the dashboard remains running in the Kubernetes cluster.
 You can run the `dashboard` command again to create another proxy to access the dashboard.
-{{< /note >}}
+{{< /alert >}}
 
 {{% /tab %}}
 {{% tab name="URL copy and paste" %}}
@@ -161,9 +161,9 @@ recommended way to manage the creation and scaling of Pods.
 
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
-   {{< /note >}}
+   {{< /alert >}}
 
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -177,9 +177,9 @@ recommended way to manage the creation and scaling of Pods.
    ```
 
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
-{{< /note >}}
+{{< /alert >}}
 
 ## Create a Service
 
@@ -188,11 +188,11 @@ Kubernetes cluster. To make the `hello-node` Container accessible from outside t
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 The agnhost container has a `/shell` endpoint, which is useful for
 debugging, but dangerous to expose to the public internet. Do not run this on an
 internet-facing cluster, or a production cluster.
-{{< /warning >}}
+{{< /alert >}}
 
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 

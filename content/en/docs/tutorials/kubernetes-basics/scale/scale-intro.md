@@ -36,7 +36,7 @@ If you haven't worked through the earlier sections, start from
 
 _Scaling_ is accomplished by changing the number of replicas in a Deployment.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you are trying this after the
 [previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro/), then you
 may have deleted the service you created, or have created a Service of `type: NodePort`.
@@ -51,7 +51,7 @@ with its `type` set to `LoadBalancer`:
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ## Scaling overview
 
@@ -186,7 +186,7 @@ Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you're running minikube with Docker Desktop as the container driver, a minikube
 tunnel is needed. This is because containers inside Docker Desktop are isolated
 from your host computer.
@@ -209,7 +209,7 @@ Then use the given URL to access the app:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ### Scale Down
 
