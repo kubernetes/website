@@ -52,10 +52,6 @@ visit [Download Kubernetes](https://kubernetes.io/releases/download/).
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
 and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
-
-If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
-You can change this behavior by setting a default image registry in the
-[container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
 -->
 ## 镜像名称    {#image-names}
 
@@ -63,6 +59,12 @@ You can change this behavior by setting a default image registry in the
 镜像名称也可以包含所在仓库的主机名。例如：`fictional.registry.example/imagename`。
 还可以包含仓库的端口号，例如：`fictional.registry.example:10443/imagename`。
 
+
+<!--
+If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
+You can change this behavior by setting a default image registry in the
+[container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
+-->
 如果你不指定仓库的主机名，Kubernetes 认为你在使用 [Docker 公共仓库](https://hub.docker.com/)。
 你可以通过在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 配置中设置默认镜像仓库来更改此行为。
@@ -172,12 +174,16 @@ these values have:
 : the image is pulled only if it is not already present locally.
 
 `Always`
-: every time the kubelet launches a container, the kubelet queries the container
-  image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
-  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
-  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
-  to launch the container.
+: every time the kubelet launches a container, the kubelet requests the
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  to pull the image. The container runtime contacts the registry, resolves
+  the image tag or name to a
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier),
+  and downloads any layers that are not already cached locally.
+  If all layers are already present, the container runtime uses the cached
+  image without downloading it again. The kubelet itself does not check
+  whether the image is cached locally; it always delegates to the container
+  runtime.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
@@ -188,10 +194,12 @@ these values have:
 : 只有当镜像在本地不存在时才会拉取。
 
 `Always`
-: 每当 kubelet 启动一个容器时，kubelet 会查询容器的镜像仓库，
-  将名称解析为一个镜像[摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)。
-  如果 kubelet 有一个容器镜像，并且对应的摘要已在本地缓存，kubelet 就会使用其缓存的镜像；
-  否则，kubelet 就会使用解析后的摘要拉取镜像，并使用该镜像来启动容器。
+: 每当 kubelet 启动一个容器时，kubelet
+  会请求[容器运行时](/zh-cn/docs/reference/glossary/?all=true#term-container-runtime)拉取镜像。
+  容器运行时查询镜像仓库，将镜像标签或名称解析为  
+  [摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)，  
+  并下载任何未在本地缓存的层。如果所有层都已存在，容器运行时将使用缓存的镜像而不再次下载。  
+  kubelet 自身不检查镜像是否已在本地缓存；它总是委托给容器运行时。
 
 `Never`
 : kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
@@ -199,13 +207,14 @@ these values have:
   更多细节见[提前拉取镜像](#pre-pulled-images)。
 
 <!--
-The caching semantics of the underlying image provider make even
+The caching semantics of the container runtime make even
 `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
-Your container runtime can notice that the image layers already exist on the node
+The container runtime can notice that the image layers already exist on the node
 so that they don't need to be downloaded again.
 -->
-只要能够可靠地访问镜像仓库，底层镜像提供者的缓存语义甚至可以使 `imagePullPolicy: Always` 高效。
-你的容器运行时可以注意到节点上已经存在的镜像层，这样就不需要再次下载。
+只要能够可靠地访问镜像仓库，容器运行时的缓存机制使得即使设置了
+`imagePullPolicy: Always`，也能保持高效。
+容器运行时可以注意到节点上已经存在的镜像层，这样就不需要再次下载。
 
 {{< note >}}
 <!--
@@ -237,17 +246,19 @@ represents, you might end up with a mix of Pods running the old and new code. An
 uniquely identifies a specific version of the image, so Kubernetes runs the same code every time
 it starts a container with that image name and digest specified. Specifying an image by digest
 pins the code that you run so that a change at the registry cannot lead to that mix of versions.
+-->
+当使用镜像标签时，如果镜像仓库修改了代码所对应的镜像标签，可能会出现新旧代码混杂在 Pod 中运行的情况。
+镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
+通过摘要指定镜像可固定你运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
 
+
+<!--
 There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
 that mutate Pods (and PodTemplates) when they are created, so that the
 running workload is defined based on an image digest rather than a tag.
 That might be useful if you want to make sure that your entire workload is
 running the same code no matter what tag changes happen at the registry.
 -->
-当使用镜像标签时，如果镜像仓库修改了代码所对应的镜像标签，可能会出现新旧代码混杂在 Pod 中运行的情况。
-镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
-通过摘要指定镜像可固定你运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
-
 有一些第三方的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 在创建 Pod（和 PodTemplate）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
 无论镜像仓库上的标签发生什么变化，你都想确保你的整个工作负载都运行相同的代码，那么指定镜像摘要会很有用。
@@ -297,7 +308,8 @@ the pull policy of any object after its initial creation.
 如果后来镜像的标签或摘要发生变化，则不会更新。
 
 例如，如果你用一个**非** `:latest` 的镜像标签创建一个 Deployment，
-并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段**不会**变成 `Always`。
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy`
+字段**不会**变成 `Always`。
 你必须手动更改已经创建的资源的拉取策略。
 {{< /note >}}
 
@@ -347,7 +359,8 @@ Kubernetes raises the delay between each attempt until it reaches a compiled-in 
 which is 300 seconds (5 minutes).
 -->
 `ImagePullBackOff` 状态意味着容器无法启动，
-因为 Kubernetes 无法拉取容器镜像（原因包括无效的镜像名称，或从私有仓库拉取而没有 `imagePullSecret`）。
+因为 Kubernetes 无法拉取容器镜像（原因包括无效的镜像名称，
+或从私有仓库拉取而没有 `imagePullSecret`）。
 `BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
 
 Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
@@ -516,10 +529,6 @@ Credentials can be provided in several ways:
 - [Configuring Nodes to Authenticate to a Private Registry](#configuring-nodes-to-authenticate-to-a-private-registry)
   - All Pods can read any configured private registries.
   - Requires node configuration by cluster administrator.
-- Using a _kubelet credential provider_ plugin to [dynamically fetch credentials for private registries](#kubelet-credential-provider)
-
-  The kubelet can be configured to use credential provider exec plugin for the
-  respective private registry.
 -->
 - [当你定义 Pod 时指定 `imagePullSecrets`](#specifying-imagepullsecrets-on-a-pod)
 
@@ -528,6 +537,12 @@ Credentials can be provided in several ways:
 - [配置节点向私有仓库进行身份验证](#configuring-nodes-to-authenticate-to-a-private-registry)
   - 所有 Pod 均可读取任何已配置的私有仓库。
   - 需要集群管理员配置节点。
+<!--
+- Using a _kubelet credential provider_ plugin to [dynamically fetch credentials for private registries](#kubelet-credential-provider)
+
+  The kubelet can be configured to use credential provider exec plugin for the
+  respective private registry.
+-->
 - 使用 **kubelet 凭据提供程序**[动态获取私有仓库的凭据](#kubelet-credential-provider)
   
   kubelet 可以被配置为使用凭据提供程序 exec 插件来访问对应的私有镜像库。
