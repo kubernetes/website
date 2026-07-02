@@ -6,14 +6,14 @@ slug: ccm-new-metric-route-corrections-total
 author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
 aliases:
-  - /blog/2026/02/26/ccm-new-metric-route-corrections-total
-  - /blog/2026/02/26/ccm-new-metric-route-corrections-total/
+  - /blog/2026/07/02/ccm-new-metric-route-corrections-total
+  - /blog/2026/07/02/ccm-new-metric-route-corrections-total/
 ---
 
 Kubernetes v1.37 introduces a new alpha counter metric `route_controller_route_corrections_total`
 to the Cloud Controller Manager (CCM) route controller implementation at
-[`k8s.io/cloud-provider`](https://github.com/kubernetes/cloud-provider). This metric
-increments each time routes are synced with the cloud provider.
+[`k8s.io/cloud-provider`](https://github.com/kubernetes/cloud-provider). This metric is used
+to measure how often periodic reconciles correct routes.
 
 ## TODO
 
