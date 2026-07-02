@@ -55,7 +55,7 @@ containers against the desired state. During this period of time, the following 
   [Pod behavior during kubelet restarts](/docs/concepts/workloads/pods/pod-lifecycle/#kubelet-restarts).
 
 * During the initial kubelet startup,
-  {{< glossary_tooltip term_id="garbage-collection" text="Garbage collection" >}}
+  {{< glossary_tooltip term_id="garbage-collection" text="garbage collection" >}}
   of unused images and containers, and Pod
   [evictions](/docs/concepts/scheduling-eviction/node-pressure-eviction/) driven
   by node-pressure, are paused. This pause continues for a short
