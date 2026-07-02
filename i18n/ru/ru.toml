@@ -370,7 +370,7 @@ other = "Познакомиться с сообществом"
 other = "Помочь проекту"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Все права защищены. The Linux Foundation является зарегистрированной торговой маркой. Список торговых марок The Linux Foundation приведён на странице <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">использования торговых марок</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Условия использования веб-сайта, политика в отношении товарных знаков и другие политики проекта см. на <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Авторы Kubernetes | Документация распространяется под лицензией <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
