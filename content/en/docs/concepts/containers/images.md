@@ -125,7 +125,7 @@ replace `<image-name>:<tag>` with `<image-name>@<digest>`
 (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 
 When using image tags, if the image registry were to change the code that the tag on that image
-represents, you might end up with a mix of Pods running the old and new code. An image digest
+represents, you might end up with a mix of Pods running the old and new code. An [image digest](https://glossary.cncf.io/image-digest/)
 uniquely identifies a specific version of the image, so Kubernetes runs the same code every time
 it starts a container with that image name and digest specified. Specifying an image by digest
 pins the code that you run so that a change at the registry cannot lead to that mix of versions.
