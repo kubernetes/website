@@ -584,13 +584,13 @@ M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
 
 <!--
 Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://datatracker.ietf.org/doc/html/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
 A CertificateSigningRequest containing the example certificate above would look like this:
 -->
 非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
-以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
+以允许使用 [RFC7468 第 5.2 节](https://datatracker.ietf.org/doc/html/rfc7468#section-5.2)中描述的解释性文本。
 
 当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
 包含上述示例证书的 CertificateSigningRequest 如下所示：
@@ -802,7 +802,7 @@ A PodCertificateRequest has the following spec fields:
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
 * `stubPKCS10Request`: A minimal
-  [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR. Signers should extract
+  [PKCS#10](https://datatracker.ietf.org/doc/html/rfc2986) CSR. Signers should extract
   the public key from this CSR. Typically, no other actions need to be taken
   with this field from the signer side, the CSR signature is checked by the API
   server. Requests from the Kubelet will only include the public key information
@@ -815,7 +815,7 @@ PodCertificateRequest 包含以下 `spec` 字段：
 * `serviceAccountName` 和 `serviceAccountUID`：与 Pod 对应的 ServiceAccount。
 * `nodeName` 和 `nodeUID`：与 Pod 对应的 Node。
 * `maxExpirationSeconds`：工作负载作者将接受的此证书的最长生命周期。如果未指定，默认为 24 小时。
-* `stubPKCS10Request`：一个最小的 [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR。
+* `stubPKCS10Request`：一个最小的 [PKCS#10](https://datatracker.ietf.org/doc/html/rfc2986) CSR。
   签名者应从此 CSR 中提取公钥。通常，签名者这边无需对此字段执行其他操作，CSR
   签名由 API 服务器检查。来自 kubelet 的请求仅在 CSR 中包含公钥信息。
 
