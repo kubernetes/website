@@ -128,6 +128,11 @@ test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
 
+verify: verify-spelling ## Verify the content changes introduced by the current branch.
+
+verify-spelling: ## Spell-check the content files added or changed in HEAD.
+	scripts/verify-spelling.sh
+
 .PHONY: link-checker-setup
 link-checker-image-pull:
 	$(CONTAINER_ENGINE) pull wjdp/htmltest

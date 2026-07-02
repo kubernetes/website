@@ -9,7 +9,7 @@ weight: 10
 
 *Topology-Aware Scheduling* (TAS) is a [placement scheduling algorithm](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)
 that allows to find the optimal placement for the considered PodGroup, guaranteeing that all pods
-will be collocated within the same topology domain. Users can accomodate TAS to their specific
+will be collocated within the same topology domain. Users can accommodate TAS to their specific
 needs by changing TAS plugins configuration.
 
 ## Scheduling framework: TAS plugins configuration
