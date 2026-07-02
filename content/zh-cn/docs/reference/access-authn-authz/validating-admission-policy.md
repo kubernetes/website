@@ -237,7 +237,7 @@ with parameter configuration.
 ### 参数资源    {#parameter-resources}
 
 参数资源允许策略配置与其定义分开。
-一个策略可以定义 paramKind，给出参数资源的 GVK，
+一个策略可以定义 `paramKind`，给出参数资源的 GVK，
 然后一个策略绑定可以通过名称（通过 policyName）将某策略与某特定的参数资源（通过 paramRef）联系起来。
 
 如果需要参数配置，下面是一个带有参数配置的 ValidatingAdmissionPolicy 的例子：
@@ -357,7 +357,8 @@ For the use cases requiring parameter configuration, we recommend to add a param
 如果策略的 `paramKind` 未指定或绑定的 `paramRef` 未指定，则不会绑定参数资源，
 并且 `params` 将为空。
 
-对于需要参数配置的场景，我们建议在 `spec.validations[0].expression` 中添加一个参数检查：
+对于需要参数配置的场景，我们建议在 `spec.validations[0].expression`
+中添加一个参数检查：
 
 ```yaml
 - expression: "params != null"
@@ -399,7 +400,8 @@ Here, we first check whether the optional parameter is absent with `!has(params.
 -->
 在这里，我们首先用 `!has(params.optionalNumber)` 检查可选参数是否缺失。
 
-- 如果 `optionalNumber` 没有被定义，那么表达式就会短路，因为 `!has(params.optionalNumber)` 的计算结果为 true。
+- 如果 `optionalNumber` 没有被定义，那么表达式就会短路，因为 `!has(params.optionalNumber)`
+  的计算结果为 true。
 - 如果 `optionalNumber` 被定义了，那么将计算 CEL 表达式的后半部分，
   并且 `optionalNumber` 将被检查以确保它包含一个 5 到 10 之间的值（含 5 到 10）。
 
@@ -469,7 +471,8 @@ admitted will be used.
 如果发现多个参数满足条件，则会针对所找到的每个参数来评估策略规则，并将结果进行“与”运算。
 
 如果设置了 `namespace`，则只有所提供的命名空间中类别为 `paramKind` 的对象才会被匹配。
-否则，当 `namespace` 为空且 `paramKind` 为命名空间作用域的资源时，使用被准入请求中指定的 `namespace`。
+否则，当 `namespace` 为空且 `paramKind` 为命名空间作用域的资源时，
+使用被准入请求中指定的 `namespace`。
 
 <!--
 #### Authorization checks {#authorization-check} 
@@ -526,7 +529,6 @@ One of `name` or `selector` must be set, but not both.
 `name` 和 `selector` 必须设置其中之一，但不能同时设置。
 
 {{< note >}}
-
 <!--
 The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
 -->
@@ -546,7 +548,6 @@ Make sure to set `parameterNotFoundAction` according to the desired behavior whe
   如果 `failurePolicy` 设置为 `Fail`，则该请求会被拒绝。
 
 请根据在参数缺失时期望的行为，正确设置 `parameterNotFoundAction`。
-
 {{< /note >}}
 
 <!--
@@ -705,15 +706,15 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `'Available' in object.stateCounts`                                                           | 检查映射中是否存在键为 `Available` 的条目                                |
 | `(size(object.list1) == 0) != (size(object.list2) == 0)`                                      | 检查两个列表是否有且只有一个非空                                         |
 | <code>!('MY_KEY' in object.map1) &#124;&#124; object.map1['MY_KEY'].matches('^[a-zA-Z]*$')</code> | 检查映射中存在特定的键时其取值符合某规则        |
-| `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`           | 验证 listMap 中所有键名为 "MY_ENV" 的条目的 “value” 字段，确保其符合规则 |
-| `has(object.expired) && object.created + object.ttl < object.expired`                         | 检查 expired 日期在 create 日期加上 ttl 时长之后                         |
-| `object.health.startsWith('ok')`                                                              | 检查 health 字符串字段的取值有 “ok” 前缀                                 |
-| `object.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                        | 对于 listMap 中键为 “x” 的条目，检查该条目的 "foo" 属性的值是否小于 10   |
-| `type(object) == string ? object == '100%' : object == 1000`                                  | 对于 int-or-string 字段，分别处理类型为 int 或 string 的情况             |
+| `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`           | 验证 `listMap` 中所有键名为 "MY_ENV" 的条目的 “value” 字段，确保其符合规则 |
+| `has(object.expired) && object.created + object.ttl < object.expired`                         | 检查 `expired` 日期在 create 日期加上 ttl 时长之后                         |
+| `object.health.startsWith('ok')`                                                              | 检查 `health` 字符串字段的取值有 “ok” 前缀                                 |
+| `object.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                        | 对于 `listMap` 中键为 “x” 的条目，检查该条目的 "foo" 属性的值是否小于 10   |
+| `type(object) == string ? object == '100%' : object == 1000`                                  | 对于 `int-or-string` 字段，分别处理类型为 int 或 string 的情况             |
 | `object.metadata.name.startsWith(object.prefix)`                                              | 检查对象名称是否以另一个字段值为前缀                                     |
-| `object.set1.all(e, !(e in object.set2))`                                                     | 检查两个 listSet 是否不相交                                              |
-| `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`      | 检查映射 “details” 所有的键和 listSet “names” 中的条目是否一致           |
-| `size(object.clusters.filter(c, c.name == object.primary)) == 1`                              | 检查 “primary” 字段的值在 listMap “clusters” 中只出现一次                |
+| `object.set1.all(e, !(e in object.set2))`                                                     | 检查两个 `listSet` 是否不相交                                              |
+| `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`      | 检查映射 `details` 所有的键和 listSet `names` 中的条目是否一致           |
+| `size(object.clusters.filter(c, c.name == object.primary)) == 1`                              | 检查 `primary` 字段的值在 listMap `clusters` 中只出现一次                |
 
 <!--
 Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
@@ -746,8 +747,8 @@ resource to be evaluated.
 ### 匹配请求：`matchConditions`
 
 如果需要进行精细的请求过滤，可以为 `ValidatingAdmissionPolicy` 定义 **匹配条件（match conditions）**。
-如果发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍无法提供所需的过滤功能，则使用这些条件非常有用。
-匹配条件是 [CEL 表达式](/zh-cn/docs/reference/using-api/cel/)。
+如果发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍无法提供所需的过滤功能，
+则使用这些条件非常有用。匹配条件是 [CEL 表达式](/zh-cn/docs/reference/using-api/cel/)。
 所有匹配条件必须求值为 true 时才会对资源进行评估。
 
 <!--
@@ -871,8 +872,8 @@ we can have the following validation:
 After creating a params object that limits the replicas to 3 and setting up the binding,
 when we try to create a deployment with 5 replicas, we will receive the following message.
 -->
-在创建限制副本为 3 的 Params 对象并设置绑定之后，当我们尝试创建具有 5 个副本的 Deployment
-时，我们将收到以下消息：
+在创建限制副本为 3 的 Params 对象并设置绑定之后，
+当我们尝试创建具有 5 个副本的 Deployment 时，我们将收到以下消息：
 
 ```shell
 $ kubectl create deploy --image=nginx nginx --replicas=5
@@ -976,13 +977,14 @@ Type Checking has the following limitation:
 -->
 类型检查具有以下限制：
 
-- 没有通配符匹配。如果 `spec.matchConstraints.resourceRules` 中的任何一个 `apiGroups`、`apiVersions`
+- 没有通配符匹配。如果 `spec.matchConstraints.resourceRules`
+  中的任何一个 `apiGroups`、`apiVersions`
   或 `resources` 包含 `"\*"`，则不会检查与 `"\*"` 匹配的类型。
 - 匹配的类型数量最多为 10 种。这是为了防止手动指定过多类型的策略消耗过多计算资源。
   按升序处理组、版本，然后是资源，忽略第 11 个及其之后的组合。
 - 类型检查不会以任何方式影响策略行为。即使类型检查检测到错误，策略也将继续评估。
   如果在评估期间出现错误，则失败策略将决定其结果。
-- 类型检查不适用于 CRD（自定义资源定义），包括匹配的 CRD 类型和 paramKind 的引用。
+- 类型检查不适用于 CRD（自定义资源定义），包括匹配的 CRD 类型和 `paramKind` 的引用。
   对 CRD 的支持将在未来发布中推出。
 
 <!--
@@ -994,7 +996,8 @@ in `variables` in other expressions.
 -->
 ### 变量组合   {#variable-composition}
 
-如果表达式变得太复杂，或者表达式的一部分可重用且进行评估时计算开销较大，可以将表达式的某些部分提取为变量。
+如果表达式变得太复杂，或者表达式的一部分可重用且进行评估时计算开销较大，
+可以将表达式的某些部分提取为变量。
 变量是一个命名表达式，后期可以在其他表达式中的 `variables` 中引用。
 
 ```yaml
@@ -1079,11 +1082,11 @@ The list of exempt API kinds is:
 -->
 豁免准入验证的 API 类别列表如下：
 
-- [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
-- [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/" >}})
+* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/" >}})
 - MutatingAdmissionPolicies
 - MutatingAdmissionPolicyBindings
-- [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
-- [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
-- [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
-- [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
