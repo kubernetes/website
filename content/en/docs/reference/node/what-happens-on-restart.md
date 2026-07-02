@@ -158,7 +158,7 @@ When the node comes back:
   node. Standalone Pods (without another object or controller managing them) are
   **not** recreated after deletion.
 
-* The node renews the lease and reconcile it's status. It is reported as `NotReady` until the kubelet,
+* The node renews the lease and reconciles its status. It is reported as `NotReady` until the kubelet,
   container runtime, and network are ready.
   While the node is `NotReady`, the node may be
   [tainted](/docs/concepts/scheduling-eviction/taint-and-toleration/)
