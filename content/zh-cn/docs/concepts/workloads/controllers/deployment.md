@@ -2315,8 +2315,7 @@ spec:
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `type: Progressing`, `status: "False"`.
 and `reason: ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
-controller will roll back a Deployment as soon as it observes such a condition.
+retrying the Deployment.
 -->
 ### 进度期限秒数    {#progress-deadline-seconds}
 
@@ -2324,7 +2323,6 @@ controller will roll back a Deployment as soon as it observes such a condition.
 [进展失败](#failed-deployment)之前等待 Deployment 取得进展的秒数。
 这类报告会在资源状态中体现为 `type: Progressing`、`status: False`、
 `reason: ProgressDeadlineExceeded`。Deployment 控制器将在默认 600 毫秒内持续重试 Deployment。
-将来，一旦实现了自动回滚，Deployment 控制器将在探测到这样的条件时立即回滚 Deployment。
 
 <!--
 If specified, this field needs to be greater than `.spec.minReadySeconds`.
@@ -2422,14 +2420,14 @@ Deployment 在创建时是默认不会处于暂停状态。
 <!--
 * Learn more about [Pods](/docs/concepts/workloads/pods).
 * [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
+* Read the {{< api-reference page="apps/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 * Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 -->
 * 进一步了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 * [使用 Deployment 运行一个无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
-* 阅读 {{< api-reference page="workload-resources/deployment-v1" >}}，
+* 阅读 {{< api-reference page="apps/deployment-v1" >}}，
   以了解 Deployment API 的细节。
 * 阅读 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
   了解如何使用它来在可能出现干扰的情况下管理应用的可用性。
