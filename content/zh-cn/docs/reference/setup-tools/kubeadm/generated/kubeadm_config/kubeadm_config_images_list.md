@@ -76,18 +76,17 @@ Output format. One of: text|json|yaml|kyaml|go-template|go-template-file|templat
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (default=true)<br/>
-NodeLocalCRISocket=true|false (BETA - default=true)<br/>
+NodeLocalCRISocket=true|false (default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)
 -->
-一组键值对（key=value），用于描述各种特性。这些选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
+一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
+NodeLocalCRISocket=true|false (默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
@@ -117,7 +116,9 @@ list 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -160,7 +161,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为 true，则在以 JSON 或 YAML 格式打印对象时保留 managedFields。
+如果为 true，则在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
 </p>
 </td>
 </tr>
