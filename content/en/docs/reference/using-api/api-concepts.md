@@ -1706,6 +1706,7 @@ verify that the collection's `.metadata.resourceVersion` matches
 the requested `resourceVersion`, and handle the case where it does not. For
 example, the client might fall back to a request with `limit` set.
 
+
 ### Semantics for **watch**
 
 For **watch**, the semantics of resource version are:
