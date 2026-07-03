@@ -2060,140 +2060,17 @@ spec:
 -->
 ## 卷填充器（Populator）与数据源      {#volume-populators-and-data-sources}
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
-
 <!--
-Kubernetes supports custom volume populators.
-To use custom volume populators, you must enable the `AnyVolumeDataSource`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
-the kube-apiserver and kube-controller-manager.
-
-Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
-`dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
-or to a VolumeSnapshot, the `dataSourceRef` field can contain a reference to any object in the
-same namespace, except for core objects other than PVCs. For clusters that have the feature
-gate enabled, use of the `dataSourceRef` is preferred over `dataSource`.
+[Volume cloning](#volume-cloning) and
+[snapshot restore](#volume-snapshot-and-restore-volume-from-snapshot-support) pre-populate
+a new volume from a built-in _data source_. _Volume populators_ extend this mechanism so that
+a PersistentVolumeClaim can be pre-populated from other kinds of source (a custom resource),
+referenced through its `dataSourceRef` field:
 -->
-Kubernetes 支持自定义的卷填充器。要使用自定义的卷填充器，你必须为
-kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-
-卷填充器利用了 PVC 规约字段 `dataSourceRef`。
-不像 `dataSource` 字段只能包含对另一个持久卷申领或卷快照的引用，
-`dataSourceRef` 字段可以包含对同一名字空间中任何对象的引用（不包含除 PVC 以外的核心资源）。
-对于启用了特性门控的集群，使用 `dataSourceRef` 比 `dataSource` 更好。
-
-<!--
-## Cross namespace data sources
--->
-## 跨名字空间数据源   {#cross-namespace-data-sources}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-<!--
-Kubernetes supports cross namespace volume data sources.
-To use cross namespace volume data sources, you must enable the `AnyVolumeDataSource`
-and `CrossNamespaceVolumeDataSource`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) for
-the kube-apiserver, kube-controller-manager.
-Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
-
-Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify
-a namespace in the dataSourceRef field.
--->
-Kubernetes 支持跨名字空间卷数据源。
-要使用跨名字空间卷数据源，你必须为 kube-apiserver、kube-controller 管理器启用
-`AnyVolumeDataSource` 和 `CrossNamespaceVolumeDataSource`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-此外，你必须为 csi-provisioner 启用 `CrossNamespaceVolumeDataSource` 特性门控。
-
-启用 `CrossNamespaceVolumeDataSource` 特性门控允许你在 `dataSourceRef` 字段中指定名字空间。
-
-{{< note >}}
-<!--
-When you specify a namespace for a volume data source, Kubernetes checks for a
-ReferenceGrant in the other namespace before accepting the reference.
-ReferenceGrant is part of the `gateway.networking.k8s.io` extension APIs.
-See [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)
-in the Gateway API documentation for details.
-This means that you must extend your Kubernetes cluster with at least ReferenceGrant from the
-Gateway API before you can use this mechanism.
--->
-当你为卷数据源指定名字空间时，Kubernetes 在接受此引用之前在另一个名字空间中检查 ReferenceGrant。
-ReferenceGrant 是 `gateway.networking.k8s.io` 扩展 API 的一部分。更多细节请参见 Gateway API 文档中的
-[ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)。
-这意味着你必须在使用此机制之前至少使用 Gateway API 的 ReferenceGrant 来扩展 Kubernetes 集群。
-{{< /note >}}
-
-<!--
-## Data source references
-
-The `dataSourceRef` field behaves almost the same as the `dataSource` field. If one is
-specified while the other is not, the API server will give both fields the same value. Neither
-field can be changed after creation, and attempting to specify different values for the two
-fields will result in a validation error. Therefore the two fields will always have the same
-contents.
--->
-## 数据源引用   {#data-source-references}
-
-`dataSourceRef` 字段的行为与 `dataSource` 字段几乎相同。
-如果其中一个字段被指定而另一个字段没有被指定，API 服务器将为两个字段赋予相同的值。
-这两个字段都不能在创建后改变，如果试图为这两个字段指定不同的值，将导致验证错误。
-因此，这两个字段将总是有相同的内容。
-
-<!--
-There are two differences between the `dataSourceRef` field and the `dataSource` field that
-users should be aware of:
-
-* The `dataSource` field ignores invalid values (as if the field was blank) while the
-  `dataSourceRef` field never ignores values and will cause an error if an invalid value is
-  used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
-* The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
-  only allows PVCs and VolumeSnapshots.
--->
-在 `dataSourceRef` 字段和 `dataSource` 字段之间有两个用户应该注意的区别：
-
-* `dataSource` 字段会忽略无效的值（如同是空值），
-  而 `dataSourceRef` 字段永远不会忽略值，并且若填入一个无效的值，会导致错误。
-  无效值指的是 PVC 之外的核心对象（没有 `apiGroup` 的对象）。
-* `dataSourceRef` 字段可以包含不同类型的对象，而 `dataSource` 字段只允许 PVC 和卷快照。
-
-<!--
-When the `CrossNamespaceVolumeDataSource` feature is enabled, there are additional differences:
-
-* The `dataSource` field only allows local objects, while the `dataSourceRef` field allows
-  objects in any namespaces.  
-* When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
--->
-当 `CrossNamespaceVolumeDataSource` 特性被启用时，存在其他区别：
-
-* `dataSource` 字段仅允许本地对象，而 `dataSourceRef` 字段允许任何名字空间中的对象。
-* 若指定了 namespace，则 `dataSource` 和 `dataSourceRef` 不会被同步。
-
-<!--
-Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
-fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
-under any circumstance. The duplicated values with slightly different semantics exist only for
-backwards compatibility. In particular, a mixture of older and newer controllers are able to
-interoperate because the fields are the same.
--->
-用户始终应该在启用了此特性门控的集群上使用 `dataSourceRef`，
-在没有启用该特性门控的集群上使用 `dataSource`。
-在任何情况下都没有必要查看这两个字段。
-这两个字段的值看似相同但是语义稍微不一样，是为了向后兼容。
-特别是混用新旧版本的控制器时，它们能够互通。
-
-<!--
-### Using volume populators
-
-Volume populators are {{< glossary_tooltip text="controllers" term_id="controller" >}} that can
-create non-empty volumes, where the contents of the volume are determined by a Custom Resource.
-Users create a populated volume by referring to a Custom Resource using the `dataSourceRef` field:
--->
-## 使用卷填充器   {#using-volume-populators}
-
-卷填充器是能创建非空卷的{{< glossary_tooltip text="控制器" term_id="controller" >}}，
-其卷的内容通过一个自定义资源决定。用户通过使用 `dataSourceRef` 字段引用自定义资源来创建一个被填充的卷：
+[卷克隆](#volume-cloning)和
+[快照恢复](#volume-snapshot-and-restore-volume-from-snapshot-support)从内置的**数据源**预填充一个新的卷。
+**卷填充器**扩展了这个机制，使得 PersistentVolumeClaim 可以从其他类型的源（一个自定义资源）预填充，
+并通过其 `dataSourceRef` 字段引用：
 
 ```yaml
 apiVersion: v1
@@ -2213,78 +2090,11 @@ spec:
 ```
 
 <!--
-Because volume populators are external components, attempts to create a PVC that uses one
-can fail if not all the correct components are installed. External controllers should generate
-events on the PVC to provide feedback on the status of the creation, including warnings if
-the PVC cannot be created due to some missing component.
-
-You can install the alpha [volume data source validator](https://github.com/kubernetes-csi/volume-data-source-validator)
-controller into your cluster. That controller generates warning Events on a PVC in the case that no populator
-is registered to handle that kind of data source. When a suitable populator is installed for a PVC, it's the
-responsibility of that populator controller to report Events that relate to volume creation and issues during
-the process.
+For details, including cross-namespace data sources, see
+[Volume Populators and Data Sources](/docs/concepts/storage/volume-populators-and-data-sources/).
 -->
-因为卷填充器是外部组件，如果没有安装所有正确的组件，试图创建一个使用卷填充器的 PVC 就会失败。
-外部控制器应该在 PVC 上产生事件，以提供创建状态的反馈，包括在由于缺少某些组件而无法创建 PVC 的情况下发出警告。
-
-你可以把 Alpha 版本的[卷数据源验证器](https://github.com/kubernetes-csi/volume-data-source-validator)
-控制器安装到你的集群中。如果没有填充器处理该数据源的情况下，该控制器会在 PVC 上产生警告事件。
-当一个合适的填充器被安装到 PVC 上时，该控制器的职责是上报与卷创建有关的事件，以及在该过程中发生的问题。
-
-<!--
-### Using a cross-namespace volume data source
--->
-### 使用跨名字空间的卷数据源   {#using-a-cross-namespace-volume-data-source}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-<!--
-Create a ReferenceGrant to allow the namespace owner to accept the reference.
-You define a populated volume by specifying a cross namespace volume data source
-using the `dataSourceRef` field. You must already have a valid ReferenceGrant
-in the source namespace:
--->
-创建 ReferenceGrant 以允许名字空间属主接受引用。
-你通过使用 `dataSourceRef` 字段指定跨名字空间卷数据源，定义填充的卷。
-你必须在源名字空间中已经有一个有效的 ReferenceGrant：
-
-```yaml
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-ns1-pvc
-  namespace: default
-spec:
-  from:
-  - group: ""
-    kind: PersistentVolumeClaim
-    namespace: ns1
-  to:
-  - group: snapshot.storage.k8s.io
-    kind: VolumeSnapshot
-    name: new-snapshot-demo
-```
-
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: foo-pvc
-  namespace: ns1
-spec:
-  storageClassName: example
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  dataSourceRef:
-    apiGroup: snapshot.storage.k8s.io
-    kind: VolumeSnapshot
-    name: new-snapshot-demo
-    namespace: default
-  volumeMode: Filesystem
-```
+有关详细信息（包括跨命名空间数据源），
+请参阅[卷填充器与数据源](/zh-cn/docs/concepts/storage/volume-populators-and-data-sources/)。
 
 <!--
 ## Writing Portable Configuration
