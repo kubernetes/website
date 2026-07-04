@@ -54,6 +54,9 @@ Extended resource allocation by DRA is controlled by the
 [`DRAExtendedResource` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)
 in the `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, and `kubelet`.
 
+For a hands-on walkthrough of requesting extended resources, see
+[Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/).
+
 
 ## Partitionable devices {#partitionable-devices}
 
