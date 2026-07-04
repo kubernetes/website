@@ -4,6 +4,7 @@ content_type: concept
 description: >
   组成 Kubernetes 集群的关键组件概述。
 weight: 10
+theme_lock: light
 card:
   title: 集群组件
   name: concepts
@@ -17,6 +18,7 @@ content_type: concept
 description: >
   An overview of the key components that make up a Kubernetes cluster.
 weight: 10
+theme_lock: light
 card:
   title: Components of a cluster
   name: concepts
