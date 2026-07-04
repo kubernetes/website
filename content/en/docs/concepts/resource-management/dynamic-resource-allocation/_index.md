@@ -15,16 +15,14 @@ aliases:
 
 This section introduces _dynamic resource allocation (DRA)_ in Kubernetes.
 
-<!-- body -->
-
-## About DRA {#about-dra}
-
 {{< glossary_definition prepend="DRA is" term_id="dra" length="all" >}}
 
-Allocating resources with DRA is a similar experience to
+Allocating resources with DRA offers a similar experience to
 [dynamic volume provisioning](/docs/concepts/storage/dynamic-provisioning/),
-in which you use PersistentVolumeClaims to claim storage capacity from storage classes
-and request the claimed capacity in your Pods.
+in which you use PersistentVolumeClaims to _claim_ storage capacity from storage classes,
+and request the claimed capacity for use in your Pods.
+
+<!-- body -->
 
 ### Benefits of DRA {#dra-benefits}
 
