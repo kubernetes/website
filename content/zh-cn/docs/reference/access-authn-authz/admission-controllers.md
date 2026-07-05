@@ -924,13 +924,13 @@ In any case, the annotations are provided by the user and are not validated by K
 **类别**：验证。
 
 <!--
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 -->
 此准入控制器拒绝定义了 `AntiAffinity` 拓扑键的任何 Pod
-（`requiredDuringSchedulingRequiredDuringExecution` 中的 `kubernetes.io/hostname` 除外）。
+（`requiredDuringSchedulingIgnoredDuringExecution` 中的 `kubernetes.io/hostname` 除外）。
 
 此准入控制器默认被禁用。
 
@@ -1174,13 +1174,30 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
 <!--
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
 and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
-
-Future versions may add additional restrictions to ensure kubelets have the minimal set of
-permissions required to operate correctly.
 -->
 以 `kubernetes.io` 或 `k8s.io` 为前缀的所有其他标签都限制 kubelet 使用，并且将来可能会被
 `NodeRestriction` 准入插件允许或禁止。
 
+<!--
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this admission plugin also restricts the audiences for which a kubelet can
+request service account tokens via the `TokenRequest` API. The kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests), or for audiences explicitly granted
+through RBAC using the `request-serviceaccounts-token-audience` verb. For more details,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
+-->
+当启用了 `ServiceAccountNodeAudienceRestriction` **特性门控**时，
+此准入插件还会限制 kubelet 可以通过 `TokenRequest` API 请求服务账号令牌的受众。
+kubelet 只能为已在该节点上的 Pod 中引用（通过投影的服务账号令牌卷或
+CSI 驱动令牌请求）的受众请求令牌，或者通过使用 `request-serviceaccounts-token-audience`
+动词通过 RBAC 明确授予的受众请求令牌。更多详情，
+请参阅[服务账号令牌受众限制](/zh-cn/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction)。
+
+<!--
+Future versions may add additional restrictions to ensure kubelets have the minimal set of
+permissions required to operate correctly.
+-->
 将来的版本可能会增加其他限制，以确保 kubelet 具有正常运行所需的最小权限集。
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}

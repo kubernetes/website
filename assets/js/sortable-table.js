@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
   tables.forEach((table) => {
     const headers = table.querySelectorAll("thead th");
     headers.forEach((th, index) => {
+      th.classList.add("sortable-table-header");
       th.setAttribute("tabindex", "0");
       th.setAttribute("role", "columnheader");
-      th.setAttribute("aria-sort", "none");
+      setHeaderSortState(th, "none");
       th.style.cursor = "pointer";
 
       th.addEventListener("click", () => sortTable(table, index, th));
@@ -22,6 +23,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+function setHeaderSortState(th, sortState) {
+  th.setAttribute("aria-sort", sortState);
+
+  let indicator = th.querySelector(".sort-indicator");
+  if (!indicator) {
+    indicator = document.createElement("span");
+    indicator.className = "sort-indicator";
+    indicator.setAttribute("aria-hidden", "true");
+    th.appendChild(indicator);
+  }
+
+  indicator.textContent = getSortIndicator(sortState);
+}
+
+function getSortIndicator(sortState) {
+  if (sortState === "ascending") {
+    return "\u2191";
+  }
+
+  if (sortState === "descending") {
+    return "\u2193";
+  }
+
+  return "\u2195";
+}
 
 // Sorts rows by column; clickedTh receives the aria-sort state for accessibility.
 function sortTable(table, column, clickedTh) {
@@ -53,12 +80,12 @@ function sortTable(table, column, clickedTh) {
   // Clear sort state on every header so only the active column has aria-sort set.
   const allHeaders = table.querySelectorAll("thead th");
   allHeaders.forEach((th) => {
-    th.setAttribute("aria-sort", "none");
+    setHeaderSortState(th, "none");
     th.removeAttribute("data-sort-dir");
   });
 
   const newOrder = (sortOrder === "asc") ? "desc" : "asc";
-  clickedTh.setAttribute("aria-sort", sortOrder === "asc" ? "ascending" : "descending");
+  setHeaderSortState(clickedTh, sortOrder === "asc" ? "ascending" : "descending");
   clickedTh.setAttribute("data-sort-dir", sortOrder);
 
   table.setAttribute("data-sort-order", newOrder);

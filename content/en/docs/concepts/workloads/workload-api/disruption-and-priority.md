@@ -47,7 +47,7 @@ If the priority class is not found, the PodGroup is rejected.
 When `priorityClassName` is not set for a PodGroup, Kubernetes looks for a default (a PriorityClass with `globalDefault` set true)
 If there is no PriorityClass with `globalDefault` set true, a PodGroup with no `priorityClassName` has priority zero.
 
-The priority of the PodGroup is an authorative priority for all pods in the group during [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events, even when priorities of individual pods forming this PodGroup differ.
+The priority of the PodGroup is an authoritative priority for all pods in the group during [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events, even when priorities of individual pods forming this PodGroup differ.
 
 The following YAML is an example of a PodGroup configuration that uses the `high-priority` PriorityClass,
 which maps to the integer priority value of 1000000.

@@ -1,4 +1,10 @@
 .td-navbar {
+  --bs-navbar-color: #{$navbar-dark-color};
+  --bs-navbar-hover-color: #{$navbar-dark-hover-color};
+  --bs-navbar-active-color: #{$navbar-dark-active-color};
+  --bs-navbar-brand-color: #{$navbar-dark-color};
+  --bs-navbar-brand-hover-color: #{$navbar-dark-hover-color};
+
   background: transparent !important;
   position: fixed !important;
   transition: 0.3s;
@@ -74,14 +80,14 @@
 }
 
 .navbar-bg-onscroll {
-  background: white !important;
-  box-shadow: 0 1px 2px $medium-grey;
+  background: var(--bs-body-bg) !important;
+  box-shadow: 0 1px 2px var(--bs-border-color);
 
   .navbar-nav .nav-link, #hamburger {
-    color: $dark-grey;
+    color: var(--bs-body-color);
 
-    &:hover:focus {
-      color: $medium-grey;
+    &:hover, &:focus {
+      color: $primary;
     }
   }
 
@@ -89,19 +95,64 @@
     // Based on from Bootstrap's _navbar.scss
     .show > .nav-link,
     .nav-link.show {
-      color: $medium-light-grey;
+      color: $primary;
     }
 
     .active > .nav-link,
     .nav-link.active {
-      color: $dark-grey;
-      box-shadow: 0 2px $dark-grey;
+      color: $primary;
+      box-shadow: 0 2px $primary;
     }
   }
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
     fill: $primary;
   }
+}
+
+/* theme_lock front-matter: render a static placeholder where the theme toggle would be. */
+.td-locked-theme {
+  color: var(--bs-secondary-color);
+  cursor: not-allowed;
+  opacity: 0.75;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--bs-secondary-color);
+  }
+
+  .bi {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.td-light-dark-menu .td-locked-theme {
+  position: relative;
+}
+
+.td-light-dark-menu .td-locked-theme__label {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.td-light-dark-menu .td-locked-theme:hover .td-locked-theme__label,
+.td-light-dark-menu .td-locked-theme:focus-visible .td-locked-theme__label {
+  opacity: 1;
 }
 
 /* Small/Mobile viewport nav menu */
@@ -138,7 +189,7 @@
     top: 0;
     width: 0;
     height: 100%;
-    background-color: white;
+    background-color: var(--bs-body-bg);
     overflow: auto;
     transition: 0.3s;
 
@@ -152,7 +203,7 @@
         width: 100%;
         min-height: 2.75rem;
         padding: 0 60px 0 20px;
-        border-bottom: 1px solid #cccccc;
+        border-bottom: 1px solid var(--bs-border-color);
 
         // Hides the logo that will be in the list
         &:first-child {
@@ -184,6 +235,19 @@
       &:active {
         box-shadow: none !important;
       }
+    }
+
+    // Theme-switcher icons lose Docsy's .td-light-dark-menu wrapper during auto-burger cloning.
+    .bi {
+      width: 1em;
+      height: 1em;
+      vertical-align: -.125em;
+      fill: currentcolor;
+    }
+
+    // Hide the cloned dropdown toggle itself; Light/Dark/Auto rows below already cover the choice.
+    .content ul li:has(> a > svg.theme-icon-active) {
+      display: none;
     }
   }
 }

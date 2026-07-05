@@ -336,6 +336,8 @@ announcements:
 - name: KubeCon 2026 India
   startTime: 2026-05-18T00:00:00
   endTime: 2026-06-19T18:00:00
+  dismissParameters:
+    dismissible: true
   style: >-
     background: linear-gradient(90deg, #eeb32d 0%, #f5d4a1 100%);
     color: #000000;
