@@ -1,4 +1,6 @@
 ---
+# empty lines kept for alignment with the original EN file
+#
 title: Kubernetes — Dokumentacja
 noedit: true
 layout: docsportal_home
@@ -7,6 +9,7 @@ linkTitle: "Dokumentacja"
 main_menu: true
 weight: 10
 hide_feedback: true
+notoc: true
 menu:
   main:
     title: "Dokumentacja"
