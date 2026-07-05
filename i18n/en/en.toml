@@ -6,6 +6,10 @@
 [api_reference_title]
 other = "API reference"
 
+[api_reference_page_related_concepts]
+one = "Concept documentation for {{ .title }}"
+other = "Related concept pages"
+
 [auto_generated_edit_notice]
 other = "(auto-generated page)"
 
