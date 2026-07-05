@@ -356,6 +356,9 @@ A Deployment's label selector is **immutable** after creation;
 it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
 If you must change the selector, you have to delete the Deployment and recreate it.
+By default, deleting the Deployment also deletes its running Pods, causing downtime; use
+`--cascade=orphan` if you need those Pods to keep running while you recreate the Deployment
+(see the implications below).
 Exercise great caution and ensure you grasp the following implications:
 
 * **Additions:** When you create a new Deployment with a narrower selector, the new Deployment **must** also have a suitable Pod template.

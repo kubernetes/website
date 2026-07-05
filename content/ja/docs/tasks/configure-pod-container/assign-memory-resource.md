@@ -26,7 +26,7 @@ Minikubeを動作させている場合、以下のコマンドによりmetrics-s
 minikube addons enable metrics-server
 ```
 
-metrics-serverが実行されているか、もしくはリソースメトリクスAPI (`metrics.k8s.io`) の別のプロバイダが実行されていることを確認するには、以下のコマンドを実行してください:
+metrics-serverが実行されているか、もしくはリソースメトリクスAPI (`metrics.k8s.io`) の別のプロバイダーが実行されていることを確認するには、以下のコマンドを実行してください:
 
 ```shell
 kubectl get apiservices
