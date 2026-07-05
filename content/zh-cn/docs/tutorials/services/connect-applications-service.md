@@ -302,7 +302,7 @@ variables:
 能看到环境变量中并没有你创建的 Service 相关的值。这是因为副本的创建先于 Service。
 这样做的另一个缺点是，调度器可能会将所有 Pod 部署到同一台机器上，如果该机器宕机则整个 Service 都会离线。
 要改正的话，我们可以先终止这 2 个 Pod，然后等待 Deployment 去重新创建它们。
-这次 Service 会 **先于** 副本存在。这将实现调度器级别的 Pod 按 Service
+这次 Service 会**先于**副本存在。这将实现调度器级别的 Pod 按 Service
 分布（假定所有的节点都具有同样的容量），并提供正确的环境变量：
 
 ```shell
@@ -402,24 +402,27 @@ channel is secure. For this, you will need:
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
-
-You can acquire all these from the
-[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/).
-This requires having go and make tools installed. If you don't want to install those,
-then follow the manual steps later. In short:
 -->
 ## 保护 Service {#securing-the-service}
 
-到现在为止，我们只在集群内部访问了 Nginx 服务器。在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
+到现在为止，我们只在集群内部访问了 Nginx 服务器。
+在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
 为实现这一目的，需要：
 
 * 用于 HTTPS 的自签名证书（除非已经有了一个身份证书）
 * 使用证书配置的 Nginx 服务器
 * 使 Pod 可以访问证书的 [Secret](/zh-cn/docs/concepts/configuration/secret/)
 
+<!--
+You can acquire all these from the
+[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/).
+This requires having go and make tools installed. If you don't want to install those,
+then follow the manual steps later. In short:
+-->
 你可以从
 [Nginx https 示例](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)获取所有上述内容。
-你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照后文所述的手动执行步骤执行操作。简要过程如下：
+你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照后文所述的手动执行步骤执行操作。
+简要过程如下：
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -442,7 +445,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 <!--
 And also the configmap:
 -->
-以下是 configmap：
+以下是 ConfigMap：
 
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
@@ -475,7 +478,7 @@ You can view the details of the `nginxconfigmap` ConfigMap using the following c
 你可以使用以下命令来查看 `nginxconfigmap` ConfigMap 的细节：
 
 ```shell
-kubectl describe configmap  nginxconfigmap
+kubectl describe configmap nginxconfigmap
 ```
 
 <!--
@@ -527,16 +530,16 @@ Following are the manual steps to follow in case you run into problems running m
 # Create a public private key pair
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
 -->
 ```shell
 # 创建公钥和相对应的私钥
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # 对密钥实施 base64 编码
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
 
 <!--
@@ -591,7 +594,8 @@ nginxsecret           kubernetes.io/tls                     2         1m
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 -->
-现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
+现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS
+服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
 {{% code_sample file="service/networking/nginx-secure-app.yaml" %}}
 
@@ -610,7 +614,8 @@ Noteworthy points about the nginx-secure-app manifest:
 - 它将 Deployment 和 Service 的规约放在了同一个文件中。
 - [Nginx 服务器](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)通过
   80 端口处理 HTTP 流量，通过 443 端口处理 HTTPS 流量，而 Nginx Service 则暴露了这两个端口。
-- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问密钥。卷和密钥需要在 Nginx 服务器启动 **之前** 配置好。
+- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问密钥。卷和密钥需要在 Nginx
+  服务器启动**之前**配置好。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
@@ -644,7 +649,7 @@ for simplicity, the pod only needs nginx.crt to access the Service):
 注意最后一步我们是如何提供 `-k` 参数执行 curl 命令的，这是因为在证书生成时，
 我们不知道任何关于运行 nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
 通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
-让我们从一个 Pod 来测试（为了方便，这里使用同一个 Secret，Pod 仅需要使用 nginx.crt 去访问 Service）：
+让我们从一个 Pod 来测试（为了方便，这里使用同一个 Secret，Pod 仅需要使用 `nginx.crt` 去访问 Service）：
 
 {{% code_sample file="service/networking/curlpod.yaml" %}}
 
@@ -677,7 +682,7 @@ node has a public IP.
 ## 暴露 Service  {#exposing-the-service}
 
 对应用的某些部分，你可能希望将 Service 暴露在一个外部 IP 地址上。
-Kubernetes 支持两种实现方式：NodePort 和 LoadBalancer。
+Kubernetes 支持两种实现方式：`NodePort` 和 `LoadBalancer`。
 在上一段创建的 Service 使用了 `NodePort`，因此，如果你的节点有一个公网
 IP，那么 Nginx HTTPS 副本已经能够处理因特网上的流量。
 

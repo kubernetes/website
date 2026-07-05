@@ -302,15 +302,13 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
+`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
 特性 | 默认值 | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
+`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
 {{< /table >}}
 
 {{< note >}}
@@ -324,17 +322,6 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 Feature gate descriptions:
 -->
 特性门控的描述：
-
-<!--
-`ControlPlaneKubeletLocalMode`
-: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
-  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
-  policy during rolling upgrades.
--->
-`ControlPlaneKubeletLocalMode`
-: 启用此特性门控后，当加入新的控制平面节点时，
-  kubeadm 将配置 kubelet 连接到本地 kube-apiserver。
-  这将确保在滚动升级期间不会违反版本偏差策略。
 
 <!--
 `NodeLocalCRISocket`
@@ -383,6 +370,17 @@ Feature gate descriptions:
 特性门控描述：
 
 <!--
+`ControlPlaneKubeletLocalMode`
+: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
+  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+  policy during rolling upgrades.
+-->
+`ControlPlaneKubeletLocalMode`
+: 启用此特性门控后，当加入新的控制平面节点时，
+  kubeadm 将配置 kubelet 连接到本地 kube-apiserver。
+  这将确保在滚动升级期间不会违反版本偏差策略。
+
+<!--
 `PublicKeysECDSA`
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
   Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
@@ -421,6 +419,7 @@ List of removed feature gates:
 {{< table caption="kubeadm removed feature gates" >}}
 Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
+`ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
@@ -431,6 +430,7 @@ Feature | Alpha | Beta | GA | Removed
 {{< table caption="kubeadm 已移除的特性门控" >}}
 特性 | Alpha | Beta | GA | 移除
 :-------|:------|:-----|:---|:-------
+`ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
@@ -459,7 +459,8 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 -->
 `IPv6DualStack`
 : 在 IP 双栈特性处于开发过程中时，此标志有助于配置组件的双栈支持。有关 Kubernetes
-  双栈支持的更多详细信息，请参阅 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
+  双栈支持的更多详细信息，请参阅
+  [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 
 <!--
 `UnversionedKubeletConfigMap`
@@ -521,6 +522,7 @@ as a learner and promoted to a voting member only after the etcd data are fully 
   is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
   state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
   -->
+  
   如果你在 kubeadm 配置中指定自定义的 `ADDRESS` 或 `PORT`，kubeadm 将使用这些定制的值。
   如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
   等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`

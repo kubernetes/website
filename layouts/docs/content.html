@@ -11,12 +11,12 @@
     {{ if (and (not .Params.hide_readingtime) (.Site.Params.ui.readingtime.enable)) }}
       {{ partial "reading-time.html" . }}
     {{ end }}
+    {{- if (eq .Params.content_type "api_reference") -}}
+    {{ partial "docs/api-reference-header-note.html" . }}
+    {{- end -}}
   </header>
   {{ .Content }}
-  {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.Config.Services.GoogleAnalytics.ID)) }}
-    {{ partial "feedback.html" .Site.Params.ui.feedback }}
-    <br />
-  {{ end }}
+  {{ partial "feedback.html" . -}}
   {{ if (.Site.Config.Services.Disqus.Shortname) }}
     <br />
     {{ partial "disqus-comment.html" . }}

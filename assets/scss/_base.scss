@@ -19,7 +19,7 @@ $vendor-strip-font-size: 16px;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 body {
-  background-color: white;
+  background-color: var(--bs-body-bg);
 
   a {
     color: $primary;
@@ -28,7 +28,7 @@ body {
 
 section {
   position: relative;
-  background-color: white;
+  background-color: var(--bs-body-bg);
 }
 
 section,
