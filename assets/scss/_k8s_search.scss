@@ -1,16 +1,13 @@
-.td-navbar, .td-search {
-  .td-search__input, .td-search__input::placeholder {
-    background: white;
-    color: black;
-  }
-
-  .td-search__icon {
-    color: black;
-  }
-}
-
 .td-search {
   width: unset;
+}
+
+.td-search .td-search__input {
+  border: 1px solid var(--bs-border-color);
+}
+
+.td-navbar .td-search .td-search__input {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 // PageFind Styles
@@ -24,3 +21,4 @@
     margin-left: 1rem;
   }
 }
+

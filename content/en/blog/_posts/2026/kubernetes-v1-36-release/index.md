@@ -658,6 +658,7 @@ and other notable conferences worldwide. Stay informed and get involved with the
 - [KubeCon + CloudNativeCon Japan 2026: July 29-30, 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/) | Yokohama, Japan
 
 **September 2026**
+- KCD - [Kubernetes Community Days: San Francisco Bay Area](https://community2.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area-2026/): September 1, 2026 | Mountain View, USA
 - [KubeCon + CloudNativeCon China 2026: September 8-9, 2026](https://www.lfopensource.cn/kubecon-cloudnativecon-openinfra-summit-pytorch-conference-china/) | Shanghai, China
 
 **October 2026**
@@ -665,7 +666,7 @@ and other notable conferences worldwide. Stay informed and get involved with the
 
 **November 2026**
 - KCD - [Kubernetes Community Days: Porto](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2026-collab-with-devops-days-portugal/): Nov 19, 2026 | Porto, Portugal
-- [KubeCon + CloudNativeCon North America 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 9-12, 2026 | Salt Lake, USA
+- [KubeCon + CloudNativeCon North America 2026](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 9-12, 2026 | Salt Lake City, USA
 
 You can find the latest event details [here](https://community.cncf.io/events/#/list).
 

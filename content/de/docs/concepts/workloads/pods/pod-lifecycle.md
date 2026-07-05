@@ -3,7 +3,6 @@ title: Pod-Lebenszyklus
 content_type: concept
 weight: 30
 math: true
-lang: de
 ---
 
 <!-- overview -->

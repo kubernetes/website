@@ -50,11 +50,11 @@
     <dt>{{ T "release_status" }}</dt>
     <dd>
       {{ if eq .Params.status "supported" }}
-      <span class="badge badge-success">{{ T "release_actively_supported" }}</span>
+      <span class="badge text-bg-primary">{{ T "release_actively_supported" }}</span>
       {{ else if eq .Params.status "maintenance" }}
-      <span class="badge badge-warning">{{ T "release_maintenance_mode" }}</span>
+      <span class="badge text-bg-secondary">{{ T "release_maintenance_mode" }}</span>
       {{ else }}
-      <span class="badge badge-danger">{{ T "release_end_of_life" }}</span>
+      <span class="badge text-bg-danger">{{ T "release_end_of_life" }}</span>
       {{ end }}
     </dd>
 

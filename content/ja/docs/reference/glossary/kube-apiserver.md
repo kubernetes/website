@@ -1,7 +1,7 @@
 ---
 title: APIサーバー
 id: kube-apiserver
-full_link: /ja/docs/concepts/overview/components/#kube-apiserver
+full_link: /docs/concepts/architecture/#kube-apiserver
 short_description: >
   Kubernetes APIを提供するコントロールプレーンのコンポーネントです。
 

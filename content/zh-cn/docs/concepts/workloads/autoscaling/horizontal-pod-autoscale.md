@@ -232,14 +232,14 @@ desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValu
 -->
 ```math
 \begin{equation*}
-期望副本数 = ceil\left\lceil 当前副本数 \times \frac{当前指标}{期望指标} \right\rceil
+\text{期望副本数} = ceil\left\lceil \text{当前副本数} \times \frac{\text{当前指标}}{\text{期望指标}} \right\rceil
 \end{equation*}
 ```
 
 <!--
 For example, if the current metric value is `200m`, and the desired value
 is `100m`, the number of replicas will be doubled, since
-\\( { 200.0 \div 100.0 } = 2.0 \\).  
+\\( { 200.0 \div 100.0 } = 2.0 \\).
 If the current value is instead `50m`, you'll halve the number of
 replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
 action if the ratio is sufficiently close to 1.0 (within a
@@ -266,15 +266,19 @@ are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
 以及有多少 Pod [`Ready`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
 
 <!--
-All Pods with a deletion timestamp set (objects with a deletion timestamp are
-in the process of being shut down / removed) are ignored, and all failed Pods
-are discarded.
+For per-pod resource metrics, all Pods with a deletion timestamp set
+(objects with a deletion timestamp are in the process of being shut
+down / removed) are ignored, and all failed Pods are discarded.
+For external and object metrics, the replica count is based on the
+number of Running and Ready Pods; terminating Pods that are still Ready
+continue to count toward that total.
 
 If a particular Pod is missing metrics, it is set aside for later; Pods
 with missing metrics will be used to adjust the final scaling amount.
 -->
-所有设置了删除时间戳的 Pod（带有删除时间戳的对象正在关闭/移除的过程中）都会被忽略，
-所有失败的 Pod 都会被丢弃。
+对于 Pod 级资源指标，所有设置了删除时间戳（即正在终止或删除中的对象）的 Pod 都会被忽略，
+同时会剔除所有处于 Failed 状态的 Pod。对于外部指标和对象指标，副本数基于处于 Running 且
+Ready 状态的 Pod 数量进行计算；对于已进入终止流程但仍处于 Ready 状态的 Pod，仍会被计入副本总数。
 
 如果某个 Pod 缺失度量值，它将会被搁置，只在最终确定扩缩数量时再考虑。
 
@@ -1081,12 +1085,12 @@ Finally, you can delete an autoscaler using `kubectl delete hpa`.
 
 <!--
 In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler object.
-For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
+For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu=80%`
 will create an autoscaler for ReplicaSet _foo_, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 -->
 此外，还有一个特殊的 `kubectl autoscale` 命令用于创建 HorizontalPodAutoscaler 对象。
-例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
+例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu=80%`
 将为 ReplicaSet **foo** 创建一个自动扩缩器，目标 CPU 利用率设置为 `80%`，副本数在 2 到 5 之间。
 
 <!--
