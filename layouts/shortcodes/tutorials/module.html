@@ -5,36 +5,18 @@
 
 {{- $url := $path | relLangURL -}}
 
-{{- /* Find SVG on disk: content/{lang} → content/en → static */ -}}
-{{- $cleanSrc := index (split $imagePath "?") 0 -}}
+{{- /* SVG inline embedding via dedicated svg shortcode */ -}}
 {{- $svgContent := "" -}}
-{{- if strings.HasSuffix $cleanSrc ".svg" -}}
-  {{- $trimmedSrc := strings.TrimPrefix "/" $cleanSrc -}}
-  {{- $pageLang := $.Page.Language.Lang -}}
-  {{- $defaultLang := $.Site.Params.defaultContentLanguage | default "en" -}}
-  {{- $contentPath := printf "content/%s/%s" $pageLang $trimmedSrc -}}
-  {{- if fileExists $contentPath -}}
-    {{- $svgContent = readFile $contentPath -}}
-  {{- else -}}
-    {{- $fallbackPath := printf "content/%s/%s" $defaultLang $trimmedSrc -}}
-    {{- if fileExists $fallbackPath -}}
-      {{- $svgContent = readFile $fallbackPath -}}
-    {{- else -}}
-      {{- $staticPath := printf "static/%s" $trimmedSrc -}}
-      {{- if fileExists $staticPath -}}
-        {{- $svgContent = readFile $staticPath -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
+{{- $cleanImgSrc := index (split $imagePath "?") 0 -}}
+{{- if strings.HasSuffix $cleanImgSrc ".svg" -}}
+  {{- $svgShortcode := printf "{{< svg %q >}}" $imagePath -}}
+  {{- $svgContent = .Page.RenderString $svgShortcode -}}
 {{- end -}}
 
 <div class="module">
   {{ if $url }}<a href="{{ $url }}">{{ end }}
     {{- if $svgContent -}}
-      {{- /* Strip explicit color-scheme so inline SVGs inherit the page's data-bs-theme
-             (fixes light-dark() not respecting class-based dark mode toggle) */ -}}
-      {{- $svgContent = replace $svgContent "color-scheme: light dark;" "" -}}
-      {{- $svgContent | safeHTML -}}
+      {{- $svgContent -}}
     {{- else -}}
       <img src="{{ $imagePath }}" alt="{{ $alt }}" />
     {{- end -}}

@@ -1,60 +1,34 @@
-{{- $srcParam := .Get "src" -}}
-{{- $clickToZoom := .Get "clicktozoom" -}}
-{{- $cleanSrc := index (split $srcParam "?") 0 -}}
-{{- $resource := (.Page.Resources.GetMatch (printf "**%s*" $cleanSrc)) -}}
-{{- $svgContent := "" -}}
+{{ $src := (.Page.Resources.GetMatch (printf "**%s*" (.Get "src"))) }}
+{{ $clickToZoom := .Get "clicktozoom" }}
+{{- /* SVG support: uncomment the two blocks below to handle SVG files
+       via the dedicated svg shortcode.
 
-{{- /* SVG inline embedding: strip ?v=..., find file, read content */ -}}
-{{- if strings.HasSuffix $cleanSrc ".svg" -}}
-  {{- if $resource -}}
-    {{- with $resource.Content -}}
-      {{- $svgContent = . -}}
-    {{- end -}}
-  {{- else -}}
-    {{- $trimmedSrc := strings.TrimPrefix "/" $cleanSrc -}}
-    {{- $pageLang := $.Page.Language.Lang -}}
-    {{- $defaultLang := $.Site.Params.defaultContentLanguage | default "en" -}}
-    {{- $contentPath := printf "content/%s/%s" $pageLang $trimmedSrc -}}
-    {{- if fileExists $contentPath -}}
-      {{- $svgContent = readFile $contentPath -}}
-    {{- else -}}
-      {{- $fallbackPath := printf "content/%s/%s" $defaultLang $trimmedSrc -}}
-      {{- if fileExists $fallbackPath -}}
-        {{- $svgContent = readFile $fallbackPath -}}
-      {{- else -}}
-        {{- $staticPath := printf "static/%s" $trimmedSrc -}}
-        {{- if fileExists $staticPath -}}
-          {{- $svgContent = readFile $staticPath -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-
+       Block 1 — variable init + detection (before <figure>):
+       {{ $svgContent := "" }}
+       {{ if strings.HasSuffix (index (split (.Get "src") "?") 0) ".svg" }}
+         {{ $svgShortcode := printf "{{< svg %q >}}" (.Get "src") }}
+         {{ $svgContent = .Page.RenderString $svgShortcode }}
+       {{ end }}
+*/ -}}
 <figure{{ with .Get "class" }} class="{{ . }} {{ if $clickToZoom }}clickable-zoom{{ end }}"{{ end }}>
     {{- if .Get "link" -}}
         <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
     {{- end }}
-    {{- if $svgContent -}}
-      {{- /* Add responsive sizing to inline SVG */ -}}
-      {{- if strings.Contains $svgContent "style=\"" -}}
-        {{- $svgContent = replace $svgContent "style=\"" "style=\"max-width:100%;height:auto;display:block;margin:0 auto;" 1 -}}
-      {{- else -}}
-        {{- $svgContent = replace $svgContent "<svg " "<svg style=\"max-width:100%;height:auto;display:block;margin:0 auto;\" " 1 -}}
-      {{- end -}}
-      {{- /* Strip explicit color-scheme so inline SVGs inherit the page's data-bs-theme
-             (fixes light-dark() not respecting class-based dark mode toggle) */ -}}
-      {{- $svgContent = replace $svgContent "color-scheme: light dark;" "" -}}
-      {{- $svgContent | safeHTML -}}
-    {{- else -}}
-      <img src="{{ if $resource }}{{ $resource.RelPermalink }}{{ else }}{{ $srcParam }}{{ end }}" 
-           {{- if or (.Get "alt") (.Get "caption") }}
-           alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
-           {{- end -}}
-           {{- with .Get "width" }} width="{{ . }}"{{ end -}}
-           {{- with .Get "height" }} height="{{ . }}"{{ end -}}
-      />
-    {{- end -}}
+    {{- /* Block 2 — conditional SVG/img rendering (inside <figure>/<a>):
+         {{ if $svgContent }}
+           {{ $svgContent }}
+         {{ else }}
+    */ -}}
+    <img src="{{ if $src }}{{ $src.RelPermalink }}{{ else }}{{ .Get "src" }}{{ end }}" 
+         {{- if or (.Get "alt") (.Get "caption") }}
+         alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
+         {{- end -}}
+         {{- with .Get "width" }} width="{{ . }}"{{ end -}}
+         {{- with .Get "height" }} height="{{ . }}"{{ end -}}
+    /> <!-- Closing img tag -->
+    {{- /* Block 2 continued (closing end):
+         {{ end }}
+    */ -}}
     {{- if .Get "link" }}</a>{{ end -}}
     {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
         <figcaption>

@@ -55,7 +55,7 @@ A Kubernetes cluster consists of two types of resources:
 
 ### Cluster Diagram
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg" style="width: 100%;" >}}
+{{< svg src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg" >}}
 
 **The Control Plane is responsible for managing the cluster.** The Control Plane
 coordinates all activities in your cluster, such as scheduling applications, maintaining
