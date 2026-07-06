@@ -2,7 +2,6 @@
 layout: blog
 title: "Kubernetes Dashboard to Headlamp: A Step-by-Step Guide"
 draft: true
-date: 2026-04-01T10:00:00+08:00
 slug: kubernetes-dashboard-to-headlamp
 author: >
   Vincent T. (Microsoft)
@@ -56,8 +55,6 @@ A few things will feel different:
 - Creation shifts from forms to "apply YAML."
 - Multi-cluster becomes normal, not a special case.
 - The map view helps you see how resources connect.
-
----
 
 ## 2. Pre-migration checklist
 
@@ -144,7 +141,6 @@ These are common. You can handle them later.
 - OIDC / SSO (for browser sign-in)
 - cleanup of old Dashboard service accounts and RBAC
 
----
 
 ## 3. Choose where Headlamp will run (desktop or in-cluster)
 
@@ -169,8 +165,6 @@ In-cluster Headlamp is installed as a Kubernetes workload (often via Helm). This
 - Cluster admins manage install, upgrades, and configuration through the Helm chart and standard Kubernetes tooling.
 - Admins control ingress and can set up OIDC login for shared access.
 - It supports shared use in team environments.
-
----
 
 ## 4. Install Headlamp (desktop and in-cluster)
 
@@ -321,7 +315,6 @@ If you installed with a tarball, download the newest tarball, extract it, and ru
 
 Treat an in-cluster UI like any other cluster-facing service. Use TLS, lock down who can reach it, and rely on Kubernetes auth and RBAC to control what users can do.
 
----
 
 ## 5. Authentication and RBAC
 
@@ -425,9 +418,8 @@ Your kubeconfig may not be in the default location. Point Headlamp to the file w
 
 Confirm your provider allows `https://YOUR_URL/oidc-callback`. If you use ingress, make sure it forwards `X-Forwarded-Proto`.
 
----
 
-## 6. Manage Multiple Clusters
+## 6. Manage multiple clusters
 
 Kubernetes Dashboard is usually tied to one cluster at a time. Headlamp is built for multi-cluster work. It is a client that follows your kubeconfig, not a single cluster install. That means you can keep one UI open and switch clusters as you work.
 
@@ -463,9 +455,8 @@ You can also add clusters by loading additional kubeconfig files from the UI.
 
 Multi-cluster does not change security rules. Each cluster still enforces its own RBAC. Headlamp shows only what your identity can do in the selected cluster.
 
----
 
-## 7. Navigate and Understand Resources
+## 7. Navigate and understand resources
 
 If you used Kubernetes Dashboard, this part will feel familiar. Headlamp keeps the same core resource views, but makes it easier to move around and understand what is connected.
 
@@ -516,9 +507,8 @@ This helps when you are troubleshooting. Instead of clicking through several pag
 
 Both views work on the same data. You are just choosing how much context you want at that moment.
 
----
 
-## 8. Deploy Applications with YAML
+## 8. Deploy applications with YAML
 
 This is the biggest change for most Kubernetes Dashboard users. Dashboard relied on forms. Headlamp relies on manifests. The goal is not to slow you down. It is to align the UI with how Kubernetes is usually run in practice.
 
@@ -590,9 +580,8 @@ Headlamp does not replace those tools. It gives you visibility into what they cr
 - You gain clarity about what is actually applied to the cluster.
 - The same manifest can be reused in CI, Git, or other tools.
 
----
 
-## 9. Deploy and Debug Workloads
+## 9. Deploy and debug workloads
 
 One of the main reasons people used Kubernetes Dashboard was day-to-day debugging. Headlamp covers the same tasks and adds a few useful upgrades.
 
@@ -664,7 +653,6 @@ This is often the first place to look when a workload is stuck or crashes.
 - Clearer layout and filtering
 - Fewer context switches between UI and CLI
 
----
 
 ## 10. Remove Kubernetes Dashboard
 
@@ -722,9 +710,8 @@ Make sure your team knows:
 - How to access it (desktop or URL).
 - Where to go for help if something feels different.
 
----
 
-## 11. Post-Migration Checklist
+## 11. Post-migration checklist
 
 This final checklist helps you confirm the migration is complete. It gives you confidence that Headlamp is working as expected and that nothing important was left behind.
 
@@ -769,7 +756,6 @@ This final checklist helps you confirm the migration is complete. It gives you c
 - [ ] Onboarding docs point new users to Headlamp.
 - [ ] There is a clear path for feedback or questions.
 
----
 
 You've now completed the move from Kubernetes Dashboard to Headlamp. Your team can use the same Kubernetes access model, work across clusters, and rely on workflows that match how Kubernetes is used today. From here, Headlamp becomes your default UI, whether on the desktop or in shared environments. As your needs grow, you can keep using it as-is or extend it with plugins and new views over time.
 
