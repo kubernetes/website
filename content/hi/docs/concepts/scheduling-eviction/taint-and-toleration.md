@@ -3,52 +3,52 @@ reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
-title: Taints aur Tolerations
+title: टेंट्स और टॉलरेशन
 content_type: concept
 weight: 50
 ---
 
 
 <!-- overview -->
-[_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-{{< glossary_tooltip text="Pods" term_id="pod" >}} ki ek aisi property hai jo unhe nodes ke ek
-set ki taraf *akarshit* karti hai {{< glossary_tooltip text="nodes" term_id="node" >}}
-(ya toh preference ke roop mein ya hard requirement ke roop mein). _Taints_ iske viprit hain --
-yeh ek node ko pods ke ek set ko door karne ki anumati dete hain.
+[_नोड एफिनिटी_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+{{< glossary_tooltip text="पॉड्स" term_id="pod" >}} की एक ऐसी विशेषता है जो उन्हें
+{{< glossary_tooltip text="नोड्स" term_id="node" >}} के एक समूह की ओर *आकर्षित* करती है
+(प्राथमिकता के रूप में या कठोर आवश्यकता के रूप में)। _टेंट्स_ इसके विपरीत हैं --
+वे एक नोड को पॉड्स के एक समूह को अस्वीकार करने की अनुमति देते हैं।
 
-_Tolerations_ pods par apply hoti hain. Tolerations scheduler ko matching taints wale pods ko
-schedule karne ki anumati deti hain. Tolerations scheduling ki anumati deti hain lekin scheduling
-ki guarantee nahi deti: scheduler apne function ke hisse ke roop mein
-[anya parameters ka bhi mulyankan karta hai](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+_टॉलरेशन_ पॉड्स पर लागू होती हैं। टॉलरेशन शेड्यूलर को मिलान करने वाले टेंट्स वाले
+पॉड्स को शेड्यूल करने की अनुमति देती हैं। टॉलरेशन शेड्यूलिंग की अनुमति देती हैं
+लेकिन शेड्यूलिंग की गारंटी नहीं देतीं: शेड्यूलर अपने कार्य के भाग के रूप में
+[अन्य मापदंडों का भी मूल्यांकन करता है](/docs/concepts/scheduling-eviction/pod-priority-preemption/)।
 
-Taints aur tolerations milkar ensure karte hain ki pods galat nodes par schedule na ho sakein.
-Ek ya adhik taints ek node par apply ki jaati hain; yeh darshata hai ki node un pods ko accept
-nahi karega jo taints ko tolerate nahi karte.
+टेंट्स और टॉलरेशन मिलकर यह सुनिश्चित करते हैं कि पॉड्स अनुचित नोड्स पर शेड्यूल
+न हों। एक या अधिक टेंट्स एक नोड पर लागू किए जाते हैं; यह दर्शाता है कि नोड उन
+पॉड्स को स्वीकार नहीं करेगा जो टेंट्स को टॉलरेट नहीं करते।
 
 <!-- body -->
 
-## Concepts
+## अवधारणाएं
 
-Aap [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint) ka upyog karke
-ek node par taint add kar sakte hain. Udaharan ke liye,
+आप [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint) का उपयोग
+करके एक नोड पर टेंट जोड़ सकते हैं। उदाहरण के लिए,
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule
 ```
 
-node `node1` par ek taint lagata hai. Is taint ki key `key1`, value `value1`, aur taint effect
-`NoSchedule` hai. Iska matlab hai ki koi bhi pod `node1` par schedule nahi ho sakega jab tak
-uske paas matching toleration na ho.
+नोड `node1` पर एक टेंट लगाता है। इस टेंट की key `key1`, value `value1`, और टेंट
+effect `NoSchedule` है। इसका अर्थ है कि कोई भी पॉड `node1` पर शेड्यूल नहीं हो
+सकेगा जब तक उसके पास मिलान करने वाली टॉलरेशन न हो।
 
-Upar diye gaye command se add ki gayi taint ko hatane ke liye, aap yeh run kar sakte hain:
+ऊपर दिए गए कमांड से जोड़े गए टेंट को हटाने के लिए, आप यह चला सकते हैं:
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
-Aap PodSpec mein pod ke liye toleration specify karte hain. Niche diye gaye dono tolerations
-upar ki `kubectl taint` line se bani taint se "match" karte hain, aur isliye in mein se kisi bhi
-toleration wala pod `node1` par schedule ho sakta hai:
+आप PodSpec में पॉड के लिए टॉलरेशन निर्दिष्ट करते हैं। निम्नलिखित दोनों टॉलरेशन
+ऊपर की `kubectl taint` लाइन से बने टेंट से "मिलान" करती हैं, और इसलिए इनमें से
+किसी भी टॉलरेशन वाला पॉड `node1` पर शेड्यूल हो सकता है:
 
 ```yaml
 tolerations:
@@ -65,74 +65,74 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-Default Kubernetes scheduler kisi particular Pod ko run karne ke liye node select karte samay
-taints aur tolerations ko dhyan mein rakhta hai. Lekin agar aap manually Pod ke liye
-`.spec.nodeName` specify karte hain, toh woh action scheduler ko bypass kar deta hai; Pod tab
-us node par bound ho jaata hai jahan aapne use assign kiya tha, chahe us node par `NoSchedule`
-taints hi kyun na ho. Agar aisa hota hai aur node par `NoExecute` taint bhi set hai, toh kubelet
-Pod ko eject kar dega jab tak appropriate tolerance set na ho.
+डिफ़ॉल्ट Kubernetes शेड्यूलर किसी विशेष पॉड को चलाने के लिए नोड चुनते समय टेंट्स
+और टॉलरेशन को ध्यान में रखता है। हालांकि, यदि आप किसी पॉड के लिए `.spec.nodeName`
+मैन्युअल रूप से निर्दिष्ट करते हैं, तो वह क्रिया शेड्यूलर को बाईपास कर देती है;
+पॉड तब उस नोड पर बाउंड हो जाता है जहाँ आपने उसे असाइन किया था, भले ही उस नोड पर
+`NoSchedule` टेंट्स हों। यदि ऐसा होता है और नोड पर `NoExecute` टेंट भी सेट है,
+तो kubelet पॉड को बाहर कर देगा जब तक उचित tolerance सेट न हो।
 
-Yahan ek pod ka udaharan hai jisme kuch tolerations defined hain:
+यहाँ एक पॉड का उदाहरण है जिसमें कुछ टॉलरेशन परिभाषित हैं:
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
-`operator` ki default value `Equal` hai.
+`operator` का डिफ़ॉल्ट मान `Equal` है।
 
-Ek toleration ek taint se "match" karti hai agar keys same hain aur effects same hain, aur:
+एक टॉलरेशन एक टेंट से "मिलान" करती है यदि keys समान हों और effects समान हों, और:
 
-* `operator` `Exists` hai (is case mein koi `value` specify nahi honi chahiye), ya
-* `operator` `Equal` hai aur values equal honi chahiye.
+* `operator` `Exists` है (इस स्थिति में कोई `value` निर्दिष्ट नहीं होनी चाहिए), या
+* `operator` `Equal` है और values समान होनी चाहिए।
 
 {{< note >}}
 
-Do special cases hain:
+दो विशेष मामले हैं:
 
-Agar `key` empty hai, toh `operator` `Exists` hona chahiye, jo saari keys aur values se match
-karta hai. Dhyan rakhein ki `effect` ko abhi bhi usi samay match karna hoga.
+यदि `key` खाली है, तो `operator` `Exists` होना चाहिए, जो सभी keys और values से
+मिलान करता है। ध्यान दें कि `effect` को अभी भी एक साथ मिलान करना होगा।
 
-Ek empty `effect` key `key1` ke saath saare effects se match karta hai.
+एक खाली `effect` key `key1` के साथ सभी effects से मिलान करता है।
 
 {{< /note >}}
 
-Upar diye gaye udaharan mein `NoSchedule` ka `effect` use kiya gaya tha. Vikalp ke roop mein,
-aap `PreferNoSchedule` ka `effect` use kar sakte hain.
+ऊपर दिए गए उदाहरण में `NoSchedule` के `effect` का उपयोग किया गया था। वैकल्पिक
+रूप से, आप `PreferNoSchedule` के `effect` का उपयोग कर सकते हैं।
 
-`effect` field ke liye allowed values hain:
+`effect` फ़ील्ड के लिए अनुमत मान हैं:
 
 `NoExecute`
-: Yeh un pods ko affect karta hai jo node par pehle se chal rahe hain, is prakar:
+: यह उन पॉड्स को प्रभावित करता है जो नोड पर पहले से चल रहे हैं, इस प्रकार:
 
-  * Jo pods taint ko tolerate nahi karte unhe turant evict kar diya jaata hai
-  * Jo pods taint ko tolerate karte hain aur apni toleration specification mein
-    `tolerationSeconds` specify nahi karte woh hamesha ke liye bound rehte hain
-  * Jo pods taint ko tolerate karte hain aur specified `tolerationSeconds` ke saath,
-    specified samay tak bound rehte hain. Us samay ke baad, node lifecycle controller
-    Pods ko node se evict kar deta hai.
+  * जो पॉड्स टेंट को टॉलरेट नहीं करते उन्हें तुरंत बाहर कर दिया जाता है
+  * जो पॉड्स टेंट को टॉलरेट करते हैं और अपनी टॉलरेशन विनिर्देश में
+    `tolerationSeconds` निर्दिष्ट नहीं करते वे हमेशा के लिए बाउंड रहते हैं
+  * जो पॉड्स टेंट को निर्दिष्ट `tolerationSeconds` के साथ टॉलरेट करते हैं,
+    निर्दिष्ट समय तक बाउंड रहते हैं। उस समय के बाद, नोड lifecycle controller
+    पॉड्स को नोड से बाहर कर देता है।
 
 `NoSchedule`
-: Tainted node par koi naya Pod schedule nahi hoga jab tak unke paas matching toleration na ho.
-  Node par currently chal rahe Pods ko evict **nahi** kiya jaata.
+: टेंटेड नोड पर कोई नया पॉड शेड्यूल नहीं होगा जब तक उनके पास मिलान करने वाली
+  टॉलरेशन न हो। नोड पर वर्तमान में चल रहे पॉड्स को बाहर **नहीं** किया जाता।
 
 `PreferNoSchedule`
-: `PreferNoSchedule` `NoSchedule` ka ek "preference" ya "soft" version hai.
-  Control plane pod ko tainted node par place karne se *bachne ki koshish karega* agar pod
-  taint ko tolerate nahi karta, lekin yeh guaranteed nahi hai.
+: `PreferNoSchedule`, `NoSchedule` का एक "प्राथमिकता" या "सॉफ्ट" संस्करण है।
+  कंट्रोल प्लेन उस पॉड को टेंटेड नोड पर रखने से *बचने की कोशिश करेगा* जो टेंट
+  को टॉलरेट नहीं करता, लेकिन यह गारंटीकृत नहीं है।
 
-Aap ek hi node par multiple taints aur ek hi pod par multiple tolerations rakh sakte hain.
-Kubernetes multiple taints aur tolerations ko ek filter ki tarah process karta hai: node ki
-saari taints se shuru karein, phir un taints ko ignore karein jinke liye pod ke paas matching
-toleration hai; bache hue un-ignored taints pod par indicated effects dete hain. Vishesh roop se,
+आप एक ही नोड पर कई टेंट्स और एक ही पॉड पर कई टॉलरेशन रख सकते हैं। Kubernetes
+कई टेंट्स और टॉलरेशन को एक फ़िल्टर की तरह प्रोसेस करता है: नोड के सभी टेंट्स से
+शुरू करें, फिर उन टेंट्स को अनदेखा करें जिनके लिए पॉड के पास मिलान करने वाली
+टॉलरेशन है; शेष अनदेखे न किए गए टेंट्स पॉड पर इंगित effects देते हैं। विशेष रूप से,
 
-* agar kam se kam ek un-ignored taint `NoSchedule` effect ke saath hai toh Kubernetes pod ko
-  us node par schedule nahi karega
-* agar `NoSchedule` effect ke saath koi un-ignored taint nahi hai lekin kam se kam ek un-ignored
-  taint `PreferNoSchedule` effect ke saath hai toh Kubernetes pod ko us node par schedule na karne
-  ki *koshish karega*
-* agar kam se kam ek un-ignored taint `NoExecute` effect ke saath hai toh pod ko node se evict
-  kar diya jaayega (agar woh node par pehle se chal raha hai), aur node par schedule nahi hoga
-  (agar woh abhi node par chal nahi raha).
+* यदि `NoSchedule` effect वाला कम से कम एक अनदेखा न किया गया टेंट है तो Kubernetes
+  पॉड को उस नोड पर शेड्यूल नहीं करेगा
+* यदि `NoSchedule` effect वाला कोई अनदेखा न किया गया टेंट नहीं है लेकिन कम से कम
+  एक `PreferNoSchedule` effect वाला अनदेखा न किया गया टेंट है तो Kubernetes पॉड को
+  उस नोड पर शेड्यूल न करने की *कोशिश करेगा*
+* यदि `NoExecute` effect वाला कम से कम एक अनदेखा न किया गया टेंट है तो पॉड को नोड
+  से बाहर कर दिया जाएगा (यदि वह नोड पर पहले से चल रहा है), और नोड पर शेड्यूल
+  नहीं होगा (यदि वह अभी नोड पर नहीं चल रहा)।
 
-Udaharan ke liye, sochain ki aap ek node ko is tarah taint karte hain
+उदाहरण के लिए, मान लीजिए आप एक नोड को इस तरह टेंट करते हैं
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule
@@ -140,7 +140,7 @@ kubectl taint nodes node1 key1=value1:NoExecute
 kubectl taint nodes node1 key2=value2:NoSchedule
 ```
 
-Aur ek pod ke paas do tolerations hain:
+और एक पॉड के पास दो टॉलरेशन हैं:
 
 ```yaml
 tolerations:
@@ -154,16 +154,16 @@ tolerations:
   effect: "NoExecute"
 ```
 
-Is case mein, pod node par schedule nahi ho sakega, kyunki teesre taint se match karne wali
-koi toleration nahi hai. Lekin agar taint add hone ke samay pod pehle se node par chal raha
-hai toh woh chalte rehne mein able hoga, kyunki teesra taint teeno mein se akela aisa hai jo
-pod dwara tolerate nahi kiya jaata.
+इस मामले में, पॉड नोड पर शेड्यूल नहीं हो सकेगा, क्योंकि तीसरे टेंट से मिलान
+करने वाली कोई टॉलरेशन नहीं है। लेकिन यदि टेंट जोड़े जाने के समय पॉड पहले से
+नोड पर चल रहा है तो वह चलते रहने में सक्षम होगा, क्योंकि तीसरा टेंट तीनों में
+से अकेला ऐसा है जो पॉड द्वारा टॉलरेट नहीं किया जाता।
 
-Aam taur par, agar `NoExecute` effect wali taint ek node par add ki jaati hai, toh jo pods
-taint ko tolerate nahi karte unhe turant evict kar diya jaata hai, aur jo pods taint ko
-tolerate karte hain unhe kabhi evict nahi kiya jaata. Lekin, `NoExecute` effect wali toleration
-ek optional `tolerationSeconds` field specify kar sakti hai jo yeh bataata hai ki taint add
-hone ke baad pod kitne samay tak node se bound rahega. Udaharan ke liye,
+सामान्यतः, यदि `NoExecute` effect वाला टेंट एक नोड पर जोड़ा जाता है, तो जो पॉड्स
+टेंट को टॉलरेट नहीं करते उन्हें तुरंत बाहर कर दिया जाता है, और जो पॉड्स टेंट को
+टॉलरेट करते हैं उन्हें कभी बाहर नहीं किया जाता। हालांकि, `NoExecute` effect वाली
+टॉलरेशन एक वैकल्पिक `tolerationSeconds` फ़ील्ड निर्दिष्ट कर सकती है जो यह बताती
+है कि टेंट जोड़े जाने के बाद पॉड कितने समय तक नोड से बाउंड रहेगा। उदाहरण के लिए,
 
 ```yaml
 tolerations:
@@ -174,48 +174,49 @@ tolerations:
   tolerationSeconds: 3600
 ```
 
-iska matlab hai ki agar yeh pod chal raha hai aur node par ek matching taint add ki jaati hai,
-toh pod 3600 seconds tak node se bound rahega, aur phir evict ho jaayega. Agar us samay se
-pehle taint hata di jaati hai, toh pod evict nahi hoga.
+इसका अर्थ है कि यदि यह पॉड चल रहा है और नोड पर एक मिलान करने वाला टेंट जोड़ा
+जाता है, तो पॉड 3600 सेकंड तक नोड से बाउंड रहेगा, और फिर बाहर हो जाएगा। यदि
+उस समय से पहले टेंट हटा दिया जाता है, तो पॉड बाहर नहीं होगा।
 
-## Numeric comparison operators {#numeric-comparison-operators}
+## संख्यात्मक तुलना ऑपरेटर {#numeric-comparison-operators}
 
 {{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
 
-`Equal` aur `Exists` ke alaawa, aap integer values wale taints ko match karne ke liye numeric
-comparison operators (`Gt` aur `Lt`) use kar sakte hain. Yeh threshold-based scheduling ke
-liye useful hai, jaise reliability level ya SLA tier ke anusaar nodes ko match karna.
+`Equal` और `Exists` के अलावा, आप पूर्णांक मानों वाले टेंट्स से मिलान करने के लिए
+संख्यात्मक तुलना ऑपरेटर (`Gt` और `Lt`) का उपयोग कर सकते हैं। यह threshold-आधारित
+शेड्यूलिंग के लिए उपयोगी है, जैसे reliability level या SLA tier के अनुसार नोड्स
+का मिलान करना।
 
-* `Gt` tab match karta hai jab taint value toleration value se badi hoti hai.
-* `Lt` tab match karta hai jab taint value toleration value se chhoti hoti hai.
+* `Gt` तब मिलान करता है जब टेंट value टॉलरेशन value से अधिक हो।
+* `Lt` तब मिलान करता है जब टेंट value टॉलरेशन value से कम हो।
 
-Numeric operators ke liye, toleration aur taint dono values valid integers hone chahiye.
-Agar koi bhi value integer ke roop mein parse nahi ho sakti, toh toleration match nahi karti.
+संख्यात्मक ऑपरेटरों के लिए, टॉलरेशन और टेंट दोनों values वैध पूर्णांक होने चाहिए।
+यदि कोई भी value पूर्णांक के रूप में parse नहीं हो सकती, तो टॉलरेशन मिलान नहीं करती।
 
 {{< note >}}
-Jab aap `Gt` ya `Lt` tolerations operators use karne wala Pod banate hain, toh API server
-validate karta hai ki toleration values valid integers hain. Nodes par taint values ko node
-registration ke samay validate nahi kiya jaata. Agar ek node ke paas non-numeric taint value
-hai (udaharan ke liye,
+जब आप `Gt` या `Lt` टॉलरेशन ऑपरेटर का उपयोग करने वाला पॉड बनाते हैं, तो API server
+यह validate करता है कि टॉलरेशन values वैध पूर्णांक हैं। नोड्स पर टेंट values को
+नोड registration के समय validate नहीं किया जाता। यदि किसी नोड के पास non-numeric
+टेंट value है (उदाहरण के लिए,
 `servicelevel.organization.example/agreed-service-level=high:NoSchedule`),
-numeric comparison operators wale pods us taint se match nahi karenge aur us node par schedule
-nahi ho sakte.
+संख्यात्मक तुलना ऑपरेटर वाले पॉड्स उस टेंट से मिलान नहीं करेंगे और उस नोड पर
+शेड्यूल नहीं हो सकते।
 {{< /note >}}
 
-Udaharan ke liye, agar nodes ko service level agreement (SLA) represent karne wali value ke
-saath taint kiya jaata hai:
+उदाहरण के लिए, यदि नोड्स को service level agreement (SLA) दर्शाने वाली value के
+साथ टेंट किया जाता है:
 
 ```shell
 kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level=950:NoSchedule
 ```
 
-Ek pod 900 se bade SLA wale nodes ko tolerate kar sakta hai:
+एक पॉड 900 से अधिक SLA वाले नोड्स को टॉलरेट कर सकता है:
 
 {{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
 
-Yeh toleration `node1` par taint se match karti hai kyunki `950 > 900` (taint value `Gt`
-operator ke liye toleration value se badi hai). Isi tarah, aap `Lt` operator use kar sakte
-hain un taints ko match karne ke liye jahan taint value toleration value se chhoti ho:
+यह टॉलरेशन `node1` पर टेंट से मिलान करती है क्योंकि `950 > 900` (`Gt` ऑपरेटर के
+लिए टेंट value टॉलरेशन value से अधिक है)। इसी तरह, आप `Lt` ऑपरेटर का उपयोग उन
+टेंट्स से मिलान करने के लिए कर सकते हैं जहाँ टेंट value टॉलरेशन value से कम हो:
 
 ```yaml
 tolerations:
@@ -226,118 +227,106 @@ tolerations:
 ```
 
 {{< note >}}
-Numeric comparison operators use karte samay:
+संख्यात्मक तुलना ऑपरेटर का उपयोग करते समय:
 
-* Toleration aur taint dono values valid signed 64-bit integers hone chahiye
-  (zero leading numbers (e.g., "0550") allowed nahi hain).
-* Agar koi value integer ke roop mein parse nahi ho sakti, toh toleration match nahi karti.
-* Numeric operators saare taint effects ke saath kaam karte hain: `NoSchedule`,
-  `PreferNoSchedule`, aur `NoExecute`.
-* `PreferNoSchedule` ke saath numeric operators ke liye: agar pod ki toleration numeric
-  comparison satisfy nahi karti (e.g., `Gt` use karte samay taint value < toleration value),
-  toh scheduler node ko lower priority deta hai lekin agar koi better option nahi hai toh
-  wahan schedule bhi kar sakta hai.
+* टॉलरेशन और टेंट दोनों values वैध signed 64-bit पूर्णांक होने चाहिए
+  (zero leading numbers (जैसे, "0550") अनुमत नहीं हैं)।
+* यदि कोई value पूर्णांक के रूप में parse नहीं हो सकती, तो टॉलरेशन मिलान नहीं करती।
+* संख्यात्मक ऑपरेटर सभी टेंट effects के साथ काम करते हैं: `NoSchedule`,
+  `PreferNoSchedule`, और `NoExecute`।
+* `PreferNoSchedule` के साथ संख्यात्मक ऑपरेटर के लिए: यदि पॉड की टॉलरेशन संख्यात्मक
+  तुलना संतुष्ट नहीं करती (जैसे, `Gt` उपयोग करते समय टेंट value < टॉलरेशन value),
+  तो शेड्यूलर नोड को कम प्राथमिकता देता है लेकिन यदि कोई बेहतर विकल्प नहीं है तो
+  वहाँ शेड्यूल भी कर सकता है।
 {{< /note >}}
 
 {{< warning >}}
 
-`TaintTolerationComparisonOperators` feature gate disable karne se pehle:
+`TaintTolerationComparisonOperators` feature gate disable करने से पहले:
 
-* Aapko controller hot-loops se bachne ke liye `Gt` ya `Lt` operators use karne wale saare
-  workloads identify karne chahiye.
-* Saare workload controller templates ko `Equal` ya `Exists` operators use karne ke liye
-  update karein
-* `Gt` ya `Lt` operators use karne wale pending pods delete karein
-* Validation errors mein spikes ke liye `apiserver_request_total` metric monitor karein
+* आपको controller hot-loops से बचने के लिए `Gt` या `Lt` ऑपरेटर का उपयोग करने वाले
+  सभी workloads की पहचान करनी चाहिए।
+* सभी workload controller templates को `Equal` या `Exists` ऑपरेटर का उपयोग करने
+  के लिए अपडेट करें
+* `Gt` या `Lt` ऑपरेटर का उपयोग करने वाले pending पॉड्स को delete करें
+* validation errors में spikes के लिए `apiserver_request_total` metric की निगरानी करें
 {{< /warning >}}
 
-## Example Use Cases
+## उपयोग के उदाहरण
 
-Taints aur tolerations pods ko nodes se *door* steering karne ya un pods ko evict karne ka
-ek flexible tarika hai jo nahi chalne chahiye. Kuch use cases hain:
+टेंट्स और टॉलरेशन पॉड्स को नोड्स से *दूर* करने या उन पॉड्स को बाहर करने का एक
+लचीला तरीका है जो नहीं चलने चाहिए। कुछ उपयोग के मामले हैं:
 
-* **Dedicated Nodes**: Agar aap users ke ek particular set ke exclusive use ke liye nodes ka
-  ek set dedicate karna chahte hain, toh aap un nodes par ek taint add kar sakte hain (jaise,
-  `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) aur phir unke pods mein
-  corresponding toleration add kar sakte hain (yeh sabse aasaan ek custom
-  [admission controller](/docs/reference/access-authn-authz/admission-controllers/) likhkar
-  kiya jaata hai). Tolerations wale pods tab tainted (dedicated) nodes ke saath-saath cluster
-  ke kisi bhi doosre node ka use karne mein able honge. Agar aap nodes unhe dedicate karna
-  *chahte hain* aur ensure karna chahte hain ki woh *sirf* dedicated nodes use karein, toh
-  aapko additionally nodes ke same set par taint ke similar ek label add karna chahiye (e.g.
-  `dedicated=groupName`), aur admission controller ko additionally ek node affinity add karna
-  chahiye jisme require ho ki pods sirf `dedicated=groupName` se labeled nodes par schedule ho
-  sakein.
+* **समर्पित नोड्स**: यदि आप किसी विशेष उपयोगकर्ताओं के समूह के एकल उपयोग के लिए
+  नोड्स का एक समूह समर्पित करना चाहते हैं, तो आप उन नोड्स पर एक टेंट जोड़ सकते
+  हैं (जैसे, `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) और फिर
+  उनके पॉड्स में संबंधित टॉलरेशन जोड़ सकते हैं (यह सबसे आसानी से एक custom
+  [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
+  लिखकर किया जाता है)। टॉलरेशन वाले पॉड्स तब टेंटेड (समर्पित) नोड्स के साथ-साथ
+  cluster के किसी भी अन्य नोड का उपयोग करने में सक्षम होंगे। यदि आप नोड्स को उनके
+  लिए समर्पित करना *चाहते हैं* और यह सुनिश्चित करना चाहते हैं कि वे *केवल* समर्पित
+  नोड्स का उपयोग करें, तो आपको नोड्स के उसी समूह पर टेंट के समान एक label भी जोड़ना
+  चाहिए (जैसे `dedicated=groupName`), और admission controller को अतिरिक्त रूप से एक
+  node affinity जोड़नी चाहिए जिसमें आवश्यकता हो कि पॉड्स केवल `dedicated=groupName`
+  से labeled नोड्स पर शेड्यूल हो सकें।
 
-* **Special Hardware wale Nodes**: Ek aisi cluster mein jahan nodes ke ek chhote subset ke
-  paas specialized hardware hai (udaharan ke liye GPUs), yeh desirable hai ki un nodes se
-  special hardware ki zaroorat na hone wale pods ko door rakha jaaye, taaki baad mein aane
-  wale pods ke liye jagah bache jinhein special hardware ki zaroorat hai. Yeh specialized
-  hardware wale nodes ko taint karke kiya ja sakta hai (e.g.
-  `kubectl taint nodes nodename special=true:NoSchedule` ya
-  `kubectl taint nodes nodename special=true:PreferNoSchedule`) aur special hardware use karne
-  wale pods mein corresponding toleration add karke. Dedicated nodes use case ki tarah, ek
-  custom [admission controller](/docs/reference/access-authn-authz/admission-controllers/) ka
-  use karke tolerations apply karna shayad sabse aasaan hai. Udaharan ke liye, special hardware
-  represent karne ke liye [Extended Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-  use karna recommended hai, apne special hardware nodes ko extended resource name ke saath
-  taint karein aur
-  [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
-  admission controller run karein. Ab, kyunki nodes tainted hain, toleration ke bina koi pod
-  unpar schedule nahi hoga. Lekin jab aap extended resource request karne wala pod submit karte
-  hain, toh `ExtendedResourceToleration` admission controller automatically pod mein correct
-  toleration add kar dega aur woh pod special hardware nodes par schedule ho jaayega. Yeh
-  ensure karega ki yeh special hardware nodes special hardware request karne wale pods ke liye
-  dedicated hain aur aapko manually apne pods mein tolerations add nahi karni padegi.
+* **विशेष हार्डवेयर वाले नोड्स**: एक ऐसे cluster में जहाँ नोड्स के एक छोटे उपसमूह
+  के पास विशेष हार्डवेयर है (उदाहरण के लिए GPUs), यह वांछनीय है कि विशेष हार्डवेयर
+  की आवश्यकता न होने वाले पॉड्स को उन नोड्स से दूर रखा जाए, इस प्रकार बाद में आने
+  वाले पॉड्स के लिए जगह बचाई जाए जिन्हें विशेष हार्डवेयर की आवश्यकता है। यह
+  विशेष हार्डवेयर वाले नोड्स को टेंट करके (जैसे
+  `kubectl taint nodes nodename special=true:NoSchedule` या
+  `kubectl taint nodes nodename special=true:PreferNoSchedule`) और विशेष हार्डवेयर
+  का उपयोग करने वाले पॉड्स में संबंधित टॉलरेशन जोड़कर किया जा सकता है।
 
-* **Taint based Evictions**: Node problems hone par per-pod-configurable eviction behavior,
-  jo agale section mein describe kiya gaya hai.
+* **टेंट आधारित निष्कासन**: नोड समस्याएं होने पर per-pod-configurable निष्कासन
+  व्यवहार, जो अगले अनुभाग में वर्णित है।
 
-## Taint based Evictions
+## टेंट आधारित निष्कासन
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Node controller automatically ek Node ko taint karta hai jab certain conditions true hoti hain.
-Niche diye gaye taints built-in hain:
+नोड controller कुछ conditions के सत्य होने पर स्वचालित रूप से एक नोड को टेंट करता
+है। निम्नलिखित टेंट्स built-in हैं:
 
- * `node.kubernetes.io/not-ready`: Node ready nahi hai. Yeh NodeCondition `Ready` ke
-   "`False`" hone se correspond karta hai.
- * `node.kubernetes.io/unreachable`: Node, node controller se unreachable hai. Yeh
-   NodeCondition `Ready` ke "`Unknown`" hone se correspond karta hai.
- * `node.kubernetes.io/memory-pressure`: Node par memory pressure hai.
- * `node.kubernetes.io/disk-pressure`: Node par disk pressure hai.
- * `node.kubernetes.io/pid-pressure`: Node par PID pressure hai.
- * `node.kubernetes.io/network-unavailable`: Node ka network unavailable hai.
- * `node.kubernetes.io/unschedulable`: Node unschedulable hai.
- * `node.cloudprovider.kubernetes.io/uninitialized`: Jab kubelet ek "external" cloud provider
-    ke saath start kiya jaata hai, toh yeh taint node par set kiya jaata hai use unusable mark
-    karne ke liye. Cloud-controller-manager ke ek controller ke is node ko initialize karne ke
-    baad, kubelet is taint ko hata deta hai.
+ * `node.kubernetes.io/not-ready`: नोड ready नहीं है। यह NodeCondition `Ready` के
+   "`False`" होने से संबंधित है।
+ * `node.kubernetes.io/unreachable`: नोड, node controller से unreachable है। यह
+   NodeCondition `Ready` के "`Unknown`" होने से संबंधित है।
+ * `node.kubernetes.io/memory-pressure`: नोड पर memory pressure है।
+ * `node.kubernetes.io/disk-pressure`: नोड पर disk pressure है।
+ * `node.kubernetes.io/pid-pressure`: नोड पर PID pressure है।
+ * `node.kubernetes.io/network-unavailable`: नोड का network unavailable है।
+ * `node.kubernetes.io/unschedulable`: नोड unschedulable है।
+ * `node.cloudprovider.kubernetes.io/uninitialized`: जब kubelet एक "external" cloud
+    provider के साथ शुरू किया जाता है, तो यह टेंट नोड पर set किया जाता है उसे
+    unusable mark करने के लिए। cloud-controller-manager के एक controller द्वारा इस
+    नोड को initialize करने के बाद, kubelet इस टेंट को हटा देता है।
 
-Agar kisi node ko drain karna ho, toh node controller ya kubelet `NoExecute` effect ke saath
-relevant taints add karta hai. Yeh effect `node.kubernetes.io/not-ready` aur
-`node.kubernetes.io/unreachable` taints ke liye default roop se add kiya jaata hai.
-Agar fault condition normal ho jaati hai, toh kubelet ya node controller relevant taint(s)
-hata sakta hai.
+यदि किसी नोड को drain करना हो, तो node controller या kubelet `NoExecute` effect के
+साथ संबंधित टेंट्स जोड़ता है। यह effect `node.kubernetes.io/not-ready` और
+`node.kubernetes.io/unreachable` टेंट्स के लिए डिफ़ॉल्ट रूप से जोड़ा जाता है।
+यदि fault condition सामान्य हो जाती है, तो kubelet या node controller संबंधित
+टेंट(s) हटा सकता है।
 
-Kuch cases mein jab node unreachable hota hai, API server node par kubelet ke saath
-communicate nahi kar sakta. Pods delete karne ka decision kubelet ko tab tak communicate nahi
-kiya ja sakta jab tak API server ke saath communication re-establish na ho jaaye. Iss beech
-mein, deletion ke liye scheduled pods partitioned node par chalte reh sakte hain.
+कुछ मामलों में जब नोड unreachable होता है, API server नोड पर kubelet के साथ
+communicate नहीं कर सकता। पॉड्स को delete करने का निर्णय kubelet को तब तक communicate
+नहीं किया जा सकता जब तक API server के साथ communication पुनः स्थापित न हो जाए।
+इस बीच, deletion के लिए scheduled पॉड्स partitioned नोड पर चलते रह सकते हैं।
 
 {{< note >}}
-Control plane nodes mein naye taints add karne ki rate ko limit karta hai. Yeh rate limiting
-un evictions ki sankhya ko manage karta hai jo tab trigger hoti hain jab bahut saare nodes
-ek saath unreachable ho jaate hain (udaharan ke liye: agar network disruption hoti hai).
+कंट्रोल प्लेन नोड्स में नए टेंट्स जोड़ने की दर को सीमित करता है। यह rate limiting
+उन निष्कासनों की संख्या को manage करता है जो तब trigger होते हैं जब बहुत सारे नोड्स
+एक साथ unreachable हो जाते हैं (उदाहरण के लिए: यदि network disruption होती है)।
 {{< /note >}}
 
-Aap ek Pod ke liye `tolerationSeconds` specify kar sakte hain yeh define karne ke liye ki
-failing ya unresponsive Node par woh Pod kitne samay tak bound rahega.
+आप एक पॉड के लिए `tolerationSeconds` निर्दिष्ट कर सकते हैं यह परिभाषित करने के
+लिए कि failing या unresponsive नोड पर वह पॉड कितने समय तक bound रहेगा।
 
-Udaharan ke liye, aap network partition hone par bahut saari local state wale application ko
-node se kaafi samay tak bound rakhna chahte ho sakte hain, umeed rakhte hue ki partition
-recover ho jaayega aur isliye pod eviction se bachaa ja sakta hai.
-Is Pod ke liye aap jo toleration set karte hain woh kuch is tarah lag sakti hai:
+उदाहरण के लिए, आप network partition होने पर बहुत सारी local state वाले application
+को नोड से काफी समय तक bound रखना चाहते हो सकते हैं, उम्मीद रखते हुए कि partition
+recover हो जाएगा और इसलिए पॉड निष्कासन से बचा जा सकता है।
+इस पॉड के लिए आप जो टॉलरेशन set करते हैं वह कुछ इस तरह लग सकती है:
 
 ```yaml
 tolerations:
@@ -348,78 +337,80 @@ tolerations:
 ```
 
 {{< note >}}
-Kubernetes automatically `node.kubernetes.io/not-ready` aur
-`node.kubernetes.io/unreachable` ke liye `tolerationSeconds=300` ke saath toleration add
-karta hai, jab tak aap, ya koi controller, un tolerations ko explicitly set na karein.
+Kubernetes स्वचालित रूप से `node.kubernetes.io/not-ready` और
+`node.kubernetes.io/unreachable` के लिए `tolerationSeconds=300` के साथ टॉलरेशन
+जोड़ता है, जब तक आप, या कोई controller, उन टॉलरेशन को स्पष्ट रूप से सेट न करें।
 
-Yeh automatically-added tolerations mean karti hain ki Pods in problems mein se kisi ek ke
-detect hone ke baad 5 minutes tak Nodes se bound rehte hain.
+ये स्वचालित रूप से जोड़ी गई टॉलरेशन का अर्थ है कि पॉड्स इन समस्याओं में से किसी
+एक के detect होने के बाद 5 मिनट तक नोड्स से bound रहते हैं।
 {{< /note >}}
 
-[DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods niche diye gaye taints ke
-liye bina `tolerationSeconds` ke `NoExecute` tolerations ke saath create kiye jaate hain:
+[DaemonSet](/docs/concepts/workloads/controllers/daemonset/) पॉड्स निम्नलिखित टेंट्स
+के लिए बिना `tolerationSeconds` के `NoExecute` टॉलरेशन के साथ बनाए जाते हैं:
 
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
-Yeh ensure karta hai ki DaemonSet pods in problems ke karan kabhi evict nahi hote.
+यह सुनिश्चित करता है कि DaemonSet पॉड्स इन समस्याओं के कारण कभी बाहर नहीं होते।
 
 {{< note >}}
-Node controller nodes mein taints add karne aur pods evict karne ke liye responsible tha.
-Lekin 1.29 ke baad, taint-based eviction implementation ko node controller se bahar ek alag,
-aur independent component mein shift kar diya gaya hai jise taint-eviction-controller kaha
-jaata hai. Users optionally taint-based eviction ko
-`--controllers=-taint-eviction-controller` ko kube-controller-manager mein set karke
-disable kar sakte hain.
+नोड controller नोड्स में टेंट्स जोड़ने और पॉड्स को बाहर करने के लिए जिम्मेदार था।
+लेकिन 1.29 के बाद, taint-based eviction implementation को node controller से बाहर
+एक अलग, और स्वतंत्र component में स्थानांतरित कर दिया गया है जिसे
+taint-eviction-controller कहा जाता है। उपयोगकर्ता वैकल्पिक रूप से taint-based
+eviction को kube-controller-manager में
+`--controllers=-taint-eviction-controller` सेट करके disable कर सकते हैं।
 {{< /note >}}
 
-## Condition ke anusaar Nodes ko Taint karna
+## स्थिति के अनुसार नोड्स को टेंट करना
 
-Control plane, node {{<glossary_tooltip text="controller" term_id="controller">}} ka upyog
-karke, automatically [node conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)
-ke liye `NoSchedule` effect ke saath taints create karta hai.
+कंट्रोल प्लेन, नोड {{<glossary_tooltip text="controller" term_id="controller">}} का
+उपयोग करके, स्वचालित रूप से
+[नोड conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)
+के लिए `NoSchedule` effect के साथ टेंट्स बनाता है।
 
-Scheduler scheduling decisions karte samay node conditions nahi, taints check karta hai.
-Yeh ensure karta hai ki node conditions directly scheduling ko affect nahi karti.
-Udaharan ke liye, agar `DiskPressure` node condition active hai, toh control plane
-`node.kubernetes.io/disk-pressure` taint add karta hai aur affected node par naye pods
-schedule nahi karta. Agar `MemoryPressure` node condition active hai, toh control plane
-`node.kubernetes.io/memory-pressure` taint add karta hai.
+शेड्यूलर scheduling decisions करते समय नोड conditions नहीं, टेंट्स check करता है।
+यह सुनिश्चित करता है कि नोड conditions सीधे scheduling को प्रभावित नहीं करतीं।
+उदाहरण के लिए, यदि `DiskPressure` नोड condition सक्रिय है, तो कंट्रोल प्लेन
+`node.kubernetes.io/disk-pressure` टेंट जोड़ता है और affected नोड पर नए पॉड्स
+शेड्यूल नहीं करता। यदि `MemoryPressure` नोड condition सक्रिय है, तो कंट्रोल प्लेन
+`node.kubernetes.io/memory-pressure` टेंट जोड़ता है।
 
-Aap naye bane pods ke liye corresponding Pod tolerations add karke node conditions ko ignore
-kar sakte hain. Control plane `node.kubernetes.io/memory-pressure` toleration un pods par bhi
-add karta hai jinki {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
-`BestEffort` ke alaawa koi aur hai. Yeh isliye hai kyunki Kubernetes `Guaranteed` ya
-`Burstable` QoS classes mein pods ko (chahe unke paas koi memory request set na ho) aise
-treat karta hai jaise woh memory pressure cope karne mein able hain, jabki naye `BestEffort`
-pods affected node par schedule nahi hote.
+आप नए बने पॉड्स के लिए संबंधित पॉड टॉलरेशन जोड़कर नोड conditions को अनदेखा कर
+सकते हैं। कंट्रोल प्लेन उन पॉड्स पर भी `node.kubernetes.io/memory-pressure` टॉलरेशन
+जोड़ता है जिनकी {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+`BestEffort` के अलावा कोई और है। यह इसलिए है क्योंकि Kubernetes `Guaranteed` या
+`Burstable` QoS classes में पॉड्स को (चाहे उनके पास कोई memory request set न हो)
+ऐसे treat करता है जैसे वे memory pressure cope करने में सक्षम हैं, जबकि नए
+`BestEffort` पॉड्स affected नोड पर शेड्यूल नहीं होते।
 
-DaemonSet controller automatically niche diye gaye `NoSchedule` tolerations saare daemons mein
-add karta hai, DaemonSets ko break hone se rokne ke liye.
+DaemonSet controller स्वचालित रूप से निम्नलिखित `NoSchedule` टॉलरेशन सभी daemons
+में जोड़ता है, DaemonSets को break होने से रोकने के लिए।
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/pid-pressure` (1.14 ya baad ka)
-  * `node.kubernetes.io/unschedulable` (1.10 ya baad ka)
-  * `node.kubernetes.io/network-unavailable` (*sirf host network*)
+  * `node.kubernetes.io/pid-pressure` (1.14 या बाद का)
+  * `node.kubernetes.io/unschedulable` (1.10 या बाद का)
+  * `node.kubernetes.io/network-unavailable` (*केवल host network*)
 
-Yeh tolerations add karna backward compatibility ensure karta hai. Aap DaemonSets mein
-arbitrary tolerations bhi add kar sakte hain.
+ये टॉलरेशन जोड़ना backward compatibility सुनिश्चित करता है। आप DaemonSets में
+arbitrary टॉलरेशन भी जोड़ सकते हैं।
 
-## Device taints aur tolerations
+## डिवाइस टेंट्स और टॉलरेशन
 
-Pure nodes ko taint karne ki jagah, administrators [individual devices ko bhi taint kar sakte hain](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
-jab cluster special hardware manage karne ke liye [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
-use karta hai. Iska faayda yeh hai ki tainting ko exactly us hardware ki taraf target kiya
-ja sakta hai jo faulty hai ya maintenance ki zaroorat hai. Tolerations bhi supported hain
-aur devices request karte samay specify ki ja sakti hain. Taints ki tarah yeh un saare pods
-par apply hoti hain jo same allocated device share karte hain.
+पूरे नोड्स को टेंट करने की जगह, administrators [individual devices को भी टेंट कर सकते हैं](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+जब cluster विशेष हार्डवेयर manage करने के लिए
+[dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+का उपयोग करता है। इसका फायदा यह है कि tainting को ठीक उस हार्डवेयर की ओर
+लक्षित किया जा सकता है जो faulty है या maintenance की आवश्यकता है। टॉलरेशन भी
+supported हैं और devices request करते समय निर्दिष्ट की जा सकती हैं। टेंट्स की
+तरह ये उन सभी पॉड्स पर लागू होती हैं जो समान allocated device share करते हैं।
 
 ## {{% heading "whatsnext" %}}
 
-* [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) ke
-  baare mein padhen aur aap ise kaise configure kar sakte hain
-* [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/) ke baare mein
-  padhen
-* [device taints aur tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
-  ke baare mein padhen
+* [नोड-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+  के बारे में पढ़ें और आप इसे कैसे configure कर सकते हैं
+* [पॉड Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/) के
+  बारे में पढ़ें
+* [device टेंट्स और टॉलरेशन](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+  के बारे में पढ़ें
