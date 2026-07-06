@@ -60,7 +60,7 @@ Before walking through each tutorial, you may want to bookmark the
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 * [Configuring Swap Memory on Kubernetes Nodes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
-* [Validating and Mutating Admission Policies](/docs/tutorials/cluster-management/admission-policies/)
+* [Explore Validating and Mutating Admission Policies](/docs/tutorials/cluster-management/admission-policies/)
 
 ## {{% heading "whatsnext" %}}
 

@@ -1,0 +1,16 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "enforce-multiple-replicas-deployments"
+  annotations:
+    kubernetes.io/description: "Require that matching Deployments have multiple replicas"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      resources:   ["deployments"]      # the Deployment API
+      operations:  ["CREATE", "UPDATE"] # the API verb, converted to upper case
+  validations:
+    - expression: "object.spec.replicas >= 2"
