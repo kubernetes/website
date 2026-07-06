@@ -1,13 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: New Metric for Route Corrections in the Cloud Controller Manager"
-date: 2026-07-02T10:35:00-08:00
-slug: ccm-new-metric-route-corrections-total
+draft: true
+slug: ccm-metric-route-corrections-total
 author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
-aliases:
-  - /blog/2026/07/02/ccm-new-metric-route-corrections-total
-  - /blog/2026/07/02/ccm-new-metric-route-corrections-total/
 ---
 
 Kubernetes v1.37 introduces a new alpha counter metric `route_controller_route_corrections_total`
