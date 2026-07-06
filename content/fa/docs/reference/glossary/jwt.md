@@ -1,7 +1,7 @@
 ---
 title: توکن وب JSON (JWT)
 id: jwt
-full_link: https://www.rfc-editor.org/rfc/rfc7519
+full_link: https://datatracker.ietf.org/doc/html/rfc7519
 short_description: >
   روشی برای نمایش ادعاها (claims) که بین دو طرف منتقل می‌شوند.
 aka:

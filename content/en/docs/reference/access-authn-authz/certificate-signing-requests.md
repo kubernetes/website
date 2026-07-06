@@ -304,7 +304,7 @@ M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
 ```
 
 Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://datatracker.ietf.org/doc/html/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
 A CertificateSigningRequest containing the example certificate above would look like this:
@@ -426,7 +426,7 @@ A PodCertificateRequest has the following spec fields:
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
 * `stubPKCS10Request`: A minimal
-  [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR. Signers should extract
+  [PKCS#10](https://datatracker.ietf.org/doc/html/rfc2986) CSR. Signers should extract
   the public key from this CSR. Typically, no other actions need to be taken
   with this field from the signer side, the CSR signature is checked by the API
   server. Requests from the Kubelet will only include the public key information
