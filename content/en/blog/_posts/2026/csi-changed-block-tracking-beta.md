@@ -1,7 +1,8 @@
 ---
 layout: blog
-title: 'Moving Changed Block Tracking API support to Beta'
+title: 'Kubernetes Changed Block Tracking API - Beta Differences'
 draft: true
+date: 2026-07-07T10:00:00-08:00
 slug: csi-changed-block-tracking-beta
 author: >
    [Prasad Ghangal](https://github.com/PrasadG193) (Veeam Kasten)
@@ -9,11 +10,12 @@ author: >
 
 Changed Block Tracking (CBT) support for CSI drivers
 [shipped as Alpha](/blog/2025/09/25/csi-changed-block-tracking/) in
-September 2025. With the `v1.0.0` release of the
+September 2025. With the March `v1.0.0` release of the
 [external-snapshot-metadata](https://github.com/kubernetes-csi/external-snapshot-metadata)
-project, the feature now moves to **Beta**.
+project, the feature moved to **Beta**.
 
-If you are new to changed block tracking, the
+If you aren't yet familiar with _changed block tracking_ for storage in
+Kubernetes, the
 [Alpha announcement](/blog/2025/09/25/csi-changed-block-tracking/) covers
 the motivation, the three primary components (the CSI `SnapshotMetadata`
 gRPC service, the SnapshotMetadataService CRD, and the
@@ -26,7 +28,7 @@ The main change in this release is the promotion of the
 SnapshotMetadataService CRD from `v1alpha1` to `v1beta1`. The CRD used to
 advertise a driver's metadata service now serves
 `cbt.storage.k8s.io/v1beta1`. The schema itself is unchanged, but this
-release removes `v1alpha1` rather than serving it alongside the new version.
+release **removes** `v1alpha1` (rather than serving it alongside the new version).
 If you are upgrading from Alpha, you need to:
 
 - Re-apply the CRD definition shipped with `v1.0.0`.
