@@ -1,20 +1,17 @@
 
 ### Requirements:
 
-- You need a machine that is running Linux or macOS.
+- You need a machine that is running Linux or macOS. On Windows, use
+  [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install),
+  since the build tooling relies on `make` and Bash scripts.
 
 - You need to have these tools installed:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://go.dev/dl/), matching the version required by the `go.mod` file of the `reference-docs` module you're building (`gen-apidocs`, `gen-compdocs`, or `genref`)
+  - [Go](https://go.dev/dl/), any recent release (Go downloads the exact toolchain a generator needs automatically)
   - [make](https://www.gnu.org/software/make/)
   - [gcc compiler/linker](https://gcc.gnu.org/)
-  - [Docker](https://docs.docker.com/engine/installation/) (only required for the deprecated `gen-kubectldocs` generator)
-  - [Python](https://www.python.org/downloads/) v3.7.x+, [Pip](https://pypi.org/project/pip/), and [PyYAML](https://pyyaml.org/) v5.1.2 (only required to run the deprecated `update-imported-docs.py` script)
-
-  The `reference-docs` generators are Go modules, so you don't need to set a `GOPATH` or use `go get`.
-
-- Your `PATH` environment variable must include the required build tools, such as the `Go` binary.
+  - [Docker](https://docs.docker.com/engine/installation/) (only required by the deprecated `gen-kubectldocs` generator, or if you want to preview your changes locally with `make container-serve`)
 
 - You need to know how to create a pull request to a GitHub repository.
   This involves creating your own fork of the repository. For more
