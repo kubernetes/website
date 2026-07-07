@@ -35,7 +35,7 @@ A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have an [X.509](https://www.itu.int/rec/T-REC-X.509) certificate
 issued by an authority that your Kubernetes cluster trusts. The client must then present that certificate to the Kubernetes API.
 -->
-Kubernetes 允许你使用公钥基础设施 (PKI) 对你的集群进行身份认证，这类似于对客户端进行身份认证。
+Kubernetes 允许你使用公钥基础设施（PKI）对你的集群进行身份认证，这类似于对客户端进行身份认证。
 
 为了能够对普通用户进行身份认证并调用 API，需要执行几个步骤。首先，此用户必须拥有由你的
 Kubernetes 集群所信任的权威机构颁发的 [X.509](https://www.itu.int/rec/T-REC-X.509)
@@ -49,7 +49,8 @@ You will create a private key, and then get a certificate issued, and finally co
 that private key for a client.
 -->
 在这个过程中，你需要使用
-[CertificateSigningRequest](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)，并且你或其他主体必须批准此请求。
+[CertificateSigningRequest](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)，
+并且你或其他主体必须批准此请求。
 
 你将创建私钥，然后获取颁发的证书，最后为客户端配置该私钥。
 
@@ -65,7 +66,7 @@ If you have alternative or additional security mechanisms around authorization, 
 -->
 * 你需要 `kubectl`、`openssl` 和 `base64` 等工具。
 
-此页面假设你使用的是 Kubernetes {{< glossary_tooltip term_id="rbac" text="基于角色的访问控制" >}} (RBAC)。
+此页面假设你使用的是 Kubernetes {{< glossary_tooltip term_id="rbac" text="基于角色的访问控制" >}}（RBAC）。
 如果你在鉴权方面有替代的或额外的安全机制，也需要将其考虑在内。
 
 <!-- steps -->
@@ -82,7 +83,8 @@ openssl genrsa -out myuser.key 3072
 -->
 ## 创建私钥   {#create-private-key}
 
-在这一步中，你将创建一个私钥。你将此文件作为秘密保管起来，因为任何拥有该私钥的人都可以伪装成对应的用户。
+在这一步中，你将创建一个私钥。
+你将此文件作为秘密保管起来，因为任何拥有该私钥的人都可以伪装成对应的用户。
 
 ```shell
 # 创建一个私钥
@@ -116,7 +118,7 @@ openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 你可以参阅 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 了解标准的群组。
 
 ```shell
-# 将通用名称 "myuser" 更改为你要使用的实际用户名
+# 将通用名称 "myuser" 更改为你实际要使用的用户名
 openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 
@@ -139,12 +141,25 @@ and submit it to a Kubernetes Cluster via kubectl. Below is a snippet of shell t
 CertificateSigningRequest.
 -->
 创建 [CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-并通过 kubectl 将其提交到 Kubernetes 集群。以下是你可以用于生成 CertificateSigningRequest 的 Shell 片段。
+并通过 kubectl 将其提交到 Kubernetes 集群。
+以下是你可以用于生成 CertificateSigningRequest 的 Shell 片段。
 
 <!--
-# example
-# This is an encoded CSR. Change this to the base64-encoded contents of myuser.csr
-# one day
+```shell
+cat <<EOF | kubectl apply -f -
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: myuser # example
+spec:
+  # This is an encoded CSR. Change this to the base64-encoded contents of myuser.csr
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400  # one day
+  usages:
+  - client auth
+EOF
+```
 -->
 ```shell
 cat <<EOF | kubectl apply -f -
@@ -163,16 +178,35 @@ EOF
 ```
 
 <!--
+You can alternatively, create a YAML manifest file and apply it with `kubectl`:
+-->
+或者，你也可以创建一个 YAML 清单文件，并使用 `kubectl` 应用它：
+
+{{% code language="yaml" file="tls/myuser.yaml" %}}
+
+<!--
+Apply the manifest:
+-->
+应用清单：
+
+```bash
+kubectl apply -f myuser.yaml --server-side
+```
+
+<!--
 Some points to note:
 
-- `usages` has to be `client auth`
+- `usages` has to be `client auth`. For other Kubernetes signers, the permitted key usages may differ. See [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers) for the supported key usages for each signer.
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour).
   You cannot request a duration shorter than 10 minutes.
 - `request` is the base64 encoded value of the CSR file content.
 -->
 一些注意点：
 
-- `usages` 必须是 `client auth`
+- `usages` 必须是 `client auth`。
+  对于其他 Kubernetes 签名者，允许的密钥用法可能会有所不同。请参阅
+  [Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
+  了解每种签名者支持的密钥用法。
 - `expirationSeconds` 可以设置得更长（例如 `864000` 表示十天）或更短（例如 `3600` 表示一小时）。
   你所请求的时长不能短于 10 分钟。
 - `request` 值是 CSR 文件内容的 base64 编码值。
@@ -296,6 +330,13 @@ kubectl create role developer --verb=create --verb=get --verb=list --verb=update
 ```
 
 <!--
+Equivalent YAML:
+-->
+等效 YAML：
+
+{{% code language="yaml" file="tls/role.yaml" %}}
+
+<!--
 This is a sample command to create a RoleBinding for this new user:
 -->
 这是为新用户创建 RoleBinding 的示例命令：
@@ -303,6 +344,13 @@ This is a sample command to create a RoleBinding for this new user:
 ```shell
 kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
 ```
+
+<!--
+Equivalent YAML:
+-->
+等效 YAML：
+
+{{% code language="yaml" file="tls/rolebinding.yaml" %}}
 
 ## {{% heading "whatsnext" %}}
 
