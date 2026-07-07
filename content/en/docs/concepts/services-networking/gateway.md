@@ -121,7 +121,8 @@ to the Gateway by the implementation's controller. This address is used as a net
 processing traffic of backend network endpoints defined in routes.
 
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
-reference for a full definition of this API kind.
+reference for a full definition of this API kind. For guidance on configuring HTTPS/TLS listeners, see the
+[Gateway API TLS Guide](https://gateway-api.sigs.k8s.io/guides/tls/).
 
 {{< note >}}
 By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
