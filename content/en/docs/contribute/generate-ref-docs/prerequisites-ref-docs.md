@@ -11,7 +11,7 @@
   - [Go](https://go.dev/dl/), any recent release (Go downloads the exact toolchain a generator needs automatically)
   - [make](https://www.gnu.org/software/make/)
   - [gcc compiler/linker](https://gcc.gnu.org/)
-  - [Docker](https://docs.docker.com/engine/installation/) (only required by the deprecated `gen-kubectldocs` generator, or if you want to preview your changes locally with `make container-serve`)
+  - [Docker](https://docs.docker.com/engine/installation/) (required only for the local website preview with `make container-serve`)
 
 - You need to know how to create a pull request to a GitHub repository.
   This involves creating your own fork of the repository. For more
