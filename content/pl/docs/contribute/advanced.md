@@ -120,7 +120,7 @@ Członek zespołu Kubernetesa musi spełniać następujące wymagania, aby zosta
 
 - Rozumieć przepływy pracy i narzędzi SIG Docs: git, Hugo, lokalizacja, podprojekt bloga
 - Rozumieć, w jaki sposób inne Kubernetes SIG i repozytoria wpływają na przepływ
-  pracy SIG Docs, w tym: [zespoły w k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+  pracy SIG Docs, w tym: [zespoły w k/org](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml),
   [proces w k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   wtyczki w
   [k/test-infra](https://github.com/kubernetes/test-infra/), oraz rolę [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
@@ -178,7 +178,7 @@ Rozpoczynaj i kończ spotkania o czasie.
 
 **Używaj Zoom efektywnie**:
 
-- Zapoznaj się z [wytycznymi Zoom dla Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
+- Zapoznaj się z [wytycznymi Zoom dla Kubernetesa](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - Zgłoś rolę hosta po zalogowaniu się, wprowadzając klucz hosta
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Przejmowanie roli gospodarza w Zoom" />
