@@ -1,0 +1,83 @@
+---
+title: Buffer Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/buffer/banner3.jpg
+heading_title_logo: /images/buffer.png
+subheading: >
+  Making Deployments Easy for a Small, Distributed Team
+case_study_details:
+  - Company: Buffer
+  - Location: Around the World
+  - Industry: Social Media Technology
+---
+
+<h2>Challenge</h2>
+
+<p>With a small but fully distributed team of 80 working across almost a dozen time zones, Buffer—which offers social media management to agencies and marketers—was looking to solve its "classic monolithic code base problem," says Architect Dan Farrelly. "We wanted to have the kind of liquid infrastructure where a developer could create an app and deploy it and scale it horizontally as necessary."</p>
+
+<h2>Solution</h2>
+
+<p>Embracing containerization, Buffer moved its infrastructure from Amazon Web Services' Elastic Beanstalk to Docker on AWS, orchestrated with Kubernetes.</p>
+
+<h2>Impact</h2>
+
+<p>The new system "leveled up our ability with deployment and rolling out new changes," says Farrelly. "Building something on your computer and knowing that it's going to work has shortened things up a lot. Our feedback cycles are a lot faster now too."</p>
+
+{{< case-studies/quote author="DAN FARRELLY, BUFFER ARCHITECT" >}}
+"It's amazing that we can use the Kubernetes solution off the shelf with our team. And it just keeps getting better. Before we even know that we need something, it's there in the next release or it's coming in the next few months."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Dan Farrelly uses a carpentry analogy to explain the problem his company, <a href="https://buffer.com">Buffer</a>, began having as its team of developers grew over the past few years.
+{{< /case-studies/lead >}}
+
+<p>"If you're building a table by yourself, it's fine," the company's architect says. "If you bring in a second person to work on the table, maybe that person can start sanding the legs while you're sanding the top. But when you bring a third or fourth person in, someone should probably work on a different table." Needing to work on more and more different tables led Buffer on a path toward microservices and containerization made possible by Kubernetes.</p>
+
+<p>Since around 2012, Buffer had already been using <a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>, the orchestration service for deploying infrastructure offered by <a href="https://aws.amazon.com">Amazon Web Services</a>. "We were deploying a single monolithic <a href="http://php.net/manual/en/intro-whatis.php">PHP</a> application, and it was the same application across five or six environments," says Farrelly. "We were very much a product-driven company. It was all about shipping new features quickly and getting things out the door, and if something was not broken, we didn't spend too much time on it. If things were getting a little bit slow, we'd maybe use a faster server or just scale up one instance, and it would be good enough. We'd move on."</p>
+
+<p>But things came to a head in 2016. With the growing number of committers on staff, Farrelly and Buffer's then-CTO, Sunil Sadasivan, decided it was time to re-architect and rethink their infrastructure. "It was a classic monolithic code base problem," says Farrelly.<br><br>Some of the company's team was already successfully using <a href="https://www.docker.com">Docker</a> in their development environment, but the only application running on Docker in production was a marketing website that didn't see real user traffic. They wanted to go further with Docker, and the next step was looking at options for orchestration.</p>
+
+{{< case-studies/quote image="/images/case-studies/buffer/banner1.jpg" >}}
+And all the things Kubernetes did well suited Buffer's needs. "We wanted to have the kind of liquid infrastructure where a developer could create an app and deploy it and scale it horizontally as necessary," says Farrelly. "We quickly used some scripts to set up a couple of test clusters, we built some small proof-of-concept applications in containers, and we deployed things within an hour. We had very little experience in running containers in production. It was amazing how quickly we could get a handle on it [Kubernetes]."
+{{< /case-studies/quote >}}
+
+<p>First they considered <a href="https://mesosphere.com">Mesosphere</a>, <a href="https://dcos.io">DC/OS</a> and <a href="https://aws.amazon.com/ecs/">Amazon Elastic Container Service</a> (which their data systems team was already using for some data pipeline jobs). While they were impressed by these offerings, they ultimately went with Kubernetes. "We run on AWS still, so spinning up, creating services and creating load balancers on demand for us without having to configure them manually was a great way for our team to get into this," says Farrelly. "We didn't need to figure out how to configure this or that, especially coming from a former Elastic Beanstalk environment that gave us an automatically-configured load balancer. I really liked Kubernetes' controls of the command line. It just took care of ports. It was a lot more flexible. Kubernetes was designed for doing what it does, so it does it very well."</p>
+
+<p>And all the things Kubernetes did well suited Buffer's needs. "We wanted to have the kind of liquid infrastructure where a developer could create an app and deploy it and scale it horizontally as necessary," says Farrelly. "We quickly used some scripts to set up a couple of test clusters, we built some small proof-of-concept applications in containers, and we deployed things within an hour. We had very little experience in running containers in production. It was amazing how quickly we could get a handle on it [Kubernetes]."</p>
+
+<p>Above all, it provided a powerful solution for one of the company's most distinguishing characteristics: their remote team that's spread across a dozen different time zones. "The people with deep knowledge of our infrastructure live in time zones different from our peak traffic time zones, and most of our product engineers live in other places," says Farrelly. "So we really wanted something where anybody could get a grasp of the system early on and utilize it, and not have to worry that the deploy engineer is asleep. Otherwise people would sit around for 12 to 24 hours for something. It's been really cool to see people moving much faster."</p>
+
+<p>With a relatively small engineering team—just 25 people, and only a handful working on infrastructure, with the majority front-end developers—Buffer needed "something robust for them to deploy whatever they wanted," says Farrelly. Before, "it was only a couple of people who knew how to set up everything in the old way. With this system, it was easy to review documentation and get something out extremely quickly. It lowers the bar for us to get everything in production. We don't have the big team to build all these tools or manage the infrastructure like other larger companies might."</p>
+
+{{< case-studies/quote image="/images/case-studies/buffer/banner4.jpg" >}}
+"In our old way of working, the feedback loop was a lot longer, and it was delicate because if you deployed something, the risk was high to potentially break something else," Farrelly says. "With the kind of deploys that we built around Kubernetes, we were able to detect bugs and fix them, and get them deployed super fast. The second someone is fixing [a bug], it's out the door."
+{{< /case-studies/quote >}}
+
+<p>To help with this, Buffer developers wrote a deploy bot that wraps the Kubernetes deploy process and can be used by every team. "Before, our data analysts would update, say, a <a href="https://www.python.org">Python</a> analysis script and have to wait for the lead on that team to click the button and deploy it," Farrelly explains. "Now our data analysts can make a change, enter a <a href="https://slack.com">Slack</a> command, '/deploy,' and it goes out instantly. They don't need to wait on these slow turnaround times. They don't even know where it's running; it doesn't matter."</p>
+
+<p>One of the first applications the team built from scratch using Kubernetes was a new image resizing service. As a social media management tool that allows marketing teams to collaborate on posts and send updates across multiple social media profiles and networks, Buffer has to be able to resize photographs as needed to meet the varying limitations of size and format posed by different social networks. "We always had these hacked together solutions," says Farrelly.</p>
+
+<p>To create this new service, one of the senior product engineers was assigned to learn Docker and Kubernetes, then build the service, test it, deploy it and monitor it—which he was able to do relatively quickly. "In our old way of working, the feedback loop was a lot longer, and it was delicate because if you deployed something, the risk was high to potentially break something else," Farrelly says. "With the kind of deploys that we built around Kubernetes, we were able to detect bugs and fix them, and get them deployed super fast. The second someone is fixing [a bug], it's out the door."</p>
+
+<p>Plus, unlike with their old system, they could scale things horizontally with one command. "As we rolled it out," Farrelly says, "we could anticipate and just click a button. This allowed us to deal with the demand that our users were placing on the system and easily scale it to handle it."</p>
+
+<p>Another thing they weren't able to do before was a canary deploy. This new capability "made us so much more confident in deploying big changes," says Farrelly. "Before, it took a lot of testing, which is still good, but it was also a lot of 'fingers crossed.' And this is something that gets run 800,000 times a day, the core of our business. If it doesn't work, our business doesn't work. In a Kubernetes world, I can do a canary deploy to test it for 1 percent and I can shut it down very quickly if it isn't working. This has leveled up our ability to deploy and roll out new changes quickly while reducing risk."</p>
+
+{{< case-studies/quote >}}
+"If you want to run containers in production, with nearly the power that Google uses internally, this [Kubernetes] is a great way to do that," Farrelly says. "We're a relatively small team that's actually running Kubernetes, and we've never run anything like it before. So it's more approachable than you might think. That's the one big thing that I tell people who are experimenting with it. Pick a couple of things, roll it out, kick the tires on this for a couple of months and see how much it can handle. You start learning a lot this way."
+{{< /case-studies/quote >}}
+
+<p>By October 2016, 54 percent of Buffer's traffic was going through their Kubernetes cluster. "There's a lot of our legacy functionality that still runs alright, and those parts might move to Kubernetes or stay in our old setup forever," says Farrelly. But the company made the commitment at that time that going forward, "all new development, all new features, will be running on Kubernetes."</p>
+
+<p>The plan for 2017 is to move all the legacy applications to a new Kubernetes cluster, and run everything they've pulled out of their old infrastructure, plus the new services they're developing in Kubernetes, on another cluster. "I want to bring all the benefits that we've seen on our early services to everyone on the team," says Farrelly.</p>
+
+{{< case-studies/lead >}}
+For Buffer's engineers, it's an exciting process. "Every time we're deploying a new service, we need to figure out: OK, what's the architecture? How do these services communicate? What's the best way to build this service?" Farrelly says. "And then we use the different features that Kubernetes has to glue all the pieces together. It's enabling us to experiment as we're learning how to design a service-oriented architecture. Before, we just wouldn't have been able to do it. This is actually giving us a blank white board so we can do whatever we want on it."
+{{< /case-studies/lead >}}
+
+<p>Part of that blank slate is the flexibility that Kubernetes offers should the time come when Buffer may want or need to change its cloud. "It's cloud agnostic so maybe one day we could switch to Google or somewhere else," Farrelly says. "We're very deep in Amazon but it's nice to know we could move away if we need to."</p>
+
+<p>At this point, the team at Buffer can't imagine running their infrastructure any other way—and they're happy to spread the word. "If you want to run containers in production, with nearly the power that Google uses internally, this [Kubernetes] is a great way to do that," Farrelly says. "We're a relatively small team that's actually running Kubernetes, and we've never run anything like it before. So it's more approachable than you might think. That's the one big thing that I tell people who are experimenting with it. Pick a couple of things, roll it out, kick the tires on this for a couple of months and see how much it can handle. You start learning a lot this way."</p>

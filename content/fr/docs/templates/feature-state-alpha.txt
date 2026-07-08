@@ -1,0 +1,7 @@
+Cette fonctionnalité est actuellement dans un état *alpha*, ce qui signifie :
+
+* Les noms de version contiennent: alpha (par ex. v1alpha1).
+* La fonctionnalité peut contenir des bugs. L'activation de cette fonctionnalité peut donc vous exposer aux effets de ces bugs. La fonctionnalité est désactivée par défaut.
+* La prise en charge de cette fonctionnalité peut être supprimée à tout moment sans préavis.
+* La retro-compatibilité n'est pas assurée pour les prochaines versions.
+* Recommandé pour une utilisation uniquement dans les clusters de test de courte durée, en raison d'un risque accru de bugs et d'un manque de support à long terme.

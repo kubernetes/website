@@ -1,0 +1,93 @@
+---
+title: 案例研究：IBM
+
+case_study_styles: true
+cid: caseStudies
+css: /css/style_ibm.css
+---
+
+<!-- <div class="banner1" style="background-image: url('/images/CaseStudy_ibm_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/ibm_logo.png" class="header_logo" style="width:10%"><br> <div class="subhead">Building an Image Trust Service on Kubernetes with Notary and TUF</div></h1>
+
+</div> -->
+
+<div class="banner1">
+  <h1> 案例研究：<img src="/images/ibm_logo.png" width="18%" style="margin-bottom:-5px;margin-left:10px;"><br> <div class="subhead">在 Kubernetes 上使用 Notary 和 TUF 建立镜像信任服务</div></h1>
+
+</div>
+
+<div class="details">
+    公司 &nbsp;<b>IBM</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置 &nbsp;<b>阿蒙克， 纽约</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行业 &nbsp;<b>云计算</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1">
+    <h2>挑战</h2>
+        <!-- <a href="https://www.ibm.com/cloud/">IBM Cloud</a> offers public, private, and hybrid cloud functionality across a diverse set of runtimes from its OpenWhisk-based function as a service (FaaS) offering, managed <a href="https://kubernetes.io">Kubernetes</a> and containers, to <a href="https://www.cloudfoundry.org">Cloud Foundry</a> platform as a service (PaaS). These runtimes are combined with the power of the company’s enterprise technologies, such as MQ and DB2, its modern artificial intelligence (AI) Watson, and data analytics services. Users of IBM Cloud can exploit capabilities from more than 170 different cloud native services in its catalog, including capabilities such as IBM’s Weather Company API and data services. In the later part of 2017, the IBM Cloud Container Registry team wanted to build out an image trust service. -->
+<a href="https://www.ibm.com/cloud/">IBM Cloud</a> 提供公共、私有和混合云功能，包括基于 OpenWhisk 的服务 （FaaS）、托管于 <a href="https://kubernetes.io">Kubernetes</a> 和容器，以及 <a href="https://www.cloudfoundry.org">Cloud Foundry</a> 服务 （PaaS） 的各种运行时。这些运行时与公司企业技术（如 MQ 和 DB2、其现代人工智能 （AI） Watson 和数据分析服务）的强大功能相结合。IBM Cloud 用户可以使用其目录中 170 多个不同云原生服务的功能，包括 IBM 的气象公司 API 和数据服务等功能。在 2017 年后期，IBM 云容器托管团队希望构建镜像信任服务。<br><br>
+ <h2>解决方案</h2>
+      <!-- The work on this new service culminated with its public availability in the IBM Cloud in February 2018. The image trust service, called Portieris, is fully based on the <a href="https://www.cncf.io">Cloud Native Computing Foundation (CNCF)</a> open source project <a href="https://github.com/theupdateframework/notary">Notary</a>, according to Michael Hough, a software developer with the IBM Cloud Container Registry team. Portieris is a Kubernetes admission controller for enforcing content trust. Users can create image security policies for each Kubernetes namespace, or at the cluster level, and enforce different levels of trust for different images. Portieris is a key part of IBM’s trust story, since it makes it possible for users to consume the company’s Notary offering from within their IKS clusters. The offering is that Notary server runs in IBM’s cloud, and then Portieris runs inside the IKS cluster. This enables users to be able to have their IKS cluster verify that the image they're loading containers from contains exactly what they expect it to, and Portieris is what allows an IKS cluster to apply that verification. -->
+2018 年 2 月，这项新服务在 IBM 云中公开发布。IBM 云容器托管团队的软件开发者 Michael Hough 说，名为 Portieris 的镜像信任服务完全基于 <a href="https://www.cncf.io">Cloud Native Computing Foundation (CNCF)</a> 的开源项目 <a href="https://github.com/theupdateframework/notary">Notary</a>。Portieris 是 Kubernetes 的准入控制器，用于强制执行适当的信任等级。用户可以为每个 Kubernetes 命名空间或在集群级别创建镜像安全策略，并为不同的镜像强制实施不同级别的信任。Portieris 是 IBM 信任内容的关键部分，因为它使用户能够从 IKS 集群中使用公司的 Notary。产品是 Notary 服务器在 IBM 的云中运行，然后 Portieris 在 IKS 集群内运行。这使用户能够让 IKS 集群验证他们加载容器的镜像是否包含他们期望的内容，而 Portieris 是允许 IKS 集群应用该验证的原因。
+
+  </div>
+<div class="col2">
+<h2>影响</h2>
+     <!-- IBM's intention in offering a managed Kubernetes container service and image registry is to provide a fully secure end-to-end platform for its enterprise customers. "Image signing is one key part of that offering, and our container registry team saw Notary as the de facto way to implement that capability in the current Docker and container ecosystem," Hough says. The company had not been offering image signing before, and Notary is the tool it used to implement that capability. "We had a multi-tenant Docker Registry with private image hosting," Hough says. "The Docker Registry uses hashes to ensure that image content is correct, and data is encrypted both in flight and at rest. But it does not provide any guarantees of who pushed an image. We used Notary to enable users to sign images in their private registry namespaces if they so choose." -->
+IBM 打算提供基于 Kubernetes 的容器服务和镜像托管服务，目的是为其企业客户提供完全安全的端到端平台。Hough 说：“镜像签名是该产品的关键部分之一，我们的容器托管团队将 Notary 视为在当前 Docker 和容器生态系统中实现该功能的实际方式。”该公司以前没有提供镜像签名，Notary 是它用来实现该功能的工具。“我们有一个多租户 Docker 托管服务，具有私有镜像托管功能，” Hough 说。“ Docker 托管使用哈希值来确保镜像内容正确，并且数据在传输和静态时都进行了加密。但它没有提供任何保证谁推镜像。我们使用 Notary 来允许用户在其专用仓库命名空间中签名镜像（如果他们愿意的话）。”
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+   <!-- "We see CNCF as a safe haven for cloud native open source, providing stability, longevity, and expected maintenance for member projects—no matter the originating vendor or project."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Michael Hough, a software developer with the IBM Container Registry team</span> -->
+   “我们将 CNCF 视为云原生开源的安全避难所，为成员项目（无论是原始供应商还是项目）提供稳定性、使用寿命和预期维护。”<br><br><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;">- Michael Hough, IBM 容器托管团队软件开发人员</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <!-- <h2>Docker had already created the Notary project as an implementation of <a href="https://github.com/theupdateframework/specification" style="text-decoration:underline">The Update Framework (TUF)</a>, and this implementation of TUF provided the capabilities for Docker Content Trust.</h2> "After contribution to CNCF of both TUF and Notary, we perceived that it was becoming the de facto standard for image signing in the container ecosystem", says Michael Hough, a software developer with the IBM Cloud Container Registry team. -->
+  <h2>Docker 已经创建了 Notary 项目作为 <a href="https://github.com/theupdateframework/specification" style="text-decoration:underline">The Update Framework (TUF)</a> 的实现，TUF 的此实现为 Docker 内容信任提供了功能。</h2> IBM 云容器托管团队的软件开发者 Michael Hough 说：“在 TUF 和 Notary 对 CNCF 做出了贡献后，我们发现它正在成为容器生态系统中镜像签名的实际标准。”<br><br>
+<!-- The key reason for selecting Notary was that it was already compatible with the existing authentication stack IBM’s container registry was using. So was the design of TUF, which does not require the registry team to have to enter the business of key management. Both of these were "attractive design decisions that confirmed our choice of Notary," he says. -->
+选择 Notary 的关键原因是它已经与 IBM 的容器托管正在使用的现有身份验证技术兼容。TUF 的设计也是如此，它不要求托管团队必须涉足密钥管理业务。他说，这两项都是“有吸引力的设计决定，证实了我们对 Notary 的选择是正确的。”<br><br>
+<!-- The introduction of Notary to implement image signing capability in IBM Cloud encourages increased security across IBM's cloud platform, "where we expect it will include both the signing of official IBM images as well as expected use by security-conscious enterprise customers," Hough says. "When combined with security policy implementations, we expect an increased use of deployment policies in CI/CD pipelines that allow for fine-grained control of service deployment based on image signers." -->
+在 IBM Cloud 中引入 Notary 功能以实现镜像签名，可提高 IBM 云平台的安全性，“我们预计这将包括签署 IBM 官方镜像以及预期的有安全需求的企业客户，” Hough 说。与安全策略实现结合使用时，我们预计 CI/CD 管道中会更多地使用部署策略，以便根据镜像签名者对服务部署进行精细控制。
+<!-- The availability of image signing "is a huge benefit to security-conscious customers who require this level of image provenance and security," Hough says. "With our IBM Cloud Kubernetes as-a-service offering and the admission controller we have made available, it allows both IBM services as well as customers of the IBM public cloud to use security policies to control service deployment." -->
+Hough 说，镜像签名的可用性“对于需要这种级别镜像来源和安全性的客户来说，是一个巨大的好处。”“借助我们的 IBM 云上的 Kubernetes 以及我们提供的许可控制器，它允许 IBM 服务以及 IBM 公共云的客户使用安全策略来控制服务部署。”
+</div>
+</section>
+<div class="banner3">
+  <div class="banner3text">
+    <!-- "Image signing is one key part of our Kubernetes container service offering, and our container registry team saw Notary as the de facto way to implement that capability in the current Docker and container ecosystem"<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Michael Hough, a software developer with the IBM Cloud Container Registry team</span> -->
+    镜像签名是我们 Kubernetes 容器服务的关键部分之一，我们的容器托管团队将 Notary 视为在当前 Docker 和容器生态系统中实现该功能的实际方式。<br><br><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;">- Michael Hough, IBM 容器托管团队软件开发人员</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+    <!-- Now that the Notary-implemented service is generally available in IBM’s public cloud as a component of its existing IBM Cloud Container Registry, it is deployed as a highly available service across five IBM Cloud regions. This high-availability deployment has three instances across two zones in each of the five regions, load balanced with failover support. "We have also deployed it with end-to-end TLS support through to our back-end IBM Cloudant persistence storage service," Hough says. -->
+现在，Notary 通常作为现有 IBM 云容器托管的一个组件在 IBM 的公共云中提供服务，因此它被部署为五个 IBM 云区域中的高可用服务。此高可用性部署在五个区域中的每个区域中各有三个实例，实现负载均衡与故障转移。Hough 说：“我们还将其部署到后端 IBM Cloudant 持久性存储服务，并随端到端 TLS 支持一起部署。”<br><br>
+    <!-- The IBM team has created and open sourced a Kubernetes admission controller called Portieris, which uses Notary signing information combined with customer-defined security policies to control image deployment into their cluster. "We are hoping to drive adoption of Portieris through its use of our Notary offering," Hough says. -->
+IBM 团队创建并开源了名为 Portieris 的 Kubernetes 准入控制器，该控制器使用 Notary 签名信息与客户定义的安全策略相结合，以控制将镜像部署到集群中。“我们希望通过使用我们的 Notary 服务来推动 Portieris 的使用，” Hough 说。<br><br>
+    <!-- IBM has been a key player in the creation and support of open source foundations, including CNCF. Todd Moore, IBM's vice president of Open Technology, is the current CNCF governing board chair and a number of IBMers are active across many of the CNCF member projects. -->
+IBM 在创建和支持开源基础（包括 CNCF）方面一直占据主导地位。IBM 开放技术副总裁 Todd Moore 是现任 CNCF 董事会主席，许多 IBM 员工活跃于 CNCF 成员项目中。
+</div>
+</section>
+<div class="banner4">
+  <div class="banner4text">
+   <!-- "There are new projects addressing these challenges, including within CNCF. We will definitely be following these advancements with interest. We found the Notary community to be an active and friendly community open to changes, such as our addition of a CouchDB backend for persistent storage." <span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Michael Hough, a software developer with the IBM Cloud Container Registry team</span> -->
+   “有新项目应对这些挑战，包括在 CNCF 内。我们一定会饶有兴趣地关注这些进步。我们发现 Notary 社区是一个积极友好的社区，对变化持开放态度，例如我们为持久存储添加的 CouchDB 后端。”<br><br> <span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;">- Michael Hough, IBM 容器托管团队软件开发人员</span>
+  </div>
+</div>
+<section class="section4">
+  <div class="fullcol">
+<!-- The company has used other CNCF projects <a href="https://containerd.io">containerd</a>, <a href="https://www.envoyproxy.io">Envoy</a>, <a href="https://prometheus.io">Prometheus</a>, <a href="https://grpc.io">gRPC</a>, and <a href="https://github.com/containernetworking">CNI</a>, and is looking into <a href="https://github.com/spiffe">SPIFFE</a> and <a href="https://github.com/spiffe/spire">SPIRE</a> as well for potential future use. -->
+该公司已经使用的 CNCF 项目有 <a href="https://containerd.io">containerd</a>，<a href="https://www.envoyproxy.io">Envoy</a>，<a href="https://prometheus.io">Prometheus</a>，<a href="https://grpc.io">gRPC</a>，<a href="https://github.com/containernetworking">CNI</a>，而且正在探索 <a href="https://github.com/spiffe">SPIFFE</a> 和 <a href="https://github.com/spiffe/spire">SPIRE</a> 在未来的潜在可用性。<br><br>
+<!-- What advice does Hough have for other companies that are looking to deploy Notary or a cloud native infrastructure? -->
+对于希望部署 Notary 或云原生基础架构的其他公司，Hough 有何建议？<br><br>
+<!-- "While this is true for many areas of cloud native infrastructure software, we found that a high-availability, multi-region deployment of Notary requires a solid implementation to handle certificate management and rotation," he says. "There are new projects addressing these challenges, including within CNCF. We will definitely be following these advancements with interest. We found the Notary community to be an active and friendly community open to changes, such as our addition of a CouchDB backend for persistent storage." -->
+“虽然对于云原生基础结构软件的许多领域也是如此，但我们发现，高可用性、多区域的 Notary 部署需要扎实的实现来处理证书管理和轮换，”他说。“有新项目应对这些挑战，包括在 CNCF 内。我们一定会饶有兴趣地关注这些进步。我们发现 Notary 社区是一个积极友好的社区，对变化持开放态度，例如我们为持久存储添加的 CouchDB 后端。”
+  </div>
+</section>

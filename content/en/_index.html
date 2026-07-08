@@ -1,0 +1,70 @@
+---
+title: "Production-Grade Container Orchestration"
+abstract: "Automated container deployment, scaling, and management"
+cid: home
+layout: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
+
+It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Planet scale
+
+Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Never outgrow
+
+Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### Run K8s anywhere
+
+Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
+
+To download Kubernetes, visit the [download](/releases/download/) section.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>The Absolute Beginner's Guide To Cloud Native</h2>
+    <p class="presenter-byline">by Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Attend upcoming KubeCon + CloudNativeCon events</h2>
+<!--
+  {{< kubecon-events >}} renders event listings from data/events/kubecon.yaml.
+  Note for localization:
+  - Region names support i18n via kubecon_region_* keys.
+  - City names remain in English.
+  - Dates are stored in ISO 8601 and formatted by Hugo's time.Format.
+  - Localized pages may replace this shortcode with a static, fully localized version if needed.
+  - If a static version is used, keeping event information up to date becomes the responsibility of the localization team.
+-->
+{{< kubecon-events >}}
+
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

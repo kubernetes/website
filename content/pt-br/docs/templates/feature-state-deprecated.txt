@@ -1,0 +1,1 @@
+Este recurso está *obsoleto*. Para obter mais informações sobre esse estado, consulte a [Política de descontinuação do Kubernetes](/docs/reference/deprecation-policy/).

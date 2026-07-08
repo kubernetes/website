@@ -1,0 +1,3 @@
+{{- $latestVersion := site.Params.latest }}
+{{- $latestReleaseNotes := print "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-" (replace $latestVersion "v" "") ".md" }}
+{{- $latestReleaseNotes }}

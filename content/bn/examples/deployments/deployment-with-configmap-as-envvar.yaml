@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-env-var
+  labels:
+    app.kubernetes.io/name: configmap-env-var
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: configmap-env-var
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: configmap-env-var
+    spec:
+      containers:
+        - name: alpine
+          image: alpine:3
+          env:
+            - name: FRUITS
+              valueFrom:
+                configMapKeyRef:
+                  key: fruits
+                  name: fruits
+          command:
+            - /bin/sh
+            - -c
+            - while true; do echo "$(date) The basket is full of $FRUITS";
+                sleep 10; done;
+          ports:
+            - containerPort: 80
