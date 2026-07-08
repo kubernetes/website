@@ -46,7 +46,7 @@ notoc: true
 [스케줄](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})을 확인한다!
 
 {{< note >}}
-이 스케줄 링크는 릴리스 계획 초기 단계에서 일시적으로 사용할 수 없을 수 있다.
+이 스케줄 링크는 릴리스 계획 초기 단계에서 일시적으로 사용하지 못할 수 있다.
 최신 업데이트는 [SIG Release 저장소](https://github.com/kubernetes/sig-release/tree/master/releases)를 확인한다.
 {{< /note >}}
 
