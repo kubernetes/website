@@ -3,7 +3,7 @@ title: Announcing etcd v3.7.0
 slug: announcing-etcd-3.7
 date: 2026-07-08T20:00:00+0800
 canonicalUrl: https://etcd.io/blog/2026/announcing-etcd-3.7/
-draft: true
+draft: false
 author: "SIG Etcd Leads"
 ---
 
