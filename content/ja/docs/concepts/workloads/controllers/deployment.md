@@ -40,10 +40,10 @@ Deploymentによって所有されているReplicaSetを管理しないでくだ
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment)。
   新しいReplicaSetが作成され、Deploymentは古いReplicaSetをスケールダウンしながら新しいReplicaSetを段階的にスケールアップすることで、Podを制御しながら置き換えます。
   新しいReplicaSetはそれぞれDeploymentのリビジョンを更新します。
-* Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする。
+* Deploymentの現在の状態が不安定な場合、[以前のDeploymentのリビジョンにロールバックする](#rolling-back-a-deployment)。
   ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * [より多くの負荷をさばけるように、Deploymentをスケールアップする](#scaling-a-deployment)。
-* PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始します。
+* PodTemplateSpecに対する複数の修正を適用するために[Deploymentのロールアウトを一時停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始する。
 * ロールアウトが停止したサインとして、[Deploymentのステータスを利用する](#deployment-status)。
 * 今後必要としない[古いReplicaSetのクリーンアップを行う](#clean-up-policy)。
 
@@ -62,17 +62,17 @@ Deploymentによって所有されているReplicaSetを管理しないでくだ
 * このDeploymentは`.spec.replicas`フィールドで示されるとおり、3つのレプリカPodを作成するReplicaSetを作成します。
 * `.spec.selector`フィールドは、作成されるReplicaSetが管理対象のPodをどのように見つけるかを定義します。
   ここでは、Podテンプレートで定義されたラベル(`app: nginx`)を選択しています。
-  しかし、Podテンプレート自体がルールを満たす限り、より洗練された選択ルールも可能です。
+  ただし、Podテンプレート自体がルールを満たす限り、より高度な選択ルールの指定も可能です。
 
   {{< note >}}
-  `.spec.selector.matchLabels`フィールドはキーバリューペアのマップです。
-  `matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しくなります。
-  `matchLabels`と`matchExpressions`の両方の要件を、条件に一致させるために満たす必要があります。
+  `.spec.selector.matchLabels`フィールドは{key,value}ペアのマップです。
+  `matchLabels`マップ内の単一の{key,value}は、`key`フィールドの値が"key"、`operator`が"In"、`values`配列には"value"のみを含む`matchExpressions`の要素と等しくなります。
+  条件に一致させるためには、`matchLabels`と`matchExpressions`の両方の要件を満たす必要があります。
   {{< /note >}}
 
 * `.spec.template`フィールドは、以下のサブフィールドを持ちます:
   * Podは`.metadata.labels`フィールドによって指定された`app: nginx`というラベルがつけられます。
-  * PodTemplate、または`.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
+  * Podテンプレートの仕様、または`.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
   * 1つのコンテナを作成し、`.spec.containers[0].name`フィールドを使って`nginx`という名前をつけます。
 
 作成を始める前に、Kubernetesクラスターが稼働していることを確認してください。
@@ -140,9 +140,9 @@ Deploymentによって所有されているReplicaSetを管理しないでくだ
    ReplicaSetの名前は常に`[Deployment名]-[ハッシュ]`という形式になることに注意してください。
    この名前は、作成されるPodの名前のもとになります。
 
-   この`HASH`の文字列は、ReplicaSetの`pod-template-hash`ラベルと同じです。
+   この`ハッシュ`の文字列は、ReplicaSetの`pod-template-hash`ラベルと同じです。
 
-6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。
+6. 各Podに対して自動的に生成されたラベルを確認するには、`kubectl get pods --show-labels`を実行してください。
    コマンドの実行結果は以下のとおりです。
    ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
@@ -269,13 +269,13 @@ Deploymentを更新するには以下のステップに従ってください:
   nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
   ```
 
-  次にPodを更新させたいときは、DeploymentのPodテンプレートを再度更新するだけです。
+  次回これらのPodを更新させたいときは、DeploymentのPodテンプレートを再度更新するだけです。
 
   Deploymentは、Podが更新されている間に特定の数のPodのみ停止状態になることを保証します。
   デフォルトでは、目標とするPod数の少なくとも75%が稼働状態であることを保証します(25% max unavailable)。
 
   また、DeploymentはPodが更新されている間に、目標とするPod数を特定の数まで超えてPodを稼働させることを保証します。
-  デフォルトでは、目標とするPod数に対して最大でも125%を超えてPodを稼働させることを保証します(25% max surge)。
+  デフォルトでは、目標とするPod数に対して最大でも125%までのPodを稼働させることを保証します(25% max surge)。
 
   例えば、上記で説明したDeploymentの状態を注意深く見ると、最初に新しいPodが作成され、次に古いPodが削除され、さらにもう1つ新しいPodが作成されるのを確認できます。
   十分な数の新しいPodが稼働するまでは、Deploymentは古いPodを削除しません。
