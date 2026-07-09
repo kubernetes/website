@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Operating AI/ML Workloads on Kubernetes: A Headlamp Plugin for Kubeflow"
-draft: true
+date: 2026-07-13T12:00:00-08:00
 slug: introducing-headlamp-plugin-for-kubeflow
 author: >
   [Alok Dangre](https://github.com/alokdangre) (independent)
