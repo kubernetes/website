@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes Dashboard to Headlamp: A Step-by-Step Guide"
-draft: true
+date: 2026-07-13T10:00:00-08:00
 slug: kubernetes-dashboard-to-headlamp
 author: >
   Vincent T. (Microsoft)
