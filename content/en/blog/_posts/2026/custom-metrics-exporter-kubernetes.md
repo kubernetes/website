@@ -126,6 +126,8 @@ the error yourself.
 ## Collecting real values
 
 With the metrics registered, the next step is to keep them current.
+You can either continually update the data as the data change, or run
+your own internal refresh loop.
 The pattern below shows a polling loop — a goroutine that periodically
 reads from whatever data source your application owns and updates the
 registered metrics. Replace the simulated values with real calls to
@@ -224,12 +226,15 @@ address:
 docker build -t <registry>/my-exporter:v1.0.0 .
 docker push <registry>/my-exporter:v1.0.0
 ```
+(Note: Using a CI/CD pipeline to automate this is generally a better pattern than running these commands manually.)
 
 ## Deploying to the cluster
 
 Two manifests are enough to run the exporter: a Deployment that manages
 the pod lifecycle, and a Service that gives Prometheus a stable address
 to scrape.
+(You might prefer to have Prometheus scrape from every Pod; if that makes
+sense for your use case, then it's OK to configure instead).
 
 The examples below use the `monitoring` namespace, which is a common
 convention when running Prometheus and related components together. Adjust
@@ -389,7 +394,7 @@ time-series are stored and queryable.
 
 A working exporter is the foundation, not the destination. The natural
 next step is surfacing these metrics to the
-[HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 so that your workload scales on the signals that actually drive load,
 not just CPU. That requires a metrics adapter — the Prometheus Adapter
 is the most widely deployed option — which registers your custom metrics
