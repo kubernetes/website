@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes Dashboard to Headlamp: A Step-by-Step Guide"
 date: 2026-07-13T10:00:00-08:00
+canonicalUrl: https://headlamp.dev/blog/2026/05/15/kubernetes-dashboard-migration/
 slug: kubernetes-dashboard-to-headlamp
 author: >
   Vincent T. (Microsoft)
