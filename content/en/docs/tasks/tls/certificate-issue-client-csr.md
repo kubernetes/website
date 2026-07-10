@@ -91,9 +91,20 @@ spec:
 EOF
 ```
 
+You can alternatively, create a YAML manifest file and apply it with `kubectl`:
+
+{{% code language="yaml" file="tls/myuser.yaml" %}}
+
+Apply the manifest:
+
+```bash
+kubectl apply -f myuser.yaml --server-side
+```
+
+
 Some points to note:
 
-- `usages` has to be `client auth`
+- `usages` has to be `client auth`. For other Kubernetes signers, the permitted key usages may differ. See [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers) for the supported key usages for each signer.
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour).
   You cannot request a duration shorter than 10 minutes.
 - `request` is the base64 encoded value of the CSR file content.
@@ -171,11 +182,18 @@ This is a sample command to create a Role for this new user:
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
 ```
 
+Equivalent YAML:
+{{% code language="yaml" file="tls/role.yaml" %}}
+
 This is a sample command to create a RoleBinding for this new user:
 
 ```shell
 kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
 ```
+
+Equivalent YAML:
+
+{{% code language="yaml" file="tls/rolebinding.yaml" %}}
 
 ## {{% heading "whatsnext" %}}
 
