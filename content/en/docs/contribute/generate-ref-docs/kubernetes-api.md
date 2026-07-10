@@ -22,11 +22,6 @@ If you find bugs in the generated content, you most likely need to
 
 <!-- steps -->
 
-{{< note >}}
-These steps use a bash or zsh shell (Linux or macOS). On Windows, run them from
-[WSL](https://learn.microsoft.com/windows/wsl/).
-{{< /note >}}
-
 ## Set up the local repositories
 
 You need local clones of `kubernetes/website` and `kubernetes-sigs/reference-docs`.

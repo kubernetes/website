@@ -1,0 +1,31 @@
+---
+# Caution: read the notes for this default-pod-security-configurable policy before
+# you apply it, so that you understand the information security consequences.
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: "default-pod-security-configurable"
+  annotations:
+    kubernetes.io/description: "Default new namespaces to enforce the chosen pod security standard"
+spec:
+  reinvocationPolicy: IfNeeded
+  paramKind:
+    apiVersion: v1
+    kind: ConfigMap
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   [""]
+      apiVersions: ["v1"]
+      operations:  ["CREATE"]
+      resources:   ["namespaces"]
+  matchConditions:
+    - name: "exclude-system-namespaces"
+      # If the name begins with "kube-", it's a system namespace.
+      # Assume that the API server or cluster management tooling applies relevant defaults.
+      expression: "!object.metadata.name.startsWith('kube-')"
+    - name: "no-existing-pod-security-label"
+      expression: "!('pod-security.kubernetes.io/enforce' in object.metadata.labels)"
+  mutations:
+    - patchType: "ApplyConfiguration"
+      applyConfiguration:
+        expression: "Object{metadata: Object.metadata{labels: {'pod-security.kubernetes.io/enforce': params.data.default}}}"
