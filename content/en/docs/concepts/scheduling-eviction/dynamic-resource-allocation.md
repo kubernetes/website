@@ -722,7 +722,7 @@ This works for any DeviceClass, even if it does not specify an extended resource
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
-Extended resource allocation by DRA is a *beta feature* and is enabled by default with the 
+Extended resource allocation by DRA is a *beta feature* and is enabled by default with the
 [`DRAExtendedResource` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)
 in the kube-apiserver, kube-scheduler, kube-controller-manager, and kubelet.
 
@@ -1158,7 +1158,7 @@ Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding un
 external resources, such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed
 to be ready.
 
-This waiting behavior is implemented in the 
+This waiting behavior is implemented in the
 [PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind)
 of the scheduling framework.
 During this phase, the scheduler checks whether all required device conditions are
@@ -1249,12 +1249,12 @@ spec:
 ```
 This example ResourceSlice has the following properties:
 
-- The ResourceSlice targets nodes labeled with `accelerator-type=high-performance`, 
+- The ResourceSlice targets nodes labeled with `accelerator-type=high-performance`,
 so that the scheduler uses only a specific set of eligible nodes.
-- The scheduler selects one node from the selected group (for example, `node-3`) and sets 
+- The scheduler selects one node from the selected group (for example, `node-3`) and sets
 the `status.allocation.nodeSelector` field in the ResourceClaim to that node name.
 - The `dra.example.com/is-prepared` binding condition indicates that the device `gpu-1`
-must be prepared (the `is-prepared` condition has a status of `True`) before binding. 
+must be prepared (the `is-prepared` condition has a status of `True`) before binding.
 - If the `gpu-1` device preparation fails (the `preparing-failed` condition has a status of `True`), the scheduler aborts binding.
 - The scheduler waits up to 600 seconds (default) for the device to become ready.
 - External controllers can use the node selector in the ResourceClaim to perform
@@ -1273,17 +1273,17 @@ resources, such as `cpu`, `memory`, `hugepages`, or `ephemeral-storage`.
 This feature integrates these DRA-based requests into the scheduler's standard
 accounting alongside regular Pod `spec` requests for these resources.
 
-Users (PodSpec authors) can use a mixture of Pod-level resources, container-level resources, 
-and resource claims with associated node-allocatable resources. These devices represent 
+Users (PodSpec authors) can use a mixture of Pod-level resources, container-level resources,
+and resource claims with associated node-allocatable resources. These devices represent
 resources like CPUs or memory directly, or they could be accelerators, network interface cards,
-or other devices that require some host resources when allocated. The DRA driver will 
+or other devices that require some host resources when allocated. The DRA driver will
 populate information in the ResourceSlice that tells the scheduler how to calculate the
 node allocatable resources when the device is allocated to a ResourceClaim.
 PodSpec authors do not need to make that calculation themselves.
 
 When authoring a PodSpec using claims for these types of devices, there are a few things to be aware of:
 
-*   When Pod-level resources are used, the sum of all container and claim resources 
+*   When Pod-level resources are used, the sum of all container and claim resources
     must not exceed the Pod-level resources; otherwise, the Pod will fail to schedule.
 *   A container's total resource requirement is the sum of its container-level resources
     and any node-allocatable resources from its associated resource claims.
@@ -1376,7 +1376,7 @@ spec:
         allocationMultiplier: "8Gi"
 ```
 
-After a Pod is successfully bound to the node, the exact quantities of 
+After a Pod is successfully bound to the node, the exact quantities of
 node-allocatable resources allocated via DRA are included in the Pod's
 `status.nodeAllocatableResourceClaimStatuses` field.
 
@@ -1388,7 +1388,7 @@ eviction decisions.
 
 ### DRA device metadata in containers {#device-metadata}
 
-{{< feature-state state="alpha" for_k8s_version="v1.36" >}}
+{{< feature-state state="beta" for_k8s_version="v1.36" >}}
 
 DRA drivers can expose device metadata such as device attributes (PCI bus
 addresses or mdevUUID for mediated devices) or network configuration directly
@@ -1565,10 +1565,10 @@ read-only inside the container through CDI or an equivalent mechanism.
 This feature improves the ResourceSlice API, allowing DRA drivers to specify list values for device attributes instead of only scalars.
 This is useful for modeling more complex internal node topologies, for example when a CPU has adjacency to multiple PCIe roots.
 
-For ResourceClaim authors (end users), this means that the `matchAttribute` and `distinctAttribute` work better for these cases. 
+For ResourceClaim authors (end users), this means that the `matchAttribute` and `distinctAttribute` work better for these cases.
 
-- `matchAttribute` — the two attributes must have a *non-empty list intersection*, rather than be identical (scalar values are treated as single-item lists). 
-  This just means that if one driver publishes a single value for, say, the PCIe root, and another driver publishes a list, the constraint is met as long as 
+- `matchAttribute` — the two attributes must have a *non-empty list intersection*, rather than be identical (scalar values are treated as single-item lists).
+  This just means that if one driver publishes a single value for, say, the PCIe root, and another driver publishes a list, the constraint is met as long as
   the single value appears somewhere in the list.
 - `distinctAttribute` — the attribute values must be *pairwise-disjoint* (no value shared between any two devices)
 
