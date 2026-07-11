@@ -58,7 +58,7 @@ In this scenario, there are two approaches for certificate usage:
 
 {{< note >}}
 ront-proxy certificates are required only when using the API server aggregation layer
-[an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
+to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 {{< /note >}}
 
 etcd also implements mutual TLS to authenticate clients and peers.
