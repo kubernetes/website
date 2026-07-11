@@ -347,187 +347,47 @@ ContainerStatus contains details for the current status of this container.
 
 <hr>
 
-- **name** (string), required
-
-  This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-- **image** (string), required
-
-  The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
-
-- **imageID** (string), required
-
-  ImageID of the container's image.
-
-- **containerID** (string)
-
-  Container's ID in the format 'docker://\<container_id>'.
-
-- **state** (ContainerState)
-
-  Details about the container's current condition.
-
-  <a name="ContainerState"></a>
-  *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-  - **state.running** (ContainerStateRunning)
-
-    Details about a running container
-
-    <a name="ContainerStateRunning"></a>
-    *ContainerStateRunning is a running state of a container.*
-
-    - **state.running.startedAt** (Time)
-
-      Time at which the container was last (re-)started
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-  - **state.terminated** (ContainerStateTerminated)
-
-    Details about a terminated container
-
-    <a name="ContainerStateTerminated"></a>
-    *ContainerStateTerminated is a terminated state of a container.*
-
-    - **state.terminated.containerID** (string)
-
-      Container's ID in the format 'docker://\<container_id>'
-
-    - **state.terminated.exitCode** (int32), required
-
-      Exit status from the last termination of the container
-
-    - **state.terminated.startedAt** (Time)
-
-      Time at which previous execution of the container started
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **state.terminated.finishedAt** (Time)
-
-      Time at which the container last terminated
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **state.terminated.message** (string)
-
-      Message regarding the last termination of the container
-
-    - **state.terminated.reason** (string)
-
-      (brief) reason from the last termination of the container
-
-    - **state.terminated.signal** (int32)
-
-      Signal from the last termination of the container
-
-  - **state.waiting** (ContainerStateWaiting)
-
-    Details about a waiting container
-
-    <a name="ContainerStateWaiting"></a>
-    *ContainerStateWaiting is a waiting state of a container.*
-
-    - **state.waiting.message** (string)
-
-      Message regarding why the container is not yet running.
-
-    - **state.waiting.reason** (string)
-
-      (brief) reason the container is not yet running.
-
-- **lastState** (ContainerState)
-
-  Details about the container's last termination condition.
-
-  <a name="ContainerState"></a>
-  *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-  - **lastState.running** (ContainerStateRunning)
-
-    Details about a running container
-
-    <a name="ContainerStateRunning"></a>
-    *ContainerStateRunning is a running state of a container.*
-
-    - **lastState.running.startedAt** (Time)
-
-      Time at which the container was last (re-)started
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-  - **lastState.terminated** (ContainerStateTerminated)
-
-    Details about a terminated container
-
-    <a name="ContainerStateTerminated"></a>
-    *ContainerStateTerminated is a terminated state of a container.*
-
-    - **lastState.terminated.containerID** (string)
-
-      Container's ID in the format 'docker://\<container_id>'
-
-    - **lastState.terminated.exitCode** (int32), required
-
-      Exit status from the last termination of the container
-
-    - **lastState.terminated.startedAt** (Time)
-
-      Time at which previous execution of the container started
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **lastState.terminated.finishedAt** (Time)
-
-      Time at which the container last terminated
-
-      <a name="Time"></a>
-      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **lastState.terminated.message** (string)
-
-      Message regarding the last termination of the container
-
-    - **lastState.terminated.reason** (string)
-
-      (brief) reason from the last termination of the container
-
-    - **lastState.terminated.signal** (int32)
-
-      Signal from the last termination of the container
-
-  - **lastState.waiting** (ContainerStateWaiting)
-
-    Details about a waiting container
-
-    <a name="ContainerStateWaiting"></a>
-    *ContainerStateWaiting is a waiting state of a container.*
-
-    - **lastState.waiting.message** (string)
-
-      Message regarding why the container is not yet running.
-
-    - **lastState.waiting.reason** (string)
-
-      (brief) reason the container is not yet running.
-
-- **ready** (boolean), required
-
-  Specifies whether the container has passed its readiness probe.
-
-- **restartCount** (int32), required
-
-  The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
-
-- **started** (boolean)
-
-  Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code> <strong>*</strong><br/><em>string</em></td>
+      <td>This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</td>
+    </tr>
+    <tr>
+      <td><code>image</code> <strong>*</strong><br/><em>string</em></td>
+      <td>The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images</td>
+    </tr>
+    <tr>
+      <td><code>imageID</code> <strong>*</strong><br/><em>string</em></td>
+      <td>ImageID of the container's image.</td>
+    </tr>
+    <tr>
+      <td><code>containerID</code><br/><em>string</em></td>
+      <td>Container's ID in the format 'docker://&lt;container_id&gt;'.</td>
+    </tr>
+    <tr>
+      <td><code>state</code><br/><em>ContainerState</em></td>
+      <td>Details about the container's current condition.</td>
+    </tr>
+    <tr>
+      <td><code>lastState</code><br/><em>ContainerState</em></td>
+      <td>Details about the container's last termination condition.</td>
+    </tr>
+    <tr>
+      <td><code>ready</code> <strong>*</strong><br/><em>boolean</em></td>
+      <td>Specifies whether the container has passed its readiness probe.</td>
+    </tr>
+    <tr>
+      <td><code>restartCount</code> <strong>*</strong><br/><em>int32</em></td>
+      <td>The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.</td>
+    </tr>
+    <tr>
+      <td><code>started</code><br/><em>boolean</em></td>
+      <td>Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Affinity {#Affinity}
 
