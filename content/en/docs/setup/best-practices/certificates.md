@@ -57,7 +57,7 @@ In this scenario, there are two approaches for certificate usage:
   `kubelet-client.key` are created.
 
 {{< note >}}
-ront-proxy certificates are required only when using the API server aggregation layer
+`front-proxy` certificates are required only when using the API server aggregation layer
 to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 {{< /note >}}
 
