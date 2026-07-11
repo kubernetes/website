@@ -1,5 +1,6 @@
 ---
 title: Jak użyć Minikube do stworzenia klastra
+content_type: tutorial
 weight: 10
 ---
 
@@ -11,6 +12,15 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+Ten samouczek zakłada, że masz już zainstalowany `minikube`. Aby dowiedzieć się więcej
+o instrukcji instalacji zobacz [minikube start](https://minikube.sigs.k8s.io/docs/start/).
+{{< note >}}
+Wykonaj tylko instrukcje zawarte w **kroku 1: Instalacja**. Reszta jest omówiona w tym przewodniku.
+{{< /note >}}
+
+Musisz również zainstalować `kubectl`. Zobacz
+[Instalacja narzędzi](/docs/tasks/tools/#kubectl) po instrukcje dotyczące instalacji.
+
 Polecenia w tym poradniku są napisane w składni zgodnej ze standardem POSIX, którą
 obsługują domyślne powłoki w Linuxie i macOS (np. bash, zsh, sh). Jeśli
 używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
@@ -18,7 +28,6 @@ używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
 [Git Bash](https://gitforwindows.org/), żeby
 uruchomić je w takiej formie. Polecenia z `export`, `$()` i podobnymi
 elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
-
 
 ## Klastry Kubernetesa {#kubernetes-clusters}
 
@@ -80,7 +89,23 @@ prosty klaster składający się tylko z jednego węzła. Minikube jest dostępn
 macOS i  Windows. Narzędzie linii poleceń Minikube obsługuje podstawowe
 operacje na klastrze, takie jak start, stop, prezentacja informacji jego stanie i usunięcie klastra.
 
+## Utwórz klaster minikube {#create-a-minikube-cluster}
+
+Aby uruchomić klaster minikube:
+
+```shell
+minikube start
+```
+
+Aby zweryfikować status klastra:
+
+```shell
+minikube status
+```
+
+Aby uzyskać pełne wprowadzenie, w tym wdrożenie Twojej pierwszej aplikacji i eksplorację dashboardu Kubernetes, zapoznaj się z samouczkiem [Hello Minikube](/docs/tutorials/hello-minikube/).
+
 ## {{% heading "whatsnext" %}}
 
-* Samouczek [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Samouczek [Wdrażanie aplikacji](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 * Dowiedz się więcej o [architekturze klastra](/docs/concepts/architecture/).
