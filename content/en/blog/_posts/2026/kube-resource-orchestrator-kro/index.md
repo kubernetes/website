@@ -7,9 +7,9 @@ author: >
   [Yash Israni](https://github.com/yashisrani)
 ---
 
-Look, I have been there. You are on the platform team and someone from anotheteam pings you on slack with what sounds like simplest request: "Hey yash, can i get a web app deployed ?"
+Look, I have been there. You are on the platform team and someone from anotheteam pings you on slack with what sounds like simplest request: "Hey, can i get a web app deployed ?"
 
-SImple. Right.
+Simple. Right.
 
 You know exactly how this goes. by the time you have actually figured out what they need, you are stitching together a Deployment, a Service, an Ingress, a ConfigMap, a ServiceAccount, some network policies, and they also need a database. What started as "just a web app" turned into a 300-lines of YAML manifest file that you are now on the hook for maintaining forever.
 
@@ -19,11 +19,11 @@ There had to be better way. that's how i ended up looking at **Kube Resource Orc
 
 ## What even is kro?
 
-Kro - yeah, pronouced like the bird, "crow" - is a kubernetes-native project that lets you bundle multiple resources into a simgle, resuable API. No Golang code required. None. Zero.
+Kro - pronouced like the bird, "crow" - is a kubernetes-native project that lets you bundle multiple resources into a simgle, resuable API. No Go code required. None. Zero.
 
 It started as an experiment over at AWS, but it didn't stay there long. Google cloud and Microsoft Azure jumped in, and it's a propoer cross-cloud effort hosted under [SIG Cloud Provider](https://github.com/kubernetes/community/tree/master/sig-cloud-provider). Anyone can use it, and honestly, more people should.
 
-Here's the gist: you write a ResourceGraphDefinition (RGD) that describes a bunch of kubernetes resources and how they hook together. when someone creates an instance of your RGD, kro does the heavy lifting, then it generates the CRD, deploys a lightweight controller, and manages the whole lifecyle from creatiom through updates and drift detection.
+Here's the gist: you write a **ResourceGraphDefinition** (RGD) that describes a bunch of kubernetes resources and how they hook together. when someone creates an instance of your RGD, kro does the heavy lifting, then it generates the CRD, deploys a lightweight controller, and manages the whole lifecyle from creatiom through updates and drift detection.
 
 Here's what that actually looks like:
 
@@ -116,7 +116,7 @@ A few things worth calling out here:
 
 - Resources reference each other with `${...}` expressions. kro figures out the dependency graph and creates things in the right order automatically. No more "oops, the Service got created before the Deployment" headaches.
   
-- `includeWhen` lets you conditionally include resources. Dont need an Ingress? set `enableIngress: false` and it just... doesn't create one. Clean.
+- `includeWhen` lets you conditionally include resources. Don't need an Ingress? set `enableIngress: false` and it just... doesn't create one. Clean.
   
 - The `status` block uses CEL expressions to pull info from the underlying resources and surface it back on the WebApp instance. Your users get a nice status without you having to write any controller logic.
 
