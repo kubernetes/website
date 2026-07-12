@@ -81,7 +81,7 @@ Paths: /healthz /livez /metrics /readyz /statusz /version
 <!--
 #### statusz (structured)
 -->
-#### statusz（结构化的）
+#### statusz（结构化的）   {#statusz-structured}
 
 {{< feature-state feature_gate_name="ComponentStatusz" >}}
 
@@ -183,13 +183,24 @@ type Statusz struct {
 
 <!--
 Enabled using the `ComponentFlagz` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz), the `/flagz` endpoint shows you the command line arguments that were used to start a component.
-
-The `/flagz` plain text response from the API server looks something like:
 -->
 使用 `ComponentFlagz`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz)启用后，
 `/flagz` 端点为你显示用于启动某组件的命令行参数。
 
+{{< note >}}
+<!--
+`/flagz` reports command-line flags and defaults. For components that also load configuration files, such as the kubelet and kube-proxy, the effective running configuration can differ from `/flagz`; use `/configz` where available to inspect the merged component configuration.
+-->
+`/flagz` 报告命令行标志及其默认值。
+对于同时加载配置文件（如 kubelet 和 kube-proxy）的组件，
+其实际运行配置可能与 `/flagz` 显示的内容不同；
+若可用，请使用 `/configz` 来查看合并后的组件配置。
+{{< /note >}}
+
+<!--
+The `/flagz` plain text response from the API server looks something like:
+-->
 API 服务器的 `/flagz` 纯文本响应看起来类似于：
 
 ```
@@ -210,7 +221,7 @@ default-watch-cache-size=100
 <!--
 #### flagz (structured)
 -->
-#### flagz（结构化的）
+#### flagz（结构化的）   {#flagz-structured}
 
 {{< feature-state feature_gate_name="ComponentFlagz" >}}
 
