@@ -1,5 +1,5 @@
 ---
-title: Expanding Persistent Volumes
+title: Volume Resizing
 content_type: concept
 weight: 80
 ---
@@ -7,12 +7,15 @@ weight: 80
 <!-- overview -->
 
 PersistentVolumes can be configured to be expandable. This allows you to resize the
-volume by editing the corresponding PersistentVolumeClaim (PVC) object, requesting a
+volume by editing the corresponding {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} (PVC) object, requesting a
 new larger amount of storage.
+
+Kubernetes {{< skew currentVersion >}} does **not** support resizing volumes to be smaller
+than their actual size.
 
 <!-- body -->
 
-## Expanding Persistent Volume Claims
+## Expanding PersistentVolumeClaims
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
@@ -153,6 +156,6 @@ Kubernetes does not support shrinking a PVC to less than its current size.
 
 ## {{% heading "whatsnext" %}}
 
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn about [StorageClasses](/docs/concepts/storage/storage-classes/) and the
   `allowVolumeExpansion` field.
-* Learn more about [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
