@@ -83,7 +83,7 @@ from the static Pod to the mirror Pod. You can use those labels as normal via
 -->
 kubelet 会把静态 Pod 上的 {{< glossary_tooltip text="标签" term_id="label" >}}
 传播到镜像 Pod。你可以像平常一样通过
-{{< glossary_tooltip text="选择算符" term_id="selector" >}} 来使用这些标签。
+{{< glossary_tooltip text="选择算符" term_id="selector" >}}来使用这些标签。
 
 <!--
 If you try to use `kubectl` to delete the mirror Pod from the API server,
