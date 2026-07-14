@@ -21,7 +21,7 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - You need to have these tools installed:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - Go (use the version required by the `reference-docs` repository; see its `go.mod`)
+  - The latest stable version of [Go](https://go.dev/doc/install)
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
   - [make](https://www.gnu.org/software/make/)
@@ -29,10 +29,7 @@ API or the `kube-*` components from the upstream code, see the following instruc
 
   - Ensure the `etcd` executable is available in your `PATH`.
 
-- Go modules are used to manage dependencies. You do not need to configure
-`GOPATH` to contribute or generate the reference documentation..
-
-- You need to know how to create a pull request to a GitHub repository.
+  - You need to know how to create a pull request to a GitHub repository.
   Typically, this involves creating a fork of the repository.
   For more information, see [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/)
   and [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
@@ -48,30 +45,17 @@ from the source code in the [upstream Kubernetes](https://github.com/kubernetes/
 When you see bugs in the generated documentation, you may want to consider
 creating a patch to fix it in the upstream project.
 
-## Clone the repositories
+## Clone the Kubernetes repository
 
-Clone the repositories required for contributing to the generated reference documentation:
+Clone the upstream Kubernetes repository:
 
 ```shell
 git clone https://github.com/kubernetes/kubernetes
-git clone https://github.com/kubernetes-sigs/reference-docs
-git clone https://github.com/kubernetes/website
 ```
-
-You can clone these repositories into any workspace directory. They do not
-need to be located under `GOPATH`.
-
 Throughout this guide:
 
 - `<k8s-base>` refers to your local clone of the `kubernetes/kubernetes` repository.
-- `<rdocs-base>` refers to your local clone of the `kubernetes-sigs/reference-docs` repository.
 
-{{< note >}}
-The reference documentation generators are maintained in the
-`kubernetes-sigs/reference-docs` repository. See the generator-specific guides
-for instructions on regenerating and validating the published reference
-documentation.
-{{< /note >}}
 
 ## Edit the Kubernetes source code
 
