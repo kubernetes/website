@@ -41,8 +41,8 @@ For example, [kubeadm](/docs/reference/setup-tools/kubeadm/) uses static Pods to
 换言之，使用 kubelet 来监管各个
 [控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
 例如，[kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/)
-就使用静态 Pod 在控制平面节点上运行 `kube-apiserver`、
-`kube-controller-manager`、`kube-scheduler` 和 `etcd`。
+就使用静态 Pod 在控制平面节点上运行
+`kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd`。
 
 {{< note >}}
 <!--
