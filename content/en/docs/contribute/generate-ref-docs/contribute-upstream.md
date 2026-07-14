@@ -55,6 +55,7 @@ Clone the repositories required for contributing to the generated reference docu
 ```shell
 git clone https://github.com/kubernetes/kubernetes
 git clone https://github.com/kubernetes-sigs/reference-docs
+git clone https://github.com/kubernetes/website
 ```
 
 You can clone these repositories into any workspace directory. They do not
