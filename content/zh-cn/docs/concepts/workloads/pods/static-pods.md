@@ -20,7 +20,7 @@ Unlike Pods that are managed by the control plane (for example, a
 the kubelet watches each static Pod and restarts it if it fails.
 -->
 **静态 Pod（Static Pod）** 由特定节点上的 kubelet 守护进程直接管理，
-而不是由 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}} 观察和管理。
+而不是由 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}观察和管理。
 与由控制平面管理的 Pod（例如由
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 管理的 Pod）不同，
 kubelet 会监视每个静态 Pod，并在其失败时自动重启。
