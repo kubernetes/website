@@ -135,8 +135,8 @@ Static Pods are not managed by the control plane, so they cannot be rolled out,
 rolled back, or scaled using standard Kubernetes mechanisms. DaemonSets provide
 these capabilities and are the recommended approach for running node-level workloads.
 -->
-静态 Pod 不受控制平面管理，因此不能使用 Kubernetes 的标准机制来进行发布、
-回滚或扩缩容。DaemonSet 提供了这些能力，也是运行节点级工作负载的推荐方式。
+静态 Pod 不受控制平面管理，因此不能使用 Kubernetes 的标准机制来进行发布、回滚或扩缩容。
+DaemonSet 提供了这些能力，也是运行节点级工作负载的推荐方式。
 
 <!--
 Static Pods are started by the kubelet before the API server is available, which
