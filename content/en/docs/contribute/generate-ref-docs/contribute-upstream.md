@@ -21,14 +21,16 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - You need to have these tools installed:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://go.dev/doc/install) version 1.13+
+  - Go (use the version required by the `reference-docs` repository; see its `go.mod`)
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
   - [make](https://www.gnu.org/software/make/)
-  - [gcc compiler/linker](https://gcc.gnu.org/)
+  - [GCC compiler/linker](https://gcc.gnu.org/)
 
-- Your `GOPATH` environment variable must be set, and the location of `etcd`
-  must be in your `PATH` environment variable.
+  - Ensure the `etcd` executable is available in your `PATH`.
+
+- Go modules are used to manage dependencies. You do not need to configure
+`GOPATH` to contribute or generate the reference documentation..
 
 - You need to know how to create a pull request to a GitHub repository.
   Typically, this involves creating a fork of the repository.
@@ -46,27 +48,29 @@ from the source code in the [upstream Kubernetes](https://github.com/kubernetes/
 When you see bugs in the generated documentation, you may want to consider
 creating a patch to fix it in the upstream project.
 
-## Clone the Kubernetes repository
+## Clone the repositories
 
-If you don't already have the kubernetes/kubernetes repository, get it now:
+Clone the repositories required for contributing to the generated reference documentation:
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/kubernetes
+git clone https://github.com/kubernetes/kubernetes
+git clone https://github.com/kubernetes-sigs/reference-docs
 ```
 
-Determine the base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/kubernetes`.
-The remaining steps refer to your base directory as `<k8s-base>`.
+You can clone these repositories into any workspace directory. They do not
+need to be located under `GOPATH`.
 
-Determine the base directory of your clone of the
-[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`.
-The remaining steps refer to your base directory as `<rdocs-base>`.
+Throughout this guide:
+
+- `<k8s-base>` refers to your local clone of the `kubernetes/kubernetes` repository.
+- `<rdocs-base>` refers to your local clone of the `kubernetes-sigs/reference-docs` repository.
+
+{{< note >}}
+The reference documentation generators are maintained in the
+`kubernetes-sigs/reference-docs` repository. See the generator-specific guides
+for instructions on regenerating and validating the published reference
+documentation.
+{{< /note >}}
 
 ## Edit the Kubernetes source code
 
@@ -93,8 +97,8 @@ and make sure it is up to date:
 
 ```shell
 cd <k8s-base>
-git checkout master
-git pull https://github.com/kubernetes/kubernetes master
+git checkout main
+git pull https://github.com/kubernetes/kubernetes main
 ```
 
 Suppose this source file in that default branch has the typo "atmost":
@@ -109,11 +113,11 @@ Verify that you have changed the file:
 git status
 ```
 
-The output shows that you are on the master branch, and that the `types.go`
+The output shows that you are on the main branch, and that the `types.go`
 source file has been modified:
 
 ```shell
-On branch master
+On branch main
 ...
     modified:   staging/src/k8s.io/api/apps/v1/types.go
 ```
@@ -135,7 +139,7 @@ Go to `<k8s-base>` and run these scripts:
 Run `git status` to see what was generated.
 
 ```shell
-On branch master
+On branch main
 ...
     modified:   api/openapi-spec/swagger.json
     modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
@@ -155,7 +159,7 @@ and related files. Keep these two commits separate. That is, do not squash your 
 
 Submit your changes as a
 [pull request](https://help.github.com/articles/creating-a-pull-request/) to the
-master branch of the
+main branch of the
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it is merged.
@@ -176,10 +180,10 @@ repository and in related repositories, such as
 
 ### Cherry pick your commit into a release branch
 
-In the preceding section, you edited a file in the master branch and then ran scripts
+In the preceding section, you edited a file in the main branch and then ran scripts
 to generate an OpenAPI spec and related files. Then you submitted your changes in a pull request
-to the master branch of the kubernetes/kubernetes repository. Now suppose you want to backport
-your change into a release branch. For example, suppose the master branch is being used to develop
+to the main branch of the kubernetes/kubernetes repository. Now suppose you want to backport
+your change into a release branch. For example, suppose the main branch is being used to develop
 Kubernetes version {{< skew latestVersion >}}, and you want to backport your change into the
 release-{{< skew prevMinorVersion >}} branch.
 
@@ -208,11 +212,11 @@ Now add a commit to your cherry-pick pull request that has the recently generate
 and related files. Monitor your pull request until it gets merged into the
 release-{{< skew prevMinorVersion >}} branch.
 
-At this point, both the master branch and the release-{{< skew prevMinorVersion >}} branch have your updated `types.go`
+At this point, both the main branch and the release-{{< skew prevMinorVersion >}} branch have your updated `types.go`
 file and a set of generated files that reflect the change you made to `types.go`. Note that the
 generated OpenAPI spec and other generated files in the release-{{< skew prevMinorVersion >}} branch are not necessarily
-the same as the generated files in the master branch. The generated files in the release-{{< skew prevMinorVersion >}} branch
-contain API elements only from Kubernetes {{< skew prevMinorVersion >}}. The generated files in the master branch might contain
+the same as the generated files in the main branch. The generated files in the release-{{< skew prevMinorVersion >}} branch
+contain API elements only from Kubernetes {{< skew prevMinorVersion >}}. The generated files in the main branch might contain
 API elements that are not in {{< skew prevMinorVersion >}}, but are under development for {{< skew latestVersion >}}.
 
 ## Generate the published reference docs
