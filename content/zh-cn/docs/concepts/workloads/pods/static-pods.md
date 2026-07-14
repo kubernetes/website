@@ -91,7 +91,7 @@ the kubelet _does not_ remove the static Pod. The kubelet will recreate
 the mirror Pod.
 -->
 如果你尝试使用 `kubectl` 从 API 服务器中删除镜像 Pod，
-kubelet **不会** 删除对应的静态 Pod。
+kubelet **不会**删除对应的静态 Pod。
 kubelet 只会重新创建这个镜像 Pod。
 
 <!--
