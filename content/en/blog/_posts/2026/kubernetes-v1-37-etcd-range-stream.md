@@ -1,7 +1,6 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Streaming Large List Responses from etcd with RangeStream"
-date: 2026-XX-XX
 draft: true
 slug: kubernetes-v1-37-etcd-range-stream
 author: >
