@@ -77,6 +77,15 @@ On Linux nodes, the available modes for kube-proxy are:
 [`nftables`](#proxy-mode-nftables)
 : a mode where the kube-proxy configures packet forwarding rules using nftables.
 
+If you do not choose a mode explicitly (via the `--proxy-mode`
+command-line option, or the `mode` field in a config file) when
+starting kube-proxy, then it will use the recommended default version.
+In Kubernetes {{< skew currentVersion >}}, this is `iptables`, but a
+future version of Kubernetes will change the default to `nftables`. To
+avoid having the proxy backend in a cluster be changed unexpectedly
+during an upgrade, you should ensure that all clusters have a
+kube-proxy configuration that explicitly indicates which mode to use.
+
 There is only one mode available for kube-proxy on Windows:
 
 [`kernelspace`](#proxy-mode-kernelspace)
@@ -290,8 +299,6 @@ exits with an error.
 
 ### `nftables` proxy mode {#proxy-mode-nftables}
 
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
-
 _This proxy mode is only available on Linux nodes, and requires kernel
 5.13 or later._
 
@@ -306,10 +313,6 @@ to provide better performance and scalability than iptables. The
 faster and more efficiently than the `iptables` mode, and is also able
 to more efficiently process packets in the kernel (though this only
 becomes noticeable in clusters with tens of thousands of services).
-
-As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
-still relatively new, and may not be compatible with all network
-plugins; consult the documentation for your network plugin.
 
 #### Migrating from `iptables` mode to `nftables`
 
