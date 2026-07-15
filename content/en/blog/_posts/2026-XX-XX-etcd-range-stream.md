@@ -8,22 +8,41 @@ author: >
   [Jeffrey Ying](https://github.com/Jefftree) (Google)
 ---
 
-_Placeholder for the v1.37 feature blog on etcd RangeStream
-([KEP-5966](https://github.com/kubernetes/enhancements/issues/5966)). Content to follow._
+Kubernetes v1.37 and etcd v3.7 together make one of the control plane's heaviest
+operations cheaper: reading a large collection out of etcd. If you run both, the
+API server and etcd use less, and more predictable, memory when serving big reads,
+and there is nothing to configure.
 
-## Background
+This is an internal improvement enabled by
+[KEP-5966](https://github.com/kubernetes/enhancements/issues/5966). You do not need
+to change your workloads, clients, or manifests to benefit from it.
 
-<!-- Why large LIST requests are expensive for etcd and kube-apiserver today. -->
+## What changed
 
-## What RangeStream does
+Every so often the API server has to read the full state of a resource out of etcd,
+for example when it builds the in-memory cache it uses to serve list and watch
+requests. On a large cluster that single read can be big, and it used to load the
+entire response into memory on both etcd and the API server at once.
 
-<!-- How the apiserver streams large list responses from etcd instead of buffering
-a single Range response, and the memory benefits on both sides. -->
+With **RangeStream**, etcd now streams that result back in chunks instead, and the
+API server processes each chunk as it arrives, so neither side has to hold the
+whole collection. This lowers peak memory on both, by up to roughly an order of
+magnitude on the largest reads.
 
-## How to use it
+## What you need
 
-<!-- The EtcdRangeStream feature gate (beta, default off in v1.37) and how to enable it. -->
+- Kubernetes v1.37 or later
+- etcd v3.7 or later
 
-## What's next
+That is all. The feature is on by default. If etcd is older than v3.7, the API
+server automatically uses the previous behavior, so mixed-version clusters keep
+working while you upgrade.
 
-<!-- Path to default-on and GA. -->
+## Learn more
+
+- [KEP-5966: etcd RangeStream](https://github.com/kubernetes/enhancements/issues/5966)
+- [Announcing etcd v3.7](https://etcd.io/blog/2026/announcing-etcd-3.7/)
+- [SIG etcd](https://github.com/kubernetes/community/tree/master/sig-etcd)
+
+If you have questions or feedback, join the `#sig-etcd` channel on
+[Kubernetes Slack](https://slack.k8s.io/).
