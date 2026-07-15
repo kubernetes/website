@@ -34,7 +34,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 Kubernetes versions are expressed as **x.y.z**, where **x** is the major version,
 **y** is the minor version, and **z** is the patch version, following
 [Semantic Versioning](https://semver.org/) terminology. For more information, see
-[Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
+[Kubernetes Release Versioning](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 The Kubernetes project maintains release branches for the most recent three minor releases
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
@@ -46,7 +46,7 @@ Kubernetes 1.18 and older received approximately 9 months of patch support.
 Kubernetes 版本以 **x.y.z** 表示，其中 **x** 是主要版本，
 **y** 是次要版本，**z** 是补丁版本，遵循[语义版本控制](https://semver.org/)术语。
 更多信息请参见
-[Kubernetes 版本发布控制](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)。
+[Kubernetes 版本发布控制](https://github.com/kubernetes/sig-release/blob/master/release-engineering/reference/versioning.md#kubernetes-release-versioning)。
 
 Kubernetes 项目维护最近的三个次要版本（{{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}}）的发布分支。
 Kubernetes 1.19 和更新的版本获得[大约 1 年的补丁支持](/zh-cn/releases/patch-releases/#support-period)。
