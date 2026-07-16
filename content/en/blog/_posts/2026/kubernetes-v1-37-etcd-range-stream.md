@@ -21,7 +21,7 @@ and clients do not change.
 The API server does not go to etcd for every list and watch request. It serves
 most of them from an in-memory cache, and to build that cache it reads a resource's
 full state out of etcd, on startup and whenever the cache reconnects. For something
-like Pods or Events on a busy cluster, that is a large read.
+like Pods or Events on a busy cluster, that can be a lot of data to pull at once.
 
 Until now, the whole read was buffered in memory. etcd's unary `Range` RPC
 assembled the entire response before sending it, and the API server held the entire
