@@ -72,10 +72,10 @@ Nodes before proceeding:
 
 ## Securing a Pod
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
 selector to view the documentation with this deprecated API.
-{{< /note >}}
+{{< /alert >}}
 
 AppArmor profiles can be specified at the pod level or container level. The container AppArmor
 profile takes precedence over the pod profile.
@@ -263,10 +263,10 @@ logs or through `journalctl`. More information is provided in
 
 ## Specifying AppArmor confinement
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
 selector to view the documentation with this deprecated API.
-{{< /caution >}}
+{{< /alert >}}
 
 ### AppArmor profile within security context {#appArmorProfile}
 
