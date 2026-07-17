@@ -3,6 +3,7 @@ layout: blog
 title: "KCD Around the World: New York"
 draft: true 
 slug: kcd-around-the-world-new-york
+canonicalUrl: https://deploy-preview-795--kubernetes-contributor.netlify.app/blog/1/01/01/kcd-around-the-world-new-york/
 author: >
   [Christopher Tineo](https://github.com/TineoC) (Game Plan Tech),
   [Kashish Verma](https://github.com/KashishV999) 
