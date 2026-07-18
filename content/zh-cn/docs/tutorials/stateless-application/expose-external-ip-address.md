@@ -50,7 +50,7 @@ external IP address.
 <!--
 ## Creating a service for an application running in five pods
 -->
-## 为在五个 Pod 中运行的应用创建服务   {#creating-a-service-for-an-app-running-in-five-pods}
+## 为在五个 Pod 中运行的应用创建 Service   {#creating-a-service-for-an-app-running-in-five-pods}
 
 <!--
 1. Run a Hello World application in your cluster:
@@ -129,20 +129,20 @@ external IP address.
    my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    <!--
    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example. Please refer to [setting `type: LoadBalancer` for your Service](/docs/concepts/services-networking/service/#loadbalancer) for the details.
    -->
-   `type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
+   `type=LoadBalancer` Service 由外部云服务提供商提供支持，本例中不包含此部分，
    详细信息请参考[为你的 Service 设置 `type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)。
-   {{< /note >}}
+   {{< /alert >}}
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    <!--
    If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
    -->
    如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
-   {{< /note >}}
+   {{< /alert >}}
 
 <!--
 1. Display detailed information about the Service:
@@ -182,7 +182,7 @@ external IP address.
    is 8080 and the `NodePort` is 32377.
    -->
 
-   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`）。
+   记下 Service 公开的外部 IP 地址（`LoadBalancer Ingress`）。
    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
    在本例中，`Port` 是 8080，`NodePort` 是 32377。
 
@@ -215,6 +215,7 @@ external IP address.
    hello-world-2895499144-o4z13 ...  10.0.1.7   gke-cluster-1-default-pool-e0b8d269-1afc
    hello-world-2895499144-segjf ...  10.0.2.5   gke-cluster-1-default-pool-e0b8d269-cpuc
    ```
+   
 <!--
 1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
    World application:
@@ -233,9 +234,9 @@ external IP address.
    automatically open the Hello World application in a browser.
    -->
 
-   其中 `<external-ip>` 是你的服务的外部 IP 地址（`LoadBalancer Ingress`），
-   `<port>` 是你的服务描述中的 `port` 的值。
-   如果你正在使用 minikube，输入 `minikube service my-service`
+   其中 `<external-ip>` 是你的 Service 的外部 IP 地址（`LoadBalancer Ingress`），
+   `<port>` 是你的 Service 描述中的 `port` 的值。
+   如果你正在使用 Minikube，输入 `minikube service my-service`
    将在浏览器中自动打开 Hello World 应用。
 
    <!--
