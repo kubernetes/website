@@ -59,6 +59,7 @@ The workflow of using DRA to allocate devices involves the following types of us
   * Create ResourceSlices that provide Kubernetes with information about
     nodes and resources.
   * Update ResourceSlices when resource capacity in the cluster changes.
+  * Configure devices according to the claim, and attach them to containers via Container Device Interface (CDI).
   * Optionally, create DeviceClasses that workload operators can use to
     claim devices.
 
