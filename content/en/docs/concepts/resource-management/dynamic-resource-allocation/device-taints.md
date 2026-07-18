@@ -34,7 +34,7 @@ This eviction is implemented in the device taint eviction controller in kube-con
 
 The "None" effect is ignored by the scheduler and eviction controller.
 DRA drivers can use it to communicate exceptions to admins or other controllers,
-like for example degraded health of a device. Admins can also use it to
+for example degraded health of a device. Admins can also use it to
 do dry-runs of pod eviction in DeviceTaintRules (more on that below).
 
 ResourceClaims can tolerate taints. If a taint is tolerated, its effect does not apply.
