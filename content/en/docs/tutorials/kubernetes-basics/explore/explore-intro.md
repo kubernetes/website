@@ -124,11 +124,11 @@ list of events related to the lifecycle of the Pod.
 The output of the `describe` subcommand is extensive and covers some concepts that
 we didn’t explain yet, but don’t worry, they will become familiar by the end of this tutorial.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The `describe` subcommand can be used to get detailed information about most of the
 Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is
 designed to be human readable, not to be scripted against.
-{{< /note >}}
+{{< /alert >}}
 
 ### Show the app in the terminal
 
@@ -157,9 +157,9 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/
 
 The URL is the route to the API of the Pod.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 We don't need to specify the container name, because we only have one container inside the pod.
-{{< /note >}}
+{{< /alert >}}
 
 ### Executing commands on the container
 
@@ -193,11 +193,11 @@ You can check that the application is up by running a curl command:
 curl http://localhost:8080
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Here we used `localhost` because we executed the command inside the NodeJS Pod.
 If you cannot connect to `localhost:8080`, check to make sure you have run the
 `kubectl exec` command and are launching the command from within the Pod.
-{{< /note >}}
+{{< /alert >}}
 
 To close your container connection, type `exit`.
 

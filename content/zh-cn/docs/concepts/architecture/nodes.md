@@ -22,7 +22,7 @@ weight: 10
 
 <!--
 Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}}
-by placing containers into Pods to run on _Nodes_.
+by placing {{< glossary_tooltip text="containers" term_id="container" >}} into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -31,26 +31,28 @@ and contains the services necessary to run
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
-
-The [components](/docs/concepts/architecture/#node-components) on a node include the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
-{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
-Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
-中来执行你的{{< glossary_tooltip text="工作负载" term_id="workload" >}}。
+Kubernetes 通过将{{< glossary_tooltip text="容器" term_id="container" >}}放入在节点（Node）
+上运行的 Pod 中来执行你的{{< glossary_tooltip text="工作负载" term_id="workload" >}}。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
 每个节点包含运行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服务；
 这些节点由{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
 
 通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
+<!--
+The [components](/docs/concepts/architecture/#node-components) on a node include the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
+{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
+-->
 节点上的[组件](/zh-cn/docs/concepts/architecture/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}以及
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}。
 
 <!-- body -->
+  
 <!--
 ## Management
 
@@ -246,12 +248,6 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
-
-You can set optional node role(s) for nodes by adding one or more
-`node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` are limited by the
-[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
-
-Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
 -->
 ### 手动节点管理 {#manual-node-administration}
 
@@ -263,11 +259,19 @@ Kubernetes ignores the label value for node roles; by convention, you can set it
 你可以修改 Node 对象（忽略 `--register-node` 设置）。
 例如，你可以修改节点上的标签或并标记其为不可调度。
 
+<!--
+You can set optional node role(s) for nodes by adding one or more
+`node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` are limited by the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
+-->
 你可以通过在节点上添加一个或多个 `node-role.kubernetes.io/<role>: <role>` 标签，
 来为节点设置可选的节点角色。其中，`<role>`
 的字符受[标签键名格式](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)规则限制。
 
-Kubernetes 会忽略节点角色标签的值；按照惯例，你可以将其设置为与标签键中的 `<role>` 相同的字符串。
+Kubernetes 会忽略节点角色标签的值；按照惯例，你可以将其设置为与标签键中的
+`<role>` 相同的字符串。
 
 <!--
 You can use labels on Nodes in conjunction with node selectors on Pods to control
@@ -305,8 +309,8 @@ Pods that are part of a {{< glossary_tooltip term_id="daemonset" >}} tolerate
 being run on an unschedulable Node. DaemonSets typically provide node-local services
 that should run on the Node even if it is being drained of workload applications.
 -->
-被 {{< glossary_tooltip term_id="daemonset" text="DaemonSet" >}} 控制器创建的 Pod
-能够容忍节点的不可调度属性。
+被 {{< glossary_tooltip term_id="daemonset" text="DaemonSet" >}}
+控制器创建的 Pod 能够容忍节点的不可调度属性。
 DaemonSet 通常提供节点本地的服务，即使节点上的负载应用已经被腾空，
 这些服务也仍需运行在节点之上。
 {{< /note >}}
@@ -346,7 +350,7 @@ kubectl describe node <节点名称>
 <!-- 
 See [Node Status](/docs/reference/node/node-status/) for more details.
 -->
-更多细节参见 [Node Status](/zh-cn/docs/reference/node/node-status)。
+更多细节参见 [Node 状态](/zh-cn/docs/reference/node/node-status)。
 
 <!--
 ## Node heartbeats
@@ -414,10 +418,6 @@ responsible for:
   for all of the Pods on the unreachable node. By default, the node controller
   waits 5 minutes between marking the node as `Unknown` and submitting
   the first eviction request.
-
-By default, the node controller checks the state of each node every 5 seconds.
-This period can be configured using the `--node-monitor-period` flag on the
-`kube-controller-manager` component.
 -->
 第三个是监控节点的健康状况。节点控制器负责：
 
@@ -427,6 +427,11 @@ This period can be configured using the `--node-monitor-period` flag on the
   [API 发起的逐出](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)操作。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
 
+<!--
+By default, the node controller checks the state of each node every 5 seconds.
+This period can be configured using the `--node-monitor-period` flag on the
+`kube-controller-manager` component.
+-->
 默认情况下，节点控制器每 5 秒检查一次节点状态，可以使用 `kube-controller-manager`
 组件上的 `--node-monitor-period` 参数来配置周期。
 
