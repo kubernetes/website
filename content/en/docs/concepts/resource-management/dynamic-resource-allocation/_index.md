@@ -33,6 +33,7 @@ Using DRA provides benefits like the following:
   fine-grained filtering for specific device attributes.
 * **Device sharing**: share the same resource with multiple containers or Pods
   by referencing the corresponding resource claim.
+* **Device configuration**: attach vendor-specific device configurations to your resource claim, enabling per-workload device configuration, rather than today's per-node device configuration
 * **Centralized device categorization**: device drivers and cluster admins can
   use device classes to provide app operators with hardware categories that are
   optimized for various use cases. For example, you can create a cost-optimized
