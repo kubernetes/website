@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-{{< glossary_definition prepend="쿠버네티스는" term_id="kubectl" length="short" >}}를 제공한다.
+{{< glossary_definition prepend="kubectl은" term_id="kubectl" length="short" >}}
 
 `kubectl` 도구는 [쿠버네티스 API](/docs/concepts/overview/kubernetes-api/)를 사용하여 클러스터와 통신한다.
 클러스터 연결 설정을 위해 `kubectl`은 `$HOME/.kube` 디렉터리에서 `config`라는 이름의 파일을 찾는다.
