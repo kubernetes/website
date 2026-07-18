@@ -100,7 +100,7 @@ It can be modified and and removed at any time.
 Here is one example of a DeviceTaintRule for a fictional DRA driver:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 kind: DeviceTaintRule
 metadata:
   name: example
