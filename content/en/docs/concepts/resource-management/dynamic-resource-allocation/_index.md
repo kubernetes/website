@@ -33,6 +33,7 @@ Using DRA provides benefits like the following:
   fine-grained filtering for specific device attributes.
 * **Device sharing**: share the same resource with multiple containers or Pods
   by referencing the corresponding resource claim.
+* **Device configuration**: attach vendor-specific device configurations to your resource claim, enabling per-workload device configuration, rather than today's per-node device configuration
 * **Centralized device categorization**: device drivers and cluster admins can
   use device classes to provide app operators with hardware categories that are
   optimized for various use cases. For example, you can create a cost-optimized
@@ -59,6 +60,7 @@ The workflow of using DRA to allocate devices involves the following types of us
   * Create ResourceSlices that provide Kubernetes with information about
     nodes and resources.
   * Update ResourceSlices when resource capacity in the cluster changes.
+  * Configure devices according to the claim, and attach them to containers via Container Device Interface (CDI).
   * Optionally, create DeviceClasses that workload operators can use to
     claim devices.
 
