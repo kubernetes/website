@@ -59,8 +59,8 @@ A ResourceClaim device status is supported when it is possible, from a DRA
 driver, to update an existing ResourceClaim where the `status.devices` field is
 set.
 
-In the following example, the `status.devices` field of a ResourceClaim has been 
-populated by the driver (`resource-driver.example.com`) responsible for managing 
+In the following example, the `status.devices` field of a ResourceClaim has been
+populated by the driver (`resource-driver.example.com`) responsible for managing
 the allocated device:
 
 ```yaml
@@ -100,9 +100,9 @@ status:
     shareID: 8e7acdf9-0290-4ecd-a801-a654b021d2b7
 ```
 
-If a device has not been allocated, a driver's request to update the `status.devices` 
-field of the ResourceClaim with that device is rejected. When a device is 
-deallocated (removed from `status.allocation.devices`), the corresponding entry in 
+If a device has not been allocated, a driver's request to update the `status.devices`
+field of the ResourceClaim with that device is rejected. When a device is
+deallocated (removed from `status.allocation.devices`), the corresponding entry in
 `status.devices` is automatically removed.
 
 For details about the `status.devices` field, see the
