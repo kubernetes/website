@@ -13,6 +13,15 @@
 		{{ end -}}
 	</header>
 	{{ .Content }}
+
+	{{ with .Params.canonicalUrl }}
+		<p class="fst-italic text-muted">
+			{{ T "blog_mirrored_originally_published_at" (dict "canonicalUrl" .) | safeHTML }}
+		</p>
+	{{ end }}
+
+
+
 	{{ if (.Site.Config.Services.Disqus.Shortname) -}}
 		<br />
 		{{- partial "disqus-comment.html" . -}}

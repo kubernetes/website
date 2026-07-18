@@ -8,6 +8,7 @@ linkTitle: "文档"
 main_menu: true
 weight: 10
 hide_feedback: true
+notoc: true
 menu:
   main:
     # title: "Documentation"
@@ -16,11 +17,13 @@ menu:
 # description: >
 #   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
 description: >
-  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动部署、扩缩和管理。此开源项目由云原生计算基金会（CNCF）托管。
+  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动部署、扩缩和管理。
+  此开源项目由云原生计算基金会（CNCF）托管。
 # overview: >
 #   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 overview: >
-  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、扩缩和管理。此开源项目由<a href="https://www.cncf.io/about">云原生计算基金会（CNCF）</a>托管。
+  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、扩缩和管理。
+  此开源项目由<a href="https://www.cncf.io/about">云原生计算基金会（CNCF）</a>托管。
 cards:
 # - name: concepts
 #   title: "Understand Kubernetes"

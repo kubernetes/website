@@ -19,6 +19,9 @@ other = """<p>This page is automatically generated.</p><p>If you plan to report 
 [banner_acknowledgement]
 other = "Hide this notice"
 
+[blog_mirrored_originally_published_at]
+other = 'This is a mirror of the <a href="{{ .canonicalUrl }}">original article</a>.'
+
 [blog_post_show_more]
 other = "Show More Posts..."
 

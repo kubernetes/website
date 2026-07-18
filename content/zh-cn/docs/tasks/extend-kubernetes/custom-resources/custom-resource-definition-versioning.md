@@ -427,6 +427,7 @@ and should indicate what API group, version, and kind should be used instead, if
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
+metadata:
   name: crontabs.example.com
 spec:
   group: example.com
@@ -508,6 +509,7 @@ An older API version cannot be dropped from a CustomResourceDefinition manifest 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
+metadata:
   name: crontabs.example.com
 spec:
   group: example.com

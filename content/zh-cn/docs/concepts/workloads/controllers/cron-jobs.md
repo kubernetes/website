@@ -54,17 +54,18 @@ CronJob 有所限制，也比较特殊。
 
 <!--
 When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
-of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+of the CronJob is part of the basis for naming those Pods. The name of a CronJob must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 Even when the name is a DNS subdomain, the name must be no longer than 52
-characters.  This is because the CronJob controller will automatically append
+characters. This is because the CronJob controller will automatically append
 11 characters to the name you provide and there is a constraint that the
 length of a Job name is no more than 63 characters.
 -->
-当控制平面为 CronJob 创建新的 Job 和（间接）Pod 时，CronJob 的 `.metadata.name` 是命名这些 Pod 的部分基础。
+当控制平面为 CronJob 创建新的 Job 和（间接）Pod 时，CronJob
+的 `.metadata.name` 是命名这些 Pod 的部分基础。
 CronJob 的名称必须是一个合法的
 [DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
 但这会对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
@@ -121,7 +122,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ │ ┌───────────── 月的某天 (1 - 31)
 # │ │ │ ┌───────────── 月份 (1 - 12)
 # │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周六）
-# │ │ │ │ │                          或者是 sun，mon，tue，web，thu，fri，sat
+# │ │ │ │ │                          或者是 sun、mon、tue、web、thu、fri、sat
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
@@ -185,7 +186,8 @@ Other than the standard syntax, some macros like `@monthly` can also be used:
 <!--
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 -->
-为了生成 CronJob 时间表的表达式，你还可以使用 [crontab.guru](https://crontab.guru/) 这类 Web 工具。
+为了生成 CronJob 时间表的表达式，你还可以使用 [crontab.guru](https://crontab.guru/)
+这类 Web 工具。
 
 <!--
 ### Job template
@@ -259,7 +261,7 @@ The spec may specify only one of the following concurrency policies:
 ### 并发性规则   {#concurrency-policy}
 
 `.spec.concurrencyPolicy` 字段也是可选的。它声明了 CronJob 创建的 Job 执行时发生重叠如何处理。
-spec 仅能声明下列规则中的一种：
+`spec` 仅能声明下列规则中的一种：
 
 <!--
 * `Allow` (default): The CronJob allows concurrently running Jobs
@@ -279,7 +281,8 @@ spec 仅能声明下列规则中的一种：
 Note that concurrency policy only applies to the Jobs created by the same CronJob.
 If there are multiple CronJobs, their respective Jobs are always allowed to run concurrently.
 -->
-请注意，并发性规则仅适用于相同 CronJob 创建的 Job。如果有多个 CronJob，它们相应的 Job 总是允许并发执行的。
+请注意，并发性规则仅适用于相同 CronJob 创建的 Job。
+如果有多个 CronJob，它们相应的 Job 总是允许并发执行的。
 
 <!--
 ### Schedule suspension
@@ -301,7 +304,8 @@ scheduled, but the CronJob controller does not start the Jobs to run the tasks) 
 you unsuspend the CronJob.
 -->
 如果你将此字段设置为 `true`，后续发生的执行都会被挂起
-（这些任务仍然在调度中，但 CronJob 控制器不会启动这些 Job 来运行任务），直到你取消挂起 CronJob 为止。
+（这些任务仍然在调度中，但 CronJob 控制器不会启动这些 Job 来运行任务），
+直到你取消挂起 CronJob 为止。
 
 {{< caution >}}
 <!--
@@ -309,7 +313,8 @@ Executions that are suspended during their scheduled time count as missed Jobs.
 When `.spec.suspend` changes from `true` to `false` on an existing CronJob without a
 [starting deadline](#starting-deadline), the missed Jobs are scheduled immediately.
 -->
-在调度时间内挂起的执行都会被统计为错过的 Job。当现有的 CronJob 将 `.spec.suspend` 从 `true` 改为 `false` 时，
+在调度时间内挂起的执行都会被统计为错过的 Job。
+当现有的 CronJob 将 `.spec.suspend` 从 `true` 改为 `false` 时，
 且没有[开始的最后期限](#starting-deadline)，错过的 Job 会被立即调度。
 {{< /caution >}}
 
@@ -408,7 +413,7 @@ That is, the CronJob does _not_ update existing Jobs, even if those remain runni
 按照设计，CronJob 包含一个用于**新** Job 的模板。
 如果你修改现有的 CronJob，你所做的更改将应用于修改完成后开始运行的新任务。
 已经开始的任务（及其 Pod）将继续运行而不会发生任何变化。
-也就是说，CronJob **不** 会更新现有任务，即使这些任务仍在运行。
+也就是说，CronJob **不**会更新现有任务，即使这些任务仍在运行。
 
 <!--
 ### Job creation
@@ -423,7 +428,7 @@ the Jobs that you define should be _idempotent_.
 
 CronJob 根据其计划编排，在每次该执行任务的时候大约会创建一个 Job。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
-我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 **幂等的**。
+我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是**幂等的**。
 
 <!--
 Starting with Kubernetes v1.32, CronJobs apply an annotation
@@ -525,13 +530,14 @@ CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
 * `CronJob` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
+  Read the {{< api-reference page="batch/cron-job-v1" >}}
   API reference for more details.
 -->
 * 了解 CronJob 所依赖的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 与
   [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的概念。
-* 阅读 CronJob `.spec.schedule` 字段的详细[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
+* 阅读 CronJob `.spec.schedule`
+  字段的详细[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
 * 有关创建和使用 CronJob 的说明及 CronJob 清单的示例，
   请参见[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)。
 * `CronJob` 是 Kubernetes REST API 的一部分，
-  阅读 {{< api-reference page="workload-resources/cron-job-v1" >}} API 参考了解更多细节。
+  阅读 {{< api-reference page="batch/cron-job-v1" >}} API 参考了解更多细节。

@@ -27,13 +27,6 @@ all cloud specific controllers must be moved out of the `kube-controller-manager
 All existing clusters that run cloud controllers in the `kube-controller-manager`
 must migrate to instead run the controllers in a cloud provider specific
 `cloud-controller-manager`.
-
-Leader Migration provides a mechanism in which HA clusters can safely migrate "cloud
-specific" controllers between the `kube-controller-manager` and the
-`cloud-controller-manager` via a shared resource lock between the two components
-while upgrading the replicated control plane. For a single-node control plane, or if
-unavailability of controller managers can be tolerated during the upgrade, Leader
-Migration is not needed and this guide can be ignored.
 -->
 ## 背景
 
@@ -42,6 +35,14 @@ Migration is not needed and this guide can be ignored.
 所有在 `kube-controller-manager` 中运行云控制器的现有集群必须迁移到特定于云厂商的
 `cloud-controller-manager` 中运行这些控制器。
 
+<!--
+Leader Migration provides a mechanism in which HA clusters can safely migrate "cloud
+specific" controllers between the `kube-controller-manager` and the
+`cloud-controller-manager` via a shared resource lock between the two components
+while upgrading the replicated control plane. For a single-node control plane, or if
+unavailability of controller managers can be tolerated during the upgrade, Leader
+Migration is not needed and this guide can be ignored.
+-->
 领导者迁移（Leader Migration）提供了一种机制，使得 HA 集群可以通过这两个组件之间共享资源锁，
 在升级多副本的控制平面时，安全地将“特定于云”的控制器从 `kube-controller-manager` 迁移到
 `cloud-controller-manager`。
@@ -78,11 +79,6 @@ changes of configuration can be aligned to each release. The exact versions of N
 N + 1 depend on each cloud provider. For example, if a cloud provider builds a
 `cloud-controller-manager` to work with Kubernetes 1.24, then N can be 1.23 and N + 1
 can be 1.24.
-
-The control plane nodes should run `kube-controller-manager` with Leader Election
-enabled, which is the default. As of version N, an in-tree cloud provider must be set
-with `--cloud-provider` flag and `cloud-controller-manager` should not yet be
-deployed.
 -->
 假定控制平面正在运行 Kubernetes 版本 N，要升级到版本 N+1。
 尽管可以在同一版本内进行迁移，但理想情况下，迁移应作为升级的一部分执行，
@@ -90,6 +86,12 @@ deployed.
 N 和 N+1 的确切版本值取决于各个云厂商。例如，如果云厂商构建了一个可与 Kubernetes 1.24
 配合使用的 `cloud-controller-manager`，则 N 可以为 1.23，N+1 可以为 1.24。
 
+<!--
+The control plane nodes should run `kube-controller-manager` with Leader Election
+enabled, which is the default. As of version N, an in-tree cloud provider must be set
+with `--cloud-provider` flag and `cloud-controller-manager` should not yet be
+deployed.
+-->
 控制平面节点应运行 `kube-controller-manager` 并启用领导者选举，这也是默认设置。
 在版本 N 中，树内云驱动必须设置 `--cloud-provider` 标志，而且 `cloud-controller-manager`
 应该尚未部署。
@@ -101,7 +103,14 @@ Leader Migration implementation. If the cloud provider imports
 Leader Migration will be available. However, for version before v0.22.0, Leader
 Migration is alpha and requires feature gate `ControllerManagerLeaderMigration` to be
 enabled in `cloud-controller-manager`.
+-->
+树外云驱动必须已经构建了一个实现了领导者迁移的 `cloud-controller-manager`。
+如果云驱动导入了 v0.21.0 或更高版本的 `k8s.io/cloud-provider` 和 `k8s.io/controller-manager`，
+则可以进行领导者迁移。
+但是，对 v0.22.0 以下的版本，领导者迁移是一项 Alpha 阶段功能，需要在 `cloud-controller-manager`
+中启用特性门控 `ControllerManagerLeaderMigration`。
 
+<!--
 This guide assumes that kubelet of each control plane node starts
 `kube-controller-manager` and `cloud-controller-manager` as static pods defined by
 their manifests. If the components run in a different setting, please adjust the
@@ -112,12 +121,6 @@ authorization mode grants permissions to `kube-controller-manager` and
 `cloud-controller-manager` components, please grant the needed access in a way that
 matches the mode.
 -->
-树外云驱动必须已经构建了一个实现了领导者迁移的 `cloud-controller-manager`。
-如果云驱动导入了 v0.21.0 或更高版本的 `k8s.io/cloud-provider` 和 `k8s.io/controller-manager`，
-则可以进行领导者迁移。
-但是，对 v0.22.0 以下的版本，领导者迁移是一项 Alpha 阶段功能，需要在 `cloud-controller-manager`
-中启用特性门控 `ControllerManagerLeaderMigration`。
-
 本指南假定每个控制平面节点的 kubelet 以静态 Pod 的形式启动 `kube-controller-manager`
 和 `cloud-controller-manager`，静态 Pod 的定义在清单文件中。
 如果组件以其他设置运行，请相应地调整这里的步骤。
@@ -137,11 +140,11 @@ You can grant `kube-controller-manager` full access to the leases API by modifyi
 the `system::leader-locking-kube-controller-manager` role. This task guide assumes
 that the name of the migration lease is `cloud-provider-extraction-migration`.
 
-`kubectl patch -n kube-system role 'system::leader-locking-kube-controller-manager' -p '{"rules": [ {"apiGroups":[ "coordination.k8s.io"], "resources": ["leases"], "resourceNames": ["cloud-provider-extraction-migration"], "verbs": ["create", "list", "get", "update"] } ]}' --type=merge`
+kubectl patch -n kube-system role 'system::leader-locking-kube-controller-manager' -p '{"rules": [ {"apiGroups":[ "coordination.k8s.io"], "resources": ["leases"], "resourceNames": ["cloud-provider-extraction-migration"], "verbs": ["create", "list", "get", "update"] } ]}' --type=merge
 
 Do the same to the `system::leader-locking-cloud-controller-manager` role.
 
-`kubectl patch -n kube-system role 'system::leader-locking-cloud-controller-manager' -p '{"rules": [ {"apiGroups":[ "coordination.k8s.io"], "resources": ["leases"], "resourceNames": ["cloud-provider-extraction-migration"], "verbs": ["create", "list", "get", "update"] } ]}' --type=merge`
+kubectl patch -n kube-system role 'system::leader-locking-cloud-controller-manager' -p '{"rules": [ {"apiGroups":[ "coordination.k8s.io"], "resources": ["leases"], "resourceNames": ["cloud-provider-extraction-migration"], "verbs": ["create", "list", "get", "update"] } ]}' --type=merge
 -->
 ### 授予访问迁移租约的权限
 
