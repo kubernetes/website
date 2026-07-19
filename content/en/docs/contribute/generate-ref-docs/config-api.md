@@ -8,11 +8,12 @@ weight: 60
 
 This page shows how you can generate updated reference documentation for Kubernetes Configuration APIs. It is aimed at people who are contributing to Kubernetes.
 
-The Configuration API reference documents configuration types for Kubernetes tools and
-components - for example, `kubelet`, `kube-apiserver`, `kube-scheduler`, `kubeconfig`, and `kubeadm` formats.
-The published reference exists at [/docs/reference/config-api/](/docs/reference/config-api/).
-The [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) `genref` generator builds documentation from the Go type definitions located in 
-`genref/config.yaml`.
+The Configuration API reference documents the configuration formats for Kubernetes tools and
+components — for example, `kubelet`, `kube-apiserver`, `kube-scheduler`, `kubeconfig`, and 
+`kubeadm` formats. The published reference is at [/docs/reference/config-api/](/docs/reference/config-api/).
+
+`genref`, in [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs),
+is the generator that builds this reference. It reads each component's Go configuration types and renders them as markdown.
 
 If you find bugs in the generated content, you most likely need to
 [fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
@@ -26,8 +27,6 @@ If you find bugs in the generated content, you most likely need to
 ## Set up the local repositories
 
 You need local clones of `kubernetes/website` and `kubernetes-sigs/reference-docs`.
-You do not need a local `kubernetes/kubernetes` checkout — `genref` reads configuration 
-types directly from Go modules.
 
 If you have not already forked and cloned `kubernetes/website`, see
 [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
@@ -42,7 +41,7 @@ your `reference-docs` clone as `<rdocs-base>`.
 
 ## Set build variables
 
-Set these in your shell. They apply to every `make` command in the steps that
+Set this in your shell. It applies to every `make` command in the steps that
 follow, whichever directory you run it from.
 
 ```shell
@@ -60,7 +59,7 @@ make copyconfigapi
 
 This command runs in two stages:
 1. **`configapi`** - builds and runs `genref`, which generates Markdown to `genref/output/md`
-2. **`copyconfigapi`** - which copies the generated files into your website clone at
+2. **`copyconfigapi`** - copies the generated files into your website clone at
 `<web-base>/content/en/docs/reference/config-api/`.
 
 The first run downloads the Go module dependencies and it may take several minutes.
