@@ -1627,6 +1627,146 @@ List type attributes is an *alpha feature* and only enabled when the
 `DRAListTypeAttributes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
+### Shared consumable capacity {#shared-consumable-capacity}
+
+{{< feature-state feature_gate_name="DRASharedConsumableCapacity" >}}
+
+Shared consumable capacity extends [partitionable devices](#partitionable-devices)
+and [consumable capacity](#consumable-capacity) so that multiple related child devices
+can consume request-driven amounts from a shared parent-scoped counter set. The
+scheduler tracks aggregate consumption across all devices that reference the same
+shared counters and prevents over-allocation.
+
+This is useful when a physical resource budget is shared across multiple allocatable
+child devices. For example, an SR-IOV Physical Function (PF) has a fixed link bandwidth
+that all its Virtual Functions (VFs) share. Without this feature, drivers would need to
+either statically partition the bandwidth across VFs, or model the PF as a separate
+allocatable device with complex multi-request claims, both of which reduce flexibility
+or increase user complexity.
+
+With shared consumable capacity, the driver publishes the total capacity as a shared
+counter with a `requestPolicy`, and each child device maps an inbound capacity request
+key to that shared counter through `valueFrom`. Users request capacity amounts in their
+ResourceClaims using the existing `capacity.requests` field, and the scheduler resolves
+the mappings and enforces the aggregate budget automatically.
+
+#### How shared consumable capacity works
+
+1. The driver publishes `sharedCounters` with counters that include a `requestPolicy`
+   defining the default value, valid range, and step size for requests.
+2. Each allocatable device references the shared counter set it draws from via
+   `consumesCounters`, using `valueFrom` to map a `capacity.requests` key to the
+   shared counter.
+3. A ResourceClaim requests capacity using the existing `capacity.requests` field.
+4. During allocation, the scheduler resolves the `valueFrom` mappings, validates
+   the requested amount against the `requestPolicy`, and subtracts it from the shared
+   counter. The scheduler rejects candidates that would exceed the shared counter limit.
+
+#### Example: SR-IOV bandwidth as a shared parent resource
+
+Consider an SR-IOV NIC with a PF that has 100Gbps of total bandwidth shared across all
+its VFs. The driver publishes the PF bandwidth as a shared counter with a request policy,
+and each VF device maps the bandwidth capacity request to that shared counter.
+
+The following ResourceSlice defines the shared counter set with the PF bandwidth budget:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: pf-0-counters
+spec:
+  driver: "sriov-driver.example.com"
+  pool:
+    generation: 1
+    name: "sriov-pool"
+    resourceSliceCount: 2
+  sharedCounters:
+  - name: pf-0-counter-set
+    counters:
+      bandwidth:
+        value: "100G"
+        requestPolicy:
+          default: "1G"
+          validRange:
+            min: "1M"
+            max: "100G"
+            step: "1M"
+```
+
+The `requestPolicy` specifies that if a claim does not explicitly request bandwidth,
+1G is consumed by default. Valid requests range from 1M to 100G in increments of 1M.
+
+The following ResourceSlice defines the VF devices, each referencing the shared
+counter set through `valueFrom`:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: pf-0-vfs
+spec:
+  driver: "sriov-driver.example.com"
+  pool:
+    generation: 1
+    name: "sriov-pool"
+    resourceSliceCount: 2
+  nodeName: "worker-1"
+  devices:
+  - name: vf-0
+    consumesCounters:
+    - counterSet: pf-0-counter-set
+      counters:
+        bandwidth:
+          valueFrom:
+            capacityKey: "sriov-driver.example.com/bandwidth"
+  - name: vf-1
+    consumesCounters:
+    - counterSet: pf-0-counter-set
+      counters:
+        bandwidth:
+          valueFrom:
+            capacityKey: "sriov-driver.example.com/bandwidth"
+```
+
+The `valueFrom.capacityKey` field maps the `sriov-driver.example.com/bandwidth` key
+from a ResourceClaim's `capacity.requests` to the shared `bandwidth` counter.
+
+A workload operator requests bandwidth by specifying the capacity in a ResourceClaim:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaim
+metadata:
+  name: my-vf-claim
+spec:
+  devices:
+    requests:
+    - name: vf-request
+      exactly:
+        deviceClassName: sriov-vfs
+        capacity:
+          requests:
+            sriov-driver.example.com/bandwidth: "10G"
+```
+
+When the scheduler allocates `vf-0` or `vf-1` for this claim, it resolves the
+`valueFrom` mapping and subtracts 10G from the shared `pf-0-counter-set` bandwidth
+counter (100G total). If the remaining capacity in the shared counter set is not
+sufficient for a subsequent claim, the scheduler rejects those VF candidates,
+preventing aggregate over-allocation of PF bandwidth.
+
+#### Mixing static and request-driven consumption
+
+Devices can combine static `value` consumption (existing partitionable devices behavior)
+and request-driven `valueFrom` consumption within the same `consumesCounters` entry.
+For example, a device might statically consume a fixed amount of one shared counter
+while allowing the user to request a variable amount of another.
+
+Shared consumable capacity is an *alpha feature* and only enabled when the
+[`DRASharedConsumableCapacity` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRASharedConsumableCapacity)
+is enabled in the kube-apiserver and kube-scheduler.
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
