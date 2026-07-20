@@ -1,3 +1,8 @@
+---
+title: Prerequisites for updating reference documentation
+content_type: task
+weight: 10
+---
 
 ### Requirements:
 
