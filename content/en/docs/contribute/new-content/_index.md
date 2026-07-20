@@ -70,8 +70,8 @@ prior to submitting new content. The information details follow.
   is generated with tools from the
   [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
   repository. See the
-  [reference documentation quickstart](/docs/contribute/generate-ref-docs/quickstart/)
-  for the generation workflow.
+  [reference documentation section](/docs/contribute/generate-ref-docs/)
+  for the available generation guides.
 - [Page content types](/docs/contribute/style/page-content-types/) describe the
   presentation of documentation content in Hugo.
 - You can use [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) or [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to contribute to Kubernetes documentation.
