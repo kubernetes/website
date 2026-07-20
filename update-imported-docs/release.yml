@@ -1,0 +1,14 @@
+# Deprecated: This file is part of the deprecated update-imported-docs workflow.
+# Use the generator-specific reference documentation guides instead:
+# https://kubernetes.io/docs/contribute/generate-ref-docs/
+# This file is retained temporarily for discoverability and is planned for
+# removal in a follow-up change.
+
+repos:
+- name: kubernetes
+  remote: https://github.com/kubernetes/kubernetes.git
+  branch: master
+  gen-absolute-links: true
+  files:
+  - src: CHANGELOG-1.17.md
+    dst: content/en/docs/setup/release/notes.md
