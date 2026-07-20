@@ -1,7 +1,7 @@
 ---
 title: Generating Reference Documentation for the Kubernetes API
 content_type: task
-weight: 50
+weight: 20
 ---
 
 <!-- overview -->
