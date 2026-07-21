@@ -12,7 +12,12 @@ author: >
 
 The Kubernetes SIG Network community is thrilled to announce the release of **Gateway API v1.6.0**!
 
-Gateway API has become the standard for modern, role-oriented, and expressive service networking in Kubernetes. In previous releases, Gateway API established a production-grade foundation for HTTP and TLS layer 7 traffic. With version 1.6.0, we take a major step forward by expanding standard layer 4 protocol routing and introducing cleaner API boundaries for experimental innovation.
+Gateway API has become the standard for modern, role-oriented,
+and expressive service networking in Kubernetes.
+In previous releases, Gateway API established a production-grade foundation
+for HTTP and TLS layer 7 traffic.
+With version 1.6.0, Gateway API takes a major step forward by expanding
+standard layer 4 protocol routing and introducing cleaner API boundaries for experimental innovation.
 
 Here is a quick summary of what's new in Gateway API v1.6.0:
 
@@ -21,7 +26,6 @@ Here is a quick summary of what's new in Gateway API v1.6.0:
 
 Let's dive into the details!
 
----
 
 ## TCPRoute and UDPRoute graduate to Standard
 
@@ -30,13 +34,19 @@ Leads: [Nick Young](https://github.com/youngnick), [Ricardo Katz](https://github
 * [GEP-2644 - TCPRoute](https://gateway-api.sigs.k8s.io/geps/gep-2644/)
 * [GEP-2645 - UDPRoute](https://gateway-api.sigs.k8s.io/geps/gep-2645/)
 
-Until now, Gateway API only offered a stable routing model for HTTP and TLS traffic. Workloads that speak a raw protocol over TCP or UDP - databases, DNS, VoIP, gaming, IoT telemetry - had no portable way to plug into a Gateway. Users either fell back to a plain Kubernetes `Service`, or an implementation-specific CRD that doesn't travel between Gateway controllers.
+Until now, Gateway API only offered a stable routing model for HTTP and TLS traffic.
+Workloads that speak a raw protocol over TCP or UDP - databases,
+DNS, VoIP, gaming, IoT telemetry - had no portable way to plug
+into a Gateway. Users either fell back to a plain Kubernetes Service,
+or to an implementation-specific CRD that doesn't travel between Gateway controllers.
 
-[TCPRoute] and [UDPRoute] close that gap: they route traffic to backends based on protocol and port alone, no L7 awareness required. With this release, both graduate from the Experimental channel to Standard and move to the `v1` API version. The `v1alpha2` version of each is now deprecated and will be removed in a future release.
+[TCPRoute] and [UDPRoute] close that gap: they route traffic to backends based on protocol and port alone, no L7 awareness required.
+With this release, both have graduated from the Experimental channel to Standard, and moved to the `v1` API version.
+The `v1alpha2` version of each was deprecated as of the v1.6 release, and will be removed in a future release.
 
 ### How it works
 
-A Gateway needs a listener that allows `TCPRoute` attachment:
+A Gateway needs a listener that allows TCPRoute attachment:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -58,7 +68,7 @@ spec:
           - kind: TCPRoute
 ```
 
-A `TCPRoute` then attaches to that listener and forwards traffic to a backend:
+A TCPRoute then attaches to that listener and forwards traffic to a backend:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -77,7 +87,7 @@ spec:
 
 Traffic arriving on the Gateway's port `12345` is proxied to the endpoints of `my-foo-service` on port `6000`. Omitting `sectionName` and `port` from `parentRefs` attaches the route to every TCP listener on the Gateway instead of a single one.
 
-`UDPRoute` follows the same pattern swap the listener protocol and the route kind:
+UDPRoute follows the same pattern; swap the listener protocol and the route kind:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -116,15 +126,20 @@ spec:
 
 Previously, experimental resources shared the same API group as standard ones - `gateway.networking.k8s.io` - distinguished only by a `v1alpha2`-style version. TCPRoute and UDPRoute were the last resources to graduate under that scheme.
 
-Going forward, new experimental resources are defined in a separate group, `gateway.networking.x-k8s.io`, and their kind names get an `X` prefix - for example `XBackend`, `XBackendTrafficPolicy`, and `XMesh`. When one of these graduates to Standard, it's renamed into the `gateway.networking.k8s.io` group and drops the `X` prefix, the same way `XMesh` is expected to become `Mesh`.
+Going forward, new experimental resources are defined in a separate group,
+`gateway.networking.x-k8s.io`,
+and the names of their API types get an `X` prefix - for example XBackend, XBackendTrafficPolicy, and XMesh.
+When one of these graduates to Standard, it's renamed into the `gateway.networking.k8s.io` group
+and drops the `X` prefix, the same way XMesh is expected to become Mesh.
 
 This separation makes the experimental/standard boundary explicit at the API group level, rather than relying on version strings alone.
 
----
 
-## What's Next & Getting Involved
+## What's next & getting involved
 
-The graduation of `TCPRoute` and `UDPRoute` to Standard marks an essential milestone in making Gateway API a complete, universal ingress and mesh networking API for Kubernetes workloads across L4 and L7 protocols.
+The graduation of TCPRoute and UDPRoute to Standard marks an essential milestone
+in making Gateway API a complete, universal ingress and mesh networking API
+for Kubernetes workloads across layer 4 and layer 7 protocols.
 
 ### Try it out
 
@@ -133,12 +148,15 @@ You can start using Gateway API v1.6.0 today with your favorite Gateway controll
 - Check out the [Gateway API Documentation](https://gateway-api.sigs.k8s.io/) for detailed guides and API references.
 - View the [v1.6.0 Release Notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.6.1) for complete details on the CRD installation and changes.
 
-Gateway API relies on an extensive conformance test suite to ensure consistent, portable behavior across all implementations. At the time of release, the following implementations have already submitted conformance reports for Gateway API v1.6:
+Gateway API relies on an extensive conformance test suite to ensure consistent,
+portable behavior across all implementations.
+At the time of release, the following implementations had already submitted conformance reports
+for Gateway API v1.6:
 
 - [Agentgateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/agentgateway-agentgateway)
 - [Airlock Microgateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/airlock-microgateway)
 
-### Get Involved
+### Get involved
 
 Gateway API is an open, community-driven project built under Kubernetes SIG Network. We welcome contributions, feedback, and participation from everyone!
 
