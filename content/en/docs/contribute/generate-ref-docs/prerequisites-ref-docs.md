@@ -1,7 +1,7 @@
 ---
-title: Prerequisites for updating reference documentation
-content_type: task
-weight: 10
+title: Prerequisites for reference documentation generators
+description: Required tools and environment for building the Kubernetes reference documentation generators.
+headless: true
 ---
 
 ### Requirements:

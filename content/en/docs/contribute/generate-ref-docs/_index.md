@@ -33,7 +33,6 @@ Each `copy*` target then builds its own source.
 
 Read the following before picking up any per-generator page:
 
-* [Prerequisites for updating reference documentation](/docs/contribute/generate-ref-docs/prerequisites-ref-docs/) — required tools and repository layout.
 * [Contributing to upstream Kubernetes](/docs/contribute/generate-ref-docs/contribute-upstream/) — when the fix belongs in `kubernetes/kubernetes` rather than in the docs.
 
 ## Full-refresh command sequence
