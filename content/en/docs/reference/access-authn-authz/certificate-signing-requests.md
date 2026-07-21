@@ -397,6 +397,8 @@ status:
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
+TODO(ahmedtd): Update for GA.
+
 {{< note >}}
 In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
 Certificates using the `PodCertificateRequest` [feature
