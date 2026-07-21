@@ -33,7 +33,7 @@ ready)_, multi-tier web application using Kubernetes and
 components:
 -->
 本教程向你展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/)
-构建和部署一个简单的 **(非面向生产的)** 多层 Web 应用。本例由以下组件组成：
+构建和部署一个简单的 **（非面向生产的）** 多层 Web 应用。本例由以下组件组成：
 
 <!--
 * A single-instance [Redis](https://www.redis.io/) to store guestbook entries
@@ -53,7 +53,7 @@ components:
 -->
 * 启动 Redis 领导者（Leader）
 * 启动两个 Redis 跟随者（Follower）
-* 公开并查看前端服务
+* 公开并查看前端 Service
 * 清理
 
 ## {{% heading "prerequisites" %}}
@@ -66,12 +66,11 @@ components:
 
 <!--
 ## Start up the Redis Database
--->
-## 启动 Redis 数据库   {#start-up-the-redis-database}
-
-<!--
+  
 The guestbook application uses Redis to store its data.
 -->
+## 启动 Redis 数据库   {#start-up-the-redis-database}
+  
 留言板应用使用 Redis 存储数据。
 
 <!--
@@ -82,7 +81,8 @@ The guestbook application uses Redis to store its data.
 <!--
 The manifest file, included below, specifies a Deployment controller that runs a single replica Redis Pod.
 -->
-下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个 Redis Pod 副本。
+下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个
+Redis Pod 副本。
 
 {{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
@@ -99,6 +99,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
    -->
 
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-deployment.yaml
    ```
 
@@ -114,6 +115,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```shell
@@ -132,25 +134,24 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
 <!--
 ### Creating the Redis leader Service
--->
-### 创建 Redis 领导者服务   {#creating-the-redis-leader-service}
 
-<!--
 The guestbook application needs to communicate to the Redis to write its data.
 You need to apply a [Service](/docs/concepts/services-networking/service/) to
 proxy the traffic to the Redis Pod. A Service defines a policy to access the
 Pods.
 -->
+### 创建 Redis 领导者服务   {#creating-the-redis-leader-service}
+
 留言板应用需要往 Redis 中写数据。因此，需要创建
-[Service](/zh-cn/docs/concepts/services-networking/service/) 来转发 Redis Pod
-的流量。Service 定义了访问 Pod 的策略。
+[Service](/zh-cn/docs/concepts/services-networking/service/)
+来转发 Redis Pod 的流量。Service 定义了访问 Pod 的策略。
 
 {{% code_sample file="application/guestbook/redis-leader-service.yaml" %}}
 
 <!--
 1. Apply the Redis Service from the following `redis-leader-service.yaml` file:
 -->
-1. 使用下面的 `redis-leader-service.yaml` 文件创建 Redis 的服务：
+1. 使用下面的 `redis-leader-service.yaml` 文件创建 Redis 的 Service：
 
    <!---
    for local testing of the content via relative file path
@@ -158,13 +159,14 @@ Pods.
    -->
    
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-service.yaml
    ```
 
 <!--
 1. Query the list of Services to verify that the Redis Service is running:
 -->
-2. 查询服务列表验证 Redis 服务是否正在运行：
+2. 查询服务列表验证 Redis Service 是否正在运行：
 
    ```shell
    kubectl get service
@@ -173,6 +175,7 @@ Pods.
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```
@@ -181,15 +184,15 @@ Pods.
    redis-leader   ClusterIP   10.103.78.24 <none>        6379/TCP   16s
    ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 This manifest file creates a Service named `redis-leader` with a set of labels
 that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
 这个清单文件创建了一个名为 `redis-leader` 的 Service，
-其中包含一组与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis Pod 上。
-{{< /note >}}
+其中包含一组与前面定义的标签匹配的标签，因此 Service 将网络流量路由到 Redis Pod 上。
+{{< /alert >}}
 
 <!--
 ### Set up Redis followers
@@ -199,8 +202,8 @@ and meet traffic demands by adding a few Redis followers, or replicas.
 -->
 ### 设置 Redis 跟随者   {#set-up-redis-followers}
 
-尽管 Redis 领导者只有一个 Pod，你可以通过添加若干 Redis 跟随者来将其配置为高可用状态，
-以满足流量需求。
+尽管 Redis 领导者只有一个 Pod，你可以通过添加若干 Redis
+跟随者来将其配置为高可用状态，以满足流量需求。
 
 {{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
 
@@ -215,13 +218,14 @@ and meet traffic demands by adding a few Redis followers, or replicas.
    -->
 
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-follower-deployment.yaml
    ```
 
 <!--
 1. Verify that the two Redis follower replicas are running by querying the list of Pods:
 -->
-2. 通过查询 Pods 列表，验证两个 Redis 跟随者副本在运行：
+2. 通过查询 Pod 列表，验证两个 Redis 跟随者副本在运行：
 
    ```shell
    kubectl get pods
@@ -230,6 +234,7 @@ and meet traffic demands by adding a few Redis followers, or replicas.
    <!--
    The response should be similar to this:
    -->
+   
    响应应该类似于这样：
 
    ```
@@ -265,13 +270,14 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
    -->
 
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-follower-service.yaml
    ```
 
 <!--
 1. Query the list of Services to verify that the Redis Service is running:
 -->
-2. 查询 Service 列表，验证 Redis 服务在运行：
+2. 查询 Service 列表，验证 Redis Service 在运行：
 
    ```shell
    kubectl get service
@@ -280,6 +286,7 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
    <!--
    The response should be similar to this:
    -->
+   
    响应应该类似于这样：
 
    ```
@@ -289,7 +296,7 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
    redis-leader     ClusterIP   10.103.78.24    <none>        6379/TCP   6m10s
    ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 This manifest file creates a Service named `redis-follower` with a set of
 labels that match the labels previously defined, so the Service routes network
@@ -298,7 +305,7 @@ traffic to the Redis Pod.
 清单文件创建了一个名为 `redis-follower` 的 Service，该 Service
 具有一些与之前所定义的标签相匹配的标签，因此该 Service 能够将网络流量路由到
 Redis Pod 之上。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Set up and Expose the Guestbook Frontend
@@ -341,6 +348,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis
    -->
    
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
    ```
 
@@ -356,6 +364,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```
@@ -367,19 +376,18 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis
 
 <!--
 ### Creating the Frontend Service
--->
-### 创建前端服务   {#creating-the-frontend-service}
 
-<!--
 The `Redis` Services you applied is only accessible within the Kubernetes
 cluster because the default type for a Service is
 [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types).
 `ClusterIP` provides a single IP address for the set of Pods the Service is
 pointing to. This IP address is accessible only within the cluster.
 -->
-应用的 `Redis` 服务只能在 Kubernetes 集群中访问，因为服务的默认类型是
+### 创建前端服务   {#creating-the-frontend-service}
+
+应用的 `Redis` Service 只能在 Kubernetes 集群中访问，因为服务的默认类型是
 [ClusterIP](/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types)。
-`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
+`ClusterIP` 为 Service 指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
 If you want guests to be able to access your guestbook, you must configure the
@@ -388,12 +396,12 @@ from outside the Kubernetes cluster. However a Kubernetes user can use
 `kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 -->
-如果你希望访客能够访问你的 Guestbook，你必须将前端服务配置为外部可见的，
+如果你希望访客能够访问你的 Guestbook，你必须将前端 Service 配置为外部可见的，
 以便客户端可以从 Kubernetes 集群之外请求服务。
 然而即便使用了 `ClusterIP`，Kubernetes 用户仍可以通过
 `kubectl port-forward` 访问服务。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Some cloud providers, like Google Compute Engine or Google Kubernetes Engine,
 support external load balancers. If your cloud provider supports load
@@ -402,21 +410,22 @@ balancers and you want to use it, uncomment `type: LoadBalancer`.
 Google Compute Engine 或 Google Kubernetes Engine
 这些云平台支持外部负载均衡器。如果你的云平台支持负载均衡器，并且你希望使用它，
 只需取消注释 `type: LoadBalancer`。
-{{< /note >}}
+{{< /alert >}}
 
 {{% code_sample file="application/guestbook/frontend-service.yaml" %}}
 
 <!--
 1. Apply the frontend Service from the `frontend-service.yaml` file:
 -->
-1. 应用来自 `frontend-service.yaml` 文件中的前端服务：
+1. 应用来自 `frontend-service.yaml` 文件中的前端 Service：
 
    <!---
    for local testing of the content via relative file path
    kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
    -->
-   
+
    ```shell
+   # 用于通过相对文件路径对内容进行本地测试
    kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
    ```
 
@@ -432,6 +441,7 @@ Google Compute Engine 或 Google Kubernetes Engine
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```
@@ -445,12 +455,12 @@ Google Compute Engine 或 Google Kubernetes Engine
 <!--
 ### Viewing the Frontend Service via `kubectl port-forward`
 -->
-### 通过 `kubectl port-forward` 查看前端服务   {#viewing-the-frontend-service-via-kubectl-port-forward}
+### 通过 `kubectl port-forward` 查看前端 Service   {#viewing-the-frontend-service-via-kubectl-port-forward}
 
 <!--
 1. Run the following command to forward port `8080` on your local machine to port `80` on the service.
 -->
-1. 运行以下命令将本机的 `8080` 端口转发到服务的 `80` 端口。
+1. 运行以下命令将本机的 `8080` 端口转发到 Service 的 `80` 端口。
 
    ```shell
    kubectl port-forward svc/frontend 8080:80
@@ -459,6 +469,7 @@ Google Compute Engine 或 Google Kubernetes Engine
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```
@@ -469,17 +480,17 @@ Google Compute Engine 或 Google Kubernetes Engine
 <!--
 1. Load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 -->
-2. 在浏览器中加载 [http://localhost:8080](http://localhost:8080) 页面以查看 Guestbook。
+2. 在浏览器中加载 [http://localhost:8080](http://localhost:8080)
+   页面以查看 Guestbook。
 
 <!--
 ### Viewing the Frontend Service via `LoadBalancer`
--->
-### 通过 `LoadBalancer` 查看前端服务   {#viewing-the-frontend-service-via-loadbalancer}
 
-<!--
 If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer`
 you need to find the IP address to view your Guestbook.
 -->
+### 通过 `LoadBalancer` 查看前端服务   {#viewing-the-frontend-service-via-loadbalancer}
+
 如果你部署了 `frontend-service.yaml`，需要找到用来查看 Guestbook 的 IP 地址。
 
 <!--
@@ -494,6 +505,7 @@ you need to find the IP address to view your Guestbook.
    <!--
    The response should be similar to this:
    -->
+   
    响应应该与此类似：
 
    ```
@@ -506,7 +518,7 @@ you need to find the IP address to view your Guestbook.
 -->
 2. 复制这里的外部 IP 地址，然后在浏览器中加载页面以查看留言板。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Try adding some guestbook entries by typing in a message, and clicking Submit.
 The message you typed appears in the frontend. This message indicates that
@@ -515,7 +527,7 @@ data is successfully added to Redis through the Services you created earlier.
 尝试通过输入消息并点击 Submit 来添加一些留言板条目。
 你所输入的消息会在前端显示。这一消息表明数据被通过你之前所创建的
 Service 添加到 Redis 存储中。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Scale the Web Frontend
@@ -550,6 +562,7 @@ Deployment 控制器的 Service。
    <!--
    The response should look similar to this:
    -->
+   
    响应应该类似于这样：
 
    ```
@@ -585,6 +598,7 @@ Deployment 控制器的 Service。
    <!--
    The response should look similar to this:
    -->
+   
    响应应该类似于这样：
 
    ```
@@ -602,7 +616,7 @@ Deployment 控制器的 Service。
 Deleting the Deployments and Services also deletes any running Pods. Use
 labels to delete multiple resources with one command.
 -->
-删除 Deployments 和服务还会删除正在运行的 Pod。
+删除 Deployment 和服务还会删除正在运行的 Pod。
 使用标签用一个命令删除多个资源。
 
 <!--
@@ -620,6 +634,7 @@ labels to delete multiple resources with one command.
    <!--
    The responses should be:
    -->
+   
    响应应该是：
 
    ```
@@ -641,6 +656,7 @@ labels to delete multiple resources with one command.
    <!--
    The response should be this:
    -->
+   
    响应应该是：
 
    ```
