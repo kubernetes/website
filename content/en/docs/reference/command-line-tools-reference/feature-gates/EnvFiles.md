@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.35"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 Support defining container's Environment Variable Values via File.
 See [Define Environment Variable Values Using An Init Container](/docs/tasks/inject-data-application/define-environment-variable-via-file) for more details.
