@@ -330,17 +330,6 @@ differently the `nftables` mode:
   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
   IPv4 IPs.
 
-- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
-  `--nodeport-addresses` range includes `127.0.0.1` (and the option
-  `--iptables-localhost-nodeports false` option is not passed), then
-  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
-  In `nftables` mode (and `ipvs` mode), this will not work. If you
-  are not sure if you are depending on this functionality, you can
-  check kube-proxy's
-  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-  is non-0, that means that some client has connected to a `type: NodePort`
-  Service via localhost/loopback.
-
 - **NodePort interaction with firewalls**: The `iptables` mode of
   kube-proxy tries to be compatible with overly-aggressive firewalls;
   for each `type: NodePort` service, it will add rules to accept inbound
@@ -362,6 +351,25 @@ differently the `nftables` mode:
   your cluster is depending on the workaround, and if so, you can run
   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
   around the problem in `nftables` mode.
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  Originally, in `nftables` mode, this did not work. However, in
+  Kubernetes {{< skew currentVersion >}}, you can enable localhost
+  NodePorts in `nftables` mode by enabling the
+  `KubeProxyNFTablesLocalhostNodePorts` feature gate, and setting
+  `--nodeport-addresses` to `primary,localhost` rather than the
+  default value of `primary`.
+
+  If you are not sure if you are depending on this functionality, you
+  can check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type:
+  NodePort` Service via localhost/loopback.
 
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
 
