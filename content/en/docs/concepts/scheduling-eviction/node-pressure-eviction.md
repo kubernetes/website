@@ -98,6 +98,18 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
+{{<note>}}
+{{< feature-state feature_gate_name="HugepageAwareEviction" >}}
+On nodes with [hugepages](/docs/tasks/manage-hugepages/scheduling-hugepages/)
+configured, the kubelet subtracts the node's total hugepage capacity from
+`memory.available` used by eviction manager.
+Without this adjustment, hugepage-reserved RAM inflates
+`AvailableBytes` because the memory cgroup controller does not track hugetlb
+allocations in its working set. This can delay eviction and lead to OOM kills.
+To restore the previous behavior temporarily while adopting your workloads, disable the `HugepageAwareEviction`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{</note>}}
+
 On Windows nodes, the value for `memory.available` is derived from the node's global
 memory commit levels (queried through the [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)
 system call) by subtracting the node's global [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information) from the node's [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information). Please note that `CommitLimit` can change if the node's page-file size changes!

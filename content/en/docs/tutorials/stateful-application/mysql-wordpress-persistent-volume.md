@@ -22,19 +22,19 @@ is a request for storage by a user that can be fulfilled by a PV. PersistentVolu
 PersistentVolumeClaims are independent from Pod lifecycles and preserve data through
 restarting, rescheduling, and even deleting Pods.
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 This deployment is not suitable for production use cases, as it uses single instance
 WordPress and MySQL Pods. Consider using
 [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress)
 to deploy WordPress in production.
-{{< /warning >}}
+{{< /alert >}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The files provided in this tutorial are using GA Deployment APIs and are specific
 to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier
 version of Kubernetes, please update the API version appropriately, or reference
 earlier versions of this tutorial.
-{{< /note >}}
+{{< /alert >}}
 
 ## {{% heading "objectives" %}}
 
@@ -72,23 +72,23 @@ the cluster's default StorageClass is used instead.
 When a PersistentVolumeClaim is created, a PersistentVolume is dynamically
 provisioned based on the StorageClass configuration.
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 In local clusters, the default StorageClass uses the `hostPath` provisioner.
 `hostPath` volumes are only suitable for development and testing. With `hostPath`
 volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does
 not move between nodes. If a Pod dies and gets scheduled to another node in the
 cluster, or the node is rebooted, the data is lost.
-{{< /warning >}}
+{{< /alert >}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you are bringing up a cluster that needs to use the `hostPath` provisioner,
 the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
-{{< /note >}}
+{{< /alert >}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you have a Kubernetes cluster running on Google Kubernetes Engine, please
 follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
-{{< /note >}}
+{{< /alert >}}
 
 ## Create a kustomization.yaml
 
@@ -178,9 +178,9 @@ Now you can verify that all objects exist.
    kubectl get pvc
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    It can take up to a few minutes for the PVs to be provisioned and bound.
-   {{< /note >}}
+   {{< /alert >}}
 
    The response should be like this:
 
@@ -196,9 +196,9 @@ Now you can verify that all objects exist.
    kubectl get pods
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    It can take up to a few minutes for the Pod's Status to be `RUNNING`.
-   {{< /note >}}
+   {{< /alert >}}
 
    The response should be like this:
 
@@ -220,9 +220,9 @@ Now you can verify that all objects exist.
    wordpress   LoadBalancer    10.0.0.89    <pending>     80:32406/TCP   4m
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.
-   {{< /note >}}
+   {{< /alert >}}
 
 5. Run the following command to get the IP Address for the WordPress Service:
 
@@ -242,11 +242,11 @@ Now you can verify that all objects exist.
 
    ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
-   {{< warning >}}
+   {{< alert color="danger" title="Warning" >}}
    Do not leave your WordPress installation on this page. If another user finds it,
    they can set up a website on your instance and use it to serve malicious content.<br/><br/>
    Either install WordPress by creating a username and password or delete your instance.
-   {{< /warning >}}
+   {{< /alert >}}
 
 ## {{% heading "cleanup" %}}
 
