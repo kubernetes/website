@@ -40,6 +40,9 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
+* `cgroupOptions`: Configures cgroup options for a container, such as mounting
+  the container's cgroup subtree as writable.
+
 The above bullets are not a complete set of security context settings -- please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
@@ -839,6 +842,37 @@ spec to be `false`. In other words: a container that wishes to have an Unmasked
 [user namespace](/docs/concepts/workloads/pods/user-namespaces/).
 Kubernetes v1.12 to v1.29 did not enforce that requirement.
 {{< /note >}}
+
+## Configure cgroupOptions for a Container
+
+{{< feature-state feature_gate_name="CgroupOptions" >}}
+
+You can configure cgroup options for a container using the `cgroupOptions` field
+in the `securityContext` of a container. For example, setting `mountMode:
+Writable` enables unprivileged containers on cgroup v2 systems to have write
+access to their own delegated cgroup subtree.
+
+{{< note >}}
+Writable cgroups (`mountMode: Writable`) require Linux nodes running cgroup v2
+with the `nsdelegate` mount option enabled. This feature is not supported on
+cgroup v1.
+{{< /note >}}
+
+When `mountMode: Writable` is set, the kubelet automatically sets conservative
+limits on `cgroup.max.descendants` and `cgroup.max.depth` on the Pod-level
+cgroup to bound resource consumption from nested sub-cgroups.
+
+If the container runtime on a node does not support `CgroupOptions`, pod
+creation will fail and the kubelet will emit a `FailedNodeDeclaredFeaturesCheck`
+event on the pod.
+
+The `cgroupOptions` field is immutable after Pod creation.
+
+```yaml
+securityContext:
+  cgroupOptions:
+    mountMode: Writable
+```
 
 ## Discussion
 
