@@ -8,9 +8,9 @@ author: >
   [Ricardo Katz](https://github.com/rikatz) (Red Hat)
 ---
 
-![logo](gateway-api-v1-5/gateway-api-logo.svg)
+![gateway-api-logo](gateway-api-v1-5/gateway-api-logo.svg)
 
-The Kubernetes SIG Network community is thrilled to announce the release of **Gateway API v1.6.0**!
+The Kubernetes SIG Network community is thrilled to share the release of **Gateway API v1.6.0**, which was released on June 30th of this year!
 
 Gateway API has become the standard for modern, role-oriented,
 and expressive service networking in Kubernetes.
@@ -146,7 +146,7 @@ for Kubernetes workloads across layer 4 and layer 7 protocols.
 You can start using Gateway API v1.6.0 today with your favorite Gateway controller implementation:
 
 - Check out the [Gateway API Documentation](https://gateway-api.sigs.k8s.io/) for detailed guides and API references.
-- View the [v1.6.0 Release Notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.6.1) for complete details on the CRD installation and changes.
+- View the [v1.6.0 Release Notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.6.0) for complete details on the CRD installation and changes.
 
 Gateway API relies on an extensive conformance test suite to ensure consistent,
 portable behavior across all implementations.
