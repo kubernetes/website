@@ -105,6 +105,7 @@ operator to use or manage a cluster.
 These are the APIs defined by the Kubernetes project, but are not implemented
 by the core project:
 
+* [Metrics API (v1)](/docs/reference/external-api/metrics.v1/)
 * [Metrics API (v1beta1)](/docs/reference/external-api/metrics.v1beta1/)
 * [Custom Metrics API (v1beta2)](/docs/reference/external-api/custom-metrics.v1beta2)
 * [External Metrics API (v1beta1)](/docs/reference/external-api/external-metrics.v1beta1)
