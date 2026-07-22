@@ -9,9 +9,9 @@ author: >
 ---
 
 Kubernetes has long been the default platform for distributed workloads, and writing your own
-operator for it is now a matter of a few hours. The standard path — `kubebuilder` on top of
+controller for it is now a matter of a few hours. The common path — Golang, using `kubebuilder` on top of
 `controller-runtime` — gives you a project scaffold, types, and a reconciler. For typical
-scenarios that is more than enough. But as soon as load grows or the operator starts behaving
+scenarios that is more than enough. But as soon as load grows or the controller starts behaving
 in ways you did not expect, a whole class of edge cases shows up. Most of them trace back to
 the same root cause: a fuzzy mental model of how `controller-runtime` works inside. If you
 write Kubernetes controllers in Go, this article should help you build a coherent picture and
@@ -26,10 +26,10 @@ directly; `r.List()` returns a fresh, live view of the world; and after `r.Updat
 re-read the object and immediately see the new state. In practice the model is the opposite:
 `controller-runtime` operates against a local copy of the data populated through **list** + **watch**.
 Reads inside a reconciler cost almost nothing and do not load the control plane even at
-hundreds of calls per second — but the price of this design is that an operator can quietly
+hundreds of calls per second — but the price of this design is that a controller can quietly
 consume gigabytes of memory, perform hidden `O(n)` scans, and regularly trip over stale reads.
 
-This post is aimed at engineers who already write operators in Go with `controller-runtime`
+This post is aimed at engineers who already write controllers in Go with `controller-runtime`
 but want to consolidate the pieces into a single mental model rather than carry around a bag
 of isolated observations. The focus is the practical impact on production clusters: memory,
 network traffic, read consistency, and reconciler behavior.
@@ -103,9 +103,9 @@ func (r *Reconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Resu
 ```
 
 Looks straightforward. But what happens when you call `r.Get`? Does it fire an HTTP request at
-the API server? If it did, picture the scene: a dozen operators, each running a few
-controllers, each issuing a **get** and a **list** per reconcile, with hundreds of reconciles per
-second. The API server and `etcd` would be writing each other farewell letters within minutes.
+the API server? If it did, picture the scene: a dozen controllers, each issuing a **get** and
+a **list** per reconcile, with hundreds of reconciles per second. The API server and `etcd`
+would be writing each other farewell letters within minutes.
 
 To prevent that, Kubernetes was built around a _watch model_ rather than polling from the
 very beginning. The standard mechanism works like this: a client issues **list** once, gets a
@@ -129,7 +129,7 @@ The rest of this article walks through how each piece is wired up.
 A few terms collected up front, so you do not have to jump back and forth later. Skim or skip
 if any of them are already familiar.
 
-- **GVK (GroupVersionKind)** — the triple that uniquely identifies a resource type in
+- **GVK (GroupVersionKind)** — the triple that uniquely identifies an API type in
   Kubernetes: group, version, and kind, for example `apps/v1/Deployment`. Almost every API in
   `controller-runtime` works in terms of GVK rather than the name you would type in `kubectl`
   (such as `deployments`).
@@ -145,7 +145,7 @@ if any of them are already familiar.
   [watch bookmarks](/docs/reference/using-api/api-concepts/#watch-bookmarks) to learn
   more.
 
-- **Manager** — the `ctrl.Manager` object in `controller-runtime`. This is what your operator
+- **Manager** — the `ctrl.Manager` object in `controller-runtime`. This is what your controller
   constructs in `main.go` and runs through `mgr.Start(ctx)`. It orchestrates everything: it
   owns the shared cache, builds the client, starts controllers, webhooks, the healthz
   endpoint, and other runnables. A single process usually has exactly one manager, with many
@@ -503,7 +503,7 @@ limiter.
 ## cache + index = almost SQL
 
 Now you get to what is, arguably, the most useful capability of the cache — and the one most
-operators leave unused.
+controllers leave unused.
 
 By default, a `List` from the cache looks like this:
 
@@ -638,7 +638,7 @@ A few things worth keeping in mind:
 **list**. By the time the first `Reconcile` runs, both `Get` and `List` with `MatchingFields`
 work correctly — the index is not built lazily.
 
-## Selective cache: do not pull the whole cluster into your operator
+## Selective cache: do not pull the whole cluster into your controller
 
 By default, an informer pulls every object of its type from every namespace. For Pod,
 Secret, ConfigMap, and Event in a large cluster, that is a multi-gigabyte surprise
@@ -663,10 +663,10 @@ mgr, err := ctrl.NewManager(cfg, ctrl.Options{
             // Cache Secrets only from your own namespace, and only by label
             &corev1.Secret{}: {
                 Namespaces: map[string]cache.Config{
-                    "my-operator": {},
+                    "my-controller": {},
                 },
                 Label: labels.SelectorFromSet(labels.Set{
-                    "app.kubernetes.io/managed-by": "my-operator",
+                    "app.kubernetes.io/managed-by": "my-controller",
                 }),
             },
             // Cache all Pods, but trim noise on the way into the store
@@ -690,7 +690,7 @@ the type.
 
 A short tour of the options:
 
-- **`Namespaces`** restricts the visible scope. If your operator only manages its own
+- **`Namespaces`** restricts the visible scope. If your controller only manages its own
   namespace, there is no reason to keep other people's objects in memory.
 - **`Label` / `Field`** become parameters of the **watch** itself. The API server only sends
   matching objects, saving network and memory.
@@ -701,7 +701,7 @@ A short tour of the options:
   every type needs the same scope.
 
 **Caveat:** A selector limits what is **cached**, not what **exists**. If an object does
-not match your selector, then as far as your operator is concerned, it does not exist in
+not match your selector, then as far as your controller is concerned, it does not exist in
 either `Get` or `List`. This bites people: somebody mislabels a single Secret and then
 spends half a day figuring out why their controller "cannot see it".
 
@@ -795,7 +795,7 @@ Niche, but a perfectly valid pattern when the API server should not be touched.
 
 ## Good practices
 
-A short checklist worth running through before you ship an operator into a live cluster:
+A short checklist worth running through before you ship a controller into a live cluster:
 
 - **Constrain cache scope** (`Namespaces`, `Label`, `Field` selectors), especially for "fat"
   types: Secret, ConfigMap, Event, Pod, Node.
