@@ -15,17 +15,6 @@ author: >
 
 As we get closer to the release date for Kubernetes v1.37, the project develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This blog outlines some of the planned changes for the Kubernetes v1.37 release that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment and keeping up to date with the latest changes. The information below reflects the current status of the v1.37 release and may change before the actual release date. 
 
-The Kubernetes API Removal and Deprecation process
-The Kubernetes project has a well-documented [deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release, it will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
-
-* Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
-
-* Beta or pre-release API versions must be supported for 3 releases after the deprecation.
-
-* Alpha or experimental API versions may be removed in any release without prior deprecation notice; this process can become a withdrawal in cases where a different implementation for the same feature is already in place.
-
-Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
-
 ## Removals and Deprecations in Kubernetes v1.37
 
 ### Kubectl: kubectl run --filename/-f is deprecated
