@@ -30,7 +30,7 @@ with PowerShell or the Windows Command Prompt.
 本教程中的 Shell 命令使用 POSIX Shell 语法，
 大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
 Windows 用户必须使用兼容 POSIX 的 Shell，例如
-[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+[适用于 Linux 的 Windows 子系统（WSL）](https://learn.microsoft.com/en-us/windows/wsl/install)
 或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
 使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
 
@@ -82,7 +82,7 @@ Kubernetes 中的 [Service](/zh-cn/docs/concepts/services-networking/service/)
 Service 使从属 Pod 之间的松耦合成为可能。
 和所有 Kubernetes 对象清单一样，Service 用 YAML 或者 JSON 来定义。
 Service 下的一组 Pod 通常由一个**标签选择算符**来标记
-（请参阅下面的说明来了解为什么你可能想要一个 spec 中不包含 `selector` 的 Service）。
+（请参阅下面的说明来了解为什么你可能想要一个 `spec` 中不包含 `selector` 的 Service）。
 
 <!--
 Although each Pod has a unique IP address, those IPs are not exposed outside the
@@ -90,7 +90,8 @@ cluster without a Service. Services allow your applications to receive traffic.
 Services can be exposed in different ways by specifying a `type` in the `spec` of the Service:
 -->
 虽然每个 Pod 都有唯一的 IP 地址，但如果没有 Service，这些 IP 地址不会公开到集群外部。
-Service 允许你的应用接收流量。通过在 Service 的 `spec` 中指定 `type`，可以以不同的方式公开 Service：
+Service 允许你的应用接收流量。通过在 Service 的 `spec` 中指定 `type`，
+可以以不同的方式公开 Service：
 
 <!--
 * _ClusterIP_ (default) - Exposes the Service on an internal IP in the cluster. This
@@ -98,7 +99,14 @@ type makes the Service only reachable from within the cluster.
 
 * _NodePort_ - Exposes the Service on the same port of each selected Node in the cluster using NAT.
 Makes a Service accessible from outside the cluster using `NodeIP:NodePort`. Superset of ClusterIP.
+-->
+* **ClusterIP**（默认）- 在集群的内部 IP 上公开 Service。
+  这种类型使得 Service 只能从集群内访问。
 
+* **NodePort** - 使用 NAT 在集群中每个选定 Node 的相同端口上公开 Service 。
+  使用 `NodeIP:NodePort` 从集群外部访问 Service。这是 ClusterIP 的超集。
+  
+<!--
 * _LoadBalancer_ - Creates an external load balancer in the current cloud (if supported)
 and assigns a fixed, external IP to the Service. Superset of NodePort.
 
@@ -107,12 +115,9 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
 or CoreDNS version 0.0.8 or higher.
 -->
-* **ClusterIP**（默认）- 在集群的内部 IP 上公开 Service。
-  这种类型使得 Service 只能从集群内访问。
-* **NodePort** - 使用 NAT 在集群中每个选定 Node 的相同端口上公开 Service 。
-  使用 `NodeIP:NodePort` 从集群外部访问 Service。这是 ClusterIP 的超集。
 * **LoadBalancer** - 在当前云中创建一个外部负载均衡器（如果支持的话），
   并为 Service 分配一个固定的外部 IP。这是 NodePort 的超集。
+  
 * **ExternalName** - 将 Service 映射到 `externalName`
   字段的内容（例如 `foo.bar.example.com`），
   通过返回带有该名称的 `CNAME` 记录实现。不设置任何类型的代理。
@@ -122,16 +127,17 @@ or CoreDNS version 0.0.8 or higher.
 More information about the different types of Services can be found in the
 [Using Source IP](/docs/tutorials/services/source-ip/) tutorial. Also see
 [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/).
+-->
+关于不同 Service 类型的更多信息可以在[使用源 IP](/zh-cn/docs/tutorials/services/source-ip/)
+教程找到。也请参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
+<!--
 Additionally, note that there are some use cases with Services that involve not defining
 a `selector` in the spec. A Service created without `selector` will also not create
 the corresponding Endpoints object. This allows users to manually map a Service to
 specific endpoints. Another possibility why there may be no selector is you are strictly
 using `type: ExternalName`.
 -->
-关于不同 Service 类型的更多信息可以在[使用源 IP](/zh-cn/docs/tutorials/services/source-ip/)
-教程找到。也请参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
-
 另外，需要注意的是有一些 Service 的用例不需要在 spec 中定义 `selector`。
 一个创建时未设置 `selector` 的 Service 也不会创建相应的 Endpoints 对象。
 这允许用户手动将 Service 映射到特定的端点。
@@ -217,7 +223,8 @@ kubectl get services
 <!--
 To expose the deployment to external traffic, we'll use the kubectl expose command with the --type=NodePort option:
 -->
-为了将 Deployment 公开给外部流量，我们将使用 `kubectl expose` 命令和 `--type=NodePort` 选项：
+为了将 Deployment 公开给外部流量，我们将使用 `kubectl expose` 命令和
+`--type=NodePort` 选项：
 
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
@@ -263,7 +270,7 @@ IP address of the Node and the externally exposed port:
 curl http://"$(minikube ip):$NODE_PORT"
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If you're running minikube with Docker Desktop as the container driver, a minikube
 tunnel is needed. This is because containers inside Docker Desktop are isolated
@@ -272,7 +279,7 @@ from your host computer.
 In a separate terminal window, execute:
 -->
 如果你正在使用 Docker Desktop 作为容器驱动来运行 minikube，需要使用
-minikube 隧道。这是因为 Docker Desktop 内部的容器和宿主机是隔离的。
+Minikube 隧道。这是因为 Docker Desktop 内部的容器和宿主机是隔离的。
 
 在另一个终端窗口中，执行：
 
@@ -298,7 +305,7 @@ Then use the given URL to access the app:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 And we get a response from the server. The Service is exposed.

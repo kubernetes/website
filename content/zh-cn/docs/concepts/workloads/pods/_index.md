@@ -240,16 +240,18 @@ Pod 的名称必须是一个合法的
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 <!--
-You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
-which you want the pod to run. These two are the only operating systems supported for now by
-Kubernetes. In the future, this list may be expanded.
+You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the
+operating system that the containers in that Pod require. These two are the only operating
+systems supported for now by Kubernetes. In the future, this list may be expanded.
 -->
-你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux`
-以表示你希望 Pod 运行在哪个操作系统之上。
-这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
+你应当将 `.spec.os.name` 字段设置为 `windows` 或 `linux`，
+以表明该 Pod 中容器所需的操作系统。目前 Kubernetes
+仅支持这两种操作系统。未来，这一列表可能会扩展。
 
 <!--
-In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
+The kubelet refuses to run a Pod if the value of `.spec.os.name` does not match the
+operating system of the node. However, in Kubernetes
+v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 picks a node for the Pod to run on. In any cluster where there is more than one operating system for
 running nodes, you should set the
@@ -260,6 +262,7 @@ succeed in picking a suitable node placement where the node OS is right for the 
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to the operating system.
 -->
+如果 `.spec.os.name` 的值与节点的操作系统不匹配，kubelet 将拒绝运行该 Pod。
 在 Kubernetes v{{< skew currentVersion >}} 中，`.spec.os.name` 的值对
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 如何选择要运行 Pod 的节点没有影响。在任何有多种操作系统运行节点的集群中，你应该在每个节点上正确设置

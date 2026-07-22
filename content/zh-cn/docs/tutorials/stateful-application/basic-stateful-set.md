@@ -69,7 +69,7 @@ It's also useful to read the concept page about [StatefulSets](/docs/concepts/wo
 阅读有关 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 的概念页面也很有用。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 This tutorial assumes that your cluster is configured to dynamically provision
 PersistentVolumes. You'll also need to have a [default StorageClass](/docs/concepts/storage/storage-classes/#default-storageclass).
@@ -83,7 +83,7 @@ PersistentVolumeClaim templates that the StatefulSet defines.
 且有一个[默认 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
 如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷，
 以便这些 PersistentVolume 可以映射到 StatefulSet 定义的 PersistentVolumeClaim 模板。
-{{< /note >}}
+{{< /alert >}}
 
 ## {{% heading "objectives" %}}
 
@@ -121,16 +121,15 @@ After this tutorial, you will be familiar with the following.
 
 <!--
 ## Creating a StatefulSet
--->
-## 创建 StatefulSet   {#creating-a-statefulset}
 
-<!--
 Begin by creating a StatefulSet (and the Service that it relies upon) using
 the example below. It is similar to the example presented in the
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept.
 It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
 -->
+## 创建 StatefulSet   {#creating-a-statefulset}
+
 作为开始，使用如下示例创建一个 StatefulSet（以及它所依赖的 Service）。它和
 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 概念中的示例相似。
 它创建了一个 [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
@@ -206,12 +205,11 @@ web    2/2     37s
 
 <!--
 ### Ordered Pod creation
+
+A StatefulSet defaults to creating its Pods in a strict order.
 -->
 ### 顺序创建 Pod   {#ordered-pod-creation}
 
-<!--
-A StatefulSet defaults to creating its Pods in a strict order.
--->
 StatefulSet 默认以严格的顺序创建其 Pod。
 
 <!--
@@ -261,33 +259,31 @@ Later in this tutorial you will practice [parallel startup](#parallel-pod-manage
 
 在本教程的后面部分，你将练习[并行启动](#parallel-pod-management)。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 To configure the integer ordinal assigned to each Pod in a StatefulSet, see
 [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
 -->
 要配置分配给 StatefulSet 中每个 Pod 的整数序号，
 请参阅[起始序号](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Pods in a StatefulSet
+
+Pods in a StatefulSet have a unique ordinal index and a stable network identity.
 -->
 ## StatefulSet 中的 Pod   {#pods-in-a-statefulset}
 
-<!--
-Pods in a StatefulSet have a unique ordinal index and a stable network identity.
--->
 StatefulSet 中的每个 Pod 拥有一个唯一的顺序索引和稳定的网络身份标识。
 
 <!--
 ### Examining the Pod's ordinal Index
+
+Get the StatefulSet's Pods:
 -->
 ### 检查 Pod 的顺序索引   {#examining-the-pod-s-ordinal-index}
 
-<!--
-Get the StatefulSet's Pods:
--->
 获取 StatefulSet 的 Pod：
 
 ```shell
@@ -307,8 +303,8 @@ StatefulSet {{< glossary_tooltip term_id="controller" text="controller">}}.
 The Pods' names take the form `<statefulset name>-<ordinal index>`.
 Since the `web` StatefulSet has two replicas, it creates two Pods, `web-0` and `web-1`.
 -->
-如同 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 概念中所提到的，
-StatefulSet 中的每个 Pod 拥有一个具有黏性的、独一无二的身份标志。
+如同 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+概念中所提到的，StatefulSet 中的每个 Pod 拥有一个具有黏性的、独一无二的身份标志。
 这个标志基于 StatefulSet
 {{< glossary_tooltip term_id="controller" text="控制器">}}分配给每个
 Pod 的唯一顺序索引。
@@ -317,14 +313,13 @@ Pod 名称的格式为 `<statefulset 名称>-<序号索引>`。
 
 <!--
 ### Using Stable network Identities
--->
-### 使用稳定的网络身份标识   {#using-stable-network-identities}
 
-<!--
 Each Pod has a stable hostname based on its ordinal index. Use
 [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to execute the
 `hostname` command in each Pod:
 -->
+### 使用稳定的网络身份标识   {#using-stable-network-identities}
+
 每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用
 [`kubectl exec`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#exec)
 在每个 Pod 中执行 `hostname`：
@@ -487,7 +482,7 @@ kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 
 <!--
-which starts a new shell.  
+which starts a new shell. 
 In that new shell, run:
 -->
 这将启动一个新的 Shell。在新 Shell 中，运行：
@@ -542,16 +537,15 @@ StatefulSet 中特定 Pod 的 IP 地址进行连接，这点很重要
 
 <!--
 #### Discovery for specific Pods in a StatefulSet
--->
-#### 发现 StatefulSet 中特定的 Pod   {#discovery-for-specific-pods-in-a-statefulset}
 
-<!--
 If you need to find and connect to the active members of a StatefulSet, you
 should query the CNAME of the headless Service
 (`nginx.default.svc.cluster.local`). The SRV records associated with the
 CNAME will contain only the Pods in the StatefulSet that are Running and
 Ready.
 -->
+#### 发现 StatefulSet 中特定的 Pod   {#discovery-for-specific-pods-in-a-statefulset}
+
 如果你需要查找并连接一个 StatefulSet 的活动成员，你应该查询 Headless Service
 的 CNAME（`nginx.default.svc.cluster.local`）。
 和 CNAME 相关联的 SRV 记录只会包含 StatefulSet 中处于 `Running` 和 `Ready` 状态的 Pod。
@@ -652,7 +646,7 @@ web-0
 web-1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If you instead see **403 Forbidden** responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
@@ -671,7 +665,7 @@ for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
 before retrying the `curl` command above.
 -->
 再重新尝试上面的 `curl` 命令。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 In one terminal, watch the StatefulSet's Pods:
@@ -1143,14 +1137,14 @@ All the Pods in the StatefulSet are now running the previous container image.
 -->
 StatefulSet 中的所有 Pod 现在都在运行之前的容器镜像。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 You can also use `kubectl rollout status sts/<name>` to view
 the status of a rolling update to a StatefulSet
 -->
 你还可以使用 `kubectl rollout status sts/<名称>` 来查看
 StatefulSet 的滚动更新状态。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 #### Staging an update
@@ -1836,7 +1830,7 @@ the Pod's successor to be completely terminated.
 如同你在[缩容](#scaling-down)章节看到的，这些 Pod 按照与其序号索引相反的顺序每次终止一个。
 在终止一个 Pod 前，StatefulSet 控制器会等待 Pod 后继者被完全终止。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Although a cascading delete removes a StatefulSet together with its Pods,
 the cascade does **not** delete the headless Service associated with the StatefulSet.
@@ -1844,7 +1838,7 @@ You must delete the `nginx` Service manually.
 -->
 尽管级联删除会删除 StatefulSet 及其 Pod，但级联**不会**删除与 StatefulSet
 关联的 Headless Service。你必须手动删除 `nginx` Service。
-{{< /note >}}
+{{< /alert >}}
 
 ```shell
 kubectl delete service nginx
@@ -2210,7 +2204,7 @@ kubectl get pvc
 ```
 No resources found in default namespace.
 ```
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 You also need to delete the persistent storage media for the PersistentVolumes
 used in this tutorial.
@@ -2222,4 +2216,4 @@ Follow the necessary steps, based on your environment, storage configuration,
 and provisioning method, to ensure that all storage is reclaimed.
 -->
 基于你的环境、存储配置和制备方式，按照必需的步骤保证回收所有的存储。
-{{< /note >}}
+{{< /alert >}}
