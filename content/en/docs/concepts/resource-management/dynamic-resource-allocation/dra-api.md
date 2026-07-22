@@ -582,3 +582,7 @@ A few things to know about `derivedAttributes`:
 Derived attributes is controlled by the
 [`DRADerivedAttributes` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADerivedAttributes)
 in the `kube-apiserver` and `kube-scheduler`.
+
+For a list of standard device attributes that DRA drivers can publish, see the
+[Standard Device Attributes](/docs/reference/node/dra-standard-device-attributes/)
+reference.
