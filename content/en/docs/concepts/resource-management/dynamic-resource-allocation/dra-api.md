@@ -488,3 +488,7 @@ spec:
 List type attributes is controlled by the
 [`DRAListTypeAttributes` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAListTypeAttributes)
 in the `kube-apiserver` and `kube-scheduler`.
+
+For a list of standard device attributes that DRA drivers can publish, see the
+[Standard Device Attributes](/docs/reference/node/dra-standard-device-attributes/)
+reference.
