@@ -38,10 +38,6 @@ If you don't already have the 'kubernetes/kubernetes' repository, get it now:
 ```shell
 git clone https://github.com/kubernetes/kubernetes
 ```
-Throughout this guide:
-
-- `<k8s-base>` refers to your local clone of the `kubernetes/kubernetes` repository.
-
 
 ## Edit the Kubernetes source code
 
