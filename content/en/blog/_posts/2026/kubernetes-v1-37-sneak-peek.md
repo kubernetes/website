@@ -28,20 +28,20 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 ## Removals and Deprecations in Kubernetes v1.37
 
-Kubectl: kubectl run --filename/-f is deprecated
+### Kubectl: kubectl run --filename/-f is deprecated
 
 The --filename (or -f) flag for kubectl run is being deprecated as the generated pod is always built purely from CLI arguments like NAME and --image. 
 
 See [kubernetes/kubernetes#138671](https://github.com/kubernetes/kubernetes/issues/138671) for the original issue and discussion.
 
 
-Kubelet: removal of `PreventStaticPodAPIReferences` feature gate
+### Kubelet: removal of `PreventStaticPodAPIReferences` feature gate
 
 Static Pods’ `PreventStaticPodAPIReferences` feature gate has been removed, and this means they’re now strictly prohibited from referencing API resources such as Secrets or ConfigMaps through fields like configMapRef or secretRef.
 
 See [kubernetes/kubernetes#140226](https://github.com/kubernetes/kubernetes/issues/140226) for the original issue and discussion.
 
-KEP #5495: Deprecate ipvs mode in kube-proxy
+### KEP #5495: Deprecate ipvs mode in kube-proxy
 
 ipvs was introduced in 2017 to resolve iptables performance bottlenecks. However, since the kernel ipvs API alone cannot fully implement Kubernetes Services, ipvs mode continues to use iptables underneath ([KEP-3866, "The ipvs mode of kube-proxy will not save us"](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/3866-nftables-proxy/README.md#the-ipvs-mode-of-kube-proxy-will-not-save-us)).
 
@@ -58,7 +58,7 @@ kubectl -n kube-system get configmap kube-proxy -o jsonpath='{.data.config\.conf
 
 To understand the rationale behind this deprecation, see [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kubernetes.dev/resources/keps/5495).
 
-KEP-5573: Removal of cgroups v1 support
+### KEP #5573: Removal of cgroups v1 support
 
 As modern Linux distributions and container runtimes use [cgroup v2](https://kubernetes.io/docs/concepts/architecture/cgroups/) as the default, support for the legacy cgroup v1 is officially being phased out. Since the v1.35 release, the failCgroupV1 setting has defaulted to true. Consequently, the Kubelet will fail to initialize on any nodes that still rely on cgroup v1 unless an explicit configuration override is applied. 
 
@@ -74,7 +74,7 @@ To learn more about this deprecation, refer to [KEP-5573: Remove cgroup v1 suppo
 
 ## Breaking Changes in Kubernetes 1.37
 
-KEP #1710: SELinux volume relabeling: SELinuxMount graduates to GA
+### KEP #1710: SELinux volume relabeling: SELinuxMount graduates to GA
 
 In v1.37, SELinuxMount reaches GA and is enabled by default: volumes get mounted with -o context=<label> (the MountOption default) instead of being recursively relabeled, but only when the volume's CSI driver opts in via CSIDriver.Spec.SELinuxMount: true.
 
@@ -87,7 +87,7 @@ Clusters without SELinux enabled see no effect at all. To learn more, check [SEL
 
 ## Featured Enhancements of Kubernetes v1.37
 
-KEP #5207: Metrics API (GA) 
+### KEP #5207: Metrics API (GA) 
 
 The `metrics.k8s.io` API is graduating to Stable (GA) in Kubernetes v1.37 after spending nearly seven years in beta. The API provides a standard way to retrieve CPU and memory usage for pods and nodes, powering widely used Kubernetes features such as the Horizontal Pod Autoscaler (HPA) and commands like `kubectl top`.
 
@@ -95,7 +95,7 @@ This graduation recognizes the API's stability and widespread adoption without i
 
 To learn more about this enhancement, refer to [KEP-5207: metrics.k8s.io API definition]( https://www.kubernetes.dev/resources/keps/5207/)
 
-KEP #2033: Kubelet in UserNS a.k.a. Rootless Mode (Beta)
+### KEP #2033: Kubelet in UserNS a.k.a. Rootless Mode (Beta)
 
 Traditionally, Kubernetes node components such as the kubelet run with root privileges on the host. While necessary for many deployments, this also means that a vulnerability in one of these components could potentially have a greater impact on the underlying system. 
 
@@ -133,7 +133,6 @@ In Kubernetes v1.37, this KEP resets graduation to alpha and introduces four new
 
 To learn more about this enhancement, refer to [KEP-1432: PV Health Monitor](https://kubernetes.dev/resources/keps/1432). 
 
-For more details about this enhancement, refer to 
 ## Want to know more?
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.37](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.37.md) as part of the CHANGELOG for that release.
 
