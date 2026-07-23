@@ -112,7 +112,7 @@ In Kubernetes v1.37, in Alpha, the goals of this would include introducing a sys
 To learn more about this enhancement, refer to [KEP-5894:Node System Partition ](https://kubernetes.dev/resources/keps/5894). 
 
 
-### KEP #1432: PV Health Monitor (Alpha) 
+### KEP #1432: Volume Health Monitor (Alpha)
 
 Historically, Kubernetes has lacked an API for CSI drivers to report storage failures, which become evident only through failed mounts or hung I/O. Since remediation controllers had nothing machine-readable to act upon, the only way to figure out the root cause behind this failure was to cross-reference Kubernetes objects alongside external vendor dashboards. 
 
