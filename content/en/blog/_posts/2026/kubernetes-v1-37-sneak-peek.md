@@ -62,7 +62,7 @@ To learn more about this deprecation, refer to [KEP-5573: Remove cgroup v1 suppo
 
 ## Breaking changes in Kubernetes v1.37
 
-### KEP #1710: SELinux volume relabeling: SELinuxMount graduates to GA
+### KEP #1710: SELinux Volume Relabeling (SELinuxMount graduates to GA)
 
 SELinuxMount is expected to reach GA and be enabled by default in v1.37: volumes would then be mounted with `-o context=<label>` (the MountOption default) instead of being recursively relabeled, but only when the volume's CSI driver opts in via `CSIDriver.Spec.SELinuxMount: true`.
 
