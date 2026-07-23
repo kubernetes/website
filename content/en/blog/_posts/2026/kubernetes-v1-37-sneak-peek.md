@@ -6,7 +6,7 @@ slug: kubernetes-v1-37-sneak-peek
 author: >
   Arsh Sharma, 
   Christopher Tineo,
-  Kirti Goyal, 
+  Kirti Goyal,
   Sophia Ugochukwu,
   Swathi Rao,
   Troy Connor 
