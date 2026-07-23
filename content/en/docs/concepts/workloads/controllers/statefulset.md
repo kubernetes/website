@@ -323,9 +323,12 @@ annotations for the Pods in a StatefulSet. There are three possible values:
   StatefulSet. This is the default update strategy.
 
 `Recreate`
-: The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
-  Pods that reflect modifications made to a StatefulSet's `.spec.template`. See
-  [Recreate](#recreate) for details.
+: {{< feature-state for_k8s_version="v1.37" state="alpha" >}}
+  The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
+  Pods that reflect modifications made to a StatefulSet's `.spec.template`. Using this
+  strategy requires the `StatefulSetRecreateStrategy`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+  See [Recreate](#recreate) for details.
 
 ## Rolling Updates
 
