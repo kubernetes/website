@@ -4,7 +4,7 @@ title: 'Kubernetes v1.37 Sneak Peek'
 draft: true
 slug: kubernetes-v1-37-sneak-peek
 author: >
-  Arsh Sharma, 
+  Arsh Sharma,
   Christopher Tineo,
   Kirti Goyal,
   Sophia Ugochukwu,
