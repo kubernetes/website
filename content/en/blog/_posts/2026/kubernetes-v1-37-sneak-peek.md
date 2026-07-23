@@ -119,7 +119,7 @@ An initial v1.21 version of this KEP introduced a`VolumeCondition` field in the 
 
 In Kubernetes v1.37, this KEP resets graduation to alpha and introduces four new CSI RPCs. The controller plugin reports the health of storage volumes using `ControllerListVolumeHealth` (lists unhealthy volumes) and `ControllerGetVolumeHealth` (checks a specific volume). A controller-side health monitor polls these CSI controllers and stores the results in `PersistentVolumeClaim.status.healthStatus`. On the node side, the kubelet calls `NodeGetVolumeHealth` to obtain the health of individual volumes on that node and records it in `Pod.status.volumeHealth`, while `NodeGetStorageHealth` reports the health of the drivers registered to a node in `CSINode.status.storageHealth`. The error vocabulary is kept simple, extensible, and machine-parsable(`Inaccessible`, `Degraded`, etc.), with further driver-specific elaboration available via `reason` and `message`. Finally, the controller-side and node-side reports are kept independent and are hence displayed separately, providing a more holistic view of storage health to consumers(applications or users). 
 
-To learn more about this enhancement, refer to [KEP-1432: PV Health Monitor](https://kubernetes.dev/resources/keps/1432). 
+To learn more about this enhancement, refer to [KEP-1432: Volume Health Monitor](https://kubernetes.dev/resources/keps/1432).
 
 ## Want to know more?
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.37](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.37.md) as part of the CHANGELOG for that release.
