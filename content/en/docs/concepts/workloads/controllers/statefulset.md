@@ -310,7 +310,7 @@ simultaneously (also known as "bursting"). This can speed up updates but may res
 
 A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
-annotations for the Pods in a StatefulSet. There are two possible values:
+annotations for the Pods in a StatefulSet. There are three possible values:
 
 `OnDelete`
 : When a StatefulSet's `.spec.updateStrategy.type` is set to `OnDelete`,
@@ -321,6 +321,14 @@ annotations for the Pods in a StatefulSet. There are two possible values:
 `RollingUpdate`
 : The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
   StatefulSet. This is the default update strategy.
+
+`Recreate`
+: {{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+  The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
+  Pods that reflect modifications made to a StatefulSet's `.spec.template`. Using this
+  strategy requires the `StatefulSetRecreateStrategy`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+  to be enabled. See [Recreate](#recreate) for details.
 
 ## Rolling Updates
 
@@ -383,6 +391,29 @@ configuration.
 After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
+
+## Recreate
+
+{{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+
+When a StatefulSet's `.spec.updateStrategy.type` is set to `Recreate`, the StatefulSet
+controller deletes all of the StatefulSet's Pods at once and waits for them to terminate
+completely before creating any new Pods from the updated `.spec.template`. Unlike
+[`RollingUpdate`](#rolling-updates), the old and new revisions of a Pod are never running at
+the same time, so this strategy incurs downtime for the duration of the update. This mirrors
+the `Recreate` strategy of Deployments and is useful for applications that cannot run two
+versions concurrently, such as workloads that require exclusive access to a shared resource
+or that use an on-disk format that is incompatible between versions.
+
+The deletion always removes every Pod together, regardless of the
+[Pod Management Policy](#pod-management-policies). Once all Pods have terminated, the new
+Pods are created according to that policy: with `OrderedReady` (the default) the Pods are
+recreated one at a time, in ascending ordinal order, waiting for each to become Running and
+Ready before creating the next; with `Parallel` all of the Pods are recreated at once.
+
+Because this is an alpha feature, you must enable the `StatefulSetRecreateStrategy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+on the kube-controller-manager and the kube-apiserver to use this strategy.
 
 ## Revision history
 
