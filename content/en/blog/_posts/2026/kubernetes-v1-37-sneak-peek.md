@@ -90,8 +90,6 @@ Traditionally, Kubernetes node components such as the kubelet run with root priv
 With Kubernetes v1.37, kubelet in User Namespace (Rootless Mode) graduates to Beta. This enhancement allows Kubernetes node components to run inside a Linux user namespace as an unprivileged user on the host while still behaving as root within the namespace. By reducing the need for host-level root privileges, it adds an extra layer of isolation and helps limit the impact of potential vulnerabilities affecting node components. 
 
 To learn more about this enhancement, refer to [KEP-2033: Kubelet in UserNS a.k.a. Rootless Mode](https://kubernetes.dev/resources/keps/2033). 
-
-
 ### KEP #4960: Container Stop Signals (Beta) 
 
 Currently, Kubernetes has no native way to modify a container's stop signal. Whatever the value was for the stop signal during the time of building the container image, it stays the same. The only way to modify it is to rebuild the container image and change the stop signal at the image definition level.
