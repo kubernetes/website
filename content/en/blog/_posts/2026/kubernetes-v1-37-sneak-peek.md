@@ -1,7 +1,6 @@
 ---
 layout: blog
 title: 'Kubernetes v1.37 Sneak Peek'
-date: 2026-XX-XX
 draft: true
 slug: kubernetes-v1-37-sneak-peek
 author: >
