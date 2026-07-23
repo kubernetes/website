@@ -1,48 +1,54 @@
-# Credit to Julien Guyomard (https://github.com/jguyomard). This Dockerfile
-# is essentially based on his Dockerfile at
-# https://github.com/jguyomard/docker-hugo/blob/master/Dockerfile. The only significant
-# change is that the Hugo version is now an overridable argument rather than a fixed
-# environment variable.
+ARG ALPINE_VERSION=3.24
 
-FROM docker.io/library/golang:1.25-alpine
-
-RUN apk add --no-cache \
-    curl \
-    gcc \
-    g++ \
-    musl-dev \
-    build-base \
-    libc6-compat
+FROM docker.io/library/alpine:${ALPINE_VERSION}
 
 ARG HUGO_VERSION
-
-RUN mkdir $HOME/src && \
-    cd $HOME/src && \
-    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz && \
-    cd "hugo-${HUGO_VERSION}" && \
-    go install --tags extended
-
-FROM docker.io/library/golang:1.25-alpine
+ARG TARGETARCH
 
 RUN apk add --no-cache \
-    runuser \
     git \
     gcompat \
+    libstdc++ \
+    npm \
     openssh-client \
-    rsync \
-    npm
+    rsync
+
+# Download the official Hugo extended release instead of compiling it from source.
+# TARGETARCH is provided by BuildKit; apk's architecture is used as a fallback for
+# other container engines.
+RUN set -eux; \
+    apk add --no-cache --virtual .hugo-download-deps curl; \
+    architecture="${TARGETARCH:-$(apk --print-arch)}"; \
+    case "${architecture}" in \
+        amd64|x86_64) architecture=amd64 ;; \
+        arm64|aarch64) architecture=arm64 ;; \
+        *) echo "Unsupported architecture: ${architecture}" >&2; exit 1 ;; \
+    esac; \
+    archive="hugo_extended_${HUGO_VERSION}_linux-${architecture}.tar.gz"; \
+    checksums="hugo_${HUGO_VERSION}_checksums.txt"; \
+    release_url="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"; \
+    cd /tmp; \
+    curl -fsSLO "${release_url}/${archive}"; \
+    curl -fsSLO "${release_url}/${checksums}"; \
+    grep -F "  ${archive}" "${checksums}" | sha256sum -c -; \
+    tar -xzf "${archive}" -C /usr/local/bin hugo; \
+    rm -f "${archive}" "${checksums}"; \
+    apk del .hugo-download-deps
 
 RUN mkdir -p /var/hugo && \
     addgroup -Sg 1000 hugo && \
     adduser -Sg hugo -u 1000 -h /var/hugo hugo && \
-    chown -R hugo: /var/hugo && \
-    runuser -u hugo -- git config --global --add safe.directory /src
-
-COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
+    git config --file /var/hugo/.gitconfig --add safe.directory /src && \
+    chown -R hugo: /var/hugo
 
 WORKDIR /src
 COPY package.json package-lock.json ./
-RUN npm ci
+
+# Only Docsy's theme assets are needed for local previews. Ignoring install
+# scripts avoids preparing Docsy's development environment (including another
+# Hugo binary), while omitting optional tooling excludes Netlify CLI.
+RUN npm ci --ignore-scripts --omit=optional --cache=/tmp/npm-cache && \
+    rm -rf /tmp/npm-cache
 
 USER hugo:hugo
 
