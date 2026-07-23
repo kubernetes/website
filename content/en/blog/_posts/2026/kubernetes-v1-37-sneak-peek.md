@@ -61,7 +61,7 @@ Using this override should be considered a short-term fix. Advanced resource man
 
 To learn more about this deprecation, refer to [KEP-5573: Remove cgroup v1 support](https://kubernetes.dev/resources/keps/5537).
 
-## Breaking Changes in Kubernetes 1.37
+## Breaking changes in Kubernetes v1.37
 
 ### KEP #1710: SELinux volume relabeling: SELinuxMount graduates to GA
 
