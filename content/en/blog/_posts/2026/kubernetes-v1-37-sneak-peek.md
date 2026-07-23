@@ -73,7 +73,7 @@ This behavior itself also isn't locked until v1.38, so disabling it cluster-wide
 Clusters without SELinux enabled see no effect at all. To learn more, check [SELinux Volume Label Changes goes GA (and likely implications in v1.37)](https://kubernetes.io/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/)
 
 
-## Featured Enhancements of Kubernetes v1.37
+## Featured enhancements of Kubernetes v1.37
 
 ### KEP #5207: Metrics API (GA) {#metrics-api-ga}
 
