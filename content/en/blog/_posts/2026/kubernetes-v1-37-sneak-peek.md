@@ -76,7 +76,7 @@ Clusters without SELinux enabled see no effect at all. To learn more, check [SEL
 
 ## Featured Enhancements of Kubernetes v1.37
 
-### KEP #5207: Metrics API (GA) 
+### KEP #5207: Metrics API (GA) {#metrics-api-ga}
 
 The `metrics.k8s.io` API is expected to graduate to Stable (GA) in Kubernetes v1.37 after spending nearly nine years in beta. The API provides a standard way to retrieve CPU and memory usage for pods and nodes, powering widely used Kubernetes features such as the Horizontal Pod Autoscaler (HPA) and commands like `kubectl top`.
 
