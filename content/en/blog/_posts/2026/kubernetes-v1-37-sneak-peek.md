@@ -30,7 +30,7 @@ Static Pods’ `PreventStaticPodAPIReferences` feature gate has been removed, an
 
 See [kubernetes/kubernetes#140226](https://github.com/kubernetes/kubernetes/issues/140226) for the original issue and discussion.
 
-### KEP #5495: Deprecate ipvs mode in kube-proxy
+### Deprecating kube-proxy's support for ipvs mode
 
 ipvs was introduced in 2017 to resolve iptables performance bottlenecks. However, since the kernel ipvs API alone cannot fully implement Kubernetes Services, ipvs mode continues to use iptables underneath ([KEP-3866, "The ipvs mode of kube-proxy will not save us"](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/3866-nftables-proxy/README.md#the-ipvs-mode-of-kube-proxy-will-not-save-us)).
 
