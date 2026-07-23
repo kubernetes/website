@@ -1,3 +1,4 @@
+ALPINE_VERSION    = $(shell grep ^ALPINE_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
@@ -91,6 +92,7 @@ container-image: ## Build a container image for the preview of the website
 	$(CONTAINER_ENGINE) build . \
 		--network=host \
 		--tag $(CONTAINER_IMAGE) \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 container-push: container-image ## Push container image for the preview of the website
@@ -107,6 +109,7 @@ docker-push: ## Build a multi-architecture image and push that into the registry
 	$(DOCKER_BUILDX) build \
 		--push \
 		--platform=$(PLATFORMS) \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		--build-arg HUGO_VERSION=$(HUGO_VERSION) \
 		--tag $(CONTAINER_IMAGE) \
 		-f Dockerfile.cross .
