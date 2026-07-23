@@ -365,6 +365,15 @@ performance-sensitive workloads. It allows you to define hybrid allocation
 models where some containers in a Pod receive exclusive, NUMA-aligned resources,
 while others share the remaining resources from a pod-level shared pool.
 
+{{< note >}}
+
+To practice setting up Kubelet resource managers with pod-level
+resources and observe allocation behaviors hands-on, follow the
+[Use pod-level resources with Kubelet resource managers](/docs/tutorials/cluster-management/use-pod-level-resource-managers/)
+tutorial.
+
+{{< /note >}}
+
 It is important to differentiate between the capabilities offered by each
 Topology Manager scope, and how this modifies the behavior of the resource
 managers. The `pod` scope enables allocation based on the entire pod's budget,
@@ -531,17 +540,26 @@ entire pod is terminated.
 
 {{< caution >}}
 
-Enabling the `PodLevelResourceManagers` feature introduces new state versions
-for the CPU and Memory managers.
+Enabling the `PodLevelResourceManagers` feature gate affects
+state checkpoint files (`cpu_manager_state` and `memory_manager_state`,
+[internal state checkpoint files](/docs/reference/node/kubelet-files/#resource-managers-state))
+during Kubelet version upgrades and downgrades:
 
-If you downgrade the Kubelet to a version that does not support this feature, or
-if you explicitly disable the feature gates after they have been active, the
-older Kubelet will fail to read the newer checkpoint files due to this version
-incompatibility. To recover, administrators must drain the affected node,
-manually delete the
-[internal state checkpoint files](/docs/reference/node/kubelet-files/#resource-managers-state)
-(`cpu_manager_state` and `memory_manager_state`), and restart the Kubelet.
-
+*   **Kubernetes 1.36 (V3 format):** In 1.36, enabling
+    `PodLevelResourceManagers` saves checkpoints in the V3 format. If you
+    downgrade a 1.36 Kubelet to 1.35 or earlier (or disable the feature gate
+    after active use), the older Kubelet cannot parse V3 checkpoints and fails
+    to start (`checkpoint is corrupted`). To recover, administrators must drain
+    the affected node, manually delete the checkpoint files (`cpu_manager_state`
+    and `memory_manager_state`), and restart the Kubelet.
+*   **Kubernetes 1.37+ (V4 format with embedded V2):** In 1.37, checkpoint files
+    were upgraded to a generalized V4 format embedding the V2 structure to allow
+    older Kubelets to read checkpoints without corruption errors. If you
+    downgrade a 1.37 Kubelet to 1.36 (even with `PodLevelResourceManagers`
+    enabled in 1.36), the 1.36 Kubelet safely restores standard container
+    allocations from V2, but active pod-level resource assignments
+    (`PodEntries`) are lost upon downgrade.
+    
 {{< /caution >}}
 
 ### Observability and metrics
@@ -562,6 +580,51 @@ container-level and pod-level allocations using the following Kubelet metrics
     `assignment_type` label ("node_exclusive", "pod_exclusive", "pod_shared")
     provides visibility into how many containers are running with exclusive
     resources (from the node or pod pool) versus the pod-level shared pool.
+
+### PodResources API {#podresources-api}
+
+Starting in Kubernetes 1.37, the `PodResourcesLister` service (`List` and `Get`
+gRPC endpoints in the `v1` PodResources API) natively includes pod-level
+resource entries when the `PodLevelResourceManagers` feature gate is enabled:
+
+*   **Pod-level fields:** The `PodResources` gRPC message includes top-level
+    `cpu_ids` and `memory` fields representing the exclusive CPUs and
+    NUMA-aligned memory blocks allocated to the entire pod.
+*   **Container-level filtering:** Container-level reporting is structured to
+    avoid double-counting:
+    *   Containers receiving individual exclusive allocations report their
+        specific assigned CPUs and memory in `ContainerResources`.
+    *   Containers sharing resources within the pod's budget (running in the
+        pod-isolated shared pool or node shared pool) leave container-level
+        `cpu_ids` and `memory` fields empty, with the allocation reflected at
+        the pod level.
+*   **Computing the pod shared pool:** API consumers can compute the resources
+    in the pod-level shared pool by taking the pod-level allocation and
+    subtracting the union of all exclusive container-level allocations:
+    `PodSharedPool.CpuIds = Pod.CpuIds - Union(all Container.CpuIds)`
+
+Here is a summary of the `PodResources` API reporting behavior when pod-level
+resources are specified:
+
+#### 1. Topology Manager Scope: `pod`
+
+The Topology Manager allocates a pod-level resource budget. Pod-level fields in
+`PodResources` are populated with this allocation.
+
+Container Combination                  | Pod-Level `cpu_ids` / `memory`                | Container-Level `cpu_ids` / `memory`             | Details / Notes
+:------------------------------------- | :-------------------------------------------- | :----------------------------------------------- | :--------------
+Exclusive Container (Guaranteed)       | Populated with the full pod level allocation. | Populated with the container's allocated subset. | The container receives exclusive CPUs carved out of the pod-level allocation.
+Shared Pool Container (Non-Guaranteed) | Populated with the full pod level allocation. | Empty                                            | Avoids double-counting since the container runs in the pod shared pool.
+
+#### 2. Topology Manager Scope: `container`
+
+Resource allocations are evaluated per container. Pod-level `PodResources` API
+fields remain empty.
+
+Container Combination            | Pod-Level `cpu_ids` / `memory` | Container-Level `cpu_ids` / `memory`                  | Details / Notes
+:------------------------------- | :----------------------------- | :---------------------------------------------------- | :--------------
+Exclusive Container (Guaranteed) | Empty                          | Populated with the container's allocated CPUs/Memory. | The container receives exclusive allocations directly from the node's allocatable pool.
+Non-Guaranteed Container         | Empty                          | Empty                                                 | Runs in the node's general shared pool.
 
 ### Limitations and caveats
 

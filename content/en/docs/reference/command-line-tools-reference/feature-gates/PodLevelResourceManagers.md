@@ -9,6 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.36"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 Enable _Pod-level resource managers_: the ability for the Topology, CPU, and
 Memory managers to use information from `.spec.resources` to perform NUMA

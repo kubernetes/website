@@ -21,7 +21,7 @@ spec:
       memory: "4Gi"
   initContainers:
   - name: metrics-sidecar
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
     restartPolicy: Always
     resources:
       requests:
@@ -31,11 +31,11 @@ spec:
         cpu: "1"
         memory: "1Gi"
   - name: logging-sidecar
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
     restartPolicy: Always
   containers:
   - name: main-app
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
     resources:
       requests:
         cpu: "3"

@@ -22,7 +22,7 @@ spec:
       memory: "4Gi"
   initContainers:
   - name: infrastructure-sidecar
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
     restartPolicy: Always
     resources:
       requests:
@@ -33,6 +33,6 @@ spec:
         memory: "2Gi"
   containers:
   - name: worker-1
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
   - name: worker-2
-    image: registry.example/example-image:v1
+    image: registry.k8s.io/pause:3.9
