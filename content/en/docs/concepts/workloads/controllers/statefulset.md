@@ -323,12 +323,12 @@ annotations for the Pods in a StatefulSet. There are three possible values:
   StatefulSet. This is the default update strategy.
 
 `Recreate`
-: {{< feature-state for_k8s_version="v1.37" state="alpha" >}}
+: {{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
   The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
   Pods that reflect modifications made to a StatefulSet's `.spec.template`. Using this
   strategy requires the `StatefulSetRecreateStrategy`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-  See [Recreate](#recreate) for details.
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+  to be enabled. See [Recreate](#recreate) for details.
 
 ## Rolling Updates
 
@@ -394,7 +394,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 ## Recreate
 
-{{< feature-state for_k8s_version="v1.37" state="alpha" >}}
+{{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
 
 When a StatefulSet's `.spec.updateStrategy.type` is set to `Recreate`, the StatefulSet
 controller deletes all of the StatefulSet's Pods at once and waits for them to terminate
@@ -412,8 +412,8 @@ recreated one at a time, in ascending ordinal order, waiting for each to become 
 Ready before creating the next; with `Parallel` all of the Pods are recreated at once.
 
 Because this is an alpha feature, you must enable the `StatefulSetRecreateStrategy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this
-strategy.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+on the kube-controller-manager and the kube-apiserver to use this strategy.
 
 ## Revision history
 
