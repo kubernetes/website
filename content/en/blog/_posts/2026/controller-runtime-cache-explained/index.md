@@ -9,7 +9,7 @@ author: >
 ---
 
 Kubernetes has long been the default platform for distributed workloads, and writing your own
-operator for it is now a matter of a few hours. The standard path — `kubebuilder` on top of
+controller for it is now a matter of a few hours. The common path — Golang, using `kubebuilder` on top of
 `controller-runtime` — gives you a project scaffold, types, and a reconciler. For typical
 scenarios that is more than enough. But as soon as load grows or the operator starts behaving
 in ways you did not expect, a whole class of edge cases shows up. Most of them trace back to
@@ -145,7 +145,7 @@ if any of them are already familiar.
   [watch bookmarks](/docs/reference/using-api/api-concepts/#watch-bookmarks) to learn
   more.
 
-- **Manager** — the `ctrl.Manager` object in `controller-runtime`. This is what your operator
+- **Manager** — the `ctrl.Manager` object in `controller-runtime`. This is what your controller
   constructs in `main.go` and runs through `mgr.Start(ctx)`. It orchestrates everything: it
   owns the shared cache, builds the client, starts controllers, webhooks, the healthz
   endpoint, and other runnables. A single process usually has exactly one manager, with many
@@ -503,7 +503,7 @@ limiter.
 ## cache + index = almost SQL
 
 Now you get to what is, arguably, the most useful capability of the cache — and the one most
-operators leave unused.
+controllers leave unused.
 
 By default, a `List` from the cache looks like this:
 
@@ -638,7 +638,7 @@ A few things worth keeping in mind:
 **list**. By the time the first `Reconcile` runs, both `Get` and `List` with `MatchingFields`
 work correctly — the index is not built lazily.
 
-## Selective cache: do not pull the whole cluster into your operator
+## Selective cache: do not pull the whole cluster into your controller
 
 By default, an informer pulls every object of its type from every namespace. For Pod,
 Secret, ConfigMap, and Event in a large cluster, that is a multi-gigabyte surprise
@@ -701,7 +701,7 @@ A short tour of the options:
   every type needs the same scope.
 
 **Caveat:** A selector limits what is **cached**, not what **exists**. If an object does
-not match your selector, then as far as your operator is concerned, it does not exist in
+not match your selector, then as far as your controller is concerned, it does not exist in
 either `Get` or `List`. This bites people: somebody mislabels a single Secret and then
 spends half a day figuring out why their controller "cannot see it".
 
