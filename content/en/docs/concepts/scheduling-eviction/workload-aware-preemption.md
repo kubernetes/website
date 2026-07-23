@@ -5,7 +5,15 @@ weight: 80
 ---
 
 <!-- overview -->
-{{< feature-state feature_gate_name="WorkloadAwarePreemption">}}
+{{< feature-state feature_gate_name="GenericWorkload">}}
+
+
+{{< note >}}
+In v1.36 release, the workload-aware preemption logic was gated by
+WorkloadAwarePreemption feature gate. This feature gate was merged into
+GenericWorkload feature gate in v1.37.
+{{< /note >}}
+
 
 Workload-aware preemption introduces a preemption mechanism specifically designed for PodGroups.
 When a PodGroup cannot be scheduled, the scheduler utilizes a preemption logic that tries to
@@ -17,11 +25,9 @@ rather than evaluating individual pods from a PodGroup in isolation. To make roo
 it searches for victims across the entire cluster,
 and knows how to treat and preempt other PodGroups as victims according to their disruption modes.
 
-This feature depends on the [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+This feature is coupled with [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
 and the [Workload API](/docs/concepts/workloads/workload-api/).
-Ensure the [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-and [`GangScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#GangScheduling) feature gates
-and the `scheduling.k8s.io/v1alpha2` {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled in the cluster.
+Ensure the [`scheduling.k8s.io/v1beta1`]{{< glossary_tooltip text="API group" term_id="api-group" >}} is enabled in the cluster.
 
 <!-- body -->
 
@@ -49,11 +55,18 @@ with a few differences:
    [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) of a PodGroup
    to evaluate if and how its pods can be preempted during preemption events.
 
+4. Performance and optimality considerations: For the performance reasons,
+   the workload-aware preemption first simulates removal all potential victims and 
+   runs the scheduling once. It then tries to reprieve as many victims as possible
+   for selected placement. This trade off means that the selected placement might not be
+   optimal from the perspective of minimizing preemptions at the cost of performance.
+
 {{< note >}}
 When scheduling a single Pod, the default pod preemption applies.
-As of 1.36, when the scheduler performs a default preemption for a single Pod
+In 1.36, when the scheduler performs a default preemption for a single Pod
 and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
-respect the `priority` or `disruptionMode` fields of that PodGroup.
+respect the `priority` or `disruptionMode` fields of that PodGroup. 
+This limitation no longer applies in 1.37.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
