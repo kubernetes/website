@@ -34,8 +34,6 @@ ipvs was introduced in 2017 to resolve iptables performance bottlenecks. However
 Clusters running kube-proxy in ipvs mode (or mode: ipvs in KubeProxyConfiguration) would now be logging a deprecation warning on startup. The deprecation timeline looks like this:
 By v1.40, ipvs is expected to be disabled by default (still selectable via the feature gate)
 By v1.43 removed entirely [KEP-5495, Graduation Criteria](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/5495-deprecate-ipvs-mode-in-kube-proxy/README.md#graduation-criteria).
-
-
 To confirm which mode you’re currently running, use:
 
 ```bash
