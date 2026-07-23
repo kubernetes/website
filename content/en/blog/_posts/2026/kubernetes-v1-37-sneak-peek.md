@@ -47,7 +47,7 @@ kubectl -n kube-system get configmap kube-proxy -o jsonpath='{.data.config\.conf
 
 To understand the rationale behind this deprecation, see [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kubernetes.dev/resources/keps/5495).
 
-### KEP #5573: Removal of cgroups v1 support
+### Removal of cgroup v1 support
 
 As modern Linux distributions and container runtimes use [cgroup v2](https://kubernetes.io/docs/concepts/architecture/cgroups/) as the default, support for the legacy cgroup v1 is officially being phased out. Since the v1.35 release, the failCgroupV1 setting has defaulted to true. Consequently, the Kubelet will fail to initialize on any nodes that still rely on cgroup v1 unless an explicit configuration override is applied. 
 
