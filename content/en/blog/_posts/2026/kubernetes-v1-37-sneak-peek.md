@@ -79,7 +79,7 @@ The `metrics.k8s.io` API is expected to graduate to Stable (GA) in Kubernetes v1
 
 This graduation recognizes the API's stability and widespread adoption without introducing any functional changes, in line with the Kubernetes project’s goal to prevent an API from being stuck in permanent beta. Both v1 and v1beta1 will be usable during the transition, enabling developers to adopt the stable API without any effect on compatibility. Most users do not need to take any action, and the v1beta1 API will be deprecated and removed in a future release according to the Kubernetes API deprecation policy. 
 
-To learn more about this enhancement, refer to [KEP-5207: metrics.k8s.io API definition]( https://www.kubernetes.dev/resources/keps/5207/)
+To learn more about this enhancement, refer to [KEP-5207: metrics.k8s.io API definition](https://www.kubernetes.dev/resources/keps/5207/).
 
 ### KEP #2033: Kubelet in UserNS a.k.a. Rootless Mode (Beta)
 
