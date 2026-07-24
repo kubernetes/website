@@ -94,7 +94,7 @@ Changing a container’s stop signal is needed in various cases. One example is 
 
 With this feature, users can easily define custom stop signals in their container specs without rebuilding container images or resorting to hacky workarounds. 
 
-To learn more about this enhancement, refer to [KEP-4960:Container Stop Signals ](https://kubernetes.dev/resources/keps/4960). 
+To learn more about this enhancement, refer to [KEP-4960:Container Stop Signals](https://kubernetes.dev/resources/keps/4960). 
 
 ### KEP #5894: Node System Partition (Alpha)
 
