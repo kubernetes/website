@@ -51,6 +51,8 @@ The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tool
 must be enabled
 for your control plane and for all nodes in your cluster.
 
+To enable automatic scheduler preemption for deferred resize requests, the `InPlacePodVerticalScalingSchedulerPreemption` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane.
+
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 
 ## Pod resize status
@@ -69,10 +71,18 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
-### How kubelet retries Deferred resizes
+### How deferred resizes are retried and preempted
 
 If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
-for example when another pod is removed or scaled down. If there are multiple deferred
+for example when another pod is removed or scaled down.
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled, `kube-scheduler` actively evaluates `Deferred` resize requests on their assigned nodes. If a node lacks sufficient capacity to fulfill a higher-priority Pod's resize request, the scheduler can preempt (evict) lower-priority pods on that node to free up the required CPU or memory capacity. For more details, see [Preemption for in-place Pod resize](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption-for-in-place-pod-resize).
+{{< /note >}}
+
+If there are multiple deferred
 resizes, they are retried according to the following priority:
 
 * Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.

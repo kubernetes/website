@@ -316,6 +316,12 @@ In-place resize currently applies to container-level resources. For resizing Pod
 resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 {{< /note >}}
 
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled, deferred in-place resize requests can trigger `kube-scheduler` to preempt lower-priority Pods on the assigned node to make room for the resize. For more details, see [Preemption for in-place Pod resize](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption-for-in-place-pod-resize).
+{{< /note >}}
+
 #### Resizing by launching replacement Pods
 
 The cloud native approach to changing a Pod's resources is to update the Pod template
