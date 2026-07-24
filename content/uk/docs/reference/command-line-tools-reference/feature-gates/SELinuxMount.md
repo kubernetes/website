@@ -1,7 +1,7 @@
 ---
 title: SELinuxMount
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -17,4 +17,4 @@ stages:
 ---
 Прискорює запуск контейнера, дозволяючи kubelet монтувати томи для Pod безпосередньо з правильною міткою SELinux замість того, щоб рекурсивно змінювати кожен файл на томах. Це розширює можливості покращення продуктивності за допомогою `SELinuxMountReadWriteOncePod`, поширюючи реалізацію на всі томи.
 
-Для увімкнення `SELinuxMount` потрібно, щоб було увімкнено `SELinuxChangePolicy`.
+Для увімкнення `SELinuxMount` потрібно, щоб було увімкнено `SELinuxMountReadWriteOncePod` та `SELinuxChangePolicy`.
