@@ -114,6 +114,7 @@ In Kubernetes v1.37, this KEP resets graduation to alpha and introduces four new
 To learn more about this enhancement, refer to [KEP-1432: Volume Health Monitor](https://kubernetes.dev/resources/keps/1432).
 
 ## Want to know more?
+
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.37](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.37.md) as part of the CHANGELOG for that release.
 
 Kubernetes v1.37 release is planned for **Wednesday, August 26th, 2026**. Stay tuned for updates!
