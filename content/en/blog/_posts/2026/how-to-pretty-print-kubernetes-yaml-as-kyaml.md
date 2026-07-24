@@ -14,7 +14,7 @@ The interesting part is that Kubernetes doesn't actually need most of those feat
 
 ## What is KYAML? 
 
-***KYAML is a strict subset (or "dialect") of standard YAML, designed to be parseable by the existing ecosystem without any changes, as proposed in ([KEP 5295](https://www.kubernetes.dev/resources/keps/5295/)).*** It does not introduce a new format or a new parser. It just narrows the scope of choices you make when writing YAML, so everyone ends up making the same ones.
+***KYAML is a strict subset (or "dialect") of standard YAML, designed to be parseable by the existing ecosystem without any changes, as proposed in [KEP 5295](https://www.kubernetes.dev/resources/keps/5295/).*** It does not introduce a new format or a new parser. It just narrows the scope of choices you make when writing YAML, so everyone ends up making the same ones.
 
 Think of it less like a new language and more like an agreed-upon style. ***Everything valid in KYAML is valid YAML.*** 
 
