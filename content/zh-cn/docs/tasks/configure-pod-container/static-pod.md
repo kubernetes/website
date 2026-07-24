@@ -57,7 +57,7 @@ Use the `staticPodPath: <the directory>` field in the
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 -->
-### 文件系统上的静态 Pod 声明文件 {#configuration-files}
+### 文件系统上的静态 Pod 声明文件  {#configuration-files}
 
 声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在
 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
@@ -142,8 +142,9 @@ For example, this is how to start a simple web server as a static Pod:
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
 -->
 3. 在该节点上配置 kubelet，在
-   [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中设定 `staticPodPath` 值。
-   欲了解更多信息，请参考[通过配置文件设定 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
+   [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中设定
+   `staticPodPath` 值。欲了解更多信息，
+   请参考[通过配置文件设定 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
    另一个已弃用的方法是，在该节点上通过命令行参数配置 kubelet，以便从本地查找静态 Pod 清单。
    若使用这种弃用的方法，请启动 kubelet 时加上
@@ -208,14 +209,15 @@ JSON/YAML 格式的 Pod 定义文件。
 
 <!--
 1. Configure the kubelet on your selected node to use this web manifest by
-   running it with `--manifest-url=<manifest-url>`.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+   updating your kubelet configuration file to include the `staticPodURL` field:
 -->
-2. 通过在选择的节点上使用 `--manifest-url=<manifest-url>` 配置运行 kubelet。
-   在 Fedora 添加下面这行到 `/etc/kubernetes/kubelet`：
+2. 通过在选择的节点上更新 kubelet 配置文件并添加 `staticPodURL`
+   字段运行 kubelet 以使用此 Web 清单：
 
-   ```shell
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
+   ```yaml
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   staticPodURL: "<manifest-url>"
    ```
 
 <!--
@@ -247,13 +249,15 @@ already be running.
 
 <!--
 You can view running containers (including static Pods) by running (on the node):
-```shell
-# Run this command on the node where the kubelet is running
-crictl ps
 ```
 -->
 可以在节点上运行下面的命令来查看正在运行的容器（包括静态 Pod）：
 
+<!--
+```shell
+# Run this command on the node where the kubelet is running
+crictl ps
+-->
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 crictl ps
@@ -342,7 +346,11 @@ static-web-my-node1   1/1     Running   0          4s
 Back on your node where the kubelet is running, you can try to stop the container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
+-->
+回到 kubelet 运行所在的节点上，你可以手动停止容器。
+可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
 
+<!--
 ```shell
 # Run these commands on the node where the kubelet is running
 crictl stop 129fd7d382018 # replace with the ID of your container
@@ -350,9 +358,6 @@ sleep 20
 crictl ps
 ```
 -->
-回到 kubelet 运行所在的节点上，你可以手动停止容器。
-可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
-
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 # 把 ID 换为你的容器的 ID
@@ -392,7 +397,7 @@ To find more about how to debug using `crictl`, please visit
 [_Debugging Kubernetes nodes with crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 若要找到如何使用 `crictl` 进行调试的更多信息，
-请访问[**使用 crictl 对 Kubernetes 节点进行调试**](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
+请访问[**使用 `crictl` 对 Kubernetes 节点进行调试**](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## Dynamic addition and removal of static pods
@@ -427,7 +432,7 @@ mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # 可以看到没有 nginx 容器在运行
-mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
+mv /tmp/static-web.yaml /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```
