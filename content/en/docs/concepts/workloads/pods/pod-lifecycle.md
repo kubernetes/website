@@ -606,7 +606,7 @@ through which the Pod has or has not passed. The kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-ready-to-start-containers)) the
+* `PodReadyToStartContainers`: (stable feature; enabled by [default](#pod-ready-to-start-containers)) the
   Pod sandbox has been successfully created, networking configured, storage volumes mounted,
   and any dynamic resources (if requested) allocated.
 * `ContainersReady`: all containers in the Pod are ready.
@@ -688,7 +688,7 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 ### Pod readiness to start containers {#pod-ready-to-start-containers}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state for_k8s_version="v1.37" state="stable" >}}
 
 {{< note >}}
 During its early development, this condition was named `PodHasNetwork`.
@@ -701,10 +701,10 @@ a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
 runtime sandbox and configure networking for the Pod. If the Pod uses
 [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
 those resources are also allocated during this phase.
-If the `PodReadyToStartContainersCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
-`PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
+The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
+Starting with Kubernetes v1.37, the `PodReadyToStartContainersCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to
+`true` and cannot be disabled.
 
 The `PodReadyToStartContainers` condition is set to `False` by the kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
