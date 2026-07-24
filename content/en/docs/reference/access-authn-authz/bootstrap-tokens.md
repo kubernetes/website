@@ -93,7 +93,7 @@ stringData:
   token-secret: f395accd246ae52d
 
   # Expiration. Optional.
-  expiration: 2017-03-10T03:22:11Z
+  expiration: {{< date_time_offset years=3 >}}
 
   # Allowed usages.
   usage-bootstrap-authentication: "true"
