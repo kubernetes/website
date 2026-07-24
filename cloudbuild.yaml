@@ -9,12 +9,11 @@ options:
   machineType: 'E2_HIGHCPU_8'
 steps:
     # It's fine to bump the tag to a recent version, as needed
-  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20260108-7f313c340e@sha256:4d778a001ae3f4247b2b61d8a870319e71d66c87556969a6399b90972e4d0491"
+  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud@sha256:ff388e0dc16351e96f8464e2e185b74a7578a5ccb7a112cf3393468e59e6e2d2" # v20260205-38cfa9523f
     entrypoint: 'bash'
     env:
       - DOCKER_CLI_EXPERIMENTAL=enabled
       - DOCKER_BUILDKIT=1
-      - DOCKER_BUILDX=/root/.docker/cli-plugins/docker-buildx
       - TAG=$_GIT_TAG
       - BASE_REF=$_PULL_BASE_REF
     args:
