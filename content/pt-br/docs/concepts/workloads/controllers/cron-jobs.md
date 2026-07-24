@@ -39,7 +39,7 @@ CronJobs são úteis para criar tarefas periódicas e recorrentes, como a execu�
 
 Este manifesto de CronJob de exemplo imprime a data e horário atuais, seguidos da mensagem "Hello from the Kubernetes cluster", uma vez por minuto:
 
-{{% codenew file="application/job/cronjob.yaml" %}}
+{{% code_sample file="application/job/cronjob.yaml" %}}
 
 (O artigo [Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/) demonstra este exemplo com maiores detalhes).
 
