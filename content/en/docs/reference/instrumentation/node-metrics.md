@@ -10,7 +10,7 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 gathers metric statistics at the node, volume, pod and container level,
 and emits this information in the
-[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/).
+[Summary API](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go).
 
 You can send a proxied request to the stats summary API via the
 Kubernetes API server.
@@ -50,7 +50,7 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 As a stable feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory, and I/O usage. The information is collected at node, pod and container level.
-See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detailed schema.
+See [Summary API](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go) for detailed schema.
 Starting with Kubernetes v.1.36, the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to true and cannot be disabled. The information is also exposed in
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 
@@ -62,6 +62,21 @@ Pressure Stall Information requires:
 
 - [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
 - [cgroup v2](/docs/concepts/architecture/cgroups)
+
+## Kubelet metrics endpoints {#kubelet-metrics}
+
+The kubelet exposes several HTTP endpoints for metrics collection:
+
+| Endpoint | Description | Format |
+|----------|-------------|--------|
+| `/stats/summary` | Summary API with node, pod, and container stats | JSON |
+| `/metrics/resource` | Resource metrics (CPU, memory) for pods and containers | Prometheus |
+| `/metrics/cadvisor` | Detailed container metrics from cAdvisor | Prometheus |
+| `/metrics` | Kubelet's own operational metrics | Prometheus |
+
+For resource metrics used by metrics-server and Horizontal Pod Autoscaler (HPA),
+use the `/metrics/resource` endpoint. For detailed container-level statistics,
+use the `/stats/summary` endpoint or `/metrics/cadvisor`.
 
 ## {{% heading "whatsnext" %}}
 
