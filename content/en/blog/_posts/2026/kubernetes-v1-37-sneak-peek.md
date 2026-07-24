@@ -134,7 +134,7 @@ You can see the announcements of changes in the release notes for:
 
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://kubernetes.dev/community/community-groups/sigs/) (SIGs) that align with your interests. 
 Have something you’d like to broadcast to the Kubernetes community? 
-Share your voice at our weekly [Contributor Communications meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. 
+Share your voice at our monthly [New Contributor Orientations](https://www.kubernetes.dev/docs/orientation/), and through the channels below. 
 Thank you for your continued feedback and support.
 
 - Follow us on Bluesky [@kubernetes.io](https://bsky.app/profile/kubernetes.io) for the latest updates
