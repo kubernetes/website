@@ -63,7 +63,7 @@ spec:
 
 La spéc de Pod a prépondérance par rapport au compte de service si les deux spécifient la valeur `automountServiceAccountToken`.
 
-## Utiliser plusieurs comptes de services.
+## Utiliser plusieurs comptes de services. {#use-multiple-service-accounts}
 
 Chaque Namespace possède une ressource ServiceAccount par défaut appelée `default`.
 Vous pouvez lister cette ressource et toutes les autres ressources de ServiceAccount dans le Namespace avec cette commande :
