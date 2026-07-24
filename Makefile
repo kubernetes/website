@@ -1,4 +1,5 @@
 HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
+NODE_VERSION      = $(shell grep ^NODE_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
@@ -36,7 +37,7 @@ CCEND=\033[0m
 # Docker buildx related settings for multi-arch images
 DOCKER_BUILDX ?= docker buildx
 
-.PHONY: all build build-preview help serve
+.PHONY: all build build-preview help serve prepare-ci-test run-ci-test-production
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -146,3 +147,22 @@ clean-api-reference: ## Clean all directories in API reference directory, preser
 api-reference: clean-api-reference ## Build the API reference pages. go needed
 	cd api-ref-generator/gen-resourcesdocs && \
 		go run cmd/main.go kwebsite --config-dir ../../api-ref-assets/config/ --file ../../api-ref-assets/api/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates ../../api-ref-assets/templates
+
+prepare-ci-test: ## Install CI deps (Node + Hugo) for running the production build in Prow.
+	apt-get update -qq
+	apt-get install -y --no-install-recommends -qq curl git ca-certificates xz-utils
+	rm -rf /var/lib/apt/lists/*
+	curl -fsSL --retry 3 --retry-delay 5 \
+	  "https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-x64.tar.xz" \
+	  | tar -xJ -C /usr/local --strip-components=1 \
+	    --exclude='*/CHANGELOG.md' --exclude='*/LICENSE' --exclude='*/README.md'
+	curl -fsSL --retry 3 --retry-delay 5 \
+	  "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz" \
+	  | tar -xz -C /usr/local/bin hugo
+
+run-ci-test-production: module-init ## Run the production build used by CI.
+	npm ci
+	HUGO_BASEURL=https://kubernetes.io/ HUGO_ENV=production HUGO_ENABLEGITINFO=true \
+	  hugo --buildFuture --cleanDestinationDir --minify --environment production
+	HUGO_ENV=production $(MAKE) check-headers-file
+	npx -y pagefind --site public
