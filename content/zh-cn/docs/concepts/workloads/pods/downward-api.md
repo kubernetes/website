@@ -278,6 +278,46 @@ for more details.
 : 容器的临时存储的请求值
 
 <!--
+`resource: assigned.cpuset`
+: A container's CPU desired assignments
+-->
+`resource: assigned.cpuset`
+: 容器期望分配的 CPU 
+
+{{< note >}}
+{{< feature-state for_k8s_version="v1.37" feature_gate_name="DownwardAPIAssignedResources" state="alpha" >}}
+<!--
+`resource: assigned.cpuset`
+: A container's CPU **desired** assignments (Linux cpuset format, e.g., `0-3,7,12-15`).
+  Returns empty string when no exclusive CPUs are assigned.
+  Available since Kubernetes 1.37.
+  When combined with [scale-delay-time](/docs/tasks/administer-cluster/cpu-management-policies/#cpu-policy-static-options),
+  this field allows workloads to prepare for CPU removal.
+
+  This field is controlled by the `DownwardAPIAssignedResources` feature gate:
+  - When the feature gate is **disabled**, the `assigned.cpuset` field in pod specs is silently ignored and discarded during validation.
+  - When the feature gate is **enabled**, the `assigned.cpuset` field is validated and accepted in pod specs.
+
+  To avoid errors during Kubernetes upgrades, this feature gate is disabled by default.
+  Enable this feature gate only after all kubelets in the cluster are upgraded to v1.37 or later.
+  Otherwise, Pod creation will fail because kubelets earlier than v1.37 do not recognize the `assigned.cpuset` field.
+-->
+容器**期望** 分配的 CPU （Linux cpuset 格式，例如：`0-3,7,12-15`）。
+当未分配独占 CPU 时返回空字符串。
+自 Kubernetes 1.37 起可用。
+与 [scale-delay-time](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#cpu-policy-static-options) 结合使用时，
+该字段允许工作负载为 CPU 移除做准备。
+
+该字段受 `DownwardAPIAssignedResources` 特性门控控制：
+- 当特性门控**禁用**时，Pod spec 中的 `assigned.cpuset` 字段在验证期间会被静默忽略和丢弃。
+- 当特性门控**启用**时，`assigned.cpuset` 字段会在 Pod spec 中被验证并接受。
+
+为避免 Kubernetes 升级期间出现错误，此特性门控默认禁用。
+仅当集群中所有 kubelet 都升级到 v1.37 或更高版本后，才能启用此特性门控。
+否则，Pod 创建将失败，因为 v1.37 之前的 kubelet 不识别 `assigned.cpuset` 字段。
+{{< /note >}}
+
+<!--
 #### Fallback information for resource limits
 
 If CPU and memory limits are not specified for a container, and you use the
