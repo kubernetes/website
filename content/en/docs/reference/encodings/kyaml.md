@@ -5,7 +5,9 @@ weight: 40
 ---
 
 <!-- overview -->
-**KYAML** is a safer and less ambiguous subset of YAML, initially introduced in Kubernetes v1.34 (alpha), enabled by default in v1.35 (beta), and promoted to stable in v1.37. Designed specifically for Kubernetes, KYAML addresses common YAML pitfalls such as whitespace sensitivity and implicit type coercion while maintaining full compatibility with existing YAML parsers and tooling. 
+{{< feature-state for_k8s_version="v1.37" state="stable" >}}
+
+**KYAML** is a safer and less ambiguous subset of YAML. Designed specifically for Kubernetes, KYAML addresses common YAML pitfalls such as whitespace sensitivity and implicit type coercion while maintaining full compatibility with existing YAML parsers and tooling. 
 
 <!-- body -->
 This reference describes KYAML syntax.
