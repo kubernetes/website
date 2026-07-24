@@ -33,7 +33,7 @@ creating a patch to fix it in the upstream project.
 
 ## Clone the Kubernetes repository
 
-If you don't already have the 'kubernetes/kubernetes' repository, get it now:
+If you don't already have the 'kubernetes/kubernetes' repository, You need a local clone.
 
 ```shell
 git clone https://github.com/kubernetes/kubernetes
