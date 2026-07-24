@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+#
+# Deprecated: This script is part of the deprecated update-imported-docs
+# workflow. Use the generator-specific reference documentation guides instead:
+# https://kubernetes.io/docs/contribute/generate-ref-docs/
+# This file is retained temporarily for discoverability and is planned for
+# removal in a follow-up change.
+#
 ##
 # This script was tested with Python 3.7.4, Go 1.14.4+, and PyYAML 5.1.2
 # installed in a virtual environment.
