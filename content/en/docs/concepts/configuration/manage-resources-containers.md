@@ -341,6 +341,12 @@ directly or from your monitoring tools.
 
 ### Considerations for memory backed `emptyDir` volumes {#memory-backed-emptydir}
 
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of a memory-backed `emptyDir` volume on a running Pod without requiring Pod recreation or container restarts. For step-by-step instructions, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
+{{< /note >}}
+
 {{< caution >}}
 If you do not specify a `sizeLimit` for an `emptyDir` volume, that volume may
 consume up to that pod's memory limit (`Pod.spec.containers[].resources.limits.memory`).

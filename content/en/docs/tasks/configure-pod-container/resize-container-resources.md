@@ -51,6 +51,8 @@ The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tool
 must be enabled
 for your control plane and for all nodes in your cluster.
 
+To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `InPlacePodVerticalScalingMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane and nodes, and the underlying nodes must be running cgroup v2.
+
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 
 ## Pod resize status
@@ -124,6 +126,23 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 * If only memory resources are changed, the container is restarted.
 * If *both* CPU and memory resources are changed simultaneously, the container is restarted (due to the memory policy).
 
+## Resizing memory-backed emptyDir volumes
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, the Pod `/resize` subresource supports updating the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes on running Pods without restarting containers or recreating the Pod.
+
+When a volume's `sizeLimit` is updated via the `/resize` subresource, the Kubelet dynamically updates the underlying `tmpfs` mount without container disruption while safely preventing out-of-memory errors or false-positive eviction triggers.
+
+To resize a memory-backed `emptyDir` volume, update `spec.volumes[].emptyDir.sizeLimit` targeting the Pod's `resize` subresource:
+
+```shell
+kubectl patch pod <pod-name> --subresource resize --patch \
+  '{"spec":{"volumes":[{"name":"cache-volume", "emptyDir":{"sizeLimit":"200Mi"}}]}}'
+```
+
+You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
+
 ## Limitations
 
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
@@ -152,6 +171,7 @@ to a race condition where memory usage may spike right after the check is perfor
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
+* **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
 
 These restrictions might be relaxed in future Kubernetes versions.
 
