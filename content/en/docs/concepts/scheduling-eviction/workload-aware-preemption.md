@@ -56,6 +56,36 @@ and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
 respect the `priority` or `disruptionMode` fields of that PodGroup.
 {{< /note >}}
 
+### Preemption for CompositePodGroups
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled, workload-aware preemption provides support for `CompositePodGroups` as well.
+
+The underlying preemption mechanism is the same as for `PodGroups` - if the scheduler needs to free
+up capacity to place the root `CompositePodGroup`, it evaluates preemption for the entire group
+hierarchy, rather than for individual pods.
+
+`CompositePodGroups` can be selected as preemption victims as well. The victim selection process is
+adjusted to take `CompositePodGroups` into account in the following way:
+
+1. Victim importance hierarchy:
+   - `CompositePodGroups` are considered more important than standalone `PodGroups` of the same
+     priority.
+   - For two `CompositePodGroups` of the same priority, the one with more members (larger size) is
+     considered more important.
+
+2. Disruption mode: Similar to `PodGroups`, `CompositePodGroups` specify
+   [disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) that determines
+   how its child groups should be treated during preemption.
+
+Besides workload-aware preemption, `CompositePodGroups` can be selected as preemption victims by
+default Pod preemption during Pod scheduling cycle, alongside `PodGroups` and Pods. Default Pod
+preemption shares the victim importance hierarchy logic with the workload-aware preemption and
+respects the `disruptionMode` field of `CompositePodGroups`.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [PodGroup Priority and Disruption](/docs/concepts/workloads/workload-api/disruption-and-priority/).

@@ -182,6 +182,20 @@ priority Pod may be scheduled sooner than Pods with lower priority if
 its scheduling requirements are met. If such Pod cannot be scheduled, the
 scheduler will continue and try to schedule other lower priority Pods.
 
+#### CompositePodGroups and scheduling order
+
+{{< feature-state feature_gate_name="CompositePodGroup">}}
+
+When the `CompositePodGroup` feature gate is enabled, the scheduler treats the following objects as
+units of scheduling that can be enqueued:
+
+- Standalone Pods - Pods that are not part of any PodGroup,
+- Standalone PodGroups - PodGroups that do not specify `ParentCompositePodGroup`,
+- Root CompositePodGroups - CompositePodGroups that do not specify `ParentCompositePodGroup`.
+
+These objects specify a `priority` field value of which is used to determine their position in the
+active scheduling queue.
+
 ## Preemption
 
 When Pods are created, they go to a queue and wait to be scheduled. The
