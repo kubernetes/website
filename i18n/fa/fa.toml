@@ -421,7 +421,7 @@ other = "کاوش در جامعه"
 other = "مشارکت"
 
 [main_copyright_notice]
-other = """بنیاد لینوکس &reg;. تمامی حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرست علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحه استفاده از علائم تجاری</a> ما مراجعه کنید"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. برای شرایط استفاده از وب‌سایت، سیاست علامت تجاری و سایر سیاست‌های پروژه، لطفاً به <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a> مراجعه کنید"""
 
 [main_documentation_license]
 other = """نویسندگان کوبرنتیز | مستندات تحت مجوز <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع شده است"""
