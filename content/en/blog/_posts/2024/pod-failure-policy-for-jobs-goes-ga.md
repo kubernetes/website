@@ -86,7 +86,7 @@ corresponds to these disruption scenarios:
 - `EvictionByEvictionAPI` - the Pod is due to be deleted by an
    [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 - `DeletionByPodGC` - the Pod is bound to a node that no longer exists, and is due to
-   be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+   be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection).
 - `TerminationByKubelet` - the Pod was terminated by
   [graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown),
   [node pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
