@@ -21,7 +21,7 @@ kube-dns.
 
 ### Membuat Pod sederhana yang digunakan sebagai lingkungan pengujian
 
-{{% codenew file="admin/dns/dnsutils.yaml" %}}
+{{% code_sample file="admin/dns/dnsutils.yaml" %}}
 
 Gunakan manifes berikut untuk membuat sebuah Pod:
 
