@@ -141,7 +141,7 @@ Thank you for your continued feedback and support.
 - Join the community discussion on [Discuss](https://discuss.kubernetes.io/)
 - Join the community on [Slack](http://slack.k8s.io/)
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
-- Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
+- Share your [Kubernetes End User Story](https://www.cncf.io/case-studies/)
 - Read more about what’s happening with Kubernetes on the [blog](https://kubernetes.io/blog/)
 - Read more on how to become a [Kubernetes Contributor](https://kubernetes.dev/)
 - Learn more about the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
