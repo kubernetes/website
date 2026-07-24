@@ -341,30 +341,53 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 PodList is a list of Pods.
 
+## ContainerStatus {#ContainerStatus}
+
+ContainerStatus contains details for the current status of this container.
+
 <hr>
 
 <table>
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>apiVersion</code><br/><em>string</em></td>
-      <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
+      <td><code>name</code> <strong>*</strong><br/><em>string</em></td>
+      <td>This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-v1#Pod" >}}">Pod array</a></em></td>
-      <td>List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md</td>
+      <td><code>image</code> <strong>*</strong><br/><em>string</em></td>
+      <td>The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images</td>
     </tr>
     <tr>
-      <td><code>kind</code><br/><em>string</em></td>
-      <td>Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</td>
+      <td><code>imageID</code> <strong>*</strong><br/><em>string</em></td>
+      <td>ImageID of the container's image.</td>
     </tr>
     <tr>
-      <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</td>
+      <td><code>containerID</code><br/><em>string</em></td>
+      <td>Container's ID in the format 'docker://&lt;container_id&gt;'.</td>
+    </tr>
+    <tr>
+      <td><code>state</code><br/><em>ContainerState</em></td>
+      <td>Details about the container's current condition.</td>
+    </tr>
+    <tr>
+      <td><code>lastState</code><br/><em>ContainerState</em></td>
+      <td>Details about the container's last termination condition.</td>
+    </tr>
+    <tr>
+      <td><code>ready</code> <strong>*</strong><br/><em>boolean</em></td>
+      <td>Specifies whether the container has passed its readiness probe.</td>
+    </tr>
+    <tr>
+      <td><code>restartCount</code> <strong>*</strong><br/><em>int32</em></td>
+      <td>The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.</td>
+    </tr>
+    <tr>
+      <td><code>started</code><br/><em>boolean</em></td>
+      <td>Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.</td>
     </tr>
   </tbody>
 </table>
-
 
 ## Affinity {#Affinity}
 
