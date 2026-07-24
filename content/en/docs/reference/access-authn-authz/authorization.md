@@ -107,6 +107,8 @@ Kubernetes sometimes checks authorization for additional permissions using speci
 * [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
   * Synthetic subresources such as `resourceclaims/binding` and `resourceclaims/driver` in the `resource.k8s.io` API group.
   * Node-aware verbs such as `associated-node:update`, `associated-node:patch`, `arbitrary-node:update`, and `arbitrary-node:patch` for DRA driver `resourceclaims/status` updates.
+* [Force deletion of corrupt resources](/docs/reference/using-api/api-concepts/#force-deletion)
+  * **unsafe-delete-ignore-read-errors** verb on the resource, checked in addition to the **delete** verb.
 
 ## Authorization context
 
