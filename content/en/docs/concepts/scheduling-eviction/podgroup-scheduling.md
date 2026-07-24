@@ -163,8 +163,62 @@ You can check conditions with:
 kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 ```
 
+## Hierarchical scheduling with CompositePodGroups
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled, the scheduler extends the PodGroup scheduling cycle to support multi-level group
+hierarchies.
+
+In a hierarchical workload, Pods belong to leaf `PodGroup` objects, which in turn specify parent
+`CompositePodGroup` resources up to a root group. The scheduler evaluates the entire group tree as
+a single, unified scheduling unit.
+
+### Hierarchical scheduling cycle execution
+
+When the scheduler pops a Pod belonging to a hierarchical group, it executes the following steps:
+
+1. **Hierarchy resolution and validation**: The scheduler traverses parent references
+   (`spec.parentCompositePodGroupName`) from the leaf `PodGroup` up to the root `CompositePodGroup`.
+   It validates that:
+   - All parent groups exist in the cluster.
+   - The hierarchy is acyclic and does not exceed the maximum nesting depth of 4 levels.
+   - All Pods across the entire hierarchy specify the same `.spec.schedulerName`.
+
+   If validation fails, the scheduler marks the hierarchy as invalid and skips scheduling its Pods.
+
+2. **Unified cluster snapshot**: The scheduler takes a single snapshot of cluster resources for the
+   duration of the hierarchical scheduling cycle, ensuring consistent evaluation across all groups.
+
+3. **Multi-level placement evaluation**: The scheduler recursively evaluates placement feasibility:
+   - For leaf `PodGroups`: Evaluates Pod placement and checks `minCount` constraints for `gang` policies.
+   - For parent `CompositePodGroups`: Evaluates child group feasibility and checks `minGroupCount`
+     constraints for `gang` policies, while resolving multi-level topology constraints top-down.
+
+4. **Atomic binding**: If the root `CompositePodGroup` and required child groups satisfy their
+   scheduling criteria, all successfully placed Pods across the subtree proceed to binding atomically.
+   If the criteria are not met at any level, no Pods are bound and the entire hierarchy
+   backs off together.
+
+#### Multi-level topology-aware placement
+
+When [Topology-Aware Workload Scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
+is used with a `CompositePodGroup` hierarchy, the placement scheduling algorithm resolves topology
+constraints across all levels of the group tree:
+
+- **Top-down domain filtering**: Candidate placements generated for child groups are strictly constrained
+  to be subsets of their parent group's topology domain (for example, ensuring child rack domains
+  lie within the parent's zone domain).
+- **Hierarchical placement scoring**: Candidate placements are evaluated and scored across the full
+  hierarchy to select optimal node domains that satisfy both local and parent topology constraints
+  simultaneously.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
+* Read about the [CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) and its [lifecycle](/docs/concepts/workloads/compositepodgroup-api/lifecycle/).
+* Learn about [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/).
 * See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).

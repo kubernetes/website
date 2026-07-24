@@ -70,6 +70,24 @@ profiles:
                 weight: 3
 ```
 
+## Multi-level topology placement
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, the `TopologyPlacement` plugin supports multi-level group hierarchies.
+
+For workloads defined with a `CompositePodGroup` hierarchy, `TopologyPlacement` evaluates topology
+constraints top-down across all levels of the tree:
+
+- Parent `CompositePodGroup` topology constraints (for example, availability zone) define the
+  outer topology domain for all descendant groups.
+- Child `CompositePodGroup` or `PodGroup` topology constraints (for example, server rack) define
+  inner topology domains that must be strict subsets of their parent group's domain.
+
+During candidate placement generation, the plugin ensures that all child group placements lie
+within the selected parent topology domain before candidate placements are scored.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [Topology-aware scheduling API](/docs/concepts/workloads/workload-api/topology-aware-scheduling/).

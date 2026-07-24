@@ -37,6 +37,23 @@ allowing independent disruption of a single pod from a PodGroup.
 The `PodGroup` mode emphasizes "all-or-nothing" semantics for disruption.
 It instructs the scheduler that all pods from the PodGroup have to be disrupted together.
 
+### CompositePodGroup
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+A `CompositePodGroup` can also declare a `disruptionMode` in its specification, which controls
+how the scheduler disrupts child groups within the composite group during preemption events.
+
+The API supports two disruption modes for `CompositePodGroups`:
+
+- **`Single`**: Allows individual child groups within the `CompositePodGroup` to be disrupted
+  independently during preemption.
+- **`All`**: Enforces all-or-nothing disruption semantics across the `CompositePodGroup` hierarchy.
+  If any child group within the `CompositePodGroup` is preempted, all descendant groups and Pods
+  belonging to that `CompositePodGroup` are disrupted together.
+
+If not specified, the mode is defaulted to `Single`.
+
 ## Pod group priority
 
 PodGroup uses the same concept of [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) as single Pods.
@@ -62,6 +79,18 @@ metadata:
 spec:
   priorityClassName: high-priority
 ```
+
+### CompositePodGroup priority
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+The resolution of priority class and priority for `CompositePodGroups` works in the exact same way as for `PodGroups`.
+
+The priority of a `CompositePodGroup` acts as an authoritative priority for all child groups and
+Pods within its hierarchy during
+[workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
+events. If a child group does not explicitly specify its own priority, it inherits the priority
+of its parent `CompositePodGroup`.
 
 ## {{% heading "whatsnext" %}}
 

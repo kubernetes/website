@@ -79,6 +79,96 @@ The `controllerRef` field links the Workload back to the specific high-level obj
 such as a [Job](/docs/concepts/workloads/controllers/job/) or a custom CRD. This is useful for observability and tooling.
 This data is not used to schedule or manage the Workload.
 
+### CompositePodGroupTemplates
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled, you can use `CompositePodGroupTemplates` to define multi-level, hierarchical scheduling
+requirements in a `Workload`. These requirements can include enforcing nested topology constraints
+across different layers of cluster infrastructure (multi-level topology-aware scheduling),
+all-or-nothing scheduling across child groups (multi-level gang scheduling), or group-level
+disruption policies.
+
+`CompositePodGroupTemplates` can be defined using the `spec.compositePodGroupTemplates` field in the
+`Workload` API. At runtime, workload controllers create [CompositePodGroup](/docs/concepts/workloads/compositepodgroup-api/)
+and [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates to maintain the runtime
+scheduling state of the hierarchy. While `PodGroup` objects manage groups of Pods at the leaves,
+`CompositePodGroup` objects represent non-leaf groups that enforce scheduling policies across child groups.
+
+{{< note >}}
+In a `Workload` specification, `spec.compositePodGroupTemplates` and `spec.podGroupTemplates`
+fields form a union: a `Workload` must define either `spec.podGroupTemplates` (for flat
+workloads) or `spec.compositePodGroupTemplates` (for hierarchical workloads), but cannot
+specify both.
+{{< /note >}}
+
+#### Structure and constraints
+
+The `spec.compositePodGroupTemplates` field defines non-leaf templates in a group-template
+hierarchy tree. Each entry represents a template for a `CompositePodGroup` and can contain:
+
+- **Child templates**: Nested `CompositePodGroupTemplates` (for intermediate non-leaf
+  groups) or `PodGroupTemplates` (for leaf groups containing Pods).
+- **Scheduling policy**: Specifies how child groups within this composite group are
+  scheduled:
+  - `basic`: Child groups are admitted and scheduled independently.
+  - `gang`: Enforces multi-level all-or-nothing scheduling across child groups.
+    Requires `minGroupCount`, which specifies the minimum number of child groups
+    that must be schedulable simultaneously for the composite group to be feasible.
+- **Scheduling constraints**: Optional
+  [topology constraints](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
+  for multi-level topology-aware scheduling.
+- **Priority and disruption mode**: Optional `priorityClassName` and `disruptionMode`
+  (`Single` or `All`) for
+  [workload-aware preemption](/docs/concepts/workloads/workload-api/disruption-and-priority/).
+
+To ensure cluster stability and control-plane efficiency, the group-template hierarchy
+enforces the following limits:
+
+- **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of
+  4 levels.
+- **List limit**: Every `compositePodGroupTemplates` and `podGroupTemplates` list is strictly
+  capped at a maximum of 8 items.
+
+{{< note >}}
+Right now, you cannot add new or remove existing `CompositePodGroupTemplates`. You can only change
+the `minCount` value in the gang scheduling policy defined in the leaf `PodGroupTemplates`.
+{{< /note >}}
+
+#### Example
+
+The following example defines a hierarchical `Workload` with a `CompositePodGroup` template
+that enforces gang scheduling across two child `PodGroup` templates (`minGroupCount: 2`),
+each specifying its own gang scheduling policy:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: Workload
+metadata:
+  name: gang-of-gangs-workload
+  namespace: default
+spec:
+  compositePodGroupTemplates:
+  - name: root
+    schedulingPolicy:
+      gang:
+        # Requires both child PodGroups to be schedulable together
+        minGroupCount: 2
+    podGroupTemplates:
+    - name: workers-a
+      schedulingPolicy:
+        gang:
+          # Requires 4 Pods in this group to be schedulable
+          minCount: 4
+    - name: workers-b
+      schedulingPolicy:
+        gang:
+          # Requires 4 Pods in this group to be schedulable
+          minCount: 4
+```
+
 ## Gang scheduling with Jobs
 
 {{< feature-state feature_gate_name="WorkloadWithJob" >}}

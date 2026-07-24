@@ -85,6 +85,65 @@ spec:
       - key: topology.example.com/rack
 ```
 
+## Multi-level topology-aware scheduling
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, Topology-Aware Scheduling supports expressing multi-level, hierarchical
+topology constraints.
+
+In complex workloads, different components may require co-location at different levels
+of the cluster infrastructure. For example, an entire workload may need to run within
+the same availability zone, while individual worker sub-groups require strict co-location
+within specific server racks.
+
+### Hierarchical topology resolution
+
+With `CompositePodGroup`, topology constraints can be specified at multiple levels of
+the group hierarchy:
+
+- **Parent CompositePodGroups**: Enforce broader, higher-level topology constraints (such as a
+  zone) across all child groups under their subtree.
+- **Child PodGroups or CompositePodGroups**: Enforce narrower, lower-level topology constraints
+  (such as a rack) for their own constituent Pods or sub-groups.
+
+During scheduling, the scheduler resolves constraints in a **top-down** manner. Constraints
+defined higher in the hierarchy must be less restrictive (broader topology domains) than
+those defined at lower levels. The scheduler simultaneously evaluates all levels of the
+hierarchy to guarantee that child groups fit inside their parent's topology domain while
+satisfying their own local topology constraints.
+
+### Example
+
+The following example configures a `Workload` where the parent `CompositePodGroupTemplate`
+constrains the entire workload to a single zone, while the child `PodGroupTemplate` constrains
+workers to a single rack within that zone:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: Workload
+metadata:
+  name: multi-level-tas-workload
+spec:
+  compositePodGroupTemplates:
+  - name: root
+    schedulingPolicy:
+      gang:
+        minGroupCount: 1
+    schedulingConstraints:
+      topology:
+      - key: topology.kubernetes.io/zone
+    podGroupTemplates:
+    - name: workers
+      schedulingPolicy:
+        gang:
+          minCount: 8
+      schedulingConstraints:
+        topology:
+        - key: topology.example.com/rack
+```
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [pod group policies](/docs/concepts/workloads/workload-api/policies/).
