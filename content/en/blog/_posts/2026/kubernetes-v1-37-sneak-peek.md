@@ -21,6 +21,7 @@ As we get closer to the release date for Kubernetes v1.37, the project develops 
 The --filename (or -f) flag for kubectl run is being deprecated as the generated pod is always built purely from CLI arguments like NAME and --image. 
 
 See [kubernetes/kubernetes#138671](https://github.com/kubernetes/kubernetes/issues/138671) for the original issue and discussion.
+
 ### Kubelet: removal of `PreventStaticPodAPIReferences` feature gate
 
 Static Pods’ `PreventStaticPodAPIReferences` feature gate has been removed, and this means they’re now strictly prohibited from referencing API resources such as Secrets or ConfigMaps through fields like `configMapRef` or `secretRef`.
