@@ -287,6 +287,36 @@ To use inter-pod affinity, use the `affinity.podAffinity` field in the Pod spec.
 For inter-pod anti-affinity, use the `affinity.podAntiAffinity` field in the Pod
 spec.
 
+##### Multiple affinity terms
+
+When multiple terms are specified under `requiredDuringSchedulingIgnoredDuringExecution`, all terms must be satisfied for a node to be considered a valid match. The scheduler evaluates each affinity term independently and intersects the resulting sets of eligible nodes.
+
+For example, the following Pod can only be scheduled onto a node if that node already runs at least one Pod with the label `app=frontend` and at least one Pod with the label `environment=production`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: complex-affinity-pod
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app: frontend
+        topologyKey: topology.kubernetes.io/zone
+      - labelSelector:
+          matchLabels:
+            environment: production
+        topologyKey: topology.kubernetes.io/zone
+  containers:
+  - name: main
+    image: registry.k8s.io/pause:3.8
+```
+
+The scheduler evaluates both affinity terms and only considers nodes that satisfy all specified terms.
+
 #### Scheduling Behavior
 
 When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity/anti-affinity rules in the context of the current cluster state:
