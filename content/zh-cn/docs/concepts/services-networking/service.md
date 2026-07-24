@@ -959,7 +959,7 @@ Dynamic port assignment uses the upper band by default, and it may use the lower
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 -->
 为 NodePort Service 分配端口的策略既适用于自动分配的情况，也适用于手动分配的场景。
-当某个用于希望创建一个使用特定端口的 NodePort Service 时，该目标端口可能与另一个已经被分配的端口冲突。
+当某个用户希望创建一个使用特定端口的 NodePort Service 时，该目标端口可能与另一个已经被分配的端口冲突。
 
 为了避免这个问题，用于 NodePort Service 的端口范围被分为两段。
 动态端口分配默认使用较高的端口段，并且在较高的端口段耗尽时也可以使用较低的端口段。
