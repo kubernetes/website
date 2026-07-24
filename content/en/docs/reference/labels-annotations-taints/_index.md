@@ -654,6 +654,22 @@ Used on: Node
 The Kubelet populates this with `runtime.GOARCH` as defined by Go.
 This can be handy if you are mixing ARM and x86 nodes.
 
+
+### kubernetes.io/bootstrapping
+
+Type: Label
+
+Example: `kubernetes.io/bootstrapping: rbac-defaults`
+
+Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
+
+Applied by the API server to the default RBAC objects it creates for
+cluster bootstrapping (for example, `system:*` ClusterRoles). When paired
+with the `rbac.authorization.kubernetes.io/autoupdate: "true"` annotation,
+this label marks the object for automatic reconciliation to its default
+state on every API server restart. Manual edits to these objects are
+reverted unless autoupdate is disabled by setting the annotation to
+`"false"`.
 ### kubernetes.io/os
 
 Type: Label
