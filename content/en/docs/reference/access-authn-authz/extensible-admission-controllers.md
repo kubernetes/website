@@ -572,6 +572,45 @@ webhooks:
         scope: "*"
 ```
 
+### Excluded virtual resources {#excluded-virtual-resources}
+
+{{< feature-state feature_gate_name="ExcludeAdmissionWebhookVirtualResources" >}}
+
+Admission webhooks are not called for the following non-persisted (virtual)
+authentication and authorization resources, even if a webhook's `rules` match
+them:
+
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectRulesReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/" >}})
+* [SubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/" >}})
+
+A webhook intercepting these resources can lock a cluster out of its own
+authentication and authorization path: for example, a failing webhook that
+matches `subjectaccessreviews` can block the authorization checks that the
+cluster itself depends on. Excluding them brings admission webhooks into line
+with [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
+and [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/),
+which have always excluded these resources.
+
+If you create or update a webhook configuration with a rule that explicitly
+names one of these resources, the API server returns a warning telling you that
+the rule has no effect. The API server also logs the name of any existing
+webhook configuration with such a rule when it loads that configuration, so
+you can audit your cluster before upgrading. Rules that match these resources
+only through a wildcard (`"*"`) in `apiGroups` or `resources` are not flagged,
+because their intent is ambiguous.
+
+Webhook interception of these virtual resources is deprecated as of Kubernetes
+v1.37. As a temporary measure, you can set the
+`ExcludeAdmissionWebhookVirtualResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ExcludeAdmissionWebhookVirtualResources)
+to `false` to restore the previous behavior. The feature gate is planned to be
+locked to enabled when this feature graduates to stable, after which admission
+webhooks can no longer intercept these resources.
+
 ### Matching requests: objectSelector
 
 Webhooks may optionally limit which requests are intercepted based on the labels of the
