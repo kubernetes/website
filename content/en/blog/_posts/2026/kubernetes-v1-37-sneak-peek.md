@@ -32,7 +32,7 @@ See [kubernetes/kubernetes#140226](https://github.com/kubernetes/kubernetes/issu
 
 ### Deprecating kube-proxy's support for ipvs mode
 
-ipvs was introduced in 2017 to resolve iptables performance bottlenecks. However, since the kernel ipvs API alone cannot fully implement Kubernetes Services, ipvs mode continues to use iptables underneath ([KEP-3866, "The ipvs mode of kube-proxy will not save us"](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/3866-nftables-proxy/README.md#the-ipvs-mode-of-kube-proxy-will-not-save-us)).
+kube-proxy support for ipvs mode was introduced in 2017 to resolve iptables performance bottlenecks. However, since the kernel ipvs API alone cannot fully implement Kubernetes Services, ipvs mode continues to use iptables underneath ([KEP-3866, "The ipvs mode of kube-proxy will not save us"](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/3866-nftables-proxy/README.md#the-ipvs-mode-of-kube-proxy-will-not-save-us)).
 
 Clusters running kube-proxy in ipvs mode (or mode: ipvs in KubeProxyConfiguration) would now be logging a deprecation warning on startup. The deprecation timeline looks like this:
 By v1.40, ipvs is expected to be disabled by default (still selectable via the feature gate)
