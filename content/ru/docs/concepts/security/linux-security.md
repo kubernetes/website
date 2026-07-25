@@ -1,6 +1,6 @@
 ---
 reviewers:
-- lmktfy
+- 
 title: Безопасность узлов Linux
 content_type: concept
 weight: 40
