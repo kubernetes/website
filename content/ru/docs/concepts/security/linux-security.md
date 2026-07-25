@@ -14,7 +14,7 @@ weight: 40
 
 ##  Защита данных Secret на узлах
 
-На узлах Linux тома, размещаемые в памяти (такие как [`secret`](/docs/concepts/configuration/secret/)
+На узлах Linux тома, размещаемые в памяти (такие как [`секреты`](/docs/concepts/configuration/secret/),
 примонтированные как тома, или [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) с параметром `medium: Memory`)
 реализуются с помощью файловой системы `tmpfs`.
 
