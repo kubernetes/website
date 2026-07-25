@@ -12,6 +12,10 @@ math: true
 이상이 OK로 시작하면 `Running` 단계를 통과하고, 그런 다음 파드의 컨테이너가
 실패로 종료되었는지 여부에 따라 `Succeeded` 또는 `Failed` 단계로 이동한다.
 
+파드가 실행되는 동안, kubelet은 컨테이너를 관리하고 파드의 스펙을 컨테이너
+런타임에 맞게 변환한다. 또한 kubelet은 애플리케이션의 헬스(health)를 추적하는
+[프로브](#컨테이너-프로브-probe)의 실행을 관리한다.
+
 개별 애플리케이션 컨테이너와 마찬가지로, 파드는 비교적 
 임시(영구적이지 않은) 엔티티로 간주된다. 파드가 생성되고, 고유 
 ID([UID](/docs/concepts/overview/working-with-objects/names/#uids))가 할당되며, 
@@ -28,12 +32,14 @@ ID([UID](/docs/concepts/overview/working-with-objects/names/#uids))가 할당되
 파드가 실행 중인 동안 kubelet은 여러 종류의 오류를 처리하기 위해 
 컨테이너를 재시작할 수 있다. 파드 내에서 쿠버네티스는 다양한 컨테이너 
 [상태](#컨테이너-상태)를 추적하고 파드를 다시 정상 상태로 만들기 위해 
-어떤 조치를 취해야 하는지 결정한다.
+어떤 조치를 취해야 하는지 결정한다. 이는 원하는 상태(파드 스펙)와 실행 중인
+컨테이너의 실제 상태를 주기적으로 조정하는
+[폴링 루프](/docs/reference/node/kubelet-sync-loop/)에서 수행된다.
 
 쿠버네티스 API에서 파드는 스펙과 실제 상태를 모두 가지고 있다. 파드 
 오브젝트의 상태는 [파드 컨디션](#파드의-컨디션) 집합으로 구성된다.
 또한 애플리케이션에 유용한 경우 [사용자 지정 준비 정보](#pod-readiness-gate)를 
-파드의 조건 데이터에 주입할 수 있다.
+파드의 컨디션 데이터에 주입할 수 있다.
 
 파드는 생애 동안 한 번만 [스케줄링](/docs/concepts/scheduling-eviction/)된다.
 파드를 특정 노드에 할당하는 것을 _바인딩_ 이라고 하고, 사용할 노드를 선택하는 과정을
@@ -129,11 +135,16 @@ _스케줄링_ 이라고 한다.
 `--force` 플래그를 사용하여 [파드를 강제로 종료](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)할 수 있다.
 {{< /note >}}
 
-쿠버네티스 1.27부터, kubelet은 삭제된 파드를
-[스태틱 파드](/docs/tasks/configure-pod-container/static-pod/)와
-파이널라이저가 없는 [강제 삭제된 파드](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)를
-제외하고, API 서버에서 삭제되기 전에 최종 단계(파드 컨테이너의
-종료 상태에 따라 `Failed` 또는 `Succeeded`)로 전환한다.
+쿠버네티스 1.27부터, kubelet은 삭제된 파드를 API 서버에서 삭제하기 전에
+최종 단계(파드 컨테이너의 종료 상태에 따라 `Failed` 또는 `Succeeded`)로
+전환한다. 단, 다음 두 가지는 예외이다.
+
+* [스태틱 파드](/docs/tasks/configure-pod-container/static-pod/) (kubelet이
+직접 관리하며 {{< glossary_tooltip
+text="미러 파드" term_id="mirror-pod" >}}로 표현됨)
+* 파이널라이저가 없는
+[강제 삭제된
+파드](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
 
 노드가 종료되거나 클러스터의 나머지 부분과 연결이 끊어지면, 쿠버네티스는
 손실된 노드에 있는 모든 파드의 `phase`를 Failed로 설정하는 정책을 적용한다.
@@ -270,6 +281,105 @@ _스케줄링_ 이라고 한다.
 * `Always`: 모든 종료 후 컨테이너를 자동으로 재시작한다.
 * `OnFailure`: 컨테이너가 오류(0이 아닌 종료 상태)로 종료된 경우에만 재시작한다.
 * `Never`: 종료된 컨테이너를 자동으로 재시작하지 않는다.
+
+##### 재시작 동작 비교
+
+다음 표는 서로 다른 재시작 정책과 종료 코드에서 컨테이너가 어떻게 동작하는지 보여준다.
+
+| 종료 코드 | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | 사이드카 컨테이너 |
+|-----------|-------------------------|---------------------------|------------------------|-------------------|
+| 0 (성공) | 재시작함 | 재시작 안 함 | 재시작 안 함 | 항상 재시작함 |
+| 0이 아님 (실패) | 재시작함 | 재시작함 | 재시작 안 함 | 항상 재시작함 |
+
+{{< note >}}
+재시작 동작은 디플로이먼트(Deployment)와 잡(Job) 중에서 선택할 때 특히 중요하다.
+- **디플로이먼트**는 일반적으로 애플리케이션을 지속적으로 실행하기 위해 `restartPolicy: Always`(유일하게 허용되는 값)를 사용한다.
+- **잡**은 배치 처리 작업을 적절하게 다루기 위해 보통 `restartPolicy: OnFailure` 또는 `restartPolicy: Never`를 사용한다.
+- **사이드카 컨테이너**는 컨테이너 수준의 `restartPolicy: Always`를 자체적으로 가지므로, 파드의 `restartPolicy`와 관계없이 항상 재시작하는 초기화 컨테이너이다.
+{{< /note >}}
+
+##### 예시 시나리오
+
+다음은 서로 다른 재시작 동작을 보여주는 구체적인 예시이다.
+
+**예시 1: `restartPolicy: Always`를 사용하는 웹 서버(디플로이먼트에 일반적)**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # 종료 코드와 관계없이 컨테이너를 재시작한다
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # 이 컨테이너가 어떤 이유로든 크래시되거나 종료되면 재시작된다
+```
+
+**예시 2: `restartPolicy: OnFailure`를 사용하는 배치 잡**
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # 0이 아닌 종료 코드에서만 재시작한다
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # 종료 코드 0: 잡이 성공적으로 완료되고, 재시작하지 않는다
+        # 종료 코드 1 이상: 작업을 재시도하기 위해 컨테이너를 재시작한다
+```
+
+**예시 3: `restartPolicy: Never`를 사용하는 일회성 작업**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # 종료 코드와 관계없이 절대 재시작하지 않는다
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # 종료 코드 1(실패)이더라도 컨테이너는 재시작되지 않는다
+    # 파드는 Failed 상태로 남는다
+```
+
+##### 사이드카 컨테이너와 재시작 정책
+
+[사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)는 일반 앱 컨테이너와는 다른 특수한 재시작 동작을 가진다.
+
+- **사이드카 컨테이너는 파드 수준의 `restartPolicy`를 무시한다**: 사이드카 컨테이너는 항상 `Always`로 설정되는 자체 컨테이너 수준의 `restartPolicy` 필드를 사용한다.
+- **독립적인 라이프사이클**: 사이드카 컨테이너는 메인 애플리케이션 컨테이너와 독립적으로 재시작될 수 있다.
+- **지속적인 동작**: 사이드카 컨테이너는 지원 서비스를 제공하기 위해 파드의 라이프사이클 동안 계속 실행된다.
+
+**예시: 사이드카 컨테이너가 있는 파드**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # 메인 컨테이너에만 적용된다
+  initContainers:
+  - name: logging-sidecar    # 이것은 사이드카 컨테이너이다
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # 사이드카는 종료 코드와 관계없이 항상 재시작한다
+    # 파드 라이프사이클 동안 로깅 서비스를 제공한다
+  containers:
+  - name: main-app          # 이것은 파드 수준의 restartPolicy를 따른다
+    image: nginx:1.14.2
+    # 파드의 OnFailure 정책으로 인해 실패(0이 아닌 종료) 시에만 재시작된다
+```
+
+{{< note >}}
+메인 애플리케이션 컨테이너는 파드의 `restartPolicy: OnFailure`를 따르지만, 사이드카 컨테이너는 컨테이너 수준에서 항상 `restartPolicy: Always`를 가지므로 종료 코드와 관계없이 재시작한다.
+{{< /note >}}
 
 kubelet이 구성된 재시작 정책에 따라 컨테이너 재시작을 처리할 때,
 이는 동일한 파드 내에서 동일한 노드에서 실행되는 대체 컨테이너를 만드는
@@ -496,8 +606,9 @@ crashLoopBackOff:
 PodConditions를 관리한다.
 
 * `PodScheduled`: 파드가 노드에 스케줄되었다.
-* `PodReadyToStartContainers`: (베타 기능; [기본](#pod-has-network) 활성화) 파드
-  샌드박스가 성공적으로 생성되고 네트워킹이 구성되었다.
+* `PodReadyToStartContainers`: (베타 기능; [기본](#pod-ready-to-start-containers) 활성화) 파드
+  샌드박스가 성공적으로 생성되고, 네트워킹이 구성되고, 스토리지 볼륨이 마운트되고,
+  (요청된 경우) 동적 리소스가 할당되었다.
 * `ContainersReady`: 파드의 모든 컨테이너가 준비되었다.
 * `Initialized`: 모든 [초기화 컨테이너](/docs/concepts/workloads/pods/init-containers/)가
   성공적으로 완료(completed)되었다.
@@ -575,7 +686,7 @@ status:
 파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 컨디션이 빠졌거나 `False` 이면,
 kubelet은 파드의 [컨디션](#파드의-컨디션)을 `ContainerReady` 로 설정한다.
 
-### 파드 네트워크 준비성(readiness) {#pod-has-network}
+### 컨테이너를 시작하기 위한 파드 준비성(readiness) {#pod-ready-to-start-containers}
 
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
@@ -587,7 +698,9 @@ kubelet은 파드의 [컨디션](#파드의-컨디션)을 `ContainerReady` 로 �
 필요한 스토리지 볼륨이 마운트되어야 한다. 이러한 단계가 완료되면,
 kubelet은 
 컨테이너 런타임({{< glossary_tooltip term_id="cri" >}} 사용)과
-통신하여 런타임 샌드박스를 설정하고 파드에 대한 네트워킹을 구성한다. 만약
+통신하여 런타임 샌드박스를 설정하고 파드에 대한 네트워킹을 구성한다. 파드가
+[동적 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)을
+사용하는 경우, 해당 리소스도 이 단계에서 할당된다. 만약
 `PodReadyToStartContainersCondition`
 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면
 (쿠버네티스 {{< skew currentVersion >}}에서는 기본적으로 활성화됨),
@@ -606,9 +719,9 @@ kubelet은 파드에 네트워킹이 구성된 런타임 샌드박스가 없음�
     샌드박스 가상 머신이 재부팅되며, 이후, 새로운 샌드박스 및 
     새로운 컨테이너 네트워크 구성 생성이 필요하다.
 
-런타임 플러그인이 파드를 위한 샌드박스 생성 및 네트워크 구성을 성공적으로 완료하면 
-kubelet이 `PodReadyToStartContainers` 컨디션을 `True`로 설정한다.
-`PodReadyToStartContainers` 컨디션이 `True`로 설정되면 kubelet이 컨테이너 이미지를 풀링하고 컨테이너를 생성할 수 있다.
+샌드박스 생성, 네트워크 구성, 볼륨 마운트, 그리고 (요청된 경우) 동적 리소스 할당이
+완료되면, kubelet은 `PodReadyToStartContainers` 컨디션을 `True`로 설정한다.
+컨테이너 이미지 풀링과 컨테이너 생성은 이 시점 이후에 이루어진다.
 
 초기화 컨테이너가 있는 파드의 경우, kubelet은 초기화 컨테이너가
 성공적으로 완료(런타임 플러그인에 의한 성공적인 샌드박스 생성 및 네트워크 구성이 완료되었음을 의미)된 후
@@ -619,6 +732,7 @@ kubelet이 `PodReadyToStartContainers` 컨디션을 `True`로 설정한다.
 ## 파드 리사이징 {#pod-resize}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+{{< feature-state feature_gate_name="InPlacePodLevelResourcesVerticalScaling" >}}
 
 쿠버네티스는 파드가 생성된 후에도 파드에 할당된 CPU 및 메모리 리소스를
 변경하는 것을 지원한다. (다른 인프라 리소스의 경우, 해당 리소스에 특화된
@@ -630,6 +744,9 @@ kubelet이 `PodReadyToStartContainers` 컨디션을 `True`로 설정한다.
 파드를 재생성하지 않고도 파드의 컨테이너 수준 CPU 및 메모리 리소스를 리사이즈할 수 있다.
 이를 _인플레이스(in-place) 파드 수직 스케일링_ 이라고도 한다. 이를 통해 애플리케이션 중단을
 최소화하면서 실행 중인 컨테이너의 리소스 할당을 조정할 수 있다.
+
+파드 수준에서 리소스를 지정한 경우, 이를 인플레이스로 리사이즈할 수도 있다.
+자세한 내용은 [파드에 할당된 CPU 및 메모리 리소스 리사이즈](/docs/tasks/configure-pod-container/resize-pod-resources/)를 참고한다.
 
 인플레이스 리사이즈를 수행하려면, `/resize` 서브리소스를 사용하여 파드의 의도한 상태(desired state)를
 업데이트한다. 그러면 kubelet이 실행 중인 컨테이너에 새로운 리소스 값을 적용하려고 시도한다.
@@ -670,146 +787,59 @@ kubelet이 `PodReadyToStartContainers` 컨디션을 `True`로 설정한다.
 
 ## 컨테이너 프로브(probe)
 
-_프로브_ 는 컨테이너에서 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)에 의해
-주기적으로 수행되는 진단(diagnostic)이다. 진단을 수행하기 위해서, kubelet은 컨테이너 안에서 코드를 실행하거나, 
-또는 네트워크 요청을 전송한다.
+쿠버네티스는 파드 내 컨테이너의 헬스(health)를 지속적으로 모니터링하기 위한
+_프로브_ 를 정의할 수 있게 해준다. 프로브는 컨테이너에서
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}에 의해 주기적으로 수행되는
+진단(diagnostic)이다. 진단을 수행하기 위해, kubelet은 컨테이너 내부에서 코드를
+실행하거나 네트워크 요청을 전송한다.
 
-### 체크 메커니즘 {#probe-check-methods}
+프로브 결과에 따라, 쿠버네티스는 비정상 컨테이너를 재시작하거나 준비되지 않은
+컨테이너로의 트래픽 전송을 중지할 수 있다.
 
-프로브를 사용하여 컨테이너를 체크하는 방법에는 4가지가 있다.
-각 프로브는 다음의 4가지 메커니즘 중 단 하나만을 정의해야 한다.
+kubelet은 실행 중인 컨테이너에 대해 각각 다른 목적을 가진 세 종류의 프로브를
+선택적으로 수행하고 그에 반응할 수 있다. 프로브 메커니즘(`exec`, `grpc`,
+`httpGet`, `tcpSocket`), 구성 필드, 자세한 사용 지침은
+[활성, 준비성 및 스타트업 프로브](/docs/concepts/workloads/pods/probes/)를 참고한다.
 
-`exec`
-: 컨테이너 내에서 지정된 명령어를 실행한다.
-  명령어가 상태 코드 0으로 종료되면 진단이 성공한 것으로 간주한다.
+### 스타트업 프로브 {#startup-probe}
 
-`grpc`
-: [gRPC](https://grpc.io/)를 사용하여 원격 프로시저 호출을 수행한다. 
-  체크 대상이 
-  [gRPC 헬스 체크](https://grpc.io/grpc/core/md_doc_health-checking.html)를 구현해야 한다. 
-  응답의 `status` 가 `SERVING` 이면 
-  진단이 성공했다고 간주한다. 
+스타트업 프로브(startup probe)는 컨테이너 내의 애플리케이션이 시작되었는지 확인한다.
+스타트업 프로브가 구성된 경우, 쿠버네티스는 스타트업 프로브가 성공할 때까지 활성
+프로브나 준비성 프로브를 실행하지 않으며, 이를 통해 애플리케이션이 초기화를 완료할
+시간을 확보한다.
 
-`httpGet`
-: 지정한 포트 및 경로에서 컨테이너의 IP주소에 대한
-  HTTP `GET` 요청을 수행한다. 
-  응답의 상태 코드가 200 이상 400 미만이면
-  진단이 성공한 것으로 간주한다.
+이 종류의 프로브는 주기적으로 실행되는 활성 프로브 및 준비성 프로브와 달리,
+시작 시에만 실행된다.
 
-`tcpSocket`
-: 지정된 포트에서 컨테이너의 IP주소에 대해 TCP 검사를 수행한다.
-  포트가 활성화되어 있다면 진단이 성공한 것으로 간주한다. 
-  원격 시스템(컨테이너)가 연결을 연 이후 즉시 닫는다면, 
-  이 또한 진단이 성공한 것으로 간주한다.
+스타트업 프로브가 실패하면, kubelet은 컨테이너를 죽이고, 해당 컨테이너는
+[재시작 정책](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)의 대상이 된다.
 
-{{< caution >}}
-다른 메커니즘과 달리, `exec` 프로브의 구현은 실행될 때마다
-여러 프로세스를 생성/포크(fork)하는 것을 수반한다.
-그 결과, 파드 밀도가 높고 `initialDelaySeconds`, `periodSeconds`의
-간격이 짧은 클러스터의 경우, exec 메커니즘으로 프로브를 구성하면
-노드의 CPU 사용량에 오버헤드가 발생할 수 있다.
-이러한 시나리오에서는 오버헤드를 피하기 위해 대체 프로브 메커니즘 사용을 고려한다.
-{{< /caution >}}
+### 활성 프로브 {#liveness-probe}
 
-### 프로브 결과
+활성 프로브(liveness probe)는 컨테이너를 언제 재시작할지 결정한다.
+예를 들어, 활성 프로브는 애플리케이션이 실행 중이지만 진행하지 못하는 데드락 상태를
+감지할 수 있다. 이러한 상태의 컨테이너를 재시작하면 버그가 있더라도 애플리케이션의
+가용성을 높이는 데 도움이 될 수 있다.
 
-각 probe는 다음 세 가지 결과 중 하나를 가진다.
+컨테이너가 구성된 허용 한도보다 더 많이 활성 프로브에 실패하면, kubelet은 해당
+컨테이너를 재시작한다.
+활성 프로브는 준비성 프로브가 성공하기를 기다리지 않는다. 활성 프로브를 실행하기
+전에 대기하려면, `initialDelaySeconds`를 정의하거나 스타트업 프로브를 사용하면 된다.
 
-`Success`
-: 컨테이너가 진단을 통과함.
+### 준비성 프로브 {#readiness-probe}
 
-`Failure`
-: 컨테이너가 진단에 실패함.
+준비성 프로브(readiness probe)는 컨테이너가 언제 트래픽을 받을 준비가 되었는지
+결정한다. 이는 네트워크 연결 수립, 파일 로딩, 캐시 워밍(warming)과 같이 시간이
+오래 걸리는 초기 작업을 애플리케이션이 수행하기를 기다릴 때 유용하다.
+준비성 프로브는 컨테이너 라이프사이클 후반에, 예를 들어 일시적인 오류나 과부하에서
+복구할 때에도 유용할 수 있다.
 
-`Unknown`
-: 진단 자체가 실패함(아무런 조치를 수행해서는 안 되며, kubelet이 
-  추가 체크를 수행할 것이다)
+준비성 프로브가 실패 상태를 반환하면,
+{{< glossary_tooltip text="엔드포인트슬라이스(EndpointSlice)" term_id="endpoint-slice" >}}
+컨트롤러는 파드와 일치하는 모든 서비스의 엔드포인트슬라이스에서 파드의 IP 주소를
+제거한다.
 
-### 프로브 종류
-
-kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지 종류의 프로브를 수행하고
-그에 반응할 수 있다.
-
-`livenessProbe`
-: 컨테이너가 동작 중인지 여부를 나타낸다. 만약
-  활성 프로브(liveness probe)에 실패한다면, kubelet은 컨테이너를 죽이고, 해당 컨테이너는
-  [재시작 정책](#restart-policy)의 대상이 된다. 만약 컨테이너가
-  활성 프로브를 제공하지 않는 경우, 기본 상태는 `Success` 이다.
-
-`readinessProbe`
-: 컨테이너가 요청을 처리할 준비가 되었는지 여부를 나타낸다.
-  만약 준비성 프로브(readiness probe)가 실패한다면, 엔드포인트 컨트롤러는
-  파드에 연관된 모든 서비스들의 엔드포인트에서 파드의 IP주소를 제거한다. 준비성 프로브의
-  초기 지연 이전의 기본 상태는 `Failure` 이다. 만약 컨테이너가 준비성 프로브를
-  지원하지 않는다면, 기본 상태는 `Success` 이다.
-
-`startupProbe`
-: 컨테이너 내의 애플리케이션이 시작되었는지를 나타낸다.
-  스타트업 프로브(startup probe)가 주어진 경우, 성공할 때까지 다른 나머지 프로브는
-  활성화되지 않는다. 만약 스타트업 프로브가 실패하면, kubelet이 컨테이너를 죽이고,
-  컨테이너는 [재시작 정책](#restart-policy)에 따라 처리된다. 컨테이너에 스타트업
-  프로브가 없는 경우, 기본 상태는 `Success` 이다.
-
-활성, 준비성 및 스타트업 프로브를 설정하는 방법에 대한 추가적인 정보는,
-[활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
-
-#### 언제 활성 프로브를 사용해야 하는가?
-
-만약 컨테이너 속 프로세스가 어떠한 이슈에 직면하거나 건강하지 못한
-상태(unhealthy)가 되는 등 프로세스 자체의 문제로 중단될 수 있더라도, 활성 프로브가
-반드시 필요한 것은 아니다. 그 경우에는 kubelet이 파드의 `restartPolicy`에
-따라서 올바른 대처를 자동적으로 수행할 것이다.
-
-프로브가 실패한 후 컨테이너가 종료되거나 재시작되길 원한다면, 활성 프로브를
-지정하고, `restartPolicy`를 항상(Always) 또는 실패 시(OnFailure)로 지정한다.
-
-#### 언제 준비성 프로브를 사용해야 하는가?
-
-프로브가 성공한 경우에만 파드에 트래픽 전송을 시작하려고 한다면,
-준비성 프로브를 지정하길 바란다. 이 경우에서는, 준비성 프로브가 활성 프로브와 유사해
-보일 수도 있지만, 스펙에 준비성 프로브가 존재한다는 것은 파드가
-트래픽을 받지 않는 상태에서 시작되고 프로브가 성공하기 시작한 이후에만
-트래픽을 받는다는 뜻이다.
-
-만약 컨테이너가 유지 관리를 위해서 자체 중단되게 하려면,
-준비성 프로브를 지정하길 바란다.
-준비성 프로브는 활성 프로브와는 다르게 준비성에 특정된 엔드포인트를 확인한다.
-
-만약 애플리케이션이 백엔드 서비스에 엄격한 의존성이 있다면,
-활성 프로브와 준비성 프로브 모두 활용할 수도 있다. 활성 프로브는 애플리케이션 스스로가 건강한 상태면
-통과하지만, 준비성 프로브는 추가적으로 요구되는 각 백-엔드 서비스가 가용한지 확인한다. 이를 이용하여,
-오류 메시지만 응답하는 파드로
-트래픽이 가는 것을 막을 수 있다.
-
-만약 컨테이너가 시동 시 대량 데이터의 로딩, 구성 파일, 또는
-마이그레이션에 대한 작업을
-수행해야 한다면, [스타트업 프로브](#언제-스타트업-프로브를-사용해야-하는가)를 사용하면 된다. 그러나, 만약
-failed 애플리케이션과 시동 중에 아직 데이터를 처리하고 있는 애플리케이션을 구분하여 탐지하고
-싶다면, 준비성 프로브를 사용하는 것이 더 적합할 것이다.
-
-{{< note >}}
-파드가 삭제될 때 요청을 드레인(drain)하려는 경우, 반드시 준비성 프로브가
-필요한 것은 아니다. 파드가 삭제되면 `EndpointSlice`의 해당 엔드포인트가
-[conditions](/docs/concepts/services-networking/endpoint-slices/#conditions)를 업데이트한다.
-엔드포인트의 `ready` 컨디션이 `false`로 설정되므로, 로드 밸런서는
-해당 파드를 일반 트래픽에 사용하지 않는다. kubelet이 파드 삭제를 처리하는 방법에
-대한 자세한 내용은 [파드의 종료](#pod-termination)를 참고한다.
-{{< /note >}}
-
-#### 언제 스타트업 프로브를 사용해야 하는가?
-
-스타트업 프로브는 서비스를 시작하는 데 오랜 시간이 걸리는 컨테이너가 있는
-파드에 유용하다. 긴 활성 간격을 설정하는 대신, 컨테이너가 시작될 때
-프로브를 위한 별도의 구성을 설정하여, 활성 간격보다
-긴 시간을 허용할 수 있다.
-
-<!-- ensure front matter contains math: true -->
-컨테이너가 보통
-\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\) 이후에
-기동된다면, 스타트업 프로브가 활성 프로브와 같은 엔드포인트를 확인하도록
-지정해야 한다. `periodSeconds`의 기본값은 10s이다. 이때 활성 프로브의
-기본값을 변경하지 않고 컨테이너가 기동되도록 하려면, `failureThreshold`를
-충분히 높게 설정해주어야 한다. 그래야 데드락을 방지하는데 도움이 된다.
+준비성 프로브는 컨테이너의 전체 라이프사이클 동안 실행된다.
 
 ## 파드의 종료 {#pod-termination}
 
