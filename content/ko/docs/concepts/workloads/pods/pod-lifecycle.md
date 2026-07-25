@@ -615,9 +615,9 @@ PodConditions를 관리한다.
 * `Ready`: 파드는 요청을 처리할 수 있으며 일치하는 모든 서비스의 로드
   밸런싱 풀에 추가되어야 한다.
 * `DisruptionTarget`: 파드가 중단(선점, 축출 또는 가비지 컬렉션 등)으로 인해 곧 종료될 예정이다.
-* `PodResizePending`: 파드 리사이즈가 요청되었지만 적용할 수 없다. [파드 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)를 참고한다.
+* `PodResizePending`: 파드 리사이즈가 요청되었지만 적용할 수 없다. [파드 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources#파드-리사이즈-상태)를 참고한다.
 * `PodResizeInProgress`: 파드가 리사이즈 중이다.
-  [파드 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)를 참고한다.
+  [파드 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources#파드-리사이즈-상태)를 참고한다.
 
 필드 이름              | 설명
 :--------------------|:-----------
@@ -753,7 +753,7 @@ kubelet은 파드에 네트워킹이 구성된 런타임 샌드박스가 없음�
 파드 {{< glossary_tooltip text="컨디션" term_id="condition" >}}
 `PodResizePending` 및 `PodResizeInProgress`([파드 컨디션](#파드의-컨디션)에서 설명)는
 리사이즈 작업의 상태를 나타낸다. 리사이즈 상태에 대한 자세한 내용은
-[컨테이너 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status)를 참고한다.
+[파드 리사이즈 상태](/docs/tasks/configure-pod-container/resize-container-resources/#파드-리사이즈-상태)를 참고한다.
 
 인플레이스 리사이즈의 주요 고려 사항은 다음과 같다.
 - CPU 및 메모리 리소스만 인플레이스로 리사이즈할 수 있다.
@@ -948,7 +948,7 @@ spec:
    정상적인 종료가 필요하다.
 
    종료 중인 파드를 나타내는 엔드포인트는 엔드포인트슬라이스에서 즉시 제거되지 않으며,
-   엔드포인트슬라이스 API에서 [종료 상태](/docs/concepts/services-networking/endpoint-slices/#conditions)를
+   엔드포인트슬라이스 API에서 [종료 상태](/docs/concepts/services-networking/endpoint-slices/#컨디션)를
    나타내는 상태가 노출된다.
    종료 중인 엔드포인트의 `ready` 상태는 항상 `false`이므로(1.26 이전 버전과의
    하위 호환성을 위해), 로드 밸런서는 해당 엔드포인트를 일반 트래픽에 사용하지 않는다.
@@ -1070,7 +1070,7 @@ kubelet이 재시작되면, 기능 게이트 설정에 따라 컨테이너 상�
   `ready: true` 상태였던 컨테이너는 ready 상태를 유지한다.
 
   kubelet을 충분히 오래 중지하여 일련의
-  [노드 하트비트](/docs/concepts/architecture/leases/#node-heart-beats) 검사에 실패하게 한 다음,
+  [노드 하트비트](/docs/concepts/architecture/leases/#노드-하트비트) 검사에 실패하게 한 다음,
   kubelet을 다시 시작하기 전에 대기하면, 쿠버네티스는 해당 노드에서 파드를 축출하기 시작할 수 있다.
   그러나, 파드 축출이 시작되더라도 쿠버네티스는 해당 파드의 개별 컨테이너를
   `ready: false`로 표시하지 않는다. 파드 수준의 축출은 컨트롤 플레인이
