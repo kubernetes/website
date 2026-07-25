@@ -15,7 +15,7 @@ weight: 40
 ##  Защита данных Secret на узлах
 
 На узлах Linux тома, размещаемые в памяти (такие как [`secret`](/docs/concepts/configuration/secret/)
-подключенные тома или [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) с параметром `medium: Memory`)
+примонтированные как тома, или [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) с параметром `medium: Memory`)
 реализуются с помощью файловой системы `tmpfs`.
 
 Если у вас настроена область подкачки и вы используете старую версию ядра Linux (или текущую версию ядра с неподдерживаемой конфигурацией Kubernetes),
