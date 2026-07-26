@@ -317,4 +317,4 @@ Notice that both CPU and memory requests must be specified for a Pod to lend it 
 
 - Read [Troubleshooting Topology Management](/docs/tasks/debug/debug-cluster/topology/)
 - Read the [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager) (Kubernetes enhancement proposal) for memory manager
-* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).
+* Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).

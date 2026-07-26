@@ -486,7 +486,8 @@
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
-/docs/concepts/policy/node-resource-managers/ /docs/concepts/workloads/resource-managers/ 301
+/docs/concepts/policy/node-resource-managers/ /docs/concepts/resource-management/resource-managers/ 301
+/docs/concepts/workloads/resource-managers/ /docs/concepts/resource-management/resource-managers/ 308
 
 # Redirects from old gen-resourcesdocs URL structure to gen-apidocs URLs.
 # Applied when kubernetes-api content was switched to the markdown backend.
