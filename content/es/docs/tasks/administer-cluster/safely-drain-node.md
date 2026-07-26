@@ -1,130 +1,124 @@
 ---
-reviewers:
-  - ramrodo
-  - krol3
-  - electrocucaracha
 title: Drenar un Nodo de Forma Segura
 content_type: task
 weight: 310
 ---
 
 <!-- overview -->
-This page shows how to safely drain a {{< glossary_tooltip text="node" term_id="node" >}},
-optionally respecting the PodDisruptionBudget you have defined.
+Esta página muestra cómo drenar de forma segura un {{< glossary_tooltip text="nodo" term_id="node" >}},
+opcionalmente con respecto al Presupuesto de Interrupción de Pods definido.
 
 ## {{% heading "prerequisites" %}}
 
-This task assumes that you have met the following prerequisites:
-  1. You do not require your applications to be highly available during the
-     node drain, or
-  1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
-     and have [configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
-     applications that need them.
+Esta tarea asume que cumples los siguientes requisitos previos:
+
+  1. No requieres que tus aplicaciones sean altamente disponibles durante el drenaje del nodo, o
+  2. Has leído sobre el concepto de [Presupuesto de Interrupción de Pods](/es/docs/concepts/workloads/pods/disruptions/) 
+     y has [configurado Presupuestos de Interrupción de Pods](/es/docs/tasks/run-application/configure-pdb/) para
+     las aplicaciones que lo necesiten.
 
 <!-- steps -->
 
-## (Optional) Configure a disruption budget {#configure-poddisruptionbudget}
+## (Opcional) Configura un presupuesto de interrupción
 
-To ensure that your workloads remain available during maintenance, you can
-configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
+Para asegurarte de que tus cargas de trabajo permanecen disponibles durante el mantenimiento, puedes
+configurar un [Presupuesto de Interrupción de Pods](/es/docs/concepts/workloads/pods/disruptions/).
 
-If availability is important for any applications that run or could run on the node(s)
-that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
-first and then continue following this guide.
+Si la disponibilidad es importante para cualquiera de las aplicaciones que podrían ejecutarse en el/los nodo(s)
+que estás drenando, [configura un Presupuesto de Interrupción de Pods](/es/docs/tasks/run-application/configure-pdb/)
+antes de seguir con esta guía.
 
-It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
-to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
-The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
-before the drain can proceed.
+Se recomienda configurar `AlwaysAllow` como [Política de Desalojo de Pods No Saludables](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+en tu Presupuesto de Interrupción de Pods para permitir el desalojo de aplicaciones que no funcionen correctamente durante el drenaje de un nodo.
+El comportamiento por defecto es esperar a que los pods de la aplicación pasen a estar [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+antes de proceder con el drenaje.
 
-## Use `kubectl drain` to remove a node from service
+## Usa `kubectl drain` para eliminar un nodo del servicio
 
-You can use `kubectl drain` to safely evict all of your pods from a
-node before you perform maintenance on the node (e.g. kernel upgrade,
-hardware maintenance, etc.). Safe evictions allow the pod's containers
-to [gracefully terminate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
-and will respect the PodDisruptionBudgets you have specified.
-
-{{< note >}}
-By default `kubectl drain` ignores certain system pods on the node
-that cannot be killed; see
-the [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
-documentation for more details.
-{{< /note >}}
-
-When `kubectl drain` returns successfully, that indicates that all of
-the pods (except the ones excluded as described in the previous paragraph)
-have been safely evicted (respecting the desired graceful termination period,
-and respecting the PodDisruptionBudget you have defined). It is then safe to
-bring down the node by powering down its physical machine or, if running on a
-cloud platform, deleting its virtual machine.
+Puedes usar `kubectl drain` para desalojar de forma segura todos los pods de
+un nodo antes de realizar las tareas de mantenimiento en dicho nodo (por ejemplo, la
+actualización del kernel, mantenimiento del hardware, etc.). Los desalojos seguros permiten
+que los contenedores de los pods [terminen con gracia](/es/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) y respeten el Presupuesto de Interrupción de Pods que has especificado.
 
 {{< note >}}
-If any new Pods tolerate the `node.kubernetes.io/unschedulable` taint, then those Pods
-might be scheduled to the node you have drained. Avoid tolerating that taint other than
-for DaemonSets.
-
-If you or another API user directly set the [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)
-field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
-and will run there, even though you have drained that node and marked it unschedulable.
+Por defecto `kubectl drain` ignora ciertos pods de sistema que no podrán ser eliminados; revisa
+[kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
+para más detalles.
 {{< /note >}}
 
-First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
+Cuando `kubectl drain` devuelve un resultado exitoso, esto indica que todos
+los pods (excepto los descritos en el párrafo anterior) han sido desalojados
+de forma segura (respetando el periodo de terminación con gracia y el
+Presupuesto de Interrupción de Pods que hayas definido). En este momento, 
+es seguro apagar el nodo desconectando su máquina física o, si se ejecuta en
+una plataforma en la nube, eliminando su máquina virtual.
+
+{{< note >}}
+Si cualquier pod nuevo tolera la mancha (taint, en inglés) `node.kubernetes.io/unschedulable`, es posible que esos pods
+se programen en el nodo que acabas de drenar. Evita tolerar esa mancha salvo para el caso de los DaemonSets.
+
+Si tú o cualquier usuario de la API configura directamente el campo [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename) 
+(evitando el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}}), dicho pod quedará
+vinculado al nodo especificado y se ejecutará allí aunque hayas vaciado ese nodo y haya quedado marcado 
+como no programable.
+{{< /note >}}
+
+En primer lugar, identifica el nombre del nodo que quieres drenar. Puedes ver la lista de todos los nodos de tu clúster con:
 
 ```shell
 kubectl get nodes
 ```
 
-Next, tell Kubernetes to drain the node:
+A continuación, dile a Kubernetes que drene el nodo:
 
 ```shell
 kubectl drain --ignore-daemonsets <node name>
 ```
 
-If there are pods managed by a DaemonSet, you will need to specify
-`--ignore-daemonsets` with `kubectl` to successfully drain the node. The `kubectl drain` subcommand on its own does not actually drain
-a node of its DaemonSet pods:
-the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
-new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
-taints, which allows the new Pods to launch onto a node that you are draining.
+Si hay Pods gestionados por un DaemonSet, necesitarás especificar 
+`--ignore-daemonsets` con `kubectl` para poder drenar el nodo de forma exitosa. El subcomando `kubectl drain` en sí mismo no drena
+un nodo de sus Pods DaemonSet:
+el controlador de DaemonSets (plano de control) inmediatamente reemplaza los Pods que faltan por
+nuevos Pods equivalentes. El controlador de DaemonSets también crea Pods que toleran las manchas no programables
+(`node.kubernetes.io/unschedulable`), lo que permite que los nuevos pods se inicien en el nodo que estás drenando.
 
-Once it returns (without giving an error), you can power down the node
-(or equivalently, if on a cloud platform, delete the virtual machine backing the node).
-If you leave the node in the cluster during the maintenance operation, you need to run
+Una vez que devuelva un resultado (sin dar ningún error), puedes apagar el nodo
+(o, si se trata de una plataforma en la nube, eliminar la máquina virtual que aloja el nodo).
+
+Posteriormente, cuando el nodo vuelva a estar operativo después de las tareas de mantenimiento, necesitas ejecutar:
 
 ```shell
 kubectl uncordon <node name>
 ```
-afterwards to tell Kubernetes that it can resume scheduling new pods onto the node.
 
-## Draining multiple nodes in parallel
+para indicarle a Kubernetes que puede reanudar la programación de nuevos Pods en el nodo.
 
-The `kubectl drain` command should only be issued to a single node at a
-time. However, you can run multiple `kubectl drain` commands for
-different nodes in parallel, in different terminals or in the
-background. Multiple drain commands running concurrently will still
-respect the PodDisruptionBudget you specify.
+## Drenando múltiples nodos en paralelo
 
-For example, if you have a StatefulSet with three replicas and have
-set a PodDisruptionBudget for that set specifying `minAvailable: 2`,
-`kubectl drain` only evicts a pod from the StatefulSet if all three
-replicas pods are [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
-if then you issue multiple drain commands in parallel,
-Kubernetes respects the PodDisruptionBudget and ensures that
-only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
-at any given time. Any drains that would cause the number of [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
-replicas to fall below the specified budget are blocked.
+El comando `kubectl drain` solo debe ejecutarse en un único nodo a la
+vez. Sin embargo, puedes ejecutar múltiples comandos `kubectl drain` para
+diferentes nodos en paralelo, en diferentes terminales o en
+segundo plano. Aunque se ejecuten varios comandos de drenaje al mismo tiempo,
+seguirán respetando el Presupuesto de Interrupción de Pods que especifiques.
 
-## The Eviction API {#eviction-api}
+Por ejemplo, si tienes un StatefulSet con tres réplicas y un Presupuesto de Interrupción 
+de `minAvailable: 2` para él, `kubectl drain` solo desalojará un pod del StatefulSet si
+las tres réplicas están [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
+si ejecutas varios comandos de drenaje en paralelo, Kubernetes respetará el
+Presupuesto de Interrupción de Pods y asegurará que solo 1 Pod (calculado como `replicas - minAvailable`)
+esté no disponible en cualquier momento. Cualquier drenaje que pudiera causar que el número de
+réplicas [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod) caiga debajo
+del presupuesto especificado, sería bloqueado.
 
-If you prefer not to use [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain) (such as
-to avoid calling to an external command, or to get finer control over the pod
-eviction process), you can also programmatically cause evictions using the
-eviction API.
+## La API de desalojos
 
-For more information, see [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
+Si prefieres no usar [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain) (por ejemplo,
+para evitar llamar a un comando externo o para tener un control más preciso sobre el proceso de desalojo de
+Pods), puedes provocar los desalojos de manera programática usando la API de desalojos.
+
+Para más información, consulta [desalojo iniciado por API](/docs/concepts/scheduling-eviction/api-eviction/).
 
 ## {{% heading "whatsnext" %}}
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+* Sigue estos pasos para proteger tu aplicación [configurando un Presupuesto de Interrupción de Pods](/es/docs/tasks/run-application/configure-pdb/).
 
