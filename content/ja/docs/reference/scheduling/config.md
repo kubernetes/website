@@ -92,7 +92,7 @@ profiles:
 
 - `ImageLocality`: Podが実行するコンテナイメージを既に持っているノードを優先します。
   拡張点: `score`
-- `TaintToleration`: [TaintsとTolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)を実装します。
+- `TaintToleration`: [TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)を実装します。
   実装する拡張点: `filter`、`preScore`、`score`
 - `NodeName`: PodのSpecのノード名が、現在のノードと一致するかをチェックします。
   拡張点:`filter`
@@ -100,7 +100,7 @@ profiles:
   拡張点: `preFilter`、`filter`
 - `NodeAffinity`: [nodeSelector](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)と[ノードアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)を実装します。
   拡張点: `filter`、`score`
-- `PodTopologySpread`: [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を実装します。
+- `PodTopologySpread`: [Podトポロジーの分散制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/)を実装します。
   拡張点: `preFilter`、`filter`、`preScore`、`score`
 - `NodeUnschedulable`: `.spec.unschedulable`がtrueに設定されているノードを除外します。
   拡張点: `filter`
@@ -141,7 +141,7 @@ profiles:
 また、コンポーネント設定のAPIにより、以下のプラグインを有効にすることができます。
 デフォルトでは有効になっていません。
 
-- `CinderLimits`: ノードが[`OpenStack Cinder`](https://docs.openstack.org/cinder/)ボリューム制限を満たせるかチェックします。
+- `CinderLimits`: ノードが[OpenStack Cinder](https://docs.openstack.org/cinder/)ボリューム制限を満たせるかチェックします。
   拡張点: `filter`
 
 ### 複数のプロファイル {#multiple-profiles}
@@ -180,7 +180,7 @@ profiles:
 Podのスケジューリングイベントには、`ReportingController`として`.spec.schedulerName`が設定されています。
 リーダー選出のイベントには、リスト先頭のプロファイルのスケジューラー名が使用されます。
 
-さらなる情報は、[Event API Reference](/docs/reference/kubernetes-api/cluster-resources/event-v1/)の`reportingController`項目をご参照ください。
+さらなる情報は、[Event APIリファレンス](/docs/reference/kubernetes-api/cluster-resources/event-v1/)の`reportingController`項目をご参照ください。
 {{< /note >}}
 
 {{< note >}}
@@ -288,7 +288,14 @@ profiles:
 |`DefaultPlugin1`|`Score`, `Filter`|
 |`DefaultPlugin2`|`Score`|
 |`CustomPlugin1`|`Score`, `Filter`|
-|`CustomPlugin2`|`Score`, `Filter`|
+| プラグイン         | 拡張点            |
+| ------------------ | ----------------- |
+| `DefaultQueueSort` | `QueueSort`       |
+| `CustomQueueSort`  | `QueueSort`       |
+| `DefaultPlugin1`   | `Score`、`Filter` |
+| `DefaultPlugin2`   | `Score`           |
+| `CustomPlugin1`    | `Score`、`Filter` |
+| `CustomPlugin2`    | `Score`、`Filter` |
 
 これらのプラグインの有効な設定例は次の通りです。
 
@@ -411,5 +418,5 @@ profiles:
 ## {{% heading "whatsnext" %}}
 
 * [kube-schedulerリファレンス](/docs/reference/command-line-tools-reference/kube-scheduler/)を読む
-* [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
-* [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) のリファレンスを読む
+* [スケジューリング](/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
+* [kube-scheduler設定(v1)](/docs/reference/config-api/kube-scheduler-config.v1/)のリファレンスを読む
