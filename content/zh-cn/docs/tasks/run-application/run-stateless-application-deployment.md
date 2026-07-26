@@ -208,6 +208,13 @@ should have four Pods:
    ```
 
 <!--
+For detailed scaling procedures including scaling down and scaling to zero, see
+[Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/).
+-->
+有关包括副本缩容和缩容至零副本在内的详细扩缩过程，
+请参阅[手动扩缩 Deployment](/zh-cn/docs/tasks/run-application/scale-deployment/)。
+
+<!--
 ## Deleting a deployment
 
 Delete the deployment by name:
@@ -239,5 +246,7 @@ added to Kubernetes, replicated applications were configured using a
 
 <!--
 - Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn how to [update a Deployment without downtime](/docs/tasks/run-application/update-deployment-rolling/).
 -->
 - 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+- 进一步了解如何[在不中断服务的情况下更新 Deployment](/zh-cn/docs/tasks/run-application/update-deployment-rolling/)。

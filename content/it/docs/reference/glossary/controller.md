@@ -1,7 +1,6 @@
 ---
 title: Controller
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Un software che implementa un circuito di controllo che osserva lo stato condiviso del cluster attraverso l'API server e apporta le modifiche necessarie per portate lo stato corrente verso lo stato desiderato.

@@ -90,7 +90,9 @@ The general workflow of a device plugin includes the following steps:
    initialization and setup to make sure the devices are in a ready state.
 
 1. The plugin starts a gRPC service, with a Unix socket under the host path
-   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+   `/var/lib/kubelet/device-plugins/` (this path is hardcoded and is not
+   affected by the kubelet's `--root-dir` or any other configuration), that
+   implements the following interfaces:
 
    ```gRPC
    service DevicePlugin {
@@ -167,7 +169,7 @@ The general workflow of a device plugin includes the following steps:
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
 kubelet instance. A new kubelet instance deletes all the existing Unix sockets under
-`/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
+`/var/lib/kubelet/device-plugins` (the hardcoded path for device plugins) when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 
 ### Device plugin and unhealthy devices
@@ -189,14 +191,16 @@ failed device is to use the [PodResources API](#monitoring-device-plugin-resourc
 
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
-By enabling the feature gate `ResourceHealthStatus`, the field `allocatedResourcesStatus`
-will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
-field
-reports health information for each device assigned to the container.
+When the feature gate `ResourceHealthStatus` is enabled (beta and enabled by default since v1.36),
+the field `allocatedResourcesStatus`
+is added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
+field reports health information for each device assigned to the container.
+Each resource health entry can include an optional `message` field with additional
+human readable context about the health status, such as error details or failure reasons.
 
 For a failed Pod, or where you suspect a fault, you can use this status to understand whether
 the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
-an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
+an over-temperature event, the `allocatedResourcesStatus` field may report this.
 
 
 ## Device plugin deployment
@@ -204,7 +208,7 @@ an over-temperature event, the `allocatedResourcesStatus` field may be able to r
 You can deploy a device plugin as a DaemonSet, as a package for your node's operating system,
 or manually.
 
-The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
+The canonical directory `/var/lib/kubelet/device-plugins` (which is hardcoded on the kubelet) requires privileged access,
 so a device plugin must run in a privileged security context.
 If you're deploying a device plugin as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a {{< glossary_tooltip term_id="volume" >}}
@@ -246,7 +250,7 @@ In order to monitor resources provided by device plugins, monitoring agents need
 discover the set of devices that are in-use on the node and obtain metadata to describe which
 container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
 exposed by device monitoring agents should follow the
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
@@ -272,11 +276,7 @@ information about memory and hugepages reserved for a container.
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API.
 Starting from Kubernetes v1.34, this feature is enabled by default.
-To disable, `kubelet` must be started with the following flags:
 
-```
---feature-gates=KubeletPodResourcesDynamicResources=false
-```
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
@@ -389,26 +389,31 @@ affine. The NUMA cells are identified using a opaque integer ID, which value is 
 what device plugins report
 [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 
-The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
+The gRPC service is served over a unix socket at `pod-resources/kubelet.sock` within the
+kubelet's root directory (typically `/var/lib/kubelet/pod-resources/kubelet.sock`).
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
-The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
+The canonical directory `pod-resources` within the kubelet root directory (typically
+`/var/lib/kubelet/pod-resources`) requires privileged access, so monitoring
 agents must run in a privileged security context. If a device monitoring agent is running as a
-DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
+DaemonSet, the `pod-resources` directory must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 {{< note >}}
 
-When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+When accessing the `pod-resources/kubelet.sock` from DaemonSet
 or any other app deployed as a container on the host, which is mounting socket as
-a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
-instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
-that after kubelet restart, container will be able to re-connect to this socket.
+a volume, it is a good practice to mount the `pod-resources` directory
+instead of the socket file itself. This will ensure
+that after kubelet restart, the container will be able to re-connect to this socket.
+
+On a typical Linux node, this means mounting `/var/lib/kubelet/pod-resources/`
+instead of `/var/lib/kubelet/pod-resources/kubelet.sock`.
 
 Container mounts are managed by inode referencing the socket or directory,
-depending on what was mounted. When kubelet restarts, socket is deleted
-and a new socket is created, while directory stays untouched.
-So the original inode for the socket become unusable. Inode to directory
+depending on what was mounted. When kubelet restarts, the socket is deleted
+and a new socket is created, while the directory stays untouched.
+So the original inode for the socket becomes unusable. The inode to the directory
 will continue working.
 
 {{< /note >}}
@@ -429,20 +434,9 @@ message GetPodResourcesRequest {
 }
 ```
 
-To disable this feature, you must start your kubelet services with the following flag:
-
-```
---feature-gates=KubeletPodResourcesGet=false
-```
-
 The `Get` endpoint can provide Pod information related to dynamic resources
 allocated by the dynamic resource allocation API.
 Starting from Kubernetes v1.34, this feature is enabled by default.
-To disable, `kubelet` must be started with the following flags:
-
-```
---feature-gates=KubeletPodResourcesDynamicResources=false
-```
 
 ## Device plugin integration with the Topology Manager
 

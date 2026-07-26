@@ -482,7 +482,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -581,7 +581,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -964,7 +964,7 @@ for that plugin.</p>
 - [PluginSet](#kubescheduler-config-k8s-io-v1-PluginSet)
 
 
-<p>Plugin specifies a plugin name and its weight when applicable. Weight is used only for Score plugins.</p>
+<p>Plugin specifies a plugin name and its weight when applicable. Weight is used only for Score and PlacementScore plugins.</p>
 
 
 <table class="table">
@@ -983,7 +983,7 @@ for that plugin.</p>
 <code>int32</code>
 </td>
 <td>
-   <p>Weight defines the weight of plugin, only used for Score plugins.</p>
+   <p>Weight defines the weight of plugin, only used for Score and PlacementScore plugins.</p>
 </td>
 </tr>
 </tbody>
@@ -1189,6 +1189,20 @@ set in both <code>multiPoint.Enabled</code> and <code>multiPoint.Disabled</code>
 including <code>multiPoint.Disabled = '*'</code> and <code>multiPoint.Enabled = pluginA</code> will still register that specific
 plugin through MultiPoint. This follows the same behavior as all other extension point configurations.</li>
 </ol>
+</td>
+</tr>
+<tr><td><code>placementGenerate</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>PlacementGenerate is a list of plugins that should be invoked during pod group scheduling cycle when determining placements for a pod group.</p>
+</td>
+</tr>
+<tr><td><code>placementScore</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>PlacementScore is a list of plugins that should be invoked during workload scheduling cycle when ranking pod group assignments.</p>
 </td>
 </tr>
 </tbody>

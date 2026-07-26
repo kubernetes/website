@@ -1,7 +1,6 @@
 ---
 title: Dockershim
 id: dockershim
-date: 2022-04-15
 full_link: /dockershim
 short_description: >
    Một thành phần của Kubernetes v1.23 và cũ hơn, cho phép các thành phần trong hệ thống Kubernetes giao tiếp với Docker Engine.

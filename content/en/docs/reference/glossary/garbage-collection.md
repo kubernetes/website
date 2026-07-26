@@ -1,7 +1,6 @@
 ---
 title: Garbage Collection
 id: garbage-collection
-date: 2021-07-07
 full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
   A collective term for the various mechanisms Kubernetes uses to clean up cluster

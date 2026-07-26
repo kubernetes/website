@@ -2,6 +2,8 @@
 title: kubectl rollout
 content_type: tool-reference
 weight: 30
+description: >-
+  管理资源的上线
 no_list: true
 ---
 <!--
@@ -9,6 +11,8 @@ title: kubectl rollout
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Manage the rollout of a resource
 no_list: true
 -->
 
@@ -17,15 +21,19 @@ no_list: true
 <!--
 Manage the rollout of one or many resources.
         
- Valid resource types include:
+Valid resource types include:
+
+*  deployments
+*  daemonsets
+*  statefulsets
 -->
 管理一个或多个资源的上线。
 
 有效的资源类型包括：
 
-* deployment
-* daemonset
-* statefulset
+* Deployment
+* DaemonSet
+* StatefulSet
 
 ```shell
 kubectl rollout SUBCOMMAND
@@ -35,24 +43,24 @@ kubectl rollout SUBCOMMAND
 
 <!--
 ```
-  # Rollback to the previous deployment
-  kubectl rollout undo deployment/abc
+# Rollback to the previous deployment
+kubectl rollout undo deployment/abc
   
-  # Check the rollout status of a daemonset
-  kubectl rollout status daemonset/foo
+# Check the rollout status of a daemonset
+kubectl rollout status daemonset/foo
   
-  # Restart a deployment
-  kubectl rollout restart deployment/abc
+# Restart a deployment
+kubectl rollout restart deployment/abc
   
-  # Restart deployments with the 'app=nginx' label
-  kubectl rollout restart deployment --selector=app=nginx
+# Restart deployments with the 'app=nginx' label
+kubectl rollout restart deployment --selector=app=nginx
 ```
 -->
 ```shell
 # 回滚到先前的 Deployment 版本
 kubectl rollout undo deployment/abc
   
-# 检查 Daemonset 的部署状态
+# 检查 DaemonSet 的上线状态
 kubectl rollout status daemonset/foo
   
 # 重启 Deployment
@@ -143,7 +151,8 @@ UID to impersonate for the operation.
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 -->

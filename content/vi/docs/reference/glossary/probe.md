@@ -1,7 +1,6 @@
 ---
 title: Probe
 id: probe
-date: 2023-03-21
 full_link: /docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 
 short_description: >

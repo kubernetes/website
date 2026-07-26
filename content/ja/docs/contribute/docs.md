@@ -34,7 +34,7 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 
 ドキュメンテーションに関わるには:
 
-1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)にサインしてください。
+1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md)にサインしてください。
 2. [ドキュメンテーションのリポジトリ](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
 3. [プルリクエストのオープン](/docs/contribute/new-content/open-a-pr/)と[変更レビュー](/ja/docs/contribute/review/reviewing-prs/)の基本的なプロセスを理解していることを確認してください。
 
@@ -152,11 +152,11 @@ SIG Docsは複数の方法でコミュニケーションをとっています。
 - [Kubernetes Slackインスタンスの`#sig-docs`に参加してください](https://slack.k8s.io/)。自己紹介を忘れずに！
   - 訳注: 日本語ローカライゼーションに関しては、Slackの`kubernetes-docs-ja`チャンネルを利用してください。
 - [`kubernetes-sig-docs`メーリングリストに参加してください](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)。ここでは幅広い議論が起こり、公式な決定が記録されます。
-- [毎週のSIG Docsビデオミーティング](https://github.com/kubernetes/community/tree/master/sig-docs)に参加してください。ミーティングは `#sig-docs`でアナウンスされ、[Kubernetesコミュニティミーティングカレンダー](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)に追加されます。[Zoomクライアント](https://zoom.us/download)をダウンロードするか、電話を使って通話する必要があります。
+- [毎週のSIG Docsビデオミーティング](https://github.com/kubernetes/community/tree/main/sig-docs)に参加してください。ミーティングは `#sig-docs`でアナウンスされ、[Kubernetesコミュニティミーティングカレンダー](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)に追加されます。[Zoomクライアント](https://zoom.us/download)をダウンロードするか、電話を使って通話する必要があります。
 
 ## その他の貢献方法
 
 - [Kubernetesコミュニティサイト](/community/)を訪問してください。TwitterやStack Overflowに参加したり、Kubernetesの集会やイベントについて学んだりしてください。
-- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
+- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/main/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 - [Kubernetesのコントリビューター](https://www.kubernetes.dev/)や[追加のコントリビューター向けリソース](https://www.kubernetes.dev/resources/)についてもっと学ぶために、コントリビューターサイトを読んでください。
 - [ブログ記事やケーススタディ](/docs/contribute/new-content/blogs-case-studies/)を投稿してください。

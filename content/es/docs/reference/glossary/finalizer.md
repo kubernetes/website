@@ -1,7 +1,6 @@
 ---
 title: Finalizador
 id: finalizer
-date: 2021-07-07
 full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   Un atributo de un namespace que dicta a Kubernetes a esperar hasta que condiciones

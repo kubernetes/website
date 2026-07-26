@@ -1,29 +1,25 @@
 ---
 title: 쿠버네티스 커뮤니티 행동 강령
-layout: basic
-cid: community
-community_styles_migrated: true
+body_class: code-of-conduct
+cid: code-of-conduct
 ---
 
-<div class="community-section" id="cncf-code-of-conduct-intro">
-<p>
-쿠버네티스는
-<a href="https://github.com/cncf/foundation/blob/main/code-of-conduct.md">CNCF의 행동 강령</a>을 따르고 있습니다.
-<a href="https://github.com/cncf/foundation/blob/fff715fb000ba4d7422684eca1d50d80676be254/code-of-conduct.md">커밋 fff715fb0</a>
-에 따라 CNCF 행동 강령의 내용이 아래에 복제됩니다.
-만약 최신 버전이 아닌 경우에는
-<a href="https://github.com/kubernetes/website/issues/new">이슈를 제기해 주세요</a>.
-</p>
-
-<p>
-이벤트나 회의, 슬랙 또는 다른 커뮤니케이션
-메커니즘에서 행동 강령을 위반한 경우
-<a href="https://git.k8s.io/community/committee-code-of-conduct">쿠버네티스 행동 강령 위원회</a>에 연락하세요.
-<a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>로 이메일을 보내 주세요.
-당신의 익명성은 보호됩니다.
-</p>
-</div>
+_쿠버네티스는 
+[CNCF 행동 강령](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)을 따른다.
+[커밋 bf16ee7](https://github.com/cncf/foundation/blob/bf16ee7e067afbc3bfdff7eb8062def7dcdf4fbb/code-of-conduct-languages/ko.md)에 따라
+CNCF 행동 강령의 내용이 아래에 복제된다._
 
 <div id="cncf-code-of-conduct">
 {{< include "/static/cncf-code-of-conduct.md" >}}
 </div>
+
+---
+
+이벤트나 회의, 슬랙, 또는 기타 소통 창구에서 행동 강령 위반 사례를 발견한 경우, 
+[쿠버네티스 행동 강령 위원회](https://git.k8s.io/community/committee-code-of-conduct)에 
+연락한다.
+
+[conduct@kubernetes.io](mailto:conduct@kubernetes.io)로 이메일을 보내 위원회에게 연락할 수 있다.
+당신의 익명성은 보호된다.
+
+만약 이 페이지가 최신 상태가 아니라는 점을 인지했다면, [이슈를 제기한다](https://github.com/kubernetes/website/issues/new/choose).

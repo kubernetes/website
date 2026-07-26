@@ -28,7 +28,8 @@ kubeadm init phase addon all [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
@@ -47,7 +48,8 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Port for the API Server to bind to.
@@ -61,7 +63,8 @@ API 服务器绑定的端口。
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -75,7 +78,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--control-plane-endpoint string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
@@ -89,7 +93,8 @@ Specify a stable IP address or DNS name for the control plane.
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -103,24 +108,19 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-EtcdLearnerMode=true|false (default=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+NodeLocalCRISocket=true|false (default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
-RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - default=true)
+RootlessControlPlane=true|false (ALPHA - default=false)
 -->
-一组键值对（key=value），描述了各种特征。选项包括：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
-EtcdLearnerMode=true|false (默认值=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
+一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
+NodeLocalCRISocket=true|false (默认值=true)<br/>
+PublicKeysECDSA=true|false (已弃用 - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>
@@ -129,7 +129,8 @@ WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for all
@@ -148,7 +149,8 @@ all 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -167,12 +169,14 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+与集群通信时使用的 kubeconfig 文件。如果未设置该参数，
+则可以在一组标准位置中搜索现有的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -186,7 +190,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -200,7 +205,8 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--pod-network-cidr string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
@@ -219,12 +225,13 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use alternative range of IP address for service VIPs.
 -->
-为服务 VIP 使用 IP 地址的其他范围。
+指定 Service VIP 使用 IP 地址的其他范围。
 </p>
 </td>
 </tr>
@@ -238,12 +245,13 @@ Use alternative range of IP address for service VIPs.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
-为服务使用其他域名，例如 &quot;myorg.internal&quot;。
+为 Service 使用其他域名，例如 &quot;myorg.internal&quot;。
 </p>
 </td>
 </tr>
@@ -267,12 +275,13 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[实验] 到'真实'主机根文件系统的路径。
+[实验性] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>

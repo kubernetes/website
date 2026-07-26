@@ -1,7 +1,6 @@
 ---
 title: ডিপ্লয়মেন্ট(Deployment)
 id: deployment
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/controllers/deployment/
 short_description: >
   আপনার ক্লাস্টারে একটি প্রতিলিপিকৃত(replicated) অ্যাপ্লিকেশন পরিচালনা করে।

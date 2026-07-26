@@ -1,9 +1,10 @@
 <div class="main-section">
   <div class="cncf-logo-details">
       <p>{{ T "main_cncf_project" | safeHTML }}</p>
-      <picture>
-          <source srcset="/images/cncf-logo-dark.svg" media="(prefers-color-scheme: dark)">
-          <img src="/images/cncf-logo-white.svg" class="cncf-img" alt="Cloud Native Computing Foundation logo">
-      </picture>
+      <img src="/images/cncf-logo-white.svg"
+           data-theme-src-light="/images/cncf-logo-white.svg"
+           data-theme-src-dark="/images/cncf-logo-dark.svg"
+           class="cncf-img"
+           alt="Cloud Native Computing Foundation logo">
   </div>
 </div>

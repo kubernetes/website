@@ -1,7 +1,6 @@
 ---
 title: Pod 生命周期
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /zh-cn/docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod
@@ -9,13 +8,11 @@ related:
 tags:
  - fundamental
 short_description: >
-  关于 Pod 在其生命周期中处于哪个阶段的更高层次概述。
+  Pod 在其生命周期中经历的状态序列。
 ---
-
 <!--
 title: Pod Lifecycle
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod
@@ -23,13 +20,13 @@ related:
 tags:
  - fundamental
 short_description: >
-  A high-level summary of what phase the Pod is in within its lifecyle.
+  The sequence of states through which a Pod passes during its lifetime.
 -->
 
 <!--
-A high-level summary of what phase the Pod is in within its lifecyle.
+The sequence of states through which a Pod passes during its lifetime.
 -->
-关于 Pod 在其生命周期中处于哪个阶段的更高层次概述。
+Pod 在其生命周期中经历的状态序列。
 
 <!--more-->
 

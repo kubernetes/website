@@ -3,6 +3,8 @@ title: kubectl drain
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  腾空节点准备维护
 ---
 <!--
 title: kubectl drain
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Drain node in preparation for maintenance
 -->
 
 ## {{% heading "synopsis" %}}

@@ -15,12 +15,13 @@ timeZone = "UTC"
 
 enableRobotsTXT = true
 disableBrowserError = true
+disableAliases = true
 
 disableKinds = ["taxonomy"]
 
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
-timeout = "180s"
+timeout = "600s"
 
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
@@ -61,7 +62,7 @@ enableGitInfo = true
     lineNoStart = 1
     lineNos = false
     lineNumbersInTable = true
-    noClasses = true
+    noClasses = false
     style = "emacs"
     tabWidth = 4
   [markup.tableOfContents]
@@ -73,7 +74,8 @@ enableGitInfo = true
 date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
-blog = "/:section/:year/:month/:day/:slug/"
+  [permalinks.page]
+    blog = "/:section/:year/:month/:day/:slug/"
 
 [sitemap]
   filename = "sitemap.xml"
@@ -129,19 +131,15 @@ contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheat
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
 
-# Menu title if your navbar has a versions selector to access old versions of your site.
-# This menu appears only if you have at least one [params.versions] set.
-version_menu = "Versions"
-
 time_format_blog = "Monday, January 02, 2006"
 time_format_default = "January 02, 2006 at 3:04 PM PST"
 
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.35"
+latest = "v1.36"
 
-version = "v1.35"
+version = "v1.36"
 githubbranch = "main"
 docsbranch = "main"
 # Should be changed to Docsy provided `archived_version` in the future.
@@ -182,37 +180,39 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.35"
-githubbranch = "v1.35.0"
+version = "v1.36"
+githubbranch = "v1.36.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+version = "v1.35"
+githubbranch = "v1.35.3"
+docsbranch = "release-1.35"
+url = "https://v1-35.docs.kubernetes.io"
+
+[[params.versions]]
 version = "v1.34"
-githubbranch = "v1.34.0"
+githubbranch = "v1.34.6"
 docsbranch = "release-1.34"
 url = "https://v1-34.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.33"
-githubbranch = "v1.33.4"
+githubbranch = "v1.33.10"
 docsbranch = "release-1.33"
 url = "https://v1-33.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.32"
-githubbranch = "v1.32.8"
+githubbranch = "v1.32.13"
 docsbranch = "release-1.32"
 url = "https://v1-32.docs.kubernetes.io"
 
-[[params.versions]]
-version = "v1.31"
-githubbranch = "v1.31.12"
-docsbranch = "release-1.31"
-url = "https://v1-31.docs.kubernetes.io"
-
 # User interface configuration
 [params.ui]
+# Allow resizing the sidebar gutter
+sidebar_resizable = false
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show this many levels in compact mode
@@ -228,7 +228,9 @@ sidebar_search_disable = false
 # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
 navbar_logo = true
 # Set to true to disable the About link in the site footer
-footer_about_disable = false
+footer_about_enable = true
+# Light/dark mode switcher (Docsy 0.10+ feature).
+showLightDarkModeMenu = true
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
@@ -428,10 +430,24 @@ language_alternatives = ["en"]
 description = "운영 수준의 컨테이너 오케스트레이션"
 languageNameLatinScript = "Korean"
 
+[languages.fa]
+title = "Kubernetes"
+languageName = "فارسی (Persian)"
+weight = 11
+contentDir = "content/fa"
+languagedirection = "rtl"
+
+[languages.fa.params]
+time_format_blog = "2006.01.02"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "کوبرنتیز، مدیریت کانتینر در سطح عملیاتی"
+languageNameLatinScript = "Persian"
+
 [languages.pl]
 title = "Kubernetes"
 languageName = "Polski (Polish)"
-weight = 11
+weight = 12
 contentDir = "content/pl"
 languagedirection = "ltr"
 
@@ -445,7 +461,7 @@ languageNameLatinScript = "Polski"
 [languages.pt-br]
 title = "Kubernetes"
 languageName = "Português (Portuguese)"
-weight = 12
+weight = 13
 
 contentDir = "content/pt-br"
 languagedirection = "ltr"
@@ -460,7 +476,7 @@ languageNameLatinScript = "Português"
 [languages.ru]
 title = "Kubernetes"
 languageName = "Русский (Russian)"
-weight = 13
+weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
 
@@ -474,7 +490,7 @@ languageNameLatinScript = "Russian"
 [languages.es]
 title = "Kubernetes"
 languageName = "Español (Spanish)"
-weight = 14
+weight = 15
 contentDir = "content/es"
 languagedirection = "ltr"
 
@@ -488,7 +504,7 @@ languageNameLatinScript = "Español"
 [languages.uk]
 title = "Kubernetes"
 languageName = "Українська (Ukrainian)"
-weight = 15
+weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 
@@ -503,13 +519,22 @@ languageNameLatinScript = "Ukrainian"
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 16
+weight = 17
 languagedirection = "ltr"
 
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 language_alternatives = ["en"]
+
+# Use npm-installed copies of Docsy's Hugo Module deps so Hugo skips `go get`
+# at build time. The `go get` walks go.mod's `replace ../kubernetes` and fails
+# wherever the sibling directory is absent (e.g. Netlify).
+[module]
+replacements = [
+  "github.com/twbs/bootstrap -> bootstrap",
+  "github.com/FortAwesome/Font-Awesome -> @fortawesome/fontawesome-free",
+]
 
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
@@ -550,6 +575,10 @@ target = "i18n"
 
 [[module.mounts]]
 source = "i18n/ko"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fa"
 target = "i18n"
 
 [[module.mounts]]
@@ -610,6 +639,9 @@ target = "i18n"
   [segments.ko]
     [[segments.ko.includes]]
       lang = 'ko'
+  [segments.fa]
+    [[segments.fa.includes]]
+      lang = 'fa'
   [segments.pl]
     [[segments.pl.includes]]
       lang = 'pl'

@@ -272,8 +272,8 @@ nginxconfigmap   1      114s
 # 公開鍵と秘密鍵のペアを作成する
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # 鍵をbase64エンコーディングに変換する
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
 
 以下のようなyamlファイルを作成するために、前のコマンドからの出力を使います。

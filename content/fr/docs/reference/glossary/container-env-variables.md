@@ -1,7 +1,6 @@
 ---
 title: Variables d'Environnement de Conteneur
 id: container-env-variables
-date: 2018-04-12
 full_link: /docs/concepts/containers/container-environment-variables/
 short_description: >
   Les variables d'environnement de conteneur sont des paires nom=valeur qui fournissent des informations utiles aux conteneurs fonctionnant au sein d'un Pod.

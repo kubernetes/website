@@ -60,7 +60,7 @@ and a "cat-pictures-writer" Deployment that uses this PersistentVolumeClaim.
 {{< note >}}
 If your storage plugin supports
 [Dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/),
-the "cat-picutres-pv" will be created for you, but its name may differ. To get
+the "cat-pictures-pv" will be created for you, but its name may differ. To get
 your PersistentVolume's name run:
 
 ```shell
@@ -184,4 +184,4 @@ kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"D
 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
-* Learn more about [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+* Learn more about [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tutorials/configuration/configure-persistent-volume-storage/)

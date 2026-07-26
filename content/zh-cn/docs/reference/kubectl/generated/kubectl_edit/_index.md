@@ -3,6 +3,8 @@ title: kubectl edit
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  编辑服务器上的资源
 ---
 <!--
 title: kubectl edit
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Edit a resource on the server
 -->
 
 ## {{% heading "synopsis" %}}
@@ -109,7 +113,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -122,7 +127,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -135,7 +141,8 @@ Name of the manager used to track field ownership.
 Filename, directory, or URL to files to use to edit the resource
 -->
 用于编辑资源的文件名、目录或文件 URL 的列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -148,7 +155,8 @@ Filename, directory, or URL to files to use to edit the resource
 help for edit
 -->
 关于 edit 的帮助信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -161,7 +169,8 @@ help for edit
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -175,7 +184,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -188,7 +198,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 Output the patch if the resource is edited.
 -->
 如果资源被编辑，则输出补丁。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -201,7 +212,8 @@ Output the patch if the resource is edited.
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -215,7 +227,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -228,7 +241,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -241,7 +255,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 If specified, edit will operate on the subresource of the requested object.
 -->
 如果指定，edit 将对所请求对象的子资源进行操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -255,7 +270,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -274,7 +290,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
 否则操作与 "ignore" 的表现相同。
 "false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -287,7 +304,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 Only relevant if --edit=true. Defaults to the line ending native to your platform.
 -->
 仅在 --edit=true 时相关。默认为你所用平台原生的行结尾格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -312,7 +330,8 @@ Only relevant if --edit=true. Defaults to the line ending native to your platfor
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -325,7 +344,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -338,7 +358,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -351,7 +372,8 @@ UID to impersonate for the operation.
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 --> 
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -364,7 +386,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -377,7 +400,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -390,7 +414,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -403,7 +428,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -416,7 +442,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -429,7 +456,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -442,7 +470,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -455,7 +484,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -468,7 +498,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -496,7 +527,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -509,7 +541,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -522,7 +555,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 向 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -535,7 +569,8 @@ Password for basic authentication to the API server
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
 要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -548,7 +583,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>

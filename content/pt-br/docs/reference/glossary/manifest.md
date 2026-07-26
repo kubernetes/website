@@ -1,7 +1,6 @@
 ---
 title: Manifesto
 id: manifest
-date: 2019-06-28
 short_description: >
   Uma especificação serializada de um ou mais objetos da API do Kubernetes.
 aka:

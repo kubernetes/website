@@ -129,6 +129,10 @@ which was used in your cluster and the `--cleanup` flag of the
 如果你希望执行此清理操作，可以使用集群中使用过的相同 kube-proxy 容器以及
 `kube-proxy` 可执行文件的 `--cleanup` 参数：
 
+```bash
+docker run --privileged --network=host -v /lib/modules:/lib/modules:ro --rm registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}} sh -c "kube-proxy --cleanup && echo DONE"
+```
+
 <!--
 The output of the above command should print `DONE` at the end.
 Instead of Docker, you can use your preferred container runtime to start the container.

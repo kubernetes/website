@@ -1,7 +1,6 @@
 ---
 title: SIG (grupo de interesse especial)
 id: sig
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups
 short_description: >
   Membros da comunidade que gerenciam coletivamente e continuamente uma parte ou projeto maior do código aberto do Kubernetes.

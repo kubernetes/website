@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2021-09-17
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Uma abstração utilizada pelo Kubernetes para suportar múltiplos clusters virtuais no mesmo cluster físico.

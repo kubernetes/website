@@ -3,6 +3,8 @@ title: kubectl cluster-info
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display cluster information
 no_list: true
 ---
 

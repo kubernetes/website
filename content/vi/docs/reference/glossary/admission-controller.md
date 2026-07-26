@@ -1,7 +1,6 @@
 ---
 title: Admission Controller
 id: admission-controller
-date: 2019-06-28
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
   Một đoạn code chặn các yêu cầu đến Kubernetes API server trước khi lưu trữ đối tượng.

@@ -1,7 +1,6 @@
 ---
 title: 集群操作（Cluster Operations）
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  管理 Kubernetes 集群所涉及的相关工作。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Cluster Operations
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  The work involved in managing a Kubernetes cluster.

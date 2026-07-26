@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
   Un agente che è eseguito su ogni nodo del cluster. Si assicura che i container siano eseguiti in un pod.

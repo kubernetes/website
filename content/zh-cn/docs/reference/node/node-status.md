@@ -62,7 +62,7 @@ kubectl describe node <节点名称>
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 -->
-### 地址   {#addresses}
+## 地址   {#addresses}
 
 这些字段的用法取决于你的云服务商或者物理机配置。
 
@@ -82,7 +82,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 
 The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 -->
-### 状况   {#condition}
+## 状况   {#condition}
 
 `conditions` 字段描述了所有 `Running` 节点的状况。状况的示例包括：
 
@@ -178,7 +178,7 @@ for more details.
 Describes the resources available on the node: CPU, memory, and the maximum
 number of pods that can be scheduled onto the node.
 -->
-### 容量（Capacity）与可分配（Allocatable）     {#capacity}
+## 容量（Capacity）与可分配（Allocatable）     {#capacity}
 
 这两个值描述节点上的可用资源：CPU、内存和可以调度到节点上的 Pod 的个数上限。
 
@@ -207,7 +207,7 @@ operating system the node uses.
 The kubelet gathers this information from the node and publishes it into
 the Kubernetes API.
 -->
-### 信息（Info） {#info}
+## 信息（Info） {#info}
 
 Info 指的是节点的一般信息，如内核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
 容器运行时详细信息，以及节点使用的操作系统。

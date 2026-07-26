@@ -3,6 +3,12 @@ title: Image Policy API (v1alpha1)
 content_type: tool-reference
 package: imagepolicy.k8s.io/v1alpha1
 ---
+<!--
+title: Image Policy API (v1alpha1)
+content_type: tool-reference
+package: imagepolicy.k8s.io/v1alpha1
+auto_generated: true
+-->
 
 <!--
 ## Resource Types
@@ -28,7 +34,7 @@ ImageReview checks if the set of images in a pod are allowed.
 <tr><td><code>kind</code><br/>string</td><td><code>ImageReview</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
 <p>
@@ -36,7 +42,8 @@ ImageReview checks if the set of images in a pod are allowed.
    Standard object's metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
   -->
-  标准的对象元数据。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 </p>
 
   <!--
@@ -46,7 +53,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </td>
 
 </tr>
-<tr><td><code>spec</code> <B><!--Required-->[必需]</B><br/>
+<tr><td><code>spec</code> <br/>
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec"><code>ImageReviewSpec</code></a>
 </td>
 <td>
@@ -192,7 +199,7 @@ ImageReviewStatus is the result of the review for the pod creation request.
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>allowed</code> <B>[必需]</B><br/>
+<tr><td><code>allowed</code> <br/>
 <code>bool</code>
 </td>
 <td>

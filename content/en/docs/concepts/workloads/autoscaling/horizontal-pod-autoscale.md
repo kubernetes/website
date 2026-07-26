@@ -152,9 +152,12 @@ metric across all Pods in the HorizontalPodAutoscaler's scale target.
 Before checking the tolerance and deciding on the final values, the control
 plane also considers whether any metrics are missing, and how many Pods
 are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
-All Pods with a deletion timestamp set (objects with a deletion timestamp are
-in the process of being shut down / removed) are ignored, and all failed Pods
-are discarded.
+For per-pod resource metrics, all Pods with a deletion timestamp set
+(objects with a deletion timestamp are in the process of being shut
+down / removed) are ignored, and all failed Pods are discarded.
+For external and object metrics, the replica count is based on the
+number of Running and Ready Pods; terminating Pods that are still Ready
+continue to count toward that total.
 
 If a particular Pod is missing metrics, it is set aside for later; Pods
 with missing metrics will be used to adjust the final scaling amount.
@@ -607,7 +610,7 @@ You can list autoscalers by `kubectl get hpa` or get detailed description by `ku
 Finally, you can delete an autoscaler using `kubectl delete hpa`.
 
 In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler object.
-For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
+For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu=80%`
 will create an autoscaler for ReplicaSet _foo_, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 

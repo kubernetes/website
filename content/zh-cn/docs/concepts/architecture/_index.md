@@ -1,12 +1,14 @@
 ---
 title: "Kubernetes 架构"
 weight: 30
+no_list: true
 description: >
   Kubernetes 背后的架构概念。
 ---
 <!--
 title: "Cluster Architecture"
 weight: 30
+no_list: true
 description: >
   The architectural concepts behind Kubernetes.
 -->
@@ -393,6 +395,7 @@ Learn more about the following:
   [their communication](/docs/concepts/architecture/control-plane-node-communication/)
   with the control plane.
 - Kubernetes [controllers](/docs/concepts/architecture/controller/).
+- [Garbage collection](/docs/concepts/architecture/garbage-collection/) of cluster objects.
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
 - Etcd's official [documentation](https://etcd.io/docs/).
 - Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
@@ -403,6 +406,7 @@ Learn more about the following:
 
 - [节点](/zh-cn/docs/concepts/architecture/nodes/)及其与控制平面的[通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)。
 - Kubernetes [控制器](/zh-cn/docs/concepts/architecture/controller/)。
+- 集群对象的[垃圾回收](/zh-cn/docs/concepts/architecture/garbage-collection/)。
 - Kubernetes 的默认调度器 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)。
 - Etcd 的官方[文档](https://etcd.io/docs/)。
 - Kubernetes 中的几个[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)。

@@ -90,7 +90,7 @@ Docker JSONロギングドライバーは、各行を個別のメッセージと
 * Kubernetesスケジューラーとkube-proxyはコンテナ内で実行されます。
 * kubeletとコンテナランタイムはコンテナ内で実行されません。
 
-systemdを搭載したマシンでは、kubeletとコンテナランタイムがjournaldに書き込みます。systemdが存在しない場合、kubeletとコンテナランタイムは`var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナ内のシステムコンポーネントは、デフォルトのロギングメカニズムを迂回して、常に`/var/log`ディレクトリに書き込みます。それらは[`klog`](https://github.com/kubernetes/klog)というロギングライブラリを使用します。これらのコンポーネントのロギングの重大性に関する規則は、[development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)に記載されています。
+systemdを搭載したマシンでは、kubeletとコンテナランタイムがjournaldに書き込みます。systemdが存在しない場合、kubeletとコンテナランタイムは`var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナ内のシステムコンポーネントは、デフォルトのロギングメカニズムを迂回して、常に`/var/log`ディレクトリに書き込みます。それらは[`klog`](https://github.com/kubernetes/klog)というロギングライブラリを使用します。これらのコンポーネントのロギングの重大性に関する規則は、[development docs on logging](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)に記載されています。
 
 コンテナログと同様に、`/var/log`ディレクトリ内のシステムコンポーネントログはローテーションする必要があります。`kube-up.sh`スクリプトによって生成されたKubernetesクラスターでは、これらのログは、`logrotate`ツールによって毎日、またはサイズが100MBを超えた時にローテーションされるように設定されています。
 

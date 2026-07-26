@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   Сумісне та високодоступне сховище ключ-значення, яке використовується як сховище Kubernetes для резервування всіх даних кластера.

@@ -1,7 +1,6 @@
 ---
 title: Kubectl
 id: kubectl
-date: 2018-04-12
 full_link: /ja/docs/reference/kubectl/
 short_description: >
   Kubernetesクラスターと通信するためのコマンドラインツールです。

@@ -3,6 +3,8 @@ title: kubectl scale
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a new size for a deployment, replica set, or replication controller
 no_list: true
 ---
 

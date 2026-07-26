@@ -10,7 +10,7 @@ weight: 220
 
 {{< feature-state feature_gate_name="UnknownVersionInteroperabilityProxy" >}}
 
-Kubernetes {{< skew currentVersion >}} includes an alpha feature that lets an
+Kubernetes {{< skew currentVersion >}} includes a beta feature that lets an
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
 proxy resource requests to other _peer_ API servers. It also lets clients get 
 a holistic view of resources served across the entire cluster through discovery.
@@ -22,8 +22,8 @@ This enables cluster administrators to configure highly available clusters that 
 more safely, by :
 
 1. ensuring that controllers relying on discovery to show a comprehensive list of resources
-for important tasks always get the complete view of all resources. We call this complete cluster wide 
-discovery- _Peer-aggregated discovery_ 
+for important tasks always get the complete view of all resources. We call this complete cluster-wide 
+discovery _Peer-aggregated discovery_.
 1. directing resource requests (made during the upgrade) to the correct kube-apiserver.
 This proxying prevents users from seeing unexpected 404 Not Found errors that stem
 from the upgrade process. This mechanism is called the _Mixed Version Proxy_.

@@ -102,7 +102,7 @@ Kubernetes reviews only the following API request attributes:
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [request verbs and authorization](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
- * **Subresource** - The subresource that is being accessed (for resource requests only).
+ * **Subresource** - The subresource that is being accessed (for resource requests only). This can be a standard subresource (for example, `status` or `scale`) or a synthetic subresource used for fine-grained authorization.
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the _core_ [API group](/docs/reference/using-api/#api-groups).
 -->
@@ -121,7 +121,8 @@ Kubernetes 仅审查以下 API 请求属性：
 * **HTTP 请求动词** —— HTTP 动词 `get`、`post`、`put` 和 `delete` 用于非资源请求。
 * **资源** —— 正在访问的资源的 ID 或名称（仅限资源请求）- 
   对于使用 `get`、`update`、`patch` 和 `delete` 动词的资源请求，你必须提供资源名称。
-* **子资源** —— 正在访问的子资源（仅限资源请求）。
+* **子资源** —— 正在访问的子资源（仅限资源请求）。这可以是标准子资源（例如，`status` 或 `scale`），
+  也可以是用于细粒度授权的合成子资源。
 * **名字空间** —— 正在访问的对象的名称空间（仅适用于名字空间资源请求）。
 * **API 组** —— 正在访问的 {{< glossary_tooltip text="API 组" term_id="api-group" >}}
   （仅限资源请求）。空字符串表示[核心 API 组](/zh-cn/docs/reference/using-api/#api-groups)。
@@ -194,6 +195,9 @@ Kubernetes sometimes checks authorization for additional permissions using speci
   * **approve** verb for CertificateSigningRequests, and **update** for revisions to existing approvals
  [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * **bind** and **escalate** verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
+* [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  * Synthetic subresources such as `resourceclaims/binding` and `resourceclaims/driver` in the `resource.k8s.io` API group.
+  * Node-aware verbs such as `associated-node:update`, `associated-node:patch`, `arbitrary-node:update`, and `arbitrary-node:patch` for DRA driver `resourceclaims/status` updates.
 -->
 Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如：
 
@@ -203,6 +207,12 @@ Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如
 * [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * 对 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 **bind**
     和 **escalate** 动词
+* [动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  * `resource.k8s.io` API 组中的合成子资源，例如
+    `resourceclaims/binding` 和 `resourceclaims/driver`。
+  * 用于 DRA 驱动程序 `resourceclaims/status` 更新的节点感知动词，
+    例如 `associated-node:update`、`associated-node:patch`、`arbitrary-node:update`
+    和 `arbitrary-node:patch`。
 
 <!--
 ## Authorization context

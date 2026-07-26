@@ -2,12 +2,18 @@
 reviewers:
 title: "Visão Geral"
 description: >
-  Kubernetes é um plataforma de código aberto, portável e extensiva para o gerenciamento de cargas de trabalho e serviços distribuídos em contêineres, que facilita tanto a configuração declarativa quanto a automação. Ele possui um ecossistema grande, e de rápido crescimento.  Serviços, suporte, e ferramentas para Kubernetes estão amplamente disponíveis.
+  Kubernetes é uma plataforma portável, extensível, e de código aberto para o gerenciamento
+  de cargas de trabalho e serviços distribuídos em contêineres, que facilita tanto a configuração
+  declarativa quanto a automação. Ele possui um ecossistema grande e de rápido crescimento.
+  Serviços, suporte, e ferramentas para Kubernetes estão amplamente disponíveis.
 content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: Por quê o Kubernetes?
 no_list: true
 ---
 
@@ -22,7 +28,7 @@ O Google tornou Kubernetes um projeto de código-aberto em 2014. O Kubernetes co
 
 O nome **Kubernetes** tem origem no Grego, significando _timoneiro_ ou _piloto_. **K8s** é a abreviação derivada pela troca das oito letras "ubernete" por "8", se tornado _K"8"s_.
 
-## Voltando no tempo
+## Voltando no tempo {#going-back-in-time}
 
 Vamos dar uma olhada no porque o Kubernetes é tão útil, voltando no tempo.
 
@@ -51,7 +57,7 @@ Contêineres se tornaram populares porque eles fornecem benefícios extra, tais 
 * Isolamento de recursos: desempenho previsível de aplicações.
 * Utilização de recursos: alta eficiência e densidade.
 
-## Por que você precisa do Kubernetes e o que ele pode fazer{#why-you-need-kubernetes-and-what-can-it-do}
+## Por que você precisa do Kubernetes e o que ele pode fazer {#why-you-need-kubernetes-and-what-can-it-do}
 
 Os contêineres são uma boa maneira de agrupar e executar suas aplicações. Em um ambiente de produção, você precisa gerenciar os contêineres que executam as aplicações e garantir que não haja tempo de inatividade. Por exemplo, se um contêiner cair, outro contêiner precisa ser iniciado. Não seria mais fácil se esse comportamento fosse controlado por um sistema?
 

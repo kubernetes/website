@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "DaemonSet 表示守护进程集的配置。"
 title: "DaemonSet"
-weight: 9
+weight: 10
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ kind: "DaemonSet"
 content_type: "api_reference"
 description: "DaemonSet represents the configuration of a daemon set."
 title: "DaemonSet"
-weight: 9
+weight: 10
 auto_generated: true
 -->
 
@@ -140,17 +140,6 @@ DaemonSetSpec 是守护进程集的规约。
   - **updateStrategy.type** (string)
 
     守护进程集更新的类型。可以是 "RollingUpdate" 或 "OnDelete"。默认为 RollingUpdate。
-
-    <!--
-    Possible enum values:
-     - `"OnDelete"` Replace the old daemons only when it's killed
-     - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
-    -->
-    
-    可能的枚举值：
-
-     - `"OnDelete"` 仅当旧的守护进程被杀死时才替换它
-     - `"RollingUpdate"` 使用滚动更新替换旧的守护进程，即在每个节点上一个接一个地替换它们。
   
   <!--
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
@@ -160,7 +149,7 @@ DaemonSetSpec 是守护进程集的规约。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
-    滚动更新配置参数。仅在 type 值为 "RollingUpdate" 时出现。
+    滚动更新配置参数。仅在 `type` 值为 "RollingUpdate" 时出现。
 
     <!--
     <a name="RollingUpdateDaemonSet"></a>
@@ -179,9 +168,9 @@ DaemonSetSpec 是守护进程集的规约。
 
       对于拥有可用 DaemonSet Pod 的节点而言，在更新期间可以拥有更新后的 DaemonSet Pod 的最大节点数。
       属性值可以是绝对数量（例如：5）或所需 Pod 的百分比（例如：10%）。
-      如果 maxUnavailable 为 0，则该值不能为 0。绝对数是通过四舍五入从百分比计算得出的，最小值为 1。
+      如果 `maxUnavailable` 为 0，则该值不能为 0。绝对数是通过四舍五入从百分比计算得出的，最小值为 1。
       默认值为 0。示例：当设置为 30% 时，最多为节点总数的 30% 节点上应该运行守护进程 Pod
-      （即 status.desiredNumberScheduled）
+      （即 `status.desiredNumberScheduled`）
       可以在旧 Pod 标记为已删除之前创建一个新 Pod。更新首先在 30% 的节点上启动新的 Pod。
       一旦更新的 Pod 可用（就绪时长至少 minReadySeconds 秒），该节点上的旧 DaemonSet pod 就会被标记为已删除。
       如果旧 Pod 因任何原因变得不可用（Ready 转换为 false、被驱逐或节点被腾空），
@@ -652,6 +641,10 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -665,6 +658,10 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -780,6 +777,10 @@ GET /apis/apps/v1/daemonsets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -793,6 +794,10 @@ GET /apis/apps/v1/daemonsets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1516,6 +1521,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -1529,6 +1538,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+  
 <!--
 - **timeoutSeconds** (*in query*): integer
 

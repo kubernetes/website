@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 short_description: >
   Una tarea finita o por lotes que se ejecuta hasta su finalización.

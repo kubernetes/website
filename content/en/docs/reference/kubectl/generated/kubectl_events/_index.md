@@ -3,6 +3,8 @@ title: kubectl events
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  List events
 no_list: true
 ---
 

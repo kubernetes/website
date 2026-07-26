@@ -1,7 +1,6 @@
 ---
 title: Пространство имен
 id: namespace
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Абстракция, которую Kubernetes использует для изоляции групп ресурсов в рамках одного кластера.

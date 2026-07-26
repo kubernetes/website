@@ -3,6 +3,8 @@ title: kubectl top
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display resource (CPU/memory) usage
 no_list: true
 ---
 
@@ -27,6 +29,8 @@ Display resource (CPU/memory) usage.
  This command provides a view of recent resource consumption for nodes and pods. It fetches metrics from the Metrics Server, which aggregates this data from the kubelet on each node. The Metrics Server must be installed and running in the cluster for this command to work.
 
  The metrics shown are specifically optimized for Kubernetes autoscaling decisions, such as those made by the Horizontal Pod Autoscaler (HPA) and Vertical Pod Autoscaler (VPA). Because of this, the values may not match those from standard OS tools like 'top', as the metrics are designed to provide a stable signal for autoscalers rather than for pinpoint accuracy.
+
+ FAQ for Metrics Server: https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md
 
  When to use this command:
 

@@ -1,7 +1,6 @@
 ---
 title: ファイナライザー
 id: finalizer
-date: 2021-07-07
 full_link: /ja/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   削除対象としてマークされたオブジェクトを完全に削除する前に、特定の条件が満たされるまでKubernetesを待機させるための名前空間付きのキーです。

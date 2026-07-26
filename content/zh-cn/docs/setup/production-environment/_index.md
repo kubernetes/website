@@ -386,7 +386,7 @@ hundreds of people. In a learning environment or platform prototype, you might h
 administrative account for everything you do. In production, you will want
 more accounts with different levels of access to different namespaces.
 -->
-### 生产级用户环境   {#production-user-management}
+## 生产级用户环境   {#production-user-management}
 
 在生产环境中，情况可能不再是你或者一小组人在访问集群，而是几十上百人需要访问集群。
 在学习环境或者平台原型环境中，你可能具有一个可以执行任何操作的管理账号。

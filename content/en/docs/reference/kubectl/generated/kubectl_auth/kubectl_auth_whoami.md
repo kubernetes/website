@@ -3,6 +3,8 @@ title: kubectl auth whoami
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Experimental: Check self subject attributes
 ---
 
 

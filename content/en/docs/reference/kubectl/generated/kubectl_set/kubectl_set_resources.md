@@ -3,6 +3,8 @@ title: kubectl set resources
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update resource requests/limits on objects with pod templates
 ---
 
 

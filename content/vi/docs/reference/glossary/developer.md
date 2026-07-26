@@ -1,7 +1,6 @@
 ---
 title: Developer (làm rõ nghĩa)
 id: developer
-date: 2018-04-12
 full_link: 
 short_description: >
   Có thể đề cập đến&#58; Application Developer, Code Contributor, hoặc Platform Developer.

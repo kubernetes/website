@@ -1,7 +1,6 @@
 ---
 title: Resource (infrastructure)
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   A defined amount of infrastructure available for consumption (CPU, memory, etc).
 

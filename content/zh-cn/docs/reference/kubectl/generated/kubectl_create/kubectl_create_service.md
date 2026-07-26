@@ -2,12 +2,16 @@
 title: kubectl create service
 content_type: tool-reference
 weight: 30
+description: >-
+  使用指定的子命令创建 Service
 ---
 <!--
 title: kubectl create service
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a service using a specified subcommand
 -->
 
 ## {{% heading "synopsis" %}}
@@ -45,7 +49,6 @@ service 操作的帮助命令。
 
 </tbody>
 </table>
-
 
 ## {{% heading "parentoptions" %}}
 
@@ -104,9 +107,9 @@ UID to impersonate for the operation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--  
+<!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
---> 
+-->
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>

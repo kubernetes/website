@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /es/docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   Abstracción utilizada por Kubernetes para soportar múltiples clústeres virtuales en el mismo clúster físico.

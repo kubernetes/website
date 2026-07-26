@@ -3,6 +3,8 @@ title: kubectl attach
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Attach to a running container
 no_list: true
 ---
 
@@ -60,6 +62,13 @@ kubectl attach (POD | TYPE/NAME) -c CONTAINER
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Container name. If omitted, use the kubectl.kubernetes.io/default-container annotation for selecting the container to be attached or the first container in the pod will be chosen</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "ctrl-p,ctrl-q"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Override the key sequence for detaching a container</p></td>
 </tr>
 
 <tr>

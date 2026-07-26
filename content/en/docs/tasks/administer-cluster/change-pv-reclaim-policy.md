@@ -90,9 +90,9 @@ Released phase, where all of its data can be manually recovered.
 
 ### References {#reference}
 
-* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+* {{< api-reference page="core/persistent-volume-v1" >}}
   * Pay attention to the `.spec.persistentVolumeReclaimPolicy`
     [field](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
     of PersistentVolume.
-* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
+* {{< api-reference page="core/persistent-volume-claim-v1" >}}
 

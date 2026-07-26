@@ -1,7 +1,6 @@
 ---
 title: Device
 id: device
-date: 2025-05-13
 short_description: >
   Any resource that's directly or indirectly attached your cluster's nodes, like
   GPUs or circuit boards.

@@ -1,7 +1,6 @@
 ---
 title: Namespace do usuário
 id: userns
-date: 2021-07-13
 full_link: https://man7.org/linux/man-pages/man7/user_namespaces.7.html
 short_description: >
   Um recurso do kernel Linux para emular privilégios de superusuário para usuários sem privilégios.

@@ -70,6 +70,14 @@ to prevent accidental escalation. You can make roles specific to your use case i
 
 Consult the [authorization reference section](/docs/reference/access-authn-authz/authorization/) for more information.
 
+If your cluster uses [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+review DRA synthetic subresource authorization (`resourceclaims/binding` and
+`resourceclaims/driver`) and grant only the minimum required verbs to each
+component. For details, see
+[Hardening Guide - Dynamic Resource Allocation](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/)
+and
+[Harden Dynamic Resource Allocation in Your Cluster](/docs/tasks/administer-cluster/hardening-dra/).
+
 ## Controlling access to the Kubelet
 
 Kubelets expose HTTPS endpoints which grant powerful control over the node and containers.

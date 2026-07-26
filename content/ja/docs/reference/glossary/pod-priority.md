@@ -1,7 +1,6 @@
 ---
 title: Podの優先度
 id: pod-priority
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
 short_description: >
   Podの優先度は、他のPodと比較したPodの重要度を示します。

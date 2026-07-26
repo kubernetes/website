@@ -1,7 +1,6 @@
 ---
 title: 控制器（Controller）
 id: controller
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/architecture/controller/
 short_description: >
   控制器通过 API 服务器监控集群的公共状态，并致力于将当前状态转变为期望的状态。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Controller
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   A control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state.

@@ -1,7 +1,6 @@
 ---
 title: Downward API
 id: downward-api
-date: 2022-03-21
 short_description: >
   A mechanism to expose Pod and container field values to code running in a container.
 aka:

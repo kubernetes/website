@@ -156,7 +156,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 * `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
-* `prefer-align-cpus-by-uncorecache` (beta, visible by default) (1.34 or higher)
+* `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
 
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
@@ -184,3 +184,7 @@ explained in the logs.
 
 For mode detail about the behavior of the individual options you can configure, please refer to the
 [Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+
+## {{% heading "whatsnext" %}}
+
+* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).

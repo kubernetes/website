@@ -3,6 +3,8 @@ title: kubectl cluster-info dump
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Dump relevant information for debugging and diagnosis
 ---
 
 

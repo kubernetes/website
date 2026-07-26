@@ -182,7 +182,7 @@ Create the HorizontalPodAutoscaler:
 创建 HorizontalPodAutoscaler：
 
 ```shell
-kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu=50% --min=1 --max=10
 ```
 
 ```

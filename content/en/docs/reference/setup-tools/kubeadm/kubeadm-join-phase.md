@@ -46,6 +46,14 @@ Using this phase you can write the kubelet settings, certificates and (re)start 
 {{< tab name="kubelet-start" include="generated/kubeadm_join/kubeadm_join_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
+## kubeadm join phase etcd-join {#cmd-join-phase-etcd-join}
+
+Join the new etcd member to the etcd cluster.
+
+{{< tabs name="tab-etcd-join" >}}
+{{< tab name="etcd-join" include="generated/kubeadm_join/kubeadm_join_phase_etcd-join.md" />}}
+{{< /tabs >}}
+
 ## kubeadm join phase control-plane-join {#cmd-join-phase-control-plane-join}
 
 Using this phase you can join a node as a control-plane instance.
@@ -53,8 +61,15 @@ Using this phase you can join a node as a control-plane instance.
 {{< tabs name="tab-control-plane-join" >}}
 {{< tab name="control-plane-join" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join.md" />}}
 {{< tab name="all" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_all.md" />}}
-{{< tab name="etcd" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_etcd.md" />}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_mark-control-plane.md" />}}
+{{< /tabs >}}
+
+## kubeadm join phase wait-control-plane {#cmd-join-wait-control-plane}
+
+Wait for the control plane components to start.
+
+{{< tabs name="tab-wait-control-plane" >}}
+{{< tab name="wait-control-plane" include="generated/kubeadm_join/kubeadm_join_phase_wait-control-plane.md" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}

@@ -3,6 +3,8 @@ title: kubectl config get-contexts
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Describe one or many contexts
 ---
 
 

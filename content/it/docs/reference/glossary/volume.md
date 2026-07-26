@@ -1,7 +1,6 @@
 ---
 title: Volume
 id: volume
-date: 2022-06-21
 full_link: /it/docs/concepts/storage/volumes/
 short_description: >
   Una cartella contenente dati, accessibile dai containers all'interno del pod.

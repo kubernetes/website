@@ -87,9 +87,9 @@ El controlador de servicios es responsable de monitorizar eventos de creación, 
 
 ### 2. Kubelet
 
-El controlador de nodos incluye la funcionalidad del kubelet que es dependiente de la nube. Previa a la introducción de CCM, el kubelet era responsable de inicializar un nodo con detalles específicos al proveedor como direcciones IP, etiquetas de región/zona y tipo de instancia. La introduccion de CCM transfiere esta inicialización del kubelet al CCM.
+El controlador de nodos incluye la funcionalidad del kubelet que es dependiente de la nube. Previa a la introducción de CCM, el kubelet era responsable de inicializar un nodo con detalles específicos al proveedor como direcciones IP, etiquetas de región/zona y tipo de instancia. La introducción de CCM transfiere esta inicialización del kubelet al CCM.
 
-En este nuevo modelo, el kubelet inicializa un nodo sin información especifica del proveedor de servicios. Sin embargo, añade un `taint` al nodo recién creado de forma que este no esté disponible para el planificador hasta que el CCM completa el nodo con la información específica del proveedor. Sólo entonces elimina el `taint` y el nodo se vuelve accesible.
+En este nuevo modelo, el kubelet inicializa un nodo sin información específica del proveedor de servicios. Sin embargo, añade un `taint` al nodo recién creado de forma que este no esté disponible para el planificador hasta que el CCM completa el nodo con la información específica del proveedor. Sólo entonces elimina el `taint` y el nodo se vuelve accesible.
 
 ## Mecanismo de Plugins (extensiones)
 
@@ -105,7 +105,7 @@ Esta sección divide el nivel de acceso requerido por varios objetos API para qu
 
 ### Controlador de Nodos
 
-El controlador de nodos sólo opera con objetos Nodo. Necesita de acceso total para obtener, listar, crear, actualizar, arreglar, monitorizar y borrar objetos Nodo.
+El controlador de nodos sólo opera con objetos Nodo. Necesita de acceso total para obtener, listar, crear, actualizar, parchear, monitorizar y borrar objetos Nodo.
 
 v1/Node:
 

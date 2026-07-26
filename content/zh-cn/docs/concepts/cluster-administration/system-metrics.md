@@ -336,19 +336,22 @@ flag to expose these alpha stability metrics.
 -->
 ### kubelet 压力阻塞信息（PSI）指标  {#kubelet-pressure-stall-information-psi-metrics}
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletPSI" >}}
 
 <!--
-As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
+When the kernel has PSI enabled (version 4.20 or later), the kubelet collects
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
-The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
+
+*Prometheus Metrics*: Exposed at the `/metrics/cadvisor` endpoint as cumulative counters (totals) representing the total stall time in seconds. The metrics are exposed at this endpoint with the following names: 
 -->
-作为一个 Beta 阶段的特性，Kubernetes 允许你配置 kubelet 以基于 CPU、内存和 I/O 的使用情况收集 Linux
+当内核已启用 PSI（v4.20 或更高版本）时，kubelet 以基于 CPU、内存和 I/O 的使用情况收集 Linux
 内核的[压力阻塞信息（PSI）](https://docs.kernel.org/accounting/psi.html)。
 此信息是在节点、Pod 和容器级别进行收集的。
-这些指标通过 `/metrics/cadvisor` 端点暴露，指标名称如下：
+
+**Prometheus 指标**：通过 `/metrics/cadvisor` 端点以累积计数器（总量）的形式暴露，
+表示阻塞总时长（单位为秒）。这些指标在此端点暴露为以下名称：
 
 ```
 container_pressure_cpu_stalled_seconds_total
@@ -360,18 +363,111 @@ container_pressure_io_waiting_seconds_total
 ```
 
 <!--
-This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
-[Summary API](/docs/reference/instrumentation/node-metrics#psi).
+*Summary API*: Exposed at the `/stats/summary` endpoint, providing both the cumulative `totals` and the moving averages (`avg10`, `avg60`, `avg300`) in a JSON format. These averages represent the percentage of time that tasks were stalled on a resource over the respective 10-second, 60-second, and 5-minute intervals. 
+
+These metrics are also natively exported through the node's respective file in `/proc/pressure/` -- cpu, memory, and io in the following format:
 -->
-此特性默认启用，通过 `KubeletPSI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
-此信息也会通过 [Summary API](/zh-cn/docs/reference/instrumentation/node-metrics#psi) 暴露。
+**Summary API**：通过 `/stats/summary` 端点以 JSON 格式提供数据，
+同时包含累积值（`totals`）和滑动平均值（`avg10`、`avg60`、`avg300`）。
+这些平均值表示在对应的 10 秒、60 秒和 5 分钟时间窗口内，任务在某一资源上发生停滞的时间占比（百分比）。
+
+这些指标也可以通过节点上的 `/proc/pressure/` 目录中的相应文件（cpu、memory 和 io）原生导出，格式如下：
+
+```
+some avg10=0.00 avg60=0.00 avg300=0.00 total=0
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+```
 
 <!--
-You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+How can these metrics be interpreted together? Take for example the following query from the Summary API:  
+`kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'`. 
+This returns the information in a json format as such.
 -->
-参见[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)，
-学习如何解读 PSI 指标。
+如何将这些指标结合起来理解？例如，以下命令是来自 Summary API 的查询：
+
+```shell
+kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'
+```
+
+此查询会以如下 JSON 格式返回信息：
+
+```json
+{
+  "name": "<CONTAINER_NAME>",
+  "cpu": {
+    "full": {
+      "total": 0,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 35232438,
+      "avg10": 0.74,
+      "avg60": 0.52,
+      "avg300": 0.21,
+    },  
+  },
+  "memory": {
+    "full": {
+      "total": 539105,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 658164,
+      "avg10": 0.01,
+      "avg60": 0.01,
+      "avg300": 0.00,
+    },
+    }
+  },
+  "io": {
+    "full": {
+      "total": 33190987,
+      "avg10": 0.31,
+      "avg60": 0.22,
+      "avg300": 0.05,
+    },
+    "some": {
+      "total": 40809937,
+      "avg10": 0.52,
+      "avg60": 0.45,
+      "avg300": 0.12,
+    }
+  }
+}
+```
+
+<!--
+Here is a simple spike scenario. The cpu.some `avg10` value of `0.74` indicates that in the last 10 seconds, at least one task in this container was stalled on the CPU for 0.74% of the time (0.0074 seconds or 74 milliseconds). Because `avg10` (0.74) is significantly higher than `avg300` (0.21) on the same resource, this suggests a recent surge in resource contention rather than a sustained long-term bottleneck. If monitored continuously and the `avg300` metrics increase as well, we can diagnose a more serious, lasting issue!
+-->
+这是一个简单的突发场景示例。cpu.some 的 `avg10` 值为 `0.74`，表示在过去 10 秒内，
+此容器中至少有一个任务有 0.74% 的时间处于 CPU 等待状态（即 0.0074 秒或 74 毫秒）。
+由于同一资源上 `avg10`（0.74）显著高于 `avg300`（0.21），
+这表明这是一次近期的资源争用激增，而不是长期持续的瓶颈。
+如果持续监控并且 `avg300` 指标也开始上升，就可以判断为一个更严重、持续存在的问题。
+
+<!--
+Additionally, notice how in this example `cpu.some` shows pressure, while `cpu.full` remains at 0.00. This tells us that while some processes were delayed waiting for CPU time, the container as a whole was still making progress. A non-zero full value would indicate that all non-idle tasks were stalled simultaneously, a much bigger problem.
+Although not as human-readable, the `total` value of 35232438 represents the cumulative stall time in microseconds, that allow latency spike detection that otherwise may not show in the averages. They are also useful for monitoring systems, like Prometheus, to calculate precise rates of increase over specific time windows.
+As a final note, when observing high I/O Pressure alongside low Memory Pressure, it can indicate that the application is waiting on disk throughput rather than failing due to a lack of available RAM. The node is not over-committed on memory, and a different diagnosis for disk consumption can be investigated.
+-->
+此外，请注意在这个示例中，`cpu.some` 显示存在压力，而 `cpu.full` 仍然为 0.00。
+这说明虽然有部分进程在等待 CPU 时间而被延迟，但整个容器仍然在继续推进。
+如果 `full` 出现非零值，则表示所有非空闲任务在同一时间都发生了阻塞，这是一个更严重的问题。
+虽然不如平均值直观，`total` 值（35232438）表示累计的停滞时间（单位为微秒），
+它可以帮助检测那些在平均值中不易体现的延迟突发情况。同时，这些数据也非常适合用于像
+Prometheus 这样的监控系统，以便在特定时间窗口内计算精确的增长速率。
+最后需要注意的是，当观察到较高的 I/O 压力而内存压力较低时，通常意味着应用是在等待磁盘吞吐，
+而不是由于可用内存不足导致的问题。此时节点的内存并未过度分配，应进一步从磁盘使用情况入手进行诊断。
+
+<!--
+PSI metrics unlock a more robust way to monitor realitime resource contention at all levels for every cgroup, opening up the opportunity to dynamically handle workloads across the system. You can read more about the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+-->
+PSI 指标为在各个层级（每个 cgroup）实时监控资源争用提供了一种更强大的方式，使得可以在整个系统范围内动态地处理工作负载。
+你可以在[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)中了解更多信息。
 
 <!--
 #### Requirements
@@ -474,6 +570,9 @@ is encountered that is not allowed with respect to the allow-list constraints.
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
-* 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
-* 参阅[稳定的 Kubernetes 指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)的列表
-* 阅读有关 [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
+* 阅读有关指标的
+  [Prometheus 文本格式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
+* 参阅
+  [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)列表
+* 阅读有关
+  [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

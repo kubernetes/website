@@ -1,7 +1,6 @@
 ---
 title: Image
 id: image
-date: 2018-04-12
 full_link: 
 short_description: >
   Stored instance of a container that holds a set of software needed to run an application.

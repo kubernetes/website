@@ -9,6 +9,9 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.29"
+    toVersion: "1.34"
+
+removed: true
 ---
 
 <!--

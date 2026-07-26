@@ -3,6 +3,8 @@ title: kubectl config delete-cluster
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Delete the specified cluster from the kubeconfig
 ---
 
 

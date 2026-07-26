@@ -1,7 +1,6 @@
 ---
 title: SAML
 id: saml
-date: 2021-03-16
 full_link: 
 short_description: >
    SAML significa Linguagem de Marcação para Asserção de Segurança. É um padrão aberto baseado em XML para transferência de dados de identidade entre duas partes: um provedor de identidade (IdP) e um provedor de serviços (SP).

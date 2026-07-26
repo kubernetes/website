@@ -1,7 +1,6 @@
 ---
 title: Horizontal Pod Autoscaler
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /ja/docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   水平Pod自動スケーラーは、ターゲットCPU使用率またはカスタムメトリクスターゲットに基づいて、Podのレプリカ数をスケーリングするAPIリソースです。

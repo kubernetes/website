@@ -124,6 +124,18 @@ Pour cgroup v2, la sortie est `cgroup2fs`.
 
 Pour cgroup v1, la sortie est `tmpfs.`
 
+## Dépréciation de cgroup v1
+
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
+Kubernetes a déprécié cgroup v1.
+
+Sa suppression suivra la [politique de dépréciation de Kubernetes](/docs/reference/using-api/deprecation-policy/).
+
+Par défaut, le kubelet ne démarrera plus sur un nœud utilisant cgroup v1.
+
+Pour désactiver ce comportement, un administrateur du cluster doit définir `failCgroupV1` à `false` dans le [fichier de configuration du kubelet](/docs/tasks/administer-cluster/kubelet-config-file/).
+
 ## {{% heading "whatsnext" %}}
 
 - En savoir plus sur [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)

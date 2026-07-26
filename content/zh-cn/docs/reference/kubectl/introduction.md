@@ -10,12 +10,14 @@ weight: 1
 -->
 
 <!--
-kubectl is the Kubernetes cli version of a swiss army knife, and can do many things.
+kubectl is a command-line tool for interacting with Kubernetes clusters, using the Kubernetes API.
+Use it to deploy applications, inspect resources, and manage workloads.
 
 While this Book is focused on using kubectl to declaratively manage applications in Kubernetes, it
 also covers other kubectl functions.
 -->
-kubectl 是 Kubernetes CLI 版本的瑞士军刀，可以胜任多种多样的任务。
+kubectl 是一个命令行工具，用于使用 Kubernetes API 与 Kubernetes 集群进行交互。
+你可以使用它来部署应用程序、检查资源和管理工作负载。
 
 本文主要介绍如何使用 kubectl 在 Kubernetes 中声明式管理应用，本文还涵盖了一些其他的 kubectl 功能。
 

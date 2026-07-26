@@ -1,7 +1,6 @@
 ---
 title: Вытеснение, инициированное через API
 id: api-eviction
-date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   Вытеснение, инициированное через API — процесс, при котором с помощью Eviction API создается объект Eviction,

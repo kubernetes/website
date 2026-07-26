@@ -24,6 +24,13 @@ card:
     title: Install kubectl
 -->
 
+{{< note >}}
+<!--
+See the [Learning environment](/docs/setup/learning-environment/) page to set up a practice environment.
+-->
+请参阅[学习环境](/zh-cn/docs/setup/learning-environment/)页面以设置练习环境。
+{{< /note >}}
+
 ## kubectl
 
 <!-- overview -->
@@ -42,7 +49,7 @@ Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
 有关更多信息，包括 kubectl 操作的完整列表，请参见 [`kubectl` 参考文件](/zh-cn/docs/reference/kubectl/)。
 
 <!--
-kubectl is installable on a variety of Linux platforms, macOS and Windows. 
+kubectl is installable on a variety of Linux platforms, macOS and Windows.
 Find your preferred operating system below.
 
 - [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)

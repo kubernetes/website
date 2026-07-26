@@ -2,12 +2,16 @@
 title: kubectl rollout restart
 content_type: tool-reference
 weight: 30
+description: >-
+  重启资源
 ---
 <!--
 title: kubectl rollout restart
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Restart a resource
 -->
 
 ## {{% heading "synopsis" %}}
@@ -29,17 +33,17 @@ kubectl rollout restart RESOURCE
 
 <!--
 ```
-  # Restart all deployments in the test-namespace namespace
-  kubectl rollout restart deployment -n test-namespace
+# Restart all deployments in the test-namespace namespace
+kubectl rollout restart deployment -n test-namespace
   
-  # Restart a deployment
-  kubectl rollout restart deployment/nginx
+# Restart a deployment
+kubectl rollout restart deployment/nginx
   
-  # Restart a daemon set
-  kubectl rollout restart daemonset/abc
+# Restart a daemon set
+kubectl rollout restart daemonset/abc
   
-  # Restart deployments with the app=nginx label
-  kubectl rollout restart deployment --selector=app=nginx
+# Restart deployments with the app=nginx label
+kubectl rollout restart deployment --selector=app=nginx
 ```
 -->
 ```shell
@@ -175,7 +179,7 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
-（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
 匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
@@ -204,7 +208,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当指定 `-o=go-template` 、`-o=go-template-file` 时使用的模板字符串或模板文件路径。
+当指定 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p>
 </td>
@@ -709,4 +713,3 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl rollout](../)	 - Manage the rollout of a resource
 -->
 * [kubectl rollout](../) - 管理资源的上线
-

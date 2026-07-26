@@ -1,7 +1,6 @@
 ---
 title: কনফিগম্যাপ (ConfigMap)
 id: configmap
-date: 2018-04-12
 full_link: /bn/docs/concepts/configuration/configmap/
 short_description: >
  একটি API অবজেক্ট কী-ভ্যালু (key-value) জোড়ায় অ-গোপনীয় ডেটা সংরক্ষণ করতে ব্যবহৃত হয়। এটি এনভায়রনমেন্ট ভেরিয়েবল , কমান্ড-লাইন আর্গুমেন্ট বা একটি ভলিউমে কনফিগারেশন ফাইল হিসাবে ব্যবহার করা যেতে পারে।

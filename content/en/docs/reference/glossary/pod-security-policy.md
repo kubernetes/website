@@ -1,7 +1,6 @@
 ---
 title: Pod Security Policy
 id: pod-security-policy
-date: 2018-04-12
 full_link: /docs/concepts/security/pod-security-policy/
 short_description: >
   Removed API that enforced Pod security restrictions.

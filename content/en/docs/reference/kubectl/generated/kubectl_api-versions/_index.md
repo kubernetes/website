@@ -3,6 +3,8 @@ title: kubectl api-versions
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Print the supported API versions on the server, in the form of "group/version"
 no_list: true
 ---
 

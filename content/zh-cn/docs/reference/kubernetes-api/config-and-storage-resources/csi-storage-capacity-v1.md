@@ -38,8 +38,8 @@ CSIStorageCapacity 存储一个 CSI GetCapacity 调用的结果。
 
 例如，此结构可以描述如下内容：
 
-- “standard” 的 StorageClass 容量为 “1234 GiB”，可用于 “topology.kubernetes.io/zone=us-east1”
-- “localssd” 的 StorageClass 容量为 “10 GiB”，可用于 “kubernetes.io/hostname=knode-abc123”
+- “standard” 的 StorageClass 容量为 “1234 GiB”，可用于 `topology.kubernetes.io/zone=us-east1`
+- “localssd” 的 StorageClass 容量为 “10 GiB”，可用于 `kubernetes.io/hostname=knode-abc123`
 
 以下三种情况均暗示了某些组合没有可用的容量：
 
@@ -54,7 +54,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 这些对象的制作方可以决定哪种方法更合适。
 
-当 CSI 驱动选择使用 CSIDriverSpec.StorageCapacity 进行容量感知调度时，kube-scheduler 会使用这些对象。
+当 CSI 驱动选择使用 `CSIDriverSpec.StorageCapacity` 进行容量感知调度时，kube-scheduler 会使用这些对象。
 该调度器将 MaximumVolumeSize 与 pending 卷的请求大小进行比较，以过滤掉不合适的节点。
 如果未设置 MaximumVolumeSize，则回退为与不太精确的容量（Capacity）进行比较。
 如果还是未设置，则该调度器假定容量不足并尝试某些其他节点。
@@ -79,7 +79,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
   标准的对象元数据。
   此名称没有特定的含义。
   它必须是 DNS 子域名（允许英文句点，最多 253 个字符）。
-  为了确保与集群上的其他 CSI 驱动没有冲突，建议使用一个生成的名称 csisc-\<uuid>，
+  为了确保与集群上的其他 CSI 驱动没有冲突，建议使用一个生成的名称 `csisc-<uuid>`，
   或使用以唯一 CSI 驱动名称结尾的反向域名。
 
   这些对象是有命名空间的。
@@ -100,14 +100,15 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 - **storageClassName** (string)，必需
 
-  storageClassName 是已报告容量所对应的 StorageClass 的名称。
+  `storageClassName` 是已报告容量所对应的 StorageClass 的名称。
   它必须满足与 StorageClass 对象名称相同的要求（非空，DNS 子域名）。
   如果该对象不再存在，则 CSIStorageCapacity 对象将被废弃且应由创建者移除。
   此字段不可变更。
 
 - **capacity** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  capacity 是 CSI 驱动在其 GetCapacityResponse 中为 GetCapacityRequest 报告的值，其拓扑和参数与之前的字段匹配。
+  `capacity` 是 CSI 驱动在其 GetCapacityResponse 中为 GetCapacityRequest 报告的值，
+  其拓扑和参数与之前的字段匹配。
 
   该语义目前（CSI 规范 1.2）定义为：可用于制备卷的可用存储容量（单位为字节）。
   如果未设置，则该信息目前不可用。
@@ -121,11 +122,12 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 - **maximumVolumeSize** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  maximumVolumeSize 是 CSI 驱动在其 GetCapacityResponse 中为 GetCapacityRequest 报告的值，其拓扑和参数与之前的字段匹配。
+  `maximumVolumeSize` 是 CSI 驱动在其 GetCapacityResponse 中为 GetCapacityRequest 报告的值，
+  其拓扑和参数与之前的字段匹配。
 
-  自从 CSI 规范 1.4.0 起，这定义为 `CreateVolumeRequest.capacity_range.required_bytes` 字段中可以使用的最大值，
-  以便用 GetCapacityRequest 中相同的参数创建一个卷。
-  Kubernetes API 中的相应值是卷声明中的 ResourceRequirements.Requests。
+  自从 CSI 规范 1.4.0 起，这定义为 `CreateVolumeRequest.capacity_range.required_bytes`
+  字段中可以使用的最大值，以便用 GetCapacityRequest 中相同的参数创建一个卷。
+  Kubernetes API 中的相应值是卷声明中的 `ResourceRequirements.Requests`。
 
 <!--
 - **nodeTopology** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -134,7 +136,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 - **nodeTopology** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  nodeTopology 定义了哪些节点有权访问已报告容量的存储。
+  `nodeTopology` 定义了哪些节点有权访问已报告容量的存储。
   如果未设置，则不能从集群中的任意节点访问此存储。
   如果留空，则可以从所有节点访问此存储。此字段不可变更。
 
@@ -167,18 +169,20 @@ CSIStorageCapacityList 是 CSIStorageCapacity 对象的集合。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>)，必需
 
-  items 是 CSIStorageCapacity 对象的列表。
+  `items` 是 CSIStorageCapacity 对象的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified CSIStorageCapacity
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified CSIStorageCapacity
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 CSIStorageCapacity
 
 #### HTTP 请求
@@ -187,6 +191,7 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
   name of the CSIStorageCapacity
 - **namespace** (*in path*): string, required
@@ -217,6 +222,7 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 ### `list` list or watch objects of kind CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `list` 列出或观测类别为 CSIStorageCapacity 的对象
@@ -227,6 +233,7 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
 - **allowWatchBookmarks** (*in query*): boolean
 - **continue** (*in query*): string
@@ -236,6 +243,8 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -281,6 +290,10 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -300,6 +313,7 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 <!--
 ### `list` list or watch objects of kind CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `list` 列出或观测类别为 CSIStorageCapacity 的对象
@@ -310,6 +324,7 @@ GET /apis/storage.k8s.io/v1/csistoragecapacities
 
 <!--
 #### Parameters
+
 - **allowWatchBookmarks** (*in query*): boolean
 - **continue** (*in query*): string
 - **fieldSelector** (*in query*): string
@@ -318,6 +333,8 @@ GET /apis/storage.k8s.io/v1/csistoragecapacities
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -359,6 +376,10 @@ GET /apis/storage.k8s.io/v1/csistoragecapacities
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -378,6 +399,7 @@ GET /apis/storage.k8s.io/v1/csistoragecapacities
 
 <!--
 ### `create` create a CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `create` 创建 CSIStorageCapacity
@@ -388,6 +410,7 @@ POST /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
 - **dryRun** (*in query*): string
@@ -434,6 +457,7 @@ POST /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 <!--
 ### `update` replace the specified CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `update` 替换指定的 CSIStorageCapacity
@@ -444,6 +468,7 @@ PUT /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
   name of the CSIStorageCapacity
 - **namespace** (*in path*): string, required
@@ -494,6 +519,7 @@ PUT /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 ### `patch` partially update the specified CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 CSIStorageCapacity
@@ -504,6 +530,7 @@ PATCH /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
   name of the CSIStorageCapacity
 - **namespace** (*in path*): string, required
@@ -559,6 +586,7 @@ PATCH /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 <!--
 ### `delete` delete a CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `delete` 删除 CSIStorageCapacity
@@ -569,6 +597,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
   name of the CSIStorageCapacity
 - **namespace** (*in path*): string, required
@@ -624,6 +653,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
 
 <!--
 ### `deletecollection` delete collection of CSIStorageCapacity
+
 #### HTTP Request
 -->
 ### `deletecollection` 删除 CSIStorageCapacity 的集合
@@ -634,6 +664,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **continue** (*in query*): string
@@ -647,6 +678,8 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -704,6 +737,10 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

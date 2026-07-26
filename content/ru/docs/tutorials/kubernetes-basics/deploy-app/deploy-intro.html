@@ -131,7 +131,7 @@ description: |-
                 <p>Теперь у нас есть соединение между хостом (терминалом) и Kubernetes-кластером. Прокси обеспечивает прямой доступ к API из терминала.</p>
                 <p>Через эндпоинт от прокси можно увидеть все API. Например, с помощью <code>curl</code> мы можем напрямую через API узнать версию:</p>
                 <p><b><code>curl http://localhost:8001/version</code></b></p>
-                <div class="alert alert-info note callout" role="alert"><strong>Примечание:</strong> если порт 8001 недоступен, убедитесь, что выполенная вами ранее команда <code>kubectl proxy</code> была запущена во втором терминале.</div>
+                <div class="alert alert-info note callout" role="note"><strong>Примечание:</strong> если порт 8001 недоступен, убедитесь, что выполенная вами ранее команда <code>kubectl proxy</code> была запущена во втором терминале.</div>
                 <p>Сервер API автоматически создаст эндпоинт для каждого пода в соответствии с именем пода, который будет также доступен через прокси.</p>
                 <p>Для начала узнаем имя пода и сохраним его в переменной окружения <tt>POD_NAME</tt>:</p>
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />

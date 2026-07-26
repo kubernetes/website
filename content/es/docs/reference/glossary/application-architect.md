@@ -1,7 +1,6 @@
 ---
 title: Arquitecto/a de aplicaciones
 id: application-architect
-date: 2019-05-16
 full_link:
 short_description: >
   Una de las personas responsables del diseño a alto nivel de una aplicación.

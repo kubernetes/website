@@ -214,7 +214,7 @@ server. The signed ConfigMap can be authenticated by the shared token.
 Enable ConfigMap signing by enabling the `bootstrapsigner` controller on the
 Controller Manager.
 -->
-### ConfigMap 签名  {#configmap-signing}
+## ConfigMap 签名  {#configmap-signing}
 
 除了身份认证，令牌还可以用于签名 ConfigMap。
 这一用法发生在集群启动过程的早期，在客户端信任 API 服务器之前。

@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   Консистентное и высокодоступное хранилище данных в формате «ключ-значение», которое используется как основное хранилище всех данных кластера Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: Pod Security Policy
 id: pod-security-policy
-date: 2018-04-12
 full-link: /docs/concepts/security/pod-security-policy/
 short_description: >
   API đã bị loại bỏ, trước đây dùng để thực thi các quy tắc bảo mật cho Pod.

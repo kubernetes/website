@@ -4,4 +4,4 @@ spec:
 ...
 failurePolicy: Ignore # 默认为 "Fail"
 validations:
-- expression: "object.spec.xyz == params.x"  
+- expression: "object.spec.xyz == params.x"

@@ -1,7 +1,6 @@
 ---
 title: Contribuidor
 id: contributor
-date: 2018-04-12
 full_link: 
 short_description: >
   Alguém que doa código, documentação ou tempo para ajudar o projeto ou a comunidade Kubernetes.

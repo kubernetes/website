@@ -24,7 +24,7 @@ aby ulepszyć węzły w Twoim klastrze lub zapewnić sieć łączącą Pody.
   Zarchiwizowany [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   dokument projektowy zawiera więcej szczegółów na temat tego podejścia.
 
-  [FAQ dotyczące wtyczek wolumenów Kubernetesa dla dostawców pamięci masowej](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+  [FAQ dotyczące wtyczek wolumenów Kubernetesa dla dostawców pamięci masowej](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
   zawiera ogólne informacje na temat wtyczek pamięci masowej.
 
 * [Wtyczki urządzeń](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)

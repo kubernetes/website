@@ -1124,13 +1124,25 @@ because the `namex` field is not defined. However, `object.namex` would pass
 type checking even when the `namex` field is not defined for the resource kinds
 that `object` refers to, because `object` is dynamically typed.
 
-The `has()` macro in CEL may be used in CEL expressions to check if a field of a
-dynamically typed variable is accessible before attempting to access the field's
-value. For example:
+The `has()` macro in CEL may be used in CEL expressions to check whether a field
+of a dynamically typed variable is present before attempting to access the
+field's value. For example:
 
 ```cel
 has(object.namex) ? object.namex == 'special' : request.name == 'special'
 ```
+
+Use `has()` to check field presence. Do not use `has()` to check whether a map
+contains a key. For example, do not write
+`has(object.metadata.labels['example.com/environment'])`. For map key checks,
+use the `in` operator instead. For example:
+
+```cel
+has(object.metadata.labels) && 'example.com/environment' in object.metadata.labels
+```
+
+This expression checks that `metadata.labels` is present before checking whether
+the map contains the `example.com/environment` key.
 
 ## Type system integration
 

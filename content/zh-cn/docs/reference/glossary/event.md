@@ -1,7 +1,6 @@
 ---
 title: 事件（Event）
 id: event
-date: 2022-01-16
 full_link: /zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
   描述集群中某些状态变化的 Kubernetes 对象。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Event
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    Kubernetes objects that describe some state change in the cluster.

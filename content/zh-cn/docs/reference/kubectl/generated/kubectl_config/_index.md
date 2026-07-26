@@ -2,6 +2,8 @@
 title: kubectl config
 content_type: tool-reference
 weight: 30
+description: >-
+  修改 kubeconfig 文件
 no_list: true
 ---
 <!--
@@ -9,6 +11,8 @@ title: kubectl config
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Modify kubeconfig files
 no_list: true
 -->
 
@@ -69,7 +73,7 @@ help for config
 <!--
 use a particular kubeconfig file
 -->
-使用特定的 kubeconfig 文件
+使用特定的 kubeconfig 文件。
 </p>
 </td>
 </tr>

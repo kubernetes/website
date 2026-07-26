@@ -3,6 +3,8 @@ title: kubectl plugin list
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  List all visible plugin executables on a user's PATH
 ---
 
 

@@ -3,6 +3,8 @@ title: kubectl auth
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Inspect authorization
 no_list: true
 ---
 

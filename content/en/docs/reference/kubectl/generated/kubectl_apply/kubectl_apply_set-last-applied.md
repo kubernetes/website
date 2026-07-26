@@ -3,6 +3,8 @@ title: kubectl apply set-last-applied
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set the last-applied-configuration annotation on a live object to match the contents of a file
 ---
 
 

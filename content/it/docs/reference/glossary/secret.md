@@ -1,7 +1,6 @@
 ---
 title: Secret
 id: secret
-date: 2022-07-30
 full_link:
 short_description: >
   Contiene informazioni sensibili, come passwords, token OAuth, e chiavi ssh.

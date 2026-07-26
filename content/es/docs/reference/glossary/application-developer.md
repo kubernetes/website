@@ -1,7 +1,6 @@
 ---
 title: Desarrollador/a de aplicaciones
 id: application-developer
-date: 2019-05-16
 full_link:
 short_description: >
   Una persona que escribe una aplicación que se ejecutará en un clúster de Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: Service
 id: service
-date: 2020-04-05
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   Sebuah Cara untuk mengekspos aplikasi yang berjalan pada sebuah kumpulan Pod sebagai layanan jaringan.

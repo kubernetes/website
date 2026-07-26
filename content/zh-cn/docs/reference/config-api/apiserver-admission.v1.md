@@ -16,7 +16,7 @@ auto_generated: true
 ## 资源类型
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
-  
+
 ## `AdmissionReview`     {#admission-k8s-io-v1-AdmissionReview}
 
 <p>
@@ -32,8 +32,8 @@ AdmissionReview describes an admission review request/response.
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>admission.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AdmissionReview</code></td></tr>
-    
-  
+
+
 <tr><td><code>request</code><br/>
 <a href="#admission-k8s-io-v1-AdmissionRequest"><code>AdmissionRequest</code></a>
 </td>
@@ -74,7 +74,7 @@ response describes the attributes for the admission response.
 <!--
 AdmissionRequest describes the admission.Attributes for the admission request.
 -->
-<code>AdmissionRequest</code> 描述准入请求的 admission.Attributes。
+<code>AdmissionRequest</code> 描述准入请求的 <code>admission.Attributes</code>。
 </p>
 
 <table class="table">
@@ -82,7 +82,7 @@ AdmissionRequest describes the admission.Attributes for the admission request.
 <tbody>
     
   
-<tr><td><code>uid</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>uid</code> <br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
@@ -93,39 +93,45 @@ The UID is meant to track the round trip (request/response) between the KAS and 
 It is suitable for correlating log entries between the webhook and apiserver, for either auditing or debugging.</p>
    -->
    <p><code>uid</code> 是用于标识单个请求/响应的标识符。它允许我们区分在其他情况下完全相同的请求实例（并行请求、在先前请求未修改时的请求等）。
-<code>uid</code> 的目的是跟踪 KAS（Kubernetes Admission Server）和 WebHook 之间的轮询（请求/响应），而不是用户请求。
-它适用于在 WebHook 和 API 服务器之间建立日志条目上的关联，从而服务于审计或调试目的。</p>
+<code>uid</code> 的目的是跟踪 KAS（Kubernetes Admission Server）和 Webhook 之间的轮询（请求/响应），而不是用户请求。
+它适用于在 Webhook 和 API 服务器之间建立日志条目上的关联，从而服务于审计或调试目的。</p>
 
 </td>
 </tr>
-<tr><td><code>kind</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>kind</code> <br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionKind"><code>meta/v1.GroupVersionKind</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)</p>
+   kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)
    -->
-   <p><code>kind</code> 是正被提交的对象的全限定类别名称（例如 v1.Pod 或 autoscaling.v1.Scale）。</p>
+   <code>kind</code> 是正被提交的对象的全限定类别名称（例如 <code>v1.Pod</code> 或 <code>autoscaling.v1.Scale</code>）。
+   </p>
 </td>
 </tr>
-<tr><td><code>resource</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>resource</code> <br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionResource"><code>meta/v1.GroupVersionResource</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>resource is the fully-qualified resource being requested (for example, v1.pods)</p>
+   resource is the fully-qualified resource being requested (for example, v1.pods)
    -->
-   <p><code>resource</code> 是正被请求的资源的全限定名称（例如 v1.pods）。</p>
+   <code>resource</code> 是正被请求的资源的全限定名称（例如 <code>v1.pods</code>）。
+   </p>
 </td>
 </tr>
 <tr><td><code>subResource</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>subResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)</p>
+   subResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)
    -->
-   <p><code>subResource</code> 是正被请求的子资源——如果存在的话（例如 &quot;status&quot; 或 &quot;scale&quot;）。</p>
+   <code>subResource</code> 是正被请求的子资源——如果存在的话（例如 &quot;status&quot; 或 &quot;scale&quot;）。
+   </p>
 </td>
 </tr>
 <tr><td><code>requestKind</code><br/>
@@ -181,58 +187,68 @@ and <code>requestResource: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;,
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>requestSubResource is the name of the subresource of the original API request, if any (for example, &quot;status&quot; or &quot;scale&quot;)
+   requestSubResource is the name of the subresource of the original API request, if any (for example, &quot;status&quot; or &quot;scale&quot;)
 If this is specified and differs from the value in &quot;subResource&quot;, an equivalent match and conversion was performed.
-See documentation for the &quot;matchPolicy&quot; field in the webhook configuration type.</p>
+See documentation for the &quot;matchPolicy&quot; field in the webhook configuration type.
    -->
-   <p><code>requestSubResource</code> 是可能存在的、原始 API 所请求的子资源（例如 &quot;status&quot; 或 &quot;scale&quot;）。
+   <code>requestSubResource</code> 是可能存在的、原始 API 所请求的子资源（例如 &quot;status&quot; 或 &quot;scale&quot;）。
 如果此字段被指定且不同于 &quot;subResource&quot; 中的值，则执行等效的匹配和转换。
-参阅文档了解 Webhook 配置类型中的 &quot;matchPolicy&quot; 字段。</p>
+参阅文档了解 Webhook 配置类型中的 &quot;matchPolicy&quot; 字段。
+</p>
 </td>
 </tr>
 <tr><td><code>name</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
-rely on the server to generate the name.  If that is the case, this field will contain an empty string.</p>
+   name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
+rely on the server to generate the name.  If that is the case, this field will contain an empty string.
    -->
-   <p><code>name</code> 是出现在请求中的对象的名称。客户端在执行 CREATE 操作时，可以忽略此命令并依赖服务器生成此名称。
-   如果是这种情况，此字段将包含一个空白字符串。</p>
+   <code>name</code> 是出现在请求中的对象的名称。客户端在执行 CREATE 操作时，可以忽略此命令并依赖服务器生成此名称。
+   如果是这种情况，此字段将包含一个空白字符串。
+   </p>
 </td>
 </tr>
 <tr><td><code>namespace</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>namespace is the namespace associated with the request (if any).</p>
+   namespace is the namespace associated with the request (if any).
    -->
-   <p><code>namespace</code> 是与请求（如果有的话）关联的命名空间。</p>
+   <p><code>namespace</code> 是与请求（如果有的话）关联的命名空间。
+   </p>
 </td>
 </tr>
-<tr><td><code>operation</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>operation</code> <br/>
 <a href="#admission-k8s-io-v1-Operation"><code>Operation</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>operation is the operation being performed. This may be different than the operation
-requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
+   operation is the operation being performed. This may be different than the operation
+requested. e.g. a patch can result in either a CREATE or UPDATE Operation.
    -->
-   <p><code>operation</code> 是正在执行的操作。这可能不同于请求的操作，
-   例如 patch 可以造成 CREATE 或 UPDATE 操作。</p>
+   <code>operation</code> 是正在执行的操作。这可能不同于请求的操作，
+   例如 patch 可以造成 CREATE 或 UPDATE 操作。
+   </p>
 </td>
 </tr>
-<tr><td><code>userInfo</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<tr><td><code>userInfo</code> <br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>userInfo is information about the requesting user</p>
+   userInfo is information about the requesting user
    -->
-   <p><code>userInfo</code> 是发出请求的用户的相关信息。</p>
+   <code>userInfo</code> 是发出请求的用户的相关信息。
+   </p>
 </td>
 </tr>
 <tr><td><code>object</code><br/>
@@ -276,17 +292,19 @@ Defaults to false.
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>options is the operation option structure of the operation being performed.
+   options is the operation option structure of the operation being performed.
 e.g. <code>meta.k8s.io/v1.DeleteOptions</code> or <code>meta.k8s.io/v1.CreateOptions</code>. This may be
 different than the options the caller provided. e.g. for a patch request the performed
 Operation might be a CREATE, in which case the Options will a
-<code>meta.k8s.io/v1.CreateOptions</code> even though the caller provided <code>meta.k8s.io/v1.PatchOptions</code>.</p>
+<code>meta.k8s.io/v1.CreateOptions</code> even though the caller provided <code>meta.k8s.io/v1.PatchOptions</code>.
    -->
-   <p><code>options</code> 是正在执行的操作的操作选项结构。
+   <code>options</code> 是正在执行的操作的操作选项结构。
 例如 <code>meta.k8s.io/v1.DeleteOptions</code> 或 <code>meta.k8s.io/v1.CreateOptions</code>。
 所设置的值可能不同于调用方所提供的选项。例如 patch 请求执行的操作可能是 CREATE，那这种情况下即使调用方提供了
-<code>meta.k8s.io/v1.PatchOptions</code>，<code>options</code> 也将是 <code>meta.k8s.io/v1.CreateOptions</code>。</p>
+<code>meta.k8s.io/v1.PatchOptions</code>，<code>options</code> 也将是 <code>meta.k8s.io/v1.CreateOptions</code>。
+</p>
 </td>
 </tr>
 </tbody>
@@ -312,7 +330,7 @@ AdmissionResponse describes an admission response.
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>uid</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>uid</code> <br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
@@ -326,18 +344,20 @@ This must be copied over from the corresponding AdmissionRequest.
 </p>
 </td>
 </tr>
-<tr><td><code>allowed</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>allowed</code> <br/>
 <code>bool</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>allowed indicates whether or not the admission request was permitted.</p>
+   allowed indicates whether or not the admission request was permitted.
    -->
-   <p><code>allowed</code> 表示准入请求是否被允许。</p>
+   <code>allowed</code> 表示准入请求是否被允许。
+   </p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
 <p>
@@ -388,7 +408,7 @@ the admission webhook to add additional context to the audit log for this reques
 -->
 <code>auditAnnotations</code> 是由远程准入控制器设置的非结构化键值映射（例如 error=image-blacklisted）。
 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 准入控制器将在键前缀中使用准入 Webhook 名称
-（例如 imagepolicy.example.com/error=image-blacklisted）。<code>auditAnnotations</code> 将由准入
+（例如 <code>imagepolicy.example.com/error=image-blacklisted</code>）。<code>auditAnnotations</code> 将由准入
 Webhook 提供，向此请求的审计日志添加额外的上下文。
 </p>
 

@@ -113,11 +113,11 @@ Pods.
    redis-leader   ClusterIP   10.103.78.24 <none>        6379/TCP   16s
    ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 This manifest file creates a Service named `redis-leader` with a set of labels
 that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
-{{< /note >}}
+{{< /alert >}}
 
 ### Set up Redis followers
 
@@ -186,11 +186,11 @@ read data. To make the Redis followers discoverable, you must set up another
    redis-leader     ClusterIP   10.103.78.24    <none>        6379/TCP   6m10s
    ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 This manifest file creates a Service named `redis-follower` with a set of
 labels that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
-{{< /note >}}
+{{< /alert >}}
 
 ## Set up and Expose the Guestbook Frontend
 
@@ -247,11 +247,11 @@ from outside the Kubernetes cluster. However a Kubernetes user can use
 `kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Some cloud providers, like Google Compute Engine or Google Kubernetes Engine,
 support external load balancers. If your cloud provider supports load
 balancers and you want to use it, uncomment `type: LoadBalancer`.
-{{< /note >}}
+{{< /alert >}}
 
 {{% code_sample file="application/guestbook/frontend-service.yaml" %}}
 
@@ -297,7 +297,7 @@ balancers and you want to use it, uncomment `type: LoadBalancer`.
    Forwarding from [::1]:8080 -> 80
    ```
 
-1. load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
+1. Load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 
 ### Viewing the Frontend Service via `LoadBalancer`
 
@@ -319,11 +319,11 @@ you need to find the IP address to view your Guestbook.
 
 1. Copy the external IP address, and load the page in your browser to view your guestbook.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Try adding some guestbook entries by typing in a message, and clicking Submit.
 The message you typed appears in the frontend. This message indicates that
 data is successfully added to Redis through the Services you created earlier.
-{{< /note >}}
+{{< /alert >}}
 
 ## Scale the Web Frontend
 

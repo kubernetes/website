@@ -83,7 +83,7 @@ The architecture components, from right to left in the figure, consist of the fo
   cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
   If you use a container runtime that uses another resource isolation mechanism, for example
   virtualization, then that container runtime must support
-  [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  [CRI Container Metrics](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-container-stats.md)
   in order for metrics to be available to the kubelet.
   {{< /note >}}
 

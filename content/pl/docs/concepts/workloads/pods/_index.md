@@ -155,17 +155,17 @@ Oto kilka przykładów zasobów workload, które zarządzają Podami:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} - komponent Kubernetesa służący do zarządzania aplikacjami stateful. StatefulSet zapewnia zachowanie kolejności i spójności danych w ramach aplikacji, co jest kluczowe dla usług wymagających takiego funkcjonowania. StatefulSet śledzi, które identyfikatory Podów są skojarzone z określonymi zasobami pamięci masowej i w jakiej kolejności powinny być tworzone oraz usuwane.
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Określanie referencji do Workloadu {#specifying-a-workload-reference}
+### Definiowanie grupy harmonogramowania (`scheduling group`) {#specifying-a-scheduling-group}
 
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
 Standardowo Kubernetes uruchamia (ang. schedule) każdy Pod osobno. W przypadku niektórych silnie
 sprzężonych aplikacji konieczne jest jednoczesne zaplanowanie całej grupy Podów, aby mogły działać poprawnie.
 
-Możesz powiązać Poda z obiektem [Workload](/docs/concepts/workloads/workload-api/) ,
-używając specjalnej [referencji do Workloadu](/docs/concepts/workloads/pods/workload-reference/).
-Informuje to `kube-scheduler`, że Pod należy do określonej grupy, co umożliwia mu
-podejmowanie skoordynowanych decyzji dotyczących rozmieszczenia całej grupy jednocześnie.
+Możesz powiązać Pod z [PodGroup](/docs/concepts/workloads/podgroup-api/) za pomocą pola [scheduling group](/docs/concepts/workloads/pods/scheduling-group/)
+(
+`spec.schedulingGroup`). Informuje to `kube-scheduler`, że dany `Pod` należy do określonej grupy, co
+pozwala na stosowanie skoordynowanych decyzji dotyczących rozmieszczenia na poziomie całej grupy.
 
 ### Szablony Poda {#pod-templates}
 
@@ -381,6 +381,33 @@ W celu skonfigurowania zaawansowanych ustawień bezpieczeństwa, takich jak capa
 * Aby dowiedzieć się więcej na temat kontekstu bezpieczeństwa Poda, zobacz
   [Konfigurowanie kontekstu bezpieczeństwa dla Poda lub kontenera](/docs/tasks/configure-pod-container/security-context/).
 
+## Żądania i limity zasobów {#resource-requests-and-limits}
+
+Podczas definiowania Poda możesz opcjonalnie określić, ile każdego zasobu
+potrzebuje kontener. Najczęściej określane zasoby to CPU (procesor) i pamięć (RAM).
+
+Gdy określisz _żądanie_ zasobu dla kontenerów w Podzie,
+harmonogram Kubernetesa (kube-scheduler) wykorzystuje te informacje do decyzji,
+na którym węźle umieścić Pod. Gdy określisz _limit_
+zasobu dla kontenera, kubelet egzekwuje te limity, aby
+uruchomiony kontener nie mógł używać więcej danego zasobu niż ustawiony limit.
+
+Limity CPU są egzekwowane przez dławienie CPU. Gdy kontener zbliża się do swojego limitu
+CPU, jądro systemu ogranicza jego dostęp do procesora. Limity pamięci są egzekwowane
+przez jądro systemu za pomocą zabijania procesów (OOM kills), gdy kontener przekroczy swój limit.
+
+{{< note >}}
+Ustawianie limitów CPU wiąże się z kompromisem. Limity CPU pomagają zapobiegać problemom
+związanym z tzw. "noisy neighbor", gdzie jedno zadanie ogranicza zasoby innych zadań na
+tym samym węźle. Jest to szczególnie ważne w środowiskach wielodostępnych. Jednak limity
+CPU mogą powodować dławienie nawet wtedy, gdy na węźle jest dostępna wolna moc
+obliczeniowa CPU, co może pogorszyć wydajność zadań wrażliwych na opóźnienia. Decyzja o ustawieniu
+limitów CPU zależy od Twojego środowiska, charakterystyki obciążenia i wymagań dotyczących izolacji.
+{{< /note >}}
+
+Szczegółowe informacje na temat jednostek zasobów, sposobu egzekwowania oraz przykłady konfiguracji można
+znaleźć w [Zarządzanie zasobami podów i kontenerów](/docs/concepts/configuration/manage-resources-containers/).
+
 ## Statyczne Pody {#static-pods}
 
 _Statyczne Pody_ są zarządzane bezpośrednio przez demona kubelet na
@@ -394,18 +421,7 @@ Statyczne Pody są zawsze powiązane z jednym komponentem {{< glossary_tooltip t
 Głównym zastosowaniem statycznych Podów jest uruchamianie samodzielnie hostowanej warstwy sterowania: innymi słowy, użycie
 kubeleta do nadzorowania poszczególnych [komponentów warstwy sterowania](/docs/concepts/architecture/#control-plane-components).
 
-Kubelet automatycznie próbuje utworzyć {{< glossary_tooltip text="Pod lustrzany" term_id="mirror-pod" >}}
-na serwerze API Kubernetesa dla każdego
-statycznego Poda. Oznacza to, że Pody działające na węźle są widoczne na serwerze
-API, ale nie mogą być z niego kontrolowane. Więcej informacji znajdziesz w
-przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
-
-{{< note >}}
-`spec` statycznego Poda nie może odwoływać się do innych obiektów
-API (np. {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, itp.).
-{{< /note >}}
+Więcej informacji znajdziesz w przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
 
 ## Pody z wieloma kontenerami {#how-pods-manage-multiple-containers}
 
@@ -476,8 +492,8 @@ w dokumentacji dotyczącej cyklu życia Podów.
 * Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i
   dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
 * Pod jest zasobem najwyższego poziomu w REST API
-  Kubernetesa. Definicja obiektu {{< api-reference page="workload-resources/pod-v1" >}}
-  opisuje szczegółowo ten obiekt.
+  Kubernetesa. Definicja obiektu
+  {{< api-reference page="core/pod-v1" >}} opisuje szczegółowo ten obiekt.
 * [Toolkit systemu rozproszonego: Wzorce dla kontenerów złożonych](/blog/2015/06/the-distributed-system-toolkit-patterns/) wyjaśnia typowe układy dla Podów z więcej niż jednym kontenerem.
 * Przeczytaj o [ograniczeniach topologii Podów](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Przeczytaj [Zaawansowaną Konfigurację Podów](/docs/concepts/workloads/pods/advanced-pod-config/), aby

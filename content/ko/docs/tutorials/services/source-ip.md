@@ -26,19 +26,19 @@ weight: 40
 페이지로 연결한다.
 {{< /comment >}}
 
-[NAT](https://en.wikipedia.org/wiki/Network_address_translation)
+[NAT](https://ko.wikipedia.org/wiki/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_%EC%A3%BC%EC%86%8C_%EB%B3%80%ED%99%98)
 : 네트워크 주소 변환
 
-[소스 NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
+[소스 NAT](https://ko.wikipedia.org/wiki/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_%EC%A3%BC%EC%86%8C_%EB%B3%80%ED%99%98#SNAT)
 : 패킷 상의 소스 IP 주소를 변경하는 것. 이 페이지에서는 일반적으로 노드 IP 주소로의 변경을 의미함.
 
-[대상 NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
+[대상 NAT](https://ko.wikipedia.org/wiki/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_%EC%A3%BC%EC%86%8C_%EB%B3%80%ED%99%98#DNAT)
 : 패킷 상의 대상 IP 주소를 변경하는 것. 이 페이지에서는 일반적으로 {{< glossary_tooltip term_id="pod" text="파드" >}} IP 주소로의 변경을 의미함.
 
-[VIP](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
+[VIP](/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
 : 쿠버네티스의 모든 {{< glossary_tooltip text="서비스" term_id="service" >}}에 할당되어 있는 것과 같은, 가상 IP 주소.
 
-[Kube-proxy](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
+[Kube-proxy](/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
 : 모든 노드에서 서비스 VIP 관리를 조율하는 네트워크 데몬.
 
 ### 전제 조건
@@ -48,6 +48,10 @@ weight: 40
 이 예시는 HTTP 헤더로 수신한 요청의 소스 IP 주소를 회신하는
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
+{{< note >}}
+다음 명령어에서 다루는 이미지는 AMD64 아키텍처에서만 실행된다.
+{{< /note >}}
+
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
@@ -55,7 +59,6 @@ kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
 deployment.apps/source-ip-app created
 ```
-
 
 
 ## {{% heading "objectives" %}}
@@ -72,7 +75,7 @@ deployment.apps/source-ip-app created
 
 ## `Type=ClusterIP` 인 서비스에서 소스 IP
 
-[iptables 모드](/ko/docs/concepts/services-networking/service/#proxy-mode-iptables)
+[iptables 모드](/docs/concepts/services-networking/service/#proxy-mode-iptables)
 (기본값)에서 kube-proxy를 운영하는 경우 클러스터 내에서
 클러스터IP로 패킷을 보내면
 소스 NAT를 통과하지 않는다. kube-proxy가 실행중인 노드에서
@@ -164,7 +167,7 @@ command=GET
 
 ## `Type=NodePort` 인 서비스에서 소스 IP
 
-[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#type-nodeport)인
+[`Type=NodePort`](/docs/concepts/services-networking/service/#type-nodeport)인
 서비스로 보내진 패킷은
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 
@@ -210,7 +213,7 @@ client_address=10.240.0.3
 {{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="그림. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
 이를 피하기 위해 쿠버네티스는
-[클라이언트 소스 IP 주소를 보존](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
+[클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
 `service.spec.externalTrafficPolicy` 의 값을 `Local` 로 하면
 오직 로컬 엔드포인트로만 프록시 요청하고
 다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
@@ -257,7 +260,7 @@ client_address=104.132.1.79
 
 ## `Type=LoadBalancer` 인 서비스에서 소스 IP
 
-[`Type=LoadBalancer`](/ko/docs/concepts/services-networking/service/#loadbalancer)인
+[`Type=LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer)인
 서비스로 보낸 패킷은 소스 NAT를 기본으로 하는데, `Ready` 상태로
 모든 스케줄된 모든 쿠버네티스 노드는
 로드 밸런싱 트래픽에 적합하다. 따라서 엔드포인트가 없는 노드에
@@ -416,5 +419,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 더 자세히 본다.
-* [외부 로드밸런서 생성](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.
+* [서비스를 통한 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/)를 더 자세히 본다.
+* [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.

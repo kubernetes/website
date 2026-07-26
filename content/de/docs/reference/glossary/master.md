@@ -1,7 +1,6 @@
 ---
 title: Master
 id: master
-date: 2020-04-16
 short_description: >
   Veralteter Begriff, verwendet als Synonym für die Knoten auf denen die Control Plane läuft. 
 

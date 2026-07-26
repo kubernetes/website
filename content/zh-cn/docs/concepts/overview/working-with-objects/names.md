@@ -26,7 +26,8 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 每个 Kubernetes 对象也有一个 [**UID**](#uids) 来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
-中只能有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
+中只能有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个
+Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
@@ -45,14 +46,30 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 {{< glossary_definition term_id="name" length="all" >}}
 
 <!--
-**Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)
-of the same resource. API resources are distinguished by their API group, resource type, namespace
-(for namespaced resources), and name. In other words, API version is irrelevant in this context.**
+Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) of the same resource. 
 -->
 **名称在同一资源的所有
 [API 版本](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)中必须是唯一的。
-这些 API 资源通过各自的 API 组、资源类型、名字空间（对于划分名字空间的资源）和名称来区分。
-换言之，API 版本在此上下文中是不相关的。**
+
+<!--
+Kubernetes uniquely identifies objects using a combination of four attributes:
+* **API group** (e.g., `apps`)
+* **Resource type** (e.g., `deployments`)
+* **Namespace** (for namespaced resources)
+* **Name**
+-->
+Kubernetes 使用以下四个属性的组合唯一标识对象：
+* **API 组**（例如 `apps`）
+* **资源类型**（例如 `deployments`）
+* **命名空间**（针对命名空间范围的资源）
+* **名称**
+
+<!--
+While you can access a resource through different API versions (such as `v1` or `v1beta1`), the version is simply a different representation of the same underlying object. Because the version is not part of the unique identification, you cannot create two objects with the same name and resource type in the same namespace by using different API versions.
+-->
+虽然你可以通过不同的 API 版本（如 `v1` 或 `v1beta1`）访问资源，
+但版本只是同一底层对象的不同表示。因为版本不是唯一标识的一部分，
+所以不能通过使用不同的 API 版本在同一个命名空间中创建名称和资源类型相同的两个对象。
 
 {{< note >}}
 <!--
@@ -223,5 +240,6 @@ UUID 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
-* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)。
+* 进一步了解 Kubernetes
+  [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)。
 * 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档。

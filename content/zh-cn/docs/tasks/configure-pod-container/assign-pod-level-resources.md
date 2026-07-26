@@ -76,33 +76,42 @@ for your control plane and for all nodes in your cluster.
 <!--
 ## Limitations
 
-For Kubernetes {{< skew currentVersion >}}, resizing pod-level resources has the
+For Kubernetes {{< skew currentVersion >}}, pod-level resources have the
 following limitations:
 -->
 ## 限制     {#limitations}
 
-对于 Kubernetes {{< skew currentVersion >}}，调整 Pod 级别资源的大小有以下限制：
+对于 Kubernetes {{< skew currentVersion >}}，Pod 级别资源有以下限制：
 
 <!--
 * **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
 * **Operating System:** Pod-level resources are not supported for Windows
   pods.
-* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
-  align pods and containers based on pod-level resources as these resource managers 
-  don't currently support pod-level resources.
-* **[In-Place
-  Resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/):**
-  In-place resize of pod-level resources is not supported. Modifying the pod-level resource
-  limits or requests on a pod result in a field.Forbidden error. The error message
-  explicitly states, "pods with pod-level resources cannot be resized."
+* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager
+  support pod-level resources when the `PodLevelResourceManagers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled. See [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+  for more details. Without this feature gate enabled, they do not align pods
+  and containers based on pod-level resources.
+* **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
+  of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
+  which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
+  [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 -->
 * **资源类型：** 仅支持在 Pod 级别指定 CPU、内存和大页内存资源。
 * **操作系统：** Windows Pod 不支持 Pod 级别资源。
 * **资源管理器：** 拓扑管理器、内存管理器和 CPU 管理器不根据 Pod
   级别资源对齐 Pod 和容器，因为这些资源管理器目前不支持 Pod 级别资源。
-* **[原地调整大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)：** 
-  不支持 Pod 级别资源的原地调整大小。修改 Pod 级别的资源限制或请求会导致
-  `field.Forbidden` 错误。错误信息明确指出："pods with pod-level resources cannot be resized"。
+* **资源管理器**：当启用了 `PodLevelResourceManagers`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
+  拓扑管理器、内存管理器和 CPU 管理器支持 Pod 级别的资源。
+  更多详情请参阅
+  [Pod 级别资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)。
+  如果没有启用此特性门控，它们不会基于 Pod 级别的资源对 Pod 和容器进行对齐。
+* **原地调整大小：** 对 Pod
+  级资源进行[原地调整](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)需要启用
+  `InPlacePodLevelResourcesVerticalScaling` 特性门控，此特性门控在
+  Kubernetes 中仍处于 Alpha 阶段 {{< skew currentVersion >}}。
+  更多详情，请参阅[调整 Pod CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-pod-resources/)。
 
 <!-- steps -->
 
@@ -181,8 +190,8 @@ and a memory limit of 200 MiB.
 
 ```yaml
 ...
-spec: 
-  containers:    
+spec:
+  containers:
   ...
   resources:
     requests:
@@ -354,7 +363,7 @@ Verify that the Pod Container is running:
 验证 Pod 容器正在运行：
 
 ```shell
-kubectl get pod-resources-demo --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --namespace=pod-resources-example
 ```
 
 <!--
@@ -363,7 +372,7 @@ View detailed information about the Pod:
 查看 Pod 的详细信息：
 
 ```shell
-kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
 ```
 
 <!--
@@ -374,28 +383,32 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 -->
 输出显示 Pod 中的一个容器具有 50 MiB 的内存请求和 0.5 核的 CPU 请求，
 内存限制为 100 MiB，CPU 限制为 0.5 核。
-Pod 本身具有 100 MiB 的内存请求和 1 核的 CPU 请求，以及 200 MiB 的内存限制和 1 核的 CPU 限制。
+Pod 本身具有 100 MiB 的内存请求和 1 核的 CPU 请求，
+以及 200 MiB 的内存限制和 1 核的 CPU 限制。
 
 ```yaml
 ...
-containers:
-  name: pod-resources-demo-ctr-1
-  resources:
-      requests:
-        cpu: 500m
-        memory: 50Mi
+  containers:
+  -
+    name: pod-resources-demo-ctr-1
+    resources:
       limits:
         cpu: 500m
         memory: 100Mi
-  ...
-  name: pod-resources-demo-ctr-2
-  resources: {}  
-resources:
-  limits:
-      cpu: 1
+      requests:
+        cpu: 500m
+        memory: 50Mi
+...
+  -
+    name: pod-resources-demo-ctr-2
+    resources: {} 
+...      
+  resources:
+    limits:
+      cpu: "1"
       memory: 200Mi
     requests:
-      cpu: 1
+      cpu: "1"
       memory: 100Mi
 ...
 ```
@@ -450,6 +463,8 @@ kubectl delete namespace pod-resources-example
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
+* [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
 -->
 ### 对于集群管理员
 
@@ -458,3 +473,4 @@ kubectl delete namespace pod-resources-example
 * [为命名空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [为命名空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Pod 级资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)

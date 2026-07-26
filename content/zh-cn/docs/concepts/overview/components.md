@@ -4,6 +4,7 @@ content_type: concept
 description: >
   组成 Kubernetes 集群的关键组件概述。
 weight: 10
+theme_lock: light
 card:
   title: 集群组件
   name: concepts
@@ -17,6 +18,7 @@ content_type: concept
 description: >
   An overview of the key components that make up a Kubernetes cluster.
 weight: 10
+theme_lock: light
 card:
   title: Components of a cluster
   name: concepts
@@ -66,7 +68,7 @@ Manage the overall state of the cluster:
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
 : Integrates with underlying cloud provider(s).
 -->
-## 控制平面组件    {#control-plane-components}
+### 控制平面组件    {#control-plane-components}
 
 这些控制平面组件（Control Plane Component）管理集群的整体状态：
 
@@ -100,7 +102,7 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 : Software responsible for running containers. Read
   [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
 -->
-## Node 组件  {#node-components}
+### Node 组件  {#node-components}
 
 在每个节点上运行，维护运行的 Pod 并提供 Kubernetes 运行时环境：
 

@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   Một đối tượng API được sử dụng để lưu trữ dữ liệu không bảo mật trong cặp giá trị key-value. Có thể được dùng như các biến môi trường, các tham số dòng lệnh, hoặc các file cấu hình trong một volume.

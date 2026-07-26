@@ -3,6 +3,8 @@ title: kubectl config view
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display merged kubeconfig settings or a specified kubeconfig file
 ---
 
 

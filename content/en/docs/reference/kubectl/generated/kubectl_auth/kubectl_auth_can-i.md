@@ -3,6 +3,8 @@ title: kubectl auth can-i
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Check whether an action is allowed
 ---
 
 

@@ -43,7 +43,7 @@ LeaseCandidate 定义一个 Lease 对象的候选者。
 
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>), required
 
   spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -52,9 +52,9 @@ LeaseCandidate 定义一个 Lease 对象的候选者。
   更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)，必需
 
-  spec 包含 Lease 的规约。更多信息：
+  `spec` 包含 Lease 的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LeaseCandidateSpec {#LeaseCandidateSpec}
@@ -77,7 +77,7 @@ LeaseCandidateSpec 是 Lease 的规约。
 -->
 - **binaryVersion** (string)，必需
 
-  binaryVersion 是可执行文件的版本。它必须采用不带前缀 `v` 的语义版本格式。
+  `binaryVersion` 是可执行文件的版本。它必须采用不带前缀 `v` 的语义版本格式。
   此字段是必需的。
 
 - **leaseName** (string)，必需
@@ -91,8 +91,8 @@ LeaseCandidateSpec 是 Lease 的规约。
 -->
 - **strategy** (string)，必需
 
-  strategy 是协调式领导者选举中用于选择领导者的策略。
-  如果多个候选者针对同一个 Lease 返回了不同的策略，则将采用 binaryVersion 最新的候选者所提供的策略。
+  `strategy` 是协调式领导者选举中用于选择领导者的策略。
+  如果多个候选者针对同一个 Lease 返回了不同的策略，则将采用 `binaryVersion` 最新的候选者所提供的策略。
   如果仍存在冲突，则视为用户错误，协调式领导者选举将不会继续操作此 Lease，直到冲突被解决。
 
 <!--
@@ -102,8 +102,8 @@ LeaseCandidateSpec 是 Lease 的规约。
 -->
 - **emulationVersion** (string)
 
-  emulationVersion 是仿真版本。它必须采用不带前缀 `v` 的语义版本格式。
-  emulationVersion 必须小于或等于 binaryVersion。
+  `emulationVersion` 是仿真版本。它必须采用不带前缀 `v` 的语义版本格式。
+  `emulationVersion` 必须小于或等于 `binaryVersion`。
   当策略为 "OldestEmulationVersion" 时，此字段是必需的。
 
 <!--
@@ -114,9 +114,11 @@ LeaseCandidateSpec 是 Lease 的规约。
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
 -->
-  pingTime 是服务器最近一次请求 LeaseCandidate 续订的时间。
+- **pingTime** (MicroTime)
+
+  `pingTime` 是服务器最近一次请求 LeaseCandidate 续订的时间。
   此操作仅在领导者选举期间进行，用以检查是否有 LeaseCandidates 变得不合格。
-  当 pingTime 更新时，LeaseCandidate 会通过更新 renewTime 来响应。
+  当 `pingTime` 更新时，LeaseCandidate 会通过更新 renewTime 来响应。
 
   <a name="MicroTime"></a>
   **MicroTime 是微秒级精度的 Time 版本**
@@ -131,10 +133,10 @@ LeaseCandidateSpec 是 Lease 的规约。
 -->
 - **renewTime** (MicroTime)
 
-  renewTime 是 LeaseCandidate 被最近一次更新的时间。每当 Lease 需要进行领导者选举时，
-  pingTime 字段会被更新，以向 LeaseCandidate 发出应更新 renewTime 的信号。
+  `renewTime` 是 LeaseCandidate 被最近一次更新的时间。每当 Lease 需要进行领导者选举时，
+  `pingTime` 字段会被更新，以向 LeaseCandidate 发出应更新 `renewTime` 的信号。
   如果自上次续订以来已经过去几个小时，旧的 LeaseCandidate 对象也会被垃圾收集。
-  pingTime 字段会被定期更新，以防止对仍处于活动状态的 LeaseCandidates 进行垃圾收集。
+  `pingTime` 字段会被定期更新，以防止对仍处于活动状态的 LeaseCandidates 进行垃圾收集。
 
   <a name="MicroTime"></a>
   **MicroTime 是微秒级精度的 Time 版本**
@@ -168,21 +170,20 @@ LeaseCandidateList 是 Lease 对象的列表。
 
 - **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>)，必需
 
-  items 是模式对象的列表。
+  `items` 是模式对象的列表。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
-
-### `get` read the specified LeaseCandidate
-
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified LeaseCandidate
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 LeaseCandidate
 
 #### HTTP 请求
@@ -281,6 +282,10 @@ GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -330,6 +335,10 @@ GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -398,6 +407,10 @@ GET /apis/coordination.k8s.io/v1beta1/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -443,6 +456,10 @@ GET /apis/coordination.k8s.io/v1beta1/leasecandidates
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -855,6 +872,10 @@ DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -914,6 +935,10 @@ DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

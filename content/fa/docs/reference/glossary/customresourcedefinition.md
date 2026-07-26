@@ -1,0 +1,18 @@
+---
+title: CustomResourceDefinition
+id: CustomResourceDefinition
+full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
+short_description: >
+  کد سفارشی که منبعی را برای اضافه کردن به سرور API کوبرنتیز شما بدون ساخت یک سرور سفارشی کامل تعریف می‌کند.
+
+aka: 
+tags:
+- fundamental
+- operation
+- extension
+---
+ کد سفارشی که منبعی را برای اضافه کردن به سرور API کوبرنتیز شما بدون ساخت یک سرور سفارشی کامل تعریف می‌کند.
+
+<!--more-->
+
+تعریف منابع سفارشی به شما امکان می‌دهد در صورتی که منابع API با پشتیبانی عمومی نتوانند نیازهای شما را برآورده کنند، API کوبرنتیز را برای محیط خود گسترش دهید.

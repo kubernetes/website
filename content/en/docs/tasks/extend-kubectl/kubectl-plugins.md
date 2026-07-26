@@ -392,5 +392,5 @@ installs easier.
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
   plugin written in Go.
   In case of any questions, feel free to reach out to the
-  [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
+  [SIG CLI team](https://github.com/kubernetes/community/tree/main/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.

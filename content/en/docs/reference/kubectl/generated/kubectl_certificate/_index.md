@@ -3,6 +3,8 @@ title: kubectl certificate
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Modify certificate resources
 no_list: true
 ---
 

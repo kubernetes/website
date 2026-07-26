@@ -220,6 +220,15 @@ during leader election cycles.</p>
 concurrently synchronizing nodes</p>
 </td>
 </tr>
+<tr><td><code>ConcurrentNodeStatusUpdates</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentNodeStatusUpdates is the number of workers
+concurrently updating node statuses.
+If unspecified or 0, ConcurrentNodeSyncs is used instead</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -921,6 +930,13 @@ ValidatingAdmissionPolicyStatusController related features.</p>
 </td>
 <td>
    <p>DeviceTaintEvictionControllerConfiguration contains elements configuring the device taint eviction controller.</p>
+</td>
+</tr>
+<tr><td><code>ResourceClaimController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceClaimControllerConfiguration"><code>ResourceClaimControllerConfiguration</code></a>
+</td>
+<td>
+   <p>ResourceClaimControllerConfiguration contains elements configuring the resource claim controller.</p>
 </td>
 </tr>
 </tbody>
@@ -1918,6 +1934,34 @@ CPU (and network) load.</p>
    <p>concurrentRCSyncs is the number of replication controllers that are
 allowed to sync concurrently. Larger number = more responsive replica
 management, but more CPU (and network) load.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ResourceClaimControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceClaimControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>ResourceClaimControllerConfiguration contains elements configuring the resource claim controller.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentSyncs is the number of operations (deleting a pod, updating a ResourcClaim status, etc.)
+that will be done concurrently. Larger number = processing, but more CPU (and network) load.</p>
+<p>The default is 50.</p>
 </td>
 </tr>
 </tbody>

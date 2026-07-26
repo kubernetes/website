@@ -15,7 +15,8 @@ weight: 20
 You can customize the behavior of the `kube-scheduler` by writing a configuration
 file and passing its path as a command line argument.
 -->
-你可以通过编写配置文件，并将其路径传给 `kube-scheduler` 的命令行参数，定制 `kube-scheduler` 的行为。
+你可以通过编写配置文件，并将其路径传给 `kube-scheduler` 的命令行参数，
+定制 `kube-scheduler` 的行为。
 
 <!-- overview -->
 
@@ -102,11 +103,27 @@ extension points:
 1. `queueSort`：这些插件对调度队列中的悬决的 Pod 排序。
    一次只能启用一个队列排序插件。
 <!--
+1. `placementGenerate`: These plugins generate potential placements (sets of
+   nodes) where a considered PodGroup could be scheduled. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
+-->
+2. `placementGenerate`：这些插件会生成潜在的部署位置（节点集合），
+   用于调度指定的 PodGroup。此扩展点仅适用于 PodGroup 调度，
+   并且需要启用工作负载调度。
+<!--
+1. `placementScore`: These plugins score the placements proposed by
+   `placementGenerate`, to pick the optimal placement for the considered
+    PodGroup.
+-->
+3. `placementScore`：这些插件对 `placementGenerate`
+   提出的放置位置进行评分，以便为所考虑的 PodGroup 选择最佳放置位置。
+<!--
 1. `preFilter`: These plugins are used to pre-process or check information
    about a Pod or the cluster before filtering. They can mark a pod as
    unschedulable.
- -->
-2. `preFilter`：这些插件用于在过滤之前预处理或检查 Pod 或集群的信息。
+-->
+4. `preFilter`：这些插件用于在过滤之前预处理或检查 Pod 或集群的信息。
    它们可以将 Pod 标记为不可调度。
 <!--
 1. `filter`: These plugins are the equivalent of Predicates in a scheduling
@@ -114,7 +131,7 @@ extension points:
    are called in the configured order. A pod is marked as unschedulable if no
    nodes pass all the filters.
 -->
-3. `filter`：这些插件相当于调度策略中的断言（Predicates），用于过滤不能运行 Pod 的节点。
+5. `filter`：这些插件相当于调度策略中的断言（Predicates），用于过滤不能运行 Pod 的节点。
    过滤器的调用顺序是可配置的。
    如果没有一个节点通过所有过滤器的筛选，Pod 将会被标记为不可调度。
 <!--
@@ -122,52 +139,52 @@ extension points:
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
    Pod _schedulable_, the remaining plugins are not called.
 --> 
-4. `postFilter`：当无法为 Pod 找到可用节点时，按照这些插件的配置顺序调用他们。
+6. `postFilter`：当无法为 Pod 找到可用节点时，按照这些插件的配置顺序调用他们。
    如果任何 `postFilter` 插件将 Pod 标记为**可调度**，则不会调用其余插件。
 <!--
 1. `preScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 -->
-5. `preScore`：这是一个信息扩展点，可用于预打分工作。
+7. `preScore`：这是一个信息扩展点，可用于预打分工作。
 <!--
 1. `score`: These plugins provide a score to each node that has passed the
    filtering phase. The scheduler will then select the node with the highest
    weighted scores sum.
 -->
-6. `score`：这些插件给通过筛选阶段的节点打分。调度器会选择得分最高的节点。
+8. `score`：这些插件给通过筛选阶段的节点打分。调度器会选择得分最高的节点。
 <!--
 1. `reserve`: This is an informational extension point that notifies plugins
    when resources have been reserved for a given Pod. Plugins also implement an
    `Unreserve` call that gets called in the case of failure during or after
    `Reserve`.
 -->
-7. `reserve`：这是一个信息扩展点，当资源已经预留给 Pod 时，会通知插件。
+9. `reserve`：这是一个信息扩展点，当资源已经预留给 Pod 时，会通知插件。
    这些插件还实现了 `Unreserve` 接口，在 `Reserve` 期间或之后出现故障时调用。
 <!--
 1. `permit`: These plugins can prevent or delay the binding of a Pod.
 -->
-8. `permit`：这些插件可以阻止或延迟 Pod 绑定。
+10. `permit`：这些插件可以阻止或延迟 Pod 绑定。
 <!--
 1. `preBind`: These plugins perform any work required before a Pod is bound.
 -->
-9. `preBind`：这些插件在 Pod 绑定节点之前执行。
+11. `preBind`：这些插件在 Pod 绑定节点之前执行。
 <!--
 1. `bind`: The plugins bind a Pod to a Node. `bind` plugins are called in order
    and once one has done the binding, the remaining plugins are skipped. At
    least one bind plugin is required.
 -->
-10. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，
+12. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，
    其余插件都会跳过。`bind` 插件至少需要一个。
 <!--
 1. `postBind`: This is an informational extension point that is called after
    a Pod has been bound.
 -->
-11. `postBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
+13. `postBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
 <!--
 1. `multiPoint`: This is a config-only field that allows plugins to be enabled
    or disabled for all of their applicable extension points simultaneously.
 -->
-12. `multiPoint`：这是一个仅配置字段，允许同时为所有适用的扩展点启用或禁用插件。
+14. `multiPoint`：这是一个仅配置字段，允许同时为所有适用的扩展点启用或禁用插件。
 
 <!--
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
@@ -259,7 +276,8 @@ extension points:
   [Pod topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 -->
-- `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
+- `PodTopologySpread`：实现了
+  [Pod 拓扑分布](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
 
   实现的扩展点：`preFilter`、`filter`、`preScore`、`score`。
 
@@ -273,16 +291,20 @@ extension points:
   实现的扩展点：`filter`。
 
 <!--
-- `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
-  requesting. The score can use one of three strategies: `LeastAllocated`
-  (default), `MostAllocated` and `RequestedToCapacityRatio`.
-  Extension points: `preFilter`, `filter`, `score`.
+- `NodeResourcesFit`: For pod-by-pod scheduling checks if the node has all
+  the resources that the Pod is requesting. The score can use one of three
+  strategies: `LeastAllocated` (default), `MostAllocated` and
+  `RequestedToCapacityRatio`.
+  For PodGroup scheduling calculates the resource utilization in the entire evaluated placement.
+  The score uses the `MostAllocated` strategy.
+  Extension points: `preFilter`, `filter`, `score`, `placementScore`.
 -->
-- `NodeResourcesFit`：检查节点是否拥有 Pod 请求的所有资源。
-  得分可以使用以下三种策略之一：`LeastAllocated`（默认）、`MostAllocated`
+- `NodeResourcesFit`：对于逐 Pod 调度，会检查节点是否拥有 Pod 请求的所有资源。
+  评分可以使用三种策略之一：`LeastAllocated`（默认）、`MostAllocated`
   和 `RequestedToCapacityRatio`。
-
-  实现的扩展点：`preFilter`、`filter`、`score`。
+  对于 PodGroup 调度，会计算整个评估放置区域的资源利用率。
+  评分使用 `MostAllocated` 策略。
+  实现的扩展点：`preFilter`、`filter`、`score`、`placementScore`。
 
 <!--
 - `NodeResourcesBalancedAllocation`: Favors nodes that would obtain a more
@@ -374,7 +396,8 @@ extension points:
   [inter-Pod affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 -->
-- `InterPodAffinity`：实现 [Pod 间亲和性与反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)。
+- `InterPodAffinity`：实现
+  [Pod 间亲和性与反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)。
 
   实现的扩展点：`preFilter`、`filter`、`preScore`、`score`。
 
@@ -403,6 +426,24 @@ extension points:
   实现的扩展点：`postFilter`。
 
 <!--
+- `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
+  constraints.
+  Extension points: `placementGenerate`.
+-->
+- `TopologyPlacement`：为 PodGroup 的拓扑约束提供默认的放置生成机制。
+
+  实现的扩展点：`placementGenerate`。
+
+<!--
+- `PodGroupPodsCount`: Provides the placement scoring algorithm based on the number of pods that
+  can be scheduled in the given placement.
+  Extension points: `placementScore`.
+-->
+- `PodGroupPodsCount`：提供基于给定放置位置可调度 Pod 数量的放置评分算法。
+
+  实现的扩展点：`placementScore`。
+
+<!--
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 -->
@@ -413,7 +454,8 @@ that are not enabled by default:
   volume limits can be satisfied for the node.
   Extension points: `filter`.
 -->
-- `CinderLimits`：检查是否可以满足节点的 [OpenStack Cinder](https://docs.openstack.org/cinder/) 卷限制。
+- `CinderLimits`：检查是否可以满足节点的
+  [OpenStack Cinder](https://docs.openstack.org/cinder/) 卷限制。
 
   实现的扩展点：`filter`。
 
@@ -455,7 +497,8 @@ profiles:
 Pods that want to be scheduled according to a specific profile can include
 the corresponding scheduler name in its `.spec.schedulerName`.
 -->
-对于那些希望根据特定配置文件来进行调度的 Pod，可以在 `.spec.schedulerName` 字段指定相应的调度器名称。
+对于那些希望根据特定配置文件来进行调度的 Pod，可以在 `.spec.schedulerName`
+字段指定相应的调度器名称。
 
 <!--
 By default, one profile with the scheduler name `default-scheduler` is created.
@@ -815,7 +858,8 @@ as well as its seamless integration with the existing methods for configuring ex
   新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated`
   和 `RequestedToCapacityRatio` 插件的功能。
   例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
-  则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig` 和 `scoreStrategy`，类似于：
+  则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig`
+  和 `scoreStrategy`，类似于：
 
   ```yaml
   apiVersion: kubescheduler.config.k8s.io/v1beta2
@@ -844,7 +888,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * 调度程序插件 `ServiceAffinity` 已弃用；
   相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
   插件（默认启用）来实现类似的行为。
-  
+
 <!--
 * The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
 -->
@@ -859,7 +903,8 @@ as well as its seamless integration with the existing methods for configuring ex
 <!--
 * Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
 -->
-* 调度器的健康检查和审计的绑定地址，所配置的 `host` 或 `port` 无效将导致验证失败。
+* 调度器的健康检查和审计的绑定地址，所配置的 `host` 或 `port`
+  无效将导致验证失败。
 
 {{% /tab %}}
 

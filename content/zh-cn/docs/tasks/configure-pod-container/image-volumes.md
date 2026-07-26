@@ -31,13 +31,10 @@ mount content from OCI registries inside containers.
 - The container runtime needs to support the image volumes feature
 - You need to exec commands in the host
 - You need to be able to exec into pods
-- You need to enable the `ImageVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 -->
 - 容器运行时需要支持镜像卷特性
 - 你需要能够在主机上执行命令
 - 你需要能够进入 Pod 执行命令
-- 你需要启用 `ImageVolume`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
 

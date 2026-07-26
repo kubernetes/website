@@ -260,7 +260,6 @@ plane nodes must be prepared to support the CNI plugin running on Windows worker
 
 <!--
 Only a few CNI plugins currently support Windows. Below you can find individual setup instructions for them:
-* [Flannel](https://sigs.k8s.io/sig-windows-tools/guides/flannel.md)
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 
 ### Install kubectl for Windows (optional) {#install-kubectl}
@@ -269,7 +268,6 @@ See [Install and Set Up kubectl on Windows](/docs/tasks/tools/install-kubectl-wi
 -->
 目前只有少数 CNI 插件支持 Windows。以下是它们各自的设置说明：
 
-* [Flannel](https://sigs.k8s.io/sig-windows-tools/guides/flannel.md)
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 
 ### 在 Windows 上安装 kubectl （可选）   {#install-kubectl}

@@ -3,6 +3,8 @@ title: kubectl rollout status
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Show the status of the rollout
 ---
 
 

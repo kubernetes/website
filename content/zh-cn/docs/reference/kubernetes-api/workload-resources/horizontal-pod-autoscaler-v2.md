@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，它根据指定的指标自动管理实现 scale 子资源的任何资源的副本数。"
 title: "HorizontalPodAutoscaler"
-weight: 13
+weight: 14
 ---
 <!--
 api_metadata:
@@ -16,14 +16,13 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
 title: "HorizontalPodAutoscaler"
-weight: 13
+weight: 14
 auto_generated: true
 -->
 
 `apiVersion: autoscaling/v2`
 
 `import "k8s.io/api/autoscaling/v2"`
-
 
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
 
@@ -48,11 +47,12 @@ HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
+<!--
+- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>), required
 
-  <!--
   spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-  -->
+-->
+- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)，必需
 
   `spec` 是自动扩缩器行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
@@ -126,7 +126,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   - **scaleTargetRef.apiVersion** (string)
 
     apiVersion is the API version of the referent
-
   -->
 
   - **scaleTargetRef.apiVersion** (string)
@@ -167,7 +166,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   -->
 
   **HorizontalPodAutoscalerBehavior 配置目标在扩容（Up）和缩容（Down）两个方向的扩缩行为
-  （分别用 scaleUp 和 scaleDown 字段）。**
+  （分别用 `scaleUp` 和 `scaleDown` 字段）。**
 
   - **behavior.scaleDown** (HPAScalingRules)
 
@@ -193,7 +192,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
     容忍度应用于度量值，防止因度量的微小变化而过于急切地扩缩。
    （注意，设置容忍度需要启用 Beta **特性门控** HPAConfigurableTolerance。）
-  
+
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
 
       *Atomic: will be replaced during a merge*
@@ -209,7 +208,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       **原子性：将在合并时被替换**
 
-      policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。
+      `policies` 是可在扩缩容过程中使用的潜在扩缩策略的列表。
       如果未设置，使用默认值：
       - 对于扩容：允许将 Pod 数量翻倍，或在 15 秒窗口内绝对增加 4 个 Pod。
       - 对于缩容：允许在 15 秒窗口内移除所有 Pod。
@@ -265,7 +264,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
 
       stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
-
     -->
 
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
@@ -281,11 +279,11 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <!--
     tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
     -->
-  
+
     `tolerance` 是当前的度量值和期望的指标值之间比率的容差，在此容差范围内，系统不会更新期望的副本数量
     （例如，0.01 为 1%）。必须大于或等于零。如果未设置，则应用默认的集群范围容差
     （默认为 10%）。
-   
+ 
     <!--
     For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
     -->
@@ -325,7 +323,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     
     Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
     -->
-  
+
     **HPAScalingRules** 配置了一个方向上的扩缩行为，通过扩缩策略规则和可配置的指标容忍度。
 
     扩缩策略规则在根据 HPA 的指标计算出期望的副本数后应用。它们可以通过指定扩缩策略来限制扩缩速度。
@@ -334,7 +332,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <!--
     The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)*
     -->
-  
+
     容忍度应用于指标值，防止因小的指标变化而过于急切地扩缩。
     （注意，设置容忍度需要启用 Beta 特性门控 **HPAConfigurableTolerance**。）
 
@@ -368,7 +366,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **behavior.scaleUp.policies.type** (string)，必需
 
-        type 用于指定扩缩策略。
+        `type` 用于指定扩缩策略。
 
       <!--
       - **behavior.scaleUp.policies.value** (int32), required
@@ -420,15 +418,15 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
       <!--
       tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
       -->
-  
+ 
       `tolerance` 是当前和期望的指标值之间比率的容差，
       在此容差下不会更新期望的副本数量（例如，1% 为 0.01）。
       必须大于或等于零。如果未设置，则应用默认的集群范围容差（默认为 10%）。
-  
+
       <!--
       For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
       -->
-  
+ 
       例如，如果配置了以 100Mi 的内存消耗为目标的自动扩缩容，
       并且扩缩容的容差分别为 5% 和 1%，那么当实际消耗低于 95Mi
       或超过 101Mi 时，将触发扩缩容。
@@ -436,7 +434,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
       <!--
       This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
       -->
-  
+
       这是一个 Beta 字段，需要启用 **HPAConfigurableTolerance** 特性门控。
 
 <!--
@@ -625,7 +623,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
         `selector` 是给定指标的标准 Kubernetes 标签选择算符的字符串编码形式。
         设置后，它作为附加参数传递给指标服务器，以获取更具体的指标范围。
-        未设置时，仅 metricName 参数将用于收集指标。
+        未设置时，仅 `metricName` 参数将用于收集指标。
 
     <!--
     - **metrics.external.target** (MetricTarget), required
@@ -651,7 +649,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.external.target.type** (string)，必需
 
-        type 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
+        `type` 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
 
       <!--
       - **metrics.external.target.averageUtilization** (int32)
@@ -661,7 +659,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.external.target.averageUtilization** (int32)
 
-        averageUtilization 是跨所有相关 Pod 得到的资源指标均值的目标值，
+        `averageUtilization` 是跨所有相关 Pod 得到的资源指标均值的目标值，
         表示为 Pod 资源请求值的百分比。目前仅对 “Resource” 指标源类别有效。
 
       <!--
@@ -672,7 +670,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.external.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-        averageValue 是跨所有相关 Pod 得到的指标均值的目标值（以数量形式给出）。
+        `averageValue` 是跨所有相关 Pod 得到的指标均值的目标值（以数量形式给出）。
 
       <!--
       - **metrics.external.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -682,7 +680,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.external.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-        value 是指标的目标值（以数量形式给出）。
+        `value` 是指标的目标值（以数量形式给出）。
 
   <!--
   - **metrics.object** (ObjectMetricSource)
@@ -692,7 +690,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
   - **metrics.object** (ObjectMetricSource)
 
-    object 是指描述单个 Kubernetes 对象的指标（例如，Ingress 对象上的 `hits-per-second`）。
+    `object` 是指描述单个 Kubernetes 对象的指标（例如，Ingress 对象上的 `hits-per-second`）。
 
     <a name="ObjectMetricSource"></a>
 
@@ -708,7 +706,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
     - **metrics.object.describedObject** (CrossVersionObjectReference)，必需
 
-      describeObject 表示对象的描述，如对象的 `kind`、`name`、`apiVersion`。
+      `describeObject` 表示对象的描述，如对象的 `kind`、`name`、`apiVersion`。
 
       <a name="CrossVersionObjectReference"></a>
 
@@ -724,7 +722,8 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.describedObject.kind** (string)，必需
 
-        被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        被引用对象的类别；更多信息：
+        https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       <!--
       - **metrics.object.describedObject.name** (string), required
@@ -770,7 +769,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.metric.name** (string)，必需
 
-        name 是给定指标的名称。
+        `name` 是给定指标的名称。
 
       <!--
       - **metrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -780,9 +779,9 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-        selector 是给定指标的标准 Kubernetes 标签选择算符的字符串编码形式。
+        `selector` 是给定指标的标准 Kubernetes 标签选择算符的字符串编码形式。
         设置后，它作为附加参数传递给指标服务器，以获取更具体的指标范围。
-        未设置时，仅 metricName 参数将用于收集指标。
+        未设置时，仅 `metricName` 参数将用于收集指标。
 
     <!--
     - **metrics.object.target** (MetricTarget), required
@@ -792,7 +791,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
     - **metrics.object.target** (MetricTarget)，必需
 
-      target 表示给定指标的目标值。
+      `target` 表示给定指标的目标值。
 
       <a name="MetricTarget"></a>
 
@@ -808,7 +807,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.target.type** (string)，必需
 
-        type 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
+        `type` 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
 
       <!--
       - **metrics.object.target.averageUtilization** (int32)
@@ -818,7 +817,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.target.averageUtilization** (int32)
 
-        averageUtilization 是跨所有相关 Pod 得出的资源指标均值的目标值，
+        `averageUtilization` 是跨所有相关 Pod 得出的资源指标均值的目标值，
         表示为 Pod 资源请求值的百分比。目前仅对 “Resource” 指标源类别有效。
 
       <!--
@@ -829,7 +828,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-        averageValue 是跨所有 Pod 得出的指标均值的目标值（以数量形式给出）。
+        `averageValue` 是跨所有 Pod 得出的指标均值的目标值（以数量形式给出）。
 
       <!--
       - **metrics.object.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -839,7 +838,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-        value 是指标的目标值（以数量形式给出）。
+        `value` 是指标的目标值（以数量形式给出）。
 
   <!--
   - **metrics.pods** (PodsMetricSource)
@@ -849,7 +848,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
   - **metrics.pods** (PodsMetricSource)
 
-    pods 是指描述当前扩缩目标中每个 Pod 的指标（例如，`transactions-processed-per-second`）。
+    `pods` 是指描述当前扩缩目标中每个 Pod 的指标（例如，`transactions-processed-per-second`）。
     在与目标值进行比较之前，这些指标值将被平均。
 
     <a name="PodsMetricSource"></a>
@@ -867,7 +866,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
     - **metrics.pods.metric** (MetricIdentifier)，必需
 
-      metric 通过名称和选择算符识别目标指标。
+      `metric` 通过名称和选择算符识别目标指标。
 
       <a name="MetricIdentifier"></a>
 
@@ -883,7 +882,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.pods.metric.name** (string)，必需
 
-        name 是给定指标的名称。
+        `name` 是给定指标的名称。
 
       <!--
       - **metrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -893,9 +892,9 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-        selector 是给定指标的标准 Kubernetes 标签选择算符的字符串编码形式。
+        `selector` 是给定指标的标准 Kubernetes 标签选择算符的字符串编码形式。
         设置后，它作为附加参数传递给指标服务器，以获取更具体的指标范围。
-        未设置时，仅 metricName 参数将用于收集指标。
+        未设置时，仅 `metricName` 参数将用于收集指标。
 
     <!--
     - **metrics.pods.target** (MetricTarget), required
@@ -905,7 +904,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
     - **metrics.pods.target** (MetricTarget)，必需
 
-      target 表示给定指标的目标值。
+      `target` 表示给定指标的目标值。
 
       <a name="MetricTarget"></a>
 
@@ -921,7 +920,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.pods.target.type** (string)，必需
 
-        type 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
+        `type` 表示指标类别是 `Utilization`、`Value` 或 `AverageValue`。
 
       <!--
       - **metrics.pods.target.averageUtilization** (int32)
@@ -931,7 +930,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.pods.target.averageUtilization** (int32)
 
-        averageUtilization 是跨所有相关 Pod 得出的资源指标均值的目标值，
+        `averageUtilization` 是跨所有相关 Pod 得出的资源指标均值的目标值，
         表示为 Pod 资源请求值的百分比。目前仅对 “Resource” 指标源类别有效。
 
       <!--
@@ -1911,6 +1910,10 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** <!--(*in query*)-->（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** <!--(*in query*)-->（**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1979,6 +1982,10 @@ GET /apis/autoscaling/v2/horizontalpodautoscalers
 - **sendInitialEvents** <!--(*in query*)-->（**查询参数**）: boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** <!--(*in query*)-->（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** <!--(*in query*)-->（**查询参数**）: integer
 
@@ -2463,6 +2470,10 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** <!--(*in query*)-->（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** <!--(*in query*)-->（**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -2475,4 +2486,3 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

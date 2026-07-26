@@ -5,8 +5,10 @@ api_metadata:
   kind: "Deployment"
 feature:
   title: 自动化上线和回滚
-  description: >
-    Kubernetes 会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。如果出现问题，Kubernetes 会为你回滚所作更改。你应该充分利用不断成长的部署方案生态系统。
+  description: >-
+    Kubernetes 会分步骤地将针对应用或其配置的更改上线，
+    同时监视应用程序运行状况以确保你不会同时终止所有实例。
+    如果出现问题，Kubernetes 会为你回滚所作更改。你应该充分利用不断成长的部署方案生态系统。
 description: >-
   Deployment 用于管理运行一个应用负载的一组 Pod，通常适用于不保持状态的负载。
 content_type: concept
@@ -501,7 +503,8 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   -->
   下次要更新这些 Pod 时，只需再次更新 Deployment Pod 模板即可。
 
-  Deployment 可确保在更新时仅关闭一定数量的 Pod。默认情况下，它确保至少所需 Pod 的 75% 处于运行状态（最大不可用比例为 25%）。
+  Deployment 可确保在更新时仅关闭一定数量的 Pod。默认情况下，它确保至少所需
+  Pod 的 75% 处于运行状态（最大不可用比例为 25%）。
 
   <!--
   Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
@@ -510,7 +513,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   Deployment 还确保仅所创建 Pod 数量只可能比期望 Pod 数高一点点。
   默认情况下，它可确保启动的 Pod 个数比期望个数最多多出 125%（最大峰值 25%）。
 
-  <!--   
+  <!--
   For example, if you look at the above Deployment closely, you will see that it first creates a new Pod,
   then deletes an old Pod, and creates another new one. It does not kill old Pods until a sufficient number of
   new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
@@ -616,7 +619,8 @@ ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 ### 翻转（多 Deployment 动态更新）   {#rollover-aka-multiple-updates-in-flight}
 
 Deployment 控制器每次注意到新的 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pod。
-如果更新了 Deployment，则控制标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的 Pod 的现有 ReplicaSet 被缩容。
+如果更新了 Deployment，则控制标签匹配 `.spec.selector` 但模板不匹配
+`.spec.template` 的 Pod 的现有 ReplicaSet 被缩容。
 最终，新的 ReplicaSet 缩放为 `.spec.replicas` 个副本，
 所有旧 ReplicaSet 缩放为 0 个副本。
 
@@ -644,41 +648,57 @@ Deployment 以创建 5 个 `nginx:1.16.1` 的副本，而此时只有 3 个 `ngi
 
 <!--
 ### Label selector updates
-
-It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
-In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
-all of the implications.
 -->
 ### 更改标签选择算符   {#label-selector-updates}
 
-通常不鼓励更新标签选择算符。建议你提前规划选择算符。
-在任何情况下，如果需要更新标签选择算符，请格外小心，
-并确保自己了解这背后可能发生的所有事情。
-
-{{< note >}}
 <!--
-In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
+A Deployment's label selector is **immutable** after creation;
+it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
+
+If you must change the selector, you have to delete the Deployment and recreate it.
+By default, deleting the Deployment also deletes its running Pods, causing downtime; use
+`--cascade=orphan` if you need those Pods to keep running while you recreate the Deployment
+(see the implications below).
+Exercise great caution and ensure you grasp the following implications:
 -->
-在 API 版本 `apps/v1` 中，Deployment 标签选择算符在创建后是不可变的。
-{{< /note >}}
+Deployment 的标签选择算符在创建后**不可更改**；
+它无法通过 `kubectl patch`、`kubectl edit`、`kubectl apply`
+或 `helm upgrade` 等工具进行更新。
+
+如果必须更改选择算符，则必须删除 Deployment 并重新创建。
+默认情况下，删除 Deployment 也会删除其正在运行的 Pod，从而导致停机；
+如果你需要在重建 Deployment 的同时保持这些 Pod 继续运行，
+请使用 `--cascade=orphan`（请参阅下文了解相关影响）。
+你务必要谨慎操作，并确保自己理解以下潜在影响：
 
 <!--
-* Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
-otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
-not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
-creating a new ReplicaSet.
-* Selector updates changes the existing value in a selector key -- result in the same behavior as additions.
-* Selector removals removes an existing key from the Deployment selector -- do not require any changes in the
-Pod template labels. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created, but note that the
-removed label still exists in any existing Pods and ReplicaSets.
+* **Additions:** When you create a new Deployment with a narrower selector, the new Deployment **must** also have a suitable Pod template.
+  If you have an existing manifest and you edit the manifest to narrow the selector, you need to edit the metadata of the Pod template inside that Deployment, adding the
+  new labels
+  to match, as otherwise the API server returns a validation error. This is a _non-overlapping_ change:
+  the new Deployment will not "see" the old Pods (which lack the new label), causing the old
+  ReplicaSet to be **orphaned** and a brand-new ReplicaSet to be created.
+* **Value Updates:** Changing the existing value in a selector key (e.g., from `v1` to `v2`)
+  results in the same behavior as additions (orphaning and recreation).
+* **Removals:** Removing an existing key from the Deployment selector does not require any changes
+  in the Pod template labels. This is an _overlapping_ change: the new, broader selector would
+  match the old Pods. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created,
+  but note that the removed label still exists in any existing Pods and ReplicaSets.
+  You can clean that up by triggering a rollout for the Deployment.
 -->
-* 添加选择算符时要求使用新标签更新 Deployment 规约中的 Pod 模板标签，否则将返回验证错误。
-  此更改是非重叠的，也就是说新的选择算符不会选择使用旧选择算符所创建的 ReplicaSet 和 Pod，
-  这会导致创建新的 ReplicaSet 时所有旧 ReplicaSet 都会被孤立。
-* 选择算符的更新如果更改了某个算符的键名，这会导致与添加算符时相同的行为。
-* 删除选择算符的操作会删除从 Deployment 选择算符中删除现有算符。
-  此操作不需要更改 Pod 模板标签。现有 ReplicaSet 不会被孤立，也不会因此创建新的 ReplicaSet，
-  但请注意已删除的标签仍然存在于现有的 Pod 和 ReplicaSet 中。
+* **新增内容：** 当你使用条件更苛刻的选择算符创建新的 Deployment
+  时，新 Deployment **必须**拥有合适的 Pod 模板。
+  如果你已有清单文件，并对其进行编辑以缩小选择算符的范围，则需要编辑该
+  Deployment 中 Pod 模板的元数据，添加新的标签以与之匹配，否则
+  API 服务器将返回验证错误。
+  将被执行的变更是一个**非覆盖性质**的变更：新的 Deployment 将无法“看到”旧的
+  Pod（缺少新标签），导致旧的 ReplicaSet 被**孤立**，与此同时一个全新的 ReplicaSet 会被创建。
+* **值更新：** 更改选择算符中某些键的现有值（例如，从 `v1` 到 `v2`）会导致与添加相同的行为（孤立加上重新创建）。
+* **移除操作：** 从 Deployment 选择算符中移除已有的键时不需要更改 Pod 模板标签。
+  这类变更是**覆盖性质**的：新的、范围更广的选择算符将匹配旧的 Pod。
+  现有的 ReplicaSet 不会被孤立，也不会创建新的 ReplicaSet，
+  但请注意，已移除的标签仍然存在于任何现有的 Pod 和 ReplicaSet 中。
+  你可以通过触发 Deployment 的滚动更新来清理这些标签。
 
 <!--
 ## Rolling Back a Deployment
@@ -759,7 +779,8 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
   `nginx-deployment-1564180365` and `nginx-deployment-2035384211`) is 3, and the number of
   new replicas (from `nginx-deployment-3066724191`) is 1.
 -->
-* 你可以看到旧的副本（算上来自 `nginx-deployment-1564180365` 和 `nginx-deployment-2035384211` 的副本）有 3 个，
+* 你可以看到旧的副本（算上来自 `nginx-deployment-1564180365` 和
+  `nginx-deployment-2035384211` 的副本）有 3 个，
   新的副本（来自 `nginx-deployment-3066724191`）有 1 个：
 
   ```shell
@@ -781,7 +802,8 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
 <!--
 * Looking at the Pods created, you see that 1 Pod created by new ReplicaSet is stuck in an image pull loop.
 -->
-* 查看所创建的 Pod，你会注意到新 ReplicaSet 所创建的 1 个 Pod 卡顿在镜像拉取循环中。
+* 查看所创建的 Pod，你会注意到新 ReplicaSet 所创建的 1 个 Pod
+  卡顿在镜像拉取循环中。
 
   ```shell
   kubectl get pods
@@ -1539,7 +1561,7 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 When the rollout becomes “progressing”, the Deployment controller adds a condition with the following
 attributes to the Deployment's `.status.conditions`:
 -->
-当上线过程进入“Progressing”状态时，Deployment 控制器会向 Deployment 的
+当上线过程进入 “Progressing” 状态时，Deployment 控制器会向 Deployment 的
 `.status.conditions` 中添加包含下面属性的状况条目：
 
 * `type: Progressing`
@@ -1574,7 +1596,7 @@ updates you've requested have been completed.
 When the rollout becomes “complete”, the Deployment controller sets a condition with the following
 attributes to the Deployment's `.status.conditions`:
 -->
-当上线过程进入“Complete”状态时，Deployment 控制器会向 Deployment 的
+当上线过程进入 “Complete” 状态时，Deployment 控制器会向 Deployment 的
 `.status.conditions` 中添加包含下面属性的状况条目：
 
 * `type: Progressing`
@@ -1814,7 +1836,7 @@ Deployment's status update with a successful condition (`status: "True"` and `re
 -->
 可以通过缩容 Deployment 或者缩容其他运行状态的控制器，或者直接在命名空间中增加配额
 来解决配额不足的问题。如果配额条件满足，Deployment 控制器完成了 Deployment 上线操作，
-Deployment 状态会更新为成功状况（`Status=True` 和 `Reason=NewReplicaSetAvailable`）。
+Deployment 状态会更新为成功状况（`status: "True"` 和 `reason: NewReplicaSetAvailable`）。
 
 ```
 Conditions:
@@ -1901,7 +1923,8 @@ Deployment 的多少个旧有 ReplicaSet。其余的 ReplicaSet 将在后台被�
 Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
 thus that Deployment will not be able to roll back.
 -->
-显式将此字段设置为 0 将导致 Deployment 的所有历史记录被清空，因此 Deployment 将无法回滚。
+显式将此字段设置为 0 将导致 Deployment 的所有历史记录被清空，因此
+Deployment 将无法回滚。
 {{< /note >}}
 
 <!--
@@ -1911,7 +1934,7 @@ If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers c
 ReplicaSet before Kubernetes removes the old one.
 -->
 清理仅在 Deployment
-达到[完整状态](/zh-cn/docs/concepts/workloads/controllers/deployment/#complete-deployment)**之后**才会开始。  
+达到[完整状态](/zh-cn/docs/concepts/workloads/controllers/deployment/#complete-deployment)**之后**才会开始。
 如果你将 `.spec.revisionHistoryLimit` 设置为 0，任何上线更新都会触发创建一个新的 ReplicaSet，
 然后 Kubernetes 才会移除旧的 ReplicaSet。
 
@@ -1948,7 +1971,7 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 -->
 ## 编写 Deployment 规约       {#writing-a-deployment-spec}
 
-同其他 Kubernetes 配置一样， Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
+同其他 Kubernetes 配置一样，Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
 有关配置文件的其他信息，请参考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
 配置容器和[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相关文档。
 
@@ -1981,7 +2004,6 @@ The `.spec.template` and `.spec.selector` are the only required fields of the `.
 `.spec` 中只有 `.spec.template` 和 `.spec.selector` 是必需的字段。
 
 <!--
-
 The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 -->
 `.spec.template` 是一个 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
@@ -2009,7 +2031,7 @@ allowed, which is the default if not specified.
 -->
 ### 副本   {#replicas}
 
-`.spec.replicas` 是指定所需 Pod 的可选字段。它的默认值是1。
+`.spec.replicas` 是指定所需 Pod 的可选字段。它的默认值是 1。
 
 <!--
 Should you manually scale a Deployment, example via `kubectl scale deployment
@@ -2098,7 +2120,7 @@ the default value.
 ### 策略   {#strategy}
 
 `.spec.strategy` 策略指定用于用新 Pod 替换旧 Pod 的策略。
-`.spec.strategy.type` 可以是 “Recreate” 或 “RollingUpdate”。“RollingUpdate” 是默认值。
+`.spec.strategy.type` 可以是 `Recreate` 或 `RollingUpdate`。`RollingUpdate` 是默认值。
 
 <!--
 #### Recreate Deployment
@@ -2299,8 +2321,7 @@ spec:
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `type: Progressing`, `status: "False"`.
 and `reason: ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
-controller will roll back a Deployment as soon as it observes such a condition.
+retrying the Deployment.
 -->
 ### 进度期限秒数    {#progress-deadline-seconds}
 
@@ -2308,7 +2329,6 @@ controller will roll back a Deployment as soon as it observes such a condition.
 [进展失败](#failed-deployment)之前等待 Deployment 取得进展的秒数。
 这类报告会在资源状态中体现为 `type: Progressing`、`status: False`、
 `reason: ProgressDeadlineExceeded`。Deployment 控制器将在默认 600 毫秒内持续重试 Deployment。
-将来，一旦实现了自动回滚，Deployment 控制器将在探测到这样的条件时立即回滚 Deployment。
 
 <!--
 If specified, this field needs to be greater than `.spec.minReadySeconds`.
@@ -2406,14 +2426,14 @@ Deployment 在创建时是默认不会处于暂停状态。
 <!--
 * Learn more about [Pods](/docs/concepts/workloads/pods).
 * [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
+* Read the {{< api-reference page="apps/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 * Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 -->
 * 进一步了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 * [使用 Deployment 运行一个无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
-* 阅读 {{< api-reference page="workload-resources/deployment-v1" >}}，
+* 阅读 {{< api-reference page="apps/deployment-v1" >}}，
   以了解 Deployment API 的细节。
 * 阅读 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
   了解如何使用它来在可能出现干扰的情况下管理应用的可用性。

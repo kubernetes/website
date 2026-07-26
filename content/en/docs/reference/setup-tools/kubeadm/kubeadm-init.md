@@ -155,8 +155,7 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
+`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
 {{< /table >}}
 
 {{< note >}}
@@ -164,11 +163,6 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
-
-`ControlPlaneKubeletLocalMode`
-: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
-  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
-  policy during rolling upgrades.
 
 `NodeLocalCRISocket`
 : With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
@@ -210,6 +204,7 @@ List of removed feature gates:
 {{< table caption="kubeadm removed feature gates" >}}
 Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
+`ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
@@ -218,6 +213,11 @@ Feature | Alpha | Beta | GA | Removed
 {{< /table >}}
 
 Feature gate descriptions:
+
+`ControlPlaneKubeletLocalMode`
+: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
+  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+  policy during rolling upgrades.
 
 `EtcdLearnerMode`
 : When joining a new control plane node, a new etcd member will be created

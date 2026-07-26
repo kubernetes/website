@@ -1,7 +1,6 @@
 ---
 title: कंटेनरडी (containerd)
 id: containerd
-date: 2019-05-14
 full_link: https://containerd.io/docs/
 short_description: >
   सादगी, मजबूती और सुवाह्यता पर जोर देने वाला कंटेनर रनटाइम

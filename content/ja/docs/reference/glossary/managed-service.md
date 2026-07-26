@@ -1,7 +1,6 @@
 ---
 title: マネージドサービス
 id: managed-service
-date: 2018-04-12
 full_link: 
 short_description: >
   サードパーティのプロバイダーによって保守されるソフトウェアの提供形態です。

@@ -2,8 +2,17 @@
 title: kubectl config get-clusters
 content_type: tool-reference
 weight: 30
-auto_generated: true
+description: >-
+  显示 kubeconfig 中定义的集群
 ---
+<!--
+title: kubectl config get-clusters
+content_type: tool-reference
+weight: 30
+auto_generated: true
+description: >-
+  Display clusters defined in the kubeconfig
+-->
 
 ## {{% heading "synopsis" %}}
 

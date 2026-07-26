@@ -246,7 +246,7 @@ content_type: concept
    tries to assign a new pod subnet to the node. Users should remove the old pod
    subnet configuration files in the following paths:
 -->
-## Flannel 故障排查 {#troubleshooting-network}
+### Flannel 故障排查 {#flannel-troubleshooting}
 
 1. 使用 Flannel 时，我的节点在重新加入集群后出现问题
 

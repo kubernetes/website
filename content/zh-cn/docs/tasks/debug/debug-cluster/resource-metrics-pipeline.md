@@ -127,12 +127,12 @@ The architecture components, from right to left in the figure, consist of the fo
   cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
   If you use a container runtime that uses another resource isolation mechanism, for example
   virtualization, then that container runtime must support
-  [CRI Container Metrics](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  [CRI Container Metrics](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-container-stats.md)
   in order for metrics to be available to the kubelet.
   -->
   cAdvisor 支持从 CGroups 读取指标，它适用于 Linux 上的典型容器运行时。
   如果你使用基于其他资源隔离机制的容器运行时，例如虚拟化，那么该容器运行时必须支持
-  [CRI 容器指标](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  [CRI 容器指标](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-container-stats.md)
   以便 kubelet 可以使用指标。
   {{< /note >}}
 

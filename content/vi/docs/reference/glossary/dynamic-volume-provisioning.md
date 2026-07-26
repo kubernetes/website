@@ -1,7 +1,6 @@
 ---
 title: Cấp phát volume động
 id: dynamicvolumeprovisioning
-date: 2018-04-12
 full_link: /docs/concepts/storage/dynamic-provisioning
 short_description: >
   Cho phép người dùng yêu cầu hệ thống tự động tạo các Volume lưu trũ.

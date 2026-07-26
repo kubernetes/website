@@ -43,37 +43,66 @@ ListMeta describes metadata that synthetic resources must have, including lists 
   除非你在错误消息中收到此令牌（token），否则使用此 `continue` 值时返回的 `resourceVersion` 
   字段应该和第一个响应中的值是相同的。
 
-<!--
 - **remainingItemCount** (int64)
 
+  <!--
   remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
--->
-- **remainingItemCount** (int64)
+  -->
 
   `remainingItemCount` 是列表中未包含在此列表响应中的后续项目的数量。
   如果列表请求包含标签或字段选择器，则剩余项目的数量是未知的，并且在序列化期间该字段将保持未设置和省略。
   如果列表是完整的（因为它没有分块或者这是最后一个块），那么就没有剩余的项目，并且在序列化过程中该字段将保持未设置和省略。
-  早于 v1.15 的服务器不设置此字段。`remainingItemCount` 的预期用途是*估计*集合的大小。
+  早于 v1.15 的服务器不设置此字段。`remainingItemCount` 的预期用途是**估算**集合的大小。
   客户端不应依赖于设置准确的 `remainingItemCount`。
 
-<!--
 - **resourceVersion** (string)
 
+  <!--
   String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
--->
-- **resourceVersion** (string)
+  -->
 
   标识该对象的服务器内部版本的字符串，客户端可以用该字段来确定对象何时被更改。
   该值对客户端是不透明的，并且应该原样传回给服务器。该值由系统填充，只读。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
-<!--
 - **selfLink** (string)
 
+  <!--
   Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
--->
-- **selfLink** (string)
+  -->
   
-  selfLink 表示此对象的 URL，由系统填充，只读。
+  已弃用：`selfLink` 是一个遗留的只读字段，不再由系统填充。
+
+- **shardInfo** (ShardInfo)
+
+  <!--
+  shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+  -->
+
+  当列表是完整集合的筛选子集时（由请求中的分片选择器选择），会设置 `shardInfo`。
+  它会回显选择器，以便客户端可以验证接收到的分片并合并分片响应。
+  客户端不应将分片列表响应缓存为集合的完整表示。
   
-  已弃用：selfLink 是一个遗留的只读字段，不再由系统填充。
+  <!--
+  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+  -->
+
+  这是一个 Alpha 字段，需要启用 ShardedListAndWatch 特性门控。
+
+  <a name="ShardInfo"></a>
+  <!--
+  *ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.*
+  -->
+
+  **shardInfo 描述了用于生成列表响应的分片选择器。
+  列表响应中出现 shardInfo 表示该列表是经过筛选的子集。**
+  
+  - **shardInfo.selector** (string), required
+
+    <!--
+    selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+    -->
+  
+    `selector` 是请求中的分片选择器字符串，会回显给客户端，
+    以便客户端可以验证他们收到了哪个分片，并将来自多个分片的响应合并。
+  

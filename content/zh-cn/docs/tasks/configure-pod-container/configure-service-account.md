@@ -802,9 +802,9 @@ often good enough for the application to load the token on a schedule
 重新加载就足够了，不必跟踪令牌的实际过期时间。
 
 <!--
-## Service Account Issuer Discovery
+### Service account issuer discovery
 -->
-## 发现服务账号分发者 {#service-account-issuer-discovery}
+### 发现服务账号分发者 {#service-account-issuer-discovery}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 

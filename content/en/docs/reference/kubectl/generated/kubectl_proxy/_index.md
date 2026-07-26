@@ -3,6 +3,8 @@ title: kubectl proxy
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Run a proxy to the Kubernetes API server
 no_list: true
 ---
 

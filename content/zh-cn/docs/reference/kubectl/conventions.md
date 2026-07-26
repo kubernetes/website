@@ -93,9 +93,41 @@ You can use the `--dry-run=client` flag to preview the object that would be sent
 -->
 你可以使用 `--dry-run=client` 参数来预览而不真正提交即将下发到集群的对象实例：
 
+### `kubectl proxy`
+
+{{< caution >}}
+<!--
+Browsing untrusted pod or service endpoints through `kubectl proxy` is dangerous,
+as the served content has implicit access to the Kubernetes API using the proxy's
+credentials. Use caution and avoid accessing untrusted endpoints while using
+privileged credentials.
+-->
+通过 `kubectl proxy` 浏览不受信任的 Pod 或服务端点非常危险，
+因为所提供服务的内容会使用代理的凭据隐式访问 Kubernetes API。
+使用特权凭据时，请务必谨慎并避免访问不受信任的端点。
+
+<!--
+To reduce risk:
+
+* Avoid browsing to untrusted pods or services through `kubectl proxy`.
+* Use `--reject-methods='POST,PUT,PATCH,DELETE'` to restrict the proxy to
+  read-only operations when you only need to view resources.
+* Use `--reject-paths` to limit which API paths the proxy exposes.
+* Do not run `kubectl proxy` with cluster-admin credentials unless necessary.
+-->
+为降低风险：
+
+* 避免使用 `kubectl proxy` 访问不受信任的 Pod 或服务。
+* 当你只需要查看资源时，请使用 `--reject-methods='POST,PUT,PATCH,DELETE'`
+  将代理限制为只读操作。
+* 使用 `--reject-paths` 限制代理公开的 API 路径。
+* 除非必要，否则不要使用集群管理员凭据运行 `kubectl proxy`。
+{{< /caution >}}
+
 ### `kubectl apply`
 
 <!--
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-* 你可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
+* 你可以使用 `kubectl apply` 命令创建或更新资源。
+  有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。

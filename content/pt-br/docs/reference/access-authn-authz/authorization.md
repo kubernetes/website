@@ -1,7 +1,9 @@
 ---
-title: Visão Geral de Autorização
+title: Autorização
 content_type: concept
-weight: 60
+weight: 30
+description: >
+  Detalhes dos mecanismos de autorização do Kubernetes e modos de autorização suportados.
 ---
 
 <!-- overview -->
@@ -18,7 +20,7 @@ O Kubernetes espera atributos que são comuns a requisições de APIs REST. Isto
 que autorização no Kubernetes funciona com sistemas de controle de acesso a nível de organizações
 ou de provedores de nuvem que possam lidar com outras APIs além das APIs do Kubernetes.
 
-## Determinar se uma requisição é permitida ou negada
+## Determinar se uma requisição é permitida ou negada {#determine-whether-a-request-is-allowed-or-denied}
 
 O Kubernetes autoriza requisições de API utilizando o servidor de API. Ele avalia
 todos os atributos de uma requisição em relação a todas as políticas disponíveis e permite ou nega a requisição.

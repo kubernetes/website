@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment 使得 Pod 和 ReplicaSet 能够进行声明式更新。"
 title: "Deployment"
-weight: 6
+weight: 7
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment enables declarative updates for Pods and ReplicaSets."
 title: "Deployment"
-weight: 6
+weight: 7
 auto_generated: true
 -->
 
@@ -88,7 +88,7 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
-  template 描述将要创建的 Pod。`template.spec.restartPolicy`
+  `template` 描述将要创建的 Pod。`template.spec.restartPolicy`
   唯一被允许的值是 `Always`。
 
 <!--
@@ -132,18 +132,10 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
   - **strategy.type** (string)
 
     Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-
-    Possible enum values:
-     - `"Recreate"` Kill all existing pods before creating new ones.
-     - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
   -->
   - **strategy.type** (string)
 
     部署的类型。取值可以是 “Recreate” 或 “RollingUpdate”。默认为 RollingUpdate。
-
-    可能的枚举值：
-     - `"Recreate"`：在创建新实例之前杀死所有现有的 Pod。
-     - `"RollingUpdate"`：使用滚动更新替换旧的 ReplicaSet，即逐渐缩小旧的 ReplicaSet 并扩大新的 ReplicaSet。
 
   <!--
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
@@ -173,7 +165,7 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
     - **strategy.rollingUpdate.maxSurge** (IntOrString)
 
       超出预期的 Pod 数量之后可以调度的最大 Pod 数量。该值可以是一个绝对数（例如：
-      5）或一个预期 Pod 的百分比（例如：10%）。如果 MaxUnavailable 为 0，则此字段不能为 0。
+      5）或一个预期 Pod 的百分比（例如：10%）。如果 `maxUnavailable` 为 0，则此字段不能为 0。
       通过向上取整计算得出一个百分比绝对数。默认为 25%。例如：当此值设为 30% 时，
       如果滚动更新启动，则可以立即对 ReplicaSet 扩容，从而使得新旧 Pod 总数不超过预期 Pod 数量的 130%。
       一旦旧 Pod 被杀死，则可以再次对新的 ReplicaSet 扩容，
@@ -197,7 +189,7 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
 
       更新期间可能不可用的最大 Pod 数量。该值可以是一个绝对数（例如：
       5）或一个预期 Pod 的百分比（例如：10%）。通过向下取整计算得出一个百分比绝对数。
-      如果 MaxSurge 为 0，则此字段不能为 0。默认为 25%。
+      如果 `maxSurge` 为 0，则此字段不能为 0。默认为 25%。
       例如：当此字段设为 30%，则在滚动更新启动时 ReplicaSet 可以立即缩容为预期 Pod 数量的 70%。
       一旦新的 Pod 就绪，ReplicaSet 可以再次缩容，接下来对新的 ReplicaSet 扩容，
       确保更新期间任何时间可用的 Pod 总数至少是预期 Pod 数量的 70%。
@@ -440,18 +432,19 @@ DeploymentList 是 Deployment 的列表。
 
 - **items** ([]<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>)，必需
 
-  items 是 Deployment 的列表。
+  `items` 是 Deployment 的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified Deployment
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified Deployment
+#### HTTP Request
+-->
 ### `get` 读取指定的 Deployment
 
 #### HTTP 请求
@@ -550,6 +543,7 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -572,35 +566,39 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -633,53 +631,58 @@ GET /apis/apps/v1/deployments
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
 #### 参数
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -713,25 +716,25 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
 #### 参数
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -771,29 +774,29 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   Deployment 的名称。
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -831,7 +834,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   Deployment 的名称。
 
 - **namespace** (**路径参数**): string，必需
@@ -1088,6 +1091,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -1145,6 +1149,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   

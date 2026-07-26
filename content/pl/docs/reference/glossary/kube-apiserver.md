@@ -1,8 +1,7 @@
 ---
 title: Serwer API
 id: kube-apiserver
-date: 2018-04-12
-full_link: /docs/concepts/overview/components/#kube-apiserver
+full_link: /docs/concepts/architecture/#kube-apiserver
 short_description: >
   Składnik warstwy sterowania udostępniający API Kubernetesa.
 

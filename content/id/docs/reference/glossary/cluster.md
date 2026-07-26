@@ -1,7 +1,6 @@
 ---
 title: Klaster
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
   Sekumpulan mesin pekerja, yang dikenal sebagai Node, yang menjalankan aplikasi dalam Container. Setiap klaster setidaknya mempunyai satu Node pekerja.

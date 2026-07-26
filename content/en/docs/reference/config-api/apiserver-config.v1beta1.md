@@ -951,6 +951,13 @@ Must be absent/empty if TCPTransport.URL is prefixed with http://
 Must be configured if TCPTransport.URL is prefixed with https://</p>
 </td>
 </tr>
+<tr><td><code>tlsServerName</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>tlsServerName is used to check server certificate. If tlsServerName is empty, the hostname used to contact the server is used.</p>
+</td>
+</tr>
 </tbody>
 </table>
 

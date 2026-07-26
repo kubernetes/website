@@ -14,15 +14,16 @@ content_type: concept
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
-`kubeadm init phase` 能确保调用引导过程的原子步骤。
-因此，如果希望自定义应用，则可以让 kubeadm 做一些工作，然后填补空白。
+`kubeadm init phase` 能让你调用引导过程的原子步骤。
+因此，如果你希望自定义应用，则可以让 kubeadm 做一些工作，然后你再填补空白。
 
 <!--
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
 -->
-`kubeadm init phase` 与 [kubeadm init 工作流](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)
-一致，后台都使用相同的代码。
+`kubeadm init phase` 与
+[kubeadm init 工作流](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)一致，
+后台都使用相同的代码。
 
 <!--
 ## kubeadm init phase preflight {#cmd-phase-preflight}
@@ -32,35 +33,18 @@ and behind the scene both use the same code.
 <!--
 Using this command you can execute preflight checks on a control-plane node.
 -->
-使用此命令可以在控制平面节点上执行启动前检查。
+使用此命令可以在控制面节点上执行启动前检查。
 
 {{< tabs name="tab-preflight" >}}
 {{< tab name="preflight" include="generated/kubeadm_init/kubeadm_init_phase_preflight.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
--->
-## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
-
-<!--
-This phase will write the kubelet configuration file and environment file and then start the kubelet.
--->
-此阶段将写入 kubelet 配置文件和环境文件，然后启动 kubelet。
-
-{{< tabs name="tab-kubelet-start" >}}
-{{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
-{{< /tabs >}}
-
-<!--
-## kubeadm init phase certs {#cmd-phase-certs}
--->
 ## kubeadm init phase certs {#cmd-phase-certs}
 
 <!--
 Can be used to create all required certificates by kubeadm.
 -->
-该阶段可用于创建 kubeadm 所需的所有证书。
+此阶段可用于创建 kubeadm 所需的所有证书。
 
 {{< tabs name="tab-certs" >}}
 {{< tab name="certs" include="generated/kubeadm_init/kubeadm_init_phase_certs.md" />}}
@@ -78,15 +62,12 @@ Can be used to create all required certificates by kubeadm.
 {{< tab name="sa" include="generated/kubeadm_init/kubeadm_init_phase_certs_sa.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
--->
 ## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
 
 <!--
 You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
 -->
-你可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用它们。
+你可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用这些 kubeconfig 文件。
 
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig.md" />}}
@@ -98,15 +79,24 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 {{< tab name="super-admin" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase etcd {#cmd-phase-etcd}
+
 <!--
-## kubeadm init phase control-plane {#cmd-phase-control-plane}
+Use the following phase to create a local etcd instance based on a static Pod file.
 -->
+使用以下阶段基于静态 Pod 文件创建本地 etcd 实例。
+
+{{< tabs name="tab-etcd" >}}
+{{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
+{{< tab name="local" include="generated/kubeadm_init/kubeadm_init_phase_etcd_local.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase control-plane {#cmd-phase-control-plane}
 
 <!--
 Using this phase you can create all required static Pod files for the control plane components.
 -->
-使用此阶段，你可以为控制平面组件创建所有必需的静态 Pod 文件。
+使用此阶段，你可以为控制面组件创建所有必需的静态 Pod 文件。
 
 {{< tabs name="tab-control-plane" >}}
 {{< tab name="control-plane" include="generated/kubeadm_init/kubeadm_init_phase_control-plane.md" />}}
@@ -116,24 +106,28 @@ Using this phase you can create all required static Pod files for the control pl
 {{< tab name="scheduler" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_scheduler.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase etcd {#cmd-phase-etcd}
--->
-## kubeadm init phase etcd {#cmd-phase-etcd}
+## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
 
 <!--
-Use the following phase to create a local etcd instance based on a static Pod file.
+This phase will write the kubelet configuration file and environment file and then start the kubelet.
 -->
-根据静态 Pod 文件，使用以下阶段创建一个本地 etcd 实例。
+此阶段将写入 kubelet 配置文件和环境文件，然后启动 kubelet。
 
-{{< tabs name="tab-etcd" >}}
-{{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
-{{< tab name="local" include="generated/kubeadm_init/kubeadm_init_phase_etcd_local.md" />}}
+{{< tabs name="tab-kubelet-start" >}}
+{{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase wait-control-plane {#cmd-phase-wait-control-plane}
+
 <!--
-## kubeadm init phase upload-config {#cmd-phase-upload-config}
+In this phase kubeadm will wait until the control plane components start.
 -->
+在此阶段，kubeadm 将等待控制面组件启动完成。
+
+{{< tabs name="tab-wait-control-plane" >}}
+{{< tab name="wait-control-plane" include="generated/kubeadm_init/kubeadm_init_phase_wait-control-plane.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
 
 <!--
@@ -150,38 +144,29 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 {{< tab name="kubelet" include="generated/kubeadm_init/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
--->
 ## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
 
 <!--
 Use the following phase to upload control-plane certificates to the cluster.
 By default the certs and encryption key expire after two hours.
 -->
-使用以下阶段将控制平面证书上传到集群。默认情况下，证书和加密密钥会在两个小时后过期。
+使用以下阶段将控制面证书上传到集群。默认情况下，证书和加密密钥会在两个小时后过期。
 
 {{< tabs name="tab-upload-certs" >}}
 {{< tab name="upload-certs" include="generated/kubeadm_init/kubeadm_init_phase_upload-certs.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
--->
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 <!--
 Use the following phase to label and taint the node as a control plane node.
 -->
-使用以下阶段来给作为控制平面的节点打标签（label）和记录污点（taint）。
+使用以下阶段来给作为控制面的节点打标签并记录污点。
 
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init/kubeadm_init_phase_mark-control-plane.md" />}}
 {{< /tabs >}}
 
-<!--
-## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
--->
 ## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
 
 <!--
@@ -201,7 +186,7 @@ bootstrap. You can use the `all` subcommand to run all `kubelet-finalize`
 phases.
 -->
 使用以下阶段在 TLS 引导后更新与 kubelet 相关的设置。
-你可以使用 `all` 子命令来运行所有 `kubelet-finalize` 阶段。
+你可以使用 `all` 子命令来运行所有的 `kubelet-finalize` 阶段。
 
 {{< tabs name="tab-kubelet-finalize" >}}
 {{< tab name="kubelet-finalize" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize.md" />}}
@@ -209,22 +194,41 @@ phases.
 {{< tab name="kubelet-finalize-enable-client-cert-rotation" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_enable-client-cert-rotation.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
+
 <!--
-## kubeadm init phase addon {#cmd-phase-addon}
+Use the following phase to configure bootstrap tokens.
 -->
+使用以下阶段来配置引导令牌。
+
+{{< tabs name="tab-bootstrap-token" >}}
+{{< tab name="bootstrap-token" include="generated/kubeadm_init/kubeadm_init_phase_bootstrap-token.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase addon {#cmd-phase-addon}
 
 <!--
 You can install all the available addons with the `all` subcommand, or
 install them selectively.
 -->
-你可以使用 `all` 子命令安装所有可用的插件，或者有选择性地安装它们。
+你可以使用 `all` 子命令安装所有可用的插件，或者有选择性地安装这些插件。
 
 {{< tabs name="tab-addon" >}}
 {{< tab name="addon" include="generated/kubeadm_init/kubeadm_init_phase_addon.md" />}}
 {{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_addon_all.md" />}}
 {{< tab name="coredns" include="generated/kubeadm_init/kubeadm_init_phase_addon_coredns.md" />}}
 {{< tab name="kube-proxy" include="generated/kubeadm_init/kubeadm_init_phase_addon_kube-proxy.md" />}}
+{{< /tabs >}}
+
+## kubeadm init phase show-join-command {#cmd-phase-show-join-command}
+
+<!--
+Shows a command that can be used with `kubeadm join`.
+-->
+显示一个可与 `kubeadm join` 一起使用的命令。
+
+{{< tabs name="tab-show-join-command" >}}
+{{< tab name="show-join-command" include="generated/kubeadm_init/kubeadm_init_phase_show-join-command.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -243,7 +247,7 @@ For more details on each field in the `v1beta4` configuration you can navigate t
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-  引导 Kubernetes 控制平面节点
+  引导 Kubernetes 控制面节点
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
   将节点加入到集群
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)

@@ -1,7 +1,6 @@
 ---
 title: Evicção
 id: eviction
-date: 2022-03-05
 full_link: /pt-br/docs/concepts/scheduling-eviction/
 short_description: >
     Processo de encerramento de um ou mais Pods em Nós

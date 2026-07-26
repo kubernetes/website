@@ -3,6 +3,8 @@ title: kubectl create quota
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a quota with the specified name
 ---
 
 

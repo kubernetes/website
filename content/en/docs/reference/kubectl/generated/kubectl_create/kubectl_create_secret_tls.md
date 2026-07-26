@@ -3,6 +3,8 @@ title: kubectl create secret tls
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a TLS secret
 ---
 
 

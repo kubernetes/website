@@ -38,19 +38,20 @@ NetworkPolicy 描述针对一组 Pod 所允许的网络流量。
 - **kind**: NetworkPolicy
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+  
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  
+
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicySpec" >}}">NetworkPolicySpec</a>)
-  
+
   <!--
   spec represents the specification of the desired behavior for this NetworkPolicy.
   -->
-  
+
   `spec` 表示 NetworkPolicy 预期行为的规约。
 
 ## NetworkPolicySpec {#NetworkPolicySpec}
@@ -107,7 +108,8 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 
   **原子：将在合并期间被替换**
 
-  `ingress` 是应用到所选 Pod 的入站规则列表。在没有被任何 NetworkPolicy 选择到 Pod 的情况下（同时假定集群策略允许对应流量），
+  `ingress` 是应用到所选 Pod 的入站规则列表。在没有被任何 NetworkPolicy 选择到 Pod
+  的情况下（同时假定集群策略允许对应流量），
   或者如果流量源是 Pod 的本地节点，或者流量与所有 NetworkPolicy 中的至少一个入站规则（Ingress) 匹配，
   则进入 Pod 的流量是被允许的。如果此字段为空，则此 NetworkPolicy 不允许任何入站流量
   （这种设置用来确保它所选择的 Pod 在默认情况下是被隔离的）。
@@ -120,7 +122,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
   - **ingress.from** ([]NetworkPolicyPeer)
 
     *Atomic: will be replaced during a merge*
-  
+
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -142,9 +144,9 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 
     <!--
     - **ingress.from.ipBlock** (IPBlock)
-    
+
       ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
-    
+
       <a name="IPBlock"></a>
       *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
     -->
@@ -164,7 +166,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
         cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **ingress.from.ipBlock.except** ([]string)
-      
+
         *Atomic: will be replaced during a merge*
 
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
@@ -220,7 +222,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
   - **ingress.ports** ([]NetworkPolicyPort)
 
     *Atomic: will be replaced during a merge*
-  
+
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 
     <a name="NetworkPolicyPort"></a>
@@ -244,7 +246,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      *IntOrString is a type that can hold an int32 or a string. When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
     -->
 
     - **ingress.ports.port** (IntOrString)
@@ -282,6 +284,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       `protocol` 表示流量必须匹配的网络协议（TCP、UDP 或 SCTP）。如果未指定，此字段默认为 TCP。
 
        可能的枚举值：
+    
        - `"SCTP"` 是 SCTP 协议。
        - `"TCP"` 是 TCP 协议。
        - `"UDP"` 是 UDP 协议。
@@ -315,7 +318,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
   - **egress.to** ([]NetworkPolicyPeer)
 
     *Atomic: will be replaced during a merge*
-  
+
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -369,7 +372,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
         `cidr` 是用来表达 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **egress.to.ipBlock.except** ([]string)
-      
+
         **原子：将在合并期间被替换**
 
         `except` 定义不应包含在 `ipBlock` 内的 CIDR 范围列表。例如 `"192.168.1.0/24"` 或
@@ -437,7 +440,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      *IntOrString is a type that can hold an int32 or a string. When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
     -->
 
     - **egress.ports.port** (IntOrString)
@@ -465,6 +468,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
        - `"TCP"` is the TCP protocol.
        - `"UDP"` is the UDP protocol. 
     -->
+
     - **egress.ports.endPort** (int32)
 
       如果设置了 `endPort`，则用来指定策略所允许的从 `port` 到 `endPort` 的端口范围（包含边界值）。
@@ -476,9 +480,10 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       `protocol` 表示流量必须匹配的网络协议（TCP、UDP 或 SCTP）。如果未指定，此字段默认为 TCP。
 
       可能的枚举值：
-      - `"SCTP"` 是 SCTP 协议。
-      - `"TCP"` 是 TCP 协议。
-      - `"UDP"` 是 UDP 协议。
+    
+        - `"SCTP"` 是 SCTP 协议。
+        - `"TCP"` 是 TCP 协议。
+        - `"UDP"` 是 UDP 协议。
 
 ## NetworkPolicyList {#NetworkPolicyList}
 
@@ -676,6 +681,10 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -799,6 +808,10 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1288,6 +1301,10 @@ s
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

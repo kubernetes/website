@@ -416,14 +416,14 @@ kubelet 将使用与仓库匹配的每个凭证尝试拉取镜像。
 
 <!--
 * Learn more about [Secrets](/docs/concepts/configuration/secret/)
-  * or read the API reference for {{< api-reference page="config-and-storage-resources/secret-v1" >}}
+  * or read the API reference for {{< api-reference page="core/secret-v1" >}}
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
 -->
 * 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)
-  * 或阅读 {{< api-reference page="config-and-storage-resources/secret-v1" >}} 的 API 参考
+  * 或阅读 {{< api-reference page="core/secret-v1" >}} 的 API 参考
 * 进一步了解[使用私有仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)
 * 进一步了解[为服务账户添加拉取镜像凭据](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 * 查看 [kubectl 创建 docker-registry 凭据](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)

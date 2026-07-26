@@ -3,6 +3,8 @@ title: kubectl port-forward
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  将一个或多个本地端口转发到 Pod
 ---
 <!--
 title: kubectl port-forward
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Forward one or more local ports to a pod
 -->
 
 ## {{% heading "synopsis" %}}
@@ -37,13 +41,26 @@ kubectl port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_POR
 
 <!--
 ```
-  # Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in the pod
-  # Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in a pod selected by the deployment
-  # Listen on port 8443 locally, forwarding to the targetPort of the service's port named "https" in a pod selected by the service
-  # Listen on port 8888 locally, forwarding to 5000 in the pod
-  # Listen on port 8888 on all addresses, forwarding to 5000 in the pod
-  # Listen on port 8888 on localhost and selected IP, forwarding to 5000 in the pod
-  # Listen on a random port locally, forwarding to 5000 in the pod
+# Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in the pod
+kubectl port-forward pod/mypod 5000 6000
+  
+# Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in a pod selected by the deployment
+kubectl port-forward deployment/mydeployment 5000 6000
+  
+# Listen on port 8443 locally, forwarding to the targetPort of the service's port named "https" in a pod selected by the service
+kubectl port-forward service/myservice 8443:https
+  
+# Listen on port 8888 locally, forwarding to 5000 in the pod
+kubectl port-forward pod/mypod 8888:5000
+  
+# Listen on port 8888 on all addresses, forwarding to 5000 in the pod
+kubectl port-forward --address 0.0.0.0 pod/mypod 8888:5000
+  
+# Listen on port 8888 on localhost and selected IP, forwarding to 5000 in the pod
+kubectl port-forward --address localhost,10.19.21.23 pod/mypod 8888:5000
+  
+# Listen on a random port locally, forwarding to 5000 in the pod
+kubectl port-forward pod/mypod :5000
 ```
 -->
 ```shell

@@ -3,6 +3,8 @@ title: kubectl create ingress
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create an ingress with the specified name
 ---
 
 

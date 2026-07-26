@@ -162,7 +162,7 @@ controllerManager:
 <!--
 ### Scheduler flags
 -->
-## Scheduler 参数   {#scheduler-flags}
+### Scheduler 参数   {#scheduler-flags}
 
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).

@@ -87,8 +87,8 @@ Removing an old version:
 
 The CustomResourceDefinition API `versions` field can be used to support multiple versions of custom resources that you
 have developed. Versions can have different schemas, and conversion webhooks can convert custom resources between versions.
-Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
-Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
+Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
+Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
 
 {{< note >}}
 In `apiextensions.k8s.io/v1beta1`, there was a `version` field instead of `versions`. The
@@ -284,6 +284,7 @@ and should indicate what API group, version, and kind should be used instead, if
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
+metadata:
   name: crontabs.example.com
 spec:
   group: example.com
@@ -361,6 +362,7 @@ An older API version cannot be dropped from a CustomResourceDefinition manifest 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
+metadata:
   name: crontabs.example.com
 spec:
   group: example.com

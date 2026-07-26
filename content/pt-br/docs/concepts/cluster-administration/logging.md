@@ -16,9 +16,9 @@ No entanto, a funcionalidade nativa fornecida por um mecanismo de contêiner ou 
 
 As arquiteturas de log no nível de cluster são descritas no pressuposto de que um back-end de log esteja presente dentro ou fora do cluster. Se você não estiver interessado em ter o log no nível do cluster, ainda poderá encontrar a descrição de como os logs são armazenados e manipulados no nó para serem úteis.
 
-## Log básico no Kubernentes
+## Log básico no Kubernetes {#basic-logging-in-kubernetes}
 
-Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão(standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
+Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão (standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
 
 {{% codenew file="debug/counter-pod.yaml" %}}
 

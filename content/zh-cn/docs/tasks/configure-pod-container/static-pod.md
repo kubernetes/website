@@ -14,64 +14,13 @@ content_type: task
 <!-- overview -->
 
 <!--
-*Static Pods* are managed directly by the kubelet daemon on a specific node,
-without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-observing them.
-Unlike Pods that are managed by the control plane (for example, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}});
-instead, the kubelet watches each static Pod (and restarts it if it fails).
+This page shows you how to create _static Pods_ on a node.
+For an overview of what static Pods are and when to use them, see
+[Static Pods](/docs/concepts/workloads/pods/static-pods/).
 -->
-**静态 Pod** 在指定的节点上由 kubelet 守护进程直接管理，不需要
-{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}监管。
-与由控制面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
-不同；kubelet 监视每个静态 Pod（在它失败之后重新启动）。
-
-<!--
-Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
-
-The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
-on the Kubernetes API server for each static Pod.
-This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
-The Pod names will be suffixed with the node hostname with a leading hyphen.
--->
-静态 Pod 始终都会绑定到特定节点的 {{< glossary_tooltip term_id="kubelet" >}} 上。
-
-kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod
-自动创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
-这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。
-Pod 名称将把以连字符开头的节点主机名作为后缀。
-
-{{< note >}}
-<!--
-If you are running clustered Kubernetes and are using static
-Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
--->
-如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
-就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
-替代这种方式。
-{{< /note >}}
-
-{{< note >}}
-<!--
-The `spec` of a static Pod cannot refer to other API objects
-(e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
--->
-静态 Pod 的 `spec` 不能引用其他 API 对象
-（如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
-{{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
-{{< /note >}}
-
-{{< note >}}
-<!--
-Static pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
--->
-静态 Pod 不支持[临时容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)。
-{{< /note >}}
+本页面介绍如何在节点上创建静态 Pod。
+有关静态 Pod 的概述以及何时使用它们，
+请参阅[静态 Pod](/zh-cn/docs/concepts/workloads/pods/static-pods/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -91,14 +40,13 @@ Instructions for other distributions or Kubernetes installations may vary.
 <!--
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a
-[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a [file system hosted configuration file](#configuration-files)
+or a [web hosted configuration file](#pods-created-via-http).
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
-可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
-[Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)来配置静态 Pod。
+可以通过[文件系统上的配置文件](#configuration-files)或者
+[Web 网络上的配置文件](#pods-created-via-http)来配置静态 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -108,8 +56,6 @@ Use the `staticPodPath: <the directory>` field in the
 [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
-
-For example, this is how to start a simple web server as a static Pod:
 -->
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
@@ -119,7 +65,30 @@ For example, this is how to start a simple web server as a static Pod:
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
 
-例如：下面是如何以静态 Pod 的方式启动一个简单 web 服务：
+{{< caution >}}
+<!--
+The kubelet processes **all files not starting with a dot** in the static Pod directory
+— there is no filtering by file extension. For example, if you create a backup of a
+manifest by running `cp kube-apiserver.yaml kube-apiserver.yaml.backup`, the kubelet
+will read **both** files and attempt to create a static Pod from each. When two files
+define a Pod with the same name, the resulting behavior is undefined and can cause the
+backup's outdated spec to silently take effect instead of the current manifest. If you
+do create a backup, store it **outside** the static Pod directory (for example, in
+`/etc/kubernetes/backup/`).
+-->
+kubelet 会处理静态 Pod 目录中**所有不是以点开头的文件** —— 不会根据文件扩展名进行过滤。
+例如，如果你通过执行 `cp kube-apiserver.yaml kube-apiserver.yaml.backup`
+来创建一个清单文件的备份，kubelet 将读取**这两个**文件，
+并尝试分别从中创建一个静态 Pod。当两个文件定义了同名的 Pod 时，
+其结果行为是未定义的，并且可能导致备份文件中过时的规范静默生效，
+而不是使用当前的清单文件。如果你确实创建了备份文件，
+应将其存储在静态 Pod 目录**之外**（例如，`/etc/kubernetes/backup/` 目录）。
+{{< /caution >}}
+
+<!--
+For example, this is how to start a simple web server as a static Pod:
+-->
+例如：下面是如何以静态 Pod 的方式启动一个简单 Web 服务：
 
 <!--
 1. Choose a node where you want to run the static Pod. In this example, it's `my-node1`.
@@ -136,7 +105,8 @@ For example, this is how to start a simple web server as a static Pod:
 
    # Run this command on the node where kubelet is running
 -->
-2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
+2. 选择一个目录，比如在 `/etc/kubernetes/manifests`
+   目录来保存 Web 服务 Pod 的定义文件，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
 
    ```shell
@@ -171,11 +141,13 @@ For example, this is how to start a simple web server as a static Pod:
    To use the deprecated approach, start the kubelet with the
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
 -->
-3. 在该节点上配置 kubelet，在 [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中设定 `staticPodPath` 值。
+3. 在该节点上配置 kubelet，在
+   [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中设定 `staticPodPath` 值。
    欲了解更多信息，请参考[通过配置文件设定 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
    另一个已弃用的方法是，在该节点上通过命令行参数配置 kubelet，以便从本地查找静态 Pod 清单。
-   若使用这种弃用的方法，请启动 kubelet 时加上 `--pod-manifest-path=/etc/kubernetes/manifests/` 参数。
+   若使用这种弃用的方法，请启动 kubelet 时加上
+   `--pod-manifest-path=/etc/kubernetes/manifests/` 参数。
 <!--
 1. Restart the kubelet. On Fedora, you would run:
 
@@ -214,7 +186,8 @@ JSON/YAML 格式的 Pod 定义文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 创建一个 YAML 文件，并保存在 Web 服务器上，这样你就可以将该文件的 URL 传递给 kubelet。
+1. 创建一个 YAML 文件，并保存在 Web 服务器上，这样你就可以将该文件的
+   URL 传递给 kubelet。
 
    ```yaml
    apiVersion: v1
@@ -266,18 +239,19 @@ JSON/YAML 格式的 Pod 定义文件。
 When the kubelet starts, it automatically starts all defined static Pods. As you have
 defined a static Pod and restarted the kubelet, the new static Pod should
 already be running.
-
-You can view running containers (including static Pods) by running (on the node):
-```shell
-# Run this command on the node where the kubelet is running
-crictl ps
-```
 -->
 ## 观察静态 Pod 的行为 {#behavior-of-static-pods}
 
 当 kubelet 启动时，会自动启动所有定义的静态 Pod。
 当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
 
+<!--
+You can view running containers (including static Pods) by running (on the node):
+```shell
+# Run this command on the node where the kubelet is running
+crictl ps
+```
+-->
 可以在节点上运行下面的命令来查看正在运行的容器（包括静态 Pod）：
 
 ```shell
@@ -323,7 +297,8 @@ static-web-my-node1   1/1     Running   0               2m
 Make sure the kubelet has permission to create the mirror Pod in the API server.
 If not, the creation request is rejected by the API server.
 -->
-要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
+要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。
+如果没有，创建请求会被 API 服务拒绝。
 {{< /note >}}
 
 <!--
@@ -338,7 +313,8 @@ propagated into the mirror Pod. You can use those labels as normal via
 If you try to use `kubectl` to delete the mirror Pod from the API server,
 the kubelet _doesn't_ remove the static Pod:
 -->
-如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet **不会**移除静态 Pod：
+如果你用 `kubectl` 从 API 服务上删除镜像 Pod，
+kubelet **不会**移除静态 Pod：
 
 ```shell
 kubectl delete pod static-web-my-node1
@@ -416,7 +392,7 @@ To find more about how to debug using `crictl`, please visit
 [_Debugging Kubernetes nodes with crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 若要找到如何使用 `crictl` 进行调试的更多信息，
-请访问[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
+请访问[**使用 crictl 对 Kubernetes 节点进行调试**](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## Dynamic addition and removal of static pods
@@ -464,16 +440,16 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 ## {{% heading "whatsnext" %}}
 
 <!--
+* [Static Pods](/docs/concepts/workloads/pods/static-pods/)
 * [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 -->
+* [静态 Pod](/zh-cn/docs/concepts/workloads/pods/static-pods/)
 * [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [使用 `crictl` 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
 * 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [从 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)
 * [将 etcd 实例设置为由 kubelet 管理的静态 Pod](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

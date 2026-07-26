@@ -37,7 +37,7 @@ weight: 150
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)は、[Tungsten Fabric](https://tungsten.io)をベースにしている、オープンソースでマルチクラウドに対応したネットワーク仮想化およびポリシー管理プラットフォームです。
   ContrailおよびTungsten Fabricは、Kubernetes、OpenShift、OpenStack、Mesosなどのオーケストレーションシステムと統合されており、仮想マシン、コンテナ/Pod、ベアメタルのワークロードに隔離モードを提供します。
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)は、Kubernetesで使用できるオーバーレイネットワークプロバイダーです。
-* [Gateway API](/docs/concepts/services-networking/gateway/)は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)コミュニティによって管理されているオープンソースプロジェクトで、サービスネットワーキングをモデル化するための表現力豊かで拡張可能、かつロール指向のAPIを提供します。
+* [Gateway API](/docs/concepts/services-networking/gateway/)は、[SIG Network](https://github.com/kubernetes/community/tree/main/sig-network)コミュニティによって管理されているオープンソースプロジェクトで、サービスネットワーキングをモデル化するための表現力豊かで拡張可能、かつロール指向のAPIを提供します。
 * [Knitter](https://github.com/ZTE/Knitter/)は、1つのKubernetes Podで複数のネットワークインターフェースをサポートするためのプラグインです。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni)は、すべてのCNIプラグイン(たとえば、Calico、Cilium、Contiv、Flannel)に加えて、SRIOV、DPDK、OVS-DPDK、VPPをベースとするKubernetes上のワークロードをサポートする、複数のネットワークサポートのためのマルチプラグインです。
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)は、Open vSwitch(OVS)プロジェクトから生まれた仮想ネットワーク実装である[OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)をベースとする、Kubernetesのためのネットワークプロバイダーです。

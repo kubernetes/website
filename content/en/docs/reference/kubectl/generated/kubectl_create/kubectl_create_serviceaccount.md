@@ -3,6 +3,8 @@ title: kubectl create serviceaccount
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a service account with the specified name
 ---
 
 

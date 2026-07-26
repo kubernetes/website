@@ -1,7 +1,6 @@
 ---
 title: containerd
 id: containerd
-date: 2019-05-14
 full_link: https://containerd.io/docs/
 short_description: >
   Um agente de execução de contêiner com enfase em simplicidade, robustez e portabilidade

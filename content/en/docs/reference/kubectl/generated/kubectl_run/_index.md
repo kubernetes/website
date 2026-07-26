@@ -3,6 +3,8 @@ title: kubectl run
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Run a particular image on the cluster
 no_list: true
 ---
 
@@ -101,6 +103,13 @@ kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=serv
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "ctrl-p,ctrl-q"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Override the key sequence for detaching a container.</p></td>
 </tr>
 
 <tr>

@@ -1,7 +1,6 @@
 ---
 title: Контролер
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Контролер — цикл управління, що спостерігає за загальним станом кластера через apiserver і вносить зміни в намаганні наблизити поточний стан до бажаного.

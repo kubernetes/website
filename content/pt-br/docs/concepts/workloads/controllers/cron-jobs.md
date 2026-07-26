@@ -1,7 +1,13 @@
 ---
 title: CronJob
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "CronJob"
 content_type: concept
+description: >-
+  Um CronJob inicia tarefas de execução única de forma recorrente.
 weight: 80
+hide_summary: true # Listado separadamente na página inicial da seção
 ---
 
 <!-- visão geral -->
@@ -65,7 +71,7 @@ Por exemplo, a linha abaixo determina que a tarefa deve iniciar toda sexta-feira
 
 É também possível gerar expressões de cronograma para CronJobs utilizando ferramentas da _web_ como o [crontab.guru](https://crontab.guru/).
 
-## Limitações do CronJob
+## Limitações do CronJob {#cron-job-limitations}
 
 Um CronJob cria uma tarefa _aproximadamente_ uma vez por tempo de execução de seu cronograma. Dizemos "aproximadamente" porque existem circunstâncias em que duas tarefas podem ser criadas, e outras circunstâncias em que nenhuma tarefa será criada. Tentamos tornar estas situações raras, mas não é possível preveni-las completamente. Portanto, as tarefas devem ser _idempotentes_.
 

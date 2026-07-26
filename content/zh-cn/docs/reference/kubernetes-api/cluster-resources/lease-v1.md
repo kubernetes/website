@@ -53,7 +53,7 @@ Lease 定义了租约的概念。
 
 - **spec** (<a href="{{< ref "../cluster-resources/lease-v1#LeaseSpec" >}}">LeaseSpec</a>)
 
-  spec 包含 Lease 的规约。更多信息：
+  `spec` 包含 Lease 的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LeaseSpec {#LeaseSpec}
@@ -79,14 +79,14 @@ LeaseSpec 是 Lease 的规约。
 -->
 - **acquireTime** (MicroTime)
 
-  acquireTime 是当前租约被获取的时间。
+  `acquireTime` 是当前租约被获取的时间。
   
   <a name="MicroTime"></a>
   **MicroTime 是微秒级精确时间的版本。**
 
 - **holderIdentity** (string)
 
-  holderIdentity 包含当前租约持有人的身份。
+  `holderIdentity` 包含当前租约持有人的身份。
   如果使用协调领导者选举（Coordinated Leader Election），
   则持有人身份必须等于选举出的 LeaseCandidate.metadata.name 字段。
 
@@ -105,16 +105,16 @@ LeaseSpec 是 Lease 的规约。
 -->
 - **leaseDurationSeconds** (int32)
 
-  leaseDurationSeconds 是租约候选人需要等待强制获取租约的持续时间。
-  这是相对于上次观察到的 renewTime 的度量。
+  `leaseDurationSeconds` 是租约候选人需要等待强制获取租约的持续时间。
+  这是相对于上次观察到的 `renewTime` 的度量。
 
 - **leaseTransitions** (int32)
 
-  leaseTransitions 是租约持有人之间的转换次数。
+  `leaseTransitions` 是租约持有人之间的转换次数。
 
 - **preferredHolder** (string)
 
-  preferredHolder 向租约持有人发出信号，提示此租约出现一个更优的持有人且应该被放弃。
+  `preferredHolder` 向租约持有人发出信号，提示此租约出现一个更优的持有人且应该被放弃。
   此字段仅在设置了 `strategy` 时才能被设置。
 
 <!--
@@ -131,14 +131,14 @@ LeaseSpec 是 Lease 的规约。
 -->
 - **renewTime** (MicroTime)
 
-  renewTime 是当前租约持有人上次更新租约的时间。
+  `renewTime` 是当前租约持有人上次更新租约的时间。
 
   <a name="MicroTime"></a>
   **MicroTime 是具有微秒级精度的时间版本。**
 
 - **strategy**（字符串）
 
-  strategy 指示为协调领导者选举选择领导者的策略。
+  `strategy` 指示为协调领导者选举选择领导者的策略。
   如果此字段未被指定，则此租约没有主动的协调。
   （Alpha）使用此字段需要启用 CoordinatedLeaderElection 特性门控。
 
@@ -160,6 +160,7 @@ LeaseList 是 Lease 对象的列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
+  
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
@@ -170,7 +171,7 @@ LeaseList 是 Lease 对象的列表。
 -->
 - **items** ([]<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)，必需
 
-  items 是架构对象的列表。
+  `items` 是架构对象的列表。
 
 <!--
 ## Operations {#Operations}
@@ -282,6 +283,10 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -331,6 +336,10 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -399,6 +408,10 @@ GET /apis/coordination.k8s.io/v1/leases
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -444,6 +457,10 @@ GET /apis/coordination.k8s.io/v1/leases
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -856,6 +873,10 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -915,6 +936,10 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

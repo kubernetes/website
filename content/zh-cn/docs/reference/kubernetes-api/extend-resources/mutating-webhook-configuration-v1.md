@@ -39,12 +39,12 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 <!-- 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata. 
+  metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata. 
 -->
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  `metadata` 是标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!-- 
 - **webhooks** ([]MutatingWebhook)
@@ -53,7 +53,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   *Map: unique values on key name will be kept during a merge*
 
-  Webhooks is a list of webhooks and the affected resources and operations.
+  webhooks is a list of webhooks and the affected resources and operations.
 
   <a name="MutatingWebhook"></a>
   *MutatingWebhook describes an admission webhook and the resources and operations it applies to.* 
@@ -75,7 +75,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     *Atomic: will be replaced during a merge*  
   
-    AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. 
+    admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. 
   -->
 
   - **webhooks.admissionReviewVersions** ([]string)，必需
@@ -90,7 +90,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   <!-- 
   - **webhooks.clientConfig** (WebhookClientConfig), required
 
-    ClientConfig defines how to communicate with the hook. Required
+    clientConfig defines how to communicate with the hook. Required
 
     <a name="WebhookClientConfig"></a>
     *WebhookClientConfig contains the information to make a TLS connection with the webhook* 
@@ -106,7 +106,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       <!-- 
       - **webhooks.clientConfig.caBundle** ([]byte)
 
-        `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used. 
+        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used. 
       -->
 
     - **webhooks.clientConfig.caBundle** ([]byte)
@@ -117,7 +117,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     <!-- 
     - **webhooks.clientConfig.service** (ServiceReference)
 
-      `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+      service is a reference to the service for this webhook. Either `service` or `url` must be specified.
       
       If the webhook is running within the cluster, then you should use `service`.
 
@@ -137,7 +137,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
         <!-- 
         - **webhooks.clientConfig.service.name** (string), required
 
-          `name` is the name of the service. Required 
+          name is the name of the service. Required 
         -->
 
       - **webhooks.clientConfig.service.name** (string)，必需
@@ -147,7 +147,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       <!-- 
       - **webhooks.clientConfig.service.namespace** (string), required
 
-        `namespace` is the namespace of the service. Required 
+        namespace is the namespace of the service. Required 
       -->
 
       - **webhooks.clientConfig.service.namespace** (string)，必需
@@ -157,7 +157,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       <!-- 
       - **webhooks.clientConfig.service.path** (string)
 
-        `path` is an optional URL path which will be sent in any request to this service. 
+        path is an optional URL path which will be sent in any request to this service. 
       -->
 
       - **webhooks.clientConfig.service.path** (string)
@@ -167,18 +167,18 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       <!-- 
       - **webhooks.clientConfig.service.port** (int32)
 
-        If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive). 
+        port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive). 
       -->
 
       - **webhooks.clientConfig.service.port** (int32)
 
-        如果指定了，则为托管 Webhook 的服务上的端口。默认为 443 以实现向后兼容。
+        `port` 为托管 Webhook 的服务上的端口。默认为 443 以实现向后兼容。
         `port` 应该是一个有效的端口号（包括 1-65535）。
 
     <!-- 
     - **webhooks.clientConfig.url** (string)
 
-      `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+      url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
       
       The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
       
@@ -215,18 +215,18 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   <!-- 
   - **webhooks.name** (string), required
 
-    The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required. 
+    name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required. 
   -->
 
   - **webhooks.name** (string)，必需
 
-    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中
+    `name` 是准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中
     `imagepolicy` 是 Webhook 的名称，`kubernetes.io` 是组织的名称。必需。
 
   <!-- 
   - **webhooks.sideEffects** (string), required
 
-    SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. 
+    sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. 
   -->
 
   - **webhooks.sideEffects** (string)，必需
@@ -235,41 +235,16 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     （通过 `v1beta1` 创建的 Webhook 也可以指定 `Some` 或 `Unknown`）。
     具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。
     如果请求与带有 `sideEffects == Unknown` 或 `Some` 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
-
-    <!--
-    Possible enum values:
-     - `"None"` means that calling the webhook will have no side effects.
-     - `"NoneOnDryRun"` means that calling the webhook will possibly have side effects, but if the request being reviewed has the dry-run attribute, the side effects will be suppressed.
-     - `"Some"` means that calling the webhook will possibly have side effects. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
-     - `"Unknown"` means that no information is known about the side effects of calling the webhook. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
-    -->
-
-    可能的枚举值：
-    - `"None"` 表示调用 Webhook 不会产生任何副作用。
-    - `"NoneOnDryRun"` 表示调用 Webhook 可能会产生副作用，
-      但如果被审查的请求具有 dry-run 属性，则会抑制这些副作用。
-    - `"Some"` 表示调用 Webhook 可能会产生副作用。如果带有 `dry-run` 属性的请求触发了对此
-      Webhook 的调用，该请求将会失败。
-    - `"Unknown"` 表示对调用 Webhook 是否会产生副作用未知。如果带有 `dry-run`
-      属性的请求触发了对此 Webhook 的调用，该请求将会失败。
   
   <!-- 
   - **webhooks.failurePolicy** (string)
 
-    FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail. 
-
-    Possible enum values:
-     - `"Fail"` means that an error calling the webhook causes the admission to fail.
-     - `"Ignore"` means that an error calling the webhook is ignored.
+    failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
   -->
 
   - **webhooks.failurePolicy** (string)
 
     `failurePolicy` 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 `Ignore` 或 `Fail`。默认为 `Fail`。
-
-    可能的枚举值：
-    - `"Fail"` 表示调用 Webhook 出错会导致准入失败。
-    - `"Ignore"` 表示调用 Webhook 出错将被忽略。
 
   <!--
   - **webhooks.matchConditions** ([]MatchCondition)
@@ -286,7 +261,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     **映射：键 `name` 的唯一值将在合并过程中保留**
 
     <!--
-    MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+    matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
     -->
     
     `matchConditions` 是将请求发送到此 webhook 之前必须满足的条件列表。
@@ -320,7 +295,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     <!--
     - **webhooks.matchConditions.expression** (string), required
 
-      Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+      expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
     -->
     
     - **webhooks.matchConditions.expression** (string)，必需
@@ -360,7 +335,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       <!--
       - **webhooks.matchConditions.name** (string), required
 
-        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')   
+        name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')   
 
         Required.
       -->
@@ -404,22 +379,10 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     默认为 `"Equivalent"`。
 
-    <!--
-    Possible enum values:
-     - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
-     - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
-    -->
-
-    可能的枚举值：
-    - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
-      则应将请求发送到 Webhook。
-    - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
-  
-
   - **webhooks.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
     <!-- 
-    NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+    namespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
     -->
@@ -482,7 +445,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   <!-- 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything. 
+    objectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything. 
   -->
 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -521,23 +484,12 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     默认值为 `"Never"`。
 
-    <!--
-    Possible enum values:
-     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
-     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
-    -->
-
-    可能的枚举值：
-     - `"IfNeeded"` 表示如果被准入的对象在初次变更调用后被其他准入插件修改，
-       则作为准入评估的一部分，可能会再次调用此变更。
-     - `"Never"` 表示在一个单一的准入评估中，不得多次调用此变更。
-
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
 
     *Atomic: will be replaced during a merge*
 
-    Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+    rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 
     <a name="RuleWithOperations"></a>
     *RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.*
@@ -560,7 +512,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       *Atomic: will be replaced during a merge*
 
-      APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required. 
+      apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.apiGroups** ([]string)
@@ -575,7 +527,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       *Atomic: will be replaced during a merge*
   
-      APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required. 
+      apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.apiVersions** ([]string)
@@ -590,7 +542,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       *Atomic: will be replaced during a merge*
 
-      Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required. 
+      operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.operations** ([]string)
@@ -606,7 +558,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       *Atomic: will be replaced during a merge*
 
-      Resources is a list of resources this rule applies to.
+      resources is a list of resources this rule applies to.
       
       For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
       
@@ -645,22 +597,10 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       “*” 表示没有范围限制。
       子资源与其父资源的作用域相同。默认为 “*”。
 
-      <!--
-      Possible enum values:
-       - `"*"` means that all scopes are included.
-       - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
-       - `"Namespaced"` means that scope is limited to namespaced objects.
-      -->
-
-      可能的枚举值：
-       - `"*"` 表示包含所有范围。
-       - `"Cluster"` 表示范围限于集群范围的对象。命名空间对象是集群范围的。
-       - `"Namespaced"` 表示范围限于命名空间范围的对象。
-
   <!-- 
   - **webhooks.timeoutSeconds** (int32)
 
-    TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds. 
+    timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds. 
   -->
 
   - **webhooks.timeoutSeconds** (int32)
@@ -685,12 +625,12 @@ MutatingWebhookConfigurationList 是 MutatingWebhookConfiguration 的列表。
 <!-- 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
+  metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
 -->
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的对象元数据，更多信息：
+  `metadata` 是标准的对象元数据，更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!-- 
@@ -856,6 +796,15 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector**（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer
@@ -1353,6 +1302,15 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector**（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer

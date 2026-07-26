@@ -1,7 +1,6 @@
 ---
 title: ডেমনসেট
 id: daemonset
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/controllers/daemonset
 short_description: >
   একটি পডের একটি কপি একটি ক্লাস্টারে নোডগুলির একটি সেট জুড়ে চলছে তা নিশ্চিত করে৷

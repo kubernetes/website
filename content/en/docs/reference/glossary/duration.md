@@ -1,7 +1,6 @@
 ---
 title: Duration
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   A string value representing an amount of time.

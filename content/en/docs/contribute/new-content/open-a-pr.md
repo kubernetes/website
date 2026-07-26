@@ -205,7 +205,7 @@ Figure 2. Working from a local fork to make your changes.
 
    {{< note >}}
    This workflow is different than the
-   [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md).
+   [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/main/contributors/guide/github-workflow.md).
    You do not need to merge your local copy of `main` with `upstream/main` before pushing updates
    to your fork.
    {{< /note >}}

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating container-level scope where one container gets exclusive resources and others run in the node's shared pool."
+spec:
+  # At Pod level, the Pod has CPU request equal to limits and memory request
+  # also equal to memory limits. The infrastructure-sidecar container meets the
+  # requirements for the Guaranteed QoS class at container level, and the worker
+  # containers don't specify any resource request. Under container scope, the
+  # kubelet evaluates containers individually for exclusive allocation. This
+  # means the infrastructure-sidecar gets an exclusive 2 CPU slice, while the
+  # worker containers run in the node's general shared pool, all while bounded
+  # by the overall pod limits.
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: infrastructure-sidecar
+    image: registry.example/example-image:v1
+    restartPolicy: Always
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
+  containers:
+  - name: worker-1
+    image: registry.example/example-image:v1
+  - name: worker-2
+    image: registry.example/example-image:v1

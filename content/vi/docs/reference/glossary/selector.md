@@ -1,7 +1,6 @@
 ---
 title: Selector
 id: selector
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Cho phép người dùng lọc ra một danh sách tài nguyên dựa trên label.

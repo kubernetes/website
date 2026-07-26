@@ -1,7 +1,6 @@
 ---
 title: Platform Developer
 id: platform-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   Seseorang yang menyesuaikan platform Kubernetes agar sesuai dengan kebutuhan proyek mereka.

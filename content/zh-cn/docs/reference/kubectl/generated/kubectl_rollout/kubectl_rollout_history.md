@@ -2,12 +2,16 @@
 title: kubectl rollout history
 content_type: tool-reference
 weight: 30
+description: >-
+  查看上线历史记录
 ---
 <!--
 title: kubectl rollout history
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  View rollout history
 -->
 
 ## {{% heading "synopsis" %}}
@@ -25,11 +29,11 @@ kubectl rollout history (TYPE NAME | TYPE/NAME) [flags]
 
 <!--
 ```
-  # View the rollout history of a deployment
-  kubectl rollout history deployment/abc
+# View the rollout history of a deployment
+kubectl rollout history deployment/abc
   
-  # View the details of daemonset revision 3
-  kubectl rollout history daemonset/abc --revision=3
+# View the details of daemonset revision 3
+kubectl rollout history daemonset/abc --revision=3
 ```
 -->
 ```shell
@@ -159,7 +163,7 @@ See the details, including podTemplate of the revision specified
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
-（例如 -l key1=value1,key2=value2,key3 in (value3)）。匹配的对象必须满足所有指定的标签约束。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
 </tr>
@@ -251,7 +255,8 @@ UID to impersonate for the operation.
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 -->

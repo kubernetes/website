@@ -3,6 +3,8 @@ title: kubectl cordon
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Mark node as unschedulable
 no_list: true
 ---
 

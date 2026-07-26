@@ -12,7 +12,7 @@
             {{ range $eolRelease := .Site.Data.releases.eol.branches }}
             <tr>
                 <td>
-                    {{ $eolRelease.release }}
+                    <a href="/releases/{{ $eolRelease.release }}/">{{ $eolRelease.release }}</a>
                 </td>
                 <td>
                     {{ $eolRelease.finalPatchRelease }}

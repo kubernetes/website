@@ -1,7 +1,6 @@
 ---
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker è una technologia software che offre una virtualizzazione a livello del sistema operativo nota come container.

@@ -60,7 +60,7 @@ auto_generated: true
 <tbody>
     
   
-<tr><td><code>uid</code> <B>[Required]</B><br/>
+<tr><td><code>uid</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
@@ -70,14 +70,14 @@ The UID is meant to track the round trip (request/response) between the KAS and 
 It is suitable for correlating log entries between the webhook and apiserver, for either auditing or debugging.</p>
 </td>
 </tr>
-<tr><td><code>kind</code> <B>[Required]</B><br/>
+<tr><td><code>kind</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionKind"><code>meta/v1.GroupVersionKind</code></a>
 </td>
 <td>
    <p>kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)</p>
 </td>
 </tr>
-<tr><td><code>resource</code> <B>[Required]</B><br/>
+<tr><td><code>resource</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionResource"><code>meta/v1.GroupVersionResource</code></a>
 </td>
 <td>
@@ -143,7 +143,7 @@ rely on the server to generate the name.  If that is the case, this field will c
    <p>namespace is the namespace associated with the request (if any).</p>
 </td>
 </tr>
-<tr><td><code>operation</code> <B>[Required]</B><br/>
+<tr><td><code>operation</code><br/>
 <a href="#admission-k8s-io-v1-Operation"><code>Operation</code></a>
 </td>
 <td>
@@ -151,8 +151,8 @@ rely on the server to generate the name.  If that is the case, this field will c
 requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 </td>
 </tr>
-<tr><td><code>userInfo</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<tr><td><code>userInfo</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>userInfo is information about the requesting user</p>
@@ -210,7 +210,7 @@ Operation might be a CREATE, in which case the Options will a
 <tbody>
     
   
-<tr><td><code>uid</code> <B>[Required]</B><br/>
+<tr><td><code>uid</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
@@ -218,7 +218,7 @@ Operation might be a CREATE, in which case the Options will a
 This must be copied over from the corresponding AdmissionRequest.</p>
 </td>
 </tr>
-<tr><td><code>allowed</code> <B>[Required]</B><br/>
+<tr><td><code>allowed</code><br/>
 <code>bool</code>
 </td>
 <td>
@@ -226,7 +226,7 @@ This must be copied over from the corresponding AdmissionRequest.</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>status is the result contains extra details into why an admission request was denied.

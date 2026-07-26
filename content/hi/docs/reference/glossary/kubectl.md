@@ -1,7 +1,6 @@
 ---
 title: क्यूबकण्ट्रोल (Kubectl)
 id: kubectl
-date: 2018-04-12
 full_link: /docs/user-guide/kubectl-overview/
 short_description: >
   कुबेरनेट्स क्लस्टर के साथ संचार करने के लिए एक कमांड लाइन उपकरण।

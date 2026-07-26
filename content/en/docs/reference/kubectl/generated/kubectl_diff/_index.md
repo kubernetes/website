@@ -3,6 +3,8 @@ title: kubectl diff
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Diff the live version against a would-be applied version
 no_list: true
 ---
 
@@ -139,6 +141,13 @@ kubectl diff -f FILENAME
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, include managed fields in the diff.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--show-secrets</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, do not mask secret values in the diff.</p></td>
 </tr>
 
 </tbody>

@@ -1,7 +1,6 @@
 ---
 title: kube-controller-manager
 id: kube-controller-manager
-date: 2019-04-21
 full_link: /docs/reference/generated/kube-controller-manager/
 short_description: >
   Komponen _control plane_ yang menjalankan pengontrol.

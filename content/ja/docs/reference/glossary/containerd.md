@@ -1,7 +1,6 @@
 ---
 title: containerd
 id: containerd
-date: 2019-05-14
 full_link: https://containerd.io/docs/
 short_description: >
   シンプルさ、堅牢性、移植性を重視したコンテナランタイムです。

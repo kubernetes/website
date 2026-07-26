@@ -1,7 +1,6 @@
 ---
 title: কন্টেইনার(Container)
 id: container
-date: 2018-04-12
 full_link: /bn/docs/concepts/containers/
 short_description: >
   একটি লাইটওয়েট এবং পোর্টেবল এক্সিকিউটেবল ইমেজ যা সফ্টওয়্যার এবং এর সকল ডিপেন্ডেন্সি ধারণ করে।

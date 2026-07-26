@@ -9,7 +9,7 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
+- apiVersion: "certificates.k8s.io/v1beta1"
   kind: "ClusterTrustBundle"  
 content_type: concept
 weight: 60
@@ -206,15 +206,33 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
 
-The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
-signers. Failures for all of these are only reported in kube-controller-manager logs.
+1. `kubernetes.io/kube-apiserver-serving`: signs certificates that can be used to verify kube-apiserver serving
+   certificates. Signing and approval are handled outside kube-controller-manager.
+    - {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
+    1. Trust distribution: signed certificates are used by the kube-apiserver for TLS
+       server authentication. The CA bundle is distributed using a ClusterTrustBundle object
+       identifiable by the `kubernetes.io/kube-apiserver-serving` signer name.
+    1. Permitted subjects - "Subject" itself is deprecated for TLS server authentication by RFC2818. However,
+       it should still follow the same rules on DNS/IP {{< glossary_tooltip text="SANs" term_id="san" >}}
+       from the "Permitted x509 extensions" section below.
+    1. Permitted x509 extensions - honors subjectAltName and key usage extensions. At
+       least one DNS or IP subjectAltName must be present. The SAN DNS/IP of the certificates
+       must resolve/point to kube-apiserver's hostname/IP.
+    1. Permitted key usages - ["key encipherment", "digital signature", "server auth"] or ["digital signature", "server auth"].
+    1. Expiration/certificate lifetime - The recommended maximum lifetime is 30 days.
+    1. CA bit allowed/disallowed - not recommended by the Kubernetes project.
 
 {{< note >}}
 The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
-Distribution of trust happens out of band for these signers. Any trust outside of those described above are strictly
+The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
+signers except for `kubernetes.io/kube-apiserver-serving`. Failures for all of these are only reported in kube-controller-manager logs.
+Signing of certificates in the trust domain of the `kubernetes.io/kube-apiserver-serving` signer is in full control of
+the cluster administrator(s).
+
+Any trust outside of the above described cases is strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only
@@ -236,68 +254,14 @@ The Kubernetes control plane implements each of the
 [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
 as part of the kube-controller-manager.
 
+For a hands-on example of creating a CertificateSigningRequest and having it approved and
+signed by the Kubernetes control plane, see
+[Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/).
+
 {{< note >}}
 Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
 were marked as approved.
 {{< /note >}}
-
-{{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.
-Earlier versions of Kubernetes do not honor this field.
-Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
-{{< /note >}}
-
-### API-based signers {#signer-api}
-
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
-subresource of the CSR to be signed.
-
-As part of this request, the `status.certificate` field should be set to contain the
-signed certificate. This field contains one or more PEM-encoded certificates.
-
-All PEM blocks must have the "CERTIFICATE" label, contain no headers,
-and the encoded data must be a BER-encoded ASN.1 Certificate structure
-as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
-
-Example certificate content:
-
-```
------BEGIN CERTIFICATE-----
-MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
-BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
-BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
-MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
-dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
-+e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
-kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
-Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
-sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
-2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
-YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
-Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
-ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
-L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
-qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
-o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
-aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
-M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
------END CERTIFICATE-----
-```
-
-Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
-
-When encoded in JSON or YAML, this field is base-64 encoded.
-A CertificateSigningRequest containing the example certificate above would look like this:
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
-```
 
 ## Approval or rejection  {#approval-rejection}
 
@@ -375,6 +339,59 @@ code using TitleCase; this is a convention but you can set it to anything
 you like. If you want to add a note for human consumption, use the
 `status.conditions.message` field.
 
+## API-based signers {#signer-api}
+
+Users of the REST API can sign CSRs by submitting an **update** request to the `status`
+subresource of the CSR to be signed.
+
+As part of this request, the `status.certificate` field should be set to contain the
+signed certificate. This field contains one or more PEM-encoded certificates.
+
+All PEM blocks must have the "CERTIFICATE" label, contain no headers,
+and the encoded data must be a BER-encoded ASN.1 Certificate structure
+as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
+
+Example certificate content:
+
+```
+-----BEGIN CERTIFICATE-----
+MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
+BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
+BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
+MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
+dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
++e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
+kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
+Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
+sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
+2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
+YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
+ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
+L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
+qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
+o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
+aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
+M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
+-----END CERTIFICATE-----
+```
+
+Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
+
+When encoded in JSON or YAML, this field is base-64 encoded.
+After a CertificateSigningRequest has been approved and signed, it contains the signed 
+certificate in the `status.certificate` field. A CertificateSigningRequest containing 
+the example certificate above would look like this:
+
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
+```
 
 ## PodCertificateRequests {#pod-certificate-requests}
 
@@ -407,16 +424,20 @@ A PodCertificateRequest has the following spec fields:
 * `nodeName` and `nodeUID`: The Node corresponding to the Pod.
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
-* `pkixPublicKey`: The public key for which the certificate should be issued.
-* `proofOfPossession`: A signature demonstrating that the requester controls the
-  private key corresponding to `pkixPublicKey`.
+* `stubPKCS10Request`: A minimal
+  [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR. Signers should extract
+  the public key from this CSR. Typically, no other actions need to be taken
+  with this field from the signer side, the CSR signature is checked by the API
+  server. Requests from the Kubelet will only include the public key information
+  in the CSR.
 * `unverifiedUserAnnotations`: A map that allows the user to pass additional
   information to the signer implementation. It is copied verbatim from the
-  `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
-  Entries are subject to the same validation as object metadata annotations,
-  with the addition that all keys must be domain-prefixed. No restrictions are
-  placed on values, except an overall size limitation on the entire field. Other
-  than these basic validations, the API server does not conduct any extra
+  `userAnnotations` field of the [podCertificate projected volume
+  source](/docs/concepts/storage/projected-volumes#podcertificate). Entries are
+  subject to the same validation as object metadata annotations, with the
+  addition that all keys must be domain-prefixed. No restrictions are placed on
+  values, except an overall size limitation on the entire field. Other than
+  these basic validations, the API server does not conduct any extra
   validations. The signer implementations should be very careful when consuming
   this data. Signers must not inherently trust this data without first
   performing the appropriate verification steps. Signers should document the

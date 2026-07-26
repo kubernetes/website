@@ -52,13 +52,17 @@ To download Kubernetes, visit the [download](/releases/download/) section.
 {{< /blocks/section >}}
 {{< blocks/section id="upcoming-events" >}}
 <h2>Attend upcoming KubeCon + CloudNativeCon events</h2>
-  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
-  <div>
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, Mar 23-26, 2026)</a>
-  </div>
-  <div>
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>North America</strong> (Salt Lake City, Nov 9-12, 2026)</a>
-  </div>
+<!--
+  {{< kubecon-events >}} renders event listings from data/events/kubecon.yaml.
+  Note for localization:
+  - Region names support i18n via kubecon_region_* keys.
+  - City names remain in English.
+  - Dates are stored in ISO 8601 and formatted by Hugo's time.Format.
+  - Localized pages may replace this shortcode with a static, fully localized version if needed.
+  - If a static version is used, keeping event information up to date becomes the responsibility of the localization team.
+-->
+{{< kubecon-events >}}
+
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}

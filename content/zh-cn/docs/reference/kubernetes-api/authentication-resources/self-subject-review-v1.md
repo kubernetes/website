@@ -42,17 +42,19 @@ SelfSubjectReview 包含 kube-apiserver 所拥有的与发出此请求的用户�
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   <!--
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的对象元数据。更多信息：
+  
+  `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **status** (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReviewStatus" >}}">SelfSubjectReviewStatus</a>)
 
   <!--
-  Status is filled in by the server with the user attributes.
+  status is filled in by the server with the user attributes.
   -->
-  status 由服务器以用户属性进行填充。
+  
+  `status` 由服务器以用户属性进行填充。
 
 ## SelfSubjectReviewStatus {#SelfSubjectReviewStatus}
 
@@ -66,51 +68,53 @@ SelfSubjectReviewStatus 由 kube-apiserver 进行填充并发送回用户。
 - **userInfo** (UserInfo)
 
   <!--
-  User attributes of the user making this request.
+  userInfo is a set of attributes belonging to the user making this request.
   -->
-  发出此请求的用户的用户属性。
+  
+  `userInfo` 是属于发出此请求的用户的一组属性。
 
   <a name="UserInfo"></a>
   <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
+  
   **userInfo 包含实现 user.Info 接口所需的用户相关信息。**
 
   - **userInfo.extra** (map[string][]string)
 
     <!--
-    Any additional information provided by the authenticator.
+    extra is any additional information provided by the authenticator.
     -->
 
-    由身份认证组件提供的所有附加信息。
+    `extra` 是指身份验证器提供的任何附加信息。
 
   - **userInfo.groups** ([]string)
 
     <!--
     *Atomic: will be replaced during a merge*
-    
-    The names of groups this user is a part of.
+
+    groups is the names of groups this user is a part of.
     -->
-    
+
     **原子性：合并期间将被替换**
 
-    此用户所属的用户组的名称。
+    `groups` 是该用户所属的群组名称。
 
   - **userInfo.uid** (string)
 
     <!--
-    A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+    uid is a unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
     -->
 
-    跨时间标识此用户的唯一值。如果此用户被删除且另一个同名用户被添加，他们将具有不同的 UID。
+    `uid` 是跨时间标识此用户的唯一值。如果此用户被删除且另一个同名用户被添加，他们将具有不同的 UID。
 
   - **userInfo.username** (string)
 
     <!--
-    The name that uniquely identifies this user among all active users.
+    username is the name that uniquely identifies this user among all active users.
     -->
 
-    在所有活跃用户中标识此用户的名称。
+    `username` 是在所有活跃用户中标识此用户的名称。
 
 <!--
 ## Operations {#Operations}
@@ -153,7 +157,7 @@ POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>, 必需
+- **body**: <a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>，必需
 
 - **dryRun** (**查询参数**): string
 

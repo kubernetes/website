@@ -1,7 +1,6 @@
 ---
 title: পড
 id: pod
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/pods/
 short_description: >
   একটি পড আপনার ক্লাস্টারে চলমান কন্টেইনারগুলোর একটি সেট উপস্থাপন করে।

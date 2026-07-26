@@ -25,8 +25,13 @@
         {{ end }}
         <p>{{ .message | markdownify }}</p>
         {{- if eq .dismissParameters.dismissible true -}}
-        <button  id="banner-dismiss" class="button" style="display: none;" data-ttl={{ .dismiss_params.showDismissedAnnouncementAfterDays }}>{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
-        {{- end -}}      
+          {{- $ttlDays := .dismissParameters.showDismissedAnnouncementAfterDays -}}
+          {{- if $ttlDays -}}
+        <button id="banner-dismiss" class="button" style="display: none;" data-ttl="{{ $ttlDays }}">{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
+          {{- else -}}
+        <button id="banner-dismiss" class="button" style="display: none;" data-expires-at="{{ (time .endTime).Unix }}">{{ T "banner_acknowledgement" }}</button> <!-- Default: cookie expires at the banner's endTime. Only JS enabled users will see this button -->
+          {{- end -}}
+        {{- end -}}
       </div>
     </aside>
   </div>

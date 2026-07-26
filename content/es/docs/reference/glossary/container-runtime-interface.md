@@ -1,7 +1,6 @@
 ---
 title: Container Runtime Interface
 id: container-runtime-interface
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   El protocolo principal para la comunicación entre el kubelet y el Container Runtime.
