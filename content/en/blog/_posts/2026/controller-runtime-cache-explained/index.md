@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "How the controller-runtime Cache Actually Works, and Why Your Controller Does Not Crash the API Server"
-draft: true
+date: 2026-07-29T10:00:00-08:00
 slug: controller-runtime-cache-explained
 author: >
   Andrei Kvapil (Ænix),
