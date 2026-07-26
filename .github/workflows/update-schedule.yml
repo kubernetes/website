@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
@@ -27,18 +25,32 @@ jobs:
 
       - name: Update schedule.yaml
         run: |
+          success=false
           for i in 1 2 3; do
-            schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml && break
+            if schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml; then
+              success=true
+              break
+            fi
             echo "schedule-builder failed, retrying ($i/3)..." >&2
             sleep 20
           done
+          if [ "$success" != "true" ]; then
+            echo "::error::schedule-builder failed after 3 attempts"
+            exit 1
+          fi
 
       - name: Check workspace
         id: create_pr
         run: |
           if [[ $(git diff --stat) != '' ]]; then
             echo "create_pr=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changes detected"
           fi
+
+      - name: Delete stale PR branch
+        if: ${{ steps.create_pr.outputs.create_pr == 'true' }}
+        run: git push origin --delete auto/update-schedule 2>/dev/null || true
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6.0.2
@@ -52,6 +64,6 @@ jobs:
 
             /cc @kubernetes/release-managers
           labels: area/release-eng, sig/release, sig/docs
-          branch: update-schedule
+          branch: auto/update-schedule
           delete-branch: true
           signoff: true
