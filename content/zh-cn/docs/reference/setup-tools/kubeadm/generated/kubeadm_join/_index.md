@@ -420,7 +420,7 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 <!--
 Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
 -->
-如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
+如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap-token 令牌。
 </p>
 </td>
 </tr>

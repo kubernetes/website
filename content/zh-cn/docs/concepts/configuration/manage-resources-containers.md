@@ -704,10 +704,10 @@ then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 <!--
 As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
-[ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 -->
 作为一种替代方案，集群管理员可以使用诸如
-[ValidationAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy)
+[ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy)
 之类的策略机制来强制对新 Pod 的 `emptyDir` 卷进行大小限制。
 
 <!--
@@ -861,12 +861,12 @@ http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 In the preceding request, `~1` is the encoding for the character `/`
 in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
-[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+[IETF RFC 6901, section 3](https://datatracker.ietf.org/doc/html/rfc6901#section-3).
 -->
 在前面的请求中，`~1` 是在 patch 路径中对字符 `/` 的编码。
 JSON-Patch 中的操作路径的值被视为 JSON-Pointer 类型。
 有关更多详细信息，请参见
-[IETF RFC 6901 第 3 节](https://tools.ietf.org/html/rfc6901#section-3)。
+[IETF RFC 6901 第 3 节](https://datatracker.ietf.org/doc/html/rfc6901#section-3)。
 {{< /note >}}
 
 <!--

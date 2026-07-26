@@ -1,5 +1,5 @@
 ---
-title: Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest
+title: Issue a Certificate for a Kubernetes API Client Using a CertificateSigningRequest
 api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
@@ -22,7 +22,7 @@ authenticate and invoke an API. First, this user must have an [X.509](https://ww
 issued by an authority that your Kubernetes cluster trusts. The client must then present that certificate to the Kubernetes API.
 
 You use a [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/)
-as part of this process, and either you or some other principal must approve the request.
+as part of this process, either you or some other principal must approve the request.
 
 
 You will create a private key, and then get a certificate issued, and finally configure
@@ -41,7 +41,7 @@ If you have alternative or additional security mechanisms around authorization, 
 
 ## Create private key
 
-In this step, you create a private key. You need to keep this document secret; anyone who has it can impersonate the user.
+In this step, you create a private key. You need to keep this private key secret; anyone who has it can impersonate the user.
 
 ```shell
 # Create a private key
@@ -55,7 +55,7 @@ This is not the same as the similarly-named CertificateSigningRequest API; the f
 CertificateSigningRequest.
 {{< /note >}}
 
-It is important to set CN and O attribute of the CSR. CN is the name of the user and O is the group that this user will belong to.
+It is important to set the CN and O attributes of the CSR. CN is the name of the user, and O is the group that this user will belong to.
 You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
 ```shell
@@ -72,7 +72,7 @@ cat myuser.csr | base64 | tr -d "\n"
 ```
 
 Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-and submit it to a Kubernetes Cluster via kubectl. Below is a snippet of shell that you can use to generate the
+and submit it to a Kubernetes cluster via kubectl. Below is a snippet of shell that you can use to generate the
 CertificateSigningRequest.
 
 ```shell
@@ -90,6 +90,17 @@ spec:
   - client auth
 EOF
 ```
+
+You can alternatively, create a YAML manifest file and apply it with `kubectl`:
+
+{{% code language="yaml" file="tls/myuser.yaml" %}}
+
+Apply the manifest:
+
+```bash
+kubectl apply -f myuser.yaml --server-side
+```
+
 
 Some points to note:
 
@@ -116,7 +127,7 @@ kubectl certificate approve myuser
 
 ## Get the certificate
 
-Retrieve the certificate from the CSR, to check it looks OK.
+Retrieve the certificate from the CSR to check that it looks OK.
 
 ```shell
 kubectl get csr/myuser -o yaml
@@ -132,7 +143,7 @@ kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.c
 
 ## Configure the certificate into kubeconfig
 
-The next step is to add this user into the kubeconfig file.
+The next step is to add this user to the kubeconfig file.
 
 First, you need to add new credentials:
 
@@ -162,8 +173,7 @@ If you don't use Kubernetes RBAC, skip this step and make the appropriate change
 your cluster actually uses.
 {{< /note >}}
 
-With the certificate created it is time to define the Role and RoleBinding for
-this user to access Kubernetes cluster resources.
+With the certificate created, it is time to define the Role and RoleBinding for this user to access Kubernetes cluster resources.
 
 This is a sample command to create a Role for this new user:
 
@@ -171,11 +181,18 @@ This is a sample command to create a Role for this new user:
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
 ```
 
+Equivalent YAML:
+{{% code language="yaml" file="tls/role.yaml" %}}
+
 This is a sample command to create a RoleBinding for this new user:
 
 ```shell
 kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
 ```
+
+Equivalent YAML:
+
+{{% code language="yaml" file="tls/rolebinding.yaml" %}}
 
 ## {{% heading "whatsnext" %}}
 
