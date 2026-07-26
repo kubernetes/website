@@ -89,7 +89,7 @@ website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행
 
 ## 트러블슈팅 {#troubleshooting}
 
-### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
+### 오류 메시지: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
 기술적인 이유로 Hugo는 두 가지 바이너리로 제공된다. 현재
 웹사이트는 **Hugo Extended** 버전만을 기반으로 실행된다. [릴리스 페이지](https://github.com/gohugoio/hugo/releases)에서
@@ -109,7 +109,7 @@ make: *** [serve] Error 1
 
 `launchctl limit maxfiles`
 
-그런 다음 아래 명령을 실행한다(<https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>에서 가져옴).
+그 다음, 아래 명령을 실행한다(<https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>에서 가져옴).
 
 ```shell
 #!/bin/sh
@@ -136,7 +136,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 `make container-serve`를 실행했을 때 이 오류가 발생한다면, `Makefile`의
 `$IMAGE_VERSION`에 [정의된](https://github.com/kubernetes/website/blob/main/Makefile#L10)
-특정 파일에 로컬 변경을 가했기 때문일 수 있다.
+특정 파일에 로컬 변경이 이루어졌기 때문일 수 있다.
 
 웹사이트 이미지 버전에는 해시가 포함되며, 이 해시는
 해당 파일의 내용을 기반으로 생성된다. 예를 들어, 이러한 파일에 대한 해시가 `1b9242684415`이면
