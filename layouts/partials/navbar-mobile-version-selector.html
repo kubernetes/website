@@ -1,0 +1,20 @@
+{{- if .Site.Params.versions -}}
+  {{- $versionPath := "" -}}
+  {{- if .Site.Params.version_menu_pagelinks -}}
+    {{- $versionPath = .Page.RelPermalink -}}
+  {{- end -}}
+  <li class="nav-item td-navbar-mobile-group">
+    <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#k8s-mobile-main-nav-versions" aria-expanded="false" aria-controls="k8s-mobile-main-nav-versions">
+      <span>{{ T "version_menu" }}</span>
+      <i class="fas fa-chevron-down" aria-hidden="true"></i>
+    </button>
+    <div id="k8s-mobile-main-nav-versions" class="collapse td-navbar-mobile-group-menu">
+      <div class="td-navbar-mobile-group-menu-inner">
+        <a class="td-navbar-mobile-group-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a>
+        {{- range .Site.Params.versions }}
+        <a class="td-navbar-mobile-group-item" href="{{ .url }}{{ $versionPath }}">{{ .version }}</a>
+        {{- end }}
+      </div>
+    </div>
+  </li>
+{{- end }}

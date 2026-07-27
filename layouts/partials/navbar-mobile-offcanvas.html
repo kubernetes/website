@@ -1,0 +1,32 @@
+<div class="offcanvas offcanvas-end d-lg-none d-print-none td-navbar-mobile-offcanvas" tabindex="-1" id="k8s-mobile-main-nav" aria-labelledby="k8s-mobile-main-nav-label">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title visually-hidden" id="k8s-mobile-main-nav-label">{{ T "ui_navigation" }}</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ T "ui_close_navigation" }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    <nav aria-label="{{ T "ui_navigation" }}">
+      <ul class="navbar-nav td-navbar-mobile-nav">
+        {{- $page := . }}
+        {{- range .Site.Menus.main }}
+        <li class="nav-item">
+          {{- $active := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
+          {{- with .Page }}
+            {{- $active = or $active ($page.IsDescendant .) }}
+          {{- end }}
+          {{- $pre := .Pre }}
+          {{- $post := .Post }}
+          {{- $url := urls.Parse .URL }}
+          {{- $baseurl := urls.Parse $page.Site.Params.Baseurl }}
+          <a class="nav-link{{ if $active }} active{{ end }}" href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ with .Pre }}{{ $pre }}{{ end }}<span{{ if $active }} class="active"{{ end }}>{{ .Title }}</span>{{ with .Post }}{{ $post }}{{ end }}</a>
+        </li>
+        {{- end }}
+        {{/* Keep uncached because version_menu_pagelinks can make version links page-relative. */}}
+        {{- partial "navbar-mobile-version-selector.html" . }}
+        {{/* Language availability and fallback URLs depend on the current page. */}}
+        {{- partial "navbar-mobile-lang-selector.html" . }}
+        {{/* Theme output varies by language and the page's theme lock. */}}
+        {{- partialCached "navbar-mobile-theme-selector.html" . .Language.Lang (.Params.theme_lock | default "unlocked") }}
+      </ul>
+    </nav>
+  </div>
+</div>
