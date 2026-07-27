@@ -30,5 +30,5 @@ Pod API to track the resulting resource allocations. The `kubelet` consumes this
 update Pod and container cgroup settings and adjust OOM scores.
 
 For more information, see
-[Node Allocatable Resources](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#node-allocatable-resources)
+[Node Allocatable Resources](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#node-allocatable-resources)
 in the Dynamic Resource Allocation documentation.
