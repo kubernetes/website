@@ -23,7 +23,7 @@ Ensure that you're familiar with how DRA works and with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For details, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 <!-- prerequisites -->
 
@@ -190,5 +190,5 @@ kubectl delete -f https://k8s.io/examples/dra/deviceclass.yaml
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
