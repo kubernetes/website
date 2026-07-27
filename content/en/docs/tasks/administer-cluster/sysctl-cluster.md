@@ -83,6 +83,8 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+).
 - `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
 - `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_slow_start_after_idle` (since Kubernetes 1.37, needs kernel 4.15+).
+- `net.ipv4.tcp_notsent_lowat` (since Kubernetes 1.37, needs kernel 4.6+).
 
 {{< note >}}
 There are some exceptions to the set of safe sysctls:
