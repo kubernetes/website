@@ -32,11 +32,11 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 <!-- steps -->
 
-## Running Kubernetes inside Rootless Docker/Podman
+## Running Kubernetes inside Rootless Docker/Podman/nerdctl
 
 ### kind
 
-[kind](https://kind.sigs.k8s.io/) supports running Kubernetes inside Rootless Docker or Rootless Podman.
+[kind](https://kind.sigs.k8s.io/) supports running Kubernetes inside Rootless Docker, Rootless Podman, or Rootless nerdctl.
 
 See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootless/).
 
@@ -48,6 +48,28 @@ See the Minikube documentation:
 
 * [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
 * [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
+
+### Usernetes
+
+{{% thirdparty-content %}}
+
+[Usernetes](https://github.com/rootless-containers/usernetes) also supports running Kubernetes inside Rootless Docker, Rootless Podman, or Rootless nerdctl.
+
+Unlike kind and minikube, Usernetes supports composing a cluster using multiple Docker/Podman/nerdctl nodes using VXLAN.
+
+See the [Usernetes documentation](https://github.com/rootless-containers/usernetes/blob/master/README.md) for usage.
+
+## Running Kubernetes inside Kubernetes, as user namespace pods
+
+{{% thirdparty-content single="true" %}}
+
+### Usernetes
+
+[Usernetes](https://github.com/rootless-containers/usernetes) supports Kubernetes-in-Kubernetes mode in addition to Kubernetes-in-Docker mode.
+Kubernetes-in-Kubernetes mode creates the nodes of an inner cluster as pods running on an outer cluster
+with [user namespaces](/docs/concepts/workloads/pods/user-namespaces/) enabled (`hostUsers: false`).
+
+See the [Usernetes documentation](https://github.com/rootless-containers/usernetes/blob/master/README.md) for usage.
 
 ## Running Kubernetes inside Unprivileged Containers
 
@@ -77,13 +99,11 @@ the container plus several other advanced OS virtualization techniques.
 
 See [Running K3s with Rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental) for the usage.
 
-### Usernetes
-[Usernetes](https://github.com/rootless-containers/usernetes) is a reference distribution of Kubernetes that can be installed under `$HOME` directory without the root privilege.
+### Usernetes (until 2023)
+The first generation of [Usernetes](https://github.com/rootless-containers/usernetes) supported running rootless Kubernetes directly on a host.
+This mode was archived in 2023.
 
-Usernetes supports both containerd and CRI-O as CRI runtimes.
-Usernetes supports multi-node clusters using Flannel (VXLAN).
-
-See [the Usernetes repo](https://github.com/rootless-containers/usernetes) for the usage.
+See [the `gen1` branch of the Usernetes repo](https://github.com/rootless-containers/usernetes/tree/gen1) for the archived information.
 
 ## Manually deploy a node that runs the kubelet in a user namespace {#userns-the-hard-way}
 
