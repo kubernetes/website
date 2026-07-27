@@ -93,7 +93,7 @@ EOF
 
 You can alternatively, create a YAML manifest file and apply it with `kubectl`:
 
-{{% code language="yaml" file="tls/myuser.yaml" %}}
+{{% code_sample language="yaml" file="tls/myuser.yaml" %}}
 
 Apply the manifest:
 
@@ -182,7 +182,7 @@ kubectl create role developer --verb=create --verb=get --verb=list --verb=update
 ```
 
 Equivalent YAML:
-{{% code language="yaml" file="tls/role.yaml" %}}
+{{% code_sample language="yaml" file="tls/role.yaml" %}}
 
 This is a sample command to create a RoleBinding for this new user:
 
@@ -192,7 +192,7 @@ kubectl create rolebinding developer-binding-myuser --role=developer --user=myus
 
 Equivalent YAML:
 
-{{% code language="yaml" file="tls/rolebinding.yaml" %}}
+{{% code_sample language="yaml" file="tls/rolebinding.yaml" %}}
 
 ## {{% heading "whatsnext" %}}
 

@@ -23,18 +23,20 @@ created. It is a feature GA'ed in v1.25.
 This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
+-->
+Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 Kubernetes
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)进行检查。
+这是在 v1.25 中达到正式发布（GA）的功能。
+本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
+该标准将标准配置应用于集群中的所有名字空间。
 
+<!--
 To apply Pod Security Standards to specific namespaces, refer to
 [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 Kubernetes [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
-进行检查。这是在 v1.25 中达到正式发布（GA）的功能。
-本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
-该标准将标准配置应用于集群中的所有名字空间。
-
 要将 Pod 安全标准应用于特定名字空间，
 请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
@@ -91,6 +93,7 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kind create cluster --name psa-wo-cluster-pss
    ```
+   
    <!--
    The output is similar to:
    -->
@@ -121,6 +124,7 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    ```
+   
    <!--
    The output is similar to this:
    -->
@@ -143,6 +147,7 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl get ns
    ```
+   
    <!--
    The output is similar to this:
    -->
@@ -165,6 +170,7 @@ that are most appropriate for your configuration, do the following:
 4. 使用 `--dry-run=server` 来了解应用不同的 Pod 安全标准时会发生什么：
 
    1. Privileged
+   
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
@@ -183,7 +189,9 @@ that are most appropriate for your configuration, do the following:
       namespace/kube-system labeled
       namespace/local-path-storage labeled
       ```
+      
    2. Baseline
+   
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
@@ -208,6 +216,7 @@ that are most appropriate for your configuration, do the following:
       ```
 
    3. Restricted
+   
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
@@ -239,7 +248,6 @@ From the previous output, you'll notice that applying the `privileged` Pod Secur
 for any namespaces. However, `baseline` and `restricted` standards both have
 warnings, specifically in the `kube-system` namespace.
 -->
-
 从前面的输出中，你会注意到应用 `privileged` Pod 安全标准不会显示任何名字空间的警告。
 然而，`baseline` 和 `restricted` 标准都有警告，特别是在 `kube-system` 名字空间中。
 
@@ -317,16 +325,17 @@ following:
    EOF
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    <!--
    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    -->
+   
    `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
    对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
    对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-   {{< /note >}}
+   {{< /alert >}}
 
 <!--
 1. Configure the API server to consume this file during cluster creation:
@@ -367,16 +376,17 @@ following:
    EOF
    ```
 
-   {{<note>}}
+   {{< alert color="info" title="Note" >}}
    <!--
    If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    -->
+   
    如果你在 macOS 上使用 Docker Desktop 和 kind，
    你可以在菜单项 **Preferences > Resources > File Sharing**
    下添加 `/tmp` 作为共享目录。
-   {{</note>}}
+   {{< /alert >}}
 
 <!--
 1. Create a cluster that uses Pod Security Admission to apply
@@ -387,6 +397,7 @@ following:
    ```shell
    kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
+   
    <!--
    The output is similar to this:
    -->
@@ -417,6 +428,7 @@ following:
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
+   
    <!--
    The output is similar to this:
    -->
@@ -444,7 +456,9 @@ following:
    <!--
    The pod is started normally, but the output includes a warning:
    -->
+   
    这个 Pod 正常启动，但输出包含警告：
+  
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
