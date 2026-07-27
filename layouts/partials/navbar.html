@@ -2,9 +2,25 @@
     (.HasShortcode "blocks/cover")
     (not .Site.Params.ui.navbar_translucent_over_cover_disable)
 -}}
+{{ $showPageDrawer := partial "page-navigation-enabled.html" . -}}
 
 <nav class="js-navbar-scroll navbar navbar-expand
             {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-bs-theme="dark">
+  {{- if $showPageDrawer -}}
+  <button
+    class="btn td-navbar-mobile-page-toggle d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#k8s-mobile-page-nav"
+    aria-controls="k8s-mobile-page-nav"
+    aria-label="{{ T "sidebar_toggle_nav" }}">
+    <span class="td-navbar-mobile-page-toggle-icon" aria-hidden="true">
+      {{- with resources.Get "icons/book.svg" -}}
+        {{- (. | minify).Content | safeHTML -}}
+      {{- end -}}
+    </span>
+  </button>
+  {{- end -}}
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
