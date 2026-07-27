@@ -135,11 +135,6 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
-{{< note >}}
-Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
-the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
-{{< /note >}}
-
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -170,12 +165,6 @@ for such existing Pods. Restarting the kubelet may not solve such errors.
 If you have automation that makes it feasible, replace the node with another using the updated
 configuration, or reinstall it using automation.
 {{< /caution >}}
-
-
-### Migrating to the `systemd` driver in kubeadm managed clusters
-
-If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
-follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 
 ## CRI version support {#cri-versions}
 
@@ -255,9 +244,6 @@ If you apply this change, make sure to restart containerd:
 ```shell
 sudo systemctl restart containerd
 ```
-
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
 In Kubernetes v1.28, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
