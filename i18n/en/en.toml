@@ -729,6 +729,9 @@ other = "RSS"
 [seealso_heading]
 other = "See Also"
 
+[sidebar_navigation]
+other = "Section navigation"
+
 [sidebar_toggle_nav]
 other = "Toggle section navigation"
 
