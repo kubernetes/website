@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "How to Pretty-Print Your Kubernetes YAML as KYAML and Why You'd Want To"
-draft: true
+date: 2026-08-11T10:00:00-08:00
 slug: how-to-pretty-print-kubernetes-yaml-as-kyaml
 author: >
   [Kashish Verma](https://github.com/KashishV999)
