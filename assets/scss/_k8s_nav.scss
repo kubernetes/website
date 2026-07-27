@@ -36,6 +36,65 @@
     }
   }
 
+  .td-navbar-mobile-page-toggle {
+    align-items: center;
+    border: 0;
+    color: $navbar-dark-color;
+    display: flex;
+    height: 2.75rem;
+    justify-content: center;
+    inset-inline-start: 0.75rem;
+    margin-inline: 0.4rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0.75rem;
+    transition:
+      color .3s ease,
+      opacity .75s ease,
+      visibility .75s ease;
+    visibility: hidden;
+    width: 2.75rem;
+
+    &:hover {
+      color: $navbar-dark-hover-color;
+    }
+
+    .td-navbar-mobile-page-toggle-icon {
+      align-items: center;
+      display: flex;
+      height: 2em;
+      justify-content: center;
+      width: 1.7em;
+
+      svg {
+        display: block;
+        height: 1.6em;
+        width: 1.6em;
+      }
+    }
+
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the mobile menu button.
+    &:focus,
+    &:active {
+      box-shadow: none;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .2rem;
+    }
+
+    @include media-breakpoint-down(lg) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
   .td-navbar-mobile-menu-toggle {
     color: $navbar-dark-color;
@@ -96,6 +155,7 @@
   box-shadow: 0 1px 2px var(--bs-border-color);
 
   .navbar-nav .nav-link,
+  .td-navbar-mobile-page-toggle,
   .td-navbar-mobile-menu-toggle {
     color: var(--bs-body-color);
 
@@ -261,6 +321,81 @@
 
     &[aria-pressed="true"] {
       font-weight: 600;
+    }
+  }
+}
+
+.td-navbar-mobile-page-offcanvas {
+  --bs-offcanvas-width: min(400px, 100vw);
+  --bs-offcanvas-padding-x: 0;
+  --bs-offcanvas-padding-y: 0;
+  --bs-offcanvas-bg: var(--bs-body-bg);
+
+  // Docsy uses an undefined Bootstrap background variable at md and above;
+  // keep the responsive drawer opaque until it becomes the persistent sidebar.
+  background-color: var(--bs-offcanvas-bg);
+
+  @include media-breakpoint-down(md) {
+    // Docsy adds this inset at md and above; extend it through smaller drawers.
+    padding-top: 4rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    // Bootstrap sets `.offcanvas-lg` to `background-color: transparent !important`
+    // at lg and above, so this override also requires `!important` to restore the
+    // persistent Docsy sidebar background.
+    background-color: var(--bs-tertiary-bg) !important;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .offcanvas-header {
+      justify-content: space-between;
+      min-height: 4rem;
+      padding: .75rem 1rem;
+    }
+
+    .offcanvas-body {
+      padding: 0 1.25rem 1rem;
+    }
+
+    .td-sidebar__inner {
+      height: auto;
+      position: static;
+    }
+
+    .td-sidebar__search {
+      background: var(--bs-body-bg);
+      margin-inline: -1.25rem;
+      padding: .25rem 1.25rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .td-sidebar__toggle {
+      display: none;
+    }
+
+    // The language row uses Bootstrap's `.d-block`, which sets `display` with
+    // `!important`; this declaration must match it to hide the row below lg.
+    .td-sidebar-nav > .nav-item.dropdown {
+      display: none !important;
+    }
+
+    .td-search-box {
+      width: 100%;
+    }
+
+    .td-sidebar-nav {
+      display: block;
+      margin-inline: 0;
+      max-height: none;
+      overflow: visible;
+      padding-inline-end: 0;
+    }
+
+    .td-sidebar-nav > .td-sidebar-nav__section {
+      padding-inline-start: 0;
     }
   }
 }
