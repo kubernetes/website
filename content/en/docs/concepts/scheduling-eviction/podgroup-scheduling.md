@@ -19,9 +19,8 @@ Additionally, treating the group as a unified entity establishes a foundational 
 that simplifies the implementation of other group-based scheduling features.
 
 This feature depends on the [Workload API](/docs/concepts/workloads/workload-api/).
-Ensure the [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-feature gate and the `scheduling.k8s.io/v1alpha1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled in the cluster.
+Ensure the `scheduling.k8s.io/v1beta1`
+{{< glossary_tooltip text="API group" term_id="api-group" >}} is enabled in the cluster.
 
 <!-- body -->
 
@@ -33,7 +32,9 @@ the scheduler evaluates the entire group of pending Pods belonging to a specific
 Rather than executing separate scheduling cycles for each Pod,
 it evaluates feasibility for the entire group and moves directly to the binding phase afterwards.
 
-When the scheduler pops a Pod belonging to a PodGroup, it retrieves all other queued Pods in that group.
+When observing a Pod belonging to a PodGroup, the scheduler associates the Pod with that PodGroup rather than adding it directly to the scheduling queue.
+A PodGroup does not enter the scheduling queue until the scheduler observes both the PodGroup object and at least one Pod belonging to it.
+When the scheduler pops a PodGroup, it retrieves all observed unscheduled Pods in that group.
 It then sorts them deterministically based on priority and the time they were initially observed by the scheduler,
 and initiates the PodGroup scheduling cycle as follows:
 
@@ -50,15 +51,14 @@ and initiates the PodGroup scheduling cycle as follows:
    * **Success:** If the scheduler finds sufficient resources and valid placements for the Pods
      (e.g., satisfying the `minCount` constraint for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)),
      those Pods proceed directly to the binding cycle with their selected nodes.
-     Any remaining unschedulable Pods are returned to the scheduling queue to wait for available resources
-     so they can join the already scheduled Pods. 
+     Any remaining unschedulable Pods in the group are requeued directly into the active scheduling queue without backoff, retaining their previous timestamp so they are re-evaluated immediately to attempt preemption.
      
      Furthermore, if new Pods are added to a PodGroup after others have already been scheduled,
      the cycle evaluates the new Pods while accounting for the existing ones.
 
    * **Failure:** If the scheduler cannot find enough resources to make the PodGroup feasible
      (e.g., failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
-     No Pods are bound, but instead, all are returned to the scheduling queue.
+     No Pods are bound; instead, the PodGroup is returned to the scheduling queue.
      Standard scheduling backoff logic applies, allowing the PodGroup to be retried later.
 
 By using this single-cycle approach, the scheduler avoids inefficient bottlenecks
@@ -70,14 +70,12 @@ The default PodGroup scheduling algorithm relies heavily on the baseline Pod-bas
 It iterates over the Pods and performs the following for each:
 
 1. Finds a feasible node using the standard per-Pod filtering and scoring phases.
-   
-   * If the Pod fits, it is temporarily assumed and reserved on the selected node until the end of the scheduling algorithm.
-   * If the Pod cannot fit, the scheduler attempts preemption by running the `PostFilter` extension point.
+   If the Pod fits, it is temporarily assumed and reserved on the selected node until the end of the scheduling algorithm.
 
 2. Checks whether the schedulable Pods meet the group's scheduling criteria
-   (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) using the `Permit` extension point.
+   (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.
    If it returns a `Success` status for any Pod, the PodGroup is deemed feasible.
-   If the algorithm processes all Pods without achieving a `Success` status, the PodGroup is considered unschedulable.
+   If the algorithm processes all Pods without achieving a `Success` status, or if no Pods are scheduled during this cycle, the PodGroup is considered unschedulable.
 
 ## Placement scheduling algorithm
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
@@ -134,11 +132,9 @@ and the PodGroup is rejected if the constraint is not met.
 After a PodGroup scheduling cycle completes, the scheduler updates conditions on the
 PodGroup's `status.conditions`:
 
-* `PodGroupScheduled`: reports whether the PodGroup has been successfully scheduled.
-* `DisruptionTarget`: indicates the PodGroup is about to be terminated due to a
-  disruption such as preemption.
+* `PodGroupInitiallyScheduled`: reports whether the PodGroup has been successfully scheduled for the first time.
 
-### `PodGroupScheduled`
+### `PodGroupInitiallyScheduled`
 
 When the scheduling cycle succeeds, the condition is set to `True` with reason
 `Scheduled`. For `gang` policy PodGroups, this means at least `minCount` Pods were
@@ -152,10 +148,7 @@ reasons:
 * `SchedulerError` — scheduling failed because of an internal scheduler error
   (for example, while parsing scheduling constraints such as `nodeAffinity`).
 
-### `DisruptionTarget`
-
-When the scheduler preempts a PodGroup to make room for higher-priority PodGroups or
-Pods, it sets this condition to `True` with reason `PreemptionByScheduler`.
+Once this condition is set to `True`, it never changes.
 
 You can check conditions with:
 

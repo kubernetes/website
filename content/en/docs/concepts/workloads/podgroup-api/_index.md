@@ -16,7 +16,7 @@ for a specific instance of that group.
 
 ## What is a PodGroup?
 
-The PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+The PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}
 and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -67,7 +67,7 @@ spec:
 can be requested by a PodGroup through its `spec.resourceClaims` field:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
@@ -96,11 +96,11 @@ For more details and a more complete example, see the
 ### Status
 
 The scheduler updates `status.conditions` to report whether the group has been
-successfully scheduled. The primary condition is `PodGroupScheduled`, which is `True`
+successfully scheduled. The primary condition is `PodGroupInitiallyScheduled`, which is `True`
 when all required Pods have been placed and `False` when scheduling fails.
 
 {{< note >}}
-The `PodGroupScheduled` condition reflects the initial scheduling decision only.
+The `PodGroupInitiallyScheduled` condition reflects the initial scheduling decision only.
 The scheduler does not update it if Pods later fail or are evicted. See
 [Limitations](/docs/concepts/workloads/podgroup-api/lifecycle/#limitations)
 for details.
@@ -111,7 +111,7 @@ page for the full list of conditions and reasons.
 
 ## Creating a PodGroup
 
-A PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+A PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 (and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -121,7 +121,7 @@ The following manifest creates a PodGroup with a gang scheduling policy that req
 at least 4 Pods to be schedulable simultaneously:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0
@@ -158,7 +158,7 @@ workload controller that follows this pattern for now.
 Custom controllers can implement the same flow for their own workload types.
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: training-policy
@@ -169,7 +169,7 @@ spec:
       gang:
         minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0

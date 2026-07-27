@@ -200,7 +200,7 @@ The PodGroup API defines a `spec.resourceClaims` field with the same structure
 and similar meaning as the `spec.resourceClaims` field in the Pod API:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
@@ -246,7 +246,7 @@ ResourceClaim is no longer reserved.
 Consider the following example:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group

@@ -72,7 +72,7 @@ the exact same value for this specified label.
 Here is an example of a PodGroup configured with a topology constraint:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: example-podgroup

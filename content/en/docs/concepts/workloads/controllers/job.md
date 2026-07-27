@@ -320,7 +320,7 @@ or completed for the same index will be deleted by the Job controller once they 
 When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) feature gate is enabled,
 the Job controller automatically creates
 [Workload](/docs/concepts/workloads/workload-api/) and
-[PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/) objects
+[PodGroup](/docs/concepts/workloads/podgroup-api/) objects
 for [qualifying parallel Jobs](#qualifying-criteria) before creating any Pods.
 This enables native [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
 where all Pods in a Job are scheduled together or none are scheduled.
@@ -371,7 +371,7 @@ When the Job controller processes this Job, it automatically:
    `podGroupTemplate` with a
    [gang scheduling policy](/docs/concepts/workloads/workload-api/policies/#gang-policy)
    where `minCount` equals the Job's parallelism.
-1. Creates a [PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/)
+1. Creates a [PodGroup](/docs/concepts/workloads/podgroup-api/)
    object based on that template.
    The PodGroup is a standalone runtime scheduling unit that carries an inline copy
    of the gang policy.
