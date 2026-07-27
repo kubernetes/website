@@ -107,7 +107,7 @@ This means the name must:
 
 - contain no more than 253 characters
 - contain only lowercase alphanumeric characters, '-' or '.'
-- start with an alphabetic character
+- start with an alphanumeric character
 - end with an alphanumeric character
 -->
 ### DNS 子域名  {#dns-subdomain-names}
@@ -118,6 +118,28 @@ DNS 子域名的定义可参见 [RFC 1123](https://tools.ietf.org/html/rfc1123)�
 
 - 不能超过 253 个字符
 - 只能包含小写字母、数字，以及 '-' 和 '.'
+- 必须以字母数字开头
+- 必须以字母数字结尾
+
+<!--
+### RFC 1123 Label Names {#dns-label-names}
+
+Some resource types require their names to follow the DNS
+label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
+This means the name must:
+
+- contain at most 63 characters
+- contain only lowercase alphanumeric characters or '-'
+- start with an alphabetic character
+- end with an alphanumeric character
+-->
+### RFC 1123 标签名    {#dns-label-names}
+
+某些资源类型需要其名称遵循 [RFC 1123](https://tools.ietf.org/html/rfc1123)
+所定义的 DNS 标签标准。也就是命名必须满足如下规则：
+
+- 最多 63 个字符
+- 只能包含小写字母、数字，以及 '-'
 - 必须以字母开头
 - 必须以字母数字结尾
 
@@ -129,28 +151,6 @@ Service object names are allowed to start with a digit.
 当启用 `RelaxedServiceNameValidation` 特性门控时，
 Service 对象名称可以以数字开头。
 {{< /note >}}
-
-<!--
-### RFC 1123 Label Names {#dns-label-names}
-
-Some resource types require their names to follow the DNS
-label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
-This means the name must:
-
-- contain at most 63 characters
-- contain only lowercase alphanumeric characters or '-'
-- start with an alphanumeric character
-- end with an alphanumeric character
--->
-### RFC 1123 标签名    {#dns-label-names}
-
-某些资源类型需要其名称遵循 [RFC 1123](https://tools.ietf.org/html/rfc1123)
-所定义的 DNS 标签标准。也就是命名必须满足如下规则：
-
-- 最多 63 个字符
-- 只能包含小写字母、数字，以及 '-'
-- 必须以字母数字开头
-- 必须以字母数字结尾
 
 <!--
 ### RFC 1035 Label Names
