@@ -157,8 +157,8 @@ kube-apiserver and kube-scheduler.
 
 ### How it works {#device-compatibility-groups-how-it-works}
 
-A driver adds a `compatibilityGroups` list to each
-`device.consumesCounters[]` entry in a `ResourceSlice`. The list contains
+A driver defines a `compatibilityGroups` list for each
+`device.consumesCounters[]` entry in a ResourceSlice. The list contains
 one or two opaque string names that represent the operating mode or partition
 type of that device on that particular counter set.
 
