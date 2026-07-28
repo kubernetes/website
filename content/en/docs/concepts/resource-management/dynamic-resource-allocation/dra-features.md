@@ -261,6 +261,12 @@ new or updated `ResourceSlice` — unless the old object already had the field
 set. The scheduler then treats devices in any pool that previously had grouped
 devices as belonging to an incomplete pool and skips them entirely.
 
+Only a non-empty list counts as the field being set: `compatibilityGroups: null`
+and `compatibilityGroups: []` are stored identically to omitting the field.
+Devices with them behave exactly like devices with no groups — they do not
+preserve the field when the feature gate is disabled, and they do not cause the
+scheduler to treat the pool as incomplete.
+
 Device compatibility groups is controlled by the
 [`DRADeviceCompatibilityGroups` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceCompatibilityGroups)
 in the kube-apiserver and kube-scheduler. The
