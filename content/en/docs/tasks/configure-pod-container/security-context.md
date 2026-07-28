@@ -694,23 +694,13 @@ below have no effect.
 
 {{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
 
-{{< note >}}
-Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
-to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
-
-Kubernetes v1.37 graduated `SELinuxMount`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to GA,
-widening the performance improvement to all kinds of PersistentVolumeClaims,
-as explained in detail below.
-{{< /note >}}
-
 By default, Kubernetes applies the SELinux label to eligible volumes instantly by using
-a mount option `-o context=<label>`, instead of the container runtime recursively
-assigning SELinux label to all files on the volumes.
+a mount option `-o context=<label>`.
 
 To benefit from this speedup, all these conditions must be met:
 
-* Pod must use a PersistentVolumeClaim, and the Pod has `spec.securityContext.seLinuxChangePolicy`
+* Pod must use a PersistentVolumeClaim.
+* Pod has `spec.securityContext.seLinuxChangePolicy`
   either nil (default) or `MountOption`.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
@@ -763,7 +753,7 @@ proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.s
 {{< warning >}}
 We strongly recommend clusters that use SELinux to enable this controller and make sure that
 `selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before
-upgrading to Kubernetes v1.37 or later where `SELinuxMount` is GA and always enabled.
+upgrading to Kubernetes v1.37 or later where `SELinuxMount` is GA and enabled by default.
 {{< /warning >}}
 
 #### Feature gates
