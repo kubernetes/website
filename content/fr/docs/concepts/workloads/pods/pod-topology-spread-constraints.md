@@ -202,18 +202,19 @@ replication controllers, replica sets ou stateful sets auxquels le Pod appartien
 Un exemple de configuration pourrait ressembler à :
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
   - schedulerName: default-scheduler
-  - pluginConfig:
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints:
             - maxSkew: 1
               topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: ScheduleAnyway
+          defaultingType: List
 ```
 
 {{< note >}}
