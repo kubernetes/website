@@ -159,7 +159,7 @@ kube-apiserver and kube-scheduler.
 
 A driver defines a `compatibilityGroups` list for each
 `device.consumesCounters[]` entry in a ResourceSlice. The list contains
-one or two opaque string names that represent the operating mode or partition
+at most 2 opaque string names that represent the operating mode or partition
 type of that device on that particular counter set.
 
 When the scheduler allocates multiple devices that draw from the same counter
@@ -180,8 +180,10 @@ cross-claim group intersection is also enforced.
 ### Example {#device-compatibility-groups-example}
 
 Consider a GPU that can operate in either MIG mode or vGPU mode. The driver
-publishes two devices, each consuming 6 GiB from the same shared memory counter.
-Each device declares its operating mode as a compatibility group:
+publishes two devices, each consuming 4 GiB from the same shared memory counter
+of 8 GiB. Based on counter capacity alone, both devices could be allocated
+together. Each device declares its operating mode as a compatibility group,
+making the two modes mutually exclusive:
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -218,7 +220,7 @@ spec:
     - counterSet: gpu-0-memory
       counters:
         memory:
-          value: 6Gi
+          value: 4Gi
       compatibilityGroups:
       - mig
   - name: gpu-0-vgpu
@@ -226,7 +228,7 @@ spec:
     - counterSet: gpu-0-memory
       counters:
         memory:
-          value: 6Gi
+          value: 4Gi
       compatibilityGroups:
       - vgpu
 ```
@@ -238,8 +240,9 @@ In this example:
 If a Pod or PodGroup requests two devices from this pool, the scheduler checks
 whether the two chosen devices share a common compatibility group on the
 `gpu-0-memory` counter set. Since `{"mig"} ∩ {"vgpu"} = ∅`, the pair is
-rejected. Both requests can only be satisfied by two MIG devices (or two vGPU
-devices) from a pool where such pairs exist.
+rejected — even though the counter set has enough memory for both. Both
+requests can only be satisfied by two MIG devices (or two vGPU devices) from a
+pool where such pairs exist.
 
 ### Constraints {#device-compatibility-groups-constraints}
 
