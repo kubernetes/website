@@ -40,7 +40,7 @@ Anyone can:
 - Contribute to a localization
 - Suggest improvements on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/main/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos
@@ -62,7 +62,7 @@ For more information, see [contributing new content](/docs/contribute/new-conten
   [SIG Docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
   上提出改进建议。
 
-在[签署了 CLA](https://github.com/kubernetes/community/blob/master/CLA.md) 之后，任何人还可以：
+在[签署了 CLA](https://github.com/kubernetes/community/blob/main/CLA.md) 之后，任何人还可以：
 
 - 发起拉取请求（PR），改进现有内容、添加新内容、撰写博客或者案例分析
 - 创建示意图、图形资产或者嵌入式的截屏和视频内容
@@ -112,12 +112,12 @@ Members can:
 <!--
 ### Becoming a member
 
-After submitting at least 5 substantial pull requests and meeting the other [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#member):
+After submitting at least 5 substantial pull requests and meeting the other [requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#member):
 -->
 ### 成为一个成员 {#becoming-a-member}
 
 在你成功地提交至少 5 个 PR 并满足
-[相关条件](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
+[相关条件](https://github.com/kubernetes/community/blob/main/community-membership.md#member)
 之后：
 
 <!--
@@ -258,13 +258,13 @@ LGTM 代表的是 “Looks Good To Me （我觉得可以）”，用来标示某
 ### Becoming a reviewer
 
 When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer), you can become a SIG Docs reviewer. Reviewers in other SIGs must apply separately for reviewer status in SIG Docs.
+[requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer), you can become a SIG Docs reviewer. Reviewers in other SIGs must apply separately for reviewer status in SIG Docs.
 
 To apply:
 -->
 ### 成为评审人   {#becoming-a-reviewer}
 
-当你满足[相关条件](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)时，
+当你满足[相关条件](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer)时，
 你可以成为一个 SIG Docs 评审人。
 来自其他 SIG 的评审人必须为 SIG Docs 单独申请评审人资格。
 
@@ -377,11 +377,11 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 <!--
 ### Becoming an approver
 
-When you meet the [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver), you can become a SIG Docs approver. Approvers in other SIGs must apply separately for approver status in SIG Docs.
+When you meet the [requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#approver), you can become a SIG Docs approver. Approvers in other SIGs must apply separately for approver status in SIG Docs.
 -->
 ### 成为批准人  {#becoming-an-approver}
 
-当你满足[一定条件](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)时，可以成为一个 SIG Docs 批准人。
+当你满足[一定条件](https://github.com/kubernetes/community/blob/main/community-membership.md#approver)时，可以成为一个 SIG Docs 批准人。
 来自其他 SIG 的批准人也必须在 SIG Docs 独立申请批准人资格。
 
 <!--
