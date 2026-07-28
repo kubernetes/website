@@ -226,6 +226,137 @@ users:
 
 Of course you need to set up the webhook server to handle these authentication requests.
 
+### Authenticating to admission webhooks    {#authenticating-to-admission-webhooks}
+
+{{< feature-state feature_gate_name="APIServerWebhookAuthenticationToken" >}}
+
+As an alternative to the manual credential management described in
+[Authenticate API servers](#authenticate-apiservers), the kube-apiserver can
+issue short-lived, scoped ServiceAccount tokens for authenticating to admission
+webhooks. This mechanism uses the
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API to issue tokens that are bound to a specific webhook configuration and
+scoped to particular API groups.
+
+{{< note >}}
+In Kubernetes v1.37, only the token issuance mechanism is implemented. Automatic
+token acquisition and presentation by the kube-apiserver and aggregated API
+servers when calling webhooks is not yet available, nor is a webhook-side token
+verification library. These components are planned for future releases.
+{{< /note >}}
+
+#### How it works
+
+The TokenRequest API is extended to support issuing tokens bound to
+`ValidatingWebhookConfiguration` or `MutatingWebhookConfiguration` objects.
+These tokens include attestation claims that specify which API groups the token
+authorizes its bearer to query the webhook about. The token becomes invalid if
+the referenced webhook configuration is deleted.
+
+To request a webhook authentication token, a TokenRequest must include:
+
+1. **A `boundObjectRef`** referencing either a `ValidatingWebhookConfiguration` or
+   a `MutatingWebhookConfiguration`. The referenced webhook configuration must
+   exist and must not be marked for deletion.
+
+1. **An `attestations` field** with exactly one entry: the key
+   `admissionReviewAPIGroups` with a single-element string array value specifying
+   the API group this token covers. The value `"*"` means all API groups. The
+   empty string `""` represents core API group resources (those under `v1`).
+   The specified API group must match a rule in the referenced webhook
+   configuration.
+
+1. **An `audiences` field** with exactly one element that matches the webhook's
+   endpoint:
+   - For URL-configured webhooks: the audience must be an exact match of the
+     URL.
+   - For service-configured webhooks: the audience must match the pattern
+     `https://<name>.<namespace>.svc:<port>[/<path>]`, where `<port>` defaults
+     to `443` and `<path>` defaults to `/` if not specified in the webhook
+     configuration.
+
+1. **An `expirationSeconds`** value. The maximum allowed expiration for
+   webhook-bound tokens is 600 seconds (10 minutes).
+
+#### Authorization requirements
+
+Two levels of authorization are checked when issuing a webhook authentication
+token:
+
+1. The requester must have `create` permission on `serviceaccounts/token` for
+   the target service account (the standard TokenRequest authorization).
+
+1. The service account named in the TokenRequest must have `attest` permission
+   on the `admissionReviewAPIGroups` resource in the `authentication.k8s.io`
+   API group, with a `resourceName` that matches the API group specified in
+   the attestation (or `"*"` for all API groups).
+
+The following example RBAC configuration allows a service account to request
+webhook authentication tokens scoped to the `jungle.panda` API group:
+
+```yaml
+# ClusterRole granting attest permission for a specific API group
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: webhook-auth-attest-jungle-panda
+rules:
+  - apiGroups: ["authentication.k8s.io"]
+    resources: ["admissionReviewAPIGroups"]
+    resourceNames: ["jungle.panda"]
+    verbs: ["attest"]
+---
+# Bind the ClusterRole to the service account used for token acquisition
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: webhook-auth-attest-jungle-panda-binding
+subjects:
+  - kind: ServiceAccount
+    name: webhook-auth-sa
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: webhook-auth-attest-jungle-panda
+  apiGroup: rbac.authorization.k8s.io
+```
+
+#### Token claims and verification via TokenReview
+
+When a webhook authentication token is verified through
+[TokenReview](/docs/reference/kubernetes-api/authentication-resources/token-review-v1/),
+the following additional keys are populated in the `status.user.extra` field of
+the response:
+
+For tokens bound to a `ValidatingWebhookConfiguration`:
+- `authentication.kubernetes.io/validatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/validatingwebhookconfiguration-uid`
+
+For tokens bound to a `MutatingWebhookConfiguration`:
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-uid`
+
+For all webhook authentication tokens:
+- `attestation.authentication.kubernetes.io/admissionReviewAPIGroups` --
+  the API group the token is authorized for.
+
+The underlying JWT includes these claims in the `kubernetes.io` private claims
+namespace. For example, a token bound to a `MutatingWebhookConfiguration`:
+
+```json
+{
+  "kubernetes.io": {
+    "mutatingWebhookConfiguration": {
+      "name": "my-webhook",
+      "uid": "44e818f2-2ad0-4432-9816-3a649ca9945c"
+    },
+    "attestationClaims": {
+      "webhook-authentication.k8s.io/allowedAPIGroup": ["jungle.panda"]
+    }
+  }
+}
+```
+
 ## Webhook request and response
 
 ### Request
