@@ -70,6 +70,10 @@ Supported object types are as follows:
 * Pod (used for projected volume mounts, see below)
 * Secret (can be used to allow revoking a token by deleting the Secret)
 * Node (can be used to auto-revoke a token when its Node is deleted; creating new node-bound tokens is GA in v1.33+)
+* ValidatingWebhookConfiguration or MutatingWebhookConfiguration (used for
+  [authenticating to admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticating-to-admission-webhooks);
+  alpha in v1.37, requires the `APIServerWebhookAuthenticationToken`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/))
 
 When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
 stored as extra 'private claims' in the issued JWT.
