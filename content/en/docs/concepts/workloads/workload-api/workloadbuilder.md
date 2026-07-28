@@ -3,8 +3,8 @@ title: Scheduling Building Block APIs and the workloadbuilder Library
 content_type: concept
 description: >-
   Reusable scheduling API primitives that in-tree and out-of-tree workload controllers embed
-  in their own APIs, and the shared workloadbuilder library that compiles them into Workload
-  and PodGroup objects.
+  in their own APIs, and the shared workloadbuilder library that compiles them into Workload,
+  PodGroup, and CompositePodGroup objects.
 weight: 40
 ---
 
@@ -16,8 +16,8 @@ Workload-aware Scheduling defines a set of reusable API *building blocks* under 
 Controller authors embed these primitives into their own APIs so that users express
 scheduling intent (gang scheduling, topology, disruption behavior) with a consistent
 schema across the ecosystem, and the shared `workloadbuilder` library compiles that
-intent into the scheduler-facing [Workload](/docs/concepts/workloads/workload-api/)
-and [PodGroup](/docs/concepts/workloads/podgroup-api/) objects.
+intent into the scheduler-facing [Workload](/docs/concepts/workloads/workload-api/),
+[PodGroup](/docs/concepts/workloads/podgroup-api/), and [CompositePodGroup](/docs/concepts/workloads/workload-api/compositepodgroup-api/) objects.
 
 The built-in consumer of these building blocks today is the
 [Job](/docs/concepts/workloads/controllers/job/) controller, gated by the
@@ -29,12 +29,15 @@ The built-in consumer of these building blocks today is the
 
 The building blocks are strongly-typed Go structs in the `scheduling.k8s.io/v1alpha3`
 API group. They are meant for *controller authors*: a controller embeds these structs into
-its own API type as fields, and the `workloadbuilder` library compiles them.
+its own API type as fields, and the `workloadbuilder` library compiles them. The type names
+follow two conventions: leaf-level types are prefixed `WorkloadPodGroup...` (for example,
+`WorkloadPodGroupSchedulingPolicy`) and the multi-level variants
+`WorkloadCompositePodGroup...`.
 
 Each controller chooses the field names and structure that are idiomatic for its own API, so
-these blocks impose no fixed top-level shape. What stays consistent is the vocabulary inside
-each block, so a user who has configured gang scheduling on one controller's resource
-recognizes the same options on another's.
+these blocks impose no fixed top-level shape. Although not strictly enforced, reusing the 
+standard field names and structure is recommended, so that a user who has configured gang 
+scheduling on one controller's resource recognizes the same options on another's.
 
 To adopt the building blocks, a controller adds the ones it wants to support as fields on
 its own types. For example, the [Job](/docs/concepts/workloads/controllers/job/) API groups
@@ -49,51 +52,37 @@ type JobSchedulingConfiguration struct {
 }
 ```
 
-A different controller might expose the same blocks under different field names, nest them
-per component of a multi-part workload, or support only a subset of them.
+A different controller might nest the same blocks per component of a multi-part workload,
+or support only a subset of them.
 
 ### Scheduling policy
 
-The scheduling policy block expresses how the scheduler should treat the group of Pods as a
-whole. A user selects exactly one of two options:
+The scheduling policy block carries the same `basic` and `gang` policies as a PodGroup's
+`spec.schedulingPolicy`. See 
+[PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/)
+for what each policy means and how the scheduler applies it.
 
-* `basic` keeps standard pod-by-pod scheduling. Pods are placed independently, exactly as
-  they would be without any workload-aware configuration. Controllers commonly use this as
-  their default so that existing manifests keep their current behavior.
-* `gang` requests all-or-nothing scheduling. The scheduler admits the group only when enough
-  Pods can be placed at once, which suits tightly-coupled workloads that deadlock or waste
-  resources if only some Pods start.
-
-The `gang` option carries an optional minimum count. Users may leave it unset, in which
-case the controller supplies a default that makes sense for its own domain; the Job
-controller, for example, uses the Job's parallelism.
-
-See [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/) for how
-the scheduler applies each policy at scheduling time.
+The one difference is that the block's `gang` minimum count is optional. Users may leave
+`minCount` unset, in which case the controller supplies a default that makes sense for its
+own domain; the Job controller, for example, uses the Job's parallelism.
 
 ### Scheduling constraints
 
-The scheduling constraints block expresses *where* the group's Pods should be placed relative
-to one another. It currently carries topology constraints: a node label key naming the domain
-(such as a rack or a zone) that every Pod in the group must share. You can set at most one
-topology constraint per group.
-
-See [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
-for how the scheduler finds and enforces a feasible placement.
+The scheduling constraints block carries the topology constraints documented in
+[Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/):
+a node label key naming the domain (such as a rack or a zone) that every Pod in the group
+must share, with at most one topology constraint per group. Controllers should freeze the
+field after creation, since constraints are immutable in the compiled Workload.
 
 ### Disruption mode
 
-The disruption mode block expresses whether the group's Pods may be disrupted individually or
-only as a unit. A user selects exactly one of `single`, where Pods can be disrupted
-independently of each other, or `all`, where the whole group must be disrupted together so
-that preemption takes either all of the Pods or none of them.
+The disruption mode block selects whether the group's Pods may be disrupted individually
+(`single`) or only as a unit (`all`), corresponding to the `Pod` and `PodGroup` disruption
+modes documented in
+[Pod group disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
 
-Not every combination is meaningful, and the library rejects the ones that are not: `all` is
-invalid alongside the `basic` policy, because a group scheduled pod-by-pod has no atomic unit
-to disrupt.
-
-See [Pod group disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
-for how disruption modes interact with workload-aware preemption.
+The library rejects combinations that are not meaningful, for example `all` is invalid alongside the
+`basic` policy, because a group scheduled pod-by-pod has no atomic unit to disrupt.
 
 ### Resource claims
 
@@ -130,14 +119,14 @@ which fields you can change after creation.
 ## The workloadbuilder library
 
 `workloadbuilder` is a shared Go library that turns a controller's scheduling intent into
-the scheduler-facing Workload and its runtime PodGroup objects, so each controller does
-not reimplement defaulting, validation, and template compilation. It is designed for both
+the scheduler-facing Workload and its runtime PodGroup/CompositePodGroup objects, so each
+controller does not reimplement defaulting, validation, and template compilation. It is designed for both
 in-tree controllers (such as the Job controller) and out-of-tree controllers (such as
 JobSet or Kubeflow TrainJob), which vendor it like any other Go dependency. It ships from
 `k8s.io/component-helpers/scheduling/schedulingv1/workloadbuilder`.
 
 The library consumes the `scheduling.k8s.io/v1alpha3` building blocks and compiles them into
-`scheduling.k8s.io/v1beta1` Workload and PodGroup objects, while composite CompositePodGroup
+`scheduling.k8s.io/v1beta1` Workload and PodGroup objects, while CompositePodGroup
 objects remain `scheduling.k8s.io/v1alpha3`.
 
 ### How a controller uses it
