@@ -261,8 +261,7 @@ To request a webhook authentication token, a TokenRequest must include:
 
 1. **An `attestations` field** with exactly one entry: the key
    `admissionReviewAPIGroups` with a single-element string array value specifying
-   the API group this token covers. The value `"*"` means all API groups. The
-   empty string `""` represents core API group resources (those under `v1`).
+   the API group this token covers. The value `"*"` means all API groups.
    The specified API group must match a rule in the referenced webhook
    configuration.
 
@@ -324,7 +323,7 @@ roleRef:
 #### Token claims and verification via TokenReview
 
 When a webhook authentication token is verified through
-[TokenReview](/docs/reference/kubernetes-api/authentication-resources/token-review-v1/),
+[TokenReview](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/),
 the following additional keys are populated in the `status.user.extra` field of
 the response:
 
@@ -346,12 +345,12 @@ namespace. For example, a token bound to a `MutatingWebhookConfiguration`:
 ```json
 {
   "kubernetes.io": {
-    "mutatingWebhookConfiguration": {
+    "mutatingwebhookconfiguration": {
       "name": "my-webhook",
       "uid": "44e818f2-2ad0-4432-9816-3a649ca9945c"
     },
-    "attestationClaims": {
-      "webhook-authentication.k8s.io/allowedAPIGroup": ["jungle.panda"]
+    "attestations": {
+      "admissionReviewAPIGroups": ["jungle.panda"]
     }
   }
 }
