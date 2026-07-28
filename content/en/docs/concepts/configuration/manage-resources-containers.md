@@ -53,7 +53,7 @@ container that over allocates memory may not be immediately killed. This means
 its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
-There is an alpha feature `MemoryQoS` which adds memory throttling and optional
+There is a feature `MemoryQoS` which adds memory throttling and optional
 tiered memory reservation on Linux nodes using cgroup v2. For details, see
 [Memory QoS with cgroup v2](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2).
 {{< /note >}}
