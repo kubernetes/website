@@ -28,9 +28,9 @@ Si la disponibilidad es importante para cualquiera de las aplicaciones que podr�
 que estás drenando, [configura un presupuesto de interrupción de pods](/es/docs/tasks/run-application/configure-pdb/)
 antes de seguir con esta guía.
 
-Se recomienda configurar `AlwaysAllow` como [Política de Desalojo de pods No Saludables](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+Se recomienda configurar `AlwaysAllow` como [política de desalojo de pods no saludables](/es/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
 en tu presupuesto de interrupción de pods para permitir el desalojo de aplicaciones que no funcionen correctamente durante el drenaje de un nodo.
-El comportamiento por defecto es esperar a que los pods de la aplicación pasen a estar [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+El comportamiento por defecto es esperar a que los pods de la aplicación pasen a estar [saludables](/es/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 antes de proceder con el drenaje.
 
 ## Usa `kubectl drain` para eliminar un nodo del servicio
@@ -103,11 +103,11 @@ seguirán respetando el presupuesto de interrupción de pods que especifiques.
 
 Por ejemplo, si tienes un StatefulSet con tres réplicas y un presupuesto de interrupción 
 de `minAvailable: 2` para él, `kubectl drain` solo desalojará un pod del StatefulSet si
-las tres réplicas están [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
+las tres réplicas están [saludables](/es/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
 si ejecutas varios comandos de drenaje en paralelo, Kubernetes respetará el
 presupuesto de interrupción de pods y asegurará que solo 1 pod (calculado como `replicas - minAvailable`)
 esté no disponible en cualquier momento. Cualquier drenaje que pudiera causar que el número de
-réplicas [saludables](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod) caiga debajo
+réplicas [saludables](/es/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod) caiga debajo
 del presupuesto especificado, sería bloqueado.
 
 ## La API de desalojos
