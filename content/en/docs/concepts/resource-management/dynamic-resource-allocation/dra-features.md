@@ -153,7 +153,7 @@ This feature builds on [partitionable devices](#partitionable-devices): the
 `compatibilityGroups` field lives on `device.consumesCounters[]` entries, which
 only exist for partitionable devices. Both the `DRADeviceCompatibilityGroups`
 and `DRAPartitionableDevices` feature gates must be enabled in the
-kube-apiserver and kube-scheduler.
+`kube-apiserver` and `kube-scheduler`.
 
 ### How it works {#device-compatibility-groups-how-it-works}
 
