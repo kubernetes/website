@@ -257,7 +257,7 @@ pool where such pairs exist.
 
 When the `DRADeviceCompatibilityGroups` feature gate is disabled (the default
 for alpha), the kube-apiserver strips the `compatibilityGroups` field from any
-new or updated `ResourceSlice` — unless the old object already had the field
+new or updated ResourceSlice — unless the old object already had the field
 set. The scheduler then treats devices in any pool that previously had grouped
 devices as belonging to an incomplete pool and skips them entirely.
 
