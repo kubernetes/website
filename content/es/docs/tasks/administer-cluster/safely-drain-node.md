@@ -54,8 +54,8 @@ es seguro apagar el nodo desconectando su máquina física o, si se ejecuta en
 una plataforma en la nube, eliminando su máquina virtual.
 
 {{< note >}}
-Si cualquier pod nuevo tolera la anotación (taint) `node.kubernetes.io/unschedulable`, es posible que esos pods
-se programen en el nodo que acabas de drenar. Evita tolerar esa anotación salvo para el caso de los DaemonSets.
+Si cualquier pod nuevo tolera la taint `node.kubernetes.io/unschedulable`, es posible que esos pods
+se programen en el nodo que acabas de drenar. Evita tolerar esa taint salvo para el caso de los DaemonSets.
 
 Si tú o cualquier usuario de la API configura directamente el campo [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename) 
 (evitando el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}}), dicho pod quedará
@@ -79,7 +79,7 @@ Si hay pods gestionados por un DaemonSet, necesitarás especificar
 `--ignore-daemonsets` con `kubectl` para poder drenar el nodo de forma exitosa. El subcomando `kubectl drain` en sí mismo no drena
 los pods del DaemonSet de un nodo:
 el controlador de DaemonSets (plano de control) inmediatamente reemplaza los pods que faltan por
-nuevos pods equivalentes. El controlador de DaemonSets también crea pods que toleran las anotaciones no programables
+nuevos pods equivalentes. El controlador de DaemonSets también crea pods que toleran las taints no programables
 (`node.kubernetes.io/unschedulable`), lo que permite que los nuevos pods se inicien en el nodo que estás drenando.
 
 Una vez que devuelva un resultado (sin dar ningún error), puedes apagar el nodo
