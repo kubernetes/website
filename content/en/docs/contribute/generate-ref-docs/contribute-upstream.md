@@ -33,11 +33,12 @@ creating a patch to fix it in the upstream project.
 
 ## Clone the Kubernetes repository
 
-If you don't already have the `kubernetes/kubernetes` repository, You need a local clone.
+If you haven't already forked the `kubernetes/kubernetes` repository, first create a fork on GitHub. Then clone your fork locally:
 
 ```shell
-git clone https://github.com/kubernetes/kubernetes
+git clone https://github.com/<your-github-username>/kubernetes
 ```
+The remaining steps refer to this local clone as `<k8s-base>`.
 
 ## Edit the Kubernetes source code
 
