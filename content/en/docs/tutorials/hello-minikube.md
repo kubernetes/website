@@ -40,8 +40,8 @@ minikube start
 ```
 
 {{< alert color="info" title="Note" >}}
-`minikube start` creates a single-node cluster. That node acts as both the control plane and a worker node. This differs from many production Kubernetes clusters, where control plane nodes are typically isolated from worker node using
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+The command `minikube start` creates a single-Node cluster. That Node acts as both the control plane and a worker Node. This differs from many production Kubernetes clusters, where control plane Nodes are typically isolated from worker Node using
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) or completely invisible to the user.
 {{< /alert >}}
 
 ## Check the status of the minikube cluster
