@@ -398,4 +398,4 @@ assignments.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).
+- Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).

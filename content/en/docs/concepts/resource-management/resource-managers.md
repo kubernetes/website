@@ -354,13 +354,15 @@ decisions. To learn more, read
 
 {{< feature-state feature_gate_name="PodLevelResourceManagers" >}}
 
-Pod-level resource support for Kubelet resource managers (Topology, CPU, and
-Memory) allows resource managers to use `.spec.resources` directly for NUMA
-alignment and exclusive allocation decisions.
+Pod-level resource support for `kubelet` resource managers (Topology, CPU,
+and Memory) allows resource managers to use `.spec.resources` directly for
+NUMA alignment and exclusive allocation decisions.
 
-To learn more, see the dedicated [Pod-level resource managers](/docs/concepts/resource-management/pod-level-resource-managers/)
-concept page, or read how to [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/).
+To learn more, see the dedicated
+[Pod-level resource managers](/docs/concepts/resource-management/pod-level-resource-managers/)
+concept page, or read how to
+[Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/).
 
 ## {{% heading "whatsnext" %}}
 
-*   [Node Resource Managers](/docs/concepts/policy/node-resource-managers/)
+-   [Node Resource Managers](/docs/concepts/policy/node-resource-managers/)
