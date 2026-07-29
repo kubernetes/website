@@ -32,14 +32,51 @@ weight: 50
 
 쿠버네티스 네트워킹 모델에 대한 상세 정보는 [여기](/ko/docs/concepts/services-networking/)를 참고한다.
 
+## 쿠버네티스 IP 주소 범위
+
+쿠버네티스 클러스터는 다음 컴포넌트에 설정된 가용 주소 범위 내에서
+파드, 서비스, 노드에 서로 겹치지 않는 IP 주소를 할당해야 한다.
+
+- 네트워크 플러그인은 파드에 IP 주소를 할당하도록 설정되어 있다.
+- kube-apiserver는 서비스에 IP 주소를 할당하도록 설정되어 있다.
+- kubelet 또는 cloud-controller-manager는 노드에 IP 주소를 할당하도록 설정되어 있다.
+
+{{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
+
+## 클러스터 네트워킹 유형 {#cluster-network-ipfamilies}
+
+쿠버네티스 클러스터는 설정된 IP 패밀리에 따라 다음과 같이 분류할 수 있다.
+
+- IPv4만 사용: 네트워크 플러그인, kube-apiserver, kubelet/cloud-controller-manager는 IPv4 주소만 할당하도록 설정되어 있다.
+- IPv6만 사용: 네트워크 플러그인, kube-apiserver, kubelet/cloud-controller-manager는 IPv6 주소만 할당하도록 설정되어 있다.
+- IPv4/IPv6 또는 IPv6/IPv4 [이중 스택](/docs/concepts/services-networking/dual-stack/):
+  - 네트워크 플러그인은 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
+  - kube-apiserver는 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
+  - kubelet 또는 cloud-controller-manager는 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
+  - 모든 컴포넌트는 동일한 기본 IP 패밀리로 설정되어야 한다.
+
+쿠버네티스 클러스터는 파드, 서비스, 노드 오브젝트에 나타난 IP 패밀리만 고려하며,
+해당 오브젝트가 가지고 있는 기존 IP와는 무관하다. 예를 들어, 서버나 파드는
+자신의 인터페이스에 여러 IP 주소가 할당되어 있을 수 있지만, 쿠버네티스 네트워크 모델을
+구현하고 클러스터 유형을 정의할 때 고려되는 것은 `node.status.addresses` 또는 `pod.status.ips`에 있는 IP 주소뿐이다.
+
 ## 쿠버네티스 네트워크 모델의 구현 방법
 
-네트워크 모델은 각 노드의 컨테이너 런타임에 의해 구현된다. 가장 일반적인 컨테이너 런타임은 [컨테이너 네트워크 인터페이스](https://github.com/containernetworking/cni)(CNI) 플러그인을 사용하여 네트워크 및 보안 기능을 관리한다. 여러 공급 업체의 다양한 CNI 플러그인이 존재하며, 이들 중 일부는 네트워크 인터페이스를 추가 및 제거하는 기본 기능만 제공하는 반면, 다른 일부는 다른 컨테이너 오케스트레이션 시스템과의 통합, 여러 CNI 플러그인 실행, 고급 IPAM 기능 등과 같은 보다 정교한 솔루션을 제공한다.
+네트워크 모델은 각 노드의 컨테이너 런타임에 의해 구현된다.
+가장 일반적인 컨테이너 런타임은 [컨테이너 네트워크 인터페이스](https://github.com/containernetworking/cni)(CNI) 플러그인을 사용하여 네트워크 및 보안 기능을 관리한다.
+여러 공급 업체의 다양한 CNI 플러그인이 존재하며,
+이들 중 일부는 네트워크 인터페이스를 추가 및 제거하는 기본 기능만 제공하는 반면,
+다른 일부는 다른 컨테이너 오케스트레이션 시스템과의 통합, 여러 CNI 플러그인 실행,
+고급 IPAM 기능 등과 같은 보다 정교한 솔루션을 제공한다.
 
-쿠버네티스에서 지원하는 네트워킹 애드온의 일부 목록은 [이 페이지](/ko/docs/concepts/cluster-administration/addons/#network-and-networking-policy)를 참조한다.
+쿠버네티스에서 지원하는 네트워킹 애드온의 일부 목록은
+[이 페이지](/ko/docs/concepts/cluster-administration/addons/#network-and-networking-policy)를 참조한다.
 
 ## {{% heading "whatsnext" %}}
 
-네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
-[네트워킹 디자인 문서](https://git.k8s.io/design-proposals-archive/network/networking.md)에
-자세히 설명되어 있다.
+네트워킹 모델의 초기 설계와 그 근거는
+[네트워킹 설계 문서](https://git.k8s.io/design-proposals-archive/network/networking.md)에 자세히 설명되어 있다.
+쿠버네티스 네트워킹을 개선하기 위한 미래 계획 및 진행 중인 작업들에 대해서는
+SIG-Network의
+[KEP 목록](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network)에서 확인할 수 있다.
+
