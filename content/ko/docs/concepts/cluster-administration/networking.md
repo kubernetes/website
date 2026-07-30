@@ -14,7 +14,7 @@ weight: 50
 1. 고도로 결합된 컨테이너 간의 통신: 이 문제는
    {{< glossary_tooltip text="파드" term_id="pod" >}}와 `localhost` 통신으로 해결된다.
 2. 파드 간 통신: 이 문제가 이 문서의 주요 초점이다.
-3. 파드와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
+3. 파드와 서비스 간 통신: 이 문제는 [서비스](/docs/concepts/services-networking/service/)에서 다룬다.
 4. 외부와 서비스 간 통신: 이 문제도 서비스에서 다룬다.
 
 <!-- body -->
@@ -30,18 +30,18 @@ weight: 50
 찾는 방법 등을 알아야 한다. 쿠버네티스는 이런 것들을 다루는 대신
 다른 접근법을 취한다.
 
-쿠버네티스 네트워킹 모델에 대한 상세 정보는 [여기](/ko/docs/concepts/services-networking/)를 참고한다.
+쿠버네티스 네트워킹 모델에 대한 상세 정보는 [여기](/docs/concepts/services-networking/)를 참고한다.
 
 ## 쿠버네티스 IP 주소 범위
 
-쿠버네티스 클러스터는 다음 컴포넌트에 설정된 가용 주소 범위 내에서
+쿠버네티스 클러스터는 다음 컴포넌트들에 설정된 가용 주소 범위 내에서
 파드, 서비스, 노드에 서로 겹치지 않는 IP 주소를 할당해야 한다.
 
 - 네트워크 플러그인은 파드에 IP 주소를 할당하도록 설정되어 있다.
 - kube-apiserver는 서비스에 IP 주소를 할당하도록 설정되어 있다.
 - kubelet 또는 cloud-controller-manager는 노드에 IP 주소를 할당하도록 설정되어 있다.
 
-{{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
+{{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="쿠버네티스 클러스터 내 서로 다른 네트워크 범위를 보여주는 그림" class="diagram-medium" >}}
 
 ## 클러스터 네트워킹 유형 {#cluster-network-ipfamilies}
 
@@ -53,7 +53,7 @@ weight: 50
   - 네트워크 플러그인은 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
   - kube-apiserver는 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
   - kubelet 또는 cloud-controller-manager는 IPv4 및 IPv6 주소를 할당하도록 설정되어 있다.
-  - 모든 컴포넌트는 동일한 기본 IP 패밀리로 설정되어야 한다.
+  - 모든 컴포넌트는 동일한 기본 IP 패밀리를 사용하도록 설정되어야 한다.
 
 쿠버네티스 클러스터는 파드, 서비스, 노드 오브젝트에 나타난 IP 패밀리만 고려하며,
 해당 오브젝트가 가지고 있는 기존 IP와는 무관하다. 예를 들어, 서버나 파드는
@@ -70,7 +70,7 @@ weight: 50
 고급 IPAM 기능 등과 같은 보다 정교한 솔루션을 제공한다.
 
 쿠버네티스에서 지원하는 네트워킹 애드온의 일부 목록은
-[이 페이지](/ko/docs/concepts/cluster-administration/addons/#network-and-networking-policy)를 참조한다.
+[이 페이지](/docs/concepts/cluster-administration/addons/#network-and-networking-policy)를 참조한다.
 
 ## {{% heading "whatsnext" %}}
 
