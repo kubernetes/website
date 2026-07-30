@@ -138,10 +138,10 @@ To check resource pool status:
        may be unset.
      - `partitionSummary`: for [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
        pools, per-partition-type allocatability (see
-       [Partition and shareable summaries](#resource-pool-partition-shareable-summaries)).
-     - `shareableSummary`: for pools with shareable devices, aggregate capacity
-       usage (see
-       [Partition and shareable summaries](#resource-pool-partition-shareable-summaries)).
+       [Partition summary](#resource-pool-partition-summary)).
+     - `shareableSummary`: for pools with [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity),
+       aggregate capacity usage (see
+       [Shareable summary](#resource-pool-shareable-summary)).
    - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
 
 1. Delete the request when done:
@@ -163,30 +163,35 @@ Resource pool status is controlled by the
 [`DRAResourcePoolStatus` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
 in the `kube-apiserver` and `kube-controller-manager`.
 
-### Partition and shareable summaries {#resource-pool-partition-shareable-summaries}
+### Partition summary {#resource-pool-partition-summary}
 
 {{< feature-state feature_gate_name="DRAPartitionableDevicesType" >}}
 
-For pools that use [partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
-or shareable devices (devices that allow multiple allocations), a
-ResourcePoolStatusRequest can report two additional per-pool views:
-`partitionSummary` and `shareableSummary`.
+A single physical device such as a GPU may be advertised as several partition
+types (for example, a full GPU versus a half-sized MIG slice) that draw from the
+same shared counters. Because these partitions compete for the same underlying
+capacity, a plain device count does not tell you how many of each type can still
+be allocated. For [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
+pools, the `partitionSummary` view answers that question. For each partition type
+it reports:
 
-**Partition summary.** A single physical device such as a GPU may be advertised
-as several partition types (for example, a full GPU versus a half-sized MIG
-slice) that draw from the same shared counters. Because these partitions compete
-for the same underlying capacity, a plain device count does not tell you how many
-of each type can still be allocated. The `partitionSummary` view answers that
-question: for each partition type it reports:
-
-- `attribute`: the fully qualified device attribute name whose value groups this
-  entry.
-- `type`: the partition type value (for example, `Full` or `Half`).
+- `attribute`: the fully qualified name of the device attribute whose value
+  groups this entry. It is the ResourceSlice's `spec.partitionTypeAttribute`, or
+  the request's `spec.defaultPartitionTypeAttribute` when the slice declares none.
+- `type`: the value of that attribute on the device (for example, `Full` or
+  `Half`).
 - `total`: the number of devices of this partition type in the pool.
 - `allocatable`: how many *additional* devices of this partition type could still
   be allocated given current shared-counter consumption.
 
-To produce this view, the driver labels each partitionable device with an
+The named attribute must be a string attribute. If a partitionable device's
+partition-type attribute is missing or is not a string (for example, an integer,
+boolean, or version value), the pool reports a validation error instead of a
+partition summary. There is no special handling for
+[list-type attributes](/docs/reference/command-line-tools-reference/feature-gates/#DRAListTypeAttributes);
+a non-string attribute is simply not a valid partition-type attribute.
+
+To produce this view, the driver labels each partitionable device with a string
 attribute whose value names the partition type, and names that attribute in the
 ResourceSlice's `partitionTypeAttribute` field:
 
@@ -219,8 +224,18 @@ spec:
 When neither the slice nor the request names an attribute, a partitionable pool
 reports no `partitionSummary`.
 
-**Shareable summary.** For pools that contain devices allowing multiple
-allocations, `shareableSummary` reports aggregate capacity usage across the pool:
+The `partitionSummary` view is an *alpha feature*. In addition to the
+`DRAResourcePoolStatus` feature gate, it requires the
+[`DRAPartitionableDevicesType` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)
+(which also depends on the
+[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
+feature gate) to be enabled in the `kube-apiserver` and `kube-controller-manager`.
+
+### Shareable summary {#resource-pool-shareable-summary}
+
+For pools that contain [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+(devices that set `allowMultipleAllocations` and can be consumed by multiple
+claims), `shareableSummary` reports aggregate capacity usage across the pool:
 
 - `fullyAvailableDevices`: shareable devices with no capacity consumed.
 - `partiallyAvailableDevices`: shareable devices with some, but not all, capacity
@@ -229,14 +244,12 @@ allocations, `shareableSummary` reports aggregate capacity usage across the pool
   `available` (`total` minus `consumed`, never negative) amounts across the pool.
 
 The `shareableSummary` is populated only when at least one device in the pool is
-shareable.
-
-These summaries are an *alpha feature*. In addition to the
-`DRAResourcePoolStatus` feature gate, the `partitionSummary` view requires the
-[`DRAPartitionableDevicesType` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)
-(which also depends on the
-[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-feature gate) to be enabled in the `kube-apiserver` and `kube-controller-manager`.
+shareable. It is part of the resource pool status
+([`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus))
+alpha feature and does not require `DRAPartitionableDevicesType`; the shareable
+devices it summarizes come from the
+[consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+feature.
 
 
 ## DRA device metadata in containers {#device-metadata}
