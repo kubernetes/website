@@ -5,7 +5,7 @@ weight: 40
 feature:
   title: Automatic bin packing
   description: >
-    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability.
+    کانتینرها را به طور خودکار بر اساس نیاز منابع و سایر محدودیت‌ها قرار می‌دهد، در حالی که دسترسی‌پذیری را فدا نمی‌کند.
     Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
 
