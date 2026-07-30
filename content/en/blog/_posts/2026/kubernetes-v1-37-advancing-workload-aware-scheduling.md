@@ -41,7 +41,49 @@ author: >
 
 ## DRA ResourceClaim Support for Workloads
 
-<!-- TODO(@nojnhuh): Content by feature owner. Discuss KEP-5729 updates -->
+As the core WAS APIs mature, so do their integrations with {{< glossary_tooltip text="Dynamic Resource Allocation" term_id="dra" >}}
+(DRA). Kubernetes v1.36 introduced the [`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
+feature, allowing {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}
+to be replicated and reserved for entire PodGroups and shared by all their
+member Pods:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PodGroup
+metadata:
+  name: training-job-workers-pg
+spec:
+  ...
+  resourceClaims:
+    - name: pg-claim
+      resourceClaimTemplateName: my-claim-template
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: topology-aware-workers-pg-pod
+spec:
+  ...
+  schedulingGroup:
+    podGroupName: training-job-workers-pg
+  resourceClaims:
+    - name: pg-claim
+      resourceClaimTemplateName: my-claim-template
+```
+
+In Kubernetes v1.37, the `DRAWorkloadResourceClaims` feature graduated to Beta.
+While the API and core functionality of the feature remain unchanged, one change
+eliminates some potentially surprising behavior when disabling the feature.
+Previously when one of a Pod's `spec.resourceClaims` referenced a
+ResourceClaimTemplate and matched one of its PodGroup's `spec.resourceClaims`
+and the feature was _disabled_, a ResourceClaim was created for the Pod instead
+of the PodGroup. In that scenario in v1.37, no ResourceClaim is created at all.
+This change prevents Kubernetes from creating a flood of ResourceClaims from a
+ResourceClaimTemplate and potentially exhausting DRA resources when a
+claim intended to be shared by a whole PodGroup is replicated for each and every
+Pod in the group.
+
+For more information, see the [feature documentation](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api#workload-resource-claims).
 
 ## What's next?
 
