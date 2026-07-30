@@ -1,5 +1,5 @@
 ---
-title: Resource Management for Pods and Containers
+title: مدیریت منابع برای پادها و کانتینرها
 content_type: concept
 weight: 40
 feature:
