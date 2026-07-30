@@ -12,7 +12,7 @@ weight: 80
 # 那么需要在此页面添加新的交叉引用链接，而新增的页面也应链接回此页面
 ---
 <!--
-title: Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest
+title: Issue a Certificate for a Kubernetes API Client Using a CertificateSigningRequest
 api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
@@ -43,7 +43,7 @@ Kubernetes 集群所信任的权威机构颁发的 [X.509](https://www.itu.int/r
 
 <!--
 You use a [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/)
-as part of this process, and either you or some other principal must approve the request.
+as part of this process, either you or some other principal must approve the request.
 
 You will create a private key, and then get a certificate issued, and finally configure
 that private key for a client.
@@ -74,7 +74,7 @@ If you have alternative or additional security mechanisms around authorization, 
 <!--
 ## Create private key
 
-In this step, you create a private key. You need to keep this document secret; anyone who has it can impersonate the user.
+In this step, you create a private key. You need to keep this private key secret; anyone who has it can impersonate the user.
 
 ```shell
 # Create a private key
@@ -84,7 +84,7 @@ openssl genrsa -out myuser.key 3072
 ## 创建私钥   {#create-private-key}
 
 在这一步中，你将创建一个私钥。
-你将此文件作为秘密保管起来，因为任何拥有该私钥的人都可以伪装成对应的用户。
+你将此私钥作为秘密保管起来，因为任何拥有该私钥的人都可以伪装成对应的用户。
 
 ```shell
 # 创建一个私钥
@@ -106,7 +106,7 @@ CertificateSigningRequest.
 {{< /note >}}
 
 <!--
-It is important to set CN and O attribute of the CSR. CN is the name of the user and O is the group that this user will belong to.
+It is important to set the CN and O attribute of the CSR. CN is the name of the user, and O is the group that this user will belong to.
 You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
 ```shell
@@ -137,7 +137,7 @@ cat myuser.csr | base64 | tr -d "\n"
 
 <!--
 Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-and submit it to a Kubernetes Cluster via kubectl. Below is a snippet of shell that you can use to generate the
+and submit it to a Kubernetes cluster via kubectl. Below is a snippet of shell that you can use to generate the
 CertificateSigningRequest.
 -->
 创建 [CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
@@ -182,7 +182,7 @@ You can alternatively, create a YAML manifest file and apply it with `kubectl`:
 -->
 或者，你也可以创建一个 YAML 清单文件，并使用 `kubectl` 应用它：
 
-{{% code language="yaml" file="tls/myuser.yaml" %}}
+{{% code_sample language="yaml" file="tls/myuser.yaml" %}}
 
 <!--
 Apply the manifest:
@@ -196,7 +196,7 @@ kubectl apply -f myuser.yaml --server-side
 <!--
 Some points to note:
 
-- `usages` has to be `client auth`. For other Kubernetes signers, the permitted key usages may differ. See [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers) for the supported key usages for each signer.
+- `usages` has to be `client auth`
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour).
   You cannot request a duration shorter than 10 minutes.
 - `request` is the base64 encoded value of the CSR file content.
@@ -204,9 +204,6 @@ Some points to note:
 一些注意点：
 
 - `usages` 必须是 `client auth`。
-  对于其他 Kubernetes 签名者，允许的密钥用法可能会有所不同。请参阅
-  [Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
-  了解每种签名者支持的密钥用法。
 - `expirationSeconds` 可以设置得更长（例如 `864000` 表示十天）或更短（例如 `3600` 表示一小时）。
   你所请求的时长不能短于 10 分钟。
 - `request` 值是 CSR 文件内容的 base64 编码值。
@@ -240,7 +237,7 @@ kubectl certificate approve myuser
 <!--
 ## Get the certificate
 
-Retrieve the certificate from the CSR, to check it looks OK.
+Retrieve the certificate from the CSR to check it looks OK.
 -->
 ## 获取证书   {#get-the-certificate}
 
@@ -266,7 +263,7 @@ kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.c
 <!--
 ## Configure the certificate into kubeconfig
 
-The next step is to add this user into the kubeconfig file.
+The next step is to add this user to the kubeconfig file.
 
 First, you need to add new credentials:
 -->
@@ -316,8 +313,7 @@ your cluster actually uses.
 {{< /note >}}
 
 <!--
-With the certificate created it is time to define the Role and RoleBinding for
-this user to access Kubernetes cluster resources.
+With the certificate created, it is time to define the Role and RoleBinding for this user to access Kubernetes cluster resources.
 
 This is a sample command to create a Role for this new user:
 -->
@@ -334,7 +330,7 @@ Equivalent YAML:
 -->
 等效 YAML：
 
-{{% code language="yaml" file="tls/role.yaml" %}}
+{{% code_sample language="yaml" file="tls/role.yaml" %}}
 
 <!--
 This is a sample command to create a RoleBinding for this new user:
@@ -350,7 +346,7 @@ Equivalent YAML:
 -->
 等效 YAML：
 
-{{% code language="yaml" file="tls/rolebinding.yaml" %}}
+{{% code_sample language="yaml" file="tls/rolebinding.yaml" %}}
 
 ## {{% heading "whatsnext" %}}
 
