@@ -76,7 +76,7 @@ To install containerd, first run the following command:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/Install-Containerd.ps1
-  ``````
+  ```
 
 <!--
 Then run the following command, but first replace `CONTAINERD_VERSION` with a recent release
