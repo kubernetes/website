@@ -108,6 +108,13 @@ updated to newer versions that support cgroup v2. For example:
     * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 and later
 * If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
   the version you use is v1.5.1 or higher.
+* If you deploy [Node.js](https://nodejs.org/) applications, prefer to use versions that detect cgroup v2
+  memory limits. Node.js reads cgroup v2 memory limits (through [libuv](https://libuv.org/))
+  starting with Node.js v20.3.0. The v18 release line does not reliably detect cgroup v2 memory limits.
+  Versions without this support may read the host's total memory instead of the
+  limit applied to the pod, which can lead to an incorrectly sized heap and out-of-memory (OOM)
+  terminations. On affected versions, set the heap size explicitly, for example with the
+  `--max-old-space-size` flag.
 
 ## Identify the cgroup version on Linux Nodes  {#check-cgroup-version}
 
