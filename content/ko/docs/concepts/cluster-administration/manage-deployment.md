@@ -198,9 +198,9 @@ NAME                           READY     STATUS    RESTARTS   AGE       APP     
 guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
 guestbook-fe-ght6d             1/1       Running   0          1m        guestbook   frontend   <none>
 guestbook-fe-jpy62             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-redis-master-5pg3b   1/1       Running   0          1m        guestbook   backend    master
-guestbook-redis-slave-2q2yf    1/1       Running   0          1m        guestbook   backend    slave
-guestbook-redis-slave-qgazl    1/1       Running   0          1m        guestbook   backend    slave
+guestbook-redis-leader-5pg3b   1/1       Running   0          1m        guestbook   backend    master
+guestbook-redis-follower-2q2yf    1/1       Running   0          1m        guestbook   backend    slave
+guestbook-redis-follower-qgazl    1/1       Running   0          1m        guestbook   backend    slave
 my-nginx-divi2                 1/1       Running   0          29m       nginx       <none>     <none>
 my-nginx-o0ef1                 1/1       Running   0          29m       nginx       <none>     <none>
 ```
@@ -210,8 +210,8 @@ kubectl get pods -lapp=guestbook,role=slave
 ```
 ```shell
 NAME                          READY     STATUS    RESTARTS   AGE
-guestbook-redis-slave-2q2yf   1/1       Running   0          3m
-guestbook-redis-slave-qgazl   1/1       Running   0          3m
+guestbook-redis-follower-2q2yf   1/1       Running   0          3m
+guestbook-redis-follower-qgazl   1/1       Running   0          3m
 ```
 
 ## 카나리(canary) 디플로이먼트
