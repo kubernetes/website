@@ -4,8 +4,10 @@ title: "From Working Group to SIG Architecture: spotlight on AI Conformance"
 slug: sig-arch-ai-conformance-2026
 canonicalUrl: https://www.kubernetes.dev/blog/2026/07/30/sig-arch-ai-conformance-2026
 date: 2026-07-09
-draft: yes
-author: "Frederico Muñoz (SAS Institute) and Kirti Goyal"
+draft: true
+author: >-
+  Frederico Muñoz (SAS Institute),
+  Kirti Goyal (independent)
 ---
 
 In this SIG Architecture spotlight we talked with [Janet Kuo](https://github.com/janetkuo) (Google)
@@ -32,7 +34,7 @@ workloads, such as AI.
 **Yuan Tang**: I’m a Senior Principal Software Engineer at Red Hat, where I lead the development of
 our AI platform and drive our upstream open source strategy. I became involved in Kubernetes early
 on by fostering collaborations between the Kubernetes community and projects I was leading,
-including Kubefolw, Argo, and KServe. I later helped found and lead [WG Serving](https://github.com/kubernetes-sigs/wg-serving) and the AI Conformance program, advancing
+including Kubeflow, Argo, and KServe. I later helped found and lead [WG Serving](https://github.com/kubernetes-sigs/wg-serving) and the AI Conformance program, advancing
 innovation and strengthening community collaboration around running AI workloads on Kubernetes.
 
 ## Program, Working Group, Subproject: the many shapes of AI Conformance
@@ -48,8 +50,8 @@ co-chairs Yuan Tang, Rita Zhang, and Mario Fahlandt to get the community rallied
 
 **Yuan Tang:** Yes. I was a co-chair of WG Serving at that time and some of the initiatives such as
 the [Gateway AI Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/) quickly
-gained traction. There was a strong interest among the community to include inference related
-requirements in the K8s AI Conformance program.
+gained traction. There was a strong interest among the community to include inference-related
+requirements in the Kubernetes AI Conformance program.
 
 **FK: How would you describe the motivation behind the creation of the AI Conformance Working Group?**
 
@@ -158,7 +160,7 @@ best practices without locking Kubernetes into rigid APIs too early. Once those 
 with ecosystem adoption, we graduate them to mandatory MUST requirements.
 
 Second, we intentionally keep our focus on the infrastructure layer. We test for core capabilities
-like accelerator support through Dynamic Resource Allocation (DRA), rather than getting bogged down
+like accelerator support through [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA), rather than getting bogged down
 in specific AI frameworks or model servers. That keeps the base platform stable while letting the AI
 tooling evolve as fast as it needs to.
 
@@ -187,7 +189,8 @@ main repo at [kubernetes-sigs/ai-conformance](https://github.com/kubernetes-sigs
 join our [meetings](https://github.com/kubernetes/community/tree/main/sig-architecture#meetings). If
 you're interested in defining new AI Conformance requirements, you can jump into PR reviews or
 propose your own using our [KAR template](https://github.com/kubernetes-sigs/ai-conformance/tree/main/kars/NNNN-kar-template). If
-you want to write code, we always need help expanding our automated Go test suites in the [test/ directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test). For vendors looking to
+you want to write code, we always need help expanding our automated Go test suites in the [`test/` directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test).
+For vendors looking to
 certify their platforms, all the details are at
 [cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
 
