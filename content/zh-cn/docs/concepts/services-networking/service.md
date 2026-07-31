@@ -59,7 +59,8 @@ expect that an individual Pod is reliable and durable).
 Deployment 可以动态地创建和销毁 Pod。
 在任何时刻，你都不知道有多少个这样的 Pod 正在工作以及它们健康与否；
 你可能甚至不知道如何辨别健康的 Pod。
-Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 的创建和销毁是为了匹配集群的预期状态。
+Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}}
+的创建和销毁是为了匹配集群的预期状态。
 Pod 是临时资源（你不应该期待单个 Pod 既可靠又耐用）。
 
 <!--
@@ -162,7 +163,7 @@ balancer in between your application and the backend Pods.
 
 如果你想要在自己的应用中使用 Kubernetes API 进行服务发现，可以查询
 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}，
-寻找匹配的 EndpointSlice 对象。
+寻找匹配的 EndpointSlices 对象。
 只要 Service 中的 Pod 集合发生变化，Kubernetes 就会为其更新 EndpointSlice。
 
 对于非本地应用，Kubernetes 提供了在应用和后端 Pod 之间放置网络端口或负载均衡器的方法。
@@ -220,14 +221,14 @@ match its selector, and then makes any necessary updates to the set of
 EndpointSlices for the Service.
 -->
 此 Service 的控制器不断扫描与其选择算符匹配的 Pod 集合，然后对 Service 的
-EndpointSlice 集合执行必要的更新。
+EndpointSlices 集合执行必要的更新。
 
 <!--
 The name of a Service object must be a valid
-[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
+[RFC 1123 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 -->
 Service 对象的名称必须是有效的
-[RFC 1035 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names)。
+[RFC 1123 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names)。
 
 {{< note >}}
 <!--
@@ -238,21 +239,6 @@ field.
 Service 能够将**任意**入站 `port` 映射到某个 `targetPort`。
 默认情况下，出于方便考虑，`targetPort` 会被设置为与 `port` 字段相同的值。
 {{< /note >}}
-
-<!--
-### Relaxed naming requirements for Service objects
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
--->
-### 对 Service 对象放宽命名限制
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-`RelaxedServiceNameValidation` 特性开关允许 Service 对象的名称以数字开头。
-启用该特性后，Service 对象的名称必须符合
-[RFC 1123 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)的规范。
 
 <!--
 ### Port definitions {#field-spec-ports}
@@ -313,7 +299,7 @@ The default protocol for Services is
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
 Because many Services need to expose more than one port, Kubernetes supports
-+[multiple port definitions](#multi-port-services) for a single Service.
+[multiple port definitions](#multi-port-services) for a single Service.
 Each port definition can have the same `protocol`, or a different one.
 -->
 Service 的默认协议是 [TCP](/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
@@ -496,7 +482,7 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 访问没有选择算符的 Service 与有选择算符的 Service 的原理相同。
 在没有选择算符的 Service [示例](#services-without-selectors)中，
 流量被路由到 EndpointSlice 清单中定义的两个端点之一：
-通过 TCP 协议连接到 10.1.2.3 或 10.4.5.6 的端口 9376。
+通过 TCP 协议连接到 10.1.2.3 或 10.4.5.6 的 9376 端口。
 
 {{< note >}}
 <!--
@@ -540,17 +526,17 @@ until an extra endpoint needs to be added.
 See [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) for more
 information about this API.
 -->
-[EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+[EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
 对象表示某个 Service 的后端网络端点的子集（**切片**）。
 
-你的 Kubernetes 集群会跟踪每个 EndpointSlice 所表示的端点数量。
+你的 Kubernetes 集群会跟踪每个 EndpointSlices 所表示的端点数量。
 如果 Service 的端点太多以至于达到阈值，Kubernetes 会添加另一个空的
-EndpointSlice 并在其中存储新的端点信息。
-默认情况下，一旦现有 EndpointSlice 都包含至少 100 个端点，Kubernetes
-就会创建一个新的 EndpointSlice。
-在需要添加额外的端点之前，Kubernetes 不会创建新的 EndpointSlice。
+EndpointSlices 并在其中存储新的端点信息。
+默认情况下，一旦现有 EndpointSlices 都包含至少 100 个端点，Kubernetes
+就会创建一个新的 EndpointSlices。
+在需要添加额外的端点之前，Kubernetes 不会创建新的 EndpointSlices。
 
-参阅 [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+参阅 [EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
 了解有关该 API 的更多信息。
 
 <!--
@@ -574,15 +560,15 @@ EndpointSlice:
 Because of this, it is recommended that all clients use the
 EndpointSlice API rather than Endpoints.
 -->
-EndpointSlice API 是旧版 [Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-API 的演进版本。与 EndpointSlice 相比，已弃用的 Endpoints API 存在以下几个问题：
+EndpointSlices API 是旧版 [Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API 的演进版本。与 EndpointSlices 相比，已弃用的 Endpoints API 存在以下几个问题：
 
 - 不支持双栈集群。
 - 不包含支持 [trafficDistribution](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution)
   等新特性所需的信息。
 - 如果端点列表过长以至于无法放入单个对象中时会被截断。
 
-因此，推荐所有客户端使用 EndpointSlice API 来替换 Endpoints。
+因此，推荐所有客户端使用 EndpointSlices API 来替换 Endpoints。
 
 <!--
 #### Over-capacity endpoints
@@ -597,7 +583,7 @@ affects the legacy Endpoints API.
 
 Kubernetes 限制单个 Endpoints 对象中可以容纳的端点数量。
 当一个 Service 拥有 1000 个以上支撑端点时，Kubernetes 会截断 Endpoints 对象中的数据。
-由于一个 Service 可以链接到多个 EndpointSlice 之上，所以 1000 个支撑端点的限制仅影响旧版的
+由于一个 Service 可以链接到多个 EndpointSlices 之上，所以 1000 个支撑端点的限制仅影响旧版的
 Endpoints API。
 
 <!--
@@ -652,7 +638,7 @@ This field follows standard Kubernetes label syntax. Valid values are one of:
 
 | Protocol | Description |
 |----------|-------------|
-| `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
+| `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 9113](https://www.rfc-editor.org/rfc/rfc7540) |
 | `kubernetes.io/ws`  | WebSocket over cleartext as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 | `kubernetes.io/wss` | WebSocket over TLS as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 -->
@@ -664,7 +650,7 @@ This field follows standard Kubernetes label syntax. Valid values are one of:
 
   | 协议     | 描述        |
   |----------|-------------|
-  | `kubernetes.io/h2c` | 基于明文的 HTTP/2 协议，如 [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) 所述     |
+  | `kubernetes.io/h2c` | 基于明文的 HTTP/2 协议，如 [RFC 9113](https://www.rfc-editor.org/rfc/rfc7540) 所述     |
   | `kubernetes.io/ws`  | 基于明文的 WebSocket 协议，如 [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) 所述  |
   | `kubernetes.io/wss` | 基于 TLS 的 WebSocket 协议，如 [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) 所述 |
 
@@ -902,7 +888,8 @@ a NodePort value (30007, in this example):
 这意味着你需要自行注意可能发生的端口冲突。
 你还必须使用有效的端口号，该端口号在配置用于 NodePort 的范围内。
 
-以下是 `type: NodePort` Service 的一个清单示例，其中指定了 NodePort 值（在本例中为 30007）：
+以下是 `type: NodePort` Service 的一个清单示例，其中指定了 NodePort
+值（在本例中为 30007）：
 
 <!--
 ```yaml
@@ -1038,9 +1025,9 @@ node IP address (or possibly IP addresses).
 则 `<NodeIP>` 将是一个被过滤的节点 IP 地址（或可能是多个 IP 地址）。
 {{< /note >}}
 
-<!--
-### `type: LoadBalancer` {#loadbalancer}
+### `type: LoadBalancer`  {#loadbalancer}
 
+<!--
 On cloud providers which support external load balancers, setting the `type`
 field to `LoadBalancer` provisions a load balancer for your Service.
 The actual creation of the load balancer happens asynchronously, and
@@ -1048,8 +1035,6 @@ information about the provisioned balancer is published in the Service's
 `.status.loadBalancer` field.
 For example:
 -->
-### `type: LoadBalancer`  {#loadbalancer}
-
 在使用支持外部负载均衡器的云平台时，如果将 `type` 设置为 `"LoadBalancer"`，
 则平台会为 Service 提供负载均衡器。
 负载均衡器的实际创建过程是异步进行的，关于所制备的负载均衡器的信息将会通过 Service 的
@@ -1420,17 +1405,15 @@ metadata:
 {{% /tab %}}
 {{< /tabs >}}
 
-<!--
 ### `type: ExternalName` {#externalname}
 
+<!--
 Services of type ExternalName map a Service to a DNS name, not to a typical selector such as
 `my-service` or `cassandra`. You specify these Services with the `spec.externalName` parameter.
 
 This Service definition, for example, maps
 the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 -->
-### ExternalName 类型         {#externalname}
-
 类型为 ExternalName 的 Service 将 Service 映射到 DNS 名称，而不是典型的选择算符，
 例如 `my-service` 或者 `cassandra`。你可以使用 `spec.externalName` 参数指定这些 Service。
 
@@ -1559,7 +1542,7 @@ the Service.
 ### 带选择算符的 Service {#with-selectors}
 
 对定义了选择算符的无头 Service，Kubernetes 控制平面在 Kubernetes API 中创建
-EndpointSlice 对象，并且修改 DNS 配置返回 A 或 AAAA 记录（IPv4 或 IPv6 地址），
+EndpointSlices 对象，并且修改 DNS 配置返回 A 或 AAAA 记录（IPv4 或 IPv6 地址），
 这些记录直接指向 Service 的后端 Pod 集合。
 
 <!--
@@ -1571,7 +1554,7 @@ either:
 -->
 ### 无选择算符的 Service  {#without-selectors}
 
-对没有定义选择算符的无头 Service，控制平面不会创建 EndpointSlice 对象。
+对没有定义选择算符的无头 Service，控制平面不会创建 EndpointSlices 对象。
 然而 DNS 系统会执行以下操作之一：
 
 <!--
@@ -1658,8 +1641,8 @@ to see how this is implemented in Kubernetes.
 -->
 Kubernetes 还支持并提供与 Docker Engine 的
 "**[legacy container links](https://docs.docker.com/network/links/)**"
-兼容的变量。
-你可以阅读 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)
+兼容的变量。你可以阅读
+[makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)
 来了解这是如何在 Kubernetes 中实现的。
 
 ### DNS
@@ -1817,27 +1800,38 @@ to learn more.
 
 <!--
 ### External IPs
+-->
+### 外部 IP  {#external-ips}
 
+{{< feature-state for_k8s_version="v1.36" state="deprecated" >}}
+
+<!--
+All users should begin migrating away from `externalIPs`.
+Consider using an external load balancer controller or a Gateway API
+implementation instead.
+-->
+所有用户都应开始逐步淘汰 `externalIPs`。
+请考虑改用外部负载均衡控制器或网关 API 实现。
+
+<!--
 If there are external IPs that route to one or more cluster nodes, Kubernetes Services
 can be exposed on those `externalIPs`. When network traffic arrives into the cluster, with
 the external IP (as destination IP) and the port matching that Service, rules and routes
 that Kubernetes has configured ensure that the traffic is routed to one of the endpoints
 for that Service.
+-->
+如果有外部 IP 能够路由到一个或多个集群节点上，则 Kubernetes Service 可以在这些 `externalIPs`
+上公开出去。当网络流量进入集群时，如果外部 IP（作为目的 IP 地址）和端口都与该 Service 匹配，
+Kubernetes 所配置的规则和路由会确保流量被路由到该 Service 的端点之一。
 
+<!--
 When you define a Service, you can specify `externalIPs` for any
 [service type](#publishing-services-service-types).
 In the example below, the Service named `"my-service"` can be accessed by clients using TCP,
 on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[].port`).
 -->
-### 外部 IP  {#external-ips}
-
-如果有外部 IP 能够路由到一个或多个集群节点上，则 Kubernetes Service 可以在这些 `externalIPs`
-上公开出去。当网络流量进入集群时，如果外部 IP（作为目的 IP 地址）和端口都与该 Service 匹配，
-Kubernetes 所配置的规则和路由会确保流量被路由到该 Service 的端点之一。
-
 定义 Service 时，你可以为任何
 [Service 类型](#publishing-services-service-types)指定 `externalIPs`。
-
 在下面的例子中，名为 `my-service` 的 Service 可以在 "`198.51.100.32:80`"
 （根据 `.spec.externalIPs[]` 和 `.spec.ports[].port` 得出）上被客户端使用 TCP 协议访问。
 
@@ -1879,6 +1873,7 @@ Service 是 Kubernetes REST API 中的顶级资源。你可以找到有关
 的更多详细信息。
 
 <!-- preserve existing hyperlinks -->
+
 <a id="shortcomings" /><a id="#the-gory-details-of-virtual-ips" />
 
 ## {{% heading "whatsnext" %}}

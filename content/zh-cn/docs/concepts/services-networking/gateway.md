@@ -165,9 +165,9 @@ reference for a full definition of this API kind.
 有关此 API 类别的完整定义，请参阅
 [GatewayClass](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.GatewayClass)。
 
-<!-- 
 ### Gateway {#api-kind-gateway}
 
+<!--
 A Gateway describes an instance of traffic handling infrastructure. It defines a network endpoint
 that can be used for processing traffic, i.e. filtering, balancing, splitting, etc. for backends
 such as a Service. For example, a Gateway may represent a cloud load balancer or an in-cluster proxy
@@ -175,8 +175,6 @@ server that is configured to accept HTTP traffic.
 
 A typical Gateway resource example:
 -->
-### Gateway {#api-kind-gateway}
-
 Gateway 用来描述流量处理基础设施的一个实例。Gateway 定义了一个网络端点，该端点可用于处理流量，
 即对 Service 等后端进行过滤、平衡、拆分等。
 例如，Gateway 可以代表某个云负载均衡器，或配置为接受 HTTP 流量的集群内代理服务器。
@@ -214,7 +212,8 @@ reference for a full definition of this API kind.
 由于未指定 `addresses` 字段，因此对应实现的控制器负责将地址或主机名设置到 Gateway 之上。
 该地址用作网络端点，用于处理路由中定义的后端网络端点的流量。
 
-有关此类 API 的完整定义，请参阅 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
+有关此类 API 的完整定义，请参阅
+[Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
 
 {{< note >}}
 <!--
@@ -465,7 +464,8 @@ Make sure to review the documentation of your selected implementation to underst
 {{< /note >}}
 
 <!-- 
-Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/spec/) for additional
+Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/) for additional
 details of all Gateway API kinds.
 -->
-有关所有 Gateway API 类型的其他详细信息，请参阅 [API 规范](https://gateway-api.sigs.k8s.io/reference/spec/)。
+有关所有 Gateway API 类型的其他详细信息，请参阅
+[API 规范](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/)。
