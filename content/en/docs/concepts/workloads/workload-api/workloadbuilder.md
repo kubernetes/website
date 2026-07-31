@@ -31,8 +31,7 @@ The building blocks are strongly-typed Go structs in the `scheduling.k8s.io/v1al
 API group. They are meant for *controller authors*: a controller embeds these structs into
 its own API type as fields, and the `workloadbuilder` library compiles them. The type names
 follow two conventions: leaf-level types are prefixed `WorkloadPodGroup...` (for example,
-`WorkloadPodGroupSchedulingPolicy`) and the multi-level variants
-`WorkloadCompositePodGroup...`.
+`WorkloadPodGroupSchedulingPolicy`) and the multi-level variants - `WorkloadCompositePodGroup...`.
 
 Each controller chooses the field names and structure that are idiomatic for its own API, so
 these blocks impose no fixed top-level shape. Although not strictly enforced, reusing the 
@@ -81,8 +80,9 @@ The disruption mode block selects whether the group's Pods may be disrupted indi
 modes documented in
 [Pod group disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
 
-The library rejects combinations that are not meaningful, for example `all` is invalid alongside the
-`basic` policy, because a group scheduled pod-by-pod has no atomic unit to disrupt.
+The library rejects combinations that are not meaningful. For example, prevent `all` disruption mode 
+for PodGroups with BasicSchedulingPolicy, because the preemption unit must not be larger than the 
+scheduling unit - a group scheduled pod-by-pod has no group-level unit to preempt or disrupt.
 
 ### Resource claims
 
