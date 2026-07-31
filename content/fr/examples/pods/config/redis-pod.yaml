@@ -15,9 +15,9 @@ spec:
       limits:
         cpu: "0.1"
     volumeMounts:
-    - mountPath: /redis-master-data
+    - mountPath: /redis-leader-data
       name: data
-    - mountPath: /redis-master
+    - mountPath: /redis-leader
       name: config
   volumes:
     - name: data
