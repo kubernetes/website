@@ -91,7 +91,7 @@ Some concrete indicators of success include:
 
 Most importantly, the WG created consensus that AI workloads are now a first-class Kubernetes use case.
 
-![KubeCon stage with 4 persons in it, one of them talking.](ai_conf_kubecon.jpg "AI Conformance at the KubeCon+CloudNativeCon NA 2025")
+![KubeCon stage with 4 persons in it, one of them talking.](ai_conf_kubecon.jpg)
 
 
 **FK: AI Conformance was specifically highlighted at the latest KubeCon: is this a reflection of the
@@ -121,7 +121,7 @@ to a major shift in workload patterns and ensuring the ecosystem evolves cohesiv
 fragmenting into vendor-specific AI stacks.
 
 
-![(slide) Initial adopters and major contributors: Akamai (logo), Alibaba Cloud (logo), AWS (logo), Broadcom (logo), CoreWeave (logo), DaoCloud (logo), Google Cloud (logo), Kubermatic (logo), Microsoft Azure (logo), NVIDIA (logo), Oracle (logo), SUSE (logo), Red Hat (logo), SAP (logo)](ai_conf_sponsors.jpg "Initial adopters and major contributors (KubeCon NA 2026)")
+![(slide) Initial adopters and major contributors: Akamai (logo), Alibaba Cloud (logo), AWS (logo), Broadcom (logo), CoreWeave (logo), DaoCloud (logo), Google Cloud (logo), Kubermatic (logo), Microsoft Azure (logo), NVIDIA (logo), Oracle (logo), SUSE (logo), Red Hat (logo), SAP (logo)](ai_conf_sponsors.jpg)
 
 
 ## From Working Group to SIG Architecture subproject
