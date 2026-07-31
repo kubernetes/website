@@ -299,7 +299,7 @@ untuk setiap `Service` yang aktif. _Environment_ yang didukung adalah [Docker li
 dan variabel `{SVCNAME}_SERVICE_HOST` dan `{SVCNAME}_SERVICE_PORT`, dinama nama `Service` akan diubah
 menjadi huruf kapital dan tanda _minus_  akan diubah menjadi _underscore_.
 
-Sebagai contoh, `Service` `"redis-master"` yang mengekspos _port_ TCP 6379 serta _alamat_
+Sebagai contoh, `Service` `"redis-leader"` yang mengekspos _port_ TCP 6379 serta _alamat_
 _cluster IP_ _10.0.0.11_ akan memiliki _environment_ sebagai berikut:
 
 ```shell
