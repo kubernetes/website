@@ -14,7 +14,7 @@ In this SIG Architecture spotlight we talked with [Janet Kuo](https://github.com
 and [Yuan Tang](https://github.com/terrytangyuan) (Red Hat) about the journey of AI Conformance in
 Kubernetes, from the initial [Working
 Group](https://github.com/kubernetes/community/blob/main/governance.md#working-groups) to the
-integration [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture#architecture-special-interest-group)
+integration [SIG Architecture](https://www.kubernetes.dev/community/community-groups/sigs/architecture/)
 as a subproject.
 
 ## Introductions
@@ -91,7 +91,8 @@ Some concrete indicators of success include:
 
 Most importantly, the WG created consensus that AI workloads are now a first-class Kubernetes use case.
 
-{{< figure src="/blog/2026/sig-arch-ai-conformance-2026/ai_conf_kubecon.jpg" alt="AI Conformance at the KubeCon+CloudNativeCon NA 2025" >}}
+![KubeCon stage with 4 persons in it, one of them talking.](ai_conf_kubecon.jpg "AI Conformance at the KubeCon+CloudNativeCon NA 2025")
+
 
 **FK: AI Conformance was specifically highlighted at the latest KubeCon: is this a reflection of the
 growing importance of AI throughout the project?**
@@ -119,7 +120,9 @@ So the emphasis on AI Conformance is not just about chasing AI hype; it's about 
 to a major shift in workload patterns and ensuring the ecosystem evolves cohesively rather than
 fragmenting into vendor-specific AI stacks.
 
-{{< figure src="/blog/2026/sig-arch-ai-conformance-2026/ai_conf_sponsors.jpg" alt="AI Conformance: initial adopters and major contributors (KubeCon NA 2025)" >}}
+
+![(slide) Initial adopters and major contributors: Akamai (logo), Alibaba Cloud (logo), AWS (logo), Broadcom (logo), CoreWeave (logo), DaoCloud (logo), Google Cloud (logo), Kubermatic (logo), Microsoft Azure (logo), NVIDIA (logo), Oracle (logo), SUSE (logo), Red Hat (logo), SAP (logo)](ai_conf_sponsors.jpg "Initial adopters and major contributors (KubeCon NA 2026)")
+
 
 ## From Working Group to SIG Architecture subproject
 
@@ -186,7 +189,7 @@ foundational level to support the next decade of AI workloads.
 
 **Janet and Yuan**: We're always looking for new contributors. The easiest way to get started is by checking out our
 main repo at [kubernetes-sigs/ai-conformance](https://github.com/kubernetes-sigs/ai-conformance) and
-join our [meetings](https://github.com/kubernetes/community/tree/main/sig-architecture#meetings). If
+join our [meetings](https://www.kubernetes.dev/community/community-groups/sigs/architecture/#meetings). If
 you're interested in defining new AI Conformance requirements, you can jump into PR reviews or
 propose your own using our [KAR template](https://github.com/kubernetes-sigs/ai-conformance/tree/main/kars/NNNN-kar-template). If
 you want to write code, we always need help expanding our automated Go test suites in the [`test/` directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test).
