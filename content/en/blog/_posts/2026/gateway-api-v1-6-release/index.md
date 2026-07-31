@@ -216,12 +216,12 @@ for Gateway API v1.6:
 Gateway API is an open, community-driven project built under Kubernetes SIG Network. We welcome contributions, feedback, and participation from everyone!
 
 - **Join our Slack Channel**: Join `#sig-network-gateway-api` on the [Kubernetes Slack](https://slack.k8s.io/).
-- **Attend Community Meetings**: We hold weekly community meetings. Check out the [SIG Network Calendar](https://github.com/kubernetes/community/tree/master/sig-network) for dates and agendas.
+- **Attend Community Meetings**: We hold weekly community meetings. Check out the [SIG Network Calendar](https://www.kubernetes.dev/community/community-groups/sigs/network/) for dates and agendas.
 - **Contribute on GitHub**: File issues, suggest enhancements (GEPs), or submit PRs at [kubernetes-sigs/gateway-api](https://github.com/kubernetes-sigs/gateway-api).
 
 ### Acknowledgments
 
 A huge thank you to all the contributors, reviewers, maintainers, and implementation authors whose hard work made Gateway API v1.6.0 possible!
 
-[TCPRoute]: https://gateway-api.sigs.k8s.io/api-types/tcproute/
-[UDPRoute]: https://gateway-api.sigs.k8s.io/api-types/udproute/
+[TCPRoute]: https://gateway-api.sigs.k8s.io/guides/user-guides/tcp/
+[UDPRoute]: https://gateway-api.sigs.k8s.io/guides/user-guides/udp/
