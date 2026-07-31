@@ -319,10 +319,10 @@ or completed for the same index will be deleted by the Job controller once they 
 
 When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) 
 feature gate is enabled, the Job controller compiles a Job's `.spec.scheduling`
-configuration into [Workload](/docs/concepts/workloads/workload-api/) and PodGroup
-objects (`scheduling.k8s.io/v1beta1`) before it creates any Pods. This lets you
-express explicit scheduling intent for a Job, such as
-[gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) (all Pods
+configuration into [Workload](/docs/concepts/workloads/workload-api/) and 
+[PodGroup](/docs/concepts/workloads/podgroup-api/) objects (`scheduling.k8s.io/v1beta1`) 
+before it creates any Pods. This lets you express explicit scheduling intent for a Job, 
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) (all Pods
 scheduled together or none), topology co-location, and disruption behavior.
 
 When you omit `.spec.scheduling`, the Job defaults to the `Basic` scheduling
@@ -335,9 +335,9 @@ regardless of the policy.
 
 The `.spec.scheduling` field accepts the following fields:
 
-- `schedulingPolicy`: exactly one of `basic` or `gang`. With `gang`, all Pods must
-  be schedulable together before any of them are bound. An omitted `gang.minCount`
-  defaults to the Job's `.spec.parallelism`. See
+- `schedulingPolicy`: exactly one of `basic` or `gang` must be specified. With `gang`, 
+  all Pods must be schedulable together before any of them are bound. An omitted 
+  `gang.minCount` defaults to the Job's `.spec.parallelism`. See
   [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
 - `schedulingConstraints`:
   [topology](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
@@ -347,7 +347,7 @@ The `.spec.scheduling` field accepts the following fields:
   [disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
 - `resourceClaims`: dynamic resource claims shared across the Job's Pods.
 
-All `.spec.scheduling` fields are immutable after the Job is created, except
+All `.spec.scheduling` fields are immutable after the Job is created, except for 
 `schedulingPolicy.gang.minCount`, which you can change to
 [scale a gang elastically](#elastic-indexed-jobs).
 
@@ -404,7 +404,7 @@ the Job, so they are garbage collected when the Job is deleted.
 ### Default (Basic) scheduling
 
 A Job that omits `.spec.scheduling` defaults to `Basic`, which acts as an implicit
-opt-out from gang scheduling. Its Pods schedule the same way as an ordinary Job,
+opt-out of gang scheduling. Its Pods schedule the same way as an ordinary Job,
 while a `Basic` `Workload` and `PodGroup` are still created:
 
 ```yaml
