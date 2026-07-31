@@ -224,12 +224,13 @@ spec:
 When neither the slice nor the request names an attribute, a partitionable pool
 reports no `partitionSummary`.
 
-The `partitionSummary` view is an *alpha feature*. In addition to the
-`DRAResourcePoolStatus` feature gate, it requires the
+The `partitionSummary` view is controlled by the
 [`DRAPartitionableDevicesType` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)
-(which also depends on the
+in the `kube-apiserver` and `kube-controller-manager`, which in turn requires the
+[`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
+and
 [`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-feature gate) to be enabled in the `kube-apiserver` and `kube-controller-manager`.
+feature gates to be enabled.
 
 ### Shareable summary {#resource-pool-shareable-summary}
 
@@ -244,9 +245,10 @@ claims), `shareableSummary` reports aggregate capacity usage across the pool:
   `available` (`total` minus `consumed`, never negative) amounts across the pool.
 
 The `shareableSummary` is populated only when at least one device in the pool is
-shareable. It is part of the resource pool status
-([`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus))
-alpha feature and does not require `DRAPartitionableDevicesType`; the shareable
+shareable. It is part of the [resource pool status](#resource-pool-status)
+feature (the
+[`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
+feature gate) and does not require `DRAPartitionableDevicesType`; the shareable
 devices it summarizes come from the
 [consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
 feature.
