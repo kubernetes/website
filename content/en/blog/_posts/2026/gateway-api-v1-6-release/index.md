@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.6: TCPRoute and UDPRoute Graduate to Standard"
-draft: true # will be changed to date: 2026-07-30 before publication
+date: 2026-07-31
 slug: gateway-api-v1-6-release
 author: >
   [Beka Modebadze](https://github.com/bexxmodd) (Google),
@@ -202,8 +202,7 @@ You can start using Gateway API v1.6.0 today with your favorite Gateway controll
 
 Gateway API relies on an extensive conformance test suite to ensure consistent,
 portable behavior across all implementations.
-At the time of release, the following implementations had already submitted conformance reports
-for Gateway API v1.6:
+Here is a list of the implementations that are conforment with v1.6 on the day we published the article:
 
 - [Agentgateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/agentgateway-agentgateway)
 - [Airlock Microgateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/airlock-microgateway)
