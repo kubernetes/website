@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.37 Sneak Peek'
-date: 2026-07-31
+date: 2026-07-31T08:00:00-08:00
 slug: kubernetes-v1-37-sneak-peek
 author: >
   Arsh Sharma,
