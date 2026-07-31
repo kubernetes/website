@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.37 Sneak Peek'
-draft: true
+date: 2026-07-31
 slug: kubernetes-v1-37-sneak-peek
 author: >
   Arsh Sharma,
@@ -12,7 +12,12 @@ author: >
   Troy Connor
 ---
 
-As we get closer to the release date for Kubernetes v1.37, the project develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This blog outlines some of the planned changes for the Kubernetes v1.37 release that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment and keeping up to date with the latest changes. The information below reflects the current status of the v1.37 release and may change before the actual release date. 
+As we get closer to the release date for Kubernetes v1.37, the project develops and matures,
+features may be deprecated, removed, or replaced with better ones for the project's overall
+health. This blog outlines some of the planned changes for the Kubernetes v1.37 release that the
+release team feels you should be aware of for the continued maintenance of your Kubernetes
+environment and keeping up to date with the latest changes. The information below reflects the
+current status of the v1.37 release and may change before the actual release date. 
 
 ## Deprecations and removals for Kubernetes v1.37
 
@@ -43,7 +48,7 @@ kubectl -n kube-system get configmap kube-proxy -o jsonpath='{.data.config\.conf
 
 To understand the rationale behind this deprecation, see [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kubernetes.dev/resources/keps/5495).
 
-### Removal of cgroup v1 support
+### Future removal of cgroup v1 support {#cgroup-v1-support}
 
 As modern Linux distributions and container runtimes use [cgroup v2](/docs/concepts/architecture/cgroups/) as the default, support for the legacy cgroup v1 is officially being phased out. Since the v1.35 release, the `failCgroupV1` setting has defaulted to true. Consequently, the `kubelet` will fail to initialize on any nodes that still rely on cgroup v1 unless an explicit configuration override is applied.
 
@@ -59,9 +64,12 @@ To learn more about this deprecation, refer to [KEP-5573: Remove cgroup v1 suppo
 
 ## Breaking changes in Kubernetes v1.37
 
-### SELinux Volume Relabeling (SELinuxMount graduates to GA)
+### SELinux volume relabeling ("SELinuxMount") graduates to GA {#SELinuxMount-GA}
 
-SELinuxMount is expected to reach GA and be enabled by default in v1.37. Volumes would then be mounted with `-o context=<label>` (the MountOption default) instead of being recursively relabeled, but only when the volume's CSI driver opts in via `CSIDriver.Spec.SELinuxMount: true`.
+SELinuxMount is expected to reach GA and be enabled by default in v1.37. Volumes would then be
+mounted with `-o context=<label>` (the mount option default) instead of being recursively
+relabeled, but **only** when the volume's CSI driver opts in via a CSIDriver that sets `.spec
+seLinuxMount: true`.
 
 Because a single mount can only hold one SELinux context, pods with different SELinux labels sharing a volume on the same node (which previously coexisted under recursive relabeling) may now fail to start. To retain the previous recursive behavior for a specific workload, set `seLinuxChangePolicy: Recursive` in the Pod spec.
 
@@ -81,13 +89,12 @@ To learn more about this enhancement, refer to [KEP-5207: metrics.k8s.io API def
 
 Traditionally, Kubernetes node components such as the `kubelet` run with root privileges on the host. While necessary for many deployments, this also means that a vulnerability in one of these components could potentially have a greater impact on the underlying system. 
 
-With Kubernetes v1.37, kubelet in User Namespace (Rootless Mode) is expected to graduate to Beta. This enhancement allows Kubernetes node components to run inside
-a Linux user namespace as an unprivileged user on the host while still behaving as root within the namespace. By reducing the need for host-level root privileges,
-it adds an extra layer of isolation and helps limit the impact of potential vulnerabilities affecting node components. 
+With Kubernetes v1.37, kubelet in User Namespace (Rootless Mode) is expected to graduate to
+Beta. This enhancement allows Kubernetes node components to run inside a Linux user namespace as an unprivileged user on the host while still behaving as root within the namespace. By reducing the need for host-level root privileges, it adds an extra layer of isolation and helps limit the impact of potential vulnerabilities affecting node components. 
 
 To learn more about this enhancement, refer to [KEP-2033: Kubelet in UserNS(aka Rootless Mode)](https://kubernetes.dev/resources/keps/4960). 
 
-### Volume Health Monitor
+### Volume health monitor
 
 Historically, Kubernetes has lacked an API for CSI drivers to report storage failures, which become evident only through
 failed mounts or hung I/O. Since remediation controllers had nothing machine-readable to act upon, the only way to figure out the root cause behind this failure was to cross-reference Kubernetes objects alongside external vendor dashboards. 
