@@ -25,7 +25,7 @@ Jobで複数のPodを並列で実行することもできます。
 
 下記にJobの定義例を記載しています。πを2000桁まで計算して出力するJobで、完了するまで約10秒かかります。
 
-{{% codenew file="controllers/job.yaml" %}}
+{{% code_sample file="controllers/job.yaml" %}}
 
 このコマンドで実行できます:
 
@@ -311,7 +311,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 
 以下は、`podFailurePolicy`を定義するJobのマニフェストです:
 
-{{% codenew file="controllers/job-pod-failure-policy-example.yaml" %}}
+{{% code_sample file="controllers/job-pod-failure-policy-example.yaml" %}}
 
 上記の例では、Pod失敗ポリシーの最初のルールは、`main`コンテナが42の終了コードで失敗した場合、そのJobを失敗とマークすることを指定しています。以下は特に `main`コンテナに関するルールです:
 
@@ -634,7 +634,7 @@ spec:
 `JobTrackingWithFinalizers`機能が無効になっている時に作成されたJobについては、コントロールプレーンを1.26にアップグレードしても、ファイナライザーを使用してJobを追跡しません。
 {{< /note >}}
 
-コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラーはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザがPodを削除することができます。
+コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラーはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザーがPodを削除することができます。
 
 Kubernetes 1.26にアップグレードする前、またはフィーチャーゲート`JobTrackingWithFinalizers`が有効になる前に作成されたJobは、Podファイナライザーを使用せずに追跡されます。Job{{< glossary_tooltip term_id="controller" text="コントローラー" >}}は、クラスターに存在するPodのみに基づいて、`succeeded`Podと`failed`Podのステータスカウンタを更新します。クラスターからPodが削除されると、コントロールプレーンはJobの進捗を見失う可能性があります。
 

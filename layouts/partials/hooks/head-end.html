@@ -109,3 +109,14 @@
 
 {{- $legacyScriptJs := resources.Get "js/legacy-script.js" -}}
 <script src="{{ $legacyScriptJs.RelPermalink }}"></script>
+
+{{/* theme_lock front-matter: pin a page to "light" or "dark" regardless of user preference.
+     Useful for pages whose diagrams/figures only read correctly in one mode. */}}
+{{- with .Params.theme_lock -}}
+{{- $lock := . | lower -}}
+{{- if or (eq $lock "light") (eq $lock "dark") -}}
+<script>window.themeLock={{ $lock | jsonify | safeJS }};</script>
+{{- $themeLockJs := resources.Get "js/theme-lock.js" -}}
+<script src="{{ $themeLockJs.RelPermalink }}"></script>
+{{- end -}}
+{{- end -}}

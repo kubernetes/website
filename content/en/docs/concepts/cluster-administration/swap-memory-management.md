@@ -60,7 +60,7 @@ The swap behaviors you can choose for Linux nodes are:
 If you choose the NoSwap behavior, and you configure the kubelet to tolerate
 swap space (`failSwapOn: false`), then your workloads don't use any swap.
 
-However, processes outside of Kubernetes-managed containers, such as systemi
+However, processes outside of Kubernetes-managed containers, such as systemd
 services (and even the kubelet itself!) **can** utilize swap.
 {{< /note >}}
 
@@ -366,7 +366,7 @@ precise allocation of resources specified by the workload, with memory being imm
 To maintain the aforementioned security and node health guarantees,
 these Pods are not permitted to use swap memory when `LimitedSwap` is in effect.
 In addition, high-priority pods are not permitted to use swap in order to ensure the memory
-they consume always residents on disk, hence ready to use.
+they consume always resides in RAM, hence ready to use.
 
 Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
 * `nodeTotalMemory`: The total amount of physical memory available on the node.

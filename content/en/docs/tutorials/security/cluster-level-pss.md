@@ -208,11 +208,11 @@ following:
    EOF
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-   {{< /note >}}
+   {{< /alert >}}
 
 
 1. Configure the API server to consume this file during cluster creation:
@@ -251,11 +251,11 @@ following:
    EOF
    ```
 
-   {{<note>}}
+   {{< alert color="info" title="Note" >}}
    If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
-   {{</note>}}
+   {{< /alert >}}
 
 1. Create a cluster that uses Pod Security Admission to apply
    these Pod Security Standards:

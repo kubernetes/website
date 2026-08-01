@@ -88,7 +88,7 @@ Container name. If omitted, use the kubectl.kubernetes.io/default-container anno
 </tr>
 
 <tr>
-<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: "ctrl-p,ctrl-q" -->默认值："ctrl-p,ctrl-q"</td>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："ctrl-p,ctrl-q"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">

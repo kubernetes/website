@@ -235,7 +235,7 @@ spec:
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
 This feature can be enabled by setting the `PodLevelResources` 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates).
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
 explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
 container has explicit requests and limits set. However, the
@@ -381,7 +381,7 @@ then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 
 As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
-[ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 
 ## Local ephemeral storage
 
@@ -454,7 +454,7 @@ http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 In the preceding request, `~1` is the encoding for the character `/`
 in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
-[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+[IETF RFC 6901, section 3](https://datatracker.ietf.org/doc/html/rfc6901#section-3).
 {{< /note >}}
 
 #### Cluster-level extended resources

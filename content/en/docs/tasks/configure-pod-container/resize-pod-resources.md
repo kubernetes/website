@@ -97,12 +97,12 @@ Observe the `spec.resources`(200m CPU, 200Mi memory). Note the
 Now, increase the pod-level CPU request and limit to `300m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod pod-level-resize-demo --subresource resize --patch \
   '{"spec":{"resources":{"requests":{"cpu":"300m"}, "limits":{"cpu":"300m"}}}}'
 
 # Alternative methods:
-# kubectl -n qos-example edit pod resize-demo --subresource resize
-# kubectl -n qos-example apply -f <updated-manifest> --subresource resize --server-side
+# kubectl edit pod pod-level-resize-demo --subresource resize
+# kubectl apply -f <updated-manifest> --subresource resize --server-side
 ```
 
 {{< note >}}
@@ -128,7 +128,7 @@ You should see:
 Delete the pod:
 
 ```shell
-kubectl pod-level-resize-demo
+kubectl delete pod pod-level-resize-demo
 ```
 
 ## {{% heading "whatsnext" %}}

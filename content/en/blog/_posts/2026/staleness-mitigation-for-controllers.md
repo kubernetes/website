@@ -37,7 +37,7 @@ kube-controller-manager, using those client-go improvements.
 
 In client-go, the project added _atomic FIFO processing_ (feature gate
 name `AtomicFIFO`), which is on top of the existing FIFO queue implementation. The new approach allows for
-the queue to atomically handle operations that are recieved in batches, such as the initial set of objects from a 
+the queue to atomically handle operations that are received in batches, such as the initial set of objects from a 
 _list_ operation that an informer uses to populate its cache. This ensures that the queue is always in a consistent state,
 even when events come out of order. Prior to this, events were added to the queue
 in the order that they were received, which could lead to an inconsistent state in the cache that does not accurately reflect

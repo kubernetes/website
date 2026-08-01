@@ -6,6 +6,10 @@
 [api_reference_title]
 other = "API reference"
 
+[api_reference_page_related_concepts]
+one = "Concept documentation for {{ .title }}"
+other = "Related concept pages"
+
 [auto_generated_edit_notice]
 other = "(auto-generated page)"
 
@@ -14,6 +18,9 @@ other = """<p>This page is automatically generated.</p><p>If you plan to report 
 
 [banner_acknowledgement]
 other = "Hide this notice"
+
+[blog_mirrored_originally_published_at]
+other = 'This is a mirror of the <a href="{{ .canonicalUrl }}">original article</a>.'
 
 [blog_post_show_more]
 other = "Show More Posts..."
@@ -736,6 +743,9 @@ other = "Synopsis"
 
 [tab_default]
 other = "Tab {{ . }}"
+
+[theme_locked_notice]
+other = "Theme fixed for this page"
 
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

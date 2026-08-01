@@ -114,7 +114,7 @@ Check container logs for environment variables:
 检查容器日志中的环境变量：
 
 ```shell
-kubectl logs dapi-test-pod -c use-envfile | grep DB_ADDRESS
+kubectl logs envfile-test-pod -c use-envfile | grep DB_ADDRESS
 ```
 
 <!--

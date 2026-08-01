@@ -207,7 +207,7 @@ Main differences between Cluster Autoscaler and Karpenter:
   them to new versions).
 * Cluster Autoscaler doesn't support auto-provisioning, the Node groups it can provision from have
   to be pre-configured. Karpenter supports auto-provisioning, so the user only has to configure a
-  set of constraints for the provisioned Nodes, instead of fully configuring homogenous groups.
+  set of constraints for the provisioned Nodes, instead of fully configuring homogeneous groups.
 * Cluster Autoscaler provides cloud provider integrations directly, which means that they're a part
   of the Kubernetes project. For Karpenter, the Kubernetes project publishes Karpenter as a library
   that cloud providers can integrate with to build a Node autoscaler.

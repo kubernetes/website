@@ -1,5 +1,6 @@
 ---
 title: Using Minikube to Create a Cluster
+content_type: tutorial
 weight: 10
 ---
 
@@ -11,6 +12,15 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+This tutorial assumes that you have already installed `minikube`.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+{{< note >}}
+Only execute instructions in **step 1: Installation**. The rest is covered in this tutorial.
+{{< /note >}}
+
+You also need to install `kubectl`.
+See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
+
 The shell commands in this tutorial use POSIX shell syntax, which is supported by
 the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
 Windows users must use a POSIX-compatible shell such as
@@ -18,7 +28,6 @@ Windows users must use a POSIX-compatible shell such as
 or [Git Bash](https://gitforwindows.org/) to run the commands as written.
 Commands that use `export`, `$()`, and similar constructs are **not** compatible
 with PowerShell or the Windows Command Prompt.
-
 
 ## Kubernetes Clusters
 
@@ -80,7 +89,23 @@ simple cluster containing only one node. Minikube is available for Linux, macOS,
 and Windows systems. The Minikube CLI provides basic bootstrapping operations for
 working with your cluster, including start, stop, status, and delete.
 
+## Create a minikube cluster
+
+To start a minikube cluster:
+
+```shell
+minikube start
+```
+
+To verify the cluster status:
+
+```shell
+minikube status
+```
+
+For a complete walkthrough including deploying your first app and exploring the Kubernetes dashboard, see the [Hello Minikube](/docs/tutorials/hello-minikube/) tutorial.
+
 ## {{% heading "whatsnext" %}}
 
-* Tutorial [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Tutorial [Deploy an App](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 * Learn more about [Cluster Architecture](/docs/concepts/architecture/).

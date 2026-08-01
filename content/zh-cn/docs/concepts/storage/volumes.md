@@ -453,22 +453,28 @@ Kubernetes 项目建议你转为使用
 第三方存储驱动插件。
 
 <!--
-### gitRepo (deprecated) {#gitrepo}
+### gitRepo (disabled) {#gitrepo}
 -->
-### gitRepo（已弃用）   {#gitrepo}
+### gitRepo（已禁用）   {#gitrepo}
 
 {{< warning >}}
 <!--
-The `gitRepo` volume plugin is deprecated and is disabled by default.
+Kubernetes {{< skew latestVersion >}} does *not* include the `gitRepo` volume
+driver. The last version that provided a way to use this driver was Kubernetes
+v1.35, and it has been deprecated since the [v1.11](/releases/1.11) minor
+release.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
 that clones the repo using Git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 -->
-`gitRepo` 卷插件已经被弃用且默认禁用。
+Kubernetes {{< skew latestVersion >}} **不**包含 `gitRepo` 卷驱动。
+提供使用此驱动方法的最后一个版本是 Kubernetes v1.35，
+并且自从 [v1.11](/zh-cn/releases/1.11) 小版本发布以来，它已被弃用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
-[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
+[EmptyDir](#emptydir) 卷挂载到
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
 使用 Git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
 
 ---
@@ -488,46 +494,6 @@ part of a policy to reject use of `gitRepo` volumes:
 !has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))
 ```
 {{< /warning >}}
-
-<!--
-You can use this deprecated storage plugin in your cluster if you explicitly
-enable the `GitRepoVolumeDriver`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
--->
-如果你明确启用 `GitRepoVolumeDriver`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以在集群中使用这个已废弃的存储插件。
-
-<!--
-A `gitRepo` volume is an example of a volume plugin. This plugin
-mounts an empty directory and clones a git repository into this directory
-for your Pod to use.
-
-Here is an example of a `gitRepo` volume:
--->
-`gitRepo` 卷是一个卷插件的例子。
-该查卷挂载一个空目录，并将一个 Git 代码仓库克隆到这个目录中供 Pod 使用。
-
-下面给出一个 `gitRepo` 卷的示例：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: server
-spec:
-  containers:
-  - image: nginx
-    name: nginx
-    volumeMounts:
-    - mountPath: /mypath
-      name: git-volume
-  volumes:
-  - name: git-volume
-    gitRepo:
-      repository: "git@somewhere:me/my-git-repository.git"
-      revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-```
 
 ### hostPath {#hostpath}
 
@@ -556,8 +522,8 @@ read-write host mount.
 例如，你可以改为定义并使用 [`local` PersistentVolume](#local)。
 
 如果你通过准入时的验证来限制对节点上特定目录的访问，这种限制只有在你额外要求所有
-`hostPath` 卷的挂载都是**只读**的情况下才有效。如果你允许不受信任的 Pod 以读写方式挂载任意主机路径，
-则该 Pod 中的容器可能会破坏可读写主机挂载卷的安全性。
+`hostPath` 卷的挂载都是**只读**的情况下才有效。如果你允许不受信任的 Pod
+以读写方式挂载任意主机路径，则该 Pod 中的容器可能会破坏可读写主机挂载卷的安全性。
 
 ---
 
@@ -660,7 +626,8 @@ or modify the file permissions on the host to read from or write to a `hostPath`
 -->
 下层主机上创建的某些文件或目录只能由 root 用户访问。
 此时，你需要在[特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
-root 身份运行进程，或者修改主机上的文件权限，以便能够从 `hostPath` 卷读取数据（或将数据写入到 `hostPath` 卷）。
+root 身份运行进程，或者修改主机上的文件权限，以便能够从 `hostPath`
+卷读取数据（或将数据写入到 `hostPath` 卷）。
 
 <!--
 #### hostPath configuration example
@@ -758,7 +725,8 @@ spec:
 -->
 {{< tab name="Windows 节点" codelang="yaml" >}}
 ---
-# 此清单将主机上的 "C:\Data\foo" 目录挂载为 hostpath-example-windows Pod 中运行的单个容器内的 "C:\foo" 目录
+# 此清单将主机上的 "C:\Data\foo" 目录挂载为 hostpath-example-windows Pod
+# 中运行的单个容器内的 "C:\foo" 目录
 #
 # 容器中的挂载是只读的
 apiVersion: v1
@@ -795,7 +763,11 @@ The following manifest defines a Pod that mounts `/var/local/aaa`
 inside the single container in the Pod. If the node does not
 already have a path `/var/local/aaa`, the kubelet creates
 it as a directory and then mounts it into the Pod.
+-->
+以下清单定义了一个 Pod，将 `/var/local/aaa` 挂载到 Pod 中的单个容器内。
+如果节点上还没有路径 `/var/local/aaa`，kubelet 会创建这一目录，然后将其挂载到 Pod 中。
 
+<!--
 If `/var/local/aaa` already exists but is not a directory,
 the Pod fails. Additionally, the kubelet attempts to make
 a file named `/var/local/aaa/1.txt` inside that directory
@@ -804,9 +776,6 @@ that path and isn't a regular file, the Pod fails.
 
 Here's the example manifest:
 -->
-以下清单定义了一个 Pod，将 `/var/local/aaa` 挂载到 Pod 中的单个容器内。
-如果节点上还没有路径 `/var/local/aaa`，kubelet 会创建这一目录，然后将其挂载到 Pod 中。
-
 如果 `/var/local/aaa` 已经存在但不是一个目录，Pod 会失败。
 此外，kubelet 还会尝试在该目录内创建一个名为 `/var/local/aaa/1.txt` 的文件（从主机的视角来看）；
 如果在该路径上已经存在某个东西且不是常规文件，则 Pod 会失败。
@@ -954,7 +923,8 @@ Besides that:
 -->
 此外：
 
-- 从 Kubernetes v1.33 开始，才支持容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
+- 从 Kubernetes v1.33 开始，才支持容器的
+  [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
   [`subPathExpr`](/zh-cn/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
   挂载（`spec.containers[*].volumeMounts[*].subPath`、`spec.containers[*].volumeMounts[*].subPathExpr`）。
 - `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
@@ -999,8 +969,64 @@ example for more details on how to use the volume source.
 : 拉取 OCI 对象的策略。可能的值为：`Always`、`Never` 或 `IfNotPresent`。
   如果指定了 `:latest` 标记，则默认为 `Always`，否则默认为 `IfNotPresent`。
 
-有关如何使用卷源的更多细节，
-请参见 [**Pod 使用镜像卷**](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
+有关如何使用卷源的更多细节，请参见
+[**Pod 使用镜像卷**](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
+
+<!--
+#### Pod status and `image` volumes {#image-volume-pod-status}
+-->
+#### Pod 状态与 `image` 卷    {#image-volume-pod-status}
+
+{{< feature-state feature_gate_name="ImageVolumeWithDigest" >}}
+
+<!--
+If the `ImageVolumeWithDigest` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in your cluster,
+then whenever you specify an `image` volume for a Pod,
+the kubelet updates the Pod status to record the _digest_
+of the container image that's being used as a volume source.
+
+Here's a simplified example of a running Pod, represented as YAML, including the status update.
+Note the new `ImageRef` field under `volumeMounts` in the container status.
+-->
+如果在你的集群中启用了 `ImageVolumeWithDigest`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+那么每当你为 Pod 指定一个 `image` 卷时，kubelet 都会更新 Pod 状态，
+记录作为卷来源使用的容器镜像的**摘要**（digest）。
+
+下面是一个正在运行的 Pod 的简化示例，以 YAML 表示，其中已包含状态更新。
+请注意容器状态中 `volumeMounts` 下新增的 `ImageRef` 字段。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  namespace: default
+spec:
+  containers:
+  - name: shell
+    command: ["sleep", "infinity"]
+    image: docker.io/library/debian:12
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+  volumes:
+  - name: artifact
+    image:
+      reference: quay.io/crio/artifact:v2
+      pullPolicy: IfNotPresent
+status:
+  containerStatuses:
+  - containerID: containerd://examplecontainerid1234567890abcdef
+    image: docker.io/library/debian:12
+    imageID: docker-pullable://docker.io/library/debian@sha256:3f1d6c17773a45c97bd8f158d665c9709d7b29ed7917ac934086ad96f92e4510
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+      readOnly: true
+      imageRef: quay.io/crio/artifact@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+```
 
 ### iscsi
 
@@ -1317,7 +1343,8 @@ directory. For more details, see [projected volumes](/docs/concepts/storage/proj
 -->
 ### 投射（projected）   {#projected}
 
-投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
+投射卷能将若干现有的卷来源映射到同一目录上。
+更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
 ### secret
 
@@ -1498,7 +1525,8 @@ Pods.
 
 `emptyDir` 卷的存储介质（例如磁盘、SSD 等）是由保存 kubelet
 数据的根目录（通常是 `/var/lib/kubelet`）的文件系统的介质确定。
-Kubernetes 对 `emptyDir` 卷或者 `hostPath` 卷可以消耗的空间没有限制，容器之间或 Pod 之间也没有隔离。
+Kubernetes 对 `emptyDir` 卷或者 `hostPath` 卷可以消耗的空间没有限制，容器之间或
+Pod 之间也没有隔离。
 
 <!--
 To learn about requesting space using a resource specification, see
@@ -1585,17 +1613,18 @@ may use the `csi` volume type to attach or mount the volumes exposed by the
 CSI driver.
 
 A `csi` volume can be used in a Pod in three different ways:
+-->
+一旦在 Kubernetes 集群上部署了 CSI 兼容卷驱动程序，用户就可以使用
+`csi` 卷类型来挂接、挂载 CSI 驱动所提供的卷。
+  
+`csi` 卷可以在 Pod 中以三种方式使用：
 
+<!--
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
   if the driver supports that
 -->
-一旦在 Kubernetes 集群上部署了 CSI 兼容卷驱动程序，用户就可以使用
-`csi` 卷类型来挂接、挂载 CSI 驱动所提供的卷。
-
-`csi` 卷可以在 Pod 中以三种方式使用：
-
 * 通过 [PersistentVolumeClaim](#persistentvolumeclaim) 对象引用
 * 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)，
@@ -1639,7 +1668,8 @@ persistent volume:
   "ControllerPublished" (attached) as read-only. Default is false. This value is passed
   to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 -->
-* `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。默认值是 `false`。
+* `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished`
+  关联该卷时是否设置该卷为只读。默认值是 `false`。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动。
 
 <!--
@@ -2022,6 +2052,7 @@ in `containers[*].volumeMounts`. Its values are:
   In addition, any volume mounts created by containers in Pods must be destroyed
   (unmounted) by the containers on termination.
   -->
+  
   `Bidirectional` 形式的挂载传播可能比较危险。
   它可以破坏主机操作系统，因此它只被允许在特权容器中使用。
   强烈建议你熟悉 Linux 内核行为。

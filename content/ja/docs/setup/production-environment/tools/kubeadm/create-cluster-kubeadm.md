@@ -221,7 +221,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 `super-admin.conf`は誰とも共有しないでください。
 このファイルは安全な場所に退避させることを推奨します。
 
-追加ユーザーへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザのためのkubeconfigファイルの生成](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)を参照してください。
+追加ユーザーへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザーのためのkubeconfigファイルの生成](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)を参照してください。
 {{< /warning >}}
 
 `kubeadm init`が出力した`kubeadm join`コマンドをメモしておいてください。[クラスターにノードを追加する](#join-nodes)ために、このコマンドが必要です。

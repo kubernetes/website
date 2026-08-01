@@ -106,7 +106,7 @@ You can increase the number of IP addresses available for Services, by creating 
 that extends or adds new IP address ranges.
 
 ```sh
-cat <EOF | kubectl apply -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:

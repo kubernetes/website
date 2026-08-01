@@ -162,12 +162,12 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
 [CoreDNS cluster addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns).
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If the service environment variables are not desired (because possible clashing
 with expected program ones, too many variables to process, only using DNS, etc)
 you can disable this mode by setting the `enableServiceLinks` flag to `false` on
 the [pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core).
-{{< /note >}}
+{{< /alert >}}
 
 
 ### Environment Variables
@@ -355,8 +355,8 @@ Following are the manual steps to follow in case you run into problems running m
 # Create a public private key pair
 openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /d/tmp/nginx.crt | base64 | tr -d '\n'
+cat /d/tmp/nginx.key | base64 | tr -d '\n'
 ```
  
 Use the output from the previous commands to create a yaml file as follows.

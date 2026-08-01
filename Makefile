@@ -27,7 +27,8 @@ CONTAINER_HUGO_MOUNTS = \
 	--mount type=bind,source=$(CURDIR)/layouts,target=/src/layouts,readonly \
 	--mount type=bind,source=$(CURDIR)/static,target=/src/static,readonly \
 	--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
-	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly
+	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly \
+	--mount type=bind,source=$(CURDIR)/hugo.server.toml,target=/src/hugo.server.toml,readonly
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -72,7 +73,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildDrafts --buildFuture --environment development --renderSegments $(segments)
+	hugo server --config hugo.toml,hugo.server.toml --buildDrafts --buildFuture --environment development --renderSegments $(segments)
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -121,7 +122,7 @@ container-build: module-check
 container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN_TTY) --cap-drop=ALL --cap-add=AUDIT_WRITE $(CONTAINER_HUGO_MOUNTS) \
 		-p 1313:1313 $(CONTAINER_IMAGE) \
-		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
+		hugo server --config hugo.toml,hugo.server.toml --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
 
 test-examples:
 	scripts/test_examples.sh install

@@ -1211,6 +1211,19 @@ you should consider adding the labels manually (or adding support for `Persisten
 With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone.
 If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 
+### volume.alpha.kubernetes.io/node-affinity (deprecated) {#volume-alpha-kubernetes-io-node-affinity}
+
+Type: Annotation
+
+Used on: PersistentVolume
+
+This annotation stored node affinity rules for a PersistentVolume as a JSON-serialized
+`NodeAffinity` object. The scheduler used these rules to limit which nodes could access the volume.
+
+This annotation has been deprecated since Kubernetes v1.10. Use the
+[`nodeAffinity` field](/docs/concepts/storage/persistent-volumes/#node-affinity) in the
+PersistentVolume spec instead.
+
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 
 Type: Annotation

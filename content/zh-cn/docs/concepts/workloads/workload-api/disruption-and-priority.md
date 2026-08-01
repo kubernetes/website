@@ -93,7 +93,7 @@ PodGroup 使用与单个 Pod 相同的 [PriorityClass](/zh-cn/docs/concepts/sche
 则没有 `priorityClassName` 的 PodGroup 优先级为零。
 
 <!--
-The priority of the PodGroup is an authorative priority for all pods in the group during [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events, even when priorities of individual pods forming this PodGroup differ.
+The priority of the PodGroup is an authoritative priority for all pods in the group during [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events, even when priorities of individual pods forming this PodGroup differ.
 -->
 PodGroup 的优先级是该组中所有 Pod 在
 [工作负载感知抢占](/zh-cn/docs/concepts/scheduling-eviction/workload-aware-preemption/)

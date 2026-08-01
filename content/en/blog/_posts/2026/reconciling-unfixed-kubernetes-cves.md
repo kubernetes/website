@@ -110,3 +110,5 @@ We would like to thank the security researchers—QiQi Xu, Javier Provecho, and 
 identified these risks, and the SIG Security Tooling contributors who continue to refine our
 official feeds. Special shoutout to Rory McCune for sharing information around these CVEs
 through his blog posts.
+
+_Update 2026/06/01: Today, the Kubernetes SRC has updated the CVE records for CVE-2020-8554, CVE-2020-8561, CVE-2020-8562, and CVE-2021-25740._

@@ -1,6 +1,7 @@
 ---
 title: "Architecture du cluster"
 weight: 30
+no_list: true
 description: >
   Les concepts architecturaux derrière Kubernetes.
 ---
@@ -15,9 +16,16 @@ exécute généralement plusieurs nœuds, offrant une tolérance aux pannes et u
 
 Ce document décrit les différents composants nécessaires pour avoir un cluster Kubernetes complet et fonctionnel.
 
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="Le plan de contrôle (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) et plusieurs nœuds. Chaque nœud exécute un kubelet et kube-proxy."
-title="Composants du cluster Kubernetes"
-caption="**Remarque :** Ce diagramme présente une architecture de référence d'exemple pour un cluster Kubernetes. La répartition réelle des composants peut varier en fonction des configurations et des exigences spécifiques du cluster." class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="Le plan de contrôle (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) et plusieurs nœuds. Chaque nœud exécute un kubelet et kube-proxy." caption="Figure 1. Composants du cluster Kubernetes." class="diagram-large" >}}
+
+{{< details summary="À propos de cette architecture" >}}
+Le diagramme de la figure 1 présente une architecture de référence d'exemple pour un cluster Kubernetes.
+La répartition réelle des composants peut varier en fonction des configurations et des exigences spécifiques du cluster.
+
+Dans ce diagramme, chaque nœud exécute le composant [`kube-proxy`](#kube-proxy). Vous avez besoin d'un composant proxy réseau sur chaque nœud afin de garantir que l'API {{< glossary_tooltip text="Service" term_id="service">}} et les comportements associés soient disponibles sur le réseau du cluster.
+
+Cependant, certains plugins réseau fournissent leur propre implémentation du mécanisme de proxy. Lorsque vous utilisez ce type de plugin réseau, le nœud n'a pas besoin d'exécuter `kube-proxy`.
+{{< /details >}}
 
 ## Composants du plan de contrôle
 
@@ -176,8 +184,6 @@ des exigences de performance et des politiques opérationnelles :
 Des outils tels que kubeadm, kops et Kubespray offrent différentes approches pour le déploiement et la gestion des clusters,
 chacun avec sa propre méthode de disposition et de gestion des composants.
 
-La flexibilité de l'architecture de Kubernetes permet aux organisations d'adapter leurs clusters à des besoins spécifiques,
-en équilibrant des facteurs tels que la complexité opérationnelle, les performances et la charge de gestion.
 
 ### Personnalisation et extensibilité
 
@@ -198,6 +204,7 @@ En savoir plus sur les sujets suivants :
   [leur communication](/fr/docs/concepts/architecture/control-plane-node-communication/)
   avec le plan de contrôle.
 - Les [contrôleurs](/fr/docs/concepts/architecture/controller/) Kubernetes.
+- La [collecte des déchets](/fr/docs/concepts/architecture/garbage-collection/) des objets du cluster.
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/), qui est l'ordonnanceur par défaut de Kubernetes.
 - La [documentation officielle](https://etcd.io/docs/) d'Etcd.
 - Plusieurs [runtimes de conteneurs](/docs/setup/production-environment/container-runtimes/) dans Kubernetes.

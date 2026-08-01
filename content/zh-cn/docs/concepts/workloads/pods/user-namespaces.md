@@ -14,7 +14,7 @@ min-kubernetes-server-version: v1.25
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.30" state="beta" >}}
+{{< feature-state feature_gate_name="UserNamespacesSupport" >}}
 
 <!--
 This page explains how user namespaces are used in Kubernetes pods. A user
@@ -96,18 +96,6 @@ user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) 1.9 或更高版本（推荐 1.13+ 版本）。
 * [runc](https://github.com/opencontainers/runc) 1.2 或更高版本。
-
-{{< note >}}
-<!--
-Some OCI runtimes do not include the support needed for using user namespaces in
-Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's possible that nodes in your cluster use a runtime that doesn't
-include this support.
--->
-一些 OCI 运行时不包含在 Linux Pod 中使用用户命名空间所需的支持。
-如果你使用托管 Kubernetes，或者使用软件包下载并安装 Kubernetes 集群，
-则集群中的节点可能使用不包含支持此特性的运行时。
-{{< /note >}}
 
 <!--
 To use user namespaces with Kubernetes, you also need to use a CRI
@@ -459,8 +447,6 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 -->
 ## 与 Pod 安全准入检查的集成   {#integration-with-pod-security-admission-checks}
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
-
 <!--
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
@@ -474,7 +460,7 @@ namespaces, the following fields won't be constrained even in contexts that enfo
 _Baseline_ or _Restricted_ pod security standard. This behavior does not
 present a security concern because `root` inside a Pod with user namespaces
 actually refers to the user inside the container, that is never mapped to a
-privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+privileged user on the host. Here's the list of fields that are **not** checked for Pods in those
 circumstances:
 -->
 如果你创建了使用用户命名空间的 Pod，以下的字段不会被限制，

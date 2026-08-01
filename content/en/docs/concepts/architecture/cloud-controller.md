@@ -2,6 +2,7 @@
 title: Cloud Controller Manager
 content_type: concept
 weight: 40
+theme_lock: light
 ---
 
 <!-- overview -->

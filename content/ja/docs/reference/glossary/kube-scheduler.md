@@ -1,7 +1,7 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-full_link: /docs/reference/generated/kube-scheduler/
+full_link: /docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
   コントロールプレーン上で動作するコンポーネントで、新しく作られたPodにノードが割り当てられているか監視し、割り当てられていなかった場合にそのPodを実行するノードを選択します。
 
