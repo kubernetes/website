@@ -1,5 +1,5 @@
 ---
-title: Resize CPU and Memory Resources assigned to Pods
+title: Podに割り当てるCPUとメモリリソースを変更する
 content_type: task
 weight: 30
 min-kubernetes-server-version: 1.35
@@ -9,9 +9,9 @@ min-kubernetes-server-version: 1.35
 
 {{< feature-state feature_gate_name="InPlacePodLevelResourcesVerticalScaling" >}}
 
-This page explains how to change the CPU and memory resources set at the Pod level without recreating the Pod.
+このページでは、Podを再作成することなく、Podレベルで設定されたCPUリソースやメモリリソースを変更する方法を説明します。
 
-The In-place Pod Resize feature allows modifying resource allocations for a running Pod, avoiding application disruption. The process for resizing individual container resources is covered in [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources).
+インプレースPodリサイズ機能を使用すると、アプリケーションを中断することなく、実行中のPodのリソース割り当てを変更することができます。個別のコンテナのリソースをリサイズする手順については、[コンテナに割り当てるCPUとメモリ容量を変更する](/docs/tasks/configure-pod-container/resize-container-resources)で取り上げています。
 
 This page highlights In-place Pod-level resources resize. Pod-level resources
 are defined in `spec.resources` and they act as the upper bound on the aggregate resources
