@@ -6,7 +6,7 @@ slug: ingress-nginx-statement
 author: >
   [Kat Cosgrove](https://github.com/katcosgrove) (Steering Committee)
 translator: >
-  [Inyong Hong(SamsungSDS)](https://github.com/hongp)
+  [Inyong Hong(SamsungSDS)](https://github.com/hong-p)
 ---
 
 **2026년 3월, 쿠버네티스는 클라우드 네이티브 환경의 절반가량에서 핵심 구성 요소로 사용되는 인그레스 NGINX를 은퇴시킬 예정이다.** 프로젝트에 기여자와 유지관리자가 절실히 필요하다는 사실을 수년간 공개적으로 [경고](https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ)한 끝에, 인그레스 NGINX의 2026년 3월 은퇴 계획이 [발표](https://kubernetes.io/ko/blog/2025/11/11/ingress-nginx-retirement/)됐다. 프로젝트가 은퇴한 뒤에는 버그 수정, 보안 패치 또는 그 밖의 어떠한 업데이트도 더 이상 릴리스되지 않는다. 이 문제를 외면하거나 대수롭지 않게 여기거나 마지막 순간까지 미뤄서는 안 된다. 이 상황의 심각성과 [게이트웨이 API](https://gateway-api.sigs.k8s.io/guides/getting-started/) 또는 다양한 [서드파티 인그레스 컨트롤러](https://kubernetes.io/ko/docs/concepts/services-networking/ingress-controllers/)와 같은 대안으로 즉시 마이그레이션을 시작해야 한다는 점은 아무리 강조해도 지나치지 않다.
