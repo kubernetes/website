@@ -12,6 +12,10 @@
   Link: <{{ $jsUrl }}>; rel=preload; as=script
   {{- end -}}
 {{- range $pages }}
+{{- $owner := .RelPermalink -}}
+{{- with .File -}}
+  {{- $owner = .Path -}}
+{{- end -}}
 {{- if or (.Params.deprecated) (eq .Params.class "gridPage") (.Params.case_study_styles) (.Params.css) (.Params.js) }}
 {{ .RelPermalink }}
   {{- if eq .Params.class "gridPage" }}
@@ -22,11 +26,13 @@
   {{- end -}}
   {{- with .Params.css -}}
   {{- range (split . ",") }}
+  {{- if findRE `\s` (trim . " ") }}{{ errorf "css param %q on %s contains whitespace" . $owner }}{{ end }}
   Link: <{{ trim . " " }}>; rel=preload; as=style
   {{- end -}}
   {{- end -}}
   {{- with .Params.js -}}
   {{- range (split . ",") }}
+  {{- if findRE `\s` (trim . " ") }}{{ errorf "js param %q on %s contains whitespace" . $owner }}{{ end }}
   Link: <{{ trim . " " }}>; rel=preload; as=script
   {{- end -}}
   {{- end -}}
