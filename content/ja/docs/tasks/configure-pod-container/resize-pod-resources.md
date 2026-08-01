@@ -22,7 +22,7 @@ lets you change these aggregate CPU and memory allocations for a running Pod dir
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The following [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+The following [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)
 must be enabled for your control plane and for all nodes in your cluster:
 
 * [`InPlacePodLevelResourcesVerticalScaling`](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodLevelResourcesVerticalScaling)
@@ -44,7 +44,7 @@ The statuses, reasons, and retry priorities are identical to those defined for c
 
 * Tracking: You can use the `observedGeneration` fields to track which Pod specification (metadata.generation) corresponds to the status of the latest processed resize request.
 
-For a full description of these conditions and retry logic, please refer to the [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status) section in the container resize documentation.
+For a full description of these conditions and retry logic, please refer to the [Podリサイズステータス](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status) section in the container resize documentation.
 
 ## Container Resize Policy and Pod-Level Resize
 
@@ -52,11 +52,11 @@ Pod-level resource resize does not support or require its own restart policy.
 
 * No Pod-Level Policy: Changes to the Pod's aggregate resources (spec.resources) are always applied in-place without triggering a restart. This is because Pod-level resources act as an overall constraint on the Pod's cgroup and do not directly manage the application runtime within containers.
 
-* [Container Policy](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies) Still Governs: The resizePolicy must still be configured at the container level (spec.containers[*].resizePolicy). This policy governs whether an individual container is restarted when its resource requests or limits change, regardless of whether that change was initiated by a direct container-level resize or by an update to the overall Pod-level resource envelope.
+* [コンテナのポリシー](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies) Still Governs: The resizePolicy must still be configured at the container level (spec.containers[*].resizePolicy). This policy governs whether an individual container is restarted when its resource requests or limits change, regardless of whether that change was initiated by a direct container-level resize or by an update to the overall Pod-level resource envelope.
 
 ## Limitations
 
-For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: [Resize CPU and Memory Resources assigned to Containers: Limitations](/docs/tasks/configure-pod-container/resize-container-resources/#limitations).
+For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: [コンテナに割り当てるCPUとメモリ容量を変更する: 制限事項](/docs/tasks/configure-pod-container/resize-container-resources/#limitations).
 
 Additionally, the following constraint is specific to Pod-level resource resize:
 
@@ -137,20 +137,20 @@ kubectl delete pod pod-level-resize-demo
 
 ### For application developers
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [PodレベルでのCPUとメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Namespaceのデフォルトのメモリ要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [NamespaceのデフォルトのCPU要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Namespaceに対する最小および最大メモリー制約の構成](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Namespaceの最小および最大CPU制約を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [NamespaceのメモリおよびCPUクォータを設定する](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
