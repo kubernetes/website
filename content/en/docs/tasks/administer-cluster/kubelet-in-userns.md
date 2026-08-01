@@ -51,7 +51,7 @@ See the Minikube documentation:
 
 ### Usernetes
 
-{{% thirdparty-content %}}
+{{% thirdparty-content single="true" %}}
 
 [Usernetes](https://github.com/rootless-containers/usernetes) also supports running Kubernetes inside Rootless Docker, Rootless Podman, or Rootless nerdctl.
 
@@ -73,7 +73,7 @@ See the [Usernetes documentation](https://github.com/rootless-containers/usernet
 
 ## Running Kubernetes inside Unprivileged Containers
 
-{{% thirdparty-content %}}
+{{% thirdparty-content single="true" %}}
 
 ### sysbox
 
@@ -91,7 +91,7 @@ the container plus several other advanced OS virtualization techniques.
 
 ## Running Rootless Kubernetes directly on a host
 
-{{% thirdparty-content %}}
+{{% thirdparty-content single="true" %}}
 
 ### K3s
 
@@ -162,7 +162,7 @@ Containers documentation.
 
 ### Configuring network
 
-{{% thirdparty-content %}}
+{{% thirdparty-content single="true" %}}
 
 The network namespace of the Node components has to have a non-loopback interface, which can be for example configured with
 [slirp4netns](https://github.com/rootless-containers/slirp4netns),
