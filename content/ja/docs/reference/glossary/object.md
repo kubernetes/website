@@ -9,7 +9,8 @@ tags:
 - architecture
 - fundamental
 ---
-Kubernetesシステムにあるエンティティ。オブジェクトはあなたのクラスターの状態を表すためにKubernetes APIが使用する{{< glossary_tooltip text="APIリソース" term_id="api-resource" >}}です。
+Kubernetesシステムにあるエンティティ。
+オブジェクトは、クラスターの状態を表すためにKubernetes APIが使用する{{< glossary_tooltip text="APIリソース" term_id="api-resource" >}}です。
 <!--more-->
 Kubernetesオブジェクトは典型的にあなたが一度作成したオブジェクトの「意図の記録」で、Kubernetes
 {{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はオブジェクトが表す項目が実際に存在するように継続的に動作します。
