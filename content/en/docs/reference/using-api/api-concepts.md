@@ -135,6 +135,47 @@ see the [API reference](/docs/reference/kubernetes-api/) for more information. I
 is not possible to access sub-resources across multiple resources - generally a new
 virtual resource type would be used if that becomes necessary.
 
+### Status subresource
+
+Many Kubernetes resources expose a `/status` subresource. This separates writes
+to the observed state of an object from writes to its desired state. A write to
+`/status` cannot change the object's `.spec`.
+
+For most resources, a `/status` write also cannot change the object's
+metadata. However, the following legacy built-in resources are exceptions:
+
+- `v1` `Namespace`
+- `v1` `Node`
+- `v1` `PersistentVolume`
+- `v1` `PersistentVolumeClaim`
+- `v1` `Pod`
+- `v1` `ReplicationController`
+- `v1` `ResourceQuota`
+- `v1` `Service`
+- `apiextensions.k8s.io/v1` `CustomResourceDefinition`
+- `apps/v1` `DaemonSet`
+- `apps/v1` `Deployment`
+- `apps/v1` `ReplicaSet`
+- `apps/v1` `StatefulSet`
+- `autoscaling/v1` and `v2` `HorizontalPodAutoscaler`
+- `batch/v1` `CronJob`
+- `batch/v1` `Job`
+- `certificates.k8s.io/v1` `CertificateSigningRequest`
+- `networking.k8s.io/v1` `Ingress`
+- `policy/v1` `PodDisruptionBudget`
+
+For these resources, a write to `/status` can persist changes to metadata, such
+as labels or annotations. This behavior is retained for compatibility and
+should not be relied on for new APIs.
+
+When defining authorization or admission policy, account for this exception.
+In particular, permission to update or patch the `status` subresource of one
+of these resources can also allow metadata changes.
+
+`Node` is also exceptional when it is created through its main resource
+endpoint: a create request can set its `.status`. Other resources discard
+`.status` supplied on create.
+
 ## HTTP media types {#alternate-representations-of-resources}
 
 Over HTTP, Kubernetes supports JSON, YAML, CBOR and Protobuf wire encodings.
