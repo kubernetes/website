@@ -44,4 +44,5 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 
 ## {{% heading "whatsnext" %}}
 
-Weave Netアドオンをインストールしたら、[ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)に従ってKubernetes NetworkPolicyを試すことができます。ご質問がある場合は、[Slackの#weave-communityまたはWeave User Group](https://github.com/weaveworks/weave#getting-help)までお問い合わせください。
+Weave Netアドオンをインストールしたら、[ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)に従ってKubernetes NetworkPolicyを試すことができます。
+ご質問がある場合は、[Slackの#weave-communityまたはWeave User Group](https://github.com/weaveworks/weave#getting-help)までお問い合わせください。
