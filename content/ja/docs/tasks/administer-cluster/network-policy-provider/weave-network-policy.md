@@ -9,7 +9,8 @@ weight: 60
 
 ## {{% heading "prerequisites" %}}
 
-Kubernetesクラスターが必要です。クラスターをブートストラップするには、[kubeadmのスタートガイド](/docs/reference/setup-tools/kubeadm/)に従ってください。
+Kubernetesクラスターが必要です。
+クラスターをブートストラップするには、[kubeadmのスタートガイド](/docs/reference/setup-tools/kubeadm/)に従ってください。
 
 <!-- steps -->
 
