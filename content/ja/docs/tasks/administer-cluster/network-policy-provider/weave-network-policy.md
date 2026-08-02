@@ -30,7 +30,7 @@ weaveが動作していることを検証してください。
 kubectl get pods -n kube-system -o wide
 ```
 
-出力は次のようなものになります：
+出力は次のようなものになります:
 
 ```
 NAME                                    READY     STATUS    RESTARTS   AGE       IP              NODE
