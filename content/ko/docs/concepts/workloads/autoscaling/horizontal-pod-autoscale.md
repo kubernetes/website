@@ -2,9 +2,9 @@
 # reviewers:
 # - adrianmoisey
 # - omerap12
-title: Horizontal Pod Autoscaling
+title: 수평 파드 오토스케일링
 feature:
-  title: Horizontal 스케일링
+  title: 수평 스케일링
   description: >
     간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 content_type: concept
@@ -29,7 +29,7 @@ math: true
 HorizontalPodAutoscaler는 워크로드 리소스(디플로이먼트, 스테이트풀셋,
 또는 다른 비슷한 리소스)에게 스케일 다운을 지시한다.
 
-Horizontal Pod Autoscaling은 크기 조절이 불가능한 오브젝트(예:
+수평 파드 오토스케일링은 크기 조절이 불가능한 오브젝트(예:
 {{< glossary_tooltip text="데몬셋" term_id="daemonset" >}})에는 적용할 수 없다.
 
 HorizontalPodAutoscaler는 쿠버네티스 API 리소스 및
@@ -40,7 +40,7 @@ HorizontalPodAutoscaler API 리소스는 컨트롤러의 행동을 결정한다.
 또는 다른 커스텀 메트릭 등의 관측된 메트릭을 목표에 맞추기 위해
 목표물(예: 디플로이먼트)의 적정 크기를 주기적으로 조정한다.
 
-Horizontal Pod Autoscaling을 활용하는
+수평 파드 오토스케일링을 활용하는
 [연습 예제](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)가 존재한다.
 
 <!-- body -->
@@ -72,7 +72,7 @@ class pod1,pod2,pod3 pod
 
 그림 1. HorizontalPodAutoscaler는 디플로이먼트 및 디플로이먼트의 레플리카셋의 크기를 조정한다.
 
-쿠버네티스는 Horizontal Pod Autoscaling을 간헐적으로(intermittently) 실행되는
+쿠버네티스는 수평 파드 오토스케일링을 간헐적으로(intermittently) 실행되는
 컨트롤 루프 형태로 구현했다(지속적인 프로세스가 아니다). 실행 주기는
 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)의
 `--horizontal-pod-autoscaler-sync-period` 파라미터에 의해 설정된다
@@ -487,7 +487,7 @@ behavior:
 알고리즘은 이전에 계산된 목표 상태를 확인하고, 해당 구간에서 계산된 값 중 가장 높은 값을 사용한다.
 위의 예시에서, 이전 5분 동안의 모든 목표 상태가 고려 대상이 된다.
 
-이를 통해 동적 최대값(rolling maximum)을 근사화하여,
+이를 통해 구간 최대값(rolling maximum)을 근사화하여,
 스케일링 알고리즘이 빠른 시간 간격으로 파드를 제거하고 바로 다시 동일한 파드를 재생성하는 현상을 방지할 수 있다.
 
 ### 허용 오차 {#tolerance}
@@ -623,7 +623,7 @@ HPA를 암시적으로 비활성화할 수 있다. 대상의 의도한
 다시 활성화할 때까지 HPA는 대상 조정을
 중지한다(그리고 `ScalingActive` 조건 자체를 `false`로 설정).
 
-### 디플로이먼트와 스테이트풀셋을 horizontal autoscaling으로 전환하기
+### 디플로이먼트와 스테이트풀셋을 수평 오토스케일링으로 전환하기
 
 HPA가 활성화되어 있으면, 디플로이먼트, 스테이트풀셋 모두 또는 둘 중 하나의
 {{< glossary_tooltip text="매니페스트" term_id="manifest" >}}에서
@@ -671,7 +671,7 @@ HPA가 활성화되어 있으면, 디플로이먼트, 스테이트풀셋 모두 
 
 HorizontalPodAutoscaler에 대한 더 많은 정보는 아래를 참고한다.
 
-- horizontal pod autoscaling에 대한 [연습 예제](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)를 확인한다.
+- 수평 파드 오토스케일링에 대한 [연습 예제](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)를 확인한다.
 - [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 문서를 확인한다.
 - 커스텀 메트릭 어댑터를 직접 작성하고 싶다면,
   [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
