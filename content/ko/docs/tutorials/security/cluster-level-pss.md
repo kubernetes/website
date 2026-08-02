@@ -9,14 +9,14 @@ weight: 10
 {{% /alert %}}
  
 파드 시큐리티 어드미션은 파드가 생성될 때 
-[파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 
+[파드 시큐리티 스탠다드(Pod Security Standards)](/docs/concepts/security/pod-security-standards/)를 
 적용하는 어드미션 컨트롤러이다. v1.25에서 정식 출시되었다.
 이 튜토리얼은 `baseline` 파드 시큐리티 
 스탠다드를 클러스터 수준(level)에 적용하여 표준 구성을 클러스터의 모든 네임스페이스에 
-적용하는 방법을 보여 준다.
+적용하는 방법을 보여준다.
 
 파드 시큐리티 스탠다드를 특정 네임스페이스에 적용하려면, 
-[파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)를 참고한다.
+[파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/docs/tutorials/security/ns-level-pss/)를 참고한다.
 
 만약 쿠버네티스 버전이 v{{< skew currentVersion >}}이 아니라면,
 해당 버전의 문서를 확인한다.
@@ -25,19 +25,19 @@ weight: 10
 
 워크스테이션에 다음을 설치한다.
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/ko/docs/tasks/tools/)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kubectl](/docs/tasks/tools/)
 
 이 튜토리얼은 완전히 제어 가능한 쿠버네티스 클러스터에서 무엇을 
 설정할 수 있는지 보여준다. 컨트롤 플레인을 구성할 수 없는 관리형 클러스터에서 
-파드 시큐리티 어드미션을 설정하는 방법을 배우려면, [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss)를 
+파드 시큐리티 어드미션을 설정하는 방법을 배우려면, [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/docs/tutorials/security/ns-level-pss)를 
 읽어 본다.
 
 ## 적용할 알맞은 파드 시큐리티 스탠다드 선택하기
 
-[파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)을 이용하여 
+[파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)을 이용하여 
 `enforce`, `audit`, 또는 `warn` 모드 중 하나로 
-내장 [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
+내장 [파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
 
 현재 구성에 가장 적합한 파드 시큐리티 스탠다드를 고르는 데 
 도움이 되는 정보를 수집하려면, 다음을 수행한다.
@@ -45,22 +45,22 @@ weight: 10
 1. 파드 시큐리티 스탠다드가 적용되지 않은 클러스터를 생성한다.
 
     ```shell
-    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+    kind create cluster --name psa-wo-cluster-pss
     ```
-   다음과 비슷하게 출력될 것이다.
+    다음과 비슷하게 출력될 것이다.
     ```
     Creating cluster "psa-wo-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
-    ✓ Preparing nodes 📦  
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+    ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
     ✓ Installing CNI 🔌
     ✓ Installing StorageClass 💾
     Set kubectl context to "kind-psa-wo-cluster-pss"
     You can now use your cluster with:
-    
+
     kubectl cluster-info --context kind-psa-wo-cluster-pss
-    
+
     Thanks for using kind! 😊
     ```
 
@@ -156,7 +156,7 @@ weight: 10
 그러나 `baseline` 및 `restricted` 파드 시큐리티 스탠다드에 대해서는 
 `kube-system` 네임스페이스에서 경고가 발생한다.
 
-## 모드, 버전, 및 파드 시큐리티 스탠다드 설정
+## 모드, 버전 및 파드 시큐리티 스탠다드 설정
 
 이 섹션에서는, 다음의 파드 시큐리티 스탠다드를 `latest` 버전에 적용한다.
 
@@ -174,13 +174,13 @@ weight: 10
 다음의 사항을 고려한다.
 
 1. 클러스터에 적용된 위험 상태에 따라, 
-   `restricted`와 같은 더 엄격한 파드 시큐리티 스탠다드가 더 좋을 수도 있다.
-1. `kube-system` 네임스페이스를 적용 대상에서 제외하면 
-   이 네임스페이스의 파드가 `privileged`로 실행될 수 있다. 
-   실제 사용 환경에서는, 
-   최소 권한 원칙을 준수하도록, 
-   접근을 `kube-system` 네임스페이스로 제한하는 
-   엄격한 RBAC 정책을 적용할 것을 강력히 권장한다.
+   `restricted`와 같은 더 엄격한 파드 시큐리티 스탠다드가 더 나은 선택일 수 있다.
+1. `kube-system` 네임스페이스를 제외하면 
+   이 네임스페이스에서 파드가 `privileged`로 실행될 수 있다. 
+   실제 사용 환경에서는 최소 권한 원칙에 따라 
+   `kube-system`에 대한 접근을 제한하는 
+   엄격한 RBAC 정책을 적용할 것을 쿠버네티스 프로젝트에서 강력히 권장한다.
+   상기 스탠다드를 구현하려면, 다음을 수행한다.
 1. 파드 시큐리티 어드미션 컨트롤러가 이러한 파드 시큐리티 스탠다드를 구현하는 데 사용할 수 있는 
    구성 파일을 생성한다.
 
@@ -208,11 +208,11 @@ weight: 10
     EOF
     ```
 
-    {{< note >}}
+   {{< alert color="info" title="Note" >}}
     `pod-security.admission.config.k8s.io/v1` 설정은 쿠버네티스 v1.25 이상을 필요로 한다.
-    쿠버네티스 v1.23 과 v1.24의 경우, [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
+    쿠버네티스 v1.23과 v1.24의 경우, [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
     쿠버네티스 v1.22의 경우, [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
-    {{< /note >}}
+   {{< /alert >}}
 
 
 1. API 서버가 클러스터 생성 과정에서 이 파일을 처리할 수 있도록 구성한다.
@@ -251,22 +251,22 @@ weight: 10
     EOF
     ```
 
-   {{<note>}}
-   macOS에서 Docker Desktop과 KinD를 사용하고 있다면, 
+   {{< alert color="info" title="Note" >}}
+   macOS에서 Docker Desktop과 *kind*를 사용하고 있다면, 
    **Preferences > Resources > File Sharing** 메뉴에서 
    `/tmp`를 Shared Directory로 추가할 수 있다.
-   {{</note>}}
+   {{< /alert >}}
 
 1. 이러한 파드 시큐리티 스탠다드를 적용하기 위해 
    파드 시큐리티 어드미션을 사용하는 클러스터를 생성한다.
 
    ```shell
-    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
    다음과 비슷하게 출력될 것이다.
    ```
     Creating cluster "psa-with-cluster-pss" ...
-     ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
+     ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
      ✓ Preparing nodes 📦  
      ✓ Writing configuration 📜 
      ✓ Starting control-plane 🕹️ 
@@ -300,7 +300,7 @@ weight: 10
    kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
 
-  파드는 정상적으로 시작되었지만, 출력 결과에 경고가 포함되어 있다.
+   파드는 정상적으로 시작되었지만, 출력 결과에 경고가 포함되어 있다.
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
@@ -328,6 +328,6 @@ kind delete cluster --name psa-wo-cluster-pss
   4. kubectl context를 새로 생성한 클러스터에 설정한다
   5. 최소한의 파드 구성을 위한 yaml 파일을 생성한다
   6. 해당 파일을 적용하여 새 클러스터에 파드를 생성한다
-- [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
-- [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
-- [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)
+- [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
+- [파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)
+- [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/docs/tutorials/security/ns-level-pss/)
