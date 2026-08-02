@@ -99,7 +99,7 @@ Para ver los comandos que puedes usar en una PR, consulta la
 ## Clasificación y categorización de issues
 
 En general, SIG Docs sigue el proceso de 
-[triaje de issues de Kubernetes](https://github.com/kubernetes/community/blob/main/contributors/guide/issue-triage.md)
+[clasificación de issues de Kubernetes](https://github.com/kubernetes/community/blob/main/contributors/guide/issue-triage.md)
 y utiliza las mismas etiquetas.
 
 Este [filtro](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc) de GitHub
