@@ -105,7 +105,7 @@ y utiliza las mismas etiquetas.
 Este [filtro](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc) de GitHub
 Issues encuentra los *issues* que podrían necesitar triaje.
 
-### Realizar el triaje de un issue
+### Realizar la clasificación de un issue
 
 1. Validar el *issue*
 
