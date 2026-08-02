@@ -96,7 +96,7 @@ Comando de Prow | Restricciones de Rol | Descripción
 Para ver los comandos que puedes usar en una PR, consulta la 
 [Referencia de Comandos de Prow](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite).
 
-## Triaje y categorización de issues
+## Clasificación y categorización de issues
 
 En general, SIG Docs sigue el proceso de 
 [triaje de issues de Kubernetes](https://github.com/kubernetes/community/blob/main/contributors/guide/issue-triage.md)
