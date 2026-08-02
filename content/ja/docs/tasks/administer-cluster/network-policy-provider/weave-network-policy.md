@@ -24,7 +24,7 @@ Kubernetes用のWeave Netアドオンには[Network Policy Controller](https://g
 
 weaveが動作していることを検証してください。
 
-次のコマンドを入力してください：
+次のコマンドを入力してください:
 
 ```shell
 kubectl get pods -n kube-system -o wide
