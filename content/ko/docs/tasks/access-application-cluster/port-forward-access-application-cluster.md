@@ -207,13 +207,13 @@ UDP 프로토콜에 대한 지원은
 [이슈 47862](https://github.com/kubernetes/kubernetes/issues/47862)에서 추적되고 있다.
 {{< /note >}}
 
-## 인증 및 보안 고려 사항
+## 인가 및 보안 고려 사항
 
-`kubectl port-forward`에 대한 접근은 {{< glossary_tooltip text="역할 기반 접근 제어(RBAC)" term_id="rbac" >}}와 같은 쿠버네티스의 인증 메커니즘에 의해 제어된다. 권한 부여는 `kubectl` 클라이언트가 아닌 쿠버네티스 API 서버에서 수행된다.
+`kubectl port-forward`에 대한 접근은 {{< glossary_tooltip text="역할 기반 접근 제어(RBAC)" term_id="rbac" >}}와 같은 쿠버네티스의 인가 메커니즘에 의해 제어된다. 인가는 `kubectl` 클라이언트가 아닌 쿠버네티스 API 서버에서 수행된다.
 
 `kubectl port-forward`를 사용하려면 사용자는 대상 리소스(예를 들어, 파드 또는 서비스)와 `portforward` 서브리소스에 접근할 수 있는 권한이 있어야 한다. 일반적으로 필요한 권한에는 `pods`에 대한 `get`과 `pods/portforward`에 대한 `create`가 포함된다.
 
-포트 포워딩은 네트워크 수준의 제어를 우회하며 워크로드에 대한 직접적인 네트워크 접근을 제공할 수 있기 때문에, 클러스터 관리자는 이러한 권한을 신중하게 제한해야 한다. 
+포트 포워딩은 워크로드에 대한 직접적인 네트워크 접근을 제공하고 네트워크 수준의 제어를 우회할 수 있으므로, 클러스터 관리자는 이러한 권한을 신중하게 제한해야 한다.
 
 ## {{% heading "whatsnext" %}}
 
