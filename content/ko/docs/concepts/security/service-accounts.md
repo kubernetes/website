@@ -186,6 +186,23 @@ v1.22 이전 버전에서는, 쿠버네티스가 시크릿(Secret)을 통해 파
   (쿠버네티스 v1.24부터 v1.26까지 기본적으로 활성화되어 있었으며), 서비스 어카운트에 대해 이러한 토큰이 자동 생성되지
   않도록 했다. 해당 기능 게이트는 v1.27에서 GA로 승격되면서 제거되었고, 여전히 무기한의 서비스 어카운트 토큰을 수동으로 생성할 수 있지만, 반드시 보안상의 영향을 고려해야 한다.
 
+#### 서비스 어카운트 토큰의 노드 오디언스 제한 {#node-audience-restriction}
+
+{{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
+
+`ServiceAccountNodeAudienceRestriction` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
+가 활성화되면, [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction)
+어드미션 플러그인은 kubelet이 `TokenRequest` API를 통해 서비스 어카운트
+토큰을 생성할 때 요청할 수 있는 오디언스(audience)를 제한한다. 기본적으로 kubelet은
+해당 노드의 파드가 이미 참조하는 오디언스에 대해서만 토큰을 요청할 수 있다(프로젝티드 서비스
+어카운트 토큰 볼륨 또는 CSI 드라이버 토큰 요청을 통해 참조). 관리자는
+`request-serviceaccounts-token-audience` 동사를 사용하는 RBAC 규칙을 통해 kubelet에
+추가 오디언스에 대한 접근 권한을 부여할 수 있다.
+
+이 제한은 kubelet(노드 신원)에만 적용되며 `TokenRequest` API의 다른
+호출자에게는 영향을 주지 않는다. 자세한 내용과 RBAC 예시는
+[서비스 어카운트 토큰 오디언스 제한](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction)을 참고한다.
+
 {{< note >}}
 쿠버네티스 클러스터 외부에서 실행되는 애플리케이션의 경우, 시크릿에 저장된
 장기간 유효한 서비스어카운트(ServiceAccount) 토큰을 생성하는 방법을 고려할 수 있다. 이는 인증을 가능하게 하지만, 쿠버네티스 프로젝트에서는 이러한 접근 방식을 피할 것을 권장한다.
