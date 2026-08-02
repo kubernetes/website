@@ -5,7 +5,7 @@ weight: 60
 ---
 
 <!-- overview -->
-このページでは、ネットワークポリシーのためにWeave Netを使用する方法を説明します。
+このページでは、ネットワークポリシーとしてWeave Netを使用する方法を説明します。
 
 ## {{% heading "prerequisites" %}}
 
