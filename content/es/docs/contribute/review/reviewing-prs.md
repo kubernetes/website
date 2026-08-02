@@ -142,7 +142,7 @@ Algunas comprobaciones a considerar:
   ¿Hay enlaces rotos como resultado de este PR? ¿Existe otra opción, como cambiar el título de la página
   sin modificar el slug?
 
-- ¿La PR introduce una página nueva? Si es así:
+- ¿El PR agrega una página nueva? Si es así:
 
   - ¿La página utiliza el [tipo de contenido de página](/docs/contribute/style/page-content-types/) correcto y sus *shortcodes* de Hugo asociados?
   - ¿La página aparece correctamente en la navegación lateral de la sección (o aparece en absoluto)?
