@@ -80,7 +80,7 @@ no_list: true
   리눅스에서는 대부분의 컨테이너 런타임이
   {{< glossary_tooltip text="컨테이너 네트워크 인터페이스(CNI)" term_id="cni" >}}를
   사용하여 파드 네트워크 구현체와 상호 작용하므로, 이러한
-  구현체를 _CNI 플러그인_ 이라고도 한다.
+  구현체를 흔히 _CNI 플러그인_ 이라고 한다.
 
 * 쿠버네티스는 기본 서비스 프록시 구현체를 제공하며,
   이를 {{< glossary_tooltip term_id="kube-proxy">}}라고 한다. 하지만 일부 파드
