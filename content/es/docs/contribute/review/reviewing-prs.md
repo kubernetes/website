@@ -120,7 +120,7 @@ Al revisar, utiliza lo siguiente como punto de partida.
 
 - ¿Hay errores evidentes de idioma o gramática? ¿Existe una mejor manera de redactar algo?
   - Concéntrate en el idioma y la gramática de las partes de la página que el autor está cambiando. A menos que el autor tenga la intención clara de actualizar la página completa, no tiene la obligación de corregir todos los problemas de la página.
-  - Cuando una PR actualiza una página existente, debes concentrarte en revisar las partes que se están actualizando. Ese contenido modificado debe revisarse para comprobar su precisión técnica y editorial.
+  - Cuando un PR actualiza una página existente, debes concentrarte en revisar las partes que se están actualizando. Ese contenido modificado debe revisarse para comprobar su precisión técnica y editorial.
     Si encuentras errores en la página que no se relacionan directamente con lo que el autor intenta solucionar, debe tratarse como un *issue* separado (comprueba primero que no exista un *issue* previo al respecto).
   - Ten cuidado con las *pull requests* que _mueven_ contenido. Si un autor renombra una página o combina dos páginas, nosotros (Kubernetes SIG Docs) generalmente evitamos pedirle que corrija cada pequeño detalle gramatical u ortográfico dentro del contenido movido.
 - ¿Hay palabras complicadas o arcaicas que se puedan reemplazar por una palabra más simple?
