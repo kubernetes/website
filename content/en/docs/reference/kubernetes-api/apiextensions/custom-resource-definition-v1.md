@@ -437,7 +437,7 @@ JSON represents any valid JSON value. These types are supported: bool, int64, fl
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
-JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+JSONSchemaProps is a JSON-Schema following Specification Draft 4 (<https://json-schema.org/>).
 
 <hr>
 
