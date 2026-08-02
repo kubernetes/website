@@ -43,12 +43,12 @@ API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 �
 
 1. 시크릿에 대해 [저장된 데이터 암호화(Encryption at Rest)를 활성화](/docs/tasks/administer-cluster/encrypt-data/)한다.
 1. 시크릿에 대한 최소한의 접근 권한을 지니도록
-   [RBAC 규칙을 활성화 또는 구성](/ko/docs/reference/access-authn-authz/authorization/)한다.
+   [RBAC 규칙을 활성화 또는 구성](/docs/reference/access-authn-authz/authorization/)한다.
 1. 특정 컨테이너에서만 시크릿에 접근하도록 한다.
 1. [외부 시크릿 저장소 제공 서비스를 사용하는 것을 고려](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)한다.
 
 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인은
-[쿠버네티스 시크릿에 관한 좋은 관행](/ko/docs/concepts/security/secrets-good-practices/)를 참고한다.
+[쿠버네티스 시크릿에 관한 좋은 관행](/docs/concepts/security/secrets-good-practices/)를 참고한다.
 
 {{< /caution >}}
 
@@ -116,7 +116,7 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 - 인증을 위해, X.509 인증서를 위한 커스텀 인증자(signer)를 구현하고, 
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)를 사용하여 
   해당 커스텀 인증자가 인증서를 필요로 하는 파드에 인증서를 발급하도록 할 수 있다.
-- [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 사용하여 
+- [장치 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 사용하여 
   노드에 있는 암호화 하드웨어를 특정 파드에 노출할 수 있다. 
   예를 들어, 신뢰할 수 있는 파드를 별도로 구성된 TPM(Trusted Platform Module, 신뢰할 수 있는 플랫폼 모듈)을 제공하는 노드에 스케줄링할 수 있다.
 
@@ -366,7 +366,7 @@ SSH 개인 키는 자체적으로 SSH 클라이언트와 호스트 서버 간에
 
 `kubernetes.io/tls` 시크릿 타입은 일반적으로 TLS를 위해 사용되는 인증서 및 관련된 키를 저장하기 위한 것이다.
 
-TLS 시크릿의 일반적인 용도 중 하나는 [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대한 
+TLS 시크릿의 일반적인 용도 중 하나는 [인그레스](/docs/concepts/services-networking/ingress/)에 대한 
 전송 암호화(encryption in transit)를 구성하는 것이지만, 
 다른 리소스와 함께 사용하거나 워크로드에서 직접 사용할 수도 있다. 
 이 타입의 시크릿을 사용할 때는 `tls.key` 와 `tls.crt` 키가 
@@ -441,14 +441,14 @@ kubectl create secret tls my-tls-secret \
 
 시크릿 생성에는 다음과 같은 방법이 있다.
 
-- [`kubectl` 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [환경 설정 파일 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [kustomize 도구 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [`kubectl` 사용하기](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [환경 설정 파일 사용하기](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [kustomize 도구 사용하기](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 #### 시크릿 이름 및 데이터에 대한 제약 사항 {#restriction-names-data}
 
 시크릿 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+[DNS 서브도메인 이름](/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 사용자는 시크릿을 위한 파일을 구성할 때 `data` 및 (또는) `stringData` 필드를
 명시할 수 있다. 해당 `data` 와 `stringData` 필드는 선택적으로 명시할 수 있다.
@@ -467,7 +467,7 @@ kubectl create secret tls my-tls-secret \
 개별 시크릿의 크기는 1 MiB로 제한된다. 
 이는 API 서버 및 kubelet 메모리를 고갈시킬 수 있는 매우 큰 시크릿의 생성을 방지하기 위함이다. 
 그러나, 작은 크기의 시크릿을 많이 만드는 것도 메모리를 고갈시킬 수 있다. 
-[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 사용하여 
+[리소스 쿼터](/docs/concepts/policy/resource-quotas/)를 사용하여 
 한 네임스페이스의 시크릿 (또는 다른 리소스) 수를 제한할 수 있다.
 
 ### 시크릿 수정하기
@@ -475,10 +475,10 @@ kubectl create secret tls my-tls-secret \
 만들어진 시크릿은 [불변(immutable)](#secret-immutable)만 아니라면 수정될 수 있다.
 시크릿 수정 방식은 다음과 같다.
 
-* [`kubectl` 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
-* [설정 파일 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
+* [`kubectl` 사용하기](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+* [설정 파일 사용하기](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
-[Kustomize 도구](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)로
+[Kustomize 도구](/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)로
 시크릿 내부의 데이터를 수정하는 것도 가능하지만, 이 경우 수정된 데이터를 지닌 새로운 `Secret` 오브젝트가 생성된다.
 
 시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
@@ -587,7 +587,7 @@ kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미
 
 ##### imagePullSecret 수동으로 지정하기
 
-[컨테이너 이미지](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 문서에서 
+[컨테이너 이미지](/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 문서에서 
 `imagePullSecrets`를 지정하는 방법을 배울 수 있다.
 
 ##### imagePullSecrets가 자동으로 연결되도록 준비하기
@@ -685,8 +685,8 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
 ## {{% heading "whatsnext" %}}
 
 - 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인을 원한다면
-  [쿠버네티스 시크릿을 다루는 좋은 관행들](/ko/docs/concepts/security/secrets-good-practices/)을 참고하라.
-- [`kubectl` 을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
-- [구성 파일을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
-- [kustomize를 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
+  [쿠버네티스 시크릿을 다루는 좋은 관행들](/docs/concepts/security/secrets-good-practices/)을 참고하라.
+- [`kubectl` 을 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
+- [구성 파일을 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
+- [kustomize를 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
 - [API 레퍼런스](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)에서 `Secret`에 대해 읽기
