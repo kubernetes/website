@@ -138,7 +138,7 @@ Al revisar, utiliza lo siguiente como punto de partida.
 
 Algunas comprobaciones a considerar:
 
-- ¿Esta PR cambió o eliminó el título de una página, un slug/alias o un enlace de anclaje? Si es así,
+- ¿Este PR cambió o eliminó el título de una página, un slug/alias o un enlace de anclaje? Si es así,
   ¿hay enlaces rotos como resultado de esta PR? ¿Existe otra opción, como cambiar el título de la página
   sin modificar el slug?
 
