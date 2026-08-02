@@ -12,7 +12,7 @@ Los [Revisores](/docs/contribute/participate/#reviewers) y
 [Aprobadores](/docs/contribute/participate/#approvers) de SIG Docs realizan algunas tareas adicionales 
 al revisar un cambio.
 
-Cada semana, un aprobador de documentación específico se ofrece como voluntario para triar y revisar *pull requests*. 
+Cada semana, un aprobador de documentación específico se ofrece como voluntario para clasificar y revisar *pull requests*. 
 Esta persona es el "PR Wrangler" de la semana. Consulta el 
 [PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
 para obtener más información. Para convertirte en PR Wrangler, asiste a la reunión semanal de SIG Docs
