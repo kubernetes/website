@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Safe In-Place Pod Right-Sizing in Kubernetes 1.33+"
+title: "Hands-off right-sizing without killing Pods"
 draft: true
 math: true
 slug: safe-in-place-pod-right-sizing
@@ -8,207 +8,270 @@ author: >
   [Sebastien Tardif](https://github.com/SebTardif)
 ---
 
-With in-place pod resize GA since Kubernetes 1.35, the ecosystem has a
-powerful primitive for adjusting container resources without eviction.
-But the API is just the mechanism. This post covers the patterns needed
-to use it safely in production: staged rollout, multi-signal auto-revert,
-HPA coexistence, confidence-based recommendations, and change filtering.
+The goal many platform teams actually want is simple to say and hard to
+run:
 
-<!--more-->
+**Keep container CPU and memory requests aligned with real usage, continuously,
+without treating Pod deletion, eviction, or container restart as the normal
+way to apply every change.**
 
-## The waste problem
+In-place Pod resize ([generally available since Kubernetes 1.35](/blog/2025/12/19/kubernetes-v1-35-in-place-pod-resize-ga/))
+is the primitive that makes that goal realistic. It is not the whole system.
 
-According to CAST AI's 2026
-[State of Kubernetes Optimization report](https://cast.ai/reports/state-of-kubernetes-optimization/),
-clusters in their dataset averaged 8% CPU utilization and 20% memory
-utilization. CPU overprovisioning jumped from 40% to 69% year over year,
-with memory overprovisioning at 79%. While those numbers reflect their
-customer base rather than every cluster in existence, the directional
-signal is consistent across vendors: the vast majority of provisioned
-compute sits idle.
+This post is about how those pieces work together so a resize API
+becomes **hands-off adaptive right-sizing**:
 
-The root cause is not laziness. It is rational fear. Setting a CPU
-request to 2 cores when you only use 400 millicores is the rational
-choice when the alternative is getting OOM-killed at 3 AM. Developers
-over-provision because under-provisioning has immediate, painful
-consequences, while over-provisioning only has a slow, invisible cost.
+1. Measure usage over enough history.
+2. Decide a new request (and maybe limit).
+3. Apply with the Pod **resize** path when possible.
+4. Verify the workload is still healthy.
+5. Revert or dampen when it is not.
+6. Coexist with horizontal scaling so the loops do not fight.
 
-Kubernetes has had the VerticalPodAutoscaler (VPA) since 2018, yet
-VPA in fully automated mode remains far less common than HPA in
-production environments. Why?
+I am writing as an operator and practitioner, not as a statement of official
+Kubernetes architecture. The Vertical Pod Autoscaler (VPA) is the main
+project-side answer for vertical recommendations and apply. Custom
+automation is optional. Where I give **concrete numbers, formulas, or
+stage names**, treat them as **field examples** one team might use, not as
+Kubernetes-endorsed standards. Other designs work. The **loop** is what
+matters.
 
-## Why VPA adoption stalled
+Right-sizing is only **one** use case for in-place resize. The same API
+supports startup CPU boosts, shrinking idle pre-warmed workers, and other
+short-lived vertical adjustments in the
+[GA announcement](/blog/2025/12/19/kubernetes-v1-35-in-place-pod-resize-ga/).
+This post stays on continuous right-sizing.
 
-VPA's approach to right-sizing had three fundamental problems that
-kept it out of production for most teams:
+## Why static requests keep failing
 
-**Problem 1: Eviction-based updates.** VPA originally changed pod
-resources by evicting the pod and letting the controller recreate it
-with new values. This meant downtime, rescheduling, cold cache starts,
-and connection drops. VPA's `InPlaceOrRecreate` update mode now addresses
-this by leveraging in-place resize when possible.
+Teams over-request because under-requesting fails in public: throttling,
+restarts, OOM kills, pages at night. Over-requesting fails in private:
+worse bin-packing and a larger bill. That is often **rational fear**, not
+laziness. When the alternative to a 2-core request was "get OOM-killed or
+throttled at 3 AM," over-provisioning was the safe local choice.
 
-**Problem 2: HPA conflicts.** VPA and HPA fight over the same axis.
-When VPA lowers CPU requests, utilization percentage jumps, triggering
-HPA to scale out. More replicas lower utilization again, so VPA lowers
-requests further. This feedback loop destabilizes workloads. The
-official Kubernetes documentation
-[cautions readers about using VPA with HPA on CPU or memory metrics](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/#support-for-resource-metrics).
+Public telemetry keeps showing large headroom. Datadog has reported that
+**over 65% of Kubernetes workloads use less than half of their requested
+CPU and memory**
+([container report](https://www.datadoghq.com/container-report/)).
+Industry FinOps discussions likewise call out overprovisioning as a major
+cost driver. Treat any single report as directional for that dataset, not
+a census of every cluster.
 
-**Problem 3: Opaque recommendations.** VPA relies on a histogram-based
-historical usage model whose decision process can be difficult for
-operators to inspect or explain. While several parameters are
-configurable, understanding why VPA chose a specific value for a
-specific workload requires digging into internal state that most
-teams never see. When a recommendation is surprising, there is no
-straightforward way to audit the reasoning.
+Static requests cannot track a service that grows, ships a heavier
+dependency, or has a nightly batch spike. People want **adaptation**.
+Until in-place resize, adaptation usually meant **replace the Pod**.
 
-VPA's adoption of in-place resize solved the first problem. The
-remaining challenges, HPA conflicts and recommendation transparency,
-are open problems for any controller that automates resource changes.
+## The end state: a closed loop that prefers live resize
 
-## In-place pod resize changed everything
+Hands-off right-sizing is a control loop, not a one-shot patch:
 
-Kubernetes 1.27 introduced in-place pod resize as an alpha feature.
-In 1.33, it graduated to beta and became enabled by default. In 1.35,
-it reached GA. In my view, this is one of the most significant changes to
-Kubernetes resource management since the platform was created.
+```text
+observe usage  →  recommend  →  apply (prefer /resize)  →  verify  →
+    ↑________________ revert / backoff / dampen ______________|
+```
 
-The `/resize` subresource on the Pod API lets you change a container's
-CPU and memory requests and limits while the container is running.
-No eviction. No rescheduling. No cold starts. The kubelet applies
-the new values directly, and the container continues running without
-interruption.
+**Success looks like:** requests drift toward real need; most applies do
+not evict or restart; bad decreases undo cleanly; HPA still scales for
+load, not for request-math artifacts; thin data stays cautious.
+
+**Failure looks like:** every change restarts Pods; requests flap every
+reconcile; VPA and HPA chase the same CPU percentage; memory is cut under
+a spike; nobody trusts the numbers, so automation is turned off.
+
+In-place resize addresses the **mechanism** of the first failure. The rest
+is how measure, decide, apply, verify, and coexist fit together.
+
+---
+
+## 1. Apply with in-place resize when you can
+
+Docs: [Resize container resources](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+The Pod **resize** subresource updates desired CPU and memory in
+`spec.containers[*].resources` (see also
+[Manage resources for containers](/docs/concepts/configuration/manage-resources-containers/)
+for how requests and limits work). The `kubelet` actuates into
+`status.containerStatuses[*].resources`. Container `resizePolicy` chooses
+`NotRequired` (live cgroup update) versus `RestartContainer` per resource.
+
+Example (prefer live CPU; restart on memory when the app cannot adapt):
 
 ```yaml
-# Container resize policy in the pod spec
 containers:
   - name: app
     resources:
       requests:
         cpu: "500m"
         memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "256Mi"
     resizePolicy:
       - resourceName: cpu
         restartPolicy: NotRequired
       - resourceName: memory
-        restartPolicy: NotRequired
+        restartPolicy: RestartContainer
 ```
 
-CPU changes with `restartPolicy: NotRequired` are typically applied
-in-place by adjusting cgroup limits. Memory changes are more nuanced:
-while in-place memory resize is supported, the Kubernetes documentation
-notes that `RestartContainer` is often appropriate for memory depending
-on runtime constraints. Operators should choose the resize policy per
-resource based on their workload's characteristics.
+For a hands-off loop that avoids kill and restart when possible:
 
-Either way, this is a fundamental shift. Continuous, fine-grained
-resource adjustment is now practical in production without pod eviction.
+- Prefer **`NotRequired` for CPU** when the runtime tolerates live change.
+- Treat **memory** carefully. CPU and memory resizes both go through
+  cgroup updates when `NotRequired` is used. Many apps and runtimes (for
+  example some Java setups) still cannot adapt to a live memory limit,
+  which is why docs often show `RestartContainer` for memory. A loop that
+  "never restarts" may still need restart for **some** memory changes.
+- Preserve **QoS class** ([Pod QoS](/docs/concepts/workloads/pods/pod-qos/)).
+- Know the **hard limits** on the task page: CPU and memory only; Windows,
+  swap, and static CPU or Memory manager policies; non-restartable init
+  and ephemeral containers; and related restrictions.
 
-But the API is just the mechanism. The hard problems are: how do you
-decide what the right values are, how do you roll out changes safely,
-and how do you coexist with HPA?
+### Memory decrease is part of adaptation, with a real race
 
-## Patterns for safe in-place right-sizing
+Since 1.35, decreasing memory limits is allowed. The `kubelet` does a
+**best-effort** check: if usage is already above the new limit, it skips
+applying and leaves the resize in progress rather than forcing an immediate
+OOM. That check can still lose a race if usage spikes right after the
+check. See the GA blog and
+[kubernetes/kubernetes#135670](https://github.com/kubernetes/kubernetes/issues/135670).
 
-Building a safe right-sizing controller on top of the `/resize` subresource
-requires solving several problems that the raw API does not address.
-These patterns apply to any controller leveraging in-place resize.
+Platform guard is not application health. OOM and readiness after a
+decrease remain first-class signals to revert.
 
-### Pattern 1: Staged rollout
+---
 
-The first rule of production resource management is: do not change
-everything at once. A progressive rollout model lets teams build
-confidence incrementally.
+## 2. Decide and apply, start with VPA
 
-A practical model uses these five stages:
+[HPA](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+is core. [VPA](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+is an **add-on** you install. That alone explains much of the adoption
+gap versus HPA: one is always available, one is an operational choice.
 
-1. **Observe**: Collect metrics silently. No recommendations, no
-   changes. This validates that the metrics pipeline is working.
-2. **Recommend**: Compute and surface recommendations, but do not
-   apply them. Teams review what would change.
-3. **One-shot**: Apply the recommendation to one pod per cycle and
-   stop. Validates the resize mechanism on a single instance.
-4. **Canary**: Resize a percentage of pods (e.g., 10%), observe for
-   a configurable window, and only promote to the full fleet if safety
-   checks pass.
-5. **Auto**: Continuously resize all eligible pods each reconciliation
-   cycle.
+VPA has also moved with in-place resize. It is not stuck forever on
+"evict every change":
 
-This mirrors how organizations adopt any infrastructure change:
-read-only first, then single instance, then canary, then full rollout.
-Each stage can run for days or weeks before progressing.
+| Mode | Role in a hands-off path |
+|------|---------------------------|
+| `Off` | Measure and recommend only. Best first step. |
+| `Initial` | Set resources at Pod creation only. |
+| `Recreate` | Apply by eviction and recreate. Disruptive but PDB-aware. |
+| `InPlaceOrRecreate` | Prefer in-place resize; fall back to eviction when needed. |
+| `InPlace` | In-place only where available and gated; retry without eviction fallback. |
 
-### Pattern 2: Multi-signal safety with auto-revert
+Eviction-based apply uses the Eviction API and respects
+[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/).
+For hands-off without kill as **normal**, prefer modes that try in-place
+first, and keep PDBs for fallback.
 
-In-place resize is non-disruptive going forward, but a bad resize can
-still cause problems. A right-sizing controller needs to detect failures
-and revert automatically, also in-place.
+Use `resourcePolicy.containerPolicies` so automation stays bounded:
+`minAllowed` / `maxAllowed`, `controlledResources`, and
+`controlledValues` (`RequestsOnly` versus `RequestsAndLimits`).
 
-The critical signals to monitor after a resize:
+### What operators still own after VPA is configured
 
-- **OOM kills**: If the container is OOM-killed after a memory decrease,
-  revert immediately. Check `lastState.terminated.reason == "OOMKilled"`
-  with a timestamp after the resize.
-- **CPU throttling**: Query `rate(container_cpu_cfs_throttled_periods_total[5m])
-  / rate(container_cpu_cfs_periods_total[5m])`. If throttling exceeds a
-  threshold (e.g., 50%), the workload may be CPU-constrained and warrants
-  investigation of limits, requests, and observed demand. Note that
-  throttling is driven by CPU limits, not requests directly, so this
-  signal must be interpreted in context. Add a grace period after resize
-  because rate windows include pre-resize data.
-- **Restart spikes**: If `restartCount` jumps by more than a threshold
-  after resize, something went wrong.
-- **Pod readiness**: If the pod transitions to NotReady after resize,
-  revert.
-- **Application SLOs**: Custom PromQL queries against application-level
-  metrics (latency percentiles, error rates) provide the strongest
-  signal. If p99 latency exceeds an SLO after resize, the resources
-  are insufficient regardless of what the infrastructure metrics say.
+Even with good VPA modes, teams still hit loop problems VPA does not fully
+absorb for every organization:
 
-Reverts should use the same `/resize` subresource, not eviction. This
-means recovery is also non-disruptive. When a workload reverts
-repeatedly, exponential backoff prevents the controller from retrying
-every cycle.
+1. **Disruption risk on the fallback path** when in-place cannot apply.
+2. **HPA interaction** when both use the same resource utilization signal.
+3. **Trust and explainability.** Histogram-style recommendations can be
+   hard to audit when a value looks surprising. That is not unique to VPA,
+   but it is why many teams stay on `Off` longer than they planned: they
+   can see a number, not always why it is that number.
 
-### Pattern 3: HPA coexistence
+Those are reasons to **configure carefully and verify after apply**, not
+reasons to ignore VPA. Most teams should exhaust VPA `Off` → bounded
+policies → in-place-capable modes before writing a recommender.
 
-The VPA-HPA conflict is not inherent to vertical scaling. It is
-inherent to changing requests without adjusting HPA's targets.
+You do **not** need a custom controller for a basic closed loop. Custom
+automation is for policies the add-on cannot express.
 
-When a right-sizing controller lowers a pod's CPU request from 500m to
-300m, the CPU utilization percentage (calculated as usage ÷ request)
-jumps even though absolute usage has not changed. HPA sees 80%
-utilization instead of 48% and scales out.
+---
 
-One strategy for preserving equivalent absolute CPU thresholds is to
-recalculate HPA's utilization target proportionally after a resize:
+## 3. Coexist with horizontal scaling
+
+When something lowers CPU **requests**, utilization as
+usage ÷ request jumps even if absolute usage is flat. HPA **can** scale
+out; more replicas drop usage per Pod; vertical logic trims again. That
+feedback shows up when both loops use the **same resource utilization
+metric**. It is not destiny.
+
+**Default approach:**
+
+1. Vertical loop owns request (and maybe limit) sizing.
+2. HPA scales on a **different** signal when possible (QPS, concurrency,
+   queue depth, or other custom or external metrics).
+3. Or restrict VPA with `controlledResources` so it does not own the axis
+   HPA uses.
+
+### Optional field math: keep percentage-of-request HPA in sync
+
+Only if you must keep percentage-of-request HPA on the same resource,
+one approach is to adjust the HPA utilization target when requests change
+so the **absolute** threshold stays roughly stable:
 
 \\(\text{newTarget} = \text{originalTarget} \times \frac{\text{oldRequest}}{\text{newRequest}}\\)
 
-If the original HPA target was 70% and requests dropped from 500m to
-300m, the new target becomes **70% × (500 ÷ 300) ≈ 117%**. This preserves
-the same absolute CPU threshold (350m of actual usage) while letting
-HPA continue to function correctly.
+Example: original target 70%, request 500m → 300m gives
+**70% × (500 ÷ 300) ≈ 117%**, about the same absolute CPU threshold
+(~350m). Caveats: targets above 100%, stabilization windows, multi-step
+drift if you do not store the original target, and custom-metric HPAs that
+do not fit. Prefer metric separation whenever you can.
 
-This approach has caveats. The adjusted target may exceed 100% and
-require capping. HPA stabilization windows add complexity. Custom
-metrics HPAs do not fit this model. And progressive resizes can
-introduce drift if the original target is not stored before the first
-adjustment. Despite these limitations, the pattern provides a
-practical starting point for percentage-based CPU utilization HPAs,
-which remain the most common configuration.
+---
 
-### Pattern 4: Confidence-based recommendations
+## 4. Verify and revert with multiple signals
 
-A right-sizing recommendation based on 2 hours of data should be
-more conservative than one based on 7 days. The recommendation
-pipeline should include a confidence dimension.
+Apply without kill is only half of safe.
 
-A confidence score combines time coverage and data density. Here,
-`dataPoints` is the number of resource usage samples returned by the
-metrics source (for example, individual data points from a Prometheus
-range query) over the observation window:
+**Example signals** teams watch after a resize (especially a decrease):
+
+| Signal | Example field technique |
+|--------|-------------------------|
+| OOM | `lastState.terminated.reason == OOMKilled` with timestamp **after** the resize |
+| Restarts | `restartCount` jump above a small threshold after the change |
+| Readiness | Pod `Ready` condition going false |
+| CPU throttling | `rate(container_cpu_cfs_throttled_periods_total[5m]) / rate(container_cpu_cfs_periods_total[5m])`; some teams investigate above about **50%**. Throttling is **limit**-driven, not request-driven. Use a grace period after resize so rate windows are not half pre-resize data. |
+| App SLOs | Latency or error rate breach after resize beats "infrastructure green" |
+
+When automation applied via resize, prefer **revert via resize**. If the
+same workload reverts repeatedly, **back off** (for example exponential
+backoff on that target) so the loop does not thrash every reconcile.
+
+How much of this path VPA covers varies by version and mode. Know what
+you still own in monitoring and policy before you call the system
+hands-off.
+
+---
+
+## 5. Earn the right to be unattended
+
+### Example autonomy ladder (map it to VPA when you can)
+
+Do not jump to full auto on day one. One **example** progression:
+
+| Stage | Intent | Often maps to |
+|-------|--------|----------------|
+| **Observe** | Metrics pipeline only; no recommendations required | Instrumentation, no VPA yet |
+| **Recommend** | Surface numbers; humans review | VPA `updateMode: Off` |
+| **One-shot** | Apply once to a single Pod or small target; stop | Manual resize or tightly scoped apply |
+| **Canary** | Resize a fraction (for example about 10%); promote only if verify passes | Partial rollout discipline around VPA or gated apply |
+| **Auto** | Continuous apply on eligible workloads | `InPlaceOrRecreate` or `InPlace` after trust |
+
+Stages can last days or weeks. Names and counts are not sacred; the idea
+is **blast radius grows only after verify stays clean**.
+
+### History: why thin data should stay fat
+
+A recommendation from two hours of traffic is not the same as two weeks
+that include peak. **Example field approach** some teams use when they
+score their own recommendations (VPA has its own recommender; this is not
+a replacement for it):
+
+Combine **time coverage** and **sample density**. Here `dataPoints` is
+the count of usage samples in the window (for example points from a
+Prometheus range query):
 
 ```math
 \begin{aligned}
@@ -218,71 +281,115 @@ range query) over the observation window:
 \end{aligned}
 ```
 
-At low confidence, apply a buffer that adds headroom. At full
-confidence, the buffer shrinks to zero:
+At low confidence, add headroom; at full confidence, shrink the buffer:
 
 \\(\text{confidenceFactor} = 1 + \text{multiplier} \times (1 - \text{confidence})^{\text{exponent}}\\)
 
-With the defaults of multiplier=1.0 and exponent=2.0, a workload with
-no data gets a 100% safety buffer that decays quadratically as
-confidence grows, reaching zero at full confidence (one week of data).
-This prevents aggressive right-sizing of newly deployed or recently
-changed workloads.
+With example defaults multiplier = 1.0 and exponent = 2.0, no data starts
+near a **100%** safety buffer that decays toward zero around a week of
+dense data. The point is the **policy**, not the constants: sparse or
+young workloads must not get aggressive shrinks.
 
-### Pattern 5: Change filtering to prevent thrashing
+### Dampening: stop thrash
 
-Without dampening, a right-sizing controller can oscillate between
-values each cycle. I recommend two filters:
+Without dampening, a loop can oscillate every reconcile. **Example**
+controls (other thresholds are fine):
 
-- **Minimum change threshold**: Suppress changes below a percentage
-  (e.g., 10%) of the current value. If the recommendation is 460m
-  and the current request is 500m, the 8% difference is noise.
-- **Maximum change cap**: Limit each resize to a percentage of the
-  current value (e.g., 50% for CPU). This forces gradual convergence
-  over multiple cycles instead of a single large jump.
+- **Minimum change:** one team might ignore moves below about **10%** of
+  the current value (460m vs 500m is noise).
+- **Maximum step:** cap each resize (for example about **50%** of current
+  for CPU) so convergence takes multiple cycles.
+- **Directional caps:** allow faster recovery up than shrink down (for
+  example up to **+50%** per step but only about **−30%** down).
 
-Directional caps add further control. You might allow 50% increases
-(to recover from under-provisioning quickly) but only 30% decreases
-(to avoid sudden resource drops).
+These are calm-loop engineering, not official Kubernetes patterns.
 
-## Time-of-day awareness and burst detection
+### Time-of-day and bursts
 
-Workload patterns vary throughout the day. A batch processing service
-might use 2 cores during nightly ETL jobs and 200 millicores during
-the day. A simple percentile over the full dataset would either
-over-provision for daytime or under-provision for the batch window.
+A single percentile over a full week can miss nightly ETL or over-fit a
+quiet weekend.
 
-Bucketing metrics into 24 hourly windows and taking the maximum
-percentile across all hours ensures the recommendation covers the
-peak hour without over-provisioning for the rest of the day.
+**Example diurnal method:** bucket usage into **24 hourly windows**, take
+a high percentile in each hour, then take the **maximum across hours**.
+The recommendation covers the worst hour without sizing the whole day for
+that hour alone.
 
-Burst detection adds another layer. If the maximum observed usage
-exceeds 3× the 95th percentile, the workload exhibits bursty behavior.
-A logarithmic boost based on burst magnitude adds proportional
-headroom:
+**Example burst method:** if max observed usage exceeds about **3×** the
+95th percentile, treat the workload as bursty and add headroom that grows
+slower than a pure linear spike:
 
 \\(\text{burstFactor} = 1 + \text{sensitivity} \times \log_2\!\left(\frac{\text{max}}{\text{p95}}\right)\\)
 
-A 4× burst magnitude adds 20% headroom. An 8× burst adds 30%. The
-logarithmic curve prevents extreme bursts from inflating recommendations
-excessively.
+With a common sensitivity choice, a **4×** burst might add on the order of
+**20%** headroom and an **8×** burst on the order of **30%**. The log curve
+stops one pathological spike from dominating forever. Again: illustration,
+not a standard.
 
-## The path forward
+Alternatively, keep vertical for baseline and let **HPA** (or scheduled
+overlays) absorb spikes. That composition is valid too.
 
-In-place pod resize removes the last architectural barrier to
-automated vertical scaling in Kubernetes. The patterns described
-here, staged rollout, multi-signal safety, HPA coexistence,
-confidence-based recommendations, and change filtering, represent
-what the community has learned from years of VPA's limitations.
+---
 
-The ecosystem is still early. As more controllers adopt the Pod `resize`
-subresource, we will collectively discover new patterns for safe
-resource management. Whether you build your own controller or adopt
-an existing one, the principles are the same: be conservative with
-little data, use canary rollouts, monitor application-level SLOs,
-and always have an automatic revert path.
+## Putting it together (minimal path first)
 
-The waste problem is solvable. The API is there. These patterns build
-on lessons learned from VPA and early adopters of in-place resize, and
-they have shown promise in early deployments. What remains is broader
-adoption.
+Stay close to project components until they fail you:
+
+1. Confirm in-place resize on a canary Pod
+   ([resize task](/docs/tasks/configure-pod-container/resize-container-resources/)).
+2. Install VPA; targets in **`Off`**; read recommendations across real
+   traffic (Recommend stage).
+3. Set `containerPolicies` bounds; choose requests-only versus
+   requests-and-limits.
+4. Point HPA at a **non-competing** metric if you scale horizontally.
+5. Move toward **`InPlaceOrRecreate` or `InPlace`** only after numbers and
+   PDBs look sane; widen blast radius using something like the ladder
+   above.
+6. Wire multi-signal verify (and revert) before you call it hands-off.
+7. Only then add custom policy (confidence-style headroom, diurnal
+   buckets, stricter dampening) if VPA defaults are not enough.
+
+If you replace the recommender or actuator later, **keep the same jobs**:
+prefer resize, verify, revert with backoff, coexist with HPA, dampen,
+respect history and load shape.
+
+---
+
+## Feedback that improves the whole loop
+
+If you run in-place resize in production and hit sharp edges, feature
+owners care about concrete reports more than abstract designs. Examples:
+
+- OOM after memory decrease despite kubelet guards (see also
+  [kubernetes/kubernetes#135670](https://github.com/kubernetes/kubernetes/issues/135670))
+- Resizes stuck deferred or infeasible without clear operator guidance
+- Runtimes that ignore live memory or CPU changes
+- Scheduler and kubelet races around resize (tracked for example in
+  [kubernetes/kubernetes#126891](https://github.com/kubernetes/kubernetes/issues/126891);
+  the [IPPR GA post](/blog/2025/12/19/kubernetes-v1-35-in-place-pod-resize-ga/)
+  also calls out this class of work under improved stability)
+
+---
+
+## Closing
+
+Hands-off right-sizing is not a single flag. It is several capabilities
+working as one control loop:
+
+| Piece | Job |
+|-------|-----|
+| In-place resize | Apply without kill or restart when possible |
+| VPA (or equivalent) | Measure, recommend, apply with policy bounds |
+| HPA metric choice | Horizontal scale without fighting vertical math |
+| Verify and revert | Detect harm; undo live; back off when stuck |
+| History, dampening, staged scope | Earn the right to be unattended |
+
+In-place Pod resize removed the old assumption that vertical change must
+replace the Pod. The remaining work is operational: get measure, decide,
+apply, verify, and horizontal policy working together so adaptation can run
+without teaching users that right-sizing means downtime.
+
+Start from the docs and VPA modes. Add autonomy only as fast as verify and
+HPA coexistence allow. Use the field examples above when you need more
+policy detail, and send sharp production feedback upstream when the API
+or add-ons still fall short. That is the path to resizing that keeps
+adapting, and keeps Pods alive.
