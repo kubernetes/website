@@ -220,7 +220,7 @@ Antes de revisar PRs del blog, familiarízate con las [pautas del blog](/docs/co
 con el envío de [publicaciones de blog y estudios de caso](/docs/contribute/new-content/blogs-case-studies/).
 
 Asegúrate de conocer también los artículos [perdurables (*evergreen*)](/docs/contribute/blog/#maintenance-evergreen)
-y cómo decidir si un artículo es perenne.
+y cómo decidir si un artículo es perdurable.
 
 Los artículos de blog pueden contener [citas directas](https://es.wikipedia.org/wiki/Cita) y 
 [estilo indirecto](https://es.wikipedia.org/wiki/Estilo_indirecto). Evita sugerir una nueva redacción para 
