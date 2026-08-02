@@ -27,7 +27,7 @@ Windowsでは、レイヤードファイルシステムドライバーを使用�
 * ホストマウントのプロジェクション
 * 読み取り専用のrootファイルシステム(読み取り専用のボリュームでは引き続き`readOnly`をサポート)
 * ブロックデバイスのマッピング
-* メモリをストレージ媒体として使用すること (例: `emptyDir.medium`に`Memory`を指定)
+* メモリをストレージ媒体として使用すること(例: `emptyDir.medium`に`Memory`を指定)
 * uid/gidやLinuxのユーザー単位のファイルシステム権限などのファイルシステム機能
 * [DefaultModeによるSecretのアクセス権限](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) の設定(UID/GIDに依存するため)
 * NFSベースのストレージおよびボリュームのサポート
