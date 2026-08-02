@@ -229,7 +229,7 @@ Para estos casos, intenta también respetar la puntuación sugerida por el autor
 
 Como proyecto, solo marcamos los artículos de blog como mantenidos (`evergreen: true` en el *front matter*) si el proyecto Kubernetes 
 está dispuesto a comprometerse a mantenerlos indefinidamente. 
-Algunos artículos de blog definitivamente lo merecen, y siempre marcamos nuestros anuncios de lanzamiento como perennes (*evergreen*). Consulta con otros colaboradores si no estás seguro de cómo revisar sobre este punto.
+Algunos artículos de blog definitivamente lo merecen, y siempre marcamos nuestros anuncios de lanzamiento como perdurables (*evergreen*). Consulta con otros colaboradores si no estás seguro de cómo revisar sobre este punto.
 
 La [guía de contenido](/docs/contribute/style/content-guide/) aplica incondicionalmente a los artículos de blog y a las PRs que los añaden. Ten en cuenta que algunas restricciones de la guía indican que solo son relevantes para la documentación; esas restricciones no aplican a los artículos de blog.
 
