@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-shared-pool
+  annotations:
+    kubernetes.io/description: "A pod demonstrating a configuration that is rejected because exclusive containers consume the entire pod resource budget, leaving no resources for the remaining container in the shared pool."
+spec:
+  # На рівні Podʼа, Pod має запит на CPU, рівний лімітам, і запит на памʼять також
+  # рівний лімітам памʼяті. Контейнер main-app і metrics-sidecar відповідають вимогам для
+  # класу QoS Guaranteed на рівні контейнера, а контейнер logging-sidecar не вказує
+  # жодного запиту на ресурси. Оскільки контейнери Guaranteed споживають весь ресурсний
+  # бюджет Podʼа, залишаючи 0 CPU для спільного пулу, необхідного для logging-sidecar,
+  # цей Pod буде відхилено при допуску.
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: metrics-sidecar
+    image: registry.example/example-image:v1
+    restartPolicy: Always
+    resources:
+      requests:
+        cpu: "1"
+        memory: "1Gi"
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+  - name: logging-sidecar
+    image: registry.example/example-image:v1
+    restartPolicy: Always
+  containers:
+  - name: main-app
+    image: registry.example/example-image:v1
+    resources:
+      requests:
+        cpu: "3"
+        memory: "3Gi"
+      limits:
+        cpu: "3"
+        memory: "3Gi"
