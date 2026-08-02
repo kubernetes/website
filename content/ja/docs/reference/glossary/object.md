@@ -3,7 +3,7 @@ title: オブジェクト
 id: object
 full_link: /docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
-   クラスターの状態の一部を表すKubernetesシステムにあるエンティティ。
+   クラスターの状態の一部を表す、Kubernetesシステムにおけるエンティティ。
 aka:
 tags:
 - architecture
