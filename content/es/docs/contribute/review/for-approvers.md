@@ -134,7 +134,7 @@ Issues encuentra los *issues* que podrían necesitar triaje.
 
   A tu discreción, asume la propiedad de un *issue* y envía una PR para él (especialmente si es rápido o se relaciona con un trabajo que ya estás realizando).
 
-Si tienes preguntas sobre cómo triar un *issue*, consulta en `#sig-docs` en Slack o en la 
+Si tienes preguntas sobre cómo clasificar un *issue*, consulta en `#sig-docs` en Slack o en la 
 [lista de correo de kubernetes-sig-docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
 ## Añadir y eliminar etiquetas de issues
