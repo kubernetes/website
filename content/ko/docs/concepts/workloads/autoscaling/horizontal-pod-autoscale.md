@@ -10,6 +10,7 @@ feature:
 content_type: concept
 weight: 60
 math: true
+aliases: [/ko/docs/tasks/run-application/horizontal-pod-autoscale/]
 ---
 
 <!-- overview -->
