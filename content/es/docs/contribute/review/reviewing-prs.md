@@ -249,7 +249,7 @@ Como revisor, si identificas pequeños problemas con una PR que no son esenciale
 como errores tipográficos o espacios en blanco incorrectos, antepone `nit:`: a tus 
 comentarios. Esto le permite saber al autor que esa parte de tus comentarios no es crítica.
 
-Si estás considerando aprobar una pull request y todos los comentarios restantes están
+Si estás considerando aprobar un pull request y todos los comentarios restantes están
 marcados como nit, puedes fusionar la PR de todos modos. En ese caso, a menudo es útil abrir
 un issue sobre los nits restantes. Considera si puedes cumplir con los requisitos para marcar
 ese nuevo issue como [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue);
