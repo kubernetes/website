@@ -23,7 +23,7 @@ CNI 플러그인은
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) 이상의
 CNI 명세와 호환되는 CNI 플러그인을 사용해야 한다.
 쿠버네티스 프로젝트는
-CNI 명세 [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)과
+CNI 명세 [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)와
 호환되는 플러그인의 사용을 권장한다(플러그인은 여러 사양 버전과 호환될 수 있다).
 
 <!-- body -->
