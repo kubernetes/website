@@ -40,7 +40,7 @@ weave-net-7nmwt                         2/2       Running   3          9d       
 weave-net-pmw8w                         2/2       Running   0          9d        192.168.2.216   worknode2
 ```
 
-各ノードにweave Podが存在し、すべてのPodが`Running`かつ`2/2 READY`状態になっています（`2/2`は、各Podに`weave`と`weave-npc`が含まれていることを意味します）。
+各ノードにweave Podが存在し、すべてのPodが`Running`かつ`2/2 READY`状態になっています(`2/2`は、各Podに`weave`と`weave-npc`が含まれていることを意味します)。
 
 ## {{% heading "whatsnext" %}}
 
