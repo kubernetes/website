@@ -50,7 +50,7 @@ no_list: true
   사용하면 클러스터 외부의 클라이언트가 서비스에 접근할 수 있다.
 
   * 더 단순하지만 구성 옵션이 적은 클러스터
-    인그레스 방식은 지원되는 {{< glossary_tooltip term_id="cloud-provider">}}를 사용하는 경우 서비스 API의
+    인그레스 방식은 지원되는 {{< glossary_tooltip text="클라우드 공급자" term_id="cloud-provider" >}}를 사용하는 경우 서비스 API의
     [`type: LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer)를 통해
     사용할 수 있다.
 
