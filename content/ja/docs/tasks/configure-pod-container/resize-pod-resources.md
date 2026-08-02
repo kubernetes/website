@@ -11,26 +11,22 @@ min-kubernetes-server-version: 1.35
 
 このページでは、Podを再作成することなく、Podレベルで設定されたCPUリソースやメモリリソースを変更する方法を説明します。
 
-インプレースPodリサイズ機能を使用すると、アプリケーションを中断することなく、実行中のPodのリソース割り当てを変更することができます。個別のコンテナのリソースをリサイズする手順については、[コンテナに割り当てるCPUとメモリ容量を変更する](/docs/tasks/configure-pod-container/resize-container-resources)で取り上げています。
+インプレースPodリサイズ機能を使用すると、アプリケーションを中断することなく実行中のPodのリソース割り当てを変更することができます。個別のコンテナのリソースをリサイズする手順については、[コンテナに割り当てるCPUとメモリ容量を変更する](/docs/tasks/configure-pod-container/resize-container-resources)で取り上げています。
 
-This page highlights In-place Pod-level resources resize. Pod-level resources
-are defined in `spec.resources` and they act as the upper bound on the aggregate resources
-consumed by all containers in the Pod. The In-place Pod-level resources resize feature
-lets you change these aggregate CPU and memory allocations for a running Pod directly.
+このページは、インプレースなPodレベルリソースのリサイズに焦点を当てています。Podレベルのリソースは `spec.resources` で定義され、Pod内の各コンテナが消費するリソースの合計の上限として機能します。インプレースPodレベルリソースリサイズ機能により、実行中のPodに対して、Pod全体のCPUとメモリの割り当て量を直接変更できます。
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The following [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled for your control plane and for all nodes in your cluster:
+コントロールプレーンおよびクラスター内のすべてのノードで、以下の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります:
 
 * [`InPlacePodLevelResourcesVerticalScaling`](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodLevelResourcesVerticalScaling)
 * [`PodLevelResources`](/docs/reference/command-line-tools-reference/feature-gates/#PodLevelResources)
 * [`InPlacePodVerticalScaling`](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodVerticalScaling)
 * [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures)
 
-The kubectl client version must be at least v1.32 to use the `--subresource=resize` flag.
+`--subresource=resize` フラグを使用するには、kubectlクライアントのバージョンがv1.32以上である必要があります。
 
 ## Pod Resize Status and Retry Logic
 
