@@ -186,7 +186,7 @@ Los revisores pueden verificar la compilación utilizando uno de los siguientes 
   hugo --gc --minify --templateMetrics --environment production
   ```
 
-#### Verify the output
+#### Verifica la salida
  
 Una compilación exitosa mostrará una tabla de resumen:
 
