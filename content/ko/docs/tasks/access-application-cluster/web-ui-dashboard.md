@@ -15,6 +15,18 @@ card:
   title: 웹 UI 대시보드 사용
 ---
 
+{{% pageinfo color="primary" %}}
+**쿠버네티스 대시보드는 지원 중단되었으며 유지보수되지 않는다.**
+
+쿠버네티스 대시보드 프로젝트는 아카이브되었으며 더 이상 활발하게 유지보수되지 않는다.
+새로 설치할 때, [헤드램프(Headlamp)](https://headlamp.dev/) 사용을 고려한다.
+{{% /pageinfo %}}
+
+{{< note >}}
+쿠버네티스 대시보드와 유사한 인클러스터(in-cluster) 배포를 위해서는, 
+[헤드램프 인클러스터 설치 가이드](https://headlamp.dev/docs/latest/installation/in-cluster/)를 참고한다.
+{{< /note >}}
+
 <!-- overview -->
 
 대시보드는 웹 기반 쿠버네티스 유저 인터페이스이다.
@@ -34,10 +46,18 @@ card:
 
 ## 대시보드 UI 배포
 
-대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 실행한다.
+{{< note >}}
+쿠버네티스 대시보드는 현재 헬름(Helm) 기반 설치만 지원한다. 이 방식이 더 빠르고, 
+대시보드 실행에 필요한 모든 의존성을 효과적으로 제어할 수 있기 때문이다.
+{{< /note >}}
 
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
+대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 실행한다:
+
+```shell
+# kubernetes-dashboard 저장소 추가
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# kubernetes-dashboard 차트를 사용하여 "kubernetes-dashboard"라는 이름의 헬름 릴리스 배포
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
 ## 대시보드 UI 접근
@@ -257,3 +277,5 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
 
 더 많은 정보는
 [쿠버네티스 대시보드 프로젝트 페이지](https://github.com/kubernetes/dashboard)를 참고한다.
+
+
