@@ -113,9 +113,9 @@ How to migrate:
 
 Containerd support announcement: [Get automated full-stack visibility into
 containerd-based Kubernetes
-environments](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
+environments](https://www.dynatrace.com/news/blog/)
 
-CRI-O support announcement: [Get automated full-stack visibility into your CRI-O Kubernetes containers (Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
+CRI-O support announcement: [Get automated full-stack visibility into your CRI-O Kubernetes containers (Beta)](https://www.dynatrace.com/news/blog/)
 
 The pod accessing Docker may have name containing: 
 - `dynatrace-oneagent`
