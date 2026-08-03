@@ -42,7 +42,7 @@ The statuses, reasons, and retry priorities are identical to those defined for c
 
 For a full description of these conditions and retry logic, please refer to the [Podリサイズステータス](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status) section in the container resize documentation.
 
-## Container Resize Policy and Pod-Level Resize
+## コンテナリサイズポリシーとPodレベルのリサイズ {#container-resize-policy-and-pod-level-resize}
 
 Pod-level resource resize does not support or require its own restart policy.
 
@@ -50,7 +50,7 @@ Pod-level resource resize does not support or require its own restart policy.
 
 * [コンテナのポリシー](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies) Still Governs: The resizePolicy must still be configured at the container level (spec.containers[*].resizePolicy). This policy governs whether an individual container is restarted when its resource requests or limits change, regardless of whether that change was initiated by a direct container-level resize or by an update to the overall Pod-level resource envelope.
 
-## Limitations
+## 制限事項 {#limitations}
 
 For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: [コンテナに割り当てるCPUとメモリ容量を変更する: 制限事項](/docs/tasks/configure-pod-container/resize-container-resources/#limitations).
 
@@ -68,7 +68,7 @@ Additionally, the following constraint is specific to Pod-level resource resize:
   the sum of container limits is permitted to exceed the Pod-level limit, enabling
   resource sharing across containers within the Pod.
 
-## Example: Resizing Pod-Level Resources
+## 例: Podレベルリソースのリサイズ {#example-resizing-pod-level-resources}
 
 First, create a Pod designed for in-place CPU resize and restart-required memory resize.
 
@@ -121,7 +121,7 @@ You should see:
 * `status.containerStatuses[1].restartCount` increased to `1` indicating the
   container was restarted to apply the CPU change. The restart occurred in Container 1 despite the resize being applied at the Pod level, due to the intricate relationship between Pod-level limits and container-level policies. Because Container 1 did not specify an explicit CPU limit, its underlying resource configuration (For example, cgroups) implicitly adopted the Pod's overall CPU limit as its effective maximum consumption boundary. When the Pod-level CPU limit was patched from 200m to 300m, this action consequently changed the implicit limit enforced on Container 1. Since Container 1 had its resizePolicy explicitly set to RestartContainer for CPU, the `kubelet` was obligated to restart the container to correctly apply this change in the underlying resource enforcement mechanism, thus confirming that altering Pod-level limits can trigger container restart policies even when container limits are not directly defined.
 
-## Clean up
+## クリーンアップ {#clean-up}
 
 Delete the pod:
 
@@ -131,7 +131,7 @@ kubectl delete pod pod-level-resize-demo
 
 ## {{% heading "whatsnext" %}}
 
-### For application developers
+### アプリケーション開発者向け {#for-application-developers}
 
 * [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
@@ -139,7 +139,7 @@ kubectl delete pod pod-level-resize-demo
 
 * [PodレベルでのCPUとメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-### For cluster administrators
+### クラスター管理者向け {#for-cluster-administrators}
 
 * [Namespaceのデフォルトのメモリ要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
