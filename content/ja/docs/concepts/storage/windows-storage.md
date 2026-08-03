@@ -46,7 +46,7 @@ Windowsでは、概ね以下のKubernetesボリュームプラグインがサポ
 
 * [`FlexVolume プラグイン`](/docs/concepts/storage/volumes/#flexvolume)
   * FlexVolumeはKubernetes 1.23で非推奨となっています。
-* [`CSI プラグイン`](/docs/concepts/storage/volumes/#csi)
+* [`CSIプラグイン`](/docs/concepts/storage/volumes/#csi)
 
 ##### In-tree ボリュームプラグイン {#in-tree-volume-plugins}
 
