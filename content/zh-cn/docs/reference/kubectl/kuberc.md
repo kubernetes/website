@@ -22,26 +22,32 @@ Kubernetes `kuberc` 配置文件允许你定义 {{<glossary_tooltip text="kubect
 与 kubeconfig 文件不同，`kuberc` 配置文件**不**包含集群详情、用户名或密码。
 
 <!--
-The default location of this configuration file is `$HOME/.kube/kuberc`.
+On Linux / POSIX computers, the default location of this configuration file is `$HOME/.kube/kuberc`.
+The default path on Windows is similar: `%USERPROFILE%\.kube\kuberc`.
 To provide kubectl with a path to a custom kuberc file, use the `--kuberc` command line option,
 or set the `KUBERC` environment variable. 
 -->
-此配置文件的默认位置是 `$HOME/.kube/kuberc`。
+在 Linux / POSIX 计算机上，此配置文件的默认位置是 `$HOME/.kube/kuberc`。
+Windows 上的默认路径与之类似：`%USERPROFILE%\.kube\kuberc`。
 要提供路径指向自定义 kuberc 文件的 kubectl，使用 `--kuberc` 命令行选项，或设置 `KUBERC` 环境变量。
 
 <!--
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
-two types of user preferences:
+the following types of user preferences:
 
 1. [Aliases](#aliases) - allow you to create shorter versions of your favorite
    commands, optionally setting options and arguments.
 2. [Defaults](#defaults) - allow you to configure default option values for your
    favorite commands.
+3. [Credential Plugin Policy](#credential-plugin-policy) - allow you to configure
+   a policy for exec credential plugins.
 -->
-使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 文件允许你定义两种用户偏好设置：
+使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 文件允许你定义以下几类用户偏好设置：
 
 1. [别名（Aliase）](#aliases) —— 允许你为常用命令创建更短的版本，可以选择设置选项和参数。
 1. [默认值（Default）](#defaults) —— 允许你为常用命令配置默认的选项值。
+1. [凭据插件策略（Credential Plugin Policy）](#credential-plugin-policy) ——
+   允许你为 exec 凭据插件配置策略。
 
 <!--
 ## aliases
@@ -241,9 +247,333 @@ The kubectl maintainers encourage you to adopt kuberc with the following default
 有了此设置，运行 `kubectl delete pod/test-pod` 将默认提示确认。
 然而，执行 `kubectl delete pod/test-pod --interactive=false` 将跳过确认提示。
 
+<!--
+## Credential plugin policy
+
+Editors of a `kubeconfig` can specify an executable plugin that will be used to
+acquire credentials to authenticate the client to the cluster. Within a `kuberc`
+configuration, you can set the execution policy for such plugins by the use of
+two top-level fields. Both fields are optional.
+-->
+## 凭据插件策略   {#credential-plugin-policy}
+
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
+
+kubeconfig 的编写者可以指定一个可执行插件，用于获取凭据以向集群认证客户端。
+在 `kuberc` 配置中，你可以通过两个顶层字段为这类插件设置执行策略。
+这两个字段都是可选的。
+
+<!--
+### credentialPluginPolicy
+
+You can configure a policy for credentials plugins, using the optional
+`credentialPluginPolicy` field. There are three valid values for this field:
+
+1. `"AllowAll"`
+
+When the policy is set to `"AllowAll"`, there will be no restrictions on which
+plugins may run. This behavior is identical to that of Kubernetes versions prior
+to 1.35.
+
+2. `"DenyAll"`
+
+When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
+-->
+### credentialPluginPolicy
+
+你可以使用可选的 `credentialPluginPolicy` 字段为凭据插件配置策略。
+此字段有三个有效值：
+
+1. `"AllowAll"`
+
+当策略设置为 `"AllowAll"` 时，对可以运行哪些插件没有任何限制。
+此行为与 1.35 之前的 Kubernetes 版本完全相同。
+
+2. `"DenyAll"`
+
+当策略设置为 `"DenyAll"` 时，任何 exec 插件都不允许运行。
+
+<!--
+3. `"Allowlist"`
+
+When the policy is set to `"Allowlist"`, the user can selectively allow
+execution of credential plugins. When the policy is `"Allowlist"`, you **must**
+also provide the `credentialPluginAllowlist` field (also in the top-level). That
+field is described below.
+-->
+3. `"Allowlist"`
+
+当策略设置为 `"Allowlist"` 时，用户可以有选择地允许执行某些凭据插件。
+当策略为 `"Allowlist"` 时，你还**必须**提供 `credentialPluginAllowlist`
+字段（同样位于顶层）。该字段在下文中描述。
+
+{{< note >}}
+<!--
+In order to maintain backward compatibility, an unspecified or empty
+`credentialPluginPolicy` is identical to explicitly setting the policy to
+`"AllowAll"`.
+-->
+为了保持向后兼容，未指定或为空的 `credentialPluginPolicy`
+与显式将策略设置为 `"AllowAll"` 效果完全相同。
+{{< /note >}}
+
+### credentialPluginAllowlist
+
+{{< note >}}
+<!--
+Setting this field when `credentialPluginPolicy` is not `Allowlist` (including
+when that field is missing or empty) is considered a configuration error.
+-->
+当 `credentialPluginPolicy` 不是 `Allowlist`（包括该字段缺失或为空）时设置此字段，
+会被视为配置错误。
+{{< /note >}}
+
+<!--
+The `credentialPluginAllowlist` field specifies a list of criteria-sets (sets of
+*requirements*) for permission to execute credential plugins. Each set of
+requirements will be attempted in turn; once the plugin meets all requirements
+in at least one set, the plugin will be permitted to execute. That is, the
+overall result of an application of the allowlist to plugin `my-binary-plugin`
+is the _logical OR_ of the decisions rendered by each item in the list.
+
+As an example, consider the following allowlist configuration:
+-->
+`credentialPluginAllowlist` 字段指定一个判定条件集合（即若干**要求**的集合）的列表，
+用于决定是否允许执行凭据插件。系统会依次尝试每个要求集合；
+只要插件满足至少一个集合中的全部要求，该插件就会被允许执行。
+也就是说，将允许列表应用于插件 `my-binary-plugin` 的总体结果，
+是列表中每一项判定结果的**逻辑或**。
+
+例如，考虑以下允许列表配置：
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - command: foo
+  - command: bar
+  - command: baz
+```
+
+<!--
+In the above example, the allowlist will allow plugins that have the command "foo",
+"bar", _OR_ "baz".
+-->
+在上面的示例中，允许列表将允许命令为 "foo"、"bar" **或** "baz" 的插件。
+
+{{< note >}}
+<!--
+For a set of requirements to be valid it **must** have at least one field that is
+nonempty and explicitly specified. If all fields are empty or unspecified, it is
+considered a configuration error and the plugin will not be allowed to execute.
+Likewise if the `credentialPluginAllowlist` field is unspecified, or if it is
+specified explicitly as the empty list. This is in order to prevent scenarios
+where the user misspells the `credentialPluginAllowlist` key -- thinking they
+have specified an allowlist when they actually haven't.
+
+For example, the following is invalid:
+-->
+一个要求集合**必须**至少有一个非空且显式指定的字段才有效。
+如果所有字段都为空或未指定，则被视为配置错误，插件将不被允许执行。
+如果 `credentialPluginAllowlist` 字段未指定，或被显式指定为空列表，情况也是如此。
+这是为了防止用户拼错 `credentialPluginAllowlist` 键名 ——
+以为自己指定了允许列表，而实际上并没有。
+
+例如，以下配置是无效的：
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - command: ""
+```
+{{< /note >}}
+
+<!--
+##### command
+
+`command` names a credential plugin which may be executed. It can be specified as
+either the basename of the desired plugin, or the full path. If specified as a
+basename, the decision rendered by this field is "allow" if one of the following
+two conditions is met:
+
+1. The `command` field is exactly equal to the plugin's `command` field.
+1. Full path resolution is performed on both the allowlist `command` and the
+   plugin's `command`, and the results are equal.
+-->
+##### command
+
+`command` 指定可以被执行的凭据插件。它可以被指定为目标插件的基本名称（basename）
+或完整路径。如果被指定为基本名称，则当满足以下两个条件之一时，
+此字段的判定结果为“允许”：
+
+1. `command` 字段与插件的 `command` 字段完全相等。
+1. 对允许列表中的 `command` 和插件的 `command` 都执行完整路径解析，二者结果相等。
+
+<!--
+If specified as a full path, the decision rendered by this field is "allow" if
+one of the following conditions is met:
+
+1. The `command` field is exactly equal to the plugin's `command` field (i.e. the
+   plugin's `command` is also a full path).
+1. Full path resolution is performed on the plugin's `command` and the allowlist
+   `command` field is an exact match.
+
+With regard to _full path resolution_ mentioned earlier in this page,
+neither symlinks nor shell globs are resolved.
+-->
+如果被指定为完整路径，则当满足以下条件之一时，此字段的判定结果为“允许”：
+
+1. `command` 字段与插件的 `command` 字段完全相等（即插件的 `command` 也是完整路径）。
+1. 对插件的 `command` 执行完整路径解析，允许列表中的 `command` 字段与解析结果完全匹配。
+
+关于本页前文提到的**完整路径解析**，符号链接和 Shell 通配符都不会被解析。
+
+<!--
+For example, consider an allowlist entry with the `command` `/usr/local/bin/my-binary`,
+where `/usr/local/bin/my-binary` is a symlink to `/this/is/a/target`. If `command`
+specified in the kubeconfig is `/this/is/a/target`, it will not be allowed. In
+order to make that work, you would need to add `/this/is/a/target` to the
+allowlist explicitly. On the other hand, if the kubeconfig has the `command` as
+`/usr/local/bin/my-binary`, then the allowlist would permit it to run.
+-->
+例如，考虑 `command` 为 `/usr/local/bin/my-binary` 的允许列表条目，
+其中 `/usr/local/bin/my-binary` 是指向 `/this/is/a/target` 的符号链接。
+如果 kubeconfig 中指定的 `command` 是 `/this/is/a/target`，它将不被允许。
+要使其生效，你需要将 `/this/is/a/target` 显式添加到允许列表中。
+另一方面，如果 kubeconfig 中的 `command` 是 `/usr/local/bin/my-binary`，
+则允许列表会允许它运行。
+
+{{< note >}}
+<!--
+While kuberc is in beta, `name` may be used as an alias for `command` in
+allowlist entries. From Kubernetes 1.36 onward, `name` is deprecated in favor
+of `command`. Supplying **both** `name` and `command` in the same allowlist
+entry is considered an error, because these are security-sensitive settings.
+The `name` field will be removed entirely when kuberc reaches GA.
+-->
+在 kuberc 处于 Beta 阶段期间，允许列表条目中的 `name` 可以作为 `command` 的别名使用。
+从 Kubernetes 1.36 开始，`name` 已被弃用，取而代之的是 `command`。
+在同一个允许列表条目中**同时**提供 `name` 和 `command` 会被视为错误，
+因为这些是安全敏感的设置。当 kuberc 达到 GA 时，`name` 字段将被完全移除。
+{{< /note >}}
+
+<!--
+### Example {#credential-plugin-policy-example}
+
+The following example shows an `"Allowlist"` policy with its allowlist:
+-->
+### 示例   {#credential-plugin-policy-example}
+
+以下示例展示 `"Allowlist"` 策略及其允许列表：
+
+{{< tabs name="tab_with_code" >}}
+{{< tab name="POSIX" codelang="yaml" >}}
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - command: my-trusted-binary
+  - command: /usr/local/bin/my-other-trusted-binary
+{{< /tab >}}
+{{< tab name="Windows" codelang="yaml" >}}
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - command: my-trusted-binary
+  - command: "C:\my-other-trusted-binary"
+{{< /tab >}}
+{{< /tabs >}}
+
+<!--
+### Managing credential plugin policy with `kubectl kuberc set`
+
+Rather than editing the kuberc file directly, you can use `kubectl kuberc set` to
+configure the credential plugin policy from the command line.
+-->
+### 使用 `kubectl kuberc set` 管理凭据插件策略   {#managing-credential-plugin-policy-with-kubectl-kuberc-set}
+
+你可以不直接编辑 kuberc 文件，而是使用 `kubectl kuberc set`
+从命令行配置凭据插件策略。
+
+<!--
+```shell
+# Set the policy to deny all credential plugins
+kubectl kuberc set --section credentialplugin --policy DenyAll
+
+# Set the policy to allow all credential plugins
+kubectl kuberc set --section credentialplugin --policy AllowAll
+
+# Allow only specific credential plugins
+kubectl kuberc set --section credentialplugin \
+    --policy Allowlist \
+    --allowlist-entry command=my-trusted-binary \
+    --allowlist-entry command=my-other-trusted-binary
+```
+-->
+```shell
+# 将策略设置为拒绝所有凭据插件
+kubectl kuberc set --section credentialplugin --policy DenyAll
+
+# 将策略设置为允许所有凭据插件
+kubectl kuberc set --section credentialplugin --policy AllowAll
+
+# 仅允许特定的凭据插件
+kubectl kuberc set --section credentialplugin \
+    --policy Allowlist \
+    --allowlist-entry command=my-trusted-binary \
+    --allowlist-entry command=my-other-trusted-binary
+```
+
+<!--
+In this example, the following flags were used:
+
+1. `--section credentialplugin` - Select the credential plugin configuration section.
+1. `--policy` - Required. Set the policy to `AllowAll`, `DenyAll`, or `Allowlist`.
+1. `--allowlist-entry` - Required when `--policy=Allowlist`. Specify a plugin to allow
+   using comma-separated `key=value` pairs. Currently `command` is the only
+   supported key (for example, `command=<binary-name>`), but the format
+   anticipates future additions such as digest or public-key verification.
+   Repeat this flag to allow multiple plugins.
+-->
+在此示例中，使用了以下标志：
+
+1. `--section credentialplugin` —— 选择凭据插件配置节。
+1. `--policy` —— 必需。将策略设置为 `AllowAll`、`DenyAll` 或 `Allowlist`。
+1. `--allowlist-entry` —— 当 `--policy=Allowlist` 时必需。
+   使用逗号分隔的 `key=value` 对指定要允许的插件。
+   目前 `command` 是唯一受支持的键（例如 `command=<二进制名称>`），
+   但此格式为将来的扩展（例如摘要或公钥验证）预留了空间。
+   重复此标志可允许多个插件。
+
 ## 建议的默认值  {#suggested-defaults}
 
 kubectl 维护者建议你使用以下默认值来启用 kuberc：
+
+{{< caution >}}
+<!--
+If you are using a managed Kubernetes provider, check your provider's
+documentation about what exec plugins are needed in your environment, and use
+the ["Allowlist"](#credentialPluginPolicy) policy instead.
+
+If you encounter problems after setting the ["DenyAll"](#credentialPluginPolicy)
+policy as illustrated below, observe `kubectl`'s error messages to discover
+which plugins have been prevented from running and cross-reference them with
+your provider's documentation. Finally, change the policy to "Allowlist" and add
+the necessary plugins in the
+[credentialPluginAllowlist](#credentialPluginAllowlist) field.
+-->
+如果你使用的是托管 Kubernetes 提供商，请查阅提供商的文档，
+了解你的环境需要哪些 exec 插件，并改用 ["Allowlist"](#credentialPluginPolicy) 策略。
+
+如果你在按下文所示设置 ["DenyAll"](#credentialPluginPolicy) 策略后遇到问题，
+请观察 `kubectl` 的错误消息，找出哪些插件被阻止运行，
+并与提供商的文档交叉核对。最后，将策略改为 "Allowlist"，
+并在 [credentialPluginAllowlist](#credentialPluginAllowlist) 字段中添加所需的插件。
+{{< /caution >}}
 
 <!--
 ```yaml
@@ -261,6 +591,9 @@ defaults:
     options:
       - name: interactive
         default: "true"
+
+# See the above note about managed providers before selecting DenyAll
+credentialPluginPolicy: DenyAll
 ```
 -->
 ```yaml
@@ -278,6 +611,9 @@ defaults:
     options:
       - name: interactive
         default: "true"
+
+# 在选择 DenyAll 之前，请阅读上文关于托管提供商的说明
+credentialPluginPolicy: DenyAll
 ```
 
 <!--
@@ -285,11 +621,13 @@ In this example, the following settings are enforced:
 1. Defaults to using [Server-Side Apply](/docs/reference/using-api/server-side-apply/).
 1. Defaults to interactive removal whenever invoking `kubectl delete` to prevent
    accidental removal of resources from the cluster.
+1. No executable credential plugins will be permitted to execute.
 -->
 在此示例中，强制使用以下设置：
 
 1. 默认使用[服务端应用](/zh-cn/docs/reference/using-api/server-side-apply/)。
 1. 调用 `kubectl delete` 时默认进行交互式移除，以防止意外移除集群中的资源。
+1. 不允许执行任何可执行的凭据插件。
 
 <!--
 ## Disable kuberc
@@ -297,6 +635,8 @@ In this example, the following settings are enforced:
 To temporarily disable the `kuberc` functionality, set (and export) the environment
 variable `KUBERC` with the value `off`:
 -->
+## 禁用 kuberc   {#disable-kuberc}
+
 要临时禁用 `kuberc` 功能，只需导出环境变量 `KUBERC` 并将其值设置为 `off`：
 
 ```shell
@@ -311,3 +651,8 @@ or disable the feature gate:
 ```shell
 export KUBECTL_KUBERC=false
 ```
+
+<!--
+This might be useful for troubleshooting whether your `kuberc` is causing a problem.
+-->
+这在排查你的 `kuberc` 是否导致了某个问题时可能很有用。
