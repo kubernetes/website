@@ -29,6 +29,15 @@ weight: 30
 `kube-controller-manager` 및 `kube-scheduler`와 같은 컨트롤 플레인 컴포넌트의
 고가용성 설정에서 사용된다.
 
+### 종료 시 kube-controller-manager 잠금 해제
+
+{{< feature-state feature_gate_name="ControllerManagerReleaseLeaderElectionLockOnExit" >}}
+
+`ControllerManagerReleaseLeaderElectionLockOnExit` 기능 게이트가 활성화되면,
+`kube-controller-manager`는 리더 전환 중 리더 선출 잠금을 능동적으로 해제하며,
+잠금의 TTL이 만료될 때까지 기다리지 않는다. 이를 통해 새로운 리더를
+더 빠르게 선출할 수 있어 리더 전환 지연 시간이 줄어든다.
+
 ## API 서버 신원
 
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
