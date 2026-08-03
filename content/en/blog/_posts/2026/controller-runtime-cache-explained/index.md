@@ -8,6 +8,13 @@ author: >
   Timofei Larkin (Ænix)
 ---
 
+<!-- TODO: remove this banner once the corrections to this article have merged. -->
+{{< caution >}}
+Some of the technical detail in this article is not accurate. We are reviewing it and preparing
+corrections. Until then, check what you read here against the
+[`controller-runtime` documentation](https://pkg.go.dev/sigs.k8s.io/controller-runtime).
+{{< /caution >}}
+
 Kubernetes has long been the default platform for distributed workloads, and writing your own
 controller for it is now a matter of a few hours. The common path — Golang, using `kubebuilder` on top of
 `controller-runtime` — gives you a project scaffold, types, and a reconciler. For typical
