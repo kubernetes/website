@@ -8,8 +8,8 @@ weight: 50
 
 <!-- overview -->
 네트워킹은 쿠버네티스의 중심적인 부분이지만, 어떻게 작동하는지 정확하게
-이해하기가 어려울 수 있다. 쿠버네티스에는 4가지 대응해야 할 네트워킹
-문제가 있다.
+이해하기가 어려울 수 있다. 쿠버네티스에는 대응해야 할 별개의 네트워킹
+문제가 4가지 있다.
 
 1. 고도로 결합된 컨테이너 간의 통신: 이 문제는
    {{< glossary_tooltip text="파드" term_id="pod" >}}와 `localhost` 통신으로 해결된다.
@@ -64,13 +64,13 @@ weight: 50
 
 네트워크 모델은 각 노드의 컨테이너 런타임에 의해 구현된다.
 가장 일반적인 컨테이너 런타임은 [컨테이너 네트워크 인터페이스](https://github.com/containernetworking/cni)(CNI) 플러그인을 사용하여 네트워크 및 보안 기능을 관리한다.
-여러 공급 업체의 다양한 CNI 플러그인이 존재하며,
+여러 공급업체의 다양한 CNI 플러그인이 존재하며,
 이들 중 일부는 네트워크 인터페이스를 추가 및 제거하는 기본 기능만 제공하는 반면,
 다른 일부는 다른 컨테이너 오케스트레이션 시스템과의 통합, 여러 CNI 플러그인 실행,
 고급 IPAM 기능 등과 같은 보다 정교한 솔루션을 제공한다.
 
 쿠버네티스에서 지원하는 네트워킹 애드온의 일부 목록은
-[이 페이지](/docs/concepts/cluster-administration/addons/#network-and-networking-policy)를 참조한다.
+[이 페이지](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)를 참조한다.
 
 ## {{% heading "whatsnext" %}}
 
