@@ -13,4 +13,4 @@ Kubernetesのプリエンプションロジックは、Node上に存在する優
 
 <!--more-->
 
-Podをスケジューリングできない場合、スケジューラーはそのPodをスケジューリングできるようにするため、優先度の低いPodを[プリエンプトする](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)（追い出す）ことを試みます。
+Podをスケジューリングできない場合、スケジューラーはそのPodをスケジューリングできるようにするため、優先度の低いPodを[プリエンプトする](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)(追い出す)ことを試みます。
