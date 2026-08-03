@@ -9,7 +9,7 @@ aka:
 tags:
 - architecture
 ---
-[オペレーターパターン](/ja/docs/concepts/extend-kubernetes/operator/)は、{{< glossary_tooltip text="コントローラー" term_id="controller" >}}を1つ以上のカスタムリソースにリンクさせるシステム設計です。
+[オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)は、{{< glossary_tooltip text="コントローラー" term_id="controller" >}}を1つ以上のカスタムリソースにリンクさせるシステム設計です。
 
 <!--more-->
 
