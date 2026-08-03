@@ -1,3 +1,9 @@
+---
+title: Windowsストレージ
+content_type: concept
+weight: 110
+---
+
 <!-- overview -->
 
 このページでは、Windowsオペレーティングシステム特有のストレージの概要について説明します。
