@@ -28,19 +28,19 @@ min-kubernetes-server-version: 1.35
 
 `--subresource=resize` フラグを使用するには、kubectlクライアントのバージョンがv1.32以上である必要があります。
 
-## Podのリサイズステータスとリトライロジック {#pod-resize-status-and-retry-logic}
+## Podのリサイズステータスと再試行ロジック {#pod-resize-status-and-retry-logic}
 
-The mechanism the `kubelet` uses to track and retry resource changes is shared between container-level and Pod-level resize requests.
+`kubelet` がリソースの変更を追跡および再試行するために使用するメカニズムは、コンテナレベルとPodレベルのリサイズ要求で共通です。
 
-The statuses, reasons, and retry priorities are identical to those defined for container resize:
+ステータス、理由、および再試行の優先度は、コンテナのリサイズで定義されているものと同様で、以下のとおりです。
 
-* Status Conditions: The `kubelet` uses PodResizePending (with reasons like Infeasible or Deferred) and PodResizeInProgress to communicate the state of the request.
+* ステータス条件: `kubelet` は、要求の状態を伝えるためにPodResizePending(InfeasibleやDeferredなどの理由を伴う)およびPodResizeInProgressを使用します。
 
-* Retry Priority: Deferred resizes are retried based on PriorityClass, then QoS class (Guaranteed over Burstable), and finally by the duration they have been deferred.
+* 再試行優先度: 保留された(Deferred)リサイズは、PriorityClass、次いでQoSクラス(BurstableよりGuaranteedを優先)、そして最後に保留されている期間に基づいて再試行されます。
 
-* Tracking: You can use the `observedGeneration` fields to track which Pod specification (metadata.generation) corresponds to the status of the latest processed resize request.
+* 追跡: `observedGeneration` フィールドを使用することで、直近で処理されたリサイズ要求のステータスがどのPod仕様(metadata.generation)に対応しているかを追跡できます。
 
-For a full description of these conditions and retry logic, please refer to the [Podリサイズステータス](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status) section in the container resize documentation.
+これらの条件および再施行ロジックの完全な説明については、コンテナのリサイズに関するドキュメントの[Podリサイズステータス](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status)セクションを参照してください。
 
 ## コンテナリサイズポリシーとPodレベルのリサイズ {#container-resize-policy-and-pod-level-resize}
 
