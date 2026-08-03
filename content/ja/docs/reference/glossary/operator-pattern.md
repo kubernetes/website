@@ -1,7 +1,7 @@
 ---
 title: オペレーターパターン
 id: operator-pattern
-full_link: /ja/docs/concepts/extend-kubernetes/operator/
+full_link: /docs/concepts/extend-kubernetes/operator/
 short_description: >
   カスタムリソースを管理するために使用される専用のコントローラー。
 
