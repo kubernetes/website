@@ -149,7 +149,7 @@ CNI 네트워킹 플러그인은 파드 수신 및 송신 트래픽 셰이핑도
 }
 ```
 
-이제 파드에 `kubernetes.io/ingress-bandwidth` 와 `kubernetes.io/egress-bandwidth` 어노테이션을 추가할 수 있다.
+이제 파드에 `kubernetes.io/ingress-bandwidth`와 `kubernetes.io/egress-bandwidth` 어노테이션을 추가할 수 있다.
 예를 들면 다음과 같다.
 
 ```yaml
