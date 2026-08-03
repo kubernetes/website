@@ -44,7 +44,7 @@ Kubernetes{{< glossary_tooltip text="ボリューム" term_id="volume" >}}は、
 ボリューム管理コンポーネントは、Kubernetesボリューム[プラグイン](/docs/concepts/storage/volumes/#volume-types)として提供されています。
 Windowsでは、概ね以下のKubernetesボリュームプラグインがサポートされています。
 
-* [`FlexVolume プラグイン`](/docs/concepts/storage/volumes/#flexvolume)
+* [`FlexVolumeプラグイン`](/docs/concepts/storage/volumes/#flexvolume)
   * FlexVolumeはKubernetes 1.23で非推奨となっています。
 * [`CSIプラグイン`](/docs/concepts/storage/volumes/#csi)
 
