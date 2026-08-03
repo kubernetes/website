@@ -33,7 +33,7 @@ Windowsでは、レイヤードファイルシステムドライバーを使用�
 * ブロックデバイスのマッピング
 * メモリをストレージ媒体として使用すること(例: `emptyDir.medium`に`Memory`を指定)
 * uid/gidやLinuxのユーザー単位のファイルシステム権限などのファイルシステム機能
-* [DefaultModeによるSecretのアクセス権限](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) の設定(UID/GIDに依存するため)
+* [DefaultModeによるSecretのアクセス権限](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)の設定(UID/GIDに依存するため)
 * NFSベースのストレージおよびボリュームのサポート
 * マウント済みボリュームの拡張(resizefs)
 
