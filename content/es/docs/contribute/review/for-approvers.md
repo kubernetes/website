@@ -128,7 +128,7 @@ Issues encuentra los *issues* que podrían necesitar triaje.
   `priority/important-longterm` | Hacer esto dentro de los próximos 6 meses.
   `priority/backlog` | Aplazable indefinidamente. Hacer cuando haya recursos disponibles.
   `priority/awaiting-more-evidence` | Marcador de posición para un *issue* potencialmente bueno para que no se pierda.
-  `help` o `good first issue` | Adecuado para alguien con muy poca experiencia en Kubernetes o SIG Docs. Consulta [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) para más información.
+  `help` o `good first issue` | Adecuado para alguien con muy poca experiencia en Kubernetes o SIG Docs. Consulta [Etiquetas Help Wanted y Good First Issue](https://kubernetes.dev/docs/guide/help-wanted/) para más información.
 
   {{< /table >}}
 
