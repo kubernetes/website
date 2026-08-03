@@ -322,7 +322,7 @@ kubectl get secret secret-tiger-docker -o jsonpath='{.data.*}' | base64 -d
 시크릿 매니페스트의 `stringData` 필드를 사용하여 평문 텍스트 콘텐츠(clear text content)를
 제공할 수도 있다.
 
-다음의 메니페스트는 기본 인증 시크릿의 예시이다.
+다음의 매니페스트는 기본 인증 시크릿의 예시이다.
 
 {{% code_sample language="yaml" file="secret/basicauth-secret.yaml" %}}
 
