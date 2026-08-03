@@ -48,7 +48,7 @@ Windowsでは、概ね以下のKubernetesボリュームプラグインがサポ
   * FlexVolumeはKubernetes 1.23で非推奨となっています。
 * [`CSIプラグイン`](/docs/concepts/storage/volumes/#csi)
 
-##### In-tree ボリュームプラグイン {#in-tree-volume-plugins}
+##### In-treeボリュームプラグイン {#in-tree-volume-plugins}
 
 以下のIn-treeプラグインは、Windowsノード上で永続ストレージをサポートしています。
 
