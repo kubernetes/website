@@ -44,11 +44,11 @@ min-kubernetes-server-version: 1.35
 
 ## コンテナリサイズポリシーとPodレベルのリサイズ {#container-resize-policy-and-pod-level-resize}
 
-Pod-level resource resize does not support or require its own restart policy.
+Podレベルのリソースリサイズは、独自の再起動ポリシーをサポートしておらず、必要ともしません。
 
-* No Pod-Level Policy: Changes to the Pod's aggregate resources (spec.resources) are always applied in-place without triggering a restart. This is because Pod-level resources act as an overall constraint on the Pod's cgroup and do not directly manage the application runtime within containers.
+* Podレベルのポリシーは不要: Podの合計リソース(spec.resources)に対する変更は、再起動を発生させることなく、常にインプレースで適用されます。これは、PodレベルのリソースがPodのcgroupに対する全体的な制約として機能するものであり、コンテナ内のアプリケーションランタイムを直接管理するわけではないからです。
 
-* [コンテナのポリシー](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies) Still Governs: The resizePolicy must still be configured at the container level (spec.containers[*].resizePolicy). This policy governs whether an individual container is restarted when its resource requests or limits change, regardless of whether that change was initiated by a direct container-level resize or by an update to the overall Pod-level resource envelope.
+* [コンテナのポリシー](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies)が引き続き適用される: `resizePolicy` は、引き続きコンテナレベル(spec.containers[*].resizePolicy)で設定する必要があります。このポリシーは、リソース要求や制限が変更されたときに個々のコンテナが再起動されるかどうかを制御します。これは、その変更がコンテナレベルの直接的なリサイズによるものか、Podレベル全体のリソース枠の更新によるものかを問いません。
 
 ## 制限事項 {#limitations}
 
