@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "How to Pretty-Print Your Kubernetes YAML as KYAML and Why You'd Want To"
-draft: true
+date: 2026-08-11T10:00:00-08:00
 slug: how-to-pretty-print-kubernetes-yaml-as-kyaml
 author: >
   [Kashish Verma](https://github.com/KashishV999)
@@ -117,7 +117,30 @@ kubectl kuberc set --section defaults --command get --option output=kyaml
 kubectl alpha kuberc set --section defaults --command get --option output=kyaml
 ```
 
-### Option 2: yamlfmt
+### Option 2: Kubernetes' yamlfmt
+
+[sigs.k8s.io/yaml](https://github.com/kubernetes-sigs/yaml) ships a `yamlfmt` tool that can convert files to KYAML. 
+
+Install via Go:
+
+```bash
+go install sigs.k8s.io/yaml/yamlfmt@latest
+```
+
+Running it against a file prints the KYAML version to **stdout**. It also accepts a directory, in which case it converts and prints every file in that directory. 
+_So you'll need to redirect the output to a file (or files) if you want the conversion to stick._
+
+```bash
+yamlfmt -o=kyaml my-deployment.yaml
+```
+
+It can also show you a diff instead of a full conversion:
+
+```bash
+yamlfmt -o=kyaml -d my-deployment.yaml
+```
+
+### Option 3: Google's yamlfmt
 
 For converting existing files, Google's `yamlfmt` added a dedicated [`kyaml` formatter](https://github.com/google/yamlfmt/blob/main/docs/config-file.md#kyaml-formatter) in v0.21.0.
 
@@ -127,7 +150,7 @@ Install via Go, or grab a binary from the [releases page](https://github.com/goo
 go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 ```
 
-It is also available as a [pre-commit hook](https://github.com/google/yamlfmt/blob/main/docs/pre-commit.md) and as a [Docker image](https://github.com/google/yamlfmt) for CI pipelines.
+It is also available as a [pre-commit hook](https://github.com/google/yamlfmt/blob/main/docs/pre-commit.md) and as a [Docker image](https://github.com/google/yamlfmt#basic-usage) for CI pipelines.
 
 Add a `.yamlfmt` config to your project root:
 
@@ -156,6 +179,7 @@ yamlfmt ./k8s/
 
 The `kyaml` formatter takes no additional configuration and does not share options with the default formatter so mixing them will cause an error.
 
+For more on the available modes and flags, check the [command usage docs](https://github.com/google/yamlfmt/blob/main/docs/command-usage.md).
 
 ## Is KYAML worth adopting?
 
