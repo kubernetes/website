@@ -94,7 +94,7 @@ Menciones en GitHub: @kubernetes/release-engineering
 
 ### Cómo convertirse en Release Manager
 
-To convertirse en Release Manager, primero se debe haber desempeñado el rol de Release Manager
+Para convertirse en Release Manager, primero se debe haber desempeñado el rol de Release Manager
 Associate. Los Associates ascienden a Release Manager al trabajar activamente en los
 lanzamientos durante varios ciclos y al:
 
