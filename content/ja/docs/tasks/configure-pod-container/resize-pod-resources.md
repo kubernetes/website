@@ -28,7 +28,7 @@ min-kubernetes-server-version: 1.35
 
 `--subresource=resize` フラグを使用するには、kubectlクライアントのバージョンがv1.32以上である必要があります。
 
-## Pod Resize Status and Retry Logic
+## Podのリサイズステータスとリトライロジック {#pod-resize-status-and-retry-logic}
 
 The mechanism the `kubelet` uses to track and retry resource changes is shared between container-level and Pod-level resize requests.
 
