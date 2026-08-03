@@ -71,7 +71,11 @@ CNI 네트워킹 플러그인은 `hostPort` 를 지원한다. CNI 플러그인 �
 [포트맵(portmap)](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
 플러그인을 사용하거나 portMapping 기능이 있는 자체 플러그인을 사용할 수 있다.
 
-`hostPort` 지원을 사용하려면, `cni-conf-dir` 에 `portMappings capability` 를 지정해야 한다.
+CNI 네트워킹 플러그인은 `hostPort`를 지원한다. CNI 플러그인 팀이 제공하는 공식
+[포트맵(portmap)](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
+플러그인을 사용하거나 portMapping 기능이 있는 자체 플러그인을 사용할 수 있다.
+
+`hostPort`지원을 사용하려면, `cni-conf-dir`에 `portMappings capability`를 지정해야 한다.
 예를 들면 다음과 같다.
 
 ```json
