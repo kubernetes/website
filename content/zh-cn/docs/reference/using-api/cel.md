@@ -210,15 +210,24 @@ CEL 配置了以下选项、库和语言特性，这些特性是在所列的 Kub
   <td><!-- All Kubernetes versions -->所有 Kubernetes 版本</td>
 </tr>
 <tr>
-  <td><!-- <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings">Extended strings library</a>, Version 1</td>
-  <td> -->
+  <td><!-- <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings">Extended strings library</a>, Version 1 -->
   <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings">扩展字符串库</a>，v1</td>
   <td>
     <code>charAt</code>, <code>indexOf</code>, <code>lastIndexOf</code>, <code>lowerAscii</code>,
     <code>upperAscii</code>, <code>replace</code>, <code>split</code>, <code>join</code>, <code>substring</code>,
     <code>trim</code>
   </td>
-  <td><!-- All Kubernetes versions -->所有 Kubernetes 版本</td>
+  <td><!-- Kubernetes versions between 1.25 and 1.30 -->Kubernetes 1.25 至 1.30 版本</td>
+</tr>
+<tr>
+  <td><!-- <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings">Extended strings library</a>, Version 2 -->
+  <a href="https://pkg.go.dev/github.com/google/cel-go/ext#Strings">扩展字符串库</a>，v2</td>
+  <td>
+    <code>charAt</code>, <code>indexOf</code>, <code>lastIndexOf</code>, <code>lowerAscii</code>,
+    <code>upperAscii</code>, <code>replace</code>, <code>split</code>, <code>join</code>, <code>substring</code>,
+    <code>trim</code>
+  </td>
+  <td><!-- Kubernetes versions 1.30+ -->Kubernetes 1.30+ 版本</td>
 </tr>
 <tr>
   <td><!-- Kubernetes list library -->Kubernetes 列表库</td>
@@ -252,6 +261,24 @@ CEL 配置了以下选项、库和语言特性，这些特性是在所列的 Kub
   <td><!-- All Kubernetes versions -->所有 Kubernetes 版本</td>
 </tr>
 <tr>
+  <td><!-- Kubernetes IP address library -->Kubernetes IP 地址库</td>
+  <td>See
+    <a href="#kubernetes-ip-address-library">
+      <!-- Kubernetes IP address library -->Kubernetes IP 地址库
+    </a>
+  </td>
+  <td><!-- Kubernetes versions 1.31+ -->Kubernetes 1.31+ 版本</td>
+</tr>
+<tr>
+  <td><!-- Kubernetes CIDR library -->Kubernetes CIDR 库</td>
+  <td>See
+    <a href="#kubernetes-cidr-library">
+      <!-- Kubernetes CIDR library -->Kubernetes CIDR 库
+    </a>
+  </td>
+  <td><!-- Kubernetes versions 1.31+ -->Kubernetes 1.31+ 版本</td>
+</tr>
+<tr>
   <td><!-- Kubernetes authorizer library -->Kubernetes 鉴权组件库</td>
   <td><!-- See
     <a href="#kubernetes-authorizer-library">
@@ -277,7 +304,25 @@ CEL 配置了以下选项、库和语言特性，这些特性是在所列的 Kub
       Kubernetes 数量库
     </a>
   </td>
-  <td><!-- Kubernetes versions 1.29+ -->Kubernetes v1.29+</td>
+  <td><!-- Kubernetes versions 1.29+ -->Kubernetes 1.29+ 版本</td>
+</tr>
+<tr>
+  <td><!-- Kubernetes format library -->Kubernetes 格式库</td>
+  <td>See
+    <a href="#kubernetes-format-library">
+      <!-- Kubernetes format library -->Kubernetes 格式库
+    </a>
+  </td>
+  <td><!-- Kubernetes versions 1.32+ -->Kubernetes 1.32+ 版本</td>
+</tr>
+<tr>
+  <td><!-- Kubernetes semver library -->Kubernetes semver 库</td>
+  <td>See
+    <a href="#kubernetes-semver-library">
+      <!-- Kubernetes semver library -->Kubernetes semver 库
+    </a>
+  </td>
+  <td><!-- Kubernetes versions 1.34+ -->Kubernetes 1.34+ 版本</td>
 </tr>
 <tr>
   <td><!-- CEL optional types -->CEL 可选类型</td>
@@ -502,6 +547,520 @@ godoc for more information.
 [Kubernetes URL 库](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)。
 
 <!--
+### Kubernetes IP address library
+
+To make it easier and safer to process IP addresses, the following functions have been added:
+
+- `isIP(string)` checks if a string is a valid IP address.
+- `ip(string) IP` converts a string to an IP address object or results in an error if the string is not a valid IP address.
+
+For both functions, the IP address must be an IPv4 or IPv6 address.
+IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4`) are not allowed.
+IP addresses with zones (e.g. `fe80::1%eth0`) are not allowed.
+Leading zeros in IPv4 address octets are not allowed.
+
+Once parsed via the `ip` function, the resulting IP object has the
+following library of member functions:
+
+<table>
+<caption>Available member functions of an IP address object</caption>
+<thead>
+<tr>
+  <th>Member Function</th>
+  <th>CEL Return Value</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCanonical()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is in its canonical form.
+    There is exactly one canonical form for every IP address, so fields containing
+    IPs in canonical form can just be treated as strings when checking for equality or uniqueness.
+  </td>
+</tr>
+<tr>
+  <td><tt>family()</tt></td>
+  <td>int</td>
+  <td>Returns the IP address family, <tt>4</tt> for IPv4 and <tt>6</tt> for IPv6.</td>
+</tr>
+<tr>
+  <td><tt>isUnspecified()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is the unspecified address.
+    Either the IPv4 address "0.0.0.0" or the IPv6 address "::".
+  </td>
+</tr>
+<tr>
+  <td><tt>isLoopback()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is the loopback address.
+    Either an IPv4 address with a value of 127.x.x.x or an IPv6 address with a value of ::1.
+  </td>
+</tr>
+<tr>
+  <td><tt>isLinkLocalMulticast()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is a link-local multicast address.
+    Either an IPv4 address with a value of 224.0.0.x or an IPv6 address in the network ff00::/8.
+  </td>
+</tr>
+<tr>
+  <td><tt>isLinkLocalUnicast()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is a link-local unicast address.
+    Either an IPv4 address with a value of 169.254.x.x or an IPv6 address in the network fe80::/10.
+  </td>
+</tr>
+<tr>
+  <td><tt>isGlobalUnicast()</tt></td>
+  <td>bool</td>
+  <td>
+    Returns true if the IP address is a global unicast address.
+    Either an IPv4 address that is not zero or 255.255.255.255 or an IPv6 address that is not a link-local unicast, loopback or multicast address.
+  </td>
+</tr>
+</tbody>
+</table>
+
+Examples:
+
+<table>
+<caption>Examples of CEL expressions using IP address library functions</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isIP('127.0.0.1')</tt></td>
+  <td>Returns true for a valid IP.</td>
+</tr>
+<tr>
+  <td><tt>ip('2001:db8::abcd').isCanonical()</tt></td>
+  <td>Returns true for a canonical IPv6.</td>
+</tr>
+<tr>
+  <td><tt>ip('2001:DB8::ABCD').isCanonical()</tt></td>
+  <td>Returns false because the canonical form is lowercase.</td>
+</tr>
+<tr>
+  <td><tt>ip('127.0.0.1').family() == 4</tt></td>
+  <td>Check the address family of an IP.</td>
+</tr>
+<tr>
+  <td><tt>ip('::1').isLoopback()</tt></td>
+  <td>Check if an IP is a loopback address.</td>
+</tr>
+<tr>
+  <td><tt>ip('192.168.0.1').isGlobalUnicast()</tt></td>
+  <td>Check if an IP is a global unicast address.</td>
+</tr>
+</tbody>
+</table>
+
+See the [Kubernetes IP address library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#IP) godoc for more information.
+-->
+### Kubernetes IP 地址库   {#kubernetes-ip-address-library}
+
+为更方便、更安全地处理 IP 地址，新增了以下函数：
+
+- `isIP(string)` 检查一个字符串是否是有效的 IP 地址。
+- `ip(string) IP` 将字符串转换为 IP 地址对象；如果字符串不是有效的 IP 地址，则返回错误。
+
+对于上述两个函数，IP 地址必须是 IPv4 或 IPv6 地址。
+不允许使用 IPv4 映射的 IPv6 地址（例如 `::ffff:1.2.3.4`）。
+不允许使用带区域的 IP 地址（例如 `fe80::1%eth0`）。
+IPv4 地址各字节中不允许出现前导零。
+
+通过 `ip` 函数解析后，生成的 IP 对象具有以下成员函数库：
+
+<table>
+<caption><!-- Available member functions of an IP address object -->IP 地址对象可用的成员函数</caption>
+<thead>
+<tr>
+  <th><!-- Member Function -->成员函数</th>
+  <th><!-- CEL Return Value -->CEL 返回值</th>
+  <th><!-- Description -->描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCanonical()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is in its canonical form. There is exactly one canonical form for every IP address, so fields containing IPs in canonical form can just be treated as strings when checking for equality or uniqueness. -->如果 IP 地址处于规范形式，则返回 true。每个 IP 地址只有一种规范形式，因此在检查相等性或唯一性时，包含规范形式 IP 的字段可以当作字符串处理。</td>
+</tr>
+<tr>
+  <td><tt>family()</tt></td>
+  <td>int</td>
+  <td><!-- Returns the IP address family, 4 for IPv4 and 6 for IPv6. -->返回 IP 地址族，IPv4 为 <tt>4</tt>，IPv6 为 <tt>6</tt>。</td>
+</tr>
+<tr>
+  <td><tt>isUnspecified()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is the unspecified address. Either the IPv4 address "0.0.0.0" or the IPv6 address "::". -->如果 IP 地址是未指定地址，则返回 true。即 IPv4 地址 "0.0.0.0" 或 IPv6 地址 "::"。</td>
+</tr>
+<tr>
+  <td><tt>isLoopback()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is the loopback address. Either an IPv4 address with a value of 127.x.x.x or an IPv6 address with a value of ::1. -->如果 IP 地址是回环地址，则返回 true。即值为 127.x.x.x 的 IPv4 地址或值为 ::1 的 IPv6 地址。</td>
+</tr>
+<tr>
+  <td><tt>isLinkLocalMulticast()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is a link-local multicast address. Either an IPv4 address with a value of 224.0.0.x or an IPv6 address in the network ff00::/8. -->如果 IP 地址是链路本地组播地址，则返回 true。即值为 224.0.0.x 的 IPv4 地址或 ff00::/8 网络中的 IPv6 地址。</td>
+</tr>
+<tr>
+  <td><tt>isLinkLocalUnicast()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is a link-local unicast address. Either an IPv4 address with a value of 169.254.x.x or an IPv6 address in the network fe80::/10. -->如果 IP 地址是链路本地单播地址，则返回 true。即值为 169.254.x.x 的 IPv4 地址或 fe80::/10 网络中的 IPv6 地址。</td>
+</tr>
+<tr>
+  <td><tt>isGlobalUnicast()</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if the IP address is a global unicast address. Either an IPv4 address that is not zero or 255.255.255.255 or an IPv6 address that is not a link-local unicast, loopback or multicast address. -->如果 IP 地址是全局单播地址，则返回 true。即非零或非 255.255.255.255 的 IPv4 地址，或不是链路本地单播、回环或组播地址的 IPv6 地址。</td>
+</tr>
+</tbody>
+</table>
+
+示例：
+
+<table>
+<caption><!-- Examples of CEL expressions using IP address library functions -->使用 IP 地址库函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isIP('127.0.0.1')</tt></td>
+  <td><!-- Returns true for a valid IP. -->对有效 IP 返回 true。</td>
+</tr>
+<tr>
+  <td><tt>ip('2001:db8::abcd').isCanonical()</tt></td>
+  <td><!-- Returns true for a canonical IPv6. -->对规范形式的 IPv6 返回 true。</td>
+</tr>
+<tr>
+  <td><tt>ip('2001:DB8::ABCD').isCanonical()</tt></td>
+  <td><!-- Returns false because the canonical form is lowercase. -->返回 false，因为规范形式是小写。</td>
+</tr>
+<tr>
+  <td><tt>ip('127.0.0.1').family() == 4</tt></td>
+  <td><!-- Check the address family of an IP. -->检查 IP 的地址族。</td>
+</tr>
+<tr>
+  <td><tt>ip('::1').isLoopback()</tt></td>
+  <td><!-- Check if an IP is a loopback address. -->检查 IP 是否是回环地址。</td>
+</tr>
+<tr>
+  <td><tt>ip('192.168.0.1').isGlobalUnicast()</tt></td>
+  <td><!-- Check if an IP is a global unicast address. -->检查 IP 是否是全局单播地址。</td>
+</tr>
+</tbody>
+</table>
+
+更多信息请查阅 Go 文档：
+[Kubernetes IP 地址库](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#IP)。
+
+<!--
+### Kubernetes CIDR library
+
+CIDR provides a CEL function library extension of {{< glossary_tooltip text="CIDR" term_id="CIDR" >}} notation parsing functions.
+
+#### `cidr`
+
+Converts a string in CIDR notation to a network address representation or results in an error if the string is not a valid CIDR notation.
+The CIDR must be an IPv4 or IPv6 subnet address with a mask.
+Leading zeros in IPv4 address octets are not allowed.
+IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
+
+<tt>cidr(&lt;string&gt;) &lt;CIDR&gt;</tt>
+
+Examples:
+
+<tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
+<tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
+<tt>cidr('192.168.0.0/33')</tt> // error
+<tt>cidr('::1/129')</tt> // error
+<tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
+
+#### `isCIDR`
+
+Returns true if a string is a valid CIDR notation representation of a subnet with mask.
+The CIDR must be an IPv4 or IPv6 subnet address with a mask.
+Leading zeros in IPv4 address octets are not allowed.
+IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
+
+<tt>isCIDR(&lt;string&gt;) &lt;bool&gt;</tt>
+
+Examples:
+
+<tt>isCIDR('192.168.0.0/16')</tt> // returns true
+<tt>isCIDR('::1/128')</tt> // returns true
+<tt>isCIDR('192.168.0.0/33')</tt> // returns false
+<tt>isCIDR('::1/129')</tt> // returns false
+
+#### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
+
+- `containsIP`: Returns true if a the CIDR contains the given IP address.
+The IP address must be an IPv4 or IPv6 address.
+May take either a string or IP address as an argument.
+
+- `containsCIDR`: Returns true if a the CIDR contains the given CIDR.
+The CIDR must be an IPv4 or IPv6 subnet address with a mask.
+May take either a string or CIDR as an argument.
+
+- `ip`: Returns the IP address representation of the CIDR.
+
+- `masked`: Returns the CIDR representation of the network address with a masked prefix.
+This can be used to return the canonical form of the CIDR network.
+
+- `prefixLength`: Returns the prefix length of the CIDR in bits.
+This is the number of bits in the mask.
+
+Examples:
+
+<table>
+<caption>Examples of CEL expressions using CIDR library functions</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP(ip('192.168.0.1'))</tt></td>
+  <td>Checks if a CIDR contains a given IP address (IP object).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP(ip('192.168.1.1'))</tt></td>
+  <td>Checks if a CIDR contains a given IP address (IP object).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP('192.168.0.1')</tt></td>
+  <td>Checks if a CIDR contains a given IP address (string).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP('192.168.1.1')</tt></td>
+  <td>Checks if a CIDR contains a given IP address (string).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').containsCIDR(cidr('192.168.10.0/24'))</tt></td>
+  <td>Checks if a CIDR contains another given CIDR (CIDR object).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.1.0/24').containsCIDR(cidr('192.168.2.0/24'))</tt></td>
+  <td>Checks if a CIDR contains another given CIDR (CIDR object).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').containsCIDR('192.168.10.0/24')</tt></td>
+  <td>Checks if a CIDR contains another given CIDR (string).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.1.0/24').containsCIDR('192.168.2.0/24')</tt></td>
+  <td>Checks if a CIDR contains another given CIDR (string).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').ip()</tt></td>
+  <td>Returns the IP address part of a CIDR.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').ip().family()</tt></td>
+  <td>Returns the family of the IP address part of a CIDR.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').ip()</tt></td>
+  <td>Returns the IP address part of an IPv6 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').ip().family()</tt></td>
+  <td>Returns the family of the IP address part of an IPv6 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').masked()</tt></td>
+  <td>Returns the canonical form of a CIDR network.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').masked()</tt></td>
+  <td>Returns the canonical form of a CIDR network, masking non-prefix bits.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24') == cidr('192.168.0.0/24').masked()</tt></td>
+  <td>Compares a CIDR to its canonical form (already canonical).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24') == cidr('192.168.0.1/24').masked()</tt></td>
+  <td>Compares a CIDR to its canonical form (not canonical).</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').prefixLength()</tt></td>
+  <td>Returns the prefix length of an IPv4 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').prefixLength()</tt></td>
+  <td>Returns the prefix length of an IPv6 CIDR.</td>
+</tr>
+</tbody>
+</table>
+
+See the [Kubernetes CIDR library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#CIDR) godoc for more information.
+-->
+### Kubernetes CIDR 库   {#kubernetes-cidr-library}
+
+CIDR 提供了 {{< glossary_tooltip text="CIDR" term_id="CIDR" >}} 表示法解析函数的 CEL 函数库扩展。
+
+#### `cidr`
+
+将 CIDR 表示法字符串转换为网络地址表示形式；如果字符串不是有效的 CIDR 表示法，则返回错误。
+CIDR 必须是带掩码的 IPv4 或 IPv6 子网地址。
+IPv4 地址各字节中不允许出现前导零。
+不允许使用 IPv4 映射的 IPv6 地址（例如 `::ffff:1.2.3.4/24`）。
+
+<tt>cidr(&lt;string&gt;) &lt;CIDR&gt;</tt>
+
+示例：
+
+<tt>cidr('192.168.0.0/16')</tt> // 返回带 CIDR 掩码的 IPv4 地址
+<tt>cidr('::1/128')</tt> // 返回带 CIDR 掩码的 IPv6 地址
+<tt>cidr('192.168.0.0/33')</tt> // 错误
+<tt>cidr('::1/129')</tt> // 错误
+<tt>cidr('192.168.0.1/16')</tt> // 错误，因为前缀之后存在非 0 位
+
+#### `isCIDR`
+
+如果字符串是带掩码的子网的有效 CIDR 表示法，则返回 true。
+CIDR 必须是带掩码的 IPv4 或 IPv6 子网地址。
+IPv4 地址各字节中不允许出现前导零。
+不允许使用 IPv4 映射的 IPv6 地址（例如 `::ffff:1.2.3.4/24`）。
+
+<tt>isCIDR(&lt;string&gt;) &lt;bool&gt;</tt>
+
+示例：
+
+<tt>isCIDR('192.168.0.0/16')</tt> // 返回 true
+<tt>isCIDR('::1/128')</tt> // 返回 true
+<tt>isCIDR('192.168.0.0/33')</tt> // 返回 false
+<tt>isCIDR('::1/129')</tt> // 返回 false
+
+#### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
+
+- `containsIP`：如果 CIDR 包含给定的 IP 地址，则返回 true。
+  IP 地址必须是 IPv4 或 IPv6 地址。
+  参数可以是字符串或 IP 地址对象。
+
+- `containsCIDR`：如果 CIDR 包含给定的 CIDR，则返回 true。
+  CIDR 必须是带掩码的 IPv4 或 IPv6 子网地址。
+  参数可以是字符串或 CIDR 对象。
+
+- `ip`：返回 CIDR 的 IP 地址表示形式。
+
+- `masked`：返回带掩码前缀的网络地址的 CIDR 表示形式。
+  可用于返回 CIDR 网络的规范形式。
+
+- `prefixLength`：返回 CIDR 的前缀长度（以位为单位）。
+  即掩码中的位数。
+
+示例：
+
+<table>
+<caption><!-- Examples of CEL expressions using CIDR library functions -->使用 CIDR 库函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP(ip('192.168.0.1'))</tt></td>
+  <td><!-- Checks if a CIDR contains a given IP address (IP object). -->检查 CIDR 是否包含给定的 IP 地址（IP 对象）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP(ip('192.168.1.1'))</tt></td>
+  <td><!-- Checks if a CIDR contains a given IP address (IP object). -->检查 CIDR 是否包含给定的 IP 地址（IP 对象）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP('192.168.0.1')</tt></td>
+  <td><!-- Checks if a CIDR contains a given IP address (string). -->检查 CIDR 是否包含给定的 IP 地址（字符串）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').containsIP('192.168.1.1')</tt></td>
+  <td><!-- Checks if a CIDR contains a given IP address (string). -->检查 CIDR 是否包含给定的 IP 地址（字符串）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').containsCIDR(cidr('192.168.10.0/24'))</tt></td>
+  <td><!-- Checks if a CIDR contains another given CIDR (CIDR object). -->检查 CIDR 是否包含另一个给定的 CIDR（CIDR 对象）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.1.0/24').containsCIDR(cidr('192.168.2.0/24'))</tt></td>
+  <td><!-- Checks if a CIDR contains another given CIDR (CIDR object). -->检查 CIDR 是否包含另一个给定的 CIDR（CIDR 对象）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').containsCIDR('192.168.10.0/24')</tt></td>
+  <td><!-- Checks if a CIDR contains another given CIDR (string). -->检查 CIDR 是否包含另一个给定的 CIDR（字符串）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.1.0/24').containsCIDR('192.168.2.0/24')</tt></td>
+  <td><!-- Checks if a CIDR contains another given CIDR (string). -->检查 CIDR 是否包含另一个给定的 CIDR（字符串）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').ip()</tt></td>
+  <td><!-- Returns the IP address part of a CIDR. -->返回 CIDR 的 IP 地址部分。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').ip().family()</tt></td>
+  <td><!-- Returns the family of the IP address part of a CIDR. -->返回 CIDR 的 IP 地址部分的地址族。</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').ip()</tt></td>
+  <td><!-- Returns the IP address part of an IPv6 CIDR. -->返回 IPv6 CIDR 的 IP 地址部分。</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').ip().family()</tt></td>
+  <td><!-- Returns the family of the IP address part of an IPv6 CIDR. -->返回 IPv6 CIDR 的 IP 地址部分的地址族。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24').masked()</tt></td>
+  <td><!-- Returns the canonical form of a CIDR network. -->返回 CIDR 网络的规范形式。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24').masked()</tt></td>
+  <td><!-- Returns the canonical form of a CIDR network, masking non-prefix bits. -->返回 CIDR 网络的规范形式，掩蔽非前缀位。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/24') == cidr('192.168.0.0/24').masked()</tt></td>
+  <td><!-- Compares a CIDR to its canonical form (already canonical). -->将 CIDR 与其规范形式进行比较（已是规范形式）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/24') == cidr('192.168.0.1/24').masked()</tt></td>
+  <td><!-- Compares a CIDR to its canonical form (not canonical). -->将 CIDR 与其规范形式进行比较（非规范形式）。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/16').prefixLength()</tt></td>
+  <td><!-- Returns the prefix length of an IPv4 CIDR. -->返回 IPv4 CIDR 的前缀长度。</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128').prefixLength()</tt></td>
+  <td><!-- Returns the prefix length of an IPv6 CIDR. -->返回 IPv6 CIDR 的前缀长度。</td>
+</tr>
+</tbody>
+</table>
+
+更多信息请查阅 Go 文档：
+[Kubernetes CIDR 库](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#CIDR)。
+
+<!--
 ### Kubernetes authorizer library
 
 For CEL expressions in the API where a variable of type `Authorizer` is available,
@@ -625,6 +1184,214 @@ godoc for more information.
 更多信息请参阅 Go 文档：
 [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
 和 [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)。
+
+<!--
+### Kubernetes format library
+
+The `format` library provides functions for validating common Kubernetes string formats.
+This can be useful in the `messageExpression` of validation rules to provide more specific error messages.
+
+The library provides `format()` functions for each named format, and a generic `format.named()` function.
+
+- `format.named(string)` &rarr; `?Format`: Returns the `Format` object for the given format name, if it exists. Otherwise, returns `optional.none`.
+- `format.<formatName>() -> Format`: Convenience functions for all the named formats are also available. For example, `format.dns1123Label()` returns the `Format` object for DNS-1123 labels.
+- `<Format>.validate(string) -> list<string>?`: Validates the given string against the format. Returns `optional.none` if the string is valid, otherwise an optional containing a list of validation error strings.
+
+**Available Formats:**
+
+The following format names are supported:
+
+<table>
+<caption>Available formats for the format library</caption>
+<thead>
+<tr>
+  <th>Format Name</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>dns1123Label</tt></td>
+  <td>Validates if the string is a valid DNS-1123 label.</td>
+</tr>
+<tr>
+  <td><tt>dns1123Subdomain</tt></td>
+  <td>Validates if the string is a valid DNS-1123 subdomain.</td>
+</tr>
+<tr>
+  <td><tt>dns1035Label</tt></td>
+  <td>Validates if the string is a valid DNS-1035 label.</td>
+</tr>
+<tr>
+  <td><tt>qualifiedName</tt></td>
+  <td>Validates if the string is a valid qualified name.</td>
+</tr>
+<tr>
+  <td><tt>dns1123LabelPrefix</tt></td>
+  <td>Validates if the string is a valid DNS-1123 label prefix.</td>
+</tr>
+<tr>
+  <td><tt>dns1123SubdomainPrefix</tt></td>
+  <td>Validates if the string is a valid DNS-1123 subdomain prefix.</td>
+</tr>
+<tr>
+  <td><tt>dns1035LabelPrefix</tt></td>
+  <td>Validates if the string is a valid DNS-1035 label prefix.</td>
+</tr>
+<tr>
+  <td><tt>labelValue</tt></td>
+  <td>Validates if the string is a valid label value.</td>
+</tr>
+<tr>
+  <td><tt>uri</tt></td>
+  <td>Validates if the string is a valid URI. Uses the same pattern as `isURL`, but returns an error list.</td>
+</tr>
+<tr>
+  <td><tt>uuid</tt></td>
+  <td>Validates if the string is a valid UUID.</td>
+</tr>
+<tr>
+  <td><tt>byte</tt></td>
+  <td>Validates if the string is a valid base64 encoded string.</td>
+</tr>
+<tr>
+  <td><tt>date</tt></td>
+  <td>Validates if the string is a valid date in `YYYY-MM-DD` format.</td>
+</tr>
+<tr>
+  <td><tt>datetime</tt></td>
+  <td>Validates if the string is a valid datetime in RFC3339 format.</td>
+</tr>
+</tbody>
+</table>
+
+**Examples:**
+
+<table>
+<caption>Examples of CEL expressions using format library functions</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>!format.dns1123Label().validate(self.metadata.name).hasValue()</tt></td>
+  <td>A validation rule that checks if an object's name is a valid DNS-1123 label.</td>
+</tr>
+<tr>
+  <td><tt>format.dns1123Label().validate(self.metadata.name).orValue([]).join("\\n")</tt></td>
+  <td>A `messageExpression` that returns specific validation errors for a field. If the field is valid, `validate` returns `optional.none`, and `orValue` provides an empty list, resulting in an empty string.</td>
+</tr>
+</tbody>
+</table>
+
+See the [Kubernetes Format library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Format) godoc for more information.
+-->
+### Kubernetes 格式库   {#kubernetes-format-library}
+
+`format` 库提供用于验证常见 Kubernetes 字符串格式的函数。
+这在校验规则的 `messageExpression` 中可用于提供更具体的错误消息。
+
+该库为每个命名格式提供 `format()` 函数，以及一个通用的 `format.named()` 函数。
+
+- `format.named(string)` &rarr; `?Format`：返回给定格式名称对应的 `Format` 对象（如果存在），否则返回 `optional.none`。
+- `format.<formatName>() -> Format`：同时提供所有命名格式的便捷函数。例如，`format.dns1123Label()` 返回 DNS-1123 标签对应的 `Format` 对象。
+- `<Format>.validate(string) -> list<string>?`：根据格式验证给定字符串。如果字符串有效，返回 `optional.none`；否则返回包含验证错误字符串列表的 optional。
+
+**可用格式：**
+
+支持以下格式名称：
+
+<table>
+<caption><!-- Available formats for the format library -->格式库可用的格式</caption>
+<thead>
+<tr>
+  <th><!-- Format Name -->格式名称</th>
+  <th><!-- Description -->描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>dns1123Label</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1123 label. -->验证字符串是否是有效的 DNS-1123 标签。</td>
+</tr>
+<tr>
+  <td><tt>dns1123Subdomain</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1123 subdomain. -->验证字符串是否是有效的 DNS-1123 子域。</td>
+</tr>
+<tr>
+  <td><tt>dns1035Label</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1035 label. -->验证字符串是否是有效的 DNS-1035 标签。</td>
+</tr>
+<tr>
+  <td><tt>qualifiedName</tt></td>
+  <td><!-- Validates if the string is a valid qualified name. -->验证字符串是否是有效的限定名称。</td>
+</tr>
+<tr>
+  <td><tt>dns1123LabelPrefix</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1123 label prefix. -->验证字符串是否是有效的 DNS-1123 标签前缀。</td>
+</tr>
+<tr>
+  <td><tt>dns1123SubdomainPrefix</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1123 subdomain prefix. -->验证字符串是否是有效的 DNS-1123 子域前缀。</td>
+</tr>
+<tr>
+  <td><tt>dns1035LabelPrefix</tt></td>
+  <td><!-- Validates if the string is a valid DNS-1035 label prefix. -->验证字符串是否是有效的 DNS-1035 标签前缀。</td>
+</tr>
+<tr>
+  <td><tt>labelValue</tt></td>
+  <td><!-- Validates if the string is a valid label value. -->验证字符串是否是有效的标签值。</td>
+</tr>
+<tr>
+  <td><tt>uri</tt></td>
+  <td><!-- Validates if the string is a valid URI. Uses the same pattern as `isURL`, but returns an error list. -->验证字符串是否是有效的 URI。使用与 `isURL` 相同的模式，但返回错误列表。</td>
+</tr>
+<tr>
+  <td><tt>uuid</tt></td>
+  <td><!-- Validates if the string is a valid UUID. -->验证字符串是否是有效的 UUID。</td>
+</tr>
+<tr>
+  <td><tt>byte</tt></td>
+  <td><!-- Validates if the string is a valid base64 encoded string. -->验证字符串是否是有效的 base64 编码字符串。</td>
+</tr>
+<tr>
+  <td><tt>date</tt></td>
+  <td><!-- Validates if the string is a valid date in `YYYY-MM-DD` format. -->验证字符串是否是 `YYYY-MM-DD` 格式的有效日期。</td>
+</tr>
+<tr>
+  <td><tt>datetime</tt></td>
+  <td><!-- Validates if the string is a valid datetime in RFC3339 format. -->验证字符串是否是 RFC3339 格式的有效日期时间。</td>
+</tr>
+</tbody>
+</table>
+
+**示例：**
+
+<table>
+<caption><!-- Examples of CEL expressions using format library functions -->使用格式库函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>!format.dns1123Label().validate(self.metadata.name).hasValue()</tt></td>
+  <td><!-- A validation rule that checks if an object's name is a valid DNS-1123 label. -->校验规则，检查对象的名称是否是有效的 DNS-1123 标签。</td>
+</tr>
+<tr>
+  <td><tt>format.dns1123Label().validate(self.metadata.name).orValue([]).join("\\n")</tt></td>
+  <td><!-- A `messageExpression` that returns specific validation errors for a field. If the field is valid, `validate` returns `optional.none`, and `orValue` provides an empty list, resulting in an empty string. -->返回字段具体校验错误的 `messageExpression`。如果字段有效，`validate` 返回 `optional.none`，`orValue` 提供空列表，从而得到空字符串。</td>
+</tr>
+</tbody>
+</table>
+
+更多信息请查阅 Go 文档：
+[Kubernetes 格式库](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Format)。
 
 <!--
 ### Kubernetes quantity library
@@ -788,6 +1555,186 @@ Examples:
 </tr>
 </tbody>
 </table>
+
+<!--
+### Kubernetes semver library
+
+Kubernetes v1.34 adds support for parsing and comparing strings that follow the Semantic Versioning 2.0.0 specification.
+Refer to the [semver.org](https://semver.org/) documentation for information on accepted patterns.
+
+- `isSemver(string)` checks if a string is a valid semantic version.
+- `semver(string)` converts a string to a Semver object or results in an error.
+
+An optional boolean `normalize` argument can be passed to `isSemver` and `semver`. If `true`, normalization removes any "v" prefix, adds a 0 minor and patch numbers to versions with only major or major.minor components specified, and removes any leading 0s.
+
+Once parsed via the `semver` function, the resulting Semver object has the
+following library of member functions:
+
+<table>
+<caption>Available member functions of a Semver object</caption>
+<thead>
+<tr>
+  <th>Member Function</th>
+  <th>CEL Return Value</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>major()</tt></td>
+  <td>int</td>
+  <td>Returns the major version number.</td>
+</tr>
+<tr>
+  <td><tt>minor()</tt></td>
+  <td>int</td>
+  <td>Returns the minor version number.</td>
+</tr>
+<tr>
+  <td><tt>patch()</tt></td>
+  <td>int</td>
+  <td>Returns the patch version number.</td>
+</tr>
+<tr>
+  <td><tt>isLessThan(&lt;Semver&gt;)</tt></td>
+  <td>bool</td>
+  <td>Returns true if and only if the receiver is less than the operand.</td>
+</tr>
+<tr>
+  <td><tt>isGreaterThan(&lt;Semver&gt;)</tt></td>
+  <td>bool</td>
+  <td>Returns true if and only if the receiver is greater than the operand.</td>
+</tr>
+<tr>
+  <td><tt>compareTo(&lt;Semver&gt;)</tt></td>
+  <td>int</td>
+  <td>
+    Compares receiver to operand and returns 0 if they are equal,
+    1 if the receiver is greater, or -1 if the receiver is less than the operand.
+  </td>
+</tr>
+</tbody>
+</table>
+
+Examples:
+
+<table>
+<caption>Examples of CEL expressions using semver library functions</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isSemver('1.0.0')</tt></td>
+  <td>Returns true for a valid Semver string.</td>
+</tr>
+<tr>
+  <td><tt>isSemver('v1.0', true)</tt></td>
+  <td>Returns true for a normalizable Semver string.</td>
+</tr>
+<tr>
+  <td><tt>semver('1.2.3').major()</tt></td>
+  <td>Returns the major version of a Semver.</td>
+</tr>
+<tr>
+  <td><tt>semver('1.2.3').compareTo(semver('2.0.0')) &lt; 0</tt></td>
+  <td>Compare two Semver strings.</td>
+</tr>
+</tbody>
+</table>
+
+See the [Kubernetes Semver library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#SemverLib) godoc for more information.
+-->
+### Kubernetes semver 库   {#kubernetes-semver-library}
+
+Kubernetes v1.34 增加了对遵循语义化版本 2.0.0 规范的字符串进行解析和比较的支持。
+关于可接受模式的详细信息，请参阅 [semver.org](https://semver.org/) 文档。
+
+- `isSemver(string)` 检查一个字符串是否是有效的语义化版本。
+- `semver(string)` 将字符串转换为 Semver 对象；如果出错则返回错误。
+
+可以向 `isSemver` 和 `semver` 传递一个可选的布尔参数 `normalize`。如果为 `true`，规范化会移除任何 "v" 前缀，为仅指定了 major 或 major.minor 组件的版本补充 0 的 minor 和 patch 数字，并移除任何前导 0。
+
+通过 `semver` 函数解析后，生成的 Semver 对象具有以下成员函数库：
+
+<table>
+<caption><!-- Available member functions of a Semver object -->Semver 对象可用的成员函数</caption>
+<thead>
+<tr>
+  <th><!-- Member Function -->成员函数</th>
+  <th><!-- CEL Return Value -->CEL 返回值</th>
+  <th><!-- Description -->描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>major()</tt></td>
+  <td>int</td>
+  <td><!-- Returns the major version number. -->返回主版本号。</td>
+</tr>
+<tr>
+  <td><tt>minor()</tt></td>
+  <td>int</td>
+  <td><!-- Returns the minor version number. -->返回次版本号。</td>
+</tr>
+<tr>
+  <td><tt>patch()</tt></td>
+  <td>int</td>
+  <td><!-- Returns the patch version number. -->返回补丁版本号。</td>
+</tr>
+<tr>
+  <td><tt>isLessThan(&lt;Semver&gt;)</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if and only if the receiver is less than the operand. -->当且仅当接收值小于操作数时返回 true。</td>
+</tr>
+<tr>
+  <td><tt>isGreaterThan(&lt;Semver&gt;)</tt></td>
+  <td>bool</td>
+  <td><!-- Returns true if and only if the receiver is greater than the operand. -->当且仅当接收值大于操作数时返回 true。</td>
+</tr>
+<tr>
+  <td><tt>compareTo(&lt;Semver&gt;)</tt></td>
+  <td>int</td>
+  <td><!-- Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand. -->将接收值与操作数比较，相等时返回 0，接收值更大时返回 1，接收值更小时返回 -1。</td>
+</tr>
+</tbody>
+</table>
+
+示例：
+
+<table>
+<caption><!-- Examples of CEL expressions using semver library functions -->使用 semver 库函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isSemver('1.0.0')</tt></td>
+  <td><!-- Returns true for a valid Semver string. -->对有效的 Semver 字符串返回 true。</td>
+</tr>
+<tr>
+  <td><tt>isSemver('v1.0', true)</tt></td>
+  <td><!-- Returns true for a normalizable Semver string. -->对可规范化的 Semver 字符串返回 true。</td>
+</tr>
+<tr>
+  <td><tt>semver('1.2.3').major()</tt></td>
+  <td><!-- Returns the major version of a Semver. -->返回 Semver 的主版本号。</td>
+</tr>
+<tr>
+  <td><tt>semver('1.2.3').compareTo(semver('2.0.0')) &lt; 0</tt></td>
+  <td><!-- Compare two Semver strings. -->比较两个 Semver 字符串。</td>
+</tr>
+</tbody>
+</table>
+
+更多信息请查阅 Go 文档：
+[Kubernetes semver 库](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#SemverLib)。
 
 <!--
 ## Type checking
