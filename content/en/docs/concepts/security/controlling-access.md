@@ -179,5 +179,5 @@ Read more documentation on authentication, authorization and API access control:
 
 You can learn about:
 - how Pods can use
-  [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  [Secrets](/docs/concepts/configuration/secret/#serviceaccount-token-secrets)
   to obtain API credentials.
