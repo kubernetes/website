@@ -397,6 +397,11 @@ In order for it to access these APIs, cluster administrators must ensure that:
     generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
     It can be launched as a cluster add-on.
 
+    {{< note >}}
+    The HorizontalPodAutoscaler currently supports the `metrics.k8s.io/v1beta1`
+    API for resource metrics. It does not support `metrics.k8s.io/v1` yet.
+    {{< /note >}}
+
   - For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/custom-metrics.v1beta2/).
     It's provided by "adapter" API servers provided by metrics solution vendors.
     Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
