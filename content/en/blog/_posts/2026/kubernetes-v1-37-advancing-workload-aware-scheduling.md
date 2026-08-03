@@ -91,6 +91,106 @@ when [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/fea
 feature gate is enabled, a PodGroup also has a `preemptionPolicy` field. It serves as an authoritative field for whether
 a PodGroup can perform preemption.
 
+## CompositePodGroup API
+
+In Kubernetes v1.36, workload-aware scheduling established a clean separation between static workload templates (`Workload`) and runtime group state (`PodGroup`), but the supported scheduling policies were limited to a single, flat group. The `CompositePodGroup` API, introduced in Kubernetes v1.37, extends this model to support hierarchical scheduling requirements.
+
+This API allows its consumers to express multi-level scheduling requirements by organizing a workload in a tree-shaped hierarchy consisting of `CompositePodGroup` and `PodGroup` objects. Each `CompositePodGroup` carries policies and constraints that apply to other groups (`CompositePodGroups` and/or `PodGroups`), similar to how `PodGroups` govern scheduling behavior for a flat group of Pods. The scheduler treats such a hierarchy as a single scheduling unit and aims to satisfy the requirements specified by every group within that hierarchy.
+
+### Defining a workload hierarchy
+
+To express multi-level scheduling requirements, you define a hierarchy of templates in a `Workload` object based on which controllers create corresponding `CompositePodGroup` and `PodGroup` objects.
+
+To support this, the `Workload` API is extended with the `spec.compositePodGroupTemplates` field. Each `CompositePodGroupTemplate` defines a template for a parent `CompositePodGroup` and directly nests the templates (`podGroupTemplates` and/or `compositePodGroupTemplates`) from which its child groups derive.
+
+Below is a sample `Workload` object that defines a two-level template hierarchy:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: Workload
+metadata:
+  name: example-workload
+spec:
+  compositePodGroupTemplates:
+    - name: workload-root
+      schedulingPolicy:
+        gang:
+          minGroupCount: 2
+      podGroupTemplates:
+        - name: workers
+          schedulingPolicy:
+            gang:
+              minCount: 4
+        - name: driver
+          schedulingPolicy:
+            gang:
+              minCount: 1
+```
+
+After creating `example-workload`, a controller can stamp out the corresponding runtime group objects from these templates:
+
+1. A root `CompositePodGroup` that references the `workload-root` template in `example-workload` and carries its group-level scheduling policy (gang scheduling with `minGroupCount: 2`):
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: CompositePodGroup
+metadata:
+  name: example-root-group
+spec:
+  workloadRef:
+    workloadName: example-workload
+    templateName: workload-root
+  schedulingPolicy:
+    gang:
+      minGroupCount: 2
+```
+
+2. Two child `PodGroup` objects (`example-workload-workers` and `example-workload-driver`) that reference their respective leaf templates in `example-workload` and link to the root group via `parentCompositePodGroupName`:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: PodGroup
+metadata:
+  name: example-workload-workers
+spec:
+  parentCompositePodGroupName: example-root-group
+  workloadRef:
+    workloadName: example-workload
+    templateName: workers
+  schedulingPolicy:
+    gang:
+      minCount: 4
+---
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: PodGroup
+metadata:
+  name: example-workload-driver
+spec:
+  parentCompositePodGroupName: example-root-group
+  workloadRef:
+    workloadName: example-workload
+    templateName: driver
+  schedulingPolicy:
+    gang:
+      minCount: 1
+```
+
+### How multi-level gang scheduling works
+
+To schedule a hierarchical workload, `kube-scheduler` evaluates the entire group tree as a unified scheduling unit:
+
+* **Recursive evaluation**: The scheduler traverses the hierarchy from the root `CompositePodGroup` down to the leaf `PodGroup` objects. At each level, a parent `CompositePodGroup` is considered schedulable only when its child groups satisfy its scheduling policy (for example, placing at least `minGroupCount` of child groups when using the gang policy), while each leaf `PodGroup` must satisfy its own pod-level policy (for example, placing at least `minCount` of member Pods when using the gang policy).
+* **All-or-nothing scheduling**: Once a valid combination of child groups is found that satisfies the requirements of the root `CompositePodGroup`, the Pods across the entire hierarchy are scheduled and bound atomically. If the root group cannot satisfy its policy constraints, the entire hierarchy remains unschedulable and no Pods are bound, preventing partial deployments and deadlocks.
+
+### Workload-aware preemption for CompositePodGroup API
+
+Kubernetes v1.37 extends workload-aware preemption to support `CompositePodGroup` hierarchies as well. Specifically, if a `CompositePodGroup` cannot be scheduled due to insufficient capacity in the cluster, the scheduler can invoke preemption to evict lower-priority workloads in order to fit the Pods belonging to that `CompositePodGroup`.
+
+`CompositePodGroup` can be selected for preemption as well. To specify the desired behavior during preemption, workload owners can specify an appropriate `disruptionMode` in the `CompositePodGroup` spec:
+
+* **`Single` (Default)**: Allows individual child groups within the `CompositePodGroup` to be preempted and disrupted independently.
+* **`All`**: Enforces "all-or-nothing" disruption semantics across the entire `CompositePodGroup` hierarchy. If any Pod within the descendant subtree must be preempted, the scheduler evicts all Pods across the entire hierarchy together.
+
 ## Topology-aware scheduling
 
 In Kubernetes v1.37, topology-aware scheduling expands to support complex, multi-level workload hierarchies and delivers performance improvements for existing single-level deployments.
@@ -208,10 +308,6 @@ By allowing topology constraints to be modeled hierarchically, Kubernetes v1.37 
 
 Alongside the alpha introduction of multi-level hierarchies, Kubernetes v1.37 brings noticeable performance improvements to existing single-level topology-aware scheduling. We are continuously working to optimize the efficiency of placement evaluation algorithms in kube-scheduler and plan to deliver further performance improvements in future releases.
 
-
-## CompositePodGroup API
-
-<!-- TODO(@tosi3k): Content by feature owner. Detail KEP-6012, support for complex workload hierarchies like JobSet or LWS, ... -->
 
 ## Controller Integration APIs
 
