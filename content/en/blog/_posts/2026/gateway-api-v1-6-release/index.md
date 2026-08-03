@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.6: TCPRoute and UDPRoute Graduate to Standard"
-date: 2026-07-31
+date: 2026-08-03
 slug: gateway-api-v1-6-release
 author: >
   [Beka Modebadze](https://github.com/bexxmodd) (Google),
@@ -209,6 +209,7 @@ Here is a list of the implementations that are conforment with v1.6 on the day w
 - [GKE Gateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/gke-gateway)
 - [kgateway](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/kgateway)
 - [NGINX Gateway Fabric](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/nginx-nginx-gateway-fabric)
+- [Traefik Proxy](https://github.com/kubernetes-sigs/gateway-api/tree/main/conformance/reports/v1.6/traefik-traefik)
 
 ### Get involved
 
