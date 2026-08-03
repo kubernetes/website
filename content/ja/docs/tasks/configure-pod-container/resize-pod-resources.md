@@ -115,7 +115,7 @@ You should see:
 
 ## クリーンアップ {#clean-up}
 
-Delete the pod:
+Podを削除します。
 
 ```shell
 kubectl delete pod pod-level-resize-demo
