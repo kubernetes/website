@@ -354,7 +354,7 @@ to forward the traffic to the correct backend. Since there is only one match spe
 for the com.example.User.Login method to svc.example.com will be forwarded.
 RPCs of any other method` will not be matched by this Route.
 
-See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
 reference for a full definition of this API kind.
 -->
 在这种情况下，GRPCRoute 将匹配发往 `svc.example.com` 的所有流量，
@@ -363,7 +363,7 @@ reference for a full definition of this API kind.
 其他请求方法的 RPC 调用都不会被此路由匹配。
 
 有关这种 API 类别的完整定义，请参阅
-[GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute) 参考文档。
+[GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute) 参考文档。
 
 <!-- 
 ## Request flow
