@@ -106,7 +106,7 @@ CNI 네트워킹 플러그인은 `hostPort` 를 지원한다. CNI 플러그인 �
 
 ### 트래픽 셰이핑(shaping) 지원
 
-**실험적인 기능입니다**
+**실험적인 기능**
 
 CNI 네트워킹 플러그인은 파드 수신 및 송신 트래픽 셰이핑도 지원한다. CNI 플러그인 팀에서 제공하는
 공식 [대역폭(bandwidth)](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
