@@ -1,7 +1,7 @@
 
 ### Requirements:
 
-- You need a machine that is running Linux or macOS. On Windows, use
+- You need a machine that is running Linux. macOS is not currently supported natively for generating reference documentation, though you can use a Linux VM or Docker container. On Windows, use
   [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install),
   since the build tooling relies on `make` and Bash scripts.
 
