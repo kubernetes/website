@@ -197,7 +197,7 @@ generalmente debes cerrar el *issue* sin realizar la corrección.
 Puedes enviar un enlace a las [actualizaciones y mantenimiento de artículos](/docs/contribute/blog/#maintenance)
 como parte del mensaje que envíes cuando cierres la PR.
 
-Está bien hacer una excepción cuando aplique una justificación relevante.
+Está bien hacer una excepción cuando haya una justificación relevante.
 
 ### Solicitudes de soporte o reportes de errores en el código
 
