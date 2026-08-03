@@ -215,11 +215,37 @@ Alongside the alpha introduction of multi-level hierarchies, Kubernetes v1.37 br
 
 ## Controller Integration APIs
 
-<!-- TODO(@helayoty): Content by feature owner. Explain KEP-6089, standardizing how workload controllers consume scheduling capabilities -->
+Kubernetes v1.37 introduces new standard building blocks that allow controllers to embed Workload-Aware Scheduling (WAS) primitives in their own APIs. These primitives express specific scheduling behaviors — such as policies or disruption logic — while leaving the field naming flexible for each controller. A prime example of this is the native Job controller, which we detail in the next section.
+
+Furthermore, this release debuts the `workloadbuilder` library. Designed for both in-tree and out-of-tree controllers, it handles creating a `WorkloadItem` tree, manages the builder flow, enables declarative validation, provides scheduling-option allow-lists, and generates PodGroups from existing Workloads. This standardizes and accelerates WAS integration across the ecosystem.
 
 ## Integration with the Job Controller
 
-<!-- TODO(@helayoty): Content by feature owner. Explain KEP-5547 updates, integration with KEP-6089, expanding support beyond static, indexed, fully-parallel Jobs -->
+Building upon the new Controller Integration APIs, the native Job controller integration has advanced to v1.37 alpha2. The Job API now features an explicit `.spec.scheduling` field that allows Jobs to leverage the expanded Workload-Aware Scheduling capabilities, expanding support well beyond static, indexed, and fully-parallel Jobs.
+
+For example, a Job can now be configured with specific Workload-Aware Scheduling policies directly within the new API structure:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training-job
+spec:
+  parallelism: 8
+  completions: 8
+  scheduling:
+    schedulingPolicy:
+      gang: {}                # minCount omitted -> defaults to parallelism (8)
+    schedulingConstraints:
+      key:
+      - level: topology.kubernetes.io/zone
+    disruptionMode:
+      all: {}
+  template:
+    spec:
+      containers:
+      ...
+```
 
 ## DRA ResourceClaim Support for Workloads
 
