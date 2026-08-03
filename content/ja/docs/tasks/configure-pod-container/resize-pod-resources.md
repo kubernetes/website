@@ -52,21 +52,13 @@ Podレベルのリソースリサイズは、独自の再起動ポリシーを�
 
 ## 制限事項 {#limitations}
 
-For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: [コンテナに割り当てるCPUとメモリ容量を変更する: 制限事項](/docs/tasks/configure-pod-container/resize-container-resources/#limitations).
+Kubernetes {{< skew currentVersion >}} において、Podレベルのリソースをインプレースでリサイズする際には、コンテナレベルのリソースリサイズで説明されているすべての制限事項が適用されます。これらは[コンテナに割り当てるCPUとメモリ容量を変更する: 制限事項](/docs/tasks/configure-pod-container/resize-container-resources/#limitations)で確認できます。
 
-Additionally, the following constraint is specific to Pod-level resource resize:
+さらに、Podレベルのリソースのリサイズに固有の制約として以下のようなものがあります。
 
-* Container Requests Validation: A resize is only permitted if the resulting
-  Pod-level resource requests (spec.resources.requests) are greater than or equal to
-  the sum of the corresponding resource requests from all individual containers
-  within the Pod. This maintains the minimum guaranteed resource availability for
-  the Pod.
+* コンテナの要求の検証: リサイズ後のPodレベルのリソース要求(spec.resources.requests)が、Pod内の各コンテナの対応するリソース要求の合計以上である場合にのみ、リサイズが許可されます。これにより、Podに対して最低限保証されるリソースの可用性が維持されます。
 
-* Container Limits Validation: A resize is permitted if individual container limits
-  are less than or equal to the Pod-level resource limits (spec.resources.limits).
-  The Pod-level limit serves as a boundary that no single container may exceed, but
-  the sum of container limits is permitted to exceed the Pod-level limit, enabling
-  resource sharing across containers within the Pod.
+* コンテナの制限の検証: 各コンテナの制限がPodレベルのリソース制限(spec.resources.limits)以下である場合に、リサイズが許可されます。Podレベルの制限は単一のコンテナが超えてはならない上限として機能しますが、コンテナ制限の合計がPodレベルの制限を超えることは許可されており、これによってPod内のコンテナ間でリソースの共有が可能になります。
 
 ## 例: Podレベルリソースのリサイズ {#example-resizing-pod-level-resources}
 
