@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.6: TCPRoute and UDPRoute Graduate to Standard"
-date: 2026-08-03
+date: 2026-08-03T08:00:00-08:00
 slug: gateway-api-v1-6-release
 author: >
   [Beka Modebadze](https://github.com/bexxmodd) (Google),
