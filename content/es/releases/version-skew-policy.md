@@ -55,7 +55,7 @@ Ejemplo:
 
 {{< note >}}
 Si existe un desfase de versiones entre las instancias de `kube-apiserver` en un cluster HA, esto reduce el rango de versiones permitidas para `kubelet`.
-{{</ note >}}
+{{< /note >}}
 
 Ejemplo:
 
