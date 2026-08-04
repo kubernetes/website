@@ -311,15 +311,42 @@ Alongside the alpha introduction of multi-level hierarchies, Kubernetes v1.37 br
 
 ## Controller Integration APIs
 
-Kubernetes v1.37 introduces new standard building blocks that allow controllers to embed Workload-Aware Scheduling (WAS) primitives in their own APIs. These primitives express specific scheduling behaviors — such as policies or disruption logic — while leaving the field naming flexible for each controller. A prime example of this is the native Job controller, which we detail in the next section.
+Kubernetes v1.37 introduces new standard building blocks so that every controller can expose the same scheduling primitives in their own APIs, and share the same logic for translating them into scheduling objects. 
+These primitives express specific scheduling behaviors — such as policies or disruption logic — while 
+leaving the field naming flexible for each controller. A prime example of this is the native Job 
+controller, which we detail in the next section.
 
-Furthermore, this release debuts the `workloadbuilder` library. Designed for both in-tree and out-of-tree controllers, it handles creating a `WorkloadItem` tree, manages the builder flow, enables declarative validation, provides scheduling-option allow-lists, and generates PodGroups from existing Workloads. This standardizes and accelerates WAS integration across the ecosystem.
+Types prefixed with `WorkloadPodGroup` describe a leaf group of Pods; types prefixed with 
+`WorkloadCompositePodGroup` describe a group of groups. A controller embeds them verbatim into 
+its own API, under whatever field name fits its domain:
+
+* `WorkloadPodGroupSchedulingPolicy` — either `basic`, meaning standard Pod-by-Pod scheduling, or `gang` with a `minCount`. The composite variant takes a `minGroupCount` instead.
+* `WorkloadPodGroupSchedulingConstraints` — the topology constraints (`topology[].key`) the group's Pods must be co-located within.
+* `WorkloadPodGroupDisruptionMode` — `single` or `all`, with the preemption semantics described earlier in this post.
+* `WorkloadPodGroupResourceClaim` — the ResourceClaims shared across the group.
+
+Only the shapes are shared, so controllers retain full autonomy over how they name and nest these fields in their own APIs.
+
+**The `workloadbuilder` library** turns that intent into the scheduling objects. A controller describes its workload as a tree of `WorkloadItem` nodes — a node with children compiles to a `CompositePodGroupTemplate`, a node without children to a `PodGroupTemplate` — and attaches its own defaults plus the user-supplied building blocks to each node. From there, `Validate()` reports problems back at the exact field path within the controller's own API, `BuildWorkload()` compiles the tree into a `Workload`, and `NewPodGroup()` and `NewCompositePodGroup()` stamp out the runtime group objects.
+
+Validation is deny-by-default: a controller declares the policies and disruption modes it actually supports through `AllowedPolicies` and `AllowedDisruptionModes`, and anything outside those lists is rejected. Building blocks added in future releases therefore stay unavailable until a controller explicitly opts into them.
+
+For hierarchical workloads where a parent controller owns the `Workload` and delegates group creation to its children, `NewBuilderFromExistingWorkload` lets a child materialize only its own `PodGroup` from the parent's `Workload`.
+
+Neither the building blocks nor the library have a feature gate of their own; they become user-visible through whichever controller adopts them. The native Job controller is the first to do so, and we detail it in the next section.
 
 ## Integration with the Job Controller
 
-Building upon the new Controller Integration APIs, the native Job controller integration has advanced to v1.37 alpha2. The Job API now features an explicit `.spec.scheduling` field that allows Jobs to leverage the expanded Workload-Aware Scheduling capabilities, expanding support well beyond static, indexed, and fully-parallel Jobs.
+Building upon the new Controller Integration APIs, the Job API now features an explicit `.spec.scheduling` field, so you declare how a Job should be scheduled instead of relying on the Job controller to infer it from the Job's shape. This expands support well beyond static, indexed, and fully-parallel Jobs.
 
-For example, a Job can now be configured with specific Workload-Aware Scheduling policies directly within the new API structure:
+`.spec.scheduling` is composed of the building blocks described above:
+
+* `schedulingPolicy` — `basic` for standard Pod-by-Pod scheduling, or `gang` for all-or-nothing scheduling.
+* `schedulingConstraints` — the topology domain the Job's Pods must be co-located within.
+* `disruptionMode` — whether the Job's Pods can be preempted individually (`single`) or only as a whole (`all`).
+* `resourceClaims` — the ResourceClaims shared by all of the Job's Pods.
+
+For example:
 
 ```yaml
 apiVersion: batch/v1
@@ -342,6 +369,13 @@ spec:
       containers:
       ...
 ```
+
+Omitting `.spec.scheduling`, or omitting `schedulingPolicy` within it, selects the `basic` policy, which behaves exactly like standard Job scheduling today.
+
+For every Job it manages, the controller compiles this configuration into a `Workload` and a `PodGroup` 
+owned by the Job, and sets `.spec.schedulingGroup.podGroupName` on each Pod it creates so the scheduler 
+treats them as one group. Once created, `.spec.scheduling` is immutable, with one exception: 
+`schedulingPolicy.gang.minCount` can be updated, which lets you resize a running gang.
 
 ## DRA ResourceClaim Support for Workloads
 
