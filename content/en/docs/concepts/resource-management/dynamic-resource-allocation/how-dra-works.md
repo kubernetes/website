@@ -223,50 +223,52 @@ in the `kube-apiserver` and `kube-scheduler`.
 
 {{< feature-state feature_gate_name="DRANodeAllocatableResources" >}}
 
-Devices managed by DRA can have an underlying footprint composed of node-allocatable
-resources, such as `cpu`, `memory`, `hugepages`, or `ephemeral-storage`.
+Devices managed by DRA can have an underlying footprint composed of node allocatable
+resources, such as `cpu`, `memory`, or `hugepages`.
 This feature integrates these DRA-based requests into the scheduler's standard
 accounting alongside regular Pod `spec` requests for these resources.
 
-Users (PodSpec authors) can use a mixture of Pod-level resources, container-level resources, 
-and resource claims with associated node-allocatable resources. These devices represent 
-resources like CPUs or memory directly, or they could be accelerators, network interface cards,
-or other devices that require some host resources when allocated. The DRA driver will 
-populate information in the ResourceSlice that tells the scheduler how to calculate the
-node allocatable resources when the device is allocated to a ResourceClaim.
-PodSpec authors do not need to make that calculation themselves.
+DRA drivers define how devices consume node allocatable resources using two distinct models:
+
+*   **Direct Resource Mapping (`mapping`)**: The DRA device directly provides a standard node resource (such as a custom CPU core pool or memory block). The claim allocation directly maps to standard CPU or memory capacity on the node.
+*   **Auxiliary Device Overhead (`overhead`)**: The DRA device (such as a GPU or accelerator) requires host resources (such as host RAM) as secondary overhead to operate when allocated to a Pod or container.
+
+### Considerations for Pod Authors
 
 When authoring a PodSpec using claims for these types of devices, there are a few things to be aware of:
 
-*   When Pod-level resources are used, the sum of all container and claim resources 
-    must not exceed the Pod-level resources; otherwise, the Pod will fail to schedule.
+*   When Pod-level resources are used, the scheduler strictly validates them against both container requests and limits:
+    *  The sum of all container requests and DRA claim resources must not exceed the Pod-level requests; otherwise, the Pod will fail to schedule.
+    *  Each individual container's limit plus its DRA allocations must not exceed the Pod-level limits; otherwise, the Pod will fail to schedule.
 *   A container's total resource requirement is the sum of its container-level resources
-    and any node-allocatable resources from its associated resource claims.
-*   Claims that consume node allocatable resources cannot be shared between Pods.
+    and any node allocatable resources from its associated resource claims.
+*   **Claim Sharing Restriction**: Claims that use direct resource mappings (`mapping`) cannot be shared across multiple Pods. Claims for devices 
+    with `overhead` can support device sharing and overhead is tracked per Pod or per container.
+*   Pods with DRA claims support in-place resizing for standard requests in `spec`. The scheduler ensures 
+    that resized standard requests combined with static DRA allocations still fit on the node.
 
 ### Details for DRA Driver Authors
 
 DRA drivers declare this node allocatable resource footprint using the
-`nodeAllocatableResourceMappings` field on devices within a ResourceSlice.
-This mapping translates the requested DRA device or capacity into standard
+`nodeAllocatableResources` field on devices within a ResourceSlice.
+This defines the translation of the requested DRA device or capacity into standard
 resources that are tracked in the node's `status.allocatable` (note that extended
-resources are not supported for this mapping). This is useful both for drivers that directly
+resources are not supported for this field). This is useful both for drivers that directly
 expose native resources (like a CPU or Memory DRA driver) and for devices that
 require auxiliary node dependencies (like an accelerator that needs host memory).
 
-This mapping defines the translation of the requested DRA device or capacity
-units to the corresponding quantity of the node-allocatable resource. The
-scheduler calculates the exact quantity using:
+The `nodeAllocatableResources` field supports two different use cases:
 
-*   **Device-based scaling:** If `capacityKey` is not set, the
-    `allocationMultiplier` multiplies the device count allocated to the claim.
-    The `allocationMultiplier` defaults to 1 if not specified.
-*   **Capacity-based scaling:** If `capacityKey` is set, it references a
-    capacity name defined in the device's `capacity` map. The scheduler looks
-    up the amount of that capacity consumed by the claim and multiplies it by
-    the `allocationMultiplier`.
+*   **Mapping**: Used when the DRA device directly represents the standard resource
+    (e.g., a CPU or Memory DRA driver). The scheduler calculates the exact quantity
+    by scaling the capacity using `capacityMultiplier`, or scaling the device count
+    using `deviceMultiplier`.
+*   **Overhead**: Used when the device requires auxiliary node dependencies (e.g.,
+    host memory consumed by a GPU). This can be defined as a flat `perPod` cost or
+    a variable `perContainer` cost that scales linearly with the number of
+    referencing containers.
 
-#### Example: CPU DRA Driver (Capacity-based scaling)
+#### Example: CPU DRA Driver (Mapping)
 
 Here is an example where a CPU DRA driver exposes a CPU socket as a pool of 128
 CPUs using [DRA consumable capacity](#consumable-capacity). The `capacityKey` links the consumed
@@ -290,24 +292,25 @@ spec:
     allowMultipleAllocations: true
     capacity:
       "cpu.example.com/cpu": "128"
-    nodeAllocatableResourceMappings:
-      cpu:
-        capacityKey: "cpu.example.com/cpu"
-        # allocationMultiplier defaults to 1 if omitted
+    nodeAllocatableResources:
+      mapping:
+        cpu:
+          capacityKey: "cpu.example.com/cpu"
   - name: socket1cpus
     allowMultipleAllocations: true
     capacity:
       "cpu.example.com/cpu": "128"
-    nodeAllocatableResourceMappings:
-      cpu:
-        capacityKey: "cpu.example.com/cpu"
-        # allocationMultiplier defaults to 1 if omitted
+    nodeAllocatableResources:
+      mapping:
+        cpu:
+          capacityKey: "cpu.example.com/cpu"
+          capacityMultiplier: 1
 ```
 
-#### Example: Accelerator with Auxiliary Resources (Device-based scaling)
+#### Example: Accelerator with Auxiliary Resources (Overhead)
 
 Here is an example of a resource slice where an accelerator requires an
-additional 8Gi of memory per device instance to function:
+additional 8Gi of memory per Pod to function:
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -326,18 +329,22 @@ spec:
     attributes:
       example.com/model:
         string: "model-x"
-    nodeAllocatableResourceMappings:
-      memory:
-        allocationMultiplier: "8Gi"
+    nodeAllocatableResources:
+      overhead:
+        memory:
+          perPod: "8Gi"
 ```
 
 After a Pod is successfully bound to the node, the exact quantities of 
-node-allocatable resources allocated via DRA are included in the Pod's
-`status.nodeAllocatableResourceClaimStatuses` field.
+node allocatable resources allocated via DRA are aggregated by the `kube-scheduler`
+and embedded directly into the Pod's `status.nodeAllocatableResourceClaimStatuses` field.
+This provides a clear, persistent handoff from the scheduler to the `kubelet`.
 
-Node-allocatable resources is controlled by the
-[`DRANodeAllocatableResources` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRANodeAllocatableResources)
-in the `kube-apiserver`, `kube-scheduler`, and `kubelet`. While this feature is alpha,
-the `kubelet` does not account for these resources when determining QoS classes,
-configuring cgroups, or making eviction decisions.
+Crucially, the `kubelet` natively consumes this API to perfectly align system-level boundaries:
+- **cgroups**: Pod and container cgroups would now include DRA based allocations, preventing workloads from being artificially throttled by the kernel.
+- **OOM Scores**: The `kubelet` factors the container's DRA memory requests into its effective memory request.
+
+Node allocatable resources is an alpha feature and is enabled when the
+[`DRANodeAllocatableResources` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRANodeAllocatableResources) is enabled in the `kube-apiserver`,
+`kube-scheduler`, and `kubelet`.
 
