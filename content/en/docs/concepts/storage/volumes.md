@@ -197,6 +197,22 @@ Please check [here](/docs/concepts/configuration/manage-resources-containers/#me
 for points to note in terms of resource management when using memory-backed `emptyDir`.
 {{< /caution >}}
 
+{{< feature-state feature_gate_name="EmptyDirVolumeMode" >}}
+
+The `emptyDir.mode` field lets you set Unix permission bits on the emptyDir directory,
+specifying a value between `0000` and `01777` (octal). This follows the same pattern as the
+`defaultMode` field on Secret and ConfigMap volumes. If `mode` is not specified, the
+directory is created with the default `0777` permissions.
+
+Setting a custom mode is useful when you want to restrict access to owner and group only
+(for example, `0750`), or set the sticky bit on a shared directory so that only file owners
+can delete their own files (for example, `01777`).
+
+{{< note >}}
+If `fsGroup` is set in the Pod's security context, the group permissions applied by
+`fsGroup` override the `mode` specified here. The `mode` field has no effect on Windows.
+{{< /note >}}
+
 #### emptyDir configuration example
 
 ```yaml
@@ -236,6 +252,26 @@ spec:
     emptyDir:
       sizeLimit: 500Mi
       medium: Memory
+```
+
+#### emptyDir permissions configuration example
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      mode: 01777
 ```
 
 ### fc (fibre channel) {#fc}
