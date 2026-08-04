@@ -1,5 +1,5 @@
 ---
-title: 使用 DRA 安裝驅動程式並配置裝置
+title: 使用 DRA 安裝驅動程式並分配裝置
 content_type: tutorial
 weight: 60
 min-kubernetes-server-version: v1.34
@@ -335,7 +335,7 @@ on this cluster:
     with the underlying Container Device Interface (CDI) directory, and to
     expose its socket to `kubelet` via the `kubelet/plugins` directory.
 -->
-4.  將實際的 DRA 驅動程式部署為 DaemonSet，並設定為使用上述已配置的權限執行範例驅動程式二進位檔。
+4.  將實際的 DRA 驅動程式部署為 DaemonSet，並設定為使用上述已設定的權限執行範例驅動程式二進位檔。
     DaemonSet 具有您在前述步驟中授予 ServiceAccount 的權限。
 
     {{% code_sample language="yaml" file="dra/driver-install/daemonset.yaml" %}}
@@ -735,4 +735,4 @@ kubectl delete priorityclass dra-driver-high-priority
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
 -->
 * [深入了解 DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
-* [使用 DRA 為工作負載配置裝置](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
+* [使用 DRA 為工作負載分配裝置](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
