@@ -56,14 +56,12 @@ If you need more control over naming and lifecycle, you can create `PodGroup` ob
 
 * All Pods in a `PodGroup` must use the same `.spec.schedulerName`.
   If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
-* The `spec.schedulingPolicy.gang.minCount` field on a PodGroup is immutable.
-  Once created, you cannot change the minimum number of Pods that must be schedulable for the group to be admitted.
 * The `spec.schedulingGroup` field on a Pod is immutable.
   Once set, a Pod cannot move to a different PodGroup.
 * The maximum number of `PodGroupTemplates` in a single `Workload` is 8.
-* The `PodGroupScheduled` condition reflects the outcome of the initial scheduling
-  attempt only. Once the condition is set to `True`, the scheduler does not update it
-  if Pods later fail, are evicted, or stop running.
+* The scheduler does not update status information regarding the ongoing operational state of a PodGroup
+  or subsequent scheduling attempts after initial placement. Consequently, the PodGroup status is not updated
+  when existing Pods fail, are evicted, or terminate, or when newly observed Pods fail to schedule.
 
 ## {{% heading "whatsnext" %}}
 

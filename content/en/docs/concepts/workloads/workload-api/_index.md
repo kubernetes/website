@@ -18,7 +18,7 @@ should be scheduled. The Job controller is the only built-in controller that cre
 
 ## What is a Workload?
 
-The Workload API resource is part of the `scheduling.k8s.io/v1alpha2`
+The Workload API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}
 and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -49,7 +49,7 @@ If the [`WorkloadAwarePreemption`](/docs/reference/command-line-tools-reference/
 The maximum number of PodGroupTemplates in a single Workload is 8.
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: training-job-workload
