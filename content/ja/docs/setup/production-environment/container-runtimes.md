@@ -34,47 +34,30 @@ v{{< skew currentVersion >}}以外のバージョンのKubernetesを実行して
 
 ## インストールと設定の必須要件
 
-以下の手順では、全コンテナランタイムに共通の設定をLinux上のKubernetesノードに適用します。
+### ネットワーク構成
 
-特定の設定が不要であることが分かっている場合、手順をスキップして頂いて構いません。
+デフォルトでは、Linuxカーネルはインターフェース間でのIPv4パケットのルーティングを許可していません。
+Kubernetesクラスターのネットワーク実装の多くは、必要に応じてこの設定を変更しますが、管理者が設定することを想定しているものもあります。
+(他のsysctlパラメーターの設定やカーネルモジュールの読み込みなども必要になる場合があります。使用しているネットワーク実装のドキュメントを参照してください。)
 
-詳細については、[Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)または、特定のコンテナランタイムのドキュメントを参照してください。
+### IPv4パケットフォワーディングを有効化する {#prerequisite-ipv4-forwarding-optional}
 
-### IPv4フォワーディングを有効化し、iptablesからブリッジされたトラフィックを見えるようにする
-
-以下のコマンドを実行します。
+IPv4パケットフォワーディングを手動で有効にするには、以下のコマンドを実行します。
 
 ```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# この構成に必要なカーネルパラメーター、再起動しても値は永続します
+# セットアップに必要なsysctlパラメーター。値は再起動後も保持されます
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
+net.ipv4.ip_forward = 1
 EOF
 
-# 再起動せずにカーネルパラメーターを適用
+# 再起動せずにsysctlパラメーターを適用
 sudo sysctl --system
 ```
 
-以下のコマンドを実行して`br_netfilter`と`overlay`モジュールが読み込まれていることを確認してください。
+以下のコマンドを実行して、`net.ipv4.ip_forward`が1に設定されていることを確認します。
 
 ```bash
-lsmod | grep br_netfilter
-lsmod | grep overlay
-```
-
-以下のコマンドを実行して、`net.bridge.bridge-nf-call-iptables`、`net.bridge.bridge-nf-call-ip6tables`、`net.ipv4.ip_forward`カーネルパラメーターが1に設定されていることを確認します。
-
-```bash
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+sysctl net.ipv4.ip_forward
 ```
 
 ## cgroupドライバー {#cgroup-drivers}
