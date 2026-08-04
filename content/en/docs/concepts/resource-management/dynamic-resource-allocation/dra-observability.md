@@ -142,7 +142,7 @@ To check resource pool status:
    optionally a limit on the number of pools returned. You can also limit it to a single pool by specifying a pool name:
 
    ```yaml
-   apiVersion: resource.k8s.io/v1beta2
+   apiVersion: resource.k8s.io/v1alpha3
    kind: ResourcePoolStatusRequest
    metadata:
      name: check-gpus
@@ -182,6 +182,12 @@ To check resource pool status:
      - `validationError`: set when the pool's data could not be fully validated
        (for example, during a generation rollout). When set, device count fields
        may be unset.
+     - `partitionSummary`: for [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
+       pools, per-partition-type allocatability (see
+       [Partition summary](#resource-pool-partition-summary)).
+     - `shareableSummary`: for pools with [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity),
+       aggregate capacity usage (see
+       [Shareable summary](#resource-pool-shareable-summary)).
    - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
 
 1. Delete the request when done:
@@ -202,6 +208,96 @@ resource. No default ClusterRoles include this permission.
 Resource pool status is controlled by the
 [`DRAResourcePoolStatus` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
 in the `kube-apiserver` and `kube-controller-manager`.
+
+### Partition summary {#resource-pool-partition-summary}
+
+{{< feature-state feature_gate_name="DRAPartitionableDevicesType" >}}
+
+A single physical device such as a GPU may be advertised as several partition
+types (for example, a full GPU versus a half-sized MIG slice) that draw from the
+same shared counters. Because these partitions compete for the same underlying
+capacity, a plain device count does not tell you how many of each type can still
+be allocated. For [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
+pools, the `partitionSummary` view answers that question. For each partition type
+it reports:
+
+- `attribute`: the fully qualified name of the device attribute whose value
+  groups this entry. It is the ResourceSlice's `spec.partitionTypeAttribute`, or
+  the request's `spec.defaultPartitionTypeAttribute` when the slice declares none.
+- `type`: the value of that attribute on the device (for example, `Full` or
+  `Half`).
+- `total`: the number of devices of this partition type in the pool.
+- `allocatable`: how many *additional* devices of this partition type could still
+  be allocated given current shared-counter consumption.
+
+The named attribute must be a string attribute. If a partitionable device's
+partition-type attribute is missing or is not a string (for example, an integer,
+boolean, or version value), the pool reports a validation error instead of a
+partition summary. There is no special handling for
+[list-type attributes](/docs/reference/command-line-tools-reference/feature-gates/#DRAListTypeAttributes);
+a non-string attribute is simply not a valid partition-type attribute.
+
+To produce this view, the driver labels each partitionable device with a string
+attribute whose value names the partition type, and names that attribute in the
+ResourceSlice's `partitionTypeAttribute` field:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+# ...
+spec:
+  # Every partitionable device in this slice carries this attribute; devices
+  # that share a value share the same shared-counter cost.
+  partitionTypeAttribute: gpu.example.com/profile
+```
+
+If a driver has not yet been updated to declare `partitionTypeAttribute`, a
+request can still obtain a partition summary by naming a fallback attribute in
+its spec. A slice's own `partitionTypeAttribute` always takes precedence; the
+request-level default applies only to devices whose slice does not declare one:
+
+```yaml
+apiVersion: resource.k8s.io/v1alpha3
+kind: ResourcePoolStatusRequest
+metadata:
+  name: check-gpu-partitions
+spec:
+  driver: gpu.example.com
+  # Fallback grouping attribute for slices that don't declare one themselves.
+  defaultPartitionTypeAttribute: gpu.example.com/profile
+```
+
+When neither the slice nor the request names an attribute, a partitionable pool
+reports no `partitionSummary`.
+
+The `partitionSummary` view is controlled by the
+[`DRAPartitionableDevicesType` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)
+in the `kube-apiserver` and `kube-controller-manager`, which in turn requires the
+[`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
+and
+[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
+feature gates to be enabled.
+
+### Shareable summary {#resource-pool-shareable-summary}
+
+For pools that contain [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+(devices that set `allowMultipleAllocations` and can be consumed by multiple
+claims), `shareableSummary` reports aggregate capacity usage across the pool:
+
+- `fullyAvailableDevices`: shareable devices with no capacity consumed.
+- `partiallyAvailableDevices`: shareable devices with some, but not all, capacity
+  consumed.
+- `capacity`: per capacity name, the aggregate `total`, `consumed`, and
+  `available` (`total` minus `consumed`, never negative) amounts across the pool.
+
+The `shareableSummary` is populated only when at least one device in the pool is
+shareable. It is part of the [resource pool status](#resource-pool-status)
+feature (the
+[`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
+feature gate) and does not require `DRAPartitionableDevicesType`; the shareable
+devices it summarizes come from the
+[consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+feature.
 
 
 ## DRA device metadata in containers {#device-metadata}
