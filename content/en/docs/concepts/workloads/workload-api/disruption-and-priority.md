@@ -37,6 +37,30 @@ allowing independent disruption of a single pod from a PodGroup.
 The `PodGroup` mode emphasizes "all-or-nothing" semantics for disruption.
 It instructs the scheduler that all pods from the PodGroup have to be disrupted together.
 
+## CompositePodGroup
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+A `CompositePodGroup` can also declare a `disruptionMode` in its specification, which controls
+how the scheduler disrupts child groups within the composite group during preemption events.
+
+The API supports two disruption modes for `CompositePodGroups`:
+
+- **`Single`**: Allows individual child groups within the `CompositePodGroup` to be disrupted
+  independently during preemption.
+- **`All`**: Enforces all-or-nothing disruption semantics across the `CompositePodGroup` hierarchy.
+  If any Pod contained in the hierarchy below this `CompositePodGroup` has to be preempted, all of
+  the Pods from the entire hierarchy must be preempted.
+
+If not specified, the mode defaults to `Single`.
+
+{{< note >}}
+In v1.37, a group can set its disruption mode to `All` and have child groups that have a mode set to
+`Single`. In such case, the top-level `All` mode overrides the descendant `Single` modes.
+
+This configuration is discouraged due to unclear semantics.
+{{< /note >}}
+
 ## Pod group priority
 
 PodGroup uses the same concept of [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) as single Pods.
@@ -62,6 +86,52 @@ metadata:
 spec:
   priorityClassName: high-priority
 ```
+
+### CompositePodGroup priority
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+`CompositePodGroup` API has `priorityClassName` and `priority` fields as well and their resolution
+is performed in the same way as for the `PodGroups`, through the priority admission controller.
+
+The priority of a root `CompositePodGroup` acts as the authoritative priority for all child groups
+and Pods within its hierarchy during
+[workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
+All Pods within a single group hierarchy must share the exact same priority and must be equal to the
+priority of the root `CompositePodGroup`.
+
+The value of priority is also used for the ordering of root `CompositePodGroups` in the scheduling
+active queue.
+
+{{< note >}}
+In v1.37, the scheduler doesn't validate if the non-root groups have priority value that is equal to
+the priority of the root `CompositePodGroup`.
+{{< /note >}}
+
+### PreemptionPolicy in CompositePodGroup
+
+{{< feature-state feature_gate_name="PodGroupPreemptionPolicy" >}}
+
+The `CompositePodGroup` API has the `preemptionPolicy` field as well and its resolution is performed
+in the exact same way as for the `PodGroup` API.
+
+The value of `preemptionPolicy` of the root `CompositePodGroup` determines whether
+[workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) can be
+invoked to fit its Pods during scheduling if needed:
+
+- `PreemptLowerPriority` policy allows preempting victims with lower priority,
+- `Never` policy disables workload-aware preemption for that root `CompositePodGroup`.
+
+All Pods within a single group hierarchy must share the exact same preemption policy which must be
+equal to the preemption policy of the root `CompositePodGroup`.
+
+If the feature flag is disabled, the root `CompositePodGroup` will be allowed to perform preemption
+unless one of the Pods that belongs to the group hierarchy has `preemptionPolicy` set to `Never`.
+
+{{< note >}}
+In v1.37, when the feature gate is enabled, the scheduler doesn't validate if the non-root groups
+have preemption policy that is equal to the preemption policy of the root `CompositePodGroup`.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
