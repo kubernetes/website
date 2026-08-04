@@ -291,32 +291,32 @@ token:
    the attestation (or `"*"` for all API groups).
 
 The following example RBAC configuration allows a service account to request
-webhook authentication tokens scoped to the `jungle.panda` API group:
+webhook authentication tokens scoped to the `mygroup.example.com` API group:
 
 ```yaml
 # ClusterRole granting attest permission for a specific API group
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: webhook-auth-attest-jungle-panda
+  name: webhook-auth-attest-mygroup-example-com
 rules:
   - apiGroups: ["authentication.k8s.io"]
     resources: ["admissionReviewAPIGroups"]
-    resourceNames: ["jungle.panda"]
+    resourceNames: ["mygroup.example.com"]
     verbs: ["attest"]
 ---
 # Bind the ClusterRole to the service account used for token acquisition
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: webhook-auth-attest-jungle-panda-binding
+  name: webhook-auth-attest-mygroup-example-com-binding
 subjects:
   - kind: ServiceAccount
     name: webhook-auth-sa
     namespace: kube-system
 roleRef:
   kind: ClusterRole
-  name: webhook-auth-attest-jungle-panda
+  name: webhook-auth-attest-mygroup-example-com
   apiGroup: rbac.authorization.k8s.io
 ```
 
@@ -350,7 +350,7 @@ namespace. For example, a token bound to a `MutatingWebhookConfiguration`:
       "uid": "44e818f2-2ad0-4432-9816-3a649ca9945c"
     },
     "attestations": {
-      "admissionReviewAPIGroups": ["jungle.panda"]
+      "admissionReviewAPIGroups": ["mygroup.example.com"]
     }
   }
 }
