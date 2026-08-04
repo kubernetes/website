@@ -131,6 +131,147 @@ Partitionable devices is controlled by the
 in the `kube-apiserver` and `kube-scheduler`.
 
 
+## Device compatibility groups {#device-compatibility-groups}
+
+{{< feature-state feature_gate_name="DRADeviceCompatibilityGroups" >}}
+
+Device compatibility groups let a DRA driver declare which partitioned devices
+can be co-allocated on the same physical hardware. Without this feature,
+incompatible device combinations are only detected when the kubelet prepares
+the Pod on a node — resulting in a failed preparation. With compatibility
+groups, the scheduler rejects incompatible combinations at scheduling time,
+before any node-side work begins.
+
+This is most useful for hardware that supports mutually exclusive operating
+modes. For example, a GPU that can run in either MIG mode or vGPU mode: a
+device in MIG mode and a device in vGPU mode cannot be co-allocated because
+they consume overlapping physical resources in incompatible ways. By declaring
+`compatibilityGroups`, the driver makes this constraint visible to the
+scheduler.
+
+This feature builds on [partitionable devices](#partitionable-devices): the
+`compatibilityGroups` field lives on `device.consumesCounters[]` entries, which
+only exist for partitionable devices. Both the `DRADeviceCompatibilityGroups`
+and `DRAPartitionableDevices` feature gates must be enabled in the
+`kube-apiserver` and `kube-scheduler`.
+
+### How it works {#device-compatibility-groups-how-it-works}
+
+A driver defines a `compatibilityGroups` list for each
+`device.consumesCounters[]` entry in a ResourceSlice. The list contains
+at most 2 opaque string names that represent the operating mode or partition
+type of that device on that particular counter set.
+
+When the scheduler allocates multiple devices that draw from the same counter
+set, it computes the intersection of their `compatibilityGroups`. Allocation
+succeeds only if that intersection is non-empty — meaning every co-allocated
+device shares at least one common group name. Devices drawing from different
+counter sets are never compared against each other.
+
+A device that declares no groups (an unset, nil, or empty list) is treated as
+a special case: it is only co-allocatable with other no-group devices on the
+same counter set. It is never co-allocatable with a device that declares one or
+more groups.
+
+The constraint applies across all claims being allocated in a single scheduling
+cycle: if two claims each allocate a device from the same counter set, the
+cross-claim group intersection is also enforced.
+
+### Example {#device-compatibility-groups-example}
+
+Consider a GPU that can operate in either MIG mode or vGPU mode. The driver
+publishes two devices, each consuming 4 GiB from the same shared memory counter
+of 8 GiB. Based on counter capacity alone, both devices could be allocated
+together. Each device declares its operating mode as a compatibility group,
+making the two modes mutually exclusive:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: gpu-counters
+spec:
+  nodeName: worker-1
+  pool:
+    name: gpu-pool
+    generation: 1
+    resourceSliceCount: 2
+  driver: gpu.example.com
+  sharedCounters:
+  - name: gpu-0-memory
+    counters:
+      memory:
+        value: 8Gi
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: gpu-devices
+spec:
+  nodeName: worker-1
+  pool:
+    name: gpu-pool
+    generation: 1
+    resourceSliceCount: 2
+  driver: gpu.example.com
+  devices:
+  - name: gpu-0-mig
+    consumesCounters:
+    - counterSet: gpu-0-memory
+      counters:
+        memory:
+          value: 4Gi
+      compatibilityGroups:
+      - mig
+  - name: gpu-0-vgpu
+    consumesCounters:
+    - counterSet: gpu-0-memory
+      counters:
+        memory:
+          value: 4Gi
+      compatibilityGroups:
+      - vgpu
+```
+
+In this example:
+- `gpu-0-mig` belongs to the `mig` group.
+- `gpu-0-vgpu` belongs to the `vgpu` group.
+
+If a Pod or PodGroup requests two devices from this pool, the scheduler checks
+whether the two chosen devices share a common compatibility group on the
+`gpu-0-memory` counter set. Since `{"mig"} ∩ {"vgpu"} = ∅`, the pair is
+rejected — even though the counter set has enough memory for both. Both
+requests can only be satisfied by two MIG devices (or two vGPU devices) from a
+pool where such pairs exist.
+
+### Constraints {#device-compatibility-groups-constraints}
+
+- Each `consumesCounters[]` entry may declare at most **2** group names.
+- Group names must be unique within a single entry.
+- Group names are opaque to Kubernetes; they are meaningful only within the
+  publishing driver's pool.
+- Groups are compared per counter set: groups on one counter set have no effect
+  on co-allocation decisions for a different counter set.
+
+### Version-skew safety {#device-compatibility-groups-version-skew}
+
+When the `DRADeviceCompatibilityGroups` feature gate is disabled (the default
+for alpha), the kube-apiserver strips the `compatibilityGroups` field from any
+new or updated ResourceSlice — unless the old object already had the field
+set. The scheduler then treats devices in any pool that previously had grouped
+devices as belonging to an incomplete pool and skips them entirely.
+
+Only a non-empty list counts as the field being set: `compatibilityGroups: null`
+and `compatibilityGroups: []` are treated identically to omitting the field.
+Devices with them behave exactly like devices with no groups — they do not
+cause the scheduler to treat the pool as incomplete.
+
+Device compatibility groups is controlled by the
+[`DRADeviceCompatibilityGroups` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceCompatibilityGroups)
+in the kube-apiserver and kube-scheduler. The
+[`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
+must also be enabled.
+
 ## Consumable capacity
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
