@@ -176,16 +176,21 @@ spec:
 When the
 [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate is enabled, the
-[Job](/docs/concepts/workloads/controllers/job/) controller automatically
-creates Workload and PodGroup objects for parallel indexed Jobs where
-`.spec.parallelism` equals `.spec.completions`. The gang policy's `minCount`
-is set to the Job's parallelism, so all Pods must be schedulable together
+[Job](/docs/concepts/workloads/controllers/job/) controller compiles a Job's
+`.spec.scheduling` configuration into `Workload` and `PodGroup` objects before it
+creates any Pods. You opt into gang scheduling by setting
+`.spec.scheduling.schedulingPolicy.gang` on the Job; an omitted `gang.minCount`
+defaults to the Job's `.spec.parallelism`, so all Pods must be schedulable together
 before any of them are bound to nodes.
 
-This is the built-in path for using gang scheduling with Jobs.
-You do not need to create Workload or PodGroup objects yourself as the Job
-controller handles it automatically. Other workload controllers (such as
-JobSet) may manage their own Workload and PodGroup objects independently.
+When `.spec.scheduling` is omitted, the Job defaults to the `basic` policy, which
+preserves standard pod-by-pod scheduling. Either way the Job controller creates the
+`Workload` and `PodGroup` for you, so you do not need to create them yourself.
+Other workload controllers (such as JobSet) may manage their own `Workload` and
+`PodGroup` objects independently.
+
+For the full set of scheduling fields and examples, see
+[Integrate with Workload APIs](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis).
 
 ## {{% heading "whatsnext" %}}
 
