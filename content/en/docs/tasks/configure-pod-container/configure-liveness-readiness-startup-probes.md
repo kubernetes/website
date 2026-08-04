@@ -166,6 +166,29 @@ kubectl describe pod liveness-http
 In releases after v1.13, local HTTP proxy environment variable settings do not
 affect the HTTP liveness probe.
 
+### Use HTTP/2 cleartext (h2c) with HTTP probes {#use-h2c-with-http-probes}
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+By default the `kubelet` sends HTTP/1.1 requests when executing an HTTP probe.
+If your application serves health endpoints only over HTTP/2 cleartext (h2c),
+you can add the `protocol` field to the `httpGet` field in the probe specification and
+specify a value of `HTTP2`. This requires the `H2CContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
+enabled on both the `kube-apiserver` and the `kubelet`.
+
+{{% code_sample file="pods/probe/h2c-liveness.yaml" %}}
+
+When `protocol` is set to `HTTP2`, the `kubelet` connects using HTTP/2 cleartext
+(h2c) — HTTP/2 over plain TCP without TLS. The following configurations aren't
+supported:
+
+*   `protocol: HTTP2` and `scheme: HTTPS`
+*   `protocol: HTTP2` and a value in the `host` field
+
+If the feature gate is disabled, the API server removes the `protocol`
+field from new or updated Pods.
+
 ## Define a TCP liveness probe
 
 A third type of liveness probe uses a TCP socket. With this configuration, the

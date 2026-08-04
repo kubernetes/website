@@ -327,6 +327,10 @@ have additional fields that can be set on `httpGet`:
   headers.
 * `port`: Name or number of the port to access on the container. Number must be
   in the range 1 to 65535.
+* `protocol`: Protocol to use for the probe request. Defaults to `HTTP1`.
+  Set to `HTTP2` to probe over HTTP/2 cleartext (h2c). Requires the
+  `H2CContainerProbe` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  to be enabled.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified port and
 path to perform the check. The kubelet sends the probe to the Pod's IP address,
@@ -378,6 +382,16 @@ startupProbe:
       - name: User-Agent
         value: ""
 ```
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+You can configure an HTTP probe to use HTTP/2 cleartext (h2c) by setting the
+`protocol` field to `HTTP2`. When `protocol` is set to `HTTP2`, the kubelet
+uses h2c (HTTP/2 over plain TCP) instead of HTTP/1.1. The default `protocol`
+is `HTTP1`. Setting `protocol: HTTP2` requires `scheme: HTTP` (the default);
+the API server rejects the combination of `protocol: HTTP2` with
+`scheme: HTTPS`. For more details, see
+[Use HTTP/2 cleartext (h2c) with HTTP probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#use-h2c-with-http-probes).
 
 #### Redirect handling {#http-probes-redirects}
 
