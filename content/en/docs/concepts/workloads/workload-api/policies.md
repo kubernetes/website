@@ -72,3 +72,4 @@ directly on the PodGroup itself.
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/) that defines PodGroupTemplates.
 * Read about [PodGroup scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/).
 * Read about the [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) algorithm.
+* Learn about the [scheduling building blocks and the workloadbuilder library](/docs/concepts/workloads/workload-api/workloadbuilder/) that controllers use to compile these policies.

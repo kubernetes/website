@@ -90,3 +90,4 @@ spec:
 * Learn about [pod group policies](/docs/concepts/workloads/workload-api/policies/).
 * Learn about [plugins related Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) algorithm.
+* Learn about the [scheduling building blocks and the workloadbuilder library](/docs/concepts/workloads/workload-api/workloadbuilder/), including the scheduling constraints building block.
