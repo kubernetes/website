@@ -471,6 +471,14 @@ Configuration problems (for example: incorrect port or service, unimplemented
 health checking protocol) are considered a probe failure, similar to HTTP and
 TCP probes.
 
+{{< feature-state feature_gate_name="GRPCContainerProbeTLS" >}}
+
+You can configure a gRPC probe to connect over TLS by setting the `mode` field
+to `TLS`. When `mode` is set to `TLS`, the kubelet uses TLS with
+`InsecureSkipVerify` (it does not verify the server certificate). The default
+`mode` is `Plaintext`. For more details, see
+[Use TLS with gRPC probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#grpc-probe-tls).
+
 ## {{% heading "whatsnext" %}}
 
 * Learn how to
