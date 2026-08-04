@@ -2,15 +2,16 @@
 layout: blog
 title: "Kubernetes v1.37: KubeletInUserNamespace (aka Rootless mode) Graduates to Beta"
 slug: rootless-beta
+draft: true
 author: >
   [Akihiro Suda](https://github.com/AkihiroSuda) (NTT)
 ---
 
 Kubernetes v1.37 promotes the `KubeletInUserNamespace` feature gate to beta.
-With this feature, all of the node components (kubelet, CRI and OCI runtimes,
+With this feature enabled, all of the node components (kubelet, CRI and OCI runtimes,
 CNI plugins, and kube-proxy) can run as a non-root user on the host, using a
 [Linux user namespace](https://man7.org/linux/man-pages/man7/user_namespaces.7.html).
-This technique is also known as "Rootless mode".
+This technique is also known as _rootless mode_.
 The work started as an experiment in 2018, and was merged into Kubernetes v1.22 (2021)
 as an alpha feature (Kubernetes Enhancement Proposal [KEP-2033](https://github.com/kubernetes/enhancements/issues/2033)).
 
@@ -75,13 +76,13 @@ unnecessary system calls.
 
 ## How does it work?
 
-A user namespace maps a non-root user (e.g., UID 1000) to a "fake root" (UID 0) whose
+A Linux kernel _user namespace_ maps a host level non-root user (e.g., UID 1000) to a _fake root_ user inside the namespace. The UID 0
 privileges are limited to the inside of the namespace.
 The fake root is enough for most of the node components' tasks: mounting volumes,
 creating cgroups, and configuring the network namespaces of pods.
 
 The user namespace has to be created outside of Kubernetes.
-For example, Rootless Docker can be used to prepare the user namespace in which Kubernetes runs.
+For example, [Rootless](https://docs.docker.com/engine/security/rootless/) Docker can be used to prepare the user namespace in which Kubernetes runs.
 
 The `KubeletInUserNamespace` feature gate itself is quite "boring": basically it just lets the kubelet
 ignore permission errors that occur when [setting some sysctl values](https://github.com/kubernetes/kubernetes/blob/v1.37.0-beta.0/pkg/kubelet/cm/container_manager_linux.go#L499-L517)
@@ -100,7 +101,7 @@ for further information.
   the [`runningInUserNamespace`](https://pkg.go.dev/k8s.io/api/core/v1#NodeSystemInfo) property.
   A cluster administrator can use this property to set node labels or taints, to avoid scheduling workloads
   that need real root privileges (e.g., some CNI plugin installers) onto rootless nodes.
-- The `NodeConformance` e2e tests now run on a rootless cluster in the Kubernetes CI
+- For Kubernetes' own CI/CD testing, the node conformance end to end tests now run on a rootless cluster
   ([ci-kubernetes-e2e-kind-rootless](https://prow.k8s.io/job-history/gs/kubernetes-ci-logs/logs/ci-kubernetes-e2e-kind-rootless)).
 
 Several related improvements have also happened outside the promotion of the feature gate itself:
@@ -118,9 +119,10 @@ inside Kubernetes pods with `hostUsers: false` (`UserNamespacesSupport`).
 ### kind
 
 The easiest way is to use [kind](https://kind.sigs.k8s.io/) (a Kubernetes SIG Testing project)
-to run a Kubernetes cluster in Rootless Docker, Rootless Podman, or Rootless nerdctl:
+to run a Kubernetes cluster in rootless Docker, rootless nerdctl, or rootless Podman:
 
 ```bash
+# Example using Docker
 dockerd-rootless-setuptool.sh install
 kind create cluster
 ```
@@ -134,7 +136,7 @@ the [kind documentation](https://kind.sigs.k8s.io/docs/user/rootless/) for furth
 ### minikube
 
 [minikube](https://minikube.sigs.k8s.io/docs/) (a Kubernetes SIG Cluster Lifecycle project)
-also supports running a Kubernetes cluster in Rootless Docker and Rootless Podman:
+also supports running a Kubernetes cluster in rootless Docker or rootless Podman:
 
 ```bash
 dockerd-rootless-setuptool.sh install
@@ -147,19 +149,19 @@ for further information.
 ### Usernetes
 
 [Usernetes](https://github.com/rootless-containers/usernetes) (a third-party project)
-is a distribution of Rootless Kubernetes maintained by the author of this article.
+is a distribution of rootless Kubernetes, maintained by the author of this article.
 The project began in 2018, and it is where the `KubeletInUserNamespace` feature gate
 originally came from.
 
-Unlike kind and minikube, Usernetes supports creating a cluster with multiple Rootless
-Docker/Podman/nerdctl nodes, connected using VXLAN via the Flannel CNI plugin.
+Unlike kind and minikube, Usernetes supports creating a cluster with multiple rootless
+Docker / Podman / nerdctl nodes, connected using VXLAN via the Flannel CNI plugin.
 
 Usernetes also experimentally supports a [Kubernetes-in-Kubernetes](https://github.com/rootless-containers/usernetes/tree/master/kubernetes) mode.
 
 ### k3s
 
 [k3s](https://k3s.io) (a CNCF Sandbox project) also supports [rootless mode](https://docs.k3s.io/advanced#running-rootless-servers-experimental).
-Unlike kind, minikube, and the current generation of Usernetes, Rootless k3s does not rely on an external runtime such as Rootless Docker.
+Unlike kind, minikube, and the current generation of Usernetes, rootless k3s does not rely on an external runtime such as rootless Docker.
 
 ## What's next?
 
@@ -175,7 +177,7 @@ simplifying Kubernetes-in-Kubernetes with this feature:
 ## Getting involved
 
 We always welcome new contributors. If you would like to get involved, you can join the
-[Kubernetes Node Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-node)
+[Node Special Interest Group](https://www.kubernetes.dev/community/community-groups/sigs/node/)
 (SIG Node).
 
 If you would like to share feedback, you can do so on our
