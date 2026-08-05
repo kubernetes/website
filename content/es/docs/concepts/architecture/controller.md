@@ -67,7 +67,7 @@ cerca de completarse.
 
 Los controladores también actualizan los objetos que los configuran. 
 Por ejemplo: una vez que se ha realizado el trabajo para un Job, el controlador de Job 
-actualiza ese objeto de Job para marcarlo `Finished`, o sea terminado.
+actualiza ese objeto de Job para marcarlo `Finished`, es decir, terminado.
 
 (Esto es algo parecido a cómo algunos termostatos apagan una luz para indicar que la 
 habitación ya está a la temperatura que programaste).
