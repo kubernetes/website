@@ -156,6 +156,6 @@ o externamente a Kubernetes. La mejor opción dependerá de la funcionalidad esp
 * Descubre algunos de los [objetos básicos de Kubernetes](/docs/concepts/overview/working-with-objects/)
 * Obtén más información sobre el [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Si quieres escribir tu propio controlador, consulta
-  [los patrones de extensión de Kubernetes](/docs/concepts/extend-kubernetes/#extension-patterns)
+  [los patrones de extensión de Kubernetes](/docs/concepts/extend-kubernetes/#extension-patterns) y
 el repositorio [sample-controller](https://github.com/kubernetes/sample-controller).
 
