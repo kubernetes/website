@@ -58,8 +58,17 @@ and initiates the PodGroup scheduling cycle as follows:
 
    * **Failure:** If the scheduler cannot find enough resources to make the PodGroup feasible
      (e.g., failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
-     No Pods are bound; instead, the PodGroup is returned to the scheduling queue.
-     Standard scheduling backoff logic applies, allowing the PodGroup to be retried later.
+     
+     The scheduler attempts to make a PodGroup schedulable by running the `PodGroupPostFilter` extension point.
+     The `DefaultPreemption` plugin's `PodGroupPostFilter` extenion point runs
+     [workload aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
+     If any plugin implementing `PodGroupPostFilter`extension point returns `Success`, no more
+     plugins for `PodGroupPostFilter` extension point are run.
+     
+     Even when `PodGroupPostFilter` plugin returns a `Success`, no Pods are bound, but instead,
+     all are returned to the scheduling queue, hoping that the actions taken by `PodGroupPostFilter`
+     make a PodGroup schedulable in the next scheduling cycle. Standard scheduling backoff logic applies,
+     allowing the PodGroup to be retried later.
 
 By using this single-cycle approach, the scheduler avoids inefficient bottlenecks
 where partially scheduled groups reserve cluster capacity while waiting indefinitely for the rest of their group to fit.
@@ -70,7 +79,10 @@ The default PodGroup scheduling algorithm relies heavily on the baseline Pod-bas
 It iterates over the Pods and performs the following for each:
 
 1. Finds a feasible node using the standard per-Pod filtering and scoring phases.
-   If the Pod fits, it is temporarily assumed and reserved on the selected node until the end of the scheduling algorithm.
+
+   * If the Pod fits, it is temporarily assumed and reserved on the selected node until the end of the scheduling algorithm.
+   * If the Pod cannot fit, the scheduler does not run the `PostFilter` extension point.
+     Instead it relies on `PodGroupPostFilter` extension point executed for the whole PodGroup.
 
 2. Checks whether the schedulable Pods meet the group's scheduling criteria
    (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.

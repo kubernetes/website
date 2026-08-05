@@ -182,6 +182,17 @@ priority Pod may be scheduled sooner than Pods with lower priority if
 its scheduling requirements are met. If such Pod cannot be scheduled, the
 scheduler will continue and try to schedule other lower priority Pods.
 
+#### PodGroups and scheduling order
+
+{{< feature-state feature_gate_name="GenericWorkload">}}
+
+When the `GenericWorkload` feature gate is enabled, PodGroups are interleaved
+with the standalone Pods in the scheduling queue. PodGroup object has its own
+`priority` field which is used for ordering with respect to other Pods and
+PodGroups. The details on how to set the priority of a PodGroup are available on the
+[Pod Group Disruption and Priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+page.
+
 #### CompositePodGroups and scheduling order
 
 {{< feature-state feature_gate_name="CompositePodGroup">}}
@@ -206,6 +217,22 @@ Preemption logic tries to find a Node where removal of one or more Pods with
 lower priority than P would enable P to be scheduled on that Node. If such a
 Node is found, one or more lower priority Pods get evicted from the Node. After
 the Pods are gone, P can be scheduled on the Node.
+
+### PodGroup preemption
+
+{{< feature-state feature_gate_name="GenericWorkload">}}
+
+When the `GenericWorkload` feature gate is enabled, PodGroups can participate
+in preemption as either the initiator or the victim. When a PodGroup triggers
+preemption, it follows the
+[workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
+logic to preempt other Pods and PodGroups to make room for itself.
+When a Pod triggers preemption, a PodGroup can become a victim. In that case the
+PodGroup `priority` field is used for ordering with respect to other potential
+victims and `disruptionMode` field is used to dictate the PodGroup disruption behavior.
+The detailed description of those fields is available on the
+[Pod Group Disruption and Priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+page.
 
 ### User exposed information
 

@@ -44,7 +44,17 @@ Each entry in `podGroupTemplates` must have:
 1. A unique `name` that will be used to reference the template in the `PodGroup`'s `spec.podGroupTemplateRef`.
 2. A [scheduling policy](/docs/concepts/workloads/workload-api/policies/) (`basic` or `gang`).
 
-If the [`WorkloadAwarePreemption`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadAwarePreemption) [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled each entry in `podGroups` can also have [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/).
+Each entry can also have
+[priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+fields.
+
+{{< note >}}
+In v1.36 the [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+fields were enabled by a
+[`WorkloadAwarePreemption`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadAwarePreemption)
+feature gate. This gate was merged into
+[`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload) in v1.37.
+{{< /note >}}
 
 The maximum number of PodGroupTemplates in a single Workload is 8.
 
@@ -65,8 +75,9 @@ spec:
       gang:
         # The gang is schedulable only if 4 pods can run at once
         minCount: 4
-    priorityClassName: high-priority # Only applicable with WorkloadAwarePreemption feature gate
-    disruptionMode: PodGroup # Only applicable with WorkloadAwarePreemption feature gate
+    priorityClassName: high-priority
+    disruptionMode:
+      all: {}
 ```
 
 When a workload controller creates a `PodGroup` from one of these templates, it copies the

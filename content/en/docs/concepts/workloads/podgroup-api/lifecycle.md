@@ -56,6 +56,10 @@ If you need more control over naming and lifecycle, you can create `PodGroup` ob
 
 * All Pods in a `PodGroup` must use the same `.spec.schedulerName`.
   If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
+* All Pods in a `PodGroup` must use the same `.spec.priority`.
+  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
+* All Pods in a `PodGroup` must use the same `.spec.preemptionPolicy`.
+  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
 * The `spec.schedulingGroup` field on a Pod is immutable.
   Once set, a Pod cannot move to a different PodGroup.
 * The maximum number of `PodGroupTemplates` in a single `Workload` is 8.
