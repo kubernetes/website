@@ -321,6 +321,15 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
       background-color: $dark-bg-color-2;
       color:$dark-text-color-1;
 
+      // The deprecation banner shown on archived doc sets keeps the light
+      // background it gets from Docsy's .pageinfo, so it must keep dark text
+      // too. Without this it inherits the white text set above and ends up
+      // white-on-near-white (contrast ratio 1.05:1).
+      .k8s-deprecation-warning {
+        background-color: $white;
+        color: $dark-grey;
+      }
+
       section:not(#video):not(#cncf) {
         background-color: $dark-bg-color-1;
         color:$dark-text-color-1;
