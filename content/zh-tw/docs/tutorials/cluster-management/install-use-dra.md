@@ -85,7 +85,7 @@ You can try this tutorial with a cluster using a different authorization
 mechanism, but in that case you will have to adapt the steps around defining
 roles and permissions.
 -->
-您的叢集應支援 [RBAC](/zh-tw/docs/reference/access-authn-authz/rbac/)。
+您的叢集應支援 [RBAC](/docs/reference/access-authn-authz/rbac/)。
 您可以在使用其他授權機制的叢集上嘗試本教學，
 但在這種情況下，您需要調整定義角色和權限的步驟。
 
@@ -318,7 +318,7 @@ on this cluster:
 -->
 3.  為 DRA 驅動程式建立 {{< glossary_tooltip term_id="priority-class" >}}。
     PriorityClass 可防止 DRA 驅動程式組件被搶佔，該組件負責處理具有資源請求的 Pod 的重要生命週期操作。
-    深入了解 [Pod 優先權與搶佔](/zh-tw/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+    深入了解 [Pod 優先權與搶佔](/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
 
     {{% code_sample language="yaml" file="dra/driver-install/priorityclass.yaml" %}}
 
@@ -421,7 +421,7 @@ learn more about ResourceClaims.
 在 Pod 規格中選取該 ResourceClaim，以及觀察資源分配情況。
 
 本教學僅展示 DRA ResourceClaim 的一個基本範例。
-請閱讀[動態資源分配](/zh-tw/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)以深入了解 ResourceClaims。
+請閱讀[動態資源分配](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)以深入了解 ResourceClaims。
 
 <!--
 ### Create the ResourceClaim
@@ -734,5 +734,5 @@ kubectl delete priorityclass dra-driver-high-priority
 * [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
 -->
-* [深入了解 DRA](/zh-tw/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
-* [使用 DRA 為工作負載配置裝置](/zh-tw/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
+* [深入了解 DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [使用 DRA 為工作負載配置裝置](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)

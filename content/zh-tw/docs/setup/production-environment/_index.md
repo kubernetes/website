@@ -51,7 +51,7 @@ are influenced by the following issues:
   - Load balancing traffic to the cluster's {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}.
   - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
 -->
-- **可用性**：單一機器的 Kubernetes [學習環境](/zh-tw/docs/setup/#learning-environment)
+- **可用性**：單一機器的 Kubernetes [學習環境](/docs/setup/#learning-environment)
   存在單點故障的問題。建立高可用叢集時需要考慮：
   - 將控制平面與工作節點分開部署。
   - 在多個節點上部署控制平面組件的副本
@@ -84,10 +84,10 @@ are influenced by the following issues:
 -->
 - **安全性與存取管理**：在自己的 Kubernetes 學習叢集上，您擁有完整的管理員權限。
   但對於承載重要工作負載且有多位使用者的共用叢集，則需要更精細的機制來控管哪些使用者或程序可以存取叢集資源。
-  您可以使用角色型存取控制（[RBAC](/zh-tw/docs/reference/access-authn-authz/rbac/)）及其他安全機制，
+  您可以使用角色型存取控制（[RBAC](/docs/reference/access-authn-authz/rbac/)）及其他安全機制，
   確保使用者與工作負載能夠取得所需的資源，同時維持工作負載及叢集本身的安全性。
-  您可以透過管理[政策](/zh-tw/docs/concepts/policy/)及
-  [容器資源](/zh-tw/docs/concepts/configuration/manage-resources-containers/)，
+  您可以透過管理[政策](/docs/concepts/policy/)及
+  [容器資源](/docs/concepts/configuration/manage-resources-containers/)，
   來限制使用者與工作負載可存取的資源。
 
 <!--
@@ -97,8 +97,8 @@ handing off some or all of this job to
 providers or other [Kubernetes Partners](/partners/).
 Options include:
 -->
-在自行建立 Kubernetes 正式環境之前，請考慮將部分或全部工作交由[雲端整合解決方案](/zh-tw/docs/setup/production-environment/turnkey-solutions/)提供商
-或其他 [Kubernetes 合作夥伴](/zh-tw/partners/)處理。可選的方案包括：
+在自行建立 Kubernetes 正式環境之前，請考慮將部分或全部工作交由[雲端整合解決方案](/docs/setup/production-environment/turnkey-solutions/)提供商
+或其他 [Kubernetes 合作夥伴](/partners/)處理。可選的方案包括：
 
 <!--
 - *Serverless*: Just run workloads on third-party equipment without managing
@@ -158,7 +158,7 @@ discarded if something goes seriously wrong, this might meet your needs.
 
 最簡單的 Kubernetes 叢集是將完整的控制平面和工作節點服務都執行在同一台機器上。
 您可以透過新增工作節點來擴展該環境，如
-[Kubernetes 組件](/zh-tw/docs/concepts/overview/components/)中的示意圖所示。
+[Kubernetes 組件](/docs/concepts/overview/components/)中的示意圖所示。
 若叢集僅需在短時間內可用，或在出現嚴重問題時可以直接捨棄，這樣的設定可能已足以滿足您的需求。
 
 <!--
@@ -182,9 +182,9 @@ consider these steps:
   are available to use with your deployments.
 -->
 - **選擇部署工具**：您可以使用 kubeadm、kops 和 kubespray 等工具來部署控制平面。
-  請參閱[使用部署工具安裝 Kubernetes](/zh-tw/docs/setup/production-environment/tools/)，
+  請參閱[使用部署工具安裝 Kubernetes](/docs/setup/production-environment/tools/)，
   了解如何使用各種部署方法建立正式環境等級的叢集。
-  您的部署也可以搭配不同的[容器執行階段](/zh-tw/docs/setup/production-environment/container-runtimes/)。
+  您的部署也可以搭配不同的[容器執行階段](/docs/setup/production-environment/container-runtimes/)。
 
 <!--
 - *Manage certificates*: Secure communications between control plane services
@@ -194,7 +194,7 @@ consider these steps:
 -->
 - **管理憑證**：控制平面服務之間的安全通訊是透過憑證來實現的。
   憑證會在部署期間自動產生，或您也可以使用自己的憑證授權機構來產生。
-  詳情請參閱 [PKI 憑證與需求](/zh-tw/docs/setup/best-practices/certificates/)。
+  詳情請參閱 [PKI 憑證與需求](/docs/setup/best-practices/certificates/)。
 
 <!--
 - *Configure load balancer for apiserver*: Configure a load balancer
@@ -204,7 +204,7 @@ consider these steps:
 -->
 - **為 API 伺服器設定負載平衡器**：設定負載平衡器，
   將外部 API 請求分散至執行於不同節點上的 apiserver 服務實例。
-  詳情請參閱[建立外部負載平衡器](/zh-tw/docs/tasks/access-application-cluster/create-external-load-balancer/)。
+  詳情請參閱[建立外部負載平衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)。
 
 <!--
 - *Separate and backup etcd service*: The etcd services can either run on the
@@ -221,8 +221,8 @@ consider these steps:
   也可以部署於獨立的機器上，以提升安全性與可用性。
   由於 etcd 儲存叢集的設定資料，應定期備份 etcd 資料庫，以確保在需要時能夠進行修復。
   關於設定與使用 etcd 的詳情，請參閱 [etcd FAQ](https://etcd.io/docs/v3.5/faq/)。
-  更多細節請參閱[為 Kubernetes 操作 etcd 叢集](/zh-tw/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-  及[使用 kubeadm 建立高可用 etcd 叢集](/zh-tw/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
+  更多細節請參閱[為 Kubernetes 操作 etcd 叢集](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+  及[使用 kubeadm 建立高可用 etcd 叢集](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
 - *Create multiple control plane systems*: For high availability, the
@@ -257,7 +257,7 @@ consider these steps:
   請考慮建立跨多個資料中心的叢集（在雲端環境中稱為可用區）。
   多個可用區的集合稱為區域。
   將叢集分散至同一區域的多個可用區，可以提高在某個可用區發生故障時叢集仍能持續運作的可能性。
-  詳情請參閱[在多個可用區中執行](/zh-tw/docs/setup/best-practices/multiple-zones/)。
+  詳情請參閱[在多個可用區中執行](/docs/setup/best-practices/multiple-zones/)。
 
 <!--
 - *Manage on-going features*: If you plan to keep your cluster over time,
@@ -270,9 +270,9 @@ consider these steps:
 -->
 - **持續維護叢集**：若您計劃長期維護叢集，需要執行一些工作來維持其健康與安全。
   例如，若您使用 kubeadm 安裝，有相關指示可協助您完成
-  [憑證管理](/zh-tw/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
-  及[升級 kubeadm 叢集](/zh-tw/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
-  如需更完整的 Kubernetes 管理任務清單，請參閱[管理叢集](/zh-tw/docs/tasks/administer-cluster/)。
+  [憑證管理](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
+  及[升級 kubeadm 叢集](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+  如需更完整的 Kubernetes 管理任務清單，請參閱[管理叢集](/docs/tasks/administer-cluster/)。
 
 <!--
 To learn about available options when you run control plane services, see
@@ -287,15 +287,15 @@ See [Backing up an etcd cluster](/docs/tasks/administer-cluster/configure-upgrad
 for information on making an etcd backup plan.
 -->
 如需了解執行控制平面服務時的可用選項，請參閱
-[kube-apiserver](/zh-tw/docs/reference/command-line-tools-reference/kube-apiserver/)、
-[kube-controller-manager](/zh-tw/docs/reference/command-line-tools-reference/kube-controller-manager/)
-及 [kube-scheduler](/zh-tw/docs/reference/command-line-tools-reference/kube-scheduler/) 組件參考頁面。
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)、
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+及 [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) 組件參考頁面。
 如需高可用控制平面的範例，請參閱
-[高可用拓撲選項](/zh-tw/docs/setup/production-environment/tools/kubeadm/ha-topology/)、
-[使用 kubeadm 建立高可用叢集](/zh-tw/docs/setup/production-environment/tools/kubeadm/high-availability/)
-及[為 Kubernetes 操作 etcd 叢集](/zh-tw/docs/tasks/administer-cluster/configure-upgrade-etcd/)。
+[高可用拓撲選項](/docs/setup/production-environment/tools/kubeadm/ha-topology/)、
+[使用 kubeadm 建立高可用叢集](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+及[為 Kubernetes 操作 etcd 叢集](/docs/tasks/administer-cluster/configure-upgrade-etcd/)。
 關於 etcd 備份計畫，請參閱
-[備份 etcd 叢集](/zh-tw/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)。
+[備份 etcd 叢集](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)。
 
 <!--
 ### Production worker nodes
@@ -321,7 +321,7 @@ simply as *nodes*).
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
 -->
 - **設定節點**：節點可以是實體機或虛擬機。若您想自行建立並管理節點，
-  可以安裝受支援的作業系統，然後部署並執行適當的[節點服務](/zh-tw/docs/concepts/architecture/#node-components)。請考慮：
+  可以安裝受支援的作業系統，然後部署並執行適當的[節點服務](/docs/concepts/architecture/#node-components)。請考慮：
   - 在設定節點時，提供符合工作負載需求的記憶體、CPU 及磁碟速度與儲存容量。
   - 通用電腦系統是否足夠，或您的工作負載是否需要 GPU 處理器、Windows 節點或 VM 隔離。
 
@@ -330,7 +330,7 @@ simply as *nodes*).
   for information on how to ensure that a node meets the requirements to join
   a Kubernetes cluster.
 -->
-- **驗證節點**：請參閱[有效的節點設定](/zh-tw/docs/setup/best-practices/node-conformance/)，
+- **驗證節點**：請參閱[有效的節點設定](/docs/setup/best-practices/node-conformance/)，
   了解如何確保節點符合加入 Kubernetes 叢集的需求。
 
 <!--
@@ -341,7 +341,7 @@ simply as *nodes*).
 -->
 - **將節點加入叢集**：若您自行管理叢集，可以透過設定機器並手動加入，
   或讓機器自動向叢集的 apiserver 註冊來新增節點。
-  請參閱[節點](/zh-tw/docs/concepts/architecture/nodes/)章節，
+  請參閱[節點](/docs/concepts/architecture/nodes/)章節，
   了解如何設定 Kubernetes 以這些方式新增節點。
 
 <!--
@@ -352,7 +352,7 @@ simply as *nodes*).
   purchasing and installing your own physical equipment.
 -->
 - **擴縮節點**：制定擴充叢集容量的計畫，因為叢集最終會需要這項能力。
-  請參閱[大規模叢集的注意事項](/zh-tw/docs/setup/best-practices/cluster-large/)，
+  請參閱[大規模叢集的注意事項](/docs/setup/best-practices/cluster-large/)，
   依據需要執行的 Pod 與容器數量來確定所需的節點數量。
   若您自行管理節點，這可能意味著需要購買並部署自己的實體設備。
 
@@ -361,7 +361,7 @@ simply as *nodes*).
   tools available to automatically manage your nodes and the capacity they
   provide.
 -->
-- **自動擴縮節點**：請閱讀[節點自動擴縮](/zh-tw/docs/concepts/cluster-administration/node-autoscaling)，
+- **自動擴縮節點**：請閱讀[節點自動擴縮](/docs/concepts/cluster-administration/node-autoscaling)，
   了解可自動管理節點及其提供之容量的工具。
 
 <!--
@@ -371,7 +371,7 @@ simply as *nodes*).
   daemon, you can ensure your nodes are healthy.
 -->
 - **設定節點健康狀態檢查**：對於重要的工作負載，您需要確保節點以及在其上執行的 Pod 都處於健康狀態。
-  透過使用 [Node Problem Detector](/zh-tw/docs/tasks/debug/debug-cluster/monitor-node-health/) 常駐程式，
+  透過使用 [Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/) 常駐程式，
   您可以確保節點維持健康。
 
 <!--
@@ -415,7 +415,7 @@ are asking (authorization):
   您可以選擇要使用的身分驗證方法。
   透過外掛程式，apiserver 可以使用您組織現有的身分驗證機制，例如 LDAP 或 Kerberos。
   關於驗證 Kubernetes 使用者身分的各種方法，
-  請參閱[身分驗證](/zh-tw/docs/reference/access-authn-authz/authentication/)。
+  請參閱[身分驗證](/docs/reference/access-authn-authz/authentication/)。
 
 <!--
 - *Authorization*: When you set out to authorize your regular users, you will probably choose
@@ -424,7 +424,7 @@ are asking (authorization):
   your cluster):
 -->
 - **授權（Authorization）**：為一般使用者設定授權時，您可能需要在 RBAC 與 ABAC 之間做選擇。
-  請參閱[授權概述](/zh-tw/docs/reference/access-authn-authz/authorization/)，
+  請參閱[授權概述](/docs/reference/access-authn-authz/authorization/)，
   了解授權使用者帳號（以及服務帳號存取叢集）的不同模式：
 
   <!--
@@ -434,7 +434,7 @@ are asking (authorization):
     (ClusterRole). Then using RoleBindings and ClusterRoleBindings, those permissions can be attached
     to particular users.
   -->
-  - **角色型存取控制**（[RBAC](/zh-tw/docs/reference/access-authn-authz/rbac/)）：
+  - **角色型存取控制**（[RBAC](/docs/reference/access-authn-authz/rbac/)）：
     透過向已通過身分驗證的使用者授予特定的權限集合，以控制叢集的存取。
     權限可以針對特定命名空間（Role）或整個叢集（ClusterRole）進行設定。
     接著使用 RoleBinding 與 ClusterRoleBinding，可以將這些權限繫結至特定使用者。
@@ -447,11 +447,11 @@ are asking (authorization):
     non-resource property (/version or /apis), and readonly. See
     [Examples](/docs/reference/access-authn-authz/abac/#examples) for details.
   -->
-  - **基於屬性的存取控制**（[ABAC](/zh-tw/docs/reference/access-authn-authz/abac/)）：
+  - **基於屬性的存取控制**（[ABAC](/docs/reference/access-authn-authz/abac/)）：
     讓您能根據叢集中資源的屬性建立政策，並依據這些屬性決定允許或拒絕存取。
     政策檔案的每一行都包含版本屬性（apiVersion 與 kind）以及 spec 屬性的對應，
     用於比對主體（使用者或群組）、資源屬性、非資源屬性（/version 或 /apis）及唯讀屬性。
-    詳情請參閱[範例](/zh-tw/docs/reference/access-authn-authz/abac/#examples)。
+    詳情請參閱[範例](/docs/reference/access-authn-authz/abac/#examples)。
 
 <!--
 As someone setting up authentication and authorization on your production Kubernetes cluster, here are some things to consider:
@@ -466,7 +466,7 @@ As someone setting up authentication and authorization on your production Kubern
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 -->
 - **設定授權模式**：當 Kubernetes API 伺服器
-  （[kube-apiserver](/zh-tw/docs/reference/command-line-tools-reference/kube-apiserver/)）啟動時，
+  （[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)）啟動時，
   必須透過 *--authorization-config* 檔案或 *--authorization-mode* 旗標來設定受支援的授權模式。
   例如，在 *kube-adminserver.yaml* 檔案（位於 */etc/kubernetes/manifests*）中，
   可將該旗標設定為 `Node,RBAC`，以對已通過身分驗證的請求啟用 Node 與 RBAC 授權。
@@ -481,7 +481,7 @@ As someone setting up authentication and authorization on your production Kubern
 - **建立使用者憑證與角色繫結（RBAC）**：若您使用 RBAC 授權，
   使用者可以建立 CertificateSigningRequest（CSR），由叢集 CA 進行簽署。
   接著可以將 Role 與 ClusterRole 繫結至各個使用者。
-  詳情請參閱[憑證簽署請求](/zh-tw/docs/reference/access-authn-authz/certificate-signing-requests/)。
+  詳情請參閱[憑證簽署請求](/docs/reference/access-authn-authz/certificate-signing-requests/)。
 
 <!--
 - *Create policies that combine attributes (ABAC)*: If you are using ABAC
@@ -492,7 +492,7 @@ As someone setting up authentication and authorization on your production Kubern
 -->
 - **建立結合屬性的政策（ABAC）**：若您使用 ABAC 授權，
   可以指定屬性組合來形成政策，授權特定使用者或群組存取特定資源（例如 Pod）、
-  命名空間或 apiGroup。詳情請參閱[範例](/zh-tw/docs/reference/access-authn-authz/abac/#examples)。
+  命名空間或 apiGroup。詳情請參閱[範例](/docs/reference/access-authn-authz/abac/#examples)。
 
 <!--
 - *Consider Admission Controllers*: Additional forms of authorization for
@@ -503,9 +503,9 @@ As someone setting up authentication and authorization on your production Kubern
   to the API server.
 -->
 - **考慮准入控制器**：針對透過 API 伺服器傳入的請求，還有其他形式的授權機制，
-  例如 [Webhook 令牌身分驗證](/zh-tw/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)。
+  例如 [Webhook 令牌身分驗證](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)。
   Webhook 與其他特殊授權類型需要透過在 API 伺服器中啟用
-  [准入控制器](/zh-tw/docs/reference/access-authn-authz/admission-controllers/)來支援。
+  [准入控制器](/docs/reference/access-authn-authz/admission-controllers/)來支援。
 
 <!--
 ## Set limits on workload resources
@@ -525,7 +525,7 @@ needs of your cluster's workloads:
   for details.
 -->
 - **設定命名空間限制**：為每個命名空間設定記憶體與 CPU 等資源的配額。
-  詳情請參閱[管理記憶體、CPU 與 API 資源](/zh-tw/docs/tasks/administer-cluster/manage-resources/)。
+  詳情請參閱[管理記憶體、CPU 與 API 資源](/docs/tasks/administer-cluster/manage-resources/)。
 
 <!--
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
@@ -534,7 +534,7 @@ needs of your cluster's workloads:
 -->
 - **為 DNS 需求做準備**：若您預期工作負載會大規模擴展，
   DNS 服務也必須準備好相應地擴展。
-  請參閱[自動擴縮叢集中的 DNS 服務](/zh-tw/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)。
+  請參閱[自動擴縮叢集中的 DNS 服務](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)。
 
 <!--
 - *Create additional service accounts*: User accounts determine what users can
@@ -552,12 +552,12 @@ needs of your cluster's workloads:
 - **建立額外的服務帳號**：使用者帳號決定使用者在叢集上可以執行的操作，
   而服務帳號則定義特定命名空間中 Pod 的存取權限。
   預設情況下，Pod 會使用其命名空間中的預設服務帳號。
-  關於建立新服務帳號的資訊，請參閱[管理服務帳號](/zh-tw/docs/reference/access-authn-authz/service-accounts-admin/)。
+  關於建立新服務帳號的資訊，請參閱[管理服務帳號](/docs/reference/access-authn-authz/service-accounts-admin/)。
   例如，您可能需要：
   - 為 Pod 新增 Secret，使其能從特定映像檔儲存庫拉取映像檔。
-    範例請參閱[為 Pod 設定服務帳號](/zh-tw/docs/tasks/configure-pod-container/configure-service-account/)。
+    範例請參閱[為 Pod 設定服務帳號](/docs/tasks/configure-pod-container/configure-service-account/)。
   - 為服務帳號指派 RBAC 權限。
-    詳情請參閱[服務帳號權限](/zh-tw/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
+    詳情請參閱[服務帳號權限](/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -583,16 +583,16 @@ needs of your cluster's workloads:
   and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
 -->
 - 決定是否要自行建立正式 Kubernetes 叢集，
-  或從可用的[雲端整合解決方案](/zh-tw/docs/setup/production-environment/turnkey-solutions/)
-  或 [Kubernetes 合作夥伴](/zh-tw/partners/)取得叢集。
-- 若您選擇自行建立叢集，請規劃如何處理[憑證](/zh-tw/docs/setup/best-practices/certificates/)，
-  並為 [etcd](/zh-tw/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
-  與 [API 伺服器](/zh-tw/docs/setup/production-environment/tools/kubeadm/ha-topology/)等組件設定高可用性。
-- 從 [kubeadm](/zh-tw/docs/setup/production-environment/tools/kubeadm/)、
+  或從可用的[雲端整合解決方案](/docs/setup/production-environment/turnkey-solutions/)
+  或 [Kubernetes 合作夥伴](/partners/)取得叢集。
+- 若您選擇自行建立叢集，請規劃如何處理[憑證](/docs/setup/best-practices/certificates/)，
+  並為 [etcd](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+  與 [API 伺服器](/docs/setup/production-environment/tools/kubeadm/ha-topology/)等組件設定高可用性。
+- 從 [kubeadm](/docs/setup/production-environment/tools/kubeadm/)、
   [kops](https://kops.sigs.k8s.io/) 或
   [Kubespray](https://kubespray.io/) 等部署方法中選擇。
-- 透過確定[身分驗證](/zh-tw/docs/reference/access-authn-authz/authentication/)與
-  [授權](/zh-tw/docs/reference/access-authn-authz/authorization/)方法來設定使用者管理。
-- 透過設定[資源限制](/zh-tw/docs/tasks/administer-cluster/manage-resources/)、
-  [DNS 自動擴縮](/zh-tw/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-  與[服務帳號](/zh-tw/docs/reference/access-authn-authz/service-accounts-admin/)來為應用工作負載做準備。
+- 透過確定[身分驗證](/docs/reference/access-authn-authz/authentication/)與
+  [授權](/docs/reference/access-authn-authz/authorization/)方法來設定使用者管理。
+- 透過設定[資源限制](/docs/tasks/administer-cluster/manage-resources/)、
+  [DNS 自動擴縮](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+  與[服務帳號](/docs/reference/access-authn-authz/service-accounts-admin/)來為應用工作負載做準備。

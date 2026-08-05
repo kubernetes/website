@@ -24,7 +24,7 @@ Kubernetes 1.18 and older received approximately 9 months of patch support.
 -->
 Kubernetes 專案會為最近的三個次要版本（{{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、
 {{< skew oldestMinorVersion >}}）維護發行分支。
-Kubernetes 1.19 及更新版本提供[大約 1 年的修補版本支援](/zh-tw/releases/patch-releases/#support-period)。
+Kubernetes 1.19 及更新版本提供[大約 1 年的修補版本支援](/releases/patch-releases/#support-period)。
 Kubernetes 1.18 及更舊版本則提供大約 9 個月的修補版本支援。
 
 <!-- 
@@ -37,7 +37,7 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 Kubernetes 的版本號格式為 **x.y.z**，
 其中 **x** 是主要版本，**y** 是次要版本，**z** 是修補版本，遵循[語意化版本控制（Semantic Versioning）](https://semver.org/)的規範。
 
-更多資訊在[版本偏差政策](/zh-tw/releases/version-skew-policy/)文件中。
+更多資訊在[版本偏差政策](/releases/version-skew-policy/)文件中。
 
 <!-- body -->
 

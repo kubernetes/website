@@ -60,14 +60,14 @@ If you don't want to manage a Kubernetes cluster yourself, you could pick a mana
 There are also other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
 -->
-你可以[下載 Kubernetes](/zh-tw/releases/download/)，並將 Kubernetes 叢集部署於本機、雲端，或自有資料中心。
+你可以[下載 Kubernetes](/releases/download/)，並將 Kubernetes 叢集部署於本機、雲端，或自有資料中心。
 
-部分 [Kubernetes 組件](/zh-tw/docs/concepts/overview/components/)，例如 {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} 或 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}，也可以在叢集中以[容器映像檔](/zh-tw/releases/download/#container-images)的形式部署。
+部分 [Kubernetes 組件](/docs/concepts/overview/components/)，例如 {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} 或 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}，也可以在叢集中以[容器映像檔](/releases/download/#container-images)的形式部署。
 
 **建議**在可行的情況下，將 Kubernetes 組件以容器映像檔的形式執行，並交由 Kubernetes 管理這些組件。
 負責執行容器的組件（例如 kubelet）則不適用於此類方式。
 
-若不希望自行管理 Kubernetes 叢集，可以選擇受管服務（managed service），包括[經認證的平台](/zh-tw/docs/setup/production-environment/turnkey-solutions/)。
+若不希望自行管理 Kubernetes 叢集，可以選擇受管服務（managed service），包括[經認證的平台](/docs/setup/production-environment/turnkey-solutions/)。
 此外，在各種雲端與裸機環境中，也有多種標準化或客製化的解決方案可供選擇。
 <!-- body -->
 
@@ -83,7 +83,7 @@ See [Learning environment](/docs/setup/learning-environment/)
 -->
 如果您正在學習 Kubernetes，請使用 Kubernetes 社群支援的工具，
 或生態系中的工具，在本機電腦上建立 Kubernetes 叢集。
-請參閱[學習環境](/zh-tw/docs/setup/learning-environment/)。
+請參閱[學習環境](/docs/setup/learning-environment/)。
 
 <!--
 ## Production environment
@@ -99,11 +99,11 @@ prefer to hand off to a provider.
 For a cluster you're managing yourself, the officially supported tool
 for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 -->
-在評估[正式環境](/zh-tw/docs/setup/production-environment/)的解決方案時，
+在評估[正式環境](/docs/setup/production-environment/)的解決方案時，
 請考慮在操作 Kubernetes 叢集（或相關抽象）時，哪些部分要自行管理，哪些部分交由提供者處理。
 
 對於自行管理的叢集，官方支援用於部署 Kubernetes 的工具是
-[kubeadm](/zh-tw/docs/setup/production-environment/tools/kubeadm/)。
+[kubeadm](/docs/setup/production-environment/tools/kubeadm/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -119,13 +119,13 @@ Windows.
 
 - Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)
 -->
-- [下載 Kubernetes](/zh-tw/releases/download/)
-- 下載並[安裝工具](/zh-tw/docs/tasks/tools/)，包括 `kubectl`
-- 為新叢集選擇[容器執行階段](/zh-tw/docs/setup/production-environment/container-runtimes/)
-- 了解叢集設定的[最佳實務](/zh-tw/docs/setup/best-practices/)
+- [下載 Kubernetes](/releases/download/)
+- 下載並[安裝工具](/docs/tasks/tools/)，包括 `kubectl`
+- 為新叢集選擇[容器執行階段](/docs/setup/production-environment/container-runtimes/)
+- 了解叢集設定的[最佳實務](/docs/setup/best-practices/)
 
 Kubernetes 的設計是讓其{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}在 Linux 上運作。
 在叢集中，您可以在 Linux 或其他作業系統（包括 Windows）上執行應用程式。
 
-- 了解如何[設定包含 Windows 節點的叢集](/zh-tw/docs/concepts/windows/)
+- 了解如何[設定包含 Windows 節點的叢集](/docs/concepts/windows/)
 
