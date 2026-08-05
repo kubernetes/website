@@ -77,12 +77,12 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 접속을 활성화할 수 있다.
 
 ```
-kubectl proxy
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 ```
 
-kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)를 통해 대시보드에 접속할 수 있게 해줄 것이다.
+kubectl은 [https://localhost:8443](https://localhost:8443)를 통해 대시보드에 접속할 수 있게 해줄 것이다.
 
-UI는 _오직_ 커맨드가 실행된 머신에서만 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
+UI는 _오직_ 커맨드가 실행된 머신에서만 접근 가능하다. 상세 내용은 `kubectl port-forward --help` 옵션을 확인한다.
 
 {{< note >}}
 Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
