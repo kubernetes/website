@@ -23,7 +23,7 @@ a la deseada, encendiendo o apagando los aparatos.
 ## Patrón de controlador
 
 Un controlador realiza un seguimiento de al menos un tipo de recurso de Kubernetes. 
-Estos {{< glossary_tooltip text="objectos" term_id="object" >}} tienen un campo de 
+Estos {{< glossary_tooltip text="objetos" term_id="object" >}} tienen un campo de 
 especificación que representa el estado deseado. El/Los 
 controlador/es de ese recurso son responsables de hacer que el estado 
 actual se aproxime a ese estado deseado.
