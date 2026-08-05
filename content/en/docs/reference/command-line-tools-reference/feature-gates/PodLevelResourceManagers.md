@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.36"
     toVersion: "1.36"
   - stage: beta
-    defaultValue: true
+    defaultValue: false
     fromVersion: "1.37"
 ---
 Enable _Pod-level resource managers_: the ability for the Topology, CPU, and
