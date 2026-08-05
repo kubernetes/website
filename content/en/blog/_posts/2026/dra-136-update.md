@@ -92,7 +92,7 @@ that are disabled by default.
 
 ### ResourceClaim support for workloads {#workload-resourceclaims}
 
-To optimize large-scale AI/ML workloads that rely on strict topological scheduling, the 
+To optimize large-scale AI/ML workloads that rely on strict topological scheduling, the
 [ResourceClaim support for workloads](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#workload-resource-claims)
 feature enables Kubernetes to seamlessly manage shared resources across massive sets
 of Pods. By associating ResourceClaims or ResourceClaimTemplates with PodGroups,
@@ -146,7 +146,7 @@ generates names that reflect the exact device ordering specified by the driver a
 Workloads running on nodes with DRA devices often need to discover details about
 their allocated devices, such as PCI bus addresses or network
 interface configuration, without querying the Kubernetes API. With
-[Device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata),
+[Device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata),
 Kubernetes defines a standard protocol for how DRA drivers expose device
 attributes to containers as versioned JSON files at well-known paths. Drivers
 built with the
@@ -174,7 +174,7 @@ share feedback, or start building your first DRA driver.
 
 ## Getting involved
 
-A good starting point is joining the WG Device Management 
+A good starting point is joining the WG Device Management
 [Slack channel](https://kubernetes.slack.com/archives/C0409NGC1TK) and
 [meetings](https://docs.google.com/document/d/1qxI87VqGtgN7EAJlqVfxx86HGKEAc2A3SKru8nJHNkQ/edit?tab=t.0#heading=h.tgg8gganowxq),
 which happen at Americas/EMEA and EMEA/APAC friendly time slots.
