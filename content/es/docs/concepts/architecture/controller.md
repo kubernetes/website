@@ -77,7 +77,7 @@ habitación ya está a la temperatura que usted programó).
 A diferencia de Job, algunos controladores necesitan realizar cambios 
 en elementos externos a tu clúster.
 
-Por ejemplo, si utiliza un bucle de control para asegurarse de que haya 
+Por ejemplo, si utilizas un bucle de control para asegurarse de que haya 
 suficientes {{< glossary_tooltip text="Nodos" term_id="node" >}} en tu clúster, 
 ese controlador necesita algo fuera del clúster actual para configurar nuevos Nodos 
 cuando sea necesario.
