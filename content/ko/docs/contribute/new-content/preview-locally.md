@@ -13,7 +13,7 @@ weight: 11
 ## 로컬에서 변경 사항 미리보기 {#preview-locally}
 
 website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행할 수 있다.
-도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로,
+컨테이너 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로,
 디버깅에 유용할 수 있다.
 
 {{< tabs name="tab_with_hugo" >}}
