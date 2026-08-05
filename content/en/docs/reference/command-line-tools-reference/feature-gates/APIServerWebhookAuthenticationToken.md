@@ -10,7 +10,7 @@ stages:
     defaultValue: false
     fromVersion: "1.37"
 ---
-Enables the kube-apiserver to issue short-lived, scoped ServiceAccount tokens
+Enables the `kube-apiserver` to issue short-lived, scoped ServiceAccount tokens
 for authenticating to
 [admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticating-to-admission-webhooks).
 These tokens are bound to a specific `ValidatingWebhookConfiguration` or
