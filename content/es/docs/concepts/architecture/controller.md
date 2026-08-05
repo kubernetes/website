@@ -30,7 +30,7 @@ actual se aproxime a ese estado deseado.
 
 El controlador podría llevar a cabo la acción por sí mismo; más comúnmente, en Kubernetes, 
 un controlador enviará mensajes al 
-{{< glossary_tooltip text="servidor API" term_id="kube-apiserver" >}} que tiene 
+{{< glossary_tooltip text="servidor API" term_id="kube-apiserver" >}} que tienen 
 efectos secundarios útiles. Verás ejemplos de esto más abajo.
 
 {{< comment >}}
