@@ -152,7 +152,7 @@ o externamente a Kubernetes. La mejor opción dependerá de la funcionalidad esp
 
 ## {{% heading "whatsnext" %}}
 
-* Lea sobre el [plano de control de Kubernetes](/docs/concepts/architecture/#control-plane-components)
+* Lee sobre el [plano de control de Kubernetes](/docs/concepts/architecture/#control-plane-components)
 * Descubre algunos de los [objetos básicos de Kubernetes](/docs/concepts/overview/working-with-objects/)
 * Obtén más información sobre el [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Si quieres escribir tu propio controlador, consulta
