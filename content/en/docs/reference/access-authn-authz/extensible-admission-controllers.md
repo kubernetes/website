@@ -231,7 +231,7 @@ Of course you need to set up the webhook server to handle these authentication r
 {{< feature-state feature_gate_name="APIServerWebhookAuthenticationToken" >}}
 
 As an alternative to the manual credential management described in
-[Authenticate API servers](#authenticate-apiservers), the kube-apiserver can
+[Authenticate API servers](#authenticate-apiservers), the `kube-apiserver` can
 issue short-lived, scoped ServiceAccount tokens for authenticating to admission
 webhooks. This mechanism uses the
 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
@@ -239,10 +239,10 @@ API to issue tokens that are bound to a specific webhook configuration and
 scoped to particular API groups.
 
 {{< note >}}
-In Kubernetes v1.37, only the token issuance mechanism is implemented. Automatic
-token acquisition and presentation by the kube-apiserver and aggregated API
-servers when calling webhooks is not yet available, nor is a webhook-side token
-verification library. These components are planned for future releases.
+This mechanism implements token issuance. Automatic token acquisition and
+presentation by the kube-apiserver and aggregated API servers when calling
+webhooks, along with a webhook-side token verification library, are not part of
+this mechanism.
 {{< /note >}}
 
 #### How it works
@@ -270,7 +270,7 @@ To request a webhook authentication token, a TokenRequest must include:
    - For URL-configured webhooks: the audience must be an exact match of the
      URL.
    - For service-configured webhooks: the audience must match the pattern
-     `https://<name>.<namespace>.svc:<port>[/<path>]`, where `<port>` defaults
+     `https://<name>.<namespace>.svc:<port>[<path>]`, where `<port>` defaults
      to `443` and `<path>` defaults to `/` if not specified in the webhook
      configuration.
 
@@ -293,32 +293,7 @@ token:
 The following example RBAC configuration allows a service account to request
 webhook authentication tokens scoped to the `mygroup.example.com` API group:
 
-```yaml
-# ClusterRole granting attest permission for a specific API group
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: webhook-auth-attest-mygroup-example-com
-rules:
-  - apiGroups: ["authentication.k8s.io"]
-    resources: ["admissionReviewAPIGroups"]
-    resourceNames: ["mygroup.example.com"]
-    verbs: ["attest"]
----
-# Bind the ClusterRole to the service account used for token acquisition
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: webhook-auth-attest-mygroup-example-com-binding
-subjects:
-  - kind: ServiceAccount
-    name: webhook-auth-sa
-    namespace: kube-system
-roleRef:
-  kind: ClusterRole
-  name: webhook-auth-attest-mygroup-example-com
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample language="yaml" file="access/extensible-admission-controllers/webhook-auth-attest-clusterrole.yaml" %}}
 
 #### Token claims and verification via TokenReview
 
@@ -921,7 +896,7 @@ webhooks:
         expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
       - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
         expression: 'request.resource.group != "rbac.authorization.k8s.io"'
-  
+
   # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
   # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
   # webhook. Both webhooks can be served by the same endpoint.
@@ -1225,7 +1200,7 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
@@ -1234,7 +1209,7 @@ The audit level of a event determines which annotations get recorded:
       "mutated": false
   }
   ```
-  
+
   The following annotation gets recorded for a webhook being invoked in the first round. The webhook
   is ordered the first in the mutating webhook chain, and mutated the request object during the
   invocation.
@@ -1253,7 +1228,7 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
@@ -1269,7 +1244,7 @@ The audit level of a event determines which annotations get recorded:
 
   For example, the following annotation gets recorded for a webhook being reinvoked. The webhook is ordered the fourth in the
   mutating webhook chain, and responded with a JSON patch which got applied to the request object.
-  
+
   ```yaml
   # the audit event recorded
   {
@@ -1284,7 +1259,7 @@ The audit level of a event determines which annotations get recorded:
       ...
   }
   ```
-  
+
   ```yaml
   # the annotation value deserialized
   {
