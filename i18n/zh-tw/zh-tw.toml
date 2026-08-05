@@ -1,0 +1,258 @@
+# i18n strings for the Traditional Chinese version of the site (https://kubernetes.io/zh-tw/)
+# 注意：修改此檔案時請維持字串名稱的字母順序，並與英文版保持一致
+#
+# This file intentionally contains only the strings needed for the main page
+# and basic site navigation. Hugo will fall back to English for any missing
+# strings. Additional translations will be added in follow-up PRs.
+# 此檔案目前僅包含首頁與基本網站導覽所需的字串。
+# 若有缺少的字串，Hugo 會自動回退使用英文。
+# 其他翻譯將在後續的 PR 中補充。
+
+[caution]
+other = "注意："
+
+[cleanup_heading]
+other = "清理資源"
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
+other = "活動行事曆"
+
+[community_contributor_site_name]
+other = "貢獻者網站"
+
+[community_forum_name]
+other = "論壇"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_x_name]
+other = "X（原 Twitter）"
+
+[community_youtube_name]
+other = "YouTube"
+
+[copy_sample_to_clipboard]
+other = "複製 {{ .filename }} 到剪貼簿"
+
+[deprecation_title]
+other = "您目前檢視的文件適用於 Kubernetes 版本："
+
+[deprecation_warning]
+other = "此版本的文件已不再維護。您目前看到的是一份靜態快照。如需查看最新文件，請點選 "
+
+[docs_label_browse]
+other = "瀏覽文件"
+
+[docs_label_contributors]
+other = "貢獻者"
+
+[docs_label_i_am]
+other = "我是..."
+
+[docs_label_users]
+other = "使用者"
+
+[feedback_heading]
+other = "意見回饋"
+
+[feedback_no]
+other = "否"
+
+[feedback_question]
+other = "此頁面是否對您有幫助？"
+
+[feedback_yes]
+other = "是"
+
+[layouts_blog_pager_next]
+other = "下一篇 >>"
+
+[layouts_blog_pager_prev]
+other = "<< 上一篇"
+
+[layouts_docs_glossary_aka]
+other = "又稱為"
+
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes 的內部組件。"
+
+[layout_docs_glossary_architecture_name]
+other = "架構"
+
+[layouts_docs_glossary_click_details_after]
+other = "圖示，可展開各術語的詳細說明。"
+
+[layouts_docs_glossary_click_details_before]
+other = "點擊下方"
+
+[layout_docs_glossary_community_description]
+other = "與 Kubernetes 開源開發相關。"
+
+[layout_docs_glossary_community_name]
+other = "社群"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes 預設支援的資源類型。"
+
+[layout_docs_glossary_core-object_name]
+other = "核心物件"
+
+[layouts_docs_glossary_description]
+other = "本詞彙表提供完整且標準化的 Kubernetes 術語列表，涵蓋 Kubernetes 專有的技術術語，以及提供有用背景說明的一般性術語。"
+
+[layouts_docs_glossary_deselect_all]
+other = "取消全選"
+
+[layout_docs_glossary_extension_description]
+other = "Kubernetes 支援的自定義擴充。"
+
+[layout_docs_glossary_extension_name]
+other = "擴充"
+
+[layouts_docs_glossary_filter]
+other = "依標籤篩選術語"
+
+[layout_docs_glossary_fundamental_description]
+other = "適合 Kubernetes 初次使用者參考。"
+
+[layout_docs_glossary_fundamental_name]
+other = "基礎"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes 組件之間（以及與叢集外部程式之間）的通訊方式。"
+
+[layout_docs_glossary_networking_name]
+other = "網路"
+
+[layout_docs_glossary_operation_description]
+other = "啟動並維護 Kubernetes 系統。"
+
+[layout_docs_glossary_operation_name]
+other = "維運"
+
+[layout_docs_glossary_security_description]
+other = "確保 Kubernetes 應用程式安全。"
+
+[layout_docs_glossary_security_name]
+other = "安全性"
+
+[layouts_docs_glossary_select_all]
+other = "全選"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes 應用程式如何處理持久資料。"
+
+[layout_docs_glossary_storage_name]
+other = "儲存"
+
+[layout_docs_glossary_tool_description]
+other = "提升 Kubernetes 易用性的工具軟體。"
+
+[layout_docs_glossary_tool_name]
+other = "工具"
+
+[layout_docs_glossary_user-type_description]
+other = "代表常見的 Kubernetes 使用者類型。"
+
+[layout_docs_glossary_user-type_name]
+other = "使用者類別"
+
+[layout_docs_glossary_workload_description]
+other = "在 Kubernetes 上執行的應用程式。"
+
+[layout_docs_glossary_workload_name]
+other = "工作負載"
+
+[main_by]
+other = "作者："
+
+[main_cncf_project]
+other = """我們是 <a href="https://cncf.io/">CNCF</a> 的畢業專案</p>"""
+
+[main_community_explore]
+other = "探索社群"
+
+[main_contribute]
+other = "貢獻"
+
+[main_copyright_notice]
+other = """Linux 基金會&reg;。保留所有權利。Linux 基金會已註冊並使用多項商標。如需查看 Linux 基金會的商標列表，請前往<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商標使用頁面</a>"""
+
+[main_documentation_license]
+other = """Kubernetes 文件作者 | 文件依 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授權條款發布"""
+
+[main_github_invite]
+other = "想要修改 Kubernetes 的核心原始碼？"
+
+[main_github_view_on]
+other = "在 GitHub 上查看"
+
+[main_kubernetes_features]
+other = "Kubernetes 功能"
+
+[main_kubeweekly_baseline]
+other = "想掌握最新的 Kubernetes 新聞嗎？請訂閱 KubeWeekly。"
+
+[main_kubeweekly_signup]
+other = "訂閱"
+
+[main_page_last_modified_on]
+other = "頁面最後更新於"
+
+[main_read_about]
+other = "了解"
+
+[main_read_more]
+other = "進一步了解"
+
+[note]
+other = "說明："
+
+[objectives_heading]
+other = "學習目標"
+
+[prerequisites_heading]
+other = "開始之前"
+
+[ui_search]
+other = "搜尋"
+
+[version_check_mustbe]
+other = "您的 Kubernetes 伺服器版本必須是 "
+
+[version_check_mustbeorlater]
+other = "您的 Kubernetes 伺服器版本必須不低於 "
+
+[version_check_tocheck]
+other = "若要確認版本，請輸入 "
+
+[version_menu]
+other = "版本列表"
+
+[warning]
+other = "警告："
+
+[whatsnext_heading]
+other = "接下來"
+
+[outdated_blog__message]
+other = "此文章發布已超過一年。較舊的文章可能包含過時的內容。請確認頁面中的資訊在發布後是否仍然正確。"
+
+[outdated_content_title]
+other = "本文件內容可能已過時。"
+
+[outdated_content_message]
+other = "本翻譯文件的更新時間早於英文原文，內容可能已過時。若可閱讀英文，建議參閱英文版本以取得最新資訊："

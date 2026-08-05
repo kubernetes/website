@@ -1,0 +1,83 @@
+---
+title: Prowise Case Study
+linkTitle: prowise
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/prowise/banner1.jpg
+heading_title_logo: /images/prowise_logo.png
+subheading: >
+  Prowise: How Kubernetes is Enabling the Edtech Solution's Global Expansion
+case_study_details:
+  - Company: Prowise
+  - Location: Budel, The Netherlands
+  - Industry: Edtech
+---
+
+<h2>Challenge</h2>
+
+<p>A Dutch company that produces educational devices and software used around the world, <a href="https://www.prowise.com/en/">Prowise</a> had an infrastructure based on Linux services with multiple availability zones in Europe, Australia, and the U.S. "We've grown a lot in the past couple of years, and we started to encounter problems with versioning and flexible scaling," says Senior DevOps Engineer Victor van den Bosch, "not only scaling in demands, but also in being able to deploy multiple products which all have their own versions, their own development teams, and their own problems that they're trying to solve. To be able to put that all on the same platform without much resistance is what we were looking for. We wanted to future proof our infrastructure, and also solve some of the problems that are associated with just running a normal Linux service."</p>
+
+<h2>Solution</h2>
+
+<p>The Prowise team adopted containerization, spent time improving its CI/CD pipelines, and chose Microsoft Azure's managed Kubernetes service, <a href="https://azure.microsoft.com/en-us/services/kubernetes-service/">AKS</a>, for orchestration. "Kubernetes solves things like networking really well, in a way that fits our business model," says van den Bosch. "We want to focus on our core products, and that's the software that runs on it and not necessarily the infrastructure itself."</p>
+
+<h2>Impact</h2>
+
+<p>With its first web-based applications now running in beta on Prowise's Kubernetes platform, the team is seeing the benefits of rapid and smooth deployments. "The old way of deploying took half an hour of preparations and half an hour deploying it. With Kubernetes, it's a couple of seconds," says Senior Developer Bart Haalstra. As a result, adds van den Bosch, "We've gone from quarterly releases to a release every month in production. We're pretty much deploying every hour or just when we find that a feature is ready for production; before, our releases were mostly done on off-hours, where it couldn't impact our customers, as our confidence in the process was relatively low. Kubernetes has also enabled us to follow up quickly on bugs and implement tweaks to our users with zero downtime between versions. For some bugs we've pushed code fixes to production minutes after detection." Recently, the team launched a new single sign-on solution for use in an internal application. "Due to the resource based architecture of the Kubernetes platform, we were able to bring that application into an entirely new production environment in less than a day, most of that time used for testing after applying the already well-known resource definitions from staging to the new environment," says van den Bosch. "On a traditional VM this would have likely cost a day or two, and then probably a few weeks to iron out the kinks in our provisioning scripts as we apply updates."</p>
+
+{{< case-studies/quote author="VICTOR VAN DEN BOSCH, SENIOR DEVOPS ENGINEER, PROWISE" >}}
+"Because of Kubernetes, things have been much easier, our individual applications are better, and we can spend more time on functional implementation. We do not want to go back."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+If you haven't set foot in a school in awhile, you might be surprised by what you'd see in a digitally connected classroom these days: touchscreen monitors, laptops, tablets, touch tables, and more.
+{{< /case-studies/lead >}}
+
+<p>One of the leaders in the space, the Dutch company Prowise, offers an integrated solution of hardware and software to help educators create a more engaging learning environment.</p>
+
+<p>As the company expanded its offerings beyond the Netherlands in recent years—creating multiple availability zones in Europe, Australia, and the U.S., with as many as nine servers per zone—its Linux service-based infrastructure struggled to keep up. "We've grown a lot in the past couple of years, and we started to encounter problems with versioning and flexible scaling," says Senior DevOps Engineer Victor van den Bosch, who was hired by the company in late 2017 to build a new platform.</p>
+
+<p>Prowise's products support ten languages, so the problem wasn't just scaling in demands, he adds, "but also in being able to deploy multiple products which all have their own versions, their own development teams, and their own problems that they're trying to solve. To be able to put that all on the same platform without much resistance is what we were looking for. We wanted to future proof our infrastructure, and also solve some of the problems that are associated with just running a normal Linux service."</p>
+
+<p>The company's existing infrastructure on Microsoft Azure Cloud was all on virtual machines, "a pretty traditional setup," van den Bosch says. "We decided that we want some features in our software that requires being able to scale quickly, being able to deploy new applications and versions on different versions of different programming languages quickly. And we didn't really want the hassle of trying to keep those servers in a particular state."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/prowise/banner3.jpg"
+  author="VICTOR VAN DEN BOSCH, SENIOR DEVOPS ENGINEER, PROWISE"
+>}}
+"You don't have to go all-in immediately. You can just take a few projects, a service, run it alongside your more traditional stack, and build it up from there. Kubernetes scales, so as you add applications and services to it, it will scale with you. You don't have to do it all at once, and that's really a secret to everything, but especially true to Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>After researching possible solutions, he opted for containerization and Kubernetes orchestration. "Containerization is the future," van den Bosch says. "Kubernetes solves things like networking really well, in a way that fits our business model. We want to focus on our core products, and that's the software that runs on it and not necessarily the infrastructure itself." Plus, the Prowise team liked that there was no vendor lock-in. "We don't want to be limited to one platform," he says. "We try not to touch products that are very proprietary and can't be ported easily to another vendor."</p>
+
+<p>The time to market with Kubernetes was very short: The first web-based applications on the platform went into beta within a few months. That was largely made possible by van den Bosch's decision to use Azure's managed Kubernetes service, AKS. The team then had to figure out which components to keep and which to replace. Monitoring tools like New Relic were taken out "because they tend to become very expensive when you scale it to different availability zones, and it's just not very maintainable," he says.</p>
+
+<p>A lot of work also went into improving Prowise's CI/CD pipelines. "We wanted to make sure that the pipelines are automated and easy to use," he says. "We have a lot of settings and configurations figured out for the pipelines, and it's just applying those scripts and those configurations to new projects from here on out."</p>
+
+<p>With its first web-based applications now running in beta on Prowise's Kubernetes platform, the team is seeing the benefits of rapid and smooth deployments. "The old way of deploying took half an hour of preparations and half an hour deploying it. With Kubernetes, it's a couple of seconds," says Senior Developer Bart Haalstra. As a result, adds van den Bosch, "We've gone from quarterly releases to a release every month in production. We're pretty much deploying every hour or just when we find that a feature is ready for production. Before, our releases were mostly done on off-hours, where it couldn't impact our customers, as our confidence the process itself was relatively low. With Kubernetes, we dare to deploy in the middle of a busy day with high confidence the deployment will succeed."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/prowise/banner4.jpg"
+  author="VICTOR VAN DEN BOSCH, SENIOR DEVOPS ENGINEER, PROWISE"
+>}}
+"Kubernetes allows us to really consider the best tools for a problem. Want to have a full-fledged analytics application developed by a third party that is just right for your use case? Run it. Dabbling in machine learning and AI algorithms but getting tired of waiting days for training to complete? It takes only seconds to scale it. Got a stubborn developer that wants to use a programming language no one has heard of? Let him, if it runs in a container, of course. And all of that while your operations team/DevOps get to sleep at night."
+{{< /case-studies/quote >}}
+
+<p>Plus, van den Bosch says, "Kubernetes has enabled us to follow up quickly on bugs and implement tweaks to our users with zero downtime between versions. For some bugs we've pushed code fixes to production minutes after detection."</p>
+
+<p>Recently, the team launched a new single sign-on solution for use in an internal application. "Due to the resource based architecture of the Kubernetes platform, we were able to bring that application into an entirely new production environment in less than a day, most of that time used for testing after applying the already well-known resource definitions from staging to the new environment," says van den Bosch. "On a traditional VM this would have likely cost a day or two, and then probably a few weeks to iron out the kinks in our provisioning scripts as we apply updates."</p>
+
+<p>Legacy applications are also being moved to Kubernetes. Not long ago, the team needed to set up a Java-based application for compiling and running a frontend. "On a traditional VM, it would have taken quite a bit of time to set it up and keep it up to date, not to mention maintenance for that setup down the line," says van den Bosch. Instead, it took less than half a day to containerize it and get it running on Kubernetes. "It was much easier, and we were able to save costs too because we didn't have to spin up new VMs specially for it."</p>
+
+{{< case-studies/quote author="VICTOR VAN DEN BOSCH, SENIOR DEVOPS ENGINEER, PROWISE" >}}
+"We're really trying to deliver integrated solutions with our hardware and software and making it as easy as possible for users to use and collaborate from different places," says van den Bosch. And, says Haalstra, "We cannot do it without Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>Perhaps most importantly, van den Bosch says, "Kubernetes allows us to really consider the best tools for a problem and take full advantage of microservices architecture. Got a library in Node.js that excels at solving a certain problem? Use it. Want to have a full-fledged analytics application developed by a third party that is just right for your use case? Run it. Dabbling in machine learning and AI algorithms but getting tired of waiting days for training to complete? It takes only seconds to scale it. Got a stubborn developer that wants to use a programming language no one has heard of? Let him, if it runs in a container, of course. And all of that while your operations team/DevOps get to sleep at night."</p>
+
+<p>Looking ahead, all new web development, platforms, and APIs at Prowise will be on Kubernetes. One of the big greenfield projects is a platform for teachers and students that is launching for back-to-school season in September. Users will be able to log in and access a wide variety of educational applications. With the <a href="https://www.prowise.com/en/press-release-largest-dutch-education-innovators-join-forces/">recent acquisition</a> of the software company Oefenweb, Prowise plans to provide adaptive software that allows teachers to get an accurate view of their students' progress and weak points, and automatically adjusts the difficulty level of assignments to suit individual students. "We will be leveraging Kubernetes' power to integrate, supplement, and support our combined application portfolio and bring our solutions to more classrooms," says van den Bosch.</p>
+
+<p>Collaborative software is also a priority. With the single sign-in software, users' settings and credentials are saved in the cloud and can be used on any screen in the world. "We're really trying to deliver integrated solutions with our hardware and software and making it as easy as possible for users to use and collaborate from different places," says van den Bosch. And, says Haalstra, "We cannot do it without Kubernetes."</p>

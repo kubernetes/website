@@ -1,0 +1,283 @@
+aliases:
+  sig-docs-blog-owners: # Approvers for blog content
+    - lmktfy
+    - graz-dev
+    - natalisucks
+    - nate-double-u
+  sig-docs-blog-reviewers: # Reviewers for blog content
+    - Gauravpadam
+    - graz-dev
+    - lmktfy
+    - natalisucks
+    - nate-double-u
+  sig-docs-website-owners: # Admins for overall website
+    - dipesh-rawat
+    - divya-mohan0209
+    - katcosgrove
+    - lmktfy
+    - natalisucks
+    - nate-double-u
+    - reylejano
+    - salaxander
+    - SayakMukhopadhyay
+    - tengqm
+  sig-docs-localization-owners: # Admins for localization content
+    - a-mccarthy
+    - dipesh-rawat
+    - divya-mohan0209
+    - natalisucks
+    - nate-double-u
+    - reylejano
+    - salaxander
+    - seokho-son
+    - tengqm
+  sig-docs-localization-reviewers: # PR reviews for localization changes
+    - a-mccarthy
+    - dipesh-rawat
+    - divya-mohan0209
+    - natalisucks
+    - nate-double-u
+    - reylejano
+    - salaxander
+    - seokho-son
+    - tengqm
+  sig-docs-bn-owners: # Admins for Bengali content
+    - asem-hamid
+    - Imtiaz1234
+    - mitul3737
+    - rajibmitra
+  sig-docs-bn-reviews: # PR reviews for Bengali content
+    - asem-hamid
+    - Imtiaz1234
+    - mitul3737
+    - rajibmitra
+    - sajibAdhi
+  sig-docs-de-owners: # Admins for German content
+    - bene2k1
+  sig-docs-de-reviews: # PR reviews for German content
+    - bene2k1
+  sig-docs-en-owners: # Admins for English content
+    - dipesh-rawat
+    - divya-mohan0209
+    - katcosgrove
+    - lmktfy
+    - natalisucks
+    - nate-double-u
+    - reylejano
+    - salaxander
+    - SayakMukhopadhyay
+    - sayanchowdhury # RT 1.36 Docs Lead
+    - tengqm
+  sig-docs-en-reviews: # PR reviews for English content
+    - dipesh-rawat
+    - divya-mohan0209
+    - katcosgrove
+    - lmktfy
+    - mengjiao-liu
+    - natalisucks
+    - nate-double-u
+    - reylejano
+    - salaxander
+    - SayakMukhopadhyay
+    - shannonxtreme
+    - tengqm
+    - windsonsea
+  sig-docs-es-owners: # Admins for Spanish content
+    - electrocucaracha
+    - krol3
+    - raelga
+  sig-docs-es-reviews: # PR reviews for Spanish content
+    - electrocucaracha
+    - jossemarGT
+    - krol3
+    - raelga
+  sig-docs-fr-owners: # Admins for French content
+    - perriea
+    - rekcah78
+    - remyleone
+  sig-docs-fr-reviews: # PR reviews for French content
+    - perriea
+    - rekcah78
+    - remyleone
+  sig-docs-hi-owners: # Admins for Hindi content
+    - dipesh-rawat
+    - divya-mohan0209
+  sig-docs-hi-reviews: # PR reviews for Hindi content
+    - bishal7679
+    - dipesh-rawat
+    - divya-mohan0209
+    - jayeshmahajan
+    - niranjandarshann
+  sig-docs-id-owners: # Admins for Indonesian content
+    - ariscahyadi
+    - girikuncoro
+    - habibrosyad
+    - za
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
+    - girikuncoro
+    - habibrosyad
+    - za
+  sig-docs-it-owners: # Admins for Italian content
+    - fabriziopandini
+    - Fale
+    - mattiaperi
+  sig-docs-it-reviews: # PR reviews for Italian content
+    - fabriziopandini
+    - Fale
+    - mattiaperi
+  sig-docs-ja-owners: # Admins for Japanese content
+    - bells17
+    - inductor
+    - nasa9084
+    - Okabe-Junya
+    - t-inu
+  sig-docs-ja-reviews: # PR reviews for Japanese content
+    - atoato88
+    - b1gb4by
+    - bells17
+    - inductor
+    - kakts
+    - kfess
+    - nasa9084
+    - Okabe-Junya
+    - t-inu
+  sig-docs-ko-owners: # Admins for Korean content
+    - gochist
+    - ianychoi
+    - jihoon-seo
+    - jongwooo
+    - seokho-son
+    - yoonian
+    - ysyukr
+  sig-docs-ko-reviews: # PR reviews for Korean content
+    - developowl
+    - Eundms
+    - gochist
+    - ianychoi
+    - jihoon-seo
+    - jmyung
+    - jongwooo
+    - seokho-son
+    - wonyongg
+    - yoonian
+    - ysyukr
+  sig-docs-leads: # Website chairs and tech leads
+    - dipesh-rawat
+    - divya-mohan0209
+    - katcosgrove
+    - natalisucks
+    - reylejano
+    - salaxander
+    - tengqm
+  sig-docs-zh-owners: # Admins for Chinese content
+    - chenrui333
+    - howieyuen
+    - mengjiao-liu
+    - my-git9
+    - SataQiu
+    - tengqm
+    - windsonsea
+    - xichengliudui
+    - ydFu
+  sig-docs-zh-reviews: # PR reviews for Chinese content
+    - asa3311
+    - chenrui333
+    - howieyuen
+    # idealhack
+    - mengjiao-liu
+    - my-git9
+    # pigletfly
+    - SataQiu
+    - tengqm
+    - windsonsea
+    - xichengliudui
+    - ydFu
+  sig-docs-pt-owners: # Admins for Portuguese content
+    - edsoncelio
+    - jcjesus
+    - stormqueen1990
+  sig-docs-pt-reviews: # PR reviews for Portugese content
+    - edsoncelio
+    - jcjesus
+    - mrerlison
+    - stormqueen1990
+    - paulofponciano
+  sig-docs-vi-owners: # Admins for Vietnamese content
+    - truongnh1992
+    - khanhtc1202
+    - ntheanh201
+  sig-docs-vi-reviews: # PR reviews for Vietnamese content
+    - truongnh1992
+    - khanhtc1202
+    - ntheanh201
+  sig-docs-ru-owners: # Admins for Russian content
+    - Arhell
+    - kirkonru
+    - shurup
+  sig-docs-ru-reviews: # PR reviews for Russian content
+    - Arhell
+    - kirkonru
+    - shurup
+  sig-docs-pl-owners: # Admins for Polish content
+    - mfilocha
+    - nvtkaszpir
+  sig-docs-pl-reviews: # PR reviews for Polish content
+    - kpucynski
+    - mfilocha
+    - nvtkaszpir
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - Andygol
+    - Arhell
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - Andygol
+    - Arhell
+    - idvoretskyi
+    - MaxymVlasov
+  # authoritative source: git.k8s.io/community/OWNERS_ALIASES
+  committee-steering: # provide PR approvals for announcements
+    - aojea
+    - BenTheElder
+    - katcosgrove
+    - pacoxu
+    - ritazh
+    - saschagrunert
+    - soltysh
+  # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
+  sig-release-leads:
+    - cpanato # SIG Technical Lead
+    - jeremyrickard # SIG Chair
+    - justaugustus # SIG Chair
+    - puerco # SIG Technical Lead
+    - saschagrunert # SIG Chair
+    - Verolop # SIG Technical Lead
+  release-engineering-approvers:
+    - cpanato # subproject owner / Release Manager
+    - jeremyrickard # subproject owner / Release Manager
+    - justaugustus # subproject owner / Release Manager
+    - palnabarun # Release Manager
+    - puerco # subproject owner / Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - Verolop # subproject owner / Release Manager
+    - xmudrii # Release Manager
+  release-engineering-reviewers:
+    - ameukam # Release Manager Associate
+    - cici37 # Release Manager Associate
+    - jimangel # Release Manager Associate
+    - jrsapi # Release Manager Associate
+    - salaxander # Release Manager Associate
+  # authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
+  committee-security-response:
+    - cjcullen
+    - cji
+    - enj
+    - joelsmith
+    - micahhausler
+    - ritazh
+    - SaranBalaji90
+    - tabbysable
+  # authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
+  sig-security-leads:
+    - IanColdwater
+    - tabbysable

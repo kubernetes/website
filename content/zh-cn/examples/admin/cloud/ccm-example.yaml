@@ -1,0 +1,72 @@
+# 这是一个如何将 cloud-controller-manager 安装为集群中的 Daemonset 的示例。
+# 本例假定你的主控节点可以运行 pod 并具有角色 node-role.kubernetes.io/master
+# 请注意，这里的 Daemonset 不能直接在你的云上工作，此例只是一个指导。
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:cloud-controller-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: cloud-controller-manager
+  name: cloud-controller-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cloud-controller-manager
+  template:
+    metadata:
+      labels:
+        k8s-app: cloud-controller-manager
+    spec:
+      serviceAccountName: cloud-controller-manager
+      containers:
+      - name: cloud-controller-manager
+        # 对于树内驱动，我们使用 registry.k8s.io/cloud-controller-manager，
+        # 镜像可以替换为其他树外驱动的镜像
+        image: registry.k8s.io/cloud-controller-manager:v1.8.0
+        command:
+        - /usr/local/bin/cloud-controller-manager
+        - --cloud-provider=[YOUR_CLOUD_PROVIDER]  # 在此处添加你自己的云驱动！
+        - --leader-elect=true
+        - --use-service-account-credentials
+        # 这些标志因每个云驱动而异
+        - --allocate-node-cidrs=true
+        - --configure-cloud-routes=true
+        - --cluster-cidr=172.17.0.0/16
+      tolerations:
+      # 这一设置是必需的，为了让 CCM 可以自行引导
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        value: "true"
+        effect: NoSchedule
+      # 这些容忍度使得守护进程能够在控制平面节点上运行
+      # 如果你的控制平面节点不应该运行 pod，请删除它们
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      # 这是为了限制 CCM 仅在主节点上运行
+      # 节点选择器可能因你的集群设置而异
+      nodeSelector:
+        node-role.kubernetes.io/master: ""

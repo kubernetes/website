@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-level-resize-demo
+spec:
+  containers:
+  - name: pause
+    image: registry.k8s.io/pause:3.9
+    resizePolicy:
+    - resourceName: cpu
+      restartPolicy: NotRequired # Default, but explicit here
+    - resourceName: memory
+      restartPolicy: RestartContainer
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+  - name: nginx-server
+    image: registry.k8s.io/nginx:latest
+    resizePolicy:
+    - resourceName: cpu
+      restartPolicy: RestartContainer
+    - resourceName: memory
+      restartPolicy: RestartContainer    
+  resources: # Pod-level resources
+    requests:
+      cpu: 200m
+      memory: 200Mi
+    limits:
+      cpu: 200m
+      memory: 200Mi

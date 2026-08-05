@@ -1,0 +1,32 @@
+<!-- All former base stylesheet links commented out as we are using Docsy for styles. -->
+
+{{ $inServerMode := hugo.IsServer }}
+
+{{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
+  <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
+{{- end }}
+
+{{- if eq .Params.class "training" }}
+  <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
+{{- end }}
+
+{{- if .Params.case_study_styles }}
+  <link rel="stylesheet" href="{{ "css/case-studies.css" | relURL }}">
+{{- end}}
+{{- if (eq .Section "case-studies") }}
+  {{ $caseStudiesCSS := resources.Get "scss/case_studies.scss" | css.Sass | resources.Copy "/css/case-studies.css" }}
+  {{ if $inServerMode }}
+    <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
+  {{ else }}
+    {{ $prodCaseStudiesCSS := $caseStudiesCSS | fingerprint }}
+    <link rel="stylesheet" href="{{ $prodCaseStudiesCSS.RelPermalink }}" integrity="{{ $prodCaseStudiesCSS.Data.Integrity }}">
+  {{ end }}
+{{- end }}
+
+{{- with .Params.css }}
+  {{- $extraCss := split . "," }}
+  {{- range $extraCss }}
+    {{- $url := trim . " " | relURL }}
+    <link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
+  {{- end }}
+{{- end }}

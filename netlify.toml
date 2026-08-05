@@ -1,0 +1,30 @@
+[build]
+# This default build command adds the robots noindex directive to the site headers.
+# It is turned off for only for the production site by using [context.main] below
+# DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
+publish = "public"
+functions = "functions"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
+
+[build.environment]
+NODE_VERSION = "20.17.0"
+HUGO_VERSION = "0.133.0"
+
+[context.deploy-preview]
+command = "git submodule update --init --recursive --depth 1 && make deploy-preview && npx -y pagefind --site public"
+
+[context.branch-deploy]
+command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
+
+[context.production]
+# Rather than specifying context.main, which will supersede any of the above
+# context, make a production specific build separately based on the context
+# with the same priority.
+# Ref: https://docs.netlify.com/configure-builds/file-based-configuration/#deploy-contexts
+publish = "public"
+command = "git submodule update --init --recursive --depth 1 && make production-build && npx -y pagefind --site public"
+
+[context.production.environment]
+HUGO_BASEURL = "https://kubernetes.io/"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"

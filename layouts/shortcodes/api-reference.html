@@ -1,0 +1,9 @@
+{{ $base := "docs/reference/kubernetes-api" }}
+{{ $pageArg := .Get "page" }}
+{{ $anchorArg := .Get "anchor" }}
+{{ $textArg := .Get "text" }}
+{{ $pagePath := path.Join $base $pageArg }}
+{{ $page := site.GetPage "page" $pagePath }}
+{{ with $page }}{{else}}{{ range where site.Home.AllTranslations "Language.Lang" "en" }}{{ $page = .Site.GetPage "page" $pagePath }}{{ end }}{{ end }}
+{{ $metadata := $page.Params.api_metadata }}
+<a href="{{ $page.RelPermalink }}{{if $anchorArg}}#{{ $anchorArg }}{{end}}">{{if $textArg}}{{ $textArg }}{{else if $anchorArg}}{{ $anchorArg }}{{else}}{{ $metadata.kind }}{{end}}</a>

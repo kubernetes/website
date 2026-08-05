@@ -1,0 +1,22 @@
+{{ if not (.Site.Param "deprecated") }}
+  {{ if ne .Site.Language.Lang "en" }}
+    {{ $currentLastmodUnixtime := .Lastmod.Unix }}
+    {{ $originCurrentLastmodUnixtime := 0 }}
+    {{ $originPageURL := "" }}
+    {{ $originPageTitle := "" }}
+    {{ range .Translations }}
+      {{ if eq .Lang "en" }}
+        {{ $originCurrentLastmodUnixtime = .Lastmod.Unix }}
+        {{ $originPageURL = .RelPermalink  }}
+        {{ $originPageTitle = .Title }}
+        {{ break }}
+      {{ end }}
+    {{ end }}
+    {{ if lt $currentLastmodUnixtime $originCurrentLastmodUnixtime }}
+    <div class="pageinfo pageinfo-primary outdated-localization-notice">
+      <p><strong>{{ T "outdated_content_title" }}</strong></p>
+      <p><span class="outdated-localization-notice-text">{{ T "outdated_content_message" }} <a href="{{ $originPageURL }}">{{ $originPageTitle }}</a></span></p>
+    </div>
+    {{ end }}
+  {{ end }}
+{{ end }}

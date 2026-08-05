@@ -1,0 +1,87 @@
+---
+title: Wink Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/wink/banner1.jpg
+heading_title_logo: /images/wink_logo.png
+subheading: >
+  Cloud-Native Infrastructure Keeps Your Smart Home Connected
+case_study_details:
+  - Company: Wink
+  - Location: New York, N.Y.
+  - Industry: Internet of Things Platform
+---
+
+<h2>Challenge</h2>
+
+<p>Building a low-latency, highly reliable infrastructure to serve communications between millions of connected smart-home devices and the company's consumer hubs and mobile app, with an emphasis on horizontal scalability, the ability to encrypt everything quickly and connections that could be easily brought back up if anything went wrong.</p>
+
+<h2>Solution</h2>
+
+<p>Across-the-board use of a Kubernetes-Docker-CoreOS Container Linux stack.</p>
+
+<h2>Impact</h2>
+
+<p>"Two of the biggest American retailers [Home Depot and Walmart] are carrying and promoting the brand and the hardware," Wink Head of Engineering Kit Klein says proudly – though he adds that "it really comes with a lot of pressure. It's not a retail situation where you have a lot of tech enthusiasts. These are everyday people who want something that works and have no tolerance for technical excuses." And that's further testament to how much faith Klein has in the infrastructure that the Wink team has built. With 80 percent of Wink's workload running on a unified stack of Kubernetes-Docker-CoreOS, the company has put itself in a position to continually innovate and improve its products and services. Committing to this technology, says Klein, "makes building on top of the infrastructure relatively easy."</p>
+
+{{< case-studies/quote author="KIT KLEIN, HEAD OF ENGINEERING, WINK" >}}
+"It's not proprietary, it's totally open, it's really portable. You can run all the workloads across different cloud providers. You can easily run a hybrid AWS or even bring in your own data center. That's the benefit of having everything unified on one open source Kubernetes-Docker-CoreOS Container Linux stack. There are massive security benefits if you only have one Linux distro/machine image to validate. The benefits are enormous because you save money, and you save time."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+How many people does it take to turn on a light bulb?
+{{< /case-studies/lead >}}
+
+<p>Kit Klein whips out his phone to demonstrate. With a few swipes, the head of engineering at Wink pulls up the smart-home app created by the New York City-based company and taps the light button. "Honestly when you're holding the phone and you're hitting the light," he says, "by the time you feel the pressure of your finger on the screen, it's on. It takes as long as the signal to travel to your brain."</p>
+
+<p>Sure, it takes just one finger and less than 200 milliseconds to turn on the light – or lock a door or change a thermostat. But what allows Wink to help consumers manage their connected smart-home products with such speed and ease is a sophisticated, cloud native infrastructure that Klein and his team built and continue to develop using a unified stack of CoreOS, the open-source operating system designed for clustered deployments, and Kubernetes, an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure. "When you have a big, complex network of interdependent microservices that need to be able to discover each other, and need to be horizontally scalable and tolerant to failure, that's what this is really optimized for," says Klein. "A lot of people end up relying on proprietary services [offered by some big cloud providers] to do some of this stuff, but what you get by adopting CoreOS/Kubernetes is portability, to not be locked in to anyone. You can really make your own fate."</p>
+
+<p>Indeed, Wink did. The company's mission statement is to make the connected home accessible – that is, user-friendly for non-technical owners, affordable and perhaps most importantly, reliable. "If you can't trust that when you hit the switch, you know a light is going to go on, or if you're remote and you're checking on your house and that information isn't accurate, then the convenience of the system is lost," says Klein. "So that's where the infrastructure comes in."</p>
+
+<p>Wink was incubated within Quirky, a company that developed crowd-sourced inventions. The Wink app was first introduced in 2013, and at the time, it controlled only a few consumer products such as the PivotPower Strip that Quirky produced in collaboration with GE. As smart-home products proliferated, Wink was launched in 2014 in Home Depot stores nationwide. Its first project: a hub that could integrate with smart products from about a dozen brands like Honeywell and Chamberlain. The biggest challenge would be to build the infrastructure to serve all those communications between the hub and the products, with a focus on maximizing reliability and minimizing latency.</p>
+
+<p>"When we originally started out, we were moving very fast trying to get the first product to market, the minimum viable product," says Klein. "Lots of times you go down a path and end up having to backtrack and try different things. But in this particular case, we did a lot of the work up front, which led to us making a really sound decision to deploy it on CoreOS Container Linux. And that was very early in the life of it."</p>
+
+{{< case-studies/quote image="/images/case-studies/wink/banner3.jpg">}}
+"...what you get by adopting CoreOS/Kubernetes is portability, to not be locked in to anyone. You can really make your own fate."
+{{< /case-studies/quote >}}
+
+<p>Concern number one: Wink's products need to connect to consumer devices in people's homes, behind a firewall. "You don't have an end point like a URL, and you don't even know what ports are open behind that firewall," Klein explains. "So you essentially need to have this thing wake up and talk to your system and then open real-time, bidirectional communication between the cloud and the device. And it's really, really important that it's persistent because you want to decrease as much as possible the overhead of sending a message – you never know when someone is going to turn on the lights."</p>
+
+<p>With the earliest version of the Wink Hub, when you decided to turn your lights on or off, the request would be sent to the cloud and then executed. Subsequent updates to Wink's software enabled local control, cutting latency down to about 10 milliseconds for many devices. But with the need for cloud-enabled integrations of an ever-growing ecosystem of smart home products, low-latency internet connectivity is still a critical consideration.</p>
+
+{{< case-studies/lead >}}
+"You essentially need to have this thing wake up and talk to your system and then open real-time, bidirectional communication between the cloud and the device. And it's really, really important that it's persistent...you never know when someone is going to turn on the lights."
+{{< /case-studies/lead >}}
+
+<p>In addition, Wink had other requirements: horizontal scalability, the ability to encrypt everything quickly, connections that could be easily brought back up if something went wrong. "Looking at this whole structure we started, we decided to make a secure socket-based service," says Klein. "We've always used, I would say, some sort of clustering technology to deploy our services and so the decision we came to was, this thing is going to be containerized, running on Docker."</p>
+
+<p>In 2015, Docker wasn't yet widely used, but as Klein points out, "it was certainly understood by the people who were on the frontier of technology. We started looking at potential technologies that existed. One of the limiting factors was that we needed to deploy multi-port non-http/https services. It wasn't really appropriate for some of the early cluster technology. We liked the project a lot and we ended up using it on other stuff for a while, but initially it was too targeted toward http workloads."</p>
+
+<p>Once Wink's backend engineering team decided on a containerized workload, they had to make decisions about the OS and the container orchestration platform. "Obviously you can't just start the containers and hope everything goes well," Klein says with a laugh. "You need to have a system that is helpful [in order] to manage where the workloads are being distributed out to. And when the container inevitably dies or something like that, to restart it, you have a load balancer. All sorts of housekeeping work is needed to have a robust infrastructure."</p>
+
+{{< case-studies/quote image="/images/case-studies/wink/banner4.jpg" >}}
+"Obviously you can't just start the containers and hope everything goes well," Klein says with a laugh. "You need to have a system that is helpful [in order] to manage where the workloads are being distributed out to. And when the container inevitably dies or something like that, to restart it, you have a load balancer. All sorts of housekeeping work is needed to have a robust infrastructure."
+{{< /case-studies/quote >}}
+
+<p>Wink considered building directly on a general purpose Linux distro like Ubuntu (which would have required installing tools to run a containerized workload) and cluster management systems like Mesos (which was targeted toward enterprises with larger teams/workloads), but ultimately set their sights on CoreOS Container Linux. "A container-optimized Linux distribution system was exactly what we needed," he says. "We didn't have to futz around with trying to take something like a Linux distro and install everything. It's got a built-in container orchestration system, which is Fleet, and an easy-to-use API. It's not as feature-rich as some of the heavier solutions, but we realized that, at that moment, it was exactly what we needed."</p>
+
+<p>Wink's hub (along with a revamped app) was introduced in July 2014 with a short-term deployment, and within the first month, they had moved the service to the containerized CoreOS deployment. Since then, they've moved almost every other piece of their infrastructure – from third-party cloud-to-cloud integrations to their customer service and payment portals – onto CoreOS Container Linux clusters.</p>
+
+<p>Using this setup did require some customization. "Fleet is really nice as a basic container orchestration system, but it doesn't take care of routing, sharing configurations, secrets, et cetera, among instances of a service," Klein says. "All of those layers of functionality can be implemented, of course, but if you don't want to spend a lot of time writing unit files manually – which of course nobody does – you need to create a tool to automate some of that, which we did."</p>
+
+<p>Wink quickly embraced the Kubernetes container cluster manager when it was launched in 2015 and integrated with CoreOS core technology, and as promised, it ended up providing the features Wink wanted and had planned to build. "If not for Kubernetes, we likely would have taken the logic and library we implemented for the automation tool that we created, and would have used it in a higher level abstraction and tool that could be used by non-DevOps engineers from the command line to create and manage clusters," Klein says. "But Kubernetes made that totally unnecessary – and is written and maintained by people with a lot more experience in cluster management than us, so all the better." Now, an estimated 80 percent of Wink's workload is run on Kubernetes on top of CoreOS Container Linux.</p>
+
+{{< case-studies/quote >}}
+"Stay close to the development. Understand why decisions are being made. If you understand the intent behind the project, from the technological intent to a certain philosophical intent, then it helps you understand how to build your system in harmony with those systems as opposed to trying to work against it."
+{{< /case-studies/quote >}}
+
+<p>Wink's reasons for going all in are clear: "It's not proprietary, it's totally open, it's really portable," Klein says. "You can run all the workloads across different cloud providers. You can easily run a hybrid AWS or even bring in your own data center. That's the benefit of having everything unified on one Kubernetes-Docker-CoreOS Container Linux stack. There are massive security benefits if you only have one Linux distro to try to validate. The benefits are enormous because you save money, you save time."</p>
+
+<p>Klein concedes that there are tradeoffs in every technology decision. "Cutting-edge technology is going to be scary for some people," he says. "In order to take advantage of this, you really have to keep up with the technology. You can't treat it like it's a black box. Stay close to the development. Understand why decisions are being made. If you understand the intent behind the project, from the technological intent to a certain philosophical intent, then it helps you understand how to build your system in harmony with those systems as opposed to trying to work against it."</p>
+
+<p>Wink, which was acquired by Flex in 2015, now controls 2.3 million connected devices in households all over the country. What's next for the company? A new version of the hub - Wink Hub 2 - hit shelves last November – and is being offered for the first time at Walmart stores in addition to Home Depot. "Two of the biggest American retailers are carrying and promoting the brand and the hardware," Klein says proudly – though he adds that "it really comes with a lot of pressure. It's not a retail situation where you have a lot of tech enthusiasts. These are everyday people who want something that works and have no tolerance for technical excuses." And that's further testament to how much faith Klein has in the infrastructure that the Wink team has have built.</p>
+
+<p>Wink's engineering team has grown exponentially since its early days, and behind the scenes, Klein is most excited about the machine learning Wink is using. "We built [a system of] containerized small sections of the data pipeline that feed each other and can have multiple outputs," he says. "It's like data pipelines as microservices." Again, Klein points to having a unified stack running on CoreOS Container Linux and Kubernetes as the primary driver for the innovations to come. "You're not reinventing the wheel every time," he says. "You can just get down to work."</p>

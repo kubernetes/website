@@ -1,0 +1,39 @@
+{{ define "main" }}
+    <div class="td-content">
+    {{ partial "docs/content-page" (dict "ctx" . "page" .) }}
+    {{ $versions := .Page.Param "versions" }}
+    {{ $thisPageRelUri := .Page.RelPermalink }}
+    {{ $thisVersionArray := split (.Page.Param "version") "." }}
+    {{ $.Scratch.Set "version-class" (slice "placeholder") }}
+    {{/* "placeholder" is also used later to check whether we opened the <ul> */}}
+    {{ range $index, $version := $versions }}
+    {{ $.Scratch.Set "version-class" (slice "") }}
+    {{ $versionArray := split .version "." }}
+
+    {{ if eq $index 0 }}
+    <h2 id="version-latest">{{ T "docs_version_latest_heading" }}</h2>
+    <ul>
+    {{ $.Scratch.Set "version-class" ($.Scratch.Get "version-class" | append "version-latest" ) }}
+    {{ end }}
+    {{ if eq $index 1 }}
+    </ul>
+    <h2 id="versions-older">{{ T "docs_version_other_heading" }}</h2>
+    <ul>
+    {{ end }}
+
+    {{ if eq .version ( delimit $thisVersionArray "." ) }}
+    {{ $.Scratch.Set "version-class" ($.Scratch.Get "version-class" | append "version-current" ) }}
+    {{ end }}
+
+    <li class="{{ delimit ( $.Scratch.Get "version-class") " " }}">
+        <a href="{{ .url }}{{ $thisPageRelUri }}">{{ .version }}</a>
+        {{ if eq .version ( delimit $thisVersionArray "." ) }}
+        {{ T "docs_version_current" }}
+        {{ end }}
+    </li>
+    {{ end }}
+    {{ if ne (index ($.Scratch.Get "version-class") 0) "placeholder" }}
+    </ul>
+    {{ end }}
+
+{{ end }}

@@ -1,0 +1,190 @@
+---
+title: अपने ऐप के कई इंस्टेंस चलाना
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="hi">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>उद्देश्य</h3>
+                <ul>
+                    <li>kubectl का उपयोग करके किसी ऐप को स्केल करें।</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>एक एप्लीकेशन को स्केल करना</h3>
+
+            <p>पिछले मॉड्यूल में हमने एक <a href="/docs/concepts/workloads/controllers/deployment/">डिप्लॉयमेंट</a> बनाया और इसे <a href="/docs/concepts/services-networking/service/">सर्विस</a> के माध्यम से सार्वजनिक रूप से प्रदर्शित किया। डिप्लॉयमेंट ने हमारे एप्लिकेशन को चलाने के लिए केवल एक पॉड बनाया। जब ट्रैफ़िक बढ़ता है, तो हमें उपयोगकर्ता की मांग को पूरा करने के लिए एप्लिकेशन को स्केल करना होता है।</p>
+
+            <p>डिप्लॉयमेंट में रेप्लिका की संख्या को बदलकर <b>स्केलिंग</b> को प्राप्त किया जाता है।</p>
+
+            {{< note >}}
+                <p> यदि आप <a href="/hi/docs/tutorials/kubernetes-basics/expose/">पिछले अनुभाग</a> के बाद यह प्रयास कर रहे हैं, तो हो सकता है कि आपने डिप्लॉयमेंट को उजागर करने वाली सेवा को हटा दिया हो। उस स्थिति में, कृपया निम्नलिखित कमांड का उपयोग करके डिप्लॉयमेंट को फिर से उजागर करें:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+            {{< /note >}}
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>सारांश:</h3>
+                    <ul>
+                        <li>एक डिप्लॉयमेंट को स्केल करना</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>आप kubectl create deployment कमांड के लिए --replicas पैरामीटर का उपयोग करके कई इंस्टेंस के साथ एक डिप्लॉयमेंट शुरू से बना सकते हैं।</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">स्केलिंग अवलोकन</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">पिछला</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">अगला</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>एक डिप्लॉयमेंट को स्केल करना यह सुनिश्चित करेगा कि नए पॉड बनाए गए हैं और उपलब्ध संसाधनों के साथ नोड्स के लिए शेड्यूल किए गए हैं। स्केलिंग से पॉड्स की संख्या नई वांछित स्थिति में बढ़ जाएगी। कुबेरनेट्स पॉड्स के <a href="/docs/user-guide/horizontal-pod-autoscaling/">ऑटोस्केलिंग</a> का भी समर्थन करता है, लेकिन यह इस ट्यूटोरियल के दायरे से बाहर है। शून्य पर स्केलिंग भी संभव है, और यह निर्दिष्ट डिप्लॉयमेंट के सभी पॉड्स को समाप्त कर देगा।</p>
+
+                <p>किसी एप्लिकेशन के कई इंस्टेंस को चलाने के लिए उन सभी को ट्रैफ़िक वितरित करने के तरीके की आवश्यकता होगी। सर्विसों में एक एकीकृत लोड-बैलेंसर होता है जो एक एक्सपोज्ड डिप्लॉयमेंट के सभी पॉड्स को नेटवर्क ट्रैफ़िक वितरित करेगा। सर्विसे एंडपॉइंट्स का उपयोग करते हुए रनिंग पॉड्स की लगातार निगरानी करेंगी यह सुनिश्चित करने के लिए कि ट्रैफ़िक केवल उपलब्ध पॉड्स को ही भेजा जाए।</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>डिप्लॉयमेंट में रेप्लिका की संख्या को बदलकर स्केलिंग को पूरा किया जाता है।</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>एक बार जब आपके पास किसी एप्लिकेशन के चलने के कई इंस्टेंस हैं, तो आप डाउनटाइम के बिना रोलिंग अपडेट करने में सक्षम होंगे। हम इसे अगले मॉड्यूल में करेंगे। अब, ऑनलाइन टर्मिनल पर चलते हैं और हमारे एप्लिकेशन को स्केल करते हैं।</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>डिप्लॉयमेंट को स्केल करना</h3>
+                <p>अपनी तैनाती को सूचीबद्ध करने के लिए, <code>get deployments</code> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>आउटपुट इसके समान होना चाहिए:</p>
+                <pre>
+                NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+                kubernetes-bootcamp   1/1     1            1           11m
+                </pre>
+                <p>हमारे पास 1 पॉड होना चाहिए। यदि नहीं, तो कमांड फिर से चलाएँ। इससे पता चलता है:</p>
+                <ul>
+                <li><em>NAME</em> क्लस्टर में परिनियोजन के नाम सूचीबद्ध करता है।</li>
+                <li><em>READY</em> वर्तमान/वांछित प्रतिकृतियों का अनुपात दर्शाता है</li>
+                <li><em>UP-TO-DATE</em> उन प्रतिकृतियों की संख्या प्रदर्शित करता है जिन्हें वांछित स्थिति प्राप्त करने के लिए अद्यतन किया गया है।</li>
+                <li><em>AVAILABLE</em> प्रदर्शित करता है कि आपके उपयोगकर्ताओं के लिए एप्लिकेशन की कितनी प्रतिकृतियां उपलब्ध हैं।</li>
+                <li><em>AGE</em> एप्लिकेशन के चलने की अवधि प्रदर्शित करता है।</li>
+                </ul>
+                <p>परिनियोजन द्वारा बनाए गए रेप्लिकासेट को देखने के लिए, चलाएँ:</p>
+                <p><code><b>kubectl get rs</b></code></p>
+                <p>ध्यान दें कि रेप्लिकासेट का नाम हमेशा <tt>[DEPLOYMENT-NAME]-[RANDOM-STRING]</tt> के रूप में स्वरूपित होता है। यादृच्छिक स्ट्रिंग यादृच्छिक रूप से उत्पन्न होती है और बीज के रूप में <em>पॉड-टेम्पलेट-हैश</em> का उपयोग करती है।</p>
+                <p>इस आउटपुट के दो महत्वपूर्ण कॉलम हैं:</p>
+                <ul>
+                <li><em>DESIRED</em> एप्लिकेशन की प्रतिकृतियों की वांछित संख्या प्रदर्शित करता है, जिसे आप परिनियोजन बनाते समय परिभाषित करते हैं। यह वांछित स्थिति है.</li>
+                <li><em>CURRENT</em> दर्शाता है कि वर्तमान में कितनी प्रतिकृतियां चल रही हैं।</li>
+                </ul>
+                <p>इसके बाद, आइए परिनियोजन को 4 प्रतिकृतियों तक मापें। हम <code>kubectl scale</code> कमांड का उपयोग करेंगे, इसके बाद परिनियोजन प्रकार, नाम और उदाहरणों की वांछित संख्या का उपयोग करेंगे:</p>
+                <p><code><b>kubectl scale deployment/kubernetes-bootcamp --replicas=4</b></code></p>
+                <p>अपनी तैनाती को एक बार फिर से सूचीबद्ध करने के लिए, <code>get deployment</code> का उपयोग करें:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>जब परिवर्तन लागू किया गया था, उसकी वजह से हमारे पास अब एप्लिकेशन के 4 उदाहरण उपलब्ध हैं। इसके बाद, आइए देखें कि पॉड्स की संख्या बदली है या नहीं:</p>
+                <p><code><b>kubectl get pods -o wide</b></code></p>
+                <p>अब अलग-अलग ip पते के साथ 4 पॉड हैं। परिवर्तन परिनियोजन ईवेंट लॉग में दर्ज किया गया था। इसे जाँचने के लिए, डिस्क्रिप्शन उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
+                <p>आप इस कमांड के आउटपुट में यह भी देख सकते हैं कि अब 4 प्रतिकृतियां हैं।</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>लोड संतुलन</h3>
+                <p>आइए जांचें कि सेवा ट्रैफ़िक को लोड-संतुलित कर रही है या नहीं। उजागर आईपी और पोर्ट का पता लगाने के लिए हम वर्णन सेवा का उपयोग कर सकते हैं जैसा कि हमने ट्यूटोरियल के पिछले भाग में सीखा था:</p>
+                <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                <p> <tt>NODE_PORT</tt> नामक एक पर्यावरण चर बनाएं जिसका मान नोड पोर्ट के रूप में हो:</p>
+                <p><code><b>export NODE_PORT='$(kubectl getservices/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')'</b> </code><br />
+                <p><code><b>echo NODE_PORT=$NODE_PORT</b></code></p>
+                <p>इसके बाद, हम उजागर आईपी पते और पोर्ट पर एक <code>curl</code> करेंगे। कमांड को कई बार निष्पादित करें:</p>
+                <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></b></b></code></p>
+                <p>हम प्रत्येक अनुरोध के साथ एक अलग पॉड पर पहुंचते हैं। यह दर्शाता है कि लोड-संतुलन काम कर रहा है।</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>स्केल डाउन</h3>
+                <p>परिनियोजन को 2 प्रतिकृतियों तक कम करने के लिए, <code>scale</code> उपकमांड को फिर से चलाएँ:</p>
+                <p><code><b>kubectl scale deployment/kubernetes-bootcamp --replicas=2</b></code></p>
+                <p>यह जांचने के लिए परिनियोजन को सूचीबद्ध करें कि क्या परिवर्तन <code>get deployments</code> उपकमांड के साथ लागू किया गया था:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>प्रतिकृतियों की संख्या घटकर 2 हो गई। <code>get pods</code> के साथ पॉड्स की संख्या सूचीबद्ध करें:</p>
+                <p><code><b>kubectl get pods -o wide</b></code></p>
+                <p>यह पुष्टि करता है कि 2 पॉड समाप्त कर दिए गए थे।</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <p>
+            एक बार जब आप तैयार हो जाएं, तो <a href='/hi/docs/tutorials/kubernetes-basics/update/update-intro/' title='Performing a Rolling Update'>एक रोलिंग अपडेट निष्पादित करना</a> पर आगे बढ़ें।
+            </p>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

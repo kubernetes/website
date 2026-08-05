@@ -1,0 +1,20 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  csi.storage.k8s.io/fstype: xfs
+  type: io1
+  iopsPerGB: "50"
+  encrypted: "true"
+  tagSpecification_1: "key1=value1"
+  tagSpecification_2: "key2=value2"
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.ebs.csi.aws.com/zone
+    values:
+    - us-east-2c
+
+# `tagSpecification`: 带有这个前缀的 tag 被应用到动态制备的 EBS 卷

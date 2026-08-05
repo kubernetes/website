@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  company_name: "Fiktivesunternehmen GmbH" # new fictional company name
+kind: ConfigMap
+immutable: true
+metadata:
+  name: company-name-20240312

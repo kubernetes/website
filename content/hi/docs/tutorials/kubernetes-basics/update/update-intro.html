@@ -1,0 +1,199 @@
+---
+title: रोलिंग अपडेट करना 
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="hi">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>उद्देश्य</h3>
+                <ul>
+                    <li>kubectl का उपयोग करके रोलिंग अपडेट करें।</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>एप्लिकेशन को अपडेट करना</h3>
+
+            <p>उपयोगकर्ता उम्मीद करते हैं कि एप्लिकेशन हर समय उपलब्ध रहेंगे और डेवलपर्स से दिन में कई बार उनके नए संस्करणों को डिप्लॉय करने की अपेक्षा की जाती है। कुबेरनेट्स में यह रोलिंग अपडेट के साथ किया जाता है। <b>रोलिंग अपडेट</b> पॉड को नए इंस्टेंस के साथ अपडेट करके शून्य डाउनटाइम के साथ डिप्लॉयमेंट अपडेट को सक्षम करता है। नए पॉड्स उपलब्ध संसाधनों के साथ नोड्स पर शेड्यूल किए जाएंगे।</p>
+
+            <p>पिछले मॉड्यूल में हमने कई इंस्टेंस चलाने के लिए अपने एप्लिकेशन को स्केल किया था। एप्लिकेशन की उपलब्धता को प्रभावित किए बिना अपडेट करने के लिए यह आवश्यक है। डिफ़ॉल्ट रूप से, अपदटेस के दौरान अनुपलब्ध पॉड्स की अधिकतम संख्या और बनाए जा सकने वाले नए पॉड्स की अधिकतम संख्या एक है। दोनों विकल्पों को या तो संख्या या (पॉड्स के) प्रतिशत में कॉन्फ़िगर किया जा सकता है।
+            कुबेरनेट्स में, अपदटेस को संस्करणबद्ध किया जाता है और किसी भी डिप्लॉयमेंट अपदटेस को पिछले (स्थिर) संस्करण में वापस लाया जा सकता है।</p>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>सारांश:</h3>
+                    <ul>
+                        <li>ऐप अपडेट करना</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>रोलिंग अपडेट पॉड्स को नए इंस्टेंस के साथ अपडेट करके डिप्लॉयमेंट के अपडेट को शून्य डाउनटाइम के साथ होने देता है।</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">रोलिंग अपडेट अवलोकन</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">पिछला</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">अगला</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>एप्लिकेशन स्केलिंग के समान, यदि कोई डिप्लॉयमेंट सार्वजनिक रूप से एक्सपोज़ होता है, तो सर्विस केवल अपडेट के दौरान उपलब्ध पॉड्स पर ट्रैफ़िक को लोड-बैलेंस करेगी। उपलब्ध पॉड एक इंस्टेंस है जो एप्लिकेशन के उपयोगकर्ताओं के लिए उपलब्ध है।</p>
+
+                <p>रोलिंग अपडेट निम्नलिखित क्रियाओं की अनुमति देते हैं:</p>
+                <ul>
+                    <li>किसी एप्लिकेशन को एक एनवायरनमेंट से दूसरे एनवायरनमेंट में प्रचारित करें (कंटेनर इमेज अपडेट के माध्यम से)</li>
+                    <li>पिछले संस्करणों में रोलबैक करें</li>
+                    <li>शून्य डाउनटाइम के साथ एप्लीकेशन का निरंतर इंटीग्रेशन और निरंतर डिलीवरी</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>यदि कोई डिप्लॉयमेंट सार्वजनिक रूप से प्रकट होता है, तो सर्विस अपडेट के दौरान केवल उपलब्ध पॉड्स पर ट्रैफ़िक लोड-बैलेंस करेगी।</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>चलिए अगले भाग पर चलते हैं और अपने एप्लिकेशन को एक नए संस्करण में अपडेट और रोलबैक करते है। </p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>ऐप का संस्करण अपडेट करें</h3>
+                <p>अपनी तैनाती को सूचीबद्ध करने के लिए, <code>get deployments</code> उपकमांड चलाएँ:
+                <code><b>kubectl get deployments</b></code></p>
+                <p>चल रहे पॉड्स को सूचीबद्ध करने के लिए, <code>get pods</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>ऐप का वर्तमान छवि संस्करण देखने के लिए, <code>describe pod</code> उपकमांड चलाएँ
+                और <code>image</code> फ़ील्ड देखें:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>एप्लिकेशन की छवि को संस्करण 2 में अद्यतन करने के लिए, <code>set image</code> उपकमांड का उपयोग करें, इसके बाद परिनियोजन नाम और नया छवि संस्करण लिखें:</p>
+                <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2</b></code></p>
+                <p>कमांड ने आपके ऐप के लिए एक अलग छवि का उपयोग करने के लिए परिनियोजन को सूचित किया और एक रोलिंग अपडेट शुरू किया। नए पॉड्स की स्थिति जांचें, और पुराने पॉड्स को <code>get pods</code> उपकमांड के साथ समाप्त होते हुए देखें:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>अपडेट सत्यापित करें</h3>
+                <p>सबसे पहले, जांचें कि ऐप चल रहा है या नहीं। उजागर आईपी पते और पोर्ट को खोजने के लिए, <code>describe service</code> कमांड चलाएँ:</p>
+                <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                <p> <tt>NODE_PORT</tt> नामक एक पर्यावरण चर बनाएं जिसमें निर्दिष्ट नोड पोर्ट का मान हो:</p>
+                <p><code><b>export NODE_PORT='$(kubectl getservices/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')'</b> </code><br />
+                   <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+                <p>इसके बाद, उजागर आईपी और पोर्ट पर <code>curl</code> करें:</p>
+                <p><code><b>curl http://'$(minikube ip):$NODE_PORT'</b></code></p>
+                <p>हर बार जब आप <code>curl</code> कमांड चलाएंगे, तो आप एक अलग पॉड से टकराएंगे। ध्यान दें कि सभी पॉड्स अब नवीनतम संस्करण (v2) चला रहे हैं।</p>
+                <p>आप <code>rollout status</code> उपकमांड चलाकर भी अपडेट की पुष्टि कर सकते हैं:</p>
+                <p><code><b>kubectl rollout status deployments/kubernetes-bootcamp</b></code></p>
+                <p>ऐप का वर्तमान छवि संस्करण देखने के लिए, <code>describe pod</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>आउटपुट के <code>image</code> फ़ील्ड में, सत्यापित करें कि आप नवीनतम छवि संस्करण (v2) चला रहे हैं।</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>अपडेट वापस रोल करें</h3>
+                <p>आइए एक और अपडेट करें, और <code>v10</code> के साथ टैग की गई छवि को तैनात करने का प्रयास करें:</p>
+                <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+                <p>डिप्लॉयमेंट की स्थिति देखने के लिए <code>get deployments</code> का उपयोग करें:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>ध्यान दें कि आउटपुट उपलब्ध पॉड्स की वांछित संख्या सूचीबद्ध नहीं करता है। सभी पॉड्स को सूचीबद्ध करने के लिए <code>get pods</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>ध्यान दें कि कुछ पॉड्स की स्थिति <tt>ImagePullBackOff</tt> है।</p>
+                <p>समस्या के बारे में अधिक जानकारी प्राप्त करने के लिए, <code>describe pod</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>प्रभावित पॉड्स के आउटपुट के <code>event</code> अनुभाग में, ध्यान दें कि <code>v10</code> छवि संस्करण रिपॉजिटरी में मौजूद नहीं था।</p>
+                <p>परिनियोजन को अपने अंतिम कार्यशील संस्करण में वापस लाने के लिए, <code>rollout undo</code> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl rollout undo deployment/kubernetes-bootcamp</b></code></p>
+                <p><code>rollout undo</code> कमांड परिनियोजन को पिछली ज्ञात स्थिति (छवि का v2) में वापस कर देता है। अद्यतन संस्करणित हैं और आप परिनियोजन की किसी भी पूर्व ज्ञात स्थिति पर वापस लौट सकते हैं।</p>
+                <p>पॉड्स को फिर से सूचीबद्ध करने के लिए <code>get pods</code> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>चार पॉड्स चल रहे हैं। इन पॉड्स पर तैनात छवि की जांच करने के लिए, <कोड>describe pods</कोड> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>परिनियोजन एक बार फिर ऐप के स्थिर संस्करण (v2) का उपयोग कर रहा है। रोलबैक सफल रहा.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>अपने स्थानीय क्लस्टर को साफ़ करना याद रखें</p>
+                <p><code><b>kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp</b></code></p>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

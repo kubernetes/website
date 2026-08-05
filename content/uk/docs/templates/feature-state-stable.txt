@@ -1,0 +1,11 @@
+
+<!--This feature is *stable*, meaning:
+-->
+Цей компонент є *стабільним*, що означає:
+
+<!--* The version name is vX where X is an integer.
+-->
+* Назва версії становить vX, де X є цілим числом.
+<!--* Stable versions of features will appear in released software for many subsequent versions.
+-->
+* Стабільні версії компонентів з'являтимуться у багатьох наступних версіях програмного забезпечення.

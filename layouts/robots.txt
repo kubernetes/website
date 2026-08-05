@@ -1,0 +1,13 @@
+User-agent: *
+
+Disallow: /legacy/
+Disallow: /v1.0/
+Disallow: /v1.1/
+Disallow: /404/
+Disallow: /404.html
+
+Allow: /docs/reference/kubernetes-api/api-index/
+Allow: /docs/reference/kubernetes-api/labels-annotations-taints/
+Disallow: /docs/reference/kubernetes-api/
+
+SITEMAP: {{ "sitemap.xml" | absLangURL }}

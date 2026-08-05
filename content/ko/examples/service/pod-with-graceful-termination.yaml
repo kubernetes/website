@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 120 # 매우 긴 그레이스 기간(grace period)
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        lifecycle:
+          preStop:
+            exec:
+              # 실제 종료는 terminationGracePeriodSeconds 값만큼 시간이 걸릴 수 있다.
+              # 이 예시에서는 terminationGracePeriodSeconds 동안 대기만 한다.
+              # 120초가 지나면 컨테이너는 강제로 종료된다.
+              # 이 시간 동안에도 nginx는 계속 요청을 처리할 수 있다.
+              command: [
+                "/bin/sh", "-c", "sleep 180"
+              ]

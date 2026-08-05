@@ -1,0 +1,109 @@
+---
+title: Menggunakan Service untuk Mengekspos Aplikasimu
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Tujuan</h3>
+				<ul>
+					<li>Belajar tentang Service di Kubernetes</li>
+					<li>Memahami bagaimana label dan objek LabelSelector berhubungan dengan sebuah Service</li>
+					<li>Mengekspos sebuah aplikasi keluar klaster Kubernetes menggunakan sebuah Service</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Ikhtisar Service Kubernetes</h3>
+
+			<p><a href="/id/docs/concepts/workloads/pods/">Pod-Pod</a> Kubernetes itu fana. Pod pada kenyataannya punya <a href="/id/docs/concepts/workloads/pods/pod-lifecycle/">siklus hidup</a>. Ketika sebuah Node pekerja mati, Pod yang berjalan dalam Node itu juga hilang. <a href="/id/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> mungkin kemudian secara dinamis mendorong klaster kembali ke keadaan yang diinginkan melalui penciptaan Pod baru untuk memastikan aplikasimu berjalan. Contoh lainnya, katakanlah ada <i>backend</i> pengolahan citra dengan 3 replika. Replika tersebut dapat ditukar; sistem <i>front-end</i> seharusnya tidak peduli tentang replika <i>backend</i> atau bahkan jika Pod hilang dan dibuat ulang.  Walaupun demikian, tiap Pod dalam sebuah klaster Kubernetes memiliki alamat IP unik, meskipun Pod-Pod itu berada dalam satu Node yang sama, sehingga seharusnya ada jalan untuk mencocokan perubahan antara Pod-Pod itu sehingga aplikasimu tetap berfungsi.</p>
+
+			<p>Service di Kubernetes merupakan abstraksi yang mendefinisikan satu set Pod secara logis dan aturan untuk mengakses mereka. Service memungkinkan keterkaitan renggang antara Pod-Pod. Sebuah Service didefinisikan menggunakan YAML <a href="/id/docs/concepts/configuration/overview/#tip-konfigurasi-secara-umum">(lebih disukai)</a> atau JSON, sebagaimana semua objek Kubernetes. Kumpulan Pod yang ditargetkan oleh Service biasanya ditentukan oleh <i>LabelSelector</i> (lihat di bawah mengapa kamu mungkin ingin Service tanpa <code>selector</code> dalam <i>spec</i>).</p>
+
+			<p>Meskipun tiap Pod memiliki alamat IP unik, IP tersebut tidak diekpos ke luar klaster tanpa sebuah Service. Service memperbolehkan aplikasimu untuk menerima kunjungan. Service dapat diekspos dengan cara yang berbeda menggunakan <code>type</code> di ServiceSpec:
+			<ul>
+				<li><i>ClusterIP</i> (bawaan) - Mengekspos Service dengan internal IP dalam klaster. <i>Type</i> ini membuat Service hanya bisa diakses dalam klaster.</li>
+				<li><i>NodePort</i> - Mengekspos Service dengan porta yang sama untuk tiap Node dalam klaster menggunakan NAT. Ini membuat Service dapat diakses dari luar dengan <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. <i>Superset</i> dari ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Membuat <i>load balancer</i> eksternal di <i>cloud</i> saat ini (jika didukung) dan memberikan IP eksternal tetap kepada Service. <i>Superset</i> dari NodePort.</li>
+				<li><i>ExternalName</i> - Mengekpos Service menggunakan nama sesuai keinginan (ditentukan oleh <code>externalName</code> dalam <i>spec</i>) dengan mengembalikan catatan CNAME dengan nama tersebut. Tidak menggunakan proksi. <i>Type</i> ini membutuhkan <code>kube-dns</code> versi v1.7 atau lebih tinggi.</li>
+			</ul>
+			<p>Informasi lebih tentang <i>type</i> Service berbeda dapat ditemukan di tutorial <a href="/docs/tutorials/services/source-ip/">Menggunakan IP pengirim</a>. Lihat juga <a href="/id/docs/concepts/services-networking/connect-applications-service">Menghubungkan aplikasi dengan Service</a>.</p>
+			<p>Selain itu, catat bahwa ada kasus penggunaan Service yang tidak mendefinisikan <code>selector</code> di <i>spec</i>. Sebuah Service yang dibuat tanpa <code>selector</code> juga tidak akan membuat objek Endpoint yang sesuai. Ini mengizinkan pengguna untuk memetakan Service secara manual ke <i>endpoint</i> spesifik. Kemungkinan lain kenapa dimungkinan tanpa <i>selector</i> adalah kamu dengan tegas menggunakan <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Ringkasan</h3>
+					<ul>
+						<li>Mengekspos Pod ke kunjungan eksternal</li>
+						<li><i>Load balancing</i> kunjungan melintasi beberapa Pod</li>
+						<li>Menggunakan label</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Service Kubernetes adalah lapisan abstraksi yang mendefinisikan kumpulan Pod secara logis dan mengijinkan paparan kunjungan eksternal, <i>load balancing</i>, dan <i>service discovery</i> untuk Pod-Pod tersebut.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Service dan Label</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Service mengarahkan kunjungan melintasi sekumpulan Pod. Service merupakan abstraksi yang mengizinkan Pod-Pod untuk mati dan replikasi dalam Kubernetes tanpa memengaruhi aplikasimu. Menemukan dan <i>routing</i> antara Pod dependen (seperti komponen <i>frontend</i> dan <i>backend</i>) yang ditangani oleh Service Kubernetes.</p>
+				<p>Service mencocokan satu set Pod menggunakan <a href="/id/docs/concepts/overview/working-with-objects/labels/">label dan selektor</a>, mengelompokan primitif yang mengizinkan operasi logika pada objek-objek dalam Kubernetes. Label adalah pasangan <i>key/value</i> yang melekat pada objek-objek dan dapat digunakan untuk beberapa tujuan:</p>
+				<ul>
+					<li>Menandai objek-objek untuk lingkungan <i>development</i>, <i>test</i>, dan <i>production</i></li>
+					<li>Melekatkan label versi</li>
+					<li>Klasifikasi sebuah objek dengan label-label</li>
+				</ul>
+			</div>
+			
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Label-label dapat dilekatkan pada objek-objek pada waktu pembuatan ataupun setelahnya. Mereka dapat diubah kapanpun. Mari kita ekspos aplikasi kita sekarang dengan sebuah Service dan menerapkan beberapa label.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/id/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Mulai Tutorial Interaktif<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

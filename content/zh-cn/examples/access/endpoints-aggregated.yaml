@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    kubernetes.io/description: |-
+      将端点写入权限添加到 edit 和 admin 角色。此特性因 CVE-2021-25740 在 1.22
+      中默认被移除。请参阅 https://issue.k8s.io/103675
+      这一设置将允许写者要求 LoadBalancer 或 Ingress 的实现向外暴露后端 IP 地址，
+      所暴露的 IP 地址无法通过其他方式访问，
+      并且可以规避对这些后端访问进行预防/隔离的网络策略或安全控制机制。
+      EndpointSlice 从未包含在 edit 和 admin 角色中，
+      因此 EndpointSlice API 没有什么可恢复的。
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+  name: custom:aggregate-to-edit:endpoints # 你可以随意愿更改这个 name
+rules:
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["create", "delete", "deletecollection", "patch", "update"]

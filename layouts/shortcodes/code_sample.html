@@ -1,0 +1,42 @@
+{{ $p := .Page }}
+{{ $file := .Get "file" }}
+{{ $opts := .Get "options" | default "" }}
+{{ $codelang := .Get "language" | default (path.Ext $file | strings.TrimPrefix ".") }}
+{{ $fileDir := path.Split $file }}
+{{ $bundlePath := path.Join .Page.File.Dir $fileDir.Dir }}
+{{ $.Scratch.Set "filename" (printf "/content/%s/examples/%s" .Page.Lang $file) }}
+{{/* First assume this is a bundle and the file is inside it. */}}
+{{ with $p.Resources.GetMatch (printf "%s*" $file) }}
+{{ $.Scratch.Set "content" .Content }}
+{{ end }}
+{{/* Read the file relative to the content root. */}}
+{{ with readFile ($.Scratch.Get "filename")}}
+{{ $.Scratch.Set "content" . }}
+{{ else }}
+{{/* If not found, try the default language */}}
+{{ $defaultLang := (index (sort site.Languages "Weight") 0).Lang }}
+{{ with readFile (printf "/content/%s/examples/%s" $defaultLang $file) }}
+{{ $.Scratch.Set "content" . }}
+{{ $.Scratch.Set "filename" (printf "/content/%s/examples/%s" $defaultLang $file) }}
+{{ end }}
+{{ end }}
+{{ if not ($.Scratch.Get "content") }}
+{{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
+{{ end }}
+{{ $filename := printf ($.Scratch.Get "filename") | safeURL }}
+{{ $ghlink := printf "https://%s/%s%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) $filename | safeURL }}
+{{ with $.Scratch.Get "content" }}
+<div class="highlight code-sample">
+    <div class="copy-code-icon">
+    {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
+    {{ if $ghlink }}</a>{{ end }}
+    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" $file) -}}
+    {{- with resources.Get "images/copycode.svg" -}}
+    <img src="{{  .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $file | anchorize }}')" title="{{ $copyTitle }}"></img>
+    {{- end -}}
+    </div>
+    <div class="includecode" id="{{ $file | anchorize }}">
+       {{- highlight . $codelang $opts -}}
+    </div>
+</div>
+{{- end -}}

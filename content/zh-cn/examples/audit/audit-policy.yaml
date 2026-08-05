@@ -1,0 +1,68 @@
+apiVersion: audit.k8s.io/v1 # 这是必填项。
+kind: Policy
+# 不要在 RequestReceived 阶段为任何请求生成审计事件。
+omitStages:
+  - "RequestReceived"
+rules:
+  # 在日志中用 RequestResponse 级别记录 Pod 变化。
+  - level: RequestResponse
+    resources:
+    - group: ""
+      # 资源 "pods" 不匹配对任何 Pod 子资源的请求，
+      # 这与 RBAC 策略一致。
+      resources: ["pods"]
+  # 在日志中按 Metadata 级别记录 "pods/log"、"pods/status" 请求
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["pods/log", "pods/status"]
+
+  # 不要在日志中记录对名为 "controller-leader" 的 configmap 的请求。
+  - level: None
+    resources:
+    - group: ""
+      resources: ["configmaps"]
+      resourceNames: ["controller-leader"]
+
+  # 不要在日志中记录由 "system:kube-proxy" 发出的对端点或服务的监测请求。
+  - level: None
+    users: ["system:kube-proxy"]
+    verbs: ["watch"]
+    resources:
+    - group: "" # core API 组
+      resources: ["endpoints", "services"]
+
+  # 不要在日志中记录对某些非资源 URL 路径的已认证请求。
+  - level: None
+    userGroups: ["system:authenticated"]
+    nonResourceURLs:
+    - "/api*" # 通配符匹配。
+    - "/version"
+
+  # 在日志中记录 kube-system 中 configmap 变更的请求消息体。
+  - level: Request
+    resources:
+    - group: "" # core API 组
+      resources: ["configmaps"]
+    # 这个规则仅适用于 "kube-system" 名字空间中的资源。
+    # 空字符串 "" 可用于选择非名字空间作用域的资源。
+    namespaces: ["kube-system"]
+
+  # 在日志中用 Metadata 级别记录所有其他名字空间中的 configmap 和 secret 变更。
+  - level: Metadata
+    resources:
+    - group: "" # core API 组
+      resources: ["secrets", "configmaps"]
+
+  # 在日志中以 Request 级别记录所有其他 core 和 extensions 组中的资源操作。
+  - level: Request
+    resources:
+    - group: "" # core API 组
+    - group: "extensions" # 不应包括在内的组版本。
+
+  # 一个抓取所有的规则，将在日志中以 Metadata 级别记录所有其他请求。
+  - level: Metadata
+    # 符合此规则的 watch 等长时间运行的请求将不会
+    # 在 RequestReceived 阶段生成审计事件。
+    omitStages:
+      - "RequestReceived"

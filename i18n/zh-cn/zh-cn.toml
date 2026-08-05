@@ -1,0 +1,653 @@
+# i18n strings for the Chinese version of the site (https://kubernetes.io/zh-cn/)
+# 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
+
+[api_reference_title]
+other = "API 参考"
+
+[auto_generated_edit_notice]
+other = "(自动生成的页面)"
+
+[auto_generated_pageinfo]
+other = """<p>该页面是自动生成的。</p><p>如果你打算报告此页面的问题，请在问题描述中提及该页面是自动生成的。修复可能需要在 Kubernetes 项目的其他地方进行。</p>"""
+
+[banner_acknowledgement]
+other = "隐藏此通知"
+
+[blog_post_show_more]
+other = "显示更多文章..."
+
+[browser_clipboard_support_warning]
+other = "对不起, 你的浏览器不支持将此示例复制到剪贴板"
+
+[case_study_prefix]
+other = "案例分析："
+
+[caution]
+other = "注意："
+
+[cleanup_heading]
+other = "清理现场"
+
+[china_icp_license]
+other = "ICP 许可："
+
+[community_advice_guidelines]
+other = "你还可以阅读我们有关 {{ .link }} 的内容。"
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
+other = "事件日历"
+
+[community_contributor_site_name]
+other = "贡献者网站"
+
+[community_forum_name]
+other = "论坛"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "X（前身为 Twitter）"
+
+[community_x_name]
+other = "X（前身为 Twitter）"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "和"
+
+[copy_sample_to_clipboard]
+other = "复制 {{ .filename }} 到剪贴板"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL"
+
+[cve_summary]
+other = "问题描述"
+
+[cve_table]
+other = "Kubernetes CVE 列表"
+
+[cve_table_date_format]
+other = "2006-01-02 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "（最后更新：%s）"
+
+[deprecation_title]
+other = "你正在查看的文档所针对的是 Kubernetes 版本："
+
+[deprecation_warning]
+other = " 版本的文档已不再维护。你现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击 "
+
+[deprecation_file_warning]
+other = "已弃用"
+
+[outdated_content_title]
+other = "此文档中的信息可能已过时"
+
+[outdated_content_message]
+other = "此文档的更新日期比原文晚，因此其中的信息可能已过时。如果能阅读英文，请查看英文版本以获取最新信息："
+
+[dockershim_message]
+other = """自 1.24 版起，Dockershim 已从 Kubernetes 项目中移除。阅读 <a href="/zh-cn/dockershim">Dockershim 移除的常见问题</a>了解更多详情。"""
+
+[docs_label_browse]
+other = "浏览文档"
+
+[docs_label_contributors]
+other = "贡献者"
+
+[docs_label_i_am]
+other = "我是..."
+
+[docs_label_users]
+other = "用户"
+
+[docs_page_versions]
+other = "此 %s 适用于 Kubernetes %s。如果你想使用其他 Kubernetes 版本，请参考以下页面："
+
+[docs_version_current]
+other = "（本文档）"
+
+[docs_version_latest_heading]
+other = "最新版本"
+
+[docs_version_other_heading]
+other = "较老版本"
+
+[end_of_life]
+other = "不再支持："
+
+[envvars_heading]
+other = "环境变量"
+
+[error_404_were_you_looking_for]
+other = "你是否在搜索："
+
+[error_copy_to_clipboard]
+other = "错误"
+
+[examples_heading]
+other = "示例"
+
+[feature_gate_enabled]
+other = "（默认启用）"
+
+[feature_gate_disabled]
+other = "（默认禁用）"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "已弃用"
+
+[feature_gate_table_header_default]
+other = "默认值"
+
+[feature_gate_table_header_feature]
+other = "特性"
+
+[feature_gate_table_header_from]
+other = "从"
+
+[feature_gate_table_header_since]
+other = "自从"
+
+[feature_gate_table_header_stage]
+other = "阶段"
+
+[feature_gate_table_header_to]
+other = "到"
+
+[feature_gate_table_header_until]
+other = "直到"
+
+[feature_state]
+other = "特性状态："
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "特性门控："
+
+[feedback_heading]
+other = "反馈"
+
+[feedback_no]
+other = "否"
+
+[feedback_question]
+other = "此页是否对你有帮助？"
+
+[feedback_yes]
+other = "是"
+
+[final_patch_release]
+other = "最终补丁发布"
+
+[inline_list_separator]
+other = "、"
+
+[input_placeholder_email_address]
+other = "电子邮件地址"
+
+[javascript_required]
+other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查看此页内容"
+
+[katacoda_message]
+other = """<h4>交互式教程关闭</h4>
+<p>本网站上的交互式教程即将关闭。Kubernetes 项目希望在未来的长远规划中恢复类似的交互式学习选项。</p>
+<p>此次关闭是在 O'Reilly Media 于 2019 年<a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">收购</a> Katacoda 后进行的。</p>
+<p>Kubernetes 衷心感谢 O'Reilly 和 Katacoda 多年来帮助人们迈出学习 Kubernetes 的第一步。</p>
+<p>教程将在<b>2023 年 3 月 31 日</b>后停止运行。更多信息，请参阅 "<a href="/zh-cn/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">免费的 Katacoda Kubernetes 教程即将关闭</a>。"</p>"""
+
+[latest_release]
+other = "最新发行版本："
+
+[latest_version]
+other = "最新版本。"
+
+[layouts_blog_pager_next]
+other = "后一篇 >>"
+
+[layouts_blog_pager_prev]
+other = "<< 前一篇"
+
+[layouts_case_studies_list_tell]
+other = "分享你的故事"
+
+[layouts_docs_glossary_aka]
+other = "亦称作"
+
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes 的内部组件。"
+
+[layout_docs_glossary_architecture_name]
+other = "架构"
+
+[layouts_docs_glossary_click_details_after]
+other = "下面的指示符号获取特定术语的更为完整的描述。"
+
+[layouts_docs_glossary_click_details_before]
+other = "点击"
+
+[layout_docs_glossary_community_description]
+other = "与 Kubernetes 开源开发相关。"
+
+[layout_docs_glossary_community_name]
+other = "社区"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes 默认支持的资源类型。"
+
+[layout_docs_glossary_core-object_name]
+other = "核心对象"
+
+[layouts_docs_glossary_description]
+other = "此术语表旨在提供 Kubernetes 术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
+
+[layouts_docs_glossary_deselect_all]
+other = "全不选"
+
+[layout_docs_glossary_extension_description]
+other = "支持自定义 Kubernetes。"
+
+[layout_docs_glossary_extension_name]
+other = "扩展"
+
+[layouts_docs_glossary_filter]
+other = "根据标签过滤术语"
+
+[layout_docs_glossary_fundamental_description]
+other = "与首次使用 Kubernetes 的用户相关。"
+
+[layout_docs_glossary_fundamental_name]
+other = "基础"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes 组件（以及集群外的程序）如何相互通信。"
+
+[layout_docs_glossary_networking_name]
+other = "网络"
+
+[layout_docs_glossary_operation_description]
+other = "启动和维护 Kubernetes。"
+
+[layout_docs_glossary_operation_name]
+other = "操作"
+
+[layout_docs_glossary_security_description]
+other = "确保 Kubernetes 应用程序安全可靠。"
+
+[layout_docs_glossary_security_name]
+other = "安全"
+
+[layouts_docs_glossary_select_all]
+other = "全选"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes 应用程序如何处理持久数据。"
+
+[layout_docs_glossary_storage_name]
+other = "存储"
+
+[layout_docs_glossary_tool_description]
+other = "使 Kubernetes 更容易或更好用的软件。"
+
+[layout_docs_glossary_tool_name]
+other = "工具"
+
+[layout_docs_glossary_user-type_description]
+other = "常见的 Kubernetes 用户类型。"
+
+[layout_docs_glossary_user-type_name]
+other = "用户类型"
+
+[layout_docs_glossary_workload_description]
+other = "在 Kubernetes 上运行的应用程序。"
+
+[layout_docs_glossary_workload_name]
+other = "工作负载"
+
+[layouts_docs_partials_feedback_improvement]
+other = "提出改进建议"
+
+[layouts_docs_partials_feedback_issue]
+other = """如果需要，请在 [GitHub 仓库](https://www.github.com/kubernetes/website/) 上登记新的问题"""
+
+[layouts_docs_partials_feedback_or]
+other = "或者"
+
+[layouts_docs_partials_feedback_problem]
+other = "报告问题"
+
+[layouts_docs_partials_feedback_thanks]
+other = "感谢反馈。如果你有一个关于如何使用 Kubernetes 的具体问题需要答案，可以访问"
+
+[layouts_docs_search_fetching]
+other = "检索结果中..."
+
+[legacy_repos_message]
+other = """自 2023 年 9 月 13 日起，Kubernetes 已经[弃用并冻结了旧版软件包仓库 (`apt.kubernetes.io` 和`yum.kubernetes.io`)。](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)
+**强烈建议使用[托管在 `pkgs.k8s.io` 上的新软件包仓库](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)来安装 2023 年 9 月 13 日之后发布的 Kubernetes 版本。**
+旧版软件包仓库已被弃用，其内容可能在未来的任何时间被删除，恕不另行通知。新的软件包仓库提供了从 Kubernetes v1.24.0 版本开始的下载。"""
+
+[main_by]
+other = "由："
+
+[main_cncf_project]
+other = """我们是 <a href="https://cncf.io/">CNCF</a> 毕业项目</p>"""
+
+[main_community_explore]
+other = "了解社区"
+
+[main_contribute]
+other = "贡献"
+
+[main_copyright_notice]
+other = """Linux 基金会&reg;。保留所有权利。Linux 基金会已注册并使用商标。如需了解 Linux 基金会的商标列表，请访问<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商标使用页面</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes 作者 | 文档发布基于 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授权许可"""
+
+[main_github_invite]
+other = "想要修改 Kubernetes 的核心源代码？"
+
+[main_github_view_on]
+other = "在 GitHub 上查看"
+
+[main_kubernetes_features]
+other = "Kubernetes 特性"
+
+[main_kubeweekly_baseline]
+other = "想要获取最新的 Kubernetes 新闻么？请订阅 KubeWeekly。"
+
+[main_kubeweekly_past_link]
+other = "浏览往期的周报"
+
+[main_kubeweekly_signup]
+other = "订阅"
+
+[main_page_history]
+other ="页面历史"
+
+[main_page_last_modified_on]
+other = "页面最后一次修改于"
+
+[main_read_about]
+other = "了解"
+
+[main_read_more]
+other = "进一步了解"
+
+[monthly_patch_release]
+other = "月度补丁发布"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "不适用"
+
+[note]
+other = "说明："
+
+[objectives_heading]
+other = "教程目标"
+
+[options_heading]
+other = "选项"
+
+[outdated_blog__message]
+other = "这篇文章已经一年多了，较旧的文章可能包含过时的内容。请检查从发表以来，页面中的信息是否变得不正确。"
+
+[page_deprecated]
+other = "（过期的页面）"
+
+[parentoptions_heading]
+other = "继承于父命令的选项"
+
+[patch_release]
+other = "补丁版本"
+
+[post_create_issue]
+other = "登记一个问题"
+
+[prerequisites_heading]
+other = "准备开始"
+
+[previous_patches]
+other = "补丁版本："
+
+# 当 JavaScript 不可用时显示以下文本。
+[release_binary_alternate_links]
+other  = """你可以在 [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG)
+文件中找到下载 Kubernetes 组件（及其校验和）的链接。另外你还可以使用
+[downloadkubernetes.com](https://www.downloadkubernetes.com/) 筛选版本和架构。"""
+
+[release_binary_arch]
+other  = "架构"
+
+[release_binary_arch_option]
+other = "架构"
+
+[release_binary_copy_link]
+other = "复制链接"
+
+[release_binary_copy_link_certifcate]
+other = "证书"
+
+[release_binary_copy_link_checksum]
+other = "校验和"
+
+[release_binary_copy_link_signature]
+other = "签名"
+
+[release_binary_copy_link_tooltip]
+other = "复制到剪贴板"
+
+[release_binary_download]
+other  = "下载二进制"
+
+[release_binary_download_tooltip]
+other = "下载二进制文件"
+
+[release_binary_options]
+other  = "下载选项"
+
+[release_binary_os]
+other = "操作系统"
+
+[release_binary_os_option]
+other = "操作系统"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "下载 Kubernetes 组件二进制"
+
+# 注：<current-version> 是通过 'release-binaries' 短代码设置的实际版本号的占位符。
+# 请勿翻译或修改 <current-version> 占位符。
+[release_binary_section]
+other = """你可以从下表找到下载 <current-version> Kubernetes 组件（及其校验和）的链接。
+若想下载早期支持的版本，可以查阅各自的文档链接了解[早期版本](https://kubernetes.io/zh-cn/docs/home/supported-doc-versions/#versions-older)，
+或使用 [downloadkubernetes.com](https://www.downloadkubernetes.com/)。"""
+
+# 注：<current-version> 和 <current-changelog-url> 是通过 'release-binaries' 短代码设置的占位符。
+# 请勿翻译或修改 <current-version> 和 <current-changelog-url> 占位符。
+[release_binary_section_note]
+other = """要下载 <current-version> Kubernetes 组件更早的补丁版本（及其校验和），请参阅
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)
+文件。"""
+
+[release_binary_version]
+other  = "版本"
+
+[release_binary_version_option]
+other = "最新版本"
+
+[release_date_after]
+other = "）"
+
+[release_date_before]
+other = "（发布日期："
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
+[release_date_format]
+other = "2006-01-02"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "2006-01"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick 截止日期"
+
+[release_end_of_life_date]
+other = "停止支持日期"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} 于 {{ .maintenance_mode_start_date }} 进入维护模式；Kubernetes {{ .minor_version }} 生命周期结束于 {{ .release_eol_date }}。"
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} 于 {{ .maintenance_mode_start_date }} 进入维护模式**。
+
+{{ .minor_version }} 生命周期结束于 {{ .release_eol_date }}。"""
+
+[release_full_details_initial_text]
+other = "完整的"
+
+[release_information_navbar]
+other = "发布信息"
+
+[release_minor_version]
+other = "次要版本"
+
+[release_info_next_patch]
+other = "下个补丁发布是 **%s**。"
+
+
+# 已废弃。使用 release_maintenance_and_end_of_life_details_current
+# 和 release_maintenance_and_end_of_life_details_past 作为替代。
+[release_info_eol]
+# 如果新字符串已经过本地化，就将此字符串设置为 ""
+other = ""
+
+[release_note]
+other = "说明"
+
+[release_schedule]
+other = "排期表"
+
+[release_target_date]
+other = "目标日期"
+
+[release_changelog]
+other = "变更记录"
+
+[seealso_heading]
+other = "另请参见"
+
+[sidebar_toggle_nav]
+other = "展开/收起章节导航"
+
+[subscribe_button]
+other = "订阅"
+
+[success_copy_to_clipboard]
+other = "成功"
+
+[synopsis_heading]
+other = "简介"
+
+[thirdparty_message]
+other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
+
+[thirdparty_message_edit_disclaimer]
+other="""第三方内容建议"""
+
+[thirdparty_message_single_item]
+other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
+
+[thirdparty_message_vendor]
+other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。要将供应商、产品或项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。<a href="#third-party-content-disclaimer">更多信息。</a>"""
+
+[toast_failure_copycode]
+other="复制到剪贴板失败："
+
+[toast_success_copycode]
+other = "已复制到剪贴板："
+
+[translated_by]
+other = "译者"
+
+[ui_search]
+other = "搜索"
+
+[version_check_mustbe]
+other = "你的 Kubernetes 服务器版本必须是 "
+
+[version_check_mustbeorlater]
+other = "你的 Kubernetes 服务器版本必须不低于版本 "
+
+[version_check_tocheck]
+other = "要获知版本信息，请输入 "
+
+[version_menu]
+other = "版本列表"
+
+[warning]
+other = "警告："
+
+[warning_copy_to_clipboard]
+other = "警告"
+
+[whatsnext_heading]
+other = "接下来"
