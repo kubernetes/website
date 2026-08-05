@@ -116,7 +116,7 @@ realizar cambios útiles, no importa si el estado general es estable o no.
 Como principio fundamental de su diseño, Kubernetes utiliza numerosos controladores, 
 cada uno de los cuales gestiona un aspecto específico del estado del clúster. Generalmente,
 un bucle de control (controlador) utiliza un tipo de recurso como estado deseado y gestiona
-otro tipo de recurso para lograr dicho estado. Por ejemplo, un controlador de trabajos (Jobs) 
+otro tipo de recurso para lograr dicho estado. Por ejemplo, un controlador de Jobs
 realiza un seguimiento de los objetos Job (para descubrir nuevas tareas) y de los objetos Pod
 (para ejecutar los Jobs y comprobar cuándo finalizan). En este caso, otro componente crea los 
 Jobs, mientras que el controlador de Jobs crea los Pods.
