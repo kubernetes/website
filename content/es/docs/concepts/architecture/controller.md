@@ -157,5 +157,5 @@ o externamente a Kubernetes. La mejor opción dependerá de la funcionalidad esp
 * Obtén más información sobre el [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Si quieres escribir tu propio controlador, consulta
   [los patrones de extensión de Kubernetes](/docs/concepts/extend-kubernetes/#extension-patterns)
-   el repositorio [sample-controller](https://github.com/kubernetes/sample-controller).
+el repositorio [sample-controller](https://github.com/kubernetes/sample-controller).
 
