@@ -299,7 +299,7 @@ So you get two layers with cleanly separated responsibilities:
 
 - **The delta queue** — an ordered stream of change facts, delivered one at a time and
   without merging. Its job is to tell consumers everything that happened, in the right order.
-- **workqueue** — a queue of **keys** with deduplication and rate limiting. This is the layer
+- **workqueue** — a queue of **keys** with deduplication. This is the layer
   that collapses "ten updates in a row → a reconcile or two".
 
 If you keep that two-layer picture in your head, it becomes clear why a flood of events
@@ -352,15 +352,16 @@ Step by step, here is what happens between the moment the manager starts and the
 `r.Get` inside your reconciler:
 
 1. The manager's `mgr.Start(ctx)` brings up every registered informer.
-2. For each GVK, the Reflector fetches a full snapshot of every object that falls within your
-   scope.
+2. For each GVK, the Reflector fetches a full snapshot: every object of that type that falls
+   within your scope.
 3. The snapshot is loaded into the informer's store, registered indexes are rebuilt, and the
-   informer's `HasSynced()` flag flips to `true`.
+   informer is marked as synced.
 4. The same stream then continues as an ordinary **watch** from the `resourceVersion` the
    snapshot synced to.
-5. **Only then** does the controller start invoking `Reconcile` — specifically, once
-   `cache.WaitForCacheSync` has returned `true` for every source it owns. Until that point,
-   workers do not drain the workqueue, even if events have already started piling up.
+5. **Only then** does the controller start invoking `Reconcile` — specifically, once every
+   source it owns reports synced, which includes its event handlers having processed the
+   initial snapshot. Until that point, workers do not drain the workqueue, even if events have
+   already started piling up.
 
 So "the reconciler is running but the cache is still empty" is **not a state you can
 observe** — the warm-up happens before the first `Reconcile`. (The one exception: a `Get` for a
@@ -469,9 +470,10 @@ must always look at the current state. If it does not match the desired state, t
 reconcile fixes it. You do not need to "wait 100ms" or "re-trigger". You need to write the
 logic so that one or two extra invocations break nothing.
 
-If you genuinely need guaranteed freshness — for example, in a validating webhook where you
-cannot afford to act on stale state — that is what `APIReader` is for. More on this
-shortly.
+If a stale read is a genuine correctness problem for you, a live read does not fix it — a
+concurrent write can be mid-commit anyway. See the
+[controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that)
+for patterns that do.
 
 ### Mistake 2: `DeepCopy` and who owns the memory
 
@@ -492,7 +494,7 @@ Because Go has no immutable structs, nothing prevents you from doing
 `pod.Labels["foo"] = "bar"` directly inside a handler — and that Pod is the one in the store.
 Raw `client-go` listers have always worked this way; `ThreadSafeStore`'s own documentation puts
 it bluntly: "you must not modify anything returned by Get or List as it will break the indexing
-feature". Patch a status "for convenience" in one controller and you break the world view of an
+feature". Patch a status "for convenience" in a handler and you break the world view of an
 unrelated controller next door.
 
 `controller-runtime`'s cache-backed client shields you from that on the read path: `Get` and
@@ -518,9 +520,10 @@ N hours".
 
 It does not. A resync does **not** perform a **list**. It _re-emits_ everything currently in
 the indexer back through the delta queue, and the informer dispatches an update per object,
-calling `OnUpdate(old, old)` for each one. This gives a controller that has somehow missed its
-reconcile window (a stuck worker, a dropped handler) a chance to see the world again. It
-generates no traffic to the API server.
+calling `OnUpdate(old, old)` for each one. This is for controllers that manage state outside
+the Kubernetes API (a cloud provider resource, for example): out-of-band changes produce no
+watch event, and a periodic resync is the only way to notice them. It generates no traffic to
+the API server.
 
 One caveat before you rely on resync as a safety net: because both sides of the synthetic
 update are the same object, predicates that compare old and new — such as
@@ -547,8 +550,6 @@ immediately, without waiting for the timer (the key is deduplicated in the queue
 both cheaper and more correct than a hand-rolled timer: you do not hold a worker, and you do
 not risk missing a real event.
 
-There is also `ctrl.Result{Requeue: true}`, which enqueues subject to the rate limiter, but it
-has been deprecated since `controller-runtime` v0.21 in favour of `RequeueAfter`.
 
 ## cache + index = almost SQL
 
@@ -568,9 +569,9 @@ for _, p := range pods.Items {
 ```
 
 It works — until the cluster has 50,000 Pods and reconciles run hundreds of times per second.
-At that point every trigger deep-copies all 50,000 Pods out of the store: the store hands back
-its own pointers, but `List` copies each object before it reaches you. That is `O(n)`
-allocations per reconcile, with the store's read lock held for the walk.
+Then the loop turns slow: every trigger walks all 50,000 Pods under the store's read lock,
+then deep-copies each one after the lock is released — `O(n)` work per reconcile, and it is
+the walk, not the copying, that blocks writers into the store.
 
 The Indexer in `client-go` can do much better. You declare up front which field you want to
 index on:
@@ -603,12 +604,7 @@ or `"xyzzy"` and it would behave identically. The only rule is that the *exact s
 string* comes back in `MatchingFields` at query time. Naming the index after the field it
 happens to read is a readability convention, nothing more.
 
-That freedom holds only as long as the query stays in the cache. The same `MatchingFields` on
-an `APIReader`, on a type you listed in `Cache.DisableFor`,
-or on an `Unstructured` object goes to the API server, which validates field names against the
-fields it actually indexes. `IndexField`'s own documentation says as much: "If you want
-compatibility with the Kubernetes API server, only return one key, and only use fields that the
-API server supports."
+But remember: this only works for reads served from the cache.
 
 **The indexed value is computed, not read.** The function returns whatever strings you
 build; they need not be the verbatim contents of any single field. You can lowercase a
@@ -808,17 +804,6 @@ Secrets the memory difference can reach an order of magnitude.
 `mgr.GetAPIReader()` returns a `client.Reader` that goes straight to the API server, around
 the cache. When you actually need it:
 
-- **Validating webhooks**, when the verdict depends on objects other than the one under
-  review. The object being admitted never comes from the cache — it arrives in the
-  `AdmissionRequest` body, and `Decode` reads it straight from there. But if your handler
-  calls `r.Get` or `r.List` to check something related — a quota, a uniqueness constraint, a
-  sibling resource — those reads go through the cache with exactly the staleness they have in a
-  reconciler. The difference is that a reconciler gets another turn: if it acted on a stale
-  read, the next reconcile corrects it. An admission decision does not. It is one synchronous
-  answer, and a stale read can permanently admit something invalid or reject something
-  legitimate. The trade-off is real, though: an `APIReader` call puts a synchronous round trip
-  on the admission path, so you are buying consistency with latency and extra API server load.
-  Reach for it where a stale read would produce a wrong verdict, not by default.
 - A one-off read of a resource for which you do not maintain an informer. Spinning up a watch
   for a single operation is expensive.
 - Reads **before `mgr.Start()`**, for instance during initialization. At that point the
@@ -856,7 +841,9 @@ mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 
 With this configuration, `mgr.GetClient().Get(...)` and `List(...)` for Secret go straight
 to the API server, bypassing the cache. No informer is started for that type, which means no
-**list** at startup and no permanent memory pressure from a store. This is a more radical
+**list** at startup and no permanent memory pressure from a store. That also means no events:
+nothing will trigger your controller when such an object changes. If you need those triggers,
+pair the direct reads with a metadata-only watch. This is a more radical
 alternative to `APIReader`: where `APIReader` is reached for ad hoc, individual requests,
 `DisableFor` turns the cache off for the type wholesale.
 
@@ -876,6 +863,8 @@ A short checklist worth running through before you ship a controller into a live
 
 - **Constrain cache scope** (`Namespaces`, `Label`, `Field` selectors), especially for "fat"
   types: Secret, ConfigMap, Event, Pod, Node.
+- **Remember that a constrained cache acts as if everything outside its scope does not
+  exist.** A mislabeled object "disappears" with no error anywhere.
 - **Add a `Transform`** for objects whose heavy fields you do not need —
   `ManagedFields` alone consume a noticeable share of memory.
 - **Add an `IndexField`** for every `List` that uses `MatchingFields`. Without a matching
@@ -886,8 +875,8 @@ A short checklist worth running through before you ship a controller into a live
   in a row with no real change.
 - **Do not expect read-after-write** from the cache immediately after `Update`. The cache
   lags during that window.
-- **When you need freshness** (webhooks, initialization, one-off reads), use `APIReader`,
-  not the regular client.
+- **When the cache cannot serve a read** (initialization, deliberately uncached types), use
+  `APIReader`, not the regular client.
 - **Use `PartialObjectMetadata`** for types where you only need metadata. It can save
   gigabytes.
 - **Do not call `mgr.GetClient()` before `mgr.Start()`.** The cache is not running yet, so
@@ -908,7 +897,9 @@ In one breath:
   inverted indexes.
 - `Namespaces`, selectors, `PartialObjectMetadata`, and `Transform` are the levers that
   control how much memory and traffic you actually consume.
-- `APIReader` is the emergency exit when this process's cache lag is not acceptable.
+- `APIReader` bypasses the cache for the rare read the cache cannot serve — but it is not a
+  fix for staleness races; see the
+  [controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that).
 
 And the single sentence to remember: `r.Get` inside a reconciler reads from memory, not from the
 API server — not even the first time. The exceptions are the ones you opt into yourself:
