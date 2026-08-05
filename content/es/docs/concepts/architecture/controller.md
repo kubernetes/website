@@ -57,7 +57,7 @@ de tu clúster, los kubelets en un conjunto de nodos estén ejecutando la cantid
 de Pods para realizar el trabajo. El controlador de Job no ejecuta ningún Pod ni contenedor 
 por sí mismo. En cambio, el controlador de Job le indica al servidor API que cree o elimine 
 Pods. Otros componentes en el {{< glossary_tooltip text="plano de control" term_id="control-plane" >}} 
-actúa en función de la nueva información (hay nuevos Pods que programar y ejecutar) y, 
+actúan en función de la nueva información (hay nuevos Pods que programar y ejecutar) y, 
 finalmente, el trabajo estará terminado.
 
 Después de crear un nuevo Job, el estado deseado es que dicho Job esté completado. 
