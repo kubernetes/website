@@ -28,7 +28,7 @@ weight: 10
 ### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする {#customizing-plugin-weights-and-bin-packing-resource-weights}
 
 デフォルトでは、ビンパッキングのロジックと、できるだけ多くのPodをスケジュールすることの間で適切なバランスを保つために、`NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み(どちらもデフォルトは1)が設定されています。
-`NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み（どちらもデフォルトは1）が設定されています。
+`NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み(どちらもデフォルトは1)が設定されています。
 
 KubeSchedulerConfigurationでは、これらのプラグインの重みやビンパッキング戦略で使用するリソースの重みを調整できます。
 以下の例では、両方のプラグインの重みを変更する方法と、`NodeResourcesFit`のリソースの重みを上書きする方法を示しています。
