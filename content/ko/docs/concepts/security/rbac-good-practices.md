@@ -147,8 +147,8 @@ Kubelet과 같은 시스템 서비스의 자격 증명을 악용하는 등 다�
 이러한 API는 웹소켓 HTTP `GET` 요청으로 사용할 수 있으며, 이때는 **get** 동사에 대한 인가만 필요하다.
 이는 `nodes/proxy`에 대한 **get** 권한이 읽기 전용 권한이 아님을 의미한다.
 예를 들어, `nodes/proxy`에 대한 **get** 권한은 호출자가 쿠버네티스 API를 통한
-동등한 권한을 가지고 있지 않더라도, 컨테이너 로그를 조회하거나 파드 프로세스에 대해
-exec 및 attach를 수행할 수 있는 특권 Kubelet API에
+동등한 권한을 가지고 있지 않더라도, 컨테이너 로그를 조회하거나 파드 프로세스에서
+명령을 실행하거나 해당 프로세스에 연결할 수 있는 특권을 가진 Kubelet API에
 접근할 수 있게 한다.
 
 더 자세한 정보는 [Kubelet 인증/인가](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)를
