@@ -11,7 +11,4 @@ stages:
     fromVersion: "1.37"
 ---
 
-Allow selecting the `ipvs` proxy mode in kube-proxy.
-See
-[IPVS proxy mode](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs)
-for more details.
+Enable support for the deprecated [`ipvs` proxy mode](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs) in kube-proxy.
