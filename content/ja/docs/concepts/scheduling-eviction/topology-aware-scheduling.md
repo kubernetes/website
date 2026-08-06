@@ -25,7 +25,7 @@ weight: 10
 * `PodGroupPodsCount`: `PlacementScorePlugin`インターフェイスを実装します。
   正常にスケジュールできるPodGroup内のPodの合計数に基づいて、配置候補をスコアリングします。
 
-### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする
+### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする {#customizing-plugin-weights-and-bin-packing-resource-weights}
 
 デフォルトでは、ビンパッキングのロジックと、できるだけ多くのPodをスケジュールすることの間で適切なバランスを保つために、
 `NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み（どちらもデフォルトは1）が設定されています。
