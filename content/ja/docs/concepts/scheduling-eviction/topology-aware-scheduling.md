@@ -22,7 +22,7 @@ weight: 10
   標準的なPodのビンパッキングと同様のロジックに従い、配置内のすべてのノードにおける割り当て率に基づいて配置をスコアリングします。
   配置内のリソース使用率を最大化するために`MostAllocated`戦略を使用し、標準のPod単位のプラグイン設定からリソースの重みを継承します。
 
-* `PodGroupPodsCount`: `PlacementScorePlugin`インターフェイスを実装します。
+* `PodGroupPodsCount`: `PlacementScorePlugin`インターフェースを実装します。
   正常にスケジュールできるPodGroup内のPodの合計数に基づいて、配置候補をスコアリングします。
 
 ### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする {#customizing-plugin-weights-and-bin-packing-resource-weights}
