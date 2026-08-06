@@ -18,7 +18,7 @@ weight: 10
 * `TopologyPlacement`: `PlacementGeneratePlugin`インターフェースを実装します。
   PodGroupで定義されたトポロジーの`key`の値ごとにノードをグループ化し、配置候補を生成します。
 
-* `NodeResourcesFit`: `PlacementScorePlugin`インターフェイスを実装するように拡張されています。
+* `NodeResourcesFit`: `PlacementScorePlugin`インターフェースを実装するように拡張されています。
   標準的なPodのビンパッキングと同様のロジックに従い、配置内のすべてのノードにおける割り当て率に基づいて配置をスコアリングします。
   配置内のリソース使用率を最大化するために`MostAllocated`戦略を使用し、標準のPod単位のプラグイン設定からリソースの重みを継承します。
 
