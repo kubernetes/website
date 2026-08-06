@@ -13,7 +13,7 @@ translator: >
 
 ## これは何ですか？
 
-[水平Pod自動スケーリング](/ja/docs/tasks/run-application/horizontal-pod-autoscale/)は、Kubernetesのよく知られた機能であり、リソース使用率に基づいてレプリカを追加または削除することで、ワークロードのサイズを自動的に調整できます。
+[水平Pod自動スケーリング](/docs/tasks/run-application/horizontal-pod-autoscale/)は、Kubernetesのよく知られた機能であり、リソース使用率に基づいてレプリカを追加または削除することで、ワークロードのサイズを自動的に調整できます。
 
 たとえば、Kubernetesクラスターで50個のレプリカを持つWebアプリケーションが稼働しているとします。
 HorizontalPodAutoscaler(HPA)をCPU使用率に基づいてスケーリングするように構成し、目標使用率を75%に設定します。
@@ -44,7 +44,7 @@ Kubernetes v1.33では、これが可能になりました。
 
 ## どうやって使うのか？
 
-Kubernetes v1.33クラスターで`HPAConfigurableTolerance`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にした後、HorizontalPodAutoscalerオブジェクトに対して希望する許容値を設定できます。
+Kubernetes v1.33クラスターで`HPAConfigurableTolerance`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にした後、HorizontalPodAutoscalerオブジェクトに対して希望する許容値を設定できます。
 
 許容値は`spec.behavior.scaleDown`および`spec.behavior.scaleUp`フィールドの下に指定され、スケールアップとスケールダウンで異なる値を設定することが可能です。
 典型的な使い方としては、スケールアップには小さな許容範囲(スパイクに素早く反応するため)、スケールダウンには大きな許容範囲(メトリクスの小さな変動に対してレプリカを過剰に追加・削除しないようにするため)を指定することが挙げられます。

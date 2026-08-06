@@ -38,17 +38,17 @@ Kubernetesは、クラスター内のすべてのAPI通信がデフォルトでT
 ノード、プロキシ、スケジューラー、ボリュームプラグインなど、インフラの一部であるものも含めて、すべてのAPIクライアントを認証する必要があります。
 これらのクライアントは通常、[service accounts](/docs/reference/access-authn-authz/service-accounts-admin/)であるか、またはx509クライアント証明書を使用しており、クラスター起動時に自動的に作成されるか、クラスターインストールの一部として設定されます。
 
-詳細については、[認証](/ja/docs/reference/access-authn-authz/authentication/)を参照してください。
+詳細については、[認証](/docs/reference/access-authn-authz/authentication/)を参照してください。
 
 ### APIの認可
 
 認証されると、すべてのAPIコールは認可チェックを通過することになります。
 
-Kubernetesには、統合された[RBAC](/ja/docs/reference/access-authn-authz/rbac/)コンポーネントが搭載されており、入力されたユーザーやグループを、ロールにまとめられたパーミッションのセットにマッチさせます。
+Kubernetesには、統合された[RBAC](/docs/reference/access-authn-authz/rbac/)コンポーネントが搭載されており、入力されたユーザーやグループを、ロールにまとめられたパーミッションのセットにマッチさせます。
 これらのパーミッションは、動詞(get, create, delete)とリソース(pods, services, nodes)を組み合わせたもので、ネームスペース・スコープまたはクラスター・スコープに対応しています。
 すぐに使えるロールのセットが提供されており、クライアントが実行したいアクションに応じて、デフォルトで適切な責任の分離を提供します。
 
-[Node](/docs/reference/access-authn-authz/node/)と[RBAC](/ja/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
+[Node](/docs/reference/access-authn-authz/node/)と[RBAC](/docs/reference/access-authn-authz/rbac/)の承認者は、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)のアドミッションプラグインと組み合わせて使用することをお勧めします。
 
 認証の場合と同様に、小規模なクラスターにはシンプルで幅広い役割が適切かもしれません。
 しかし、より多くのユーザーがクラスターに関わるようになるとチームを別の名前空間に分け、より限定的な役割を持たせることが必要になるかもしれません。
@@ -68,7 +68,7 @@ Kubeletsは、ノードやコンテナの強力な制御を可能にするHTTPS�
 
 本番環境のクラスターでは、Kubeletの認証と認可を有効にする必要があります。
 
-詳細は、[Kubelet 認証/認可](/ja/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)に参照してください。
+詳細は、[Kubelet 認証/認可](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)に参照してください。
 
 ## ワークロードやユーザーのキャパシティーを実行時に制御
 
@@ -78,7 +78,7 @@ Kubernetesにおける権限付与は、意図的にハイレベルであり、�
 
 ### クラスターのリソース使用量の制限
 
-[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)は、ネームスペースに付与されるリソースの数や容量を制限するものです。
+[リソースクォータ](/docs/concepts/policy/resource-quotas/)は、ネームスペースに付与されるリソースの数や容量を制限するものです。
 
 これは、ネームスペースが割り当てることのできるCPU、メモリー、永続的なディスクの量を制限するためによく使われますが、各ネームスペースに存在するPod、サービス、ボリュームの数を制御することもできます。
 
@@ -116,9 +116,9 @@ blacklist sctp
 
 ### ネットワークアクセスの制限
 
-名前空間の[ネットワークポリシー](/ja/docs/tasks/administer-cluster/declare-network-policy/)により、アプリケーション作成者は、他の名前空間のPodが自分の名前空間内のPodやポートにアクセスすることを制限することができます。
+名前空間の[ネットワークポリシー](/docs/tasks/administer-cluster/declare-network-policy/)により、アプリケーション作成者は、他の名前空間のPodが自分の名前空間内のPodやポートにアクセスすることを制限することができます。
 
-サポートされている[Kubernetes networking providers](/ja/docs/concepts/cluster-administration/networking/)の多くは、ネットワークポリシーを尊重するようになりました。
+サポートされている[Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)の多くは、ネットワークポリシーを尊重するようになりました。
 クォータやリミットの範囲は、ユーザーがノードポートや負荷分散サービスを要求するかどうかを制御するためにも使用でき、多くのクラスターでは、ユーザーのアプリケーションがクラスターの外で見えるかどうかを制御できます。
 ノードごとのファイアウォール、クロストークを防ぐための物理的なクラスターノードの分離、高度なネットワークポリシーなど、プラグインや環境ごとにネットワークルールを制御する追加の保護機能が利用できる場合もあります。
 
@@ -128,12 +128,12 @@ blacklist sctp
 デフォルトでは、これらのAPIはインスタンス上で実行されているPodからアクセスでき、そのノードのクラウド認証情報や、kubelet認証情報などのプロビジョニングデータを含むことができます。
 これらの認証情報は、クラスター内でのエスカレーションや、同じアカウントの他のクラウドサービスへのエスカレーションに使用できます。
 
-クラウドプラットフォーム上でKubernetesを実行する場合は、インスタンスの認証情報に与えられるパーミッションを制限し、[ネットワークポリシー](/ja/docs/tasks/administer-cluster/declare-network-policy/)を使用してメタデータAPIへのPodのアクセスを制限し、プロビジョニングデータを使用してシークレットを配信することは避けてください。
+クラウドプラットフォーム上でKubernetesを実行する場合は、インスタンスの認証情報に与えられるパーミッションを制限し、[ネットワークポリシー](/docs/tasks/administer-cluster/declare-network-policy/)を使用してメタデータAPIへのPodのアクセスを制限し、プロビジョニングデータを使用してシークレットを配信することは避けてください。
 
 ### Podのアクセス可能ノードを制御
 
 デフォルトでは、どのノードがPodを実行できるかについての制限はありません。
-Kubernetesは、エンドユーザーが利用できる[Node上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)と[TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を提供します。
+Kubernetesは、エンドユーザーが利用できる[Node上へのPodのスケジューリング](/docs/concepts/scheduling-eviction/assign-pod-node/)と[TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)を提供します。
 多くのクラスターでは、ワークロードを分離するためにこれらのポリシーを使用することは、作者が採用したり、ツールを使って強制したりする慣習になっています。
 
 管理者としては、ベータ版のアドミッションプラグイン「PodNodeSelector」を使用して、ネームスペース内のPodをデフォルトまたは特定のノードセレクタを必要とするように強制することができます。
@@ -155,7 +155,7 @@ API用のetcdバックエンドへの書き込みアクセスは、クラスタ�
 
 ### 監査ログの有効
 
-[audit logger](/ja/docs/tasks/debug/debug-cluster/audit/)はベータ版の機能で、APIによって行われたアクションを記録し、侵害があった場合に後から分析できるようにするものです。
+[audit logger](/docs/tasks/debug/debug-cluster/audit/)はベータ版の機能で、APIによって行われたアクションを記録し、侵害があった場合に後から分析できるようにするものです。
 
 監査ログを有効にして、ログファイルを安全なサーバーにアーカイブすることをお勧めします。
 

@@ -15,6 +15,6 @@ short_description: >
 
 <!--more--> 
 
-[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)は、Podの状態またはフェーズによって定義されます。
+[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)は、Podの状態またはフェーズによって定義されます。
 Podには、Pending、Running、Succeeded、Failed、Unknownの5つのフェーズがあります。
 Podの状態に関する高レベルな説明は、[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)の`phase`フィールドに要約されています。

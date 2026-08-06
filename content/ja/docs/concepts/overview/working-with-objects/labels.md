@@ -20,7 +20,7 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 ```
 
 ラベルは効率的な検索・閲覧を可能にし、UIやCLI上での利用に最適です。 
-識別用途でない情報は、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
+識別用途でない情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
 
 
 
@@ -81,7 +81,7 @@ spec:
 
 ## ラベルセレクター {#label-selectors}
 
-[名前とUID](/ja/docs/concepts/overview/working-with-objects/names/)とは異なり、ラベルはユニーク性を提供しません。通常、多くのオブジェクトが同じラベルを保持することを想定します。
+[名前とUID](/docs/concepts/overview/working-with-objects/names/)とは異なり、ラベルはユニーク性を提供しません。通常、多くのオブジェクトが同じラベルを保持することを想定します。
 
 *ラベルセレクター* を介して、クライアントとユーザーはオブジェクトのセットを指定できます。ラベルセレクターはKubernetesにおいてコアなグルーピング機能となります。
 
@@ -199,7 +199,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### APIオブジェクトに参照を設定する
-[`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/)のような他のリソースのセットを指定するのにも使われます。  
+[`Service`](/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/docs/concepts/workloads/pods/)のような他のリソースのセットを指定するのにも使われます。  
 
 #### ServiceとReplicationController
 `Service`が対象とするPodの集合は、ラベルセレクターによって定義されます。  
@@ -223,7 +223,7 @@ selector:
 
 #### *集合ベース* の要件指定をサポートするリソース
 
-[`Job`](/docs/concepts/workloads/controllers/job/)や[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/ja/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
+[`Job`](/docs/concepts/workloads/controllers/job/)や[`Deployment`](/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
 ```yaml
 selector:
   matchLabels:
@@ -239,6 +239,6 @@ selector:
 
 #### Nodeのセットを選択する  
 ラベルを選択するための1つのユースケースはPodがスケジュールできるNodeのセットを制限することです。  
-さらなる情報に関しては、[Node選定](/ja/docs/concepts/scheduling-eviction/assign-pod-node/) のドキュメントを参照してください。 
+さらなる情報に関しては、[Node選定](/docs/concepts/scheduling-eviction/assign-pod-node/) のドキュメントを参照してください。 
 
 

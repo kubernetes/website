@@ -53,7 +53,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 背後にあるPodにフォワードするためにホストNode上の特定のポートを充てたいというのであれば、それも可能です。とはいえ、ネットワークモデルではそのようなことをする必要がありません。
 
 興味があれば、さらなる詳細について
-[Kubernetesネットワークモデル](/ja/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
+[Kubernetesネットワークモデル](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
 を読んでください。
 
 ## Serviceの作成
@@ -129,7 +129,7 @@ NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
 my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
-今や、あなたのクラスター内のどのノードからもnginx Serviceに`<CLUSTER-IP>:<PORT>`でcurlを使用してアクセスできるはずです。Service IPは完全に仮想であり、物理的なケーブルで接続されるものではありません。どのように動作しているのか興味があれば、さらなる詳細について[サービスプロキシ](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)を読んでください。
+今や、あなたのクラスター内のどのノードからもnginx Serviceに`<CLUSTER-IP>:<PORT>`でcurlを使用してアクセスできるはずです。Service IPは完全に仮想であり、物理的なケーブルで接続されるものではありません。どのように動作しているのか興味があれば、さらなる詳細について[サービスプロキシ](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)を読んでください。
 
 ## Serviceへのアクセス
 
@@ -202,7 +202,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ここではCoreDNSクラスターアドオン(アプリケーション名`kube-dns`)を使い、標準的な手法(例えば`gethostbyname()`)を使ってクラスター内の任意のPodからServiceと対話してみます。
 CoreDNSが動作していない時には、
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
-や[CoreDNSのインストール](/ja/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照して有効化してください。
+や[CoreDNSのインストール](/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照して有効化してください。
 テストするために、別のcurlアプリケーションを実行してみましょう:
 
 ```shell
@@ -232,7 +232,7 @@ Serviceをインターネットに公開する前に、通信経路がセキュ�
 
 * https用の自己署名証明書(まだ本人証明を用意していない場合)
 * 証明書を使うよう設定されたnginxサーバー
-* 証明書をPodからアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
+* 証明書をPodからアクセスできるようにする[Secret](/docs/concepts/configuration/secret/)
 
 これら全ては[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)から取得できます。
 go環境とmakeツールのインストールが必要です
@@ -430,6 +430,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ## {{% heading "whatsnext" %}}
 
 
-* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
-* [Serviceを使用してフロントエンドをバックエンドに接続する](/ja/docs/tasks/access-application-cluster/connecting-frontend-backend/)方法を学びます。
+* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
+* [Serviceを使用してフロントエンドをバックエンドに接続する](/docs/tasks/access-application-cluster/connecting-frontend-backend/)方法を学びます。
 * [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)を学びます。

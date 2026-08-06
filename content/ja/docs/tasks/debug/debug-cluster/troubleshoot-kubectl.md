@@ -14,7 +14,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 * Kubernetesクラスターが必要です。
-* `kubectl`もインストールする必要があります。[ツールのインストール](/ja/docs/tasks/tools/#kubectl)を参照してください。
+* `kubectl`もインストールする必要があります。[ツールのインストール](/docs/tasks/tools/#kubectl)を参照してください。
 
 ## kubectlセットアップを検証する
 
@@ -38,7 +38,7 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 
 `Server Version`ではなく`Unable to connect to the server: dial tcp <server-ip>:8443: i/o timeout`と表示された場合、クラスターとのkubectl接続のトラブルシューティングを行う必要があります。
 
-[kubectlのインストールについての公式ドキュメント](/ja/docs/tasks/tools/#kubectl)に従ってkubectlがインストールされていること、環境変数`$PATH`が適切に設定されていることを確認してください。
+[kubectlのインストールについての公式ドキュメント](/docs/tasks/tools/#kubectl)に従ってkubectlがインストールされていること、環境変数`$PATH`が適切に設定されていることを確認してください。
 
 ## kubeconfigを確認する
 
@@ -67,7 +67,7 @@ kubectlが認可に関するエラーを返している場合は、有効なユ�
 
 ## コンテキストを検証する
 
-Kubernetesは[複数のクラスターとコンテキスト](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)をサポートしています。
+Kubernetesは[複数のクラスターとコンテキスト](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)をサポートしています。
 クラスターとやり取りするために正しいコンテキストを使用していることを確認してください。
 
 使用可能なコンテキストの一覧を表示します:

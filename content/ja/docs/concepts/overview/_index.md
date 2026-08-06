@@ -105,7 +105,7 @@ Kubernetesは...
 
 ## {{% heading "whatsnext" %}}
 
-* [Kubernetesのコンポーネント](/ja/docs/concepts/overview/components/)をご覧ください。
-* [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)をご覧ください。
-* [クラスターのアーキテクチャ](/ja/docs/concepts/architecture/)をご覧ください。
-* [はじめる](/ja/docs/setup/)準備はできましたか？
+* [Kubernetesのコンポーネント](/docs/concepts/overview/components/)をご覧ください。
+* [Kubernetes API](/docs/concepts/overview/kubernetes-api/)をご覧ください。
+* [クラスターのアーキテクチャ](/docs/concepts/architecture/)をご覧ください。
+* [はじめる](/docs/setup/)準備はできましたか？

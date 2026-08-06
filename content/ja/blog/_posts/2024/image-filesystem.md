@@ -13,7 +13,7 @@ translator: >
 
 Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。
 ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。
-通常、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)は`/var`に書き込みます。
+通常、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)は`/var`に書き込みます。
 これは別のパーティションとして、ルートファイルシステム上に配置できます。
 CRI-Oはデフォルトで、コンテナとイメージを`/var/lib/containers`に書き込みますが、containerdはコンテナとイメージを`/var/lib/containerd`に書き込みます。
 
@@ -45,7 +45,7 @@ Podやコンテナは、動作に一時的または短期的なローカルス�
 デフォルトでは、Kubernetesは各実行中のコンテナのログを`/var/log`内のファイルとして保存します。
 これらのログは一時的であり、ポッドが実行されている間に大きくなりすぎないようにkubeletによって監視されます。
 
-各ノードの[ログローテーション](/ja/docs/concepts/cluster-administration/logging/#log-rotation)設定をカスタマイズしてこれらのログのサイズを管理し、ノードローカルストレージに依存しないためにログの配信を設定することができます(サードパーティーのソリューションを使用)。
+各ノードの[ログローテーション](/docs/concepts/cluster-administration/logging/#log-rotation)設定をカスタマイズしてこれらのログのサイズを管理し、ノードローカルストレージに依存しないためにログの配信を設定することができます(サードパーティーのソリューションを使用)。
 
 ### コンテナランタイム
 
@@ -112,7 +112,7 @@ Kubernetesは、コンテナファイルシステムがノードファイルシ�
 Kubernetesドキュメントでは、ノードファイルシステムとコンテナランタイムファイルシステムをそれぞれnodefsとimagefsと呼んでいます。
 nodefsまたはimagefsのいずれかがディスク容量不足になると、ノード全体がディスク圧迫があると見なされます。
 Kubernetesは、まず未使用のコンテナやイメージを削除してスペースを回収し、その後にポッドを追い出すことでスペースを再利用します。
-nodefsとimagefsの両方を持つノードでは、kubeletはimagefs上の未使用のコンテナイメージを[ガベージコレクト](/ja/docs/concepts/architecture/garbage-collection/#containers-images)し、nodefsからは終了したポッドとそれらのコンテナを削除します。
+nodefsとimagefsの両方を持つノードでは、kubeletはimagefs上の未使用のコンテナイメージを[ガベージコレクト](/docs/concepts/architecture/garbage-collection/#containers-images)し、nodefsからは終了したポッドとそれらのコンテナを削除します。
 nodefsのみが存在する場合、Kubernetesのガベージコレクションには、終了したコンテナ、ポッド、そして未使用のイメージが含まれます。
 
 Kubernetesでは、ディスクがいっぱいかどうかを判断するためのより多くの構成が可能です。

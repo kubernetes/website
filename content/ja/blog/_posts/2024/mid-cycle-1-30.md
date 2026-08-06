@@ -53,7 +53,7 @@ Kubernetes v1.30では、Linux Nodeにおけるメモリスワップのサポー
 
 KubernetesのNode Special Interest Group (SIG Node)は、エンドユーザー、貢献者、およびより広いKubernetesコミュニティからのフィードバックに基づいて、改訂された実装の使用方法を理解できるようにドキュメントも更新します。
 
-KubernetesにおけるLinux Nodeのスワップ・サポートの詳細については、前回の[ブログ記事](/blog/2023/08/24/swap-linux-beta/)または[Nodeのスワップ・ドキュメント](/ja/docs/concepts/architecture/nodes/#swap-memory)を読んでください。
+KubernetesにおけるLinux Nodeのスワップ・サポートの詳細については、前回の[ブログ記事](/blog/2023/08/24/swap-linux-beta/)または[Nodeのスワップ・ドキュメント](/docs/concepts/architecture/nodes/#swap-memory)を読んでください。
 
 ### Podでユーザー名前空間のサポート ([KEP-127](https://kep.k8s.io/127))
 
@@ -78,7 +78,7 @@ Kubernetes 1.30からは、設定ファイルのフォーマットがベータ�
 
 `ContainerResource`メトリクスに基づく水平Pod自動スケーリングは、v1.30で安定版に移行します。
 HorizontalPodAutoscalerのこの新しい動作により、Pod全体のリソース使用量ではなく、個々のコンテナのリソース使用量に基づいて自動スケーリングを設定できるようになります。
-詳細については[以前の記事](/blog/2023/05/02/hpa-container-resource-metric/)を参照するか、[コンテナリソースメトリクス](/ja/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)を読んでください。
+詳細については[以前の記事](/blog/2023/05/02/hpa-container-resource-metric/)を参照するか、[コンテナリソースメトリクス](/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)を読んでください。
 
 
 ### アドミッション・コントロールに対するCEL ([KEP-3488](https://kep.k8s.io/3488))

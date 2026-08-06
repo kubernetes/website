@@ -193,5 +193,5 @@ NodeScore   =  ((5 * 5) + (7 * 1) + (10 * 3)) / (5 + 1 + 3)
 
 ## {{% heading "whatsnext" %}}
 
-- [スケジューリングフレームワーク](/ja/docs/concepts/scheduling-eviction/scheduling-framework/)について更に読む
+- [スケジューリングフレームワーク](/docs/concepts/scheduling-eviction/scheduling-framework/)について更に読む
 - [スケジューラーの設定](/docs/reference/scheduling/config/)について更に読む

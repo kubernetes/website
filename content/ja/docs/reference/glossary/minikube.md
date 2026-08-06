@@ -14,4 +14,4 @@ tags:
 <!--more-->
 
 Minikubeは、ローカルのVM内で、単一または複数ノードのローカルKubernetesクラスターを実行します。
-Minikubeを使って[学習環境でKubernetesを試す](/ja/docs/tasks/tools/#minikube)ことができます。
+Minikubeを使って[学習環境でKubernetesを試す](/docs/tasks/tools/#minikube)ことができます。

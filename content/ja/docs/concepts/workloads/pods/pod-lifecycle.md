@@ -19,7 +19,7 @@ Podはその生存期間に1回だけ[スケジューリング](/docs/concepts/s
 
 ## Podのライフタイム
 
-個々のアプリケーションコンテナと同様に、Podは(永続的ではなく)比較的短期間の存在と捉えられます。Podが作成されると、一意のID([UID](/ja/docs/concepts/overview/working-with-objects/names/#uids))が割り当てられ、(再起動ポリシーに従って)終了または削除されるまでNodeで実行されるようにスケジュールされます。  
+個々のアプリケーションコンテナと同様に、Podは(永続的ではなく)比較的短期間の存在と捉えられます。Podが作成されると、一意のID([UID](/docs/concepts/overview/working-with-objects/names/#uids))が割り当てられ、(再起動ポリシーに従って)終了または削除されるまでNodeで実行されるようにスケジュールされます。  
 {{< glossary_tooltip term_id="node" >}}が停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に[削除](#pod-garbage-collection)されます。
 
 Pod自体は、自己修復しません。Podが{{< glossary_tooltip text="node" term_id="node" >}}にスケジュールされ、その後に失敗した場合、Podは削除されます。同様に、リソースの不足またはNodeのメンテナンスによりPodはNodeから立ち退きます。Kubernetesは、比較的使い捨てのPodインスタンスの管理作業を処理する、{{< glossary_tooltip term_id="controller" text="controller" >}}と呼ばれる上位レベルの抽象化を使用します。
@@ -52,14 +52,14 @@ Podの各フェーズの値と意味は厳重に守られています。ここ�
 `Unknown`   | 何らかの理由によりPodの状態を取得できませんでした。このフェーズは通常はPodのホストとの通信エラーにより発生します。
 
 {{< note >}}
-Podの削除中に、kubectlコマンドには`Terminating`が出力されることがあります。この`Terminating`ステータスは、Podのフェーズではありません。Podには、正常に終了するための期間を与えられており、デフォルトは30秒です。`--force`フラグを使用して、[Podを強制的に削除する](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)ことができます。
+Podの削除中に、kubectlコマンドには`Terminating`が出力されることがあります。この`Terminating`ステータスは、Podのフェーズではありません。Podには、正常に終了するための期間を与えられており、デフォルトは30秒です。`--force`フラグを使用して、[Podを強制的に削除する](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)ことができます。
 {{< /note >}}
 
 Nodeが停止するか、クラスターの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
 
 ## コンテナのステータス {#container-states}
 
-Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/ja/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
+Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
 
 Podが{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}によってNodeに割り当てられると、kubeletは{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}を使用してコンテナの作成を開始します。コンテナの状態は`Waiting`、`Running`または`Terminated`の3ついずれかです。
 
@@ -94,7 +94,7 @@ PodにはPodStatusがあります。それにはPodが成功したかどうか�
 * `PodScheduled`: PodがNodeにスケジュールされました。
 * `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に作成され、ネットワークの設定が完了しました。
 * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
-* `Initialized`: すべての[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers)が正常に終了しました。
+* `Initialized`: すべての[Initコンテナ](/docs/concepts/workloads/pods/init-containers)が正常に終了しました。
 * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
 
 フィールド名         | 内容
@@ -138,7 +138,7 @@ status:
 ...
 ```
 
-PodのConditionは、Kubernetesの[label key format](/ja/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
+PodのConditionは、Kubernetesの[label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
 
 ### PodのReadinessの状態 {#pod-readiness-status}
 
@@ -155,7 +155,7 @@ Podのコンテナは準備完了ですが、少なくとも1つのカスタム�
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
-Podがノードにスケジュールされた後、kubeletによって承認され、任意のボリュームがマウントされる必要があります。これらのフェーズが完了すると、kubeletはコンテナランタイム({{< glossary_tooltip term_id="cri" >}}を使用)と連携して、ランタイムサンドボックスのセットアップとPodのネットワークを構成します。もし`PodHasNetworkCondition`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっている場合、kubeletは、Podがこの初期化の節目に到達したかどうかをPodの`status.conditions`フィールドにある`PodHasNetwork`状態を使用して報告します。
+Podがノードにスケジュールされた後、kubeletによって承認され、任意のボリュームがマウントされる必要があります。これらのフェーズが完了すると、kubeletはコンテナランタイム({{< glossary_tooltip term_id="cri" >}}を使用)と連携して、ランタイムサンドボックスのセットアップとPodのネットワークを構成します。もし`PodHasNetworkCondition`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっている場合、kubeletは、Podがこの初期化の節目に到達したかどうかをPodの`status.conditions`フィールドにある`PodHasNetwork`状態を使用して報告します。
 
 ネットワークが設定されたランタイムサンドボックスがPodにないことを検出すると、`PodHasNetwork`状態は、kubelet によって`False`に設定されます。これは、以下のシナリオで発生します:
 * Podのライフサイクルの初期で、kubeletがコンテナランタイムを使用してPodのサンドボックスのセットアップをまだ開始していないとき
@@ -183,7 +183,7 @@ probeを使ってコンテナをチェックする4つの異なる方法があ�
 : [gRPC](https://grpc.io/)を使ってリモートプロシージャコールを実行します。
   ターゲットは、[gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html)を実装する必要があります。
   レスポンスの`status`が`SERVING`の場合に診断を成功と見なします。
-  gRPCはアルファ版の機能のため、`GRPCContainerProbe`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が
+  gRPCはアルファ版の機能のため、`GRPCContainerProbe`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が
   有効の場合のみ利用可能です。
 
 `httpGet`
@@ -229,7 +229,7 @@ kubeletは3種類のProbeを実行中のコンテナで行い、また反応す�
   startupProbeに失敗すると、kubeletはコンテナを殺します、そしてコンテナは[restart policy](#restart-policy)に従います。
   コンテナにstartupProbeが設定されていない場合、デフォルトの状態は`Success`です。
 
-livenessProbe、readinessProbeまたはstartupProbeを設定する方法の詳細については、[Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
+livenessProbe、readinessProbeまたはstartupProbeを設定する方法の詳細については、[Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
 
 #### livenessProbeをいつ使うべきか? {#when-should-you-use-a-liveness-probe}
 
@@ -278,7 +278,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 1. API server内のPodは、猶予期間を越えるとPodが「死んでいる」と見なされるように更新される。  
    削除中のPodに対して`kubectl describe`コマンドを使用すると、Podは「終了中」と表示される。  
    Podが実行されているNode上で、Podが終了しているとマークされている(正常な終了期間が設定されている)とkubeletが認識するとすぐに、kubeletはローカルでPodの終了プロセスを開始します。
-    1. Pod内のコンテナの1つが`preStop`[フック](/ja/docs/concepts/containers/container-lifecycle-hooks)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も`preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
+    1. Pod内のコンテナの1つが`preStop`[フック](/docs/concepts/containers/container-lifecycle-hooks)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も`preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
    {{< note >}}
    `preStop`フックが完了するまでにより長い時間が必要な場合は、`terminationGracePeriodSeconds`を変更する必要があります。
    {{< /note >}}
@@ -313,7 +313,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 リソースはクラスター上で無期限に実行し続ける可能性があります。
 {{< /caution >}}
 
-StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 
 ### 終了したPodのガベージコレクション {#pod-garbage-collection}
@@ -326,10 +326,10 @@ StatefulSetのPodについては、[StatefulSetからPodを削除するための
 ## {{% heading "whatsnext" %}}
 
 
-* [コンテナライフサイクルイベントへのハンドラー紐付け](/ja/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
+* [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
-* [Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
+* [Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
 
-* [コンテナライフサイクルフック](/ja/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
+* [コンテナライフサイクルフック](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
 * APIにおけるPodとコンテナのステータスに関する詳細情報は、Podの[`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus)に書かれているAPIリファレンスドキュメントを参照してください。

@@ -9,7 +9,7 @@ weight: 50
 
 
 <!-- body -->
-[Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)には`kubectl`やクライアントライブラリ、あるいはRESTリクエストを用いてアクセスします。
+[Kubernetes API](/docs/concepts/overview/kubernetes-api/)には`kubectl`やクライアントライブラリ、あるいはRESTリクエストを用いてアクセスします。
 APIアクセスには、人間のユーザーと[Kubernetesサービスアカウント](/docs/tasks/configure-pod-container/configure-service-account/)の両方が認証可能です。
 リクエストがAPIに到達すると、次の図のようにいくつかの段階を経ます。
 
@@ -28,7 +28,7 @@ APIサーバーは証明書を提示します。
 TLSが確立されると、HTTPリクエストは認証のステップに移行します。
 これは図中のステップ**1**に該当します。
 クラスター作成スクリプトまたはクラスター管理者は、1つまたは複数のAuthenticatorモジュールを実行するようにAPIサーバーを設定します。
-Authenticatorについては、[認証](/ja/docs/reference/access-authn-authz/authentication/)で詳しく説明されています。
+Authenticatorについては、[認証](/docs/reference/access-authn-authz/authentication/)で詳しく説明されています。
 
 認証ステップへの入力はHTTPリクエスト全体ですが、通常はヘッダとクライアント証明書の両方、またはどちらかを調べます。
 
@@ -117,7 +117,7 @@ Kubernetesは、ABACモード、RBACモード、Webhookモードなど、複数�
 Kubernetesの監査は、クラスター内の一連のアクションを文書化した、セキュリティに関連する時系列の記録を提供します。
 クラスターは、ユーザー、Kubernetes APIを使用するアプリケーション、およびコントロールプレーン自身によって生成されるアクティビティを監査します。
 
-詳しくは[監査](/ja/docs/tasks/debug/debug-cluster/audit/)をご覧ください。
+詳しくは[監査](/docs/tasks/debug/debug-cluster/audit/)をご覧ください。
 
 ## APIサーバーのIPとポート {#api-server-ports-and-ips}
 
@@ -151,12 +151,12 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
 
 認証、認可、APIアクセスコントロールに関する詳しいドキュメントはこちらをご覧ください。
 
-- [認証](/ja/docs/reference/access-authn-authz/authentication/)
+- [認証](/docs/reference/access-authn-authz/authentication/)
    - [ブートストラップトークンでの認証](/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)
    - [動的アドミッションコントロール](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [認可](/docs/reference/access-authn-authz/authorization/)
-   - [ロールに基づいたアクセスコントロール](/ja/docs/reference/access-authn-authz/rbac/)
+   - [ロールに基づいたアクセスコントロール](/docs/reference/access-authn-authz/rbac/)
    - [属性に基づいたアクセスコントロール](/docs/reference/access-authn-authz/abac/)
    - [Nodeの認可](/docs/reference/access-authn-authz/node/)
    - [Webhookの認可](/docs/reference/access-authn-authz/webhook/)
@@ -167,4 +167,4 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
 
 以下についても知ることができます。
-- PodがAPIクレデンシャルを取得するために[Secrets](/ja/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)を使用する方法について。
+- PodがAPIクレデンシャルを取得するために[Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)を使用する方法について。

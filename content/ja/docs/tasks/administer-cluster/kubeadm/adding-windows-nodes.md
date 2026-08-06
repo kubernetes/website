@@ -20,7 +20,7 @@ Kubernetesを使用してLinuxノードとWindowsノードを混在させて実�
 * WindowsコンテナをホストするWindowsノードを構成するには、[Windows Server 2019ライセンス](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)(またはそれ以上)を取得します。
 VXLAN/オーバーレイネットワークを使用している場合は、[KB4489899](https://support.microsoft.com/help/4489899)もインストールされている必要があります。
 
-* コントロールプレーンにアクセスできるLinuxベースのKubernetes kubeadmクラスター([kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照)
+* コントロールプレーンにアクセスできるLinuxベースのKubernetes kubeadmクラスター([kubeadmを使用したシングルコントロールプレーンクラスターの作成](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照)
 
 
 
@@ -178,4 +178,4 @@ flannel Podが実行されると、ノードは`Ready`状態になり、ワー�
 ## {{% heading "whatsnext" %}}
 
 
-- [Windows kubeadmノードのアップグレード](/ja/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
+- [Windows kubeadmノードのアップグレード](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)

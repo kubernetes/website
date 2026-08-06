@@ -7,7 +7,7 @@ weight: 120
 
 <!-- overview -->
 
-Kubernetesでは、[Service](/ja/docs/concepts/services-networking/service/)はPodの集合上で実行しているアプリケーションを抽象的に公開する方法です。Serviceはクラスター内で仮想IPアドレス(type: ClusterIPのServiceを使用)を持つことができます。クライアントはその仮想IPアドレスを使用してServiceに接続することができます。そしてKubernetesは、そのServiceへのトラフィックを異なる背後のPod間で負荷分散します。
+Kubernetesでは、[Service](/docs/concepts/services-networking/service/)はPodの集合上で実行しているアプリケーションを抽象的に公開する方法です。Serviceはクラスター内で仮想IPアドレス(type: ClusterIPのServiceを使用)を持つことができます。クライアントはその仮想IPアドレスを使用してServiceに接続することができます。そしてKubernetesは、そのServiceへのトラフィックを異なる背後のPod間で負荷分散します。
 
 <!-- body -->
 
@@ -122,5 +122,5 @@ pie showData
 ## {{% heading "whatsnext" %}}
 
 * [Serviceの外部トラフィックのポリシー](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)を参照してください。
-* [アプリケーションをServiceに接続する](/ja/docs/tutorials/services/connect-applications-service/)を参照してください。
-* [Service](/ja/docs/concepts/services-networking/service/)を参照してください。
+* [アプリケーションをServiceに接続する](/docs/tutorials/services/connect-applications-service/)を参照してください。
+* [Service](/docs/concepts/services-networking/service/)を参照してください。

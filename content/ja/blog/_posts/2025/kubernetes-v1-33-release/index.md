@@ -64,7 +64,7 @@ Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類�
 
 さらに、サイドカーはprobe(startup、readiness、liveness)を使用して動作状態を通知できる他、メモリ不足時の早期終了を防ぐため、Out-Of-Memory(OOM)スコア調整がプライマリコンテナと揃えられています。
 
-詳細については、[サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)をお読みください。
+詳細については、[サイドカーコンテナ](/docs/concepts/workloads/pods/sidecar-containers/)をお読みください。
 
 この作業はSIG Nodeが主導した[KEP-753: Sidecar Containers](https://kep.k8s.io/753)の一環として行われました。
 
@@ -235,7 +235,7 @@ DRA実装では、これによりResourceSliceの削除と再作成が防止さ�
 
 v1.32で導入されたDRAによるネットワークインターフェースデータの標準化された報告がv1.33でベータに昇格しました。
 これにより、よりネイティブなKubernetesネットワークの統合が可能になり、ネットワークデバイスの開発と管理が簡素化されます。
-これについては以前に[v1.32リリース発表ブログ](/ja/blog/2024/12/11/kubernetes-v1-32-release/#dra-resourceclaimステータスのための標準化されたネットワークインターフェースデータ)で説明されています。
+これについては以前に[v1.32リリース発表ブログ](/blog/2024/12/11/kubernetes-v1-32-release/#dra-resourceclaimステータスのための標準化されたネットワークインターフェースデータ)で説明されています。
 
 この作業はSIG Network、SIG Node、およびWG Device Managementが主導した[KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817)の一環として行われました。
 
@@ -283,11 +283,11 @@ v1.31で導入されたPodでOpen Container Initiative(OCI)イメージをボリ
 
 ### Linux Podにおけるユーザー名前空間のサポート
 
-執筆時点で最も古いオープンなKEPの1つである[KEP-127](https://kep.k8s.io/127)は、Pod用のLinux[ユーザー名前空間](/ja/docs/concepts/workloads/pods/user-namespaces/)を使用したPodセキュリティの改善です。
+執筆時点で最も古いオープンなKEPの1つである[KEP-127](https://kep.k8s.io/127)は、Pod用のLinux[ユーザー名前空間](/docs/concepts/workloads/pods/user-namespaces/)を使用したPodセキュリティの改善です。
 このKEPは2016年後半に最初に提案され、複数の改訂を経て、v1.25でアルファリリース、v1.30で初期ベータ(デフォルトでは無効)となり、v1.33の一部としてデフォルトで有効なベータに移行しました。
 
 このサポートは、手動で`pod.spec.hostUsers`を指定してオプトインしない限り、既存のPodに影響を与えません。
-[v1.30の先行紹介ブログ](/ja/blog/2024/03/12/kubernetes-1-30-upcoming-changes/)で強調されているように、これは脆弱性を軽減するための重要なマイルストーンです。
+[v1.30の先行紹介ブログ](/blog/2024/03/12/kubernetes-1-30-upcoming-changes/)で強調されているように、これは脆弱性を軽減するための重要なマイルストーンです。
 
 この作業はSIG Nodeが主導した[KEP-127: Support User Namespaces in pods](https://kep.k8s.io/127)の一環として行われました。
 
@@ -455,8 +455,8 @@ kubeletのオンディスク認証情報プロバイダーが、オプション�
 ### 非推奨化と削除 {#deprecations-and-removals}
 
 Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を向上させるために機能が非推奨化されたり、削除されたり、より良い機能に置き換えられたりすることがあります。
-このプロセスに関する詳細は、[Kubernetes非推奨ポリシー](/ja/docs/reference/using-api/deprecation-policy/)を参照してください。
-これらの非推奨化や削除の多くは、[Kubernetes v1.33の先行紹介ブログ](/ja/blog/2025/03/26/kubernetes-v1-33-upcoming-changes)で告知されました。
+このプロセスに関する詳細は、[Kubernetes非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)を参照してください。
+これらの非推奨化や削除の多くは、[Kubernetes v1.33の先行紹介ブログ](/blog/2025/03/26/kubernetes-v1-33-upcoming-changes)で告知されました。
 
 #### Endpoints APIの非推奨化
 

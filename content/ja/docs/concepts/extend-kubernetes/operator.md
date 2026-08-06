@@ -6,8 +6,8 @@ weight: 30
 
 <!-- overview -->
 
-オペレーターは[カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
-オペレーターは、特に[制御ループ](/ja/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
+オペレーターは[カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
+オペレーターは、特に[制御ループ](/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
 
 
 
@@ -28,7 +28,7 @@ Kubernetesは自動化のために設計されています。追加の作業、�
 
 
 Kubernetesの{{< glossary_tooltip text="オペレーターパターン" term_id="operator-pattern" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、一つ以上のカスタムリソースに{{< glossary_tooltip text="カスタムコントローラー" term_id="controller" >}}をリンクすることで、クラスターの振る舞いを拡張することを可能にします。
-オペレーターはKubernetes APIのクライアントで、[Custom Resource](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
+オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
 
 ## オペレーターの例 {#example}
 
@@ -85,7 +85,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 ## {{% heading "whatsnext" %}}
 
 
-* [Custom Resources](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)をより深く学びます
+* [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)をより深く学びます
 * ユースケースに合わせた、既製のオペレーターを[OperatorHub.io](https://operatorhub.io/)から見つけます
 * 自前のオペレーターを書くために既存のツールを使います、例:
   * [Charmed Operator Framework](https://juju.is/)

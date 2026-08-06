@@ -9,16 +9,16 @@ weight: 100
 {{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 _分割イメージファイルシステム_ 機能は、`containerfs`ファイルシステムのサポートを有効にし、いくつかの新しい退避シグナル、閾値、メトリクスを追加します。
-`containerfs`を使用するには、Kubernetesリリース v{{< skew currentVersion >}}で`KubeletSeparateDiskGC`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+`containerfs`を使用するには、Kubernetesリリース v{{< skew currentVersion >}}で`KubeletSeparateDiskGC`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 現在、`containerfs`ファイルシステムのサポートを提供しているのはCRI-O(v1.29以降)のみです。
 {{</note>}}
 
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}は、クラスターのノード上のメモリ、ディスク容量、ファイルシステムのinodeといったのリソースを監視します。
 これらのリソースの1つ以上が特定の消費レベルに達すると、kubeletはリソースの枯渇を防ぐため、ノード上の1つ以上のPodを事前に停止してリソースを回収します。
 
-ノードのリソース枯渇による退避中に、kubeletは選択された[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を`Failed`に設定し、Podを終了します。
+ノードのリソース枯渇による退避中に、kubeletは選択された[Podのフェーズ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を`Failed`に設定し、Podを終了します。
 
-ノードのリソース枯渇による退避は、[APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)とは異なります。
+ノードのリソース枯渇による退避は、[APIを起点とした退避](/docs/concepts/scheduling-eviction/api-eviction/)とは異なります。
 
 kubeletは、設定した{{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}やPodの`terminationGracePeriodSeconds`を考慮しません。
 [ソフト退避の閾値](#soft-eviction-thresholds)を使用する場合は、kubeletは設定された`eviction-max-pod-grace-period`を順守します。
@@ -33,7 +33,7 @@ kubeletは、エンドユーザーのPodを終了する前に[ノードレベル
 
 ### static Podの自己修復
 
-リソースが圧迫しているノード上で[static pod](/ja/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
+リソースが圧迫しているノード上で[static pod](/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
 static Podは常にそのノード上でPodを実行しようとするため、kubeletは代替のPodの作成を試みます。
 
 kubeletは、代替のPodを作成する際にstatic Podの _priority_ を考慮します。
@@ -183,7 +183,7 @@ kubeletは、設定された`housekeeping-interval`に基づいて退避閾値�
 
 ### ノードの状態 {#node-conditions}
 
-kubeletは、猶予期間の構成とは関係なく、ハードまたはソフト退避閾値に達したためにノードが圧迫されていることを示すノードの[Conditions](/ja/docs/concepts/architecture/nodes/#condition)を報告します。
+kubeletは、猶予期間の構成とは関係なく、ハードまたはソフト退避閾値に達したためにノードが圧迫されていることを示すノードの[Conditions](/docs/concepts/architecture/nodes/#condition)を報告します。
 
 kubeletは、次のように退避シグナルをノードの状態にマッピングします:
 
@@ -242,7 +242,7 @@ kubeletは、ノードレベルのリソースを回収しても退避シグナ�
 kubeletは、次のパラメーターを使用してPodの退避順序を決定します:
 
 1. Podのリソース使用量がリクエストを超えているかどうか
-1. [Podの優先度](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+1. [Podの優先度](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 1. Podのリソース使用量がリクエストを下回っているかどうか
 
 結果として、kubeletは次の順序でPodをランク付けして退避します:
@@ -263,7 +263,7 @@ QoSの分類はEphemeralStorageのリクエストには適用されないため�
 (`kubelet`や`journald`のような)システムデーモンが、`system-reserved`や`kube-reserved`の割り当てよりも多くのリソースを消費しており、ノードにはリクエストより少ないリソースを使用している`Guaranteed`または`Burstable`Podしかない場合、kubeletは他のPodへのリソース枯渇の影響を制限してノードの安定性を保つために、これらのPodのなかから退避するPodを選択する必要があります。
 この場合、最も低い優先度のPodを退避するように選択します。
 
-[static Pod](/ja/docs/concepts/workloads/pods/#static-pod)を実行しており、リソース圧迫による退避を回避したい場合は、そのPodに直接`priority`フィールドを設定します。
+[static Pod](/docs/concepts/workloads/pods/#static-pod)を実行しており、リソース圧迫による退避を回避したい場合は、そのPodに直接`priority`フィールドを設定します。
 Static Podは`priorityClassName`フィールドをサポートしていません。
 
 kubeletは、inodeまたはプロセスIDの枯渇に応じてPodを退避する場合、inodeとPIDにはリクエストがないため、Podの相対的な優先度を使用して退避順序を決定します。
@@ -406,8 +406,8 @@ kubeletは、`active_file`メモリの領域を回収不可能として扱いま
 
 ## {{% heading "whatsnext" %}}
 
-- [APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)について学ぶ
-- [Podの優先度とプリエンプション](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)について学ぶ
+- [APIを起点とした退避](/docs/concepts/scheduling-eviction/api-eviction/)について学ぶ
+- [Podの優先度とプリエンプション](/docs/concepts/scheduling-eviction/pod-priority-preemption/)について学ぶ
 - [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)について学ぶ
-- [Quality of Service](/ja/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)について学ぶ
+- [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)について学ぶ
 - [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)について学ぶ

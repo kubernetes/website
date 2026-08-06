@@ -5,7 +5,7 @@ weight: 40
 
 <!-- overview -->
 
-このページでは、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)を強制する際のベストプラクティスの概要を説明します。
+このページでは、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards)を強制する際のベストプラクティスの概要を説明します。
 
 <!-- body -->
 

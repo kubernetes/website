@@ -10,8 +10,8 @@ Kubernetesには、4つの異なる対応すべきネットワークの問題が
 
 1. 高度に結合されたコンテナ間の通信: これは、{{< glossary_tooltip text="Pod" term_id="pod" >}}および`localhost`通信によって解決されます。
 2. Pod間の通信: 本ドキュメントの主な焦点です。
-3. Podからサービスへの通信: これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
-4. 外部からサービスへの通信: これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
+3. Podからサービスへの通信: これは[Service](/docs/concepts/services-networking/service/)でカバーされています。
+4. 外部からサービスへの通信: これは[Service](/docs/concepts/services-networking/service/)でカバーされています。
 
 <!-- body -->
 
@@ -20,13 +20,13 @@ Kubernetesは、言ってしまえばアプリケーション間でマシンを�
 
 動的ポート割り当てはシステムに多くの複雑さをもたらします。すべてのアプリケーションはポートをフラグとして受け取らなければならない、APIサーバーは設定ブロックに動的ポート番号を挿入する方法を知っていなければならない、各サービスは互いを見つける方法を知らなければならない、などです。Kubernetesはこれに対処するのではなく、別のアプローチを取ります。
 
-Kubernetesネットワークモデルについては、[こちら](/ja/docs/concepts/services-networking/)を参照してください。
+Kubernetesネットワークモデルについては、[こちら](/docs/concepts/services-networking/)を参照してください。
 
 ## Kubernetesネットワークモデルの実装方法 {#how-to-implement-the-kubernetes-network-model}
 
 ネットワークモデルは、各ノード上のコンテナランタイムによって実装されます。最も一般的なコンテナランタイムは、[Container Network Interface](https://github.com/containernetworking/cni) (CNI)プラグインを使用して、ネットワークとセキュリティ機能を管理します。CNIプラグインは、さまざまなベンダーから多数提供されています。これらの中には、ネットワークインターフェースの追加と削除という基本的な機能のみを提供するものもあれば、他のコンテナオーケストレーションシステムとの統合、複数のCNIプラグインの実行、高度なIPAM機能など、より洗練されたソリューションを提供するものもあります。
 
-Kubernetesがサポートするネットワークアドオンの非網羅的なリストについては、[このページ](/ja/docs/concepts/cluster-administration/addons/#networking-and-network-policy)を参照してください。
+Kubernetesがサポートするネットワークアドオンの非網羅的なリストについては、[このページ](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 

@@ -51,8 +51,8 @@ Huge PageはLinux固有の機能であり、Nodeのカーネルはデフォル�
 
 CPUとメモリーは、まとめて*コンピュートリソース*または単に*リソース*と呼ばれます。
 コンピューティングリソースは、要求され、割り当てられ、消費され得る測定可能な量です。
-それらは[API resources](/ja/docs/concepts/overview/kubernetes-api/)とは異なります。
-Podや[Services](/ja/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
+それらは[API resources](/docs/concepts/overview/kubernetes-api/)とは異なります。
+Podや[Services](/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
 
 ## Podとコンテナのリソースrequestsとlimits {#resource-requests-and-limits-of-pod-and-container}
 
@@ -169,7 +169,7 @@ Dockerを使用する場合:
 
 Podのリソース使用量は、Podのステータスの一部として報告されます。
 
-オプションの[監視ツール](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
+オプションの[監視ツール](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
 
 ## ローカルのエフェメラルストレージ {#local-ephemeral-storage}
 
@@ -225,7 +225,7 @@ Nodeには、Kubernetesに使用されていない他のファイルシステム
 kubeletは、ローカルストレージの使用量を測定できます。
 これは、以下の条件で提供されます。
 
-- `LocalStorageCapacityIsolation`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっています。(デフォルトでオンになっています。)
+- `LocalStorageCapacityIsolation`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっています。(デフォルトでオンになっています。)
 - そして、ローカルのエフェメラルストレージ用にサポートされている構成の1つを使用してNodeをセットアップします。
 
 別の構成を使用している場合、kubeletはローカルのエフェメラルストレージにリソース制限を適用しません。
@@ -358,7 +358,7 @@ Kubernetesが使用しないようにする必要があります。
 
 プロジェクトクォータを使用する場合は、次のことを行う必要があります。
 
-* kubelet設定で、`LocalocalStorpactionCapactionIsolationFSQuotaMonitoring=true`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gate/)を有効にします。
+* kubelet設定で、`LocalocalStorpactionCapactionIsolationFSQuotaMonitoring=true`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gate/)を有効にします。
 
 * ルートファイルシステム(またはオプションのランタイムファイルシステム))がプロジェクトクォータを有効にしていることを確認してください。
   すべてのXFSファイルシステムはプロジェクトクォータをサポートしています。
@@ -623,9 +623,9 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 ## {{% heading "whatsnext" %}}
 
-* [コンテナとPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
+* [コンテナとPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
 
-* [コンテナとPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
+* [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
 
 * requestsとlimitsの違いの詳細については、[リソースQoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md)を参照する
 

@@ -5,7 +5,7 @@ min-kubernetes-server-version: 1.20
 ---
 
 <!-- overview -->
-このページでは、Kubernetesクラスター上で動作している[ノード](/ja/docs/concepts/architecture/nodes/)を`kubectl debug`コマンドを使用してデバッグする方法について説明します。
+このページでは、Kubernetesクラスター上で動作している[ノード](/docs/concepts/architecture/nodes/)を`kubectl debug`コマンドを使用してデバッグする方法について説明します。
 
 ## {{% heading "prerequisites" %}}
 
@@ -71,7 +71,7 @@ kubeletをファイルシステムのネームスペースで実行している�
   その情報へのアクセスはスーパーユーザーに制限されているためです。
   例えば、`chroot /host`は失敗します。
   特権Podが必要な場合は、手動で作成するか、`--profile=sysadmin`を使用してください。
-* デバッグ用のPodに[デバッグプロファイル](/ja/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)を適用することで、[securityContext](/ja/docs/tasks/configure-pod-container/security-context/)などの特定のプロパティを設定できます。
+* デバッグ用のPodに[デバッグプロファイル](/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)を適用することで、[securityContext](/docs/tasks/configure-pod-container/security-context/)などの特定のプロパティを設定できます。
 
 ## {{% heading "cleanup" %}}
 
@@ -98,6 +98,6 @@ pod "node-debugger-mynode-pdx84" deleted
 {{< note >}}
 
 ノードがダウンしている場合(ネットワークから切断されている、kubeletが停止して再起動しないなど)、`kubectl debug node`コマンドは機能しません。
-その場合は、[ダウンあるいは到達不能なノードのデバッグ](/ja/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node)を確認してください。
+その場合は、[ダウンあるいは到達不能なノードのデバッグ](/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node)を確認してください。
 
 {{< /note >}}

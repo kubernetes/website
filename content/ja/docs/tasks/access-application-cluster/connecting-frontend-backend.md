@@ -29,7 +29,7 @@ weight: 70
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
-ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
+ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
 
 
@@ -143,7 +143,7 @@ service/frontend created
 
 {{< note >}}
 nginxの構成は、[コンテナイメージ](/examples/service/access/Dockerfile)に焼き付けられます。
-これを行うためのより良い方法は、[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
+これを行うためのより良い方法は、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
 {{< /note >}}
 
 ## フロントエンドServiceと対話
@@ -203,7 +203,7 @@ kubectl delete deployment frontend hello
 ## {{% heading "whatsnext" %}}
 
 
-* [Service](/ja/docs/concepts/services-networking/service/)の詳細
+* [Service](/docs/concepts/services-networking/service/)の詳細
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
 
 

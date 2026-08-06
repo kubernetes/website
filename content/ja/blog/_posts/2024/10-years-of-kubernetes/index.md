@@ -96,7 +96,7 @@ Kubernetesには数え切れないほどの拡張するポイントがありま�
 他にもストレージ用のCSIやネットワーキング用のCNIなどのインターフェースがあります。
 そしてこれはできることのほんの一部に過ぎません。
 過去10年間で新しいパターンがいくつも登場しました。
-例えば、[Custom Resource Definition](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD)を使用してサードパーティのコントローラーをサポートすることができます。
+例えば、[Custom Resource Definition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD)を使用してサードパーティのコントローラーをサポートすることができます。
 これは現在Kubernetesエコシステムの大きな一部となっています。
 
 このプロジェクトを構築するコミュニティも、この10年間で非常に大きくなりました。
@@ -121,7 +121,7 @@ Kubernetesには数え切れないほどの拡張するポイントがありま�
 プロジェクトの初期には、拡張性が成功の鍵であることは明らかでした。
 しかし、その拡張性をどのように実現するかは常に明確ではありませんでした。
 このマイグレーションにより、Kubernetesの核となるコードベースからさまざまなベンダー固有の機能が削除されました。
-ベンダー固有の機能は、今後は[Custom Resource Definition (CRD)](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)や[Gateway API](https://gateway-api.sigs.k8s.io/)などの他のプラグイン拡張機能やパターンによってよりよく提供されるようになります。
+ベンダー固有の機能は、今後は[Custom Resource Definition (CRD)](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)や[Gateway API](https://gateway-api.sigs.k8s.io/)などの他のプラグイン拡張機能やパターンによってよりよく提供されるようになります。
 
 Kubernetesは、膨大なユーザーベースにサービスを提供する上で新たな課題にも直面しており、コミュニティはそれに適応しています。
 その一例が、新しいコミュニティ所有のregistry.k8s.ioへのイメージホスティングの移行です。

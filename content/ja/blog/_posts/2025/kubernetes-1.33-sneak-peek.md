@@ -21,7 +21,7 @@ Kubernetes v1.33のリリースが近づく中で、Kubernetesプロジェクト
 
 ## Kubernetes APIの削除および非推奨プロセス
 
-Kubernetesプロジェクトでは、機能の[非推奨ポリシー](/ja/docs/reference/using-api/deprecation-policy/)が明確に文書化されています。
+Kubernetesプロジェクトでは、機能の[非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)が明確に文書化されています。
 このポリシーでは、安定版のAPIを非推奨とするには同じAPIの新たな安定版が存在していることが条件とされています。
 また、APIの安定性レベルごとに最低限のサポート期間が定められています。
 非推奨となったAPIは、将来のKubernetesリリースで削除される予定であることを示しています。
@@ -80,7 +80,7 @@ v1.33において、この機能のサポートは完全に削除される見込
 現在もオープンなKEPの中で最も古いものの一つが、[KEP-127](https://kep.k8s.io/127)「Podに対してLinux[ユーザー名前空間](/docs/concepts/workloads/pods/user-namespaces/)を使用することによるセキュリティの改善」です。このKEPは2016年後半に初めて提案され、複数回の改訂を経てv1.25でアルファ版として登場し、v1.30で初めてベータ版が提供されました(この時点ではデフォルトで無効)。そしてv1.33では、この機能がデフォルトで有効な状態で提供される予定です。
 
 この機能は、明示的に`pod.spec.hostUsers`を指定して有効化しない限り、既存のPodには影響しません。
-[Kubernetes v1.30をそっと覗く](/ja/blog/2024/03/12/kubernetes-1-30-upcoming-changes/)でも触れられているように、この機能は脆弱性の軽減に向けた重要なマイルストーンとなります。
+[Kubernetes v1.30をそっと覗く](/blog/2024/03/12/kubernetes-1-30-upcoming-changes/)でも触れられているように、この機能は脆弱性の軽減に向けた重要なマイルストーンとなります。
 
 詳細は[KEP-127: Support User Namespaces in pods](https://kep.k8s.io/127)をご覧ください。
 
@@ -108,7 +108,7 @@ Podをプロビジョニングする際には、DeploymentやStatefulSetなど�
 ResourceClaimの`status`内にある`devices`フィールドは、v1.32リリースで導入された機能であり、v1.33でベータに昇格する見込みです。
 このフィールドは、ドライバーがデバイスの状態情報を報告できるようにするもので、可観測性とトラブルシューティング能力の向上に貢献します。
 
-例えば、ResourceClaimのステータスにネットワークインターフェースの名前、MACアドレス、IPアドレスを報告することは、ネットワークサービスの設定や管理、ならびにネットワーク関連の問題のデバッグに大いに役立ちます。この機能の詳細は、[動的リソース割り当て](/ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status)のドキュメントをご覧ください。
+例えば、ResourceClaimのステータスにネットワークインターフェースの名前、MACアドレス、IPアドレスを報告することは、ネットワークサービスの設定や管理、ならびにネットワーク関連の問題のデバッグに大いに役立ちます。この機能の詳細は、[動的リソース割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status)のドキュメントをご覧ください。
 
 また、計画中の拡張については[KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817)に記載されています。
 

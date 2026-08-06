@@ -8,7 +8,7 @@ _build:
   publishResources: false
 ---
 
-kubectlがKubernetesクラスターを探索し接続するために、[kubeconfigファイル](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)が必要です。
+kubectlがKubernetesクラスターを探索し接続するために、[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)が必要です。
 これは、[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)によりクラスターを作成した際や、Minikubeクラスターを正常にデプロイした際に自動生成されます。
 デフォルトでは、kubectlの設定は`~/.kube/config`に格納されています。
 

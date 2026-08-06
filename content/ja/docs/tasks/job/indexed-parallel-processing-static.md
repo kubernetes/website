@@ -24,7 +24,7 @@ Podのインデックスは、{{< glossary_tooltip text="アノテーション" 
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-インデックス付きJobを作成できるようにするには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)上で`IndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしていることを確認してください。
+インデックス付きJobを作成できるようにするには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)上で`IndexedJob`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にしていることを確認してください。
 
 <!-- steps -->
 
@@ -52,7 +52,7 @@ rev data.txt
 
 {{% code_sample language="yaml" file="application/job/indexed-job.yaml" %}}
 
-上記の例では、Jobコントローラーがすべてのコンテナに設定する組み込みの`JOB_COMPLETION_INDEX`環境変数を使っています。[initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)がインデックスを静的な値にマッピングし、その値をファイルに書き込み、ファイルを[emptyDir volume](/docs/concepts/storage/volumes/#emptydir)を介してワーカーを実行しているコンテナと共有します。オプションとして、インデックスとコンテナに公開するために[downward APIを使用して独自の環境変数を定義する](/ja/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)こともできます。[環境変数やファイルとして設定したConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)から値のリストを読み込むという選択肢もあります。
+上記の例では、Jobコントローラーがすべてのコンテナに設定する組み込みの`JOB_COMPLETION_INDEX`環境変数を使っています。[initコンテナ](/docs/concepts/workloads/pods/init-containers/)がインデックスを静的な値にマッピングし、その値をファイルに書き込み、ファイルを[emptyDir volume](/docs/concepts/storage/volumes/#emptydir)を介してワーカーを実行しているコンテナと共有します。オプションとして、インデックスとコンテナに公開するために[downward APIを使用して独自の環境変数を定義する](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)こともできます。[環境変数やファイルとして設定したConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)から値のリストを読み込むという選択肢もあります。
 
 他には、以下の例のように、直接[downward APIを使用してアノテーションの値をボリュームファイルとして渡す](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)こともできます。
 

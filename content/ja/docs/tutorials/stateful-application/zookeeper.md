@@ -5,20 +5,20 @@ weight: 40
 ---
 
 <!-- overview -->
-このチュートリアルでは、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)、[Podアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って、Kubernetes上での[Apache Zookeeper](https://zookeeper.apache.org)の実行をデモンストレーションします。
+このチュートリアルでは、[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)、[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)、[Podアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って、Kubernetes上での[Apache Zookeeper](https://zookeeper.apache.org)の実行をデモンストレーションします。
 
 ## {{% heading "prerequisites" %}}
 
 このチュートリアルを始める前に、以下のKubernetesの概念について理解しておく必要があります。
 
-- [Pod](/ja/docs/concepts/workloads/pods/)
-- [クラスターDNS](/ja/docs/concepts/services-networking/dns-pod-service/)
-- [Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)
-- [PersistentVolume](/ja/docs/concepts/storage/volumes/)
+- [Pod](/docs/concepts/workloads/pods/)
+- [クラスターDNS](/docs/concepts/services-networking/dns-pod-service/)
+- [Headless Service](/docs/concepts/services-networking/service/#headless-service)
+- [PersistentVolume](/docs/concepts/storage/volumes/)
 - [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-- [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+- [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
-- [Podアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+- [Podアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 - [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
 少なくとも4つのノードのクラスターが必要で、各ノードは少なくとも2つのCPUと4GiBのメモリが必須です。このチュートリアルでは、クラスターのノードをcordonおよびdrainします。
@@ -60,7 +60,7 @@ WALを際限のない増加から防ぐために、ZooKeeperサーバーは、�
 
 ## ZooKeeperアンサンブルの作成
 
-以下のマニフェストは[Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)、[Service](/ja/docs/concepts/services-networking/service/)、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を含んでいます。
+以下のマニフェストは[Headless Service](/docs/concepts/services-networking/service/#headless-services)、[Service](/docs/concepts/services-networking/service/)、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)を含んでいます。
 
 {{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
 
@@ -163,7 +163,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-[Kubernetes DNS](/ja/docs/concepts/services-networking/dns-pod-service/)のAレコードは、FQDNをPodのIPアドレスに解決します。
+[Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/)のAレコードは、FQDNをPodのIPアドレスに解決します。
 KubernetesがPodを再スケジュールした場合、AレコードはPodの新しいIPアドレスに更新されますが、Aレコードの名前は変更されません。
 
 ZooKeeperはそのアプリケーション設定を`zoo.cfg`という名前のファイルに格納します。
@@ -529,12 +529,12 @@ kubectl logs zk-0 --tail 20
 
 Kubernetesは多くのログソリューションを統合しています。
 クラスターおよびアプリケーションに最も適合するログソリューションを選べます。
-クラスターレベルのロギングとアグリゲーションとして、ログをローテートおよび輸送するための[サイドカーコンテナ](/ja/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)をデプロイすることを検討してください。
+クラスターレベルのロギングとアグリゲーションとして、ログをローテートおよび輸送するための[サイドカーコンテナ](/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)をデプロイすることを検討してください。
 
 ### 非特権ユーザーの設定
 
 コンテナ内で特権ユーザーとしての実行をアプリケーションに許可するベストプラクティスは、議論の的です。
-アプリケーションが非特権ユーザーとして動作することを組織で必須としているなら、エントリポイントがそのユーザーとして実行できるユーザーを制御する[セキュリティコンテキスト](/ja/docs/tasks/configure-pod-container/security-context/)を利用できます。
+アプリケーションが非特権ユーザーとして動作することを組織で必須としているなら、エントリポイントがそのユーザーとして実行できるユーザーを制御する[セキュリティコンテキスト](/docs/tasks/configure-pod-container/security-context/)を利用できます。
 
 `zk` `StatefulSet`のPod `template`は、`SecurityContext`を含んでいます。
 
@@ -646,7 +646,7 @@ statefulset.apps/zk rolled back
 
 ### プロセスの失敗の取り扱い
 
-[再起動ポリシー](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は、Pod内のコンテナのエントリポイントへのプロセスの失敗をKubernetesがどのように取り扱うかを制御します。
+[再起動ポリシー](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は、Pod内のコンテナのエントリポイントへのプロセスの失敗をKubernetesがどのように取り扱うかを制御します。
 `StatefulSet`内のPodにおいて唯一妥当な`RestartPolicy`はAlwaysで、これはデフォルト値です。
 ステートフルなアプリケーションでは、このデフォルトポリシーの上書きは**絶対にすべきではありません**。
 

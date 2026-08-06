@@ -6,7 +6,7 @@ weight: 5
 <!-- overview -->
 
 このページでは、Kubernetesクラスターの全てのノード上でPodを実行する、基本的な{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}を構築する方法について示します。
-ホストからファイルをマウントし、[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)を使用してその内容をログに記録して、pauseコンテナを利用するという単純なユースケースを取り上げます。
+ホストからファイルをマウントし、[Initコンテナ](/docs/concepts/workloads/pods/init-containers/)を使用してその内容をログに記録して、pauseコンテナを利用するという単純なユースケースを取り上げます。
 
 ## {{% heading "prerequisites" %}}
 
@@ -58,9 +58,9 @@ kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-
 ```
 
 この単純なDaemonSetの例では、Initコンテナやホストパスボリュームなどの主要なコンポーネントを紹介しており、より高度なユースケースに応じて拡張することができます。
-詳細については[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)を参照してください。
+詳細については[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
 * [DaemonSet上でローリングアップデートを実施する](/docs/tasks/manage-daemon/update-daemon-set/)を参照
-* [既存のDaemonSetのPodを再利用してDaemonSetを作成する](/ja/docs/concepts/workloads/controllers/daemonset/)を参照
+* [既存のDaemonSetのPodを再利用してDaemonSetを作成する](/docs/concepts/workloads/controllers/daemonset/)を参照

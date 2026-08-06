@@ -23,7 +23,7 @@ weight: 60
 
 ## エンドポイント終了の流れの例
 
-以下は、[Podの終了](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)ドキュメントに記載されている流れの例です。
+以下は、[Podの終了](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)ドキュメントに記載されている流れの例です。
 
 1つの`nginx`レプリカを含むDeployment(純粋にデモンストレーション目的です)とServiceがあるとします:
 
@@ -200,6 +200,6 @@ Podが削除される時には、古いエンドポイントも削除されま�
 
 
 * [アプリケーションをServiceに接続する](/docs/tutorials/services/connect-applications-service/)方法を学びます。
-* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
-* [Serviceを使用してフロントエンドをバックエンドに接続する](/ja/docs/tasks/access-application-cluster/connecting-frontend-backend/)を学びます。
+* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
+* [Serviceを使用してフロントエンドをバックエンドに接続する](/docs/tasks/access-application-cluster/connecting-frontend-backend/)を学びます。
 * [外部ロードバランサーの作成](/docs/tasks/access-application-cluster/create-external-load-balancer/)を学びます。

@@ -22,7 +22,7 @@ IstioやLinkerdのようなサービスメッシュは、サイドカープロ�
 
 ## Kubernetesにおける実装
 
-Kubernetesでは、[サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)はメインのアプリケーションと同じPod内で動作し、通信やリソースの共有を可能にします。
+Kubernetesでは、[サイドカーコンテナ](/docs/concepts/workloads/pods/sidecar-containers/)はメインのアプリケーションと同じPod内で動作し、通信やリソースの共有を可能にします。
 これは、単にPod内に複数のコンテナを並列に定義することのように聞こえるかもしれません。
 実際、その通りであり、Kubernetes v1.29.0でサイドカーのネイティブサポートが導入されるまでは、そのように実装する必要がありました。
 現在では、Podマニフェスト内で`spec.initContainers`フィールドを使用してサイドカーコンテナを定義することができます。
@@ -44,7 +44,7 @@ initContainers:
 サイドカーコンテナを定義したいのに、なぜ`spec.initContainers`配列にエントリを追加しなければならないのでしょうか？
 `spec.initContainers`に定義されたコンテナは、メインアプリケーションが起動する直前に一度だけ実行され、完了すると終了します。
 一方、サイドカーコンテナは通常、メインのアプリケーションコンテナと並行して動作し続けます。
-Kubernetesにおけるネイティブなサイドカーコンテナは、`spec.initContainers`に`restartPolicy:Always`を指定することで、従来の[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)とは異なる挙動を持ち、常に稼働し続けることが保証されます。
+Kubernetesにおけるネイティブなサイドカーコンテナは、`spec.initContainers`に`restartPolicy:Always`を指定することで、従来の[Initコンテナ](/docs/concepts/workloads/pods/init-containers/)とは異なる挙動を持ち、常に稼働し続けることが保証されます。
 
 ## サイドカーを採用すべき場合と避けるべき場合
 

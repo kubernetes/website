@@ -77,5 +77,5 @@ spec:
 
 
 ## {{% heading "whatsnext" %}}
-[ラベルとセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)について学習してください。
+[ラベルとセレクター](/docs/concepts/overview/working-with-objects/labels/)について学習してください。
 

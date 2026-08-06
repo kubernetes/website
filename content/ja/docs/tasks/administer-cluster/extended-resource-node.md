@@ -86,7 +86,7 @@ Capacity:
  example.com/dongle:  4
 ```
 
-これで、アプリケーション開発者は特定の数のdongleをリクエストするPodを作成できるようになりました。詳しくは、[拡張リソースをコンテナに割り当てる](/ja/docs/tasks/configure-pod-container/extended-resource/)を読んでください。
+これで、アプリケーション開発者は特定の数のdongleをリクエストするPodを作成できるようになりました。詳しくは、[拡張リソースをコンテナに割り当てる](/docs/tasks/configure-pod-container/extended-resource/)を読んでください。
 
 ## 議論
 
@@ -159,14 +159,14 @@ kubectl describe node <選択したNodeの名前> | grep dongle
 
 ### アプリケーション開発者向け
 
-* [拡張リソースをコンテナに割り当てる](/ja/docs/tasks/configure-pod-container/extended-resource/)
-* [DRAによる動的リソース割り当て](/ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* [拡張リソースをコンテナに割り当てる](/docs/tasks/configure-pod-container/extended-resource/)
+* [DRAによる動的リソース割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### クラスター管理者向け
 
 * [Namespaceに対してメモリの最小値と最大値の制約を設定する](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [Namespaceに対してCPUの最小値と最大値の制約を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [DRAによる動的リソース割り当て](/ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* [DRAによる動的リソース割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 
 
