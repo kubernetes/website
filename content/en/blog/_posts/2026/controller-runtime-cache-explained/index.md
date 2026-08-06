@@ -9,8 +9,7 @@ author: >
 ---
 
 {{% pageinfo color="primary" %}}
-**Update:** *This article has been revised since it was first published, to correct technical
-inaccuracies in the original text.*
+This article has been revised since it was first published, to correct several significant technical inaccuracies in the original text.
 {{% /pageinfo %}}
 
 Kubernetes has long been the default platform for distributed workloads, and writing your own
@@ -32,7 +31,7 @@ re-read the object and immediately see the new state. In practice the model is t
 `controller-runtime` operates against a local copy of the data populated through **list** + **watch**.
 Reads inside a reconciler cost almost nothing and do not load the control plane even at
 hundreds of calls per second — but the price of this design is that a controller can quietly
-consume gigabytes of memory, perform hidden `O(n)` scans, and regularly trip over stale reads.
+consume gigabytes of memory, perform hidden O(n) scans, and regularly trip over stale reads.
 
 This post is aimed at engineers who already write controllers in Go with `controller-runtime`
 but want to consolidate the pieces into a single mental model rather than carry around a bag
@@ -190,7 +189,7 @@ Kubernetes live underneath:
   `Updated` / `Deleted` event, and here is its new version". Effectively a single line in a
   change log.
 
-- **The delta queue** (`RealFIFO`, or `DeltaFIFO` on older client-go) — holds those deltas in
+- The **delta queue** (`RealFIFO`, or `DeltaFIFO` on older client-go) — holds those deltas in
   arrival order until the informer processes them.
 
 - **Indexer (Store)** — the in-memory object store, plus the indexes built over it.
@@ -297,7 +296,7 @@ runs once.
 
 So you get two layers with cleanly separated responsibilities:
 
-- **The delta queue** — an ordered stream of change facts, delivered one at a time and
+- The **delta queue** — an ordered stream of change facts, delivered one at a time and
   without merging. Its job is to tell consumers everything that happened, in the right order.
 - **workqueue** — a queue of **keys** with deduplication. This is the layer
   that collapses "ten updates in a row → a reconcile or two".
@@ -472,7 +471,7 @@ logic so that one or two extra invocations break nothing.
 
 If a stale read is a genuine correctness problem for you, a live read does not fix it — a
 concurrent write can be mid-commit anyway. See the
-[controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that)
+[controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/820ed1a84f67c2f5c4ee4a104bc6c00faddb1384/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that)
 for patterns that do.
 
 ### Mistake 2: `DeepCopy` and who owns the memory
@@ -493,11 +492,11 @@ to Pods.
 Because Go has no immutable structs, nothing prevents you from doing
 `pod.Labels["foo"] = "bar"` directly inside a handler — and that Pod is the one in the store.
 Raw `client-go` listers have always worked this way; `ThreadSafeStore`'s own documentation puts
-it bluntly: "you must not modify anything returned by Get or List as it will break the indexing
-feature". Patch a status "for convenience" in a handler and you break the world view of an
+it bluntly: you must not modify anything returned by `Get` or `List` as it will break the indexing
+feature. Patch a status "for convenience" in a handler and you break the world view of an
 unrelated controller next door.
 
-`controller-runtime`'s cache-backed client shields you from that on the read path: `Get` and
+The cache-backed client from `controller-runtime` shields you from that on the read path: `Get` and
 `List` deep-copy by default, and have since its earliest releases. You can opt out with
 `UnsafeDisableDeepCopy`, which is named that way on purpose. The event path is not shielded —
 there is no `DeepCopy` anywhere between the informer and your predicate. The simple rule:
@@ -515,8 +514,8 @@ missing before that mutation.
 ### Mistake 3: resync is not relist
 
 An informer has a resync period (`cache.Options.SyncPeriod`, 10 hours by default in
-`controller-runtime`), and many people read it as "rebuild the cache from the API server every
-N hours".
+`controller-runtime`), and many people read it as meaning: _rebuild the cache from the API
+server every n hours, fetching every resource once again_.
 
 It does not. A resync does **not** perform a **list**. It _re-emits_ everything currently in
 the indexer back through the delta queue, and the informer dispatches an update per object,
@@ -570,7 +569,7 @@ for _, p := range pods.Items {
 
 It works — until the cluster has 50,000 Pods and reconciles run hundreds of times per second.
 Then the loop turns slow: every trigger walks all 50,000 Pods under the store's read lock,
-then deep-copies each one after the lock is released — `O(n)` work per reconcile, and it is
+then deep-copies each one after the lock is released, doing O(n) work per reconcile, and it is
 the walk, not the copying, that blocks writers into the store.
 
 The Indexer in `client-go` can do much better. You declare up front which field you want to
@@ -672,7 +671,7 @@ A few things worth keeping in mind:
   separate label dictionary. The only indexes the cache has are the namespace index and the
   field indexes you register yourself.
 
-  Two separate things follow, and they get conflated. The walk really is `O(n)`: with no label
+  Two separate things follow, and they get conflated. The walk really is O(n): with no label
   index, `List(..., MatchingLabels{...})` still visits every cached
   object of that kind, or whatever subset the namespace or a field index already narrowed it
   to. But the selector is evaluated *before* the deep copy, so objects that do not match are
@@ -899,7 +898,7 @@ In one breath:
   control how much memory and traffic you actually consume.
 - `APIReader` bypasses the cache for the rare read the cache cannot serve — but it is not a
   fix for staleness races; see the
-  [controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/main/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that).
+  [controller-runtime FAQ](https://github.com/kubernetes-sigs/controller-runtime/blob/820ed1a84f67c2f5c4ee4a104bc6c00faddb1384/FAQ.md#q-my-cache-might-be-stale-if-i-read-from-a-cache-how-should-i-deal-with-that).
 
 And the single sentence to remember: `r.Get` inside a reconciler reads from memory, not from the
 API server — not even the first time. The exceptions are the ones you opt into yourself:
