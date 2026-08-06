@@ -15,7 +15,7 @@ weight: 10
 
 スケジューラーには、TASの拡張ポイントを実装する、新規または拡張された以下のツリー内プラグインが含まれています:
 
-* `TopologyPlacement`: `PlacementGeneratePlugin`インターフェイスを実装します。
+* `TopologyPlacement`: `PlacementGeneratePlugin`インターフェースを実装します。
   PodGroupで定義されたトポロジーの`key`の値ごとにノードをグループ化し、配置候補を生成します。
 
 * `NodeResourcesFit`: `PlacementScorePlugin`インターフェイスを実装するように拡張されています。
