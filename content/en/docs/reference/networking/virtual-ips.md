@@ -198,14 +198,11 @@ and is likely to hurt functionality more than it improves performance.
 
 {{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
 
-{{< note >}}
-The `ipvs` proxy mode is deprecated. The feature will be disabled by default
-from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/))
-and the code will be removed in Kubernetes v1.43.
-{{< /note >}}
-
 _This proxy mode is only available on Linux nodes._
+
+**The `ipvs` proxy mode is deprecated**. Support for `ipvs` mode will be disabled by default from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/));
+`ipvs` mode will be fully removed in Kubernetes v1.43.
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
 create rules to redirect traffic from Service IPs to endpoint IPs.
