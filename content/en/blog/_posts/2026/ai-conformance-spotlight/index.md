@@ -2,12 +2,19 @@
 layout: blog
 title: "From Working Group to SIG Architecture: spotlight on AI Conformance"
 slug: sig-arch-ai-conformance-2026
-canonicalUrl: https://www.kubernetes.dev/blog/2026/07/30/sig-arch-ai-conformance-2026
+############
+# Note: use the correct canonicalUrl when publishing the article
+canonicalUrl: https://www.kubernetes.dev/blog/2026/00/00/sig-arch-ai-conformance-2026
+############
 date: 2026-07-09
-draft: true
-author: >-
-  Frederico Muñoz (SAS Institute),
-  Kirti Goyal (independent)
+draft: true
+
+author: >-
+
+  Frederico Muñoz (SAS Institute),
+
+  Kirti Goyal (independent)
+
 ---
 
 In this SIG Architecture spotlight we talked with [Janet Kuo](https://github.com/janetkuo) (Google)
@@ -192,8 +199,10 @@ main repo at [kubernetes-sigs/ai-conformance](https://github.com/kubernetes-sigs
 join our [meetings](https://www.kubernetes.dev/community/community-groups/sigs/architecture/#meetings). If
 you're interested in defining new AI Conformance requirements, you can jump into PR reviews or
 propose your own using our [KAR template](https://github.com/kubernetes-sigs/ai-conformance/tree/main/kars/NNNN-kar-template). If
-you want to write code, we always need help expanding our automated Go test suites in the [`test/` directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test).
-For vendors looking to
+you want to write code, we always need help expanding our automated Go test suites in the [`test/` directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test).
+
+For vendors looking to
+
 certify their platforms, all the details are at
 [cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
 
