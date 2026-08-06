@@ -7,11 +7,11 @@ weight: 10
 <!-- overview -->
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
 
-*トポロジーを考慮したスケジューリング*（Topology-Aware Scheduling, TAS）は、対象となるPodGroupの最適な配置を見つけ、
+*トポロジーを考慮したスケジューリング* (Topology-Aware Scheduling, TAS)は、対象となるPodGroupの最適な配置を見つけ、すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
 すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
 ユーザーはTASプラグインの構成を変更することで、TASを固有の要件に合わせて調整できます。
 
-## スケジューリングフレームワーク: TASプラグインの構成
+## スケジューリングフレームワーク: TASプラグインの構成 {#scheduling-framework-tas-plugins-configuration}
 
 スケジューラーには、TASの拡張ポイントを実装する、新規または拡張された以下のツリー内プラグインが含まれています:
 
@@ -25,9 +25,9 @@ weight: 10
 * `PodGroupPodsCount`: `PlacementScorePlugin`インターフェイスを実装します。
   正常にスケジュールできるPodGroup内のPodの合計数に基づいて、配置候補をスコアリングします。
 
-### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする
+### プラグインの重みとビンパッキングのリソースの重みをカスタマイズする {#customizing-plugin-weights-and-bin-packing-resource-weights}
 
-デフォルトでは、ビンパッキングのロジックと、できるだけ多くのPodをスケジュールすることの間で適切なバランスを保つために、
+デフォルトでは、ビンパッキングのロジックと、できるだけ多くのPodをスケジュールすることの間で適切なバランスを保つために、`NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み(どちらもデフォルトは1)が設定されています。
 `NodeResourcesFit`プラグインと`PodGroupPodsCount`プラグインには同じ重み（どちらもデフォルトは1）が設定されています。
 
 KubeSchedulerConfigurationでは、これらのプラグインの重みやビンパッキング戦略で使用するリソースの重みを調整できます。
