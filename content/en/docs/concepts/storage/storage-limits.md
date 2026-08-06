@@ -100,11 +100,17 @@ If a volume attachment operation fails with a `ResourceExhausted` error (gRPC co
 
 The `VolumeLimitScaling`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)
-is enabled by default in Kubernetes v1.37. To use this behavior, a CSI driver
-must have a corresponding `CSIDriver` object with
-`spec.preventPodSchedulingIfMissing` set to `true`. The scheduler then prevents
-placement of Pods that use that CSI driver onto nodes where the driver is not
-installed. For example:
+is enabled by default in Kubernetes v1.37. 
+
+However, preventing pod placement on nodes without a CSI driver requires explicit opt-in
+via the `spec.preventPodSchedulingIfMissing` field of the `CSIDriver` object.
+
+The `preventPodSchedulingIfMissing` field defaults to `false` and must be set to `true`
+if you do not want pods to be scheduled on nodes without a CSI driver. This decision
+to default to `false` was made for backward compatibility reasons and compatibility
+with [Cluster AutoScaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+which may not be aware of CSI volume limits during the autoscaling
+phase (see section below).
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -115,13 +121,11 @@ spec:
   preventPodSchedulingIfMissing: true
 ```
 
-The `preventPodSchedulingIfMissing` field defaults to `false`, so enabling the
-feature gate does not by itself change Pod placement. This behavior only applies
-to Pods that use a volume from the corresponding CSI driver.
 
 ### CSI volume attach limits and cluster autoscaler
 
-Cluster autoscaler can account for CSI volume limits when
+[Cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) can account for CSI 
+volume limits when
 `--enable-csi-node-aware-scheduling=true`. This option is independent of the
 `VolumeLimitScaling` feature gate.
 
