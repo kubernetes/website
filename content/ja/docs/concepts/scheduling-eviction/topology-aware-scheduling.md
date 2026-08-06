@@ -7,7 +7,7 @@ weight: 10
 <!-- overview -->
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
 
-*トポロジーを考慮したスケジューリング* (Topology-Aware Scheduling, TAS)は、対象となるPodGroupの最適な配置を見つけ、すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
+*トポロジーを考慮したスケジューリング* (Topology-Aware Scheduling、TAS)は、対象となるPodGroupの最適な配置を見つけ、すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
 すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
 ユーザーはTASプラグインの構成を変更することで、TASを固有の要件に合わせて調整できます。
 
