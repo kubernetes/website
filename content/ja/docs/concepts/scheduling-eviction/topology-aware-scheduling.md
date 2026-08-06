@@ -11,7 +11,7 @@ weight: 10
 すべてのPodが同じトポロジードメイン内に配置されることを保証する[配置スケジューリングアルゴリズム](/docs/concepts/scheduling-eviction/podgroup-scheduling/#placement-scheduling-algorithm)です。
 ユーザーはTASプラグインの構成を変更することで、TASを固有の要件に合わせて調整できます。
 
-## スケジューリングフレームワーク: TASプラグインの構成
+## スケジューリングフレームワーク: TASプラグインの構成 {#scheduling-framework-tas-plugins-configuration}
 
 スケジューラーには、TASの拡張ポイントを実装する、新規または拡張された以下のツリー内プラグインが含まれています:
 
