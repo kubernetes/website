@@ -41,4 +41,4 @@ issueを作るときは、以下のことを心に留めてください。
 - 合理的な作業単位になるように、特定のissueのスコープを制限する。スコープの大きな問題については、小さな複数のissueに分割する。たとえば、"Fix the security docs"(セキュリティのドキュメントを修正する)というのはスコープが大きすぎますが、"Add details to the 'Restricting network access' topic"(トピック「ネットワークアクセスの制限」に詳細情報を追加する)であれば十分に作業可能な大きさです。
 - すでにあるissueを検索し、関連または同様のissueがないかどうか確認する。
 - 新しいissueがほかのissueやpull requestと関係する場合は、完全なURLを参照するか、issueやpull requestの数字の前に`#`の文字を付けて参照する。例えば、`Introduced by #987654`のように書きます。
-- [行動規範](/ja/community/code-of-conduct/)に従って、仲間のコントリビューターに敬意を払いましょう。たとえば、"The docs are terrible"(このドキュメントは最悪だ)のようなコメントは、役に立つ敬意のあるフィードバックではありません。
+- [行動規範](/community/code-of-conduct/)に従って、仲間のコントリビューターに敬意を払いましょう。たとえば、"The docs are terrible"(このドキュメントは最悪だ)のようなコメントは、役に立つ敬意のあるフィードバックではありません。

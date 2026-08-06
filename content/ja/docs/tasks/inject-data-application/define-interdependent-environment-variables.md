@@ -77,5 +77,5 @@ Podを作成する際に、そのPod内で実行されるコンテナに対し�
 
 ## {{% heading "whatsnext" %}}
 
-* [環境変数](/ja/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)についてさらに詳しく学びましょう。
+* [環境変数](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)についてさらに詳しく学びましょう。
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)をご覧ください。

@@ -88,7 +88,7 @@ remote file exists
 
 {{% code_sample file="service/networking/nginx-policy.yaml" %}}
 
-NetworkPolicyオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
+NetworkPolicyオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
 {{< note >}}
 このNetworkPolicyには、ポリシーを適用するPodのグループを選択するための`podSelector`が含まれています。このポリシーは、ラベル`app=nginx`の付いたPodを選択していることがわかります。このラベルは、`nginx` Deployment内のPodに自動的に追加されたものです。空の`podSelector`は、その名前空間内のすべてのPodを選択します。

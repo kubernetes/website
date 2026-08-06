@@ -16,16 +16,16 @@ aliases: [ '/ja/dockershim' ]
 この削除はKubernetes v1.20リリースの一部としてはじめて[発表](/blog/2020/12/08/kubernetes-1-20-release-announcement/)されたものです。
 Kubernetes [v1.24のリリース](/releases/#release-v1-24)においてdockershimは実際にKubernetesから削除されました。
 
-これが何を意味するかについては、ブログ記事[Don't Panic: Kubernetes and Docker](/ja/blog/2020/12/02/dont-panic-kubernetes-and-docker/)をご覧ください。
+これが何を意味するかについては、ブログ記事[Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)をご覧ください。
 
-[dockershim削除の影響範囲を確認する](/ja/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)をお読みいただくことで、
+[dockershim削除の影響範囲を確認する](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)をお読みいただくことで、
 dockershimの削除があなたやあなたの組織に与える影響をご判断いただけます。
 
 Kubernetes 1.24リリースに至るまでの間、Kubernetesコントリビューターはこの移行を円滑に行えるようにするために尽力してきました。
 
 - 私たちの[コミットメントと次のステップ](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)を詳述したブログ記事。
-- [他のコンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/#container-runtimes)への移行に大きな障害があるかどうかのチェック。
-- [dockershimからの移行](/ja/docs/tasks/administer-cluster/migrating-from-dockershim/)ガイドの追加。
+- [他のコンテナランタイム](/docs/setup/production-environment/container-runtimes/#container-runtimes)への移行に大きな障害があるかどうかのチェック。
+- [dockershimからの移行](/docs/tasks/administer-cluster/migrating-from-dockershim/)ガイドの追加。
 - [dockershimの削除とCRI互換ランタイムの使用に関する記事一覧](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)の作成。
   このリストには、上に示した文書の一部が含まれており、また、厳選された外部の情報(ベンダーによるガイドを含む)もカバーしています。
 

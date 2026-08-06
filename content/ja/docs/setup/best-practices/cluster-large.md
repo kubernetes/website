@@ -55,12 +55,12 @@ Kubernetesノードは、同一故障ゾーン内のコントロールプレー�
 * 追加のetcdインスタンスを起動または設定する
 * イベントを保存するために{{< glossary_tooltip term_id="kube-apiserver" text="APIサーバ" >}}を設定する
 
-大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)または[kubeadmを使用した高可用性etcdクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)を見てください。
+大きなクラスターのためにetcdを設定・管理する詳細については、[Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)または[kubeadmを使用した高可用性etcdクラスターの作成](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)を見てください。
 
 
 ## アドオンのリソース
 
-Kubernetesの[リソース制限](/ja/docs/concepts/configuration/manage-resources-containers/)は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
+Kubernetesの[リソース制限](/docs/concepts/configuration/manage-resources-containers/)は、メモリリークの影響やPodやコンテナが他のコンポーネントに与える他の影響を最小化することに役立ちます。
 これらのリソース制限は、アプリケーションのワークロードに適用するのと同様に、{{< glossary_tooltip text="アドオン" term_id="addons" >}}のリソースにも適用されます。
 
 例えば、ロギングコンポーネントに対してCPUやメモリ制限を設定できます。

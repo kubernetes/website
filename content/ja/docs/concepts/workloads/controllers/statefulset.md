@@ -24,13 +24,13 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 上記において安定とは、Podのスケジュール(または再スケジュール)をまたいでも永続的であることと同義です。
 もしアプリケーションが安定したネットワーク識別子と規則的なデプロイや削除、スケーリングを全く要求しない場合、ユーザーはステートレスなレプリカのセットを提供するワークロードを使ってアプリケーションをデプロイするべきです。
-[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
+[Deployment](/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
 
 ## 制限事項
 
 * 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
-* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
+* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
 * StatefulSetは、StatefulSetが削除されたときにPodの停止を行うことを保証していません。StatefulSetにおいて、規則的で安全なPodの停止を行う場合、削除のために事前にそのStatefulSetの数を0にスケールダウンさせることが可能です。
 * デフォルト設定の[Pod管理ポリシー](#pod-management-policies) (`OrderedReady`)によって[ローリングアップデート](#rolling-updates)を行う場合、[修復のための手動介入](#forced-rollback)を要求するようなブロークンな状態に遷移させることが可能です。
 
@@ -93,9 +93,9 @@ spec:
 
 * nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
 * webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
-* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
+* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
 
-StatefulSetの名前は有効な[名前](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+StatefulSetの名前は有効な[名前](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ## Podセレクター
 ユーザーは、StatefulSetの`.spec.template.metadata.labels`のラベルと一致させるため、StatefulSetの`.spec.selector`フィールドをセットしなくてはなりません。Kubernetes1.8以前では、`.spec.selector`フィールドは省略された場合デフォルト値になります。Kubernetes1.8とそれ以降のバージョンでは、ラベルに一致するPodセレクターの指定がない場合はStatefulSetの作成時にバリデーションエラーになります。
@@ -112,7 +112,7 @@ N個のレプリカをもったStatefulSetにおいて、StatefulSet内の各Pod
 
 StatefulSet内の各Podは、そのStatefulSet名とPodの順序番号から派生してホストネームが割り当てられます。
 作成されたホストネームの形式は`$(StatefulSet名)-$(順序番号)`となります。先ほどの上記の例では、`web-0,web-1,web-2`という3つのPodが作成されます。
-StatefulSetは、Podのドメインをコントロールするために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を使うことができます。
+StatefulSetは、Podのドメインをコントロールするために[Headless Service](/docs/concepts/services-networking/service/#headless-service)を使うことができます。
 このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`に一致するDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
@@ -125,7 +125,7 @@ Podが作成された後、速やかにPodを検出する必要がある場合�
 - DNSルックアップに依存するのではなく、Kubernetes APIに直接(例えばwatchを使って)問い合わせる。
 - Kubernetes DNS プロバイダーのキャッシュ時間を短縮する(これは現在30秒キャッシュされるようになっているCoreDNSのConfigMapを編集することを意味しています。)。
 
-[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
+[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
 
 ここで、クラスタードメイン、Service名、StatefulSet名の選択と、それらがStatefulSetのPodのDNS名にどう影響するかの例をあげます。
 
@@ -136,7 +136,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-クラスタードメインは[その他の設定](/ja/docs/concepts/services-networking/dns-pod-service/)がされない限り、`cluster.local`にセットされます。
+クラスタードメインは[その他の設定](/docs/concepts/services-networking/dns-pod-service/)がされない限り、`cluster.local`にセットされます。
 {{< /note >}}
 
 ### 安定したストレージ
@@ -156,9 +156,9 @@ StatefulSet {{< glossary_tooltip text="コントローラー" term_id="controlle
 * Podに対してスケーリングオプションが適用される前に、そのPodの前の順番の全てのPodがRunningかつReady状態になっていなくてはなりません。
 * Podが停止される前に、そのPodの番号より大きい番号を持つの全てのPodは完全にシャットダウンされていなくてはなりません。
 
-StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/ja/docs/concepts/workloads/pods/pod-lifecycle/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
+上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/docs/concepts/workloads/pods/pod-lifecycle/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
 
 もしユーザーが`replicas=1`といったようにStatefulSetにパッチをあてることにより、デプロイされたものをスケールすることになった場合、`web-2`は最初に停止されます。`web-1`は`web-2`が完全にシャットダウンされ削除されるまでは、停止されません。もし`web-0`が、`web-2`が完全に停止され削除された後だが、`web-1`の停止の前に失敗した場合、`web-1`は`web-0`がRunningかつReady状態になるまでは停止されません。
 
@@ -204,6 +204,6 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 ## {{% heading "whatsnext" %}}
 
 
-* [ステートフルなアプリケーションのデプロイ](/ja/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
-* [StatefulSetを使ったCassandraのデプロイ](/ja/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
-* [レプリカを持つステートフルアプリケーションを実行する](/ja/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
+* [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
+* [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
+* [レプリカを持つステートフルアプリケーションを実行する](/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。

@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">
 
-このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
+このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 
 
@@ -50,7 +50,7 @@ card:
 
 ## 必須ポートの確認
 
-Kubernetesのコンポーネントが互いに通信するためには、これらの[必要なポート](/ja/docs/reference/networking/ports-and-protocols/)が開いている必要があります。
+Kubernetesのコンポーネントが互いに通信するためには、これらの[必要なポート](/docs/reference/networking/ports-and-protocols/)が開いている必要があります。
 [netcat](https://netcat.sourceforge.net)などのツールを使用することで、下記のようにポートが開いているかどうかを確認することが可能です。
 
 ```shell
@@ -85,13 +85,13 @@ Dockerとcontainerdの両方が同時に検出された場合、Dockerが優先�
 
 kubeletは、組み込まれた`dockershim`CRIを通してDockerと連携します。
 
-詳細は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
+詳細は、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を参照してください。
 {{% /tab %}}
 {{% tab name="その他のOS" %}}
 デフォルトでは、kubeadmは{{< glossary_tooltip term_id="docker" >}}をコンテナランタイムとして使用します。
 kubeletは、組み込まれた`dockershim`CRIを通してDockerと連携します。
 
-詳細は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
+詳細は、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を参照してください。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -109,7 +109,7 @@ kubeletは、組み込まれた`dockershim`CRIを通してDockerと連携しま�
 
 kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**ため、kubeadmにインストールするKubernetesコントロールプレーンのバージョンと一致させる必要があります。そうしないと、予期しないバグのある動作につながる可能性のあるバージョン差異(version skew)が発生するリスクがあります。ただし、kubeletとコントロールプレーン間のマイナーバージョン差異(minor version skew)は_1つ_サポートされていますが、kubeletバージョンがAPIサーバーのバージョンを超えることはできません。たとえば、1.7.0を実行するkubeletは1.8.0 APIサーバーと完全に互換性がありますが、その逆はできません。
 
-`kubectl`のインストールに関する詳細情報は、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参照してください。
+`kubectl`のインストールに関する詳細情報は、[kubectlのインストールおよびセットアップ](/docs/tasks/tools/install-kubectl/)を参照してください。
 
 {{< warning >}}
 これらの手順はシステムアップグレードによるすべてのKubernetesパッケージの更新を除きます。これはkubeadmとKubernetesが[アップグレードにおける特別な注意](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を必要とするからです。
@@ -117,8 +117,8 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
 バージョン差異(version skew)に関しては下記を参照してください。
 
-* Kubernetes [Kubernetesバージョンとバージョンスキューサポートポリシー](/ja/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [バージョン互換ポリシー](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Kubernetes [Kubernetesバージョンとバージョンスキューサポートポリシー](/docs/setup/release/version-skew-policy/)
+* Kubeadm-specific [バージョン互換ポリシー](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
@@ -254,9 +254,9 @@ CRI-Oやcontainerdといった他のコンテナランタイムのcgroup driver�
 
 ## トラブルシュート
 
-kubeadmで問題が発生した場合は、[トラブルシューティング](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を参照してください。
+kubeadmで問題が発生した場合は、[トラブルシューティング](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
 
-* [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

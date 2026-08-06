@@ -31,7 +31,7 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 ホスティングされたKubernetesサービスやマネージドなKubernetesでは、フラグと設定ファイルが常に変更できるとは限りません。変更可能な場合でも、通常はクラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
 
-[ResourceQuota](/ja/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/ja/docs/concepts/services-networking/network-policies/)、そしてロールベースアクセス制御([RBAC](/ja/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。これらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。さらに、安定版(stable)を利用している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用することができます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
+[ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/)、そしてロールベースアクセス制御([RBAC](/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。これらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。さらに、安定版(stable)を利用している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用することができます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
 
 ## 拡張
 
@@ -94,11 +94,11 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 
 カスタムリソースはアプリケーション、ユーザー、監視データのデータストレージとしては使わないで下さい。
 
-カスタムリソースに関するさらなる情報は、[カスタムリソースコンセプトガイド](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を参照して下さい。
+カスタムリソースに関するさらなる情報は、[カスタムリソースコンセプトガイド](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を参照して下さい。
 
 ### 新しいAPIと自動化機能の連携
 
-カスタムリソースAPIと制御ループの組み合わせは[オペレーターパターン](/ja/docs/concepts/extend-kubernetes/operator/)と呼ばれています。オペレーターパターンは、通常ステートフルな特定のアプリケーションを管理するために利用されます。これらのカスタムAPIと制御ループは、ストレージ、またはポリシーのような他のリソースを管理するためにも利用されます。
+カスタムリソースAPIと制御ループの組み合わせは[オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)と呼ばれています。オペレーターパターンは、通常ステートフルな特定のアプリケーションを管理するために利用されます。これらのカスタムAPIと制御ループは、ストレージ、またはポリシーのような他のリソースを管理するためにも利用されます。
 
 ### ビルトインリソースの変更
 
@@ -110,13 +110,13 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 
 これらの各ステップごとに拡張ポイントが用意されています。
 
-Kubdernetesはいくつかのビルトイン認証方式をサポートしています。それは認証プロキシの後ろに配置することも可能で、認可ヘッダーを通じて(Webhookの)検証のために外部サービスにトークンを送ることもできます。全てのこれらの方法は[認証ドキュメント](/ja/docs/reference/access-authn-authz/authentication/)でカバーされています。
+Kubdernetesはいくつかのビルトイン認証方式をサポートしています。それは認証プロキシの後ろに配置することも可能で、認可ヘッダーを通じて(Webhookの)検証のために外部サービスにトークンを送ることもできます。全てのこれらの方法は[認証ドキュメント](/docs/reference/access-authn-authz/authentication/)でカバーされています。
 
 ### 認証
 
-[認証](/ja/docs/reference/access-authn-authz/authentication/)は、全てのリクエストのヘッダーまたは証明書情報を、リクエストを投げたクライアントのユーザー名にマッピングします。
+[認証](/docs/reference/access-authn-authz/authentication/)は、全てのリクエストのヘッダーまたは証明書情報を、リクエストを投げたクライアントのユーザー名にマッピングします。
 
-Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
+Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
 
 ### 認可
 
@@ -156,10 +156,10 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 ## {{% heading "whatsnext" %}}
 
 
-* [カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)についてより深く学ぶ
+* [カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)についてより深く学ぶ
 * [動的Admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)について学ぶ
 * インフラストラクチャ拡張についてより深く学ぶ
   * [ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
   * [デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)について学ぶ
-* [オペレーターパターン](/ja/docs/concepts/extend-kubernetes/operator/)について学ぶ
+* [オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)について学ぶ

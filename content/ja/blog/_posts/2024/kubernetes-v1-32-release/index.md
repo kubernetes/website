@@ -255,7 +255,7 @@ Kubernetesクラスターにおいて、Windowsノードの正常なシャット
 ### 非推奨化と削除
 
 Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性のために、機能が非推奨化、削除、またはより良いものに置き換えられる場合があります。
-このプロセスの詳細については、Kubernetesの[非推奨化と削除のポリシー](/ja/docs/reference/using-api/deprecation-policy/)をご覧ください。
+このプロセスの詳細については、Kubernetesの[非推奨化と削除のポリシー](/docs/reference/using-api/deprecation-policy/)をご覧ください。
 
 #### 古いDRA実装の廃止
 
@@ -287,10 +287,10 @@ Kubernetes v1.32リリースの詳細については、[リリースノート](h
 
 ## 入手方法
 
-Kubernetes v1.32は、[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.32.0)または[Kubernetesダウンロードページ](/ja/releases/download/)からダウンロードできます。
+Kubernetes v1.32は、[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.32.0)または[Kubernetesダウンロードページ](/releases/download/)からダウンロードできます。
 
-Kubernetesを始めるには、[対話式のチュートリアル](/ja/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
-また、[kubeadm](/ja/docs/setup/independent/create-cluster-kubeadm/)を使用して簡単にv1.32をインストールすることもできます。
+Kubernetesを始めるには、[対話式のチュートリアル](/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
+また、[kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を使用して簡単にv1.32をインストールすることもできます。
 
 ## リリースチーム
 

@@ -14,4 +14,4 @@ Pod内で実行中のコンテナに対して、{{< glossary_tooltip text="kubel
 
 <!--more-->
 
-さらなる情報は[コンテナのProbe](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照して下さい。
+さらなる情報は[コンテナのProbe](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照して下さい。

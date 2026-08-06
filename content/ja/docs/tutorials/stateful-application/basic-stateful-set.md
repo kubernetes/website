@@ -11,12 +11,12 @@ weight: 10
 
 このチュートリアルを始める前に、以下のKubernetesの概念について理解しておく必要があります。
 
-* [Pod](/ja/docs/concepts/workloads/pods/)
-* [Cluster DNS](/ja/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
+* [Pod](/docs/concepts/workloads/pods/)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+* [PersistentVolume](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/docs/reference/kubectl/kubectl/)コマンドラインツール
 
 {{< note >}}
@@ -39,7 +39,7 @@ StatefulSetはステートフルアプリケーションや分散システムで
 
 ## StatefulSetを作成する {#ordered-pod-creation}
 
-はじめに、以下の例を使ってStatefulSetを作成しましょう。これは、コンセプトの[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)のページで使ったものと同じような例です。`nginx`という[headless Service](/ja/docs/concepts/services-networking/service/#headless-services)を作成し、`web`というStatefulSet内のPodのIPアドレスを公開します。
+はじめに、以下の例を使ってStatefulSetを作成しましょう。これは、コンセプトの[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)のページで使ったものと同じような例です。`nginx`という[headless Service](/docs/concepts/services-networking/service/#headless-services)を作成し、`web`というStatefulSet内のPodのIPアドレスを公開します。
 
 {{% code_sample file="application/web/web.yaml" %}}
 
@@ -97,7 +97,7 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-`web-0`Podが _Running_ ([Pod Phase](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を参照)かつ _Ready_ ([Pod Conditions](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)の`type`を参照)の状態になるまでは、`web-1`Podが起動していないことに注目してください。
+`web-0`Podが _Running_ ([Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を参照)かつ _Ready_ ([Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)の`type`を参照)の状態になるまでは、`web-1`Podが起動していないことに注目してください。
 
 ## StatefulSet内のPod
 
@@ -116,7 +116,7 @@ web-0     1/1       Running   0          1m
 web-1     1/1       Running   0          1m
 ```
 
-[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)のコンセプトで説明したように、StatefulSet内のPodは安定したユニークな識別子を持ちます。この識別子は、StatefulSet{{< glossary_tooltip term_id="controller" text="コントローラー">}}によって各Podに割り当てられる、ユニークな順序インデックスに基づいて付けられます。Podの名前は、`<statefulsetの名前>-<順序インデックス>`という形式です。`web`StatefulSetは2つのレプリカを持つため、`web-0`と`web-1`という2つのPodを作成します。
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)のコンセプトで説明したように、StatefulSet内のPodは安定したユニークな識別子を持ちます。この識別子は、StatefulSet{{< glossary_tooltip term_id="controller" text="コントローラー">}}によって各Podに割り当てられる、ユニークな順序インデックスに基づいて付けられます。Podの名前は、`<statefulsetの名前>-<順序インデックス>`という形式です。`web`StatefulSetは2つのレプリカを持つため、`web-0`と`web-1`という2つのPodを作成します。
 
 ### 安定したネットワーク識別子の使用
 

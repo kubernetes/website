@@ -27,7 +27,7 @@ Kubernetes v1.31のリリーステーマは"Elli"です。
 Kubernetes v1.31のElliは、優しい心を持つ愛らしい犬で、かわいらしい船乗りの帽子をかぶっています。
 これは、多様で大きなKubernetesコントリビューターファミリーへの遊び心あふれる敬意を表しています。
 
-Kubernetes v1.31は、プロジェクトが[10周年](/ja/blog/2024/06/06/10-years-of-kubernetes/)を祝った後の初めてのリリースです。
+Kubernetes v1.31は、プロジェクトが[10周年](/blog/2024/06/06/10-years-of-kubernetes/)を祝った後の初めてのリリースです。
 Kubernetesは誕生以来、長い道のりを歩んできました。
 そして今もなお、各リリースで新たな方向に進化し続けています。
 10年という節目を迎え、これを実現させた数え切れないほどのKubernetesコントリビューターたちの努力、献身、技術、知恵、そして地道な作業を振り返ると、深い感銘を受けずにはいられません。
@@ -76,7 +76,7 @@ Kubernetes v1.31にアップグレードした後、PersistentVolumeが更新さ
 この機能により、PersistentVolumeが`Pending`から`Bound`に変わるまでの時間を測定できるようになります。
 また、様々な指標やSLOの設定にも活用できます。
 
-詳しくは、[永続ボリュームのドキュメント](/ja/docs/concepts/storage/persistent-volumes/)をご覧ください。
+詳しくは、[永続ボリュームのドキュメント](/docs/concepts/storage/persistent-volumes/)をご覧ください。
 
 この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #3762](https://github.com/kubernetes/enhancements/issues/3762)の一環として開発しました。
 
@@ -152,7 +152,7 @@ SIG Networkingは、サービスネットワーキングにおける最適なユ
 
 ### Kubernetes VolumeAttributesClassによるボリューム修正機能
 
-[VolumeAttributesClass](/ja/docs/concepts/storage/volume-attributes-classes/) APIが、v1.31でベータになります。
+[VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes/) APIが、v1.31でベータになります。
 VolumeAttributesClassは、プロビジョニングされたIOのような動的なボリュームパラメーターを修正するための、Kubernetes独自の汎用APIを提供します。
 これにより、プロバイダーがサポートしている場合、ワークロードはコストとパフォーマンスのバランスを取るために、オンラインでボリュームを垂直スケーリングできるようになります。
 この機能は、Kubernetes 1.29からアルファとして提供されていました。
@@ -194,7 +194,7 @@ Kubernetesコミュニティは、将来的に人工知能(AI)や機械学習(ML
 
 Podステータスを通じてデバイスの健全性情報を公開する機能が、v1.31で新しいアルファ機能として追加されました。デフォルトでは無効になっています。
 
-Kubernetes v1.31以前では、Podが故障したデバイスと関連付けられているかどうかを知る方法は、[PodResources API](/ja/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)を使用することでした。
+Kubernetes v1.31以前では、Podが故障したデバイスと関連付けられているかどうかを知る方法は、[PodResources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)を使用することでした。
 
 この機能を有効にすると、各Pod の`.status`内の各コンテナステータスに`allocatedResourcesStatus`フィールドが追加されます。
 `allocatedResourcesStatus`フィールドは、コンテナに割り当てられた各デバイスの健全性情報を報告します。
@@ -240,12 +240,12 @@ CRDフィールドセレクター(これもv1.31でベータに移行)と組み�
 ### 非推奨化と削除
 
 Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性のために、機能が非推奨化、削除、またはより良いものに置き換えられる場合があります。
-このプロセスの詳細については、Kubernetesの[非推奨化と削除のポリシー](/ja/docs/reference/using-api/deprecation-policy/)をご覧ください。
+このプロセスの詳細については、Kubernetesの[非推奨化と削除のポリシー](/docs/reference/using-api/deprecation-policy/)をご覧ください。
 
 #### cgroup v1のメンテナンスモードへの移行
 
 Kubernetesがコンテナオーケストレーションの変化に適応し続ける中、コミュニティはv1.31でcgroup v1のサポートをメンテナンスモードに移行することを決定しました。
-この変更は、業界全体の[cgroup v2](/ja/docs/concepts/architecture/cgroups/)への移行と歩調を合わせており、機能性、拡張性、そしてより一貫性のあるインターフェースの向上を提供します。
+この変更は、業界全体の[cgroup v2](/docs/concepts/architecture/cgroups/)への移行と歩調を合わせており、機能性、拡張性、そしてより一貫性のあるインターフェースの向上を提供します。
 Kubernetesのメンテナンスモードとは、cgroup v1サポートに新機能が追加されないことを意味します。
 重要なセキュリティ修正は引き続き提供されますが、バグ修正はベストエフォートとなり、重大なバグは可能な場合修正されますが、一部の問題は未解決のままとなる可能性があります。
 
@@ -279,7 +279,7 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 
 #### クラウドプロバイダーとの全てのインツリー統合の削除
 
-[以前の記事](/ja/blog/2024/05/20/completing-cloud-provider-migration/)で強調したように、クラウドプロバイダー統合の最後に残っていたインツリーサポートがv1.31リリースの一部として削除されました。
+[以前の記事](/blog/2024/05/20/completing-cloud-provider-migration/)で強調したように、クラウドプロバイダー統合の最後に残っていたインツリーサポートがv1.31リリースの一部として削除されました。
 これは、クラウドプロバイダーと統合できなくなったという意味ではありません。
 ただし、外部統合を使用する推奨アプローチを**必ず**使用する必要があります。
 一部の統合はKubernetesプロジェクトの一部であり、他はサードパーティのソフトウェアです。
@@ -287,8 +287,8 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 この節目は、Kubernetes v1.26から始まった、全てのクラウドプロバイダー統合のKubernetesコアからの外部化プロセスの完了を示しています([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
 この変更により、Kubernetesは真にベンダー中立なプラットフォームに近づきます。
 
-クラウドプロバイダー統合の詳細については、[v1.29 クラウドプロバイダー統合機能のブログ記事](/ja/blog/2023/12/14/cloud-provider-integration-changes/)をお読みください。
-インツリーのコード削除に関する追加の背景については、([v1.29 非推奨化ブログ](/ja/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395))をご確認ください。
+クラウドプロバイダー統合の詳細については、[v1.29 クラウドプロバイダー統合機能のブログ記事](/blog/2023/12/14/cloud-provider-integration-changes/)をお読みください。
+インツリーのコード削除に関する追加の背景については、([v1.29 非推奨化ブログ](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395))をご確認ください。
 
 後者のブログには、v1.29以降のバージョンに移行する必要があるユーザーにとって有用な情報も含まれています。
 
@@ -335,7 +335,7 @@ v1.31リリースでは、すべての非CSIボリューム制限スケジュー
 
 これらのボリュームタイプはCSIに移行されているため、代わりに`NodeVolumeLimits`プラグインを使用することをお勧めします。
 `NodeVolumeLimits`プラグインは、削除されたプラグインと同じ機能を処理できます。
-[スケジューラーの設定](/ja/docs/reference/scheduling/config/)で明示的にこれらのプラグインを使用している場合は、非推奨のプラグインを`NodeVolumeLimits`プラグインに置き換えてください。
+[スケジューラーの設定](/docs/reference/scheduling/config/)で明示的にこれらのプラグインを使用している場合は、非推奨のプラグインを`NodeVolumeLimits`プラグインに置き換えてください。
 `AzureDiskLimits`、`CinderLimits`、`EBSLimits`、`GCEPDLimits`プラグインは将来のリリースで削除される予定です。
 
 これらのプラグインは、Kubernetes v1.14以降非推奨となっていたため、デフォルトのスケジューラープラグインリストから削除されます。
@@ -369,10 +369,10 @@ Kubernetes v1.31リリースの詳細については、[リリースノート](h
 
 ## 入手方法
 
-Kubernetes v1.31は、[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.31.0)または[Kubernetesダウンロードページ](/ja/releases/download/)からダウンロードできます。
+Kubernetes v1.31は、[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.31.0)または[Kubernetesダウンロードページ](/releases/download/)からダウンロードできます。
 
-Kubernetesを始めるには、[対話式のチュートリアル](/ja/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
-また、[kubeadm](/ja/docs/setup/independent/create-cluster-kubeadm/)を使用して簡単にv1.31をインストールすることもできます。
+Kubernetesを始めるには、[対話式のチュートリアル](/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
+また、[kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を使用して簡単にv1.31をインストールすることもできます。
 
 ## リリースチーム
 

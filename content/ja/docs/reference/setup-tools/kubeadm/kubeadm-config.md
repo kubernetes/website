@@ -19,7 +19,7 @@ kubeadmは実行時にホストを調べ、そのフィールドにデフォル�
 
 `init`と`join`のより詳細な情報については、[設定ファイルを使ったkubeadm initの利用](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)、または[設定ファイルを使ったkubeadm joinの利用](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file)を参照してください。
 
-kubeadmの設定APIの使用法に関するより詳細な情報については、[kubeadm APIを使ったコンポーネントのカスタマイズ](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags)を参照してください。
+kubeadmの設定APIの使用法に関するより詳細な情報については、[kubeadm APIを使ったコンポーネントのカスタマイズ](/docs/setup/production-environment/tools/kubeadm/control-plane-flags)を参照してください。
 
 非推奨のAPIバージョンを含んだ古い設定ファイルを、サポートされた新しいAPIバージョンに変換する際には、`kubeadm config migrate`コマンドを使用することができます。
 

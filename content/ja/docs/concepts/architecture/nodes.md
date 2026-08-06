@@ -12,7 +12,7 @@ Kubernetesはコンテナを _Node_ 上で実行されるPodに配置するこ�
 
 通常、1つのクラスターで複数のノードを持ちます。学習用途やリソースの制限がある環境では、1ノードかもしれません。
 
-1つのノード上の[コンポーネント](/ja/docs/concepts/overview/components/#node-components)には、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}、{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}が含まれます。
+1つのノード上の[コンポーネント](/docs/concepts/overview/components/#node-components)には、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}、{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}が含まれます。
 
 <!-- body -->
 
@@ -46,7 +46,7 @@ Kubernetesは無効なNodeのオブジェクトを保持し、それが有効に
 ヘルスチェックを止めるためには、あなた、もしくは{{< glossary_tooltip term_id="controller" text="コントローラー">}}が明示的にNodeを削除する必要があります。
 {{< /note >}}
 
-Nodeオブジェクトの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+Nodeオブジェクトの名前は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ### ノードの自己登録 {#self-registration-of-nodes}
 
@@ -156,10 +156,10 @@ Ready conditionが`pod-eviction-timeout`({{< glossary_tooltip text="kube-control
 
 ノードコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なノード上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのノードで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
 
-ノードのライフサイクルコントローラーがconditionを表した[taint](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を自動的に生成します。
+ノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/scheduling-eviction/taint-and-toleration/)を自動的に生成します。
 スケジューラーがPodをノードに割り当てる際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
 
-詳細は[条件によるtaintの付与](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)を参照してください。
+詳細は[条件によるtaintの付与](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)を参照してください。
 
 ### CapacityとAllocatable {#capacity}
 
@@ -239,9 +239,9 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 ## ノードのトポロジー {#node-topology}
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
-`TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
+`TopologyManager`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
-詳細は、[ノードのトポロジー管理ポリシーを制御する](/ja/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
 ## ノードの正常終了 {#graceful-node-shutdown}
 
@@ -254,7 +254,7 @@ Kubelet は、ノードのシャットダウン時に、ポッドが通常の[�
 Graceful Node Shutdownはsystemdに依存しているため、[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)を
 利用してノードのシャットダウンを一定時間遅らせることができます。
 
-Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
+Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
 
 なお、デフォルトでは、後述の設定オプション`ShutdownGracePeriod`および`ShutdownGracePeriodCriticalPods`の両方がゼロに設定されているため、Graceful node shutdownは有効になりません。この機能を有効にするには、この2つのkubeletの設定を適切に設定し、ゼロ以外の値を設定する必要があります。
 
@@ -297,7 +297,7 @@ Message:        Node is shutting, evicting pods
 
 ノードのシャットダウンがkubeletのNode Shutdownマネージャーに検知されない場合、StatefulSetを構成するPodはシャットダウン状態のノード上でterminating状態のままになってしまい、他の実行中のノードに移動することができなくなってしまいます。これは、ノードがシャットダウンしているため、その上のkubeletがPodを削除できず、それにより、StatefulSetが新しいPodを同じ名前で作成できなくなってしまうためです。Podがボリュームを使用している場合、VolumeAttachmentsはシャットダウン状態のノードによって削除されないため、Podが使用しているボリュームは他の実行中のノードにアタッチすることができなくなってしまいます。その結果として、StatefulSet上で実行中のアプリケーションは適切に機能しなくなってしまいます。シャットダウンしていたノードが復旧した場合、そのノード上のPodはkubeletに削除され、他の実行中のノード上に作成されます。また、シャットダウン状態のノードが復旧できなかった場合は、そのノード上のPodは永久にterminating状態のままとなります。
 
-上記の状況を脱却するには、ユーザーが手動で`NoExecute`または`NoSchedule` effectを設定して`node.kubernetes.io/out-of-service` taintをノードに付与することで、故障中の状態に設定することができます。`kube-controller-manager` において `NodeOutOfServiceVolumeDetach`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっており、かつノードがtaintによって故障中としてマークされている場合は、ノードに一致するtolerationがないPodは強制的に削除され、ノード上のterminating状態のPodに対するボリュームデタッチ操作が直ちに実行されます。これにより、故障中のノード上のPodを異なるノード上にすばやく復旧させることが可能になります。
+上記の状況を脱却するには、ユーザーが手動で`NoExecute`または`NoSchedule` effectを設定して`node.kubernetes.io/out-of-service` taintをノードに付与することで、故障中の状態に設定することができます。`kube-controller-manager` において `NodeOutOfServiceVolumeDetach`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっており、かつノードがtaintによって故障中としてマークされている場合は、ノードに一致するtolerationがないPodは強制的に削除され、ノード上のterminating状態のPodに対するボリュームデタッチ操作が直ちに実行されます。これにより、故障中のノード上のPodを異なるノード上にすばやく復旧させることが可能になります。
 
 non-graceful shutdownの間に、Podは以下の2段階で終了します:
 
@@ -318,7 +318,7 @@ kubeletはデフォルトで起動に失敗していました。1.22以降では
 
 
 
-ノードでスワップを有効にするには、kubeletの `NodeSwap` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、
+ノードでスワップを有効にするには、kubeletの `NodeSwap` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、
 `--fail-swap-on`コマンドラインフラグまたは`failSwapOn`[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)を false に設定する必要があります。
 
 
@@ -333,7 +333,7 @@ swapBehaviorで使用できる設定オプションは以下の通りです。:
 - `LimitedSwap`: Kubernetesのワークロードが、使用できるスワップ量に制限を設けます。Kubernetesが管理していないノード上のワークロードは、依然としてスワップを使用できます。
 - `UnlimitedSwap`: Kubernetesのワークロードが使用できるスワップ量に制限を設けません。システムの限界まで、要求されただけのスワップメモリを使用することができます。
 
-`memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
+`memorySwap`の設定が指定されておらず、[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
 
 `LimitedSwap`設定の動作は、ノードがコントロールグループ(「cgroups」とも呼ばれる)のv1とv2のどちらで動作しているかによって異なります。
 
@@ -347,7 +347,7 @@ Kubernetesのワークロードでは、メモリとスワップを組み合わ�
 
 ## {{% heading "whatsnext" %}}
 
-* [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について学習する。
+* [ノードコンポーネント](/docs/concepts/overview/components/#node-components)について学習する。
 * [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
 * アーキテクチャ設計文書の[Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)という章を読む。
-* [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。
+* [TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。

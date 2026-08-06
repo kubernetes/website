@@ -57,9 +57,9 @@ Podは誰か(人やコントローラー)が破壊するか、避けることが
 
 非自発的なDisruptionを軽減する方法をいくつか紹介します:
 
-- Podは必要な[リソースを要求](/ja/docs/tasks/configure-pod-container/assign-memory-resource)するようにする。
-- 高可用性が必要な場合はアプリケーションをレプリケートする。(レプリケートされた[ステートレス](/ja/docs/tasks/run-application/run-stateless-application-deployment/)および[ステートフル](/ja/docs/tasks/run-application/run-replicated-stateful-application/)アプリケーションの実行について学ぶ。)
-- レプリケートされたアプリケーションを実行する際にさらに高い可用性を得るには、([アンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って)ラックを横断して、または([マルチゾーンクラスター](/ja/docs/setup/multiple-zones)を使用している場合には)ゾーンを横断してアプリケーションを分散させる。
+- Podは必要な[リソースを要求](/docs/tasks/configure-pod-container/assign-memory-resource)するようにする。
+- 高可用性が必要な場合はアプリケーションをレプリケートする。(レプリケートされた[ステートレス](/docs/tasks/run-application/run-stateless-application-deployment/)および[ステートフル](/docs/tasks/run-application/run-replicated-stateful-application/)アプリケーションの実行について学ぶ。)
+- レプリケートされたアプリケーションを実行する際にさらに高い可用性を得るには、([アンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って)ラックを横断して、または([マルチゾーンクラスター](/docs/setup/multiple-zones)を使用している場合には)ゾーンを横断してアプリケーションを分散させる。
 
 自発的なDisruptionの頻度は様々です。
 基本的なKubernetesクラスターでは、自動で発生する自発的なDisruptionはありません(ユーザーによってトリガーされたものだけです)。
@@ -67,7 +67,7 @@ Podは誰か(人やコントローラー)が破壊するか、避けることが
 例えば、ノード上のソフトウェアアップデートのロールアウトは自発的なDisruptionの原因となります。
 また、クラスター(ノード)自動スケーリングの実装の中には、ノードのデフラグとコンパクト化のために自発的なDisruptionを伴うものがあります。
 クラスター管理者やホスティングプロバイダーは、自発的なDisruptionがある場合、どの程度のDisruptionが予想されるかを文書化しているはずです。
-Podのspecの中で[PriorityClassesを使用している](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)場合など、特定の設定オプションによっても自発的(および非自発的)なDisruptionを引き起こす可能性があります。
+Podのspecの中で[PriorityClassesを使用している](/docs/concepts/scheduling-eviction/pod-priority-preemption/)場合など、特定の設定オプションによっても自発的(および非自発的)なDisruptionを引き起こす可能性があります。
 
 
 ## Pod Disruption Budget
@@ -105,7 +105,7 @@ PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つで�
 ノードのドレイン中に動作がおかしくなったアプリケーションの退避をサポートするために、[Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)に`AlwaysAllow`を設定することを推奨します。
 既定の動作は、ドレインを継続する前にアプリケーションPodが[healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)な状態になるまで待機します。
 
-Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で設定した`terminationGracePeriodSeconds`に従って正常に[終了](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)します。
+Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で設定した`terminationGracePeriodSeconds`に従って正常に[終了](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)します。
 
 ## PodDisruptionBudgetの例 {#pdb-example}
 
@@ -196,16 +196,16 @@ KubernetesがどのようにDisruptionの発生率を変化させているかに
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-この機能を使用するためには、クラスターで[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)`PodDisruptionConditions`を有効にする必要があります。
+この機能を使用するためには、クラスターで[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)`PodDisruptionConditions`を有効にする必要があります。
 {{< /note >}}
 
-有効にすると、専用のPod `DisruptionTarget` [Condition](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)が追加されます。
+有効にすると、専用のPod `DisruptionTarget` [Condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)が追加されます。
 これはPodが{{<glossary_tooltip term_id="disruption" text="Disruption">}}によって削除されようとしていることを示すものです。
 Conditionの`reason`フィールドにて、追加で以下のいずれかをPodの終了の理由として示します:
 
 `PreemptionByScheduler`
 : Podはより高い優先度を持つ新しいPodを収容するために、スケジューラーによって{{<glossary_tooltip term_id="preemption" text="プリエンプトされる">}}予定です。
-詳細については[Podの優先度とプリエンプション](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)を参照してください。
+詳細については[Podの優先度とプリエンプション](/docs/concepts/scheduling-eviction/pod-priority-preemption/)を参照してください。
 
 `DeletionByTaintManager`
 : Podが許容しない`NoExecute` taintによって、Podは(`kube-controller-manager`の中のノードライフサイクルコントローラーである)Taintマネージャーによって削除される予定です。
@@ -215,10 +215,10 @@ Conditionの`reason`フィールドにて、追加で以下のいずれかをPod
 : Podは{{<glossary_tooltip term_id="api-eviction" text="Kubernetes APIを使用して退避するように">}}マークされました。
 
 `DeletionByPodGC`
-: すでに存在しないノードに紐づいているPodのため、[Podのガベージコレクション](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)によって削除される予定です。
+: すでに存在しないノードに紐づいているPodのため、[Podのガベージコレクション](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)によって削除される予定です。
 
 `TerminationByKubelet`
-: {{<glossary_tooltip term_id="node-pressure-eviction" text="node-pressureによる退避">}}または[Graceful Node Shutdown](/ja/docs/concepts/architecture/nodes/#graceful-node-shutdown)のため、Podはkubeletによって終了させられました。
+: {{<glossary_tooltip term_id="node-pressure-eviction" text="node-pressureによる退避">}}または[Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)のため、Podはkubeletによって終了させられました。
 
 {{< note >}}
 PodのDisruptionは一時停止する場合があります。
@@ -228,9 +228,9 @@ PodのDisruptionは一時停止する場合があります。
 {{< /note >}}
 
 フィーチャーゲート`PodDisruptionConditions`を有効にすると、Podのクリーンアップと共に、Podガベージコレクタ(PodGC)が非終了フェーズにあるPodを失敗とマークします。
-([Podガベージコレクション](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)も参照してください)。
+([Podガベージコレクション](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)も参照してください)。
 
-Job(またはCronJob)を使用している場合、Jobの[Pod失敗ポリシー](/ja/docs/concepts/workloads/controllers/job#pod-failure-policy)の一部としてこれらのPod Disruption Conditionを使用したいと思うかもしれません。
+Job(またはCronJob)を使用している場合、Jobの[Pod失敗ポリシー](/docs/concepts/workloads/controllers/job#pod-failure-policy)の一部としてこれらのPod Disruption Conditionを使用したいと思うかもしれません。
 
 ## クラスターオーナーとアプリケーションオーナーロールの分離
 
@@ -267,4 +267,4 @@ Pod Disruption Budgetはロール間のインターフェースを提供する�
 
 * [ノードのドレイン](/docs/tasks/administer-cluster/safely-drain-node/)について学んでください。
 
-* ロールアウト中の可用性を維持するためのステップなど、[Deploymentの更新](/ja/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)について学んでください。
+* ロールアウト中の可用性を維持するためのステップなど、[Deploymentの更新](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)について学んでください。

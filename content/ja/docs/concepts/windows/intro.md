@@ -19,7 +19,7 @@ KubernetesでWindowsコンテナのオーケストレーションを有効にす
 Windowsコンテナを実行するには、Kubernetesクラスターに複数のオペレーティングシステムを含める必要があります。コントロールプレーンノードはLinux、ワーカーノードはワークロードのニーズに応じてWindowsまたはLinuxで実行します。Windows Server 2019は、サポートされている唯一のWindowsオペレーティングシステムであり、Windows (kubelet、[コンテナランタイム](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd)、kube-proxyを含む)で[Kubernetesノード](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)を有効にします。Windowsディストリビューションチャンネルの詳細については、[Microsoftのドキュメント](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison)を参照してください。
 
 {{< note >}}
-[マスターコンポーネント](/ja/docs/concepts/overview/components/)を含むKubernetesコントロールプレーンは、Linuxで実行し続けます。WindowsのみのKubernetesクラスターを導入する計画はありません。
+[マスターコンポーネント](/docs/concepts/overview/components/)を含むKubernetesコントロールプレーンは、Linuxで実行し続けます。WindowsのみのKubernetesクラスターを導入する計画はありません。
 {{< /note >}}
 {{< note >}}
 このドキュメントでは、Windowsコンテナについて説明する場合、プロセス分離のWindowsコンテナを意味します。[Hyper-V分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)のWindowsコンテナは、将来リリースが計画されています。
@@ -41,7 +41,7 @@ APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースの�
 | *Kubernetes v1.14* | サポートされていません | サポートされていません| Windows Server containers Builds 17763.* と Docker EE-basic 18.09 がサポートされています |
 
 {{< note >}}
-すべてのWindowsユーザーがアプリのオペレーティングシステムを頻繁に更新することは望んでいません。アプリケーションのアップグレードは、クラスターに新しいノードをアップグレードまたは導入することを要求する必要があります。Kubernetesで実行されているコンテナのオペレーティングシステムをアップグレードすることを選択したユーザーには、新しいオペレーティングシステムバージョンのサポート追加時に、ガイダンスと段階的な指示を提供します。このガイダンスには、クラスターノードと共にアプリケーションをアップグレードするための推奨アップグレード手順が含まれます。Windowsノードは、現在のLinuxノードと同じように、Kubernetes[バージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/)(ノードからコントロールプレーンのバージョン管理)に準拠しています。
+すべてのWindowsユーザーがアプリのオペレーティングシステムを頻繁に更新することは望んでいません。アプリケーションのアップグレードは、クラスターに新しいノードをアップグレードまたは導入することを要求する必要があります。Kubernetesで実行されているコンテナのオペレーティングシステムをアップグレードすることを選択したユーザーには、新しいオペレーティングシステムバージョンのサポート追加時に、ガイダンスと段階的な指示を提供します。このガイダンスには、クラスターノードと共にアプリケーションをアップグレードするための推奨アップグレード手順が含まれます。Windowsノードは、現在のLinuxノードと同じように、Kubernetes[バージョンスキューポリシー](/docs/setup/release/version-skew-policy/)(ノードからコントロールプレーンのバージョン管理)に準拠しています。
 {{< /note >}}
 {{< note >}}
 Windows Serverホストオペレーティングシステムには、[Windows Server](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)ライセンスが適用されます。Windowsコンテナイメージには、[Windowsコンテナの追加ライセンス条項](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)ライセンスが提供されます。
@@ -52,7 +52,7 @@ Windows Serverホストオペレーティングシステムには、[Windows Ser
 
 Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能します。このセクションでは、主要なワークロードイネーブラーのいくつかと、それらがWindowsにどのようにマップされるかについて説明します。
 
-* [Pods](/ja/docs/concepts/workloads/pods/)
+* [Pods](/docs/concepts/workloads/pods/)
 
     Podは、Kubernetesにおける最も基本的な構成要素です。人間が作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最もシンプルな単位です。WindowsとLinuxのコンテナを同じPodにデプロイすることはできません。Pod内のすべてのコンテナは、各ノードが特定のプラットフォームとアーキテクチャを表す単一のノードにスケジュールされます。次のPod機能、プロパティ、およびイベントがWindowsコンテナでサポートされています。:
 
@@ -64,7 +64,7 @@ Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能し�
   * EmptyDir
   * 名前付きパイプホストマウント
   * リソース制限
-* [Controllers](/ja/docs/concepts/workloads/controllers/)
+* [Controllers](/docs/concepts/workloads/controllers/)
 
     Kubernetesコントローラーは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナでサポートされています。:
 
@@ -75,7 +75,7 @@ Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能し�
   * DaemonSet
   * Job
   * CronJob
-* [Services](/ja/docs/concepts/services-networking/service/)
+* [Services](/docs/concepts/services-networking/service/)
 
     Kubernetes Serviceは、Podの論理セットとPodにアクセスするためのポリシーを定義する抽象概念です。マイクロサービスと呼ばれることもあります。オペレーティングシステム間の接続にServiceを使用できます。WindowsでのServiceは、次のタイプ、プロパティと機能を利用できます。:
 
@@ -221,7 +221,7 @@ Windowsには厳密な互換性ルールがあり、ホストOSのバージョ�
 
 Windowsには、Linuxのようなメモリ不足のプロセスキラーはありません。Windowsは常に全ユーザーモードのメモリ割り当てを仮想として扱い、ページファイルは必須です。正味の効果は、WindowsはLinuxのようなメモリ不足の状態にはならず、メモリ不足（OOM）終了の影響を受ける代わりにページをディスクに処理します。メモリが過剰にプロビジョニングされ、物理メモリのすべてが使い果たされると、ページングによってパフォーマンスが低下する可能性があります。
 
-2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメーター`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
+2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメーター`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
 
 過剰なプロビジョニングを回避するためのベストプラクティスは、Windows、Docker、およびKubernetesのプロセスに対応するために、最低2GBのメモリを予約したシステムでkubeletを構成することです。
 
@@ -365,7 +365,7 @@ Windowsでは、PodSecurityContextフィールドはどれも機能しません�
 
 ## ヘルプとトラブルシューティングを学ぶ {#troubleshooting}
 
-Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、[トラブルシューティング](/ja/docs/tasks/debug/)ページから始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
+Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、[トラブルシューティング](/docs/tasks/debug/)ページから始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
 
 1. start.ps1が正常に完了したことをどのように確認できますか？
 
@@ -465,7 +465,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
     それでも問題が解決しない場合は、[cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)のネットワーク構成に値する可能性があるので、いくつかの特別な注意が必要です。この静的ファイルはいつでも編集できます。構成の更新は、新しく作成されたすべてのKubernetesリソースに適用されます。
 
-    Kubernetesのネットワーキング要件の1つ(参照[Kubernetesモデル](/ja/docs/concepts/cluster-administration/networking/))は、内部でNATを使用せずにクラスター通信を行うためのものです。この要件を遵守するために、すべての通信に[ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)があり、アウトバウンドNATが発生しないようにします。ただし、これは、クエリしようとしている外部IPをExceptionListから除外する必要があることも意味します。そうして初めて、Windows PodからのトラフィックがSNAT処理され、外部からの応答を受信できるようになります。この点で、`cni.conf`のExceptionListは次のようになります。:
+    Kubernetesのネットワーキング要件の1つ(参照[Kubernetesモデル](/docs/concepts/cluster-administration/networking/))は、内部でNATを使用せずにクラスター通信を行うためのものです。この要件を遵守するために、すべての通信に[ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)があり、アウトバウンドNATが発生しないようにします。ただし、これは、クエリしようとしている外部IPをExceptionListから除外する必要があることも意味します。そうして初めて、Windows PodからのトラフィックがSNAT処理され、外部からの応答を受信できるようになります。この点で、`cni.conf`のExceptionListは次のようになります。:
 
     ```conf
     "ExceptionList": [
@@ -626,7 +626,7 @@ spec:
 
 ### kubeadmとクラスターAPIを使用したデプロイ
 
-Kubeadmは、ユーザーがKubernetesクラスターをデプロイするための事実上の標準になりつつあります。kubeadmのWindowsノードのサポートは進行中ですが、ガイドはすでに[ここ](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)で利用可能です。Windowsノードが適切にプロビジョニングされるように、クラスターAPIにも投資しています。
+Kubeadmは、ユーザーがKubernetesクラスターをデプロイするための事実上の標準になりつつあります。kubeadmのWindowsノードのサポートは進行中ですが、ガイドはすでに[ここ](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)で利用可能です。Windowsノードが適切にプロビジョニングされるように、クラスターAPIにも投資しています。
 
 ### その他の主な機能
 * グループ管理サービスアカウントのベータサポート

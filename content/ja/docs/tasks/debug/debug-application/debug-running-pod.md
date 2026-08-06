@@ -11,7 +11,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[アプリケーションのトラブルシューティング](/ja/docs/tasks/debug/debug-application/)から始めてください。
+* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[アプリケーションのトラブルシューティング](/docs/tasks/debug/debug-application/)から始めてください。
 
 * いくつかの高度なデバッグ手順では、Podがどのノードで動作しているかを知り、そのノードでコマンドを実行するためのシェルアクセス権を持っていることが必要です。`kubectl`を使用する標準的なデバッグ手順の実行には、そのようなアクセスは必要ではありません。
 
@@ -428,7 +428,7 @@ kubectl exec cassandra -- cat /var/log/cassandra/system.log
 kubectl exec -it cassandra -- sh
 ```
 
-詳しくは、[実行中のコンテナへのシェルを取得する](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)を参照してください。
+詳しくは、[実行中のコンテナへのシェルを取得する](/docs/tasks/debug/debug-application/get-shell-running-container/)を参照してください。
 
 ## エフェメラルコンテナによるデバッグ {#ephemeral-container}
 
@@ -470,7 +470,7 @@ If you don't see a command prompt, try pressing enter.
 / #
 ```
 
-このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`--target`パラメーターは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
+このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`--target`パラメーターは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[プロセス名前空間の共有](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
 
 {{< note >}}
 `--target`パラメーターは{{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}}でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
@@ -538,7 +538,7 @@ root@myapp-debug:/#
 
 * `i`フラグを指定すると、デフォルトで`kubectl debug`が新しいコンテナにアタッチされます。これを防ぐには、`--attach=false`を指定します。セッションが切断された場合は、`kubectl attach`を使用して再接続することができます。
 
-* `--share-processes`を指定すると、このPod内のコンテナが、Pod内の他のコンテナのプロセスを参照することができます。この仕組みについて詳しくは、[Pod内のコンテナ間でプロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を参照してください。
+* `--share-processes`を指定すると、このPod内のコンテナが、Pod内の他のコンテナのプロセスを参照することができます。この仕組みについて詳しくは、[Pod内のコンテナ間でプロセス名前空間を共有する](/docs/tasks/configure-pod-container/share-process-namespace/)を参照してください。
 {{< /note >}}
 
 デバッグが終わったら、Podの後始末をするのを忘れないでください。
@@ -651,7 +651,7 @@ kubectl delete pod node-debugger-mynode-pdx84
 
 ## デバッグプロファイルを使用したPodやNodeのデバッグ {#debugging-profiles}
 `kubectl debug`でノードやPodをデバッグする場合、デバッグ用のPod、エフェメラルコンテナ、またはコピーされたPodにデバッグプロファイルを適用できます。
-デバッグプロファイルを適用することで、[securityContext](/ja/docs/tasks/configure-pod-container/security-context/)など特定のプロパティが設定され、
+デバッグプロファイルを適用することで、[securityContext](/docs/tasks/configure-pod-container/security-context/)など特定のプロパティが設定され、
 さまざまなシナリオに適応できるようになります。
 デバッグプロファイルにはスタティックプロファイルとカスタムプロファイルの2種類があります。
 
@@ -664,8 +664,8 @@ kubectl delete pod node-debugger-mynode-pdx84
 | ------------ | --------------------------------------------------------------- |
 | legacy       | v1.22と互換性を保つプロパティのセット |
 | general      | 各デバッグシナリオに対応する汎用的なプロパティのセット |
-| baseline     | [PodSecurityStandard baseline policy](/ja/docs/concepts/security/pod-security-standards/#ベースライン-デフォルト) に準拠したプロパティのセット |
-| restricted   | [PodSecurityStandard restricted policy](/ja/docs/concepts/security/pod-security-standards/#制限)に準拠したプロパティのセット |
+| baseline     | [PodSecurityStandard baseline policy](/docs/concepts/security/pod-security-standards/#ベースライン-デフォルト) に準拠したプロパティのセット |
+| restricted   | [PodSecurityStandard restricted policy](/docs/concepts/security/pod-security-standards/#制限)に準拠したプロパティのセット |
 | netadmin     | ネットワーク管理者権限を含むプロパティのセット |
 | sysadmin     | システム管理者（root）権限を含むプロパティのセット |
 
@@ -709,7 +709,7 @@ CapEff:	000001ffffffffff
 ```
 
 この結果は、`sysadmin`プロファイルを適用したことで、エフェメラルコンテナプロセスに特権が付与されていることを示しています。
-詳細は[コンテナにケーパビリティを設定する](/ja/docs/tasks/configure-pod-container/security-context/#コンテナにケーパビリティを設定する)を参照してください。
+詳細は[コンテナにケーパビリティを設定する](/docs/tasks/configure-pod-container/security-context/#コンテナにケーパビリティを設定する)を参照してください。
 
 エフェメラルコンテナが特権コンテナであることは、次のコマンドからも確認できます:
 

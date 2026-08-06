@@ -10,7 +10,7 @@ min-kubernetes-server-version: v1.22
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-Kubernetesの[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)はPodに対して異なる分離レベルを定義します。
+Kubernetesの[Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)はPodに対して異なる分離レベルを定義します。
 これらの標準によって、Podの動作をどのように制限したいかを、明確かつ一貫した方法で定義することができます。
 
 ベータ版機能として、Kubernetesは[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)の後継である組み込みの _Pod Security_ {{< glossary_tooltip text="アドミッションコントローラー" term_id="admission-controller" >}}を提供しています。
@@ -24,8 +24,8 @@ PodSecurityPolicy APIは非推奨であり、v1.25でKubernetesから[削除](/d
 <!-- body -->
 
 ## `PodSecurity`アドミッションプラグインの有効化 {#enabling-the-podsecurity-admission-plugin}
-v1.23において、`PodSecurity`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)はベータ版の機能で、デフォルトで有効化されています。
-v1.22において、`PodSecurity`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)はアルファ版の機能で、組み込みのアドミッションプラグインを使用するには、`kube-apiserver`で有効にする必要があります。
+v1.23において、`PodSecurity`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)はベータ版の機能で、デフォルトで有効化されています。
+v1.22において、`PodSecurity`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)はアルファ版の機能で、組み込みのアドミッションプラグインを使用するには、`kube-apiserver`で有効にする必要があります。
 
 ```shell
 --feature-gates="...,PodSecurity=true"
@@ -52,8 +52,8 @@ kubectl apply -k .
 
 ## Podのセキュリティレベル {#pod-security-levels}
 
-Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
-これらの要件の詳細については、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)のページを参照してください。
+Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
+これらの要件の詳細については、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards)のページを参照してください。
 
 ## Podの名前空間に対するセキュリティアドミッションラベル {#pod-security-admission-labels-for-namespaces}
 
@@ -65,7 +65,7 @@ Kubernetesは、名前空間に使用したい定義済みのPodセキュリテ�
 モード | 説明
 :---------|:------------
 **enforce** | ポリシーに違反した場合、Podは拒否されます。
-**audit** | ポリシー違反は、[監査ログ](/ja/docs/tasks/debug/debug-cluster/audit/)に記録されるイベントに監査アノテーションを追加するトリガーとなりますが、それ以外は許可されます。
+**audit** | ポリシー違反は、[監査ログ](/docs/tasks/debug/debug-cluster/audit/)に記録されるイベントに監査アノテーションを追加するトリガーとなりますが、それ以外は許可されます。
 **warn** | ポリシーに違反した場合は、ユーザーへの警告がトリガーされますが、それ以外は許可されます。
 {{< /table >}}
 
@@ -92,7 +92,7 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 
 ## WorkloadのリソースとPodテンプレート {#workload-resources-and-pod-templates}
 
-Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip term_id="job">}}のような[ワークロードオブジェクト](/ja/docs/concepts/workloads/controllers/)を作成することによって、しばしば間接的に生成されます。
+Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip term_id="job">}}のような[ワークロードオブジェクト](/docs/concepts/workloads/controllers/)を作成することによって、しばしば間接的に生成されます。
 ワークロードオブジェクトは_Pod template_を定義し、ワークロードリソースの{{< glossary_tooltip term_id="controller" text="コントローラー" >}}はそのテンプレートに基づきPodを作成します。
 違反の早期発見を支援するために、auditモードとwarningモードは、ワークロードリソースに適用されます。
 ただし、enforceモードはワークロードリソースには**適用されず**、結果としてのPodオブジェクトにのみ適用されます。
@@ -127,7 +127,7 @@ Exemptionを満たしたリクエストは、アドミッションコントロ�
 
 ## {{% heading "whatsnext" %}}
 
-- [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)
+- [Podセキュリティの標準](/docs/concepts/security/pod-security-standards)
 - [Podセキュリティの標準の適用](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [ビルトインのアドミッションコントローラーの設定によるPodセキュリティの標準の適用](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [名前空間ラベルでのPodセキュリティの標準の適用](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)

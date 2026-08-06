@@ -13,7 +13,7 @@ translator: >
 ---
 
 Kubernetesエコシステムだけを使って自分だけのクラウドを構築する方法について、一連の記事を続けています。
-[前回の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
+[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
 この記事では、Kubernetesにおけるさまざまな仮想化テクノロジーをいくつか紹介し、主にストレージとネットワークを中心に、Kubernetes内で仮想マシンを実行するために必要な環境を整えます。
 
 KubeVirt、LINSTOR、Kube-OVNなどのテクノロジーについて取り上げる予定です。
@@ -196,4 +196,4 @@ CiliumはeBPFテクノロジーに基づいており、Linuxネットワーク�
 ここまでが、Kubernetesにおける仮想化、ストレージ、ネットワークの概要になります。
 ここで取り上げたテクノロジーは、[Cozystack](https://github.com/aenix-io/cozystack)プラットフォームで利用可能であり、制限なくお試しいただけるよう事前に設定されています。
 
-[次の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)では、この上にボタンをクリックするだけで、完全に機能するKubernetesクラスターのプロビジョニングをどのように実装できるかを詳しく説明します。
+[次の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)では、この上にボタンをクリックするだけで、完全に機能するKubernetesクラスターのプロビジョニングをどのように実装できるかを詳しく説明します。

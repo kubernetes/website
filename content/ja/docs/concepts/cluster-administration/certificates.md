@@ -228,4 +228,4 @@ done.
 
 ## 証明書API
 
-`certificates.k8s.io`APIを用いることで、[こちら](/ja/docs/tasks/tls/managing-tls-in-a-cluster)のドキュメントにあるように、認証に使用するx509証明書をプロビジョニングすることができます。
+`certificates.k8s.io`APIを用いることで、[こちら](/docs/tasks/tls/managing-tls-in-a-cluster)のドキュメントにあるように、認証に使用するx509証明書をプロビジョニングすることができます。

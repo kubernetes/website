@@ -39,7 +39,7 @@ Kubernetes v1.7以降、Kubernetesプロジェクトは、クラウドプロバ�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
-詳細については、Kubernetesドキュメントの[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を参照してください。
+詳細については、Kubernetesドキュメントの[クラウドコントローラーマネージャー](/docs/concepts/architecture/cloud-controller/)を参照してください。
 
 ### APIサーバーネットワークプロキシ
 
@@ -61,7 +61,7 @@ APIサーバーネットワークプロキシの詳細については、[README]
 2019年に導入されたクレデンシャルプロバイダープラグインメカニズムは、`kubelet`が様々なクラウドでホストされているイメージのクレデンシャルを動的に提供するプラグインバイナリを実行するための汎用的な拡張ポイントを提供します。
 この拡張性により、`kubelet`の短期間のトークンを取得する機能が、最初の3つのクラウドプロバイダーを超えて拡張されました。
 
-詳細については、[認証されたイメージプルのためのkubeletクレデンシャルプロバイダー](/ja/docs/concepts/containers/images/#kubelet-credential-provider)を参照してください。
+詳細については、[認証されたイメージプルのためのkubeletクレデンシャルプロバイダー](/docs/concepts/containers/images/#kubelet-credential-provider)を参照してください。
 
 ### ストレージプラグインのKubernetesコアからCSIへの移行
 

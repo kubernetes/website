@@ -49,7 +49,7 @@ Deploymentを更新することで、あとでその情報を変更できます�
 ブートキャンプの[Module 5](/docs/tutorials/kubernetes-basics/scale/scale-intro/)と[Module 6](/docs/tutorials/kubernetes-basics/update/update-intro/)では、Deploymentをどのようにスケール、更新できるかについて説明します。
 
 最初のDeploymentには、NGINXを使用して全てのリクエストをエコーバックする、Dockerコンテナにパッケージ化されたhello-nodeアプリケーションを使用します。
-(まだhello-nodeアプリケーションを作成して、コンテナを使用してデプロイしていない場合、[Hello Minikube tutorial](/ja/docs/tutorials/hello-minikube/)の通りにやってみましょう。)
+(まだhello-nodeアプリケーションを作成して、コンテナを使用してデプロイしていない場合、[Hello Minikube tutorial](/docs/tutorials/hello-minikube/)の通りにやってみましょう。)
 
 kubectlもインストールされている必要があります。
 インストールが必要な場合は、[ツールのインストール](/docs/tasks/tools/#kubectl)からインストールしてください。

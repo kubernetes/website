@@ -30,5 +30,5 @@ Kubernetesには登録されていない独自のクラウドプロバイダー�
 
 ### Kubernetesに登録されているクラウドプロバイダー
 
-Kubernetesに登録されているクラウドプロバイダーであれば、{{< glossary_tooltip term_id="daemonset" >}}を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetesクラウドコントローラーマネージャー](/ja/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
+Kubernetesに登録されているクラウドプロバイダーであれば、{{< glossary_tooltip term_id="daemonset" >}}を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetesクラウドコントローラーマネージャー](/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
 

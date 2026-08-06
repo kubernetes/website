@@ -24,8 +24,8 @@ Kubernetes {{< skew currentVersion >}}においては、{{< glossary_tooltip ter
 {{< note >}}
 v1.24以前のKubernetesリリースでは、 _dockershim_ という名前のコンポーネントを使用したDocker Engineとの直接の統合が含まれていました。
 この特別な直接統合は、もはやKubernetesの一部ではありません(この削除はv1.20リリースの一部として[発表](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)されています)。
-dockershimの廃止がどのような影響を与えるかについては、[dockershim削除の影響範囲を確認する](/ja/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) をご覧ください。
-dockershimからの移行について知りたい場合、[dockershimからの移行](/ja/docs/tasks/administer-cluster/migrating-from-dockershim/)を参照してください。
+dockershimの廃止がどのような影響を与えるかについては、[dockershim削除の影響範囲を確認する](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) をご覧ください。
+dockershimからの移行について知りたい場合、[dockershimからの移行](/docs/tasks/administer-cluster/migrating-from-dockershim/)を参照してください。
 
 v{{< skew currentVersion >}}以外のバージョンのKubernetesを実行している場合、そのバージョンのドキュメントを確認してください。
 {{< /note >}}
@@ -64,7 +64,7 @@ sysctl net.ipv4.ip_forward
 
 Linuxでは、プロセスに割り当てられるリソースを制約するために{{< glossary_tooltip text="cgroup" term_id="cgroup" >}}が使用されます。
 
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と基盤となるコンテナランタイムは、[コンテナのリソース管理](/ja/docs/concepts/configuration/manage-resources-containers/)を実施し、CPU/メモリーの要求や制限などのリソースを設定するため、cgroupとインターフェースする必要があります。
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と基盤となるコンテナランタイムは、[コンテナのリソース管理](/docs/concepts/configuration/manage-resources-containers/)を実施し、CPU/メモリーの要求や制限などのリソースを設定するため、cgroupとインターフェースする必要があります。
 cgroupとインターフェースするために、kubeletおよびコンテナランタイムは*cgroupドライバー*を使用する必要があります。
 この際、kubeletとコンテナランタイムが同一のcgroupドライバーを使用し、同一の設定を適用することが不可欠となります。
 
@@ -80,7 +80,7 @@ cgroupとインターフェースするために、kubeletおよびコンテナ�
 
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)がinitシステムである場合、`cgroupfs`ドライバーは推奨**されません**。
 なぜなら、systemdはシステム上のcgroupマネージャーが単一であると想定しているからです。
-また、[cgroup v2](/ja/docs/concepts/architecture/cgroups)を使用している場合は、`cgroupfs`の代わりに`systemd` cgroupドライバーを使用してください。
+また、[cgroup v2](/docs/concepts/architecture/cgroups)を使用している場合は、`cgroupfs`の代わりに`systemd` cgroupドライバーを使用してください。
 
 ### systemd cgroupドライバー {#systemd-cgroup-driver}
 
@@ -122,7 +122,7 @@ kubeletを再起動してもこのようなエラーは解決しない可能性�
 
 ### kubeadmで管理されたクラスターでの`systemd`ドライバーへの移行 {#migrating-to-the-systemd-driver-in-kubeadm-managed-clusters}
 
-既存のkubeadm管理クラスターで`systemd` cgroupドライバーに移行したい場合は、[cgroupドライバーの設定](/ja/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)に従ってください。
+既存のkubeadm管理クラスターで`systemd` cgroupドライバーに移行したい場合は、[cgroupドライバーの設定](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)に従ってください。
 
 ## サポートするCRIのバージョン {#cri-versions}
 
@@ -177,7 +177,7 @@ Containerdバージョン2.x:
     SystemdCgroup = true
 ```
 
-[cgroup v2](/ja/docs/concepts/architecture/cgroups)を使用する場合は`systemd` cgroupドライバーの利用を推奨します。
+[cgroup v2](/docs/concepts/architecture/cgroups)を使用する場合は`systemd` cgroupドライバーの利用を推奨します。
 
 {{< note >}}
 パッケージ(RPMや`.deb`など)からcontainerdをインストールした場合、
@@ -200,7 +200,7 @@ Kubernetesでcontainerdを使用するには、CRIサポートを有効にする
 sudo systemctl restart containerd
 ```
 
-kubeadmを使用している場合、手動で[kubelet cgroupドライバーの設定](/ja/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)を行ってください。
+kubeadmを使用している場合、手動で[kubelet cgroupドライバーの設定](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)を行ってください。
 
 #### サンドボックス(pause)イメージの上書き {#override-pause-image-containerd}
 
@@ -280,4 +280,4 @@ CRIソケットのパスを見つけるには、systemdの`cri-docker.socket`と
 
 ## {{% heading "whatsnext" %}}
 
-コンテナランタイムに加えて、クラスターには動作する[ネットワークプラグイン](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)が必要です。
+コンテナランタイムに加えて、クラスターには動作する[ネットワークプラグイン](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)が必要です。

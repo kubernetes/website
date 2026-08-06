@@ -14,7 +14,7 @@ weight: 70
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-この練習を始める前に、[Nodeに拡張リソースをアドバタイズする](/ja/docs/tasks/administer-cluster/extended-resource-node/)の練習を行ってください。これにより、Nodeの1つがドングルリソースをアドバタイズするように設定されます。
+この練習を始める前に、[Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)の練習を行ってください。これにより、Nodeの1つがドングルリソースをアドバタイズするように設定されます。
 
 <!-- steps -->
 
@@ -114,11 +114,11 @@ kubectl delete pod extended-resource-demo-2
 
 ### アプリケーション開発者向け
 
-* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### クラスター管理者向け
 
-* [Nodeに拡張リソースをアドバタイズする](/ja/docs/tasks/administer-cluster/extended-resource-node/)
+* [Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)
 
 

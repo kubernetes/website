@@ -31,7 +31,7 @@ docker login
 
 プロンプトが表示されたら、Docker IDと使用したい認証情報(アクセストークンまたはDocker IDのパスワード)を入力してください。
 
-ログインプロセスは、認証トークンを保持する`config.json`ファイルを作成または更新します。[Kubernetesがこのファイルを解釈する方法](/ja/docs/concepts/containers/images#config-json)を確認してください。
+ログインプロセスは、認証トークンを保持する`config.json`ファイルを作成または更新します。[Kubernetesがこのファイルを解釈する方法](/docs/concepts/containers/images#config-json)を確認してください。
 
 以下のように`config.json`ファイルを確認します:
 
@@ -225,9 +225,9 @@ Events:
 
 ## {{% heading "whatsnext" %}}
 
-* [Secret](/ja/docs/concepts/configuration/secret/)についてさらに学ぶ。
+* [Secret](/docs/concepts/configuration/secret/)についてさらに学ぶ。
   * または{{< api-reference page="config-and-storage-resources/secret-v1" >}}でAPIリファレンスを読む。
-* [プライベートレジストリを使用する方法](/ja/docs/concepts/containers/images/#プライベートレジストリを使用する方法)についてさらに学ぶ。
+* [プライベートレジストリを使用する方法](/docs/concepts/containers/images/#プライベートレジストリを使用する方法)についてさらに学ぶ。
 * [イメージプルシークレットをサービスアカウントへ追加する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)についてさらに学ぶ。
 * [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)を参照する。
 * Podの[コンテナの定義](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)内の`imagePullSecrets`フィールドを参照する。

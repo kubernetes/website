@@ -26,7 +26,7 @@ Kubernetesはいくつかの組み込みのメカニズムを提供しており�
 
 ## X509クライアント証明書認証 {#x509-client-certificate-authentication}
 
-Kubernetesは、kubeletがAPIサーバーに対して認証を行う場合など、システムコンポーネントに[X509クライアント証明書](/ja/docs/reference/access-authn-authz/authentication/#x509クライアント証明書)認証を活用します。
+Kubernetesは、kubeletがAPIサーバーに対して認証を行う場合など、システムコンポーネントに[X509クライアント証明書](/docs/reference/access-authn-authz/authentication/#x509クライアント証明書)認証を活用します。
 このメカニズムはユーザー認証にも使用できますが、以下の制限により本番環境での使用には適さない可能性があります:
 
 - クライアント証明書は個別に無効化することができません。
@@ -43,7 +43,7 @@ Kubernetesは、kubeletがAPIサーバーに対して認証を行う場合など
 
 ## 静的なトークンファイル {#static-token-file}
 
-Kubernetesではコントロールプレーンノードのディスクにある[静的なトークンファイル](/ja/docs/reference/access-authn-authz/authentication/#静的なトークンファイル)から認証情報を読み込むことができますが、以下の理由により本番環境のサーバーではこの方法は推奨されません:
+Kubernetesではコントロールプレーンノードのディスクにある[静的なトークンファイル](/docs/reference/access-authn-authz/authentication/#静的なトークンファイル)から認証情報を読み込むことができますが、以下の理由により本番環境のサーバーではこの方法は推奨されません:
 
 - 認証情報がコントロールプレーンノードのディスクに平文で保存されるため、セキュリティ上のリスクとなる可能性があります。
 - 認証情報を変更するためには、APIサーバーのプロセスを再起動する必要があり、可用性に影響を与える可能性があります。
@@ -53,7 +53,7 @@ Kubernetesではコントロールプレーンノードのディスクにある[
 
 ## ブートストラップトークン {#bootstrap-tokens}
 
-[ブートストラップトークン](/ja/docs/reference/access-authn-authz/authentication/#ブートストラップトークン)はノードをクラスターに参加させるために使用されます。
+[ブートストラップトークン](/docs/reference/access-authn-authz/authentication/#ブートストラップトークン)はノードをクラスターに参加させるために使用されます。
 以下の理由により、ユーザー認証には推奨されません:
 
 - ハードコードされたグループメンバーシップを持っており、一般的な使用に適していないため、認証の目的には適していません。
@@ -79,7 +79,7 @@ TokenRequestトークンをサービス認証に使用する場合、トーク�
 
 ## OpenID Connectトークン認証 {#openid-connect-token-authentication}
 
-Kubernetesは、[OpenID Connect (OIDC)](/ja/docs/reference/access-authn-authz/authentication/#openid-connectトークン)を使用した外部認証サービスとKubernetes APIとの統合をサポートしています。
+Kubernetesは、[OpenID Connect (OIDC)](/docs/reference/access-authn-authz/authentication/#openid-connectトークン)を使用した外部認証サービスとKubernetes APIとの統合をサポートしています。
 Kubernetesをアイデンティティプロバイダーと統合するために使用できるソフトウェアは多岐にわたります。
 しかし、KubernetesでOIDC認証を使用する際は、以下のセキュリティ強化策を考慮することが重要です:
 
@@ -89,7 +89,7 @@ Kubernetesをアイデンティティプロバイダーと統合するために�
 
 ## Webhookトークン認証 {#webhook-token-authentication}
 
-[Webhookトークン認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)は、外部認証プロバイダーをKubernetesに統合するもう一つのオプションです。
+[Webhookトークン認証](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)は、外部認証プロバイダーをKubernetesに統合するもう一つのオプションです。
 この認証メカニズムを用いると、クラスター内部または外部で実行される認証サービスに対してWebhookを介して認証の判断を問い合わせることができます。
 この認証メカニズムへの適合性は認証サービスに使用されるソフトウェアに依存する可能性が高く、Kubernetes特有の考慮事項があることに注意が必要です。
 
@@ -99,7 +99,7 @@ Webhook認証を設定するには、コントロールプレーンサーバー�
 
 ## 認証プロキシ {#authenticating-proxy}
 
-[認証プロキシ](/ja/docs/reference/access-authn-authz/authentication/#authenticating-proxy)は、外部認証システムをKubernetesに統合するもう一つのオプションです。
+[認証プロキシ](/docs/reference/access-authn-authz/authentication/#authenticating-proxy)は、外部認証システムをKubernetesに統合するもう一つのオプションです。
 この認証メカニズムでは、Kubernetesは認可のために割り当てるユーザー名とグループメンバーシップを示す特定のヘッダー値が設定されたリクエストをプロキシから受け取ることを想定しています。
 この認証メカニズムを使用する際には、特定の考慮事項に注意する必要があります。
 
@@ -111,7 +111,7 @@ Webhook認証を設定するには、コントロールプレーンサーバー�
 
 ## {{% heading "whatsnext" %}}
 
-- [ユーザー認証](/ja/docs/reference/access-authn-authz/authentication/)
+- [ユーザー認証](/docs/reference/access-authn-authz/authentication/)
 - [ブートストラップトークンによる認証](/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [kubeletの認証](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication)
 - [サービスアカウントトークンによる認証](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens)

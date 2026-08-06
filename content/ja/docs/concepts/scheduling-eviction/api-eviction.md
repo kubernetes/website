@@ -8,7 +8,7 @@ weight: 110
 
 Eviction APIを直接呼び出すか、`kubectl drain`コマンドのように{{<glossary_tooltip term_id="kube-apiserver" text="APIサーバー">}}のクライアントを使って退避を要求することが可能です。これにより、`Eviction`オブジェクトを作成し、APIサーバーにPodを終了させます。
 
-APIを起点とした退避は[`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)と[`terminationGracePeriodSeconds`](/ja/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)の設定を優先します。
+APIを起点とした退避は[`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)と[`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)の設定を優先します。
 
 APIを使用してPodのEvictionオブジェクトを作成することは、Podに対してポリシー制御された[`DELETE`操作](/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)を実行することに似ています。
 

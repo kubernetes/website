@@ -47,7 +47,7 @@ PodがSecretを使う方法は3種類あります。
 
 KubernetesのコントロールプレーンでもSecretsは使われています。例えば、[bootstrap token Secrets](#bootstrap-token-secrets)は、ノード登録を自動化するための仕組みです。
 
-Secretオブジェクトの名称は正当な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
+Secretオブジェクトの名称は正当な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
 シークレットの構成ファイルを作成するときに、`data`および/または`stringData`フィールドを指定できます。`data`フィールドと`stringData`フィールドはオプションです。
 `data`フィールドのすべてのキーの値は、base64でエンコードされた文字列である必要があります。
 base64文字列への変換が望ましくない場合は、代わりに`stringData`フィールドを指定することを選択できます。これは任意の文字列を値として受け入れます。
@@ -334,9 +334,9 @@ stringData:
 
 Secretを作成するには、いくつかのオプションがあります。
 
-- [create Secret using `kubectl` command](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/ja/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/ja/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## Secretの編集
 
@@ -659,7 +659,7 @@ Kubernetesベータ機能*ImmutableSecrets and ConfigMaps*は、個々のSecrets
 - アプリケーションの停止を引き起こす可能性のある偶発的な（または不要な）更新からユーザーを保護します
 - imutableとしてマークされたSecretのウォッチを閉じることで、kube-apiserverの負荷を大幅に削減することができ、クラスターのパフォーマンスを向上させます。
 
-この機能は、`ImmutableEphemeralVolumes`[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
+この機能は、`ImmutableEphemeralVolumes`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -685,7 +685,7 @@ kubeletはこの情報をPodのためにプライベートイメージをpullす
 
 #### imagePullSecretを手動で指定する
 
-`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/ja/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
+`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
 
 ### imagePullSecretsが自動的にアタッチされるようにする
 

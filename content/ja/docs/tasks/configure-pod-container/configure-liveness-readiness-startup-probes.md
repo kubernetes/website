@@ -323,7 +323,7 @@ kubeletはServiceの名前を解決できないため、`host`パラメーター
 
 ## {{% heading "whatsnext" %}}
 
-* [Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)についてもっと学ぶ
+* [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)についてもっと学ぶ
 
 また、次のAPIリファレンスも参考にしてください:
 

@@ -66,7 +66,7 @@ Kubernetesには、Podとコンテナ向けの`allowPrivilegeEscalation`設定�
 これを`false`に設定すると、プロセスが新しいケーパビリティを取得することを防ぎ、非特権ユーザーが適用済みのseccompプロファイルをより寛容なプロファイルに変更することを制限します。
 {{</note>}}
 
-Kubernetesでseccompを実装する方法については、[seccompでコンテナのシステムコールを制限する](/ja/docs/tutorials/security/seccomp/)または[Seccompのノードリファレンス](/docs/reference/node/seccomp/)を参照してください。
+Kubernetesでseccompを実装する方法については、[seccompでコンテナのシステムコールを制限する](/docs/tutorials/security/seccomp/)または[Seccompのノードリファレンス](/docs/reference/node/seccomp/)を参照してください。
 
 seccompの詳細については、Linuxカーネルドキュメントの[Seccomp BPF](https://www.kernel.org/doc/html/latest/userspace-api/seccomp_filter.html)を参照してください。
 

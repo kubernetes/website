@@ -71,7 +71,7 @@ v2における表現はv1とは異なるかもしれませんが、システム�
       非推奨後9ヶ月または3つのマイナーリリース(いずれか長い方)以内に提供されなくなります。
   * Alpha APIバージョンは事前の非推奨通知なしにリリースから削除される場合があります。
 
-これによりbeta APIバージョンのサポートは [最大2つのリリースのバージョンの差異](/ja/releases/version-skew-policy/)をカバーし、
+これによりbeta APIバージョンのサポートは [最大2つのリリースのバージョンの差異](/releases/version-skew-policy/)をカバーし、
 APIが不安定なbetaバージョンで停滞し、beta APIのサポートが終了したときに本番稼働が中断されることはありません。
 
 {{< note >}}
@@ -269,7 +269,7 @@ API v1が期限切れになるX+9でのみ、Widgetリソースは存在しな�
 Kubernetes v1.19以降は、非推奨のREST APIエンドポイントへのAPIリクエストを行うと、以下のようになります:
 
 1. APIレスポンスにおいて`Warning`ヘッダー([RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)で定義)を返します。
-2. リクエストに対して記録された[監査イベント](/ja/docs/tasks/debug/debug-cluster/audit/)に`"k8s.io/deprecated":"true"`というアノテーションを追加します。
+2. リクエストに対して記録された[監査イベント](/docs/tasks/debug/debug-cluster/audit/)に`"k8s.io/deprecated":"true"`というアノテーションを追加します。
 3. `kube-apiserver`プロセスで`apiserver_requested_deprecated_apis`ゲージメトリクスに`1`を設定します。
    このメトリクスには`apiserver_request_total`メトリクスに結合することができる `group`、`version`、`resource`、`subresource`ラベルと、APIが提供されなくなるKubernetesリリースを表す`removed_release`があります。
    次のPrometheusクエリはv1.22で削除される非推奨APIへのリクエストに関する情報を返します:

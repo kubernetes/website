@@ -29,10 +29,10 @@ the target localization.
 [送信先NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
 : パケットの送信先のIPを置換します。このページでは、通常{{< glossary_tooltip term_id="pod" >}}のIPアドレスを置換することを意味します。
 
-[VIP](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+[VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
 : Kubernetes内のすべての{{< glossary_tooltip text="Service" term_id="service" >}}などに割り当てられる仮想IPアドレス(virtual IP address)です。
 
-[kube-proxy](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+[kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
 : すべてのノード上でServiceのVIPを管理するネットワークデーモンです。
 
 ### 前提条件
@@ -61,7 +61,7 @@ deployment.apps/source-ip-app created
 
 ## `Type=ClusterIP`を使用したServiceでの送信元IP
 
-kube-proxyが[iptablesモード](/ja/docs/concepts/services-networking/service/#proxy-mode-iptables)(デフォルト)で実行されている場合、クラスター内部からClusterIPに送られたパケットに送信元のNATが行われることは決してありません。kube-proxyが実行されているノード上で`http://localhost:10249/proxyMode`にリクエストを送って、kube-proxyのモードを問い合わせてみましょう。
+kube-proxyが[iptablesモード](/docs/concepts/services-networking/service/#proxy-mode-iptables)(デフォルト)で実行されている場合、クラスター内部からClusterIPに送られたパケットに送信元のNATが行われることは決してありません。kube-proxyが実行されているノード上で`http://localhost:10249/proxyMode`にリクエストを送って、kube-proxyのモードを問い合わせてみましょう。
 
 ```console
 kubectl get nodes
@@ -163,7 +163,7 @@ command=GET
 
 ## `Type=NodePort`を使用したServiceでの送信元IP
 
-[`Type=NodePort`](/ja/docs/concepts/services-networking/service/#nodeport)を使用したServiceに送られたパケットは、デフォルトで送信元のNATが行われます。`NodePort` Serviceを作ることでテストできます。
+[`Type=NodePort`](/docs/concepts/services-networking/service/#nodeport)を使用したServiceに送られたパケットは、デフォルトで送信元のNATが行われます。`NodePort` Serviceを作ることでテストできます。
 
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
@@ -273,7 +273,7 @@ graph TD;
 
 ## `Type=LoadBalancer`を使用したServiceでの送信元IP
 
-[`Type=LoadBalancer`](/ja/docs/concepts/services-networking/service/#loadbalancer)を使用したServiceに送られたパケットは、デフォルトで送信元のNATが行われます。`Ready`状態にあるすべてのスケジュール可能なKubernetesのNodeは、ロードバランサーからのトラフィックを受付可能であるためです。そのため、エンドポイントが存在しないノードにパケットが到達した場合、システムはエンドポイントが*存在する*ノードにパケットをプロシキーします。このとき、(前のセクションで説明したように)パケットの送信元IPがノードのIPに置換されます。
+[`Type=LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer)を使用したServiceに送られたパケットは、デフォルトで送信元のNATが行われます。`Ready`状態にあるすべてのスケジュール可能なKubernetesのNodeは、ロードバランサーからのトラフィックを受付可能であるためです。そのため、エンドポイントが存在しないノードにパケットが到達した場合、システムはエンドポイントが*存在する*ノードにパケットをプロシキーします。このとき、(前のセクションで説明したように)パケットの送信元IPがノードのIPに置換されます。
 
 ロードバランサー経由でsource-ip-appを公開することで、これをテストできます。
 
@@ -411,7 +411,7 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [Service経由でアプリケーションに接続する](/ja/docs/concepts/services-networking/connect-applications-service/)方法についてさらに学ぶ。
+* [Service経由でアプリケーションに接続する](/docs/concepts/services-networking/connect-applications-service/)方法についてさらに学ぶ。
 * [External Load Balancerを作成する](/docs/tasks/access-application-cluster/create-external-load-balancer/)方法について学ぶ。
 
 

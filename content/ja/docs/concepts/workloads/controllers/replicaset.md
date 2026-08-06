@@ -14,7 +14,7 @@ ReplicaSetの目的は、どのような時でも安定したレプリカPodの�
 
 ReplicaSetは、ReplicaSetが対象とするPodをどう特定するかを示すためのセレクターや、稼働させたいPodのレプリカ数、Podテンプレート(理想のレプリカ数の条件を満たすために作成される新しいPodのデータを指定するために用意されるもの)といったフィールドとともに定義されます。ReplicaSetは、指定された理想のレプリカ数にするためにPodの作成と削除を行うことにより、その目的を達成します。ReplicaSetが新しいPodを作成するとき、ReplicaSetはそのPodテンプレートを使用します。
 
-ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/ja/docs/concepts/architecture/garbage-collection/#owners-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
+ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
 
 ReplicaSetは、そのセレクターを使用することにより、所有するための新しいPodを特定します。もし`ownerReference`フィールドの値を持たないPodか、`ownerReference`フィールドの値が {{< glossary_tooltip text="コントローラー" term_id="controller" >}}でないPodで、そのPodがReplicaSetのセレクターとマッチした場合に、そのPodは即座にそのReplicaSetによって所有されます。
 
@@ -186,20 +186,20 @@ pod2             1/1     Running   0          36s
 ReplicaSetでは、`kind`フィールドの値は`ReplicaSet`です。
 
 ReplicaSetオブジェクトの名前は、有効な
-[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必須です。
 
 ### Pod テンプレート
 
-`.spec.template`はラベルを持つことが必要な[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
+`.spec.template`はラベルを持つことが必要な[Podテンプレート](/docs/concepts/workloads/pods/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
-テンプレートの[再起動ポリシー](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
+テンプレートの[再起動ポリシー](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
 
 ### Pod セレクター
 
-`.spec.selector`フィールドは[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)です。
+`.spec.selector`フィールドは[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)です。
 [先ほど](#how-a-replicaset-works)議論したように、ReplicaSetが所有するPodを指定するためにそのラベルが使用されます。
 先ほどの`frontend.yaml`の例では、そのセレクターは下記のようになっていました
 ```yaml
@@ -224,7 +224,7 @@ matchLabels:
 ### ReplicaSetとPodの削除
 
 ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。  
-[ガベージコレクター](/ja/docs/concepts/architecture/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
+[ガベージコレクター](/docs/concepts/architecture/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
 
 REST APIもしくは`client-go`ライブラリーを使用するとき、ユーザーは`-d`オプションで`propagationPolicy`を`Background`か`Foreground`と指定しなくてはなりません。例えば下記のように実行します。
 ```shell
@@ -249,7 +249,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 一度元のReplicaSetが削除されると、ユーザーは新しいものに置き換えるため新しいReplicaSetを作ることができます。新旧のReplicaSetの`.spec.selector`の値が同じである間、新しいReplicaSetは古いReplicaSetで稼働していたPodを取り入れます。
 しかし、存在するPodが新しく異なるPodテンプレートとマッチさせようとするとき、この仕組みは機能しません。
-ReplicaSetはローリングアップデートを直接サポートしないため、ユーザーのコントロール下においてPodを新しいspecにアップデートしたい場合は、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)を使用してください。
+ReplicaSetはローリングアップデートを直接サポートしないため、ユーザーのコントロール下においてPodを新しいspecにアップデートしたい場合は、[Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)を使用してください。
 
 ### PodをReplicaSetから分離させる
 
@@ -264,7 +264,7 @@ ReplicaSetは、ただ`.spec.replicas`フィールドを更新することによ
  1. 保留している(またはスケジュール不可な)Podが先にスケールダウンされます。
  1. `controller.kubernetes.io/pod-deletion-cost`アノテーションが設定されている場合、値の小さいPodが優先されます。
  1. レプリカ数の多いノード上のPodが、レプリカ数の少ないノード上のPodより優先されます。
- 1. Podの作成時間が異なる場合、より新しく作成されたPodが古いPodより優先されます(`LogarithmicScaleDown`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効の場合、作成時間は整数対数スケールでバケット化されます)。
+ 1. Podの作成時間が異なる場合、より新しく作成されたPodが古いPodより優先されます(`LogarithmicScaleDown`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効の場合、作成時間は整数対数スケールでバケット化されます)。
 
 上記条件のすべてに該当する場合は、ランダム選択となります。
 
@@ -279,7 +279,7 @@ ReplicaSetは、ただ`.spec.replicas`フィールドを更新することによ
 このアノテーションを設定しないPodは暗黙的に0と設定され、負の値は許容されます。
 無効な値はAPIサーバーによって拒否されます。
 
-この機能はbeta版で、デフォルトで有効になっています。kube-apiserverとkube-controller-managerで[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)`PodDeletionCost`を設定することで無効にすることができます。
+この機能はbeta版で、デフォルトで有効になっています。kube-apiserverとkube-controller-managerで[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)`PodDeletionCost`を設定することで無効にすることができます。
 
 {{< note >}}
 - これはベストエフォートで実行されているもので、Pod削除の順番を保証するものではありません。
@@ -314,7 +314,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 
 ### Deployment (推奨)
 
-[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
 ReplicaSetは単独で使用可能ですが、現在では、ReplicaSetは主にPodの作成、削除とアップデートを司るためのメカニズムとしてDeploymentによって使用されています。ユーザーがDeploymentを使用するとき、Deploymentによって作成されるReplicaSetの管理について心配する必要はありません。DeploymentはReplicaSetを所有し、管理します。
 このため、もしユーザーがReplicaSetを必要とするとき、Deploymentの使用を推奨します。
 
@@ -326,23 +326,23 @@ ReplicaSetは、KubeletのようなNode上のいくつかのエージェント�
 
 ### Job
 
-PodをPodそれ自身で停止させたいような場合(例えば、バッチ用のジョブなど)は、ReplicaSetの代わりに[`Job`](/ja/docs/concepts/workloads/controllers/job/)を使用してください。
+PodをPodそれ自身で停止させたいような場合(例えば、バッチ用のジョブなど)は、ReplicaSetの代わりに[`Job`](/docs/concepts/workloads/controllers/job/)を使用してください。
 
 ### DaemonSet
 
-マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)を使用してください。
+マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)を使用してください。
 これらのPodはマシン自体のライフタイムに紐づいています: そのPodは他のPodが起動する前に、そのマシン上で稼働される必要があり、マシンが再起動またはシャットダウンされるときには、安全に停止されます。
 
 ### ReplicationController
 
 ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/)の後継となるものです。
-この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
+この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
 このように、ReplicaSetはReplicationControllerよりも好まれます。
 
 ## {{% heading "whatsnext" %}}
 
-* [Pod](/ja/docs/concepts/workloads/pods/)について学ぶ。
-* [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
-* ReplicaSetsに依存した[Deploymentを使用してステートレスアプリケーションを実行する](/ja/docs/tasks/run-application/run-stateless-application-deployment/)。
+* [Pod](/docs/concepts/workloads/pods/)について学ぶ。
+* [Deployment](/docs/concepts/workloads/controllers/deployment/)について学ぶ。
+* ReplicaSetsに依存した[Deploymentを使用してステートレスアプリケーションを実行する](/docs/tasks/run-application/run-stateless-application-deployment/)。
 * `ReplicaSet`はKubernetes REST APIのトップレベルのリソースです。{{< api-reference page="workload-resources/replica-set-v1" >}}オブジェクトの定義を読み、レプリカセットのAPIを理解する。
 * [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)について、またPodDisruptionBudgetで障害発生時のアプリケーションの可用性を管理する方法について読む。

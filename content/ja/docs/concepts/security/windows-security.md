@@ -33,7 +33,7 @@ Windowsコンテナには、ContainerUserとContainerAdministratorという2つ�
 
 {{< /note >}}
 
-Windowsコンテナは、[グループ管理サービスアカウント](/ja/docs/tasks/configure-pod-container/configure-gmsa/)を利用することで、Active DirectoryのIDとして実行することもできます
+Windowsコンテナは、[グループ管理サービスアカウント](/docs/tasks/configure-pod-container/configure-gmsa/)を利用することで、Active DirectoryのIDとして実行することもできます
 
 ## Podレベルのセキュリティ分離
 

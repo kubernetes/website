@@ -93,7 +93,7 @@ brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.
     echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
-- kubectlをHomebrewでインストールした場合([前述](/ja/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)の通り)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょうか。
+- kubectlをHomebrewでインストールした場合([前述](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)の通り)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょうか。
   この場合、なにも操作する必要はありません。
 
    {{< note >}}

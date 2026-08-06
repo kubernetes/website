@@ -16,36 +16,36 @@ content_type: concept
 
 ## 基本
 
-* [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
+* [Kubernetesの基本](/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/ja/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/docs/tutorials/hello-minikube/)
 
 ## 設定
 
-* [ConfigMapを用いたRedisの設定](/ja/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [ConfigMapを用いたRedisの設定](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## ステートレスアプリケーション
 
-* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/ja/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/ja/docs/tutorials/stateless-application/guestbook/)
+* [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 
 ## ステートフルアプリケーション
 
-* [StatefulSetの基本](/ja/docs/tutorials/stateful-application/basic-stateful-set/)
+* [StatefulSetの基本](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [例: Persistent Volumeを使用したWordpressとMySQLをデプロイする](/ja/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [例: Persistent Volumeを使用したWordpressとMySQLをデプロイする](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [例: Stateful Setを使用したCassandraのデプロイ](/ja/docs/tutorials/stateful-application/cassandra/)
+* [例: Stateful Setを使用したCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)
 
 * [CP(一貫性＋分断耐性)分散システムZooKeeperの実行](/docs/tutorials/stateful-application/zookeeper/)
 
 ## サービス
 
 * [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
-* [Source IPを使う](/ja/docs/tutorials/services/source-ip/)
+* [Source IPを使う](/docs/tutorials/services/source-ip/)
 
 ## セキュリティ
 

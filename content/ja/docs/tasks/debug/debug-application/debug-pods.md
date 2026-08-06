@@ -8,7 +8,7 @@ weight: 10
 
 このガイドは、Kubernetesにデプロイされ、正しく動作しないアプリケーションをユーザーがデバッグするためのものです。
 これは、自分のクラスターをデバッグしたい人のためのガイドでは *ありません*。
-そのためには、[debug-cluster](/ja/docs/tasks/debug/debug-cluster)を確認する必要があります。
+そのためには、[debug-cluster](/docs/tasks/debug/debug-cluster)を確認する必要があります。
 
 <!-- body -->
 
@@ -43,7 +43,7 @@ Podが`Pending`で止まっている場合、それはノードにスケジュ�
 なぜあなたのPodをスケジュールできないのか、スケジューラーからのメッセージがあるはずです。
 理由は以下の通りです。
 
-* **リソースが不足しています。** クラスターのCPUまたはメモリーを使い果たしている可能性があります。Podを削除するか、リソースの要求値を調整するか、クラスターに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/ja/docs/concepts/configuration/manage-resources-containers/)を参照してください。
+* **リソースが不足しています。** クラスターのCPUまたはメモリーを使い果たしている可能性があります。Podを削除するか、リソースの要求値を調整するか、クラスターに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/docs/concepts/configuration/manage-resources-containers/)を参照してください。
 
 * **あなたが使用しているのは`hostPort`です。** Podを`hostPort`にバインドすると、そのPodがスケジュールできる場所が限定されます。ほとんどの場合、`hostPort`は不要なので、Serviceオブジェクトを使ってPodを公開するようにしてください。もし`hostPort` が必要な場合は、Kubernetesクラスターのノード数だけPodをスケジュールすることができます。
 
@@ -60,7 +60,7 @@ Podが`Waiting`状態で止まっている場合、ワーカーノードにス�
 
 #### Podがクラッシュするなどの不健全な状態
 
-Podがスケジュールされると、[実行中のPodのデバッグ](/ja/docs/tasks/debug/debug-application/debug-running-pod/)で説明されている方法がデバッグに利用できるようになります。
+Podがスケジュールされると、[実行中のPodのデバッグ](/docs/tasks/debug/debug-application/debug-running-pod/)で説明されている方法がデバッグに利用できるようになります。
 
 #### Podが期待する通りに動きません
 
@@ -132,12 +132,12 @@ Podの`containerPort`がServiceの`targetPort`と一致することを確認し�
 
 #### ネットワークトラフィックが転送されません
 
-詳しくは[Serviceのデバッグ](/ja/docs/tasks/debug/debug-application/debug-service/)を参照してください。
+詳しくは[Serviceのデバッグ](/docs/tasks/debug/debug-application/debug-service/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
 上記のいずれの方法でも問題が解決しない場合は、以下の手順に従ってください。
-[Serviceのデバッグに関するドキュメント](/ja/docs/tasks/debug/debug-application/debug-service/)で、`Service`が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNSが機能していること、IPtablesルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
+[Serviceのデバッグに関するドキュメント](/docs/tasks/debug/debug-application/debug-service/)で、`Service`が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNSが機能していること、IPtablesルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
 
-[トラブルシューティングドキュメント](/ja/docs/tasks/debug/)に詳細が記載されています。
+[トラブルシューティングドキュメント](/docs/tasks/debug/)に詳細が記載されています。
 

@@ -90,4 +90,4 @@ spec:
 - huge pageベースのEmptyDirボリュームは、Podがリクエストしたよりも大きなサイズのページメモリーを使用できません。
 - `shmget()`に`SHM_HUGETLB`を指定して取得したhuge pageを使用するアプリケーションは、`/proc/sys/vm/hugetlb_shm_group`に一致する補助グループ(supplemental group)を使用して実行する必要があります。
 - namespace内のhuge pageの使用量は、ResourceQuotaに対して`cpu`や`memory`のような他の計算リソースと同じように`hugepages-<size>`というトークンを使用することで制御できます。
-- 複数のサイズのhuge pageのサポートはフィーチャーゲートによる設定が必要です。{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}上で、`HugePageStorageMediumSize`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を使用すると有効にできます(`--feature-gates=HugePageStorageMediumSize=true`)。
+- 複数のサイズのhuge pageのサポートはフィーチャーゲートによる設定が必要です。{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}上で、`HugePageStorageMediumSize`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を使用すると有効にできます(`--feature-gates=HugePageStorageMediumSize=true`)。

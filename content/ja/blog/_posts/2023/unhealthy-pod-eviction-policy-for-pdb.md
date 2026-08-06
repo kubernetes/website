@@ -17,7 +17,7 @@ _不健全なPodの退避ポリシー_ を指定して、ノード管理操作�
 ## これはどのような問題を解決しますか？{#what-problem-does-this-solve}
 
 APIによって開始されるPodの退避では、PodDisruptionBudget(PDB)が考慮されます。
-これは、退避によるPodへの[自発的な中断](/ja/docs/concepts/scheduling-eviction/#pod-disruption)の要求は保護されたアプリケーションを中断してはならず、
+これは、退避によるPodへの[自発的な中断](/docs/concepts/scheduling-eviction/#pod-disruption)の要求は保護されたアプリケーションを中断してはならず、
 PDBの`.status.currentHealthy`が`.status.desiredHealthy`を下回ってはいけないことを意味します。
 [Unhealthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)な実行中のPodはPDBステータスにはカウントされませんが、
 これらの退避はアプリケーションが中断されない場合にのみ可能です。
@@ -57,7 +57,7 @@ PDBの`spec.unhealthyPodEvictionPolicy`フィールドを`AlwaysAllow`に設定�
 ## どのように利用できますか？{#how-do-i-use-it}
 
 これはアルファ機能であるため、kube-apiserverに対してコマンドライン引数`--feature-gates=PDBUnhealthyPodEvictionPolicy=true`を指定して
-`PDBUnhealthyPodEvictionPolicy`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+`PDBUnhealthyPodEvictionPolicy`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 
 ここに例を示します。クラスターでフィーチャーゲートを有効にし、プレーンなWebサーバーを実行するDeploymentをすでに定義していると仮定します。
 そのDeploymentのPodに`app: nginx`というラベルを付けました。
@@ -84,7 +84,7 @@ spec:
 
 - KEPを読んでください: [Unhealthy Pod Eviction Policy for PDBs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3017-pod-healthy-policy-for-pdb)
 - PodDisruptionBudgetについてのドキュメントを読んでください: [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
-- [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[draining of Nodes](/docs/tasks/administer-cluster/safely-drain-node/)および[evictions](/ja/docs/concepts/scheduling-eviction/api-eviction/)についてKubernetesドキュメントを確認してください
+- [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[draining of Nodes](/docs/tasks/administer-cluster/safely-drain-node/)および[evictions](/docs/concepts/scheduling-eviction/api-eviction/)についてKubernetesドキュメントを確認してください
 
 
 ## どうすれば参加できますか？{#how-do-i-get-involved}

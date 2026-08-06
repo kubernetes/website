@@ -50,7 +50,7 @@ Kubernetes 1.27より前には、この動作は`service.kubernetes.io/topology-
 
 ### EndpointSliceコントローラー {#implementation-control-plane}
 
-このヒューリスティックが有効な場合、EndpointSliceコントローラーはEndpointSliceにヒントを設定する役割を担います。コントローラーは、各ゾーンに比例した量のendpointを割り当てます。この割合は、そのゾーンで実行されているノードの[割り当て可能な](/ja/docs/task/administer-cluster/reserve-compute-resources/#node-allocatable)CPUコアを基に決定されます。
+このヒューリスティックが有効な場合、EndpointSliceコントローラーはEndpointSliceにヒントを設定する役割を担います。コントローラーは、各ゾーンに比例した量のendpointを割り当てます。この割合は、そのゾーンで実行されているノードの[割り当て可能な](/docs/task/administer-cluster/reserve-compute-resources/#node-allocatable)CPUコアを基に決定されます。
 
 たとえば、あるゾーンに2つのCPUコアがあり、別のゾーンに1つのCPUコアしかない場合、コントローラーは2つのCPUコアを持つゾーンに2倍のendpointを割り当てます。
 
@@ -119,4 +119,4 @@ Kubernetesは様々な方法でデブロイされ、endpointをゾーンに割�
 
 ## {{% heading "whatsnext" %}}
 
-* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む。
+* [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)を読む。

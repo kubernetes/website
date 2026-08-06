@@ -28,4 +28,4 @@ RoleBinding
 ClusterRoleBinding
 : クラスター全体において、Roleで定義された権限を一連のユーザーに付与します。
 
-詳細については、[RBAC](/ja/docs/reference/access-authn-authz/rbac/)を参照して下さい。
+詳細については、[RBAC](/docs/reference/access-authn-authz/rbac/)を参照して下さい。

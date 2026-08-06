@@ -19,7 +19,7 @@ kubeconfigを使用すると、クラスターに、ユーザー、名前空間�
 
 デフォルトでは、`kubectl`は`$HOME/.kube`ディレクトリ内にある`config`という名前のファイルを探します。`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/)フラグで指定することで、別のkubeconfigファイルを指定することもできます。
 
-kubeconfigファイルの作成と指定に関するステップバイステップの手順を知りたいときは、[複数のクラスターへのアクセスを設定する](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters)を参照してください。
+kubeconfigファイルの作成と指定に関するステップバイステップの手順を知りたいときは、[複数のクラスターへのアクセスを設定する](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)を参照してください。
 
 <!-- body -->
 
@@ -72,7 +72,7 @@ kubectl config view
      例: 最初のファイルが指定した`current-context`を保持する。
      例: 2つのファイルが`red-user`を指定した場合、1つ目のファイルの`red-user`だけを使用する。もし2つ目のファイルの`red-user`以下に競合しないエントリーがあったとしても、それらは破棄する。
 
-   `KUBECONFIG`環境変数を設定する例については、[KUBECONFIG環境変数を設定する](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)を参照してください。
+   `KUBECONFIG`環境変数を設定する例については、[KUBECONFIG環境変数を設定する](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)を参照してください。
 
    それ以外の場合は、デフォルトのkubeconfigファイル`$HOME/.kube/config`をマージせずに使用します。
 
@@ -134,5 +134,5 @@ contexts:
 ## {{% heading "whatsnext" %}}
 
 
-* [複数のクラスターへのアクセスを設定する](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [複数のクラスターへのアクセスを設定する](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)

@@ -8,9 +8,9 @@ weight: 30
 
 クラスター内の各オブジェクトには、そのタイプのリソースに固有の[_名前_](#names)があります。すべてのKubernetesオブジェクトには、クラスター全体で一意の[_UID_](#uids)もあります。
 
-たとえば、同じ[名前空間](/ja/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
+たとえば、同じ[名前空間](/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
 
-ユーザーが一意ではない属性を付与するために、Kubernetesは[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を提供しています。
+ユーザーが一意ではない属性を付与するために、Kubernetesは[ラベル](/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を提供しています。
 
 
 
@@ -74,5 +74,5 @@ Kubernetes UIDは、UUIDのことを指します。
 UUIDは、ISO/IEC 9834-8およびITU-T X.667として標準化されています。
 
 ## {{% heading "whatsnext" %}}
-* Kubernetesの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)についてお読みください。
+* Kubernetesの[ラベル](/docs/concepts/overview/working-with-objects/labels/)についてお読みください。
 * [Kubernetesの識別子と名前](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)デザインドキュメントをご覧ください。

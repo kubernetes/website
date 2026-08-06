@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-このドキュメントでは、KubernetesにおけるStorageClassの概念について説明します。[ボリューム](/ja/docs/concepts/storage/volumes/)と[永続ボリューム](/ja/docs/concepts/storage/persistent-volumes)に精通していることをお勧めします。
+このドキュメントでは、KubernetesにおけるStorageClassの概念について説明します。[ボリューム](/docs/concepts/storage/volumes/)と[永続ボリューム](/docs/concepts/storage/persistent-volumes)に精通していることをお勧めします。
 
 <!-- body -->
 
@@ -20,7 +20,7 @@ StorageClassは、管理者が提供するストレージの「クラス」を�
 
 StorageClassオブジェクトの名前は重要であり、ユーザーが特定のクラスを要求する方法です。管理者は、最初にStorageClassオブジェクトを作成するときにクラスの名前とその他のパラメーターを設定します。オブジェクトは、作成後に更新することはできません。
 
-管理者は、バインドする特定のクラスを要求しないPVCに対してのみ、デフォルトのStorageClassを指定できます。詳細については、[PersistentVolumeClaimセクション](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
+管理者は、バインドする特定のクラスを要求しないPVCに対してのみ、デフォルトのStorageClassを指定できます。詳細については、[PersistentVolumeClaimセクション](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -107,12 +107,12 @@ StorageClassによって動的に作成されるPersistentVolumeには、クラ�
 
 ### ボリュームバインディングモード
 
-`volumeBindingMode`フィールドは、[ボリュームバインディングと動的プロビジョニング](/ja/docs/concepts/storage/persistent-volumes/#provisioning)が発生するタイミングを制御します。設定を解除すると、デフォルトで"Immediate"モードが使用されます。
+`volumeBindingMode`フィールドは、[ボリュームバインディングと動的プロビジョニング](/docs/concepts/storage/persistent-volumes/#provisioning)が発生するタイミングを制御します。設定を解除すると、デフォルトで"Immediate"モードが使用されます。
 
 `Immediate`モードは、PersistentVolumeClaimが作成されると、ボリュームバインディングと動的プロビジョニングが発生することを示します。トポロジに制約があり、クラスター内のすべてのノードからグローバルにアクセスできないストレージバックエンドの場合、PersistentVolumeはPodのスケジューリング要件を知らなくてもバインドまたはプロビジョニングされます。これにより、Podがスケジュール不能になる可能性があります。
 
 クラスター管理者は、PersistentVolumeClaimを使用するPodが作成されるまでPersistentVolumeのバインドとプロビジョニングを遅らせる`WaitForFirstConsumer`モードを指定することで、この問題に対処できます。
-PersistentVolumeは、Podのスケジュール制約によって指定されたトポロジに準拠して選択またはプロビジョニングされます。これらには、[リソース要件](/ja/docs/concepts/configuration/manage-resources-containers/)、[ノードセレクター](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、[ポッドアフィニティとアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)、および[taints and tolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration)が含まれますが、これらに限定されません。
+PersistentVolumeは、Podのスケジュール制約によって指定されたトポロジに準拠して選択またはプロビジョニングされます。これらには、[リソース要件](/docs/concepts/configuration/manage-resources-containers/)、[ノードセレクター](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、[ポッドアフィニティとアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)、および[taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration)が含まれますが、これらに限定されません。
 
 次のプラグインは、動的プロビジョニングで`WaitForFirstConsumer`をサポートしています。
 
@@ -126,7 +126,7 @@ PersistentVolumeは、Podのスケジュール制約によって指定された�
 * [Local](#local)
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
-[CSIボリューム](/ja/docs/concepts/storage/volumes/#csi)も動的プロビジョニングと事前作成されたPVでサポートされていますが、サポートされているトポロジーキーと例を確認するには、特定のCSIドライバーのドキュメントを参照する必要があります。
+[CSIボリューム](/docs/concepts/storage/volumes/#csi)も動的プロビジョニングと事前作成されたPVでサポートされていますが、サポートされているトポロジーキーと例を確認するには、特定のCSIドライバーのドキュメントを参照する必要があります。
 
 {{< note >}}
    `WaitForFirstConsumer`の使用を選択した場合は、Pod仕様で`nodeName`を使用してノードアフィニティを指定しないでください。この場合にnodeNameを使用すると、スケジューラーはバイパスされ、PVCは保留状態のままになります。
@@ -337,7 +337,7 @@ vSphereストレージクラスのプロビジョナーには2つのタイプが
 - [CSIプロビジョナー](#vsphere-provisioner-csi):`csi.vsphere.vmware.com`
 - [vCPプロビジョナー](#vcp-provisioner):`kubernetes.io/vsphere-volume`
 
-インツリープロビジョナーは[非推奨です](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。CSIプロビジョナーの詳細については、[Kubernetes vSphere CSIドライバー](https://vsphere-csi-driver.sigs.k8s.io/)および[vSphereVolume CSI移行](/ja/docs/concepts/storage/volumes/#vsphere-csi-migration)を参照してください。
+インツリープロビジョナーは[非推奨です](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。CSIプロビジョナーの詳細については、[Kubernetes vSphere CSIドライバー](https://vsphere-csi-driver.sigs.k8s.io/)および[vSphereVolume CSI移行](/docs/concepts/storage/volumes/#vsphere-csi-migration)を参照してください。
 
 #### CSIプロビジョナー {#vsphere-provisioner-csi}
 
@@ -492,7 +492,7 @@ parameters:
 * `secretName`:Azureストレージアカウント名とキーを含むシークレットの名前。デフォルトは`azure-storage-account-<accountName>-secret`です
 * `readOnly`:ストレージが読み取り専用としてマウントされるかどうかを示すフラグ。デフォルトはfalseで、読み取り/書き込みマウントを意味します。この設定は、VolumeMountsの`ReadOnly`設定にも影響します。
 
-ストレージのプロビジョニング中に、`secretName`という名前のシークレットがマウント資格証明用に作成されます。クラスターで[RBAC](/ja/docs/reference/access-authn-authz/rbac/)と[Controller Roles](/ja/docs/reference/access-authn-authz/rbac/#controller-roles)の両方が有効になっている場合は、追加します。clusterrole`system:controller:persistent-volume-binder`に対するリソース`secret`の`create`パーミッション。
+ストレージのプロビジョニング中に、`secretName`という名前のシークレットがマウント資格証明用に作成されます。クラスターで[RBAC](/docs/reference/access-authn-authz/rbac/)と[Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles)の両方が有効になっている場合は、追加します。clusterrole`system:controller:persistent-volume-binder`に対するリソース`secret`の`create`パーミッション。
 
 マルチテナンシーコンテキストでは、`secretNamespace`の値を明示的に設定することを強くお勧めします。そうしないと、ストレージアカウントの資格情報が他のユーザーに読み取られる可能性があります。
 

@@ -18,7 +18,7 @@ weight: 30
 * ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
 * クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードの集合です。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはインターネットに公開されていません。
 * エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。クラウドプロバイダーが管理するゲートウェイや、物理的なハードウェアの一部である場合もあります。
-* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/ja/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
+* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
 * Service: {{< glossary_tooltip text="ラベル" term_id="label" >}}セレクターを使ったPodの集合を特定するKubernetes {{< glossary_tooltip term_id="service" >}}です。特に指定がない限り、Serviceはクラスターネットワーク内でのみ疎通可能な仮想IPを持つものとして扱われます。
 
 ## Ingressとは何か
@@ -29,15 +29,15 @@ weight: 30
 
 {{< figure src="/ja/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="図. Ingress" link="https://mermaid.live/edit#pako:eNqNkstKAzEUhl8lpBuFGan1gqTSlS4EF6LLTheZScaGzo0k4wV14QyI4qav4GUjYhVEUBB8mAh9DTNNalvcuEnCn_P95-TknMAgJRQi6CX7HGddsL3b9BIAgojRRM61VfGsygdV3KviVpWvqrzszLsLYEtHUyGGg5th_-L7_VqdD8C6z1tAlU-q_FTllSr7FaiR4k0rYMFtMQO1LdwZJbKi67ZOVfk4Yi9UcTcCX8bK46mg_IAFtL1ndsOK3DdFB1EuJOW_1X6o4kuDnakEBjC0TpalZLG9k5LOX70x0WlCTDOwEBs0BFmEWQJCFkWoRghxhORpj6JaGIb27B4yIrtoOTtygjRKOarV6_XmjElvTViLpcZqQFf-5aLvZl3sk63TBEU13_dnbRoTG5Nx4jTujmM74FR9qZZGVeZUnJkH04AZ2VRhd33jJdCBMeUxZkSP1UkV60HZpTH1INJHQkOcR9LTE3emQ3Eu073jJIBI8pw6MM8IlnSDYf2zMUQhjsSvukmYTLkVz34Au18T9A" >}}
 
-IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
+IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
 
-Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開する場合、[Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#type-nodeport)や[Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを一般的には使用します。
+Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開する場合、[Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)や[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを一般的には使用します。
 
 ## Ingressを使用する上での前提条件
 
-Ingressを提供するためには[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)が必要です。Ingressリソースを作成するのみでは何の効果もありません。
+Ingressを提供するためには[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)が必要です。Ingressリソースを作成するのみでは何の効果もありません。
 
-[ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)のようなIngressコントローラーのデプロイが必要な場合があります。いくつかの[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の中から選択してください。
+[ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)のようなIngressコントローラーのデプロイが必要な場合があります。いくつかの[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の中から選択してください。
 
 理想的には、全てのIngressコントローラーはリファレンスの仕様を満たすはずです。しかし実際には、各Ingressコントローラーは微妙に異なる動作をします。
 
@@ -51,7 +51,7 @@ Ingressリソースの最小構成の例は以下のとおりです。
 
 {{% code_sample file="service/networking/minimal-ingress.yaml" %}}
 
-Ingressには`apiVersion`、`kind`、`metadata`や`spec`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
+Ingressには`apiVersion`、`kind`、`metadata`や`spec`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
 
 Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTP(S)トラフィックに対してのルールのみサポートしています。
 
@@ -66,13 +66,13 @@ Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/
 
 * オプションで設定可能なホスト名。上記のリソースの例では、ホスト名が指定されていないので、そのルールは指定されたIPアドレスを経由する全てのインバウンドHTTPトラフィックに適用されます。ホスト名が指定されていると(例: foo.bar.com)、そのルールは指定されたホストに対して適用されます。
 * パスのリスト(例: `/testpath`)。各パスには`service.name`と`service.port.name`または`service.port.number`で定義されるバックエンドが関連づけられます。ロードバランサーがトラフィックを関連づけられたServiceに転送するために、外部からくるリクエストのホスト名とパスが条件と一致させる必要があります。
-* バックエンドは[Serviceドキュメント](/ja/docs/concepts/services-networking/service/)に書かれているようなService名とポート名の組み合わせ、または{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}による[カスタムリソースバックエンド](#resource-backend)です。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
+* バックエンドは[Serviceドキュメント](/docs/concepts/services-networking/service/)に書かれているようなService名とポート名の組み合わせ、または{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}による[カスタムリソースバックエンド](#resource-backend)です。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
 
 Ingressコントローラーでは、`defaultBackend`が設定されていることがあります。これはSpec内で指定されているパスに一致しないようなリクエストのためのバックエンドです。
 
 ### デフォルトのバックエンド {#default-backend}
 
-ルールが設定されていないIngressは、全てのトラフィックを単一のデフォルトのバックエンドに転送します。`.spec.defaultBackend`はその場合にリクエストを処理するバックエンドになります。`defaultBackend`は、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。`.spec.rules`を設定しない場合、`.spec.defaultBackend`の設定は必須です。`defaultBackend`が設定されていない場合、どのルールにもマッチしないリクエストの処理は、Ingressコントローラーに任されます(このケースをどう処理するかは、お使いのIngressコントローラーのドキュメントを参照してください)。
+ルールが設定されていないIngressは、全てのトラフィックを単一のデフォルトのバックエンドに転送します。`.spec.defaultBackend`はその場合にリクエストを処理するバックエンドになります。`defaultBackend`は、[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。`.spec.rules`を設定しない場合、`.spec.defaultBackend`の設定は必須です。`defaultBackend`が設定されていない場合、どのルールにもマッチしないリクエストの処理は、Ingressコントローラーに任されます(このケースをどう処理するかは、お使いのIngressコントローラーのドキュメントを参照してください)。
 
 HTTPリクエストがIngressオブジェクトのホスト名とパスの条件に1つも一致しない時、そのトラフィックはデフォルトのバックエンドに転送されます。
 
@@ -210,7 +210,7 @@ spec:
 Namespaceスコープのパラメーターはクラスターオペレーターがワークロードに使用される設定(例えば:ロードバランサー設定、APIゲートウェイ定義)に対する制御を委譲するのに役立ちます。クラスタースコープパラメーターを使用した場合は以下のいずれかになります:
 
 - クラスターオペレーターチームは、新しい設定変更が適用されるたびに、別のチームの変更内容を承認する必要があります。
-- クラスターオペレーターは、アプリケーションチームがクラスタースコープのパラメーターリソースに変更を加えることができるように、[RBAC](/ja/docs/reference/access-authn-authz/rbac/)のRoleやRoleBindingといった、特定のアクセス制御を定義する必要があります。
+- クラスターオペレーターは、アプリケーションチームがクラスタースコープのパラメーターリソースに変更を加えることができるように、[RBAC](/docs/reference/access-authn-authz/rbac/)のRoleやRoleBindingといった、特定のアクセス制御を定義する必要があります。
 
 IngressClass API自体は常にクラスタースコープです。
 
@@ -321,7 +321,7 @@ IngressコントローラーはService(`service1`、`service2`)が存在する�
 構築が完了すると、ADDRESSフィールドでロードバランサーのアドレスを確認できます。
 
 {{< note >}}
-使用する[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)に依存しますが、default-http-backend[Service](/ja/docs/concepts/services-networking/service/)の作成が必要な場合があります。
+使用する[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)に依存しますが、default-http-backend[Service](/docs/concepts/services-networking/service/)の作成が必要な場合があります。
 {{< /note >}}
 
 ### 名前ベースのバーチャルホスティング
@@ -374,7 +374,7 @@ IngressでこのSecretを参照すると、クライアントとロードバラ�
 
 Ingressコントローラーは、負荷分散アルゴリズムやバックエンドの重みスキームなど、すべてのIngressに適用されるいくつかの負荷分散ポリシーの設定とともにブートストラップされます。発展した負荷分散のコンセプト(例: セッションの永続化、動的重み付けなど)はIngressによってサポートされていません。代わりに、それらの機能はService用のロードバランサーを介して利用できます。
 
-ヘルスチェックの機能はIngressによって直接には公開されていませんが、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
+ヘルスチェックの機能はIngressによって直接には公開されていませんが、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
 
 ## Ingressの更新
 
@@ -466,17 +466,17 @@ Events:
 
 ## アベイラビリティーゾーンをまたいだ障害について
 
-障害のあるドメインをまたいでトラフィックを分散する手法は、クラウドプロバイダーによって異なります。詳細に関して、[Ingress コントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のドキュメントを参照してください。
+障害のあるドメインをまたいでトラフィックを分散する手法は、クラウドプロバイダーによって異なります。詳細に関して、[Ingress コントローラー](/docs/concepts/services-networking/ingress-controllers)のドキュメントを参照してください。
 
 ## Ingressの代替案 {#alternatives}
 
 Ingressリソースを直接含まずにサービスを公開する方法は複数あります。
 
-* [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#type-nodeport)
+* [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+* [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 
 
 ## {{% heading "whatsnext" %}}
 * [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)APIについて学ぶ
-* [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)について学ぶ
-* [MinikubeにNGINXコントローラーでIngressのセットアップを行う](/ja/docs/tasks/access-application-cluster/ingress-minikube/)
+* [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)について学ぶ
+* [MinikubeにNGINXコントローラーでIngressのセットアップを行う](/docs/tasks/access-application-cluster/ingress-minikube/)

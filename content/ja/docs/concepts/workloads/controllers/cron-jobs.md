@@ -19,7 +19,7 @@ _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみら�
 コントロールプレーンがkube-controller-managerをPodもしくは素のコンテナで実行している場合、CronJobコントローラーのタイムゾーンとして、kube-controller-managerコンテナに設定されたタイムゾーンを使用します。
 {{< /caution >}}
 
-CronJobリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
+CronJobリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
 名前は52文字を超えることはできません。これはCronJobコントローラーが自動的に、与えられたジョブ名に11文字を追加し、ジョブ名の長さは最大で63文字以内という制約があるためです。
 
 
@@ -38,7 +38,7 @@ CronJobは、クラスターがアイドル状態になりそうなときにJob�
 
 {{% code_sample file="application/job/cronjob.yaml" %}}
 
-([Running Automated Tasks with a CronJob](/ja/docs/tasks/job/automated-tasks-with-cron-jobs/)ではこの例をより詳しく説明しています。).
+([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)ではこの例をより詳しく説明しています。).
 
 ## CronJobの制限 {#cron-job-limitations}
 

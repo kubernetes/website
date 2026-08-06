@@ -7,8 +7,8 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.29" state="alpha" >}}
 
-このページでは、Kubernetesの[ストレージクラス](/ja/docs/concepts/storage/storage-classes/)、
-[ボリューム](/ja/docs/concepts/storage/volumes/)および[永続ボリューム](/ja/docs/concepts/storage/persistent-volumes/)についてよく理解していることを前提としています。
+このページでは、Kubernetesの[ストレージクラス](/docs/concepts/storage/storage-classes/)、
+[ボリューム](/docs/concepts/storage/volumes/)および[永続ボリューム](/docs/concepts/storage/persistent-volumes/)についてよく理解していることを前提としています。
 
 <!-- body -->
 
@@ -18,7 +18,7 @@ Kubernetes自体は、これらのクラスが何を表すかかについては�
 
 これはアルファ機能であり、デフォルトで無効化されています。
 
-アルファ機能であるうちにテストしたい場合は、kube-controller-managerおよびkube-apiserverで`VolumeAttributesClass`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
+アルファ機能であるうちにテストしたい場合は、kube-controller-managerおよびkube-apiserverで`VolumeAttributesClass`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
 コマンドライン引数の`--feature-gates`を使用します:
 
 ```
