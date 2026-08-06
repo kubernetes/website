@@ -201,9 +201,7 @@ you're interested in defining new AI Conformance requirements, you can jump into
 propose your own using our [KAR template](https://github.com/kubernetes-sigs/ai-conformance/tree/main/kars/NNNN-kar-template). If
 you want to write code, we always need help expanding our automated Go test suites in the [`test/` directory](https://github.com/kubernetes-sigs/ai-conformance/tree/main/test).
 
-For vendors looking to
-
-certify their platforms, all the details are at
+For vendors looking to certify their platforms, all the details are at
 [cncf/k8s-ai-conformance](https://github.com/cncf/k8s-ai-conformance).
 
 **FK: Any final comments you would like to share?** 
