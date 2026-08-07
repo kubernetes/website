@@ -19,11 +19,11 @@ card:
 **쿠버네티스 대시보드는 사용 중단(deprecated)되었으며 유지보수되지 않는다.**
 
 쿠버네티스 대시보드 프로젝트는 아카이브되었으며 더 이상 활발하게 유지보수되지 않는다.
-새로 설치할 때, [헤드램프(Headlamp)](https://headlamp.dev/) 사용을 고려한다.
+새로 설치하는 경우, [헤드램프(Headlamp)](https://headlamp.dev/) 사용을 고려한다.
 {{% /pageinfo %}}
 
 {{< note >}}
-쿠버네티스 대시보드와 유사한 인클러스터(in-cluster) 배포를 위해서는, 
+쿠버네티스 대시보드와 유사한 인클러스터(in-cluster) 배포를 위해서는
 [헤드램프 인클러스터 설치 가이드](https://headlamp.dev/docs/latest/installation/in-cluster/)를 참고한다.
 {{< /note >}}
 
@@ -64,7 +64,7 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 
 클러스터 데이터를 보호하기 위해, 대시보드는 기본적으로 최소한의 RBAC 설정을 제공한다.
 현재, 대시보드는 Bearer 토큰으로 로그인하는 방법을 제공한다.
-본 시연을 위한 토큰을 생성하기 위해서는,
+본 시연을 위한 토큰을 생성하기 위해서는
 [샘플 사용자 만들기](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) 가이드를 따른다.
 
 {{< warning >}}
