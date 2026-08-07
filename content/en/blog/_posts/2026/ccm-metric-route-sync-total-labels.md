@@ -7,8 +7,9 @@ author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
 ---
 Kubernetes v1.37 extends the existing alpha counter metric `route_controller_route_sync_total`
-in the route controller of the Cloud Controller Manager (CCM) at
-[`k8s.io/cloud-provider`](https://github.com/kubernetes/cloud-provider) with two new labels,
+in the route controller of the Cloud Controller Manager (CCM) library at
+[`k8s.io/cloud-provider`](https://github.com/kubernetes/cloud-provider).
+The v1.37 release added two new labels,
 `trigger` and `outcome`. Together they let operators see what caused a route reconcile and
 whether it actually changed anything.
 
@@ -35,8 +36,9 @@ reconciles in response to node events.
 These labels were added to help operators validate the
 `CloudControllerManagerWatchBasedRoutesReconciliation` feature gate introduced in
 [Kubernetes v1.35](/blog/2025/12/30/kubernetes-v1-35-watch-based-route-reconciliation-in-ccm/).
-That feature gate switches the route controller from a fixed-interval loop to a watch-based
-approach that reconciles only when nodes actually change. This reduces unnecessary API calls
+With the feature gate enabled, the  route controller uses a **watch** and reconciles on
+detecting a change, rather than only reconciling at fixed intervals. The new approach
+reduces unnecessary API calls
 to the infrastructure provider, easing pressure on rate-limited APIs and letting operators
 make more efficient use of their available quota.
 
@@ -64,4 +66,4 @@ If you have feedback, feel free to reach out through any of the following channe
 
 ## How can I learn more?
 
-For more details, refer to [KEP-5237](https://kep.k8s.io/5237).
+For more details, refer to [KEP-5237](https://www.kubernetes.dev/resources/keps/5237/).
