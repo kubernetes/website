@@ -48,7 +48,13 @@ for your control plane and for all nodes in your cluster.
 For Kubernetes {{< skew currentVersion >}}, pod-level resources have the
 following limitations:
 
-* **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
+* **Resource Types:** CPU, memory, hugepages, and PIDs can be specified at
+  pod-level. PIDs require the `PerPodPIDLimit` and
+  `PodLevelResourcesFixKubeletQOSClass`
+  [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) and
+  support only `limits` (not `requests`). See
+  [Assign per-pod PID limits](/docs/tasks/configure-pod-container/assign-pod-pid-limit/)
+  for details.
 * **Operating System:** Pod-level resources are not supported for Windows
   pods.
 * **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager
@@ -283,6 +289,8 @@ kubectl delete namespace pod-resources-example
 
 
 ### For application developers
+
+* [Assign per-pod PID limits](/docs/tasks/configure-pod-container/assign-pod-pid-limit/)
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
