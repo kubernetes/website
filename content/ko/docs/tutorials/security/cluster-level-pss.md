@@ -7,7 +7,7 @@ weight: 10
 {{% alert title="Note" %}}
 이 튜토리얼은 새로운 클러스터에만 적용할 수 있다.
 {{% /alert %}}
- 
+
 파드 시큐리티 어드미션은 파드가 생성될 때 
 [파드 시큐리티 스탠다드(Pod Security Standards)](/docs/concepts/security/pod-security-standards/)를 
 적용하는 어드미션 컨트롤러이다. v1.25에서 정식 출시되었다.
@@ -75,7 +75,7 @@ weight: 10
      Kubernetes control plane is running at https://127.0.0.1:61350
 
     CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-    
+
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
     ```
 
