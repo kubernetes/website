@@ -367,11 +367,11 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
   추가해 일치시켜야 한다. 그렇지 않으면 API 서버가 유효성 검사 오류를 반환한다. 이는 _겹치지 않는_ 변경이다.
   새 디플로이먼트는 새 레이블이 없는 기존 파드를 "인식"하지 못하므로, 기존
   레플리카셋은 **고아 상태**가 되고 완전히 새로운 레플리카셋이 생성된다.
-* **값 업데이트:** 셀렉터 키의 기존 값(예: `v1`에서 `v2`로)을 변경하면
+* **값 업데이트:** 셀렉터 키의 기존 값을 변경하면(예: `v1`에서 `v2`로)
   추가와 동일하게 동작한다(고아 상태가 되고 다시 생성됨).
 * **제거:** 디플로이먼트 셀렉터에서 기존 키를 제거할 때는 파드 템플릿 레이블을 변경할 필요가 없다.
-  이는 _겹치는_ 변경이다. 새롭고 더 넓은 셀렉터는
-  기존 파드와 일치한다. 기존 레플리카셋은 고아 상태가 되지 않고 새 레플리카셋도 생성되지 않는다.
+  이는 _겹치는_ 변경이다. 범위가 더 넓어진 새 셀렉터가
+  기존 파드와 일치하기 때문이다. 기존 레플리카셋은 고아 상태가 되지 않고 새 레플리카셋도 생성되지 않는다.
   다만 제거된 레이블은 기존 파드와 레플리카셋에 여전히 남아 있다는 점에 유의한다.
   디플로이먼트의 롤아웃을 트리거하여 이를 정리할 수 있다.
 
@@ -1125,7 +1125,7 @@ echo $?
 
 `.spec.template` 과 `.spec.selector` 은 `.spec` 에서 유일한 필수 필드이다.
 
-`.spec.template` 는 [파드 템플릿](/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
+`.spec.template` 는 [파드 템플릿](/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 중첩되어 있고 `apiVersion` 이나 `kind` 를 가지고 있지 않다는 점을 제외하면, {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있다.
 
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
 레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야 한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
@@ -1369,7 +1369,7 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * [파드](/docs/concepts/workloads/pods)에 대해 배운다.
-* [디플로이먼트를 사용해서 스테이트리스 애플리케이션을 구동한다](/docs/tasks/run-application/run-stateless-application-deployment/).
+* [디플로이먼트로 스테이트리스 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/).
 * 디플로이먼트 API를 이해하기 위해서 {{< api-reference page="apps/deployment-v1" >}} 오브젝트 정의를 읽는다.
 * [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)과
   이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.
