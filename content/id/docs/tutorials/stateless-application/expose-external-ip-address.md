@@ -42,7 +42,7 @@ yang mengekspos alamat IP eksternal.
 
 1. Jalankan sebuah aplikasi Hello World pada klaster kamu:
 
-{{% codenew file="service/load-balancer-example.yaml" %}}
+{{% code_sample file="service/load-balancer-example.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
