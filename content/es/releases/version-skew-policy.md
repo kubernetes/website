@@ -210,7 +210,7 @@ Las actualizaciones de versiones menores de `kubelet` en el lugar no están sopo
 {{</ note >}}
 
 {{< warning >}}
-Ejecutar un cluster con instancias de `kubelet` que estén persistentemente tres versiones menores por detrás de
+Ejecutar un clúster con instancias de `kubelet` que estén persistentemente tres versiones menores por detrás de
 `kube-apiserver` significa que estas deben ser actualizadas antes de que el plano de control pueda actualizarse.
 {{</ warning >}}
 
