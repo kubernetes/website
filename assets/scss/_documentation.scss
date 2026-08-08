@@ -4,6 +4,22 @@
   margin: 0;
 }
 
+// Make Header Distinguishable
+.td-content {
+  h1 {
+    font-size: 2.5rem
+  }
+  h2 {
+    font-weight: 600
+  }
+  h3 {
+    font-size: 1.75rem
+  }
+  h4 {
+    font-weight: 400
+  }
+}
+
 //Table Content
 .tab-content table{
   border-collapse: separate;
