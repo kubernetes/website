@@ -10,6 +10,7 @@ This content is auto-generated and links may not function. The source of the doc
 [here](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md).
 {{% /pageinfo %}}
 <!-- Localization note: omit the pageinfo block when localizing -->
+
 ## Orientación de mejoras, Issues y PRs hacia los hitos de lanzamiento (Release Milestones)
 
 Este documento está enfocado en los desarrolladores y colaboradores de Kubernetes que necesitan
