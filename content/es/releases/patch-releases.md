@@ -24,7 +24,8 @@ Por favor, danos un día hábil para responder, ¡es posible que estemos en una 
 
 Entre lanzamientos, el equipo revisa las solicitudes de *cherry pick* entrantes de forma semanal.
 El equipo se pondrá en contacto con los autores de las solicitudes a través de la PR de GitHub,
-los canales de SIG en Slack, mensajes directos en Slack y por [correo electrónico](mailto:release-managers-private@kubernetes.io)
+los canales de SIG en Slack, mensajes directos
+en Slack y por [correo electrónico](mailto:release-managers-private@kubernetes.io)
 si surgen preguntas sobre la PR.
 
 ## Cherry picks
