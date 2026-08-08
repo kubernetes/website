@@ -333,7 +333,7 @@ Kubernetes soporta 2 modos primarios para encontrar un Service - variables de en
 Cuando un Pod está corriendo en un Node, kubelet añade un conjunto de variables de entorno para cada Service activo. Soporta tanto variables [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) como variables más sencillas `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT`, donde el nombre del Service está en mayúsculas y los guiones medios se convierten en guiones bajos.
 
-Por ejemplo, el Service `redis-master` que expone el puerto TCP 6739 y se le ha asignado una dirección IP de clúster 10.0.0.11, produce las siguientes variables de entorno:
+Por ejemplo, el Service `redis-leader` que expone el puerto TCP 6739 y se le ha asignado una dirección IP de clúster 10.0.0.11, produce las siguientes variables de entorno:
 
 ```shell
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
