@@ -290,6 +290,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
 * `strict-cpu-reservation` (GA，默认可见) (1.35 或更高版本)
 * `prefer-align-cpus-by-uncorecache` (GA, 默认可见) (1.36 或更高版本)
+* `scale-delay-time` (Alpha, 默认隐藏) (1.37 或更高版本)
 
 <!--
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
@@ -340,6 +341,27 @@ For mode detail about the behavior of the individual options you can configure, 
 如果使用不兼容的选项，kubelet 将无法启动，并在日志中解释所出现的错误。
 
 有关你可以配置的各个选项的行为的模式详细信息，请参阅[节点资源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文档。
+
+<!--
+The `scale-delay-time` option can be enabled by adding `scale-delay-time=<duration>`
+to the `CPUManager` policy options, where `<duration>` is a value between `0s` and `10s`
+(e.g., `5s` or `500ms`). This option ensures a minimum delay before applying updated
+cpuset assignments when a container with exclusive CPUs scales down. This option requires the
+`InPlacePodVerticalScalingExclusiveCPUs` feature gate to be enabled.
+
+When combined with the exposure of assigned CPUs via [Downward API](/docs/concepts/workloads/pods/downward-api/)
+field `assigned.cpuset`, workloads can get desired assigned CPUs in advance,
+which allows latency-sensitive workloads to prepare for CPU removal.
+-->
+`scale-delay-time` 选项可以通过将 `scale-delay-time=<duration>` 添加到
+`CPUManager` 策略选项来启用，其中 `<duration>` 是介于 `0s` 到 `10s` 之间的值
+（例如：`5s` 或 `500ms`）。此选项确保在具有独占 CPU 的容器缩容时，在应用更新的
+cpuset 分配之前有最小延迟时间。此选项需要启用
+`InPlacePodVerticalScalingExclusiveCPUs` 特性门控。
+
+与通过 [Downward API](/zh-cn/docs/concepts/workloads/pods/downward-api/) 的
+`assigned.cpuset` 字段暴露的已分配 CPU 结合使用时，工作负载可以提前获取期望分配的 CPU，
+从而允许延迟敏感型工作负载为 CPU 移除做准备。
 
 <!--
 ## {{% heading "whatsnext" %}}
