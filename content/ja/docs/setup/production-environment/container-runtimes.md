@@ -32,9 +32,9 @@ v{{< skew currentVersion >}}以外のバージョンのKubernetesを実行して
 
 <!-- body -->
 
-## インストールと設定の必須要件
+## インストールと設定の必須要件 {#install-and-configure-prerequisites}
 
-### ネットワーク構成
+### ネットワーク構成 {#network-configuration}
 
 デフォルトでは、Linuxカーネルはインターフェース間でのIPv4パケットのルーティングを許可していません。
 Kubernetesクラスターのネットワーク実装の多くは、必要に応じてこの設定を変更しますが、管理者が設定することを想定しているものもあります。
@@ -120,7 +120,7 @@ kubeletを再起動してもこのようなエラーは解決しない可能性�
 もしあなたが適切な自動化の手段を持っているのであれば、更新された設定を使用してノードを別のノードに置き換えるか、自動化を使用して再インストールを行ってください。
 {{< /caution >}}
 
-### kubeadmで管理されたクラスターでの`systemd`ドライバーへの移行
+### kubeadmで管理されたクラスターでの`systemd`ドライバーへの移行 {#migrating-to-the-systemd-driver-in-kubeadm-managed-clusters}
 
 既存のkubeadm管理クラスターで`systemd` cgroupドライバーに移行したい場合は、[cgroupドライバーの設定](/ja/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)に従ってください。
 
@@ -219,7 +219,7 @@ kubeadmを使用している場合、手動で[kubelet cgroupドライバーの�
 
 CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/packaging/blob/main/README.md#usage)に従ってください。
 
-#### cgroupドライバー
+#### cgroupドライバー {#cgroup-driver}
 
 CRI-Oはデフォルトでsystemd cgroupドライバーを使用し、おそらく問題なく動作します。
 `cgroupfs` cgroupドライバーに切り替えるには、`/etc/crio/crio.conf` を編集するか、
