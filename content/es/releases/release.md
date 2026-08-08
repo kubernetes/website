@@ -12,7 +12,9 @@ This content is auto-generated and links may not function. The source of the doc
 <!-- Localization note: omit the pageinfo block when localizing -->
 ## Orientación de mejoras, Issues y PRs hacia los hitos de lanzamiento (Release Milestones)
 
-Este documento está enfocado en los desarrolladores y colaboradores de Kubernetes que necesitan crear una mejora (*enhancement*), un *issue* o una solicitud de extracción (*pull request* o PR) que esté orientada a un hito de lanzamiento (*release milestone*) específico.
+Este documento está enfocado en los desarrolladores y colaboradores de Kubernetes que necesitan
+crear una mejora (*enhancement*), un *issue* o una solicitud de extracción (*pull request* o PR) que esté orientada a un
+hito de lanzamiento (*release milestone*) específico.
 
 - [TL;DR](#tldr)
   - [Desarrollo Normal (Semanas 1-11)](#desarrollo-normal-semanas-1-11)
