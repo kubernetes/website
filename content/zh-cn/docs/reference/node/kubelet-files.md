@@ -164,6 +164,7 @@ Names of files:
 ### Checkpoint file for device manager {#device-manager-state}
 
 Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet root directory.
 The name of a checkpoint file is `kubelet_internal_checkpoint` for
 [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
@@ -172,6 +173,7 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for
 ### 设备管理器的检查点文件   {#device-manager-state}
 
 设备管理器在与套接字文件相同的目录（`/var/lib/kubelet/device-plugins/`）中创建检查点。
+此路径是硬编码的，且不相对于 kubelet 根目录。
 对于[设备管理器](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)，
 检查点文件的名称为 `kubelet_internal_checkpoint`。
 
@@ -237,8 +239,9 @@ various [Device Plugins to register](/docs/concepts/extend-kubernetes/compute-st
 
 When a device plugin registers itself, it provides its socket path for the kubelet to connect.
 
-The device plugin socket should be in the directory `device-plugins` within the kubelet base
-directory. On a typical Linux node, this means `/var/lib/kubelet/device-plugins`.
+The device plugin socket must be in the directory `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet base directory (root directory).
+On Linux, this path is always `/var/lib/kubelet/device-plugins`.
 -->
 ### 设备插件   {#device-plugins}
 
@@ -247,19 +250,22 @@ kubelet 在路径 `/var/lib/kubelet/device-plugins/kubelet.sock`
 
 当设备插件注册自己时，它会为提供其套接字路径供 kubelet 连接使用。
 
-设备插件套接字应位于 kubelet 基础目录中的 `device-plugins` 目录内。
-在典型的 Linux 节点上，这意味着 `/var/lib/kubelet/device-plugins`。
+设备插件套接字必须位于 `/var/lib/kubelet/device-plugins/` 目录下。
+该路径是硬编码的，且不相对于 kubelet 的基目录（根目录）。
+在 Linux 系统上，该路径始终为 `/var/lib/kubelet/device-plugins`。
 
 <!--
 ### Pod resources API
 
 [Pod Resources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-will be exposed at the path `/var/lib/kubelet/pod-resources`.
+will be exposed at the path `pod-resources` within the kubelet base directory (root directory).
+On a typical Linux node, this means `/var/lib/kubelet/pod-resources`.
 -->
 ### Pod Resources API
 
 [Pod Resources API](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-将在路径 `/var/lib/kubelet/pod-resources` 上被公开。
+将在 kubelet 根目录（base directory）下的 `pod-resources` 路径处公开。
+在典型的 Linux 节点上，这意味着 `/var/lib/kubelet/pod-resources`。
 
 <!--
 ### DRA, CSI, and Device plugins
