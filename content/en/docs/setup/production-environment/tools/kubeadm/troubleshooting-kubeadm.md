@@ -90,8 +90,6 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-  configure it properly, see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
   and investigating each container by running `docker logs`. For other container runtime, see
   [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
