@@ -230,6 +230,12 @@ aliases:
     - kpucynski
     - mfilocha
     - nvtkaszpir
+  sig-docs-tr-owners: # Admins for Turkish content
+    - HFerrahoglu
+    - orcunakrcy
+  sig-docs-tr-reviews: # PR reviews for Turkish content
+    - HFerrahoglu
+    - orcunakrcy
   sig-docs-uk-owners: # Admins for Ukrainian content
     - Andygol
     - Arhell
