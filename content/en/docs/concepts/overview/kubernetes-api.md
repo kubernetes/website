@@ -346,6 +346,45 @@ ways that require deleting all existing alpha objects prior to upgrade.
 Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
 
+## API categories
+
+Kubernetes API resources can belong to one or more _categories_. Categories are human-friendly aliases that group related resources together, making it easier to query multiple resource types with a single `kubectl` command.
+
+For example, the `all` category includes common workload resources like Pods, Services, Deployments, and ReplicaSets. You can list all resources in the `all` category with:
+
+```shell
+kubectl get all
+```
+
+{{< note >}}
+Despite its name, the `all` category does **not** include every API resource in the cluster. It specifically excludes resources like Secrets, ConfigMaps, and many cluster-scoped resources.
+{{< /note >}}
+
+To see which resources belong to a specific category, use:
+
+```shell
+kubectl api-resources --categories=<category-name>
+```
+
+Common categories include:
+- `all`: Common workload resources (Pods, Services, Deployments, ReplicaSets, StatefulSets, DaemonSets, Jobs, CronJobs)
+
+To view all available categories in your cluster:
+
+```shell
+kubectl api-resources -o wide
+```
+
+The output includes a `CATEGORIES` column showing which categories each resource belongs to.
+
+### Categories in custom resources
+
+When you define a {{< glossary_tooltip text="CustomResourceDefinition" term_id="customresourcedefinition" >}} (CRD), you can assign your custom resource to one or more categories. This allows users to discover and manage your custom resources alongside built-in resources using familiar category-based queries.
+
+For example, if you add your custom resource to the `all` category, it will appear in `kubectl get all` output.
+
+Refer to the [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) documentation for details on configuring categories for custom resources.
+
 ## API Extension
 
 The Kubernetes API can be extended in one of two ways:
