@@ -19,7 +19,7 @@ Las versiones de Kubernetes se expresan como **x.y.z**, donde **x** es la versi�
 
 El proyecto Kubernetes mantiene ramas de lanzamiento para las tres versiones menores más recientes
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
-Kubernetes 1.19 y versiones posteriores reciben [aproximadamente 1 año de soporte para parches](/releases/patch-releases/#support-period).
+Kubernetes 1.19 y versiones posteriores reciben [aproximadamente 1 año de soporte para parches](/releases/patch-releases/#periodo-de-soporte).
 Kubernetes 1.18 y versiones anteriores recibían aproximadamente 9 meses de soporte para parches.
 
 Las correcciones aplicables, incluidas las de seguridad, pueden adaptarse a esas tres ramas de lanzamiento,
