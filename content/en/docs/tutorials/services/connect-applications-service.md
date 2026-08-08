@@ -238,20 +238,16 @@ Service from any pod in your cluster using standard methods (e.g. `gethostbyname
 If CoreDNS isn't running, you can enable it referring to the
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
 or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns).
-Let's run another curl application to test this:
+Let's run a temporary BusyBox Pod to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
-```
-```
-Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
-Hit enter for command prompt
+kubectl run dnsutils --image=docker.io/library/busybox:1.37.0 --restart=Never --rm -i -t -- sh
 ```
 
-Then, hit enter and run `nslookup my-nginx`:
+At the command prompt, run `nslookup my-nginx`:
 
 ```shell
-[ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
+/ # nslookup my-nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
