@@ -352,21 +352,28 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ### 레이블 셀렉터 업데이트
 
 일반적으로 레이블 셀렉터를 업데이트 하는 것을 권장하지 않으며 셀렉터를 미리 계획하는 것을 권장한다.
-어떤 경우든 레이블 셀렉터의 업데이트를 해야하는 경우 매우 주의하고,
-모든 영향을 파악했는지 확인해야 한다.
+디플로이먼트의 레이블 셀렉터는 생성 후에는 **변경할 수 없다**.
+`kubectl patch`, `kubectl edit`, `kubectl apply` 또는 `helm upgrade` 같은 도구로도 업데이트할 수 없다.
 
-{{< note >}}
-API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 이후에는 변경할 수 없다.
-{{< /note >}}
+셀렉터를 반드시 변경해야 한다면 디플로이먼트를 삭제하고 다시 생성해야 한다.
+기본적으로 디플로이먼트를 삭제하면 실행 중인 파드도 삭제되어 다운타임이 발생한다.
+디플로이먼트를 다시 생성하는 동안 해당 파드를 계속 실행해야 한다면 `--cascade=orphan`을 사용한다
+(아래에서 그 영향을 설명한다).
+다음 영향을 숙지하고 각별히 주의한다.
 
-* 셀렉터 추가 시 디플로이먼트의 사양에 있는 파드 템플릿 레이블도 새 레이블로 업데이트해야 한다.
-그렇지 않으면 유효성 검사 오류가 반환된다. 이 변경은 겹치지 않는 변경으로 새 셀렉터가
-이전 셀렉터로 만든 레플리카셋과 파드를 선택하지 않게 되고, 그 결과로 모든 기존 레플리카셋은 고아가 되며,
-새로운 레플리카셋을 생성하게 된다.
-* 셀렉터 업데이트는 기존 셀렉터 키 값을 변경하며, 결과적으로 추가와 동일한 동작을 한다.
-* 셀렉터 삭제는 디플로이먼트 셀렉터의 기존 키를 삭제하며 파드 템플릿 레이블의 변경을 필요로 하지 않는다.
-기존 레플리카셋은 고아가 아니고, 새 레플리카셋은 생성되지 않는다.
-그러나 제거된 레이블은 기존 파드와 레플리카셋에 여전히 존재한다는 점을 참고해야 한다.
+* **추가:** 범위가 더 좁은 셀렉터로 새 디플로이먼트를 생성할 때는 새 디플로이먼트에 적합한 파드 템플릿도 **반드시** 있어야 한다.
+  기존 매니페스트가 있고 이 매니페스트를 편집하여 셀렉터의 범위를 좁히려면, 해당 디플로이먼트 안의 파드 템플릿 메타데이터도 편집하여
+  새 레이블을
+  추가해 일치시켜야 한다. 그렇지 않으면 API 서버가 유효성 검사 오류를 반환한다. 이는 _겹치지 않는_ 변경이다.
+  새 디플로이먼트는 새 레이블이 없는 기존 파드를 "인식"하지 못하므로, 기존
+  레플리카셋은 **고아 상태**가 되고 완전히 새로운 레플리카셋이 생성된다.
+* **값 업데이트:** 셀렉터 키의 기존 값을 변경하면(예: `v1`에서 `v2`로)
+  추가와 동일하게 동작한다(고아 상태가 되고 다시 생성됨).
+* **제거:** 디플로이먼트 셀렉터에서 기존 키를 제거할 때는 파드 템플릿 레이블을 변경할 필요가 없다.
+  이는 _겹치는_ 변경이다. 범위가 더 넓어진 새 셀렉터가
+  기존 파드와 일치하기 때문이다. 기존 레플리카셋은 고아 상태가 되지 않고 새 레플리카셋도 생성되지 않는다.
+  다만 제거된 레이블은 기존 파드와 레플리카셋에 여전히 남아 있다는 점에 유의한다.
+  디플로이먼트의 롤아웃을 트리거하여 이를 정리할 수 있다.
 
 ## 디플로이먼트 롤백
 
@@ -503,15 +510,20 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
    ```
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
-   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-   2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
-   3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
-  ```
+   1           <none>
+   2           <none>
+   3           <none>
+   ```
 
-   `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다. 다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
+   `CHANGE-CAUSE`는 리비전 생성 시 디플로이먼트 어노테이션 `kubernetes.io/change-cause`에서 해당 리비전으로 복사된다. 다음과 같이 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
-   * 디플로이먼트에 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 로 주석을 단다.
-   * 수동으로 리소스 매니페스트 편집.
+   * `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`로 디플로이먼트에 어노테이션을 추가한다.
+   * 리소스 매니페스트를 수동으로 편집한다.
+   * 어노테이션을 자동으로 설정하는 도구를 사용한다.
+
+   {{< note >}}
+   이전 버전의 쿠버네티스에서는 kubectl 명령에 `--record` 플래그를 사용하여 `CHANGE-CAUSE` 필드를 자동으로 채울 수 있었다. 이 플래그는 사용 중단(deprecated)되었으며 향후 릴리스에서 제거될 예정이다.
+   {{< /note >}}
 
 2. 각 수정 버전의 세부 정보를 보려면 다음을 실행한다.
    ```shell
@@ -523,7 +535,6 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
    deployments "nginx-deployment" revision 2
      Labels:       app=nginx
              pod-template-hash=1159050644
-     Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
      Containers:
        nginx:
        Image:      nginx:1.16.1
@@ -584,7 +595,6 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
    CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
    Labels:                 app=nginx
    Annotations:            deployment.kubernetes.io/revision=4
-                           kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    Selector:               app=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
@@ -634,12 +644,12 @@ kubectl scale deployment/nginx-deployment --replicas=10
 deployment.apps/nginx-deployment scaled
 ```
 
-가령 클러스터에서 [horizontal Pod autoscaling](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)를 설정
+가령 클러스터에서 [horizontal Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)을 설정
 한 경우 디플로이먼트에 대한 오토스케일러를 설정할 수 있다. 그리고 기존 파드의 CPU 사용률을 기준으로
 실행할 최소 파드 및 최대 파드의 수를 선택할 수 있다.
 
 ```shell
-kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80%
 ```
 이와 유사하게 출력된다.
 ```
@@ -1079,7 +1089,7 @@ echo $?
 디플로이먼트는 롤백할 수 없게 된다.
 {{< /note >}}
 
-디플로이먼트가 오직 [완료 상태](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-완료)에 
+디플로이먼트가 오직 [완료 상태](/docs/concepts/workloads/controllers/deployment/#디플로이먼트-완료)에
 도달한 **이후**에 초기화는 시작된다.
 `.spec.revisionHistoryLimit` 값을 0으로 설정하더라도, 롤아웃이 발생하면 쿠버네티스가 
 이전 레플리카셋을 제거하기 전에 반드시 새로운 레플리카셋을 먼저 생성한다.
@@ -1092,22 +1102,22 @@ echo $?
 ## 카나리 디플로이먼트
 
 만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리스를 롤아웃 하기 위해서는
-[리소스 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#카나리-canary-디플로이먼트)에
+[리소스 관리](/docs/concepts/workloads/management/#카나리아-배포)에
 설명된 카나리 패던에 따라 각 릴리스 마다 하나씩 여러 디플로이먼트를 생성할 수 있다.
 
 ## 디플로이먼트 사양 작성
 
 다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은
-[애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/),
-컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
+[애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/),
+컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 
 컨트롤 플레인이 디플로이먼트를 위해 새로운 파드를 생성할 때, 디플로이먼트의 
 `.metadata.name`은 해당 파드의 이름을 짓는 기준의 일부가 된다. 디플로이먼트 오브젝트의 이름은 유효한
-[DNS 서브도메인](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)
+[DNS 서브도메인](/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)
 값이어야 한다. 그렇지 않으면 파드 호스트네임을 위한 예상치못한 결과를 초래할 수 있다. 최상의 호환성을 위해,
 이름은 보다 제한적인 규칙을 따르는
-[DNS 라벨](/ko/docs/concepts/overview/working-with-objects/names#dns-label-names) 형식을 따르는 것이 좋다.
+[DNS 라벨](/docs/concepts/overview/working-with-objects/names#dns-label-names) 형식을 따르는 것이 좋다.
 
 디플로이먼트에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
@@ -1115,12 +1125,12 @@ echo $?
 
 `.spec.template` 과 `.spec.selector` 은 `.spec` 에서 유일한 필수 필드이다.
 
-`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
+`.spec.template` 는 [파드 템플릿](/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 중첩되어 있고 `apiVersion` 이나 `kind` 를 가지고 있지 않다는 점을 제외하면, {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있다.
 
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
 레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야 한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
 
-[`.spec.template.spec.restartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 에는 오직 `Always` 만 허용되고,
+[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 에는 오직 `Always` 만 허용되고,
 명시되지 않으면 기본값이 된다.
 
 ### 레플리카
@@ -1132,7 +1142,7 @@ echo $?
 매니페스트를 이용하여 디플로이먼트를 업데이트하면(예: `kubectl apply -f deployment.yaml` 실행), 
 수동으로 설정했던 디플로이먼트의 크기가 오버라이드된다.
 
-[HorizontalPodAutoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가 
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가
 디플로이먼트 크기를 관리하고 있다면, `.spec.replicas` 를 설정해서는 안 된다.
 
 대신, 쿠버네티스 
@@ -1141,7 +1151,7 @@ echo $?
 
 ### 셀렉터
 
-`.spec.selector` 는 디플로이먼트의 대상이 되는 파드에 대해 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를
+`.spec.selector` 는 디플로이먼트의 대상이 되는 파드에 대해 [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/)를
 지정하는 필수 필드이다.
 
 `.spec.selector` 는 `.spec.template.metadata.labels` 과 일치해야 하며, 그렇지 않으면 API에 의해 거부된다.
@@ -1177,7 +1187,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 완료되기를 대기한다. 파드를 수동으로 삭제하면, 라이프사이클은 레플리카셋에 의해
 제어되며(이전 파드가 여전히 종료 상태에 있는 경우에도) 교체용 파드가 즉시 생성된다. 파드에
 대해 "최대" 보장이 필요한 경우
-[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 사용을 고려해야 한다.
+[스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)의 사용을 고려해야 한다.
 {{< /note >}}
 
 #### 디플로이먼트 롤링 업데이트
@@ -1311,12 +1321,11 @@ spec:
 
 ### 진행 기한 시간(초)
 
-`.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `type: Progressing`, `status: "False"`의
-상태 그리고 리소스가 `reason: ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에
-디플로이먼트가 진행되는 것을 대기시키는 시간(초)를 명시하는 선택적 필드이다.
-디플로이먼트 컨트롤러는 디플로이먼트를 계속 재시도 한다. 기본값은 600(초)이다.
-미래에 자동화된 롤백이 구현된다면 디플로이먼트 컨트롤러는 상태를 관찰하고,
-그 즉시 디플로이먼트를 롤백할 것이다.
+`.spec.progressDeadlineSeconds`는 디플로이먼트가 진행되기를 기다리는 시간(초)을
+지정하는 선택적 필드이며, 시스템은 지정된 시간 안에 디플로이먼트가 진행되지 않으면
+[진행 실패](#디플로이먼트-실패)를 `type: Progressing`, `status: "False"`인 컨디션으로 나타낸다.
+그리고 리소스 상태에 `reason: ProgressDeadlineExceeded`를 표시한다. 디플로이먼트 컨트롤러는 디플로이먼트를 계속
+재시도한다. 기본값은 600이다.
 
 만약 명시된다면 이 필드는 `.spec.minReadySeconds` 보다 커야 한다.
 
@@ -1325,16 +1334,16 @@ spec:
 `.spec.minReadySeconds` 는 새롭게 생성된 파드의 컨테이너가 어떤 것과도 충돌하지 않고 사
 용할 수 있도록 준비되어야 하는 최소 시간(초)을 지정하는 선택적 필드이다.
 이 기본 값은 0이다(파드는 준비되는 즉시 사용할 수 있는 것으로 간주됨).
-파드가 준비되었다고 간주되는 시기에 대한 자세한 내용은 [컨테이너 프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참조한다.
+파드가 준비되었다고 간주되는 시기에 대한 자세한 내용은 [컨테이너 프로브](/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참조한다.
 
 ### 파드 종료
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-[API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
-[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 
-`DeploymentReplicaSetTerminatingReplicas` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 
-설정하여 활성화할 수 있다.
+종료 중인 파드는 `DeploymentReplicaSetTerminatingReplicas`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우에만 확인할 수 있다.
+이 기능 게이트는 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
+및 [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서 활성화해야 한다.
 
 삭제나 스케일 다운으로 인해 Terminating 상태가 된 파드는 종료까지 오랜 시간이 걸릴 수 있으며, 
 그 기간 동안 추가적인 리소스를 사용할 수 있다. 그 결과 전체 파드 수가 일시적으로 
@@ -1359,9 +1368,9 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
-* [디플로이먼트를 사용해서 스테이트리스 애플리케이션을 구동한다](/ko/docs/tasks/run-application/run-stateless-application-deployment/).
-* 디플로이먼트 API를 이해하기 위해서 {{< api-reference page="workload-resources/deployment-v1" >}} 오브젝트 정의를 읽는다.
-* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
+* [파드](/docs/concepts/workloads/pods)에 대해 배운다.
+* [디플로이먼트로 스테이트리스 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/).
+* 디플로이먼트 API를 이해하기 위해서 {{< api-reference page="apps/deployment-v1" >}} 오브젝트 정의를 읽는다.
+* [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)과
   이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.
 * kubectl을 사용하여 [디플로이먼트 생성하기](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
