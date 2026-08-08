@@ -41,7 +41,12 @@ El proceso para guiar las mejoras, *issues* y *pull requests* dentro de un lanza
 
 La información sobre los flujos de trabajo y las interacciones se describe a continuación.
 
-Como propietario de una mejora, *issue* o *pull request* (PR), es tu responsabilidad asegurarse de que se cumplan los requisitos del hito de lanzamiento. La automatización y el Release Team se pondrán en contacto contigo si se requieren actualizaciones, pero la inacción puede dar lugar a que tu trabajo sea eliminado del hito. Existen requisitos adicionales cuando el hito de destino es un lanzamiento anterior (consulta el [proceso de cherry pick][cherry-picks] para más información).
+Como propietario de una mejora, *issue* o *pull request* (PR), es tu
+responsabilidad asegurarse de que se cumplan los requisitos del hito de lanzamiento. La automatización y
+el Release Team se pondrán en contacto contigo si se requieren actualizaciones, pero la
+inacción puede dar lugar a que tu trabajo sea eliminado del hito. Existen
+requisitos adicionales cuando el hito de destino es un lanzamiento anterior (consulta
+el [proceso de cherry pick][cherry-picks] para más información).
 
 ## TL;DR
 
