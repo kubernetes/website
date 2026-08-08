@@ -34,7 +34,7 @@ Las versiones anteriores de Kubernetes que ya no se mantienen se enumeran a cont
   <summary>Versiones al final de su vida útil</summary>
   {{< note >}}
   Estas versiones ya no son compatibles y no reciben actualizaciones de seguridad ni correcciones de errores.
-  Si está ejecutando una de estas versiones, el proyecto Kubernetes recomienda encarecidamente actualizar a una [versión compatible](#release-history).
+  Si está ejecutando una de estas versiones, el proyecto Kubernetes recomienda encarecidamente actualizar a una [versión compatible](#historial-de-versiones).
   {{< /note >}}
   
   {{< eol-releases >}}
