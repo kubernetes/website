@@ -141,7 +141,7 @@ Ejemplo:
 
 El desfase de versiones soportado entre los componentes tiene implicaciones en el orden
 en el que los componentes deben ser actualizados. Esta sección describe el orden
-en el que deben actualizarse los componentes para realizar la transición de un cluster existente desde la versión
+en el que deben actualizarse los componentes para realizar la transición de un clúster existente desde la versión
 **{{< skew currentVersionAddMinor -1 >}}** hacia la versión **{{< skew currentVersion >}}**.
 
 Opcionalmente, al prepararse para una actualización, el proyecto Kubernetes recomienda que
