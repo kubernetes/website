@@ -10,7 +10,7 @@ las herramientas proporcionadas por SIG Release.
 Las responsabilidades de cada rol se describen a continuación.
 
 - [Contacto](#contacto)
-  - [Política de Embargo de Seguridad](#política de embargo de seguridad)
+  - [Política de Embargo de Seguridad](#política-de-embargo-de-seguridad)
 - [Manuales (Handbooks)](#manuales-handbooks)
 - [Release Managers](#release-managers)
   - [Cómo convertirse en Release Manager](#cómo-convertirse-en-release-manager)
