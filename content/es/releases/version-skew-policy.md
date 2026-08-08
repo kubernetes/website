@@ -24,7 +24,7 @@ Kubernetes 1.18 y versiones anteriores recibían aproximadamente 9 meses de sopo
 
 Las correcciones aplicables, incluidas las de seguridad, pueden adaptarse a esas tres ramas de lanzamiento,
 dependiendo de la gravedad y la viabilidad. Los lanzamientos de parches se generan desde esas ramas con una
-[cadencia regular](/releases/patch-releases/#cadence), además de lanzamientos urgentes adicionales cuando es necesario.
+[cadencia regular](/releases/patch-releases/#cadencia), además de lanzamientos urgentes adicionales cuando es necesario.
 
 El grupo de [Release Managers](/releases/release-managers/) es el propietario de esta decisión.
 
