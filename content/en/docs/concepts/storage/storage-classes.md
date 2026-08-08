@@ -68,26 +68,15 @@ marked as the default. The reason that Kubernetes allows you to have
 multiple default StorageClasses is to allow for seamless migration.
 {{< /note >}}
 
-You can create a PersistentVolumeClaim without specifying a `storageClassName`
-for the new PVC, and you can do so even when no default StorageClass exists
-in your cluster. In this case, the new PVC creates as you defined it, and the
-`storageClassName` of that PVC remains unset until a default becomes available.
-
 You can have a cluster without any default StorageClass. If you don't mark any
 StorageClass as default (and one hasn't been set for you by, for example, a cloud provider),
 then Kubernetes cannot apply that defaulting for PersistentVolumeClaims that need
 it.
 
-If or when a default StorageClass becomes available, the control plane identifies any
-existing PVCs without `storageClassName`. For the PVCs that either have an empty
-value for `storageClassName` or do not have this key, the control plane then
-updates those PVCs to set `storageClassName` to match the new default StorageClass.
-If you have an existing PVC where the `storageClassName` is `""`, and you configure
-a default StorageClass, then this PVC will not get updated.
-
-In order to keep binding to PVs with `storageClassName` set to `""`
-(while a default StorageClass is present), you need to set the `storageClassName`
-of the associated PVC to `""`.
+It is possible to create PersistentVolumeClaims without specifying a
+`storageClassName` or when no default StorageClass exists in your cluster.
+In these cases, the new PVC is created as you defined it, and the `storageClassName`
+is [retroactively set](/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment) once a default StorageClass becomes available.
 
 ## Provisioner
 
