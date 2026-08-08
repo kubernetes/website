@@ -187,7 +187,7 @@ Prerrequisitos:
 
 * Las instancias de `kube-apiserver` con las que se comunican estos componentes están en la versión **{{< skew currentVersion >}}**
   (en clusters HA en los que estos componentes del plano de control pueden comunicarse con cualquier instancia de `kube-apiserver`
-  en el cluster, todas las instancias de `kube-apiserver` deben actualizarse antes de actualizar estos componentes).
+  en el clúster, todas las instancias de `kube-apiserver` deben actualizarse antes de actualizar estos componentes).
 
 Actualiza `kube-controller-manager`, `kube-scheduler`, y
 `cloud-controller-manager` a la versión **{{< skew currentVersion >}}**. No hay un
