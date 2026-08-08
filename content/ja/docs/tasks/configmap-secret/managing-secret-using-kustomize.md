@@ -110,7 +110,7 @@ username.txt:    5 bytes
 
 `kubectl get`と`kubectl describe`コマンドはデフォルトではSecretの内容を表示しません。
 これは、Secretが不用意に他人にさらされたり、ターミナルログに保存されたりしないようにするためです。
-エンコードされたデータの実際の内容を確認するには、[Secretのデコード](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)を参照してください。
+エンコードされたデータの実際の内容を確認するには、[Secretのデコード](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)を参照してください。
 
 ## クリーンアップ
 
@@ -123,7 +123,7 @@ kubectl delete secret db-user-pass-96mffmfh4k
 <!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
-- [Secretのコンセプト](/ja/docs/concepts/configuration/secret/)を読む
-- [kubectlを使用してSecretを管理する](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を知る
-- [設定ファイルを使用してSecretを管理する](/ja/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を知る
+- [Secretのコンセプト](/docs/concepts/configuration/secret/)を読む
+- [kubectlを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を知る
+- [設定ファイルを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を知る
 

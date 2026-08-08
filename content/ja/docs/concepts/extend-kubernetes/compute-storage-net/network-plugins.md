@@ -11,7 +11,7 @@ Kubernetes {{< skew currentVersion >}}は、クラスターネットワーキン
 クラスターと互換性があり、需要に合ったCNIプラグインを使用する必要があります。
 様々なプラグイン(オープンソースあるいはクローズドソース)が幅広いKubernetesエコシステムで利用可能です。
 
-[Kubernetesネットワークモデル](/ja/docs/concepts/services-networking/#the-kubernetes-network-model)を実装するには、CNIプラグインが必要です。
+[Kubernetesネットワークモデル](/docs/concepts/services-networking/#the-kubernetes-network-model)を実装するには、CNIプラグインが必要です。
 
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)以降のCNI仕様のリリースと互換性のあるCNIプラグインを使用する必要があります。
 Kubernetesプロジェクトは、[v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)のCNI仕様と互換性のあるプラグインの使用を推奨しています(プラグインは複数の仕様のバージョンに対応できます)。
@@ -36,7 +36,7 @@ dockershimの削除に伴う問題に直面している場合は、[CNIプラグ
 - [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
 
-CNIプラグインのインストールや管理方法についての具体的な情報については、そのプラグインまたは[ネットワーキングプロバイダー](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)のドキュメントを参照してください。
+CNIプラグインのインストールや管理方法についての具体的な情報については、そのプラグインまたは[ネットワーキングプロバイダー](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)のドキュメントを参照してください。
 
 ## ネットワークプラグインの要件
 
@@ -138,6 +138,6 @@ metadata:
 
 ## {{% heading "whatsnext" %}}
 
-- [クラスターのネットワーク](/ja/docs/concepts/cluster-administration/networking/)についてさらに学ぶ
-- [ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)についてさらに学ぶ
+- [クラスターのネットワーク](/docs/concepts/cluster-administration/networking/)についてさらに学ぶ
+- [ネットワークポリシー](/docs/concepts/services-networking/network-policies/)についてさらに学ぶ
 - [CNIプラグインに関連するエラーのトラブルシューティング](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)について学ぶ

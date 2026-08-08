@@ -17,7 +17,7 @@ Jobは一つ以上のPodを作成し、指定された数のPodが正常に終�
 
 Jobで複数のPodを並列で実行することもできます。
 
-スケジュールに沿ってJob(単一のタスクか複数タスク並列のいずれか)を実行したい場合は [CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
+スケジュールに沿ってJob(単一のタスクか複数タスク並列のいずれか)を実行したい場合は [CronJob](/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
 
 <!-- body -->
 
@@ -173,7 +173,7 @@ kubectl logs jobs/pi
 
 他のKubernetesオブジェクト設定ファイルと同様に、Jobにも`apiVersion`、`kind`または`metadata`フィールドが必要です。
 
-コントロールプレーンがJobのために新しいPodを作成するとき、Jobの`.metadata.name`はそれらのPodに名前をつけるための基礎の一部になります。Jobの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要がありますが、これはPodのホスト名に予期しない結果をもたらす可能性があります。最高の互換性を得るためには、名前は[DNSラベル](/ja/docs/concepts/overview/working-with-objects/names/#dns-label-names)のより限定的な規則に従うべきです。名前がDNSサブドメインの場合でも、名前は63文字以下でなければなりません。
+コントロールプレーンがJobのために新しいPodを作成するとき、Jobの`.metadata.name`はそれらのPodに名前をつけるための基礎の一部になります。Jobの名前は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要がありますが、これはPodのホスト名に予期しない結果をもたらす可能性があります。最高の互換性を得るためには、名前は[DNSラベル](/docs/concepts/overview/working-with-objects/names/#dns-label-names)のより限定的な規則に従うべきです。名前がDNSサブドメインの場合でも、名前は63文字以下でなければなりません。
 
 Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。
 
@@ -184,11 +184,11 @@ Jobラベルの`job-name`と`controller-uid`の接頭辞は`batch.kubernetes.io/
 
 `.spec.template`は`.spec`の唯一の必須フィールドです。
 
-`.spec.template`は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
+`.spec.template`は[podテンプレート](/docs/concepts/workloads/pods/#pod-templates)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
 
 Podの必須フィールドに加えて、Job定義ファイルにあるPodテンプレートでは、適切なラベル([podセレクター](#pod-selector)を参照)と適切な再起動ポリシーを指定する必要があります。
 
-[`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は`Never`か`OnFailure`のみ設定可能です。
+[`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は`Never`か`OnFailure`のみ設定可能です。
 
 ### Podセレクター  {#pod-selector}
 
@@ -252,7 +252,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
     インデックス付きJob(Indexed Job)と{{< glossary_tooltip term_id="Service" >}}を一緒に使用すると、Jobに属するPodはお互いにDNSを介して確定的ホスト名で通信できます。この設定方法の詳細は[Pod間通信を使用したJob](https://kubernetes.io/docs/tasks/job/job-with-pod-to-pod-communication/)を参照してください。
   - コンテナ化されたタスクの環境変数`JOB_COMPLETION_INDEX`。
 
-  各インデックスに1つずつ正常に完了したPodがあると、Jobは完了したとみなされます。このモードの使い方については、[静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。
+  各インデックスに1つずつ正常に完了したPodがあると、Jobは完了したとみなされます。このモードの使い方については、[静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。
 
 {{< note >}}
 めったに発生しませんが、同じインデックスに対して複数のPodが起動することがあります。(Nodeの障害、kubeletの再起動、Podの立ち退きなど)。この場合、正常に完了した最初のPodだけ完了数にカウントされ、Jobのステータスが更新されます。同じインデックスに対して実行中または完了した他のPodは、検出されるとJobコントローラーによって削除されます。
@@ -261,7 +261,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 ## Podとコンテナの障害対策  {#handling-pod-and-container-failures}
 
 Pod内のコンテナは、その中のプロセスが0以外の終了コードで終了した、またはメモリ制限を超えたためにコンテナが強制終了されたなど、様々な理由で失敗することがあります。この場合、もし`.spec.template.spec.restartPolicy = "OnFailure"`と設定すると、Podはノード上に残りますが、コンテナは再実行されます。そのため、プログラムがローカルで再起動した場合の処理を行うか、`.spec.template.spec.restartPolicy = "Never"`と指定する必要があります。
-`restartPolicy`の詳細については[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)を参照してください。
+`restartPolicy`の詳細については[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)を参照してください。
 
 Podがノードからキックされた(ノードがアップグレード、再起動、削除されたなど)、または`.spec.template.spec.restartPolicy = "Never"`と設定されたときにPodに属するコンテナが失敗したなど、様々な理由でPod全体が故障することもあります。Podに障害が発生すると、Jobコントローラーは新しいPodを起動します。つまりアプリケーションは新しいPodで再起動された場合の処理を行う必要があります。特に、過去に実行した際に生じた一時ファイル、ロック、不完全な出力などを処理する必要があります。
 
@@ -271,7 +271,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 
 `.spec.parallelism`と`.spec.completions`を両方とも2以上指定した場合、複数のPodが同時に実行される可能性があります。そのため、Podは並行処理を行えるようにする必要があります。
 
-[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)の`PodDisruptionConditions`と`JobPodFailurePolicy`の両方が有効で、`.spec.podFailurePolicy`フィールドが設定されている場合、Jobコントローラーは終了するPod(`.metadata.deletionTimestamp`フィールドが設定されているPod)を、そのPodが終了する(`.status.phase`が`Failed`または`Succeeded`になる)までは失敗とはみなしません。ただし、Jobコントローラーは、終了が明らかになるとすみやかに代わりのPodを作成します。Podが終了すると、Jobコントローラーはこの終了したPodを考慮に入れて、該当のJobの`.backoffLimit`と`.podFailurePolicy`を評価します。
+[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)の`PodDisruptionConditions`と`JobPodFailurePolicy`の両方が有効で、`.spec.podFailurePolicy`フィールドが設定されている場合、Jobコントローラーは終了するPod(`.metadata.deletionTimestamp`フィールドが設定されているPod)を、そのPodが終了する(`.status.phase`が`Failed`または`Succeeded`になる)までは失敗とはみなしません。ただし、Jobコントローラーは、終了が明らかになるとすみやかに代わりのPodを作成します。Podが終了すると、Jobコントローラーはこの終了したPodを考慮に入れて、該当のJobの`.backoffLimit`と`.podFailurePolicy`を評価します。
 
 これらの要件のいずれかが満たされていない場合、Jobコントローラーは、そのPodが後に`phase: "Succeeded"`で終了する場合でも、終了するPodを即時に失敗として数えます。
 
@@ -297,7 +297,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-クラスターで`JobPodFailurePolicy`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっている場合のみ、Jobに対してPod失敗ポリシーを設定することができます。さらにPod失敗ポリシーでPodの中断条件を検知して処理できるように、`PodDisruptionConditions`フィーチャーゲートを有効にすることが推奨されます。([Podの中断条件](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)を参照してください)。どちらのフィーチャーゲートもKubernetes 1.27で利用可能です。
+クラスターで`JobPodFailurePolicy`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっている場合のみ、Jobに対してPod失敗ポリシーを設定することができます。さらにPod失敗ポリシーでPodの中断条件を検知して処理できるように、`PodDisruptionConditions`フィーチャーゲートを有効にすることが推奨されます。([Podの中断条件](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)を参照してください)。どちらのフィーチャーゲートもKubernetes 1.27で利用可能です。
 {{< /note >}}
 
 `.spec.podFailurePolicy`フィールドで定義されるPod失敗ポリシーを使用すると、コンテナの終了コードとPodの条件に基づいてクラスターがPodの失敗を処理できるようになります。
@@ -339,7 +339,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
     - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
 
 {{< note >}}
-`PodFailurePolicy`を使用すると、Jobコントローラーは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
+`PodFailurePolicy`を使用すると、Jobコントローラーは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
 {{< /note >}}
 
 ## Jobの終了とクリーンアップ  {#job-termination-and-cleanup}
@@ -376,21 +376,21 @@ spec:
       restartPolicy: Never
 ```
 
-Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts/workloads/pods/init-containers/#detailed-behavior)は両方とも`activeDeadlineSeconds`フィールドを持っているので注意してください。適切なレベルで設定していることを確認してください。
+Job仕様と、Jobに属する[Podテンプレートの仕様](/docs/concepts/workloads/pods/init-containers/#detailed-behavior)は両方とも`activeDeadlineSeconds`フィールドを持っているので注意してください。適切なレベルで設定していることを確認してください。
 
 また`restartPolicy`はJob自体ではなく、Podに適用されることも注意してください: Jobの状態は`type: Failed`になると、自動的に再起動されることはありません。
 つまり、`.spec.activeDeadlineSeconds`と`.spec.backoffLimit`によって引き起こされるJob終了メカニズムは、永久的なJob失敗につながり、手動で介入して解決する必要があります。
 
 ## 終了したJobの自動クリーンアップ  {#clean-up-finished-jobs-automatically}
 
-終了したJobは通常システムに残す必要はありません。残ったままにしておくとAPIサーバーに負担をかけることになります。Jobが上位コントローラーにより直接管理されている場合、例えば[CronJobs](/ja/docs/concepts/workloads/controllers/cron-jobs/)の場合、Jobは指定された容量ベースのクリーンアップポリシーに基づき、CronJobによりクリーンアップされます。
+終了したJobは通常システムに残す必要はありません。残ったままにしておくとAPIサーバーに負担をかけることになります。Jobが上位コントローラーにより直接管理されている場合、例えば[CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)の場合、Jobは指定された容量ベースのクリーンアップポリシーに基づき、CronJobによりクリーンアップされます。
 
 ### 終了したJobのTTLメカニズム  {#ttl-mechanism-for-finished-jobs}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 終了したJob(状態が`Complete`か`Failed`になったJob)を自動的にクリーンアップするもう一つの方法は
-[TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースをクリーンアップすることができます。
+[TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースをクリーンアップすることができます。
 
 TTLコントローラーでJobをクリーンアップする場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Finalizerなどの、Jobのライフサイクル保証は守られることに注意してください。
 
@@ -418,9 +418,9 @@ Job `pi-with-ttl`は終了してからの`100`秒後に自動的に削除され�
 
 {{< note >}}
 `ttlSecondsAfterFinished`フィールドを設定することが推奨されます。管理されていないJob(CronJobなどの、他のワークロードAPIを経由せずに、直接作成したJob)は`orphanDependents`というデフォルトの削除ポリシーがあるため、Jobが完全に削除されても、属しているPodが残ってしまうからです。
-{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は最終的に、失敗または完了して削除されたJobに属するPodを[ガベージコレクション](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)しますが、Podが残っていると、クラスターのパフォーマンスが低下することがあり、最悪の場合、この低下によりクラスターがオフラインになることがあります。
+{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は最終的に、失敗または完了して削除されたJobに属するPodを[ガベージコレクション](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)しますが、Podが残っていると、クラスターのパフォーマンスが低下することがあり、最悪の場合、この低下によりクラスターがオフラインになることがあります。
 
-[LimitRanges](/ja/docs/concepts/policy/limit-range/)と[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)で、指定する名前空間が消費できるリソースの量に上限を設定することができます。
+[LimitRanges](/docs/concepts/policy/limit-range/)と[リソースクォータ](/docs/concepts/policy/resource-quotas/)で、指定する名前空間が消費できるリソースの量に上限を設定することができます。
 {{< /note >}}
 
 
@@ -486,7 +486,7 @@ Jobを一時停止するには、Jobの`.spec.suspend`フィールドをtrueに�
 
 一時停止状態のJobを再開すると、`.status.startTime`フィールドの値は現在時刻にリセットされます。これはつまり、Jobが一時停止して再開すると、`.spec.activeDeadlineSeconds`タイマーは停止してリセットされることになります。
 
-Jobを中断すると、状態が`Completed`ではない実行中のPodはすべてSIGTERMシグナルを受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこのシグナルを処理しなければなりません。場合により、その後のために処理状況を保存したり、変更を元に戻したりする処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
+Jobを中断すると、状態が`Completed`ではない実行中のPodはすべてSIGTERMシグナルを受信して[終了されます](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこのシグナルを処理しなければなりません。場合により、その後のために処理状況を保存したり、変更を元に戻したりする処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
 
 下記は一時停止状態のままで作成されたJobの定義例になります:
 
@@ -644,7 +644,7 @@ Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っ�
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
-`.spec.parallelism`と`.spec.compleitions`の両方を、`.spec.parallelism` == `.spec.compleitions`となるように変更することで、インデックス付きJobを増減させることができます。[APIサーバ](/docs/reference/command-line-tools-reference/kube-apiserver/)の`ElasticIndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が無効になっている場合、`.spec.compleitions`は不変です。
+`.spec.parallelism`と`.spec.compleitions`の両方を、`.spec.parallelism` == `.spec.compleitions`となるように変更することで、インデックス付きJobを増減させることができます。[APIサーバ](/docs/reference/command-line-tools-reference/kube-apiserver/)の`ElasticIndexedJob`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が無効になっている場合、`.spec.compleitions`は不変です。
 
 静的なインデックス付きJobの使用例としては、MPI、Horovod、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
 
@@ -659,7 +659,7 @@ Podが動作しているノードが再起動または故障した場合、Pod�
 Jobは[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)を補完するものです。
 Replication Controllerは、終了することが想定されていないPod(Webサーバーなど)を管理し、Jobは終了することが想定されているPod(バッチタスクなど)を管理します。
 
-[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明したように、`Job`は`RestartPolicy`が`OnFailure`か`Never`と設定されているPodに*のみ*適用されます。(注意:`RestartPolicy`が設定されていない場合、デフォルト値は`Always`になります)
+[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)で説明したように、`Job`は`RestartPolicy`が`OnFailure`か`Never`と設定されているPodに*のみ*適用されます。(注意:`RestartPolicy`が設定されていない場合、デフォルト値は`Always`になります)
 
 
 ### シングルJobによるコントローラーPodの起動  {#single-job-starts-controller-pod}
@@ -670,13 +670,13 @@ Replication Controllerは、終了することが想定されていないPod(Web
 
 ## {{% heading "whatsnext" %}}
 
-* [Pods](/ja/docs/concepts/workloads/pods/)について学ぶ。
+* [Pods](/docs/concepts/workloads/pods/)について学ぶ。
 * Jobのさまざまな実行方法について学ぶ:
    * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [ワークキューを用いた粒度の細かい並列処理](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う
+   * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/docs/tasks/job/indexed-parallel-processing-static/) を使う
    * テンプレートを元に複数のJobを作成: [拡張機能を用いた並列処理](/docs/tasks/job/parallel-processing-expansion/)
 * [終了したJobの自動クリーンアップ](#clean-up-finished-jobs-automatically)のリンクから、クラスターが完了または失敗したJobをどのようにクリーンアップするかをご確認ください。
 * `Job`はKubernetes REST APIの一部です。JobのAPIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。
-* UNIXツールの`cron`と同様に、スケジュールに基づいて実行される一連のJobを定義するために使用できる[`CronJob`](/ja/docs/concepts/workloads/controllers/cron-jobs/)についてお読みください。
+* UNIXツールの`cron`と同様に、スケジュールに基づいて実行される一連のJobを定義するために使用できる[`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/)についてお読みください。
 * 段階的な[例](/docs/tasks/job/pod-failure-policy/)に基づいて、`PodFailurePolicy`を使用して、回復可能なPod失敗と回復不可能なPod失敗の処理を構成する方法を練習します。

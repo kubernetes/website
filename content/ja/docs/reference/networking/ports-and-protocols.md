@@ -26,7 +26,7 @@ etcdポートはコントロールプレーンノードに含まれています�
 | TCP        | Inbound    | 10250       | Kubelet API           | 自身, コントロールプレーン     |
 | TCP        | Inbound    | 30000-32767 | NodePort Services†    | 全て                     |
 
-† [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポート範囲。
+† [NodePort Services](/docs/concepts/services-networking/service/)のデフォルトのポート範囲。
 
 
 すべてのデフォルトのポート番号が書き換え可能です。

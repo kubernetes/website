@@ -7,16 +7,16 @@ weight: 70
 <!-- overview -->
 {{<glossary_definition term_id="garbage-collection" length="short">}}これにより、次のようなリソースのクリーンアップが可能になります:
 
-  * [終了したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
-  * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [終了したPod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+  * [完了したJob](/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
-  * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/ja/docs/concepts/storage/persistent-volumes/#delete)
+  * [StorageClassの再利用ポリシーがDeleteである動的にプロビジョニングされたPersistentVolume](/docs/concepts/storage/persistent-volumes/#delete)
   * [失効または期限切れのCertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * 次のシナリオで削除された{{<glossary_tooltip text="Node" term_id="node">}}:
-    * クラウド上でクラスターが[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を使用する場合
+    * クラウド上でクラスターが[クラウドコントローラーマネージャー](/docs/concepts/architecture/cloud-controller/)を使用する場合
     * オンプレミスでクラスターがクラウドコントローラーマネージャーと同様のアドオンを使用する場合
-  * [Node Leaseオブジェクト](/ja/docs/concepts/architecture/nodes/#heartbeats)
+  * [Node Leaseオブジェクト](/docs/concepts/architecture/nodes/#heartbeats)
 
 ## オーナーの依存関係 {#owners-dependents}
 
@@ -70,19 +70,19 @@ Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner 
 この時点で、オブジェクトはKubernetesAPIに表示されなくなります。
 
 フォアグラウンドカスケード削除中に、オーナーの削除をブロックする依存関係は、`ownerReference.blockOwnerDeletion=true`フィールドを持つ依存関係のみです。
-詳細については、[フォアグラウンドカスケード削除の使用](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
+詳細については、[フォアグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
 
 ### バックグラウンドカスケード削除 {#background-deletion}
 
 バックグラウンドカスケード削除では、Kubernetes APIサーバーがオーナーオブジェクトをすぐに削除し、コントローラーがバックグラウンドで依存オブジェクトをクリーンアップします。
 デフォルトでは、フォアグラウンド削除を手動で使用するか、依存オブジェクトを孤立させることを選択しない限り、Kubernetesはバックグラウンドカスケード削除を使用します。
 
-詳細については、[バックグラウンドカスケード削除の使用](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
+詳細については、[バックグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
 
 ### 孤立した依存関係
 
 Kubernetesがオーナーオブジェクトを削除すると、残された依存関係は*orphan*オブジェクトと呼ばれます。
-デフォルトでは、Kubernetesは依存関係オブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトの削除と従属オブジェクトの孤立](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
+デフォルトでは、Kubernetesは依存関係オブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトの削除と従属オブジェクトの孤立](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
 
 ## 未使用のコンテナとイメージのガベージコレクション {#containers-images}
 
@@ -124,8 +124,8 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 これらのリソースを管理するコントローラーに固有のオプションを設定することにより、リソースのガベージコレクションを調整できます。次のページは、ガベージコレクションを設定する方法を示しています。
 
-  * [Kubernetesオブジェクトのカスケード削除の設定](/ja/docs/tasks/administer-cluster/use-cascading-deletion/)
-  * [完了したジョブのクリーンアップの設定](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [Kubernetesオブジェクトのカスケード削除の設定](/docs/tasks/administer-cluster/use-cascading-deletion/)
+  * [完了したジョブのクリーンアップの設定](/docs/concepts/workloads/controllers/ttlafterfinished/)
   
 <!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
 
@@ -133,4 +133,4 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 * [Kubernetes オブジェクトの所有権](/docs/concepts/overview/working-with-objects/owners-dependents/)を学びます。
 * Kubernetes [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)を学びます。
-* 完了したジョブをクリーンアップする[TTL controller](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)(beta)について学びます。
+* 完了したジョブをクリーンアップする[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/)(beta)について学びます。

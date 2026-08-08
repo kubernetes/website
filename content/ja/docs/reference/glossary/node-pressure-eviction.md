@@ -16,4 +16,4 @@ tags:
 kubeletは、クラスターのノード上のCPU、メモリ、ディスク容量、ファイルシステムのinodeなどのリソースを監視します。
 これらのリソースの1つ以上が特定の消費レベルに達すると、kubeletはノード上の1つ以上のPodを積極的に失敗させることでリソースを回収し、枯渇を防ぎます。
 
-ノード圧迫による退避は、[APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)とは異なります。
+ノード圧迫による退避は、[APIを起点とした退避](/docs/concepts/scheduling-eviction/api-eviction/)とは異なります。

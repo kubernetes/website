@@ -232,7 +232,7 @@ Kubernetes {{< skew currentVersion >}}は、AppArmorプロファイルをノー�
 プロファイルは、カスタムインフラストラクチャーや[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)などのツールを通じて読み込むことができます。
 
 スケジューラーはどのプロファイルがどのノードに読み込まれているのかがわからないため、すべてのプロファイルがすべてのノードに読み込まれていなければなりません。
-もう1つのアプローチとしては、各プロファイル(あるいはプロファイルのクラス)ごとにノードラベルを追加し、[ノードセレクター](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)を用いてPodが必要なプロファイルを読み込んだノードで実行されるようにする方法もあります。
+もう1つのアプローチとしては、各プロファイル(あるいはプロファイルのクラス)ごとにノードラベルを追加し、[ノードセレクター](/docs/concepts/scheduling-eviction/assign-pod-node/)を用いてPodが必要なプロファイルを読み込んだノードで実行されるようにする方法もあります。
 
 ## Profilesの作成
 

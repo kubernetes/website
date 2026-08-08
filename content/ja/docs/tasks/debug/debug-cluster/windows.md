@@ -39,7 +39,7 @@ content_type: concept
    この静的ファイルはいつでも編集できます。
    設定の更新は、新しく作成されたすべてのKubernetesリソースに適用されます。
 
-   Kubernetesのネットワーク要件の1つ([Kubernetesモデル](/ja/docs/concepts/cluster-administration/networking/)を参照)は、内部でNATせずにクラスター通信が行われることです。
+   Kubernetesのネットワーク要件の1つ([Kubernetesモデル](/docs/concepts/cluster-administration/networking/)を参照)は、内部でNATせずにクラスター通信が行われることです。
    この要件を満たすために、アウトバウンドのNATを発生させたくないすべての通信のための[ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)があります。
    ただしこれは、クエリしようとしている外部IPを`ExceptionList`から除外する必要があることも意味します。
    そうして初めて、Windows Podからのトラフィックが正しくSNATされ、外部からの応答を受信できるようになります。
@@ -89,7 +89,7 @@ content_type: concept
 
 1. DNS名前解決が正しく動作しません
 
-   この[セクション](/ja/docs/concepts/services-networking/dns-pod-service/#dns-windows)のWindowsにおけるDNSの制限について確認してください。
+   この[セクション](/docs/concepts/services-networking/dns-pod-service/#dns-windows)のWindowsにおけるDNSの制限について確認してください。
 
 1. `kubectl port-forward`が"unable to do port forwarding: wincat not found"で失敗します
 

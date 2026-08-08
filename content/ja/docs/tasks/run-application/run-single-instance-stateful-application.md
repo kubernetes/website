@@ -145,7 +145,7 @@ mysql>
 
 * アプリケーションをスケールしないでください。このセットアップは単一レプリカのアプリケーション専用です。
   下層にあるPersistentVolumeは1つのPodにしかマウントできません。
-  クラスター化されたステートフルアプリケーションについては、[StatefulSetのドキュメント](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
+  クラスター化されたステートフルアプリケーションについては、[StatefulSetのドキュメント](/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 * Deploymentを定義するYAMLファイルでは`strategy: type: Recreate`を使用して下さい。
   この設定はKubernetesにローリングアップデートを使用 _しない_ ように指示します。
   同時に複数のPodを実行することはできないため、ローリングアップデートは使用できません。
@@ -171,9 +171,9 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 ## {{% heading "whatsnext" %}}
 
 
-* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
+* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
 
-* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)についてもっと学ぶ
+* [アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)についてもっと学ぶ
 
 * [kubectl runのドキュメント](/docs/reference/generated/kubectl/kubectl-commands/#run)
 

@@ -26,7 +26,7 @@ PodごとのPID制限により、管理者はあるPodを他のPodから保護�
 
 また、Podへの割り当てとは別に、ノードのオーバーヘッドのために一定量のPIDを予約することもできます。これは、CPU、メモリ、その他のリソースをオペレーティングシステムやPodおよびコンテナ外の他の機能で使用するために予約する方法と似ています。
 
-PID制限は、[コンピュータリソース](/ja/docs/concepts/configuration/manage-resources-containers/)のリクエストと制限と並んで重要な機能です。ただし、指定方法は異なります。Podのリソース制限をPodの`.spec`で定義するのではなく、kubeletの設定として制限を設定します。現在、Pod定義のPID制限はサポートされていません。
+PID制限は、[コンピュータリソース](/docs/concepts/configuration/manage-resources-containers/)のリクエストと制限と並んで重要な機能です。ただし、指定方法は異なります。Podのリソース制限をPodの`.spec`で定義するのではなく、kubeletの設定として制限を設定します。現在、Pod定義のPID制限はサポートされていません。
 
 {{< caution >}}
 これは、Podに適用される制限が、Podがスケジュールされる場所によって異なる可能性があることを意味します。簡単にするためには、すべてのノードが同じPIDリソースの制限と予約を使用するのが最も簡単です。
@@ -50,5 +50,5 @@ PIDの制限、つまりPod毎、ノード毎にハード制限を設定でき�
 
 - [PID制限の強化に関するドキュメント](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md)で詳細情報を確認できます。
 - 歴史的背景について学ぶために、[Kubernetes 1.14での安定性向上のためのプロセスID制限](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/)をご覧ください。
-- [コンテナのリソース管理](/ja/docs/concepts/configuration/manage-resources-containers/)についてご覧ください。
+- [コンテナのリソース管理](/docs/concepts/configuration/manage-resources-containers/)についてご覧ください。
 - [リソース不足時の対応設定](/docs/concepts/scheduling-eviction/node-pressure-eviction/)の方法について学ぶことができます。

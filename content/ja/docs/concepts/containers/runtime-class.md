@@ -36,7 +36,7 @@ RuntimeClassは、クラスター全体で同じ種類のノード設定であ�
 設定が異なるノードをサポートするには、[スケジューリング](#scheduling)を参照してください。
 {{< /note >}}
 
-RuntimeClassの設定は、RuntimeClassによって参照される`ハンドラー`名を持ちます。そのハンドラーは有効な[DNSラベル名](/ja/docs/concepts/overview/working-with-objects/names/#dns-label-names)でなくてはなりません。
+RuntimeClassの設定は、RuntimeClassによって参照される`ハンドラー`名を持ちます。そのハンドラーは有効な[DNSラベル名](/docs/concepts/overview/working-with-objects/names/#dns-label-names)でなくてはなりません。
 
 ### 2. 対応するRuntimeClassリソースを作成する
 
@@ -56,7 +56,7 @@ metadata:
 handler: myconfiguration
 ```
 
-RuntimeClassオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)に従う必要があります。
+RuntimeClassオブジェクトの名前は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)に従う必要があります。
 
 
 {{< note >}}
@@ -80,14 +80,14 @@ spec:
   # ...
 ```
 
-これは、kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
-エラーメッセージに関しては対応する[イベント](/ja/docs/tasks/debug/debug-application/debug-running-pod/)を参照して下さい。
+これは、kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
+エラーメッセージに関しては対応する[イベント](/docs/tasks/debug/debug-application/debug-running-pod/)を参照して下さい。
 
 もし`runtimeClassName`が指定されていない場合、デフォルトのRuntimeHandlerが使用され、これはRuntimeClassの機能が無効であるときのふるまいと同じものとなります。
 
 ### CRIの設定 {#cri-configuration}
 
-CRIランタイムのセットアップに関するさらなる詳細は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
+CRIランタイムのセットアップに関するさらなる詳細は、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を参照してください。
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
@@ -127,7 +127,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 もしサポートされているノードが他のRuntimeClassのPodが稼働しないようにtaint付与されていた場合、RuntimeClassに対して`tolerations`を付与することができます。
 `nodeSelector`と同様に、tolerationsはPodのtolerationsにアドミッション機能によって統合され、効率よく許容されたノードを選択します。
 
-ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)を参照してください。
+ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/docs/concepts/scheduling-eviction/assign-pod-node/)を参照してください。
 
 ### Podオーバーヘッド
 

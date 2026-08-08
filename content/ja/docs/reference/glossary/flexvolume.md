@@ -19,6 +19,6 @@ FlexVolumeドライバーのバイナリと依存関係は、ホストマシン�
 これにはrootアクセスが必要です。
 Storage SIGは、FlexVolumeの制約に対処するために可能であれば{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーを実装することを推奨しています。
 
-* [KubernetesドキュメントのFlexVolume](/ja/docs/concepts/storage/volumes/#flexvolume)
+* [KubernetesドキュメントのFlexVolume](/docs/concepts/storage/volumes/#flexvolume)
 * [FlexVolumesの詳細な情報](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md)
 * [ストレージベンダー向けボリュームプラグインに関するFAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)

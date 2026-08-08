@@ -14,7 +14,7 @@ min-kubernetes-server-version: 1.7
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-[DaemonSet上でローリングアップデートを実施する](/ja/docs/tasks/manage-daemon/update-daemon-set/)方法については既に知っているものとします。
+[DaemonSet上でローリングアップデートを実施する](/docs/tasks/manage-daemon/update-daemon-set/)方法については既に知っているものとします。
 
 <!-- steps -->
 
@@ -133,4 +133,4 @@ DaemonSetのリビジョンはロールフォワードのみとなります。
 
 ## トラブルシューティング
 
-* [DaemonSetのローリングアップデートのトラブルシューティング](/ja/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting)を参照。
+* [DaemonSetのローリングアップデートのトラブルシューティング](/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting)を参照。

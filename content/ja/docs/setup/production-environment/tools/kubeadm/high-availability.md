@@ -11,7 +11,7 @@ weight: 60
 - 積層コントロールプレーンノードを使う方法。こちらのアプローチは、必要なインフラストラクチャーが少ないです。etcdのメンバーと、コントロールプレーンノードは同じ場所に置かれます。
 - 外部のetcdクラスターを使う方法。こちらのアプローチには、より多くのインフラストラクチャーが必要です。コントロールプレーンノードと、etcdのメンバーは分離されます。
 
-先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/ja/docs/setup/production-environment/tools/kubeadm/ha-topology/)が、それぞれの利点/欠点について概説しています。
+先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/docs/setup/production-environment/tools/kubeadm/ha-topology/)が、それぞれの利点/欠点について概説しています。
 
 高可用性クラスターの作成で問題が発生した場合は、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)でフィードバックを提供してください。
 
@@ -28,8 +28,8 @@ weight: 60
 
 どちらの方法でも、以下のインフラストラクチャーが必要です:
 
-- master用に、[kubeadmの最小要件](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
-- worker用に、[kubeadmの最小要件](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
+- master用に、[kubeadmの最小要件](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
+- worker用に、[kubeadmの最小要件](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
 - クラスター内のすべてのマシン間がフルにネットワーク接続可能であること(パブリック、もしくはプライベートネットワーク)
 - すべてのマシンにおいて、sudo権限
 - あるデバイスから、システム内のすべてのノードに対しSSH接続できること
@@ -87,7 +87,7 @@ weight: 60
 
     {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
-    {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
+    {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 
     - このような出力がされます:
 
@@ -128,7 +128,7 @@ weight: 60
     {{< /caution >}}
 
 1.  使用するCNIプラグインを適用します:  
-    [こちらの手順に従い](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。該当する場合は、kubeadmの設定で指定されたPodのCIDRに対応していることを確認してください。
+    [こちらの手順に従い](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。該当する場合は、kubeadmの設定で指定されたPodのCIDRに対応していることを確認してください。
 
     Weave Netを使用する場合の例:
 
@@ -166,7 +166,7 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 
 ### etcdクラスターの構築
 
-1. [こちらの手順](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
+1. [こちらの手順](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
 
 1. [こちらの手順](#manual-certs)にしたがって、SSHを構築してください。
 

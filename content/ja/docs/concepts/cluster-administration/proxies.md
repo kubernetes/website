@@ -33,7 +33,7 @@ Kubernetesを使用する際に、いくつかのプロキシを使用する場�
     - Node、Pod、Serviceへ到達するのに使えます
     - Serviceへ到達するときは負荷分散を行います
 
-1.  [kube proxy](/ja/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 各ノード上で稼働します
     - UDP、TCP、SCTPをプロキシします

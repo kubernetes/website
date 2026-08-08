@@ -15,4 +15,4 @@ tags:
 <!--more-->
 各Kubernetesコンポーネントで`--feature-gates`コマンドラインフラグを使用して、これらの機能をオンまたはオフにすることができます。
 各Kubernetesコンポーネントでは、そのコンポーネントに関連する一連のフィーチャーゲートを有効または無効にすることができます。
-Kubernetesのドキュメントには、現在のすべての[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)とその制御対象がリストされています。
+Kubernetesのドキュメントには、現在のすべての[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)とその制御対象がリストされています。

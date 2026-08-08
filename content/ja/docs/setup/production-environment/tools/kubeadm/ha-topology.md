@@ -57,6 +57,6 @@ kubeadmは、etcdクラスターを静的にブートストラップします。
 ## {{% heading "whatsnext" %}}
 
 
-- [kubeadmを使用した高可用性クラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)
+- [kubeadmを使用した高可用性クラスターの作成](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
 

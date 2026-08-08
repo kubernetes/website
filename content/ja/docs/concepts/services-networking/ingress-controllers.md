@@ -50,12 +50,12 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 
 ## 複数のIngressコントローラーの使用 {#using-multiple-ingress-controllers}
 
-[Ingress Class](/ja/docs/concepts/services-networking/ingress/#ingress-class)を使用して、複数のIngressコントローラーをクラスターにデプロイすることができます。
+[Ingress Class](/docs/concepts/services-networking/ingress/#ingress-class)を使用して、複数のIngressコントローラーをクラスターにデプロイすることができます。
 Ingress Classリソースの`.metadata.name`に注目してください。
 Ingressを作成する際には、Ingressオブジェクトで`ingressClassName`フィールドを指定するために、その名前が必要になります([IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)を参照)。
-`ingressClassName`は古い[annotation method](/ja/docs/concepts/services-networking/ingress/#deprecated-annotation)の代替品です。
+`ingressClassName`は古い[annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation)の代替品です。
 
-Ingressに対してIngressClassを指定せず、クラスターにはデフォルトとして設定されたIngressClassが1つだけある場合、KubernetesはIngressにクラスターのデフォルトIngressClassを[適用](/ja/docs/concepts/services-networking/ingress/#default-ingress-class)します。
+Ingressに対してIngressClassを指定せず、クラスターにはデフォルトとして設定されたIngressClassが1つだけある場合、KubernetesはIngressにクラスターのデフォルトIngressClassを[適用](/docs/concepts/services-networking/ingress/#default-ingress-class)します。
 IngressClassの[`ingressclass.kubernetes.io/is-default-class`アノテーション](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)を文字列`"true"`に設定することで、デフォルトとしてIngressClassを設定します。
 
 理想的には、すべてのIngressコントローラーはこの仕様を満たすべきですが、いくつかのIngressコントローラーはわずかに異なる動作をします。
@@ -66,5 +66,5 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 
 ## {{% heading "whatsnext" %}}
 
-* [Ingress](/ja/docs/concepts/services-networking/ingress/)についてさらに学ぶ。
-* [Minikube上でNGINX Ingressコントローラーを使用してIngressをセットアップする](/ja/docs/tasks/access-application-cluster/ingress-minikube)。
+* [Ingress](/docs/concepts/services-networking/ingress/)についてさらに学ぶ。
+* [Minikube上でNGINX Ingressコントローラーを使用してIngressをセットアップする](/docs/tasks/access-application-cluster/ingress-minikube)。

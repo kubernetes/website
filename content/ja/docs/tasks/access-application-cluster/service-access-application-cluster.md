@@ -116,7 +116,7 @@ weight: 60
 ## service configuration fileの利用
 
 `kubectl expose`コマンドの代わりに、
-[service configuration file](/ja/docs/concepts/services-networking/service/)
+[service configuration file](/docs/concepts/services-networking/service/)
 を使用してServiceを作成することもできます。
 
 
@@ -140,6 +140,6 @@ Hello Worldアプリケーションが稼働しているDeployment、ReplicaSet�
 
 
 詳細は
-[serviceを利用してアプリケーションと接続する](/ja/docs/concepts/services-networking/connect-applications-service/)
+[serviceを利用してアプリケーションと接続する](/docs/concepts/services-networking/connect-applications-service/)
 を確認してください。
 

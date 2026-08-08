@@ -16,7 +16,7 @@ kubeadmは実用最小限のクラスターをセットアップするための�
 
 ## インストール方法
 
-kubeadmをインストールするには、[インストールガイド](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm)を参照してください。
+kubeadmをインストールするには、[インストールガイド](/docs/setup/production-environment/tools/kubeadm/install-kubeadm)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 

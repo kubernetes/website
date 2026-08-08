@@ -110,7 +110,7 @@ Kubernetes v1.33では、SIG AuthとSIG Nodeがついにこの(非常に古く�
 Kubernetes v1.33では、この機能のアルファ版がリリースされました。
 実際に試してみるには、バージョン1.33のKubeletにおいて、`KubeletEnsureSecretPulledImages`フィーチャーゲートを有効にしてください。
 
-この機能や追加のオプション設定の詳細については、Kubernetes公式ドキュメントの[イメージの概要ページ](/ja/docs/concepts/containers/images/#ensureimagepullcredentialverification)をご覧ください。
+この機能や追加のオプション設定の詳細については、Kubernetes公式ドキュメントの[イメージの概要ページ](/docs/concepts/containers/images/#ensureimagepullcredentialverification)をご覧ください。
 
 ## 今後の予定
 

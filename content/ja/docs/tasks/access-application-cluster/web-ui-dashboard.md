@@ -87,7 +87,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 デプロイウィザードでは、以下の情報を入力する必要があります:
 
 - **App name** (必須): アプリケーションの名前です。
-  その名前の[label](/ja/docs/concepts/overview/working-with-objects/labels/)は、デプロイされるDeploymentとServiceに追加されます。
+  その名前の[label](/docs/concepts/overview/working-with-objects/labels/)は、デプロイされるDeploymentとServiceに追加されます。
 
   アプリケーション名は、選択したKubernetes[名前空間](/docs/tasks/administer-cluster/namespaces/)内で一意である必要があります。
   小文字で始まり、小文字または数字で終わり、小文字、数字、ダッシュ(-)のみを含む必要があります。文字数は24文字に制限されています。先頭と末尾のスペースは無視されます。
@@ -95,10 +95,10 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 - **Container image** (必須): 任意のレジストリ上の公開Docker[コンテナイメージ](/docs/concepts/containers/images/)、またはプライベートイメージ(一般的にはGoogle Container RegistryやDocker Hub上でホストされている)のURLです。
   コンテナイメージの指定はコロンで終わらせる必要があります。
 
-  クラスター全体で必要な数のPodを維持するために、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)が作成されます。
+  クラスター全体で必要な数のPodを維持するために、[Deployment](/docs/concepts/workloads/controllers/deployment/)が作成されます。
 
 - **Service** (任意): アプリケーションのいくつかの部分(たとえばフロントエンド)では、
-  [Service](/ja/docs/concepts/services-networking/service/)をクラスター外の外部、おそらくパブリックIPアドレス(外部サービス)に公開したいと思うかもしれません。
+  [Service](/docs/concepts/services-networking/service/)をクラスター外の外部、おそらくパブリックIPアドレス(外部サービス)に公開したいと思うかもしれません。
   
   {{< note >}}
   外部サービスの場合は、そのために1つ以上のポートを開放する必要があるでしょう。
@@ -115,9 +115,9 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 必要に応じて、**高度なオプション**セクションを展開して、より多くの設定を指定することができます:
 
 - **Description**: ここで入力したテキストは、
-  [アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)としてDeploymentに追加され、アプリケーションの詳細に表示されます。
+  [アノテーション](/docs/concepts/overview/working-with-objects/annotations/)としてDeploymentに追加され、アプリケーションの詳細に表示されます。
 
-- **Labels**: アプリケーションに使用するデフォルトの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)は、アプリケーション名とバージョンです。
+- **Labels**: アプリケーションに使用するデフォルトの[ラベル](/docs/concepts/overview/working-with-objects/labels/)は、アプリケーション名とバージョンです。
   リリース、環境、ティア、パーティション、リリーストラックなど、Deployment、Service(存在する場合)、Podに適用する追加のラベルを指定できます。
 
   例:
@@ -143,7 +143,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 
 - **Image Pull Secret**:
   指定されたDockerコンテナイメージが非公開の場合、
-  [pull secret](/ja/docs/concepts/configuration/secret/)の認証情報が必要になる場合があります。
+  [pull secret](/docs/concepts/configuration/secret/)の認証情報が必要になる場合があります。
 
   ダッシュボードでは、利用可能なすべてのSecretがドロップダウンリストに表示され、新しいSecretを作成できます。
   Secret名は DNSドメイン名の構文に従う必要があります。たとえば、`new.image-pull.secret`です。
@@ -159,10 +159,10 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
   デフォルトでは、コンテナは指定されたDockerイメージのデフォルトの[entrypointコマンド](/docs/tasks/inject-data-application/define-command-argument-container/)を実行します。
   コマンドのオプションと引数を使ってデフォルトを上書きすることができます。
 
-- **Run as privileged**: この設定は、[特権コンテナ](/ja/docs/concepts/workloads/pods/pod/#privileged-mode-for-pod-containers)内のプロセスが、ホスト上でrootとして実行されているプロセスと同等であるかどうかを決定します。特権コンテナは、
+- **Run as privileged**: この設定は、[特権コンテナ](/docs/concepts/workloads/pods/pod/#privileged-mode-for-pod-containers)内のプロセスが、ホスト上でrootとして実行されているプロセスと同等であるかどうかを決定します。特権コンテナは、
   ネットワークスタックの操作やデバイスへのアクセスなどの機能を利用できます。
 
-- **Environment variables**: Kubernetesは[環境変数](/ja/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)を介してServiceを公開しています。
+- **Environment variables**: Kubernetesは[環境変数](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)を介してServiceを公開しています。
   環境変数を作成したり、環境変数の値を使ってコマンドに引数を渡したりすることができます。
   環境変数の値はServiceを見つけるためにアプリケーションで利用できます。
   値は`$(VAR_NAME)`構文を使用して他の変数を参照できます。
@@ -170,7 +170,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 ### YAMLまたはJSONファイルのアップロード
 
 Kubernetesは宣言的な設定をサポートしています。
-このスタイルでは、すべての設定は Kubernetes [API](/ja/docs/concepts/overview/kubernetes-api/)リソーススキーマを使用してYAMLまたは JSON設定ファイルに格納されます。
+このスタイルでは、すべての設定は Kubernetes [API](/docs/concepts/overview/kubernetes-api/)リソーススキーマを使用してYAMLまたは JSON設定ファイルに格納されます。
 
 デプロイウィザードでアプリケーションの詳細を指定する代わりに、
 YAMLまたはJSONファイルでアプリケーションを定義し、ダッシュボードを使用してファイルをアップロードできます。

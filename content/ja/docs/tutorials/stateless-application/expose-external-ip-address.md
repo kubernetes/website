@@ -14,7 +14,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 
- * [kubectl](/ja/docs/tasks/tools/install-kubectl/)をインストールしてください。
+ * [kubectl](/docs/tasks/tools/install-kubectl/)をインストールしてください。
 
  * Kubernetesクラスターを作成する際に、Google Kubernetes EngineやAmazon Web Servicesのようなクラウドプロバイダーを使用します。このチュートリアルでは、クラウドプロバイダーを必要とする[外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を作成します。
 
@@ -73,7 +73,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
     {{< note >}}
 
-    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
+    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
 
     {{< /note >}}
 

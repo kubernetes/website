@@ -6,7 +6,7 @@ weight: 60
 
 <!-- overview -->
 
-Kubernetesでは、*VolumeSnapshot*はストレージシステム上のボリュームのスナップショットを表します。このドキュメントは、Kubernetes[永続ボリューム](/ja/docs/concepts/storage/persistent-volumes/)に既に精通していることを前提としています。
+Kubernetesでは、*VolumeSnapshot*はストレージシステム上のボリュームのスナップショットを表します。このドキュメントは、Kubernetes[永続ボリューム](/docs/concepts/storage/persistent-volumes/)に既に精通していることを前提としています。
 
 <!-- body -->
 
@@ -45,7 +45,7 @@ APIリソース`PersistentVolume`と`PersistentVolumeClaim`を使用してユー
 
 #### 動的プロビジョニング
 
-既存のスナップショットを使用する代わりに、スナップショットをPersistentVolumeClaimから動的に取得するように要求できます。[VolumeSnapshotClass](/ja/docs/concepts/storage/volume-snapshot-classes/)は、スナップショットを作成するときに使用するストレージプロバイダー固有のパラメーターを指定します。
+既存のスナップショットを使用する代わりに、スナップショットをPersistentVolumeClaimから動的に取得するように要求できます。[VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)は、スナップショットを作成するときに使用するストレージプロバイダー固有のパラメーターを指定します。
 
 ### バインディング
 
@@ -80,7 +80,7 @@ spec:
 
 `persistentVolumeClaimName`は、スナップショットのPersistentVolumeClaimデータソースの名前です。このフィールドは、スナップショットを動的にプロビジョニングするために必要です。
 
-ボリュームスナップショットは、属性`volumeSnapshotClassName`を使用して[VolumeSnapshotClass](/ja/docs/concepts/storage/volume-snapshot-classes/)の名前を指定することにより、特定のクラスを要求できます。何も設定されていない場合、利用可能な場合はデフォルトのクラスが使用されます。
+ボリュームスナップショットは、属性`volumeSnapshotClassName`を使用して[VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)の名前を指定することにより、特定のクラスを要求できます。何も設定されていない場合、利用可能な場合はデフォルトのクラスが使用されます。
 
 事前プロビジョニングされたスナップショットの場合、次の例に示すように、スナップショットのソースとして`volumeSnapshotContentName`を指定する必要があります。事前プロビジョニングされたスナップショットには、`volumeSnapshotContentName`ソースフィールドが必要です。
 
@@ -179,4 +179,4 @@ spec:
 
 `PersistentVolumeClaim`オブジェクトの*dataSource*フィールドを使用して、スナップショットからのデータが事前に取り込まれた新しいボリュームをプロビジョニングできます。
 
-詳細については、[ボリュームのスナップショットとスナップショットからのボリュームの復元](/ja/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)を参照してください。
+詳細については、[ボリュームのスナップショットとスナップショットからのボリュームの復元](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)を参照してください。

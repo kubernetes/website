@@ -63,7 +63,7 @@ Pod内で実行されているコンテナでシェルを実行します:
 ただし、コンテナのエントリーポイントが呼び出される前にpostStartハンドラーが呼び出されるという保証はありません。postStartハンドラーはコンテナのコードに対して非同期的に実行されますが、postStartハンドラーが完了するまでコンテナのKubernetesによる管理はブロックされます。postStartハンドラーが完了するまで、コンテナのステータスはRUNNINGに設定されません。
 
 Kubernetesはコンテナが終了する直前にpreStopイベントを送信します。
-コンテナのKubernetesによる管理は、Podの猶予期間が終了しない限り、preStopハンドラーが完了するまでブロックされます。詳細は[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)を参照してください。
+コンテナのKubernetesによる管理は、Podの猶予期間が終了しない限り、preStopハンドラーが完了するまでブロックされます。詳細は[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)を参照してください。
 
 {{< note >}}
 Kubernetesは、Podが *終了* したときにのみpreStopイベントを送信します。
@@ -77,8 +77,8 @@ Kubernetesは、Podが *終了* したときにのみpreStopイベントを送�
 ## {{% heading "whatsnext" %}}
 
 
-* [コンテナライフサイクルフック](/ja/docs/concepts/containers/container-lifecycle-hooks/)の詳細
-* [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)の詳細
+* [コンテナライフサイクルフック](/docs/concepts/containers/container-lifecycle-hooks/)の詳細
+* [Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)の詳細
 
 
 ### 参照

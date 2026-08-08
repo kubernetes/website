@@ -23,7 +23,7 @@ card:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバーの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバーの[1つのマイナーバージョン内](/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
 
 
 
@@ -290,7 +290,7 @@ contexts:
   name: exp-scratch
 ```
 
-kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
+kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
 
 ## $HOME/.kubeディレクトリの内容を確認する
 

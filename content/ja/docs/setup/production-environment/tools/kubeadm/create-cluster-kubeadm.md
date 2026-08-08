@@ -443,7 +443,7 @@ kubeadmによって管理されている既存のノードまたはクラスタ�
 * クラスター構築またはノードのアップグレードに使用されたkubeadmのバージョン: {{< skew currentVersionAddMinor -1 >}}
 * ノードのアップグレードで使用するkubeadmのバージョンは、{{< skew currentVersionAddMinor -1 >}}または{{< skew currentVersion >}}でなければならない
 
-異なるKubernetesコンポーネント間のバージョン差異についてさらに学ぶには、[バージョンスキューポリシー](/ja/releases/version-skew-policy/)を参照してください。
+異なるKubernetesコンポーネント間のバージョン差異についてさらに学ぶには、[バージョンスキューポリシー](/releases/version-skew-policy/)を参照してください。
 
 ## 制限事項 {#limitations}
 

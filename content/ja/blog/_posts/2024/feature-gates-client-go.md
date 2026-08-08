@@ -18,7 +18,7 @@ kube-controller-managerやkube-schedulerのようなKubernetesコンポーネン
 Kubernetesエコシステムは、このライブラリをコントローラーやツール、Webhookなどをビルドするために利用しています。
 最新のclient-goにはそれ自体にフィーチャーゲート機構があり、開発者やクラスター管理者は新たなクライアントの機能を採用するかどうかを制御することができます。
 
-Kubernetesにおけるフィーチャーゲートについて深く知るには、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
+Kubernetesにおけるフィーチャーゲートについて深く知るには、[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
 
 ## 動機
 

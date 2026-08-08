@@ -15,11 +15,11 @@ no_list: true
 
 ## APIリファレンス
 
-* [標準化用語集](/ja/docs/reference/glossary) - Kubernetesの用語の包括的で標準化されたリストです。
+* [標準化用語集](/docs/reference/glossary) - Kubernetesの用語の包括的で標準化されたリストです。
 
 * [Kubernetes APIリファレンス](/docs/reference/using-api/)
 * [Kubernetes {{< param "version" >}}の単一ページのAPIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-* [Kubernetes APIの使用](/ja/docs/reference/using-api/) - KubernetesのAPIの概要です。
+* [Kubernetes APIの使用](/docs/reference/using-api/) - KubernetesのAPIの概要です。
 * [API アクセスコントロール](/docs/reference/access-authn-authz/) - KubernetesがAPIアクセスをどのように制御するかの詳細です。
 * [よく知られたラベル、アノテーション、テイント](/docs/reference/labels-annotations-taints/)
 
@@ -36,9 +36,9 @@ no_list: true
 
 ## CLIリファレンス
 
-* [kubectl](/ja/docs/reference/kubectl/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
-  * [JSONPath](/ja/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](https://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
-* [kubeadm](/ja/docs/reference/setup-tools/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
+* [kubectl](/docs/reference/kubectl/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](https://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
 
 ## コンポーネントリファレンス
 
@@ -47,10 +47,10 @@ no_list: true
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
-  * [kube-schedulerポリシー](/ja/docs/reference/scheduling/policies)
-  * [Schedulerプロファイル](/ja/docs/reference/scheduling/config#プロファイル)
+  * [kube-schedulerポリシー](/docs/reference/scheduling/policies)
+  * [Schedulerプロファイル](/docs/reference/scheduling/config#プロファイル)
 
-* コントロールプレーンとワーカーノードで開いておくべき[ポートとプロトコル](/ja/docs/reference/networking/ports-and-protocols/)の一覧
+* コントロールプレーンとワーカーノードで開いておくべき[ポートとプロトコル](/docs/reference/networking/ports-and-protocols/)の一覧
 
 ## 設定APIリファレンス
 

@@ -89,5 +89,5 @@ weight: 150
 
 ## {{% heading "whatsnext" %}}
 
-* [ラベルとセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)についてさらに学ぶ。
-* [ノード](/ja/docs/concepts/architecture/nodes/)についてさらに学ぶ。
+* [ラベルとセレクター](/docs/concepts/overview/working-with-objects/labels/)についてさらに学ぶ。
+* [ノード](/docs/concepts/architecture/nodes/)についてさらに学ぶ。

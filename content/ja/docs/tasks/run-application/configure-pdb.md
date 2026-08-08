@@ -17,8 +17,8 @@ min-kubernetes-server-version: v1.21
 {{< version-check >}}
 
 - あなたは、高可用性を必要とするKubernetesクラスター上で実行されているアプリケーションの所有者です。
-- [レプリケートされたステートレスアプリケーション](/ja/docs/tasks/run-application/run-stateless-application-deployment/)および/または[レプリケートされたステートフルアプリケーション](/ja/docs/tasks/run-application/run-replicated-stateful-application/)のデプロイ方法を知っておく必要があります。
-- [Pod Disruption](/ja/docs/concepts/workloads/pods/disruptions/)について読んでいることが望ましいです。
+- [レプリケートされたステートレスアプリケーション](/docs/tasks/run-application/run-stateless-application-deployment/)および/または[レプリケートされたステートフルアプリケーション](/docs/tasks/run-application/run-replicated-stateful-application/)のデプロイ方法を知っておく必要があります。
+- [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)について読んでいることが望ましいです。
 - クラスターの所有者またはサービスプロバイダーが、Pod Disruption Budgetを重んじていることを確認してください。
 
 <!-- steps -->
@@ -235,7 +235,7 @@ status:
 
 ## 任意のワークロードと任意のセレクター {#arbitrary-controllers-and-selectors}
 
-ビルトインのワークロードリソース(Deployment、ReplicaSet、StatefulSet、ReplicationController)、または`scale`[サブリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)を実装した{{< glossary_tooltip term_id="CustomResourceDefinition" text="カスタムリソース" >}}でのみPDBを使用し、PDBセレクターがPodを所有するリソースのセレクターと完全に一致する場合は、このセクションをスキップできます。
+ビルトインのワークロードリソース(Deployment、ReplicaSet、StatefulSet、ReplicationController)、または`scale`[サブリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)を実装した{{< glossary_tooltip term_id="CustomResourceDefinition" text="カスタムリソース" >}}でのみPDBを使用し、PDBセレクターがPodを所有するリソースのセレクターと完全に一致する場合は、このセクションをスキップできます。
 
 他のリソースや"オペレーター"に制御されるPodまたはベアPodにおいてもPDBを使用することができますが、次の制限があります:
 

@@ -169,7 +169,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`について詳しく知りたい場合は、[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
+`kubectl`について詳しく知りたい場合は、[コマンドラインツール(kubectl)](/docs/reference/kubectl/)を参照してください。
 
 ## アプリケーションをダウンタイムなしで更新する
 
@@ -216,7 +216,7 @@ kubectl edit deployment/my-nginx
 # 新しいコンテナイメージを使用するようにマニフェストを変更し、変更を保存
 ```
 
-以上で完了です！Deploymentは、デプロイされたnginxアプリケーションを宣言的に更新し、バックグラウンドで段階的に処理を進めます。これにより、更新中に一定数の古いレプリカのみが停止され、新しいレプリカが必要なPod数を超えて作成されることがないように制御されます。この仕組みの詳細については、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を参照してください。
+以上で完了です！Deploymentは、デプロイされたnginxアプリケーションを宣言的に更新し、バックグラウンドで段階的に処理を進めます。これにより、更新中に一定数の古いレプリカのみが停止され、新しいレプリカが必要なPod数を超えて作成されることがないように制御されます。この仕組みの詳細については、[Deployment](/docs/concepts/workloads/controllers/deployment/)を参照してください。
 
 ロールアウトは、DaemonSet、Deployment、StatefulSetに対して使用できます。
 
@@ -312,7 +312,7 @@ metadata:
 ...
 ```
 
-詳細については、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)および[kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/)を参照してください。
+詳細については、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)および[kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/)を参照してください。
 
 ## アプリケーションのスケーリング
 
@@ -351,7 +351,7 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 これで、nginxのレプリカ数は必要に応じて自動的にスケールアップおよびスケールダウンされます。
 
-詳しくは、[kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)、[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/)、および[水平Pod自動スケーリング](/ja/docs/tasks/run-application/horizontal-pod-autoscale/)のドキュメントを参照してください。
+詳しくは、[kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)、[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/)、および[水平Pod自動スケーリング](/docs/tasks/run-application/horizontal-pod-autoscale/)のドキュメントを参照してください。
 
 ## リソースのインプレース更新
 
@@ -421,4 +421,4 @@ deployment.apps/my-nginx replaced
 
 ## {{% heading "whatsnext" %}}
 
-- [`kubectl`を使用したアプリケーションの調査とデバッグの方法](/ja/docs/tasks/debug/debug-application/debug-running-pod/)について学ぶ。
+- [`kubectl`を使用したアプリケーションの調査とデバッグの方法](/docs/tasks/debug/debug-application/debug-running-pod/)について学ぶ。

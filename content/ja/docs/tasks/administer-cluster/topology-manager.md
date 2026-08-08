@@ -39,7 +39,7 @@ _トポロジーマネージャー_ はKubeletコンポーネントの1つで最
 
 ### トポロジーマネージャーの機能を有効にする
 
-トポロジーマネージャーをサポートするには、`TopologyManager` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。Kubernetes 1.18ではデフォルトで有効です。
+トポロジーマネージャーをサポートするには、`TopologyManager` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。Kubernetes 1.18ではデフォルトで有効です。
 
 ## トポロジーマネージャーのスコープとポリシー
 
@@ -90,7 +90,7 @@ PodのSpecにある他の要求リソースとメモリー（およびhugepage�
 * 全てのコンテナは、単一のNUMAノードに割り当てられます。
 * 全てのコンテナは、共有されたNUMAノードのセットに割り当てられます。
 
-Pod全体に要求される特定のリソースの総量は[有効なリクエスト／リミット](/ja/docs/concepts/workloads/pods/init-containers/#resources)の式に従って計算されるため、この総量の値は以下の最大値となります。
+Pod全体に要求される特定のリソースの総量は[有効なリクエスト／リミット](/docs/concepts/workloads/pods/init-containers/#resources)の式に従って計算されるため、この総量の値は以下の最大値となります。
 * 全てのアプリケーションコンテナのリクエストの合計。
 * リソースに対するinitコンテナのリクエストの最大値。
 

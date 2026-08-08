@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-このページでは、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+このページでは、[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 コントローラーを使用して、レプリカを持つステートフルアプリケーションを実行する方法を説明します。
 ここでの例は、非同期レプリケーションを行う複数のスレーブを持つ、単一マスターのMySQLです。
 
@@ -21,11 +21,11 @@ weight: 30
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
-* このチュートリアルは、あなたが[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
-  と[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、
-  さらには[Pod](/ja/docs/concepts/workloads/pods/)、
-  [Service](/ja/docs/concepts/services-networking/service/)、
-  [ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
+* このチュートリアルは、あなたが[PersistentVolume](/docs/concepts/storage/persistent-volumes/)
+  と[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)、
+  さらには[Pod](/docs/concepts/workloads/pods/)、
+  [Service](/docs/concepts/services-networking/service/)、
+  [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
   他のコアな概念に精通していることを前提としています。
 * MySQLに関する知識は記事の理解に役立ちますが、
   このチュートリアルは他のシステムにも役立つ一般的なパターンを提示することを目的としています。
@@ -136,7 +136,7 @@ MySQLレプリケーションの起動を順序正しく実行します。
 ### 構成を生成する
 
 Podスペック内のコンテナを起動する前に、Podは最初に
-[初期化コンテナ](/ja/docs/concepts/workloads/pods/init-containers/)を定義された順序で実行します。
+[初期化コンテナ](/docs/concepts/workloads/pods/init-containers/)を定義された順序で実行します。
 
 最初の初期化コンテナは`init-mysql`という名前で、序数インデックスに基づいて特別なMySQL設定ファイルを生成します。
 
@@ -149,7 +149,7 @@ ConfigMapから内容を`conf.d`にコピーすることによって適用しま
 このトポロジー例は単一のMySQLマスターと任意の数のスレーブで構成されているため、
 スクリプトは単に序数の`0`がマスターになるように、それ以外のすべてがスレーブになるように割り当てます。
 StatefulSetコントローラーによる
-[デプロイ順序の保証](/ja/docs/concepts/workloads/controllers/statefulset/#デプロイとスケーリングの保証)と組み合わせると、
+[デプロイ順序の保証](/docs/concepts/workloads/controllers/statefulset/#デプロイとスケーリングの保証)と組み合わせると、
 スレーブが作成される前にMySQLマスターがReady状態になるため、スレーブはレプリケーションを開始できます。
 
 ### 既存データをクローンする
@@ -264,7 +264,7 @@ Podを強制的にReadyではない状態にする間、上記の`SELECT @@serve
 ### Readiness Probeを壊す
 
 `mysql`コンテナに対する
-[readiness probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
+[readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 は、`mysql -h 127.0.0.1 -e 'SELECT 1'`コマンドを実行することで、サーバーが起動していてクエリーが実行できることを確認します。
 
 このreadiness probeを失敗させる1つの方法は、そのコマンドを壊すことです。

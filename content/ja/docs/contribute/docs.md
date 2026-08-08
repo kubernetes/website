@@ -36,7 +36,7 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 
 1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md)にサインしてください。
 2. [ドキュメンテーションのリポジトリ](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
-3. [プルリクエストのオープン](/docs/contribute/new-content/open-a-pr/)と[変更レビュー](/ja/docs/contribute/review/reviewing-prs/)の基本的なプロセスを理解していることを確認してください。
+3. [プルリクエストのオープン](/docs/contribute/new-content/open-a-pr/)と[変更レビュー](/docs/contribute/review/reviewing-prs/)の基本的なプロセスを理解していることを確認してください。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -86,7 +86,7 @@ class first,second,third white
 図1は新たなコントリビューターのためのロードマップを概説しています。`サインアップ`や`レビュー`のステップのいくつか、またはその全てに従えばよいです。これで、`プルリクエストのオープン`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
 
 一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
-役割と権限についての詳細は、[SIG Docsへの参加](/ja/docs/contribute/participate/)を参照してください。
+役割と権限についての詳細は、[SIG Docsへの参加](/docs/contribute/participate/)を参照してください。
 
 ## はじめての貢献
 
@@ -123,11 +123,11 @@ class first,second white
 {{</ mermaid >}}
 図2. はじめての貢献のための準備。
 
-- 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/)を読んでください。
+- 貢献のための複数の方法について学ぶために[貢献の概要](/docs/contribute/new-content/)を読んでください。
 - 良い開始地点を探すために[`kubernetes/website` のissueリスト](https://github.com/kubernetes/website/issues/)を確認してください。
 - 既存のドキュメントに対して[GitHubを使ってプルリクエストを作成](/docs/contribute/new-content/open-a-pr/#changes-using-github)し、GitHubへのissueの登録について学んでください。
 - 正確さと言語の校正のため、他のKubernetesコミュニティメンバーから[プルリクエストのレビュー](/docs/contribute/review/reviewing-prs/)を受けてください。
-- 見識のあるコメントを残せるようにするため、Kubernetesの[コンテンツ](/ja/docs/contribute/style/content-guide/)と[スタイルガイド](/docs/contribute/style/style-guide/)を読んでください。
+- 見識のあるコメントを残せるようにするため、Kubernetesの[コンテンツ](/docs/contribute/style/content-guide/)と[スタイルガイド](/docs/contribute/style/style-guide/)を読んでください。
 - [ページコンテンツの種類](/docs/contribute/style/page-content-types/)と[Hugoショートコード](/docs/contribute/style/hugo-shortcodes/)について勉強してください。
 
 ## 貢献時の支援の受け方
@@ -140,12 +140,12 @@ class first,second white
 
 - リポジトリの[ローカルクローンでの作業](/docs/contribute/new-content/open-a-pr/#fork-the-repo)について学んでください。
 - [リリース機能](/docs/contribute/new-content/new-features/)について記載してください。
-- [SIG Docs](/ja/docs/contribute/participate/)に参加し、[memberやreviewer](/docs/contribute/participate/roles-and-responsibilities/)になってください。
-- [国際化](/ja/docs/contribute/localization/)を始めたり、支援したりしてください。
+- [SIG Docs](/docs/contribute/participate/)に参加し、[memberやreviewer](/docs/contribute/participate/roles-and-responsibilities/)になってください。
+- [国際化](/docs/contribute/localization/)を始めたり、支援したりしてください。
 
 ## SIG Docsに参加する
 
-[SIG Docs](/ja/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター(機能開発でもそれ以外でも)にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
+[SIG Docs](/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター(機能開発でもそれ以外でも)にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
 
 SIG Docsは複数の方法でコミュニケーションをとっています。
 

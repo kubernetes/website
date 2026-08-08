@@ -56,7 +56,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-なお、Secretオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+なお、Secretオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 {{< note >}}
 SecretデータのシリアライズされたJSONおよびYAMLの値は、base64文字列としてエンコードされます。
@@ -133,7 +133,7 @@ type: Opaque
 
 `kubectl get`と`kubectl describe`コマンドはデフォルトではSecretの内容を表示しません。
 これは、Secretが不用意に他人にさらされたり、ターミナルログに保存されたりしないようにするためです。
-エンコードされたデータの実際の内容を確認するには、[Secretのデコード](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)を参照してください。
+エンコードされたデータの実際の内容を確認するには、[Secretのデコード](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)を参照してください。
 
 `username`などのフィールドが`data`と`stringData`の両方に指定されている場合は、`stringData`の値が使われます。
 たとえば、以下のようなSecretの定義の場合:
@@ -178,6 +178,6 @@ kubectl delete secret mysecret
 
 ## {{% heading "whatsnext" %}}
 
-- [Secretのコンセプト](/ja/docs/concepts/configuration/secret/)を読む
-- [kubectlを使用してSecretを管理する](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を知る
+- [Secretのコンセプト](/docs/concepts/configuration/secret/)を読む
+- [kubectlを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を知る
 - [kustomizeを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)方法を知る

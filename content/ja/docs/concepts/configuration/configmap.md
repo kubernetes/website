@@ -26,9 +26,9 @@ ConfigMapは、大量のデータを保持するようには設計されてい�
 
 ## ConfigMapオブジェクト
 
-ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapには`data`および`binaryData`フィールドがあります。これらのフィールドは、キーとバリューのペアを値として受け入れます。`data`フィールドと`binaryData`フィールドはどちらもオプションです。`data`フィールドはUTF-8バイトシーケンスを含むように設計されていますが、`binaryData`フィールドはバイナリデータを含むように設計されています。
+ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapには`data`および`binaryData`フィールドがあります。これらのフィールドは、キーとバリューのペアを値として受け入れます。`data`フィールドと`binaryData`フィールドはどちらもオプションです。`data`フィールドはUTF-8バイトシーケンスを含むように設計されていますが、`binaryData`フィールドはバイナリデータを含むように設計されています。
 
-ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
+ConfigMapの名前は、有効な[DNSのサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
 `data`または`binaryData`フィールドの各キーは、英数字、`-`、`_`、または`.`で構成されている必要があります。`data`に格納されているキーは、`binaryData`フィールドのキーと重複することはできません。
 
@@ -176,7 +176,7 @@ Kubernetesのベータ版の機能である _イミュータブルなSecretお�
 - アプリケーションの停止を引き起こす可能性のある予想外の(または望まない)変更を防ぐことができる
 - ConfigMapをイミュータブルにマークして監視を停止することにより、kube-apiserverへの負荷を大幅に削減し、クラスターの性能が向上する
 
-この機能は、`ImmutableEmphemeralVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)によって管理されます。`immutable`フィールドを`true`に設定することで、イミュータブルなConfigMapを作成できます。次に例を示します。
+この機能は、`ImmutableEmphemeralVolumes`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)によって管理されます。`immutable`フィールドを`true`に設定することで、イミュータブルなConfigMapを作成できます。次に例を示します。
 
 ```yaml
 apiVersion: v1
@@ -192,6 +192,6 @@ immutable: true
 
 ## {{% heading "whatsnext" %}}
 
-* [Secret](/ja/docs/concepts/configuration/secret/)について読む。
-* [Podを構成してConfigMapを使用する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
+* [Secret](/docs/concepts/configuration/secret/)について読む。
+* [Podを構成してConfigMapを使用する](/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
 * コードを設定から分離する動機を理解するために[The Twelve-Factor App](https://12factor.net/ja/)を読む。

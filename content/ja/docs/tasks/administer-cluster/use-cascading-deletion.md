@@ -6,13 +6,13 @@ weight: 360
 
 <!--overview-->
 
-このページでは、{{<glossary_tooltip text="ガベージコレクション" term_id="garbage-collection">}}中にクラスターで使用する[カスケード削除](/ja/docs/concepts/architecture/garbage-collection/#cascading-deletion)のタイプを指定する方法を示します。
+このページでは、{{<glossary_tooltip text="ガベージコレクション" term_id="garbage-collection">}}中にクラスターで使用する[カスケード削除](/docs/concepts/architecture/garbage-collection/#cascading-deletion)のタイプを指定する方法を示します。
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-また、さまざまな種類のカスケード削除を試すために、[サンプルのDeploymentを作成する](/ja/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)必要があります。 タイプごとにDeploymentを再作成する必要があります。
+また、さまざまな種類のカスケード削除を試すために、[サンプルのDeploymentを作成する](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)必要があります。 タイプごとにDeploymentを再作成する必要があります。
 
 ## Podのオーナーリファレンスを確認する {#check-owner-references-on-your-pods}
 
@@ -39,7 +39,7 @@ apiVersion: v1
 
 ## フォアグラウンドカスケード削除を使用する {#use-foreground-cascading-deletion}
 
-デフォルトでは、Kubernetesは[バックグラウンドカスケード削除](/ja/docs/concepts/architecture/garbage-collection/#background-deletion)を使用して、オブジェクトの依存関係を削除します。
+デフォルトでは、Kubernetesは[バックグラウンドカスケード削除](/docs/concepts/architecture/garbage-collection/#background-deletion)を使用して、オブジェクトの依存関係を削除します。
 クラスターが動作しているKubernetesのバージョンに応じて、`kubectl`またはKubernetes APIのいずれかを使用して、フォアグラウンドカスケード削除に切り替えることができます。 {{<version-check>}}
 
 `kubectl`またはKubernetes APIを使用して、フォアグラウンドカスケード削除を使用してオブジェクトを削除することができます。
@@ -90,7 +90,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 
 ## バッググラウンドカスケード削除を使用する {#use-background-cascading-deletion}
 
-1. [サンプルのDeploymentを作成する](/ja/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
+1. [サンプルのDeploymentを作成する](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
 1. クラスターが動作しているKubernetesのバージョンに応じて、`kubectl`またはKubernetes APIのいずれかを使用してDeploymentを削除します。{{<version-check>}}
 
 `kubectl`またはKubernetes APIを使用して、バックグラウンドカスケード削除を使用してオブジェクトを削除できます。
@@ -189,6 +189,6 @@ kubectl get pods -l app=nginx
 
 ## {{% heading "whatsnext" %}}
 
-* Kubernetesの[オーナーと従属](/ja/docs/concepts/overview/working-with-objects/owners-dependents/)について学ぶ。
-* Kubernetes [ファイナライザー(Finalizers)](/ja/docs/concepts/overview/working-with-objects/finalizers/)について学ぶ。
-* [ガベージコレクション](/ja/docs/concepts/architecture/garbage-collection/)について学ぶ。
+* Kubernetesの[オーナーと従属](/docs/concepts/overview/working-with-objects/owners-dependents/)について学ぶ。
+* Kubernetes [ファイナライザー(Finalizers)](/docs/concepts/overview/working-with-objects/finalizers/)について学ぶ。
+* [ガベージコレクション](/docs/concepts/architecture/garbage-collection/)について学ぶ。

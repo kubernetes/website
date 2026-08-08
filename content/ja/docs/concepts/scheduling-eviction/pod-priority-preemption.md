@@ -8,7 +8,7 @@ weight: 90
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[Pod](/ja/docs/concepts/workloads/pods/)は _priority_（優先度）を持つことができます。 
+[Pod](/docs/concepts/workloads/pods/)は _priority_（優先度）を持つことができます。 
 優先度は他のPodに対する相対的なPodの重要度を示します。
 もしPodをスケジューリングできないときには、スケジューラーはそのPodをスケジューリングできるようにするため、優先度の低いPodをプリエンプトする（追い出す）ことを試みます。
 
@@ -21,7 +21,7 @@ weight: 90
 クラスターの全てのユーザーが信用されていない場合、悪意のあるユーザーが可能な範囲で最も高い優先度のPodを作成することが可能です。これは他のPodが追い出されたりスケジューリングできない状態を招きます。
 管理者はResourceQuotaを使用して、ユーザーがPodを高い優先度で作成することを防ぐことができます。
 
-詳細は[デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+詳細は[デフォルトで優先度クラスの消費を制限する](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 を参照してください。
 {{< /warning >}}
 
@@ -49,7 +49,7 @@ PriorityClassはnamespaceによらないオブジェクトで、優先度クラ�
 PriorityClassオブジェクトのメタデータの`name`フィールドにて名称を指定します。
 値は`value`フィールドで指定し、必須です。
 値が大きいほど、高い優先度を示します。
-PriorityClassオブジェクトの名称は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
+PriorityClassオブジェクトの名称は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
 
 PriorityClassオブジェクトは10億以下の任意の32ビットの整数値を持つことができます。これは、PriorityClassオブジェクトの値の範囲が-2147483648から1000000000までであることを意味します。
 それよりも大きな値は通常はプリエンプトや追い出すべきではない重要なシステム用のPodのために予約されています。
@@ -149,7 +149,7 @@ Pod Pは必ずしも「指名したノード」へスケジューリングされ
 
 #### プリエンプトされるPodの正常終了
 
-Podがプリエンプトされると、[猶予期間](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)が与えられます。
+Podがプリエンプトされると、[猶予期間](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)が与えられます。
 Podは作業を完了し、終了するために十分な時間が与えられます。仮にそうでない場合、強制終了されます。この猶予期間によって、スケジューラーがPodをプリエンプトした時刻と、待機状態のPod Pがノード Nにスケジュール可能になるまでの時刻の間に間が開きます。この間、スケジューラーは他の待機状態のPodをスケジュールしようと試みます。プリエンプトされたPodが終了したら、スケジューラーは待ち行列にあるPodをスケジューリングしようと試みます。そのため、Podがプリエンプトされる時刻と、Pがスケジュールされた時刻には間が開くことが一般的です。この間を最小にするには、優先度の低いPodの猶予期間を0または小さい値にする方法があります。
 
 #### PodDisruptionBudgetは対応するが、保証されない
@@ -240,7 +240,7 @@ kubeletによるリソース不足時のPodの追い出しでは、リソース�
 
 ## {{% heading "whatsnext" %}}
 
-* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * [Podの破壊](/docs/concepts/workloads/pods/disruptions/)を読む
-* [APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)を読む
+* [APIを起点とした退避](/docs/concepts/scheduling-eviction/api-eviction/)を読む
 * [Node-pressureによる退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)を読む

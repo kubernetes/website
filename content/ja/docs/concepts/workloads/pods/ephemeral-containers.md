@@ -31,7 +31,7 @@ weight: 60
 エフェメラルコンテナをPodに追加した後は、通常のコンテナのようにエフェメラルコンテナを変更または削除することはできません。  
 
 {{< note >}}
-エフェメラルコンテナは、[static Pod](/ja/docs/tasks/configure-pod-container/static-pod/)ではサポートされていません。  
+エフェメラルコンテナは、[static Pod](/docs/tasks/configure-pod-container/static-pod/)ではサポートされていません。  
 {{< /note >}} 
 
 ## エフェメラルコンテナの用途
@@ -40,8 +40,8 @@ weight: 60
 
 特に、[distrolessイメージ](https://github.com/GoogleContainerTools/distroless)を利用すると、攻撃対象領域を減らし、バグや脆弱性を露出する可能性を減らせる最小のコンテナイメージをデプロイできるようになります。distrolessイメージにはシェルもデバッグ用のユーティリティも含まれないため、`kubectl exec`のみを使用してdistrolessイメージのトラブルシューティングを行うのは困難です。
 
-エフェメラルコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
+エフェメラルコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
 
 ## {{% heading "whatsnext" %}}
 
-* [デバッグ用のエフェメラルコンテナを使用してデバッグする](/ja/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)方法について学ぶ。
+* [デバッグ用のエフェメラルコンテナを使用してデバッグする](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)方法について学ぶ。
