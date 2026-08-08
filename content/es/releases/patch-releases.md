@@ -33,8 +33,9 @@ si surgen preguntas sobre la PR.
 Por favor, sigue el [proceso de cherry pick][cherry-picks].
 
 Los cherry picks deben estar listos para fusionarse en GitHub con las etiquetas adecuadas (por ejemplo,
-`approved`, `lgtm`, `release-note`) y haber superado las pruebas de CI antes de la fecha límite de cherry pick.
-Esto suele ser dos días antes del lanzamiento previsto, pero podría ser más. Es mejor tener la PR lista lo antes posible,
+`approved`, `lgtm`, `release-note`) y haber superado las pruebas de CI antes de la
+fecha límite de cherry pick. Esto suele ser dos días antes del lanzamiento
+previsto, pero podría ser más. Es mejor tener la PR lista lo antes posible,
 ya que necesitamos tiempo para obtener la señal de CI después de fusionar tus *cherry picks* antes del lanzamiento real.
 
 Las PR de cherry pick que no cumplan con los criterios de fusión se pospondrán y se les hará seguimiento para el próximo lanzamiento de parches.
