@@ -80,7 +80,7 @@ Ejemplo:
   **{{< skew currentVersionAddMinor -2 >}}** y **{{< skew currentVersionAddMinor -3 >}}**
 
 {{< note >}}
-Si existe un desfase de versiones entre las instancias de `kube-apiserver` en un cluster HA, esto reduce el rango de versiones permitidas para `kube-proxy`.
+Si existe un desfase de versiones entre las instancias de `kube-apiserver` en un clúster HA, esto reduce el rango de versiones permitidas para `kube-proxy`.
 {{</ note >}}
 
 Ejemplo:
