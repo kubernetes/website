@@ -4,7 +4,7 @@ type: docs
 ---
 
 Kubernetes distribuye binarios para cada componente, así como un conjunto estándar de aplicaciones
-de cliente para realizar el arranque o interactuar con un cluster. Componentes como el
+de cliente para realizar el arranque o interactuar con un clúster. Componentes como el
 API server son capaces de ejecutarse dentro de imágenes de contenedor dentro de un
 cluster. Esos componentes también se distribuyen en imágenes de contenedor como parte del
 proceso oficial de lanzamiento. Todos los binarios, así como las imágenes de contenedor, están disponibles
