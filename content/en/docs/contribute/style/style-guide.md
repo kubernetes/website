@@ -558,6 +558,21 @@ Write hyperlinks that give you context for the content they link to. For example
 Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions)` and the output is [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions). | Write HTML-style links: `<a href="/media/examples/link-element-example.css" target="_blank">Visit our tutorial!</a>`, or create links that open in new tabs or windows. For example: `[example website](https://example.com){target="_blank"}`
 {{< /table >}}
 
+### Linking to the Cloud Native Glossary
+
+The [CNCF Cloud Native Glossary](https://glossary.cncf.io/) defines
+cloud native terms in plain language, with little assumed context. Where
+a term in the Kubernetes documentation has a corresponding Cloud Native Glossary entry,
+linking to it helps newer readers without disrupting more experienced ones.
+
+{{< table caption = "Do and Don't - Linking to the Cloud Native Glossary" >}}
+Do | Don't
+:--| :-----
+Link to the Cloud Native Glossary on the first occurrence of a term per page. | Link every occurrence of a term throughout the page.
+Link when the glossary entry adds useful context beyond what the Kubernetes documentation provides. | Link when the glossary definition duplicates or conflicts with Kubernetes-specific explanations.
+Add a "Further reading" reference in a glossary entry's `longDescription` pointing to the Cloud Native Glossary equivalent. | Replace the Kubernetes Glossary definition with a link to the Cloud Native Glossary.
+{{< /table >}}
+
 ### Lists
 
 Group items in a list that are related to each other and need to appear in a specific
