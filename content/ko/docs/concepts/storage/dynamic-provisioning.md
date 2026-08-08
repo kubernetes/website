@@ -119,9 +119,10 @@ spec:
 작성하면, `DefaultStorageClass` 어드미션 컨트롤러가 디폴트
 스토리지 클래스를 가리키는 `storageClassName` 필드를 자동으로 추가한다.
 
-클러스터에는 최대 하나의 *default* 스토리지 클래스가 있을 수 있다. 그렇지 않은 경우
-`storageClassName` 을 명시적으로 지정하지 않은 `PersistentVolumeClaim` 을
-생성할 수 없다.
+클러스터 내 두 개 이상의 스토리지클래스에 `storageclass.kubernetes.io/is-default-class`
+어노테이션을 true로 설정한 상태에서 `storageClassName` 이 지정되지 않은
+`PersistentVolumeClaim` 을 생성하면, 쿠버네티스는 가장 최근에 생성된
+기본 스토리지클래스를 사용한다.
 
 ## 토폴로지 인식
 
