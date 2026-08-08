@@ -66,7 +66,7 @@ Podのメモリ要求が単一のNUMAノードの容量を超えるたびに、�
 ## メモリマネージャーの設定 {#memory-manager-configuration}
 
 他のマネージャーは事前に設定しておく必要があります([リソースのアラインメントに関する前提条件](#resource-alignment-prerequisites)を参照してください)。
-[kubeletの設定]({{< relref "/docs/reference/config-api/kubelet-config.v1beta1" >}})内の`memoryManagerPolicy`設定フィールドに、選択した[ポリシー](#policies)の名前を設定します。
+[kubeletの設定](/docs/reference/config-api/kubelet-config.v1beta1/)内の`memoryManagerPolicy`設定フィールドに、選択した[ポリシー](#policies)の名前を設定します。
 
 必要に応じて、ノードの安定性を高めるために、システムまたはkubeletのプロセス用に一定量のメモリを予約できます([予約済みメモリの設定](#reserved-memory-flag)セクションを参照してください)。
 
