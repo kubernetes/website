@@ -54,7 +54,7 @@ nombre de la imagen de contenedor, por ejemplo
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 Para Kubernetes {{< param "version" >}},
-las imágenes de contenedor están firmadas utilizando firmas de [sigstore](https://sigstore.dev):
+las imágenes del contenedor están firmadas utilizando las firmas de [sigstore](https://sigstore.dev):
 
 {{< note >}}
 Las firmas sigstore de las imágenes de contenedor actualmente no coinciden entre diferentes ubicaciones geográficas.
