@@ -104,7 +104,7 @@ Ejemplo:
 
 {{< note >}}
 Si existe un desfase de versiones entre las instancias de `kube-apiserver` en un cluster HA, y estos componentes
-pueden comunicarse con cualquier instancia de `kube-apiserver` en el cluster (por ejemplo, a través de un balanceador de carga),
+pueden comunicarse con cualquier instancia de `kube-apiserver` en el clúster (por ejemplo, a través de un balanceador de carga),
 esto reduce el rango de versiones permitidas para estos componentes.
 {{< /note >}}
 
