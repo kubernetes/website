@@ -6,7 +6,7 @@ type: docs
 Calendario e información de contacto del equipo para los lanzamientos de parches de Kubernetes.
 
 Para obtener información general sobre el ciclo de lanzamientos de Kubernetes, consulta la
-[descripción del proceso de lanzamiento](/releases/relase/).
+[descripción del proceso de lanzamiento].
 
 ## Cadencia
 
