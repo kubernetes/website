@@ -1699,19 +1699,19 @@ figure.release-logo {
 
 /* Force size constraints on figures */
 figure {
-  &.diagram-small img {
+  &.diagram-small img, &.diagram-small svg {
     max-height: clamp(20mm,12em,80vh);
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
-  &.diagram-medium img {
+  &.diagram-medium img, &.diagram-medium svg {
     max-height: clamp(25mm,20em,80vh);
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
-  &.diagram-large img {
+  &.diagram-large img, &.diagram-large svg {
     max-width: clamp(0vw, 95vw, 100%);
     max-height: calc(80vh - 8rem);
   }
@@ -1730,13 +1730,13 @@ figure {
       max-width: 100%;
       width: 100%;
     }
-    &.diagram-small img {
+    &.diagram-small img, &.diagram-small svg {
       max-width: clamp(30rem, 45ch, 100mm);
     }
-    &.diagram-medium img {
+    &.diagram-medium img, &.diagram-medium svg {
       max-width: clamp(50rem, 20ch, 160mm);
     }
-    &.diagram-large img {
+    &.diagram-large img, &.diagram-large svg {
       max-width: clamp(25vw, 95vw, 100%);
       max-height: calc(100vh - 10rem);
     }
