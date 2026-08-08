@@ -158,7 +158,7 @@ más reciente de {{<skew currentVersion>}}.
 
 Prerrequisitos:
 
-* En un cluster de una sola instancia, la instancia existente de `kube-apiserver` está en la versión **{{< skew currentVersionAddMinor -1 >}}**.
+* En un clúster de una sola instancia, la instancia existente de `kube-apiserver` está en la versión **{{< skew currentVersionAddMinor -1 >}}**.
 * En un cluster HA, todas las instancias de `kube-apiserver` están en las versiones **{{< skew currentVersionAddMinor -1 >}}** o
   **{{< skew currentVersion >}}** (esto garantiza un desfase máximo de 1 versión menor entre la instancia de `kube-apiserver` más antigua y la más reciente).
 * Las instancias de `kube-controller-manager`, `kube-scheduler` y `cloud-controller-manager` que
