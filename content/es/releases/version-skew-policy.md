@@ -225,6 +225,6 @@ Opcionalmente, actualiza las instancias de `kube-proxy` a la versión **{{< skew
 o **{{< skew currentVersionAddMinor -3 >}}**).
 
 {{< warning >}}
-Ejecutar un cluster con instancias de `kube-proxy` que estén persistentemente tres versiones menores por detrás de
+Ejecutar un clúster con instancias de `kube-proxy` que estén persistentemente tres versiones menores por detrás de
 `kube-apiserver` significa que estas deben ser actualizadas antes de que el plano de control pueda actualizarse.
 {{</ warning >}}
