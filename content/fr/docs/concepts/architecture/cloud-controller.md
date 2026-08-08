@@ -35,7 +35,7 @@ Vous pouvez également exécuter le gestionnaire du contrôleur de cloud en tant
 de le faire partie du plan de contrôle.
 {{< /note >}}
 
-## Fonctions du gestionnaire du contrôleur de cloud {#fonctions-du-ccm}
+## Fonctions du gestionnaire du contrôleur de cloud {#functions-of-the-ccm}
 
 Les contrôleurs à l'intérieur du gestionnaire du contrôleur de cloud comprennent :
 
@@ -79,7 +79,7 @@ lorsque vous déclarez une ressource Service qui les nécessite.
 Cette section détaille l'accès requis par le gestionnaire du contrôleur de cloud
 sur divers objets API pour effectuer ses opérations.
 
-### Contrôleur de nœud {#autorisation-contrôleur-de-nœud}
+### Contrôleur de nœud {#authorization-node-controller}
 
 Le contrôleur de nœud ne fonctionne qu'avec les objets Nœud. Il nécessite un accès complet
 pour lire et modifier les objets Nœud.
@@ -94,7 +94,7 @@ pour lire et modifier les objets Nœud.
 - watch
 - delete
 
-### Contrôleur de route {#autorisation-contrôleur-de-route}
+### Contrôleur de route {#authorization-route-controller}
 
 Le contrôleur de route écoute la création d'objets Nœud et configure
 les routes de manière appropriée. Il nécessite un accès Get aux objets Nœud.
@@ -103,7 +103,7 @@ les routes de manière appropriée. Il nécessite un accès Get aux objets Nœud
 
 - get
 
-### Contrôleur de service {#autorisation-contrôleur-de-service}
+### Contrôleur de service {#authorization-service-controller}
 
 Le contrôleur de service surveille les événements de création, de mise à jour et de suppression des objets Service, puis
 configure les Endpoints pour ces Services de manière appropriée (pour les EndpointSlices, le
@@ -123,7 +123,7 @@ Pour configurer les ressources Endpoints pour les Services, il nécessite un acc
 - patch
 - update
 
-### Autres {#autorisation-divers}
+### Autres {#authorization-miscellaneous}
 
 La mise en œuvre du cœur du gestionnaire du contrôleur de cloud nécessite un accès pour créer des objets Event
 et pour assurer un fonctionnement sécurisé, il nécessite un accès pour créer des comptes de service.
