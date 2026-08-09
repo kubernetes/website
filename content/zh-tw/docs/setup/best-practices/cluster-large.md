@@ -22,7 +22,7 @@ Kubernetes is designed to accommodate configurations that meet *all* of the foll
 叢集是由一組執行 Kubernetes 代理程式的{{< glossary_tooltip text="節點" term_id="node" >}}
 （實體機器或虛擬機器）所組成，並由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}進行管理。
 Kubernetes {{< param "version" >}} 支援最多 5,000 個節點的叢集。
-更具體來說，Kubernetes 的設計可支援符合以下所有準則的配置：
+更具體來說，Kubernetes 的設計可支援符合以下所有準則的組態：
 
 <!--
 * No more than 110 pods per node

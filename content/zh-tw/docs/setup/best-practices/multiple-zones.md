@@ -194,7 +194,7 @@ cloud provider and the storage provisioner you’re using. Always refer to the s
 documentation for your environment to ensure correct configuration.
 -->
 請注意到區域標籤的新增方式可能取決於您使用的雲端供應商與儲存佈建器。
-請務必參考適用於您環境的特定文件，確保配置正確。
+請務必參考適用於您環境的特定文件，確保組態正確。
 
 <!--
 You can specify a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
@@ -205,7 +205,7 @@ see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topolog
 -->
 您可以為 PersistentVolumeClaims 指定一個{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}，
 用來指定該類別中的儲存空間可以使用的故障域（區域）。
-要了解配置能夠感知到故障域或區域的 StorageClass，請參閱[允許的拓撲](/docs/concepts/storage/storage-classes/#allowed-topologies)。
+要了解組態能夠感知到故障域或區域的 StorageClass，請參閱[允許的拓撲](/docs/concepts/storage/storage-classes/#allowed-topologies)。
 
 <!--
 ## Networking
@@ -222,7 +222,7 @@ same zone as the load balancer element processing a given connection.
 Check your cloud provider's documentation for details.
 -->
 Kubernetes 本身並不包含故障區感知的網路功能。
-您可以使用[網路外掛](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來配置叢集網路，
+您可以使用[網路外掛](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來設定叢集網路，
 而選用的網路解決方案可能包含與特定故障區相關的設定。例如，如果您的雲端供應商支援 `type=LoadBalancer` 的 Service，
 負載平衡器可能只會將流量傳送至與處理此連線的負載平衡器位於相同區域的 Pod。請查看您的雲端供應商文件以瞭解詳情。
 
