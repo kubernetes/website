@@ -49,24 +49,24 @@ and initiates the PodGroup scheduling cycle as follows:
    is applied atomically for the entire PodGroup.
 
    * **Success:** If the scheduler finds sufficient resources and valid placements for the Pods
-     (e.g., satisfying the `minCount` constraint for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)),
+     (for example, satisfying the `minCount` constraint for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)),
      those Pods proceed directly to the binding cycle with their selected nodes.
      Any remaining unschedulable Pods in the group are requeued directly into the active scheduling queue without backoff, retaining their previous timestamp so they are re-evaluated immediately to attempt preemption.
-     
+
      Furthermore, if new Pods are added to a PodGroup after others have already been scheduled,
      the cycle evaluates the new Pods while accounting for the existing ones.
 
    * **Failure:** If the scheduler cannot find enough resources to make the PodGroup feasible
-     (e.g., failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
-     
+     (for example, failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
+
      The scheduler attempts to make a PodGroup schedulable by running the `PodGroupPostFilter` extension point.
-     The `DefaultPreemption` plugin's `PodGroupPostFilter` extenion point runs
-     [workload aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
-     If any plugin implementing `PodGroupPostFilter`extension point returns `Success`, no more
+     The `DefaultPreemption` plugin's `PodGroupPostFilter` extension point runs
+     [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
+     If any plugin implementing the `PodGroupPostFilter` extension point returns `Success`, no more
      plugins for `PodGroupPostFilter` extension point are run.
-     
-     Even when `PodGroupPostFilter` plugin returns a `Success`, no Pods are bound, but instead,
-     all are returned to the scheduling queue, hoping that the actions taken by `PodGroupPostFilter`
+
+     Even when a `PodGroupPostFilter` plugin returns `Success`, no Pods are bound. Instead,
+     all Pods are returned to the scheduling queue so that the actions taken by `PodGroupPostFilter`
      make a PodGroup schedulable in the next scheduling cycle. Standard scheduling backoff logic applies,
      allowing the PodGroup to be retried later.
 
@@ -85,7 +85,7 @@ It iterates over the Pods and performs the following for each:
      Instead it relies on `PodGroupPostFilter` extension point executed for the whole PodGroup.
 
 2. Checks whether the schedulable Pods meet the group's scheduling criteria
-   (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.
+   (for example, the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.
    If it returns a `Success` status for any Pod, the PodGroup is deemed feasible.
    If the algorithm processes all Pods without achieving a `Success` status, or if no Pods are scheduled during this cycle, the PodGroup is considered unschedulable.
 
@@ -94,7 +94,7 @@ It iterates over the Pods and performs the following for each:
 
 Placement scheduling algorithm is an alternative PodGroup scheduling algorithm, which uses
 [scheduling plugins](/docs/reference/scheduling/config/#scheduling-plugins) to find the optimal
-placement for the considered PodGroup. Users can accommodate the algorithm to their specific needs
+placement for a PodGroup. You can adapt the algorithm to your specific needs
 by using and configuring plugins.
 
 The algorithm proceeds in three main phases for a given PodGroup:
@@ -123,7 +123,7 @@ This phase executes as extension point: `PlacementScorePlugin`.
 The PodGroup scheduling algorithm relies on specific Pod sorting and may fail to find a valid placement
 that could have been discovered by processing the group's Pods in a different order. In particular:
 
-* For basic **homogeneous** Pod groups (i.e., those where all Pods have identical scheduling requirements
+* For basic **homogeneous** Pod groups (that is, those where all Pods have identical scheduling requirements
   and lack inter-Pod dependencies like affinity, anti-affinity, or topology spread constraints),
   the algorithm is expected to find a placement if one exists.
 
@@ -132,14 +132,14 @@ that could have been discovered by processing the group's Pods in a different or
 * For Pod groups with **inter-Pod dependencies**, finding a valid placement is not guaranteed.
 
 In addition to the above, for cases involving **intra-group dependencies**
-(e.g., when the schedulability of one Pod depends on another group member via inter-Pod affinity),
+(for example, when the schedulability of one Pod depends on another group member via inter-Pod affinity),
 this algorithm may fail to find a placement regardless of cluster state due to its deterministic processing order.
 
 For consistent behavior throughout the entire cycle, the algorithm requires that all Pods belonging to a single PodGroup
 share the same `.spec.schedulerName`. This requirement is validated before the cycle starts,
 and the PodGroup is rejected if the constraint is not met.
 
-## Hierarchical scheduling with CompositePodGroups
+## Hierarchical scheduling with CompositePodGroup objects
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
@@ -148,43 +148,43 @@ feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API
 are enabled, the scheduler extends the PodGroup scheduling cycle to support multi-level group
 hierarchies.
 
-In a hierarchical workload, Pods belong to leaf `PodGroup` objects, which in turn specify parent
-`CompositePodGroup` resources up to the root `CompositePodGroup`. The scheduler evaluates the entire
+In a hierarchical workload, Pods belong to leaf PodGroup objects, which in turn specify parent
+CompositePodGroup resources up to the root CompositePodGroup. The scheduler evaluates the entire
 hierarchy of groups as a single, unified scheduling unit.
 
 ### Hierarchical scheduling cycle execution
 
-After observing a root `CompositePodGroup`, the scheduler places it in the scheduling queue as long
+After observing a root CompositePodGroup, the scheduler places it in the scheduling queue as long
 as there is at least one pending Pod that belongs to that root's group hierarchy.
 
-Once the root `CompositePodGroup` satisfies the
-[hierarchical quorum](/docs/concepts/scheduling-eviction/gang-scheduling/#Hierarchical-quorum), it
+Once the root CompositePodGroup satisfies the
+[hierarchical quorum](/docs/concepts/scheduling-eviction/gang-scheduling/#hierarchical-quorum), it
 enters the active scheduling queue from which it can be popped by the scheduling cycle. The flow of
-the scheduling cycle for `CompositePodGroups` is as follows:
+the scheduling cycle for CompositePodGroup objects is as follows:
 
 1. **Unified cluster snapshot and validation**: The scheduler takes a snapshot of cluster resources
    to mirror the latest observed cluster state. It verifies that the shape of the group hierarchy
    popped from the queue matches the snapshotted hierarchy and validates the configuration
    consistency of the hierarchy (such as identical `.spec.schedulerName` and priority across member
    Pods).
-   
+
    If the hierarchy shape changed concurrently or fails the validation, the cycle halts and requeues
-   the root `CompositePodGroup`.
+   the root CompositePodGroup.
 
 2. **Top-down candidate placement generation**: At each level of the hierarchy, before evaluating
    child groups, the scheduler invokes `PlacementGeneratePlugin` plugins to generate candidate
    placements (subsets of nodes) for the group being evaluated.
-   
-   Candidate placements for a child `CompositePodGroup` or leaf `PodGroup` are generated exclusively
+
+   Candidate placements for a child CompositePodGroup or leaf PodGroup are generated exclusively
    from the subset of nodes belonging to the parent group's currently evaluated placement. For the
-   root `CompositePodGroup`, candidate placements are generated across all available cluster nodes.
+   root CompositePodGroup, candidate placements are generated across all available cluster nodes.
 
 3. **Recursive subtree simulation and feasibility check**: The scheduler evaluates each candidate
-   placement for a `CompositePodGroup` by temporarily assuming that placement in the cluster
+   placement for a CompositePodGroup by temporarily assuming that placement in the cluster
    snapshot and recursively scheduling its child groups:
    * **Recursive traversal**: The scheduler traverses child groups in a pre-sorted order, invoking
-     itself recursively from the `CompositePodGroup` down to leaf `PodGroup` objects. For each leaf
-     `PodGroup`, the scheduler runs the placement scheduling algorithm scoped to the parent's
+     itself recursively from the CompositePodGroup down to leaf PodGroup objects. For each leaf
+     PodGroup, the scheduler runs the placement scheduling algorithm scoped to the parent's
      candidate placement to make tentative Pod assignments in memory.
    * **Feasibility checks**: After evaluating each child group, the scheduler invokes
      `PlacementFeasible` plugins to determine whether the parent group's scheduling policy can
@@ -192,42 +192,42 @@ the scheduling cycle for `CompositePodGroups` is as follows:
      * If the policy constraints remain achievable (or are already satisfied), the scheduler continues
        evaluating subsequent sibling groups.
      * If the policy constraints can no longer be satisfied, the scheduler immediately aborts the evaluation
-       of that `CompositePodGroup` and reverts all tentative in-memory Pod assignments made for that group.
+       of that CompositePodGroup and reverts all tentative in-memory Pod assignments made for that group.
    * **Simulation rollback**: After simulating a candidate placement (regardless of success or failure),
      the scheduler reverts the tentative node reservations made during that simulation before
      evaluating the next candidate placement.
 
 4. **Placement scoring and subtree commitment**: Once all candidate placements for a
-   `CompositePodGroup` have been evaluated:
+   CompositePodGroup have been evaluated:
    * **Scoring**: If one or more candidate placements are feasible, the scheduler invokes
      `PlacementScorePlugin` plugins to score all feasible candidate placements. The scoring plugins
-     evaluate the combined proposed Pod assignments across all descendant leaf `PodGroup` objects in
+     evaluate the combined proposed Pod assignments across all descendant leaf PodGroup objects in
      the subtree and select the placement with the highest overall score.
    * **Commitment**: After selecting the winning placement, the scheduler commits (assumes) the
      tentative Pod assignments corresponding to that optimal placement in memory. This ensures that
      subsequent sibling group evaluations or parent-level evaluations observe consistent, optimal
      scheduling decisions for that subtree.
-     
-     If no feasible placement is found among all generated candidates, the entire `CompositePodGroup`
+
+     If no feasible placement is found among all generated candidates, the entire CompositePodGroup
      is considered unschedulable.
 
 5. **Atomic binding**: If the root-level recursive evaluation succeeds and at least one Pod was
    successfully scheduled, the scheduler commits the Pod assignments by proceeding to the binding
    cycle.
 
-   Otherwise, the entire `CompositePodGroup` is considered unschedulable.
+   Otherwise, the entire CompositePodGroup is considered unschedulable.
 
 ### Limitations
 
 Similar to how the PodGroup scheduling algorithm relies on specific Pod sorting, the hierarchical
-scheduling algorithm relies on a specific sorting of child groups within every `CompositePodGroup`
+scheduling algorithm relies on a specific sorting of child groups within every CompositePodGroup
 hierarchy. As a result, it may fail to find a valid placement that could have been discovered by
 processing the child groups in a different order.
 
 In addition, because the scheduler evaluates group hierarchies using a greedy approach:
 
 * Finding a valid placement is not guaranteed in all cases, even if one exists in the cluster.
-* Even when the scheduler successfully finds a valid placement for a `CompositePodGroup` hierarchy,
+* Even when the scheduler successfully finds a valid placement for a CompositePodGroup hierarchy,
   that placement is not guaranteed to be optimal across the cluster.
 
 ## PodGroup conditions
@@ -272,5 +272,5 @@ In v1.37, the scheduler does not populate this field, however.
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
 * Read about the [CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) and its [lifecycle](/docs/concepts/workloads/compositepodgroup-api/lifecycle/).
 * Learn about [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/).
-* See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* See how to [specify a scheduling group](/docs/concepts/workloads/pods/scheduling-group/) for a Pod.
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).

@@ -55,21 +55,21 @@ with a few differences:
    [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) of a PodGroup
    to evaluate if and how its pods can be preempted during preemption events.
 
-4. Performance and optimality considerations: For the performance reasons,
-   the workload-aware preemption first simulates removal all potential victims and 
-   runs the scheduling once. It then tries to reprieve as many victims as possible
-   for selected placement. This trade off means that there may exists an alternative placement
-   causing less preemptions, but it is not selected by the scheduler due to performance reasons.
+4. Performance and optimality considerations: For performance reasons,
+   workload-aware preemption first simulates the removal of all potential victims and
+   runs scheduling once. It then tries to reprieve as many victims as possible
+   for the selected placement. This trade-off means that there might be an alternative placement
+   that causes fewer preemptions, but the scheduler does not select it due to performance reasons.
 
 {{< note >}}
 When scheduling a single Pod, the default pod preemption applies.
 In v1.36, when the scheduler performs a default preemption for a single Pod
 and it attempts to preempt a Pod belonging to a PodGroup, it does **not**
-respect the `priority` or `disruptionMode` fields of that PodGroup. 
+respect the `priority` or `disruptionMode` fields of that PodGroup.
 This limitation no longer applies in v1.37.
 {{< /note >}}
 
-### Reprieval algorithm
+### Reprieve algorithm
 
 When running workload-aware preemption, the scheduler runs the simulation where it removes potential preemption victims
 and runs the pod group scheduling algorithm. It then tries to reprieve as many victims as possible for returned placement.
@@ -86,38 +86,38 @@ If for each pod, the Filtering passes, the victim pods are kept on their nodes.
 If filtering fails for at least one pod, victim pods are removed from CycleStates and node.
 
 In both cases the scheduler preemptor pods are removed from their nodes and their Unreserve is called,
-so the next reprieval attempt can validate scheduling of PodGroup. The scheduler then proceeds with
+so the next reprieve attempt can validate scheduling of PodGroup. The scheduler then proceeds with
 another potential victim until all victims are processed.
 
-### Preemption for CompositePodGroups
+### Preemption for CompositePodGroup objects
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
-are enabled, workload-aware preemption provides support for `CompositePodGroups` as well.
+are enabled, workload-aware preemption provides support for CompositePodGroup objects as well.
 
-The underlying preemption mechanism is the same as for `PodGroups` - if the scheduler needs to free
-up capacity to place the root `CompositePodGroup`, it evaluates preemption for the entire group
+The underlying preemption mechanism is the same as for PodGroup objects: if the scheduler needs to
+free up capacity to place the root CompositePodGroup, it evaluates preemption for the entire group
 hierarchy, rather than for individual pods.
 
-`CompositePodGroups` can be selected as preemption victims as well. The victim selection process is
-adjusted to take `CompositePodGroups` into account in the following way:
+CompositePodGroup objects can be selected as preemption victims as well. The victim selection
+process is adjusted to take CompositePodGroup objects into account in the following way:
 
 1. Victim importance hierarchy:
-   - `CompositePodGroups` are considered more important than standalone `PodGroups` of the same
+   - CompositePodGroup objects are considered more important than standalone PodGroup objects of the same
      priority.
-   - For two `CompositePodGroups` of the same priority, the one with more members (larger size) is
+   - For two CompositePodGroup objects of the same priority, the one with more members (larger size) is
      considered more important.
 
-2. Disruption mode: Similar to `PodGroups`, `CompositePodGroups` specify
+2. Disruption mode: Similar to PodGroup objects, CompositePodGroup objects specify a
    [disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) that determines
-   how its child groups should be treated during preemption.
+   how their child groups should be treated during preemption.
 
-Besides workload-aware preemption, `CompositePodGroups` can be selected as preemption victims by
-default Pod preemption during Pod scheduling cycle, alongside `PodGroups` and Pods. Default Pod
+Besides workload-aware preemption, CompositePodGroup objects can be selected as preemption victims by
+default Pod preemption during the Pod scheduling cycle, alongside PodGroup objects and Pods. Default Pod
 preemption shares the victim importance hierarchy logic with the workload-aware preemption and
-respects the `disruptionMode` field of `CompositePodGroups`.
+respects the `disruptionMode` field of CompositePodGroup objects.
 
 ## {{% heading "whatsnext" %}}
 
