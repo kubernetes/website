@@ -972,7 +972,7 @@ webhooks:
   reinvocationPolicy: IfNeeded
 ```
 
-Mutating webhooks must be [idempotent](#idempotence), able to successfully process an object they have already admitted
+Mutating webhooks must be [idempotent](/docs/concepts/cluster-administration/admission-webhooks-good-practices/#ensure-mutating-webhook-idempotent), able to successfully process an object they have already admitted
 and potentially modified. This is true for all mutating admission webhooks, since any change they can make
 in an object could already exist in the user-provided object, but it is essential for webhooks that opt into reinvocation.
 
