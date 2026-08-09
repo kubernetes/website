@@ -1,13 +1,13 @@
 ---
 title: 存活、就绪和启动探针
 content_type: concept
-weight: 40
+weight: 65
 math: true
 ---
 <!--
 title: Liveness, Readiness, and Startup Probes
 content_type: concept
-weight: 40
+weight: 65
 math: true
 -->
 
@@ -20,10 +20,9 @@ by the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on a container.
 To perform a diagnostic, the kubelet either executes code within
 the container or makes a network request.
 -->
-Kubernetes 允许你定义**探针（Probe）**来持续监控 Pod 中容器的健康状况。
+Kubernetes 允许你定义 **探针（Probe）** 来持续监控 Pod 中容器的健康状况。
 探针是由 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
-对容器周期性执行的诊断。
-为执行诊断，kubelet 或是在容器内执行代码，或是发起一个网络请求。
+对容器周期性执行的诊断。为执行诊断，kubelet 或是在容器内执行代码，或是发起一个网络请求。
 
 <!--
 Based on the probe results, Kubernetes can restart unhealthy containers
@@ -45,8 +44,7 @@ containers, each serving a different purpose:
 -->
 ## 探针的类型   {#types-of-probe}
 
-kubelet 可以选择对运行中的容器执行三种探针，并对探针的结果作出响应；
-每种探针有不同的用途：
+kubelet 可以选择对运行中的容器执行三种探针，并对探针的结果作出响应；每种探针有不同的用途：
 
 - [启动探针](#startup-probe)
 - [存活探针](#liveness-probe)
@@ -73,8 +71,8 @@ If the startup probe fails, the kubelet kills the container, and the container
 is subjected to its [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy).
 -->
 启动探针仅在启动时执行，不像存活探针和就绪探针那样周期性地运行。
-如果启动探针失败，kubelet 将杀死容器，容器随后将依据其
-[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)进行处理。
+如果启动探针失败，kubelet 将杀死容器，
+容器随后将依据其[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)进行处理。
 
 <!--
 ### Liveness probe {#liveness-probe}
@@ -87,7 +85,7 @@ can help to make the application more available despite bugs.
 ### 存活探针   {#liveness-probe}
 
 存活探针（Liveness Probe）决定何时重启容器。
-例如，存活探针可以捕获死锁——即应用在运行但无法取得进展。
+例如，存活探针可以捕获死锁 —— 即应用在运行但无法取得进展。
 在此类情况下重启容器，有助于提高应用的可用性，即使应用本身存在缺陷。
 
 <!--
@@ -130,7 +128,7 @@ Readiness probes determine when a container is ready to accept traffic.
 This is useful when waiting for an application to perform time-consuming initial
 tasks, such as establishing network connections, loading files, and warming
 caches.
-Readiness probes can also be useful later in the container’s lifecycle,
+Readiness probes can also be useful later in the container's lifecycle,
 for example, when recovering from temporary faults or overloads.
 -->
 ### 就绪探针   {#readiness-probe}
@@ -185,12 +183,11 @@ time longer than the liveness interval would allow.
 
 ### 何时使用启动探针？   {#when-should-you-use-a-startup-probe}
 
-对于包含启动时间较长的容器的 Pod，启动探针非常有用。
-你不必设置较长的存活探针时间间隔，
+对于包含启动时间较长的容器的 Pod，启动探针非常有用。你不必设置较长的存活探针时间间隔，
 而是为容器启动阶段单独配置探针参数，允许使用比存活探针时间间隔更长的时间。
 
+<!-- ensure front matter contains math: true -->
 <!--
-<!-\- ensure front matter contains math: true -\->
 If your container usually starts in more than
 \\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default
@@ -277,8 +274,7 @@ migrations during startup, consider using a [startup probe](#startup-probe).
 However, if you want to detect the difference between an app that has failed
 and an app that is still processing its startup data, you might prefer a readiness probe.
 -->
-对于在启动期间需要加载大量数据、配置文件或执行迁移操作的容器，
-请考虑使用[启动探针](#startup-probe)。
+对于在启动期间需要加载大量数据、配置文件或执行迁移操作的容器，请考虑使用[启动探针](#startup-probe)。
 不过，如果你希望区分应用已经失败和应用仍在处理启动数据这两种情况，
 可能更适合使用就绪探针。
 
@@ -380,10 +376,9 @@ kubelet 评估每次探针执行的结果，并据此采取相应措施。每个
   Pod stops receiving traffic from matching Services.
 -->
 `Failure`
-: 容器未通过诊断。对于存活探针和启动探针，
-  kubelet 会杀死容器，容器随后依据其[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)进行处理。
-  对于就绪探针，kubelet 会将容器标记为未就绪，
-  Pod 将停止从与之匹配的 Service 接收流量。
+: 容器未通过诊断。对于存活探针和启动探针，kubelet 会杀死容器，
+  容器随后依据其[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)进行处理。
+  对于就绪探针，kubelet 会将容器标记为未就绪，Pod 将停止从与之匹配的 Service 接收流量。
 
 <!--
 `Unknown`
@@ -410,8 +405,8 @@ liveness and readiness checks. For example:
 -->
 ## 配置字段   {#configure-probes}
 
-[探针](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-有若干字段，可用来更精确地控制启动、存活和就绪检查的行为。例如：
+[探针](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)有若干字段，
+可用来更精确地控制启动、存活和就绪检查的行为。例如：
 
 ```yaml
 apiVersion: v1
@@ -453,8 +448,7 @@ spec:
 : 容器启动后到启动、存活或就绪探针开始执行之间的秒数。
   如果定义了启动探针，则存活探针和就绪探针的延迟在启动探针成功之前不会开始计时。
   在某些较早的 Kubernetes 版本中，如果 periodSeconds 被设置为高于 initialDelaySeconds 的值，
-  initialDelaySeconds 可能会被忽略。
-  然而在当前版本中，initialDelaySeconds 始终被遵守，
+  initialDelaySeconds 可能会被忽略。然而在当前版本中，initialDelaySeconds 始终被遵守，
   探针只有在初始延迟之后才会启动。默认为 0 秒。最小值为 0。
 
 <!--
@@ -492,7 +486,8 @@ spec:
   Kubernetes 会将容器视为不健康，并触发该特定容器的重启。
   kubelet 会遵从该容器的 `terminationGracePeriodSeconds` 设置。
   对于失败的就绪探针，kubelet 会继续运行检查失败的容器并继续运行更多探针；
-  由于检查失败，kubelet 会将 Pod 的 `Ready` [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
+  由于检查失败，kubelet 会将 Pod 的 `Ready`
+  [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
 
 <!--
 `terminationGracePeriodSeconds`
@@ -500,8 +495,7 @@ spec:
 -->
 `terminationGracePeriodSeconds`
 : 为 kubelet 配置一个宽限期，用于在触发关闭失败容器与强制容器运行时停止该容器之间等待。
-  默认值为继承 Pod 层面的 `terminationGracePeriodSeconds` 值（如果未指定则为 30 秒），
-  最小值为 1。
+  默认值为继承 Pod 层面的 `terminationGracePeriodSeconds` 值（如果未指定则为 30 秒），最小值为 1。
   更多细节参阅[探针层面的 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
 {{< caution >}}
@@ -510,8 +504,7 @@ Incorrect implementation of readiness probes may result in an ever growing
 number of processes in the container, and resource starvation if this is left
 unchecked.
 -->
-错误地实现就绪探针可能导致容器内的进程数不断增长，
-若不加以控制，可能造成资源耗尽。
+错误地实现就绪探针可能导致容器内的进程数不断增长，若不加以控制，可能造成资源耗尽。
 {{< /caution >}}
 
 <!--
@@ -553,6 +546,7 @@ For example:
 -->
 例如：
 
+<!--
 ```yaml
 spec:
   terminationGracePeriodSeconds: 3600  # pod-level
@@ -571,6 +565,27 @@ spec:
       failureThreshold: 1
       periodSeconds: 60
       # Override pod-level terminationGracePeriodSeconds
+      terminationGracePeriodSeconds: 60
+```
+-->
+```yaml
+spec:
+  terminationGracePeriodSeconds: 3600  # Pod 级别
+  containers:
+  - name: test
+    image: ...
+
+    ports:
+    - name: liveness-port
+      containerPort: 8080
+
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: liveness-port
+      failureThreshold: 1
+      periodSeconds: 60
+      # 复写 Pod 级别 terminationGracePeriodSeconds
       terminationGracePeriodSeconds: 60
 ```
 
@@ -593,8 +608,8 @@ have additional fields that can be set on `httpGet`:
 
 ### HTTP 探针   {#http-probes}
 
-[HTTP 探针](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-可以在 `httpGet` 上设置以下额外字段：
+[HTTP 探针](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)可以在
+`httpGet` 上设置以下额外字段：
 
 <!--
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
@@ -745,8 +760,7 @@ This abrupt closure can cause **connection reset by peer** or **broken pipe erro
 which can be difficult to distinguish from legitimate network issues.
 -->
 如果你探测的端点返回的响应主体大于 **10KiB**，
-kubelet 仍会根据状态码将探针标记为成功，
-但在达到 10KiB 限制后会关闭连接。
+kubelet 仍会根据状态码将探针标记为成功，但在达到 10KiB 限制后会关闭连接。
 这种突然的关闭可能导致 **connection reset by peer** 或 **broken pipe errors**
 等错误出现在你的应用日志中，而这些错误可能难以与真正的网络问题区分。
 
@@ -755,8 +769,7 @@ For reliable `httpGet` probes, it is strongly recommended to use dedicated healt
 that return a minimal response body. If you must use an existing endpoint with a large payload,
 consider using an `exec` probe to perform a HEAD request instead.
 -->
-为了让 `httpGet` 探针更可靠，强烈建议使用专用的健康检查端点，
-让其返回较小的响应主体。
+为了让 `httpGet` 探针更可靠，强烈建议使用专用的健康检查端点，让其返回较小的响应主体。
 如果你必须使用一个负载较大的现有端点，可以考虑改用 `exec` 探针执行一次 HEAD 请求。
 {{< /caution >}}
 
@@ -809,8 +822,7 @@ concatenates those. For example: `myservice-liveness` (using `-` as a separator)
 如果你想区分不同类型的探针和针对不同特性的探针，可以使用 `service` 字段。
 你可以将 `service` 设置为 `liveness`，
 并让你的 gRPC 健康检查端点对此请求作出与设置 `service` 为 `readiness` 时不同的响应。
-这使你能够使用同一端点完成不同种类的容器健康检查，
-而不必监听两个不同的端口。
+这使你能够使用同一端点完成不同种类的容器健康检查，而不必监听两个不同的端口。
 如果你想指定自己的自定义服务名称并同时指定一种探针类型，
 Kubernetes 项目建议你使用将两者连接起来的名称。
 例如：`myservice-liveness`（使用 `-` 作为分隔符）。
@@ -820,8 +832,7 @@ Kubernetes 项目建议你使用将两者连接起来的名称。
 Unlike HTTP or TCP probes, you cannot specify the health check port by name,
 and you cannot configure a custom hostname.
 -->
-与 HTTP 或 TCP 探针不同，你不能通过名称指定健康检查端口，
-也不能配置自定义主机名。
+与 HTTP 或 TCP 探针不同，你不能通过名称指定健康检查端口，也不能配置自定义主机名。
 {{< /note >}}
 
 <!--
@@ -829,8 +840,7 @@ Configuration problems (for example: incorrect port or service, unimplemented
 health checking protocol) are considered a probe failure, similar to HTTP and
 TCP probes.
 -->
-配置问题（例如：端口或服务不正确、未实现健康检查协议）
-被视为探针失败，类似于 HTTP 和 TCP 探针。
+配置问题（例如：端口或服务不正确、未实现健康检查协议）被视为探针失败，类似于 HTTP 和 TCP 探针。
 
 ## {{% heading "whatsnext" %}}
 

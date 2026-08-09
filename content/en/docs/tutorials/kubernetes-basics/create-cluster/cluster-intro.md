@@ -70,10 +70,8 @@ applications._
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
 communicating with the Kubernetes control plane. The node should also have tools for
 handling container operations, such as {{< glossary_tooltip text="containerd" term_id="containerd" >}}
-or {{< glossary_tooltip term_id="cri-o" >}}. A Kubernetes cluster that handles production
-traffic should have a minimum of three nodes because if one node goes down, both an
-[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance are lost,
-and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+or {{< glossary_tooltip term_id="cri-o" >}}. A common and supported deployment
+model runs Kubernetes control plane components on dedicated control plane nodes.
 
 When you deploy applications on Kubernetes, you tell the control plane to start
 the application containers. The control plane schedules the containers to run on
