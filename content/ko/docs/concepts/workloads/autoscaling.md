@@ -11,8 +11,8 @@ weight: 40
 쿠버네티스에서는 현재 리소스 수요에 따라 워크로드를 _스케일링_ 할 수 있다.
 이를 통해 클러스터가 리소스 수요 변화에 보다 탄력적이고 효율적으로 대응할 수 있다.
 
-워크로드를 스케일링할 때는, 워크로드가 관리하는 레플리카 수를 늘리거나 줄일 수 있고, 혹은 레플리카 수는 그대로 둔 채 할당된
-리소스를 조정할 수 있다.
+워크로드를 스케일링할 때는, 워크로드가 관리하는 레플리카 수를 늘리거나 줄일 수 있고,
+혹은 레플리카가 사용할 수 있는 리소스를 인플레이스(in-place)로 조정할 수 있다.
 
 첫 번째 방법을 _수평 스케일링(horizontal scaling)_ , 두 번째 방법을 _수직 스케일링(vertical scaling)_ 
 이라고 부른다.
@@ -27,7 +27,7 @@ weight: 40
 `kubectl` CLI을 사용해 수행할 수 있다.
 수직 스케일링의 경우, 워크로드의 리소스 정의를 _패치_ 해야한다.
 
-아래는 두 방식의 예시이다.
+두 가지 전략의 예시는 아래를 참고한다.
 
 - **수평 스케일링**: [복수의 앱 인스턴스를 구동하기](/ko/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **수직 스케일링**: [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources)
@@ -87,7 +87,7 @@ VPA를 사용하려면 클러스터에
 
 ### 클러스터 크기 기반 오토스케일링
 
-클러스터의 크기에 따라 스케일링이 필요한 워크로드(예: `cluster-dns`또는 시스템 컴포넌트)의 경우,
+클러스터의 크기에 따라 스케일링이 필요한 워크로드(예: `cluster-dns`나 다른 시스템 컴포넌트)의 경우,
 [_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)를
 사용할 수 있다.
 VPA와 마찬가지로, 쿠버네티스 코어에 포함되지 않으나,
@@ -124,7 +124,7 @@ KEDA는 CNCF-graduated 프로젝트이고 처리해야 할 이벤트의 수(예:
 
 ## 클러스터 인프라 스케일링
 
-만약 워크로드 스케일링만으로 충분하지 않다면, 클러스터 인프라 자체를 스케일링할 수 있다.
+만약 워크로드 스케일링만으로 필요를 충족할 수 없다면, 클러스터 인프라 자체를 스케일링할 수 있다.
 
 클러스터 인프라를 스케일링하는 것은 일반적으로 {{< glossary_tooltip text="노드" term_id="node" >}}를 추가하거나 삭제하는 것을 의미한다.
 자세한 내용은 [노드 오토스케일링](/docs/concepts/cluster-administration/node-autoscaling/)를
