@@ -1,9 +1,9 @@
 ---
 title: 오토스케일링 워크로드
 description: >-
-  오토스케일링을 사용하면, 워크로드를 자동으로 여러 방식으로 업데이트를 할 수 있다. 이것은 클러스터가 리소스 요청에 좀 더 유연하고 효율적으로 반응하게 해준다.
+  오토스케일링을 사용하면, 워크로드를 자동으로 여러 방식으로 업데이트를 할 수 있다. 이것은 클러스터가 리소스 수요 변화에 좀 더 유연하고 효율적으로 반응하게 해준다.
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -29,7 +29,7 @@ weight: 40
 
 두 가지 전략의 예시는 아래를 참고한다.
 
-- **수평 스케일링**: [복수의 앱 인스턴스를 구동하기](/ko/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **수평 스케일링**: [복수의 앱 인스턴스를 구동하기](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **수직 스케일링**: [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources)
 
 ## 자동 워크로드 스케일링
@@ -42,21 +42,20 @@ weight: 40
 
 ### 수평 워크로드 스케일링
 
-쿠버네티스에서, _HorizontalPodAutoscaler_(HPA)을 이용하여 워크로드를 수평으로 자동 스케일링할 수 있다.
+쿠버네티스에서, [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)(HPA)을 이용하여 워크로드를 수평으로 자동 스케일링할 수 있다.
 
 이것은 쿠버네티스 API 리소스와 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}로
 구현되어있고, 주기적으로 워크로드의 {{< glossary_tooltip text="레플리카" term_id="replica" >}}의 수를 조정하여
 CPU나 메모리 사용량과 같은 관측된 리소스 사용률에 맞춘다.
 
-[HorizontalPodAutoscaler 연습](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)에서 디플로이먼트의 HorizontalPodAutoscaler를 구성해볼 수 있다.
+디플로이먼트의 HorizontalPodAutoscaler를 구성하는 [연습 튜토리얼](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)이 있다.
 
 ### 수직 워크로드 스케일링
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-_VerticalPodAutoscaler_ (VPA)를 이용하여 워크로드를 수직으로 자동 스케일링할 수 있다.
-HPA와 달리, VPA는 쿠버네티스에서 기본적으로 제공하지는 않지만, 별도의 
-[Github 프로젝트](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler)에서 확인할 수 있다.
+[VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)(VPA)를 이용하여 워크로드를 수직으로 자동 스케일링할 수 있다.
+HPA와 달리, VPA는 쿠버네티스에서 기본적으로 제공하지는 않지만, 사용하기 전에 사용자나 클러스터 관리자가 배포해야 할 수도 있는 애드온이다.
 
 설치 후에는, {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}(CRDs) 을 생성하여,
 워크로드가 관리하는 레플리카들의 리소스를 _어떻게_, _언제_ 스케일링 할 것인지를 정의한다.
@@ -66,18 +65,7 @@ VPA를 사용하려면 클러스터에
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)를 설치해야한다.
 {{< /note >}}
 
-현재, VPA는 다음 네 가지 모드로 작동된다.
-
-{{< table caption="Different modes of the VPA" >}}
-모드 | 설명
-:----|:-----------
-`Auto` | 현재는 `Recreate`모드와 동일하다. 향후에 인플레이스(in-place) 업데이트로 변경될 수 있다.
-`Recreate` | VPA는 파드가 생성될 때 리소스 요청(resource request)를 할당하며, 기존 파드의 리소스 요청이 새로운 권장 값과 상당히 다르다면, 파드를 축출(evitct)하여 이를 업데이트한다.  
-`Initial` | VPA는 파드가 생성될 때만 리소스 요청을 할당하고, 이후에는 변경하지 않는다.
-`Off` | VPA가 파드의 리소스 요청 값을 자동으로 바꾸지 않는다. 권장 값은 계산되며 VPA 오브젝트에서 확인할 수 있다.
-{{< /table >}}
-
-### 수직 인플레이스(In-place) 파드 스케일링
+#### 수직 인플레이스(In-place) 파드 스케일링
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
@@ -133,8 +121,8 @@ KEDA는 CNCF-graduated 프로젝트이고 처리해야 할 이벤트의 수(예:
 ## {{% heading "whatsnext" %}}
 
 - 수평 스케일링에 대해 더 알아보기
-  - [스테이트풀셋(StatefulSet) 확장하기](/ko/docs/tasks/run-application/scale-stateful-set/)
-  - [HorizontalPodAutoscaler 연습](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+  - [스테이트풀셋(StatefulSet) 확장하기](/docs/tasks/run-application/scale-stateful-set/)
+  - [HorizontalPodAutoscaler 연습](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [컨테이너 리소스 인플레이스 리사이즈](/docs/tasks/configure-pod-container/resize-container-resources/)
-- [클러스터에서 DNS 서비스 오토스케일](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- [클러스터에서 DNS 서비스 오토스케일](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - [노드 오토스케일링](/docs/concepts/cluster-administration/node-autoscaling/) 알아보기
