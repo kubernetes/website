@@ -331,14 +331,14 @@ The kubectl maintainers encourage you to adopt kuberc with the following default
 {{< caution >}}
 If you are using a managed Kubernetes provider, check your provider's
 documentation about what exec plugins are needed in your environment, and use
-the ["Allowlist"](#credentialPluginPolicy) policy instead.
+the ["Allowlist"](#credentialpluginpolicy) policy instead.
 
-If you encounter problems after setting the ["DenyAll"](#credentialPluginPolicy)
+If you encounter problems after setting the ["DenyAll"](#credentialpluginpolicy)
 policy as illustrated below, observe `kubectl`'s error messages to discover
 which plugins have been prevented from running and cross-reference them with
 your provider's documentation. Finally, change the policy to "Allowlist" and add
 the necessary plugins in the
-[credentialPluginAllowlist](#credentialPluginAllowlist) field.
+[credentialPluginAllowlist](#credentialpluginallowlist) field.
 {{< /caution >}}
 
 ```yaml
