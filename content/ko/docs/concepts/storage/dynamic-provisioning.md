@@ -120,7 +120,7 @@ spec:
 스토리지 클래스를 가리키는 `storageClassName` 필드를 자동으로 추가한다.
 
 클러스터 내 두 개 이상의 스토리지클래스에 `storageclass.kubernetes.io/is-default-class`
-어노테이션을 true로 설정한 상태에서 `storageClassName` 이 지정되지 않은
+어노테이션을 true로 설정한 다음, `storageClassName` 이 설정되지 않은
 `PersistentVolumeClaim` 을 생성하면, 쿠버네티스는 가장 최근에 생성된
 기본 스토리지클래스를 사용한다.
 
