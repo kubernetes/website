@@ -128,6 +128,13 @@ test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
 
+.PHONY: kyaml verify-kyaml
+kyaml: ## Reformat English example manifests as KYAML.
+	scripts/kyaml.sh convert
+
+verify-kyaml: ## Fail if any English example manifest is not already KYAML.
+	scripts/kyaml.sh verify
+
 .PHONY: link-checker-setup
 link-checker-image-pull:
 	$(CONTAINER_ENGINE) pull wjdp/htmltest
