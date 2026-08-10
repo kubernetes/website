@@ -50,7 +50,7 @@ The process follows these steps for each PodGroup:
    Instead, they are moved to the unschedulable queue to wait for cluster resources to free up,
    allowing other workloads to be scheduled in the meantime.
 
-## Hierarchical gang scheduling with CompositePodGroups
+## Hierarchical gang scheduling with `CompositePodGroups`
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 

@@ -14,7 +14,7 @@ carry policies and hierarchy references for a specific workload instance.
 
 <!-- body -->
 
-## What is a CompositePodGroup?
+## What is a `CompositePodGroup`?
 
 The `CompositePodGroup` API resource is part of the `scheduling.k8s.io/v1alpha3`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}. Your cluster must have that API
@@ -77,7 +77,7 @@ the `status` field is present in the API type, but `kube-scheduler` does not upd
 populate status conditions for `CompositePodGroup` objects. Status tracking for composite
 groups will be implemented in future releases.
 
-## Creating a CompositePodGroup
+## Creating a `CompositePodGroup`
 
 Workload controllers create `CompositePodGroup` objects automatically from `Workload`
 templates at runtime.
@@ -114,7 +114,7 @@ kubectl describe compositepodgroup root-group-0
 
 ## How it fits together
 
-The relationship between controllers, Workloads, CompositePodGroups, PodGroups, and
+The relationship between controllers, Workloads, `CompositePodGroups`, PodGroups, and
 Pods follows this pattern:
 
 1. The workload controller creates a `Workload` defining a tree of

@@ -89,7 +89,7 @@ In both cases the scheduler preemptor pods are removed from their nodes and thei
 so the next reprieval attempt can validate scheduling of PodGroup. The scheduler then proceeds with
 another potential victim until all victims are processed.
 
-### Preemption for CompositePodGroups
+### Preemption for `CompositePodGroups`
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 

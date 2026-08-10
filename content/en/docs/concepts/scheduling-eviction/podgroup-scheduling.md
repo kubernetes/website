@@ -139,7 +139,7 @@ For consistent behavior throughout the entire cycle, the algorithm requires that
 share the same `.spec.schedulerName`. This requirement is validated before the cycle starts,
 and the PodGroup is rejected if the constraint is not met.
 
-## Hierarchical scheduling with CompositePodGroups
+## Hierarchical scheduling with `CompositePodGroups`
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
@@ -259,11 +259,11 @@ You can check conditions with:
 kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 ```
 
-## CompositePodGroup conditions
+## `CompositePodGroup` conditions
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-CompositePodGroup API exposes the `status.conditions` field as well.
+`CompositePodGroup` API exposes the `status.conditions` field as well.
 
 In v1.37, the scheduler does not populate this field, however.
 

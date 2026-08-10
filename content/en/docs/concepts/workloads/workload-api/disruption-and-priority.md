@@ -38,7 +38,7 @@ allowing independent disruption of a single pod from a PodGroup.
 The `All` mode emphasizes "all-or-nothing" semantics for disruption.
 It instructs the scheduler that all pods from the PodGroup have to be disrupted together.
 
-## CompositePodGroup
+## `CompositePodGroup`
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
@@ -102,7 +102,7 @@ spec:
   priorityClassName: high-priority
 ```
 
-### CompositePodGroup priority
+### `CompositePodGroup` priority
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
@@ -123,7 +123,7 @@ In v1.37, the scheduler doesn't validate if the non-root groups have priority va
 the priority of the root `CompositePodGroup`.
 {{< /note >}}
 
-### PreemptionPolicy in CompositePodGroup
+### PreemptionPolicy in `CompositePodGroup`
 
 {{< feature-state feature_gate_name="PodGroupPreemptionPolicy" >}}
 

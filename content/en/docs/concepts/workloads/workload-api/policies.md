@@ -66,7 +66,7 @@ Workload's templates only affect newly created PodGroups, not existing ones.
 For standalone PodGroups (created without a Workload), you set `spec.schedulingPolicy`
 directly on the PodGroup itself.
 
-## Policies in CompositePodGroups
+## Policies in `CompositePodGroups`
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
@@ -79,7 +79,7 @@ While a scheduling policy in a `PodGroup` governs a collection of individual Pod
 `CompositePodGroup` scheduling policy governs its direct **child groups** (which can be both
 `CompositePodGroup` and `PodGroup` objects).
 
-### Policy types for CompositePodGroups
+### Policy types for `CompositePodGroups`
 
 Similar to `PodGroups`, the `spec.schedulingPolicy` field of a `CompositePodGroup` supports two
 types:
