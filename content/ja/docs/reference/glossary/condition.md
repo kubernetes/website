@@ -1,7 +1,7 @@
 ---
 title: Condition
 id: condition
-full_link: /ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions
+full_link: /docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions
 short_description: >
   Kubernetesリソースの現在の状態を表し、リソースの特定の観点が真であるかどうかを示す情報を提供します。
 
