@@ -76,7 +76,7 @@ Getting Started Guideの残りの部分では、サンプルアプリケーシ�
 
 ## Ciliumのコンポーネントを理解する {#understanding-cilium-components}
 
-Ciliumを使用してクラスターをデプロイすると、`kube-system`名前空間に複数のPodが追加されます。
+Ciliumを使用してクラスターをデプロイすると、`kube-system` Namespaceに複数のPodが追加されます。
 このPodの一覧を確認するには、次を実行します。
 
 ```shell
