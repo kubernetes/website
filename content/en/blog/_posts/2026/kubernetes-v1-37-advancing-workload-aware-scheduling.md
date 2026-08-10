@@ -360,8 +360,8 @@ spec:
     schedulingPolicy:
       gang: {}                # minCount omitted -> defaults to parallelism (8)
     schedulingConstraints:
-      key:
-      - level: topology.kubernetes.io/zone
+      topology:
+      - key: topology.kubernetes.io/zone
     disruptionMode:
       all: {}
   template:
@@ -439,7 +439,8 @@ Many of the workload-aware scheduling improvements are now available as Beta fea
 
 * **Workload API, Gang Scheduling, and Preemption:** The
   [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-  feature gate (which now integrates Gang scheduling and Workload-aware preemption) is Beta and disabled by default on the `kube-apiserver` and `kube-scheduler`. Ensure your manifests are updated to use the `scheduling.k8s.io/v1beta1`
+  feature gate (which now integrates Gang scheduling and Workload-aware preemption) is Beta and disabled by default on the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`.
+  Ensure your manifests are updated to use the `scheduling.k8s.io/v1beta1`
   {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 
 **Beta features:**
@@ -451,11 +452,11 @@ Many of the workload-aware scheduling improvements are now available as Beta fea
 
 * **Topology-aware scheduling:** Enable the
   [`TopologyAwareWorkloadScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#TopologyAwareWorkloadScheduling)
-  feature gate on the `kube-scheduler`.
+  feature gate on the `kube-apiserver` and `kube-scheduler`.
 
 * **CompositePodGroup API:** Enable the
   [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-  feature gate on both the `kube-apiserver` and `kube-scheduler`, and ensure the `scheduling.k8s.io/v1alpha3` API group is enabled.
+  feature gate on both the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`, and ensure the `scheduling.k8s.io/v1alpha3` API group is enabled.
 * **Workload API integration with the Job controller:** Enable the
   [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob)
   feature gate on the `kube-apiserver` and `kube-controller-manager`.
