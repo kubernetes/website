@@ -10,7 +10,7 @@ Esta página explica cómo añadir nodos de trabajo Linux a un clúster de kubea
 
 ## {{% heading "prerequisites" %}}
 
-* Cada nodo de trabajo a añadir al clúster tiene instalados los componentes necesarios según
+* Para cada nodo de trabajo a añadir al clúster, debes tener instalados los componentes necesarios según
 [Instalando kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/), como
 kubeadm, el kubelet y un {{< glossary_tooltip term_id="container-runtime" text="runtime de contenedores" >}}.
 * Dispones de un clúster de kubeadm en ejecución, creado con `kubeadm init` y siguiendo los pasos
@@ -33,7 +33,7 @@ Para añadir nuevos nodos de trabajo Linux a tu clúster, haz lo siguiente en ca
 ### Información adicional sobre kubeadm join
 
 {{< note >}}
-Para especificar una tupla IPv6, en `<host-del-plano-de-control>:<puerto-del-plano-de-control>` la dirección IPv6 debe escribirse entre corchetes, por ejemplo: `[2001:db8::101]:2073`.
+Para especificar una tupla IPv6, en `<host-del-plano-de-control>:<puerto-del-plano-de-control>` debes escribir la dirección IPv6 entre corchetes, por ejemplo: `[2001:db8::101]:2073`.
 {{< /note >}}
 
 Si no tienes el token, puedes obtenerlo ejecutando el siguiente comando en el nodo controlador:
