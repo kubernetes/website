@@ -56,10 +56,10 @@ Ciliumはクラスターの構成を自動的に検出し、インストール�
 コンポーネントは次のとおりです。
 
 - Secret `cilium-ca`内の認証局(CA)と、Hubble(Ciliumのオブザーバビリティレイヤー)用の証明書。
-- サービスアカウント。
-- クラスターロール。
+- ServiceAccount。
+- ClusterRole。
 - ConfigMap。
-- エージェントのDaemonSetとOperatorのDeployment。
+- エージェントのDaemonSetとOperatorのデプロイメント。
 
 インストール後、`cilium status`コマンドでCiliumデプロイメントの全体的なステータスを確認できます。
 `status`コマンドの想定される出力は[こちら](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/#validate-the-installation)を参照してください。
@@ -95,6 +95,6 @@ cilium-kkdhz   1/1     Running   0          3m23s
 
 ## {{% heading "whatsnext" %}}
 
-クラスターが実行されたら、[ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)に従って、CiliumでKubernetesのNetworkPolicyを試すことができます。
+クラスターが起動したら、[ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)に従って、CiliumでKubernetesのNetworkPolicyを試すことができます。
 ぜひお楽しみください。
 ご質問があれば、[Cilium Slackチャンネル](https://slack.cilium.io/)までお問い合わせください。
