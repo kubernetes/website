@@ -1,5 +1,5 @@
 ---
-title: Actualizar clústeres de kubeadm
+title: Actualizando clústeres de kubeadm
 content_type: task
 weight: 30
 ---
@@ -77,7 +77,7 @@ kubeadm upgrade ... # ejecuta un comando de actualización de kubeadm
 
 <!-- steps -->
 
-## Cambiar el repositorio de paquetes
+## Cambiando el repositorio de paquetes
 
 Si usas los repositorios de paquetes gestionados por la comunidad (`pkgs.k8s.io`), necesitas
 habilitar el repositorio de paquetes de la versión menor de Kubernetes deseada. Esto se explica en el documento:
@@ -300,7 +300,7 @@ sin comprometer la capacidad mínima necesaria para ejecutar tus cargas de traba
 
 Las siguientes páginas muestran cómo actualizar nodos de trabajo Linux y Windows:
 
-* [Actualizar nodos Linux](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+* [Actualizar nodos Linux](/es/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
 * [Actualizar nodos Windows](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 
 ## Verificar el estado del clúster
