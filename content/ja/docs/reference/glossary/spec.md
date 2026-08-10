@@ -10,7 +10,7 @@ tags:
 - fundamental
 - architecture
 ---
-  PodやServiceなどの各オブジェクトの設定と、その望ましい状態を定義します。
+  PodやServiceなどの各オブジェクトの設定とその望ましい状態を定義します。
 
 <!--more-->
 ほとんどのKubernetesオブジェクトは、オブジェクトの設定を管理する2つの入れ子になったオブジェクトのフィールドを持っています。それはオブジェクトspecとオブジェクトstatusです。specを持っているオブジェクトに関しては、オブジェクト作成時にspecを設定する必要があり、望ましい状態として{{< glossary_tooltip text="リソース" term_id="api-resource" >}}に持たせたい特徴を記述する必要があります。
