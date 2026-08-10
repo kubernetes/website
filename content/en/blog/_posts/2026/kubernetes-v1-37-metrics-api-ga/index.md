@@ -24,17 +24,17 @@ beta in v1.8. It has remained unchanged and has been used in production for
 years by clients including the HorizontalPodAutoscaler (HPA) and `kubectl top`.
 Kubernetes v1.37 formally graduates that proven API to `metrics.k8s.io/v1`.
 
-The API exposes the following resource types:
+The API exposes two resource types:
 
 - `NodeMetrics`, for CPU and memory usage for a node.
-- `PodMetrics`, for CPU and memory usage for a Pod, including a per-container
-  breakdown through `ContainerMetrics`.
+- `PodMetrics`, for CPU and memory usage for a Pod, with a per-container
+    breakdown in its `containers` field.
 
 The API remains intentionally small. It provides the resource metrics needed
 for autoscaling and basic inspection; it is not a replacement for a full
-monitoring pipeline or the Custom Metrics API.
+monitoring pipeline or the custom metrics (`custom.metrics.k8s.io`) API.
 
-## What changes in v1.37
+## What changed with the v1.37 release? {#changes}
 
 The `v1` API surface is identical to `v1beta1`, except for the API version.
 There are no renamed fields, new fields, or changes to the meaning of the
@@ -46,25 +46,25 @@ For example, a client can retrieve node metrics from the stable endpoint:
 kubectl get --raw /apis/metrics.k8s.io/v1/nodes
 ```
 
-Likewise, it can retrieve metrics for the Pods in a namespace:
+Likewise, it can retrieve metrics for the pods in a namespace:
 
 ```shell
 kubectl get --raw /apis/metrics.k8s.io/v1/namespaces/default/pods
 ```
 
-Kubernetes clients that support this graduation prefer `v1` when it is
-available and fall back to `v1beta1` on clusters that do not yet serve `v1`.
-This includes `kubectl top` and the in-tree resource metrics client used by
-the HPA controller. The fallback keeps newer clients working with clusters
-that only provide `v1beta1`.
+`kubectl top` supports both API versions. It prefers `v1` when available and
+automatically falls back to `v1beta1` on clusters that do not yet serve `v1`.
+The HPA controller currently supports only `v1beta1`. Support for
+discovery-based selection between `v1` and `v1beta1` is planned, but is not
+available in Kubernetes v1.37.
 
 ## What you need to do
 
-No feature gate is required. However, the Metrics API is served through the
-[API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+You don't need to enable any feature gate. The Metrics API is served through the
+[API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/),
 by an implementation such as [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-The implementation must register and serve the `v1.metrics.k8s.io` APIService
-before the stable endpoint is available in your cluster.
+You can choose any implementation of `metrics.k8s.io`; for the v1 metrics API to be
+available in your cluster, your chosen implementation must serve the `v1.metrics.k8s.io` API, and you need to [register](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) an associated [APIService](/docs/reference/kubernetes-api/apiregistration/api-service-v1/).
 
 During the transition, implementations should serve both `v1` and `v1beta1`.
 Keeping both versions available maintains compatibility with older clients.
@@ -87,13 +87,13 @@ kubectl get apiservice v1.metrics.k8s.io
 
 - Read the [Resource metrics pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
   documentation.
-- Read [KEP-5207](https://kep.k8s.io/5207), the proposal for this graduation.
+- Read [KEP-5207](https://www.kubernetes.dev/resources/keps/5207/), the proposal for (graduating) this API.
 - Learn about the [Metrics API](https://github.com/kubernetes/metrics#resource-metrics-api)
   and its reference implementation, [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
 
 ## Get involved
 
-The Metrics API is maintained by [SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation).
+The Metrics API is maintained by [SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/).
 To ask questions, share feedback, or contribute, join the
 [#sig-instrumentation](https://kubernetes.slack.com/messages/sig-instrumentation)
 channel on Kubernetes Slack or attend a SIG Instrumentation meeting.
