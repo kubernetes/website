@@ -24,24 +24,24 @@ This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 
 NodeLocal DNSCache improves Cluster DNS performance by running a DNS caching agent
 on cluster nodes as a DaemonSet. In today's architecture, Pods in 'ClusterFirst' DNS mode
-reach out to a kube-dns `serviceIP` for DNS queries. This is translated to a
-kube-dns/CoreDNS endpoint via iptables rules added by kube-proxy.
+normally reach out to a CoreDNS `clusterIP` for DNS queries. This is translated to a
+CoreDNS endpoint by kube-proxy.
 With this new architecture, Pods will reach out to the DNS caching agent
-running on the same node, thereby avoiding iptables DNAT rules and connection tracking.
-The local caching agent will query kube-dns service for cache misses of cluster
+running on the same node, thereby avoiding DNAT rules and connection tracking.
+The local caching agent will query the CoreDNS service for cache misses of cluster
 hostnames ("`cluster.local`" suffix by default).
 
 ## Motivation
 
 * With the current DNS architecture, it is possible that Pods with the highest DNS QPS
-  have to reach out to a different node, if there is no local kube-dns/CoreDNS instance.
+  have to reach out to a different node, if there is no local CoreDNS instance.
   Having a local cache will help improve the latency in such scenarios.
 
 * Skipping iptables DNAT and connection tracking will help reduce
   [conntrack races](https://github.com/kubernetes/kubernetes/issues/56903)
   and avoid UDP DNS entries filling up conntrack table.
 
-* Connections from the local caching agent to kube-dns service can be upgraded to TCP.
+* Connections from the local caching agent to the CoreDNS service can be upgraded to TCP.
   TCP conntrack entries will be removed on connection close in contrast with
   UDP entries that have to timeout
   ([default](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
@@ -53,7 +53,7 @@ hostnames ("`cluster.local`" suffix by default).
 
 * Metrics & visibility into DNS requests at a node level.
 
-* Negative caching can be re-enabled, thereby reducing the number of queries for the kube-dns service.
+* Negative caching can be re-enabled, thereby reducing the number of queries for the CoreDNS service.
 
 ## Architecture Diagram
 
@@ -87,7 +87,8 @@ This feature can be enabled using the following steps:
 * Substitute the variables in the manifest with the right values:
 
   ```shell
-  kubedns=`kubectl get svc kube-dns -n kube-system -o jsonpath={.spec.clusterIP}`
+  # For historical reasons, the Service for CoreDNS is called "kube-dns"
+  coredns=`kubectl get svc kube-dns -n kube-system -o jsonpath={.spec.clusterIP}`
   domain=<cluster-domain>
   localdns=<node-local-address>
   ```
@@ -98,22 +99,22 @@ This feature can be enabled using the following steps:
   * If kube-proxy is running in IPTABLES mode:
 
     ``` bash
-    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
+    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$coredns/g" nodelocaldns.yaml
     ```
 
     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by
     the `node-local-dns` pods.
-    In this mode, the `node-local-dns` pods listen on both the kube-dns service IP
+    In this mode, the `node-local-dns` pods listen on both the CoreDNS service IP
     as well as `<node-local-address>`, so pods can look up DNS records using either IP address.
 
   * If kube-proxy is running in IPVS mode:
 
     ``` bash
-    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$coredns/g" nodelocaldns.yaml
     ```
 
     In this mode, the `node-local-dns` pods listen only on `<node-local-address>`.
-    The `node-local-dns` interface cannot bind the kube-dns cluster IP since the
+    The `node-local-dns` interface cannot bind the CoreDNS cluster IP since the
     interface used for IPVS loadbalancing already uses this address.
     `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
 
@@ -122,7 +123,7 @@ This feature can be enabled using the following steps:
 * If using kube-proxy in IPVS mode, `--cluster-dns` flag to kubelet needs to be modified
   to use `<node-local-address>` that NodeLocal DNSCache is listening on.
   Otherwise, there is no need to modify the value of the `--cluster-dns` flag,
-  since NodeLocal DNSCache listens on both the kube-dns service IP as well as
+  since NodeLocal DNSCache listens on both the CoreDNS service IP as well as
   `<node-local-address>`.
 
 Once enabled, the `node-local-dns` Pods will run in the `kube-system` namespace
@@ -133,14 +134,23 @@ be available on a per-node basis.
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>`.
 You should also revert any changes you made to the kubelet configuration.
 
-## StubDomains and Upstream server Configuration
+## Stub domain configuration
 
-StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
-are automatically picked up by `node-local-dns` pods. The ConfigMap contents need to follow the format
-shown in [the example](/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1).
-The `node-local-dns` ConfigMap can also be modified directly with the stubDomain configuration
-in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
-In those cases, the `kube-dns` ConfigMap can be updated.
+The Corefile in the `node-local-dns` ConfigMap can be modified with the
+stubDomain configuration. Some cloud providers might not allow modifying the
+`node-local-dns` ConfigMap directly; in that case, a `kube-dns` ConfigMap in the
+format traditionally used by `kube-dns` can be used instead:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: kube-system
+  name: kube-dns
+data:
+  stubDomains: |
+    {"abc.com" : ["1.2.3.4"], "my.cluster.local" : ["2.3.4.5"]}
+```
 
 ## Setting memory limits
 
