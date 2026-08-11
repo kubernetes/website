@@ -8,6 +8,15 @@ weight: 50
 
 <!-- overview -->
 
+{{< caution >}}
+Romana is no longer actively maintained. Prefer an actively maintained
+NetworkPolicy provider such as
+[Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/),
+[Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/),
+[Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/),
+or [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/).
+{{< /caution >}}
+
 This page shows how to use Romana for NetworkPolicy.
 
 ## {{% heading "prerequisites" %}}

@@ -8,6 +8,15 @@ weight: 60
 
 <!-- overview -->
 
+{{< caution >}}
+Weave Net is [archived](https://github.com/weaveworks/weave) and no longer
+maintained. Prefer an actively maintained NetworkPolicy provider such as
+[Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/),
+[Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/),
+[Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/),
+or [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/).
+{{< /caution >}}
+
 This page shows how to use Weave Net for NetworkPolicy.
 
 ## {{% heading "prerequisites" %}}
