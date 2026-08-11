@@ -226,7 +226,7 @@ users:
 
 Of course you need to set up the webhook server to handle these authentication requests.
 
-### Authenticating to admission webhooks    {#authenticating-to-admission-webhooks}
+### Authenticating to admission webhooks {#authenticating-to-admission-webhooks}
 
 {{< feature-state feature_gate_name="APIServerWebhookAuthenticationToken" >}}
 
@@ -240,7 +240,7 @@ scoped to particular API groups.
 
 {{< note >}}
 This mechanism implements token issuance. Automatic token acquisition and
-presentation by the kube-apiserver and aggregated API servers when calling
+presentation by the `kube-apiserver` and aggregated API servers when calling
 webhooks, along with a webhook-side token verification library, are not part of
 this mechanism.
 {{< /note >}}
@@ -248,24 +248,24 @@ this mechanism.
 #### How it works
 
 The TokenRequest API is extended to support issuing tokens bound to
-`ValidatingWebhookConfiguration` or `MutatingWebhookConfiguration` objects.
+ValidatingWebhookConfiguration or MutatingWebhookConfiguration objects.
 These tokens include attestation claims that specify which API groups the token
 authorizes its bearer to query the webhook about. The token becomes invalid if
 the referenced webhook configuration is deleted.
 
 To request a webhook authentication token, a TokenRequest must include:
 
-1. **A `boundObjectRef`** referencing either a `ValidatingWebhookConfiguration` or
-   a `MutatingWebhookConfiguration`. The referenced webhook configuration must
+1. **A `.spec.boundObjectRef` field** referencing either a ValidatingWebhookConfiguration or
+   a MutatingWebhookConfiguration. The referenced webhook configuration must
    exist and must not be marked for deletion.
 
-1. **An `attestations` field** with exactly one entry: the key
+1. **A `.spec.attestations` field** with exactly one entry: the key
    `admissionReviewAPIGroups` with a single-element string array value specifying
    the API group this token covers. The value `"*"` means all API groups.
    The specified API group must match a rule in the referenced webhook
    configuration.
 
-1. **An `audiences` field** with exactly one element that matches the webhook's
+1. **A `.spec.audiences` field** with exactly one element that matches the webhook's
    endpoint:
    - For URL-configured webhooks: the audience must be an exact match of the
      URL.
@@ -274,7 +274,7 @@ To request a webhook authentication token, a TokenRequest must include:
      to `443` and `<path>` defaults to `/` if not specified in the webhook
      configuration.
 
-1. **An `expirationSeconds`** value. The maximum allowed expiration for
+1. **A `.spec.expirationSeconds`** value. The maximum allowed expiration for
    webhook-bound tokens is 600 seconds (10 minutes).
 
 #### Authorization requirements
@@ -299,14 +299,14 @@ webhook authentication tokens scoped to the `mygroup.example.com` API group:
 
 When a webhook authentication token is verified through
 [TokenReview](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/),
-the following additional keys are populated in the `status.user.extra` field of
+the following additional keys are populated in the `.status.user.extra` field of
 the response:
 
-For tokens bound to a `ValidatingWebhookConfiguration`:
+For tokens bound to a ValidatingWebhookConfiguration:
 - `authentication.kubernetes.io/validatingwebhookconfiguration-name`
 - `authentication.kubernetes.io/validatingwebhookconfiguration-uid`
 
-For tokens bound to a `MutatingWebhookConfiguration`:
+For tokens bound to a MutatingWebhookConfiguration:
 - `authentication.kubernetes.io/mutatingwebhookconfiguration-name`
 - `authentication.kubernetes.io/mutatingwebhookconfiguration-uid`
 
@@ -315,7 +315,7 @@ For all webhook authentication tokens:
   the API group the token is authorized for.
 
 The underlying JWT includes these claims in the `kubernetes.io` private claims
-namespace. For example, a token bound to a `MutatingWebhookConfiguration`:
+namespace. For example, a token bound to a MutatingWebhookConfiguration:
 
 ```json
 {
