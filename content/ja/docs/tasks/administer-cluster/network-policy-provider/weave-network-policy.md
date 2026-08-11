@@ -1,5 +1,5 @@
 ---
-title: ネットワークポリシーのためのWeave Net
+title: NetworkPolicyのためのWeave Net
 content_type: task
 weight: 60
 ---
