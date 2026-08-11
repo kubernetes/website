@@ -51,6 +51,11 @@ such as {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}
 
 Static Pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
 
+To influence kubelet eviction under node resource pressure, set
+`priorityClassName` on the static Pod manifest. Do not set the integer
+`priority` field (mirror Pods reject a bare priority value). See
+[node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction).
+
 ## Static Pods vs DaemonSets {#static-pods-vs-daemonsets}
 
 <!-- Source: tasks/configure-pod-container/static-pod/ -->

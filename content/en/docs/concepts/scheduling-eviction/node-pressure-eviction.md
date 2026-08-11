@@ -360,10 +360,18 @@ then the kubelet must choose to evict one of these pods to preserve node stabili
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
 
-If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
-and want to avoid having it evicted under resource pressure, set the
-`priority` field for that Pod directly. Static pods do not support the
-`priorityClassName` field.
+If you are running a [static pod](/docs/concepts/workloads/pods/static-pods/)
+and want to avoid having it evicted under resource pressure, set
+`priorityClassName` in the static Pod manifest (for example
+`system-node-critical` or `system-cluster-critical`). The kubelet resolves the
+class to a numeric priority for local eviction decisions.
+
+Do **not** set the integer `priority` field yourself. The Priority admission
+plugin rejects mirror Pods that supply a numeric priority; only
+`priorityClassName` is the supported way to raise priority for static Pods.
+
+See [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+for how PriorityClasses work.
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
 the Pods' relative priority to determine the eviction order, because inodes and PIDs have no
