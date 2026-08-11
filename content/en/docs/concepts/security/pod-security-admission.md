@@ -75,6 +75,13 @@ pod-security.kubernetes.io/<MODE>: <LEVEL>
 pod-security.kubernetes.io/<MODE>-version: <VERSION>
 ```
 
+Those snippets are **namespace labels in YAML** form (`key: value`). If you set the
+same labels with `kubectl label`, use `key=value` instead, for example:
+
+```shell
+kubectl label namespace my-namespace pod-security.kubernetes.io/enforce=baseline
+```
+
 Check out [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels) to see example usage.
 
 ## Workload resources and Pod templates
