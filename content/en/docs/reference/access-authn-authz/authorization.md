@@ -56,7 +56,7 @@ status.
 
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
 
-Starting with Kubernetes v1.37, authorizers can return _conditional_ responses
+Starting with Kubernetes v1.38, authorizers can return _conditional_ responses
 in addition to the standard _allow_, _deny_, or _no opinion_ verdicts. A conditional
 response means that the final authorization decision depends on the content of
 the API request or stored object, rather than just metadata like resource name
@@ -82,6 +82,11 @@ Conditional authorization is supported for requests that proceed through admissi
 
 For read requests (`get`, `list`, `watch`) and other operations, authorizers
 must return unconditional (Allow, Deny, NoOpinion) decisions only.
+
+To use conditional authorization, the API server must enable the
+`authorization.k8s.io/v1alpha1` API extensions group
+(`--runtime-config=authorization.k8s.io/v1alpha1=true`), which provides the
+`AuthorizationConditionsReview` API used to evaluate conditions during the admission phase.
 
 ## Request attributes used in authorization
 
@@ -294,17 +299,24 @@ authorizers:
       #   - Deny: reject the request without consulting subsequent authorizers
       # Required, with no default.
       failurePolicy: Deny
-      # When ConditionalAuthorization is enabled, conditionsEndpointKubeConfigContext
-      # specifies the kubeconfig context to use for evaluating authorization conditions.
-      # The authorizer must support evaluating any condition type it returns.
-      # Optional; if unset, conditional authorization is not supported by this webhook.
-      conditionsEndpointKubeConfigContext: authorization-conditions
-      # The API version of the authorization.k8s.io AuthorizationConditionsReview to
-      # send to and expect from the webhook when evaluating conditions.
-      # Only relevant when conditionsEndpointKubeConfigContext is set.
-      # Valid values: v1alpha1
-      # This field has no default.
-      authorizationConditionsReviewVersion: v1alpha1
+      # conditionsReview enables conditional authorization support for this webhook.
+      # When set, the webhook authorizer may return conditional (ConditionsMap / Union)
+      # responses, which are evaluated via the AuthorizationConditionsReview API.
+      # Optional; if omitted, this webhook only supports unconditional
+      # (Allow / Deny / NoOpinion) decisions.
+      conditionsReview:
+        # kubeConfigContextName is the name of the context within the webhook's
+        # kubeconfig file to use for AuthorizationConditionsReview requests.
+        # May only be set when connectionInfo.type = KubeConfigFile.
+        # Optional; if unset, the default kubeconfig context is used, meaning the API
+        # server sends both SubjectAccessReview and AuthorizationConditionsReview
+        # payloads to the same endpoint, which must distinguish them via TypeMeta.
+        kubeConfigContextName: authorization-conditions
+        # The API version of the authorization.k8s.io AuthorizationConditionsReview to
+        # send to and expect from the webhook when evaluating conditions.
+        # Valid values: v1alpha1
+        # Required (no default) when conditionsReview is set.
+        version: v1alpha1
       connectionInfo:
         # Controls how the webhook should communicate with the server.
         # Valid values:
@@ -585,8 +597,9 @@ authorizers:
     failurePolicy: Deny
     # Endpoint for evaluating authorization conditions
     # This endpoint receives AuthorizationConditionsReview requests
-    conditionsEndpointKubeConfigContext: authorization-conditions
-    authorizationConditionsReviewVersion: v1alpha1
+    conditionsReview:
+      kubeConfigContextName: authorization-conditions
+      version: v1alpha1
     connectionInfo:
       type: KubeConfigFile
       kubeConfigFile: /etc/kubernetes/authz-webhook.yaml
@@ -739,8 +752,13 @@ The API server sends a `SubjectAccessReview` to the webhook authorizer:
 apiVersion: authorization.k8s.io/v1
 kind: SubjectAccessReview
 spec:
-  conditionalAuthorization:
-    enabled: true
+  authorizationOptions:
+    handledDecisionTypes:
+    - Allow
+    - Deny
+    - NoOpinion
+    - ConditionsMap
+    - Union
   resourceAttributes:
     namespace: ""
     verb: create
@@ -769,15 +787,14 @@ status:
   conditionalDecision:
     type: ConditionsMap
     conditionsMap:
-      conditions:
+      allowConditions:
       - id: storage-class-dev-only
-        effect: Allow
         condition: "object.spec.storageClassName == 'dev'"
-        type: k8s.io/cel
+        type: authorizer.kubernetes.io/cel
         description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
 ```
 
-Because the response contains a conditional allow (`effect: Allow`), the API server
+Because the response contains a conditional allow (an `allowConditions` entry), the API server
 proceeds with the request, storing the conditions in the request context.
 
 **Step 2: Request processing**
@@ -801,13 +818,12 @@ request:
   decision:
     type: ConditionsMap
     conditionsMap:
-      conditions:
+      allowConditions:
         - id: storage-class-dev-only
-          effect: Allow
           condition: "object.spec.storageClassName == 'dev'"
-          type: k8s.io/cel
+          type: authorizer.kubernetes.io/cel
           description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
-  admissionControlData:
+  admissionRequest:
     requestKind:
       group: ""
       version: v1
@@ -850,7 +866,7 @@ The webhook evaluates the condition against the actual request object:
 - Actual value: `object.spec.storageClassName` is `'dev'`
 - Result: `true`
 
-Because the condition with `effect: Allow` evaluates to `true`, the webhook
+Because the `allowConditions` entry evaluates to `true`, the webhook
 returns an allow decision:
 
 ```yaml
@@ -859,7 +875,9 @@ kind: AuthorizationConditionsReview
 response:
   decision:
     type: Allow
-    reason: "Condition 'storage-class-dev-only' evaluated to true"
+    allow:
+      reason: "Condition 'storage-class-dev-only' evaluated to true"
+  uid: authorizer-123
 ```
 
 **Step 5: Request completion**
@@ -879,7 +897,7 @@ If Alice had instead tried to create a PersistentVolume with
    - Actual value: `object.spec.storageClassName` is `'production'`
    - Result: `false`
 
-3. Because no `effect: Allow` conditions evaluated to `true`, the webhook returns:
+3. Because no `allowConditions` evaluated to `true`, the webhook returns:
 
    ```yaml
    apiVersion: authorization.k8s.io/v1alpha1
@@ -887,31 +905,34 @@ If Alice had instead tried to create a PersistentVolume with
    response:
      decision:
        type: NoOpinion
-       reason: "No Allow conditions matched"
+       noOpinion:
+         reason: "No Allow conditions matched"
+     uid: authorizer-123
    ```
 
 4. The `AuthorizationConditionsEnforcer` denies the request with an error message:
    ```
-   Error from server (Forbidden): persistentvolumes "my-pv" is forbidden:
-   authorization conditions not satisfied: User alice can only create
-   PersistentVolumes with storageClassName 'dev'
+   Error from server (Forbidden): persistentvolumes "my-pv" is forbidden: 
+   User "alice" cannot create resource "persistentvolumes" in API group "" 
+   at the cluster scope: User alice can only create PersistentVolumes with
+   storageClassName 'dev'
    ```
 
 #### Built-in CEL evaluation
 
 In the examples above, the conditions use CEL (Common Expression Language) expressions like
-`object.spec.storageClassName == 'dev'`. When a webhook returns conditions with
-`type: k8s.io/cel` (or omits the type field for CEL expressions), the API server's
-built-in CEL evaluator can evaluate them in-process without sending an
-`AuthorizationConditionsReview` back to the webhook. This provides better performance
-while maintaining the same security guarantees.
+`object.spec.storageClassName == 'dev'`, indicated by `type: authorizer.kubernetes.io/cel`
+(the type field may be omitted for CEL expressions).
 
-If the webhook had instead returned a custom condition type (for example,
-`type: example.com/custom-policy`), then the `AuthorizationConditionsReview`
-callback to the webhook would be required, as only the webhook knows how to
-evaluate that condition type. However, it is worth noting that a webhook authorizer must support
-evaluating any condition it authors, even if the condition type is `k8s.io/cel`, if the API server 
-does not enable in-process CEL evaluation or in version skew scenarios.
+Currently, the API server evaluates conditions by sending an `AuthorizationConditionsReview`
+back to the webhook regardless of the condition `type`. In the future, conditions using the
+built-in `authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server's
+built-in CEL evaluator, avoiding the callback and improving performance while maintaining the
+same security guarantees. Custom condition types (for example, `type: example.com/custom-policy`)
+would always require the callback, since only the webhook knows how to evaluate them.
+
+Because of this, a webhook authorizer must be able to evaluate any condition it authors —
+including `authorizer.kubernetes.io/cel` conditions — via the `AuthorizationConditionsReview` API.
 
 ### Condition evaluation
 
@@ -948,16 +969,18 @@ graph TD
     style ALLOW fill:#2e5a3d,stroke:#333,color:#fff
 ```
 
-Conditions can have different effects:
+A condition's effect is determined by which list it appears in within `conditionsMap`
+(`allowConditions`, `denyConditions`, or `noOpinionConditions`), rather than by a field
+on the condition itself:
 
-- **Deny effect**: If the condition evaluates to `true`, the request is immediately
-  denied, short-circuiting evaluation of other authorizers.
-- **NoOpinion effect**: If the condition evaluates to `true`, this authorizer has
-  no opinion, but other authorizers in the chain may still allow or deny the request.
-  The NoOpinion effect is useful for reducing the influence of Allow conditions by
-  factoring out common preconditions.
-- **Allow effect**: If the condition evaluates to `true`, it contributes to allowing
-  the request (unless overridden by deny conditions).
+- **Deny** (a condition in `denyConditions`): If the condition evaluates to `true`, the
+  request is immediately denied, short-circuiting evaluation of other authorizers.
+- **NoOpinion** (a condition in `noOpinionConditions`): If the condition evaluates to
+  `true`, this authorizer has no opinion, but other authorizers in the chain may still
+  allow or deny the request. The NoOpinion effect is useful for reducing the influence
+  of Allow conditions by factoring out common preconditions.
+- **Allow** (a condition in `allowConditions`): If the condition evaluates to `true`, it
+  contributes to allowing the request (unless overridden by deny conditions).
 
 Multiple authorizers can return conditions for the same request. They are evaluated
 in order, and the same short-circuiting logic applies as in the authorization phase.
@@ -972,33 +995,31 @@ For example, suppose you want to allow certain operations only when a namespace 
 a specific label. Without NoOpinion, you would need to repeat this check:
 
 ```yaml
-conditions:
-- id: allow-create-pods
-  effect: Allow
-  condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.containers.size() <= 5"
-  type: k8s.io/cel
-- id: allow-create-deployments
-  effect: Allow
-  condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.replicas <= 10"
-  type: k8s.io/cel
+conditionsMap:
+  allowConditions:
+  - id: allow-create-pods
+    condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.containers.size() <= 5"
+    type: authorizer.kubernetes.io/cel
+  - id: allow-create-deployments
+    condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.replicas <= 10"
+    type: authorizer.kubernetes.io/cel
 ```
 
 Using NoOpinion, you can factor out the common precondition:
 
 ```yaml
-conditions:
-- id: team-precondition
-  effect: NoOpinion
-  condition: "namespace.metadata.labels['team'] != 'platform'"
-  type: k8s.io/cel
-- id: allow-create-pods
-  effect: Allow
-  condition: "object.spec.containers.size() <= 5"
-  type: k8s.io/cel
-- id: allow-create-deployments
-  effect: Allow
-  condition: "object.spec.replicas <= 10"
-  type: k8s.io/cel
+conditionsMap:
+  noOpinionConditions:
+  - id: team-precondition
+    condition: "namespace.metadata.labels['team'] != 'platform'"
+    type: authorizer.kubernetes.io/cel
+  allowConditions:
+  - id: allow-create-pods
+    condition: "object.spec.containers.size() <= 5"
+    type: authorizer.kubernetes.io/cel
+  - id: allow-create-deployments
+    condition: "object.spec.replicas <= 10"
+    type: authorizer.kubernetes.io/cel
 ```
 
 When `namespace.metadata.labels['team'] != 'platform'`, the NoOpinion condition
@@ -1025,8 +1046,9 @@ kind: AuthorizationConditionsReview
 response:
   decision:
     type: NoOpinion
-    reason: "Could not evaluate condition"
-    evaluationError: "unable to access external policy database: connection timeout"
+    noOpinion:
+      reason: "Could not evaluate condition"
+      evaluationError: "unable to access external policy database: connection timeout"
 ```
 
 The evaluation error is also reflected in the top-level `SubjectAccessReview` status:
@@ -1150,17 +1172,24 @@ status:
 {{< /highlight >}}
 
 When the `ConditionalAuthorization` feature is enabled, you can request conditional
-authorization by setting `spec.conditionalAuthorization.enabled: true` in your
-`SelfSubjectAccessReview`. If an authorizer returns a conditional response, the
-status includes a `conditionalDecision` field instead of simple `allowed: true`
-or `denied: true`. For example:
+authorization by setting `spec.authorizationOptions.handledDecisionTypes` to
+include the conditional decision types in your `SelfSubjectAccessReview`. If an 
+authorizer returns a conditional response, the status includes a `conditionalDecision` 
+field instead of simple `allowed: true` or `denied: true`. For example:
 
-{{< highlight yaml "linenos=false,hl_lines=11-20" >}}
+{{< highlight yaml "linenos=false,hl_lines=6-12 17-26" >}}
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 metadata:
   creationTimestamp: null
 spec:
+  authorizationOptions:
+    handledDecisionTypes:
+    - Allow
+    - Deny
+    - NoOpinion
+    - ConditionsMap
+    - Union
   resourceAttributes:
     group: ""
     resource: persistentvolumes
@@ -1170,13 +1199,24 @@ status:
   conditionalDecision:
     type: ConditionsMap
     conditionsMap:
-      conditions:
+      allowConditions:
       - id: storage-class-restriction
-        effect: "Allow"
         condition: object.spec.storageClassName == "dev"
-        type: k8s.io/cel
+        type: authorizer.kubernetes.io/cel
         description: "User can only create PersistentVolumes with storageClassName 'dev'"
 {{< /highlight >}}
+
+The `authorizationOptions.handledDecisionTypes` field behaves the same way here as it does for
+webhook [conditional authorization requests](/docs/reference/access-authn-authz/webhook/#conditional-authorization-requests):
+
+- If you **omit** `authorizationOptions` (or set `handledDecisionTypes` to only the unconditional
+  types `Allow`, `Deny`, and `NoOpinion`), the review only reports unconditional results. You never
+  receive a `conditionalDecision`, even if an authorizer would have returned one — instead, it must
+  fail closed to a safe unconditional decision (`Deny` if any `Deny` conditions were present,
+  otherwise `NoOpinion`).
+- If you **include** the conditional types (`ConditionsMap` and `Union`) in `handledDecisionTypes`,
+  the `status` may contain a `conditionalDecision` describing the conditions that must hold for the
+  request to be allowed during admission.
 
 The `conditionalDecision` represents an ordered list of condition sets from different
 authorizers. Each condition set contains one or more conditions that must be
@@ -1187,42 +1227,54 @@ When multiple authorizers are configured in a chain (using
 and at least one returns a conditional decision, the response uses `type: Union`
 to show the decision tree from all authorizers:
 
-{{< highlight yaml "linenos=false,hl_lines=14-29" >}}
+{{< highlight yaml "linenos=false,hl_lines=20-40" >}}
 apiVersion: authorization.k8s.io/v1
-kind: SelfSubjectAccessReview
+kind: SubjectAccessReview
 metadata:
   creationTimestamp: null
 spec:
-  conditionalAuthorization:
-    enabled: true
   resourceAttributes:
     group: ""
     resource: configmaps
     verb: create
     namespace: default
+  authorizationOptions:
+    handledDecisionTypes:
+    - Allow
+    - Deny
+    - NoOpinion
+    - ConditionsMap
+    - Union
 status:
   allowed: false
   conditionalDecision:
     type: Union
     union:
-    - type: NoOpinion
-      reason: "not a privileged user"
-    - type: ConditionsMap
-      conditionsMap:
-        conditions:
-        - id: allow-safe-prefix
-          effect: Allow
-          condition: object.metadata.name.startsWith('safe-')
-          type: k8s.io/cel
-          description: "only allow configmaps with safe- prefix"
-    - type: NoOpinion
-      reason: "no matching RBAC rules"
+    - authorizerName: privileged-check.example.com
+      decision:
+        type: NoOpinion
+        noOpinion:
+          reason: "not a privileged user"
+    - authorizerName: allow.example.com
+      decision:
+        type: ConditionsMap
+        conditionsMap:
+          allowConditions:
+          - id: allow-safe-prefix
+            condition: object.metadata.name.startsWith('safe-')
+            type: authorizer.kubernetes.io/cel
+            description: "only allow configmaps with safe- prefix"
+    - authorizerName: rbac.example.com
+      decision:
+        type: NoOpinion
+        noOpinion:
+          reason: "no matching RBAC rules"
 {{< /highlight >}}
 
 The `union` array contains decisions from each authorizer in order. During evaluation,
 if any decision is Deny, the request is denied; if any is Allow, it's allowed; if any
-is ConditionsMap, conditions are evaluated during admission; if all are NoOpinion,
-the request is denied.
+is ConditionsMap, conditions are evaluated during admission; if all are NoOpinion, the
+authorizer chain has no opinion and the request is denied unless another authorizer allows it.
 
 ## {{% heading "whatsnext" %}}
 

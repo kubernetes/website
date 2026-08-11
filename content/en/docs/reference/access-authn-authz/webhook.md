@@ -61,7 +61,7 @@ contexts:
 When using the [AuthorizationConfiguration](/docs/reference/access-authn-authz/authorization/#using-configuration-file-for-authorization)
 file format and the `ConditionalAuthorization` feature is enabled, you can configure
 a webhook to support conditional authorization by specifying the
-`conditionsEndpointKubeConfigContext` field. This tells the API server where to
+`.conditionsReview.kubeConfigContextName` field. This tells the API server where to
 send `AuthorizationConditionsReview` requests to evaluate conditions:
 
 ```yaml
@@ -112,9 +112,10 @@ enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-confi
 ### Basic authorization requests {#basic-authorization-requests}
 
 For standard (non-conditional) authorization, the `SubjectAccessReview` request
-contains only the core authorization attributes (user, verb, resource, namespace)
-without the `conditionalAuthorization` field. The webhook must respond with an
-unconditional decision: Allow, Deny, or NoOpinion.
+contains only the core authorization attributes (user, verb, resource, namespace), 
+with the `authorizationOptions` field either omitted or with `handledDecisionTypes` 
+set to only the unconditional types (`Allow`, `Deny`, `NoOpinion`). The webhook 
+must respond with an unconditional decision: Allow, Deny, or NoOpinion.
 
 An example request body:
 
@@ -193,36 +194,44 @@ The webhook would return:
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
 
 When the `ConditionalAuthorization` feature is enabled, the `SubjectAccessReview`
-request may include a `conditionalAuthorization` field in the spec, indicating
-that the client supports receiving conditional responses:
+request may include an `authorizationOptions` field in the spec, indicating
+which conditional responses the client supports receiving:
 
 ```json
 {
-  "apiVersion": "authorization.k8s.io/v1",
-  "kind": "SubjectAccessReview",
-  "spec": {
-    "conditionalAuthorization": {
-      "enabled": true
-    },
-    "resourceAttributes": {
-      "namespace": "dev",
-      "verb": "create",
-      "group": "",
-      "resource": "persistentvolumes"
-    },
-    "user": "alice",
-    "groups": ["developers"]
+    "apiVersion": "authorization.k8s.io/v1",
+    "kind": "SubjectAccessReview",
+    "spec": {
+      "authorizationOptions": {
+        "handledDecisionTypes": ["Allow", "Deny", "NoOpinion", "ConditionsMap", "Union"]
+      },
+      "resourceAttributes": {
+        "namespace": "dev",
+        "verb": "create",
+        "group": "",
+        "resource": "persistentvolumes"
+      },
+      "user": "alice",
+      "groups": ["developers"]
+    }
   }
-}
 ```
 
-The `conditionalAuthorization` field controls whether conditional responses are supported:
-- If the field is **omitted** (null/not present), the client does not support conditional authorization,
-  and authorizers must only return unconditional (Allow, Deny, NoOpinion) decisions.
-- If the field is **present** with `enabled: false`, the client does not support conditional authorization
-  for this request, and authorizers must only return unconditional decisions.
-- If the field is **present** with `enabled: true`, the client supports conditional authorization,
-  and authorizers may return conditional (ConditionsMap, Union) or unconditional responses.
+The `authorizationOptions` field controls whether conditional responses are supported. Instead of an on/off boolean, 
+the client declares the decision types it can handle via `authorizationOptions.handledDecisionTypes` (a set), 
+and support is determined by whether that set includes the conditional types:
+
+- If the field is **omitted** (null/not present), the client defaults to handling only the unconditional 
+  decision types `{Allow, Deny, NoOpinion}`, so authorizers must only return unconditional decisions.
+- If the field is **present** but `handledDecisionTypes` does not include both `ConditionsMap` and 
+  `Union` (e.g. it is just `[Allow, Deny, NoOpinion]`), the client does not support conditional authorization for 
+  this request, and authorizers must only return unconditional decisions.
+- If the field is **present** and `handledDecisionTypes` is a superset of `{Allow, Deny, NoOpinion, 
+  ConditionsMap, Union}`, the client supports conditional authorization, and authorizers may return conditional 
+  (`ConditionsMap`, `Union`) or unconditional responses.
+
+If an authorizer would return a conditional decision but the client did not opt in, it must fail closed to a safe 
+unconditional decision (`Deny` if any `Deny` conditions were present, otherwise `NoOpinion`).
 
 ### Conditional responses {#conditional-responses}
 
@@ -238,35 +247,43 @@ and provides a `conditionalDecision` containing the conditions to evaluate:
 
 ```json
 {
-  "apiVersion": "authorization.k8s.io/v1",
-  "kind": "SubjectAccessReview",
-  "status": {
-    "conditionalDecision": {
-      "type": "ConditionsMap",
-      "conditionsMap": {
-        "conditions": [
-          {
-            "id": "storage-class-dev",
-            "effect": "Allow",
-            "condition": "object.spec.storageClassName == 'dev'",
-            "type": "k8s.io/cel",
-            "description": "Only allow creating PersistentVolumes with storageClassName 'dev'"
-          }
-        ]
+    "apiVersion": "authorization.k8s.io/v1",
+    "kind": "SubjectAccessReview",
+    "status": {
+      "allowed": false,
+      "conditionalDecision": {
+        "type": "ConditionsMap",
+        "conditionsMap": {
+          "allowConditions": [
+            {
+              "id": "storage-class-dev",
+              "condition": "object.spec.storageClassName == 'dev'",
+              "description": "Only allow creating PersistentVolumes with storageClassName 'dev'"
+            }
+          ]
+        }
       }
     }
   }
-}
 ```
 
 Each condition has:
 - `id`: A unique identifier for the condition within the authorizer's scope (validated as a Kubernetes label key)
-- `effect`: One of `Allow`, `Deny`, or `NoOpinion`, indicating how a `true` evaluation should be treated
 - `condition`: The condition expression to evaluate. Optional if the `id` alone is enough for the authorizer to know how to evaluate the condition.
 - `type`: Describes the type/format/language of the condition (formatted as a Kubernetes label key). Optional. Common types include:
-  - `k8s.io/cel`: Common Expression Language (CEL) expressions
+  - `authorizer.kubernetes.io/cel`: Common Expression Language (CEL) expressions
   - Custom types defined by the authorizer (e.g., `mycompany.com/policy-engine`)
 - `description`: Optional human-readable description shown as an error message or for debugging
+
+The example above omits `type`, which is valid because `type` is optional: when it is
+absent, the authorizer is responsible for knowing how to evaluate the condition. Setting
+`type` explicitly (for example, `authorizer.kubernetes.io/cel`) is recommended when you
+want to declare the condition language, as shown in the
+[`AuthorizationConditionsReview` request](#authorization-conditions-review) example below.
+
+A condition's _effect_ is determined by which list it appears in within `conditionsMap`
+(`allowConditions`, `denyConditions`, or `noOpinionConditions`), not by a field on the
+condition itself.
 
 When conditions are returned, they are evaluated during the admission phase against
 the actual request and stored objects. If the webhook returns a condition type that
@@ -282,40 +299,52 @@ file), and at least one returns a conditional decision, the combined response us
 
 ```json
 {
-  "apiVersion": "authorization.k8s.io/v1",
-  "kind": "SubjectAccessReview",
-  "status": {
-    "allowed": false,
-    "denied": false,
-    "conditionalDecision": {
-      "type": "Union",
-      "union": [
-        {
-          "type": "NoOpinion",
-          "reason": "not a privileged user"
-        },
-        {
-          "type": "ConditionsMap",
-          "conditionsMap": {
-            "conditions": [
-              {
-                "id": "allow-safe-prefix",
-                "effect": "Allow",
-                "condition": "object.metadata.name.startsWith('safe-')",
-                "type": "k8s.io/cel",
-                "description": "only allow configmaps with safe- prefix"
+    "apiVersion": "authorization.k8s.io/v1",
+    "kind": "SubjectAccessReview",
+    "status": {
+      "allowed": false,
+      "denied": false,
+      "conditionalDecision": {
+        "type": "Union",
+        "union": [
+          {
+            "authorizerName": "privileged-check.example.com",
+            "decision": {
+              "type": "NoOpinion",
+              "noOpinion": {
+                "reason": "not a privileged user"
               }
-            ]
+            }
+          },
+          {
+            "authorizerName": "allow.example.com",
+            "decision": {
+              "type": "ConditionsMap",
+              "conditionsMap": {
+                "allowConditions": [
+                  {
+                    "id": "allow-safe-prefix",
+                    "condition": "object.metadata.name.startsWith('safe-')",
+                    "type": "authorizer.kubernetes.io/cel",
+                    "description": "only allow configmaps with safe- prefix"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "authorizerName": "rbac.example.com",
+            "decision": {
+              "type": "NoOpinion",
+              "noOpinion": {
+                "reason": "no matching RBAC rules"
+              }
+            }
           }
-        },
-        {
-          "type": "NoOpinion",
-          "reason": "no matching RBAC rules"
-        }
-      ]
+        ]
+      }
     }
   }
-}
 ```
 
 The `union` array contains decisions from each authorizer in the configured chain,
@@ -323,7 +352,7 @@ in order. During evaluation:
 - If any decision is `Deny`, the request is denied (short-circuit)
 - If any decision is `Allow`, the request is allowed (short-circuit)
 - If any decision is `ConditionsMap`, conditions are evaluated during admission
-- If all decisions are `NoOpinion`, the request is denied
+- If all decisions are `NoOpinion`, the authorizer chain has no opinion, and the request is denied unless another authorizer allows it
 
 The Union type provides full transparency into how the authorization decision was
 made across the entire authorizer chain.
@@ -401,15 +430,20 @@ to the REST api.
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
 
 When a webhook authorizer returns conditional responses, Kubernetes needs to evaluate
-those conditions during the admission phase. For conditions using the built-in
-`k8s.io/cel` type, Kubernetes can evaluate them in-process. For custom condition types
-or when webhooks need to perform the evaluation themselves, Kubernetes calls back to
-the webhook.
+those conditions during the admission phase. Currently, the API server evaluates
+conditions by calling back to the webhook via the `AuthorizationConditionsReview` API,
+regardless of the condition `type`. In the future, conditions using the built-in
+`authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server,
+while custom condition types would still require a callback to the webhook.
 
 Webhooks that support conditional authorization must implement the
 `AuthorizationConditionsReview` API at the endpoint specified by
-`conditionsEndpointKubeConfigContext` in the webhook configuration. If this endpoint
+`.conditionsReview.kubeConfigContextName` in the webhook configuration. If this endpoint
 is not configured, the webhook cannot return conditional responses.
+
+Additionally, the API server must enable the `authorization.k8s.io/v1alpha1` API extensions
+group (`--runtime-config=authorization.k8s.io/v1alpha1=true`), which provides the
+`AuthorizationConditionsReview` API used to evaluate conditions.
 
 ### Request format
 
@@ -423,18 +457,17 @@ The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
     "decision": {
       "type": "ConditionsMap",
       "conditionsMap": {
-        "conditions": [
+        "allowConditions": [
           {
             "id": "storage-class-restriction",
-            "effect": "Allow",
             "condition": "object.spec.storageClassName == 'dev'",
-            "type": "k8s.io/cel",
+            "type": "authorizer.kubernetes.io/cel",
             "description": "User can only create PVs with storageClassName 'dev'"
           }
         ]
       }
     },
-    "admissionControlData": {
+    "admissionRequest": {
       "requestKind": {
         "group": "",
         "version": "v1",
@@ -470,7 +503,7 @@ The request includes:
 - `decision`: The conditional decision that needs to be evaluated, containing:
   - `type`: The decision type (e.g., `ConditionsMap`, `Union`)
   - `conditionsMap`: Map of conditions to evaluate (when type is `ConditionsMap`)
-- `admissionControlData`: Contains fields similar to those in [AdmissionReview](/docs/reference/access-authn-authz/extensible-admission-controllers/#request), including:
+- `admissionRequest`: Contains fields similar to those in [AdmissionReview](/docs/reference/access-authn-authz/extensible-admission-controllers/#request), including:
   - `requestKind`: The fully-qualified type of the original API request (group, version, kind)
   - `requestResource`: The fully-qualified resource of the original API request (group, version, resource)
   - `name`: The name of the object being accessed
@@ -493,17 +526,23 @@ The webhook evaluates the conditions and returns a concrete decision:
   "response": {
     "decision": {
       "type": "Allow",
-      "reason": "Condition 'storage-class-restriction' evaluated to true"
-    }
+      "allow": {
+        "reason": "Condition 'storage-class-restriction' evaluated to true"
+      }
+    },
+    "uid": "authorizer-123"
   }
 }
 ```
 
 The response must contain:
-- `decision`: The final authorization decision after evaluating conditions
-  - `type`: One of `Allow`, `Deny`, or `NoOpinion`
-  - `reason`: Optional explanation of the decision
-  - `evaluationError`: Optional error message if evaluation failed
+- `response`: Wraps the evaluation result, containing:
+  - `decision`: The final authorization decision after evaluating conditions
+    - `type`: One of `Allow`, `Deny`, or `NoOpinion`
+    - `allow` / `deny` / `noOpinion`: The decision member matching `type`, each containing:
+      - `reason`: Optional explanation of the decision
+      - `evaluationError`: Optional error message if evaluation failed
+  - `uid`: An identifier for the response
 
 If the webhook encounters an error while evaluating conditions, it can return
 a decision with an `evaluationError`:
@@ -515,9 +554,12 @@ a decision with an `evaluationError`:
   "response": {
     "decision": {
       "type": "NoOpinion",
-      "reason": "Could not evaluate condition",
-      "evaluationError": "unable to access external policy database: connection timeout"
-    }
+      "noOpinion": {
+        "reason": "Could not evaluate condition",
+        "evaluationError": "unable to access external policy database: connection timeout"
+      }
+    },
+    "uid": "authorizer-123"
   }
 }
 ```
