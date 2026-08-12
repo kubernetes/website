@@ -16,4 +16,4 @@ Disruptionが発生すると影響を受けたPodに依存している{{< glossa
 クラスター管理者としてアプリケーションに属するPodを削除した場合、Kubernetesではこれを _自発的なDisruption_ と呼びます。
 一方、ノードの障害や、より広範囲の障害ゾーンに影響を及ぼすサービス停止によってPodがオフラインになった場合、Kubernetesではこれを _非自発的なDisruption_ と呼びます。
 
-詳細については、[Disruptions](/docs/concepts/workloads/pods/disruptions/)をご覧ください。
+詳細については、[Disruption](/docs/concepts/workloads/pods/disruptions/)をご覧ください。
