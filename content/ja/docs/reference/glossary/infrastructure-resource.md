@@ -15,7 +15,6 @@ Kubernetesは{{< glossary_tooltip text="APIリソース" term_id="api-resource" 
 <!--more-->
 コンピューターは、処理能力、ストレージメモリ、ネットワークなどの基本的なハードウェア設備を提供します。
 これらのリソースにはそのリソース(CPU数、メモリ容量など)に適切な単位で測定されたキャパシティに限りがあります。
-Kubernetesはワークロードへの割り当てのために共通の[リソース](/docs/concepts/configuration/manage-resources-containers/)を抽象化し、
-{{< glossary_tooltip text="ワークロード" term_id="workload" >}}による消費を管理するために、オペレーティングシステムのプリミティブ(例えば、Linuxの{{< glossary_tooltip text="cgroups" term_id="cgroup" >}})を利用します。
+Kubernetesはワークロードへの割り当てのために共通の[リソース](/docs/concepts/configuration/manage-resources-containers/)を抽象化し、{{< glossary_tooltip text="ワークロード" term_id="workload" >}}による消費を管理するために、オペレーティングシステムのプリミティブ(例えば、Linuxの{{< glossary_tooltip text="cgroup" term_id="cgroup" >}})を利用します。
 
 複雑なリソース割り当てを自動的に管理するために[動的リソース割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)を利用することも可能です。
