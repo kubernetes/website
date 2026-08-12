@@ -1,5 +1,5 @@
 ---
-title: リソース (インフラストラクチャ)
+title: リソース(インフラストラクチャ)
 id: infrastructure-resource
 short_description: >
   CPU、メモリなど、消費可能な一定量のインフラストラクチャ
