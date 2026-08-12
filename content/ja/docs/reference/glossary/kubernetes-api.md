@@ -10,7 +10,7 @@ tags:
 - fundamental
 - architecture
 ---
- アプリケーションは、RESTfulインターフェースを通してKubernetesの機能を提供し、クラスターの状態を保存します。
+ RESTfulインターフェースを通してKubernetesの機能を提供し、クラスターの状態を保存するアプリケーションです。
 
 <!--more--> 
 
