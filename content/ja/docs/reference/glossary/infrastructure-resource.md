@@ -8,7 +8,7 @@ aka:
 tags:
 - architecture
 ---
-一つ以上の{{< glossary_tooltip text="ノード" term_id="node" >}}(CPU、メモリ、GPUなど)に提供され、それらのノード上で稼働している{{< glossary_tooltip text="Pod" term_id="pod" >}}によって消費可能な機能です。
+1つ以上の{{< glossary_tooltip text="ノード" term_id="node" >}}(CPU、メモリ、GPUなど)に提供され、それらのノード上で稼働している{{< glossary_tooltip text="Pod" term_id="pod" >}}によって消費可能な機能です。
 
 Kubernetesは{{< glossary_tooltip text="APIリソース" term_id="api-resource" >}}を表現するために _resource_ という用語も使用します。
 
