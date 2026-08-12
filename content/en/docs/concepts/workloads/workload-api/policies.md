@@ -66,27 +66,27 @@ Workload's templates only affect newly created PodGroups, not existing ones.
 For standalone PodGroups (created without a Workload), you set `spec.schedulingPolicy`
 directly on the PodGroup itself.
 
-## Policies in `CompositePodGroups`
+## Policies in CompositePodGroups
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+When the [CompositePodGroup](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
-are enabled, `CompositePodGroupTemplates` in a Workload and the `CompositePodGroup` objects also
+are enabled, `CompositePodGroupTemplates` in a Workload and the CompositePodGroup objects also
 declare a scheduling policy.
 
-While a scheduling policy in a `PodGroup` governs a collection of individual Pods, a
-`CompositePodGroup` scheduling policy governs its direct **child groups** (which can be both
-`CompositePodGroup` and `PodGroup` objects).
+While a scheduling policy in a PodGroup governs a collection of individual Pods, a
+CompositePodGroup scheduling policy governs its direct **child groups** (which can be both
+CompositePodGroup and PodGroup objects).
 
-### Policy types for `CompositePodGroups`
+### Policy types for CompositePodGroups
 
-Similar to `PodGroups`, the `spec.schedulingPolicy` field of a `CompositePodGroup` supports two
+Similar to PodGroups, the `spec.schedulingPolicy` field of a CompositePodGroup supports two
 types:
 
-- **`basic`**: Child groups within the `CompositePodGroup` are evaluated and admitted independently.
+- **`basic`**: Child groups within the CompositePodGroup are evaluated and admitted independently.
 - **`gang`**: Enforces multi-level all-or-nothing scheduling across child groups. The
-  `CompositePodGroup` is schedulable only if at least `minGroupCount` child groups can be scheduled
+  CompositePodGroup is schedulable only if at least `minGroupCount` child groups can be scheduled
   simultaneously.
 
 ```yaml
@@ -100,8 +100,8 @@ schedulingPolicy:
 ### Setting composite policies via templates
 
 When using the [Workload API](/docs/concepts/workloads/workload-api/), scheduling policies for
-`CompositePodGroups` are defined inside `CompositePodGroupTemplates`. Workload controllers copy the
-`schedulingPolicy` specified in the templates into each `CompositePodGroup` created at runtime.
+CompositePodGroups are defined inside `CompositePodGroupTemplates`. Workload controllers copy the
+`schedulingPolicy` specified in the templates into each CompositePodGroup created at runtime.
 Unlike leaf `PodGroupTemplates` where `minCount` can be updated, `minGroupCount` in a
 `CompositePodGroupTemplate` is immutable.
 

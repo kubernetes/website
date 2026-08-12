@@ -193,16 +193,16 @@ PodGroups. The details on how to set the priority of a PodGroup are available on
 [Pod Group Disruption and Priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
 page.
 
-#### `CompositePodGroups` and scheduling order
+#### CompositePodGroups and scheduling order
 
 {{< feature-state feature_gate_name="CompositePodGroup">}}
 
-When the `CompositePodGroup` feature gate is enabled, the scheduler treats the following objects as
+When the CompositePodGroup feature gate is enabled, the scheduler treats the following objects as
 units of scheduling that can be enqueued:
 
 - Standalone Pods - Pods that are not part of any PodGroup,
 - Standalone PodGroups - PodGroups that do not specify `ParentCompositePodGroup`,
-- Root `CompositePodGroups` - `CompositePodGroups` that do not specify `ParentCompositePodGroup`.
+- Root CompositePodGroups - CompositePodGroups that do not specify `ParentCompositePodGroup`.
 
 These objects specify a `priority` field value of which is used to determine their position in the
 active scheduling queue.

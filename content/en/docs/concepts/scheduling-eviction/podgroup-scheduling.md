@@ -139,28 +139,28 @@ For consistent behavior throughout the entire cycle, the algorithm requires that
 share the same `.spec.schedulerName`. This requirement is validated before the cycle starts,
 and the PodGroup is rejected if the constraint is not met.
 
-## Hierarchical scheduling with `CompositePodGroups`
+## Hierarchical scheduling with CompositePodGroups
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+When the [CompositePodGroup](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, the scheduler extends the PodGroup scheduling cycle to support multi-level group
 hierarchies.
 
-In a hierarchical workload, Pods belong to leaf `PodGroup` objects, which in turn specify parent
-`CompositePodGroup` resources up to the root `CompositePodGroup`. The scheduler evaluates the entire
+In a hierarchical workload, Pods belong to leaf PodGroup objects, which in turn specify parent
+CompositePodGroup resources up to the root CompositePodGroup. The scheduler evaluates the entire
 hierarchy of groups as a single, unified scheduling unit.
 
 ### Hierarchical scheduling cycle execution
 
-After observing a root `CompositePodGroup`, the scheduler places it in the scheduling queue as long
+After observing a root CompositePodGroup, the scheduler places it in the scheduling queue as long
 as there is at least one pending Pod that belongs to that root's group hierarchy.
 
-Once the root `CompositePodGroup` satisfies the
+Once the root CompositePodGroup satisfies the
 [hierarchical quorum](/docs/concepts/scheduling-eviction/gang-scheduling/#Hierarchical-quorum), it
 enters the active scheduling queue from which it can be popped by the scheduling cycle. The flow of
-the scheduling cycle for `CompositePodGroups` is as follows:
+the scheduling cycle for CompositePodGroups is as follows:
 
 1. **Unified cluster snapshot and validation**: The scheduler takes a snapshot of cluster resources
    to mirror the latest observed cluster state. It verifies that the shape of the group hierarchy
@@ -169,22 +169,22 @@ the scheduling cycle for `CompositePodGroups` is as follows:
    Pods).
    
    If the hierarchy shape changed concurrently or fails the validation, the cycle halts and requeues
-   the root `CompositePodGroup`.
+   the root CompositePodGroup.
 
 2. **Top-down candidate placement generation**: At each level of the hierarchy, before evaluating
    child groups, the scheduler invokes `PlacementGeneratePlugin` plugins to generate candidate
    placements (subsets of nodes) for the group being evaluated.
    
-   Candidate placements for a child `CompositePodGroup` or leaf `PodGroup` are generated exclusively
+   Candidate placements for a child CompositePodGroup or leaf PodGroup are generated exclusively
    from the subset of nodes belonging to the parent group's currently evaluated placement. For the
-   root `CompositePodGroup`, candidate placements are generated across all available cluster nodes.
+   root CompositePodGroup, candidate placements are generated across all available cluster nodes.
 
 3. **Recursive subtree simulation and feasibility check**: The scheduler evaluates each candidate
-   placement for a `CompositePodGroup` by temporarily assuming that placement in the cluster
+   placement for a CompositePodGroup by temporarily assuming that placement in the cluster
    snapshot and recursively scheduling its child groups:
    * **Recursive traversal**: The scheduler traverses child groups in a pre-sorted order, invoking
-     itself recursively from the `CompositePodGroup` down to leaf `PodGroup` objects. For each leaf
-     `PodGroup`, the scheduler runs the placement scheduling algorithm scoped to the parent's
+     itself recursively from the CompositePodGroup down to leaf PodGroup objects. For each leaf
+     PodGroup, the scheduler runs the placement scheduling algorithm scoped to the parent's
      candidate placement to make tentative Pod assignments in memory.
    * **Feasibility checks**: After evaluating each child group, the scheduler invokes
      `PlacementFeasible` plugins to determine whether the parent group's scheduling policy can
@@ -192,42 +192,42 @@ the scheduling cycle for `CompositePodGroups` is as follows:
      * If the policy constraints remain achievable (or are already satisfied), the scheduler continues
        evaluating subsequent sibling groups.
      * If the policy constraints can no longer be satisfied, the scheduler immediately aborts the evaluation
-       of that `CompositePodGroup` and reverts all tentative in-memory Pod assignments made for that group.
+       of that CompositePodGroup and reverts all tentative in-memory Pod assignments made for that group.
    * **Simulation rollback**: After simulating a candidate placement (regardless of success or failure),
      the scheduler reverts the tentative node reservations made during that simulation before
      evaluating the next candidate placement.
 
 4. **Placement scoring and subtree commitment**: Once all candidate placements for a
-   `CompositePodGroup` have been evaluated:
+   CompositePodGroup have been evaluated:
    * **Scoring**: If one or more candidate placements are feasible, the scheduler invokes
      `PlacementScorePlugin` plugins to score all feasible candidate placements. The scoring plugins
-     evaluate the combined proposed Pod assignments across all descendant leaf `PodGroup` objects in
+     evaluate the combined proposed Pod assignments across all descendant leaf PodGroup objects in
      the subtree and select the placement with the highest overall score.
    * **Commitment**: After selecting the winning placement, the scheduler commits (assumes) the
      tentative Pod assignments corresponding to that optimal placement in memory. This ensures that
      subsequent sibling group evaluations or parent-level evaluations observe consistent, optimal
      scheduling decisions for that subtree.
      
-     If no feasible placement is found among all generated candidates, the entire `CompositePodGroup`
+     If no feasible placement is found among all generated candidates, the entire CompositePodGroup
      is considered unschedulable.
 
 5. **Atomic binding**: If the root-level recursive evaluation succeeds and at least one Pod was
    successfully scheduled, the scheduler commits the Pod assignments by proceeding to the binding
    cycle.
 
-   Otherwise, the entire `CompositePodGroup` is considered unschedulable.
+   Otherwise, the entire CompositePodGroup is considered unschedulable.
 
 ### Limitations
 
 Similar to how the PodGroup scheduling algorithm relies on specific Pod sorting, the hierarchical
-scheduling algorithm relies on a specific sorting of child groups within every `CompositePodGroup`
+scheduling algorithm relies on a specific sorting of child groups within every CompositePodGroup
 hierarchy. As a result, it may fail to find a valid placement that could have been discovered by
 processing the child groups in a different order.
 
 In addition, because the scheduler evaluates group hierarchies using a greedy approach:
 
 * Finding a valid placement is not guaranteed in all cases, even if one exists in the cluster.
-* Even when the scheduler successfully finds a valid placement for a `CompositePodGroup` hierarchy,
+* Even when the scheduler successfully finds a valid placement for a CompositePodGroup hierarchy,
   that placement is not guaranteed to be optimal across the cluster.
 
 ## PodGroup conditions
@@ -259,11 +259,11 @@ You can check conditions with:
 kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 ```
 
-## `CompositePodGroup` conditions
+## CompositePodGroup conditions
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-`CompositePodGroup` API exposes the `status.conditions` field as well.
+CompositePodGroup API exposes the `status.conditions` field as well.
 
 In v1.37, the scheduler does not populate this field, however.
 
