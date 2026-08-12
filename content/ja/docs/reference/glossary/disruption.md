@@ -8,8 +8,7 @@ aka:
 tags:
 - fundamental
 ---
- Disruptionとは、1つ以上の
-{{< glossary_tooltip term_id="pod" text="Pod" >}}が利用不可に陥る原因となる事象のことです。
+ Disruptionとは、1つ以上の{{< glossary_tooltip term_id="pod" text="Pod" >}}が利用不可に陥る原因となる事象のことです。
 Disruptionが発生すると影響を受けたPodに依存している{{< glossary_tooltip term_id="deployment" >}}などのワークロード管理{{< glossary_tooltip text="リソース" term_id="api-resource" >}}に影響が及びます。
 
 <!--more-->
