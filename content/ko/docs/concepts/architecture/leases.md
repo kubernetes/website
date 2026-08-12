@@ -29,6 +29,10 @@ weight: 30
 `kube-controller-manager` 및 `kube-scheduler`와 같은 컨트롤 플레인 컴포넌트의
 고가용성 설정에서 사용된다.
 
+[조정된 리더 선출](/docs/concepts/cluster-administration/coordinated-leader-election)을 참고하여,
+쿠버네티스가 리스 API를 기반으로 어떤 컴포넌트 인스턴스를
+리더로 선택하는지 알아본다.
+
 ### 종료 시 kube-controller-manager 잠금 해제
 
 {{< feature-state feature_gate_name="ControllerManagerReleaseLeaderElectionLockOnExit" >}}
@@ -40,7 +44,7 @@ weight: 30
 
 ## API 서버 신원
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="APIServerIdentity" >}}
 
 쿠버네티스 v1.26부터, 각 `kube-apiserver`는 리스 API를 사용하여 시스템의 나머지 부분에 자신의 신원을 게시한다.
 그 자체로는 특별히 유용하지는 않지만, 이것은 클라이언트가 쿠버네티스 컨트롤 플레인을 운영 중인 `kube-apiserver` 인스턴스 수를 
