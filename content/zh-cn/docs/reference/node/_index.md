@@ -32,6 +32,8 @@ This section contains the following reference topics about nodes:
 * [Linux Node Swap Behaviors](/docs/reference/node/swap-behavior/)
 
 * [Seccomp information](/docs/reference/node/seccomp/)
+
+* [What happens after a node restart](/docs/reference/node/what-happens-on-restart/)
 -->
 本部分包含以下有关节点的参考主题：
 
@@ -45,6 +47,7 @@ This section contains the following reference topics about nodes:
 * [节点 `.status` 信息](/zh-cn/docs/reference/node/node-status/)
 * [Linux 节点的交换（Swap）行为](/zh-cn/docs/reference/node/swap-behavior/)
 * [Seccomp 信息](/zh-cn/docs/reference/node/seccomp/)
+* [节点重启后会发生什么](/docs/reference/node/what-happens-on-restart/)
 
 <!--
 You can also read node reference details from elsewhere in the
