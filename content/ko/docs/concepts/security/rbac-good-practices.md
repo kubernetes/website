@@ -44,7 +44,7 @@ weight: 60
    추가적으로 클러스터가 권한 웹훅을 사용할 시에는,
    그룹의 멤버가 해당 웹훅도 우회할 수 있다. (그룹의 멤버인 사용자가 전송하는 요청은 웹훅에 전달되지 않는다.)
  
-### 특권 토큰 분배 최소화
+### 특권을 가진(privileged) 토큰 분배 최소화
 
 이상적인 상황에서는, 강력한 권한이 부여된 서비스 어카운트를 파드에게 지정해서는 안된다.
 (예를 들어, [권한 에스컬레이션 위험](#privilege-escalation-risks)에 명시된 모든 권한)
@@ -54,9 +54,9 @@ weight: 60
    컨테이너 이스케이프의 영향 범위를 최소화하기 위해, 실행되고 있는 모든 데몬셋은 최소의 권한만을 가지도록 한다.
  - 강력한 권한을 가진 파드를 신뢰되지 못하거나 외부로 노출된 파드와 함께 실행하는 것을 지양한다. 
    신뢰되지 못하거나 신뢰성이 적은 파드와 함께 실행되는 것을 방지하기 위해 
-   [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/),
-   [노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), 혹은
-   [파드 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)를 사용해 보는 것도 고려해 보자.
+   [테인트와 톨러레이션](/docs/concepts/scheduling-eviction/taint-and-toleration/),
+   [노드 어피니티](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), 혹은
+   [파드 안티-어피니티](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)를 사용해 보는 것도 고려해 보자.
    신뢰성이 적은 파드가 **제한된** 파드 시큐리티 스탠다드에 부합하지 않을 시에는 더욱 조심해야 한다.
 
 ### 하드닝 (Hardening)
@@ -100,18 +100,18 @@ weight: 60
 ### 워크로드 생성
 
 네임스페이스에 워크로드(파드 혹은 파드를 관리하는 
-[워크로드 리소스](/ko/docs/concepts/workloads/controllers/))를 생성할 수 있는 권한은
+[워크로드 리소스](/docs/concepts/workloads/controllers/))를 생성할 수 있는 권한은
 파드에 마운트할 수 있는 시크릿, 컨피그맵 그리고 퍼시스턴트볼륨(PersistentVolume)과 같은 해당 네임스페이스의 다른 많은 리소스에 대한 
-액세스 권한을 암묵적으로 부여한다. 또한 파드는 모든 [서비스어카운트](/ko/docs/reference/access-authn-authz/service-accounts-admin/)로 
+액세스 권한을 암묵적으로 부여한다. 또한 파드는 모든 [서비스어카운트](/docs/reference/access-authn-authz/service-accounts-admin/)로 
 실행할 수 있기 때문에, 워크로드 생성 권한을 부여하면 
 해당 네임스페이스에 있는 모든 서비스어카운트의 API 액세스 수준도 암묵적으로 
 부여된다.
 
-특권 파드 실행 권한을 가지는 사용자는 해당 노드에 대한 권한을 부여받을 수 있으며, 
+특권을 가진 파드를 실행할 수 있는 사용자는 해당 노드에 대한 권한을 부여받을 수 있으며, 
 더 나아가 권한을 상승시킬 수 있는 가능성도 존재한다.
 특정 사용자 혹은, 적절히 안전하고 격리된 파드를 생성할 수 있는 자격을 가진 다른 주체를 완전히 신뢰하지 못하는 상황이라면,
 **베이스라인** 혹은 **제한된** 파드 시큐리티 스탠다드를 사용해야 한다. 
-이는 [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/) 
+이는 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 
 또는 다른 (서드 파티) 매커니즘을 통해 시행할 수 있다.
 
 이러한 이유로, 네임스페이스는 서로 다른 수준의 보안 또는 테넌시가 필요한 리소스들을 분리하는 데 사용해야 
@@ -209,7 +209,7 @@ CSR API를 통해 CSR에 대한 `create` 권한 및 `certificatesigningrequests/
 시스템에 대해 제한된 권한이 부여된다면 해당 현상이 나타날 수 있다.
 
 해당 문제의 완화 방안 중 하나로는,
-[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/#object-count-quota)를 사용하여 
+[리소스 쿼터](/docs/concepts/policy/resource-quotas/#object-count-quota)를 사용하여 
 생성할 수 있는 오브젝트의 수량을 제한하는 방법이 있다.
 
 ## {{% heading "whatsnext" %}}
