@@ -110,7 +110,7 @@ card:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    Debian 9(stretch) 또는 그 이전 버전을 사용하는 경우 `apt-transport-https`도 설치해야 한다.
    ```shell
@@ -120,13 +120,17 @@ card:
 2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
 3. 쿠버네티스 `apt` 리포지터리를 추가한다.
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' \
+  | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. 새 리포지터리의 `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
@@ -147,10 +151,10 @@ Debian 12 또는 Ubuntu 22.04 이전 릴리스에서는 기본적으로 `/etc/ap
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
 EOF
 sudo yum install -y kubectl
 ```
