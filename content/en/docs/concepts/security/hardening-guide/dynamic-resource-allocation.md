@@ -104,6 +104,30 @@ rules:
     resourceNames: ["dra.example.com"]
 ```
 
+## Restrict who can enable admin access {#admin-access}
+
+`adminAccess` on a ResourceClaim is accepted only when the claim's namespace
+has the label `resource.kubernetes.io/admin-access: "true"`. That check is
+**not** an RBAC field-level gate. It is a namespace label.
+
+A common self-service pattern is granting a team `get`/`patch` on only their
+own Namespace object (`resourceNames: ["their-ns"]`) so they can manage labels
+without cluster-wide namespace access. That grant is enough to set the
+admin-access label and then create claims with `adminAccess`.
+
+If you do not want this in a multi-tenant cluster:
+
+- Audit who can `get`, `patch`, or `update` `namespaces`, including
+  `resourceNames`-scoped Roles.
+- Treat `resource.kubernetes.io/admin-access` like
+  `pod-security.kubernetes.io/enforce`: only privileged actors should be
+  able to change it.
+- Optionally deny changes to that label except from a small set of
+  identities, using a ValidatingAdmissionPolicy or webhook.
+
+See also
+[Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access).
+
 ## Related cluster administrator task
 
 To apply these patterns in a running cluster, see
