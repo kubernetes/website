@@ -284,8 +284,8 @@ By using environment variables you can change values that are inserted into `cas
 
 
 * Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
-* See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+* See more custom [Seed Provider Configurations](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)
 
 
 
