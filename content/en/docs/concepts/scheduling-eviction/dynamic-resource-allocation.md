@@ -654,11 +654,21 @@ spec:
 ```
 
 Admin access is a privileged mode and should not be granted to regular users in
-multi-tenant clusters. Only users authorized to
-create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
-`resource.kubernetes.io/admin-access: "true"` (case-sensitive) can use the
-`adminAccess` field. This ensures that non-admin users cannot misuse the
-feature.
+multi-tenant clusters. The API server only accepts the `adminAccess` field on
+ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
+`resource.kubernetes.io/admin-access: "true"` (case-sensitive).
+
+That label is not itself an admin-only control. Anyone who can `patch` or
+`update` a Namespace — including a self-service Role limited to one namespace
+via `resourceNames` — can set the label and then use `adminAccess` there.
+Treat `resource.kubernetes.io/admin-access` the same way you treat Pod
+Security Admission labels such as `pod-security.kubernetes.io/enforce`:
+restrict who can change namespace labels, and audit existing
+`get`/`patch`/`update` grants on `namespaces`.
+
+For operator guidance, see
+[Restrict who can enable admin access](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/#admin-access)
+in the DRA hardening guide.
 
 Admin access is a *beta feature* and is enabled by default with the
 [`DRAAdminAccess` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAAdminAccess)
