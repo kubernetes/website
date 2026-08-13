@@ -347,7 +347,7 @@ need a matching `scrape_config` rule in your Prometheus configuration —
 check with whoever manages your Prometheus installation to confirm it is
 in place.
 
-You can add the following two annotations to the Pod template regardless
+You can add the following three annotations to the Pod template regardless
 of which scraping method you use. They are ignored by the Prometheus
 Operator but picked up automatically by annotation-based setups:
 
