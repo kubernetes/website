@@ -10,7 +10,7 @@ tags:
 ---
 1つ以上の{{< glossary_tooltip text="ノード" term_id="node" >}}(CPU、メモリ、GPUなど)に提供され、それらのノード上で稼働している{{< glossary_tooltip text="Pod" term_id="pod" >}}によって消費可能な機能です。
 
-Kubernetesは{{< glossary_tooltip text="APIリソース" term_id="api-resource" >}}を表現するために _resource_ という用語も使用します。
+Kubernetesでは、{{< glossary_tooltip text="APIリソース" term_id="api-resource" >}}を表す際にも _リソース_ という用語を使用します。
 
 <!--more-->
 コンピューターは、処理能力、ストレージメモリ、ネットワークなどの基本的なハードウェア設備を提供します。
