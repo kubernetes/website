@@ -553,11 +553,11 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
-<tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
-<tt>cidr('192.168.0.0/33')</tt> // error
-<tt>cidr('::1/129')</tt> // error
-<tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
+- <tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
+- <tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
+- <tt>cidr('192.168.0.0/33')</tt> // error
+- <tt>cidr('::1/129')</tt> // error
+- <tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
 
 #### `isCIDR`
 
@@ -570,30 +570,28 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>isCIDR('192.168.0.0/16')</tt> // returns true
-<tt>isCIDR('::1/128')</tt> // returns true
-<tt>isCIDR('192.168.0.0/33')</tt> // returns false
-<tt>isCIDR('::1/129')</tt> // returns false
+- <tt>isCIDR('192.168.0.0/16')</tt> // returns true
+- <tt>isCIDR('::1/128')</tt> // returns true
+- <tt>isCIDR('192.168.0.0/33')</tt> // returns false
+- <tt>isCIDR('::1/129')</tt> // returns false
 
 #### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
 
+- `containsIP`: Returns true if the CIDR contains the given IP address.
+  The IP address must be an IPv4 or IPv6 address.
+  May take either a string or IP address as an argument.
 
-
-- `containsIP`: Returns true if a the CIDR contains the given IP address.
-The IP address must be an IPv4 or IPv6 address.
-May take either a string or IP address as an argument.
-
-- `containsCIDR`: Returns true if a the CIDR contains the given CIDR.
-The CIDR must be an IPv4 or IPv6 subnet address with a mask.
-May take either a string or CIDR as an argument.
+- `containsCIDR`: Returns true if the CIDR contains the given CIDR.
+  The CIDR must be an IPv4 or IPv6 subnet address with a mask.
+  May take either a string or CIDR as an argument.
 
 - `ip`: Returns the IP address representation of the CIDR.
 
 - `masked`: Returns the CIDR representation of the network address with a masked prefix.
-This can be used to return the canonical form of the CIDR network.
+  This can be used to return the canonical form of the CIDR network.
 
 - `prefixLength`: Returns the prefix length of the CIDR in bits.
-This is the number of bits in the mask.
+  This is the number of bits in the mask.
 
 Examples:
 
