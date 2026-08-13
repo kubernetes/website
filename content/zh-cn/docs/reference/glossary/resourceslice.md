@@ -1,7 +1,7 @@
 ---
 title: ResourceSlice
 id: resourceslice
-full_link: /zh-cn/docs/reference/kubernetes-api/workload-resources/resource-slice-v1beta1/
+full_link: /zh-cn/docs/reference/kubernetes-api/resource/resource-slice-v1/
 short_description: >
   用一个相似资源所构成的池来表示一个或多个基础设施资源（如设备）。
 
@@ -11,7 +11,7 @@ tags:
 <!--
 title: ResourceSlice
 id: resourceslice
-full_link: /docs/reference/kubernetes-api/workload-resources/resource-slice-v1beta1/
+full_link: /docs/reference/kubernetes-api/resource/resource-slice-v1/
 short_description: >
   Represents one or more infrastructure resources, like devices, in a pool of
   similar resources.
