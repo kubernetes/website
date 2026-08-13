@@ -173,14 +173,19 @@ kubectl get pods
 
 Notice that some of the Pods have a status of `ImagePullBackOff`.
 
-To get more insight into the problem, run the `describe pods` subcommand:
+To get more insight into the problem, describe the failing Pods:
 
 ```shell
 kubectl describe pods
 ```
 
-In the `Events` section of the output for the affected Pods, notice that the `v10`
-image version did not exist in the repository.
+If a Pod's `Events` section is missing or empty, list cluster events instead:
+
+```shell
+kubectl get events
+```
+
+You should see that the `v10` image version did not exist in the repository.
 
 To roll back the deployment to your last working version, use the `rollout undo`
 subcommand:
