@@ -264,7 +264,7 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 
 ## Cassandra container environment variables
 
-The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
 The Docker image above is based on [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)
 and includes OpenJDK 8.
