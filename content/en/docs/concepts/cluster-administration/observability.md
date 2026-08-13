@@ -79,28 +79,20 @@ See [Common observability tools - metrics tools](#metrics-tools) for metrics scr
 
 ### Metrics API
 
-{{< feature-state for_k8s_version="v1.37" state="stable" >}}
-
 The Kubernetes Metrics API provides CPU and memory resource usage for nodes and Pods. The
 `kubectl top` command and components such as the
 [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 and [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
 use this API.
 
-`kubectl top` supports both `metrics.k8s.io/v1` and `metrics.k8s.io/v1beta1`. It prefers `v1`
-when that version is available and falls back to `v1beta1`. In Kubernetes v1.37, the
-HorizontalPodAutoscaler controller supports only `metrics.k8s.io/v1beta1`; support for
-`metrics.k8s.io/v1` is planned but is not available yet.
-
 Unlike the component metrics endpoints described earlier, the Metrics API is served through the
 Kubernetes [API aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
-Your cluster must run [Metrics Server](https://github.com/kubernetes-sigs/metrics-server) or another
-implementation that provides the API. The Metrics API intentionally provides only the resource
-metrics needed for autoscaling and basic inspection; it is not a replacement for a full monitoring
-pipeline.
+[Metrics Server](https://github.com/kubernetes-sigs/metrics-server), the reference implementation,
+collects resource metrics from kubelets and makes them available through this API. Your cluster must
+run Metrics Server or another implementation that provides the API.
 
-To learn about the API, its implementations, and the data flow from kubelets to its clients, see the
-[resource metrics pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/).
+The Metrics API intentionally provides only the resource metrics needed for autoscaling and basic
+inspection; it is not a replacement for a full monitoring pipeline.
 
 #### {{% heading "seealso" %}}
 
