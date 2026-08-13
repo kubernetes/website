@@ -391,7 +391,7 @@ https://github.com/GoogleContainerTools/distroless).
 Adding an ephemeral container to a running Pod uses the Pod's
 `ephemeralcontainers` subresource. At the API level this is a `PATCH` (or
 `UPDATE`) request on `pods/ephemeralcontainers`, which is governed by its own
-RBAC verbs and is **not** granted by `patch` on `pods`.
+RBAC verbs and is *not* granted by `patch` on `pods`.
 
 The `pods/ephemeralcontainers` subresource is intentionally not part of the
 default `admin` and `edit`
@@ -449,9 +449,7 @@ against the same [Pod Security Standards](/docs/concepts/security/pod-security-s
 as regular containers. When granting permission to add ephemeral containers to
 Pods governed by the `baseline` or `restricted` policy, choose a matching
 [debugging profile](#debugging-profiles) such as `--profile=baseline` or
-`--profile=restricted`. Any validating admission webhooks in your cluster that
-were written before this API existed may also need to be updated to evaluate
-the `ephemeralContainers` field in a Pod's spec.
+`--profile=restricted` with `kubectl debug`. Any validating admission webhooks in your cluster that do not evaluate the ephemeralContainers field may also need updating to evaluate the `ephemeralContainers` field in a Pod's spec.
 {{< /note >}}
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}

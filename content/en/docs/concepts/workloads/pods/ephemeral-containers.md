@@ -76,7 +76,7 @@ you can view processes in other containers.
 
 Adding an ephemeral container to a running Pod uses the Pod's
 `ephemeralcontainers` subresource rather than being writable via `pod.spec`.
-This is a deliberate design choice. Older admission plugins and security policies don't always recognize ephemeral containers, and treating
+This is a deliberate design choice. Some admission plugins and security policies don't recognize ephemeral containers, and treating
 ephemeral container creation as a distinct API surface lets cluster
 administrators make an explicit decision about who may add containers to
 already-running Pods.
