@@ -20,7 +20,7 @@ Kubernetes APIサーバーは、外部の関係者(ユーザーやサービス)�
 
 ## Static Pod {#static-pods}
 
-各ノードの{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}は、特定のディレクトリに保存されているマニフェストや、特定のURLから取得したマニフェストをクラスター内の[*static Pod*](/ja/docs/tasks/configure-pod-container/static-pod)として読み込み、直接管理します。
+各ノードの{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}は、特定のディレクトリに保存されているマニフェストや、特定のURLから取得したマニフェストをクラスター内の[*static Pod*](/docs/tasks/configure-pod-container/static-pod)として読み込み、直接管理します。
 APIサーバーはこれらのstatic Podを管理しません。
 この場所への書き込みアクセス権を持つ攻撃者は、そのソースから読み込まれたstatic Podの設定を変更したり、新しいstatic Podを導入したりする可能性があります。
 
@@ -37,7 +37,7 @@ static Podがアドミッション制御に失敗した場合、kubeletはPodを
 
 ### 緩和策 {#static-pods-mitigations}
 
-- ノードでstatic Pod機能が必要な場合のみ、[kubelet static Podマニフェスト機能を有効にします](/ja/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)。
+- ノードでstatic Pod機能が必要な場合のみ、[kubelet static Podマニフェスト機能を有効にします](/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)。
 - ノードでstatic Pod機能を使用する場合、static PodマニフェストディレクトリまたはURLへのファイルシステムアクセスを必要なユーザーに制限します。
 - kubeletの設定パラメーターやファイルへのアクセスを制限し、攻撃者がstatic PodのパスやURLを設定できないようにします。
 - static Podのマニフェストとkubeletの設定ファイルをホストするディレクトリやwebストレージのロケーションへのすべてのアクセスを定期的に監査し、一元的にレポートします。
@@ -62,7 +62,7 @@ kubelet APIは、さまざまな方法でリクエストを認証するように
 
 ### 緩和策
 
-- [RBAC](/ja/docs/reference/access-authn-authz/rbac/)などのメカニズムを使用して、`nodes` APIオブジェクトのサブリソースへのアクセスを制限します。
+- [RBAC](/docs/reference/access-authn-authz/rbac/)などのメカニズムを使用して、`nodes` APIオブジェクトのサブリソースへのアクセスを制限します。
   監視サービスなど、必要な場合にのみこのアクセスを許可してください。
 - kubeletのポートへのアクセスを制限します。
   指定された信頼できるIPアドレス範囲からのアクセスのみを許可します。
@@ -107,6 +107,6 @@ Kubernetesクラスターの各ノードでは、コンテナと対話するた�
 - コンテナランタイムソケットへのファイルシステムアクセスを厳密に制御してください。
   可能であれば、`root`ユーザーにこのアクセスを制限してください。
 - Linuxカーネルの名前空間などのメカニズムを使用して、ノード上で実行されている他のコンポーネントからkubeletを分離します。
-- コンテナランタイムソケットを含む[`hostPath`マウント](/ja/docs/concepts/storage/volumes/#hostpath)の使用を、直接または親ディレクトリをマウントすることによって制限または禁止してください。
+- コンテナランタイムソケットを含む[`hostPath`マウント](/docs/concepts/storage/volumes/#hostpath)の使用を、直接または親ディレクトリをマウントすることによって制限または禁止してください。
   また、攻撃者がディレクトリ制限をバイパスするリスクを軽減するために、`hostPath`マウントは読み取り専用として設定する必要があります。
 - ノードへのユーザーアクセスを制限し、特にノードへのスーパーユーザーアクセスを制限してください。

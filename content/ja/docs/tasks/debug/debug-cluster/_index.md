@@ -8,7 +8,7 @@ no_list: true
 <!-- overview -->
 
 このドキュメントはクラスターのトラブルシューティングに関するもので、あなたが経験している問題の根本原因として、アプリケーションをすでに除外していることを前提としています。
-アプリケーションのデバッグのコツは、[アプリケーションのトラブルシューティングガイド](/ja/docs/tasks/debug/debug-application/)をご覧ください。
+アプリケーションのデバッグのコツは、[アプリケーションのトラブルシューティングガイド](/docs/tasks/debug/debug-application/)をご覧ください。
 また、[トラブルシューティングドキュメント](/docs/tasks/debug/)にも詳しい情報があります。
 
 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}のトラブルシューティングについては、[kubectlのトラブルシューティング](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/)を参照してください。
@@ -310,10 +310,10 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-* [リソースメトリクスパイプライン](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)で利用可能なメトリクスについて学ぶ
-* [リソース使用状況の監視](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)に役立つ追加ツールを探す
-* Node Problem Detectorを使用して[ノードの健康状態を監視する](/ja/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* [リソースメトリクスパイプライン](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)で利用可能なメトリクスについて学ぶ
+* [リソース使用状況の監視](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)に役立つ追加ツールを探す
+* Node Problem Detectorを使用して[ノードの健康状態を監視する](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 * `kubectl debug node`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
-* `crictl`を使用して[Kubernetesノードをデバッグする](/ja/docs/tasks/debug/debug-cluster/crictl/)
-* [Kubernetesの監査](/ja/docs/tasks/debug/debug-cluster/audit/)に関する詳細な情報を得る
-* `telepresence`を使用して[ローカルでサービスを開発・デバッグする](/ja/docs/tasks/debug/debug-cluster/local-debugging/)
+* `crictl`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/crictl/)
+* [Kubernetesの監査](/docs/tasks/debug/debug-cluster/audit/)に関する詳細な情報を得る
+* `telepresence`を使用して[ローカルでサービスを開発・デバッグする](/docs/tasks/debug/debug-cluster/local-debugging/)

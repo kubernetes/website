@@ -18,7 +18,7 @@ Podのオーバーヘッドを有効にした場合、Podのスケジューリ�
 
 ## Podのオーバーヘッドの有効化 {#set-up}
 
-クラスター全体で`PodOverhead`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていること（1.18時点ではデフォルトでオンになっています）と、`overhead`フィールドを定義する`RuntimeClass`が利用されていることを確認する必要があります。
+クラスター全体で`PodOverhead`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていること（1.18時点ではデフォルトでオンになっています）と、`overhead`フィールドを定義する`RuntimeClass`が利用されていることを確認する必要があります。
 
 ## 使用例
 
@@ -151,5 +151,5 @@ Podのオーバヘッドが利用されているタイミングを特定し、�
 ## {{% heading "whatsnext" %}}
 
 
-* [RuntimeClass](/ja/docs/concepts/containers/runtime-class/)
+* [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [Podのオーバーヘッドの設計](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

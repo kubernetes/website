@@ -14,7 +14,7 @@ Kubernetesスケジューラーは、Podがどのノードで実行されるか�
 [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator)は、Kubernetesスケジューラーの _シミュレーター_ であり、[Google Summer of Code 2021](https://summerofcode.withgoogle.com/)において私(Kensei Nakada)が開発を開始し、その後多くのコントリビューションを受けてきたプロジェクトです。
 このツールを使用すると、スケジューラーの動作や意思決定を詳細に観察することができます。
 
-このシミュレーターは、スケジューリング制約(たとえば、[Pod間のアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/#affinity-and-anti-affinity))を利用する一般ユーザーにとっても有用ですし、カスタムプラグインによってスケジューラーを拡張するエキスパートにとっても有用です。
+このシミュレーターは、スケジューリング制約(たとえば、[Pod間のアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/#affinity-and-anti-affinity))を利用する一般ユーザーにとっても有用ですし、カスタムプラグインによってスケジューラーを拡張するエキスパートにとっても有用です。
 
 ## 動機
 
@@ -41,7 +41,7 @@ kube-scheduler-simulatorは、これらの問題を解決することを目的�
 ## kube-scheduler-simulatorの機能
 
 kube-scheduler-simulatorのコア機能は、スケジューラーの内部的な意思決定を可視化できる点にあります。
-スケジューラーは[スケジューリングフレームワーク](/ja/docs/concepts/scheduling-eviction/scheduling-framework/)に基づいて動作しており、さまざまな拡張ポイントで複数のプラグインを利用し、ノードのフィルタリング(Filterフェーズ)、スコア付け(Scoreフェーズ)を経て、最終的にPodに最適なノードを決定します。
+スケジューラーは[スケジューリングフレームワーク](/docs/concepts/scheduling-eviction/scheduling-framework/)に基づいて動作しており、さまざまな拡張ポイントで複数のプラグインを利用し、ノードのフィルタリング(Filterフェーズ)、スコア付け(Scoreフェーズ)を経て、最終的にPodに最適なノードを決定します。
 
 このシミュレーターを用いることで、ユーザーはKubernetesリソースを作成し、各プラグインがPodのスケジューリングにどのように影響を与えているかを観察できます。
 これにより、スケジューラーの仕組みを理解し、適切なスケジューリング制約を定義する助けとなります。
@@ -163,7 +163,7 @@ metadata:
     kube-scheduler-simulator.sigs.k8s.io/selected-node: node-mtb5x
 ```
 
-ユーザーはまた、[自身のカスタムプラグイン](/ja/docs/concepts/scheduling-eviction/scheduling-framework/)や[extender](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)をこのDebuggable Schedulerに統合し、その結果を可視化することもできます。
+ユーザーはまた、[自身のカスタムプラグイン](/docs/concepts/scheduling-eviction/scheduling-framework/)や[extender](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)をこのDebuggable Schedulerに統合し、その結果を可視化することもできます。
 
 このDebuggable Schedulerは、たとえば任意のKubernetesクラスター上や統合テスト内など、スタンドアローンで実行することも可能です。これは、自身のプラグインをテストしたり、実クラスター上でカスタムスケジューラーをよりデバッグしやすくしたいと考えるカスタムプラグイン開発者にとって有用です。
 

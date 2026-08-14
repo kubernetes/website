@@ -9,14 +9,14 @@ no_list: true
 
 Kubernetesのコマンドラインツール[`kubectl`](/docs/reference/kubectl/kubectl/)を使用すると、Kubernetesクラスターに対してコマンドを実行できるようになります。
 kubectlは、アプリケーションのデプロイ、クラスターリソースの調査と管理、ログの表示などに使用できます。
-kubectlの操作の完全なリストを含む詳細については、[`kubectl`のリファレンスドキュメント](/ja/docs/reference/kubectl/)を参照してください。
+kubectlの操作の完全なリストを含む詳細については、[`kubectl`のリファレンスドキュメント](/docs/reference/kubectl/)を参照してください。
 
 kubectlはさまざまなLinuxプラットフォーム、macOS、Windows上にインストールできます。
 下記の中から好きなオペレーティングシステムを選んでください。
 
-- [Linux上でのkubectlのインストール](/ja/docs/tasks/tools/install-kubectl-linux)
-- [macOS上でのkubectlのインストール](/ja/docs/tasks/tools/install-kubectl-macos)
-- [Windows上でのkubectlのインストール](/ja/docs/tasks/tools/install-kubectl-windows)
+- [Linux上でのkubectlのインストール](/docs/tasks/tools/install-kubectl-linux)
+- [macOS上でのkubectlのインストール](/docs/tasks/tools/install-kubectl-macos)
+- [Windows上でのkubectlのインストール](/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
@@ -36,7 +36,7 @@ kubectlはさまざまなLinuxプラットフォーム、macOS、Windows上に�
 
 <a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="View minikube Get Started! Guide">minikubeのGet Started!のガイドを見る</a>
 
-minikubeが起動したら、[サンプルアプリケーションの実行](/ja/docs/tutorials/hello-minikube/)を試すことができます。
+minikubeが起動したら、[サンプルアプリケーションの実行](/docs/tutorials/hello-minikube/)を試すことができます。
 
 ## kubeadm
 
@@ -44,7 +44,7 @@ Kubernetesクラスターの作成、管理をするために{{< glossary_toolti
 
 最低限実行可能でセキュアなクラスターを、ユーザーフレンドリーな方法で稼働させるために必要なアクションを実行します。
 
-[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)では、kubeadmをインストールする方法を示しています。
-一度インストールすれば、[クラスターを作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)するために使用できます。
+[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)では、kubeadmをインストールする方法を示しています。
+一度インストールすれば、[クラスターを作成](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)するために使用できます。
 
 <a class="btn btn-primary" href="/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="View kubeadm Install Guide">kubeadmのインストールガイドを見る</a>

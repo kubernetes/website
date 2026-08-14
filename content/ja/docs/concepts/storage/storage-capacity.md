@@ -53,7 +53,7 @@ Kubernetesは古い容量の情報をもとにノードを選択する場合が�
 
 ## ストレージ容量の追跡を有効にする {#enabling-storage-capacity-tracking}
 
-ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメーター](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメーター](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
 Kubernetesクラスターがこの機能をサポートしているか簡単に確認するには、以下のコマンドを実行して、CSIStorageCapacityオブジェクトを一覧表示します。
 
@@ -78,4 +78,4 @@ error: the server doesn't have a resource type "csistoragecapacities"
 
  - 設計に関するさらなる情報について知るために、[Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md)を読む。
 - この機能の今後の開発に関する情報について知るために、[enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472)を参照する。
-- [Kubernetesのスケジューラー](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)についてもっと学ぶ。
+- [Kubernetesのスケジューラー](/docs/concepts/scheduling-eviction/kube-scheduler/)についてもっと学ぶ。

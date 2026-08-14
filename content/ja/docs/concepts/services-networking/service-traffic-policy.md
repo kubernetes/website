@@ -16,7 +16,7 @@ weight: 120
 
 ## ServiceInternalTrafficPolicyの使用
 
-`ServiceInternalTrafficPolicy` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定して、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
+`ServiceInternalTrafficPolicy` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、`.spec.internalTrafficPolicy`を`Local`に設定して、{{< glossary_tooltip text="Service" term_id="service" >}}内部のみのトラフィックポリシーを有効にすることができます。
 これにより、kube-proxyは、クラスター内部トラフィックにノードローカルエンドポイントのみを使用するようになります。
 
 {{< note >}}
@@ -44,7 +44,7 @@ spec:
 
 kube-proxyは、`spec.internalTrafficPolicy`の設定に基づいて、ルーティング先のエンドポイントをフィルタリングします。
 `spec.internalTrafficPolicy`が`Local`であれば、ノードのローカルエンドポイントにのみルーティングできるようにします。`Cluster`または未設定であればすべてのエンドポイントにルーティングできるようにします。
-`ServiceInternalTrafficPolicy`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、`spec.internalTrafficPolicy`のデフォルトは`Cluster`です。
+`ServiceInternalTrafficPolicy`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、`spec.internalTrafficPolicy`のデフォルトは`Cluster`です。
 
 ## 制約
 
@@ -54,4 +54,4 @@ kube-proxyは、`spec.internalTrafficPolicy`の設定に基づいて、ルーテ
 
 * [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)を読む
 * [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)を読む
-* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
+* [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)を読む

@@ -8,7 +8,7 @@ weight: 20
 <!-- overview -->
 
 {{< glossary_tooltip text="Pod" term_id="pod" >}}を特定の{{< glossary_tooltip text="ノード" term_id="node" >}}で実行するように _制限_ したり、特定のノードで実行することを _優先_ させたりといった制約をかけることができます。
-これを実現するためにはいくつかの方法がありますが、推奨されている方法は、すべて[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)を使用して選択を容易にすることです。
+これを実現するためにはいくつかの方法がありますが、推奨されている方法は、すべて[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)を使用して選択を容易にすることです。
 多くの場合、このような制約を設定する必要はなく、{{< glossary_tooltip text="スケジューラー" term_id="kube-scheduler" >}}が自動的に妥当な配置を行います(例えば、Podを複数のノードに分散させ、空きリソースが十分でないノードにPodを配置しないようにすることができます)。
 しかし、例えばSSDが接続されているノードにPodが配置されるようにしたり、多くの通信を行う2つの異なるサービスのPodを同じアベイラビリティーゾーンに配置したりする等、どのノードに配置するかを制御したい状況もあります。
 
@@ -23,7 +23,7 @@ Kubernetesが特定のPodの配置場所を選択するために、以下の方�
 
 ## ノードラベル {#built-in-node-labels}
 
-他の多くのKubernetesオブジェクトと同様に、ノードにも[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)があります。[手動でラベルを付ける](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/#ラベルをNodeに追加する)ことができます。
+他の多くのKubernetesオブジェクトと同様に、ノードにも[ラベル](/docs/concepts/overview/working-with-objects/labels/)があります。[手動でラベルを付ける](/docs/tasks/configure-pod-container/assign-pods-nodes/#ラベルをNodeに追加する)ことができます。
 また、Kubernetesはクラスター内のすべてのノードに対し、いくつかの標準ラベルを付けます。ノードラベルの一覧については[よく使われるラベル、アノテーションとtaint](/docs/reference/labels-annotations-taints/)を参照してください。
 
 {{<note>}}
@@ -52,7 +52,7 @@ Kubernetesが特定のPodの配置場所を選択するために、以下の方�
 Podのspec(仕様)に`nodeSelector`フィールドを追加することで、ターゲットノードが持つべき[ノードラベル](#built-in-node-labels)を指定できます。
 Kubernetesは指定された各ラベルを持つノードにのみ、Podをスケジューリングします。
 
-詳しい情報については[Podをノードに割り当てる](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/)を参照してください。
+詳しい情報については[Podをノードに割り当てる](/docs/tasks/configure-pod-container/assign-pods-nodes/)を参照してください。
 
 ## アフィニティとアンチアフィニティ {#affinity-and-anti-affinity}
 
@@ -97,7 +97,7 @@ Podのspec(仕様)にある`.spec.affinity.nodeAffinity`フィールドを使用
 
 `operator`フィールドを使用して、Kubernetesがルールを解釈する際に使用できる論理演算子を指定することができます。`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`が使用できます。
 
-`NotIn`と`DoesNotExist`を使って、ノードのアンチアフィニティ動作を定義することができます。また、[ノードのTaint](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を使用して、特定のノードからPodをはじくこともできます。
+`NotIn`と`DoesNotExist`を使って、ノードのアンチアフィニティ動作を定義することができます。また、[ノードのTaint](/docs/concepts/scheduling-eviction/taint-and-toleration/)を使用して、特定のノードからPodをはじくこともできます。
 
 {{<note>}}
 `nodeSelector`と`nodeAffinity`の両方を指定した場合、*両方の*条件を満たさないとPodはノードにスケジュールされません。
@@ -107,7 +107,7 @@ Podのspec(仕様)にある`.spec.affinity.nodeAffinity`フィールドを使用
 `nodeSelectorTerms`内の条件に関連付けられた1つの`matchExpressions`フィールド内に、複数の条件を指定した場合、Podは全ての条件を満たしたノードへスケジュールされます(条件はANDされます)。
 {{</note>}}
 
-詳細については[ノードアフィニティを利用してPodをノードに割り当てる](/ja/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)を参照してください。
+詳細については[ノードアフィニティを利用してPodをノードに割り当てる](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)を参照してください。
 
 #### ノードアフィニティの重み {#node-affinity-weight}
 
@@ -130,7 +130,7 @@ Podの他のスケジューリング要件をすべて満たすノードを見�
 
 {{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-複数の[スケジューリングプロファイル](/ja/docs/reference/scheduling/config/#multiple-profiles)を設定する場合、プロファイルにノードアフィニティを関連付けることができます。これは、プロファイルが特定のノード群にのみ適用される場合に便利です。[スケジューラーの設定](/ja/docs/reference/scheduling/config/)にある[`NodeAffinity`プラグイン](/ja/docs/reference/scheduling/config/#scheduling-plugins)の`args`フィールドに`addedAffinity`を追加すると実現できます。例えば:
+複数の[スケジューリングプロファイル](/docs/reference/scheduling/config/#multiple-profiles)を設定する場合、プロファイルにノードアフィニティを関連付けることができます。これは、プロファイルが特定のノード群にのみ適用される場合に便利です。[スケジューラーの設定](/docs/reference/scheduling/config/)にある[`NodeAffinity`プラグイン](/docs/reference/scheduling/config/#scheduling-plugins)の`args`フィールドに`addedAffinity`を追加すると実現できます。例えば:
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -157,7 +157,7 @@ profiles:
 `addedAffinity`はエンドユーザーには見えないので、その動作はエンドユーザーにとって予期しないものになる可能性があります。スケジューラープロファイル名と明確な相関関係のあるノードラベルを使用すべきです。
 
 {{< note >}}
-[DaemonSetのPodを作成する](/ja/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)DaemonSetコントローラーは、スケジューリングプロファイルをサポートしていません。DaemonSetコントローラーがPodを作成すると、デフォルトのKubernetesスケジューラーがそれらのPodを配置し、DaemonSetコントローラーの`nodeAffinity`ルールに優先して従います。
+[DaemonSetのPodを作成する](/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)DaemonSetコントローラーは、スケジューリングプロファイルをサポートしていません。DaemonSetコントローラーがPodを作成すると、デフォルトのKubernetesスケジューラーがそれらのPodを配置し、DaemonSetコントローラーの`nodeAffinity`ルールに優先して従います。
 {{< /note >}}
 
 ### Pod間のアフィニティとアンチアフィニティ {#inter-pod-affinity-and-anti-affinity}
@@ -166,7 +166,7 @@ Pod間のアフィニティとアンチアフィニティは、ノードのラ�
 
 Xはノードや、ラック、クラウドプロバイダーのゾーンやリージョン等を表すトポロジードメインで、YはKubernetesが満たそうとするルールである場合、Pod間のアフィニティとアンチアフィニティのルールは、"XにてルールYを満たすPodがすでに稼働している場合、このPodもXで実行すべき(アンチアフィニティの場合はすべきではない)"という形式です。
 
-これらのルール(Y)は、オプションの関連する名前空間のリストを持つ[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)で表現されます。PodはKubernetesの名前空間オブジェクトであるため、Podラベルも暗黙的に名前空間を持ちます。Kubernetesが指定された名前空間でラベルを探すため、Podラベルのラベルセレクターは、名前空間を指定する必要があります。
+これらのルール(Y)は、オプションの関連する名前空間のリストを持つ[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)で表現されます。PodはKubernetesの名前空間オブジェクトであるため、Podラベルも暗黙的に名前空間を持ちます。Kubernetesが指定された名前空間でラベルを探すため、Podラベルのラベルセレクターは、名前空間を指定する必要があります。
 
 トポロジードメイン(X)は`topologyKey`で表現され、システムがドメインを示すために使用するノードラベルのキーになります。具体例は[よく知られたラベル、アノテーションとTaint](/docs/reference/labels-annotations-taints/)を参照してください。
 
@@ -355,8 +355,8 @@ _トポロジー分散制約_ を使って、リージョン、ゾーン、ノ�
 
 ## {{% heading "whatsnext" %}}
 
-* [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)についてもっと読む。
+* [TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)についてもっと読む。
 * [ノードアフィニティ](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)と[Pod間アフィニティ/アンチアフィニティ](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)のデザインドキュメントを読む。
-* [トポロジーマネージャー](/ja/docs/tasks/administer-cluster/topology-manager/)がノードレベルのリソース割り当ての決定にどのように関与しているかについて学ぶ。
-* [nodeSelector](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/)の使用方法について学ぶ。
-* [アフィニティとアンチアフィニティ](/ja/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)の使用方法について学ぶ。
+* [トポロジーマネージャー](/docs/tasks/administer-cluster/topology-manager/)がノードレベルのリソース割り当ての決定にどのように関与しているかについて学ぶ。
+* [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/)の使用方法について学ぶ。
+* [アフィニティとアンチアフィニティ](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)の使用方法について学ぶ。

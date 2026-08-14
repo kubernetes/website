@@ -10,7 +10,7 @@ weight: 30
 この例では、カスタムのCassandraのseed providerにより、Cassandraクラスターに参加した新しいCassandraインスタンスを検出できるようにします。
 
 *StatefulSet*を利用すると、ステートフルなアプリケーションをKubernetesクラスターにデプロイするのが簡単になります。
-このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
+このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 
 {{< note >}}
 CassandraとKubernetesは、ともにクラスターのメンバーを表すために _ノード_ という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター( _ring_ と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
@@ -38,7 +38,7 @@ Cassandraノードが開始すると、 _シードリスト_ を使ってring上
 ### Minikubeのセットアップに関する追加の設定手順
 
 {{< caution >}}
-[Minikube](/ja/docs/getting-started-guides/minikube/)は、デフォルトでは1024MiBのメモリと1CPUに設定されます。
+[Minikube](/docs/getting-started-guides/minikube/)は、デフォルトでは1024MiBのメモリと1CPUに設定されます。
 デフォルトのリソース設定で起動したMinikubeでは、このチュートリアルの実行中にリソース不足のエラーが発生してしまいます。このエラーを回避するためにはMinikubeを次の設定で起動してください:
 
 ```shell
@@ -80,7 +80,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 
-`cassandra`という名前のServiceが表示されない場合、作成に失敗しています。よくある問題のトラブルシューティングについては、[Serviceのデバッグ](/ja/docs/tasks/debug/debug-application/debug-service/)を読んでください。
+`cassandra`という名前のServiceが表示されない場合、作成に失敗しています。よくある問題のトラブルシューティングについては、[Serviceのデバッグ](/docs/tasks/debug/debug-application/debug-service/)を読んでください。
 
 ## StatefulSetを使ってCassandra ringを作成する
 
@@ -262,6 +262,6 @@ StatefulSetに関連するすべてのリソースを自動的に破棄するよ
 ## {{% heading "whatsnext" %}}
 
 
-* [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
+* [StatefulSetのスケール](/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
 * [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
 * カスタムの[Seed Providerの設定](https://git.k8s.io/examples/cassandra/java/README.md)についてもっと学ぶ。

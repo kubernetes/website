@@ -9,14 +9,14 @@ min-kubernetes-server-version: 1.21
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-Kubernetesクラスターには[デュアルスタック](/ja/docs/concepts/services-networking/dual-stack/)ネットワークが含まれています。つまりクラスターネットワークではいずれかのアドレスファミリーを使用することができます。
+Kubernetesクラスターには[デュアルスタック](/docs/concepts/services-networking/dual-stack/)ネットワークが含まれています。つまりクラスターネットワークではいずれかのアドレスファミリーを使用することができます。
 クラスターでは、コントロールプレーンはIPv4アドレスとIPv6アドレスの両方を、単一の{{< glossary_tooltip text="Pod" term_id="pod" >}}または{{< glossary_tooltip text="Service" term_id="service" >}}に割り当てることができます。
 
 <!-- body -->
 
 ## {{% heading "prerequisites" %}}
 
-[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)の手順に従って、{{< glossary_tooltip text="kubeadm" term_id="kubeadm">}}ツールをインストールしておく必要があります。
+[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)の手順に従って、{{< glossary_tooltip text="kubeadm" term_id="kubeadm">}}ツールをインストールしておく必要があります。
 
 {{< glossary_tooltip text="ノード" term_id="node">}}として使用したいサーバーごとに、IPv6フォワーディングが許可されていることを確認してください。
 Linuxでは、各サーバーでrootユーザーとして`sysctl -w net.ipv6.conf.all.forwarding=1`を実行することで設定できます。
@@ -72,7 +72,7 @@ kubeadm init --config=kubeadm-config.yaml
 ```
 
 kube-controller-managerフラグ`--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6`はデフォルト値で設定されます。
-[IPv4/IPv6デュアルスタックの設定](/ja/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)を参照してください。
+[IPv4/IPv6デュアルスタックの設定](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)を参照してください。
 
 {{< note >}}
 `--apiserver-advertise-address`フラグはデュアルスタックをサポートしません。
@@ -151,6 +151,6 @@ networking:
 
 ## {{% heading "whatsnext" %}}
 
-* [IPv4/IPv6デュアルスタックの検証](/ja/docs/tasks/network/validate-dual-stack)
-* [デュアルスタック](/ja/docs/concepts/services-networking/dual-stack/)クラスターネットワークについて読む
+* [IPv4/IPv6デュアルスタックの検証](/docs/tasks/network/validate-dual-stack)
+* [デュアルスタック](/docs/concepts/services-networking/dual-stack/)クラスターネットワークについて読む
 * kubeadm[構成形式](/docs/reference/config-api/kubeadm-config.v1beta4/)についてもっと詳しく知る

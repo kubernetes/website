@@ -13,11 +13,11 @@ card:
 
 このツールの名前は、`kubectl` です。
 
-`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
+`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
 
 この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。
 
-インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/#kubectl)をご覧ください。クイックガイドは、[チートシート](/ja/docs/reference/kubectl/cheatsheet/)をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)でKubernetesの同等のコマンドを説明しています。
+インストール方法については、[kubectlのインストールおよびセットアップ](/docs/tasks/tools/#kubectl)をご覧ください。クイックガイドは、[チートシート](/docs/reference/kubectl/cheatsheet/)をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)でKubernetesの同等のコマンドを説明しています。
 
 <!-- body -->
 
@@ -55,7 +55,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
    * リソースを1つ以上のファイルで指定する場合は、`-f file1 -f file2 -f file<#>`とします。
 
-      * 特に設定ファイルについては、YAMLの方がより使いやすいため、[JSONではなくYAMLを使用してください](/ja/docs/concepts/configuration/overview/#一般的な設定のtips)。<br/>
+      * 特に設定ファイルについては、YAMLの方がより使いやすいため、[JSONではなくYAMLを使用してください](/docs/concepts/configuration/overview/#一般的な設定のtips)。<br/>
      例: `kubectl get pod -f ./pod.yaml`
 
 * `flags`: オプションのフラグを指定します。例えば、`-s`または`--server`フラグを使って、Kubernetes APIサーバーのアドレスやポートを指定できます。<br/>
@@ -231,8 +231,8 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 `-o custom-columns=<spec>` | [カスタムカラム](#custom-columns)のコンマ区切りのリストを使用して、テーブルを表示します。
 `-o custom-columns-file=<filename>` | `<filename>`ファイル内の[カスタムカラム](#custom-columns)のテンプレートを使用して、テーブルを表示します。
 `-o json`     | JSON形式のAPIオブジェクトを出力します。
-`-o jsonpath=<template>` | [jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
-`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
 `-o name`     | リソース名のみを表示します。
 `-o wide`     | 追加情報を含めて、プレーンテキスト形式で出力します。Podの場合は、Node名が含まれます。
 `-o yaml`     | YAML形式のAPIオブジェクトを出力します。
@@ -303,7 +303,7 @@ pod-name   1m
 
 ### オブジェクトリストのソート
 
-ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式を使用します。
+ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/docs/reference/kubectl/jsonpath/)式を使用します。
 
 #### 構文
 
@@ -523,7 +523,7 @@ Current user: plugins-user
 * `kubectl`リファレンスドキュメントをお読みください。
   * kubectl[コマンドリファレンス](/docs/reference/kubectl/kubectl/)
   * [コマンドライン引数](/docs/reference/generated/kubectl/kubectl-commands/)リファレンス
-* [`kubectl`の使用規則](/ja/docs/reference/kubectl/conventions/)について学習してください。
-* kubectlの[JSONPathのサポート](/ja/docs/reference/kubectl/jsonpath/)についてお読みください。
+* [`kubectl`の使用規則](/docs/reference/kubectl/conventions/)について学習してください。
+* kubectlの[JSONPathのサポート](/docs/reference/kubectl/jsonpath/)についてお読みください。
 * [プラグインを使用して kubectl を拡張する](/docs/tasks/extend-kubectl/kubectl-plugins)方法についてお読みください。
   * プラグインについてより詳しく知りたい場合は、[example CLI plugin](https://github.com/kubernetes/sample-cli-plugin)をご覧ください。

@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-このドキュメントでは、Kubernetesの*エフェメラルボリューム*について説明します。[ボリューム](/ja/docs/concepts/storage/volumes/)、特にPersistentVolumeClaimとPersistentVolumeに精通していることをお勧めします。
+このドキュメントでは、Kubernetesの*エフェメラルボリューム*について説明します。[ボリューム](/docs/concepts/storage/volumes/)、特にPersistentVolumeClaimとPersistentVolumeに精通していることをお勧めします。
 
 <!-- body -->
 
@@ -23,12 +23,12 @@ weight: 30
 ### エフェメラルボリュームのタイプ {#types-of-ephemeral-volumes}
 
 Kubernetesは、さまざまな目的のためにいくつかの異なる種類のエフェメラルボリュームをサポートしています。
-- [emptyDir](/ja/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
-- [configMap](/ja/docs/concepts/storage/volumes/#configmap)、[downwardAPI](/ja/docs/concepts/storage/volumes/#downwardapi)、[secret](/ja/docs/concepts/storage/volumes/#secret):Podにさまざまな種類のKubernetesデータを挿入します。
+- [emptyDir](/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
+- [configMap](/docs/concepts/storage/volumes/#configmap)、[downwardAPI](/docs/concepts/storage/volumes/#downwardapi)、[secret](/docs/concepts/storage/volumes/#secret):Podにさまざまな種類のKubernetesデータを挿入します。
 - [CSIエフェメラルボリューム](#csi-ephemeral-volumes):上のボリュームの種類に似ていますが、特に[この機能をサポートする](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)特別な[CSIドライバー](https://github.com/container-storage-interface/spec/blob/master/spec.md)によって提供されます。
 - [汎用エフェメラルボリューム](#generic-ephemeral-volumes):これは、永続ボリュームもサポートするすべてのストレージドライバーで提供できます。
 
-`emptyDir`、`configMap`、`downwardAPI`、`secret`は[ローカルエフェメラルストレージ](/ja/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)として提供されます。
+`emptyDir`、`configMap`、`downwardAPI`、`secret`は[ローカルエフェメラルストレージ](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)として提供されます。
 これらは、各ノードのkubeletによって管理されます。
 
 CSIエフェメラルボリュームは、サードパーティーのCSIストレージドライバーによって提供される*必要があります*。
@@ -49,7 +49,7 @@ Kubernetes CSI[ドライバーリスト](https://kubernetes-csi.github.io/docs/d
 概念的には、CSIエフェメラルボリュームは`configMap`、`downwardAPI`、および`secret`ボリュームタイプに似ています。
 ストレージは各ノードでローカルに管理され、Podがノードにスケジュールされた後に他のローカルリソースと一緒に作成されます。Kubernetesには、この段階でPodを再スケジュールするという概念はもうありません。
 ボリュームの作成は、失敗する可能性が低くなければなりません。さもないと、Podの起動が停止します。
-特に、[ストレージ容量を考慮したPodスケジューリング](/ja/docs/concepts/storage/storage-capacity/)は、これらのボリュームではサポートされて*いません*。
+特に、[ストレージ容量を考慮したPodスケジューリング](/docs/concepts/storage/storage-capacity/)は、これらのボリュームではサポートされて*いません*。
 これらは現在、Podのストレージリソースの使用制限の対象外です。これは、kubeletが管理するストレージに対してのみ強制できるものであるためです。
 
 CSIエフェメラルストレージを使用するPodのマニフェストの例を次に示します。
@@ -97,7 +97,7 @@ Pod仕様内でインラインボリュームとして使用できるCSIドラ�
 - ストレージは、ローカルまたはネットワークに接続できます。
 - ボリュームは、Podが超えることができない固定サイズを持つことができます。
 - ボリュームには、ドライバーとパラメーターによっては、いくつかの初期データがある場合があります。
-- [スナップショット](/docs/concepts/storage/volume-snapshots/)、[クローン作成](/ja/docs/concepts/storage/volume-pvc-datasource/)、[サイズ変更](/ja/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)、[ストレージ容量の追跡](/ja/docs/concepts/storage/storage-capacity/)などボリュームに対する一般的な操作は、ドライバーがそれらをサポートしていることを前提としてサポートされています。
+- [スナップショット](/docs/concepts/storage/volume-snapshots/)、[クローン作成](/docs/concepts/storage/volume-pvc-datasource/)、[サイズ変更](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)、[ストレージ容量の追跡](/docs/concepts/storage/storage-capacity/)などボリュームに対する一般的な操作は、ドライバーがそれらをサポートしていることを前提としてサポートされています。
 
 例:
 
@@ -139,7 +139,7 @@ PersistentVolumeClaimのラベル、アノテーション、および一連の�
 これは、{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}が即時ボリュームバインディングを使用する場合、またはPodが一時的にノードにスケジュールされている場合(`WaitForFirstConsumer`ボリュームバインディングモード)のいずれかです。
 後者は、スケジューラーがPodに適したノードを自由に選択できるため、一般的なエフェメラルボリュームに推奨されます。即時バインディングでは、ボリュームが利用可能になった時点で、ボリュームにアクセスできるノードをスケジューラーが選択する必要があります。
 
-[リソースの所有権](/ja/docs/concepts/architecture/garbage-collection/#owners-dependents)に関して、一般的なエフェメラルストレージを持つPodは、そのエフェメラルストレージを提供するPersistentVolumeClaimの所有者です。Podが削除されると、KubernetesガベージコレクターがPVCを削除します。これにより、通常、ボリュームの削除がトリガーされます。これは、ストレージクラスのデフォルトの再利用ポリシーがボリュームを削除することであるためです。`retain`の再利用ポリシーを持つStorageClassを使用して、準エフェメラルなローカルストレージを作成できます。ストレージはPodよりも長く存続します。この場合、ボリュームのクリーンアップが個別に行われるようにする必要があります。
+[リソースの所有権](/docs/concepts/architecture/garbage-collection/#owners-dependents)に関して、一般的なエフェメラルストレージを持つPodは、そのエフェメラルストレージを提供するPersistentVolumeClaimの所有者です。Podが削除されると、KubernetesガベージコレクターがPVCを削除します。これにより、通常、ボリュームの削除がトリガーされます。これは、ストレージクラスのデフォルトの再利用ポリシーがボリュームを削除することであるためです。`retain`の再利用ポリシーを持つStorageClassを使用して、準エフェメラルなローカルストレージを作成できます。ストレージはPodよりも長く存続します。この場合、ボリュームのクリーンアップが個別に行われるようにする必要があります。
 
 これらのPVCは存在しますが、他のPVCと同様に使用できます。特に、ボリュームのクローン作成またはスナップショットでデータソースとして参照できます。PVCオブジェクトは、ボリュームの現在のステータスも保持します。
 
@@ -159,13 +159,13 @@ PersistentVolumeClaimのラベル、アノテーション、および一連の�
 
 GenericEphemeralVolume機能を有効にすると、ユーザーは、PVCを直接作成する権限がなくても、Podを作成できる場合、間接的にPVCを作成できます。クラスター管理者はこれを認識している必要があります。これがセキュリティモデルに適合しない場合は、一般的なエフェメラルボリュームを持つPodなどのオブジェクトを拒否する[admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用する必要があります。
 
-通常の[PVCの名前空間割り当て](/ja/docs/concepts/policy/resource-quotas/#storage-resource-quota)は引き続き適用されるため、ユーザーがこの新しいメカニズムの使用を許可されたとしても、他のポリシーを回避するために使用することはできません。
+通常の[PVCの名前空間割り当て](/docs/concepts/policy/resource-quotas/#storage-resource-quota)は引き続き適用されるため、ユーザーがこの新しいメカニズムの使用を許可されたとしても、他のポリシーを回避するために使用することはできません。
 
 ## {{% heading "whatsnext" %}}
 
 ### kubeletによって管理されるエフェメラルボリューム {#ephemeral-volumes-managed-by-kubelet}
 
-[ローカルエフェメラルボリューム](/ja/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)を参照してください。
+[ローカルエフェメラルボリューム](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)を参照してください。
 
 ### CSIエフェメラルボリューム {#csi-ephemeral-volumes}
 

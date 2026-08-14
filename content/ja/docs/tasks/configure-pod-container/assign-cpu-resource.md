@@ -213,7 +213,7 @@ kubectl delete namespace cpu-example
 
 ### アプリケーション開発者向け
 
-* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [PodのQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
 

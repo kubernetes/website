@@ -78,7 +78,7 @@ spec:
 選択したネットワークソリューションがネットワークポリシーをサポートしていない場合には、これをクラスターのAPIサーバーにPOSTしても効果はありません。
 {{< /note >}}
 
-__必須フィールド__: 他のKubernetesの設定と同様に、NetworkPolicyにも`apiVersion`、`kind`、`metadata`フィールドが必須です。設定ファイルの扱い方に関する一般的な情報については、[ConfigMapを使用してコンテナを構成する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)と[オブジェクト管理](/ja/docs/concepts/overview/working-with-objects/object-management)を参照してください。
+__必須フィールド__: 他のKubernetesの設定と同様に、NetworkPolicyにも`apiVersion`、`kind`、`metadata`フィールドが必須です。設定ファイルの扱い方に関する一般的な情報については、[ConfigMapを使用してコンテナを構成する](/docs/tasks/configure-pod-container/configure-pod-configmap/)と[オブジェクト管理](/docs/concepts/overview/working-with-objects/object-management)を参照してください。
 
 __spec__: NetworkPolicyの[spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を見ると、指定した名前空間内で特定のネットワークポリシーを定義するのに必要なすべての情報が確認できます。
 
@@ -100,7 +100,7 @@ __egress__: 各NetworkPolicyには、許可する`egress`ルールのリスト�
    * 172.17.0.0–172.17.0.255および172.17.2.0–172.17.255.255(言い換えれば、172.17.1.0/24の範囲を除く172.17.0.0/16)の範囲内のすべてのIPアドレス
 3. (Egressルール) "role=db"というラベルが付いた"default"名前空間内のすべてのPodからの、TCPの5978番ポート上でのCIDR 10.0.0.0/24への接続を許可する
 
-追加の例については、[ネットワークポリシーを宣言する](/ja/docs/tasks/administer-cluster/declare-network-policy/)の説明を参照してください。
+追加の例については、[ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)の説明を参照してください。
 
 ## `to`と`from`のセレクターの振る舞い
 
@@ -197,7 +197,7 @@ __ipBlock__: 特定のIPのCIDRの範囲を選択して、ingressの送信元ま
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 ベータ版の機能として、これはデフォルトで有効化されます。
-クラスターレベルでSCTPを無効化するために、クラスター管理者はAPIサーバーで`--feature-gates=SCTPSupport=false,…`と指定して、`SCTPSupport`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を無効にする必要があります。
+クラスターレベルでSCTPを無効化するために、クラスター管理者はAPIサーバーで`--feature-gates=SCTPSupport=false,…`と指定して、`SCTPSupport`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を無効にする必要があります。
 
 {{< note >}}
 SCTPプロトコルのネットワークポリシーをサポートする{{< glossary_tooltip text="CNI" term_id="cni" >}}プラグインを使用している必要があります。
@@ -223,5 +223,5 @@ Kubernetesのネットワークセキュリティを初めて使用する場合�
 
 ## {{% heading "whatsnext" %}}
 
-- [ネットワークポリシーを宣言する](/ja/docs/tasks/administer-cluster/declare-network-policy/)で追加の例の説明を読む。
+- [ネットワークポリシーを宣言する](/docs/tasks/administer-cluster/declare-network-policy/)で追加の例の説明を読む。
 - NetworkPolicyリソースで実現できるよくあるシナリオのためのさまざまな[レシピ](https://github.com/ahmetb/kubernetes-network-policy-recipes)を確認する。

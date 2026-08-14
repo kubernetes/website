@@ -126,7 +126,7 @@ daemonset "fluentd-elasticsearch" successfully rolled out
 #### いくつかのノードのリソース不足
 
 1つ以上のノードで新しいDaemonSetのPodをスケジュールすることができず、ロールアウトがスタックしています。
-これはノードの[リソース不足](/ja/docs/concepts/scheduling-eviction/node-pressure-eviction/)の可能性があります。
+これはノードの[リソース不足](/docs/concepts/scheduling-eviction/node-pressure-eviction/)の可能性があります。
 
 この事象が起きた場合は、`kubectl get nodes`の出力と次の出力を比較して、DaemonSetのPodがスケジュールされていないノードを見つけます:
 
@@ -138,7 +138,7 @@ kubectl get pods -l name=fluentd-elasticsearch -o wide -n kube-system
 
 {{< note >}}
 コントローラーによって制御されていないPodや、レプリケートされていないPodを削除すると、これはサービスの中断が発生する原因となります。
-これはまた、[PodDisruptionBudget](/ja/docs/tasks/run-application/configure-pdb/)についても考慮しません。
+これはまた、[PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)についても考慮しません。
 {{< /note >}}
 
 #### 壊れたロールアウト
@@ -163,4 +163,4 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 ## {{% heading "whatsnext" %}}
 
 * [DaemonSet上でロールバックを実施する](/docs/tasks/manage-daemon/rollback-daemon-set/)を参照
-* [既存のDaemonSetのPodを再利用するためにDaemonSetを作成する](/ja/docs/concepts/workloads/controllers/daemonset/)を参照
+* [既存のDaemonSetのPodを再利用するためにDaemonSetを作成する](/docs/concepts/workloads/controllers/daemonset/)を参照

@@ -9,7 +9,7 @@ weight: 10
 コンテナ内のディスク上のファイルは一時的なものであり、コンテナ内で実行する場合、重要なアプリケーションでいくつかの問題が発生します。1つの問題は、コンテナがクラッシュしたときにファイルが失われることです。kubeletはコンテナを再起動しますが、クリーンな状態です。
 2番目の問題は、`Pod`で一緒に実行されているコンテナ間でファイルを共有するときに発生します。
 Kubernetes{{< glossary_tooltip text="ボリューム" term_id="volume" >}}の抽象化は、これらの問題の両方を解決します。
-[Pod](/ja/docs/concepts/workloads/pods/)に精通していることをお勧めします。
+[Pod](/docs/concepts/workloads/pods/)に精通していることをお勧めします。
 
 <!-- body -->
 
@@ -128,7 +128,7 @@ EBSボリュームがパーティション化されている場合は、オプ�
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 `zureFile`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`file.csi.azure.com`Container Storage Interface(CSI)Driverへすべてのプラグイン操作がリダイレクトされます。
-この機能を利用するには、クラスターに[Azure File CSI Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureFile`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
+この機能を利用するには、クラスターに[Azure File CSI Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をインストールし、`CSIMigration`および`CSIMigrationAzureFile`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
 
 Azure File CSIドライバーは、異なるfsgroupで同じボリュームを使用することをサポートしていません。AzurefileCSIの移行が有効になっている場合、異なるfsgroupで同じボリュームを使用することはまったくサポートされません。
 
@@ -183,12 +183,12 @@ spec:
 Cinderの`CSIMigration`機能は、Kubernetes1.21ではデフォルトで有効になっています。
 既存のツリー内プラグインからのすべてのプラグイン操作を`cinder.csi.openstack.org`Container Storage Interface(CSI) Driverへリダイレクトします。
 [OpenStack Cinder CSIドライバー](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)をクラスターにインストールする必要があります。
-`CSIMigrationOpenStack`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`false`に設定すると、クラスターのCinder CSIマイグレーションを無効化することができます。
+`CSIMigrationOpenStack`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を`false`に設定すると、クラスターのCinder CSIマイグレーションを無効化することができます。
 `CSIMigrationOpenStack`機能を無効にすると、ツリー内のCinderボリュームプラグインがCinderボリュームのストレージ管理のすべての側面に責任を持つようになります。
 
 ### configMap
 
-[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)は構成データをPodに挿入する方法を提供します。
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)は構成データをPodに挿入する方法を提供します。
 ConfigMapに格納されたデータは、タイプ`configMap`のボリュームで参照され、Podで実行されているコンテナ化されたアプリケーションによって使用されます。
 
 ConfigMapを参照するときは、ボリューム内のConfigMapの名前を指定します。
@@ -221,7 +221,7 @@ spec:
 
 
 {{< note >}}
-* 使用する前に[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を作成する必要があります。
+* 使用する前に[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を作成する必要があります。
 
 * [`subPath`](#using-subpath)ボリュームマウントとしてConfigMapを使用するコンテナはConfigMapの更新を受信しません。
 
@@ -261,7 +261,7 @@ Pod内のすべてのコンテナは`emptyDir`ボリューム内の同じファ�
 tmpfsは非常に高速ですが、ディスクと違ってノードのリブート時にクリアされ、書き込んだファイルはコンテナのメモリー制限にカウントされることに注意してください。
 
 {{< note >}}
-`SizeMemoryBackedVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、メモリーバックアップボリュームにサイズを指定することができます。
+`SizeMemoryBackedVolumes`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、メモリーバックアップボリュームにサイズを指定することができます。
 サイズが指定されていない場合、メモリーでバックアップされたボリュームは、Linuxホストのメモリーの50％のサイズになります。
 {{< /note>}}
 
@@ -638,10 +638,10 @@ NFSは複数のライターによって同時にマウントすることがで�
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-`PersistentVolumeClaim`ボリュームは[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)をPodにマウントするために使用されます。
+`PersistentVolumeClaim`ボリュームは[PersistentVolume](/docs/concepts/storage/persistent-volumes/)をPodにマウントするために使用されます。
 PersistentVolumeClaimは、ユーザーが特定のクラウド環境の詳細を知らなくても、耐久性のあるストレージ(GCE永続ディスクやiSCSIボリュームなど)を「要求」するための方法です。
 
-詳細については[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)を参照してください。
+詳細については[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を参照してください。
 
 ### portworxVolume {#portworxvolume}
 
@@ -715,7 +715,7 @@ RBDの特徴として、複数のコンシューマーから同時に読み取�
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
 `RBD`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`rbd.csi.ceph.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
-この機能を使用するには、クラスターに[Ceph CSIドライバー](https://github.com/ceph/ceph-csi)をインストールし、`CSIMigration`および`csiMigrationRBD`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしておく必要があります。
+この機能を使用するには、クラスターに[Ceph CSIドライバー](https://github.com/ceph/ceph-csi)をインストールし、`CSIMigration`および`csiMigrationRBD`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にしておく必要があります。
 
 
 {{< note >}}
@@ -741,7 +741,7 @@ Kubernetes APIにsecretを格納し、Kubernetesに直接結合することな�
 [`SubPath`](#using-subpath)ボリュームマウントとしてSecretを使用しているコンテナは、Secretの更新を受け取りません。
 {{< /note >}}
 
-詳細については[Secretの設定](/ja/docs/concepts/configuration/secret/)を参照してください。
+詳細については[Secretの設定](/docs/concepts/configuration/secret/)を参照してください。
 
 ### storageOS(非推奨) {#storageos}
 
@@ -860,7 +860,7 @@ spec:
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `vsphereVolume`の`CSIMigration`機能を有効にすると、既存のツリー内プラグインから`csi.vsphere.vmware.com`{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーにすべてのプラグイン操作がリダイレクトされます。
-この機能を使用するには、クラスターに[vSphere CSIドライバー](https://github.com/kubernetes-sigs/vsphere-csi-driver)がインストールされ、`CSIMigration`および`CSIMigrationvSphere`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていなければなりません。
+この機能を使用するには、クラスターに[vSphere CSIドライバー](https://github.com/kubernetes-sigs/vsphere-csi-driver)がインストールされ、`CSIMigration`および`CSIMigrationvSphere`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていなければなりません。
 
 また、vSphere vCenter/ESXiのバージョンが7.0u1以上、HWのバージョンがVM version 15以上であることが条件です。
 
@@ -976,7 +976,7 @@ spec:
 `emptyDir`ボリュームの記憶媒体(DiskやSSDなど)は、kubeletのルートディレクトリ(通常は`/var/lib/kubelet`)を保持するファイルシステムの媒体によって決定されます。
 `emptyDir`または`hostPath`ボリュームが消費する容量に制限はなく、コンテナ間またはPod間で隔離されることもありません。
 
-リソース仕様を使用したスペースの要求については、[リソースの管理方法](/ja/docs/concepts/configuration/manage-resources-containers/)を参照してください。
+リソース仕様を使用したスペースの要求については、[リソースの管理方法](/docs/concepts/configuration/manage-resources-containers/)を参照してください。
 
 ## ツリー外のボリュームプラグイン
 

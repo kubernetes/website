@@ -15,7 +15,7 @@ CronJobは、バックアップやメールの送信など、定期的なタス�
 
 CronJobには制限と特性があります。たとえば、特定の状況下では、1つのCronJobが複数のJobを作成する可能性があるため、Jobは冪等性を持つようにしなければいけません。
 
-制限に関する詳しい情報については、[CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
+制限に関する詳しい情報については、[CronJob](/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
@@ -116,11 +116,11 @@ CronJobが必要なくなったときは、`kubectl delete cronjob <cronjob name
 kubectl delete cronjob hello
 ```
 
-CronJobを削除すると、すべてのJobと、そのJobが作成したPodが削除され、追加のJobの作成が停止されます。Jobの削除について詳しく知りたい場合は、[ガベージコレクション](/ja/docs/concepts/workloads/controllers/garbage-collection/)を読んでください。
+CronJobを削除すると、すべてのJobと、そのJobが作成したPodが削除され、追加のJobの作成が停止されます。Jobの削除について詳しく知りたい場合は、[ガベージコレクション](/docs/concepts/workloads/controllers/garbage-collection/)を読んでください。
 
 ## CronJobのspecを書く {#writing-a-cron-job-spec}
 
-すべてのKubernetesの設定と同じように、CronJobにも`apiVersion`、`kind`、`metadata`のフィールドが必要です。設定ファイルの扱い方についての一般的な情報については、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)と[kubectlを使用してリソースを管理する](/ja/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
+すべてのKubernetesの設定と同じように、CronJobにも`apiVersion`、`kind`、`metadata`のフィールドが必要です。設定ファイルの扱い方についての一般的な情報については、[アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)と[kubectlを使用してリソースを管理する](/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
 
 CronJobの設定には、[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。
 

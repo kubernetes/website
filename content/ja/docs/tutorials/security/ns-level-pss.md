@@ -9,7 +9,7 @@ weight: 20
 {{% /alert %}}
 
 Podセキュリティアドミッション(PSA)は、[ベータへ進み](/blog/2021/12/09/pod-security-admission-beta/)、v1.23以降でデフォルトで有効になっています。
-Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
+Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
 このチュートリアルでは、一度に1つの名前空間で`baseline` Podセキュリティ標準を強制します。
 
 Podセキュリティの標準を複数の名前空間に一度にクラスターレベルで適用することもできます。やり方については[クラスターレベルでのPodセキュリティの標準の適用](/docs/tutorials/security/cluster-level-pss/)を参照してください。
@@ -19,7 +19,7 @@ Podセキュリティの標準を複数の名前空間に一度にクラスタ�
 ワークステーションに以下をインストールしてください:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/ja/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 
 ## クラスターの作成
 
@@ -144,6 +144,6 @@ kind delete cluster --name psa-ns-level
   3. `enforce`モードでは`baseline` Podセキュリティの標準を適用し、`warn`および`audit`モードでは`restricted` Podセキュリティの標準を適用します。
   4. これらのPodセキュリティの標準を適用した新しいPodを作成します。
 
-- [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)
-- [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-- [クラスターレベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/cluster-level-pss/)
+- [Podのセキュリティアドミッション](/docs/concepts/security/pod-security-admission/)
+- [Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)
+- [クラスターレベルでのPodセキュリティの標準の適用](/docs/tutorials/security/cluster-level-pss/)

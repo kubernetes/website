@@ -20,7 +20,7 @@ Kubernetesでは、 _HorizontalPodAutoscaler_ は自動的にワークロード�
 
 HorizontalPodAutoscalerは、Kubernetes APIリソースと{{< glossary_tooltip text="コントローラー" term_id="controller" >}}として実装されています。リソースはコントローラーの動作を決定します。Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}内で稼働している水平Pod自動スケーリングコントローラーは、平均CPU利用率、平均メモリー利用率、または指定した任意のカスタムメトリクスなどの観測メトリクスに合わせて、ターゲット(例:Deployment)の理想的なスケールを定期的に調整します。
 
-水平Pod自動スケーリングの[使用例のウォークスルー](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)があります。
+水平Pod自動スケーリングの[使用例のウォークスルー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)があります。
 
 <!-- body -->
 
@@ -55,7 +55,7 @@ Kubernetesは水平Pod自動スケーリングを断続的に動作する制御�
 
 各期間中に1回、コントローラーマネージャーはHorizontalPodAutoscalerの定義のそれぞれに指定されたメトリクスに対するリソース使用率を照会します。コントローラーマネージャーは`scaleTargetRef`によって定義されたターゲットリソースを見つけ、ターゲットリソースの`.spec.selector`ラベルに基づいてPodを選択し、リソースメトリクスAPI(Podごとのリソースメトリクスの場合)またはカスタムメトリクスAPI(他のすべてのメトリクスの場合)からメトリクスを取得します。
 
-- Podごとのリソースメトリクス(CPUなど)の場合、コントローラーはHorizontalPodAutoscalerによってターゲットとされた各PodのリソースメトリクスAPIからメトリクスを取得します。その後、使用率の目標値が設定されている場合、コントローラーは各Pod内のコンテナの同等の[リソース要求](/ja/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)に対する割合として使用率を算出します。生の値の目標値が設定されている場合、生のメトリクス値が直接使用されます。次に、コントローラーはすべてのターゲットとなるPod間で使用率または生の値(指定されたターゲットのタイプによります)の平均を取り、理想のレプリカ数でスケールするために使用される比率を生成します。
+- Podごとのリソースメトリクス(CPUなど)の場合、コントローラーはHorizontalPodAutoscalerによってターゲットとされた各PodのリソースメトリクスAPIからメトリクスを取得します。その後、使用率の目標値が設定されている場合、コントローラーは各Pod内のコンテナの同等の[リソース要求](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)に対する割合として使用率を算出します。生の値の目標値が設定されている場合、生のメトリクス値が直接使用されます。次に、コントローラーはすべてのターゲットとなるPod間で使用率または生の値(指定されたターゲットのタイプによります)の平均を取り、理想のレプリカ数でスケールするために使用される比率を生成します。
 
     Podのコンテナの一部に関連するリソース要求が設定されていない場合、PodのCPU利用率は定義されず、オートスケーラーはそのメトリクスに対して何も行動を起こしません。オートスケーリングアルゴリズムの動作についての詳細は、以下の[アルゴリズムの詳細](#algorithm-details)をご覧ください。
 
@@ -63,7 +63,7 @@ Kubernetesは水平Pod自動スケーリングを断続的に動作する制御�
 
 - オブジェクトメトリクスと外部メトリクスについては、問題となるオブジェクトを表す単一のメトリクスが取得されます。このメトリクスは目標値と比較され、上記のような比率を生成します。`autoscaling/v2` APIバージョンでは、比較を行う前にこの値をPodの数で割ることもできます。
 
-HorizontalPodAutoscalerを使用する一般的な目的は、{{< glossary_tooltip text="集約API" term_id="aggregation-layer" >}}(`metrics.k8s.io`、`custom.metrics.k8s.io`、または`external.metrics.k8s.io`)からメトリクスを取得するように設定することです。`metrics.k8s.io` APIは通常、別途起動する必要があるMetrics Serverというアドオンによって提供されます。リソースメトリクスについての詳細は、[Metrics Server](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#メトリクスサーバー)をご覧ください。
+HorizontalPodAutoscalerを使用する一般的な目的は、{{< glossary_tooltip text="集約API" term_id="aggregation-layer" >}}(`metrics.k8s.io`、`custom.metrics.k8s.io`、または`external.metrics.k8s.io`)からメトリクスを取得するように設定することです。`metrics.k8s.io` APIは通常、別途起動する必要があるMetrics Serverというアドオンによって提供されます。リソースメトリクスについての詳細は、[Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#メトリクスサーバー)をご覧ください。
 
 [メトリクスAPIのサポート](#support-for-metrics-apis)は、これらの異なるAPIの安定性の保証とサポート状況を説明します。
 
@@ -81,7 +81,7 @@ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricVal
 
 `targetAverageValue`または`targetAverageUtilization`が指定されている場合、`currentMetricValue`は、HorizontalPodAutoscalerのスケールターゲット内のすべてのPodで指定されたメトリクスの平均を取ることで計算されます。
 
-許容範囲を確認し、最終的な値を決定する前に、コントロールプレーンは、メトリクスが欠けていないか、また何個のPodが[`Ready`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)状態であるかを考慮します。削除タイムスタンプが設定されているすべてのPod(削除タイムスタンプがあるオブジェクトはシャットダウンまたは削除の途中です)は無視され、失敗したPodはすべて破棄されます。
+許容範囲を確認し、最終的な値を決定する前に、コントロールプレーンは、メトリクスが欠けていないか、また何個のPodが[`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)状態であるかを考慮します。削除タイムスタンプが設定されているすべてのPod(削除タイムスタンプがあるオブジェクトはシャットダウンまたは削除の途中です)は無視され、失敗したPodはすべて破棄されます。
 
 特定のPodがメトリクスを欠いている場合、それは後で検討するために取っておかれます。メトリクスが欠けているPodは、最終的なスケーリング量の調整に使用されます。
 
@@ -107,7 +107,7 @@ HorizontalPodAutoscalerに複数のメトリクスが指定されている場合
 
 Horizontal Pod Autoscalerは、Kubernetesの`autoscaling` APIグループのAPIリソースです。現行の安定バージョンは、メモリーおよびカスタムメトリクスに対するスケーリングのサポートを含む`autoscaling/v2` APIバージョンに見つけることができます。`autoscaling/v2`で導入された新たなフィールドは、`autoscaling/v1`で作業する際にアノテーションとして保持されます。
 
-HorizontalPodAutoscaler APIオブジェクトを作成するときは、指定された名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)であることを確認してください。APIオブジェクトについての詳細は、[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/v1.27/#horizontalpodautoscaler-v2-autoscaling)で見つけることができます。
+HorizontalPodAutoscaler APIオブジェクトを作成するときは、指定された名前が有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)であることを確認してください。APIオブジェクトについての詳細は、[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/v1.27/#horizontalpodautoscaler-v2-autoscaling)で見つけることができます。
 
 ## ワークロードスケールの安定性 {#flapping}
 
@@ -336,7 +336,7 @@ HPAの設定自体を変更することなく、ターゲットのHPAを暗黙�
 
 HPAが有効になっている場合、Deploymentおよび/またはStatefulSetの`spec.replicas`の値をその{{< glossary_tooltip text="マニフェスト" term_id="manifest" >}}から削除することが推奨されます。これを行わない場合、たとえば`kubectl apply -f deployment.yaml`を介してそのオブジェクトに変更が適用されるたびに、これはKubernetesに現在のPodの数を`spec.replicas`キーの値にスケールするよう指示します。これは望ましくない場合があり、HPAがアクティブなときに問題になる可能性があります。
 
-`spec.replicas`の削除は、このキーのデフォルト値が1であるため(参照: [Deploymentのレプリカ数](/ja/docs/concepts/workloads/controllers/deployment/#レプリカ数))、一度だけPod数が低下する可能性があることに注意してください。更新時に、1つを除くすべてのPodが終了手順を開始します。その後の任意のDeploymentアプリケーションは通常どおり動作し、望む通りのローリングアップデート設定を尊重します。Deploymentをどのように変更しているかによって、以下の2つの方法から1つを選択することでこの低下を回避することができます:
+`spec.replicas`の削除は、このキーのデフォルト値が1であるため(参照: [Deploymentのレプリカ数](/docs/concepts/workloads/controllers/deployment/#レプリカ数))、一度だけPod数が低下する可能性があることに注意してください。更新時に、1つを除くすべてのPodが終了手順を開始します。その後の任意のDeploymentアプリケーションは通常どおり動作し、望む通りのローリングアップデート設定を尊重します。Deploymentをどのように変更しているかによって、以下の2つの方法から1つを選択することでこの低下を回避することができます:
 
 {{< tabs name="fix_replicas_instructions" >}}
 {{% tab name="Client Side Apply (これがデフォルトです)" %}}
@@ -361,7 +361,7 @@ HPAが有効になっている場合、Deploymentおよび/またはStatefulSet�
 
 HorizontalPodAutoscalerに関する詳細情報:
 
-- [Horizontal Pod Autoscalerウォークスルー](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)を読む。
+- [Horizontal Pod Autoscalerウォークスルー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)を読む。
 - [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale)のドキュメンテーションを読む。
 - 独自のカスタムメトリクスアダプターを書きたい場合は、[ボイラープレート](https://github.com/kubernetes-sigs/custom-metrics-apiserver)をチェックして始めてみてください。
 - HorizontalPodAutoscalerの[APIリファレンス](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)を読む。

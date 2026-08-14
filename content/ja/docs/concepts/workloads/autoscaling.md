@@ -27,8 +27,8 @@ Kubernetesはワークロードの _手動スケーリング_ をサポートし
 
 両方の戦略の例については以下をご覧ください。
 
-- **水平スケーリング**: [アプリケーションの複数インスタンスを実行](/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-- **垂直スケーリング**: [コンテナに割り当てるCPUとメモリ容量を変更](/ja/docs/tasks/configure-pod-container/resize-container-resources)
+- **水平スケーリング**: [アプリケーションの複数インスタンスを実行](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **垂直スケーリング**: [コンテナに割り当てるCPUとメモリ容量を変更](/docs/tasks/configure-pod-container/resize-container-resources)
 
 ## ワークロードを自動でスケーリングする {#scaling-workloads-automatically}
 
@@ -42,7 +42,7 @@ Kubernetesにおいて、 _HorizontalPodAutoscaler_ (HPA)を使用してワー�
 
 これはKubernetes APIリソースおよび{{< glossary_tooltip text="コントローラー" term_id="controller">}}として実装されており、CPUやメモリ使用率のような観測されたリソース使用率と一致するようにワークロードの{{<glossary_tooltip text="レプリカ" term_id="replica" >}}数を定期的に調整します。
 
-Deployment用のHorizontalPodAutoscalerを構成する[ウォークスルーチュートリアル](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)があります。
+Deployment用のHorizontalPodAutoscalerを構成する[ウォークスルーチュートリアル](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)があります。
 
 ### ワークロードを垂直方向にスケーリングする {#scaling-workloads-vertically}
 
@@ -73,7 +73,7 @@ VPAが機能するにはクラスターに[Metrics Server](https://github.com/ku
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 Kubernetes {{< skew currentVersion >}}の時点では、VPAはインプレースでのPodのリサイズをサポートしていませんが、この統合は現在作業中です。
-インプレースでPodの手動リサイズをするには、[コンテナリソースをインプレースでリサイズする](/ja/docs/tasks/configure-pod-container/resize-container-resources/)を参照してください。
+インプレースでPodの手動リサイズをするには、[コンテナリソースをインプレースでリサイズする](/docs/tasks/configure-pod-container/resize-container-resources/)を参照してください。
 
 ### クラスターサイズに基づく自動スケーリング {#autoscaling-based-on-cluster-size}
 
@@ -112,8 +112,8 @@ KEDAは例えばキューのメッセージ数などの処理するべきイベ�
 ## {{% heading "whatsnext" %}}
 
 - 水平スケーリングについて詳しく学ぶ
-  - [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)
-  - [HorizontalPodAutoscalerウォークスルー](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
-- [コンテナリソースのインプレースサイズ変更](/ja/docs/tasks/configure-pod-container/resize-container-resources/)
+  - [StatefulSetのスケール](/docs/tasks/run-application/scale-stateful-set/)
+  - [HorizontalPodAutoscalerウォークスルー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [コンテナリソースのインプレースサイズ変更](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [クラスター内のDNSサービスを自動スケールする](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - [Nodeの自動スケーリング](/docs/concepts/cluster-administration/node-autoscaling/)について学ぶ

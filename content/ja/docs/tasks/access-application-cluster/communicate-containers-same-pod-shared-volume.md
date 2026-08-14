@@ -7,7 +7,7 @@ weight: 120
 <!-- overview -->
 
 このページでは、ボリュームを使用して、同じPodで実行されている2つのコンテナ間で通信する方法を示します。
-コンテナ間で[プロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)ことにより、プロセスが通信できるようにする方法も参照してください。
+コンテナ間で[プロセス名前空間を共有する](/docs/tasks/configure-pod-container/share-process-namespace/)ことにより、プロセスが通信できるようにする方法も参照してください。
 
 
 
@@ -135,9 +135,9 @@ Podを削除して再作成すると、共有ボリュームに保存されて�
 
 * [モジュラーアーキテクチャ用の複合コンテナ](http://www.slideshare.net/Docker/slideshare-burns)について学ぶ
 
-* [ストレージにボリュームを使用するPodの構成](/ja/docs/tasks/configure-pod-container/configure-volume-storage/)を参照
+* [ストレージにボリュームを使用するPodの構成](/docs/tasks/configure-pod-container/configure-volume-storage/)を参照
 
-* [Pod内のコンテナ間でプロセス名前空間を共有するPodの構成](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を参照
+* [Pod内のコンテナ間でプロセス名前空間を共有するPodの構成](/docs/tasks/configure-pod-container/share-process-namespace/)を参照
 
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)を参照
 

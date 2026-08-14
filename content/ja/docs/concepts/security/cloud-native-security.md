@@ -51,7 +51,7 @@ Kubernetesはクラウドネイティブアーキテクチャに基づいてお�
 1. サプライチェーンを保証するために、デジタル証明書などの検証メカニズムを使用します。
 1. セキュリティリスクを通知するためのフィードや他のメカニズムにサブスクライブします。
 1. アーティファクトへのアクセスを制限します。
-   コンテナイメージを[プライベートレジストリ](/ja/docs/concepts/containers/images/#using-a-private-registry)に配置し、認証されたクライアントのみがイメージを取得できるようにします。
+   コンテナイメージを[プライベートレジストリ](/docs/concepts/containers/images/#using-a-private-registry)に配置し、認証されたクライアントのみがイメージを取得できるようにします。
 
 ## _Deploy_ ライフサイクルフェーズ {#lifecycle-phase-deploy}
 
@@ -73,8 +73,8 @@ Kubernetes APIはクラスターを機能させるためのものです。
 Kubernetesドキュメント内の他のページでは、アクセスコントロールの特定の側面を設定する方法について詳しく説明しています。
 [セキュリティチェックリスト](/docs/concepts/security/security-checklist/)には、クラスターの基本的なチェックを行うための提案が記載されています。
 
-さらに、APIアクセスのための効果的な[認証](/ja/docs/concepts/security/controlling-access/#authentication)と[認可](/ja/docs/concepts/security/controlling-access/#authorization)を実装することがクラスターのセキュリティを確保することにつながります。
-[サービスアカウント](/ja/docs/concepts/security/service-accounts/)を使用して、ワークロードとクラスターコンポーネントのセキュリティアイデンティティを提供および管理します。
+さらに、APIアクセスのための効果的な[認証](/docs/concepts/security/controlling-access/#authentication)と[認可](/docs/concepts/security/controlling-access/#authorization)を実装することがクラスターのセキュリティを確保することにつながります。
+[サービスアカウント](/docs/concepts/security/service-accounts/)を使用して、ワークロードとクラスターコンポーネントのセキュリティアイデンティティを提供および管理します。
 
 KubernetesはTLSを使用してAPIトラフィックを保護します。
 (ノードとコントロールプレーン間のトラフィックを含めて)TLSを使用してクラスターをデプロイし、暗号化キーを保護してください。
@@ -90,14 +90,14 @@ Kubernetesプロジェクトは特定のコンテナランタイムを推奨し�
 
 ランタイムでコンピューティングを保護するために、次のことができます:
 
-1. アプリケーションの[Podのセキュリティ標準](/ja/docs/concepts/security/pod-security-standards/)を強制することで、アプリケーションが必要な権限のみで実行されるようにします。
+1. アプリケーションの[Podのセキュリティ標準](/docs/concepts/security/pod-security-standards/)を強制することで、アプリケーションが必要な権限のみで実行されるようにします。
 1. コンテナ化されたワークロードを実行するために、特別に設計されたオペレーティングシステムをノード上で実行します。
    これは通常、コンテナの実行に不可欠なサービスのみを提供する読み取り専用オペレーティングシステム(_イミュータブルイメージ_)に基づいています。
 
    コンテナ固有のオペレーティングシステムは、システムコンポーネントを分離し、コンテナエスケープが発生した際の攻撃対象領域を減らすのに役立ちます。
-1. [ResourceQuotas](/ja/docs/concepts/policy/resource-quotas/)を定義して、共有リソースを公平に割り当て、Podがリソース要件を指定できるようにするために[LimitRanges](/ja/docs/concepts/policy/limit-range/)などのメカニズムを使用します。
+1. [ResourceQuotas](/docs/concepts/policy/resource-quotas/)を定義して、共有リソースを公平に割り当て、Podがリソース要件を指定できるようにするために[LimitRanges](/docs/concepts/policy/limit-range/)などのメカニズムを使用します。
 1. 異なるノード間でワークロードを分割します。
-   Kubernetes自体またはエコシステムのいずれかから[ノードの分離](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#node-isolation-restriction)メカニズムを使用して、異なる信頼コンテキストのPodが別個のノードセットで実行されるようにします。
+   Kubernetes自体またはエコシステムのいずれかから[ノードの分離](/docs/concepts/scheduling-eviction/assign-pod-node/#node-isolation-restriction)メカニズムを使用して、異なる信頼コンテキストのPodが別個のノードセットで実行されるようにします。
 1. セキュリティ制約を提供する{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}を使用します。
 1. Linuxノードでは、[AppArmor](/docs/tutorials/security/apparmor/)や[seccomp](/docs/tutorials/security/seccomp/)などのLinuxセキュリティモジュールを使用します。
 
@@ -117,7 +117,7 @@ _ハードウェアセキュリティモジュール_ を使用すると、セ�
 
 ### ネットワークとセキュリティ
 
-[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)や[サービスメッシュ](https://glossary.cncf.io/ja/service-mesh/)などのネットワークセキュリティ対策の検討もまた重要です。
+[ネットワークポリシー](/docs/concepts/services-networking/network-policies/)や[サービスメッシュ](https://glossary.cncf.io/ja/service-mesh/)などのネットワークセキュリティ対策の検討もまた重要です。
 Kubernetesの一部のネットワークプラグインは、仮想プライベートネットワーク(VPN)オーバーレイなどの技術を使用して、クラスターネットワークの暗号化を提供します。
 設計上、Kubernetesはクラスターに独自のネットワークプラグインを使用することを許可しています(マネージドKubernetesを使用している場合、クラスターを管理している個人または組織がネットワークプラグインを選択している可能性があります)。
 
@@ -150,12 +150,12 @@ Kubernetes自体にもいくつかの基本的なオブザーバビリティ機�
 
 ### Kubernetesと情報セキュリティ {#further-reading-k8s}
 
-* [Kubernetesセキュリティ](/ja/docs/concepts/security/)
-* [クラスターの保護](/ja/docs/tasks/administer-cluster/securing-a-cluster/)
+* [Kubernetesセキュリティ](/docs/concepts/security/)
+* [クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)
 * コントロールプレーンの[転送中のデータ暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [保存時のデータ暗号化](/docs/tasks/administer-cluster/encrypt-data/)
-* [KubernetesのSecret](/ja/docs/concepts/configuration/secret/)
-* [Kubernetes APIへのアクセスコントロール](/ja/docs/concepts/security/controlling-access)
-* Podの[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
-* [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-* [RuntimeClass](/ja/docs/concepts/containers/runtime-class)
+* [KubernetesのSecret](/docs/concepts/configuration/secret/)
+* [Kubernetes APIへのアクセスコントロール](/docs/concepts/security/controlling-access)
+* Podの[ネットワークポリシー](/docs/concepts/services-networking/network-policies/)
+* [Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)
+* [RuntimeClass](/docs/concepts/containers/runtime-class)

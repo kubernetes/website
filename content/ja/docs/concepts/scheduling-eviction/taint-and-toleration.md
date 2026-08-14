@@ -6,7 +6,7 @@ weight: 50
 
 
 <!-- overview -->
-[_ノードアフィニティ_](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)は
+[_ノードアフィニティ_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)は
 {{< glossary_tooltip text="Pod" term_id="pod" >}}の属性であり、ある{{< glossary_tooltip text="ノード" term_id="node" >}}群を*引きつけます*（優先条件または必須条件）。反対に _taint_ はノードがある種のPodを排除できるようにします。
 
 _toleration_ はPodに適用され、一致するtaintが付与されたノードへPodがスケジューリングされることを認めるものです。ただしそのノードへ必ずスケジューリングされるとは限りません。
@@ -191,7 +191,7 @@ Kubernetesはユーザーまたはコントローラーが明示的に指定し�
 自動的に設定されるtolerationは、taintに対応する問題がノードで検知されても5分間はそのノードにPodが残されることを意味します。
 {{< /note >}}
 
-[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)のPodは次のtaintに対して`NoExecute`のtolerationが`tolerationSeconds`を指定せずに設定されます。
+[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)のPodは次のtaintに対して`NoExecute`のtolerationが`tolerationSeconds`を指定せずに設定されます。
 
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`

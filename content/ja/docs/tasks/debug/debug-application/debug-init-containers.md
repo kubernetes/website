@@ -15,7 +15,7 @@ weight: 40
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)の基本を理解しておきましょう。
+* [Initコンテナ](/docs/concepts/workloads/pods/init-containers/)の基本を理解しておきましょう。
 * [Initコンテナを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
 
 

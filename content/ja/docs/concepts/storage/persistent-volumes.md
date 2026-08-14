@@ -321,7 +321,7 @@ PersistentVolumeの種類はプラグインとして実装されます。Kuberne
 
 各PVには、仕様とボリュームのステータスが含まれているspecとstatusが含まれています。
 PersistentVolumeオブジェクトの名前は、有効な
-[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -491,7 +491,7 @@ CLIにはPVに紐付いているPVCの名前が表示されます。
 各PVCにはspecとステータスが含まれます。これは、仕様とクレームのステータスです。
 
 PersistentVolumeClaimオブジェクトの名前は、有効な
-[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -527,7 +527,7 @@ Podと同様に、クレームは特定の量のリソースを要求できま�
 
 ### セレクター
 
-クレームでは、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
+クレームでは、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
 
 * `matchLabels` - ボリュームはこの値のラベルが必要です
 * `matchExpressions` - キー、値のリスト、およびキーと値を関連付ける演算子を指定することによって作成された要件のリスト。有効な演算子は、In、NotIn、ExistsおよびDoesNotExistです。
@@ -708,7 +708,7 @@ spec:
 
 ## ボリュームの複製
 
-[ボリュームの複製](/ja/docs/concepts/storage/volume-pvc-datasource/)はCSIボリュームプラグインにのみ利用可能です。
+[ボリュームの複製](/docs/concepts/storage/volume-pvc-datasource/)はCSIボリュームプラグインにのみ利用可能です。
 
 PVCデータソースからのボリューム複製機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 

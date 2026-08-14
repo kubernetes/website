@@ -17,7 +17,7 @@ APIサーバーは、エンドユーザー、クラスターのさまざまな�
 
 Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます（例：Pod、Namespace、ConfigMap、Events）。
 
-ほとんどの操作は、APIを使用している[kubectl](/ja/docs/reference/kubectl/)コマンドラインインターフェースもしくは[kubeadm](/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
+ほとんどの操作は、APIを使用している[kubectl](/docs/reference/kubectl/)コマンドラインインターフェースもしくは[kubeadm](/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
 RESTコールを利用して直接APIにアクセスすることも可能です。
 
 Kubernetes APIを利用してアプリケーションを書いているのであれば、[client libraries](/docs/reference/using-api/client-libraries/)の利用を考えてみてください。
@@ -177,13 +177,13 @@ APIバージョンレベルの定義に関する詳細は[APIバージョンの�
 
 Kubernetes APIは2つの方法で拡張できます。
 
-1. [カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)は、APIサーバーが選択したリソースAPIをどのように提供するかを宣言的に定義します。
-1. [アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)を実装することでKubernetes APIを拡張することもできます。
+1. [カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)は、APIサーバーが選択したリソースAPIをどのように提供するかを宣言的に定義します。
+1. [アグリゲーションレイヤー](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)を実装することでKubernetes APIを拡張することもできます。
 
 
 ## {{% heading "whatsnext" %}}
 
 - 自分自身で[カスタムリソース定義](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)を追加してKubernetes APIを拡張する方法について学んでください。
 - [Kubernetes APIのアクセス制御](/docs/concepts/security/controlling-access/)では、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
-- [APIリファレンス](/ja/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
+- [APIリファレンス](/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
 - [APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)から、互換性のある変更とは何か, どのようにAPIを変更するかについて学んでください。

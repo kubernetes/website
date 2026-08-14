@@ -14,24 +14,24 @@ weight: 10
 
 ## カスタムリソース
 
-*リソース* は、[Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)のエンドポイントで、特定の[APIオブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
+*リソース* は、[Kubernetes API](/docs/concepts/overview/kubernetes-api/)のエンドポイントで、特定の[APIオブジェクト](/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
 
 *カスタムリソース* は、Kubernetes APIの拡張で、デフォルトのKubernetesインストールでは、必ずしも利用できるとは限りません。つまりそれは、特定のKubernetesインストールのカスタマイズを表します。しかし、今現在、多数のKubernetesのコア機能は、カスタムリソースを用いて作られており、Kubernetesをモジュール化しています。
 
-カスタムリソースは、稼働しているクラスターに動的に登録され、現れたり、消えたりし、クラスター管理者はクラスター自体とは無関係にカスタムリソースを更新できます。一度、カスタムリソースがインストールされると、ユーザーは[kubectl](/ja/docs/reference/kubectl/)を使い、ビルトインのリソースである *Pods* と同じように、オブジェクトを作成、アクセスすることが可能です。
+カスタムリソースは、稼働しているクラスターに動的に登録され、現れたり、消えたりし、クラスター管理者はクラスター自体とは無関係にカスタムリソースを更新できます。一度、カスタムリソースがインストールされると、ユーザーは[kubectl](/docs/reference/kubectl/)を使い、ビルトインのリソースである *Pods* と同じように、オブジェクトを作成、アクセスすることが可能です。
 
 ## カスタムコントローラー
 
 カスタムリソースそれ自身は、単純に構造化データを格納、取り出す機能を提供します。カスタムリソースを *カスタムコントローラー* と組み合わせることで、カスタムリソースは真の _宣言的API_ を提供します。
 
-[宣言的API](/ja/docs/concepts/overview/kubernetes-api/)は、リソースのあるべき状態を _宣言_ または指定することを可能にし、Kubernetesオブジェクトの現在の状態を、あるべき状態に同期し続けるように動きます。
+[宣言的API](/docs/concepts/overview/kubernetes-api/)は、リソースのあるべき状態を _宣言_ または指定することを可能にし、Kubernetesオブジェクトの現在の状態を、あるべき状態に同期し続けるように動きます。
 コントローラーは、構造化データをユーザーが指定したあるべき状態と解釈し、その状態を管理し続けます。
 
 稼働しているクラスターのライフサイクルとは無関係に、カスタムコントローラーをデプロイ、更新することが可能です。カスタムコントローラーはあらゆるリソースと連携できますが、カスタムリソースと組み合わせると特に効果を発揮します。[オペレーターパターン](https://coreos.com/blog/introducing-operators.html)は、カスタムリソースとカスタムコントローラーの組み合わせです。カスタムコントローラーにより、特定アプリケーションのドメイン知識を、Kubernetes APIの拡張に変換することができます。
 
 ## カスタムリソースをクラスターに追加するべきか？
 
-新しいAPIを作る場合、[APIをKubernetesクラスターAPIにアグリゲート(集約)する](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)か、もしくはAPIをスタンドアローンで動かすかを検討します。
+新しいAPIを作る場合、[APIをKubernetesクラスターAPIにアグリゲート(集約)する](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)か、もしくはAPIをスタンドアローンで動かすかを検討します。
 
 | APIアグリゲーションを使う場合: | スタンドアローンAPIを使う場合: |
 | ------------------------------ | ---------------------------- |
@@ -39,7 +39,7 @@ weight: 10
 | 新しいリソースを`kubectl`を使い読み込み、書き込みしたい| `kubectl`のサポートは必要ない |
 | 新しいリソースをダッシュボードのような、Kubernetes UIで他のビルトインリソースと同じように管理したい | Kubernetes UIのサポートは必要ない |
 | 新しいAPIを開発している | APIを提供し、適切に機能するプログラムが既に存在している |
-| APIグループ、名前空間というような、RESTリソースパスに割り当てられた、Kubernetesのフォーマット仕様の制限を許容できる([API概要](/ja/docs/concepts/overview/kubernetes-api/)を参照) | 既に定義済みのREST APIと互換性を持っていなければならない |
+| APIグループ、名前空間というような、RESTリソースパスに割り当てられた、Kubernetesのフォーマット仕様の制限を許容できる([API概要](/docs/concepts/overview/kubernetes-api/)を参照) | 既に定義済みのREST APIと互換性を持っていなければならない |
 | リソースはクラスターごとか、クラスター内の名前空間に自然に分けることができる | クラスター、または名前空間による分割がリソース管理に適さない。特定のリソースパスに基づいて管理したい |
 | [Kubernetes APIサポート機能](#一般的な機能)を再利用したい | これらの機能は必要ない |
 
@@ -78,7 +78,7 @@ APIが宣言的ではない兆候として、次のものがあります:
 * ファイルが更新されたときに、Deploymentなどを介してローリングアップデートを行いたい
 
 {{< note >}}
-センシティブなデータには、ConfigMapに類似していますがよりセキュアな[secret](/ja/docs/concepts/configuration/secret/)を使ってください
+センシティブなデータには、ConfigMapに類似していますがよりセキュアな[secret](/docs/concepts/configuration/secret/)を使ってください
 {{< /note >}}
 
 下記のほとんどに該当する場合、カスタムリソース(CRD、またはアグリゲートAPI)を使ってください:
@@ -95,11 +95,11 @@ APIが宣言的ではない兆候として、次のものがあります:
 Kubernetesは、クラスターへカスタムリソースを追加する2つの方法を提供しています:
 
 - CRDはシンプルで、プログラミングなしに作成可能
-- [APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、プログラミングが必要だが、データがどのように格納され、APIバージョン間でどのように変換されるかというような、より詳細なAPIの振る舞いを制御できる
+- [APIアグリゲーション](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、プログラミングが必要だが、データがどのように格納され、APIバージョン間でどのように変換されるかというような、より詳細なAPIの振る舞いを制御できる
 
 Kubernetesは、さまざまなユーザーのニーズを満たすためにこれら2つのオプションを提供しており、使いやすさや柔軟性が損なわれることはありません。
 
-アグリゲートAPIは、プロキシとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
+アグリゲートAPIは、プロキシとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
 
 CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類のリソースを作成できます。CRDを使うには、APIアグリゲーションを理解する必要はありません。
 
@@ -108,7 +108,7 @@ CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類�
 ## CustomResourceDefinition
 
 [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
-CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)に従わなければなりません。
+CRDオブジェクトの名前は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)に従わなければなりません。
 
 これはカスタムリソースを処理するために、独自のAPIサーバーを書くことから解放してくれますが、一般的な性質として[APIサーバーアグリゲーション](#APIサーバーアグリゲーション)と比べると、柔軟性に欠けます。
 
@@ -118,7 +118,7 @@ CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/ov
 
 通常、Kubernetes APIの各リソースは、RESTリクエストとオブジェクトの永続的なストレージを管理するためのコードが必要です。メインのKubernetes APIサーバーは *Pod* や *Service* のようなビルトインのリソースを処理し、またカスタムリソースも[CRD](#customresourcedefinition)を通じて同じように管理することができます。
 
-[アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを独自のAPIサーバーに委譲することで、他のクライアントからも利用できるようにします。
+[アグリゲーションレイヤー](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを独自のAPIサーバーに委譲することで、他のクライアントからも利用できるようにします。
 
 ## カスタムリソースの追加方法を選択する
 
@@ -219,5 +219,5 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 ## {{% heading "whatsnext" %}}
 
 
-* [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
+* [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
 * [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)について学ぶ

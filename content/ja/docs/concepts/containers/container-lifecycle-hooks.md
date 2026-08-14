@@ -33,7 +33,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 このフックは、APIからの要求、またはliveness/startup probeの失敗、プリエンプション、リソース競合などの管理イベントが原因でコンテナが終了する直前に呼び出されます。コンテナがすでに終了状態または完了状態にある場合には`PreStop`フックの呼び出しは失敗し、コンテナを停止するTERMシグナルが送信される前にフックは完了する必要があります。`PreStop`フックが実行される前にPodの終了猶予期間のカウントダウンが開始されるので、ハンドラーの結果に関わらず、コンテナはPodの終了猶予期間内に最終的に終了します。
 ハンドラーにパラメーターは渡されません。
 
-終了動作の詳細な説明は、[Termination of Pods](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)にあります。
+終了動作の詳細な説明は、[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)にあります。
 
 ### フックハンドラーの実装
 
@@ -107,6 +107,6 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 
-* [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
-* [コンテナライフサイクルイベントへのハンドラー紐付け](/ja/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
+* [コンテナ環境](/docs/concepts/containers/container-environment/)の詳細
+* [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 

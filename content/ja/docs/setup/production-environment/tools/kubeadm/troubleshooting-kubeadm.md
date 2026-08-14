@@ -91,9 +91,9 @@ subjects:
 
   以上のようなエラーが現れていた場合、cgroupドライバーの問題を解決するには、以下の2つの方法があります:
 
- 1. [ここ](/ja/docs/setup/independent/install-kubeadm/#installing-docker)の指示に従ってDockerを再度インストールします。
+ 1. [ここ](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)の指示に従ってDockerを再度インストールします。
 
- 1. Dockerのcgroupドライバーに合わせてkubeletの設定を手動で変更します。その際は、[マスターノード上でkubeletが使用するcgroupドライバーを設定する](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)を参照してください。
+ 1. Dockerのcgroupドライバーに合わせてkubeletの設定を手動で変更します。その際は、[マスターノード上でkubeletが使用するcgroupドライバーを設定する](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)を参照してください。
 
 - control plane Dockerコンテナがクラッシュループしたり、ハングしたりしています。これは`docker ps`を実行し、`docker logs`を実行して各コンテナを調査することで確認できます。
 
@@ -143,11 +143,11 @@ Calico、Canal、FlannelのCNIプロバイダーは、HostPortをサポートし
 
 詳細については、[CNI portmap documentation] (https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md) を参照してください。
 
-ネットワークプロバイダーが portmap CNI プラグインをサポートしていない場合は、[NodePortサービス](/ja/docs/concepts/services-networking/service/#nodeport)を使用するか、`HostNetwork=true`を使用してください。
+ネットワークプロバイダーが portmap CNI プラグインをサポートしていない場合は、[NodePortサービス](/docs/concepts/services-networking/service/#nodeport)を使用するか、`HostNetwork=true`を使用してください。
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug/debug-application/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダーにお問い合わせください。
+- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/docs/tasks/debug/debug-application/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダーにお問い合わせください。
 
 - VirtualBoxを使用している場合(直接またはVagrant経由)は、`hostname -i`がルーティング可能なIPアドレスを返すことを確認する必要があります。デフォルトでは、最初のインターフェースはルーティング可能でないホスト専用のネットワークに接続されています。これを回避するには`/etc/hosts`を修正する必要があります。例としてはこの[Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)を参照してください。
 
@@ -226,7 +226,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 SELinuxを実行しているノードで古いバージョンのDockerを使用している場合、`coredns` Podが起動しないということが起きるかもしれません。この問題を解決するには、以下のオプションのいずれかを試してみてください:
 
-- [新しいDockerのバージョン](/ja/docs/setup/independent/install-kubeadm/#installing-docker)にアップグレードする。
+- [新しいDockerのバージョン](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)にアップグレードする。
 
 - [SELinuxを無効化する](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux)。
 - `coredns`を変更して、`allowPrivilegeEscalation`を`true`に設定:
@@ -273,7 +273,7 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 もし、`--apiserver-extra-args "enable-admission plugins=LimitRanger,NamespaceExists"`のようにカンマで区切られた複数の値をサポートする引数を渡した場合、このフラグは`flag: malformed pair, expect string=string`で失敗します。これは`--apiserver-extra-args`の引数リストが`key=value`のペアを期待しており、この場合`NamespacesExists`は値を欠いたキーとみなされるためです。
 
 別の方法として、`key=value`のペアを以下のように分離してみることもできます:
-`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`しかし、この場合は、キー`enable-admission-plugins`は`NamespaceExists`の値しか持ちません。既知の回避策としては、kubeadm[設定ファイル](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags)を使用することが挙げられます。
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`しかし、この場合は、キー`enable-admission-plugins`は`NamespaceExists`の値しか持ちません。既知の回避策としては、kubeadm[設定ファイル](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags)を使用することが挙げられます。
 
 ## cloud-controller-managerによってノードが初期化される前にkube-proxyがスケジューリングされる
 

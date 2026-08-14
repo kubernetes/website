@@ -26,10 +26,10 @@ weight: 20
 
 {{< note >}}
 - `cpu`および`memory`リソースに関しては、ResourceQuotaはlimitを設定している名前空間内の**全ての**(新しい)Podに対して当該リソースのlimitの設定を強制します。名前空間内の`cpu`または`memory`どちらかに対してリソースクォータを適用する場合、ユーザーやクライアントは全ての新しいPodごとに、そのリソースの`requests`あるいは`limits`を指定**しなければなりません**。そうでない場合、コントロールプレーンがそのPodの作成を拒否する可能性があります。
-- その他のリソースに関して: ResourceQuotaはリソースのlimitまたはrequestを設定していないPodでも機能します。これは、名前空間内のリソースクォータにおいてエフェメラルストレージのlimitを設定している場合、エフェメラルストレージのlimit/requestsを設定していないPodでも新規作成できることを意味します。[LimitRange](/ja/docs/concepts/policy/limit-range/)を使うことで、リソースに対して自動的にデフォルト要求を設定することができます。
+- その他のリソースに関して: ResourceQuotaはリソースのlimitまたはrequestを設定していないPodでも機能します。これは、名前空間内のリソースクォータにおいてエフェメラルストレージのlimitを設定している場合、エフェメラルストレージのlimit/requestsを設定していないPodでも新規作成できることを意味します。[LimitRange](/docs/concepts/policy/limit-range/)を使うことで、リソースに対して自動的にデフォルト要求を設定することができます。
 {{< /note >}}
 
-ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
+ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
 
 名前空間とクォータを使用して作成できるポリシーの例は以下の通りです。
 
@@ -48,7 +48,7 @@ ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/
 
 ## コンピュートリソースクォータ
 
-特定の名前空間において、[コンピュートリソース](/ja/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
+特定の名前空間において、[コンピュートリソース](/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
 
 下記のリソースタイプがサポートされています。
 
@@ -78,16 +78,16 @@ GPUリソースを例にすると、もしリソース名が`nvidia.com/gpu`で�
 
 ## ストレージのリソースクォータ
 
-特定の名前空間において[ストレージリソース](/ja/docs/concepts/storage/persistent-volumes/)の総数に上限をかけることができます。
+特定の名前空間において[ストレージリソース](/docs/concepts/storage/persistent-volumes/)の総数に上限をかけることができます。
 
 さらに、関連するストレージクラスに基づいて、ストレージリソースの消費量に上限をかけることもできます。
 
 | リソース名 | 説明 |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | 全てのPersistentVolumeClaimにおいて、ストレージのリクエストの合計がこの値を超えないようにします。 |
-| `persistentvolumeclaims` | 特定の名前空間内で作成可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
+| `persistentvolumeclaims` | 特定の名前空間内で作成可能な[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | ストレージクラス名`<storage-class-name>`に関連する全てのPersistentVolumeClaimにおいて、ストレージリクエストの合計がこの値を超えないようにします。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | ストレージクラス名`<storage-class-name>`に関連する全てのPersistentVolumeClaimにおいて、特定の名前空間内で作成可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | ストレージクラス名`<storage-class-name>`に関連する全てのPersistentVolumeClaimにおいて、特定の名前空間内で作成可能な[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
 
 例えば、もし管理者が`gold`ストレージクラスを`bronze`ストレージクラスと分けてリソースクォータを設定するとき、管理者はリソースクォータを下記のように指定できます。
 
@@ -133,7 +133,7 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 | リソース名 | 説明 |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | 名前空間内で存在可能なConfigMapの総数。  |
-| `persistentvolumeclaims` | 名前空間内で存在可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
+| `persistentvolumeclaims` | 名前空間内で存在可能な[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
 | `pods` | 名前空間内で存在可能な停止していないPodの総数。`.status.phase in (Failed, Succeeded)`がtrueのとき、Podは停止状態にあります。  |
 | `replicationcontrollers` | 名前空間内で存在可能なReplicationControllerの総数。 |
 | `resourcequotas` | 名前空間内で存在可能なResourceQuotaの総数。 |
@@ -156,7 +156,7 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 | `NotTerminating` | `.spec.activeDeadlineSecondsがnil`であるPodに一致します。 |
 | `BestEffort` | ベストエフォート型のサービス品質のPodに一致します。 |
 | `NotBestEffort` | ベストエフォート型のサービス品質でないPodに一致します。 |
-| `PriorityClass` | 指定された[優先度クラス](/ja/docs/concepts/configuration/pod-priority-preemption)と関連付いているPodに一致します。 |
+| `PriorityClass` | 指定された[優先度クラス](/docs/concepts/configuration/pod-priority-preemption)と関連付いているPodに一致します。 |
 
 `BestEffort`スコープはリソースクォータを次のリソースに対するトラッキングのみに制限します:
 
@@ -205,7 +205,7 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-Podは特定の[優先度](/ja/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
+Podは特定の[優先度](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
 
 リソースクォータのSpec内の`scopeSelector`によってPodが選択されたときのみ、そのリソースクォータが一致し、消費されます。
 

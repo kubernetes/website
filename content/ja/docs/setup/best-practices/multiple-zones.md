@@ -18,7 +18,7 @@ Kubernetesは、1つのKubernetesクラスターが複数のゾーンにまた�
 
 ## コントロールプレーンの動作
 
-すべての[コントロールプレーンコンポーネント](/ja/docs/concepts/overview/components/#control-plane-components)は、交換可能なリソースのプールとして実行され、コンポーネントごとに複製されることをサポートします。
+すべての[コントロールプレーンコンポーネント](/docs/concepts/overview/components/#control-plane-components)は、交換可能なリソースのプールとして実行され、コンポーネントごとに複製されることをサポートします。
 
 クラスターコントロールプレーンをデプロイする場合は、複数のゾーンに渡ってコントロールプレーンコンポーネントのレプリカを配置します。可用性を重視する場合は、少なくとも3つのゾーンを選択し、個々のコントロールプレーンコンポーネント(APIサーバー、スケジューラー、etcd、クラスターコントローラーマネージャー)を少なくとも3つのゾーンに渡って複製します。クラウドコントローラーマネージャーを実行している場合は、選択したすべてのゾーンにまたがって複製する必要があります。
 
@@ -44,7 +44,7 @@ Cluster APIなどのツールを使用すると、複数の障害ドメインに
 
 ## Podの手動ゾーン割り当て
 
-[nodeSelectorの制約](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)は、作成したPodだけでなく、Deployment、StatefulSet、Jobなどのワークロードリソース内のPodテンプレートにも適用できます。
+[nodeSelectorの制約](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)は、作成したPodだけでなく、Deployment、StatefulSet、Jobなどのワークロードリソース内のPodテンプレートにも適用できます。
 
 ## ゾーンのストレージアクセス
 
@@ -52,7 +52,7 @@ Persistent Volumeが作成されると、Kubernetesは特定のゾーンにリ�
 
 ゾーンラベルの追加方法は、クラウドプロバイダーと使用しているストレージプロビジョナーによって異なる可能性があることに注意してください。正しい設定を行うために、常に利用している環境のドキュメントを参照してください。
 
-Persistent Volume Claimには、そのクラス内のストレージが使用する障害ドメイン(ゾーン)を指定する{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}を指定できます。障害ドメインまたはゾーンを認識するStorageClassの構成については、[許可されたトポロジー](/ja/docs/concepts/storage/storage-classes/#allowed-topologies)を参照してください。
+Persistent Volume Claimには、そのクラス内のストレージが使用する障害ドメイン(ゾーン)を指定する{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}を指定できます。障害ドメインまたはゾーンを認識するStorageClassの構成については、[許可されたトポロジー](/docs/concepts/storage/storage-classes/#allowed-topologies)を参照してください。
 
 ## ネットワーキング
 
@@ -68,4 +68,4 @@ Kubernetesにはこの課題に対する答えはありませんが、検討す�
 
 ## {{% heading "whatsnext" %}}
 
-設定された制約を守りつつ、スケジューラーがクラスターにPodを配置する方法については、[スケジューリング、プリエンプションと退避](/ja/docs/concepts/scheduling-eviction/)を参照してください。
+設定された制約を守りつつ、スケジューラーがクラスターにPodを配置する方法については、[スケジューリング、プリエンプションと退避](/docs/concepts/scheduling-eviction/)を参照してください。

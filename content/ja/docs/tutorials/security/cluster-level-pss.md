@@ -9,10 +9,10 @@ weight: 10
 {{% /alert %}}
 
 Podセキュリティアドミッション(PSA)は、[ベータへ進み](/blog/2021/12/09/pod-security-admission-beta/)、v1.23以降でデフォルトで有効になっています。
-Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
+Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
 このチュートリアルでは、クラスター内の全ての名前空間に標準設定を適用することで、クラスターレベルで`baseline` Podセキュリティの標準を強制する方法を示します。
 
-Podセキュリティの標準を特定の名前空間に適用するには、[名前空間レベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/ns-level-pss/)を参照してください。
+Podセキュリティの標準を特定の名前空間に適用するには、[名前空間レベルでのPodセキュリティの標準の適用](/docs/tutorials/security/ns-level-pss/)を参照してください。
 
 v{{< skew currentVersion >}}以外のKubernetesバージョンを実行している場合は、そのバージョンのドキュメントを確認してください。
 
@@ -21,14 +21,14 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 ワークステーションに以下をインストールしてください:
 
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/ja/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 
 このチュートリアルでは、完全な制御下にあるKubernetesクラスターの何を設定できるかをデモンストレーションします。
-コントロールプレーンを設定できない管理されたクラスターのPodセキュリティアドミッションに対しての設定方法を知りたいのであれば、[名前空間レベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/ns-level-pss/)を参照してください。
+コントロールプレーンを設定できない管理されたクラスターのPodセキュリティアドミッションに対しての設定方法を知りたいのであれば、[名前空間レベルでのPodセキュリティの標準の適用](/docs/tutorials/security/ns-level-pss/)を参照してください。
 
 ## 適用する正しいPodセキュリティの標準の選択
 
-[Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)は、以下のモードでビルトインの[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用を促します: `enforce`、`audit`、`warn`。
+[Podのセキュリティアドミッション](/docs/concepts/security/pod-security-admission/)は、以下のモードでビルトインの[Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)の適用を促します: `enforce`、`audit`、`warn`。
 設定に最適なPodセキュリティの標準を選択するにあたって助けになる情報を収集するために、以下を行ってください:
 
 1. Podセキュリティの標準を適用していないクラスターを作成します:
@@ -299,6 +299,6 @@ kind delete cluster --name psa-wo-cluster-pss
   4. この新しいクラスターにkubectl contextをセットします。
   5. 最小限のPod YAMLファイルを作成します。
   6. 新しいクラスター内でPodを作成するために、このファイルを適用します。
-- [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)
-- [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-- [名前空間レベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/ns-level-pss/)
+- [Podのセキュリティアドミッション](/docs/concepts/security/pod-security-admission/)
+- [Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)
+- [名前空間レベルでのPodセキュリティの標準の適用](/docs/tutorials/security/ns-level-pss/)

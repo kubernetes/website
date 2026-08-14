@@ -14,4 +14,4 @@ tags:
 サイドカーコンテナは通常のアプリケーションコンテナと似ていますが、目的が違います: サイドカーコンテナは、同じPodで実行されるメインのアプリケーションコンテナに対してサービスを提供します。
 {{< glossary_tooltip text="Initコンテナ" term_id="init-container" >}}とは異なり、サイドカーコンテナはPod起動後も実行を続けます。
 
-詳細については、[サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)をご参照ください。
+詳細については、[サイドカーコンテナ](/docs/concepts/workloads/pods/sidecar-containers/)をご参照ください。

@@ -32,7 +32,7 @@ weight: 30
 
 Jobは、1つ以上の{{< glossary_tooltip term_id="pod" >}}を起動して、タスクを実行した後に停止する、Kubernetesのリソースです。
 
-(1度[スケジュール](/ja/docs/concepts/scheduling-eviction/)されると、Podオブジェクトはkubeletに対する目的の状態の一部になります。)
+(1度[スケジュール](/docs/concepts/scheduling-eviction/)されると、Podオブジェクトはkubeletに対する目的の状態の一部になります。)
 
 Jobコントローラーが新しいタスクを見つけると、その処理が完了するように、クラスター上のどこかで、一連のNode上のkubeletが正しい数のPodを実行することを保証します。ただし、Jobコントローラーは、自分自身でPodやコンテナを実行することはありません。代わりに、APIサーバーに対してPodの作成や削除を依頼します。{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}上の他のコンポーネントが(スケジュールして実行するべき新しいPodが存在するという)新しい情報を基に動作することによって、最終的に目的の処理が完了します。
 
@@ -54,7 +54,7 @@ Jobとは対照的に、クラスターの外部に変更を加える必要が�
 
 ここで重要な点は、コントローラーが目的の状態を実現するために変更を加えてから、現在の状態をクラスターのAPIサーバーに報告することです。他の制御ループは、その報告されたデータを監視し、独自のアクションを実行できます。
 
-サーモスタットの例では、部屋が非常に寒い場合、別のコントローラーが霜防止ヒーターをオンにすることもあります。Kubernetesクラスターを使用すると、コントロールプレーンは、[Kubernetesを拡張して](/ja/docs/concepts/extend-kubernetes/)実装することにより、IPアドレス管理ツールやストレージサービス、クラウドプロバイダーAPI、およびその他のサービスと間接的に連携します。
+サーモスタットの例では、部屋が非常に寒い場合、別のコントローラーが霜防止ヒーターをオンにすることもあります。Kubernetesクラスターを使用すると、コントロールプレーンは、[Kubernetesを拡張して](/docs/concepts/extend-kubernetes/)実装することにより、IPアドレス管理ツールやストレージサービス、クラウドプロバイダーAPI、およびその他のサービスと間接的に連携します。
 
 ## 目的の状態 vs 現在の状態 {#desired-vs-current}
 
@@ -86,7 +86,7 @@ Kubernetesを拡張するためにコントロールプレーンの外で動作�
 
 ## {{% heading "whatsnext" %}}
 
-* [Kubernetesコントロールプレーン](/ja/docs/concepts/overview/components/#control-plane-components)について読む。
-* 基本的な[Kubernetesオブジェクト](/ja/docs/concepts/overview/working-with-objects/)について学ぶ。
-* [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学ぶ。
-* 自分でコントローラーを書きたい場合は、「Kubernetesを拡張する」の[エクステンションパターン](/ja/docs/concepts/extend-kubernetes/#extension-patterns)を読んでください。
+* [Kubernetesコントロールプレーン](/docs/concepts/overview/components/#control-plane-components)について読む。
+* 基本的な[Kubernetesオブジェクト](/docs/concepts/overview/working-with-objects/)について学ぶ。
+* [Kubernetes API](/docs/concepts/overview/kubernetes-api/)について学ぶ。
+* 自分でコントローラーを書きたい場合は、「Kubernetesを拡張する」の[エクステンションパターン](/docs/concepts/extend-kubernetes/#extension-patterns)を読んでください。

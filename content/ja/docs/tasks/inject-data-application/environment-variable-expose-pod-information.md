@@ -138,7 +138,7 @@ kubectl logs dapi-envars-resourcefieldref
 ## {{% heading "whatsnext" %}}
 
 
-* [コンテナの環境変数の定義](/ja/docs/tasks/inject-data-application/define-environment-variable-container/)
+* [コンテナの環境変数の定義](/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [EnvVar](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)

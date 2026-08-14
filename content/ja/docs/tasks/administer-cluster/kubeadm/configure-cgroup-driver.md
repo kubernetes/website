@@ -10,13 +10,13 @@ weight: 20
 
 ## {{% heading "prerequisites" %}}
 
-Kubernetesの[コンテナランタイムの要件](/ja/docs/setup/production-environment/container-runtimes)を熟知している必要があります。
+Kubernetesの[コンテナランタイムの要件](/docs/setup/production-environment/container-runtimes)を熟知している必要があります。
 
 <!-- steps -->
 
 ## コンテナランタイムのcgroupドライバーの設定
 
-[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes)ページでは、kubeadmベースのセットアップでは`cgroupfs`ドライバーではなく、`systemd`ドライバーが推奨されると説明されています。
+[コンテナランタイム](/docs/setup/production-environment/container-runtimes)ページでは、kubeadmベースのセットアップでは`cgroupfs`ドライバーではなく、`systemd`ドライバーが推奨されると説明されています。
 
 このページでは、デフォルトの`systemd`ドライバーを使用して多くの異なるコンテナランタイムをセットアップする方法についての詳細も説明されています。
 

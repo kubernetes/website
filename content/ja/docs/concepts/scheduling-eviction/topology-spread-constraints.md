@@ -27,7 +27,7 @@ Podが2つだけの場合、単一ノードの障害でワークロードがオ�
 ノードは該当数のレプリカを実行するために十分なキャパシティを持っていますが、このワークロードとやり取りするクライアントは3つの異なるデータセンター(またはインフラストラクチャゾーン)に分散されています。
 単一ノードの障害についての懸念は減りましたが、レイテンシーが予想よりも高く、異なるゾーン間でネットワークトラフィックを送信する際にネットワークコストがかかっていることに気づきます。
 
-通常の運用では、各インフラストラクチャゾーンに同数のレプリカを[スケジュール](/ja/docs/concepts/scheduling-eviction/)し、問題が発生した場合はクラスターが自己修復するようにしたいと考えるでしょう。
+通常の運用では、各インフラストラクチャゾーンに同数のレプリカを[スケジュール](/docs/concepts/scheduling-eviction/)し、問題が発生した場合はクラスターが自己修復するようにしたいと考えるでしょう。
 
 Podトポロジー分散制約は、このようなシナリオに対処するための手段を提供します。
 
@@ -101,7 +101,7 @@ spec:
 
 - **labelSelector**は、一致するPodを見つけるために使用されます。
   このラベルセレクターに一致するPodは、対応するトポロジードメイン内のPodの数を決定するためにカウントされます。
-  詳細については、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を参照してください。
+  詳細については、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を参照してください。
 
 - **matchLabelKeys**は、分散を計算するPodを選択するためのPodラベルキーのリストです。
   このキーは、Podラベルから値を検索するために使用され、これらのkey-valueラベルは`labelSelector`とAND演算され、新しいPodのために分散が計算される既存のPodのグループを選択します。
@@ -113,7 +113,7 @@ spec:
   `matchLabelKeys`を使用すると、異なるリビジョン間で`pod.spec`を更新する必要がありません。
   コントローラー/オペレーターは、異なるリビジョンに対して同じラベルキーを異なる値に設定するだけです。
   スケジューラーは、`matchLabelKeys`に基づいて値を自動的に推定します。
-  例えばDeploymentを構成する場合、Deploymentコントローラーによって自動的に追加される[pod-template-hash](/ja/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)をキーとするラベルを使用して、単一のDeployment内の異なるリビジョンを区別できます。
+  例えばDeploymentを構成する場合、Deploymentコントローラーによって自動的に追加される[pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)をキーとするラベルを使用して、単一のDeployment内の異なるリビジョンを区別できます。
 
   ```yaml
       topologySpreadConstraints:
@@ -129,7 +129,7 @@ spec:
 
   {{< note >}}
   `matchLabelKeys`フィールドは、ベータレベルのフィールドであり、1.27でデフォルトで有効になっています。
-  `MatchLabelKeysInPodTopologySpread`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
+  `MatchLabelKeysInPodTopologySpread`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
   {{< /note >}}
 
 - **nodeAffinityPolicy**は、Podのトポロジー分散スキューを計算する際に、PodのnodeAffinity/nodeSelectorをどのように扱うかを示します。
@@ -142,7 +142,7 @@ spec:
 
   {{< note >}}
   `nodeAffinityPolicy`はベータレベルのフィールドであり、1.26でデフォルトで有効になっています。
-  `NodeInclusionPolicyInPodTopologySpread`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
+  `NodeInclusionPolicyInPodTopologySpread`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
   {{< /note >}}
 
 - **nodeTaintsPolicy**は、Podのトポロジー分散スキューを計算する際に、ノードのtaintをどのように扱うかを示します。
@@ -155,7 +155,7 @@ spec:
 
   {{< note >}}
   `nodeTaintsPolicy`はベータレベルのフィールドであり、1.26でデフォルトで有効になっています。
-  `NodeInclusionPolicyInPodTopologySpread`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
+  `NodeInclusionPolicyInPodTopologySpread`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を無効にすることで無効にできます。
   {{< /note >}}
 
 Podに`topologySpreadConstraints`が複数定義されている場合、これらの制約は論理AND演算を使用して結合され、kube-schedulerは新しいPodに対して構成された制約をすべて満たすノードを探します。
@@ -441,7 +441,7 @@ class zoneC cluster;
 - `.spec.topologySpreadConstraints`に制約が定義されていない。
 - PodがService、ReplicaSet、StatefulSet、またはReplicationControllerに属している。
 
-デフォルトの制約は、[スケジューリングプロファイル](/ja/docs/reference/scheduling/config/#profiles)の`PodTopologySpread`プラグイン引数の一部として設定できます。
+デフォルトの制約は、[スケジューリングプロファイル](/docs/reference/scheduling/config/#profiles)の`PodTopologySpread`プラグイン引数の一部として設定できます。
 制約は、[上記のAPI](#topologyspreadconstraints-field)と同じように指定されますが、`labelSelector`は空である必要があります。
 Podが属するService、ReplicaSet、StatefulSet、またはReplicationControllerから計算されたセレクターが使用されます。
 
@@ -504,7 +504,7 @@ profiles:
 
 ## podAffinityとpodAntiAffinityとの比較 {#comparison-with-podaffinity-podantiaffinity}
 
-Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)によって、Podがより密集させるか分散させるかといった、Podが互いにどのようにスケジュールされるかを制御できます。
+Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)によって、Podがより密集させるか分散させるかといった、Podが互いにどのようにスケジュールされるかを制御できます。
 
 `podAffinity`
 : Podを引き付けます。

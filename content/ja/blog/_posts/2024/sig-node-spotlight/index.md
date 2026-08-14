@@ -11,7 +11,7 @@ translator: >
   [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
 
-コンテナオーケストレーションの世界で、[Kubernetes](/ja)は圧倒的な存在感を示しており、世界中で最も複雑で動的なアプリケーションの一部を動かしています。
+コンテナオーケストレーションの世界で、[Kubernetes](/)は圧倒的な存在感を示しており、世界中で最も複雑で動的なアプリケーションの一部を動かしています。
 その裏では、Special Interest Groups(SIG)のネットワークがKubernetesの革新と安定性を牽引しています。
 
 今日は、SIG Nodeのメンバーである[Matthias Bertschy](https://www.linkedin.com/in/matthias-bertschy-b427b815/)、[Gunju Kim](https://www.linkedin.com/in/gunju-kim-916b33190/)、[Sergey Kanzhelev](https://www.linkedin.com/in/sergeykanzhelev/)にお話を伺い、彼らの役割、課題、そして[SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)内の注目すべき取り組みについて光を当てていきます。
@@ -40,7 +40,7 @@ _複数の回答者による共同回答の場合は、回答者全員のイニ�
 
 **M/G/S:** Kubernetesは、安価なハードウェアを搭載した小型の物理VMから、大規模なAI/ML最適化されたGPU搭載Nodeまで、さまざまなサイズと形状のNodeで動作します。Nodeは数か月オンラインのままの場合もあれば、クラウドプロバイダーの余剰コンピューティングで実行されているため、短命で任意のタイミングでプリエンプトされる可能性もあります。
 
-Node上のKubernetesエージェントである[`kubelet`](/ja/docs/concepts/overview/components/#kubelet)は、これらすべての環境で確実に動作する必要があります。
+Node上のKubernetesエージェントである[`kubelet`](/docs/concepts/overview/components/#kubelet)は、これらすべての環境で確実に動作する必要があります。
 近年、`kubelet`の操作パフォーマンスの重要性が増しています。
 その理由は二つあります。
 一つは、Kubernetesが通信や小売業などの分野で、より小規模なNodeで使用されるようになってきており、可能な限り小さなリソース消費(フットプリント)で動作することが求められているからです。
@@ -65,17 +65,17 @@ SIG Nodeは、これからもKubernetesの開発において中心的な役割�
 
 **Arpit:** SIG Nodeが現在注目している技術や、Kubernetesへの導入を検討している新しい機能などはありますか？
 
-**M/G/S:** SIG Nodeは、Kubernetesが依存しているさまざまなコンポーネントの開発に積極的に関与し、その進展を注意深く見守っています。これには、[コンテナランタイム]((/ja/docs/setup/production-environment/container-runtimes/))([containerd](https://containerd.io/)や[CRI-O](https://cri-o.io/)など)やOSの機能が含まれます。例えば、現在 _cgroup v1_ の廃止と削除が迫っていますが、これに対してKubernetesユーザーが円滑に移行できるよう、SIG NodeとKubernetesプロジェクト全体で取り組んでいます。また、containerdがバージョン`2.0`をリリースする予定ですが、これには非推奨機能の削除が含まれており、Kubernetesユーザーにも影響が及ぶと考えられます。
+**M/G/S:** SIG Nodeは、Kubernetesが依存しているさまざまなコンポーネントの開発に積極的に関与し、その進展を注意深く見守っています。これには、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)([containerd](https://containerd.io/)や[CRI-O](https://cri-o.io/)など)やOSの機能が含まれます。例えば、現在 _cgroup v1_ の廃止と削除が迫っていますが、これに対してKubernetesユーザーが円滑に移行できるよう、SIG NodeとKubernetesプロジェクト全体で取り組んでいます。また、containerdがバージョン`2.0`をリリースする予定ですが、これには非推奨機能の削除が含まれており、Kubernetesユーザーにも影響が及ぶと考えられます。
 
 **Arpit:** SIG Nodeのメンテナーとしての経験の中で、特に誇りに思う思い出深い経験や成果を共有していただけますか？
 
-**Mathias:** 最高の瞬間は、私の最初のKEP([`startupProbe`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)の導入)がついにGA(General Availability)に昇格したときだと思います。また、私の貢献がコントリビューターによって日々使用されているのを見るのも楽しいです。例えば、スカッシュコミットにもかかわらずLGTMを保持するために使用されるGitHubツリーハッシュを含むコメントなどです。
+**Mathias:** 最高の瞬間は、私の最初のKEP([`startupProbe`](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)の導入)がついにGA(General Availability)に昇格したときだと思います。また、私の貢献がコントリビューターによって日々使用されているのを見るのも楽しいです。例えば、スカッシュコミットにもかかわらずLGTMを保持するために使用されるGitHubツリーハッシュを含むコメントなどです。
 
 ## サイドカーコンテナ
 
 **Arpit:** Kubernetesの文脈におけるサイドカーコンテナの概念とその進化について、もう少し詳しく教えていただけますか？
 
-**M/G/S:** [サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)の概念は、Kubernetesが複合コンテナのアイデアを導入した2015年にさかのぼります。同じPod内でメインのアプリケーションコンテナと並行して実行されるこれらの追加コンテナは、コアのコードベースを変更することなくアプリケーションの機能を拡張・強化する方法として見られていました。サイドカーの初期の採用者はカスタムスクリプトと設定を使用して管理していましたが、このアプローチは一貫性とスケーラビリティの面で課題がありました。
+**M/G/S:** [サイドカーコンテナ](/docs/concepts/workloads/pods/sidecar-containers/)の概念は、Kubernetesが複合コンテナのアイデアを導入した2015年にさかのぼります。同じPod内でメインのアプリケーションコンテナと並行して実行されるこれらの追加コンテナは、コアのコードベースを変更することなくアプリケーションの機能を拡張・強化する方法として見られていました。サイドカーの初期の採用者はカスタムスクリプトと設定を使用して管理していましたが、このアプローチは一貫性とスケーラビリティの面で課題がありました。
 
 **Arpit:** サイドカーコンテナが特に有益な具体的なユースケースや例を共有していただけますか？
 

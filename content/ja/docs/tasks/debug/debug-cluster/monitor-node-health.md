@@ -9,7 +9,7 @@ weight: 20
 *Node Problem Detector*は、ノードの健全性を監視し、報告するためのデーモンです。
 `Node Problem Detector`は`DaemonSet`として、あるいはスタンドアロンデーモンとして実行することができます。
 
-`Node Problem Detector`は様々なデーモンからノードの問題に関する情報を収集し、これらの状態を[NodeCondition](/ja/docs/concepts/architecture/nodes/#condition)および[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)としてAPIサーバーにレポートします。
+`Node Problem Detector`は様々なデーモンからノードの問題に関する情報を収集し、これらの状態を[NodeCondition](/docs/concepts/architecture/nodes/#condition)および[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)としてAPIサーバーにレポートします。
 `Node Problem Detector`のインストール方法と使用方法については、[Node Problem Detectorプロジェクトドキュメント](https://github.com/kubernetes/node-problem-detector)を参照してください。
 
 ## {{% heading "prerequisites" %}}
@@ -60,7 +60,7 @@ weight: 20
 
 `Node Problem Detector`の Dockerイメージをビルドする際に、[default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)が埋め込まれます。
 
-[`ConfigMap`](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/) を使用することで設定を上書きすることができます。
+[`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) を使用することで設定を上書きすることができます。
 
 
 1. `config/` にある設定ファイルを変更します

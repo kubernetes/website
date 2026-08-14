@@ -345,15 +345,15 @@ GAになってからさらなる変更を加えることは現実的ではない
 各フィーチャーゲートは特定の機能を有効/無効にするように設計されています。
 
 - `Accelerators`: DockerでのNvidia GPUのサポートを有効にします。
-- `AdvancedAuditing`: [高度な監査機能](/ja/docs/tasks/debug/debug-cluster/audit/#advanced-audit)を有効にします。
-- `AffinityInAnnotations`(*非推奨*): [Podのアフィニティまたはアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を有効にします。
+- `AdvancedAuditing`: [高度な監査機能](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)を有効にします。
+- `AffinityInAnnotations`(*非推奨*): [Podのアフィニティまたはアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を有効にします。
 - `AnyVolumeDataSource`: {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}の`DataSource`としてカスタムリソースの使用を有効にします。
 - `AllowExtTrafficLocalEndpoints`: サービスが外部へのリクエストをノードのローカルエンドポイントにルーティングできるようにします。
 - `APIListChunking`: APIクライアントがAPIサーバーからチャンク単位で（`LIST`や`GET`の）リソースを取得できるようにします。
 `APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
-- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/ja/docs/tutorials/security/apparmor/)で確認できます。
-- `ContainerCheckpoint`: kubeletチェックポイントAPIを有効にします。詳細は[KubeletチェックポイントAPI](/ja/docs/reference/node/kubelet-checkpoint-api/)で確認できます。
+- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/docs/tutorials/security/apparmor/)で確認できます。
+- `ContainerCheckpoint`: kubeletチェックポイントAPIを有効にします。詳細は[KubeletチェックポイントAPI](/docs/reference/node/kubelet-checkpoint-api/)で確認できます。
 - `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
 - `BalanceAttachedNodeVolumes`: スケジューリング中にバランスのとれたリソース割り当てを考慮するノードのボリュームカウントを含めます。判断を行う際に、CPU、メモリー使用率、およびボリュームカウントが近いノードがスケジューラーによって優先されます。
 - `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
@@ -379,7 +379,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CSIPersistentVolume`: [CSI(Container Storage Interface)](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md)互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
-- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/ja/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
+- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
 - `CustomResourceDefaulting`: OpenAPI v3バリデーションスキーマにおいて、デフォルト値のCRDサポートを有効にします。
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
@@ -389,7 +389,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
-- `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/ja/docs/concepts/storage/dynamic-provisioning/)を有効にします。
+- `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
 - `EnableAggregatedDiscoveryTimeout` (*非推奨*): 集約されたディスカバリーコールで5秒のタイムアウトを有効にします。
 - `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `EphemeralContainers`: 稼働するPodに{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}を追加する機能を有効にします。
@@ -401,7 +401,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `EndpointSlice`: よりスケーラブルで拡張可能なネットワークエンドポイントのエンドポイントスライスを有効にします。[Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/)をご覧ください。
 - `EndpointSliceProxying`: このフィーチャーゲートを有効にすると、kube-proxyはエンドポイントの代わりにエンドポイントスライスをプライマリデータソースとして使用し、スケーラビリティとパフォーマンスの向上を実現します。[Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).をご覧ください。
 - `GCERegionalPersistentDisk`: GCEでリージョナルPD機能を有効にします。
-- `HugePages`: 事前に割り当てられた[huge pages](/ja/docs/tasks/manage-hugepages/scheduling-hugepages/)の割り当てと消費を有効にします。
+- `HugePages`: 事前に割り当てられた[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)の割り当てと消費を有効にします。
 - `HugePageStorageMediumSize`: 事前に割り当てられた複数のサイズの[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)のサポートを有効にします。
 - `HyperVContainer`: Windowsコンテナの[Hyper-Vによる分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)を有効にします。
 - `HPAScaleToZero`: カスタムメトリクスまたは外部メトリクスを使用するときに、`HorizontalPodAutoscaler`リソースの`minReplicas`を0に設定できるようにします。
@@ -421,8 +421,8 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `PodOverhead`: [PodOverhead](/docs/concepts/configuration/pod-overhead/)機能を有効にして、Podのオーバーヘッドを考慮するようにします。
 - `PodDisruptionBudget`: [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)機能を有効にします。
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
-- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
-- `PodShareProcessNamespace`: Podで実行されているコンテナ間で単一のプロセス名前空間を共有するには、Podで`shareProcessNamespace`の設定を有効にします。詳細については、[Pod内のコンテナ間でプロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)をご覧ください。
+- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
+- `PodShareProcessNamespace`: Podで実行されているコンテナ間で単一のプロセス名前空間を共有するには、Podで`shareProcessNamespace`の設定を有効にします。詳細については、[Pod内のコンテナ間でプロセス名前空間を共有する](/docs/tasks/configure-pod-container/share-process-namespace/)をご覧ください。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
 - `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `QOSReserved`: QoSレベルでのリソース予約を許可して、低いQoSレベルのポッドが高いQoSレベルで要求されたリソースにバーストするのを防ぎます（現時点ではメモリのみ）。
@@ -431,7 +431,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `RotateKubeletClientCertificate`: kubeletでクライアントTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `RotateKubeletServerCertificate`: kubeletでサーバーTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `RunAsGroup`: コンテナの初期化プロセスで設定されたプライマリグループIDの制御を有効にします。
-- `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/ja/docs/concepts/containers/runtime-class/)機能を有効にします。
+- `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
 - `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
 - `SCTPSupport`: `Service`、`Endpoints`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
@@ -439,19 +439,19 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `ServiceAppProtocol`: サービスとエンドポイントで`AppProtocol`フィールドを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーまたは`node.kubernetes.io/exclude-from-external-load-balancers`でラベル付けされている場合ノードは除外の対象となります。
-- `ServiceTopology`: クラスターのノードトポロジーに基づいてトラフィックをルーティングするサービスを有効にします。詳細については、[Serviceトポロジー](/ja/docs/concepts/services-networking/service-topology/)を参照してください。
-- `StartupProbe`: kubeletで[startup](/ja/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
+- `ServiceTopology`: クラスターのノードトポロジーに基づいてトラフィックをルーティングするサービスを有効にします。詳細については、[Serviceトポロジー](/docs/concepts/services-networking/service-topology/)を参照してください。
+- `StartupProbe`: kubeletで[startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
 - `StreamingProxyRedirects`: ストリーミングリクエストのバックエンド(kubelet)からのリダイレクトをインターセプト（およびフォロー）するようAPIサーバーに指示します。ストリーミングリクエストの例には`exec`、`attach`、`port-forward`リクエストが含まれます。
-- `SupportIPVSProxyMode`: IPVSを使用したクラスター内サービスの負荷分散の提供を有効にします。詳細は[サービスプロキシ](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)で確認できます。
+- `SupportIPVSProxyMode`: IPVSを使用したクラスター内サービスの負荷分散の提供を有効にします。詳細は[サービスプロキシ](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)で確認できます。
 - `SupportPodPidsLimit`: PodのPID制限のサポートを有効にします。
 - `Sysctls`: 各Podに設定できる名前空間付きのカーネルパラメーター(sysctl)のサポートを有効にします。詳細は[sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)で確認できます。
 - `TaintBasedEvictions`: ノードのTaintとPodのTolerationに基づいてノードからPodを排除できるようにします。。詳細は[TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)で確認できます。
-- `TaintNodesByCondition`: [ノードの条件](/ja/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動Taintを有効にします。
+- `TaintNodesByCondition`: [ノードの条件](/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動Taintを有効にします。
 - `TokenRequest`: サービスアカウントリソースで`TokenRequest`エンドポイントを有効にします。
 - `TokenRequestProjection`: [Projectedボリューム](/docs/concepts/storage/volumes/#projected)を使用したPodへのサービスアカウントのトークンの注入を有効にします。
-- `TTLAfterFinished`: [TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
+- `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
 - `VolumePVCDataSource`: 既存のPVCをデータソースとして指定するサポートを有効にします。
 - `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`フィーチャーゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
 - `VolumeSnapshotDataSource`: ボリュームスナップショットのデータソースサポートを有効にします。

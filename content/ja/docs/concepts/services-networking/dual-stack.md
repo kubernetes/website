@@ -36,7 +36,7 @@ IPv4/IPv6デュアルスタックのKubernetesクラスターを利用するに�
 
 ## IPv4/IPv6デュアルスタックを有効にする
 
-IPv4/IPv6デュアルスタックを有効にするには、クラスターの関連コンポーネントで`IPv6DualStack`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、デュアルスタックのクラスターネットワークの割り当てを以下のように設定します。
+IPv4/IPv6デュアルスタックを有効にするには、クラスターの関連コンポーネントで`IPv6DualStack`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、デュアルスタックのクラスターネットワークの割り当てを以下のように設定します。
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
@@ -98,4 +98,4 @@ IPv6が有効になった外部ロードバランサーをサポートしてい�
 
 ## {{% heading "whatsnext" %}}
 
-* [IPv4/IPv6デュアルスタックのネットワークを検証する](/ja/docs/tasks/network/validate-dual-stack)
+* [IPv4/IPv6デュアルスタックのネットワークを検証する](/docs/tasks/network/validate-dual-stack)

@@ -37,7 +37,7 @@ Kubernetesのドキュメントには、Kubernetesプロジェクト([kubernetes
 
 Kubernetesプロジェクト内のアクティブなコンテンツへのリンクは常に許可されます。
 
-Kubernetesを機能させるためには、一部サードパーティーのコンテンツが必要です。たとえば、コンテナランタイム(containerd、CRI-O、Docker)、[ネットワークポリシー](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)(CNI plugin)、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)、[ロギング](/docs/concepts/cluster-administration/logging/)などです。
+Kubernetesを機能させるためには、一部サードパーティーのコンテンツが必要です。たとえば、コンテナランタイム(containerd、CRI-O、Docker)、[ネットワークポリシー](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)(CNI plugin)、[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)、[ロギング](/docs/concepts/cluster-administration/logging/)などです。
 
 ドキュメント内で、Kubernetesプロジェクト外のサードパーティーのオープンソースソフトウェア(OSS)にリンクすることができるのは、Kubernetesを機能させるために必要な場合のみです。
 

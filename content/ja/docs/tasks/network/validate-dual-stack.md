@@ -13,7 +13,7 @@ content_type: task
 
 * プロバイダーがデュアルスタックのネットワークをサポートしていること (クラウドプロバイダーか、ルーティングできるIPv4/IPv6ネットワークインターフェースを持つKubernetesノードが提供できること)
 * (KubenetやCalicoなど)デュアルスタックをサポートする[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-* [デュアルスタックを有効化](/ja/docs/concepts/services-networking/dual-stack/)したクラスター
+* [デュアルスタックを有効化](/docs/concepts/services-networking/dual-stack/)したクラスター
 
 {{< version-check >}}
 
