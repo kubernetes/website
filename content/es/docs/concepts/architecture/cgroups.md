@@ -44,8 +44,8 @@ y se basa en primitivas de cgroup v2.
 
 ## Usar cgroup v2 {#using-cgroupv2}
 
-La forma recomendada de usar cgroup v2 es utilizar una distribución de Linux que
-habilite y use cgroup v2 de forma predeterminada.
+La forma recomendada de usar cgroup v2 es utilizar una distribución de Linux con
+cgroup v2 habilitado y configurado de forma predeterminada.
 
 Para comprobar si tu distribución usa cgroup v2, consulta [Identificar la versión de cgroup en los nodos Linux](#check-cgroup-version).
 
