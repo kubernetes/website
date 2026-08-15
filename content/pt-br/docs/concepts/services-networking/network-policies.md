@@ -373,7 +373,7 @@ Uma vez que a `NetworkPolicy` é processada por um plugin de rede,
 1. Todos os pods recém-criados afetados por uma determinada `NetworkPolicy` serão isolados antes de serem iniciados.
    Implementações de `NetworkPolicy` devem garantir que a filtragem seja efetiva durante
    todo o ciclo de vida do Pod, mesmo a partir do primeiro instante em que qualquer contêiner desse Pod for iniciado.
-   Como são aplicadas a nível de Pod, `NetworkPolicies` aplicam-se igualmente a init containers,
+   Como são aplicadas a nível de Pod, `NetworkPolicies` aplicam-se igualmente a contêineres de inicialização (init containers),
    contêineres sidecar e contêineres regulares.
 
 1. As regras de permissão serão aplicadas eventualmente após as regras de isolamento (ou podem ser aplicadas ao mesmo tempo).
