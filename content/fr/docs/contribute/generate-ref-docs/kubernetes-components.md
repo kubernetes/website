@@ -201,6 +201,5 @@ Quelques minutes après le merge votre pull request, vos références mises à j
 
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
 * [Génération de documentation de référence pour l'API Kubernetes](/fr/docs/contribute/generate-ref-docs/kubernetes-api/)
-* [Génération de documentation de référence pour l'API de fédération Kubernetes](/docs/home/contribute/generated-reference/federation-api/)
 
 

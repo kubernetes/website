@@ -81,7 +81,7 @@ card:
   - 見出しIDは、英語ページでの見出しのパーマリンクを確認して、URLの`#`以降を使用する
 - ブログ記事については、次のことに留意する
   - メタデータの`evergreen: true`は削除する
-  - PR作成者とレビュアーは、以下の形式で翻訳者として名前を掲載できる([サンプル](https://github.com/kubernetes/website/blob/main/content/ja/blog/_posts/2025-04-23-Kubernetes-v1-33-Release/index.md?plain=1))
+  - PR作成者とレビュアーは、以下の形式で翻訳者として名前を掲載できる([サンプル](https://github.com/kubernetes/website/blob/main/content/ja/blog/_posts/2025/kubernetes-v1-33-release/index.md?plain=1))
     ```
     translator: >
       [PR作成者の名前](GitHubのURL) ([所属](所属のURL)),

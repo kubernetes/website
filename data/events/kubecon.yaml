@@ -3,24 +3,12 @@
 # To update, run:
 #   python3 scripts/fetch_kubecon_events.py
 #
-# Last updated: 2026-05-16 14:40:41
+# Last updated: 2026-06-28 08:40:28
 # Source: https://events.linuxfoundation.org/about/calendar/?_sf_s=kubecon
 
 events:
-- name: KubeCon + CloudNativeCon India
-  start_date: '2026-06-18'
-  end_date: '2026-06-19'
-  location:
-    announced: true
-    city: Mumbai
-    country: India
-  url: https://events.linuxfoundation.org/kubecon-cloudnativecon-india/
-  colors:
-  - '#f5d4a1'
-  - '#eeb32d'
-  region: India
 - name: KubeCon + CloudNativeCon Japan
-  start_date: '2026-07-29'
+  start_date: '2026-07-28'
   end_date: '2026-07-30'
   location:
     announced: true
@@ -31,5 +19,16 @@ events:
   - '#ffffff'
   - '#ffaebf'
   region: Japan
-last_updated: '2026-05-16 14:40:41'
+- name: KubeCon + CloudNativeCon North America
+  start_date: '2026-11-09'
+  end_date: '2026-11-12'
+  location:
+    announced: true
+    city: Salt Lake City
+    country: United States
+  url: https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/
+  colors:
+  - '#113e82'
+  region: North America
+last_updated: '2026-06-28 08:40:28'
 source: https://events.linuxfoundation.org/about/calendar/?_sf_s=kubecon
