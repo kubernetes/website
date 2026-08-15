@@ -7,14 +7,14 @@ weight: 10
 <!-- overview -->
 {{< feature-state feature_gate_name="WorkloadAwarePreemption" >}}
 
-PodGroupは中断モードを宣言できます。このモードは、より優先度の高いPodGroupを配置する場合などに、スケジューラーが実行中のPodGroupをどのように中断できるかを定めます。また、PodGroupには優先度があり、[ワークロードアウェア・プリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、グループ内の各Podの優先度に代わって適用されます。
+PodGroupは中断モードを宣言できます。このモードは、より優先度の高いPodGroupを配置する場合などに、スケジューラーが実行中のPodGroupをどのように中断できるかを定めます。また、PodGroupには優先度があり、[Workload-Aware Preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、グループ内の各Podの優先度に代わって適用されます。
 
 <!-- body -->
 
 ## 中断モードの種類 {#disruption-mode-types}
 
 {{< note >}}
-v1.36以降、PodGroupの`priority`または`disruptionMode`フィールドは、[ワークロードアウェア・プリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)でのみ考慮されます。Podのスケジューリングフェーズでは、スケジューラーはPodGroupの`priority`や`disruptionMode`フィールドを考慮しません。
+v1.36以降、PodGroupの`priority`または`disruptionMode`フィールドは、[Workload-Aware Preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)でのみ考慮されます。Podのスケジューリングフェーズでは、スケジューラーはPodGroupの`priority`や`disruptionMode`フィールドを考慮しません。
 {{< /note >}}
 
 APIは`Pod`と`PodGroup`の2つの中断モードをサポートしています。
@@ -38,7 +38,7 @@ PriorityClassが見つからない場合、PodGroupは拒否されます。
 PodGroupに`priorityClassName`が設定されていない場合、KubernetesはデフォルトのPriorityClass(`globalDefault`がtrueに設定されたPriorityClass)を探します。
 `globalDefault`がtrueに設定されたPriorityClassがない場合、`priorityClassName`が指定されていないPodGroupの優先度は0になります。
 
-個々のPodの優先度が異なる場合でも、[ワークロードアウェア・プリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、PodGroupの優先度がグループ内のすべてのPodの優先度として扱われます。
+個々のPodの優先度が異なる場合でも、[Workload-Aware Preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、PodGroupの優先度がグループ内のすべてのPodの優先度として扱われます。
 
 以下のYAMLは、整数の優先度値1000000に対応する`high-priority` PriorityClassを使用するPodGroup設定の例です。優先度アドミッションコントローラーは仕様を確認し、PodGroupの優先度を1000000に設定します。
 
@@ -54,5 +54,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [ワークロードアウェア・プリエンプションアルゴリズム](/docs/concepts/scheduling-eviction/workload-aware-preemption/)について読む。
+* [Workload-Aware Preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)アルゴリズムについて読む。
 * [Workload API](/docs/concepts/workloads/workload-api/)について学ぶ。
