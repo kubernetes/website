@@ -358,7 +358,7 @@ você pode utilizar essa _label_ padronizada para selecionar um namespace espec�
 ## Ciclo de vida do Pod
 
 {{< note >}}
-O que se segue aplica-se a clusters com um plugin de rede compatível e uma implementação compatível
+O conteúdo a seguir aplica-se a clusters com um plugin de rede compatível e uma implementação compatível
 de `NetworkPolicy`.
 {{< /note >}}
 
