@@ -35,7 +35,7 @@ PodGroupは、単一のPodと同じ[PriorityClass](/docs/concepts/scheduling-evi
 1つ以上のPriorityClassを作成すると、その仕様内でいずれかのPriorityClass名を指定したPodGroupを作成できます。
 優先度アドミッションコントローラーは`priorityClassName`フィールドを使用し、優先度の整数値を設定します。
 PriorityClassが見つからない場合、PodGroupは拒否されます。
-PodGroupに`priorityClassName`が設定されていない場合、KubernetesはデフォルトのPriorityClass（`globalDefault`がtrueに設定されたPriorityClass）を探します。
+PodGroupに`priorityClassName`が設定されていない場合、KubernetesはデフォルトのPriorityClass(`globalDefault`がtrueに設定されたPriorityClass)を探します。
 `globalDefault`がtrueに設定されたPriorityClassがない場合、`priorityClassName`が指定されていないPodGroupの優先度は0になります。
 
 個々のPodの優先度が異なる場合でも、[ワークロードアウェア・プリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、PodGroupの優先度がグループ内のすべてのPodの優先度として扱われます。
