@@ -73,6 +73,6 @@ kubernetes_healthchecks_total{name="ping",status="success",type="readyz"} 15
 ## 이 데이터 사용하기
 
 컴포넌트 SLI 메트릭 엔드포인트는 높은 빈도로 스크래핑되도록 설계되었다. 높은 빈도로
-스크래핑하면 게이지 신호를 더 세밀하게 확인할 수 있으며, 이 신호를 사용하여 SLO를
+스크래핑하면 게이지 신호를 더 세밀하게 확인할 수 있으며, 이 신호를 사용하여 서비스 수준 목표(Service Level Objective, SLO)를
 계산할 수 있다. `/metrics/slis` 엔드포인트는 각 쿠버네티스 컴포넌트의 가용성 SLO를
 계산하는 데 필요한 원시 데이터를 제공한다.
