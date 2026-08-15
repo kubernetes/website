@@ -5,7 +5,7 @@ metadata:
 spec:
   ipFamily: IPv6
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
