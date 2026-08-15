@@ -38,9 +38,9 @@ Quando uma política de redes baseada em IP é criada, nós definimos a polític
 <!-- body -->
 ## Pré requisitos
 
-As políticas de rede são implementadas pelo [plugin de redes](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
-Para usar uma política de redes, você deve usar uma solução de redes que suporte `NetworkPolicy`.
-A criação de um recurso `NetworkPolicy` sem um controlador que implemente essas regras não tem efeito.
+As políticas de rede são implementadas pelo [plugin de rede](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
+Para usar políticas de rede, você deve usar uma solução de rede que suporte NetworkPolicy.
+A criação de um recurso NetworkPolicy sem um controlador que implemente essas regras não tem efeito.
 
 ## Os dois tipos de isolamento de Pods
 
