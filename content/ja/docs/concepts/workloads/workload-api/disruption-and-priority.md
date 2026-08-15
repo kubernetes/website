@@ -40,7 +40,7 @@ PodGroupに`priorityClassName`が設定されていない場合、Kubernetesは�
 
 個々のPodの優先度が異なる場合でも、[ワークロードアウェア・プリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、PodGroupの優先度がグループ内のすべてのPodの優先度として扱われます。
 
-以下のYAMLは、整数の優先度値1000000に対応する`high-priority` PriorityClassを使用する、PodGroup設定の例です。優先度アドミッションコントローラーは仕様を確認し、PodGroupの優先度を1000000に設定します。
+以下のYAMLは、整数の優先度値1000000に対応する`high-priority` PriorityClassを使用するPodGroup設定の例です。優先度アドミッションコントローラーは仕様を確認し、PodGroupの優先度を1000000に設定します。
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha2
