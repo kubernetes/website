@@ -3,14 +3,13 @@ layout: blog
 title: "Spotlight on WG Device Management"
 slug: wg-device-management-spotlight-2026
 date: 2026-06-24T10:00:00-08:00
-canonicalUrl: https://www.kubernetes.dev/blog/2026/06/17/wg-device-management-spotlight-2026
+canonicalUrl: https://www.kubernetes.dev/blog/2026/06/24/wg-device-management-spotlight-2026
 author: "Natalie Fisher"
 ---
 
-
 The rising popularity of AI, Edge, and Telecommunications workloads on Kubernetes has led to new requirements for hardware management. We now need hardware specification beyond CPU time and memory allocations.  This includes allocating GPUs, TPUs, network interfaces, and other hardware, sometimes after pod start and occasionally through time-sharing. 
 
-Efficiently managing this specialized hardware is the mission of the **[Device Management Working Group](https://www.kubernetes.dev/community/community-groups/wg/device-management/)**. Their cornerstone project, **[Dynamic Resource Allocation (DRA)](https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)**, recently graduated to GA, marking a fundamental shift in how the project handles hardware-intensive workloads at scale.
+Efficiently managing this specialized hardware is the mission of the **[Device Management Working Group](https://www.kubernetes.dev/community/community-groups/wg/device-management/)**. Their cornerstone project, **[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)**, recently graduated to GA, marking a fundamental shift in how the project handles hardware-intensive workloads at scale.
 
 In this spotlight, we sit down with working group chairs **[Kevin Klues](https://github.com/klueska)**, **[Patrick Ohly](https://github.com/pohly)**, and
 **[John Belamaric](https://github.com/johnbelamaric)** to discuss the limitations of the legacy device model,
@@ -23,7 +22,7 @@ the _NP-hard_ challenges of scheduling, and how they’re building a more progra
 **Kevin Klues:** My name is Kevin Klues. I am a Distinguished Engineer at NVIDIA. I have been a co-chair of the device management working group since its inception at Kubecon EU 2024. I have also been involved with DRA (the working group's primary deliverable) since its inception in 2019 / 2020.
 I have also been a kubelet maintainer since 2019, with a focus on its device manager, CPU manager, and topology manager subcomponents. The challenges we saw with using these components for workloads that relied on external accelerators (e.g., GPUs) are what triggered us to start working on DRA in the first place.
 
-**Patrick Ohly:** I am a Principal Engineer at Intel. In Kubernetes, I am a Tech Lead for [SIG Testing](https://www.kubernetes.dev/community/community-groups/sigs/testing/) and [SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/) and co-chair of the Device Management WG. I was co-chair of the WG Structured Logging and a member of the Steering Committee. Some of my early contributions to Kubernetes include [ephemeral CSI volumes](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) and storage capacity tracking, so I had some experience with API design, implementation, and scheduling. We knew that introducing a major new API for accelerators would be hard. Somewhat foolishly, I accepted that challenge in 2020, wrote the initial DRA KEP (now known as “classic DRA”) and implemented most of it, then started over with a second KEP for today’s "structured parameters DRA". Initially, it was an uphill battle to convince maintainers that this work was necessary. It was only around 2023 that interest in DRA picked up, leading to the formation of the working group.
+**Patrick Ohly:** I am a Principal Engineer at Intel. In Kubernetes, I am a Tech Lead for [SIG Testing](https://www.kubernetes.dev/community/community-groups/sigs/testing/) and [SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/) and co-chair of the Device Management WG. I was co-chair of the WG Structured Logging and a member of the Steering Committee. Some of my early contributions to Kubernetes include [ephemeral CSI volumes](/docs/concepts/storage/ephemeral-volumes/) and storage capacity tracking, so I had some experience with API design, implementation, and scheduling. We knew that introducing a major new API for accelerators would be hard. Somewhat foolishly, I accepted that challenge in 2020, wrote the initial DRA KEP (now known as “classic DRA”) and implemented most of it, then started over with a second KEP for today’s "structured parameters DRA". Initially, it was an uphill battle to convince maintainers that this work was necessary. It was only around 2023 that interest in DRA picked up, leading to the formation of the working group.
 
 **John Belamaric:** I am a Senior Staff SWE at Google, and the third co-chair of WG Device Management, also since its inception. I am also a co-chair of [SIG Architecture](https://www.kubernetes.dev/community/community-groups/sigs/architecture/) since 2019. As Patrick mentioned, in late 2023, interest in DRA really picked up. The initial implementation, made autoscaling very challenging, and so there was some concern in the community about advancing it to beta. I got involved to try to help address some of those concerns, and the three of us, along with Tim Hockin, worked hard over the next few months to build a consensus around a new design. To facilitate this collaboration, we formed the working group after discussion at KubeCon in Paris in 2024. 
 
@@ -44,7 +43,7 @@ The problem we set out to solve is that the legacy Device Plugin API  (which has
 
 The working group's primary deliverable is Dynamic Resource Allocation (DRA), a new framework that replaces the rigid device plugin model with a flexible, declarative API.
 With DRA, workloads can describe their hardware requirements (e.g., GPU type, memory capacity, interconnect topology, desired partitioning) and drivers can publish fine-grained device attributes that the scheduler can act on.
-DRA [graduated](https://kubernetes.io/blog/2025/09/01/kubernetes-v1-34-dra-updates/) to GA in Kubernetes 1.34, and the ecosystem around it (e.g., drivers, tooling, and new API extensions) is growing rapidly.
+DRA [graduated](/blog/2025/09/01/kubernetes-v1-34-dra-updates/) to GA in Kubernetes 1.34, and the ecosystem around it (e.g., drivers, tooling, and new API extensions) is growing rapidly.
 
 **PO:** As Kevin said, the working group was formed around the existing effort to develop DRA. The initial work was done with only a handful of people actively involved, and perhaps also could only be done successfully in such a setup. But because it touches on so many different areas of Kubernetes, we also needed a place to discuss that and get the broader community of Kubernetes maintainers, device vendors, and, to a lesser extent, also end-users involved. The working group provides that place, with regular meetings online (one slot for Americas/EMEA, one for EMEA/Asia) and at KubeCon.
 
@@ -157,13 +156,13 @@ Despite the challenges, contributors across the working group remain excited abo
 
 I am really excited to see the creative ways people will use these APIs. They were primarily designed to address "devices", but just like how "everything is a file" in Unix/Linux, the APIs themselves are quite flexible as to what they model. They really build out a more programmable scheduler, which can have interesting applications. For example, I recently prototyped using DRA to schedule pods to nodes where a large AI model is already locally cached. It’s really quite flexible, and I have great confidence in the creativity of our community, so I think we’ll see some unexpected solutions in the ecosystem.
 
-# Getting involved
+## Getting involved
 
 **NF: How can contributors get involved with the Device Management Working Group?**
 
 **KK:** The easiest first step is to join our mailing list at [wg-device-management@kubernetes.io](mailto:wg-device-management@kubernetes.io). Subscribing will automatically add calendar invites for our biweekly meetings to your calendar.
 
-  We have two meeting slots to accommodate different time zones:
+We have two meeting slots to accommodate different time zones:
 
 - Europe/Americas: Tuesdays at 8:30 AM PT (biweekly)  
 - Asia/Europe: Wednesdays at 9:00 AM CET (biweekly)

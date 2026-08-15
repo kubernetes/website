@@ -39,7 +39,7 @@ weight: 20
 
 1. `node-problem-detector.yaml`のような`Node Problem Detector`の設定を作成します:
 
-   {{% codenew file="debug/node-problem-detector.yaml" %}}
+   {{% code_sample file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    システムログのディレクトリが、お使いのOSのディストリビューションに合っていることを確認する必要があります。
@@ -72,7 +72,7 @@ weight: 20
 
 1. `node-problem-detector.yaml`を変更して、`ConfigMap`を使用するようにします。
 
-   {{% codenew file="debug/node-problem-detector-configmap.yaml" %}}
+   {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. 新しい設定ファイルで`Node Problem Detector`を再作成します。
 

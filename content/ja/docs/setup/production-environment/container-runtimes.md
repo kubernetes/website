@@ -32,49 +32,32 @@ v{{< skew currentVersion >}}以外のバージョンのKubernetesを実行して
 
 <!-- body -->
 
-## インストールと設定の必須要件
+## インストールと設定の必須要件 {#install-and-configure-prerequisites}
 
-以下の手順では、全コンテナランタイムに共通の設定をLinux上のKubernetesノードに適用します。
+### ネットワーク構成 {#network-configuration}
 
-特定の設定が不要であることが分かっている場合、手順をスキップして頂いて構いません。
+デフォルトでは、Linuxカーネルはインターフェース間でのIPv4パケットのルーティングを許可していません。
+Kubernetesクラスターのネットワーク実装の多くは、必要に応じてこの設定を変更しますが、管理者が設定することを想定しているものもあります。
+(他のsysctlパラメーターの設定やカーネルモジュールの読み込みなども必要になる場合があります。使用しているネットワーク実装のドキュメントを参照してください。)
 
-詳細については、[Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)または、特定のコンテナランタイムのドキュメントを参照してください。
+### IPv4パケットフォワーディングを有効化する {#prerequisite-ipv4-forwarding-optional}
 
-### IPv4フォワーディングを有効化し、iptablesからブリッジされたトラフィックを見えるようにする
-
-以下のコマンドを実行します。
+IPv4パケットフォワーディングを手動で有効にするには、以下のコマンドを実行します。
 
 ```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# この構成に必要なカーネルパラメーター、再起動しても値は永続します
+# セットアップに必要なsysctlパラメーター。値は再起動後も保持されます
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
+net.ipv4.ip_forward = 1
 EOF
 
-# 再起動せずにカーネルパラメーターを適用
+# 再起動せずにsysctlパラメーターを適用
 sudo sysctl --system
 ```
 
-以下のコマンドを実行して`br_netfilter`と`overlay`モジュールが読み込まれていることを確認してください。
+以下のコマンドを実行して、`net.ipv4.ip_forward`が1に設定されていることを確認します。
 
 ```bash
-lsmod | grep br_netfilter
-lsmod | grep overlay
-```
-
-以下のコマンドを実行して、`net.bridge.bridge-nf-call-iptables`、`net.bridge.bridge-nf-call-ip6tables`、`net.ipv4.ip_forward`カーネルパラメーターが1に設定されていることを確認します。
-
-```bash
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+sysctl net.ipv4.ip_forward
 ```
 
 ## cgroupドライバー {#cgroup-drivers}
@@ -137,7 +120,7 @@ kubeletを再起動してもこのようなエラーは解決しない可能性�
 もしあなたが適切な自動化の手段を持っているのであれば、更新された設定を使用してノードを別のノードに置き換えるか、自動化を使用して再インストールを行ってください。
 {{< /caution >}}
 
-### kubeadmで管理されたクラスターでの`systemd`ドライバーへの移行
+### kubeadmで管理されたクラスターでの`systemd`ドライバーへの移行 {#migrating-to-the-systemd-driver-in-kubeadm-managed-clusters}
 
 既存のkubeadm管理クラスターで`systemd` cgroupドライバーに移行したい場合は、[cgroupドライバーの設定](/ja/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)に従ってください。
 
@@ -236,7 +219,7 @@ kubeadmを使用している場合、手動で[kubelet cgroupドライバーの�
 
 CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/packaging/blob/main/README.md#usage)に従ってください。
 
-#### cgroupドライバー
+#### cgroupドライバー {#cgroup-driver}
 
 CRI-Oはデフォルトでsystemd cgroupドライバーを使用し、おそらく問題なく動作します。
 `cgroupfs` cgroupドライバーに切り替えるには、`/etc/crio/crio.conf` を編集するか、
