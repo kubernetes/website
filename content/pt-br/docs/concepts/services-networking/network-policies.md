@@ -385,7 +385,7 @@ forma de saber pela API do Kubernetes exatamente quando isso acontece.
 
 Portanto, os pods devem ser resilientes a serem iniciados com conectividade de rede diferente
 da esperada. Se você precisa garantir que o pod possa alcançar determinados destinos
-antes de ser iniciado, você pode usar um [init container](/docs/concepts/workloads/pods/init-containers/)
+antes de ser iniciado, você pode usar um [contêiner de inicialização (init container)](/docs/concepts/workloads/pods/init-containers/)
 para esperar que esses destinos estejam acessíveis antes que o kubelet inicie os contêineres da aplicação.
 
 Toda `NetworkPolicy` será eventualmente aplicada a todos os pods selecionados.
