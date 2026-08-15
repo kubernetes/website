@@ -390,7 +390,7 @@ para esperar que esses destinos estejam acessíveis antes que o kubelet inicie o
 
 Toda `NetworkPolicy` será eventualmente aplicada a todos os pods selecionados.
 Como o plugin de rede pode implementar `NetworkPolicy` de forma distribuída,
-é possível que os pods vejam uma visão ligeiramente inconsistente das políticas de rede
+é possível que os pods tenham uma visão ligeiramente inconsistente das políticas de rede
 quando o pod é criado pela primeira vez, ou quando pods ou políticas mudam.
 Por exemplo, um pod recém-criado que supostamente deve conseguir alcançar tanto o Pod A
 no Nó 1 quanto o Pod B no Nó 2 pode descobrir que consegue alcançar o Pod A imediatamente,
