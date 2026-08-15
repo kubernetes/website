@@ -121,7 +121,7 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
+  [teams in k/org](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml), the
   [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
   [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).

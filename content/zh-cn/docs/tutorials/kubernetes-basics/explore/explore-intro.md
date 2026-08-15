@@ -30,9 +30,9 @@ with PowerShell or the Windows Command Prompt.
 本教程中的 Shell 命令使用 POSIX Shell 语法，
 大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
 Windows 用户必须使用兼容 POSIX 的 Shell，例如
-[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+[适用于 Linux 的 Windows 子系统（WSL）](https://learn.microsoft.com/en-us/windows/wsl/install)
 或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
-使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
+使用 `export`、`$()` 以及类似构造的命令**不兼容** PowerShell 或 Windows Command Prompt。
 
 <!--
 ## Kubernetes Pods
@@ -166,7 +166,7 @@ operations can be done with the following kubectl subcommands:
 <!--
 * `kubectl get` - list resources
 * `kubectl describe` - show detailed information about a resource
-* `kubectl logs`  - print the logs from a container in a pod
+* `kubectl logs` - print the logs from a container in a pod
 * `kubectl exec` - execute a command on a container in a pod
 -->
 * `kubectl get` - 列出资源
@@ -228,16 +228,16 @@ we didn’t explain yet, but don’t worry, they will become familiar by the end
 `describe` 子命令的输出宽泛，涵盖了一些我们还未讲到的概念，但不用担心，
 这节课结束时你就会熟悉这些概念了。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 The `describe` subcommand can be used to get detailed information about most of the
 Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is
 designed to be human readable, not to be scripted against.
 -->
 `describe` 子命令可用于获取有关大多数 Kubernetes 原语的详细信息，
-包括 Node、Pod 和 Deployment。describe 的输出设计为人类可读的信息，
+包括 Node、Pod 和 Deployment。`describe` 的输出设计为人类可读的信息，
 而不是脚本化的信息。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ### Show the app in the terminal
@@ -284,23 +284,22 @@ The URL is the route to the API of the Pod.
 -->
 URL 是到 Pod API 的路由。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 We don't need to specify the container name, because we only have one container inside the pod.
 -->
 我们不需要指定容器名称，因为在 Pod 内只有一个容器。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ### Executing commands on the container
--->
-### 在容器上执行命令
 
-<!--
 We can execute commands directly on the container once the Pod is up and running.
 For this, we use the `exec` subcommand and use the name of the Pod as a parameter.
 Let’s list the environment variables:
 -->
+### 在容器上执行命令
+
 一旦 Pod 启动并运行，我们就可以直接在容器上执行命令。
 为此，我们使用 `exec` 子命令，并将 Pod 的名称作为参数。
 让我们列出环境变量：
@@ -343,7 +342,7 @@ You can check that the application is up by running a curl command:
 curl http://localhost:8080
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Here we used `localhost` because we executed the command inside the NodeJS Pod.
 If you cannot connect to `localhost:8080`, check to make sure you have run the
@@ -352,7 +351,7 @@ If you cannot connect to `localhost:8080`, check to make sure you have run the
 在这里我们使用了 `localhost`，因为我们在 NodeJS Pod 内执行了此命令。
 如果你无法连接到 `localhost:8080`，请确保你已经运行了 `kubectl exec`
 命令，并且是从 Pod 内启动的该命令。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 To close your container connection, type `exit`.

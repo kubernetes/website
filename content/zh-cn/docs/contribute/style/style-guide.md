@@ -40,7 +40,7 @@ SIG Docs meeting, and attend the meeting to participate in the discussion.
 
 <!-- body -->
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Kubernetes documentation uses
 [Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
@@ -51,7 +51,7 @@ glossary entries, tabs, and representing feature state.
 Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github.com/yuin/goldmark/)
 和一些 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)来支持词汇表项、Tab
 页以及特性门控标注。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Language
@@ -303,7 +303,7 @@ CustomResourceDefinition 的 `.spec.group` 字段… | `CustomResourceDefinition
 删除代码中行尾空白。 | 在代码中包含行尾空白，因为屏幕抓取工具通常也会抓取空白字符。
 {{< /table >}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 The website supports syntax highlighting for code samples, but specifying a language
 is optional. Syntax highlighting in the code block should conform to the
@@ -311,7 +311,7 @@ is optional. Syntax highlighting in the code block should conform to the
 -->
 网站支持为代码示例使用语法加亮，不过指定语法加亮是可选的。
 代码段的语法加亮要遵从[对比度指南](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ### Use code style for object field names and namespaces
@@ -730,18 +730,19 @@ open source | Open source 或 open source 适合句子结构，而不是 open-so
 ## Shortcodes
 
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
-different rhetorical appeal levels. Our documentation supports three different
-shortcodes in this category: **Note** `{{</* note */>}}`,
-**Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
+different rhetorical appeal levels. Our documentation supports three variants of
+the Docsy [`alert`](https://www.docsy.dev/docs/adding-content/shortcodes/#alert)
+shortcode in this category: **Note**, **Caution**, and **Warning**.
 
-1. Surround the text with an opening and closing shortcode.
+1. Surround the text with an opening and closing `alert` shortcode, choosing the
+   `color` and `title` attributes for the variant you need.
 
 2. Use the following syntax to apply a style:
 
    ```none
-   {{</* note */>}}
-   No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
-   {{</* /note */>}}
+   {{</* alert color="info" title="Note" */>}}
+   The shortcode renders the title as a heading, so do not repeat it inside the body.
+   {{</* /alert */>}}
    ```
 
    The output is:
@@ -749,31 +750,41 @@ shortcodes in this category: **Note** `{{</* note */>}}`,
 ## 短代码（Shortcodes） {#shortcodes}
 
 Hugo [短代码（Shortcodes）](https://gohugo.io/content-management/shortcodes)
-有助于创建比较漂亮的展示效果。我们的文档支持三个不同的这类短代码。
-**注意** `{{</* note */>}}`、**小心** `{{</* caution */>}}` 和 **警告** `{{</* warning */>}}`。
+有助于创建比较漂亮的展示效果。
+我们的文档支持该类别下 Docsy [`alert`](https://www.docsy.dev/docs/adding-content/shortcodes/#alert)
+短代码的三种变体：**Note**（提示）、**Caution**（注意）和 **Warning**（警告）。
 
-1. 将要突出显示的文字用短代码的开始和结束形式包围。
+1. 请使用成对的 `alert` 短代码包裹文本，并根据所需样式选择相应的 `color` 和 `title` 属性。
 2. 使用下面的语法来应用某种样式：
 
    ```none
-   {{</* note */>}}
-   不需要前缀；短代码会自动添加前缀（注意：、小心：等）
-   {{</* /note */>}}
+   {{</* alert color="info" title="Note" */>}}
+   此短代码会将标题渲染为标题样式，因此请勿在正文中重复该标题。
+   {{</* /alert */>}}
    ```
 
    输出的样子是：
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    <!--
-   The prefix you choose is the same text for the tag.
+   The shortcode renders the title as a heading, so do not repeat it inside the body.
    -->
-   你所选择的标记决定了文字的前缀。
-   {{< /note >}}
+   此短代码会将标题渲染为标题样式，因此请勿在正文中重复该标题。
+   {{< /alert >}}
+
+<!--  
+Many existing pages still use the legacy `{{</* note */>}}`, `{{</* caution */>}}`,
+and `{{</* warning */>}}` shortcodes. These still work — prefer the `alert`
+shortcode for new content and when editing existing pages.
+-->
+许多现有页面仍在使用旧版的 `{{</* note */>}}`、`{{</* caution */>}}`
+和 `{{</* warning */>}}` 短代码。这些短代码依然有效，
+但在创建新内容或编辑现有页面时，建议优先使用 `alert` 短代码。
 
 <!--
 ### Note
 
-Use `{{</* note */>}}` to highlight a tip or a piece of information that may be helpful to know.
+Use {{</* alert color="info" title="Note" */>}}` to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
 
@@ -787,53 +798,53 @@ The output is:
 -->
 ### 注释（Note） {#note}
 
-使用短代码 `{{</* note */>}}` 来突出显示某种提示或者有助于读者的信息。
+使用短代码 `{{</* alert color="info" title="Note" */>}}` 来突出显示某种提示或者有助于读者的信息。
 
 例如：
 
 ```
-{{</* note */>}}
+{{</* alert color="info" title="Note" */>}}
 在这类短代码中仍然 _可以_ 使用 Markdown 语法。
-{{</* /note */>}}
+{{</* /alert */>}}
 ```
 
 输出为：
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 You can _still_ use Markdown inside these callouts.
 -->
 在这类短代码中仍然**可以**使用 Markdown 语法。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
-You can use a `{{</* note */>}}` in a list:
+You can use an `alert` shortcode in a list:
 
 ```
-1. Use the note shortcode in a list
+1. Use the alert shortcode in a list
 
 1. A second item with an embedded note
 
-   {{</* note */>}}
+   {{< alert color="info" title="Note" >}}
    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
-   {{</* /note */>}}
+   {{< /alert >}}
 
 1. A third item in a list
 
 1. A fourth item in a list
 ```
 -->
-你可以在列表中使用 `{{</* note */>}}`：
+你可以在列表中使用 `alert`：
 
 ```
-1. 在列表中使用 note 短代码
+1. 在列表中使用 alert 短代码
 
 1. 带嵌套 note 的第二个条目
 
-   {{</* note */>}}
+   {{< alert color="info" title="Note" >}}
    警告、小心和注意短代码可以嵌套在列表中，但是要缩进四个空格。
    参见[常见短代码问题](#common-shortcode-issues)。
-   {{</* /note */>}}
+   {{< /alert >}}
 
 1. 列表中第三个条目
 
@@ -843,13 +854,13 @@ You can use a `{{</* note */>}}` in a list:
 <!--
 The output is:
 
-1. Use the note shortcode in a list
+1. Use the `alert` shortcode in a list
 
 1. A second item with an embedded note
 -->
 其输出为：
 
-1. 在列表中使用 note 短代码
+1. 在列表中使用 `alert` 短代码
 
 2. 带嵌套 note 的第二个条目
 
@@ -857,10 +868,10 @@ The output is:
     Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
     -->
     
-    {{< note >}}
+    {{</* alert color="info" title="Note" */>}}
     警告、小心和注释短代码可以嵌套在列表中，但是要缩进四个空格。
     参见[常见短代码问题](#common-shortcode-issues)。
-    {{< /note >}}
+    {{</* /alert */>}}
 
 <!--
 1. A third item in a list
@@ -874,74 +885,74 @@ The output is:
 <!--
 ### Caution
 
-Use `{{</* caution */>}}` to call attention to an important piece of information to avoid pitfalls.
+Use `{{</* alert color="caution" title="Caution" */>}}` to call attention to an important piece of information to avoid pitfalls.
 
 For example:
 
 ```
-{{</* caution */>}}
+{{</* alert color="caution" title="Caution" */>}}
 The callout style only applies to the line directly above the tag.
-{{</* /caution */>}}
+{{</* /alert */>}}
 ```
 
 The output is:
 -->
 ### 小心（Caution）  {#caution}
 
-使用 `{{</* caution */>}}` 短代码来引起读者对某段信息的重视，以避免遇到问题。
+使用 `{{</* alert color="caution" title="Caution" */>}}` 短代码来引起读者对某段信息的重视，以避免遇到问题。
 
 例如：
 
 ```
-{{</* caution */>}}
+{{</* alert color="caution" title="Caution" */>}}
 此短代码样式仅对标记之上的一行起作用。
-{{</* /caution */>}}
+{{</* /alert */>}}
 ```
 
 其输出为：
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 <!--
 The callout style only applies to the line directly above the tag.
 -->
 此短代码样式仅对标记之上的一行起作用。
-{{< /caution >}}
+{{< /alert >}}
 
 <!--
 ### Warning
 
-Use `{{</* warning */>}}` to indicate danger or a piece of information that is crucial to follow.
+Use `{{</* alert color="danger" title="Warning" */>}}` to indicate danger or a piece of information that is crucial to follow.
 
 For example:
 
 ```
-{{</* warning */>}}
+{{</* alert color="danger" title="Warning" */>}}
 Beware.
-{{</* /warning */>}}
+{{</* /alert */>}}
 ```
 
 The output is:
 -->
 ### 警告（Warning）  {#warning}
 
-使用 `{{</* warning */>}}` 来表明危险或者必须要重视的一则信息。
+使用 `{{</* alert color="danger" title="Warning" */>}}` 来表明危险或者必须要重视的一则信息。
 
 例如：
 
 ```
-{{</* warning */>}}
+{{</* alert color="danger" title="Warning" */>}}
 注意事项
-{{</* /warning */>}}
+{{</* /alert */>}}
 ```
 
 其输出为：
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 <!--
 Beware.
 -->
 注意事项
-{{< /warning >}}
+{{< /alert >}}
 
 <!--
 ## Common Shortcode Issues
@@ -955,7 +966,7 @@ For example:
     1. Preheat oven to 350˚F
     
     1. Prepare the batter, and pour into springform pan.
-       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
+       {{</* alert color="info" title="Note" */>}}Grease the pan for best results.{{</* /alert */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -980,7 +991,7 @@ The output is:
 ```
 1. 预热到 350˚F
 1. 准备好面糊，倒入烘烤盘
-    {{</* note */>}}给盘子抹上油可以达到最佳效果。{{</* /note */>}}
+    {{</* alert color="info" title="Note" */>}}给盘子抹上油可以达到最佳效果。{{</* /alert */>}}
 1. 烘烤 20 到 25 分钟，或者直到满意为止。
 ```
 
@@ -998,9 +1009,9 @@ Shortcodes inside include statements will break the build. You must insert them
 in the parent document, before and after you call the include. For example:
 
 ```
-{{</* note */>}}
+{{</* alert color="info" title="Note" */>}}
 {{</* include "task-tutorial-prereqs.md" */>}}
-{{</* /note */>}}
+{{</* /alert */>}}
 ```
 -->
 ### Include 语句   {#include-statements}
@@ -1010,9 +1021,9 @@ in the parent document, before and after you call the include. For example:
 例如：
 
 ```
-{{</* note */>}}
+{{</* alert color="info" title="Note" */>}}
 {{</* include "task-tutorial-prereqs.md" */>}}
-{{</* /note */>}}
+{{</* /alert */>}}
 ```
 
 <!--
@@ -1153,14 +1164,14 @@ marked up as list items; after all they are nothing but a group of related links
 - 如果列表中一个或者多个条目是完整的句子，则在每个条目末尾添加句号。
   出于一致性考虑，一般要么所有条目要么没有条目是完整句子。
 
-  {{< note >}}
+  {{< alert color="info" title="Note" >}}
   <!--
   Ordered lists that are part of an incomplete introductory sentence can be in lowercase
   and punctuated as if each item was a part of the introductory sentence.
   -->
   编号列表如果是不完整的介绍性句子的一部分，可以全部用小写字母，并按照
   每个条目都是句子的一部分来看待和处理。
-  {{< /note >}}
+  {{< /alert >}}
 
 <!--
 - Use the number one (`1.`) for ordered lists.

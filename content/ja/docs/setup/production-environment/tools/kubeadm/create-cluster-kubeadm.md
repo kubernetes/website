@@ -43,16 +43,16 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 
 <!-- steps -->
 
-## 目的
+## 目的 {#objectives}
 
 * シングルコントロールプレーンのKubernetesクラスターをインストールします
 * クラスター上にPodネットワークをインストールして、Podがお互いに通信できるようにします
 
-## 手順
+## 手順 {#instructions}
 
-### ホストの準備
+### ホストの準備 {#preparing-the-hosts}
 
-#### コンポーネントのインストール
+#### コンポーネントのインストール {#component-installation}
 
 {{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}と、kubeadmを全てのホストにインストールしてください。
 インストールの詳細やその他の準備については、[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)を読んでください。
@@ -65,7 +65,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 コントロールプレーンの初期化が完了すれば、kubeletは正常に動作します。
 {{< /note >}}
 
-#### ネットワークの設定
+#### ネットワークの設定 {#network-setup}
 
 kubeadmは他のKubernetesコンポーネントと同様に、ホスト上のデフォルトゲートウェイとなっているネットワークインターフェースと関連づけられた利用可能なIPアドレスを探索します。
 このIPアドレスは、コンポーネントによるアドバタイズや受信に使用されます。
@@ -108,7 +108,7 @@ Linuxノード上では、ネットワーク設定に`ip route`のようなコ�
 ノードのデフォルトゲートウェイがパブリックアドレスの場合、ノードやクラスターを保護するためにパケットフィルタリングなどのセキュリティ対策を行う必要があります。
 {{< /warning >}}
 
-### 必要なコンテナイメージの準備
+### 必要なコンテナイメージの準備 {#preparing-the-required-container-images}
 
 このステップは任意で、`kubeadm init`および`kubeadm join`実行時に`registry.k8s.io`に存在するデフォルトのコンテナイメージをダウンロードしない場合のみ行います。
 
@@ -118,7 +118,7 @@ kubeadmは、ノードにインターネット接続がない状態でクラス�
 kubeadmはカスタムイメージリポジトリから必要なイメージを使用することもできます。
 詳細は[カスタムイメージの使用](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)を参照してください。
 
-### コントロールプレーンノードの初期化
+### コントロールプレーンノードの初期化 {#initializing-your-control-plane-node}
 
 コントロールプレーンノードとは、{{< glossary_tooltip term_id="etcd" >}}(クラスターのデータベース)や{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}({{< glossary_tooltip text="kubectl" term_id="kubectl" >}}コマンドラインツールが通信する相手)などのコントロールプレーンのコンポーネントが実行されるマシンです。
 
@@ -137,7 +137,7 @@ kubeadmはカスタムイメージリポジトリから必要なイメージを�
 kubeadm init <args>
 ```
 
-### apiserver-advertise-addressとControlPlaneEndpointに関する検討
+### apiserver-advertise-addressとControlPlaneEndpointに関する検討 {#considerations-about-apiserver-advertise-address-and-controlplaneendpoint}
 
 `--apiserver-advertise-address`は、特定のコントロールプレーンノードのAPIサーバーがアドバタイズするアドレスを設定するために使用できます。
 一方`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使用できます。
@@ -156,7 +156,7 @@ kubeadm init <args>
 
 kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシングルコントロールプレーンのクラスターを高可用性クラスターに切り替えることはサポートされていません。
 
-### 詳細な情報
+### 詳細な情報 {#more-information}
 
 `kubeadm init`の引数のより詳細な情報は、[kubeadmリファレンスガイド](/docs/reference/setup-tools/kubeadm/)を参照してください。
 
@@ -275,14 +275,14 @@ Podネットワークがインストールされたら、`kubectl get pods --all
 
 ネットワークやCoreDNSが`Running`状態にならない場合は、`kubeadm`の[トラブルシューティングガイド](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)をチェックしてください。
 
-### 管理されたノードラベル
+### 管理されたノードラベル {#managed-node-labels}
 
 デフォルトでは、kubeadmは[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)という、ノード登録時にkubeletが自己適用するラベルを制限するアドミッションコントローラーを有効化します。
 このアドミッションコントローラーのドキュメントでは、kubeletの`--node-labels`オプションで使用できるラベルについて説明しています。
 `node-role.kubernetes.io/control-plane`は上記のような制限されたラベルであり、ノード作成後に特権クライアントを使用してkubeadmがマニュアルで適用します。
 これを手動で行うには、kubeadm管理の`/etc/kubernetes/admin.conf`のような特権kubeconfigを使用していることを確認し、`kubectl label`コマンドを使用してください。
 
-### コントロールプレーンノードの隔離
+### コントロールプレーンノードの隔離 {#control-plane-node-isolation}
 
 デフォルトでは、セキュリティ上の理由により、クラスターはコントロールプレーンノードにPodをスケジューリングしません。
 たとえば、開発用のKubernetesシングルマシンのクラスターなどで、Podをコントロールプレーンノードにスケジューリングしたい場合は、次のコマンドを実行します。
@@ -308,7 +308,7 @@ node "test-01" untainted
 kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancers-
 ```
 
-### コントロールプレーンノードの追加
+### コントロールプレーンノードの追加 {#adding-more-control-plane-nodes}
 
 コントロールプレーンノードの追加によって高可用性kubeadmクラスターを構築する手順は、[kubeadmを使用した高可用性クラスターの作成](/docs/setup/production-environment/tools/kubeadm/high-availability/)を参照してください。
 
@@ -320,7 +320,7 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 * [Linuxワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
 * [Windowsワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 
-### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作
+### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作 {#optional-controlling-your-cluster-from-machines-other-than-the-control-plane-node}
 
 他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにして管理者のkubeconfigファイルをコントロールプレーンノードから対象のコンピューター上にコピーする必要があります。
 
@@ -341,7 +341,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 その後、`kubectl create (cluster)rolebinding`コマンドを使って権限を付与します。
 {{< /note >}}
 
-### (オプション)APIサーバーをlocalhostへプロキシする
+### (オプション)APIサーバーをlocalhostへプロキシする {#optional-proxying-api-server-to-localhost}
 
 クラスターの外部からAPIサーバーに接続したいときは、次のように`kubectl proxy`コマンドが使えます。
 
@@ -359,7 +359,7 @@ kubectl --kubeconfig ./admin.conf proxy
 
 しかし、よりきれいにクラスターのプロビジョンをもとに戻したい場合は、初めに[ノードのdrain](/docs/reference/generated/kubectl/kubectl-commands#drain)を行い、ノードが空になっていることを確認した後、ノードの設定を削除する必要があります。
 
-### ノードの削除
+### ノードの削除 {#remove-the-node}
 
 適切なクレデンシャルを使用してコントロールプレーンノードに指示を出します。次のコマンドを実行してください。
 
@@ -394,7 +394,7 @@ kubectl delete node <node name>
 
 クラスターのセットアップを最初から始めたいときは、`kubeadm init`や`kubeadm join`を適切な引数を付けて実行すればいいだけです。
 
-### コントロールプレーンのクリーンアップ
+### コントロールプレーンのクリーンアップ {#clean-up-the-control-plane}
 
 コントロールホスト上で`kubeadm reset`を実行すると、ベストエフォートでのクリーンアップが実行できます。
 
@@ -404,7 +404,7 @@ kubectl delete node <node name>
 
 kubeadmは、kubeadmが管理するコンポーネントに対してバージョンの差異を許容しますが、kubeadmのバージョンをコントロールプレーンのコンポーネント、kube-proxy、kubeletと一致させることを推奨します。
 
-### Kubernetesのバージョンに対するkubeadmのバージョンの差異
+### Kubernetesのバージョンに対するkubeadmのバージョンの差異 {#kubeadm-s-skew-against-the-kubernetes-version}
 
 kubeadmは、kubeadmと同じバージョンか、1つ前のバージョンのKubernetesコンポーネントで使用できます。
 Kubernetesのバージョンは`kubeadm init`の`--kubernetes-version`、もしくは`--config`を使用する場合の[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/)フィールドで指定できます。 
@@ -415,7 +415,7 @@ Kubernetesのバージョンは`kubeadm init`の`--kubernetes-version`、もし�
 * kubeadmのバージョン: {{< skew currentVersion >}}
 * `kubernetesVersion`は、{{< skew currentVersion >}}または{{< skew currentVersionAddMinor -1 >}}でなければならない
 
-### kubeletに対するkubeadmのバージョンの差異
+### kubeletに対するkubeadmのバージョンの差異 {#kubeadm-s-skew-against-the-kubelet}
 
 Kubernetesのバージョンと同様に、kubeadmは、kubeadmと同じバージョン、もしくは3つ前までのバージョンをkubeletに使用できます。
 
@@ -424,7 +424,7 @@ Kubernetesのバージョンと同様に、kubeadmは、kubeadmと同じバー�
 * kubeadmのバージョン: {{< skew currentVersion >}}
 * ホスト上のkubeletのバージョンは、{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}、もしくは{{< skew currentVersionAddMinor -3 >}}でなければならない
 
-### kubeadmに対するkubeadmのバージョンの差異
+### kubeadmに対するkubeadmのバージョンの差異 {#kubeadm-s-skew-against-kubeadm}
 
 kubeadmによって管理されている既存のノードまたはクラスター全体を、kubeadmコマンドが操作するには一定の制限が存在します。
 

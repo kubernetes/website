@@ -26,10 +26,11 @@ This page explains how to add Windows worker nodes to a kubeadm cluster.
 * A running kubeadm cluster created by `kubeadm init` and following the steps
 in the document [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 -->
-* 一个正在运行的 [Windows Server 2022](https://www.microsoft.com/cloud-platform/windows-server-pricing)
+* 一个正在运行的
+  [Windows Server 2022](https://www.microsoft.com/cloud-platform/windows-server-pricing)
   （或更高版本）实例，且具备管理权限。
-* 一个正在运行的、由 `kubeadm init` 命令创建的集群，且集群的创建遵循
-  [使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* 一个正在运行的、由 `kubeadm init` 命令创建的集群，
+  且集群的创建遵循[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
   文档中所给的步骤。
 
 <!-- steps -->
@@ -76,7 +77,7 @@ To install containerd, first run the following command:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/Install-Containerd.ps1
-  ``````
+  ```
 
 <!--
 Then run the following command, but first replace `CONTAINERD_VERSION` with a recent release
@@ -84,7 +85,7 @@ from the [containerd repository](https://github.com/containerd/containerd/releas
 The version must not have a `v` prefix. For example, use `1.7.22` instead of `v1.7.22`:
 -->
 然后运行以下命令，但要首先将 `CONTAINERD_VERSION` 替换为
-[Containerd 仓库](https://github.com/containerd/containerd/releases) 中的最新发布版本。
+[Containerd 仓库](https://github.com/containerd/containerd/releases)中的最新发布版本。
 版本号不能带有前缀 `v`。例如，使用 `1.7.22` 而不是 `v1.7.22`：
 
   ```PowerShell
@@ -138,7 +139,7 @@ Run the command that was output by `kubeadm init`. For example:
 <!--
 #### Additional information about kubeadm join
 -->
-#### kubeadm join 的附加信息   {#additional-information-about-kubeadm-join}
+#### `kubeadm join` 的附加信息   {#additional-information-about-kubeadm-join}
 
 {{< note >}}
 <!--
@@ -154,7 +155,10 @@ If you do not have the token, you can get it by running the following command on
 如果你没有令牌，可以在控制平面节点上运行以下命令来获取：
 
 <!--
+```bash
 # Run this on a control plane node
+sudo kubeadm token list
+```
 -->
 ```bash
 # 在控制平面节点上运行此命令
@@ -183,7 +187,10 @@ control plane node:
 可以在控制平面节点上运行以下命令来创建新令牌：
 
 <!--
+```bash
 # Run this on a control plane node
+sudo kubeadm token create
+```
 -->
 ```bash
 # 在控制平面节点上运行此命令
@@ -203,7 +210,8 @@ The output is similar to this:
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
 following commands on the control plane node:
 -->
-如果你没有 `--discovery-token-ca-cert-hash` 的具体值，可以在控制平面节点上运行以下命令来获取：
+如果你没有 `--discovery-token-ca-cert-hash` 的具体值，
+可以在控制平面节点上运行以下命令来获取：
 
 ```bash
 sudo cat /etc/kubernetes/pki/ca.crt | openssl x509 -pubkey  | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -239,17 +247,18 @@ Run 'kubectl get nodes' on control-plane to see this machine join.
 
 <!--
 A few seconds later, you should notice this node in the output from `kubectl get nodes`.
-(for example, run `kubectl` on a  control plane node).
+(for example, run `kubectl` on a control plane node).
+-->
+几秒钟后，你应该在 `kubectl get nodes` 的输出中看到该节点。
+（例如，可以在控制平面节点上运行 `kubectl`）。
 
+<!--
 ### Network configuration
 
 CNI setup on clusters mixed with Linux and Windows nodes requires more steps than just
 running `kubectl apply` on a manifest file. Additionally, the CNI plugin running on control
 plane nodes must be prepared to support the CNI plugin running on Windows worker nodes.
 -->
-几秒钟后，你应该在 `kubectl get nodes` 的输出中看到该节点。
-（例如，可以在控制平面节点上运行 `kubectl`）。
-
 ### 网络配置   {#network-configuration}
 
 在混合了 Linux 和 Windows 节点的集群中，CNI 设置所需的步骤不仅仅是对清单文件运行
@@ -260,23 +269,23 @@ plane nodes must be prepared to support the CNI plugin running on Windows worker
 
 <!--
 Only a few CNI plugins currently support Windows. Below you can find individual setup instructions for them:
-* [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
-
-### Install kubectl for Windows (optional) {#install-kubectl}
-
-See [Install and Set Up kubectl on Windows](/docs/tasks/tools/install-kubectl-windows/).
 -->
 目前只有少数 CNI 插件支持 Windows。以下是它们各自的设置说明：
 
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 
+<!--
+### Install kubectl for Windows (optional) {#install-kubectl}
+
+See [Install and Set Up kubectl on Windows](/docs/tasks/tools/install-kubectl-windows/).
+-->
 ### 在 Windows 上安装 kubectl （可选）   {#install-kubectl}
 
-参见 [在 Windows 上安装和设置 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows/)。
+参见[在 Windows 上安装和设置 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows/)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * See how to [add Linux worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/).
 -->
-参见如何 [添加 Linux 工作节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)。
+参见如何[添加 Linux 工作节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)。

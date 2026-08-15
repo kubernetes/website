@@ -17,17 +17,17 @@ Gang scheduling ensures that a group of Pods are scheduled on an "all-or-nothing
 If the cluster cannot accommodate the entire group (or a defined minimum number of Pods),
 none of the Pods are bound to a node.
 
-This feature depends on the [Workload API](/docs/concepts/workloads/workload-api/).
+This feature depends on the [PodGroup API](/docs/concepts/workloads/podgroup-api/).
 Ensure the [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-feature gate and the `scheduling.k8s.io/v1alpha1`
+feature gate and the `scheduling.k8s.io/v1alpha2`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled in the cluster.
 -->
 编组调度（Gang Scheduling）确保一组 Pod 以 **全有或全无（all-or-nothing）** 的方式进行调度。
 如果集群无法容纳整个组（或某确定的最小 Pod 数量），则不会将任何 Pod 绑定到节点上。
 
-此特性依赖于 [Workload API](/zh-cn/docs/concepts/workloads/workload-api/)。确保在集群中启用
+此特性依赖于 [PodGroup API](/zh-cn/docs/concepts/workloads/podgroup-api/)。确保在集群中启用
 [`GenericWorkload`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-特性门控以及 `scheduling.k8s.io/v1alpha1`
+特性门控以及 `scheduling.k8s.io/v1alpha2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
 
 <!-- body -->
@@ -36,61 +36,63 @@ feature gate and the `scheduling.k8s.io/v1alpha1`
 ## How it works
 
 When the `GangScheduling` plugin is enabled, the scheduler alters the lifecycle for Pods belonging
-to a `gang` [pod group policy](/docs/concepts/workloads/workload-api/policies/) within
-a [Workload](/docs/concepts/workloads/workload-api/).
-The process follows these steps independently for each pod group and its replica key:
+to a [PodGroup](/docs/concepts/workloads/podgroup-api/) that has a `gang`
+[scheduling policy](/docs/concepts/workloads/workload-api/policies/).
+The process follows these steps for each PodGroup:
 -->
 ## 工作原理   {#how-it-works}
 
 当 `GangScheduling` 插件被启用时，调度器修改
-[Workload](/zh-cn/docs/concepts/workloads/workload-api/) 内属于某个 `gang`
-[Pod 组策略](/zh-cn/docs/concepts/workloads/workload-api/policies/)的 Pod 的生命周期。
-此过程会针对每个 Pod 组及其副本键独立执行，具体步骤如下：
+具有 `gang` [调度策略](/zh-cn/docs/concepts/workloads/workload-api/policies/)的
+[PodGroup](/zh-cn/docs/concepts/workloads/podgroup-api/) 内 Pod 的生命周期。
+每个 PodGroup 的处理过程都遵循以下步骤：
 
 <!--
 1. The scheduler holds Pods in the `PreEnqueue` phase until:
-   * The referenced Workload object is created.
-   * The referenced pod group exists in a Workload.
-   * The number of Pods that have been created for the specific group
-     is at least equal to the `minCount`.
+   * The referenced PodGroup object exists.
+   * The number of `Pods` created for the `PodGroup` is at least equal to `minCount`.
 
-   Pods do not enter the active scheduling queue until all of these conditions are met.
+   `Pods` do not enter the active scheduling queue until both conditions are met.
 -->
 1. 调度器在 `PreEnqueue` 阶段暂存 Pod，直到满足以下条件：
-   * 被引用的 Workload 对象已创建。
-   * 被引用的 Pod 组已存在于 Workload 中。
-   * 为特定 Pod 组创建的 Pod 数量不少于 `minCount`。
+   * 引用的 PodGroup 对象存在。
+   * 为该 PodGroup 创建的 Pod 数量至少等于 minCount。
 
-   只有满足上述所有条件之后，Pod 才会进入活动的调度队列。
+   只有同时满足这两个条件，Pod 才会进入 active 调度队列。
 
 <!--
 2. Once the quorum is met, the scheduler attempts to find placements for all Pods in the group.
-   All assigned Pods wait at the `WaitOnPermit` gate during this process.
-   Note that in the Alpha phase of this feature, finding a placement is based on pod-by-pod scheduling,
-   rather than a single-cycle approach.
+   It utilizes the [PodGroup scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/) cycle to make a single,
+   atomic scheduling decision. `GangScheduling` plugin implements a `Permit` extension point that is evaluated for each
+   schedulable Pod during the cycle. This is used to determine whether the `minCount` constraint is satisfied,
+   by comparing the number of successfully placed pods against the `minCount` value.
 -->
 2. 当达到额定数量（quorum）后，调度器尝试为组中的所有 Pod 寻找可调度的节点。
-   在此过程中，所有已分配的 Pod 都会在 `WaitOnPermit` 阶段等待。
-   需要注意的是，此特性目前处于 Alpha 阶段，调度决策仍然基于逐个 Pod 的调度方式，
-   而不是在单个调度周期内完成。
+   它利用了 [PodGroup 调度](/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/) 
+   周期来做出单一的、原子性的调度决定。`GangScheduling` 插件实现了一个在每个调度周期中对每个可调度 
+   Pod 进行评估的 `Permit` 扩展点。这用于通过将成功放置的 Pod 数量与 `minCount`
+   值进行比较，来确定是否满足 `minCount` 约束。
 
 <!--
-3. If the scheduler finds valid placements for at least `minCount` Pods,
-   it allows all of them to be bound to their assigned nodes. If it cannot find placements for the entire group
-   within a fixed timeout of 5 minutes, none of the Pods are scheduled.
+3. If the scheduler finds valid placements for at least the `minCount` number of Pods,
+   it allows those successfully placed Pods to be bound to their assigned nodes.
+   If it cannot find enough placements to satisfy the `minCount` requirement, none of the Pods are scheduled.
    Instead, they are moved to the unschedulable queue to wait for cluster resources to free up,
    allowing other workloads to be scheduled in the meantime.
 -->
-3. 如果调度器为至少 `minCount` 个 Pod 找到了有效的调度位置，
-   则允许这些 Pod 全部绑定到所分配的节点上。
-   如果在固定的 5 分钟超时时间内无法为整个 Pod 组找到调度位置，则不会调度任何 Pod。
+3. 如果调度器为至少 `minCount` 数量的 Pod 找到了有效的放置位置，
+   它允许这些成功放置的 Pod 绑定到它们被分配的节点上。
+   如果它无法找到足够的放置位置来满足 `minCount` 要求，则不会调度这些 Pod。
    相反，这些 Pod 会被移入不可调度的队列，等待集群资源释放，同时允许其他工作负载被调度。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
-* See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* Learn about the [PodGroup API](/docs/concepts/workloads/podgroup-api/) and its [lifecycle](/docs/concepts/workloads/podgroup-api/lifecycle/).
+* Read about [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
+* Read about [PodGroup scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/).
 -->
-* 了解 [Workload API](/zh-cn/docs/concepts/workloads/workload-api/)。
-* 查看如何在 Pod 中[引用 Workload](/zh-cn/docs/concepts/workloads/pods/workload-reference/)。
+* 了解 [PodGroup API](/zh-cn/docs/concepts/workloads/podgroup-api/)
+  及其[生命周期](/zh-cn/docs/concepts/workloads/podgroup-api/lifecycle/)。
+* 阅读关于 [PodGroup 调度策略](/zh-cn/docs/concepts/workloads/workload-api/policies/)的信息。
+* 阅读关于 [PodGroup 调度](/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/)的信息。

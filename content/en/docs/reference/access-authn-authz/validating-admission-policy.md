@@ -221,6 +221,9 @@ Use `has()` to check field presence. To check whether a map contains a key, use 
 operator instead. For example,
 `has(object.metadata.labels) && 'example.com/environment' in object.metadata.labels` checks that
 the `metadata.labels` field is present and that the map contains the `example.com/environment` key.
+For multi-level optional field access, prefer CEL optional syntax (Kubernetes 1.29+):
+`object.?metadata.labels['example.com/block'].orValue('')` safely traverses absent intermediate
+fields and returns the given default value.
 
 #### Per-namespace Parameters
 
