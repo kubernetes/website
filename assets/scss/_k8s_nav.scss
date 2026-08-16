@@ -10,6 +10,79 @@
   transition: 0.3s;
   width: 100%;
 
+  .td-navbar-nav-scroll {
+    flex-wrap: nowrap;
+    overflow: visible;
+  }
+
+  .navbar-nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+  }
+
+  .td-light-dark-menu,
+  .td-light-dark-menu > .dropdown {
+    display: flex;
+    align-items: center;
+  }
+
+  .td-light-dark-menu .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row !important;
+    align-items: center;
+
+    .navbar-brand,
+    .td-navbar-nav-scroll,
+    .navbar-nav,
+    .nav-item {
+      align-items: center;
+    }
+
+    .navbar-brand {
+      display: flex;
+    }
+
+    .navbar-nav {
+      padding-top: 0 !important;
+    }
+
+    .navbar-nav .nav-item {
+      margin-right: 0.5rem !important;
+    }
+
+    .navbar-nav .nav-link {
+      padding-right: 0.25rem;
+      padding-left: 0.25rem;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    #main_navbar {
+      display: none !important;
+    }
+
+    #hamburger {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .td-navbar-nav-scroll {
+      margin-left: auto !important;
+    }
+  }
+
   // Based on from Bootstrap's _navbar.scss
   .active > .nav-link,
   .nav-link.active {
@@ -38,6 +111,10 @@
 
   #hamburger {
     color: $navbar-dark-color;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
 
     &:hover:focus {
       color: $navbar-dark-hover-color;
