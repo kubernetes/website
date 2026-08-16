@@ -200,20 +200,27 @@ access to services that an administrator did not intend to allow.
 
 ### ClusterRole aggregation
 
-The default user-facing ClusterRoles (`admin`, `edit`, and `view`) are built with
+The default user-facing ClusterRoles (`admin`, `edit`, and `view`) use
 [ClusterRole aggregation](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles).
-A controller watches for other ClusterRole objects whose labels match the selector
-on those roles (for example `rbac.authorization.k8s.io/aggregate-to-admin: "true"`)
-and merges their rules in.
+A controller copies rules from other ClusterRole objects whose labels match the
+selector on those roles (for example `rbac.authorization.k8s.io/aggregate-to-admin: "true"`).
 
-Anyone who can create or update a ClusterRole and set one of those labels can add
-verbs to the default roles without changing any RoleBinding or ClusterRoleBinding.
-Every subject already bound to `admin`, `edit`, or `view` then receives the new
-rules.
+Being able to create a ClusterRole does not, by itself, make a principal an
+admin. Kubernetes still stops you from putting verbs you do not already hold
+onto a ClusterRole, unless you also have the [`escalate`](#escalate-verb) verb.
 
-Treat the ability to label ClusterRoles for aggregation the same way you treat
-direct edits to those default roles. Do not grant ClusterRole create or update
-rights to principals you would not allow to change `admin`, `edit`, or `view`.
+The risk is different: if someone can set one of those aggregation labels, the
+rules on *that* ClusterRole are merged into `admin`, `edit`, or `view`. Anyone
+already bound to the aggregated role then receives those extra rules, without a
+new RoleBinding.
+
+Ways to keep that in check:
+
+- Limit who can create or update ClusterRoles.
+- Use admission control (for example a ValidatingAdmissionPolicy) to reject
+  `rbac.authorization.k8s.io/aggregate-to-*` labels except from operators you
+  trust.
+- Include those labels in the [periodic review](#periodic-review) of ClusterRoles.
 
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 
