@@ -362,9 +362,11 @@ will choose to evict pods of lowest Priority first.
 
 If you are running a [static pod](/docs/concepts/workloads/pods/static-pods/)
 and want to avoid having it evicted under resource pressure, set
-`priorityClassName` in the static Pod manifest (for example
-`system-node-critical` or `system-cluster-critical`). The kubelet resolves the
-class to a numeric priority for local eviction decisions.
+`priorityClassName` in the static Pod manifest to any PriorityClass that
+exists in the cluster. The kubelet resolves that name to a numeric priority
+for local eviction decisions. The built-in `system-node-critical` and
+`system-cluster-critical` classes are the usual way to stay above ordinary
+workloads.
 
 Do **not** set the integer `priority` field yourself. The Priority admission
 plugin rejects mirror Pods that supply a numeric priority; only
