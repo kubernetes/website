@@ -14,6 +14,6 @@ stages:
     defaultValue: true
     fromVersion: "1.36"
 ---
-Enables support for requesting [Partitionable Devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices)
+Enables support for requesting [Partitionable Devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
 for DRA. This lets drivers advertise multiple devices that maps to the same resources
 of a physical device.
