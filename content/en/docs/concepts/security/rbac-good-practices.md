@@ -198,6 +198,23 @@ for a more permissive policy than intended by the administrators.
 For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
 access to services that an administrator did not intend to allow.
 
+### ClusterRole aggregation
+
+The default user-facing ClusterRoles (`admin`, `edit`, and `view`) are built with
+[ClusterRole aggregation](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles).
+A controller watches for other ClusterRole objects whose labels match the selector
+on those roles (for example `rbac.authorization.k8s.io/aggregate-to-admin: "true"`)
+and merges their rules in.
+
+Anyone who can create or update a ClusterRole and set one of those labels can add
+verbs to the default roles without changing any RoleBinding or ClusterRoleBinding.
+Every subject already bound to `admin`, `edit`, or `view` then receives the new
+rules.
+
+Treat the ability to label ClusterRoles for aggregation the same way you treat
+direct edits to those default roles. Do not grant ClusterRole create or update
+rights to principals you would not allow to change `admin`, `edit`, or `view`.
+
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 
 ### Object creation denial-of-service {#object-creation-dos}
