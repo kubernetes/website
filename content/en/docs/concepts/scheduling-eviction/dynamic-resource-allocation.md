@@ -658,13 +658,12 @@ multi-tenant clusters. The API server only accepts the `adminAccess` field on
 ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.kubernetes.io/admin-access: "true"` (case-sensitive).
 
-That label is not itself an admin-only control. Anyone who can `patch` or
-`update` a Namespace — including a self-service Role limited to one namespace
-via `resourceNames` — can set the label and then use `adminAccess` there.
+That label is not itself an authorization check. Anyone allowed to
+update the Namespace object can set the label and then use `adminAccess`
+there, regardless of how your cluster authorizes that update.
 Treat `resource.kubernetes.io/admin-access` the same way you treat Pod
 Security Admission labels such as `pod-security.kubernetes.io/enforce`:
-restrict who can change namespace labels, and audit existing
-`get`/`patch`/`update` grants on `namespaces`.
+restrict who can change those labels on Namespace objects.
 
 For operator guidance, see
 [Restrict who can enable admin access](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/#admin-access)
