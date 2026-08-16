@@ -20,15 +20,7 @@ A static pod marked as critical can't be evicted. However, non-static pods marke
 ### Marking pod as critical
 
 To mark a Pod as critical, set priorityClassName for that Pod to
-`system-cluster-critical` or `system-node-critical`. These are
-[built-in PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
-that Kubernetes installs by default:
-
-| PriorityClass | Value | Notes |
-| ------------- | ----- | ----- |
-| `system-node-critical` | `2000001000` | Highest of the two; prefer for node-critical add-ons (for example node-local DNS). |
-| `system-cluster-critical` | `2000000000` | Cluster-wide critical add-ons (for example metrics-server, cluster DNS). |
-
-`system-node-critical` is higher priority than `system-cluster-critical` because
-its integer value is larger. See [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-for how priority affects scheduling and preemption.
+`system-cluster-critical` or `system-node-critical`. `system-node-critical`
+is the highest available priority, even higher than `system-cluster-critical`.
+Their numeric values are listed on
+[Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
