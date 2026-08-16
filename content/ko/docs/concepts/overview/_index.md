@@ -7,11 +7,12 @@ description: >
   쿠버네티스는 컨테이너화된 워크로드와 서비스를 관리하기 위한 이식할 수 있고, 확장 가능한 오픈소스 플랫폼으로, 선언적 구성과 자동화를 모두 지원한다. 쿠버네티스는 크고 빠르게 성장하는 생태계를 가지고 있다. 쿠버네티스 서비스, 지원 그리고 도구들은 광범위하게 제공된다.
 content_type: concept
 weight: 20
+theme_lock: light
 card:
   name: concepts
   weight: 10
   anchors:
-  - anchor: "#쿠버네티스가-왜-필요하고-무엇을-할-수-있나"
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
     title: 왜 쿠버네티스인가?
 no_list: true
 ---
@@ -60,6 +61,8 @@ no_list: true
   서비스 외에도, 쿠버네티스는 배치 및 CI 워크로드를 관리할 수 있으며, 필요한 경우 실패한 컨테이너를 교체할 수 있다.
 * **수평 확장**
   간단한 명령어, UI, 또는 CPU 사용량에 따라 자동으로 애플리케이션을 확장하거나 축소할 수 있다.
+* **IPv4/IPv6 이중 스택**
+  파드와 서비스에 IPv4와 IPv6 주소를 할당한다.
 * **확장성을 고려한 설계**
   업스트림 소스 코드를 변경하지 않고 쿠버네티스 클러스터 기능을 추가할 수 있다.
 
@@ -135,7 +138,8 @@ no_list: true
 
 ## {{% heading "whatsnext" %}}
 
-* [쿠버네티스 구성요소](/ko/docs/concepts/overview/components/) 살펴보기
-* [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/) 살펴보기
-* [클러스터 아키텍처](/ko/docs/concepts/architecture/) 살펴보기
-* [시작](/ko/docs/setup/)할 준비가 되었는가?
+* [쿠버네티스 구성요소](/docs/concepts/overview/components/) 살펴보기
+* [쿠버네티스 API](/docs/concepts/overview/kubernetes-api/) 살펴보기
+* [kubectl](/docs/concepts/overview/kubectl/) 살펴보기: 쿠버네티스의 주요 CLI
+* [클러스터 아키텍처](/docs/concepts/architecture/) 살펴보기
+* [시작](/docs/setup/)할 준비가 되었는가?
