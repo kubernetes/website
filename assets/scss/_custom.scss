@@ -325,6 +325,7 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
       // inherited from main above would be unreadable on it.
       .k8s-deprecation-warning {
         background-color: $dark-bg-color-1;
+        color: $dark-text-color-1;
       }
 
       section:not(#video):not(#cncf) {
