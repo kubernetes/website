@@ -297,6 +297,13 @@ footer {
       background-color: $dark-bg-color-2;
       color:$dark-text-color-1;
 
+      // Docsy styles .pageinfo with a light background only, so the light text
+      // inherited from main above would be unreadable on it.
+      .k8s-deprecation-warning {
+        background-color: $dark-bg-color-1;
+        color: $dark-text-color-1;
+      }
+
       section:not(#video):not(#cncf) {
         background-color: $dark-bg-color-1;
         color:$dark-text-color-1;
