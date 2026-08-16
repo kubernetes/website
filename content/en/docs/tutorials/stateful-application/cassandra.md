@@ -15,7 +15,7 @@ In this example, a custom Cassandra seed provider lets the database discover new
 For more information on the features used in this tutorial, see
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Cassandra and Kubernetes both use the term _node_ to mean a member of a cluster. In this
 tutorial, the Pods that belong to the StatefulSet are Cassandra nodes and are members
 of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernetes cluster,
@@ -26,7 +26,7 @@ When a Cassandra node starts, it uses a _seed list_ to bootstrap discovery of ot
 nodes in the ring.
 This tutorial deploys a custom Cassandra seed provider that lets the database discover
 new Cassandra Pods as they appear inside your Kubernetes cluster.
-{{< /note >}}
+{{< /alert >}}
 
 
 ## {{% heading "objectives" %}}
@@ -49,7 +49,7 @@ To complete this tutorial, you should already have a basic familiarity with
 
 ### Additional Minikube setup instructions
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 [Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
@@ -57,7 +57,7 @@ errors during this tutorial. To avoid these errors, start Minikube with the foll
 ```shell
 minikube start --memory 5120 --cpus=4
 ```
-{{< /caution >}}
+{{< /alert >}}
 
 
 <!-- lessoncontent -->
@@ -100,10 +100,10 @@ for help troubleshooting common issues.
 
 The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 This example uses the default provisioner for Minikube.
 Please update the following StatefulSet for the cloud you are working with.
-{{< /note >}}
+{{< /alert >}}
 
 {{% code_sample file="application/cassandra/cassandra-statefulset.yaml" %}}
 
@@ -241,10 +241,10 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet.
 This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
 to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
-{{< /warning >}}
+{{< /alert >}}
 
 1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
 

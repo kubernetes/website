@@ -67,7 +67,8 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)。
 你需要有控制平面管理员权限才能执行此项变更。
 
-在 API 服务器上将运行时配置 `storagemigration.k8s.io/v1beta1` 设为 `true`，启用存储版本迁移 REST API。
+在 API 服务器上将运行时配置 `storagemigration.k8s.io/v1beta1` 设为
+`true`，启用存储版本迁移 REST API。
 有关如何执行此操作的更多信息，请阅读[启用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
 
 <!-- steps -->
@@ -100,7 +101,9 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   Make sure to enable automatic reload of encryption
   configuration file by setting `--encryption-provider-config-automatic-reload` to true.
   -->
-  确保通过将 `--encryption-provider-config-automatic-reload` 设置为 true，允许自动重新加载加密配置文件。
+  
+  确保通过将 `--encryption-provider-config-automatic-reload` 设置为 true，
+  允许自动重新加载加密配置文件。
 
 <!--
 - Create a Secret using kubectl.
@@ -236,10 +239,11 @@ version, it's important to ensure that all existing CRs stored as v1 are migrate
 This migration can be achieved through _Storage Version Migration_ to migrate all CRs from v1 to v2.
 -->
 考虑这样一种情况：
-用户创建了 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
-来提供自定义资源 (CR)，并将其设置为首选的存储模式。
+用户创建了 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}（CRD）
+来提供自定义资源（CR），并将其设置为首选的存储模式。
 当需要引入 CRD 的 v2 版本时，只需提供转换 Webhook 就可以为 v2 版本提供服务。
-基于转换 Webhook 的方式能够实现更平滑的过渡，用户可以使用 v1 或 v2 模式创建 CR，并通过合适的 Webhook 执行必要的模式转换。
+基于转换 Webhook 的方式能够实现更平滑的过渡，用户可以使用 v1 或 v2 模式创建
+CR，并通过合适的 Webhook 执行必要的模式转换。
 在将 v2 设置为首选的存储模式版本之前，重要的是要确保将当前已存储为 v1 的所有 CR 已被迁移到 v2。
 这种迁移可以通过使用**存储版本迁移**将所有 CR 从 v1 迁移到 v2 来达成。
 
@@ -285,6 +289,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   The stored version at this point should be `v1`, confirm this by running:
   -->
+  
   此时存储的版本应当是 `v1`，运行以下命令来确认这一点：
 
   ```shell
@@ -294,6 +299,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   Create CRD using kubectl:
   -->
+  
   使用 kubectl 创建 CRD：
 
   ```shell
@@ -334,13 +340,15 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+  
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
 - Update the CRD `test-crd.yaml` to include v2 version for serving and storage
   and v1 as serving only, as follows:
 -->
-- 如下更新 CRD `test-crd.yaml`，将 v2 版本设置为 served 和 storage，并将 v1 设置为仅 served：
+- 如下更新 CRD `test-crd.yaml`，将 v2 版本设置为 served 和 storage，
+  并将 v1 设置为仅 served：
 
   ```yaml
   apiVersion: apiextensions.k8s.io/v1
@@ -390,6 +398,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   The stored version now should be `v2`, confirm this:
   -->
+  
   现在存储的版本应是 `v2`，运行以下命令来确认这一点：
 
   ```shell
@@ -399,6 +408,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   Update CRD using kubectl:
   -->
+  
   使用 kubectl 更新 CRD：
 
   ```shell
@@ -439,6 +449,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+  
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
@@ -454,13 +465,14 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   spec:
     resource:
       group: example.com
-      resource: SelfieRequest
+      resource: selfierequests
   ```
 
   <!--
   Create the object using _kubectl_ as follows:
   -->
-  使用如下 _kubectl_ 命令创建此对象：
+  
+  使用如下 `kubectl` 命令创建此对象：
 
   ```shell
   kubectl apply -f migrate-crd.yaml
@@ -471,8 +483,8 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   `Succeeded` condition set to "True" in the status field. Get the migration resource
   as follows:
 -->
-- 使用 status 监控 Secret 的迁移。
-  若迁移成功，应在 status 字段中将 `Succeeded` 状况设置为 "True"。
+- 使用 `status` 监控 Secret 的迁移。
+  若迁移成功，应在 `status` 字段中将 `Succeeded` 状况设置为 "True"。
   获取迁移资源的方式如下：
 
   ```shell
@@ -482,6 +494,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   The output is similar to:
   -->
+  
   输出类似于：
 
   ```yaml
@@ -521,6 +534,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+  
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--

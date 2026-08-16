@@ -38,7 +38,7 @@ that doesn't run any real workloads.
 
 It's also useful to read the concept page about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/).
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 This tutorial assumes that your cluster is configured to dynamically provision
 PersistentVolumes. You'll also need to have a [default StorageClass](/docs/concepts/storage/storage-classes/#default-storageclass).
 If your cluster is not configured to provision storage dynamically, you
@@ -46,7 +46,7 @@ will have to manually provision two 1 GiB volumes prior to starting this
 tutorial and
 set up your cluster so that those PersistentVolumes map to the
 PersistentVolumeClaim templates that the StatefulSet defines.
-{{< /note >}}
+{{< /alert >}}
 
 ## {{% heading "objectives" %}}
 
@@ -148,10 +148,10 @@ and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-li
 
 Later in this tutorial you will practice [parallel startup](#parallel-pod-management).
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 To configure the integer ordinal assigned to each Pod in a StatefulSet, see
 [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
-{{< /note >}}
+{{< /alert >}}
 
 ## Pods in a StatefulSet
 
@@ -369,7 +369,7 @@ web-0
 web-1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you instead see **403 Forbidden** responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)),
@@ -378,7 +378,7 @@ by running:
 `for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done`
 
 before retrying the `curl` command above.
-{{< /note >}}
+{{< /alert >}}
 
 In one terminal, watch the StatefulSet's Pods:
 
@@ -669,10 +669,10 @@ registry.k8s.io/nginx-slim:0.24
 
 All the Pods in the StatefulSet are now running the previous container image.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 You can also use `kubectl rollout status sts/<name>` to view
 the status of a rolling update to a StatefulSet
-{{< /note >}}
+{{< /alert >}}
 
 #### Staging an update
 
@@ -1102,11 +1102,11 @@ are terminated one at a time, with respect to the reverse order of their ordinal
 indices. Before terminating a Pod, the StatefulSet controller waits for
 the Pod's successor to be completely terminated.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Although a cascading delete removes a StatefulSet together with its Pods,
 the cascade does **not** delete the headless Service associated with the StatefulSet.
 You must delete the `nginx` Service manually.
-{{< /note >}}
+{{< /alert >}}
 
 ```shell
 kubectl delete service nginx
@@ -1352,9 +1352,9 @@ kubectl get pvc
 ```
 No resources found in default namespace.
 ```
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 You also need to delete the persistent storage media for the PersistentVolumes
 used in this tutorial.
 Follow the necessary steps, based on your environment, storage configuration,
 and provisioning method, to ensure that all storage is reclaimed.
-{{< /note >}}
+{{< /alert >}}

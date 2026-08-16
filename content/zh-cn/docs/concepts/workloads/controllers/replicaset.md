@@ -802,7 +802,7 @@ ReplicaSet 是 [ReplicationController](/zh-cn/docs/concepts/workloads/controller
 * [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/),
   which relies on ReplicaSets to work.
 * `ReplicaSet` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/replica-set-v1" >}}
+  Read the {{< api-reference page="apps/replica-set-v1" >}}
   object definition to understand the API for replica sets.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
@@ -812,7 +812,7 @@ ReplicaSet 是 [ReplicationController](/zh-cn/docs/concepts/workloads/controller
 * [使用 Deployment 运行一个无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)，
   它依赖于 ReplicaSet。
 * `ReplicaSet` 是 Kubernetes REST API 中的顶级资源。阅读
-  {{< api-reference page="workload-resources/replica-set-v1" >}}
+  {{< api-reference page="apps/replica-set-v1" >}}
   对象定义理解关于该资源的 API。
 * 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
   了解如何在干扰下运行高度可用的应用。

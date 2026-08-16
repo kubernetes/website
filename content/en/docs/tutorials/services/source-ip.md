@@ -48,9 +48,9 @@ the target localization.
 The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The image in the following command only runs on AMD64 architectures.
-{{< /note >}}
+{{< /alert >}}
 
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
