@@ -23,7 +23,7 @@ then you might consider using Kubernetes NetworkPolicies for particular applicat
 NetworkPolicies are an application-centric construct which allow you to specify how a
 {{< glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with various network
 "entities" (we use the word "entity" here to avoid overloading the more common terms such as
-"endpoints" and "services", which have specific Kubernetes connotations) over the network.
+"endpoints" and "services", which have specific Kubernetes aonnotations) over the network.
 NetworkPolicies apply to a connection with a pod on one or both ends, and are not relevant to
 other connections.
 
