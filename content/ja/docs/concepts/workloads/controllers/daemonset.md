@@ -177,4 +177,4 @@ DaemonSetがNodeレベルの機能を提供し、他のPodがその特定のNode
     (例えば、ロールアウトが期待通りに動作しなかった場合)。
 * [Node上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)の仕組みを理解する
 * よくDaemonSetとして実行される[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)と[アドオン](/ja/docs/concepts/cluster-administration/addons/)について学ぶ。
-* `DaemonSet`は、Kubernetes REST APIのトップレベルのリソースです。デーモンセットのAPIを理解するため{{< api-reference page="workload-resources/daemon-set-v1" >}}オブジェクトの定義を読む。
+* `DaemonSet`は、Kubernetes REST APIのトップレベルのリソースです。DaemonSetのAPIを理解するため{{< api-reference page="workload-resources/daemon-set-v1" >}}オブジェクトの定義を読む。

@@ -206,7 +206,8 @@ to the Gateway by the implementation's controller. This address is used as a net
 processing traffic of backend network endpoints defined in routes.
 
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
-reference for a full definition of this API kind.
+reference for a full definition of this API kind. For guidance on configuring HTTPS/TLS listeners, see the
+[Gateway API TLS Guide](https://gateway-api.sigs.k8s.io/guides/tls/).
 -->
 在此示例中，流量处理基础设施的实例被编程为监听 80 端口上的 HTTP 流量。
 由于未指定 `addresses` 字段，因此对应实现的控制器负责将地址或主机名设置到 Gateway 之上。
@@ -214,6 +215,8 @@ reference for a full definition of this API kind.
 
 有关此类 API 的完整定义，请参阅
 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
+有关配置 HTTPS/TLS 监听器的指导，请参阅
+[Gateway API TLS 指南](https://gateway-api.sigs.k8s.io/guides/tls/)。
 
 {{< note >}}
 <!--

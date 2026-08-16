@@ -79,7 +79,6 @@ The component within the application architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-
 类别：标签
 
 例子：`app.kubernetes.io/component: "database"`
@@ -405,7 +404,8 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在
+Secret、ConfigMap 或定制资源上使用此注解。
 
 <!--
 Part of the specification used to implement
@@ -556,7 +556,14 @@ Type: Annotation
 Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: ResourceClaim
+-->
+类别：注解
 
+示例：`resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+  
+用于：ResourceClaim
+
+<!--
 This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
 Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
@@ -564,12 +571,6 @@ discoverable device metadata feature uses this annotation to map a generated Res
 back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
 Kubernetes manages this annotation, so you should not modify it.
 -->
-类别：注解
-
-示例：`resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
-
-用于：ResourceClaim
-
 该注解被赋予自动生成的 ResourceClaim。
 注解的值对应于触发 ResourceClaim 创建的 Pod 在 `.spec` 中的资源声明名称。
 在[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)中，
@@ -678,6 +679,77 @@ adhere to. This helps enforce security policies and isolation for your container
 所指定的配置文件定义了容器进程必须遵守的规则集和限制集。这有助于针对容器实施安全策略和隔离措施。
 
 <!--
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+-->
+### csi.alpha.kubernetes.io/node-id（已弃用） {#csi-alpha-kubernetes-io-node-id}
+
+类别：注解
+
+例子：`csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+用于：VolumeAttachments
+
+<!--
+This annotation records the node identifier used by a CSI driver, as a fallback when the
+[CSINode](/docs/reference/kubernetes-api/storage/csi-node-v1/) object is not available.
+The CSI external-attacher sidecar container populates it before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when an appropriate CSINode is not present.
+
+Because this annotation is deprecated, the Kubernetes project recommends that you do
+**not** set this on a VolumeAttachment, nor on any other object.
+-->
+此注解用于记录 CSI 驱动所使用的节点标识符，作为
+[CSINode](/zh-cn/docs/reference/kubernetes-api/storage/csi-node-v1/)
+对象不可用时的回退。CSI external-attacher  
+边车容器会在卷被挂接之前填充该注解。
+
+它为在缺少合适的 CSINode 时解除挂接卷提供了一种回退机制。
+
+由于此注解已被弃用，Kubernetes 项目建议你**不要**在 VolumeAttachment
+或任何其他对象上设置它。
+
+<!--
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+-->
+### csi.volume.kubernetes.io/nodeid（已弃用） {#csi-volume-kubernetes-io-nodeid}
+
+类别：注解
+
+例子：`csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+用于：Nodes
+
+<!--
+This annotation specifies the identifier for a node as understood by the
+Container Storage Interface (CSI) driver. `kubelet` populates this annotation
+by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the
+node ID during driver registration. The external-attacher sidecar container
+reads this annotation to get the node ID when attaching or detaching volumes.
+
+This annotation is deprecated in favor of the CSINode object, which provides the same
+functionality via the [`spec.drivers[].nodeID` field](/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver).
+-->
+此注解用于指定由容器存储接口（Container Storage Interface，CSI）驱动所理解的节点标识符。
+`kubelet` 通过调用 CSI 驱动的 `NodeGetInfo` gRPC 方法在驱动注册期间获取节点
+ID，并填充此注解。external-attacher 边车容器在挂接或解除挂接卷时会读取此注解以获取节点 ID。
+
+此注解已被弃用，推荐改用 CSINode 对象，它通过
+[`spec.drivers[].nodeID` 字段](/zh-cn/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver)提供相同的功能。
+
+<!--
 ### deployment.kubernetes.io/desired-replicas
 
 Type: Annotation
@@ -707,7 +779,6 @@ modified manually.
 Deployment 控制器利用此注解在滚动更新和扩缩容操作期间追踪期望状态。
 
 这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
-
 
 <!--
 ### deployment.kubernetes.io/max-replicas
@@ -750,7 +821,16 @@ Type: Annotation
 Example: `deployment.kubernetes.io/revision: "2"`
 
 Used on: ReplicaSet
+-->
+### deployment.kubernetes.io/revision   {#deployment-kubernetes-io-revision}
 
+类别：注解
+  
+例子：`deployment.kubernetes.io/revision: "2"`
+
+用于：ReplicaSet
+
+<!--
 This annotation is set by the Deployment controller on ReplicaSets it manages.
 The value represents the revision number of the Deployment. Each time the Deployment's
 Pod template (`.spec.template`) is changed, the revision number is incremented.
@@ -762,14 +842,6 @@ The revision number is also visible when running `kubectl rollout history deploy
 This is an internal annotation used by the Deployment controller and should not be
 modified manually.
 -->
-### deployment.kubernetes.io/revision   {#deployment-kubernetes-io-revision}
-
-类别：注解
-
-例子：`deployment.kubernetes.io/revision: "2"`
-
-用于：ReplicaSet
-
 此注解由 Deployment 控制器在其所管理的 ReplicaSet 上进行设置。
 此注解的值表示 Deployment 的修订版本号。每当 Deployment 的
 Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增。
@@ -778,7 +850,6 @@ Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增
 在执行 `kubectl rollout history deployment/<name>` 命令时，也可以查看到对应的修订版本号。
 
 这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
-
 
 ### deployment.kubernetes.io/revision-history
 
