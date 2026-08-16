@@ -52,7 +52,7 @@ weight: 30
 작업을 수행한 다음 중지하는
 쿠버네티스 리소스 이다.
 
-(일단 [스케줄되면](/ko/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet
+(일단 [스케줄되면](/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet
 의 의도한 상태 중 일부가 된다.)
 
 잡 컨트롤러가 새로운 작업을 확인하면, 클러스터 어딘가에서
@@ -101,7 +101,7 @@ weight: 30
 
 온도 조절기 예에서 방이 매우 추우면 다른 컨트롤러가
 서리 방지 히터를 켤 수도 있다. 쿠버네티스 클러스터에서는
-[쿠버네티스 확장](/ko/docs/concepts/extend-kubernetes/)을 통해
+[쿠버네티스 확장](/docs/concepts/extend-kubernetes/)을 통해
 IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API 및
 기타 서비스 등과 간접적으로 연동하여 이를 구현한다.
 
@@ -161,9 +161,9 @@ IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API �
 
 ## {{% heading "whatsnext" %}}
 
-* [쿠버네티스 컨트롤 플레인](/ko/docs/concepts/architecture/#컨트롤-플레인-컴포넌트)에 대해 읽기
-* [쿠버네티스 오브젝트](/ko/docs/concepts/overview/working-with-objects/)의 몇 가지 기본 사항을 알아보자.
-* [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
+* [쿠버네티스 컨트롤 플레인](/docs/concepts/architecture/#컨트롤-플레인-컴포넌트)에 대해 읽기
+* [쿠버네티스 오브젝트](/docs/concepts/overview/working-with-objects/)의 몇 가지 기본 사항을 알아보자.
+* [쿠버네티스 API](/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
 * 만약 자신만의 컨트롤러를 작성하기 원한다면, 
-  [쿠버네티스 확장 패턴](/ko/docs/concepts/extend-kubernetes/#익스텐션-패턴)과 [sample-controller](https://github.com/kubernetes/sample-controller) 리포지토리를
+  [쿠버네티스 확장 패턴](/docs/concepts/extend-kubernetes/#익스텐션-패턴)과 [sample-controller](https://github.com/kubernetes/sample-controller) 리포지토리를
   본다.
