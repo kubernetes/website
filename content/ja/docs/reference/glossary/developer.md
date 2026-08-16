@@ -1,5 +1,5 @@
 ---
-title: 開発者 (曖昧さ回避)
+title: 開発者(曖昧さ回避)
 id: developer
 full_link: 
 short_description: >
