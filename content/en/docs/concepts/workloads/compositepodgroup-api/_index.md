@@ -18,7 +18,7 @@ carry policies and hierarchy references for a specific workload instance.
 
 The CompositePodGroup API resource is part of the `scheduling.k8s.io/v1alpha3`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}. Your cluster must have that API
-group enabled, as well as the CompositePodGroup
+group enabled, as well as the `CompositePodGroup`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 before you can use this API.
 

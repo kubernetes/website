@@ -74,7 +74,7 @@ profiles:
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-When the [CompositePodGroup](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, the Topology-Aware Scheduling plugins extend their support to multi-level
 CompositePodGroup hierarchies. These plugins are called for CompositePodGroups during

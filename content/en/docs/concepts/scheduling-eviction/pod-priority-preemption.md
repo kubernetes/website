@@ -197,7 +197,7 @@ page.
 
 {{< feature-state feature_gate_name="CompositePodGroup">}}
 
-When the CompositePodGroup feature gate is enabled, the scheduler treats the following objects as
+When the `CompositePodGroup` feature gate is enabled, the scheduler treats the following objects as
 units of scheduling that can be enqueued:
 
 - Standalone Pods - Pods that are not part of any PodGroup,
