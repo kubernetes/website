@@ -10,7 +10,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-Kubernetes allow you to limit the number of process IDs (PIDs) that a
+Kubernetes allows you to limit the number of process IDs (PIDs) that a
 {{< glossary_tooltip term_id="Pod" text="Pod" >}} can use.
 You can also reserve a number of allocatable PIDs for each {{< glossary_tooltip term_id="node" text="node" >}}
 for use by the operating system and daemons (rather than by Pods).
@@ -54,14 +54,15 @@ and their containers.
 
 PID limiting is an important sibling to [compute
 resource](/docs/concepts/configuration/manage-resources-containers/) requests
-and limits. However, you specify it in a different way: rather than defining a
-Pod's resource limit in the `.spec` for a Pod, you configure the limit as a
-setting on the kubelet. Pod-defined PID limits are not currently supported.
+and limits. You can configure a uniform PID limit for all Pods on a node via the
+kubelet's `PodPidsLimit` setting. Starting with Kubernetes v1.37, you can also
+set a per-pod PID limit directly in the Pod specification; see
+[Per-pod PID limits](#per-pod-pid-limits) for details.
 
 {{< caution >}}
-This means that the limit that applies to a Pod may be different depending on
-where the Pod is scheduled. To make things simple, it's easiest if all Nodes use
-the same PID resource limits and reservations.
+When only node-level PID limits are used, the limit that applies to a Pod may
+differ depending on where the Pod is scheduled. To make things simple, it's
+easiest if all Nodes use the same PID resource limits and reservations.
 {{< /caution >}}
 
 ## Node PID limits
@@ -81,6 +82,20 @@ limit for a particular Pod. Each Node can have a different PID limit.
 To configure the limit, you can specify the command line parameter `--pod-max-pids`
 to the kubelet, or set `PodPidsLimit` in the kubelet
 [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
+
+## Per-pod PID limits
+
+{{< feature-state feature_gate_name="PerPodPIDLimit" >}}
+
+In addition to the node-level `PodPidsLimit`, you can set a PID limit for
+an individual Pod by specifying `spec.resources.limits.pids` in the Pod
+manifest. The effective limit is the minimum of the pod-specified limit and the
+node-level `PodPidsLimit`. This feature requires cgroupsv2 and the
+`PerPodPIDLimit`, `PodLevelResources`, and `PodLevelResourcesFixKubeletQOSClass`
+feature gates. On cgroupsv1 nodes, the kubelet rejects Pods that specify a PID limit.
+
+For detailed instructions, constraints, and examples, see
+[Assign per-pod PID limits](/docs/tasks/configure-pod-container/assign-pod-pid-limit/).
 
 ## PID based eviction
 
@@ -104,6 +119,8 @@ when one Pod is misbehaving.
 
 ## {{% heading "whatsnext" %}}
 
+- Learn how to [Assign per-pod PID limits](/docs/tasks/configure-pod-container/assign-pod-pid-limit/).
+- Refer to the [Per-Pod PID Limit enhancement document](https://github.com/kubernetes/enhancements/issues/6063) for the per-pod PID limit feature.
 - Refer to the [PID Limiting enhancement document](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md) for more information.
 - For historical context, read
   [Process ID Limiting for Stability Improvements in Kubernetes 1.14](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/).
