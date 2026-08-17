@@ -74,7 +74,7 @@ parameters:
 
 ## 동적 프로비저닝 사용하기
 
-사용자는 `PersistentVolumeClaim` 에 스토리지클래스를 포함시켜 동적으로 프로비저닝된
+사용자는 `PersistentVolumeClaim`에 스토리지클래스를 포함시켜 동적으로 프로비저닝된
 스토리지를 요청한다. 쿠버네티스 v1.6 이전에는 `volume.beta.kubernetes.io/storage-class`
 어노테이션을 통해 수행되었다. 그러나 이 어노테이션은
 v1.9부터는 더 이상 사용하지 않는다. 사용자는 이제 `PersistentVolumeClaim` 오브젝트의
