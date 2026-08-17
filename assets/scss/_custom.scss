@@ -1979,13 +1979,7 @@ body.td-search {
 }
 
 .code-dialect-switch {
-  /* The control is not offered to readers yet. Both dialects are rendered and
-     checked so that the machinery is exercised, but conventional YAML is all
-     anyone sees until SIG Docs decides otherwise. Deleting this one declaration
-     is what turns the feature on; until then display:none also keeps the
-     buttons out of the accessibility tree. */
-  display: none;
-
+  display: inline-flex;
   gap: 0.25rem;
   margin-right: auto;
 }
