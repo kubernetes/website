@@ -65,8 +65,8 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 
-* [`none`](#none-policy): the default policy.
-* [`static`](#static-policy): allows pods with certain resource characteristics to be
+* [`none`](#none-policy-configuration): the default policy.
+* [`static`](#static-policy-configuration): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 
 The CPU manager periodically writes resource updates through the CRI in
