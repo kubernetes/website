@@ -42,7 +42,8 @@ body.cid-home {
   .home-hero__logo { display: block; width: 100%; }
   @media (min-width: 1200px) {
     .home-hero__copy > picture { overflow: hidden; }
-    .home-hero__copy > picture .home-hero__logo { width: 640px; max-width: none; transform: translateX(-175px); }
+    .home-hero__copy > picture .home-hero__logo { width: 640px; max-width: none; /* rtl:ignore */ transform: translateX(-175px); }
+    @at-root html[dir="rtl"] body.cid-home .home-hero__copy > picture .home-hero__logo { width: 640px; max-width: none; transform: translateX(0); }
   }
   .home-hero__logo, .home-navbar-logo-slot img { transition: opacity 220ms ease, transform 220ms ease; }
   .td-navbar { height: 4rem; min-height: 4rem; }
