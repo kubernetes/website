@@ -81,7 +81,7 @@ ephemeral container creation as a distinct API surface lets cluster
 administrators make an explicit decision about who may add containers to
 already-running Pods.
 
-For the same reason, the `pods/ephemeralcontainers` subresource is *not*
+For the same reason, the `pods/ephemeralcontainers` subresource is **not**
 included in the default `admin` and `edit`
 [user-facing ClusterRoles](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
 To allow users to add ephemeral containers (for example, by running

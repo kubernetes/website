@@ -388,10 +388,10 @@ https://github.com/GoogleContainerTools/distroless).
 
 ### Permissions for ephemeral containers {#ephemeral-container-permissions}
 
-Adding an ephemeral container to a running Pod uses the Pod's
-`ephemeralcontainers` subresource. At the API level this is a `PATCH` (or
-`UPDATE`) request on `pods/ephemeralcontainers`, which is governed by its own
-RBAC verbs and is *not* granted by `patch` on `pods`.
+For security reasons, adding an ephemeral container to a running Pod uses the Pod's
+`ephemeralcontainers` subresource. At the API level this is an
+**update** request on `pods/ephemeralcontainers`. Just being authorized to **patch**
+a Pod does not allow users to add ephemeral containers to that Pod.
 
 The `pods/ephemeralcontainers` subresource is intentionally not part of the
 default `admin` and `edit`
@@ -407,7 +407,7 @@ Error from server (Forbidden): pods "example" is forbidden: User "alice" cannot
 patch resource "pods/ephemeralcontainers" in API group "" in the namespace "example-ns"
 ```
 
-Cluster administrators can grant this permission in one of two ways.
+If you're managing cluster access and your cluster uses [Kubernetes RBAC](/docs/reference/access-authn-authz/rbac/), you can grant this permission in one of two ways.
 
 To extend the built-in `edit` and `admin` ClusterRoles cluster-wide, create an
 aggregated ClusterRole labeled for
@@ -449,7 +449,11 @@ against the same [Pod Security Standards](/docs/concepts/security/pod-security-s
 as regular containers. When granting permission to add ephemeral containers to
 Pods governed by the `baseline` or `restricted` policy, choose a matching
 [debugging profile](#debugging-profiles) such as `--profile=baseline` or
-`--profile=restricted` with `kubectl debug`. Any validating admission webhooks in your cluster that do not evaluate the ephemeralContainers field may also need updating to evaluate the `ephemeralContainers` field in a Pod's spec.
+`--profile=restricted` with `kubectl debug`.
+
+Any admission webhooks or admission policies in your cluster, that do not evaluate
+the `ephemeralContainers` field, may also need updating to evaluate the `ephemeralContainers`
+field in a Pod's spec.
 {{< /note >}}
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
