@@ -355,7 +355,7 @@ or deny a request.
 
 You cannot combine the `--authorization-mode` command line argument with the
 `--authorization-config` command line argument used for
-[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
+[configuring authorization using a local file](#using-configuration-file-for-authorization).
 
 For more information on command line arguments to the API server, read the
 [`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
