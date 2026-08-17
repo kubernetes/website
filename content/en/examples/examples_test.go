@@ -155,6 +155,10 @@ var filesIgnore = []string{
 	// NOTE: The following Secret manifest cannot pass because the field values
 	// in it are not BASE64 encoded
 	"secret/tls-auth-secret.yaml",
+	// This fragment uses '...' to stand in for the omitted spec, and '...' is
+	// YAML's document-end marker, so it cannot be decoded. SKIP in
+	// scripts/kyaml.sh leaves it out for the same reason
+	"validatingadmissionpolicy/failure-policy-ignore.yaml",
 }
 
 // TestGroup contains GroupVersion to uniquely identify the API
@@ -544,7 +548,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 		AllowPrivileged: true,
 	})
 
-	walkConfigFiles(".", t, func(path string, docs [][]byte, kinds []string) {
+	// The error matters: walkConfigFiles stops at the first file it cannot
+	// decode, so ignoring it would silently leave every later file unvalidated.
+	err := walkConfigFiles(".", t, func(path string, docs [][]byte, kinds []string) {
 
 		for i, data := range docs {
 			expectedType := kindObjs[kinds[i]]
@@ -561,4 +567,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			}
 		}
 	})
+	if err != nil {
+		t.Error(err)
+	}
 }
