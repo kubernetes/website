@@ -18,7 +18,7 @@ weight: 20
 ## 컨테이너의 환경 변수 정의하기
 
 파드를 생성할 때, 파드 안에서 동작하는 컨테이너의 환경 변수를
-설정할 수 있다. 환경 변수를 설정하려면, 구성 파일에 `env`나 `envFrom` 필드를
+설정할 수 있다. 환경 변수를 설정하려면 구성 파일에 `env`나 `envFrom` 필드를
 포함해야 한다.
 
 `env`와 `envFrom` 필드는 서로 다른 영향을 미친다.
@@ -102,7 +102,7 @@ weight: 20
 `MESSAGE`는 이 모든 환경 변수를 합치고 이를
 `env-print-demo` 컨테이너에 전달되는 CLI 인자로 사용한다.
 
-환경 변수명은 '='를 제외한 [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters)로 구성할 수 있다.
+환경 변수명은 '='를 제외한 [출력 가능한 ASCII 문자](https://www.ascii-code.com/characters/printable-characters)로 구성할 수 있다.
 
 ```yaml
 apiVersion: v1
