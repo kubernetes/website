@@ -16,7 +16,7 @@ weight: 50
 공급자에게 수동으로 요청해서 새 스토리지 볼륨을 생성한 다음, 쿠버네티스에
 표시하기 위해 [`PersistentVolume` 오브젝트](/docs/concepts/storage/persistent-volumes/)를
 생성해야 한다. 동적 프로비저닝 기능을 사용하면 클러스터 관리자가
-스토리지를 사전 프로비저닝 할 필요가 없다. 대신 사용자가 
+스토리지를 사전 프로비저닝할 필요가 없다. 대신 사용자가 
 [`PersistentVolumeClaim` 오브젝트](/docs/concepts/storage/persistent-volumes/)를 생성하면
 스토리지를 자동으로 프로비저닝한다.
 
