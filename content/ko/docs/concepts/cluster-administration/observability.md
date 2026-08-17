@@ -190,7 +190,7 @@ flowchart LR
 
 ## {{% heading "whatsnext" %}}
 
-- [metrics-server로 리소스 사용량 메트릭을 수집하는 방법](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)을 알아본다.
+- [metrics-server로 리소스 사용량을 수집](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)하는 방법을 알아본다.
 - [로깅 태스크 및 튜토리얼](/docs/tasks/debug/logging/)을 살펴본다.
 - [모니터링 및 추적 태스크 가이드](/docs/tasks/debug/monitoring/)를 따른다.
 - 컴포넌트 엔드포인트와 안정성에 대해서는 [시스템 메트릭 가이드](/docs/concepts/cluster-administration/system-metrics/)를 검토한다.
