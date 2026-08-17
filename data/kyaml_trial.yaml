@@ -1,0 +1,21 @@
+# The example manifests that are offered in both dialects.
+#
+# KEP-5295 asks SIG Docs to work with KYAML, not to convert the site to it:
+# "Require projects to migrate to KYAML by default" is an explicit non-goal. So
+# this is a trial, on the pages a reader is most likely to land on first, which
+# is where a change of format is worth looking at before it is worth repeating.
+#
+# Paths are relative to content/<lang>/examples. A manifest listed here renders
+# in both dialects, with a control beside the filename to switch; one that is
+# not listed renders in a single pane, exactly as it always has. Widening the
+# trial is a line here. Offering every example both dialects is deleting this
+# file.
+#
+# A listed manifest with no KYAML rendering still renders one pane: those that
+# embed a file in a block scalar have no flow-style form and are left out of
+# the generated tree by scripts/kyaml.sh.
+
+- pods/simple-pod.yaml               # docs/concepts/workloads/pods/
+- controllers/nginx-deployment.yaml  # docs/concepts/workloads/controllers/deployment.md
+- service/simple-service.yaml        # docs/concepts/services-networking/service.md
+- pods/config/redis-pod.yaml         # docs/tutorials/configuration/configure-redis-using-configmap.md

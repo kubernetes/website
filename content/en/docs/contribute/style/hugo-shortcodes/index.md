@@ -335,6 +335,36 @@ where `<RELATIVE-PATH>` is the path to the sample file to include, relative to t
 The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code_sample */%}}`.
 Use `{{%/* code_sample */%}}` (not `{{%/* codenew */%}}` or `{{%/* code */%}}`) in new documentation.
 
+### Both dialects
+
+Example manifests are conventional YAML, and that is what
+`{{%/* code_sample */%}}` shows and what `https://k8s.io/examples/...` serves.
+
+A few of them are also rendered as [KYAML](/docs/reference/encodings/kyaml/)
+under `content/<LANG>/examples-kyaml/`. For those, the shortcode renders a
+second pane and a control beside the filename naming both dialects. Which
+examples those are is `data/kyaml_trial.yaml`; anything not on that list renders
+in a single pane, exactly as it always has.
+
+**The control is hidden for now**, so readers see conventional YAML and nothing
+else. Both panes are still rendered and checked, so that the switch and the
+generated tree are exercised before anyone decides to turn them on. When it is
+turned on, choosing a dialect switches every example on the site, not just that
+one, and the choice is remembered across pages.
+
+Each pane's filename links to the file it shows, so the KYAML pane links to the
+generated copy. Anything a reader applies comes from the
+`https://k8s.io/examples/...` URLs the docs cite in `kubectl apply -f` commands,
+which resolve to the manifests themselves.
+
+You do not write the second dialect. `make kyaml` generates it, and
+`make verify-kyaml` fails if it goes stale or stops describing the same objects.
+A listed manifest still renders as a single pane when it cannot have a KYAML
+form at all — those that embed a file in a block scalar, which is not legal
+inside flow style — as does any localized example whose team has not opted in.
+See
+[Regenerating the KYAML rendering](/docs/contribute/style/write-new-topic/#kyaml-examples).
+
 ## Third party content marker
 
 Running Kubernetes requires third-party software. For example: you

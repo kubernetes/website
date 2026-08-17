@@ -111,6 +111,15 @@ other = "YouTube"
 [conjunction_1]
 other = "and"
 
+[code_sample_dialect_group]
+other = "Show this example as"
+
+[code_sample_dialect_yaml]
+other = "YAML"
+
+[code_sample_dialect_kyaml]
+other = "KYAML"
+
 [copy_sample_to_clipboard]
 other = "Copy {{ .filename }} to clipboard"
 

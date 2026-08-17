@@ -1961,6 +1961,55 @@ body.td-search {
   padding: 0.2rem;
 }
 
+/* Examples that exist in both dialects render both, and the reader's stored
+   choice decides which one is shown. Before the preference script runs, and
+   for readers without JavaScript, the conventional YAML is the visible one. */
+.code-sample-dialects > .code-sample-kyaml {
+  display: none;
+}
+
+[data-code-dialect="kyaml"] {
+  .code-sample-dialects > .code-sample-yaml {
+    display: none;
+  }
+
+  .code-sample-dialects > .code-sample-kyaml {
+    display: block;
+  }
+}
+
+.code-dialect-switch {
+  /* The control is not offered to readers yet. Both dialects are rendered and
+     checked so that the machinery is exercised, but conventional YAML is all
+     anyone sees until SIG Docs decides otherwise. Deleting this one declaration
+     is what turns the feature on; until then display:none also keeps the
+     buttons out of the accessibility tree. */
+  display: none;
+
+  gap: 0.25rem;
+  margin-right: auto;
+}
+
+.code-dialect-toggle {
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0 0.4rem;
+
+  /* Which dialect is on screen is carried by weight and contrast rather than a
+     fill: the control sits on the code sample's own header, and any colour
+     named here would have to be named again for the other theme. */
+  font-weight: 400;
+  opacity: 0.65;
+
+  &[aria-pressed="true"] {
+    font-weight: 700;
+    opacity: 1;
+  }
+}
+
 .includecode .highlight {
   margin-top: 0;
   margin-bottom: 0;

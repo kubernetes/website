@@ -99,6 +99,15 @@
 
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
     <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+{{/* Applies the reader's KYAML/YAML choice before first paint, so that examples
+     do not visibly switch dialect after the page loads. */}}
+    {{- $codeDialectJs := resources.Get "js/code-dialect.js" -}}
+    {{- if hugo.IsProduction -}}
+      {{- $codeDialectJs = $codeDialectJs | minify | fingerprint -}}
+<script src="{{ $codeDialectJs.RelPermalink }}" integrity="{{ $codeDialectJs.Data.Integrity }}" crossorigin="anonymous"></script>
+    {{- else -}}
+<script src="{{ $codeDialectJs.RelPermalink }}"></script>
+    {{- end -}}
 {{- end -}}
 
 {{- if eq (lower .Params.cid) "community" -}}

@@ -134,6 +134,32 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 {{%/* code_sample file="pods/storage/gce-volume.yaml" */%}}
 ```
 
+### Regenerating the KYAML rendering {#kyaml-examples}
+
+Write the sample as conventional YAML, as before. That file is the source of
+truth, it is the only rendering that can carry comments, and it is what
+`https://k8s.io/examples/...` serves.
+
+A short list of manifests is also rendered in
+[KYAML](/docs/reference/encodings/kyaml/) &mdash; the flow-style dialect of YAML
+that Kubernetes {{< skew currentVersion >}} defines for project-owned examples
+&mdash; so that their pages can offer a reader either. You never write that
+rendering by hand. The list is `data/kyaml_trial.yaml`; a manifest that is not
+on it renders in a single pane, and adding a line is how the list grows.
+
+After adding or changing a manifest that is on the list, run:
+
+```shell
+make kyaml
+```
+
+and commit what it writes under `content/en/examples-kyaml/`.
+`make verify-kyaml` fails if that tree is stale or if it stops describing the
+same objects as your manifest; `scripts/test_examples.sh` runs it whenever a
+pull request touches an examples directory. Some manifests deliberately get no
+KYAML rendering, and localizations are opt-in; `scripts/README.md` says which
+and why.
+
 ## Showing how to create an API object from a configuration file
 
 If you need to demonstrate how to create an API object based on a

@@ -1,0 +1,7 @@
+{{- /*
+Raw-file link on GitHub for one example manifest.
+
+Expects the path of the file relative to the project root, beginning with a
+slash, e.g. "/content/en/examples/pods/simple-pod.yaml".
+*/ -}}
+{{- printf "https://%s/%s%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) . -}}

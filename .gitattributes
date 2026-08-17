@@ -1,0 +1,4 @@
+# The KYAML rendering of each example manifest is produced by scripts/kyaml.sh
+# from the conventional YAML under content/*/examples. Collapse it in diffs and
+# keep it out of language statistics; edit the source manifest instead.
+content/*/examples-kyaml/** linguist-generated=true

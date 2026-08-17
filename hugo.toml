@@ -19,7 +19,7 @@ disableAliases = true
 
 disableKinds = ["taxonomy"]
 
-ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+ignoreFiles = [ "content/[^/]+/examples-kyaml", "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 timeout = "600s"
 

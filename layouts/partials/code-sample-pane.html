@@ -1,0 +1,45 @@
+{{- /*
+Renders one dialect of an example manifest.
+
+Expects a dict with:
+  file      the path passed to the code_sample shortcode, e.g. "pods/simple-pod.yaml"
+  content   the file contents to highlight
+  codelang  highlight language
+  options   highlight options
+  ghlink    raw-file link on GitHub, may be empty
+  id        DOM id for the copy-to-clipboard helper, unique per pane
+  dialect   "yaml", "kyaml", or "" when the page offers only one dialect
+*/ -}}
+<div class="highlight code-sample{{ with .dialect }} code-sample-{{ . }}{{ end }}">
+    <div class="copy-code-icon">
+    {{ with .ghlink }}<a href="{{ . | safeURL }}" download="{{ $.file }}">{{ end }}<code>{{ .file }}</code>
+    {{ if .ghlink }}</a>{{ end }}
+    {{- if .dialect -}}
+    {{- /* Both dialects are named, rather than one button that flips to the
+           other, so that a reader can see what they are choosing between and
+           which one they are looking at. The control is repeated in every pane
+           because only one pane is displayed at a time, and it has to sit in
+           whichever one that is.
+
+           Which button is pressed is set by assets/js/code-dialect.js: the
+           choice belongs to the reader and the page is cached for everyone, so
+           conventional YAML starts out pressed here, which is also what the
+           stylesheet shows to a reader without JavaScript. */ -}}
+    {{- $labels := dict "yaml" (T "code_sample_dialect_yaml") "kyaml" (T "code_sample_dialect_kyaml") -}}
+    <span class="code-dialect-switch" role="group" aria-label="{{ T "code_sample_dialect_group" }}">
+    {{- range $dialect := slice "yaml" "kyaml" -}}
+    <button type="button" class="code-dialect-toggle" data-code-dialect="{{ $dialect }}" aria-pressed="{{ eq $dialect "yaml" }}">
+      {{- index $labels $dialect -}}
+    </button>
+    {{- end -}}
+    </span>
+    {{- end -}}
+    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" .file) -}}
+    {{- with resources.Get "images/copycode.svg" -}}
+    <img src="{{ .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $.id }}')" title="{{ $copyTitle }}"></img>
+    {{- end -}}
+    </div>
+    <div class="includecode" id="{{ .id }}">
+       {{- highlight .content .codelang .options -}}
+    </div>
+</div>
