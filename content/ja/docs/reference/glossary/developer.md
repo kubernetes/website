@@ -10,7 +10,7 @@ tags:
 - community
 - user-type
 ---
- 以下を指す場合があります&#58; {{< glossary_tooltip text="アプリケーション開発者" term_id="application-developer" >}}, {{< glossary_tooltip text="コードコントリビューター" term_id="code-contributor" >}}, または {{< glossary_tooltip text="プラットフォーム開発者" term_id="platform-developer" >}}。
+ 以下を指す場合があります&#58; {{< glossary_tooltip text="アプリケーション開発者" term_id="application-developer" >}}、 {{< glossary_tooltip text="コードコントリビューター" term_id="code-contributor" >}}、 または{{< glossary_tooltip text="プラットフォーム開発者" term_id="platform-developer" >}}。
 
 <!--more--> 
 
