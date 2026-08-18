@@ -8,10 +8,7 @@ author: >
 ---
 
 
-Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) 
-keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been 
-building toward for three straight releases, alongside a new standard device attribute that lands directly as Stable. 
-One feature graduates to beta and most of the alpha work continues into a second round, alongside new additions.
+Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been building toward for three straight releases, alongside several more features graduating directly to Stable. A couple of features move to beta and a fresh batch of alpha features rounds out the release.
 
 I'll dive into what's new for DRA in Kubernetes 1.37!
 
