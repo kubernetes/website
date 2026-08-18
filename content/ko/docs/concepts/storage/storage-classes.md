@@ -109,7 +109,7 @@ PVC에 `storageClassName`이 지정되지 않은 경우 기본 스토리지클�
 
 여기에 나열된 “내부” 프로비저너(이름에 “kubernetes.io” 접두사가 붙고
 쿠버네티스와 함께 제공됨)만 지정해야 하는 것은 아니다. 쿠버네티스가 정의한
-[명세](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)를
+[명세](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)를
 따르는 독립적인 프로그램인 외부 프로비저너를 실행하고 지정할 수도 있다.
 외부 프로비저너 작성자는 코드를 어디에 둘지,
 프로비저너를 어떻게 배포하고 실행할지,
