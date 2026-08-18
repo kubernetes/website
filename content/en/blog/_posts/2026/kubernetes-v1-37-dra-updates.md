@@ -19,9 +19,12 @@ I'll dive into what's new for DRA in Kubernetes 1.37!
 It's been on a steady path since KEP acceptance in 1.34. Alpha landed in 1.35, beta in 1.36, and now it's stable. For cluster operators, this is what makes DRA adoption gradual. Existing workloads written against extended resources keep working unmodified while the backend allocation logic moves over to DRA.
 
 [Resource Claim Status with possible standardized network interface data](https://www.kubernetes.dev/resources/keps/4817/)
-graduates to stable. This adds a `Devices` field to `ResourceClaim.Status`, letting DRA drivers report per-device status, including, for network devices, the interface name, MAC address, and IP addresses. This gives users and controllers visibility into device state that was previously invisible once a device was configured in a Pod, and makes it possible to build things like network services that rely on a device's reported IPs.
+adds a `Devices` field to `ResourceClaim.Status`, letting DRA drivers report per-device status, including, for network 
+devices, the interface name, MAC address, and IP addresses. This gives users and controllers visibility into device state 
+that was previously invisible once a device was configured in a Pod, and makes it possible to build things like network 
+services that rely on a device's reported IPs.
 
-[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) graduates to Stable. DRA drivers can 
+[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) now Stable, DRA drivers can 
 now mark devices as tainted so they're skipped for new pod scheduling, and cluster admins can apply the same taints 
 cluster-wide via a `DeviceTaintRule`, without reconfiguring drivers. Pods already using a tainted device can be evicted 
 automatically, unless their `ResourceClaim` explicitly tolerates the taint. This mirrors node taints and tolerations, 
