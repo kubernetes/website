@@ -82,8 +82,7 @@ prepare and unprepare calls for allocations that don't need any setup on the nod
 avoid an unnecessary dependency on the driver for allocations where there's genuinely nothing for it to do 
 locally.
 
-[Derived Attributes](https://www.kubernetes.dev/resources/keps/6080) is a new feature that lets you use [CEL]
-(https://kubernetes.io/docs/reference/using-api/cel/) expressions to match up devices based on your own 
+[Derived Attributes](https://www.kubernetes.dev/resources/keps/6080) is a new feature that lets you use [CEL](https://kubernetes.io/docs/reference/using-api/cel/) expressions to match up devices based on your own 
 custom rules. Before this, pairing devices from different vendors (like a GPU/TPU and a NIC on the same NUMA 
 node) only worked if both drivers used the exact same attribute name. If one used `numa` and the other used 
 `numaNode`, the scheduler couldn't pair them together. Now, you can easily bridge these differences yourself 
