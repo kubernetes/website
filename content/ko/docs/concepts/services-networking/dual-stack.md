@@ -133,7 +133,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    명시적으로 지정한다. 이중 스택 클러스터에서 이 서비스를 생성하면 쿠버네티스는
    해당 서비스에 IPv4 및 IPv6 주소를 모두 할당한다. 컨트롤 플레인은 서비스의
    `.spec`을 업데이트하여 할당된 IP 주소를 기록한다. `.spec.clusterIPs` 필드가
-   기본 필드이며 할당된 IP 주소를 모두 포함한다. `.spec.clusterIP`는
+   주 필드이며 할당된 IP 주소를 모두 포함한다. `.spec.clusterIP`는
    `.spec.clusterIPs`로부터 값이 계산되는 보조 필드이다.
 
    * `.spec.clusterIP` 필드에는 컨트롤 플레인이 첫 번째 서비스 클러스터 IP
@@ -145,7 +145,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 
    {{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
-1. 이 서비스 명세는 `.spec.ipFamilies`에` IPv6`과 `IPv4`를 명시적으로 지정하고,
+1. 이 서비스 명세는 `.spec.ipFamilies`에 `IPv6`과 `IPv4`를 명시적으로 지정하고,
    `.spec.ipFamilyPolicy`에 `PreferDualStack`을 지정한다. 쿠버네티스가 `.spec.clusterIPs`에
    IPv6 및 IPv4 주소를 할당하면, `.spec.clusterIPs` 배열의 첫 번째 요소가 IPv6 주소이므로
    `.spec.clusterIP`에도 IPv6 주소가 설정되어 기본 동작이 재정의된다.
@@ -268,7 +268,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 
 [셀렉터가 없는 헤드리스 서비스](/docs/concepts/services-networking/service/#셀렉터가-없는-서비스)에서
 `.spec.ipFamilyPolicy`를 명시적으로 설정하지 않으면, `.spec.ipFamilyPolicy` 필드의 기본값은
-`RequireDualStack` 이다.
+`RequireDualStack`이다.
 
 ### 로드밸런서 서비스 유형
 
