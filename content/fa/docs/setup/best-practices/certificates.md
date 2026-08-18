@@ -1,5 +1,7 @@
 ---
 title: گواهینامه‌ها و الزامات PKI
+reviewers:
+#- sig-cluster-lifecycle
 content_type: concept
 weight: 50
 ---
@@ -30,7 +32,7 @@ weight: 50
 
 * گواهی‌های کلاینت برای هر kubelet، برای احراز هویت به سرور API به عنوان یک کلاینت از API کوبرنتیز  
 * گواهی کلاینت برای هر سرور API، برای احراز هویت به etcd  
-* گواهی کلاینت برای مدیر کنترل (controller manager) برای ارتباط امن با سرور API  
+* گواهی کلاینت برای مدیر کنترل کننده (controller manager) برای ارتباط امن با سرور API  
 * گواهی کلاینت برای زمان‌بند (scheduler) برای ارتباط امن با سرور API  
 * گواهی‌های کلاینت، یکی برای هر گره، برای kube-proxy جهت احراز هویت به سرور API  
 * گواهی‌های کلاینت اختیاری برای مدیران کلاستر جهت احراز هویت به سرور API  
@@ -60,7 +62,7 @@ etcd همچنین TLS متقابل را برای احراز هویت کلاین�
 
 ## پیکربندی دستی گواهینامه‌ها
 
-اگر نمی‌خواهید kubeadm گواهی‌های مورد نیاز را تولید کند، می‌توانید آنها را با استفاده از یک CA ریشه واحد یا با ارائه همه گواهی‌ها ایجاد کنید. برای جزئیات بیشتر در مورد ایجاد مرجع صدور گواهی خود، به [گواهینماه‌ها](/docs/tasks/administer-cluster/certificates/) مراجعه کنید. برای اطلاعات بیشتر در مورد مدیریت گواهی‌ها، به [مدیریت گواهینامه با kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) مراجعه کنید.
+اگر نمی‌خواهید kubeadm گواهی‌های مورد نیاز را تولید کند، می‌توانید آنها را با استفاده از یک CA ریشه واحد یا با ارائه همه گواهی‌ها ایجاد کنید. برای جزئیات بیشتر در مورد ایجاد مرجع صدور گواهی خود، به [گواهینامه‌ها](/docs/tasks/administer-cluster/certificates/) مراجعه کنید. برای اطلاعات بیشتر در مورد مدیریت گواهی‌ها، به [مدیریت گواهینامه با kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) مراجعه کنید.
 
 ### CA تک ریشه
 
@@ -70,9 +72,9 @@ CA های مورد نیاز:
 
 | Path                   | Default CN                | Description                      |
 |------------------------|---------------------------|----------------------------------|
-| ca.crt,key             | kubernetes-ca             | Kubernetes general CA            |
-| etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
+| ca.crt,key             | kubernetes-ca             | مرجع گواهی عمومی کوبرنتیز            |
+| etcd/ca.crt,key        | etcd-ca                   | برای تمامی توابع مرتبط با etcd  |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | برای [پراکسی front-end](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 علاوه بر CA های فوق، دریافت یک جفت کلید عمومی/خصوصی برای مدیریت حساب سرویس، `sa.key` و `sa.pub` نیز ضروری است.
 
@@ -106,7 +108,7 @@ CA های مورد نیاز:
 {{< note >}}
 به جای استفاده از گروه کاربر ارشد `system:masters` برای `kube-apiserver-kubelet-client`، می‌توان از یک گروه با امتیاز کمتر استفاده کرد. kubeadm برای این منظور از گروه `kubeadm:cluster-admins` استفاده می‌کند.
 {{< /note >}}
-
+[^1]: هر IP یا نام DNS دیگری که با کلاستر خود با آن ارتباط برقرار می‌کنید (همانطور که توسط [kubeadm](/docs/reference/setup-tools/kubeadm/) استفاده می‌شود، IP و/یا نام DNS پایدار متعادل‌کننده بار، kubernetes، kubernetes.default، kubernetes.default.svc، kubernetes.default.svc.cluster، kubernetes.default.svc.cluster.local)
 که در آن `kind` به یک یا چند مورد از کاربردهای کلید x509 نگاشت می‌شود، که در `.spec.usages` از یک [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest) نیز مستند شده است:
 
 | kind   | Key usage                                                                       |
@@ -115,7 +117,7 @@ CA های مورد نیاز:
 | client | digital signature, key encipherment, client auth                                |
 
 {{< note >}}
-هاست‌ها/SANهای ذکر شده در بالا، موارد توصیه شده برای ایجاد یک کلاستر فعال هستند؛ در صورت نیاز به تنظیمات خاص، می‌توان SANهای اضافی را روی تمام گواهینامه‌های سرور اضافه کرد.
+گره ها/SANهای ذکر شده در بالا، موارد توصیه شده برای ایجاد یک کلاستر فعال هستند؛ در صورت نیاز به تنظیمات خاص، می‌توان SANهای اضافی را روی تمام گواهینامه‌های سرور اضافه کرد.
 {{< /note >}}
 
 {{< note >}}
@@ -226,11 +228,11 @@ kubeadm دو گواهی مدیر جداگانه در فایل‌های kubeconfi
 
 | Filename                | Command                 | Comment                                                               |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
-| admin.conf              | kubectl                 | Configures administrator user for the cluster                         |
-| super-admin.conf        | kubectl                 | Configures super administrator user for the cluster                   |
-| kubelet.conf            | kubelet                 | One required for each node in the cluster.                            |
-| controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
-| scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
+| admin.conf              | kubectl                 | کاربر مدیر را برای کلاستر پیکربندی می‌کند.                         |
+| super-admin.conf        | kubectl                 | کاربر ابرمدیر را برای کلاستر پیکربندی می‌کند.                   |
+| kubelet.conf            | kubelet                 | برای هر گره در کلاستر، یک مورد الزامی است.                           |
+| controller-manager.conf | kube-controller-manager | باید به فایل پیکربندی موجود در `manifests/kube-controller-manager.yaml` اضافه شود. |
+| scheduler.conf          | kube-scheduler          | باید به فایل پیکربندی موجود در `manifests/kube-scheduler.yaml` اضافه شود.          |
 
 فایل‌های زیر مسیرهای کامل فایل‌های فهرست‌شده در جدول قبلی را نشان می‌دهند:
 
