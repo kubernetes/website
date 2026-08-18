@@ -1130,7 +1130,7 @@ echo $?
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
 레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야 한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
 
-[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 에는 오직 `Always` 만 허용되고,
+[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 에는 오직 `Always` 만 허용되고,
 명시되지 않으면 기본값이 된다.
 
 ### 레플리카
