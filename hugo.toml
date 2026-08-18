@@ -182,34 +182,18 @@ js = [
 [[params.versions]]
 version = "v1.37"
 githubbranch = "v1.37.0"
-docsbranch = "main"
-url = "https://kubernetes.io"
-
 [[params.versions]]
 version = "v1.36"
-githubbranch = "v1.36.0"
-docsbranch = "release-1.36"
-url = "https://v1-36.docs.kubernetes.io"
-
+githubbranch = "v1.36.3"
 [[params.versions]]
 version = "v1.35"
-githubbranch = "v1.35.3"
-docsbranch = "release-1.35"
-url = "https://v1-35.docs.kubernetes.io"
-
+githubbranch = "v1.35.7"
 [[params.versions]]
 version = "v1.34"
-githubbranch = "v1.34.6"
-docsbranch = "release-1.34"
-url = "https://v1-34.docs.kubernetes.io"
-
+githubbranch = "v1.34.10"
 [[params.versions]]
 version = "v1.33"
-githubbranch = "v1.33.10"
-docsbranch = "release-1.33"
-url = "https://v1-33.docs.kubernetes.io"
-
-# User interface configuration
+githubbranch = "v1.33.13"
 [params.ui]
 # Allow resizing the sidebar gutter
 sidebar_resizable = false
