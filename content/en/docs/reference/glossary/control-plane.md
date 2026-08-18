@@ -13,7 +13,7 @@ tags:
 
  <!--more--> 
  
- This layer is composed of many different components, such as (but not restricted to):
+ This layer is composed of many different components, including, but not limited to:
 
  * {{< glossary_tooltip text="etcd" term_id="etcd" >}}
  * {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
