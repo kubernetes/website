@@ -4,7 +4,7 @@ title: 'Kubernetes v1.37: DRA Updates'
 draft: true
 slug: kubernetes-v1-37-dra-updates
 author: >
-  Kashish Verma
+  [Kashish Verma](https://github.com/KashishV999)
 ---
 
 
