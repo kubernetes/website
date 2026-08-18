@@ -133,7 +133,7 @@ A huge thanks to everyone who has contributed:
 * Alay Patel ([alaypatel07](https://github.com/alaypatel07))
 
 
-
+And a huge thanks to everyone else who helped shape this release, in ways big and small. Given enough eyeballs, all bugs are shallow and this release had plenty of them, watching closely and caring enough to make things better. DRA got better this cycle because of all of you.
 
 
 
