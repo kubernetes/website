@@ -27,24 +27,24 @@ scheduling for workloads is solidifying for wider adoption.
 
 Key updates to the API and gang scheduling algorithm in this release include:
 
-1. Beta graduation and API versioning changes
+### Beta graduation and API versioning changes
 
 The core Workload and PodGroup APIs have been promoted to v1beta1, meaning they are now one step away from
 General Availability (GA). For early adopters who have been testing these features,
 take note of the alpha versioning transition: v1alpha2 has been entirely replaced by v1alpha3.
 This transition introduces breaking changes designed to clean up the API structure around `disruptionMode`.
 
-2. Native PodGroup queueing
+### Native PodGroup queueing
 
 A significant under-the-hood improvement in v1.37 makes the PodGroup a first-class citizen in the scheduling queue.
 Previously, even if belonging to a PodGroup, all member Pods were queued individually. Now, only the top-level PodGroup
 object is queued. This ensures all Pods share the same queueing behavior and lays the groundwork
 for more advanced PodGroup queueing strategies in the future.
 
-3. Dynamic elasticity with minCount mutability
+### Dynamic elasticity with minCount mutability
 
 In earlier iterations, the `minCount` field, which dictates the minimum number of Pods required
-to successfully schedule a PodGroup, was strictly immutable. In v1.37, minCount is now mutable.
+to successfully schedule a PodGroup, was strictly immutable. In v1.37, `minCount` is now mutable.
 This API change unlocks flexibility for elastic workloads. Controllers can now dynamically
 adjust the minimum required size of a gang on the fly, allowing workloads to gracefully degrade
 or expand without interrupting already-scheduled Pods.
@@ -56,54 +56,54 @@ In Kubernetes v1.37 the separate
 for Workload-aware preemption was merged into the `GenericWorkload` feature gate,
 becoming a core part of the gang scheduling effort.
 
-While the core concepts of workload-aware preemption stays the same, there are some
+While the core concepts of workload-aware preemption stay the same, there are some
 differences between the v1.36 and v1.37 releases:
 
-1. Performance and optimality
+### Performance and optimality
 
 To check whether a preemptor can fit in the cluster thanks to preemption, the scheduler
 simulates the removal of all potential victims and re-runs the scheduling algorithm. After
 that it tries to reprieve as many victims as possible. In the v1.36 release, the scheduling
 algorithm was run for each victim reprieval, verifying whether with the victim reprieved, the algorithm
 can still find a valid placement for the preemptor. In v1.37, the scheduling algorithm is run only once
-and the preemptor pods are assumed based on its output. Later, the reprieval checks
+and the preemptor Pods are assumed based on its output. Later, the reprieval checks
 whether a victim can still run in its place with the preemptor assumed.
 
-2. PodGroup as a victim
+### PodGroup as a victim
 
-One of the limitations of v1.36 was the fact that the default preemption for single pods
+One of the limitations of v1.36 was the fact that the default preemption for single Pods
 was not aware of PodGroups and was not respecting their `disruptionMode` fields, allowing
-for disruption of single pods even when the PodGroup had `disruptionMode: PodGroup` set.
-Kubernetes v1.37 removes this limitation; the default preemption will now respect the PodGroup
+for disruption of single Pods even when the PodGroup had `disruptionMode: PodGroup` set.
+Kubernetes v1.37 removes this limitation; the default preemption now respects the PodGroup
 `disruptionMode` field.
 
-3. Rename of the `disruptionMode` fields
+### Rename of the disruptionMode fields
 
-During the promotion of the API to beta, the `disruptionMode` field was changed to decouple 
+During the promotion of the API to Beta, the `disruptionMode` field was changed to decouple
 its naming from the PodGroup object, allowing consistent naming across PodGroups and CompositePodGroups.
-The modes changed as follows: `PodGroup` -> `All`, `Pod` -> `Single`.
+The modes changed as follows: `PodGroup` became `All`, and `Pod` became `Single`.
 
-4. Support for preemptionPolicy
+### Support for preemptionPolicy
 
 In v1.36, the PodGroup does not have a `preemptionPolicy` field. The PodGroup can perform
-preemption as long as none of the pods forming it has `preemptionPolicy: Never` set. In v1.37,
-when [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/podgroup-preemption-policy/)
+preemption as long as none of the Pods forming it has `preemptionPolicy: Never` set. In v1.37,
+when the [`PodGroupPreemptionPolicy`](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy)
 feature gate is enabled, a PodGroup also has a `preemptionPolicy` field. It serves as an authoritative field for whether
 a PodGroup can perform preemption.
 
 ## CompositePodGroup API
 
-In Kubernetes v1.36, workload-aware scheduling established a clean separation between static workload templates (`Workload`) and runtime group state (`PodGroup`), but the supported scheduling policies were limited to a single, flat group. The `CompositePodGroup` API, introduced in Kubernetes v1.37, extends this model to support hierarchical scheduling requirements.
+In Kubernetes v1.36, workload-aware scheduling established a clean separation between static workload templates (Workload) and runtime group state (PodGroup), but the supported scheduling policies were limited to a single, flat group. The CompositePodGroup API, introduced in Kubernetes v1.37, extends this model to support hierarchical scheduling requirements.
 
-This API allows its consumers to express multi-level scheduling requirements by organizing a workload in a tree-shaped hierarchy consisting of `CompositePodGroup` and `PodGroup` objects. Each `CompositePodGroup` carries policies and constraints that apply to other groups (`CompositePodGroups` and/or `PodGroups`), similar to how `PodGroups` govern scheduling behavior for a flat group of Pods. The scheduler treats such a hierarchy as a single scheduling unit and aims to satisfy the requirements specified by every group within that hierarchy.
+This API allows its consumers to express multi-level scheduling requirements by organizing a workload in a tree-shaped hierarchy consisting of CompositePodGroup and PodGroup objects. Each CompositePodGroup carries policies and constraints that apply to other groups (CompositePodGroups and/or PodGroups), similar to how PodGroups govern scheduling behavior for a flat group of Pods. The scheduler treats such a hierarchy as a single scheduling unit and aims to satisfy the requirements specified by every group within that hierarchy.
 
 ### Defining a workload hierarchy
 
-To express multi-level scheduling requirements, you define a hierarchy of templates in a `Workload` object based on which controllers create corresponding `CompositePodGroup` and `PodGroup` objects.
+To express multi-level scheduling requirements, you define a hierarchy of templates in a Workload object based on which controllers create corresponding CompositePodGroup and PodGroup objects.
 
-To support this, the `Workload` API is extended with the `spec.compositePodGroupTemplates` field. Each `CompositePodGroupTemplate` defines a template for a parent `CompositePodGroup` and directly nests the templates (`podGroupTemplates` and/or `compositePodGroupTemplates`) from which its child groups derive.
+To support this, the Workload API is extended with the `spec.compositePodGroupTemplates` field. Each CompositePodGroupTemplate defines a template for a parent CompositePodGroup and directly nests the templates (`podGroupTemplates` and/or `compositePodGroupTemplates`) from which its child groups derive.
 
-Below is a sample `Workload` object that defines a two-level template hierarchy:
+Below is a sample Workload object that defines a two-level template hierarchy:
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha3
@@ -129,7 +129,7 @@ spec:
 
 After creating `example-workload`, a controller can stamp out the corresponding runtime group objects from these templates:
 
-1. A root `CompositePodGroup` that references the `workload-root` template in `example-workload` and carries its group-level scheduling policy (gang scheduling with `minGroupCount: 2`):
+1. A root CompositePodGroup that references the `workload-root` template in `example-workload` and carries its group-level scheduling policy (gang scheduling with `minGroupCount: 2`):
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha3
@@ -145,10 +145,10 @@ spec:
       minGroupCount: 2
 ```
 
-2. Two child `PodGroup` objects (`example-workload-workers` and `example-workload-driver`) that reference their respective leaf templates in `example-workload` and link to the root group via `parentCompositePodGroupName`:
+2. Two child PodGroup objects (`example-workload-workers` and `example-workload-driver`) that reference their respective leaf templates in `example-workload` and link to the root group via `parentCompositePodGroupName`:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: example-workload-workers
@@ -161,7 +161,7 @@ spec:
     gang:
       minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: example-workload-driver
@@ -179,17 +179,17 @@ spec:
 
 To schedule a hierarchical workload, `kube-scheduler` evaluates the entire group tree as a unified scheduling unit:
 
-* **Recursive evaluation**: The scheduler traverses the hierarchy from the root `CompositePodGroup` down to the leaf `PodGroup` objects. At each level, a parent `CompositePodGroup` is considered schedulable only when its child groups satisfy its scheduling policy (for example, placing at least `minGroupCount` of child groups when using the gang policy), while each leaf `PodGroup` must satisfy its own pod-level policy (for example, placing at least `minCount` of member Pods when using the gang policy).
-* **All-or-nothing scheduling**: Once a valid combination of child groups is found that satisfies the requirements of the root `CompositePodGroup`, the Pods across the entire hierarchy are scheduled and bound atomically. If the root group cannot satisfy its policy constraints, the entire hierarchy remains unschedulable and no Pods are bound, preventing partial deployments and deadlocks.
+* **Recursive evaluation**: The scheduler traverses the hierarchy from the root CompositePodGroup down to the leaf PodGroup objects. At each level, a parent CompositePodGroup is considered schedulable only when its child groups satisfy its scheduling policy (for example, placing at least `minGroupCount` of child groups when using the gang policy), while each leaf PodGroup must satisfy its own Pod-level policy (for example, placing at least `minCount` of member Pods when using the gang policy).
+* **All-or-nothing scheduling**: Once a valid combination of child groups is found that satisfies the requirements of the root CompositePodGroup, the Pods across the entire hierarchy are scheduled and bound atomically. If the root group cannot satisfy its policy constraints, the entire hierarchy remains unschedulable and no Pods are bound, preventing partial deployments and deadlocks.
 
-### Workload-aware preemption for CompositePodGroup API
+### Workload-aware preemption for the CompositePodGroup API
 
-Kubernetes v1.37 extends workload-aware preemption to support `CompositePodGroup` hierarchies as well. Specifically, if a `CompositePodGroup` cannot be scheduled due to insufficient capacity in the cluster, the scheduler can invoke preemption to evict lower-priority workloads in order to fit the Pods belonging to that `CompositePodGroup`.
+Kubernetes v1.37 extends workload-aware preemption to support CompositePodGroup hierarchies as well. Specifically, if a CompositePodGroup cannot be scheduled due to insufficient capacity in the cluster, the scheduler can invoke preemption to evict lower-priority workloads in order to fit the Pods belonging to that CompositePodGroup.
 
-`CompositePodGroup` can be selected for preemption as well. To specify the desired behavior during preemption, workload owners can specify an appropriate `disruptionMode` in the `CompositePodGroup` spec:
+A CompositePodGroup can be selected for preemption as well. To specify the desired behavior during preemption, workload owners can specify an appropriate `disruptionMode` in the CompositePodGroup spec:
 
-* **`Single` (Default)**: Allows individual child groups within the `CompositePodGroup` to be preempted and disrupted independently.
-* **`All`**: Enforces "all-or-nothing" disruption semantics across the entire `CompositePodGroup` hierarchy. If any Pod within the descendant subtree must be preempted, the scheduler evicts all Pods across the entire hierarchy together.
+* **`Single` (default)**: Allows individual child groups within the CompositePodGroup to be preempted and disrupted independently.
+* **`All`**: Enforces "all-or-nothing" disruption semantics across the entire CompositePodGroup hierarchy. If any Pod within the descendant subtree must be preempted, the scheduler evicts all Pods across the entire hierarchy together.
 
 ## Topology-aware scheduling
 
@@ -201,7 +201,7 @@ In Kubernetes v1.36, we introduced foundational topology-aware scheduling, allow
 
 For example, an entire workload may need to run within a single availability zone, while different parts of that workload (such as specific worker groups or driver processes) require strict co-location within specific server racks.
 
-In Kubernetes v1.37, alongside the new `CompositePodGroup` API (`scheduling.k8s.io/v1alpha3`), topology-aware scheduling expands to support **multi-level topology-aware scheduling**. You can now express complex co-location requirements by specifying topology constraints at different levels of a group hierarchy.
+In Kubernetes v1.37, alongside the new CompositePodGroup API (`scheduling.k8s.io/v1alpha3`), topology-aware scheduling expands to support **multi-level topology-aware scheduling**. You can now express complex co-location requirements by specifying topology constraints at different levels of a group hierarchy.
 
 ### Top-down topology constraint resolution
 
@@ -209,7 +209,7 @@ During hierarchical scheduling, the `kube-scheduler` resolves multi-level topolo
 
 ### Configuration and runtime execution
 
-Using the updated Workload API (`scheduling.k8s.io/v1alpha3`), you can configure multi-level topology constraints directly within `CompositePodGroupTemplates`. In the example below, the parent template constrains the overall workload to a single availability zone (`topology.kubernetes.io/zone`), while child templates for `workers` and `driver` constrain their respective Pods to server racks (`topology.example.com/rack`) within that selected zone:
+Using the updated Workload API (`scheduling.k8s.io/v1alpha3`), you can configure multi-level topology constraints directly within `compositePodGroupTemplates`. In the example below, the parent template constrains the overall workload to a single availability zone (`topology.kubernetes.io/zone`), while child templates for `workers` and `driver` constrain their respective Pods to server racks (`topology.example.com/rack`) within that selected zone:
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha3
@@ -245,8 +245,8 @@ spec:
 
 When a controller creates an instance of this workload at runtime, it spawns the corresponding runtime objects from these templates:
 
-1. The root `CompositePodGroup` referencing the `root` template, carrying the availability zone topology constraint and the hierarchical gang scheduling policy.
-2. The two child `PodGroup` objects (`tas-workload-workers` and `tas-workload-driver`), each referencing the root `CompositePodGroup` as their parent group via the `parentCompositePodGroupName` spec field:
+1. The root CompositePodGroup referencing the `root` template, carrying the availability zone topology constraint and the hierarchical gang scheduling policy.
+2. The two child PodGroup objects (`tas-workload-workers` and `tas-workload-driver`), each referencing the root CompositePodGroup as their parent group via the `parentCompositePodGroupName` spec field:
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha3
@@ -300,24 +300,23 @@ spec:
     - key: topology.example.com/rack
 ```
 
-During scheduling, the scheduler evaluates multiple candidate availability zones across the cluster for tas-workload-root. For each candidate zone, it subdivides the nodes by rack topology to explore feasible rack placements for tas-workload-workers and tas-workload-driver strictly within that zone, systematically evaluating multiple combinations across available zones and racks before making a scheduling decision.
+During scheduling, the scheduler evaluates multiple candidate availability zones across the cluster for `tas-workload-root`. For each candidate zone, it subdivides the nodes by rack topology to explore feasible rack placements for `tas-workload-workers` and `tas-workload-driver` strictly within that zone, systematically evaluating multiple combinations across available zones and racks before making a scheduling decision.
 
 By allowing topology constraints to be modeled hierarchically, Kubernetes v1.37 provides a structured way to express multi-level co-location requirements across complex cluster infrastructures.
 
 ### Performance improvements for single-level TAS
 
-Alongside the alpha introduction of multi-level hierarchies, Kubernetes v1.37 brings noticeable performance improvements to existing single-level topology-aware scheduling. We are continuously working to optimize the efficiency of placement evaluation algorithms in kube-scheduler and plan to deliver further performance improvements in future releases.
-
+Alongside the Alpha introduction of multi-level hierarchies, Kubernetes v1.37 brings noticeable performance improvements to existing single-level topology-aware scheduling. We are continuously working to optimize the efficiency of placement evaluation algorithms in `kube-scheduler` and plan to deliver further performance improvements in future releases.
 
 ## Controller Integration APIs
 
-Kubernetes v1.37 introduces new standard building blocks so that every controller can expose the same scheduling primitives in their own APIs, and share the same logic for translating them into scheduling objects. 
-These primitives express specific scheduling behaviors — such as policies or disruption logic — while 
-leaving the field naming flexible for each controller. A prime example of this is the native Job 
+Kubernetes v1.37 introduces new standard building blocks so that every controller can expose the same scheduling primitives in their own APIs, and share the same logic for translating them into scheduling objects.
+These primitives express specific scheduling behaviors — such as policies or disruption logic — while
+leaving the field naming flexible for each controller. A prime example of this is the native Job
 controller, which we detail in the next section.
 
-Types prefixed with `WorkloadPodGroup` describe a leaf group of Pods; types prefixed with 
-`WorkloadCompositePodGroup` describe a group of groups. A controller embeds them verbatim into 
+Types prefixed with `WorkloadPodGroup` describe a leaf group of Pods; types prefixed with
+`WorkloadCompositePodGroup` describe a group of groups. A controller embeds them verbatim into
 its own API, under whatever field name fits its domain:
 
 * `WorkloadPodGroupSchedulingPolicy` — either `basic`, meaning standard Pod-by-Pod scheduling, or `gang` with a `minCount`. The composite variant takes a `minGroupCount` instead.
@@ -327,15 +326,15 @@ its own API, under whatever field name fits its domain:
 
 Only the shapes are shared, so controllers retain full autonomy over how they name and nest these fields in their own APIs.
 
-**The `workloadbuilder` library** turns that intent into the scheduling objects. A controller describes its workload as a tree of `WorkloadItem` nodes — a node with children compiles to a `CompositePodGroupTemplate`, a node without children to a `PodGroupTemplate` — and attaches its own defaults plus the user-supplied building blocks to each node. From there, `Validate()` reports problems back at the exact field path within the controller's own API, `BuildWorkload()` compiles the tree into a `Workload`, and `NewPodGroup()` and `NewCompositePodGroup()` stamp out the runtime group objects.
+**The `workloadbuilder` library** turns that intent into the scheduling objects. A controller describes its workload as a tree of `WorkloadItem` nodes — a node with children compiles to a `CompositePodGroupTemplate`, a node without children to a `PodGroupTemplate` — and attaches its own defaults plus the user-supplied building blocks to each node. From there, `Validate()` reports problems back at the exact field path within the controller's own API, `BuildWorkload()` compiles the tree into a Workload, and `NewPodGroup()` and `NewCompositePodGroup()` stamp out the runtime group objects.
 
 Validation is deny-by-default: a controller declares the policies and disruption modes it actually supports through `AllowedPolicies` and `AllowedDisruptionModes`, and anything outside those lists is rejected. Building blocks added in future releases therefore stay unavailable until a controller explicitly opts into them.
 
-For hierarchical workloads where a parent controller owns the `Workload` and delegates group creation to its children, `NewBuilderFromExistingWorkload` lets a child materialize only its own `PodGroup` from the parent's `Workload`.
+For hierarchical workloads where a parent controller owns the Workload and delegates group creation to its children, `NewBuilderFromExistingWorkload` lets a child materialize only its own PodGroup from the parent's Workload.
 
 Neither the building blocks nor the library have a feature gate of their own; they become user-visible through whichever controller adopts them. The native Job controller is the first to do so, and we detail it in the next section.
 
-## Integration with the Job Controller
+## Integration with the Job controller
 
 Building upon the new Controller Integration APIs, the Job API now features an explicit `.spec.scheduling` field, so you declare how a Job should be scheduled instead of relying on the Job controller to infer it from the Job's shape. This expands support well beyond static, indexed, and fully-parallel Jobs.
 
@@ -372,12 +371,12 @@ spec:
 
 Omitting `.spec.scheduling`, or omitting `schedulingPolicy` within it, selects the `basic` policy, which behaves exactly like standard Job scheduling today.
 
-For every Job it manages, the controller compiles this configuration into a `Workload` and a `PodGroup` 
-owned by the Job, and sets `.spec.schedulingGroup.podGroupName` on each Pod it creates so the scheduler 
-treats them as one group. Once created, `.spec.scheduling` is immutable, with one exception: 
+For every Job it manages, the controller compiles this configuration into a Workload and a PodGroup
+owned by the Job, and sets `.spec.schedulingGroup.podGroupName` on each Pod it creates so the scheduler
+treats them as one group. Once created, `.spec.scheduling` is immutable, with one exception:
 `schedulingPolicy.gang.minCount` can be updated, which lets you resize a running gang.
 
-## DRA ResourceClaim Support for Workloads
+## DRA ResourceClaim support for workloads
 
 As the core WAS APIs mature, so do their integrations with {{< glossary_tooltip text="Dynamic Resource Allocation" term_id="dra" >}}
 (DRA). Kubernetes v1.36 introduced the [`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
@@ -435,16 +434,16 @@ The Workload-Aware Scheduling Working Group (WG-WAS) is currently finalizing pla
 
 ## Getting started
 
-Many of the workload-aware scheduling improvements are now available as Beta features in v1.37, while new advanced capabilities are introduced in Alpha. Note that both Beta and Alpha features are disabled by default and require manual enablement.
-
-* **Workload API, Gang Scheduling, and Preemption:** The
-  [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
-  feature gate (which now integrates Gang scheduling and Workload-aware preemption) is Beta and disabled by default on the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`.
-  Ensure your manifests are updated to use the `scheduling.k8s.io/v1beta1`
-  {{< glossary_tooltip text="API group" term_id="api-group" >}}.
+Many of the workload-aware scheduling improvements are now available as Beta features in v1.37, while new advanced capabilities are introduced in Alpha. Both Beta and Alpha features here are disabled by default and require manual enablement.
 
 **Beta features:**
-* **DRA ResourceClaim support for workloads:** The
+
+* **Workload API, gang scheduling, and preemption:** The
+  [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
+  feature gate (which now integrates gang scheduling and workload-aware preemption) is Beta and disabled by default on the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`.
+  Ensure your manifests are updated to use the `scheduling.k8s.io/v1beta1`
+  {{< glossary_tooltip text="API group" term_id="api-group" >}}.
+* **DRA ResourceClaim support for workloads:** Enable the
   [`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
   feature gate on the `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `kubelet`.
 
@@ -456,7 +455,7 @@ Many of the workload-aware scheduling improvements are now available as Beta fea
 
 * **CompositePodGroup API:** Enable the
   [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-  feature gate on both the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`, and ensure the `scheduling.k8s.io/v1alpha3` API group is enabled.
+  feature gate on the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`, and ensure the `scheduling.k8s.io/v1alpha3` API group is enabled.
 * **Workload API integration with the Job controller:** Enable the
   [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob)
   feature gate on the `kube-apiserver` and `kube-controller-manager`.
