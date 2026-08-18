@@ -8,19 +8,19 @@ author: >
 ---
 
 
-Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been building toward for three straight releases, alongside several more features graduating directly to Stable. A couple of features move to beta and a fresh batch of alpha features rounds out the release.
+Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been building toward for three straight releases, alongside several more features graduating directly to Stable. A couple of features move to Beta and a fresh batch of Alpha features rounds out the release.
 
 I'll dive into what's new for DRA in Kubernetes 1.37!
 
-## What's stable in 1.37
+## What's Stable in 1.37
 
 [DRA Extended Resource support](https://www.kubernetes.dev/resources/keps/5004) has graduated to GA. This is the mechanism that lets DRA drivers satisfy requests made through the traditional extended resource API, think `example.com/gpu` in a Pod spec, without requiring a separate device plugin alongside the DRA driver. An extended resource name can be set directly on a DeviceClass, and Pods requesting it get matched to a device through DRA with no ResourceClaim needed on the workload's part.
 
-It's been on a steady path since KEP acceptance in 1.34. Alpha landed in 1.35, beta in 1.36, and now it's stable. For cluster operators, this is what makes DRA adoption gradual. Existing workloads written against extended resources keep working unmodified while the backend allocation logic moves over to DRA.
+It's been on a steady path since KEP acceptance in 1.34. Alpha landed in 1.35, beta in 1.36, and now it's Stable. For cluster operators, this is what makes DRA adoption gradual. Existing workloads written against extended resources keep working unmodified while the backend allocation logic moves over to DRA.
 
 [Resource Claim Status with possible standardized network interface data](https://www.kubernetes.dev/resources/keps/4817/) adds a `Devices` field to `ResourceClaim.Status`, letting DRA drivers report per-device status, including, for network devices, the interface name, MAC address, and IP addresses. This gives users and controllers visibility into device state that was previously invisible once a device was configured in a Pod, and makes it possible to build things like network services that rely on a device's reported IPs.
 
-[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) now Stable, DRA drivers can now mark devices as tainted so they're skipped for new pod scheduling, and cluster admins can apply the same taints cluster-wide via a `DeviceTaintRule`, without reconfiguring drivers. Pods already using a tainted device can be evicted automatically, unless their `ResourceClaim` explicitly tolerates the taint. This mirrors node taints and tolerations, letting operators take a single device offline for maintenance or mark it degraded, without disrupting the rest of the cluster.
+[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) is now Stable, DRA drivers can  mark devices as tainted so they're skipped for new Pod scheduling, and cluster admins can apply the same taints cluster-wide via a `DeviceTaintRule`, without reconfiguring drivers. Pods already using a tainted device can be evicted automatically, unless their `ResourceClaim` explicitly tolerates the taint. This mirrors node taints and tolerations, letting operators take a single device offline for maintenance or mark it degraded, without disrupting the rest of the cluster.
 
 [Standard numaNode device attribute](https://github.com/kubernetes/enhancements/issues/6072) standardizes `resource.kubernetes.io/numaNode` as a shared attribute name, so devices from different drivers can be compared on the same NUMA node instead of each driver inventing its own name for it. It landed directly as Stable in 1.37, since it's a naming/registration KEP with no feature gate or in-tree behavior change.
 
@@ -62,19 +62,19 @@ and reschedules the Pod if preparation fails or times out.
 
 ## Alpha features
 
-[List types for attributes](https://www.kubernetes.dev/resources/keps/5491) moved into a second alpha in 1.
+[List types for attributes](https://www.kubernetes.dev/resources/keps/5491) moved into a second Alpha in 1.
 37, letting a device attribute hold more than one value instead of a single scalar, like a CPU that's 
 adjacent to more than one PCIe root. This makes it possible to match or distinguish devices based on 
 overlapping or non-overlapping sets of values, while single-value attributes keep working as they do today.
 
-[Node allocatable resource requests](https://www.kubernetes.dev/resources/keps/5517) moved into alpha2. It 
+[Node allocatable resource requests](https://www.kubernetes.dev/resources/keps/5517) moved into Alpha2. It 
 lets the scheduler and kubelet treat DRA-managed CPU, memory, and similar node resources the same way they 
 treat ordinary resource requests, so a node doesn't get oversubscribed and users no longer have to duplicate 
 the same request in both a ResourceClaim and the pod spec.
 
 [Resource availability visibility](https://www.kubernetes.dev/resources/keps/5677) lets a user see how much 
 device capacity is actually left in a pool, not just the total. `kubectl describe resourceslice` and `kubectl 
-describe node` are planned to show that directly. It moved into a second alpha in 1.37 to make those numbers 
+describe node` are planned to show that directly. It moved into a second Alpha in 1.37 to make those numbers 
 accurate for devices that can be shared or split across workloads.
 
 [DRA: Optional Node Operations](https://www.kubernetes.dev/resources/keps/5945) lets a driver skip kubelet's 
@@ -82,7 +82,7 @@ prepare and unprepare calls for allocations that don't need any setup on the nod
 avoid an unnecessary dependency on the driver for allocations where there's genuinely nothing for it to do 
 locally.
 
-[Derived Attributes](https://www.kubernetes.dev/resources/keps/6080) is a new feature that lets you use [CEL](https://kubernetes.io/docs/reference/using-api/cel/) expressions to match up devices based on your own 
+[Derived Attributes](https://www.kubernetes.dev/resources/keps/6080) is a new feature that lets you use [CEL](/docs/reference/using-api/cel/) expressions to match up devices based on your own 
 custom rules. Before this, pairing devices from different vendors (like a GPU/TPU and a NIC on the same NUMA 
 node) only worked if both drivers used the exact same attribute name. If one used `numa` and the other used 
 `numaNode`, the scheduler couldn't pair them together. Now, you can easily bridge these differences yourself 
@@ -96,7 +96,7 @@ of a device, like MIG vs vGPU profiles on the same GPU, with compatibility group
 incompatible combinations up front instead of the driver failing at node preparation time. It's controlled by 
 the `DRADeviceCompatibilityGroups` feature gate, disabled by default.
 
-[PreQueueingHint extension point](https://www.kubernetes.dev/resources/keps/6132) is new as alpha in 1.37. 
+[PreQueueingHint extension point](https://www.kubernetes.dev/resources/keps/6132) is new as Alpha in 1.37. 
 DRA ResourceClaim events used to trigger a full scan of every unschedulable pod, an O(N²) cost during large 
 scale-ups. The DRA plugin now uses a pod informer index to narrow that to just the pods actually affected, 
 cutting the requeue path to O(1) and roughly doubling scheduling throughput in early benchmarks. Controlled 
@@ -112,7 +112,7 @@ ambitious set of DRA features in Kubernetes 1.38.
 
 A good starting point is joining the WG Device Management [Slack channel](https://kubernetes.slack.com/archives/C0409NGC1TK) and [meetings](https://docs.google.com/document/d/1qxI87VqGtgN7EAJlqVfxx86HGKEAc2A3SKru8nJHNkQ/edit?tab=t.0#heading=h.tgg8gganowxq) which happens at US/EU and EU/APAC friendly time slots.
 
-Not all enhancement ideas are tracked as issues yet, so come talk to us if you want to help or have some ideas yourself! We have work to do at all levels, from difficult core changes to usability enhancements in kubectl which could be picked up by newcomers.
+Not all enhancement ideas are tracked as issues yet, so come talk to us if you want to help or have some ideas yourself! We have work to do at all levels, from difficult core changes to usability enhancements in `kubectl` which could be picked up by newcomers.
 
 ## Acknowledgments
 
