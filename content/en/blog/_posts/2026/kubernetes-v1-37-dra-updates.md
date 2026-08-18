@@ -116,8 +116,6 @@ Not all enhancement ideas are tracked as issues yet, so come talk to us if you w
 
 ## Acknowledgments
 
-A huge thanks to everyone who has contributed:
-
 * Patrick Ohly ([pohly](https://github.com/pohly))
 * John Belamaric ([johnbelamaric](https://github.com/johnbelamaric))
 * Kevin Klues ([klueska](https://github.com/klueska))
@@ -130,7 +128,6 @@ A huge thanks to everyone who has contributed:
 * Shingo Omura ([everpeace](https://github.com/everpeace))
 * Byonggon Chun([bg-chun](https://github.com/bg-chun))
 * Alay Patel ([alaypatel07](https://github.com/alaypatel07))
-
 
 And a huge thanks to everyone else who helped shape this release, in ways big and small. Given enough eyeballs, all bugs are shallow and this release had plenty of them, watching closely and caring enough to make things better. DRA got better this cycle because of all of you.
 
