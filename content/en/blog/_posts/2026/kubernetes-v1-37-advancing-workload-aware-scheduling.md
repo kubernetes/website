@@ -106,7 +106,7 @@ To support this, the Workload API is extended with the `spec.compositePodGroupTe
 Below is a sample Workload object that defines a two-level template hierarchy:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: example-workload
@@ -209,10 +209,10 @@ During hierarchical scheduling, the `kube-scheduler` resolves multi-level topolo
 
 ### Configuration and runtime execution
 
-Using the updated Workload API (`scheduling.k8s.io/v1alpha3`), you can configure multi-level topology constraints directly within `compositePodGroupTemplates`. In the example below, the parent template constrains the overall workload to a single availability zone (`topology.kubernetes.io/zone`), while child templates for `workers` and `driver` constrain their respective Pods to server racks (`topology.example.com/rack`) within that selected zone:
+Using the updated Workload API (`scheduling.k8s.io/v1beta1`), you can configure multi-level topology constraints directly within `compositePodGroupTemplates`. In the example below, the parent template constrains the overall workload to a single availability zone (`topology.kubernetes.io/zone`), while child templates for `workers` and `driver` constrain their respective Pods to server racks (`topology.example.com/rack`) within that selected zone:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: multi-level-tas-workload
