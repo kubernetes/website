@@ -49,7 +49,7 @@ administrator.
 
 Within the full [list](#what-does-each-admission-controller-do), there are four
 special controllers:
-[MutatingAdmissionWebhook](),
+[MutatingAdmissionWebhook](#mutatingadmissionwebhook),
 [MutatingAdmissionPolicy](#mutatingadmissionpolicy)
 [ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
 [ValidatingAdmissionPolicy](#validatingadmissionpolicy).
