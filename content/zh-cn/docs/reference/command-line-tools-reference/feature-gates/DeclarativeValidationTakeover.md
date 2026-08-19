@@ -16,14 +16,14 @@ stages:
 ---
 
 <!--
-Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/).
+Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta).
 -->
 已弃用：由
-[DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/)
+[DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
 取代。
 
 <!--
-When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)
+When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidation)
 feature gate, declarative validation errors are returned directly to the caller,
 replacing hand-written validation errors for rules that have declarative implementations.
 When disabled (and `DeclarativeValidation` is enabled), hand-written validation errors are always returned,
@@ -37,7 +37,7 @@ Note: Although declarative validation aims for functional equivalence with hand-
 the exact description of error messages may differ between the two approaches.
 -->
 启用此特性门控后，若同时启用了
-[DeclarativeValidation](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation)
+[DeclarativeValidation](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidation)
 特性门控，具有声明式实现的验证规则将直接返回声明式验证错误，替代手工编写的验证错误。
 若此特性门控被禁用（但启用了 `DeclarativeValidation`），则始终返回手工编写的验证错误，
 这实际上将声明式验证置于一种**不匹配验证模式（mismatch validation mode）**，

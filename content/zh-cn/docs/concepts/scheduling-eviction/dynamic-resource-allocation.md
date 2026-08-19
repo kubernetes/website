@@ -760,7 +760,7 @@ As an alpha feature, Kubernetes provides a mechanism for monitoring and reportin
 For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy.
 It is also helpful to find out if the device recovers.
 
-To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/ResourceHealthStatus/)
+To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ResourceHealthStatus)
 must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
 -->
 作为一种 Alpha 特性，Kubernetes 提供了一种机制用于监控和上报动态分配的基础设施资源的健康状况。
@@ -768,7 +768,7 @@ must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC 
 同时，获知设备是否恢复也同样有助于维护应用的稳定性。
 
 要开启这个功能，`ResourceHealthStatus`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/ResourceHealthStatus/)必须启用的同时，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ResourceHealthStatus)必须启用的同时，
 设备驱动程序必须实现了 `DRAResourceHealth` gRPC 服务。
 
 <!--
