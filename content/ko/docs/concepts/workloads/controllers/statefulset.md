@@ -145,7 +145,7 @@ spec:
 
 `.spec.volumeClaimTemplates` 필드를 설정하여
 [퍼시스턴트볼륨클레임(PersistentVolumeClaim)](/docs/concepts/storage/persistent-volumes/)을 생성할 수 있다.
-다음 두 조건 중 하나를 만족하면 스테이트풀셋에 안정적인 스토리지를 제공한다:
+다음 두 조건 중 하나를 만족하면 스테이트풀셋에 안정적인 스토리지를 제공한다.
 
 * 볼륨 클레임에 지정된 스토리지클래스(StorageClass)가
   [동적 프로비저닝](/docs/concepts/storage/dynamic-provisioning/)을 사용하도록 설정되어 있다.
