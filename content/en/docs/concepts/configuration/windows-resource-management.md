@@ -20,7 +20,7 @@ as a pod boundary for resource control. Containers are created within that bound
 for network, process and file system isolation. The Linux cgroup APIs can be used to
 gather CPU, I/O, and memory use statistics.
 
-In contrast, Windows uses a [_job object_](https://docs.microsoft.com/windows/win32/procthread/job-objects) per container with a system namespace filter
+In contrast, Windows uses a [_job object_](https://learn.microsoft.com/windows/win32/procthread/job-objects) per container with a system namespace filter
 to contain all processes in a container and provide logical isolation from the
 host.
 (Job objects are a Windows process isolation mechanism and are different from
@@ -49,11 +49,11 @@ Windows can limit the amount of CPU time allocated for different processes but c
 guarantee a minimum amount of CPU time.
 
 On Windows, the kubelet supports a command-line flag to set the
-[scheduling priority](https://docs.microsoft.com/windows/win32/procthread/scheduling-priorities) of the
+[scheduling priority](https://learn.microsoft.com/windows/win32/procthread/scheduling-priorities) of the
 kubelet process: `--windows-priorityclass`. This flag allows the kubelet process to get
 more CPU time slices when compared to other processes running on the Windows host.
 More information on the allowable values and their meaning is available at
-[Windows Priority Classes](https://docs.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class).
+[Windows Priority Classes](https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class).
 To ensure that running Pods do not starve the kubelet of CPU cycles, set this flag to `ABOVE_NORMAL_PRIORITY_CLASS` or above.
 
 ## Resource reservation {#resource-reservation}
