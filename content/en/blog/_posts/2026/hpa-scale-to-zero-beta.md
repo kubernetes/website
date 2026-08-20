@@ -4,7 +4,7 @@ title: "Kubernetes v1.37: Scale Workloads to Zero with HorizontalPodAutoscaler"
 slug: hpa-scale-to-zero-beta
 author: >
   Johannes Würbach
-draft: false
+draft: true
 ---
 
 Kubernetes v1.37 includes API support for horizontal autoscaling of workloads down
@@ -151,7 +151,7 @@ metric or manually scale the workload to recover capacity.
 
 ## Before upgrading or rolling back
 
-In Kubernetes v1.37, `HPAScaleToZero` is enabled by default on both the
+In Kubernetes v1.37, the `HPAScaleToZero` feature gate is enabled by default on both the
 `kube-apiserver` and `kube-controller-manager`. The API server accepts
 `minReplicas: 0`; the controller manager performs the condition-based scaling.
 
