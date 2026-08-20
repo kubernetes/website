@@ -165,5 +165,5 @@ IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API �
 * [쿠버네티스 오브젝트](/docs/concepts/overview/working-with-objects/)의 몇 가지 기본 사항을 알아보자.
 * [쿠버네티스 API](/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
 * 만약 자신만의 컨트롤러를 작성하기 원한다면, 
-  [쿠버네티스 확장 패턴](/docs/concepts/extend-kubernetes/#익스텐션-패턴)과 [sample-controller](https://github.com/kubernetes/sample-controller) 리포지토리를
+  [쿠버네티스 확장 패턴](/docs/concepts/extend-kubernetes/#익스텐션-패턴)과 [sample-controller](https://github.com/kubernetes/sample-controller) 리포지터리를
   본다.
