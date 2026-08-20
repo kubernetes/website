@@ -73,7 +73,7 @@ whether a victim can still run in its place with the preemptor assumed.
 
 One of the limitations of v1.36 was the fact that the default preemption for single Pods
 was not aware of PodGroups and was not respecting their `disruptionMode` fields, allowing
-for disruption of single Pods even when the PodGroup had `disruptionMode: PodGroup` set.
+for disruption of single Pods even when the PodGroup had `disruptionMode: {all: {}}` set.
 Kubernetes v1.37 removes this limitation; the default preemption now respects the PodGroup
 `disruptionMode` field.
 
@@ -81,7 +81,7 @@ Kubernetes v1.37 removes this limitation; the default preemption now respects th
 
 During the promotion of the API to Beta, the `disruptionMode` field was changed to decouple
 its naming from the PodGroup object, allowing consistent naming across PodGroups and CompositePodGroups.
-The modes changed as follows: `PodGroup` became `All`, and `Pod` became `Single`.
+The modes changed as follows: `PodGroup` became `all`, and `Pod` became `single`.
 
 ### Support for preemptionPolicy
 
@@ -99,7 +99,7 @@ This API allows its consumers to express multi-level scheduling requirements by 
 
 ### Defining a workload hierarchy
 
-To express multi-level scheduling requirements, you define a hierarchy of templates in a Workload object based on which controllers create corresponding CompositePodGroup and PodGroup objects.
+To express multi-level scheduling requirements, you define a hierarchy of templates in a Workload object. Controllers then create the corresponding CompositePodGroup and PodGroup objects from that hierarchy.
 
 To support this, the Workload API is extended with the `spec.compositePodGroupTemplates` field. Each CompositePodGroupTemplate defines a template for a parent CompositePodGroup and directly nests the templates (`podGroupTemplates` and/or `compositePodGroupTemplates`) from which its child groups derive.
 
@@ -131,49 +131,7 @@ After creating `example-workload`, a controller can stamp out the corresponding 
 
 1. A root CompositePodGroup that references the `workload-root` template in `example-workload` and carries its group-level scheduling policy (gang scheduling with `minGroupCount: 2`):
 
-```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
-kind: CompositePodGroup
-metadata:
-  name: example-root-group
-spec:
-  workloadRef:
-    workloadName: example-workload
-    templateName: workload-root
-  schedulingPolicy:
-    gang:
-      minGroupCount: 2
-```
-
-2. Two child PodGroup objects (`example-workload-workers` and `example-workload-driver`) that reference their respective leaf templates in `example-workload` and link to the root group via `parentCompositePodGroupName`:
-
-```yaml
-apiVersion: scheduling.k8s.io/v1beta1
-kind: PodGroup
-metadata:
-  name: example-workload-workers
-spec:
-  parentCompositePodGroupName: example-root-group
-  workloadRef:
-    workloadName: example-workload
-    templateName: workers
-  schedulingPolicy:
-    gang:
-      minCount: 4
----
-apiVersion: scheduling.k8s.io/v1beta1
-kind: PodGroup
-metadata:
-  name: example-workload-driver
-spec:
-  parentCompositePodGroupName: example-root-group
-  workloadRef:
-    workloadName: example-workload
-    templateName: driver
-  schedulingPolicy:
-    gang:
-      minCount: 1
-```
+    
 
 ### How multi-level gang scheduling works
 
@@ -188,8 +146,8 @@ Kubernetes v1.37 extends workload-aware preemption to support CompositePodGroup 
 
 A CompositePodGroup can be selected for preemption as well. To specify the desired behavior during preemption, workload owners can specify an appropriate `disruptionMode` in the CompositePodGroup spec:
 
-* **`Single` (default)**: Allows individual child groups within the CompositePodGroup to be preempted and disrupted independently.
-* **`All`**: Enforces "all-or-nothing" disruption semantics across the entire CompositePodGroup hierarchy. If any Pod within the descendant subtree must be preempted, the scheduler evicts all Pods across the entire hierarchy together.
+* **`single`**: Allows individual child groups within the CompositePodGroup to be preempted and disrupted independently. This is the behavior when `disruptionMode` is not set.
+* **`all`**: Enforces "all-or-nothing" disruption semantics across the entire CompositePodGroup hierarchy. If any Pod within the descendant subtree must be preempted, the scheduler evicts all Pods across the entire hierarchy together.
 
 ## Topology-aware scheduling
 
@@ -248,57 +206,7 @@ When a controller creates an instance of this workload at runtime, it spawns the
 1. The root CompositePodGroup referencing the `root` template, carrying the availability zone topology constraint and the hierarchical gang scheduling policy.
 2. The two child PodGroup objects (`tas-workload-workers` and `tas-workload-driver`), each referencing the root CompositePodGroup as their parent group via the `parentCompositePodGroupName` spec field:
 
-```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
-kind: CompositePodGroup
-metadata:
-  name: tas-workload-root
-  namespace: job-ns
-spec:
-  workloadRef:
-    workloadName: multi-level-tas-workload
-    templateName: root
-  schedulingPolicy:
-    gang:
-      minGroupCount: 2
-  schedulingConstraints:
-    topology:
-    - key: topology.kubernetes.io/zone
----
-apiVersion: scheduling.k8s.io/v1beta1
-kind: PodGroup
-metadata:
-  name: tas-workload-workers
-  namespace: job-ns
-spec:
-  parentCompositePodGroupName: tas-workload-root
-  workloadRef:
-    workloadName: multi-level-tas-workload
-    templateName: workers
-  schedulingPolicy:
-    gang:
-      minCount: 8
-  schedulingConstraints:
-    topology:
-    - key: topology.example.com/rack
----
-apiVersion: scheduling.k8s.io/v1beta1
-kind: PodGroup
-metadata:
-  name: tas-workload-driver
-  namespace: job-ns
-spec:
-  parentCompositePodGroupName: tas-workload-root
-  workloadRef:
-    workloadName: multi-level-tas-workload
-    templateName: driver
-  schedulingPolicy:
-    gang:
-      minCount: 1
-  schedulingConstraints:
-    topology:
-    - key: topology.example.com/rack
-```
+    
 
 During scheduling, the scheduler evaluates multiple candidate availability zones across the cluster for `tas-workload-root`. For each candidate zone, it subdivides the nodes by rack topology to explore feasible rack placements for `tas-workload-workers` and `tas-workload-driver` strictly within that zone, systematically evaluating multiple combinations across available zones and racks before making a scheduling decision.
 
@@ -306,7 +214,7 @@ By allowing topology constraints to be modeled hierarchically, Kubernetes v1.37 
 
 ### Performance improvements for single-level TAS
 
-Alongside the Alpha introduction of multi-level hierarchies, Kubernetes v1.37 brings noticeable performance improvements to existing single-level topology-aware scheduling. We are continuously working to optimize the efficiency of placement evaluation algorithms in `kube-scheduler` and plan to deliver further performance improvements in future releases.
+Alongside the Alpha introduction of multi-level hierarchies, Kubernetes v1.37 reduces the cost of placement evaluation for existing single-level topology-aware scheduling. We are continuously working to optimize the efficiency of placement evaluation algorithms in `kube-scheduler` and plan to deliver further performance improvements in future releases.
 
 ## Controller Integration APIs
 
@@ -459,6 +367,9 @@ Many of the workload-aware scheduling improvements are now available as Beta fea
 * **Workload API integration with the Job controller:** Enable the
   [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob)
   feature gate on the `kube-apiserver` and `kube-controller-manager`.
+* **PodGroup `preemptionPolicy`:** Enable the
+  [`PodGroupPreemptionPolicy`](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy)
+  feature gate on the `kube-apiserver` and `kube-scheduler`.
 
 **Controller Integration APIs:**
 
