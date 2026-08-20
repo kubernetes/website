@@ -50,7 +50,7 @@ weight: 30
 
 잡은 단일 {{< glossary_tooltip text="파드" term_id="pod" >}} 또는 여러 파드를 실행하고,
 작업을 수행한 다음 중지하는
-쿠버네티스 리소스 이다.
+쿠버네티스 리소스이다.
 
 (일단 [스케줄되면](/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet
 의 의도한 상태 중 일부가 된다.)
