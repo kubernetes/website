@@ -8,7 +8,7 @@ author: >
 ---
 
 
-Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been building toward for three straight releases, alongside several more features graduating directly to stable. A couple of features move to Beta and a fresh batch of alpha features rounds out the release.
+Kubernetes 1.37 is here and [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) keeps pushing past where it started! This release brings DRA Extended Resource support to GA, a milestone the team has been building toward for three straight releases. Several more features graduate to beta or GA. A fresh batch of alpha features rounds out the release.
 
 I'll dive into what's new for DRA in Kubernetes 1.37!
 
@@ -25,7 +25,7 @@ It's been on a steady path since KEP acceptance in 1.34. alpha landed in 1.35, b
 [Standard numaNode device attribute](https://github.com/kubernetes/enhancements/issues/6072) standardizes `resource.kubernetes.io/numaNode` as a shared attribute name, so devices from different drivers can be compared on the same NUMA node instead of each driver inventing its own name for it. It landed directly as stable in 1.37, since it's a naming/registration KEP with no feature gate or in-tree behavior change.
 
 
-## Feature promoted to Beta
+## Feature promoted to beta
 
 [ResourceClaim support for workloads](https://www.kubernetes.dev/resources/keps/5729)
 graduates to beta behind the `DRAWorkloadResourceClaims` feature gate, which stays disabled by default. 
@@ -38,26 +38,6 @@ supporting device injection into KubeVirt VMs. Drivers populate a `Metadata` fie
 and the framework writes it to a JSON file mounted into the container via CDI, letting workloads read a 
 device's PCI bus address, MAC address, and other attributes directly instead of requiring custom controllers 
 to watch and translate ResourceClaims and ResourceSlices.
-
-[DRA Consumable Capacity](https://www.kubernetes.dev/resources/keps/5075/) lets independent resource claims 
-draw shares of capacity from the same device instead of requiring exclusive allocation, so a network device's 
-bandwidth or a virtual GPU's memory can be split across unrelated workloads. Stable is targeted for 1.38.
-
-
-[DRA Partitionable Devices](https://www.kubernetes.dev/resources/keps/4815/) also stays in Beta. It lets a 
-device like a GPU be dynamically split into smaller partitions on demand, and extends to multi-host devices 
-like interconnected TPUs, so a workload can request a specific slice topology instead of scattered devices.
-
-[Resource Health Status in Pod Status](https://www.kubernetes.dev/resources/keps/4680/) exposes device health 
-directly in Pod Status, whether the device came from DRA or the traditional Device Plugin API, so a 
-crash-looping Pod using a failed GPU shows up as unhealthy instead of leaving you to guess why it keeps 
-restarting.
-
-[DRA Device Binding Conditions](https://www.kubernetes.dev/resources/keps/5007/) lets the scheduler defer 
-binding a Pod to a node until an external device is actually ready, useful for fabric-attached GPUs or FPGAs 
-that need time to attach or reprogram before use. Instead of binding early and letting the Pod fail or 
-crash-loop on a device that isn't there yet, the scheduler waits on a set of conditions the driver defines, 
-and reschedules the Pod if preparation fails or times out.
 
 
 ## Alpha features
@@ -115,21 +95,22 @@ A good starting point is joining the WG Device Management [Slack channel](https:
 Not all enhancement ideas are tracked as issues yet, so come talk to us if you want to help or have some ideas yourself! We have work to do at all levels, from difficult core changes to usability enhancements in `kubectl` which could be picked up by newcomers.
 
 ## Acknowledgments
+The following KEP owners managed to add or promote a feature in the 1.37 release (in alphabetic order):
 
-* Patrick Ohly ([pohly](https://github.com/pohly))
-* John Belamaric ([johnbelamaric](https://github.com/johnbelamaric))
-* Kevin Klues ([klueska](https://github.com/klueska))
-* John A. Hull ([johnahull](https://github.com/johnahull))  
-* Praveen Krishna ([pravk03](https://github.com/pravk03)) 
-* Jiefeng Xu ([jiefeng-xu](https://github.com/jiefeng-xu)) 
-* Jon Huhn ([nojnhuh](https://github.com/nojnhuh)) 
-* Troy Chiu ([troychiu](https://github.com/troychiu))
-* Gaurav Ghildiyal ([gauravkghildiyal](https://github.com/gauravkghildiyal))
-* Shingo Omura ([everpeace](https://github.com/everpeace))
-* Byonggon Chun([bg-chun](https://github.com/bg-chun))
 * Alay Patel ([alaypatel07](https://github.com/alaypatel07))
+* Byonggon Chun([bg-chun](https://github.com/bg-chun))
+* Gaurav Ghildiyal ([gauravkghildiyal](https://github.com/gauravkghildiyal))
+* Jiefeng Xu ([jiefeng-xu](https://github.com/jiefeng-xu))
+* John A. Hull ([johnahull](https://github.com/johnahull))
+* Jon Huhn ([nojnhuh](https://github.com/nojnhuh))
+* Lionel Jouin ([LionelJouin](https://github.com/LionelJouin))
+* Patrick Ohly ([pohly](https://github.com/pohly))
+* Praveen Krishna ([pravk03](https://github.com/pravk03))
+* Shingo Omura ([everpeace](https://github.com/everpeace))
+* Troy Chiu ([troychiu](https://github.com/troychiu))
 
-And a huge thanks to everyone else who helped shape this release, in ways big and small. Given enough eyeballs, all bugs are shallow and this release had plenty of them, watching closely and caring enough to make things better. DRA got better this cycle because of all of you.
+This would not have been possible without the help of the reviewers and approvers.
+So a huge thanks to everyone else who helped shape this release, in ways big and small. Given enough eyeballs, all bugs are shallow and this release had plenty of them, watching closely and caring enough to make things better. DRA got better this cycle because of all of you.
 
 
 
