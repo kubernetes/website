@@ -173,7 +173,7 @@ Some key takeaways:
 Because the Kubernetes project does not yet ship any Pod Certificate signers in
 core, in order to try these features out, you will need to install a third-party
 signer into your cluster.  To make this easier, I have written
-[Tinycert](http://github.com/ahmedtd/tinycert), which you can install into your
+[Tinycert](https://github.com/ahmedtd/tinycert), which you can install into your
 cluster (or a Kind cluster).
 
 Tinycert is not a full production solution, but it’s a good starting point for
@@ -183,16 +183,16 @@ signers.
 Tinycert provides:
 
 * The
-  [ahmedtd.github.io/tinycert-service](http://ahmedtd.github.io/tinycert-service)
+  [ahmedtd.github.io/tinycert-service](https://ahmedtd.github.io/tinycert-service)
   signer, which issues certificates with DNS SANs for all of the Kubernetes
-  services your Pod is part of.  
+  Services your Pod is part of.
 * The
-  [ahmedtd.github.io/tinycert-spiffe](http://ahmedtd.github.io/tinycert-spiffe)
+  [ahmedtd.github.io/tinycert-spiffe](https://ahmedtd.github.io/tinycert-spiffe)
   signer, which issues SPIFFE-compatible certificates that identify the
-  namespace and service account of your pod.  These can be used as both client
-  and (with effort) server certificates.  
+  namespace and service account of your Pod.  These can be used as both client
+  and (with effort) server certificates.
 * A Go library,
-  [github.com/ahmedtd/tinycert/lib/spiffefsd](http://github.com/ahmedtd/tinycert/lib/spiffefsd)
+  [github.com/ahmedtd/tinycert/lib/spiffefsd](https://github.com/ahmedtd/tinycert/lib/spiffefsd)
   to help your applications load SPIFFE certificates and trust bundles from a
   [SPIFFE Filesystem Delivery (Draft
   Standard)](https://github.com/spiffe/spiffe/pull/376) folder, as well as
@@ -213,4 +213,4 @@ Tinycert provides:
   are built directly in to core Kubernetes.  
 * Try building your own signer based on Tinycert.
 
-Happy hacking\!
+Happy hacking!
