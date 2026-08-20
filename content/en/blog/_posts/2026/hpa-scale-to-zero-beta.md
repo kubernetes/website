@@ -4,22 +4,27 @@ title: "Kubernetes v1.37: Scale Workloads to Zero with HorizontalPodAutoscaler"
 slug: hpa-scale-to-zero-beta
 author: >
   Johannes Würbach
-draft: true
+draft: false
 ---
 
-Kubernetes v1.37 moves the `HPAScaleToZero` feature gate to beta and enables it
-by default. A
-{{< glossary_tooltip text="HorizontalPodAutoscaler" term_id="horizontal-pod-autoscaler" >}}
-(HPA) that uses an object or external metric can now scale a workload to zero
-replicas, then bring it back when the metric changes.
+Kubernetes v1.37 includes API support for horizontal autoscaling of workloads down
+to zero replicas. This feature is now Beta and enabled by default. A
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+(HPA) that uses a suitable _object metric_ or _external metric_ can now scale a
+workload to zero replicas, then bring it back when the metric changes.
 
-This removes the last idle Pod for workloads like queue consumers and batch
-processors. It pays off most when each Pod reserves expensive resources,
+Before v1.37, you needed an add-on or external component, or you had to enable the
+Alpha feature gate, to scale from zero. It is now part of core Kubernetes.
+
+Scaling to zero removes the last idle Pod from workloads such as queue consumers and
+batch processors. The savings are largest when each Pod reserves expensive resources,
 including dedicated CPUs or GPUs.
 
-There is a trade-off. Scaling from zero adds the time needed to observe the metric,
-schedule a Pod, and start the application. The feature works best when work can wait
-in a queue during that cold start.
+The trade-off is cold-start time: the HPA must observe the metric, schedule a Pod, and
+start the application. This works well when work can wait in a durable queue.
+
+Kubernetes Services do not buffer requests while no Pods are ready, so HTTP and other
+request-driven workloads need a separate buffering layer.
 
 ## Why scaling from zero needs a different metric
 
@@ -31,9 +36,8 @@ Object and external metrics do not have that limitation. A queue length, for exa
 exists independently of the workers that consume it. The HPA can continue reading the
 queue length while no workers are running.
 
-Scaling to zero does not add request buffering to Kubernetes Services. If you scale an
-HTTP service to zero, Kubernetes does not hold requests until a new Pod is ready. Use a
-durable queue or another buffering layer when work must survive the cold start.
+The following example scales a queue consumer to and from zero using an external
+metric.
 
 ## Configure an external metric
 
@@ -61,7 +65,7 @@ externalRules:
 
 The exact adapter installation and discovery rules depend on your monitoring setup.
 See the Prometheus Adapter guide to
-[external metrics](https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md)
+[external metrics](https://github.com/kubernetes-sigs/prometheus-adapter/blob/v0.12.0/docs/externalmetrics.md)
 for the full configuration options.
 
 Before creating the HPA, you can verify that Kubernetes can read the metric:
@@ -85,6 +89,8 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: queue-worker
+  annotations:
+    kubernetes.io/description: "Scales queue-worker based on the number of queued tasks"
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -163,15 +169,15 @@ condition-based implementation:
 `minReplicas: 0` also requires at least one object or external metric. The API server
 rejects an HPA that only contains resource metrics such as CPU or memory.
 
-## From alpha to beta
+## From Alpha to Beta
 
-The first alpha implementation shipped in Kubernetes v1.16. Kubernetes v1.36 added
+The first Alpha implementation shipped in Kubernetes v1.16. Kubernetes v1.36 added
 the `ScaledToZero` condition and the controller behavior needed to distinguish an
 automatic scale-down from a manual pause.
 
 Kubernetes v1.37 enables the feature by default after adding integration and end-to-end
 coverage for scaling down to zero and back up from an external metric. The next step is
-to gather operational feedback before considering graduation to stable.
+to gather operational feedback before considering graduation to GA.
 
 ## How can I learn more?
 
@@ -180,21 +186,21 @@ to gather operational feedback before considering graduation to stable.
 - Read
   [KEP-2021: HPA supports scaling to and from zero pods for object and external metrics](https://kep.k8s.io/2021).
 - Learn how to configure the
-  [Prometheus Adapter for external metrics](https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md).
+  [Prometheus Adapter for external metrics](https://github.com/kubernetes-sigs/prometheus-adapter/blob/v0.12.0/docs/externalmetrics.md).
 
 ## How to get involved
 
 This feature is owned by
-[SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling).
+[SIG Autoscaling](https://www.kubernetes.dev/community/community-groups/sigs/autoscaling/).
 Join [Kubernetes Slack](https://slack.k8s.io/) and the
 [`#sig-autoscaling` channel](https://kubernetes.slack.com/archives/C09R1LV8S) to share
-feedback from beta usage.
+feedback from Beta usage.
 
 ## Acknowledgements
 
 Thanks to the SIG Autoscaling contributors who took this feature from the original
-v1.16 implementation to the condition-based redesign and beta graduation. Thanks
-also to [Greg Templeton](https://github.com/gjtempleton) and
+v1.16 implementation to the condition-based redesign and Beta graduation. Thanks
+also to [Guy Templeton](https://github.com/gjtempleton) and
 [Adrian Moisey](https://github.com/adrianmoisey) for reviewing the KEP, and to the
 release, documentation, and production-readiness reviewers who helped prepare it for
 Kubernetes v1.37.
