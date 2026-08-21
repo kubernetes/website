@@ -52,10 +52,7 @@ lets the scheduler and kubelet treat DRA-managed CPU, memory, and similar node r
 treat ordinary resource requests, so a node doesn't get oversubscribed and users no longer have to duplicate 
 the same request in both a ResourceClaim and the pod spec.
 
-[Resource availability visibility](https://www.kubernetes.dev/resources/keps/5677) lets a user see how much 
-device capacity is actually left in a pool, not just the total. `kubectl describe resourceslice` and `kubectl 
-describe node` are planned to show that directly. It moved into a second alpha in 1.37 to make those numbers 
-accurate for devices that can be shared or split across workloads.
+[Resource availability visibility](https://www.kubernetes.dev/resources/keps/5677) moved to a second alpha in Kubernetes 1.37. Users create a ResourcePoolStatusRequest to get a point-in-time availability snapshot. To refresh it, delete and recreate the request; it is not a continuous monitoring API.
 
 [DRA: Optional Node Operations](https://www.kubernetes.dev/resources/keps/5945) lets a driver skip kubelet's 
 prepare and unprepare calls for allocations that don't need any setup on the node. This makes it possible to 
