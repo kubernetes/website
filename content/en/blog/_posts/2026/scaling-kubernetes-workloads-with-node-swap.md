@@ -33,8 +33,6 @@ To quantify the exact performance boundaries and cost-saving potential of LSSD-b
 | **Headless Chrome (gVisor)** | 80 Concurrent Pods | 160 Concurrent Pods | **+100% Pod Density** | 17.59s → 59.02s (+235% latency) |
 | **Python Sandbox (gVisor)** | 80 Concurrent Pods | 240 Concurrent Pods | **+200% Pod Density** | 2.04s → 3.43s (+68% latency) |
 
-{{< figure src="/images/blog/2026-08-21-scaling-kubernetes-workloads-with-node-swap/node-swap-chart.png" title="Density Benchmarks with and without Node Swap" >}}
-
 ### 1. Traditional Workload: Linux Kernel Build
 
 Before exploring specialized agentic architectures, we validated swap against classic batch workloads by executing a complete Linux Kernel Build. The kernel compilation process heavily leverages concurrent worker threads, rapidly balloons in memory to hold compiled object files, and requires massive overhead just to survive brief linking spikes.
@@ -55,6 +53,8 @@ AI agent workloads frequently require manipulating headless browsers via Chromiu
 The advantages of node swap also extend seamlessly to untrusted, isolated code-execution environments. We deployed simultaneous Python sandbox sessions analyzing 5 million rows of data from the MovieLens 20M dataset, requiring a ~375 MB resident memory footprint per execution. The in-depth scaling results and deployment code for this sweep can be reviewed in the [Agent Sandbox GKE Swap Python Density directory](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples/gke-swap/python-density).
 
 Without swap, heavy concurrent bursts rapidly exhausted physical memory, causing the node to hit a hard RAM limit and fail at just 80 concurrent sessions. By enabling Local SSD swap, we safely offloaded dormant anonymous memory to the dedicated LSSD, instantly freeing up physical RAM and preserving the node's page-cache. This allowed the node to scale to a massive 240 concurrently isolated Python sandboxes flawlessly—a 3x density multiplier.
+
+{{< figure src="/images/blog/2026-08-21-scaling-kubernetes-workloads-with-node-swap/node-swap-chart.png" title="Density Benchmarks with and without Node Swap" >}}
 
 ## How to Use It
 
