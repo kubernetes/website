@@ -104,6 +104,29 @@ rules:
     resourceNames: ["dra.example.com"]
 ```
 
+## Restrict who can enable admin access {#admin-access}
+
+`adminAccess` on a ResourceClaim is accepted only when the claim's namespace
+has the label `resource.kubernetes.io/admin-access: "true"`. That is a
+namespace-label check in the API server, not a field-level authorization
+rule.
+
+Anyone who can update that Namespace object can set the label and then
+create claims with `adminAccess`. How they get that permission depends
+on your cluster's authorization configuration.
+
+If you do not want this in a multi-tenant cluster:
+
+- Audit who is allowed to get, patch, or update Namespace objects.
+- Treat `resource.kubernetes.io/admin-access` like
+  `pod-security.kubernetes.io/enforce`: only privileged actors should
+  be able to change it.
+- Optionally deny changes to that label except from a small set of
+  identities, using a ValidatingAdmissionPolicy or webhook.
+
+See also
+[Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access).
+
 ## Related cluster administrator task
 
 To apply these patterns in a running cluster, see
