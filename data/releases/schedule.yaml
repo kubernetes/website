@@ -7,9 +7,9 @@ schedules:
 - endOfLifeDate: "2027-10-28"
   maintenanceModeStartDate: "2027-08-28"
   next:
-    cherryPickDeadline: "2026-09-04"
+    cherryPickDeadline: "2026-09-11"
     release: 1.37.1
-    targetDate: "2026-09-09"
+    targetDate: "2026-09-15"
   release: "1.37"
   releaseDate: "2026-08-26"
 - endOfLifeDate: "2027-06-28"
