@@ -29,7 +29,7 @@ weight: 34
 
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
-kubelet은 자신이 속한 노드 오브젝트와 해당 노드에 바인딩된 파드만 읽을 수 있다.
+kubelet은 자신의 노드 오브젝트만 읽을 수 있으며, 해당 노드에 바인딩된 파드만 읽을 수 있다.
 
 쓰기 작업은 다음과 같다.
 
@@ -66,8 +66,8 @@ kubelet은 자신이 속한 노드 오브젝트와 해당 노드에 바인딩된
 kubelet이 호스트네임을 결정하는 방식에 대한 자세한 내용은
 [kubelet 옵션 레퍼런스](/docs/reference/command-line-tools-reference/kubelet/)를 참고한다.
 
-노드 인가자를 활성화하려면, {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}를
-`Node` 인가자가 포함된 파일을 `--authorization-config` 플래그에 지정하여 시작한다. 예시는 다음과 같다.
+노드 인가자를 활성화하려면, `Node` 인가자가 포함된 파일을
+`--authorization-config` 플래그에 지정하여 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}를 시작한다. 예시는 다음과 같다.
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -78,8 +78,8 @@ authorizers:
   ...
 ```
 
-또는 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}를
-`--authorization-mode` 플래그에 `Node`를 포함한 쉼표로 구분된 목록을 지정하여 시작한다.
+또는 `Node`를 포함한 쉼표로 구분된 목록을 `--authorization-mode` 플래그에 지정하여
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}를 시작한다.
 예시는 다음과 같다.
 ```shell
 kube-apiserver --authorization-mode=...,Node --other-options --more-options
@@ -200,5 +200,5 @@ subjects:
 이러한 kubelet은 `Node` 인가 모드의 인가를 받지 못하므로,
 현재 해당 kubelet을 인가하는 메커니즘을 통해 계속 인가를 받아야 한다.
 
-`NodeRestriction` 어드미션 플러그인은 기본 노드 식별자 구현이 이를 노드 신원으로
-간주하지 않으므로, 이러한 kubelet의 요청을 무시한다.
+`NodeRestriction` 어드미션 플러그인은 기본 노드 식별자 구현이 해당 kubelet을
+노드 신원으로 간주하지 않으므로, 이러한 kubelet의 요청을 무시한다.
