@@ -136,7 +136,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 2. 쿠버네티스 패키지 리포지터리용 공개 서명 키를 다운로드한다. 동일한 서명 키는 모든 리포지터리에 사용되므로 URL에 있는 버전은 무시해도 된다.
 
    ```shell
-      # `/etc/apt/keyrings` 디렉터리가 존재하지 않는다면 curl 명령을 실행하기 전에 생성해야 한다. 아래 note를 참고한다.
+   # `/etc/apt/keyrings` 디렉터리가 존재하지 않는다면 curl 명령을 실행하기 전에 생성해야 한다. 아래 note를 참고한다.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # 권한이 없는 APT 프로그램이 이 키링을 읽을 수 있도록 한다.
@@ -157,7 +157,7 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 
 {{< note >}}
 다른 마이너 릴리스의 kubectl로 업그레이드하려면 `apt-get update`와 `apt-get upgrade`를 실행하기 전에 `/etc/apt/sources.list.d/kubernetes.list`의 버전을 올려야 한다. 이 절차에 대한 자세한 내용은 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
-{{< note >}}
+{{< /note >}}
 
 4. `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
 
