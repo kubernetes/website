@@ -203,7 +203,7 @@ other = "커뮤니티 둘러보기"
 other = "기여하기"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. 웹사이트 이용 약관, 상표 정책 및 기타 프로젝트 정책에 대해서는 <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a> 를 참조하십시오."""
 
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
