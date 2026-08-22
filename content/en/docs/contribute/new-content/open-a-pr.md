@@ -33,7 +33,7 @@ If you're less experienced with git workflows, here's an easier method of
 opening a pull request. Figure 1 outlines the steps and the details follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
-<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid.live to play around with it -->
 
 {{< mermaid >}}
 flowchart LR
@@ -128,7 +128,7 @@ on your computer. You can also use a git UI application.
 Figure 2 shows the steps to follow when you work from a local fork. The details for each step follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
-<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid.live to play around with it -->
 
 {{< mermaid >}}
 flowchart LR
@@ -301,7 +301,7 @@ Figure 3 shows the steps to open a PR from your fork to the [kubernetes/website]
 Please, note that contributors can mention `kubernetes/website` as `k/website`.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
-<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid.live to play around with it -->
 
 {{< mermaid >}}
 flowchart LR

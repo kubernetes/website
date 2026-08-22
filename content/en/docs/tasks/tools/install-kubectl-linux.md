@@ -267,7 +267,7 @@ before running `zypper update`. This procedure is described in more detail in
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
 If you are on Ubuntu or another Linux distribution that supports the
-[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
+[snap](https://snapcraft.io/docs/installing-snapd) package manager, kubectl
 is available as a [snap](https://snapcraft.io/) application.
 
 ```shell
