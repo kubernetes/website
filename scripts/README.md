@@ -5,6 +5,7 @@
 | `find_pr.py`            | Find what GitHub pull requests touch a given file.                                                                                    |
 | `upstream_changes.py`   | Find what changes occurred between two versions.                                                                                      |
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
+| `kyaml.sh`              | This script renders a few of a language's example manifests a second time, as KYAML, so their pages can carry both dialects.          |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `fetch_kubecon_events.py` | This script fetches upcoming KubeCon events from the Linux Foundation calendar and writes `data/events/kubecon.yaml`.               |
@@ -71,6 +72,94 @@ To install the dependencies:
 To run the examples:
 
     $ ./scripts/test_examples.sh run
+
+## kyaml.sh
+
+Example manifests under `content/<lang>/examples` are conventional YAML. They
+are the source of truth, and they are what `https://k8s.io/examples/...` serves
+to the `kubectl apply -f` commands the docs cite.
+
+This script renders a few of them a second time as
+[KYAML](https://kubernetes.io/docs/reference/encodings/kyaml/) into
+`content/<lang>/examples-kyaml`, so that the `code_sample` shortcode can offer
+those examples in either dialect. The formatter does not carry comments through,
+which is one reason the conventional file stays canonical; both dialects can
+hold comments. The generated tree is not published and should never be edited by
+hand.
+
+Which manifests get a second rendering is `scripts/kyaml_examples.txt`, and it is
+short on purpose. Converting the site is an explicit non-goal of
+[KEP-5295](https://www.kubernetes.dev/resources/keps/5295/): "Require projects
+to migrate to KYAML by default." An example that is not on the list renders in
+one pane, exactly as it always has.
+
+The shortcode does not read that list. It offers a choice when a rendering is
+there for the manifest it is showing, so a rendering cannot exist for a page
+that will not show it, and a page cannot ask for one that was never generated.
+
+Which dialects exist at all is `[[params.codeSampleDialects]]` in `hugo.toml`.
+Each entry names a dialect, its tab label, and the syntax highlighting to use; a
+generator writes that dialect's renderings into `content/<lang>/examples-<name>`,
+which is the path the shortcode looks in and the one `ignoreFiles` keeps
+unpublished. Adding a dialect is an entry there plus a generator for it —
+nothing renders differently until renderings exist.
+
+To regenerate after changing a listed example (`make kyaml` is the same thing):
+
+    $ ./scripts/kyaml.sh generate
+
+To check the committed tree (`make verify-kyaml`):
+
+    $ ./scripts/kyaml.sh verify
+
+`verify` fails if the list names a manifest that is not there, or if the
+generated tree is stale.
+
+It does not check that a rendering still describes what its source describes:
+the `code_sample` shortcode does that, comparing the two with Hugo's
+`transform.Unmarshal` every time the site builds. Neither check subsumes the
+other. The staleness diff compares a freshly rendered tree against the committed
+one, so both sides come from the same formatter and a formatter that changed a
+manifest's meaning would agree with itself. Comparing a manifest against its
+rendering catches that, and it runs on every build rather than only on pull
+requests that touch an examples directory.
+
+`scripts/test_examples.sh run` runs `verify`, and Prow runs that whenever a pull
+request touches `content/<lang>/examples` or `content/<lang>/examples-kyaml`.
+
+### What is in scope
+
+Manifests under `content/<lang>/examples` only, and of those, only the ones in
+`scripts/kyaml_examples.txt`. Not the fenced ` ```yaml ` blocks inside pages: those
+are frequently partial or illustrative rather than manifests a reader applies,
+and KYAML cannot express an elision.
+
+English only, so far. Other languages get no KYAML rendering until their team
+opts in with `./scripts/kyaml.sh generate <lang>`. The shortcode derives the
+rendering's path from the manifest it actually read, so a localized page never
+pairs its own manifest with one derived from a different translation, and a
+manifest on the list that a locale has not translated is simply skipped.
+
+A manifest that embeds a file in a block scalar (`|` or `>`) gets no KYAML
+rendering even when it is listed. KYAML is flow style, block scalars are not
+legal inside flow style, and the embedded file would become one quoted string
+with escaped line breaks. Nor does a manifest holding more than one document:
+the shortcode's check reads one document, so a multi-document file would be
+offered in both dialects and compared in neither. Listing either is not an
+error, but it does nothing, so the script says so on stderr.
+
+### Why the KYAML is a generated tree, and not a .kyaml extension
+
+Every file under `content/<lang>/examples` is published at the matching
+`https://k8s.io/examples` URL, and the English docs cite those URLs in over two
+hundred `kubectl apply -f` commands. Naming the dialect in the extension,
+`simple-pod.kyaml` beside `simple-pod.yaml`, would mean a second published URL
+per manifest and a second file for contributors to keep in step.
+
+Generating into a sibling tree that Hugo does not publish keeps one URL per
+manifest, and keeps the manifest a reader fetches the same as the one the page
+shows. Each pane's filename still links to the exact file it shows, so a reader
+who wants the KYAML can reach it.
 
 ## check-headers-file.sh
 

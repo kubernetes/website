@@ -1,0 +1,7 @@
+# The example manifests offered in both dialects, read by scripts/kyaml.sh.
+# Paths are relative to content/<lang>/examples. See scripts/README.md.
+
+pods/simple-pod.yaml               # docs/concepts/workloads/pods/
+controllers/nginx-deployment.yaml  # docs/concepts/workloads/controllers/deployment.md
+service/simple-service.yaml        # docs/concepts/services-networking/service.md
+pods/config/redis-pod.yaml         # docs/tutorials/configuration/configure-redis-using-configmap.md

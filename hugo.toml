@@ -19,7 +19,7 @@ disableAliases = true
 
 disableKinds = ["taxonomy"]
 
-ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+ignoreFiles = [ "content/[^/]+/examples-[a-z]+","(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 timeout = "600s"
 
@@ -294,6 +294,20 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	name_key = "community_calendar_name"
 	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fa-solid fa-calendar-days"
+
+# Dialects that example manifests are offered in besides the conventional YAML
+# they are written as. A generator leaves each one's renderings in
+# content/<lang>/examples-<name>, and the code_sample shortcode offers a tab
+# wherever it finds one, so a dialect listed with nothing generated for it
+# changes no page. scripts/kyaml.sh is the generator for kyaml.
+#
+# The name is both the directory suffix and the tab's persistence key, so keep
+# it lowercase. codelang is the syntax highlighting the tab uses, defaulting to
+# whatever the manifest itself is highlighted as.
+[[params.codeSampleDialects]]
+	name = "kyaml"
+	label = "KYAML"
+	codelang = "yaml"
 
 # Language definitions.
 
