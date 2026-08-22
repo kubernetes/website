@@ -674,7 +674,7 @@ deployment.apps/nginx-deployment scaled
 クラスターで[水平Podオートスケーリング](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)が有効になっていると仮定すると、Deploymentのオートスケーラーを設定し、既存のPodのCPU使用率に基づいて、稼働させたいPodの最小数と最大数を選択できます。
 
 ```shell
-kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80%
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu=80%
 ```
 
 実行結果は以下のとおりです:
