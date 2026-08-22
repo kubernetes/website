@@ -76,19 +76,17 @@ l'objet propriétaire :
 * Le serveur API Kubernetes définit également le champ `metadata.finalizers` sur `foregroundDeletion`.
 * L'objet reste visible via l'API Kubernetes jusqu'à ce que le processus de suppression soit terminé.
 
-Après que l'objet propriétaire entre dans l'état de suppression en cours, le contrôleur supprime les dépendants. Après avoir supprimé tous les objets dépendants, le contrôleur
-supprime l'objet propriétaire. À ce stade, l'objet n'est plus visible dans
-l'API Kubernetes.
+Après que l'objet propriétaire entre dans l'état *suppression en cours*, le contrôleur supprime les objets dépendants dont il a connaissance. Après avoir supprimé tous les objets dépendants dont il a connaissance, le contrôleur supprime l'objet propriétaire. À ce stade, l'objet n'est plus visible dans l'API Kubernetes.
 
-Pendant la suppression en cascade en premier plan, seuls les dépendants qui bloquent la suppression du propriétaire sont ceux qui ont le champ `ownerReference.blockOwnerDeletion=true`.
-Consultez [Utiliser la suppression en cascade en premier plan](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
-pour en savoir plus.
+Pendant la suppression en cascade en premier plan, seuls les objets dépendants qui bloquent la suppression du propriétaire sont ceux qui possèdent le champ `ownerReference.blockOwnerDeletion=true` et qui sont présents dans le cache du contrôleur de garbage collection.
+Le cache du contrôleur de garbage collection peut ne pas contenir des objets dont le type de ressource ne peut pas être correctement listé ou surveillé (*watch*), ou des objets créés simultanément à la suppression d'un objet propriétaire.
+Consultez [Utiliser la suppression en cascade en premier plan](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion) pour en savoir plus.
 
 ### Suppression en cascade en arrière-plan {#background-deletion}
 
-Dans la suppression en cascade en arrière-plan, le serveur API Kubernetes supprime immédiatement l'objet propriétaire et le contrôleur nettoie les objets dépendants en
-arrière-plan. Par défaut, Kubernetes utilise la suppression en cascade en arrière-plan, sauf si
-vous utilisez manuellement la suppression en premier plan ou choisissez d'abandonner les objets dépendants.
+Dans la suppression en cascade en arrière-plan, le serveur API Kubernetes supprime immédiatement l'objet propriétaire et le contrôleur de garbage collection (personnalisé ou par défaut) nettoie les objets dépendants en arrière-plan. 
+Si un finalizer existe, il garantit que les objets ne sont pas supprimés tant que toutes les opérations de nettoyage nécessaires ne sont pas terminées.
+Par défaut, Kubernetes utilise la suppression en cascade en arrière-plan, sauf si vous utilisez manuellement la suppression en premier plan ou choisissez d'abandonner les objets dépendants.
 
 Consultez [Utiliser la suppression en cascade en arrière-plan](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
 pour en savoir plus.
@@ -102,7 +100,7 @@ outrepasser ce comportement, consultez [Supprimer les objets propriétaires et l
 ## Collecte des déchets des conteneurs et des images inutilisés {#containers-images}
 
 Le {{<glossary_tooltip text="kubelet" term_id="kubelet">}} effectue la collecte des déchets
-sur les images inutilisées toutes les deux minutes et sur les conteneurs inutilisés toutes les
+sur les images inutilisées toutes les cinq minutes et sur les conteneurs inutilisés toutes les
 minutes. Vous devez éviter d'utiliser des outils de collecte des déchets externes, car ils peuvent
 perturber le comportement du kubelet et supprimer des conteneurs qui devraient exister.
 
@@ -127,23 +125,13 @@ jusqu'à ce que l'utilisation du disque atteigne la valeur `LowThresholdPercent`
 
 #### Collecte des déchets pour les images de conteneur inutilisées {#image-maximum-age-gc}
 
-{{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
-
-En tant que fonctionnalité bêta, vous pouvez spécifier la durée maximale pendant laquelle une image locale peut rester inutilisée,
+Vous pouvez spécifier la durée maximale pendant laquelle une image locale peut rester inutilisée,
 indépendamment de l'utilisation du disque. Il s'agit d'un paramètre du kubelet que vous configurez pour chaque nœud.
 
-Pour configurer le paramètre, activez la fonctionnalité `ImageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) pour le kubelet,
-et définissez également une valeur pour le champ `imageMaximumGCAge` dans le fichier de configuration du kubelet.
+Pour configurer ce paramètre, vous devez définir une valeur pour le champ `imageMaximumGCAge` dans le fichier de configuration du kubelet.
 
-La valeur est spécifiée en tant que _durée_ Kubernetes ;
-Les unités de temps valides pour le champ `imageMaximumGCAge` dans le fichier de configuration du kubelet sont :
-- "ns" pour les nanosecondes
-- "us" ou "µs" pour les microsecondes
-- "ms" pour les millisecondes
-- "s" pour les secondes
-- "m" pour les minutes
-- "h" pour les heures
+La valeur est spécifiée sous forme d'une {{< glossary_tooltip text="durée" term_id="duration" >}} Kubernetes.
+Consultez l'entrée [durée](/docs/reference/glossary/?all=true#term-duration) du glossaire pour plus de détails.
 
 Par exemple, vous pouvez définir le champ de configuration sur `12h45m`,
 ce qui signifie 12 heures et 45 minutes.
