@@ -166,5 +166,5 @@ kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
-* See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* See how to [reference a Workload](/docs/concepts/workloads/pods/scheduling-group/) in a Pod.
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
