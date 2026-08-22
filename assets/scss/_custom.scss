@@ -13,6 +13,7 @@ $announcement-size-adjustment: 8px;
 
   main {
     padding-left: 2rem;
+    min-width: 0;
 
     *:not(figure) > img {
       max-width: 100%;
@@ -1469,6 +1470,7 @@ main.content {
 .td-blog {
 
   .widget-link {
+    display: block;
     margin-bottom: 1rem;
 
     .svg-inline--fa {
