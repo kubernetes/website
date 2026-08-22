@@ -89,7 +89,7 @@ pairs attached to objects and can be used in any number of ways:
 * Embed version tags
 * Classify an object using tags
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg" class="diagram-medium" >}}
+{{< svg src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg" class="diagram-medium" >}}
 
 Labels can be attached to objects at creation time or later on. They can be modified
 at any time. Let's expose our application now using a Service and apply some labels.

@@ -1,12 +1,25 @@
-{{ $path := .Get "path" }}
-{{ $defaultLang := .Site.Params.defaultContentLanguage | default "en" }}
-{{ $url := $path }}
-{{ if ne .Page.Lang $defaultLang }}
-    {{ $url = printf "/%s%s" .Page.Lang $path }}
-{{ end }}
+{{- $path := .Get "path" -}}
+{{- $imagePath := .Get "image" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $title := .Get "title" | default "" -}}
+
+{{- $url := $path | relLangURL -}}
+
+{{- /* SVG inline embedding via dedicated svg shortcode */ -}}
+{{- $svgContent := "" -}}
+{{- $cleanImgSrc := index (split $imagePath "?") 0 -}}
+{{- if strings.HasSuffix $cleanImgSrc ".svg" -}}
+  {{- $svgShortcode := printf "{{< svg %q >}}" $imagePath -}}
+  {{- $svgContent = .Page.RenderString $svgShortcode -}}
+{{- end -}}
+
 <div class="module">
-    <a href="{{ $url }}">
-        <img src="{{ .Get "image" }}" alt="{{ .Get "alt" }}">
-        <h5>{{ .Get "title" }}</h5>
-    </a>
+  {{ if $url }}<a href="{{ $url }}">{{ end }}
+    {{- if $svgContent -}}
+      {{- $svgContent -}}
+    {{- else -}}
+      <img src="{{ $imagePath }}" alt="{{ $alt }}" />
+    {{- end -}}
+    {{ if $title }}<h5>{{ $title }}</h5>{{ end }}
+  {{ if $url }}</a>{{ end }}
 </div>
