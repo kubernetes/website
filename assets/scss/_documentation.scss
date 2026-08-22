@@ -11,12 +11,6 @@
 }
 
 div.feature-state-notice {
-  background-color: $feature;
-  color: #000;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 1em;
-
   font-size: 1.2em;
 
   > .feature-state-name::before {
@@ -25,21 +19,51 @@ div.feature-state-notice {
   }
   > .feature-state-name {
     display: inline-block;
+
+    text-transform: capitalize;
     font-size: 0.95em;
     font-weight: bold;
     color: #000;
     background-color: $feature;
   }
 
-  code {
+  span.feature-state-stage {
+    display: inline-block;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    border-radius: 0.2em;
+    font-weight: bold;
+    color: $feature;
+    background-color: $primary;
+  }
+
+  /* Less emphasis on features that are stable */
+  &.feature-stable span.feature-state-stage {
+    font-weight: inherit;
+    color: inherit;
+    background-color: transparent;
+    padding: 0;
+  }
+
+  &.feature-stable-but-disabled {
+    font-weight: bold;
+  }
+
+  .feature-state-details {
     color: #000;
     font-size: 1em;
     font-family: inherit; // don't treat as actual code
     background-color: $feature;
   }
+}
 
-  margin-right: 2em;
-  max-width: 80%;
+div.feature-state-notice, div.feature-state-notice + div.feature-stable.stable-in-latest-release {
+  background-color: $feature;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1em;
+
+  margin-right: 2.5rem;
 }
 
 div.api-reference-header-note {
