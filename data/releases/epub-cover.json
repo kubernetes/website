@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "name": "Kubernetes Documentation - {version}",
+    "logo": "/images/kubernetes-icon-color.svg"
+  },
+  "releases": {
+    "v1.35": {
+      "name": "Kubernetes Documentation - v1.35",
+      "logo": "website/content/en/blog/_posts/2025/kubernetes-v1-35-release/k8s-v1.35.png"
+    },
+    "v1.34": {
+      "name": "Kubernetes Documentation - v1.34",
+      "logo": "website/content/en/blog/_posts/2025/kubernetes-v1-34-release/k8s-v1.34.png"
+    },
+    "v1.33": {
+      "name": "Kubernetes Documentation - v1.33",
+      "logo": "website/content/en/blog/_posts/2025/kubernetes-v1-33-release/k8s-1.33.png"
+    }
+  }
+}
