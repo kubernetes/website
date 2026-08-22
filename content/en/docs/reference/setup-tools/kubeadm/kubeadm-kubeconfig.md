@@ -6,6 +6,8 @@ weight: 90
 
 `kubeadm kubeconfig` provides utilities for managing kubeconfig files.
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 For examples on how to use `kubeadm kubeconfig user` see
 [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 
