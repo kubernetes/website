@@ -44,11 +44,11 @@ $ docker-compose up -d
 
 Creating network "examples\_default" with the default driver
 
-Creating examples\_redis-slave\_1
+Creating examples\_redis-follower\_1
 
 Creating examples\_frontend\_1
 
-Creating examples\_redis-master\_1
+Creating examples\_redis-leader\_1
  ```
 
 And when you’re ready to deploy to Kubernetes:  
@@ -113,15 +113,15 @@ $ kompose convert --daemon-set
 
 INFO Kubernetes file "frontend-service.yaml" created
 
-INFO Kubernetes file "redis-master-service.yaml" created
+INFO Kubernetes file "redis-leader-service.yaml" created
 
-INFO Kubernetes file "redis-slave-service.yaml" created
+INFO Kubernetes file "redis-follower-service.yaml" created
 
 INFO Kubernetes file "frontend-daemonset.yaml" created
 
-INFO Kubernetes file "redis-master-daemonset.yaml" created
+INFO Kubernetes file "redis-leader-daemonset.yaml" created
 
-INFO Kubernetes file "redis-slave-daemonset.yaml" created
+INFO Kubernetes file "redis-follower-daemonset.yaml" created
  ```
 
 Key Kompose 1.0 features   
