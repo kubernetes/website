@@ -320,7 +320,7 @@ or completed for the same index will be deleted by the Job controller once they 
 When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate is enabled, the Job controller compiles a Job's `.spec.scheduling`
 configuration into [Workload](/docs/concepts/workloads/workload-api/) and
-[PodGroup](/docs/reference/kubernetes-api/) objects (`scheduling.k8s.io/v1beta1`)
+[PodGroup](/docs/reference/kubernetes-api/scheduling/pod-group-v1alpha2/) objects (`scheduling.k8s.io/v1beta1`)
 before it creates any Pods. This lets you express explicit scheduling intent for a Job,
 such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) (all Pods
 scheduled together or none), topology co-location, and disruption behavior.
@@ -391,7 +391,7 @@ When the Job controller processes this Job, it:
    namespace, containing a `podGroupTemplate` compiled from `.spec.scheduling`
    (here, a [gang policy](/docs/concepts/workloads/workload-api/policies/) with
    `minCount: 8`).
-1. Creates a [PodGroup](/docs/reference/kubernetes-api/) object from that template. The PodGroup is the runtime
+1. Creates a [PodGroup](/docs/reference/kubernetes-api/scheduling/pod-group-v1alpha2/) object from that template. The PodGroup is the runtime
    scheduling unit and carries an inline copy of the policy.
 1. Creates Pods with `.spec.schedulingGroup.podGroupName` set to the PodGroup's
    name, linking each Pod to its scheduling group.
