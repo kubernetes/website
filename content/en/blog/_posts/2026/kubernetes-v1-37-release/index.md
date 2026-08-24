@@ -789,6 +789,8 @@ Kubernetes Community Days (KCDs) taking place for the rest of 2026:
 - [KCD Florida – Miami](https://community2.cncf.io/events/details/cncf-kcd-florida-presents-kcd-florida-2026-miami/):
   December 11, 2026, in Miami, United States
 
+You can find the latest event details at the [CNCF Events Page](https://community2.cncf.io/events/#/list). 
+
 ### Upcoming release webinar
 
 Join members of the Kubernetes v1.37 Release Team on Wednesday, September 23rd, 2026 at 4:00 PM (UTC) to learn about the release highlights of this release. For more information and registration, visit the [event page on the CNCF Online Programs site](https://community2.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v137-webinar/).
