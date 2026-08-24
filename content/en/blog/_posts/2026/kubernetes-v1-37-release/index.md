@@ -786,6 +786,13 @@ Kubernetes Community Days (KCDs) taking place for the rest of 2026:
   December 9–10, 2026, in Meyrin, Switzerland
 - [KCD Provence](https://community2.cncf.io/events/details/cncf-kcd-provence-presents-kcd-provence-2026/):
   December 10, 2026, in Aix-en-Provence, France
+
+#### December 2026
+
+- [KCD Suisse Romande](https://community2.cncf.io/events/details/cncf-kcd-suisse-romande-presents-kcd-suisse-romande-2026/):
+ December 9–10, 2026, in Meyrin, Switzerland
+- [KCD Provence](https://community2.cncf.io/events/details/cncf-kcd-provence-presents-kcd-provence-2026/):
+ December 10, 2026, in Aix-en-Provence, France
 - [KCD Florida – Miami](https://community2.cncf.io/events/details/cncf-kcd-florida-presents-kcd-florida-2026-miami/):
   December 11, 2026, in Miami, United States
 
