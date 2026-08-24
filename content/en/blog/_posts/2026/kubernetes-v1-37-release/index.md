@@ -563,7 +563,7 @@ This work was done as part of [KEP #6012](https://www.kubernetes.dev/resources/k
 
 #### Workload Aware Scheduling Controller APIs
 
-As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS). The framework provides reusable `scheduling.k8s.io` API primitives, such as _topology constraints_ and _disruption policies_, along with shared libraries that handle the creation of scheduling resources. This allows controllers to expose WAS features natively within their APIs in a consistent way without implementing the same scheduling logic separately.
+As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS).
 
 The framework provides reusable `scheduling.k8s.io` API primitives, such as _topology constraints_ and _disruption policies_,
 along with shared libraries that handle the creation of scheduling resources. This allows controllers to expose WAS features
