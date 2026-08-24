@@ -111,11 +111,9 @@ The pod that accesses Docker Engine may have a name containing any of:
 How to migrate:
 [Migrating from Docker-only to generic container metrics in Dynatrace](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
 
-Containerd support announcement: [Get automated full-stack visibility into
-containerd-based Kubernetes
-environments](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
+Containerd support: [containerd monitoring & observability](https://www.dynatrace.com/hub/detail/containerd/)
 
-CRI-O support announcement: [Get automated full-stack visibility into your CRI-O Kubernetes containers (Beta)](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
+CRI-O support: [Set up Dynatrace on container and PaaS platforms](https://docs.dynatrace.com/docs/ingest-from/setup-on-container-platforms)
 
 The pod accessing Docker may have name containing: 
 - `dynatrace-oneagent`
