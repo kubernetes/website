@@ -112,6 +112,8 @@ apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: example-workload
+  annotations:
+    kubernetes.io/description: "Two-level workload hierarchy requiring 4 worker Pods and 1 driver Pod to schedule together."
 spec:
   compositePodGroupTemplates:
     - name: workload-root
@@ -138,6 +140,8 @@ After creating `example-workload`, a controller can stamp out the corresponding 
     kind: CompositePodGroup
     metadata:
       name: example-root-group
+      annotations:
+        kubernetes.io/description: "Root group coordinating gang scheduling across child worker and driver PodGroups."
     spec:
       workloadRef:
         workloadName: example-workload
@@ -154,6 +158,8 @@ After creating `example-workload`, a controller can stamp out the corresponding 
     kind: PodGroup
     metadata:
       name: example-workload-workers
+      annotations:
+        kubernetes.io/description: "Worker group requiring at least 4 Pods to be scheduled together."
     spec:
       parentCompositePodGroupName: example-root-group
       workloadRef:
@@ -167,6 +173,8 @@ After creating `example-workload`, a controller can stamp out the corresponding 
     kind: PodGroup
     metadata:
       name: example-workload-driver
+      annotations:
+        kubernetes.io/description: "Driver group requiring 1 Pod to schedule alongside the workers."
     spec:
       parentCompositePodGroupName: example-root-group
       workloadRef:
@@ -219,6 +227,8 @@ kind: Workload
 metadata:
   name: multi-level-tas-workload
   namespace: job-ns
+  annotations:
+    kubernetes.io/description: "Workload defining zone-level co-location for the root group and rack-level co-location for child groups."
 spec:
   compositePodGroupTemplates:
   - name: root
@@ -256,6 +266,8 @@ kind: CompositePodGroup
 metadata:
   name: tas-workload-root
   namespace: job-ns
+  annotations:
+    kubernetes.io/description: "Root group constraining the entire workload to a single availability zone."
 spec:
   workloadRef:
     workloadName: multi-level-tas-workload
@@ -272,6 +284,8 @@ kind: PodGroup
 metadata:
   name: tas-workload-workers
   namespace: job-ns
+  annotations:
+    kubernetes.io/description: "Worker group requiring 8 Pods co-located within a single rack in the selected zone."
 spec:
   parentCompositePodGroupName: tas-workload-root
   workloadRef:
@@ -289,6 +303,8 @@ kind: PodGroup
 metadata:
   name: tas-workload-driver
   namespace: job-ns
+  annotations:
+    kubernetes.io/description: "Driver group requiring 1 Pod placed in a rack within the selected zone."
 spec:
   parentCompositePodGroupName: tas-workload-root
   workloadRef:
@@ -354,6 +370,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: distributed-training-job
+  annotations:
+    kubernetes.io/description: "Distributed Job using explicit WAS scheduling with gang policy and zone topology constraints."
 spec:
   parallelism: 8
   completions: 8
