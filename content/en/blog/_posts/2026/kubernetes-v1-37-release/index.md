@@ -780,6 +780,9 @@ Kubernetes Community Days (KCDs) taking place for the rest of 2026:
   October 19–20, 2026, in Edinburgh, United Kingdom
 - [KCD Nigeria](https://community2.cncf.io/events/details/cncf-kcd-nigeria-presents-kcd-nigeria-2026-telling-the-african-cloud-native-story/):
   October 24, 2026, in Lagos, Nigeria
+
+#### November 2026
+
 - [KCD Porto](https://community2.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2026-collab-with-devops-days-portugal/):
   November 19–20, 2026, in Porto, Portugal
 - [KCD Suisse Romande](https://community2.cncf.io/events/details/cncf-kcd-suisse-romande-presents-kcd-suisse-romande-2026/):
