@@ -131,7 +131,49 @@ After creating `example-workload`, a controller can stamp out the corresponding 
 
 1. A root CompositePodGroup that references the `workload-root` template in `example-workload` and carries its group-level scheduling policy (gang scheduling with `minGroupCount: 2`):
 
-    
+    ```yaml
+    apiVersion: scheduling.k8s.io/v1alpha3
+    kind: CompositePodGroup
+    metadata:
+      name: example-root-group
+    spec:
+      workloadRef:
+        workloadName: example-workload
+        templateName: workload-root
+      schedulingPolicy:
+        gang:
+          minGroupCount: 2
+    ```
+
+2. Two child PodGroup objects (`example-workload-workers` and `example-workload-driver`) that reference their respective leaf templates in `example-workload` and link to the root group via `parentCompositePodGroupName`:
+
+    ```yaml
+    apiVersion: scheduling.k8s.io/v1beta1
+    kind: PodGroup
+    metadata:
+      name: example-workload-workers
+    spec:
+      parentCompositePodGroupName: example-root-group
+      workloadRef:
+        workloadName: example-workload
+        templateName: workers
+      schedulingPolicy:
+        gang:
+          minCount: 4
+    ---
+    apiVersion: scheduling.k8s.io/v1beta1
+    kind: PodGroup
+    metadata:
+      name: example-workload-driver
+    spec:
+      parentCompositePodGroupName: example-root-group
+      workloadRef:
+        workloadName: example-workload
+        templateName: driver
+      schedulingPolicy:
+        gang:
+          minCount: 1
+    ```
 
 ### How multi-level gang scheduling works
 
@@ -206,7 +248,57 @@ When a controller creates an instance of this workload at runtime, it spawns the
 1. The root CompositePodGroup referencing the `root` template, carrying the availability zone topology constraint and the hierarchical gang scheduling policy.
 2. The two child PodGroup objects (`tas-workload-workers` and `tas-workload-driver`), each referencing the root CompositePodGroup as their parent group via the `parentCompositePodGroupName` spec field:
 
-    
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: CompositePodGroup
+metadata:
+  name: tas-workload-root
+  namespace: job-ns
+spec:
+  workloadRef:
+    workloadName: multi-level-tas-workload
+    templateName: root
+  schedulingPolicy:
+    gang:
+      minGroupCount: 2
+  schedulingConstraints:
+    topology:
+    - key: topology.kubernetes.io/zone
+---
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PodGroup
+metadata:
+  name: tas-workload-workers
+  namespace: job-ns
+spec:
+  parentCompositePodGroupName: tas-workload-root
+  workloadRef:
+    workloadName: multi-level-tas-workload
+    templateName: workers
+  schedulingPolicy:
+    gang:
+      minCount: 8
+  schedulingConstraints:
+    topology:
+    - key: topology.example.com/rack
+---
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PodGroup
+metadata:
+  name: tas-workload-driver
+  namespace: job-ns
+spec:
+  parentCompositePodGroupName: tas-workload-root
+  workloadRef:
+    workloadName: multi-level-tas-workload
+    templateName: driver
+  schedulingPolicy:
+    gang:
+      minCount: 1
+  schedulingConstraints:
+    topology:
+    - key: topology.example.com/rack
+```
 
 During scheduling, the scheduler evaluates multiple candidate availability zones across the cluster for `tas-workload-root`. For each candidate zone, it subdivides the nodes by rack topology to explore feasible rack placements for `tas-workload-workers` and `tas-workload-driver` strictly within that zone, systematically evaluating multiple combinations across available zones and racks before making a scheduling decision.
 
