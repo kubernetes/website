@@ -172,8 +172,8 @@ open an issue in the [kubernetes/kubernetes](https://github.com/kubernetes/kuber
 
 The project is also discussing several Kubernetes Enhancement Proposals that may contribute to
 simplifying Kubernetes-in-Kubernetes with this feature:
-- [KEP-5474: Enable Writable cgroups for unprivileged containers](https://github.com/kubernetes/enhancements/issues/5474)
-- [KEP-5714: Allow specifying whether to unshare cgroup namespaces](https://github.com/kubernetes/enhancements/issues/5714)
+- [KEP-5474: Enable Writable cgroups for unprivileged containers](https://www.kubernetes.dev/resources/keps/5474/)
+- [KEP-5714: Allow specifying whether to unshare cgroup namespaces](https://www.kubernetes.dev/resources/keps/5714)
 
 ## Getting involved
 
