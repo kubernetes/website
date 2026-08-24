@@ -79,6 +79,11 @@ scale-ups. The DRA plugin now uses a pod informer index to narrow that to just t
 cutting the requeue path to O(1) and roughly doubling scheduling throughput in early benchmarks. Controlled 
 by the `SchedulerPreQueueingHints` feature gate.
 
+[DRA Consumable Capacity](https://www.kubernetes.dev/resources/keps/5075) now supports fractional values in
+CapacityRequestPolicyRange, enabling more precise capacity requests and allocation for devices with fractional resources.
+This improves flexibility for workloads that require fine-grained resource allocation. The enhancement is gated by the 
+`DRAFractionalCapacityRange` feature gate, which is in Beta in 1.37.
+
 ## What’s next
 
 DRA continues to mature with every release. Several features currently in Alpha and Beta are on track to progress in the
