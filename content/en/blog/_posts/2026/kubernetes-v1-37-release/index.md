@@ -764,6 +764,8 @@ Explore the upcoming KubeCons worldwide:
 
 Kubernetes Community Days (KCDs) taking place for the rest of 2026:
 
+#### September 2026
+
 - [KCD x Ceph x OpenInfra Day Korea](https://community2.cncf.io/events/details/cncf-kcd-south-korea-presents-kcd-x-ceph-x-openinfra-day-korea-2026/):
   September 1, 2026, in Seoul, South Korea
 - [KCD San Francisco Bay Area](https://community2.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area-2026/):
