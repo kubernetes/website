@@ -364,6 +364,7 @@ Many of the workload-aware scheduling improvements are now available as Beta fea
 * **CompositePodGroup API:** Enable the
   [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
   feature gate on the `kube-apiserver`, `kube-controller-manager` and `kube-scheduler`, and ensure the `scheduling.k8s.io/v1alpha3` API version is enabled.
+  Note that enabling `CompositePodGroup` on the `kube-controller-manager` also requires the [`TopologyAwareWorkloadScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#TopologyAwareWorkloadScheduling) feature gate to be enabled.
 * **Workload API integration with the Job controller:** Enable the
   [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob)
   feature gate on the `kube-apiserver` and `kube-controller-manager`.
