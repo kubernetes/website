@@ -39,7 +39,7 @@ git clone https://www.github.com/kubernetes/kubernetes
 갱신된 메트릭 문서를 게시한다.
 
 최신 메트릭을 생성하려면, 클론한 쿠버네티스 디렉터리 루트에 있는지 확인한다.
-그런 다음, 다음 명령을 실행한다.
+그런 다음 아래 명령을 실행한다.
 
 ```shell
 ./test/instrumentation/update-documentation.sh
