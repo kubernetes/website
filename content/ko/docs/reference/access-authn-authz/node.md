@@ -42,7 +42,7 @@ kubelet은 자신의 노드 오브젝트만 읽을 수 있으며, 해당 노드�
 인증/인가 관련 작업은 다음과 같다.
 
 * TLS 부트스트래핑을 위한
-할  [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/)에
+  [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/)에
   대한 읽기/쓰기 접근 권한
 * 위임된 인증/인가 검사를 위해 토큰리뷰(TokenReview)와
   서브젝트액세스리뷰(SubjectAccessReview)를 생성하는 기능
