@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.37: <Release Name>"
-draft: true
+title: "Kubernetes v1.37: Garhwal"
+date: 2026-08-26
 evergreen: true
 slug: kubernetes-v1-37-release
 author: >
@@ -9,7 +9,7 @@ author: >
 release_announcement:
   minor_version: "1.37"
   themes:
-    - "Release CodeName 1"
+    - "Garhwal"
 ---
 **Editors:** Arsh Sharma, Christopher Tineo, Kirti Goyal, Sophia Ugochukwu, Swathi Rao, Troy Connor
 
@@ -21,9 +21,19 @@ Of those enhancements, 16 have graduated to Stable, 23 have graduated to Beta,
 
 ## Release theme and logo
 
-<!-- Logo image size is recommended to be no more than 2160px -->
+{{< figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 Garhwal release logo: a ringaal-inspired woven frame surrounds snow-capped Himalayan peaks, terraced fields, deodar trees, a winding river, a mountain house marked 1.37, colourful flags, a Himalayan monal, and red buransh flowers with Kubernetes helm symbols at their centres" class="release-logo" >}}
 
-{{< figure src="k8s-1.37.svg" alt="Kubernetes v1.37 <release theme> logo" class="release-logo" >}}
+The theme for Kubernetes v1.37 is **Garhwal** (गढ़वाल, pronounced _gaṛhvāl_), a Himalayan region of Uttarakhand, India. The snow-capped peaks of the Garhwal Himalaya, deodar forests, terraced fields, rivers and streams, and mountain paths shape both the region and the logo. Together, these elements reflect a community in which every layer, route, and contribution is connected.
+
+The logo is imagined as a window into Garhwal's landscape.<sup>1</sup> Inside, terraced fields climb towards the snowy peaks, each level supported by the one below, much as every Kubernetes release depends on work carried forward. A river winds through the valley and gathers mountain streams, reflecting contributions from many SIGs and communities flowing into one project.
+
+The deodar forest represents the wider Kubernetes ecosystem, where distinct projects share common ground and grow side by side. Stonework and woodcraft shape the path and mountain house, placing people at the centre and evoking shared foundations maintained for those who follow. Above the river, colourful flags catch the wind and bring the scene to life.
+
+Encircling the scene is a patterned frame inspired by basketry woven from _ringaal_, a flexible dwarf Himalayan bamboo. Individual strips gain strength when interlaced, just as code, reviews, tests, documentation, and coordination come together to make a release.
+
+Within the frame, the [Himalayan monal](https://en.wikipedia.org/wiki/Himalayan_monal), Uttarakhand's state bird, lives at high altitudes in the Himalaya. Its iridescent plumage holds many colours at once, much as the Kubernetes community brings many skills and perspectives into one project. Flowers of red _buransh_ (_Rhododendron arboreum_), Uttarakhand's state tree, carry Kubernetes helms at their centres, linking a familiar bloom of Garhwal with the symbol shared by the community. The house bears १.३७ (1.37 in Devanagari numerals), grounding the release in the landscape.
+
+<sub>1. Keep looking through the window (the logo). Watch the river flow and the flags catch the wind. In 37 seconds, the landscape reveals its magic. 😉</sub>
 
 ## Spotlight on key updates
 
