@@ -25,7 +25,7 @@ weight: 30
 
 노드 적합성 테스트를 실행하려면 다음 단계를 수행한다.
 
-1. kubelet에 대한 `--kubeconfig` 옵션의 값을 계산한다. 예를 들면, 다음과 같다.
+1. kubelet에 대한 `--kubeconfig` 옵션의 값을 확인한다. 예를 들면, 다음과 같다.
    `--kubeconfig=/var/lib/kubelet/config.yaml`.
    테스트 프레임워크는 kubelet을 테스트하기 위해 로컬 컨트롤 플레인을 시작하므로,
    API 서버의 URL로 `http://localhost:8080`을 사용한다.
