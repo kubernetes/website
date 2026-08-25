@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: <Release Name>"
-draft: true
+date: 2026-08-26
 evergreen: true
 slug: kubernetes-v1-37-release
 author: >
