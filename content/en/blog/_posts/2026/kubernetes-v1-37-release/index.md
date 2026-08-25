@@ -753,7 +753,7 @@ blogs and documentation), or comments on issues and PRs.
 If you are interested in contributing, check out our [getting started](https://www.kubernetes.dev/docs/guide/#getting-started)
 page. 
 
-### Event update
+### Event updates
 
 Explore the upcoming KubeCons worldwide:
 
