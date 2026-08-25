@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: <Release Name>"
-date: 2026-08-26
 evergreen: true
+date: 2026-08-26
 slug: kubernetes-v1-37-release
 author: >
   [Kubernetes v1.37 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)
