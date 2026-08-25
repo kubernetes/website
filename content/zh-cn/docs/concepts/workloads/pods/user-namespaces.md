@@ -403,6 +403,40 @@ these entries for the `kubelet` user:
 kubelet:65536:7208960
 ```
 
+<!--
+### Note if you reconfigure a node
+
+If you have an existing node that is running pods with user-namespaces and want to make the
+aforementioned configurations, here are some important notes.
+-->
+### 关于重新配置节点的注意事项
+
+如果你有一个正在运行用户命名空间 Pod
+的现有节点，并希望进行上述配置，有以下几点重要注意事项。
+
+<!--
+The configuration should be changed when no pods using user-namespaces are running on the node.
+When changing this in a node that is running any Pods with user namespaces,
+you need to first {{< glossary_tooltip text="drain" term_id="drain" >}} the
+node before applying the configuration and restarting the kubelet. 
+When you drain the node, bear in mind that DaemonSet Pods, or other Pods
+that tolerate the unschedulable taint will **not** be evicted.
+
+The reason why no pods using user-namespaces can be running is that they can be using any range,
+potentially outside the new configured range. The kubelet will fail to start if it can't honor the
+new configuration for existing pods on the node.
+-->
+应当在节点上没有运行使用用户命名空间的 Pod 时再更改该配置。
+在正在运行任何使用用户命名空间的 Pod 的节点上进行此项更改时，
+你需要在应用配置并重启 kubelet
+之前，先{{</* glossary_tooltip text="腾空（Drain）" term_id="drain" */>}}该节点。
+在腾空节点时，请注意，DaemonSet Pod 或其他容忍了不可调度污点的
+Pod 将**不会**被驱逐。
+
+之所以不能有任何使用用户命名空间的 Pod 正在运行，
+是因为它们可能正在使用某个 UID 区间，潜在地落在新配置的区间之外。
+如果 kubelet 无法针对节点上现有的 Pod 满足新的配置，它将无法启动。
+
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow
 
@@ -435,8 +469,7 @@ Running containers are not affected by this config.
 In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 65536.
 -->
-`idsPerPod` 的值（uint32）必须是 65536 的倍数。
-默认值是 65536。
+`idsPerPod` 的值（uint32）必须是 65536 的倍数。默认值是 65536。
 此值仅适用于使用此 `KubeletConfiguration` 启动 kubelet 后创建的容器。
 正在运行的容器不受此配置的影响。
 
@@ -495,14 +528,13 @@ default or empty ProcMount.
 
 <!--
 ## Limitations
--->
-## 限制 {#limitations}
 
-<!--
 When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
 allowed to set any of:
 -->
+## 限制 {#limitations}
+
 当 Pod 使用用户命名空间时，不允许 Pod 使用其他主机命名空间。
 特别是，如果你设置了 `hostUsers: false`，那么你就不可以设置如下属性：
 
