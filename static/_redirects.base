@@ -62,6 +62,7 @@
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
 /docs/concepts/containers/overview/     /docs/concepts/containers/ 301
 /docs/concepts/cluster-administration/cluster-administration-overview/     /docs/concepts/cluster-administration/ 301
+/ja/docs/concepts/cluster-administration/cluster-administration-overview/     /ja/docs/concepts/cluster-administration/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
@@ -97,6 +98,7 @@
 /id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /docs/concepts/configuration/pod-priority-preemption/    /docs/concepts/scheduling-eviction/pod-priority-preemption/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
+/ja/docs/concepts/extend-kubernetes/extend-cluster/      /ja/docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
@@ -104,6 +106,7 @@
 /uk/docs/concepts/nodes/node/     /uk/docs/concepts/architecture/nodes/ 301
 /docs/storage-force-detach-on-timeout/ /docs/concepts/architecture/nodes/#storage-force-detach-on-timeout 302
 /docs/concepts/services-networking/connect-applications-service/    /docs/tutorials/services/connect-applications-service/   301
+/ja/docs/concepts/services-networking/connect-applications-service/    /ja/docs/tutorials/services/connect-applications-service/   301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
 /docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/ 301
@@ -130,6 +133,7 @@
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
 /docs/concepts/overview/working-with-objects/kubernetes-objects/ /docs/concepts/overview/working-with-objects/ 301
+/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/ /ja/docs/concepts/overview/working-with-objects/ 301
 /docs/concepts/overview/object-management-kubectl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
 /docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
@@ -231,6 +235,7 @@
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
 /docs/concepts/security/overview/ /docs/concepts/security/ 301
+/ja/docs/concepts/security/overview/ /ja/docs/concepts/security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
@@ -262,6 +267,7 @@
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
 /docs/tasks/administer-cluster/enabling-endpointslices/ /docs/concepts/services-networking/endpoint-slices/ 301
+/ja/docs/tasks/administer-cluster/enabling-endpointslices/ /ja/docs/concepts/services-networking/endpoint-slices/ 301
 /docs/tasks/administer-cluster/highly-available-control-plane/    /docs/setup/production-environment/#production-control-plane 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
@@ -472,6 +478,7 @@
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
 /docs/concepts/cluster-administration/manage-deployment/ /docs/concepts/workloads/management/ 301
+/ja/docs/concepts/cluster-administration/manage-deployment/ /ja/docs/concepts/workloads/management/ 301
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
@@ -489,6 +496,7 @@
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
+/ja/docs/concepts/architecture/cri/   /ja/docs/concepts/containers/cri/   301
 /docs/concepts/policy/node-resource-managers/ /docs/concepts/workloads/resource-managers/ 301
 
 # Redirects from old gen-resourcesdocs URL structure to gen-apidocs URLs.
