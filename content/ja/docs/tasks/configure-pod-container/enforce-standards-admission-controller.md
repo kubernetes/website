@@ -10,14 +10,12 @@ Kubernetesは[Podセキュリティスタンダード](/docs/concepts/security/p
 
 ## {{% heading "prerequisites" %}}
 
-Podセキュリティアドミッションは、Kubernetes v1.22のアルファリリースに続き、
-Kubernetes v1.23でベータとしてデフォルトで利用可能になりました。
+Podセキュリティアドミッションは、Kubernetes v1.22のアルファリリースに続き、Kubernetes v1.23でベータとしてデフォルトで利用可能になりました。
 バージョン1.25以降、Podセキュリティアドミッションは正式リリース(GA)されています。
 
 {{% version-check %}}
 
-Kubernetes {{< skew currentVersion >}}を実行していない場合は、
-実行しているKubernetesバージョンのドキュメントに切り替えて、このページを参照できます。
+Kubernetes {{< skew currentVersion >}}を実行していない場合は、実行しているKubernetesバージョンのドキュメントに切り替えて、このページを参照できます。
 
 ## アドミッションコントローラーを設定する {#configure-the-admission-controller}
 
