@@ -452,8 +452,8 @@ Pods governed by the `baseline` or `restricted` policy, choose a matching
 `--profile=restricted` with `kubectl debug`.
 
 Any admission webhooks or admission policies in your cluster, that do not evaluate
-the `ephemeralContainers` field, may also need updating to evaluate the `ephemeralContainers`
-field in a Pod's spec.
+the `ephemeralContainers` field, may also need updating to intercept the
+`pods/ephemeralcontainers` resource and evaluate the `ephemeralContainers` field in a Pod's spec.
 {{< /note >}}
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
