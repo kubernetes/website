@@ -126,7 +126,7 @@ To retain the old behavior for a workload, it is advised to set the `.spec.seLin
 This behavior itself also isn't locked until v1.38, so disabling it cluster-wide remains an option for one more release.
 
 Clusters without SELinux enabled see no effect at all. To learn more, check [SELinux Volume Label Changes goes GA (and likely
-implications in v1.37)](/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/)
+implications in v1.37)](/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/).
 
 This work was done as part of [KEP #1710](https://www.kubernetes.dev/resources/keps/1710/) led by [SIG Storage](https://www.kubernetes.dev/community/community-groups/sigs/storage/).
 
