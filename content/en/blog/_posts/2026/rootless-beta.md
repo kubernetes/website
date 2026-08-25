@@ -13,7 +13,7 @@ CNI plugins, and kube-proxy) can run as a non-root user on the host, using a
 [Linux user namespace](https://man7.org/linux/man-pages/man7/user_namespaces.7.html).
 This technique is also known as _rootless mode_.
 The work started as an experiment in 2018, and was merged into Kubernetes v1.22 (2021)
-as an alpha feature (Kubernetes Enhancement Proposal [KEP-2033](https://github.com/kubernetes/enhancements/issues/2033)).
+as an alpha feature (Kubernetes Enhancement Proposal [KEP-2033](https://www.kubernetes.dev/resources/keps/2033/)).
 
 This feature should not be confused with [user namespaces for pods](/docs/concepts/workloads/pods/user-namespaces/)
 (`hostUsers: false` with the `UserNamespacesSupport` feature gate, GA since v1.36),
@@ -80,7 +80,7 @@ A Linux kernel _user namespace_ maps a host level non-root user (e.g., UID 1000)
 privileges are limited to the inside of the namespace.
 The fake root is enough for most of the node components' tasks: mounting volumes,
 creating cgroups, and configuring the network namespaces of pods.
-It still comes with some [caveats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2033-kubelet-in-userns-aka-rootless/README.md#notesconstraintscaveats-optional) that may break compatibility with specific CNI and CSI drivers, though.
+It still comes with some [caveats](https://www.kubernetes.dev/resources/keps/2033/#notesconstraintscaveats-optional) that may break compatibility with specific CNI and CSI drivers, though.
 
 The user namespace has to be created outside of Kubernetes.
 For example, [Rootless](https://docs.docker.com/engine/security/rootless/) Docker can be used to prepare the user namespace in which Kubernetes runs.
