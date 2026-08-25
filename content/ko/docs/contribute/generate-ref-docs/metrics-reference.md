@@ -19,7 +19,7 @@ weight: 100
 메트릭 생성은 쿠버네티스 리포지터리에서 이루어진다.
 리포지터리를 클론하려면, 클론을 두려는 디렉터리로 이동한다.
 
-그런 다음, 다음 명령을 실행한다.
+그런 다음 아래 명령을 실행한다.
 
 ```shell
 git clone https://www.github.com/kubernetes/kubernetes 
