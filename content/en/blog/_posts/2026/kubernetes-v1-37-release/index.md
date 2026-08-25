@@ -563,7 +563,7 @@ This work was done as part of [KEP #6012](https://www.kubernetes.dev/resources/k
 
 #### Workload Aware Scheduling Controller APIs
 
-As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS). The framework provides reusable `scheduling.k8s.io` API primitives, such as _topology constraints_ and _disruption policies_, along with shared libraries that handle the creation of scheduling resources. This allows controllers to expose WAS features natively within their APIs in a consistent way without implementing the same scheduling logic separately.
+As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS).
 
 The framework provides reusable `scheduling.k8s.io` API primitives, such as _topology constraints_ and _disruption policies_,
 along with shared libraries that handle the creation of scheduling resources. This allows controllers to expose WAS features
@@ -784,6 +784,8 @@ Kubernetes Community Days (KCDs) taking place for the rest of 2026:
   October 24, 2026, in Lagos, Nigeria
 - [KCD Porto](https://community2.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2026-collab-with-devops-days-portugal/):
   November 19–20, 2026, in Porto, Portugal
+- [KCD Hangzhou](https://sessionize.com/kcd-hangzhou-2026/):
+  November 28, 2026, in Hangzhou, China
 - [KCD Suisse Romande](https://community2.cncf.io/events/details/cncf-kcd-suisse-romande-presents-kcd-suisse-romande-2026/):
   December 9–10, 2026, in Meyrin, Switzerland
 - [KCD Provence](https://community2.cncf.io/events/details/cncf-kcd-provence-presents-kcd-provence-2026/):
