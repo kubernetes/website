@@ -42,7 +42,7 @@ kubelet은 자신의 노드 오브젝트만 읽을 수 있으며, 해당 노드�
 인증/인가 관련 작업은 다음과 같다.
 
 * TLS 부트스트래핑을 위한
-  [CertificateSigningRequest API](/docs/reference/access-authn-authz/certificate-signing-requests/)에
+할  [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/)에
   대한 읽기/쓰기 접근 권한
 * 위임된 인증/인가 검사를 위해 토큰리뷰(TokenReview)와
   서브젝트액세스리뷰(SubjectAccessReview)를 생성하는 기능
@@ -94,8 +94,8 @@ kubelet이 쓸 수 있는 API 오브젝트를 제한하려면,
 
 {{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
 
-`ServiceAccountNodeAudienceRestriction` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
-가 활성화되고 `NodeRestriction` 어드미션 플러그인이 활성화되어 있으면,
+`ServiceAccountNodeAudienceRestriction` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+활성화되고 `NodeRestriction` 어드미션 플러그인이 활성화되어 있으면,
 kubelet은 해당 노드에서 실행 중인 파드가 이미 참조하는 오디언스(audience)에
 대해서만 서비스 어카운트 토큰을 요청할 수 있다. 이는 손상된 노드가 임의의 오디언스에 대한 토큰을 얻지 못하게 한다.
 
