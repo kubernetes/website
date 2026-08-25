@@ -762,7 +762,7 @@ Explore the upcoming KubeCons worldwide:
 - [KubeCon + CloudNativeCon North America](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/):
   November 9–12, 2026, in Salt Lake City, United States
 
-Kubernetes Community Days (KCDs) taking place for the rest of 2026:
+Explore the upcoming Kubernetes Community Days (KCDs) taking place for the rest of 2026:
 
 #### September 2026
 
