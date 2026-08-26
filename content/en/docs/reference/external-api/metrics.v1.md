@@ -1,27 +1,27 @@
 ---
-title: Kubernetes Metrics (v1beta1)
+title: Kubernetes Metrics (v1)
 content_type: tool-reference
-package: metrics.k8s.io/v1beta1
+package: metrics.k8s.io/v1
 auto_generated: true
 ---
-<p>Package v1beta1 is the v1beta1 version of the metrics API.</p>
+<p>Package v1 is the v1 version of the metrics API.</p>
 
 
 ## Resource Types 
 
 
-- [NodeMetrics](#metrics-k8s-io-v1beta1-NodeMetrics)
-- [NodeMetricsList](#metrics-k8s-io-v1beta1-NodeMetricsList)
-- [PodMetrics](#metrics-k8s-io-v1beta1-PodMetrics)
-- [PodMetricsList](#metrics-k8s-io-v1beta1-PodMetricsList)
+- [NodeMetrics](#metrics-k8s-io-v1-NodeMetrics)
+- [NodeMetricsList](#metrics-k8s-io-v1-NodeMetricsList)
+- [PodMetrics](#metrics-k8s-io-v1-PodMetrics)
+- [PodMetricsList](#metrics-k8s-io-v1-PodMetricsList)
   
 
-## `NodeMetrics`     {#metrics-k8s-io-v1beta1-NodeMetrics}
+## `NodeMetrics`     {#metrics-k8s-io-v1-NodeMetrics}
     
 
 **Appears in:**
 
-- [NodeMetricsList](#metrics-k8s-io-v1beta1-NodeMetricsList)
+- [NodeMetricsList](#metrics-k8s-io-v1-NodeMetricsList)
 
 
 <p>NodeMetrics sets resource usage metrics of a node.</p>
@@ -31,7 +31,7 @@ auto_generated: true
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>NodeMetrics</code></td></tr>
     
   
@@ -67,7 +67,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
 </tbody>
 </table>
 
-## `NodeMetricsList`     {#metrics-k8s-io-v1beta1-NodeMetricsList}
+## `NodeMetricsList`     {#metrics-k8s-io-v1-NodeMetricsList}
     
 
 
@@ -78,7 +78,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>NodeMetricsList</code></td></tr>
     
   
@@ -91,7 +91,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </td>
 </tr>
 <tr><td><code>items</code> <B>[Required]</B><br/>
-<a href="#metrics-k8s-io-v1beta1-NodeMetrics"><code>[]NodeMetrics</code></a>
+<a href="#metrics-k8s-io-v1-NodeMetrics"><code>[]NodeMetrics</code></a>
 </td>
 <td>
    <p>List of node metrics.</p>
@@ -100,12 +100,12 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </tbody>
 </table>
 
-## `PodMetrics`     {#metrics-k8s-io-v1beta1-PodMetrics}
+## `PodMetrics`     {#metrics-k8s-io-v1-PodMetrics}
     
 
 **Appears in:**
 
-- [PodMetricsList](#metrics-k8s-io-v1beta1-PodMetricsList)
+- [PodMetricsList](#metrics-k8s-io-v1-PodMetricsList)
 
 
 <p>PodMetrics sets resource usage metrics of a pod.</p>
@@ -115,7 +115,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>PodMetrics</code></td></tr>
     
   
@@ -142,7 +142,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>containers</code> <B>[Required]</B><br/>
-<a href="#metrics-k8s-io-v1beta1-ContainerMetrics"><code>[]ContainerMetrics</code></a>
+<a href="#metrics-k8s-io-v1-ContainerMetrics"><code>[]ContainerMetrics</code></a>
 </td>
 <td>
    <p>Metrics for all containers are collected within the same time window.</p>
@@ -151,7 +151,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
 </tbody>
 </table>
 
-## `PodMetricsList`     {#metrics-k8s-io-v1beta1-PodMetricsList}
+## `PodMetricsList`     {#metrics-k8s-io-v1-PodMetricsList}
     
 
 
@@ -162,7 +162,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>metrics.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>PodMetricsList</code></td></tr>
     
   
@@ -175,7 +175,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </td>
 </tr>
 <tr><td><code>items</code> <B>[Required]</B><br/>
-<a href="#metrics-k8s-io-v1beta1-PodMetrics"><code>[]PodMetrics</code></a>
+<a href="#metrics-k8s-io-v1-PodMetrics"><code>[]PodMetrics</code></a>
 </td>
 <td>
    <p>List of pod metrics.</p>
@@ -184,12 +184,12 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </tbody>
 </table>
 
-## `ContainerMetrics`     {#metrics-k8s-io-v1beta1-ContainerMetrics}
+## `ContainerMetrics`     {#metrics-k8s-io-v1-ContainerMetrics}
     
 
 **Appears in:**
 
-- [PodMetrics](#metrics-k8s-io-v1beta1-PodMetrics)
+- [PodMetrics](#metrics-k8s-io-v1-PodMetrics)
 
 
 <p>ContainerMetrics sets resource usage metrics of a container.</p>
