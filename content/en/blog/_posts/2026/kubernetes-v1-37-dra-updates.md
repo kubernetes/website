@@ -18,9 +18,9 @@ I'll dive into what's new for DRA in Kubernetes 1.37!
 
 It's been on a steady path since KEP acceptance in 1.34. Alpha landed in 1.35, Beta in 1.36, and now it's Stable. For cluster operators, this is what makes DRA adoption gradual. Existing workloads written against extended resources keep working unmodified while the backend allocation logic moves over to DRA.
 
-[Resource Claims status with possible standardized network interface data](https://www.kubernetes.dev/resources/keps/4817/) adds a `devices` field to ResourceClaim `.status`, letting DRA drivers report per-device status, including, for network devices, the interface name, MAC address, and IP addresses. This gives users and controllers visibility into device state that was previously invisible once a device was configured in a Pod, and makes it possible to build things like network services that rely on a device's reported IPs.
+[ResourceClaims status with possible standardized network interface data](https://www.kubernetes.dev/resources/keps/4817/) adds a `devices` field to ResourceClaim `.status`, letting DRA drivers report per-device status, including, for network devices, the interface name, MAC address, and IP addresses. This gives users and controllers visibility into device state that was previously invisible once a device was configured in a Pod, and makes it possible to build things like network services that rely on a device's reported IPs.
 
-[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) is now Stable, DRA drivers can mark devices as tainted so they're skipped for new Pod scheduling, and cluster admins can apply the same taints cluster-wide via a DeviceTaintRule, without reconfiguring drivers. Pods already using a tainted device can be evicted automatically, unless their `ResourceClaim` explicitly tolerates the taint. This mirrors node taints and tolerations, letting operators take a single device offline for maintenance or mark it degraded, without disrupting the rest of the cluster.
+[DRA: device taints and tolerations](https://www.kubernetes.dev/resources/keps/5055/) is now Stable; DRA drivers can mark devices as tainted so they're skipped for new Pod scheduling, and cluster admins can apply the same taints cluster-wide via a DeviceTaintRule, without reconfiguring drivers. Pods already using a tainted device can be evicted automatically, unless their ResourceClaim explicitly tolerates the taint. This mirrors node taints and tolerations, letting operators take a single device offline for maintenance or mark it degraded, without disrupting the rest of the cluster.
 
 [Standard numaNode device attribute](https://github.com/kubernetes/enhancements/issues/6072) standardizes `resource.kubernetes.io/numaNode` as a shared attribute name, so devices from different drivers can be compared on the same NUMA node instead of each driver inventing its own name for it. It landed directly as stable in 1.37, since it's a naming/registration KEP with no feature gate or in-tree behavior change.
 
@@ -42,12 +42,12 @@ to watch and translate ResourceClaims and ResourceSlices.
 
 ## Alpha features
 
-[List types for attributes](https://www.kubernetes.dev/resources/keps/5491) moved into a second Alpha in 1.
-37, letting a device attribute hold more than one value instead of a single scalar, like a CPU that's 
+[List types for attributes](https://www.kubernetes.dev/resources/keps/5491) moved into a second Alpha in 1.37,
+letting a device attribute hold more than one value instead of a single scalar, such as a CPU that's 
 adjacent to more than one PCIe root. This makes it possible to match or distinguish devices based on 
 overlapping or non-overlapping sets of values, while single-value attributes keep working as they do today.
 
-[Node allocatable resource requests](https://www.kubernetes.dev/resources/keps/5517) moved into Alpha2. It
+[Node allocatable resource requests](https://www.kubernetes.dev/resources/keps/5517) moved into Alpha 2. It
 lets the scheduler and kubelet treat DRA-managed CPU, memory, and similar node resources the same way they 
 treat ordinary resource requests, so a node doesn't get oversubscribed and users no longer have to duplicate 
 the same request in both a ResourceClaim and the pod spec.
@@ -78,6 +78,11 @@ DRA ResourceClaim events used to trigger a full scan of every unschedulable pod,
 scale-ups. The DRA plugin now uses a pod informer index to narrow that to just the pods actually affected, 
 cutting the requeue path to O(1) and roughly doubling scheduling throughput in early benchmarks. Controlled 
 by the `SchedulerPreQueueingHints` feature gate.
+
+[DRA Consumable Capacity](https://www.kubernetes.dev/resources/keps/5075) now supports fractional values in
+CapacityRequestPolicyRange, enabling more precise capacity requests and allocation for devices with fractional resources.
+This improves flexibility for workloads that require fine-grained resource allocation. The enhancement is gated by the 
+`DRAFractionalCapacityRange` feature gate, which is in Beta in 1.37.
 
 ## What’s next
 
