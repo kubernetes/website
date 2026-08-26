@@ -567,12 +567,12 @@ is encountered that is not allowed with respect to the allow-list constraints.
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
-* See the list of [stable Kubernetes metrics](/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)
+* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
 * 阅读有关指标的
   [Prometheus 文本格式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
 * 参阅
-  [Kubernetes 稳定指标](/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)列表
+  [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)列表
 * 阅读有关
   [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
