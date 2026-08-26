@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "scheduling.k8s.io/v1alpha2"
-  import: "k8s.io/api/scheduling/v1alpha2"
-  kind: "PodGroup"
+  apiVersion: "scheduling.k8s.io/v1beta1"
+  import: "k8s.io/api/scheduling/v1beta1"
+  kind: "Workload"
 content_type: "api_reference"
-description: "PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate."
-title: "PodGroup"
-weight: 10
+description: "Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate."
+title: "Workload"
+weight: 40
 auto_generated: true
 ---
 
@@ -21,14 +21,14 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: scheduling.k8s.io/v1alpha2`
+`apiVersion: scheduling.k8s.io/v1beta1`
 
-`import "k8s.io/api/scheduling/v1alpha2"`
+`import "k8s.io/api/scheduling/v1beta1"`
 
 
-## PodGroup {#PodGroup}
+## Workload {#Workload}
 
-PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
 
 <hr>
 
@@ -45,23 +45,19 @@ PodGroup represents a runtime instance of pods grouped together. PodGroups are c
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodGroupSpec" >}}">PodGroupSpec</a></em></td>
-      <td>Spec defines the desired state of the PodGroup.</td>
-    </tr>
-    <tr>
-      <td><code>status</code><br/><em><a href="{{< ref "#PodGroupStatus" >}}">PodGroupStatus</a></em></td>
-      <td>Status represents the current observed state of the PodGroup.</td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#WorkloadSpec" >}}">WorkloadSpec</a></em></td>
+      <td>spec defines the desired behavior of a Workload.</td>
     </tr>
   </tbody>
 </table>
 
 
-## PodGroupSpec {#PodGroupSpec}
+## WorkloadSpec {#WorkloadSpec}
 
-PodGroupSpec defines the desired state of a PodGroup.
+WorkloadSpec defines the desired state of a Workload.
 
 <hr>
 
@@ -69,61 +65,24 @@ PodGroupSpec defines the desired state of a PodGroup.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>disruptionMode</code><br/><em>string</em></td>
-      <td>DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.<br/><br/>Possible enum values:<br/> - `"Pod"` means that individual pods can be disrupted or preempted independently. It doesn't depend on exact set of pods currently running in this PodGroup.<br/> - `"PodGroup"` means that the whole PodGroup needs to be disrupted or preempted together.</td>
+      <td><code>compositePodGroupTemplates</code><br/><em><a href="{{< ref "#CompositePodGroupTemplate" >}}">CompositePodGroupTemplate array</a></em></td>
+      <td>compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.  This field is used only when the CompositePodGroup feature gate is enabled.</td>
     </tr>
     <tr>
-      <td><code>podGroupTemplateRef</code><br/><em><a href="{{< ref "#PodGroupTemplateReference" >}}">PodGroupTemplateReference</a></em></td>
-      <td>PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.</td>
+      <td><code>controllerRef</code><br/><em><a href="{{< ref "../definitions/typed-local-object-reference-v1#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a></em></td>
+      <td>controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.</td>
     </tr>
     <tr>
-      <td><code>priority</code><br/><em>integer</em></td>
-      <td>Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>priorityClassName</code><br/><em>string</em></td>
-      <td>PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>resourceClaims</code><br/><em><a href="{{< ref "#PodGroupResourceClaim" >}}">PodGroupResourceClaim array</a></em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
-      <td>ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.  This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.  This field is immutable.</td>
-    </tr>
-    <tr>
-      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "#PodGroupSchedulingConstraints" >}}">PodGroupSchedulingConstraints</a></em></td>
-      <td>SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>schedulingPolicy</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodGroupSchedulingPolicy" >}}">PodGroupSchedulingPolicy</a></em></td>
-      <td>SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.</td>
+      <td><code>podGroupTemplates</code><br/><em><a href="{{< ref "#PodGroupTemplate" >}}">PodGroupTemplate array</a></em></td>
+      <td>podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.</td>
     </tr>
   </tbody>
 </table>
 
 
-## PodGroupStatus {#PodGroupStatus}
+## WorkloadList {#WorkloadList}
 
-PodGroupStatus represents information about the status of a pod group.
-
-<hr>
-
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>conditions</code><br/><em><a href="{{< ref "../definitions/condition-v1-meta#Condition" >}}">Condition array</a></em><br/><em>patch strategy: merge on key <code>type</code></em></td>
-      <td>Conditions represent the latest observations of the PodGroup's state.  Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated   due to disruption such as preemption.  Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,   affinity/anti-affinity rules, or insufficient capacity for the gang. - "SchedulerError": The PodGroup cannot be scheduled due to some internal error   that happened during scheduling, for example due to nodeAffinity parsing errors.  Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for   higher-priority PodGroups or Pods.</td>
-    </tr>
-    <tr>
-      <td><code>resourceClaimStatuses</code><br/><em>PodGroupResourceClaimStatus array</em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
-      <td>Status of resource claims.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## PodGroupList {#PodGroupList}
-
-PodGroupList contains a list of PodGroup resources.
+WorkloadList contains a list of Workload resources.
 
 <hr>
 
@@ -135,8 +94,8 @@ PodGroupList contains a list of PodGroup resources.
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup array</a></em></td>
-      <td>Items is the list of PodGroups.</td>
+      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload array</a></em></td>
+      <td>items is the list of Workloads.</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -144,23 +103,31 @@ PodGroupList contains a list of PodGroup resources.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata.</td>
+      <td>metadata is the standard list metadata.</td>
     </tr>
   </tbody>
 </table>
 
 
-## BasicSchedulingPolicy {#BasicSchedulingPolicy}
+## AllCompositeDisruptionMode {#AllCompositeDisruptionMode}
 
-BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
 
 <hr>
 
 
 
-## GangSchedulingPolicy {#GangSchedulingPolicy}
+## CompositeBasicSchedulingPolicy {#CompositeBasicSchedulingPolicy}
 
-GangSchedulingPolicy defines the parameters for gang scheduling.
+CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+
+<hr>
+
+
+
+## CompositeDisruptionMode {#CompositeDisruptionMode}
+
+CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
 
 <hr>
 
@@ -168,43 +135,124 @@ GangSchedulingPolicy defines the parameters for gang scheduling.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>minCount</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
-      <td>MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.</td>
+      <td><code>all</code><br/><em><a href="{{< ref "#AllCompositeDisruptionMode" >}}">AllCompositeDisruptionMode</a></em></td>
+      <td>all specifies that all children groups can only be disrupted together.</td>
+    </tr>
+    <tr>
+      <td><code>single</code><br/><em><a href="{{< ref "#SingleCompositeDisruptionMode" >}}">SingleCompositeDisruptionMode</a></em></td>
+      <td>single specifies that children groups can be disrupted independently from each other.</td>
     </tr>
   </tbody>
 </table>
 
 
-## PodGroupResourceClaim {#PodGroupResourceClaim}
+## CompositeGangSchedulingPolicy {#CompositeGangSchedulingPolicy}
 
-PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
-
-It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod&#39;s claim must match all fields of the PodGroup&#39;s claim exactly.
+CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
 
 <hr>
 
 <table>
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
+    <tr>
+      <td><code>minGroupCount</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## CompositePodGroupSchedulingConstraints {#CompositePodGroupSchedulingConstraints}
+
+CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>topology</code><br/><em><a href="{{< ref "pod-group-v1beta1#TopologyConstraint" >}}">TopologyConstraint array</a></em></td>
+      <td>topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## CompositePodGroupSchedulingPolicy {#CompositePodGroupSchedulingPolicy}
+
+CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>basic</code><br/><em><a href="{{< ref "#CompositeBasicSchedulingPolicy" >}}">CompositeBasicSchedulingPolicy</a></em></td>
+      <td>basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>gang</code><br/><em><a href="{{< ref "#CompositeGangSchedulingPolicy" >}}">CompositeGangSchedulingPolicy</a></em></td>
+      <td>gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## CompositePodGroupTemplate {#CompositePodGroupTemplate}
+
+CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>compositePodGroupTemplates</code><br/><em><a href="{{< ref "#CompositePodGroupTemplate" >}}">CompositePodGroupTemplate array</a></em></td>
+      <td>compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.</td>
+    </tr>
+    <tr>
+      <td><code>disruptionMode</code><br/><em><a href="{{< ref "#CompositeDisruptionMode" >}}">CompositeDisruptionMode</a></em></td>
+      <td>disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.</td>
+    </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.</td>
+      <td>name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.</td>
     </tr>
     <tr>
-      <td><code>resourceClaimName</code><br/><em>string</em></td>
-      <td>ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.  Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.</td>
+      <td><code>podGroupTemplates</code><br/><em><a href="{{< ref "#PodGroupTemplate" >}}">PodGroupTemplate array</a></em></td>
+      <td>podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.</td>
     </tr>
     <tr>
-      <td><code>resourceClaimTemplateName</code><br/><em>string</em></td>
-      <td>ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.  The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.  This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.  Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.</td>
+      <td><code>preemptionPolicy</code><br/><em>string</em></td>
+      <td>preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.<br/><br/>Possible enum values:<br/> - `"Never"` means that pod never preempts other pods with lower priority.<br/> - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.</td>
+    </tr>
+    <tr>
+      <td><code>priority</code><br/><em>integer</em></td>
+      <td>priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>priorityClassName</code><br/><em>string</em></td>
+      <td>priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "#CompositePodGroupSchedulingConstraints" >}}">CompositePodGroupSchedulingConstraints</a></em></td>
+      <td>schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingPolicy</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#CompositePodGroupSchedulingPolicy" >}}">CompositePodGroupSchedulingPolicy</a></em></td>
+      <td>schedulingPolicy defines the scheduling policy for this template.</td>
     </tr>
   </tbody>
 </table>
 
 
-## PodGroupSchedulingConstraints {#PodGroupSchedulingConstraints}
+## PodGroupTemplate {#PodGroupTemplate}
 
-PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+PodGroupTemplate represents a template for a set of pods with a scheduling policy.
 
 <hr>
 
@@ -212,87 +260,47 @@ PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>topology</code><br/><em><a href="{{< ref "#TopologyConstraint" >}}">TopologyConstraint array</a></em></td>
-      <td>Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.</td>
+      <td><code>disruptionMode</code><br/><em><a href="{{< ref "pod-group-v1beta1#DisruptionMode" >}}">DisruptionMode</a></em></td>
+      <td>disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>preemptionPolicy</code><br/><em>string</em></td>
+      <td>preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.<br/><br/>Possible enum values:<br/> - `"Never"` means that pod never preempts other pods with lower priority.<br/> - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.</td>
+    </tr>
+    <tr>
+      <td><code>priority</code><br/><em>integer</em></td>
+      <td>priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>priorityClassName</code><br/><em>string</em></td>
+      <td>priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaims</code><br/><em><a href="{{< ref "pod-group-v1beta1#PodGroupResourceClaim" >}}">PodGroupResourceClaim array</a></em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
+      <td>resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.  This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.  This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "pod-group-v1beta1#PodGroupSchedulingConstraints" >}}">PodGroupSchedulingConstraints</a></em></td>
+      <td>schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingPolicy</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-group-v1beta1#PodGroupSchedulingPolicy" >}}">PodGroupSchedulingPolicy</a></em></td>
+      <td>schedulingPolicy defines the scheduling policy for this PodGroupTemplate.</td>
     </tr>
   </tbody>
 </table>
 
 
-## PodGroupSchedulingPolicy {#PodGroupSchedulingPolicy}
+## SingleCompositeDisruptionMode {#SingleCompositeDisruptionMode}
 
-PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
 
 <hr>
 
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>basic</code><br/><em><a href="{{< ref "#BasicSchedulingPolicy" >}}">BasicSchedulingPolicy</a></em></td>
-      <td>Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.</td>
-    </tr>
-    <tr>
-      <td><code>gang</code><br/><em><a href="{{< ref "#GangSchedulingPolicy" >}}">GangSchedulingPolicy</a></em></td>
-      <td>Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## PodGroupTemplateReference {#PodGroupTemplateReference}
-
-PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
-
-<hr>
-
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>workload</code><br/><em><a href="{{< ref "#WorkloadPodGroupTemplateReference" >}}">WorkloadPodGroupTemplateReference</a></em></td>
-      <td>Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## TopologyConstraint {#TopologyConstraint}
-
-TopologyConstraint defines a topology constraint for a PodGroup.
-
-<hr>
-
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>key</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## WorkloadPodGroupTemplateReference {#WorkloadPodGroupTemplateReference}
-
-WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
-
-<hr>
-
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>podGroupTemplateName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.</td>
-    </tr>
-    <tr>
-      <td><code>workloadName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>WorkloadName defines the name of the Workload object.</td>
-    </tr>
-  </tbody>
-</table>
 
 
 
@@ -305,7 +313,7 @@ WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Wor
 
 #### HTTP Request
 
-POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
+POST /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads
 
 
 #### Path Parameters
@@ -358,7 +366,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -373,17 +381,17 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -393,7 +401,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
 
 #### HTTP Request
 
-PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
+PATCH /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads/{name}
 
 
 #### Path Parameters
@@ -404,7 +412,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the PodGroup</td>
+      <td>name of the Workload</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -471,12 +479,12 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -486,7 +494,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 #### HTTP Request
 
-PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
+PUT /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads/{name}
 
 
 #### Path Parameters
@@ -497,7 +505,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the PodGroup</td>
+      <td>name of the Workload</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -544,7 +552,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -559,12 +567,12 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -574,7 +582,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
+DELETE /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads/{name}
 
 
 #### Path Parameters
@@ -585,7 +593,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the PodGroup</td>
+      <td>name of the Workload</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -672,7 +680,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
+DELETE /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads
 
 
 #### Path Parameters
@@ -805,7 +813,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
+GET /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads/{name}
 
 
 #### Path Parameters
@@ -816,7 +824,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the PodGroup</td>
+      <td>name of the Workload</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -850,7 +858,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#Workload" >}}">Workload</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -860,7 +868,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
+GET /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/workloads
 
 
 #### Path Parameters
@@ -955,7 +963,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroupList" >}}">PodGroupList</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#WorkloadList" >}}">WorkloadList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -965,7 +973,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/podgroups
+GET /apis/scheduling.k8s.io/v1beta1/workloads
 
 
 
@@ -1047,7 +1055,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/podgroups
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroupList" >}}">PodGroupList</a></em></td>
+      <td><em><a href="{{< ref "workload-v1beta1#WorkloadList" >}}">WorkloadList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -1057,7 +1065,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/podgroups
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/podgroups/{name}
+GET /apis/scheduling.k8s.io/v1beta1/watch/namespaces/{namespace}/workloads/{name}
 
 
 #### Path Parameters
@@ -1068,7 +1076,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/podgroups/{nam
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the PodGroup</td>
+      <td>name of the Workload</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -1167,7 +1175,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/podgroups/{nam
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/podgroups
+GET /apis/scheduling.k8s.io/v1beta1/watch/namespaces/{namespace}/workloads
 
 
 #### Path Parameters
@@ -1272,7 +1280,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/podgroups
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/podgroups
+GET /apis/scheduling.k8s.io/v1beta1/watch/workloads
 
 
 
@@ -1360,240 +1368,6 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/podgroups
 </table>
 
 
-### `patch` Patch Status
-
-#### HTTP Request
-
-PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}/status
-
-
-#### Path Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>name</code></td>
-      <td><em>string</em></td>
-      <td>name of the PodGroup</td>
-    </tr>
-    <tr>
-      <td><code>namespace</code></td>
-      <td><em>string</em></td>
-      <td>object name and auth scope, such as for teams and projects</td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Query Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>pretty</code></td>
-      <td><em>string</em></td>
-      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
-    </tr>
-    <tr>
-      <td><code>dryRun</code></td>
-      <td><em>string</em></td>
-      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
-    </tr>
-    <tr>
-      <td><code>fieldManager</code></td>
-      <td><em>string</em></td>
-      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).</td>
-    </tr>
-    <tr>
-      <td><code>fieldValidation</code></td>
-      <td><em>string</em></td>
-      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
-    </tr>
-    <tr>
-      <td><code>force</code></td>
-      <td><em>boolean</em></td>
-      <td>Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Body Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>body</code></td>
-      <td><em><a href="{{< ref "../definitions/patch-v1-meta#Patch" >}}">Patch</a></em></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Response
-
-<table>
-  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>200</td>
-      <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-    </tr>
-    <tr>
-      <td>201</td>
-      <td>Created</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-    </tr>
-  </tbody>
-</table>
-
-
-### `get` Read Status
-
-#### HTTP Request
-
-GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}/status
-
-
-#### Path Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>name</code></td>
-      <td><em>string</em></td>
-      <td>name of the PodGroup</td>
-    </tr>
-    <tr>
-      <td><code>namespace</code></td>
-      <td><em>string</em></td>
-      <td>object name and auth scope, such as for teams and projects</td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Query Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>pretty</code></td>
-      <td><em>string</em></td>
-      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-#### Response
-
-<table>
-  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>200</td>
-      <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-    </tr>
-  </tbody>
-</table>
-
-
-### `put` Replace Status
-
-#### HTTP Request
-
-PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}/status
-
-
-#### Path Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>name</code></td>
-      <td><em>string</em></td>
-      <td>name of the PodGroup</td>
-    </tr>
-    <tr>
-      <td><code>namespace</code></td>
-      <td><em>string</em></td>
-      <td>object name and auth scope, such as for teams and projects</td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Query Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>pretty</code></td>
-      <td><em>string</em></td>
-      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
-    </tr>
-    <tr>
-      <td><code>dryRun</code></td>
-      <td><em>string</em></td>
-      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
-    </tr>
-    <tr>
-      <td><code>fieldManager</code></td>
-      <td><em>string</em></td>
-      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.</td>
-    </tr>
-    <tr>
-      <td><code>fieldValidation</code></td>
-      <td><em>string</em></td>
-      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Body Parameters
-
-<table>
-  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>body</code></td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-
-
-#### Response
-
-<table>
-  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>200</td>
-      <td>OK</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-    </tr>
-    <tr>
-      <td>201</td>
-      <td>Created</td>
-      <td><em><a href="{{< ref "pod-group-v1alpha2#PodGroup" >}}">PodGroup</a></em></td>
-    </tr>
-  </tbody>
-</table>
 
 
 

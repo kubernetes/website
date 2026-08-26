@@ -45,7 +45,7 @@ IngressClass represents the class of the Ingress, referenced by the Ingress Spec
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code><br/><em><a href="{{< ref "#IngressClassSpec" >}}">IngressClassSpec</a></em></td>
@@ -940,6 +940,8 @@ GET /apis/networking.k8s.io/v1/watch/ingressclasses
     </tr>
   </tbody>
 </table>
+
+
 
 
 

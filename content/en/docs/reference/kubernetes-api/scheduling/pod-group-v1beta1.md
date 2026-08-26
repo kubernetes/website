@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "storagemigration.k8s.io/v1beta1"
-  import: "k8s.io/api/storagemigration/v1beta1"
-  kind: "StorageVersionMigration"
+  apiVersion: "scheduling.k8s.io/v1beta1"
+  import: "k8s.io/api/scheduling/v1beta1"
+  kind: "PodGroup"
 content_type: "api_reference"
-description: "StorageVersionMigration represents a migration of stored data to the latest storage version."
-title: "StorageVersionMigration"
-weight: 10
+description: "PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate."
+title: "PodGroup"
+weight: 20
 auto_generated: true
 ---
 
@@ -21,14 +21,14 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: storagemigration.k8s.io/v1beta1`
+`apiVersion: scheduling.k8s.io/v1beta1`
 
-`import "k8s.io/api/storagemigration/v1beta1"`
+`import "k8s.io/api/scheduling/v1beta1"`
 
 
-## StorageVersionMigration {#StorageVersionMigration}
+## PodGroup {#PodGroup}
 
-StorageVersionMigration represents a migration of stored data to the latest storage version.
+PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
 
 <hr>
 
@@ -45,23 +45,23 @@ StorageVersionMigration represents a migration of stored data to the latest stor
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#StorageVersionMigrationSpec" >}}">StorageVersionMigrationSpec</a></em></td>
-      <td>Specification of the migration.</td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodGroupSpec" >}}">PodGroupSpec</a></em></td>
+      <td>spec defines the desired state of the PodGroup.</td>
     </tr>
     <tr>
-      <td><code>status</code><br/><em><a href="{{< ref "#StorageVersionMigrationStatus" >}}">StorageVersionMigrationStatus</a></em></td>
-      <td>Status of the migration.</td>
+      <td><code>status</code><br/><em><a href="{{< ref "#PodGroupStatus" >}}">PodGroupStatus</a></em></td>
+      <td>status represents the current observed state of the PodGroup.</td>
     </tr>
   </tbody>
 </table>
 
 
-## StorageVersionMigrationSpec {#StorageVersionMigrationSpec}
+## PodGroupSpec {#PodGroupSpec}
 
-Spec of the storage version migration.
+PodGroupSpec defines the desired state of a PodGroup.
 
 <hr>
 
@@ -69,16 +69,48 @@ Spec of the storage version migration.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>resource</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/group-resource-v1-meta#GroupResource" >}}">GroupResource</a></em></td>
-      <td>The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.</td>
+      <td><code>disruptionMode</code><br/><em><a href="{{< ref "#DisruptionMode" >}}">DisruptionMode</a></em></td>
+      <td>disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>parentCompositePodGroupName</code><br/><em>string</em></td>
+      <td>parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>preemptionPolicy</code><br/><em>string</em></td>
+      <td>preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.<br/><br/>Possible enum values:<br/> - `"Never"` means that pod never preempts other pods with lower priority.<br/> - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.</td>
+    </tr>
+    <tr>
+      <td><code>priority</code><br/><em>integer</em></td>
+      <td>priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>priorityClassName</code><br/><em>string</em></td>
+      <td>priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaims</code><br/><em><a href="{{< ref "#PodGroupResourceClaim" >}}">PodGroupResourceClaim array</a></em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
+      <td>resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.  This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.  This field is immutable.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "#PodGroupSchedulingConstraints" >}}">PodGroupSchedulingConstraints</a></em></td>
+      <td>schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingPolicy</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodGroupSchedulingPolicy" >}}">PodGroupSchedulingPolicy</a></em></td>
+      <td>schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.</td>
+    </tr>
+    <tr>
+      <td><code>workloadRef</code><br/><em><a href="{{< ref "#WorkloadReference" >}}">WorkloadReference</a></em></td>
+      <td>workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.</td>
     </tr>
   </tbody>
 </table>
 
 
-## StorageVersionMigrationStatus {#StorageVersionMigrationStatus}
+## PodGroupStatus {#PodGroupStatus}
 
-Status of the storage version migration.
+PodGroupStatus represents information about the status of a pod group.
 
 <hr>
 
@@ -87,19 +119,19 @@ Status of the storage version migration.
   <tbody>
     <tr>
       <td><code>conditions</code><br/><em><a href="{{< ref "../definitions/condition-v1-meta#Condition" >}}">Condition array</a></em><br/><em>patch strategy: merge on key <code>type</code></em></td>
-      <td>The latest available observations of the migration's current state.</td>
+      <td>conditions represent the latest observations of the PodGroup's state.  Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated   due to disruption such as preemption.  Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,   affinity/anti-affinity rules, or insufficient capacity for the gang. - "SchedulerError": The PodGroup cannot be scheduled due to some internal error   that happened during scheduling, for example due to nodeAffinity parsing errors.  Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for   higher-priority PodGroups or Pods.</td>
     </tr>
     <tr>
-      <td><code>resourceVersion</code><br/><em>string</em></td>
-      <td>ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.</td>
+      <td><code>resourceClaimStatuses</code><br/><em>PodGroupResourceClaimStatus array</em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
+      <td>resourceClaimStatuses is status of resource claims.</td>
     </tr>
   </tbody>
 </table>
 
 
-## StorageVersionMigrationList {#StorageVersionMigrationList}
+## PodGroupList {#PodGroupList}
 
-StorageVersionMigrationList is a collection of storage version migrations.
+PodGroupList contains a list of PodGroup resources.
 
 <hr>
 
@@ -111,8 +143,8 @@ StorageVersionMigrationList is a collection of storage version migrations.
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration array</a></em></td>
-      <td>Items is the list of StorageVersionMigration</td>
+      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup array</a></em></td>
+      <td>Items is the list of PodGroups.</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -120,7 +152,172 @@ StorageVersionMigrationList is a collection of storage version migrations.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>Standard list metadata.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## AllDisruptionMode {#AllDisruptionMode}
+
+AllDisruptionMode specifies that children can only be disrupted together.
+
+<hr>
+
+
+
+## BasicSchedulingPolicy {#BasicSchedulingPolicy}
+
+BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+
+<hr>
+
+
+
+## DisruptionMode {#DisruptionMode}
+
+DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>all</code><br/><em><a href="{{< ref "#AllDisruptionMode" >}}">AllDisruptionMode</a></em></td>
+      <td>all specifies that all children can only be disrupted together.</td>
+    </tr>
+    <tr>
+      <td><code>single</code><br/><em><a href="{{< ref "#SingleDisruptionMode" >}}">SingleDisruptionMode</a></em></td>
+      <td>single specifies that children can be disrupted independently from each other.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## GangSchedulingPolicy {#GangSchedulingPolicy}
+
+GangSchedulingPolicy defines the parameters for gang scheduling.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>minCount</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.  Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## PodGroupResourceClaim {#PodGroupResourceClaim}
+
+PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+
+It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod&#39;s claim must match all fields of the PodGroup&#39;s claim exactly.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaimName</code><br/><em>string</em></td>
+      <td>resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.  Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaimTemplateName</code><br/><em>string</em></td>
+      <td>resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.  The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.  This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.  Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## PodGroupSchedulingConstraints {#PodGroupSchedulingConstraints}
+
+PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>topology</code><br/><em><a href="{{< ref "#TopologyConstraint" >}}">TopologyConstraint array</a></em></td>
+      <td>topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## PodGroupSchedulingPolicy {#PodGroupSchedulingPolicy}
+
+PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>basic</code><br/><em><a href="{{< ref "#BasicSchedulingPolicy" >}}">BasicSchedulingPolicy</a></em></td>
+      <td>basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.</td>
+    </tr>
+    <tr>
+      <td><code>gang</code><br/><em><a href="{{< ref "#GangSchedulingPolicy" >}}">GangSchedulingPolicy</a></em></td>
+      <td>gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## SingleDisruptionMode {#SingleDisruptionMode}
+
+SingleDisruptionMode specifies that children can be disrupted independently.
+
+<hr>
+
+
+
+## TopologyConstraint {#TopologyConstraint}
+
+TopologyConstraint defines a topology constraint for a PodGroup.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>key</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadReference {#WorkloadReference}
+
+WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>templateName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.</td>
+    </tr>
+    <tr>
+      <td><code>workloadName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.</td>
     </tr>
   </tbody>
 </table>
@@ -136,8 +333,21 @@ StorageVersionMigrationList is a collection of storage version migrations.
 
 #### HTTP Request
 
-POST /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
+POST /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -176,7 +386,7 @@ POST /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -191,17 +401,17 @@ POST /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -211,7 +421,7 @@ POST /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### HTTP Request
 
-PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
+PATCH /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}
 
 
 #### Path Parameters
@@ -222,7 +432,12 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -284,12 +499,12 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -299,7 +514,7 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
+PUT /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}
 
 
 #### Path Parameters
@@ -310,7 +525,12 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -352,7 +572,7 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -367,12 +587,12 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -382,7 +602,7 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
+DELETE /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}
 
 
 #### Path Parameters
@@ -393,7 +613,12 @@ DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -475,8 +700,21 @@ DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
+DELETE /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -595,7 +833,7 @@ DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
+GET /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}
 
 
 #### Path Parameters
@@ -606,7 +844,12 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -635,7 +878,7 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -645,8 +888,21 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
+GET /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -727,7 +983,99 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigrationList" >}}">StorageVersionMigrationList</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroupList" >}}">PodGroupList</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` List All Namespaces
+
+#### HTTP Request
+
+GET /apis/scheduling.k8s.io/v1beta1/podgroups
+
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>allowWatchBookmarks</code></td>
+      <td><em>boolean</em></td>
+      <td>allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.</td>
+    </tr>
+    <tr>
+      <td><code>continue</code></td>
+      <td><em>string</em></td>
+      <td>The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.</td>
+    </tr>
+    <tr>
+      <td><code>fieldSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their fields. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>labelSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their labels. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>limit</code></td>
+      <td><em>integer</em></td>
+      <td>limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.</td>
+    </tr>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersion</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersionMatch</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>sendInitialEvents</code></td>
+      <td><em>boolean</em></td>
+      <td>`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event  will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.  When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set. The semantic of the watch request is as following:<br/> - `resourceVersionMatch` = NotOlderThan   is interpreted as "data at least as new as the provided `resourceVersion`"   and the bookmark event is send when the state is synced   to a `resourceVersion` at least as fresh as the one provided by the ListOptions.   If `resourceVersion` is unset, this is interpreted as "consistent read" and the   bookmark event is send when the state is synced at least to the moment   when request started being processed.<br/> - `resourceVersionMatch` set to any other value or unset   Invalid error is returned.  Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.</td>
+    </tr>
+    <tr>
+      <td><code>shardSelector</code></td>
+      <td><em>string</em></td>
+      <td>shardSelector restricts the list of returned objects using a CEL-based shard selector expression. The format uses the shardRange() function combined with || (logical OR) to specify one or more hash ranges:    shardRange(object.metadata.uid, '0x0', '0x8000000000000000')   shardRange(object.metadata.uid, '0x0', '0x8000000000000000') || shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')  Field paths use CEL-style object-rooted syntax (e.g. "object.metadata.uid"), NOT the fieldSelector format ("metadata.uid"). Currently supported paths:   - object.metadata.uid   - object.metadata.namespace  hexStart and hexEnd are single-quoted CEL string literals with a '0x' prefix, defining the inclusive lower and exclusive upper bounds over the 64-bit FNV-1a hash space. The full range is [0x0, 0x10000000000000000), where the exclusive upper bound equals 2^64.  Examples:   2-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')     shard 1: shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')   4-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000')     shard 1: shardRange(object.metadata.uid, '0x4000000000000000', '0x8000000000000000')     shard 2: shardRange(object.metadata.uid, '0x8000000000000000', '0xc000000000000000')     shard 3: shardRange(object.metadata.uid, '0xc000000000000000', '0x10000000000000000')  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.</td>
+    </tr>
+    <tr>
+      <td><code>timeoutSeconds</code></td>
+      <td><em>integer</em></td>
+      <td>Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.</td>
+    </tr>
+    <tr>
+      <td><code>watch</code></td>
+      <td><em>boolean</em></td>
+      <td>Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroupList" >}}">PodGroupList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -737,7 +1085,7 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1beta1/watch/storageversionmigrations/{name}
+GET /apis/scheduling.k8s.io/v1beta1/watch/namespaces/{namespace}/podgroups/{name}
 
 
 #### Path Parameters
@@ -748,7 +1096,12 @@ GET /apis/storagemigration.k8s.io/v1beta1/watch/storageversionmigrations/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -842,7 +1195,112 @@ GET /apis/storagemigration.k8s.io/v1beta1/watch/storageversionmigrations/{name}
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1beta1/watch/storageversionmigrations
+GET /apis/scheduling.k8s.io/v1beta1/watch/namespaces/{namespace}/podgroups
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>allowWatchBookmarks</code></td>
+      <td><em>boolean</em></td>
+      <td>allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.</td>
+    </tr>
+    <tr>
+      <td><code>continue</code></td>
+      <td><em>string</em></td>
+      <td>The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.</td>
+    </tr>
+    <tr>
+      <td><code>fieldSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their fields. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>labelSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their labels. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>limit</code></td>
+      <td><em>integer</em></td>
+      <td>limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.</td>
+    </tr>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersion</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersionMatch</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>sendInitialEvents</code></td>
+      <td><em>boolean</em></td>
+      <td>`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event  will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.  When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set. The semantic of the watch request is as following:<br/> - `resourceVersionMatch` = NotOlderThan   is interpreted as "data at least as new as the provided `resourceVersion`"   and the bookmark event is send when the state is synced   to a `resourceVersion` at least as fresh as the one provided by the ListOptions.   If `resourceVersion` is unset, this is interpreted as "consistent read" and the   bookmark event is send when the state is synced at least to the moment   when request started being processed.<br/> - `resourceVersionMatch` set to any other value or unset   Invalid error is returned.  Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.</td>
+    </tr>
+    <tr>
+      <td><code>shardSelector</code></td>
+      <td><em>string</em></td>
+      <td>shardSelector restricts the list of returned objects using a CEL-based shard selector expression. The format uses the shardRange() function combined with || (logical OR) to specify one or more hash ranges:    shardRange(object.metadata.uid, '0x0', '0x8000000000000000')   shardRange(object.metadata.uid, '0x0', '0x8000000000000000') || shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')  Field paths use CEL-style object-rooted syntax (e.g. "object.metadata.uid"), NOT the fieldSelector format ("metadata.uid"). Currently supported paths:   - object.metadata.uid   - object.metadata.namespace  hexStart and hexEnd are single-quoted CEL string literals with a '0x' prefix, defining the inclusive lower and exclusive upper bounds over the 64-bit FNV-1a hash space. The full range is [0x0, 0x10000000000000000), where the exclusive upper bound equals 2^64.  Examples:   2-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')     shard 1: shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')   4-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000')     shard 1: shardRange(object.metadata.uid, '0x4000000000000000', '0x8000000000000000')     shard 2: shardRange(object.metadata.uid, '0x8000000000000000', '0xc000000000000000')     shard 3: shardRange(object.metadata.uid, '0xc000000000000000', '0x10000000000000000')  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.</td>
+    </tr>
+    <tr>
+      <td><code>timeoutSeconds</code></td>
+      <td><em>integer</em></td>
+      <td>Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.</td>
+    </tr>
+    <tr>
+      <td><code>watch</code></td>
+      <td><em>boolean</em></td>
+      <td>Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "../definitions/watch-event-v1-meta#WatchEvent" >}}">WatchEvent</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` Watch List All Namespaces
+
+#### HTTP Request
+
+GET /apis/scheduling.k8s.io/v1beta1/watch/podgroups
 
 
 
@@ -934,7 +1392,7 @@ GET /apis/storagemigration.k8s.io/v1beta1/watch/storageversionmigrations
 
 #### HTTP Request
 
-PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
+PATCH /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}/status
 
 
 #### Path Parameters
@@ -945,7 +1403,12 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/stat
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1007,12 +1470,12 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/stat
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -1022,7 +1485,7 @@ PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/stat
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
+GET /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}/status
 
 
 #### Path Parameters
@@ -1033,7 +1496,12 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1062,7 +1530,7 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -1072,7 +1540,7 @@ GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
 
 #### HTTP Request
 
-PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
+PUT /apis/scheduling.k8s.io/v1beta1/namespaces/{namespace}/podgroups/{name}/status
 
 
 #### Path Parameters
@@ -1083,7 +1551,12 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the StorageVersionMigration</td>
+      <td>name of the PodGroup</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1125,7 +1598,7 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -1140,15 +1613,17 @@ PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a></em></td>
+      <td><em><a href="{{< ref "pod-group-v1beta1#PodGroup" >}}">PodGroup</a></em></td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 

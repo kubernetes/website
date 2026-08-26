@@ -37,7 +37,7 @@ ClusterRole is a cluster level, logical grouping of PolicyRules that can be refe
   <tbody>
     <tr>
       <td><code>aggregationRule</code><br/><em><a href="{{< ref "#AggregationRule" >}}">AggregationRule</a></em></td>
-      <td>AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.</td>
+      <td>aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.</td>
     </tr>
     <tr>
       <td><code>apiVersion</code><br/><em>string</em></td>
@@ -49,11 +49,11 @@ ClusterRole is a cluster level, logical grouping of PolicyRules that can be refe
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata.</td>
+      <td>metadata is the standard object's metadata.</td>
     </tr>
     <tr>
       <td><code>rules</code><br/><em><a href="{{< ref "../definitions/policy-rule-v1-rbac#PolicyRule" >}}">PolicyRule array</a></em></td>
-      <td>Rules holds all the PolicyRules for this ClusterRole</td>
+      <td>rules holds all the PolicyRules for this ClusterRole</td>
     </tr>
   </tbody>
 </table>
@@ -99,7 +99,7 @@ AggregationRule describes how to locate ClusterRoles to aggregate into the Clust
   <tbody>
     <tr>
       <td><code>clusterRoleSelectors</code><br/><em><a href="{{< ref "../definitions/label-selector-v1-meta#LabelSelector" >}}">LabelSelector array</a></em></td>
-      <td>ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added</td>
+      <td>clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added</td>
     </tr>
   </tbody>
 </table>
@@ -907,6 +907,8 @@ GET /apis/rbac.authorization.k8s.io/v1/watch/clusterroles
     </tr>
   </tbody>
 </table>
+
+
 
 
 

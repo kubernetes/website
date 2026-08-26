@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1"
-  import: "k8s.io/api/storage/v1"
-  kind: "VolumeAttributesClass"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
+  kind: "DeviceTaintRule"
 content_type: "api_reference"
-description: "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning."
-title: "VolumeAttributesClass"
-weight: 60
+description: "DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver."
+title: "DeviceTaintRule"
+weight: 20
 auto_generated: true
 ---
 
@@ -21,14 +21,14 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: storage.k8s.io/v1`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1"`
+`import "k8s.io/api/resource/v1"`
 
 
-## VolumeAttributesClass {#VolumeAttributesClass}
+## DeviceTaintRule {#DeviceTaintRule}
 
-VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
 
 <hr>
 
@@ -38,10 +38,6 @@ VolumeAttributesClass represents a specification of mutable volume attributes de
     <tr>
       <td><code>apiVersion</code><br/><em>string</em></td>
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
-    </tr>
-    <tr>
-      <td><code>driverName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>driverName is the name of the CSI driver This field is immutable.</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -49,19 +45,61 @@ VolumeAttributesClass represents a specification of mutable volume attributes de
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>Standard object metadata</td>
     </tr>
     <tr>
-      <td><code>parameters</code><br/><em>object</em></td>
-      <td>parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.  This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.</td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a></em></td>
+      <td>Spec specifies the selector and one taint.  Changing the spec automatically increments the metadata.generation number.</td>
+    </tr>
+    <tr>
+      <td><code>status</code><br/><em><a href="{{< ref "#DeviceTaintRuleStatus" >}}">DeviceTaintRuleStatus</a></em></td>
+      <td>Status provides information about what was requested in the spec.</td>
     </tr>
   </tbody>
 </table>
 
 
-## VolumeAttributesClassList {#VolumeAttributesClassList}
+## DeviceTaintRuleSpec {#DeviceTaintRuleSpec}
 
-VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+DeviceTaintRuleSpec specifies the selector and one taint.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>deviceSelector</code><br/><em><a href="{{< ref "#DeviceTaintSelector" >}}">DeviceTaintSelector</a></em></td>
+      <td>DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.</td>
+    </tr>
+    <tr>
+      <td><code>taint</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#DeviceTaint" >}}">DeviceTaint</a></em></td>
+      <td>The taint that gets applied to matching devices.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## DeviceTaintRuleStatus {#DeviceTaintRuleStatus}
+
+DeviceTaintRuleStatus provides information about an on-going pod eviction.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>conditions</code><br/><em><a href="{{< ref "../definitions/condition-v1-meta#Condition" >}}">Condition array</a></em><br/><em>patch strategy: merge on key <code>type</code></em></td>
+      <td>Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.  The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise   (includes the effects which don't cause eviction). - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods   in a human-readable format, updated periodically, may change  For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.  Must have 8 or fewer entries.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## DeviceTaintRuleList {#DeviceTaintRuleList}
+
+DeviceTaintRuleList is a collection of DeviceTaintRules.
 
 <hr>
 
@@ -73,8 +111,8 @@ VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass array</a></em></td>
-      <td>items is the list of VolumeAttributesClass objects.</td>
+      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule array</a></em></td>
+      <td>Items is the list of DeviceTaintRules.</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -82,7 +120,61 @@ VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>Standard list metadata</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## DeviceTaint {#DeviceTaint}
+
+The device this taint is attached to has the &#34;effect&#34; on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>effect</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.  Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.<br/><br/>Possible enum values:<br/> - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.<br/> - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.<br/> - `"None"` No effect, the taint is purely informational.</td>
+    </tr>
+    <tr>
+      <td><code>key</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>The taint key to be applied to a device. Must be a label name.</td>
+    </tr>
+    <tr>
+      <td><code>timeAdded</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.  In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).</td>
+    </tr>
+    <tr>
+      <td><code>value</code><br/><em>string</em></td>
+      <td>The taint value corresponding to the taint key. Must be a label value.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## DeviceTaintSelector {#DeviceTaintSelector}
+
+DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>device</code><br/><em>string</em></td>
+      <td>If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.  Setting also driver and pool may be required to avoid ambiguity, but is not required.</td>
+    </tr>
+    <tr>
+      <td><code>driver</code><br/><em>string</em></td>
+      <td>If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.</td>
+    </tr>
+    <tr>
+      <td><code>pool</code><br/><em>string</em></td>
+      <td>If pool is set, only devices in that pool are selected.  Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.</td>
     </tr>
   </tbody>
 </table>
@@ -98,7 +190,7 @@ VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
 
 #### HTTP Request
 
-POST /apis/storage.k8s.io/v1/volumeattributesclasses
+POST /apis/resource.k8s.io/v1/devicetaintrules
 
 
 
@@ -138,7 +230,7 @@ POST /apis/storage.k8s.io/v1/volumeattributesclasses
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -153,17 +245,17 @@ POST /apis/storage.k8s.io/v1/volumeattributesclasses
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -173,7 +265,7 @@ POST /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### HTTP Request
 
-PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
+PATCH /apis/resource.k8s.io/v1/devicetaintrules/{name}
 
 
 #### Path Parameters
@@ -184,7 +276,7 @@ PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the VolumeAttributesClass</td>
+      <td>name of the DeviceTaintRule</td>
     </tr>
   </tbody>
 </table>
@@ -246,12 +338,12 @@ PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -261,7 +353,7 @@ PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### HTTP Request
 
-PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
+PUT /apis/resource.k8s.io/v1/devicetaintrules/{name}
 
 
 #### Path Parameters
@@ -272,7 +364,7 @@ PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the VolumeAttributesClass</td>
+      <td>name of the DeviceTaintRule</td>
     </tr>
   </tbody>
 </table>
@@ -314,7 +406,7 @@ PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -329,12 +421,12 @@ PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -344,7 +436,7 @@ PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
+DELETE /apis/resource.k8s.io/v1/devicetaintrules/{name}
 
 
 #### Path Parameters
@@ -355,7 +447,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the VolumeAttributesClass</td>
+      <td>name of the DeviceTaintRule</td>
     </tr>
   </tbody>
 </table>
@@ -422,12 +514,12 @@ DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "../definitions/status-v1-meta#Status" >}}">Status</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "../definitions/status-v1-meta#Status" >}}">Status</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -437,7 +529,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/volumeattributesclasses
+DELETE /apis/resource.k8s.io/v1/devicetaintrules
 
 
 
@@ -557,7 +649,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
+GET /apis/resource.k8s.io/v1/devicetaintrules/{name}
 
 
 #### Path Parameters
@@ -568,7 +660,7 @@ GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the VolumeAttributesClass</td>
+      <td>name of the DeviceTaintRule</td>
     </tr>
   </tbody>
 </table>
@@ -597,7 +689,7 @@ GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -607,7 +699,7 @@ GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/volumeattributesclasses
+GET /apis/resource.k8s.io/v1/devicetaintrules
 
 
 
@@ -689,7 +781,7 @@ GET /apis/storage.k8s.io/v1/volumeattributesclasses
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "volume-attributes-class-v1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a></em></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRuleList" >}}">DeviceTaintRuleList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -699,7 +791,7 @@ GET /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/watch/volumeattributesclasses/{name}
+GET /apis/resource.k8s.io/v1/watch/devicetaintrules/{name}
 
 
 #### Path Parameters
@@ -710,7 +802,7 @@ GET /apis/storage.k8s.io/v1/watch/volumeattributesclasses/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the VolumeAttributesClass</td>
+      <td>name of the DeviceTaintRule</td>
     </tr>
   </tbody>
 </table>
@@ -804,7 +896,7 @@ GET /apis/storage.k8s.io/v1/watch/volumeattributesclasses/{name}
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/watch/volumeattributesclasses
+GET /apis/resource.k8s.io/v1/watch/devicetaintrules
 
 
 
@@ -887,6 +979,227 @@ GET /apis/storage.k8s.io/v1/watch/volumeattributesclasses
       <td>200</td>
       <td>OK</td>
       <td><em><a href="{{< ref "../definitions/watch-event-v1-meta#WatchEvent" >}}">WatchEvent</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `patch` Patch Status
+
+#### HTTP Request
+
+PATCH /apis/resource.k8s.io/v1/devicetaintrules/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the DeviceTaintRule</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+    <tr>
+      <td><code>force</code></td>
+      <td><em>boolean</em></td>
+      <td>Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "../definitions/patch-v1-meta#Patch" >}}">Patch</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` Read Status
+
+#### HTTP Request
+
+GET /apis/resource.k8s.io/v1/devicetaintrules/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the DeviceTaintRule</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `put` Replace Status
+
+#### HTTP Request
+
+PUT /apis/resource.k8s.io/v1/devicetaintrules/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the DeviceTaintRule</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "device-taint-rule-v1#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
     </tr>
   </tbody>
 </table>

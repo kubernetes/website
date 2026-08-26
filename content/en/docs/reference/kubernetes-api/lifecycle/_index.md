@@ -1,7 +1,7 @@
 ---
 content_type: "api_reference"
-title: "Resource"
-weight: 200
+title: "Lifecycle"
+weight: 150
 auto_generated: true
 ---
 

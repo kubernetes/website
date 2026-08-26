@@ -45,7 +45,7 @@ ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code><br/><em><a href="{{< ref "#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a></em></td>
@@ -70,7 +70,7 @@ ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs
   <tbody>
     <tr>
       <td><code>cidrs</code><br/><em>string array</em></td>
-      <td>CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.</td>
+      <td>cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.</td>
     </tr>
   </tbody>
 </table>
@@ -1145,6 +1145,8 @@ PUT /apis/networking.k8s.io/v1/servicecidrs/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

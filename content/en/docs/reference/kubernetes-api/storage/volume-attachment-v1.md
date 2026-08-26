@@ -47,7 +47,7 @@ VolumeAttachment objects are non-namespaced.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#VolumeAttachmentSpec" >}}">VolumeAttachmentSpec</a></em></td>
@@ -1213,6 +1213,8 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

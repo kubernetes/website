@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
-  kind: "DeviceTaintRule"
+  apiVersion: "lifecycle.k8s.io/v1alpha1"
+  import: "k8s.io/api/lifecycle/v1alpha1"
+  kind: "EvictionRequest"
 content_type: "api_reference"
-description: "DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver."
-title: "DeviceTaintRule"
+description: "EvictionRequest defines a request that should ideally result in a graceful eviction of a .spec.target (e.g. termination of a pod).\n\nThe evictionrequest-controller observes intents of all EvictionRequests and transforms them into Evictions.\n  - .spec.requester is set as a label on the Eviction for easier lookup.\n  - Each target can have a set of responders assigned to it. Eviction objects are observed by\n    these responders, who implement the eviction logic and update the Eviction&#39;s status with\n    progress.\n\nThere is many-to-many relationship between EvictionRequests and Evictions in general. And many-to-one if the target is a  pod.\n\nIf all requesters withdraw their eviction intent for a common target, the eviction will be canceled. Deleting an EvictionRequest also counts as a withdrawal. Once all EvictionRequest of a target are removed, the corresponding Evictions are eventually garbage collected."
+title: "EvictionRequest"
 weight: 20
 auto_generated: true
 ---
@@ -21,14 +21,24 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: lifecycle.k8s.io/v1alpha1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/lifecycle/v1alpha1"`
 
 
-## DeviceTaintRule {#DeviceTaintRule}
+## EvictionRequest {#EvictionRequest}
 
-DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+EvictionRequest defines a request that should ideally result in a graceful eviction of a .spec.target (e.g. termination of a pod).
+
+The evictionrequest-controller observes intents of all EvictionRequests and transforms them into Evictions.
+  - .spec.requester is set as a label on the Eviction for easier lookup.
+  - Each target can have a set of responders assigned to it. Eviction objects are observed by
+    these responders, who implement the eviction logic and update the Eviction&#39;s status with
+    progress.
+
+There is many-to-many relationship between EvictionRequests and Evictions in general. And many-to-one if the target is a  pod.
+
+If all requesters withdraw their eviction intent for a common target, the eviction will be canceled. Deleting an EvictionRequest also counts as a withdrawal. Once all EvictionRequest of a target are removed, the corresponding Evictions are eventually garbage collected.
 
 <hr>
 
@@ -45,23 +55,23 @@ DeviceTaintRule adds one taint to all devices which match the selector. This has
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object metadata</td>
+      <td>metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.</td>
     </tr>
     <tr>
-      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a></em></td>
-      <td>Spec specifies the selector and one taint.  Changing the spec automatically increments the metadata.generation number.</td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#EvictionRequestSpec" >}}">EvictionRequestSpec</a></em></td>
+      <td>spec defines the eviction request specification. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
     <tr>
-      <td><code>status</code><br/><em><a href="{{< ref "#DeviceTaintRuleStatus" >}}">DeviceTaintRuleStatus</a></em></td>
-      <td>Status provides information about what was requested in the spec.</td>
+      <td><code>status</code><br/><em><a href="{{< ref "#EvictionRequestStatus" >}}">EvictionRequestStatus</a></em></td>
+      <td>status represents the most recently observed status of the eviction request. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
   </tbody>
 </table>
 
 
-## DeviceTaintRuleSpec {#DeviceTaintRuleSpec}
+## EvictionRequestSpec {#EvictionRequestSpec}
 
-DeviceTaintRuleSpec specifies the selector and one taint.
+EvictionRequestSpec is a specification of an EvictionRequest.
 
 <hr>
 
@@ -69,20 +79,24 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>deviceSelector</code><br/><em><a href="{{< ref "#DeviceTaintSelector" >}}">DeviceTaintSelector</a></em></td>
-      <td>DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.</td>
+      <td><code>intent</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>intent specifies the action that should be taken for the specified target.  - Eviction means that the requester is interested in the eviction of the target. - Withdrawn means that the requester is no longer interested in the eviction of the target.   If all requesters' intents are withdrawn for a common target, the eviction will be canceled.   Cancellation consequences:   - Inactive responders will never run.   - Active responders are expected to cancel the eviction.   - Completed or Interrupted responders should not take any action.<br/><br/>Possible enum values:<br/> - `"Eviction"` means that the requester is interested in the eviction of the target.<br/> - `"Withdrawn"` means that the requester is no longer interested in the eviction of the target. If all requesters' intents are withdrawn for a common target, the eviction will be canceled. Cancellation consequences: - Inactive responders will never run. - Active responders are expected to cancel the eviction. - Completed or Interrupted responders should not take any action.</td>
     </tr>
     <tr>
-      <td><code>taint</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "resource-slice-v1#DeviceTaint" >}}">DeviceTaint</a></em></td>
-      <td>The taint that gets applied to matching devices.</td>
+      <td><code>requester</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>requester allows you to identify the entity, that requested the eviction of the target.  It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field is required and immutable.</td>
+    </tr>
+    <tr>
+      <td><code>target</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#EvictionRequestTarget" >}}">EvictionRequestTarget</a></em></td>
+      <td>target contains a reference to an object (e.g. a pod) that should be evicted. This field is required and immutable.</td>
     </tr>
   </tbody>
 </table>
 
 
-## DeviceTaintRuleStatus {#DeviceTaintRuleStatus}
+## EvictionRequestStatus {#EvictionRequestStatus}
 
-DeviceTaintRuleStatus provides information about an on-going pod eviction.
+EvictionRequestStatus represents the last observed status of the eviction request.
 
 <hr>
 
@@ -91,15 +105,19 @@ DeviceTaintRuleStatus provides information about an on-going pod eviction.
   <tbody>
     <tr>
       <td><code>conditions</code><br/><em><a href="{{< ref "../definitions/condition-v1-meta#Condition" >}}">Condition array</a></em><br/><em>patch strategy: merge on key <code>type</code></em></td>
-      <td>Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.  The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise   (includes the effects which don't cause eviction). - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods   in a human-readable format, updated periodically, may change  For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.  Must have 8 or fewer entries.</td>
+      <td>conditions contain information about the eviction request.  EvictionRequest specific conditions are: TargetEvicted or Failed (managed by evictionrequest-controller). - Failed means that the eviction request is no longer being processed   by any eviction responder. This can happen if the request is canceled or if no responder   managed to evict the target (e.g. terminate or delete a pod). - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).  These conditions can be reset if the eviction was unsuccessful and a new Eviction intent has been submitted.  The maximum length of the conditions list is 100.</td>
+    </tr>
+    <tr>
+      <td><code>observedGeneration</code><br/><em>integer</em></td>
+      <td>observedGeneration is EvictionRequest's .metadata.generation observed by the evictionrequest-controller. The observed generation value cannot be negative and can only be incremented. The minimum value is 1. This field is managed by evictionrequest-controller.</td>
     </tr>
   </tbody>
 </table>
 
 
-## DeviceTaintRuleList {#DeviceTaintRuleList}
+## EvictionRequestList {#EvictionRequestList}
 
-DeviceTaintRuleList is a collection of DeviceTaintRules.
+EvictionRequestList contains a list of EvictionRequests resources.
 
 <hr>
 
@@ -111,8 +129,8 @@ DeviceTaintRuleList is a collection of DeviceTaintRules.
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule array</a></em></td>
-      <td>Items is the list of DeviceTaintRules.</td>
+      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest array</a></em></td>
+      <td>items is the list of EvictionRequests.</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -120,15 +138,15 @@ DeviceTaintRuleList is a collection of DeviceTaintRules.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata</td>
+      <td>metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
   </tbody>
 </table>
 
 
-## DeviceTaintSelector {#DeviceTaintSelector}
+## EvictionRequestPodReference {#EvictionRequestPodReference}
 
-DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+EvictionRequestPodReference contains enough information to locate the referenced pod inside the same namespace.
 
 <hr>
 
@@ -136,16 +154,29 @@ DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The em
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>device</code><br/><em>string</em></td>
-      <td>If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.  Setting also driver and pool may be required to avoid ambiguity, but is not required.</td>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name of the target. This field is required.</td>
     </tr>
     <tr>
-      <td><code>driver</code><br/><em>string</em></td>
-      <td>If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.</td>
+      <td><code>uid</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>uid of the target. It can be found in .metadata.uid of the target and is a lowercase UUID in 8-4-4-4-12 format. This field is required.</td>
     </tr>
+  </tbody>
+</table>
+
+
+## EvictionRequestTarget {#EvictionRequestTarget}
+
+EvictionRequestTarget contains a reference to an object that should be evicted.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
     <tr>
-      <td><code>pool</code><br/><em>string</em></td>
-      <td>If pool is set, only devices in that pool are selected.  Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.</td>
+      <td><code>pod</code><br/><em><a href="{{< ref "#EvictionRequestPodReference" >}}">EvictionRequestPodReference</a></em></td>
+      <td>pod references a pod that is subject to eviction/termination. Pods that are part of a PodGroup (.spec.schedulingGroup is set) are not supported.</td>
     </tr>
   </tbody>
 </table>
@@ -161,8 +192,21 @@ DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The em
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta2/devicetaintrules
+POST /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -201,7 +245,7 @@ POST /apis/resource.k8s.io/v1beta2/devicetaintrules
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -216,17 +260,17 @@ POST /apis/resource.k8s.io/v1beta2/devicetaintrules
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -236,7 +280,7 @@ POST /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
+PATCH /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}
 
 
 #### Path Parameters
@@ -247,7 +291,12 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -309,12 +358,12 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -324,7 +373,7 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
+PUT /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}
 
 
 #### Path Parameters
@@ -335,7 +384,12 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -377,7 +431,7 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -392,12 +446,12 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -407,7 +461,7 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
+DELETE /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}
 
 
 #### Path Parameters
@@ -418,7 +472,12 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -485,12 +544,12 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "../definitions/status-v1-meta#Status" >}}">Status</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "../definitions/status-v1-meta#Status" >}}">Status</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -500,8 +559,21 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules
+DELETE /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -620,7 +692,7 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
+GET /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}
 
 
 #### Path Parameters
@@ -631,7 +703,12 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -660,7 +737,7 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -670,8 +747,21 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/devicetaintrules
+GET /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests
 
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### Query Parameters
@@ -752,7 +842,99 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRuleList" >}}">DeviceTaintRuleList</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequestList" >}}">EvictionRequestList</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` List All Namespaces
+
+#### HTTP Request
+
+GET /apis/lifecycle.k8s.io/v1alpha1/evictionrequests
+
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>allowWatchBookmarks</code></td>
+      <td><em>boolean</em></td>
+      <td>allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.</td>
+    </tr>
+    <tr>
+      <td><code>continue</code></td>
+      <td><em>string</em></td>
+      <td>The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.</td>
+    </tr>
+    <tr>
+      <td><code>fieldSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their fields. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>labelSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their labels. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>limit</code></td>
+      <td><em>integer</em></td>
+      <td>limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.</td>
+    </tr>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersion</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersionMatch</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>sendInitialEvents</code></td>
+      <td><em>boolean</em></td>
+      <td>`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event  will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.  When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set. The semantic of the watch request is as following:<br/> - `resourceVersionMatch` = NotOlderThan   is interpreted as "data at least as new as the provided `resourceVersion`"   and the bookmark event is send when the state is synced   to a `resourceVersion` at least as fresh as the one provided by the ListOptions.   If `resourceVersion` is unset, this is interpreted as "consistent read" and the   bookmark event is send when the state is synced at least to the moment   when request started being processed.<br/> - `resourceVersionMatch` set to any other value or unset   Invalid error is returned.  Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.</td>
+    </tr>
+    <tr>
+      <td><code>shardSelector</code></td>
+      <td><em>string</em></td>
+      <td>shardSelector restricts the list of returned objects using a CEL-based shard selector expression. The format uses the shardRange() function combined with || (logical OR) to specify one or more hash ranges:    shardRange(object.metadata.uid, '0x0', '0x8000000000000000')   shardRange(object.metadata.uid, '0x0', '0x8000000000000000') || shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')  Field paths use CEL-style object-rooted syntax (e.g. "object.metadata.uid"), NOT the fieldSelector format ("metadata.uid"). Currently supported paths:   - object.metadata.uid   - object.metadata.namespace  hexStart and hexEnd are single-quoted CEL string literals with a '0x' prefix, defining the inclusive lower and exclusive upper bounds over the 64-bit FNV-1a hash space. The full range is [0x0, 0x10000000000000000), where the exclusive upper bound equals 2^64.  Examples:   2-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')     shard 1: shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')   4-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000')     shard 1: shardRange(object.metadata.uid, '0x4000000000000000', '0x8000000000000000')     shard 2: shardRange(object.metadata.uid, '0x8000000000000000', '0xc000000000000000')     shard 3: shardRange(object.metadata.uid, '0xc000000000000000', '0x10000000000000000')  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.</td>
+    </tr>
+    <tr>
+      <td><code>timeoutSeconds</code></td>
+      <td><em>integer</em></td>
+      <td>Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.</td>
+    </tr>
+    <tr>
+      <td><code>watch</code></td>
+      <td><em>boolean</em></td>
+      <td>Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequestList" >}}">EvictionRequestList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -762,7 +944,7 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/watch/devicetaintrules/{name}
+GET /apis/lifecycle.k8s.io/v1alpha1/watch/namespaces/{namespace}/evictionrequests/{name}
 
 
 #### Path Parameters
@@ -773,7 +955,12 @@ GET /apis/resource.k8s.io/v1beta2/watch/devicetaintrules/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -867,7 +1054,112 @@ GET /apis/resource.k8s.io/v1beta2/watch/devicetaintrules/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/watch/devicetaintrules
+GET /apis/lifecycle.k8s.io/v1alpha1/watch/namespaces/{namespace}/evictionrequests
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>allowWatchBookmarks</code></td>
+      <td><em>boolean</em></td>
+      <td>allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.</td>
+    </tr>
+    <tr>
+      <td><code>continue</code></td>
+      <td><em>string</em></td>
+      <td>The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.</td>
+    </tr>
+    <tr>
+      <td><code>fieldSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their fields. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>labelSelector</code></td>
+      <td><em>string</em></td>
+      <td>A selector to restrict the list of returned objects by their labels. Defaults to everything.</td>
+    </tr>
+    <tr>
+      <td><code>limit</code></td>
+      <td><em>integer</em></td>
+      <td>limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.</td>
+    </tr>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersion</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>resourceVersionMatch</code></td>
+      <td><em>string</em></td>
+      <td>resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset</td>
+    </tr>
+    <tr>
+      <td><code>sendInitialEvents</code></td>
+      <td><em>boolean</em></td>
+      <td>`sendInitialEvents=true` may be set together with `watch=true`. In that case, the watch stream will begin with synthetic events to produce the current state of objects in the collection. Once all such events have been sent, a synthetic "Bookmark" event  will be sent. The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes (subsequent to the RV) to objects watched.  When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set. The semantic of the watch request is as following:<br/> - `resourceVersionMatch` = NotOlderThan   is interpreted as "data at least as new as the provided `resourceVersion`"   and the bookmark event is send when the state is synced   to a `resourceVersion` at least as fresh as the one provided by the ListOptions.   If `resourceVersion` is unset, this is interpreted as "consistent read" and the   bookmark event is send when the state is synced at least to the moment   when request started being processed.<br/> - `resourceVersionMatch` set to any other value or unset   Invalid error is returned.  Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.</td>
+    </tr>
+    <tr>
+      <td><code>shardSelector</code></td>
+      <td><em>string</em></td>
+      <td>shardSelector restricts the list of returned objects using a CEL-based shard selector expression. The format uses the shardRange() function combined with || (logical OR) to specify one or more hash ranges:    shardRange(object.metadata.uid, '0x0', '0x8000000000000000')   shardRange(object.metadata.uid, '0x0', '0x8000000000000000') || shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')  Field paths use CEL-style object-rooted syntax (e.g. "object.metadata.uid"), NOT the fieldSelector format ("metadata.uid"). Currently supported paths:   - object.metadata.uid   - object.metadata.namespace  hexStart and hexEnd are single-quoted CEL string literals with a '0x' prefix, defining the inclusive lower and exclusive upper bounds over the 64-bit FNV-1a hash space. The full range is [0x0, 0x10000000000000000), where the exclusive upper bound equals 2^64.  Examples:   2-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')     shard 1: shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')   4-shard split:     shard 0: shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000')     shard 1: shardRange(object.metadata.uid, '0x4000000000000000', '0x8000000000000000')     shard 2: shardRange(object.metadata.uid, '0x8000000000000000', '0xc000000000000000')     shard 3: shardRange(object.metadata.uid, '0xc000000000000000', '0x10000000000000000')  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.</td>
+    </tr>
+    <tr>
+      <td><code>timeoutSeconds</code></td>
+      <td><em>integer</em></td>
+      <td>Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.</td>
+    </tr>
+    <tr>
+      <td><code>watch</code></td>
+      <td><em>boolean</em></td>
+      <td>Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "../definitions/watch-event-v1-meta#WatchEvent" >}}">WatchEvent</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` Watch List All Namespaces
+
+#### HTTP Request
+
+GET /apis/lifecycle.k8s.io/v1alpha1/watch/evictionrequests
 
 
 
@@ -959,7 +1251,7 @@ GET /apis/resource.k8s.io/v1beta2/watch/devicetaintrules
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
+PATCH /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}/status
 
 
 #### Path Parameters
@@ -970,7 +1262,12 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1032,12 +1329,12 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -1047,7 +1344,7 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
+GET /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}/status
 
 
 #### Path Parameters
@@ -1058,7 +1355,12 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1087,7 +1389,7 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -1097,7 +1399,7 @@ GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
+PUT /apis/lifecycle.k8s.io/v1alpha1/namespaces/{namespace}/evictionrequests/{name}/status
 
 
 #### Path Parameters
@@ -1108,7 +1410,12 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the DeviceTaintRule</td>
+      <td>name of the EvictionRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
     </tr>
   </tbody>
 </table>
@@ -1150,7 +1457,7 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -1165,15 +1472,17 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a></em></td>
+      <td><em><a href="{{< ref "eviction-request-v1alpha1#EvictionRequest" >}}">EvictionRequest</a></em></td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 
