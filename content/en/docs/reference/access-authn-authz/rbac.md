@@ -1116,22 +1116,6 @@ In order from most secure to least secure, the approaches are:
      --namespace=my-namespace
    ```
 
-   Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
-   "default" service account in the `kube-system` namespace.
-   To allow those add-ons to run with super-user access, grant cluster-admin
-   permissions to the "default" service account in the `kube-system` namespace.
-
-   {{< caution >}}
-   Enabling this means the `kube-system` namespace contains Secrets
-   that grant super-user access to your cluster's API.
-   {{< /caution >}}
-
-   ```shell
-   kubectl create clusterrolebinding add-on-cluster-admin \
-     --clusterrole=cluster-admin \
-     --serviceaccount=kube-system:default
-   ```
-
 3. Grant a role to all service accounts in a namespace
 
    If you want all applications in a namespace to have a role, no matter what service account they use,
