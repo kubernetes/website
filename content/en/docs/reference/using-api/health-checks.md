@@ -24,7 +24,7 @@ A status code `200` indicates the API server is `healthy`/`live`/`ready`, depend
 These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/workloads/pods/probes/#http-probes) function:
 
 * **livez**: Use this to determine if the API server should be restarted. If `/livez` returns a failure status code (such as 500), the API server is likely in a non-recoverable state, such as a deadlock, and requires a restart.
-* **readyz**: Use this to determine if the API server is ready to accept traffic. If `/readyz` returns a failure status code, it indicates the server is still initializing or temporarily unable to serve requests (for example, waiting for etcd to be available), and traffic should be routed away from it.
+* **readyz**: Use this to determine if the API server is ready to accept traffic. If `/readyz` returns a failure status code, it indicates the server is still initializing or temporarily unable to serve requests (for example, waiting for etcd to be available or waiting for every registered watch cache to complete initial synchronization from etcd), and traffic should be routed away from it.
 
 The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 
@@ -48,6 +48,7 @@ The output will look like this:
     [+]ping ok
     [+]log ok
     [+]etcd ok
+    [+]poststarthook/watch-cache-initialization ok
     [+]poststarthook/start-kube-apiserver-admission-initializer ok
     [+]poststarthook/generic-apiserver-start-informers ok
     [+]poststarthook/start-apiextensions-informers ok
@@ -77,6 +78,7 @@ The output show that the `etcd` check is excluded:
     [+]ping ok
     [+]log ok
     [+]etcd excluded: ok
+    [+]poststarthook/watch-cache-initialization ok
     [+]poststarthook/start-kube-apiserver-admission-initializer ok
     [+]poststarthook/generic-apiserver-start-informers ok
     [+]poststarthook/start-apiextensions-informers ok

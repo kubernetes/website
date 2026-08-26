@@ -68,6 +68,12 @@ Users need to be aware of the following when using this feature:
 For advanced use cases, such as creating group snapshots of multiple volumes, see the external
 [CSI Volume Group Snapshot documentation](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html).
 
+In clusters where a snapshot is only usable from part of the cluster (for example, a
+snapshot of a volume in one zone of a multi-zone cluster without shared storage),
+the snapshot's topology can be recorded and honored when restoring from it. For
+details, see the external
+[CSI Documentation](https://kubernetes-csi.github.io/docs/introduction.html).
+
 ## Lifecycle of a volume snapshot and volume snapshot content
 
 `VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests
@@ -255,6 +261,29 @@ spec:
     name: new-snapshot-test
     namespace: default
 ```
+
+## Volume Snapshot Topology
+
+In some clusters a snapshot is only usable from part of the cluster. For example, in
+a multi-zone cluster where storage is not shared across zones, a snapshot of a volume
+in one zone is only usable from that zone: volumes restored from the snapshot can only
+be created where the snapshot data resides.
+
+When the `VolumeSnapshotTopology` feature is enabled, this topology is recorded and
+honored:
+
+- A cluster administrator can set `allowedTopologies` on a
+  [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) to request
+  where dynamically created snapshots should be usable from.
+- The CSI driver reports where a snapshot is usable from, and the csi-snapshotter
+  sidecar records it on `VolumeSnapshotContent.spec.nodeAffinity`.
+- When you provision a volume from a snapshot, this topology is used to place the
+  restored volume where the snapshot data is accessible.
+
+This is an alpha feature of the CSI sidecars, enabled with the
+`VolumeSnapshotTopology` feature gate on the csi-snapshotter and external-provisioner.
+For details, see the external
+[CSI Documentation](https://kubernetes-csi.github.io/docs/introduction.html).
 
 ## Provisioning Volumes from Snapshots
 

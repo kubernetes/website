@@ -7,7 +7,7 @@ weight: 300
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.37" state="beta" >}}
 
 This document describes how to run Kubernetes Node components such as kubelet, CRI, OCI, and CNI
 without root privileges, by using a {{< glossary_tooltip text="user namespace" term_id="userns" >}}.

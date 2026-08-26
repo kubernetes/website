@@ -166,6 +166,29 @@ kubectl describe pod liveness-http
 In releases after v1.13, local HTTP proxy environment variable settings do not
 affect the HTTP liveness probe.
 
+### Use HTTP/2 cleartext (h2c) with HTTP probes {#use-h2c-with-http-probes}
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+By default the `kubelet` sends HTTP/1.1 requests when executing an HTTP probe.
+If your application serves health endpoints only over HTTP/2 cleartext (h2c),
+you can add the `protocol` field to the `httpGet` field in the probe specification and
+specify a value of `HTTP2`. This requires the `H2CContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
+enabled on both the `kube-apiserver` and the `kubelet`.
+
+{{% code_sample file="pods/probe/h2c-liveness.yaml" %}}
+
+When `protocol` is set to `HTTP2`, the `kubelet` connects using HTTP/2 cleartext
+(h2c) — HTTP/2 over plain TCP without TLS. The following configurations aren't
+supported:
+
+*   `protocol: HTTP2` and `scheme: HTTPS`
+*   `protocol: HTTP2` and a value in the `host` field
+
+If the feature gate is disabled, the API server removes the `protocol`
+field from new or updated Pods.
+
 ## Define a TCP liveness probe
 
 A third type of liveness probe uses a TCP socket. With this configuration, the
@@ -232,10 +255,31 @@ When using a gRPC probe, there are some technical details to be aware of:
 
 - The probes run against the pod IP address or its hostname.
   Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
-- The probes do not support any authentication parameters (like `-tls`).
+- The probes connect over plaintext by default. See
+  [Use TLS with gRPC probes](#grpc-probe-tls) for how to enable TLS.
 - There are no error codes for built-in probes. All errors are considered as probe failures.
 - If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not**
   respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
+
+### Use TLS with gRPC probes {#grpc-probe-tls}
+
+{{< feature-state feature_gate_name="GRPCContainerProbeTLS" >}}
+
+By default the `kubelet` connects to gRPC health endpoints over plaintext. If
+your application serves gRPC only over TLS, you can add the `mode` field to the
+`grpc` field in the probe specification and specify a value of `TLS`. This
+requires the `GRPCContainerProbeTLS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+be enabled on both the `kube-apiserver` and the `kubelet`.
+
+{{% code_sample file="pods/probe/grpc-tls-liveness.yaml" %}}
+
+When `mode` is set to `TLS`, the `kubelet` connects over TLS with
+`InsecureSkipVerify` and does not verify the server certificate. This matches
+the behavior of HTTPS probes. Certificate verification is not supported.
+
+If the feature gate is disabled, the `kube-apiserver` removes the `mode`
+field from new or updated Pods.
 
 ## Use a named port
 

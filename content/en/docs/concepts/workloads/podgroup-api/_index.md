@@ -16,7 +16,7 @@ for a specific instance of that group.
 
 ## What is a PodGroup?
 
-The PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+The PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}
 and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -58,6 +58,26 @@ spec:
       podGroupTemplateName: worker
 ```
 
+### Priority and Disruption mode
+
+Each PodGroup can also define its own `spec.priority`, `spec.preemptionPolicy` and
+`spec.disruptionMode`. Priority and preemption policy are set using a
+`spec.priorityClassName` field, which points to a `PriorityClass` resource.
+See
+[Pod Group Disruption and Priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+for detailed description of these fields.
+
+When a workload controller creates the PodGroup, these fields are copied from
+the Workload's PodGroupTemplate at creation time. For standalone PodGroups,
+you set the fields directly.
+
+```yaml
+spec:
+  disruptionMode:
+    all: {}
+  priorityClassName: high-priority
+```
+
 ### Requesting DRA devices for a PodGroup
 
 {{< feature-state feature_gate_name="DRAWorkloadResourceClaims" >}}
@@ -67,7 +87,7 @@ spec:
 can be requested by a PodGroup through its `spec.resourceClaims` field:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
@@ -96,11 +116,11 @@ For more details and a more complete example, see the
 ### Status
 
 The scheduler updates `status.conditions` to report whether the group has been
-successfully scheduled. The primary condition is `PodGroupScheduled`, which is `True`
+successfully scheduled. The primary condition is `PodGroupInitiallyScheduled`, which is `True`
 when all required Pods have been placed and `False` when scheduling fails.
 
 {{< note >}}
-The `PodGroupScheduled` condition reflects the initial scheduling decision only.
+The `PodGroupInitiallyScheduled` condition reflects the initial scheduling decision only.
 The scheduler does not update it if Pods later fail or are evicted. See
 [Limitations](/docs/concepts/workloads/podgroup-api/lifecycle/#limitations)
 for details.
@@ -111,7 +131,7 @@ page for the full list of conditions and reasons.
 
 ## Creating a PodGroup
 
-A PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+A PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 (and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -121,7 +141,7 @@ The following manifest creates a PodGroup with a gang scheduling policy that req
 at least 4 Pods to be schedulable simultaneously:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0
@@ -158,7 +178,7 @@ workload controller that follows this pattern for now.
 Custom controllers can implement the same flow for their own workload types.
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: training-policy
@@ -169,7 +189,7 @@ spec:
       gang:
         minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0
@@ -197,6 +217,26 @@ spec:
 The Workload acts as a long-lived policy definition, while PodGroups handle the 
 transient, per-instance runtime state. This separation means that status updates for
 individual PodGroups do not contend on the shared Workload object.
+
+## Parent group
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, a `PodGroup` can act as a leaf node in a multi-level group hierarchy that
+consists of `PodGroups` and `CompositePodGroups`. A `PodGroup` can specify its parent group using the
+`spec.parentCompositePodGroupName` field. Organizing a workload into a hierarchy of groups can be
+used to express multi-level gang scheduling requirements, multi-level topology constraints and
+disruption fate-sharing across parts of the workload.
+
+For more details on hierarchical group structures and multi-level gang scheduling, see the
+[CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) overview.
+
+{{< note >}}
+A `PodGroup` that specifies `spec.parentCompositePodGroupName` must also specify `spec.workloadRef`,
+linking the `PodGroup` back to its template in the `Workload`. Standalone `PodGroup` objects
+(created without a `spec.workloadRef`) are not allowed to specify a parent `CompositePodGroup`.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
