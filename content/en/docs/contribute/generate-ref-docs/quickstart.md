@@ -255,6 +255,10 @@ topics will be visible in the
 ## {{% heading "whatsnext" %}}
 
 
+To regenerate every reference set for a release and submit the output as pull
+requests, see
+[Generating Reference Documentation for a Release](/docs/contribute/generate-ref-docs/release-generation/).
+
 To generate the individual reference documentation by manually setting up the required build repositories and
 running the build targets, see the following guides:
 
