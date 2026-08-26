@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: KubeletInUserNamespace (aka Rootless mode) Graduates to Beta"
-slug: rootless-beta
-draft: true
+slug: kubernetes-v1-37-rootless-beta
+date: 2026-09-04T10:30:00-08:00
 author: >
   [Akihiro Suda](https://github.com/AkihiroSuda) (NTT)
 ---
