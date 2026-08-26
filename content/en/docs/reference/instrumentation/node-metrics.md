@@ -10,7 +10,7 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 gathers metric statistics at the node, volume, pod and container level,
 and emits this information in the
-[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/).
+[Summary API](https://github.com/kubernetes/kubernetes/blob/07a2644c16c3672bf8c13e29a33a71c4469fa6ef/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go).
 
 You can send a proxied request to the stats summary API via the
 Kubernetes API server.
