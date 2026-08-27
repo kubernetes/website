@@ -315,5 +315,5 @@ CLIからの指定に加えて、設定ファイル内でも行うことがで�
 ## {{% heading "whatsnext" %}}
 
 * メトリクスの[Prometheusテキスト形式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)について読む
-* [安定版Kubernetesメトリクス](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)の一覧を確認する
+* [安定版Kubernetesメトリクス](https://kubernetes.io/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)の一覧を確認する
 * [Kubernetes非推奨ポリシー](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)について読む
