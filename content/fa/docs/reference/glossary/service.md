@@ -9,7 +9,7 @@ tags:
 - fundamental
 - core-object
 ---
- راهی برای نمایش یک برنامه در حال اجرا روی یک 
+روشی برای در معرض دسترس قرار دادن یک برنامه شبکه‌ای که در کلاستر شما روی یک یا چند {{< glossary_tooltip text="پاد" term_id="pod" >}} اجرا می‌شود.
 {{< glossary_tooltip text="Pod" term_id="pod" >}} یا تعداد بیش‌تر Pod در برنامه شما.
 
 <!--more-->
