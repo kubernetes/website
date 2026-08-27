@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- کاربران را قادر می‌سازد که فهرستی از منابع را بر اساس {{< glossary_tooltip text="labels" term_id="label" >}} فیلتر کنند.
+ کاربران را قادر می‌سازد که فهرستی از منابع را بر اساس {{< glossary_tooltip text="برچسب‌ها" term_id="label" >}} فیلتر کنند.
 
 <!--more--> 
 
