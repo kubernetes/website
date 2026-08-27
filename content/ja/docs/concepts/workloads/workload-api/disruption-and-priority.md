@@ -7,7 +7,9 @@ weight: 10
 <!-- overview -->
 {{< feature-state feature_gate_name="WorkloadAwarePreemption" >}}
 
-PodGroupは中断モードを宣言できます。このモードは、より優先度の高いPodGroupを配置する場合などに、スケジューラーが実行中のPodGroupをどのように中断できるかを定めます。また、PodGroupには優先度があり、[ワークロードを考慮したプリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、グループ内の各Podの優先度に代わって適用されます。
+PodGroupは中断モードを宣言できます。
+このモードは、より優先度の高いPodGroupを配置する場合などに、スケジューラーが実行中のPodGroupをどのように中断できるかを定めます。
+また、PodGroupには優先度があり、[ワークロードを考慮したプリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、グループ内の各Podの優先度に代わって適用されます。
 
 <!-- body -->
 
@@ -40,7 +42,8 @@ PodGroupに`priorityClassName`が設定されていない場合、Kubernetesは�
 
 個々のPodの優先度が異なる場合でも、[ワークロードを考慮したプリエンプション](/docs/concepts/scheduling-eviction/workload-aware-preemption/)の際には、PodGroupの優先度がグループ内のすべてのPodの優先度として扱われます。
 
-以下のYAMLは、整数の優先度値1000000に対応する`high-priority` PriorityClassを使用するPodGroup設定の例です。優先度アドミッションコントローラーは仕様を確認し、PodGroupの優先度を1000000に設定します。
+以下のYAMLは、整数の優先度値1000000に対応する`high-priority` PriorityClassを使用するPodGroup設定の例です。
+優先度アドミッションコントローラーは仕様を確認し、PodGroupの優先度を1000000に設定します。
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha2
