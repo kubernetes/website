@@ -1,5 +1,5 @@
 ---
-title: "Configuration"
+title: "پیکربندی"
 weight: 80
 description: >
   منابعی که کوبرنتیز برای پیکربندی پادها ارائه می‌دهد.
