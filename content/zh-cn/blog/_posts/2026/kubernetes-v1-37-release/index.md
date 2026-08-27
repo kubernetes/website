@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.37：<版本名称>"
-draft: true
+title: "Kubernetes v1.37：Garhwal"
+date: 2026-08-26
 evergreen: true
 slug: kubernetes-v1-37-release
 author: >
@@ -11,12 +11,12 @@ translator: >
 release_announcement:
   minor_version: "1.37"
   themes:
-    - "Release CodeName 1"
+    - "Garhwal"
 ---
 <!--
 layout: blog
-title: "Kubernetes v1.37: <Release Name>"
-draft: true
+title: "Kubernetes v1.37: Garhwal"
+date: 2026-08-26
 evergreen: true
 slug: kubernetes-v1-37-release
 author: >
@@ -24,7 +24,7 @@ author: >
 release_announcement:
   minor_version: "1.37"
   themes:
-    - "Release CodeName 1"
+    - "Garhwal"
 -->
 
 <!--
@@ -50,10 +50,62 @@ Beta 和 Alpha 特性。持续交付高质量版本，彰显了我们开发周�
 -->
 ## 发布主题与徽标   {#release-theme-and-logo}
 
-<!-- Logo image size is recommended to be no more than 2160px -->
+<!--
+Figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 Garhwal release logo: a ringaal-inspired woven frame surrounds snow-capped Himalayan peaks, terraced fields, deodar trees, a winding river, a mountain house marked 1.37, colourful flags, a Himalayan monal, and red buransh flowers with Kubernetes helm symbols at their centres" class="release-logo"
+-->
+{{< figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 Garhwal 发布徽标：一个以 ringaal 竹编为灵感的编织边框环绕着白雪覆盖的喜马拉雅山峰、梯田、喜马拉雅雪松、蜿蜒的河流、一座标有 1.37 的山间房屋、彩旗、一只棕尾虹雉，以及中心带有 Kubernetes 舵轮符号的红色 buransh 花朵" class="release-logo" >}}
 
-<!-- Figure src="k8s-1.37.svg" alt="Kubernetes v1.37 <release theme> logo" class="release-logo" -->
-{{< figure src="k8s-1.37.svg" alt="Kubernetes v1.37 <发布主题>徽标" class="release-logo" >}}
+<!--
+The theme for Kubernetes v1.37 is **Garhwal** (गढ़वाल, pronounced _gaṛhvāl_), a Himalayan region of Uttarakhand, India. The snow-capped peaks of the Garhwal Himalaya, deodar forests, terraced fields, rivers and streams, and mountain paths shape both the region and the logo. Together, these elements reflect a community in which every layer, route, and contribution is connected.
+-->
+Kubernetes v1.37 的主题是 _Garhwal__（गढ़वाल，发音为 __gaṛhvāl__），
+这是印度北阿坎德邦的一个喜马拉雅山区。
+Garhwal 喜马拉雅山脉的雪峰、喜马拉雅雪松林、梯田、河流与溪流，以及山间小径，
+共同塑造了这片地区与该徽标。
+这些元素一同映照出这样一个社区：每一层、每一条路径和每一份贡献都彼此相连。
+
+<!--
+The logo is imagined as a window into Garhwal's landscape.<sup>1</sup> Inside, terraced fields climb towards the snowy peaks, each level supported by the one below, much as every Kubernetes release depends on work carried forward. A river winds through the valley and gathers mountain streams, reflecting contributions from many SIGs and communities flowing into one project.
+-->
+该徽标被构想为一扇望向 Garhwal 风光的窗户。<sup>1</sup>
+窗内，层层梯田向雪峰攀升，每一级都由下方的一级承托，
+正如每个 Kubernetes 版本都依赖一路延续下来的工作。
+一条河流蜿蜒穿过山谷，汇聚山间溪流，
+映现出众多 SIG 与社区的贡献汇入同一个项目。
+
+<!--
+The deodar forest represents the wider Kubernetes ecosystem, where distinct projects share common ground and grow side by side. Stonework and woodcraft shape the path and mountain house, placing people at the centre and evoking shared foundations maintained for those who follow. Above the river, colourful flags catch the wind and bring the scene to life.
+-->
+喜马拉雅雪松林代表着更广阔的 Kubernetes 生态系统，
+各不相同的项目立足于共同的土壤，并肩成长。
+石作与木工塑造了小径和山间房屋，将人置于中心，
+也让人联想到为后来者共同维护的根基。
+河流上方，彩旗迎风飘扬，为画面注入生机。
+
+<!--
+Encircling the scene is a patterned frame inspired by basketry woven from _ringaal_, a flexible dwarf Himalayan bamboo. Individual strips gain strength when interlaced, just as code, reviews, tests, documentation, and coordination come together to make a release.
+-->
+环绕画面的是一个带有图案的边框，其灵感来自用 _ringaal_ 编织的竹篮；
+__ringaal__ 是一种柔韧的喜马拉雅矮生竹。
+单根竹条交织后会变得更加坚固，正如代码、评审、测试、文档和协调工作汇聚起来，
+共同促成一个版本的发布。
+
+<!--
+Within the frame, the [Himalayan monal](https://en.wikipedia.org/wiki/Himalayan_monal), Uttarakhand's state bird, lives at high altitudes in the Himalaya. Its iridescent plumage holds many colours at once, much as the Kubernetes community brings many skills and perspectives into one project. Flowers of red _buransh_ (_Rhododendron arboreum_), Uttarakhand's state tree, carry Kubernetes helms at their centres, linking a familiar bloom of Garhwal with the symbol shared by the community. The house bears १.३७ (1.37 in Devanagari numerals), grounding the release in the landscape.
+-->
+边框内的[棕尾虹雉](https://en.wikipedia.org/wiki/Himalayan_monal)是北阿坎德邦的邦鸟，
+栖息于喜马拉雅山脉的高海拔地区。
+它带有虹彩光泽的羽毛能同时呈现多种色彩，
+正如 Kubernetes 社区将多样的技能与视角汇聚于同一个项目。
+红色的 _buransh_（_Rhododendron arboreum_，树形杜鹃）是北阿坎德邦的邦树；
+花朵中心带有 Kubernetes 舵轮，将 Garhwal 地区为人熟知的花朵与社区共有的符号联系起来。
+房屋上写着 १.३७（天城文数字 1.37），让此次发布扎根于这片土地。
+
+<!--
+<sub>1. Keep looking through the window (the logo). Watch the river flow and the flags catch the wind. In 37 seconds, the landscape reveals its magic. 😉</sub>
+-->
+<sub>1. 请继续透过这扇窗户（徽标）看下去。看河水流淌，彩旗迎风飘扬。
+37 秒后，这片风景将显露它的魔法。😉</sub>
 
 <!--
 ## Spotlight on key updates
@@ -63,8 +115,7 @@ Kubernetes v1.37 is packed with new features and improvements. Here are a few se
 ## 重点更新速览   {#spotlight-on-key-updates}
 
 Kubernetes v1.37 带来了大量新特性与改进。
-以下是[发布团队](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)
-希望重点介绍的部分更新！
+以下是[发布团队](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)希望重点介绍的部分更新！
 
 <!--
 ### Stable: Resilient watchcache initialization
@@ -344,8 +395,8 @@ With this mechanism, an extended resource name can be assigned directly to a Dev
 
 DRA 扩展资源支持在 Kubernetes v1.37 中进阶至稳定阶段。
 此特性允许 DRA 驱动满足通过传统**扩展资源**机制提出的请求，
-例如 Pod 规约中的 `abc.example/gpu: 3`，而无需单独的
-[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
+例如 Pod 规约中的 `abc.example/gpu: 3`，
+而无需单独的[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
 
 借助此机制，可以将扩展资源名称直接分配给 DeviceClass。
 请求该资源的 Pod 随后可通过 DRA 获得设备分配，
@@ -1009,7 +1060,7 @@ Beta 进阶标准包括一项可扩缩性测试，用于测量 5000 节点集群
 ### 并发解码监视对象   {#concurrent-watch-object-decode}
 
 `kube-apiserver` 在单个 goroutine 上逐一解码和转换来自 `etcd` 的每个监视事件，
-因此，只要单个事件的转换较慢——最典型的是 CRD 转换 Webhook 调用——
+因此，只要单个事件的转换较慢 —— 最典型的是 CRD 转换 Webhook 调用 ——
 就会阻塞其后排队的所有事件。
 对内置资源而言，这通常只是带来不便；
 但对于所提供版本与存储版本不同的 CRD，串行转换冷缓存可能耗时数分钟。
