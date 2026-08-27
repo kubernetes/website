@@ -4,7 +4,7 @@ id: service
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
-  راهی برای نمایش یک برنامه در حال اجرا روی مجموعه‌ای از Pod به عنوان یک سرویس شبکه.
+  راهی برای در معرض دسترس قرار دادن برنامه‌ای که روی مجموعه‌ای از پادها اجرا می‌شود، به‌عنوان یک سرویس شبکه.
 tags:
 - fundamental
 - core-object
