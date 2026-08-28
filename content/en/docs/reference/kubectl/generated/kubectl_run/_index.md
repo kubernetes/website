@@ -141,13 +141,6 @@ kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=serv
 </tr>
 
 <tr>
-<td colspan="2">-f, --filename strings</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>to use to replace the resource.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--force</td>
 </tr>
 <tr>
@@ -467,6 +460,13 @@ kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=serv
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>
