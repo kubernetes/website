@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes v1.37：DRA 更新'
+title: 'Kubernetes v1.37：DRA 新进展'
 date: 2026-09-03T10:30:00-08:00
 draft: false
 slug: kubernetes-v1-37-dra-updates
