@@ -164,7 +164,7 @@ for more information about how the kubelet handles Pod deletion.
 -->
 如果你希望在 Pod 被删除时能够腾空请求，并不一定需要就绪探针；
 当 Pod 被删除时，EndpointSlice 中对应的端点会更新其[状况](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)：
-端点的 ready 状况会被设为 false，从而负载均衡器不会将常规流量发送给该 Pod。
+端点的 `ready` 状况会被设为 false，从而负载均衡器不会将常规流量发送给该 Pod。
 关于 kubelet 如何处理 Pod 删除的更多信息，
 参阅 [Pod 终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 {{< /note >}}
@@ -447,8 +447,8 @@ spec:
 `initialDelaySeconds`
 : 容器启动后到启动、存活或就绪探针开始执行之间的秒数。
   如果定义了启动探针，则存活探针和就绪探针的延迟在启动探针成功之前不会开始计时。
-  在某些较早的 Kubernetes 版本中，如果 periodSeconds 被设置为高于 initialDelaySeconds 的值，
-  initialDelaySeconds 可能会被忽略。然而在当前版本中，initialDelaySeconds 始终被遵守，
+  在某些较早的 Kubernetes 版本中，如果 `periodSeconds` 被设置为高于 `initialDelaySeconds` 的值，
+  `initialDelaySeconds` 可能会被忽略。然而在当前版本中，`initialDelaySeconds` 始终被遵守，
   探针只有在初始延迟之后才会启动。默认为 0 秒。最小值为 0。
 
 <!--
@@ -621,12 +621,19 @@ have additional fields that can be set on `httpGet`:
   headers.
 * `port`: Name or number of the port to access on the container. Number must be
   in the range 1 to 65535.
+* `protocol`: Protocol to use for the probe request. Defaults to `HTTP1`.
+  Set to `HTTP2` to probe over HTTP/2 cleartext (h2c). Requires the
+  `H2CContainerProbe` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  to be enabled.
 -->
 * `host`：要连接的主机名，默认为 Pod IP。你可能更希望在 `httpHeaders` 中设置 `Host`。
 * `scheme`：用于连接主机的协议（HTTP 或 HTTPS）。默认为 "HTTP"。
 * `path`：HTTP 服务器上要访问的路径。默认为 "/"。
 * `httpHeaders`：请求中要设置的自定义标头。HTTP 允许重复的标头。
 * `port`：要在容器上访问的端口的名称或编号。编号必须在 1 到 65535 之间。
+* `protocol`：探针请求所使用的协议。默认为 `HTTP1`。
+  设置为 `HTTP2` 后将通过 HTTP/2 明文（h2c）进行探测。要求启用
+  `H2CContainerProbe` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 For an HTTP probe, the kubelet sends an HTTP request to the specified port and
@@ -702,6 +709,24 @@ startupProbe:
       - name: User-Agent
         value: ""
 ```
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+<!--
+You can configure an HTTP probe to use HTTP/2 cleartext (h2c) by setting the
+`protocol` field to `HTTP2`. When `protocol` is set to `HTTP2`, the kubelet
+uses h2c (HTTP/2 over plain TCP) instead of HTTP/1.1. The default `protocol`
+is `HTTP1`. Setting `protocol: HTTP2` requires `scheme: HTTP` (the default);
+the API server rejects the combination of `protocol: HTTP2` with
+`scheme: HTTPS`. For more details, see
+[Use HTTP/2 cleartext (h2c) with HTTP probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/use-h2c-with-http-probes).
+-->
+你可以通过将 `protocol` 字段设置为 `HTTP2`，配置 HTTP 探针使用 HTTP/2 明文（h2c）。
+当 `protocol` 设置为 `HTTP2` 时，kubelet 将使用 h2c（基于明文 TCP 的 HTTP/2），而非 HTTP/1.1。
+默认 `protocol` 为 `HTTP1`。
+设置 `protocol: HTTP2` 要求 `scheme: HTTP`（默认值）；API 服务器会拒绝
+`protocol: HTTP2` 与 `scheme: HTTPS` 的组合。
+详情参见[将 HTTP/2 明文（h2c）用于 HTTP 探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/use-h2c-with-http-probes)。
 
 <!--
 #### Redirect handling {#http-probes-redirects}
@@ -797,7 +822,8 @@ If your application implements the
 [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
 you can configure Kubernetes to use it for application startup, liveness or readiness checks.
 -->
-如果你的应用实现了 [gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
+如果你的应用实现了
+[gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
 你可以配置 Kubernetes 使用该协议来执行应用启动、存活或就绪检查。
 
 <!--
@@ -840,7 +866,23 @@ Configuration problems (for example: incorrect port or service, unimplemented
 health checking protocol) are considered a probe failure, similar to HTTP and
 TCP probes.
 -->
-配置问题（例如：端口或服务不正确、未实现健康检查协议）被视为探针失败，类似于 HTTP 和 TCP 探针。
+配置问题（例如：端口或服务不正确、未实现健康检查协议）被视为探针失败，类似于
+HTTP 和 TCP 探针。
+
+{{< feature-state feature_gate_name="GRPCContainerProbeTLS" >}}
+
+<!--
+You can configure a gRPC probe to connect over TLS by setting the `mode` field
+to `TLS`. When `mode` is set to `TLS`, the kubelet uses TLS with
+`InsecureSkipVerify` (it does not verify the server certificate). The default
+`mode` is `Plaintext`. For more details, see
+[Use TLS with gRPC probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#grpc-probe-tls).
+-->
+你可以通过将 `mode` 字段设置为 `TLS`，配置 gRPC 探针通过 TLS 连接。
+当 `mode` 设置为 `TLS` 时，kubelet 将使用带
+`InsecureSkipVerify` 的 TLS（不验证服务器证书）。
+默认 `mode` 为 `Plaintext`。
+详情参见[对 gRPC 探针使用 TLS](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#grpc-probe-tls)。
 
 ## {{% heading "whatsnext" %}}
 
