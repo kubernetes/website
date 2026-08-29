@@ -39,7 +39,8 @@ Podのメモリリソースに関する背景情報については、[コンテ�
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-Windowsのサポートは、`WindowsCPUAndMemoryAffinity`フィーチャーゲートを使用して有効にできます。これにはコンテナランタイム側のサポートも必要です。  
+Windowsのサポートは、`WindowsCPUAndMemoryAffinity`フィーチャーゲートを使用して有効にできます。
+これにはコンテナランタイム側のサポートも必要です。  
 Windowsでは、[None](#policy-none)ポリシーと[BestEffort](#policy-best-effort)ポリシーのみがサポートされています。
 
 ## メモリマネージャーの動作
