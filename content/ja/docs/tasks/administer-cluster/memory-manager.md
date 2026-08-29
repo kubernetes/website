@@ -18,7 +18,7 @@ Kubernetesの*メモリマネージャー*は、`Guaranteed` {{< glossary_toolti
 
 さらに、メモリマネージャーは、Podが要求するメモリが最小限の数のNUMAノードから割り当てられるようにします。
 
-Podのメモリリソースに関する背景情報については、[コンテナとPodにメモリリソースを割り当てる](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)を参照してください。
+Podのメモリリソースに関する背景情報については、[コンテナとPodにメモリリソースを割り当てる](/docs/tasks/configure-pod-container/assign-memory-resource/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
