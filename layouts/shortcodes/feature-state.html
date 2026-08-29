@@ -97,10 +97,10 @@ and then a paragraph, and sometimes you just get the paragraph.
               {{- else -}}
             <div class="feature-state-locked feature-state-removed">
               {{- if isset . "toVersion" -}}
-              <p><em>{{ T "feature_gate_removed_before_ga_final_version_clear" (dict "featureGateName" $feature_gate_name "fromVersion" .fromVersion "toVersion" .toVersion ) | safeHTML }}</em></p>
+              <p><em>{{ T "feature_gate_removed_before_ga_final_version_clear" (dict "featureGateName" $feature_gate_name "fromVersion" .fromVersion "toVersion" .toVersion "kubernetes" (T "feature_state_kubernetes_label")) | safeHTML }}</em></p>
               {{- else -}}
               {{- warnf "Removed feature gate %s doesn't seem to have a toVersion set for its final stage" $feature_gate_name -}}
-              <p><em>{{ T "feature_gate_removed_before_ga_final_version_unclear" (dict "featureGateName" $feature_gate_name "fromVersion" .fromVersion ) | safeHTML }}</em></p>
+              <p><em>{{ T "feature_gate_removed_before_ga_final_version_unclear" (dict "featureGateName" $feature_gate_name "fromVersion" .fromVersion "kubernetes" (T "feature_state_kubernetes_label")) | safeHTML }}</em></p>
               {{- end -}}
             </div>
               {{- end -}}
@@ -141,7 +141,7 @@ and then a paragraph, and sometimes you just get the paragraph.
                {{ end -}}
               </span>
             </div>
-            
+
             {{/* Additional details section (expandable using HTML details element) */}}
             <div class="feature-{{ .stage }}{{ if $stableInLatestRelease }} stable-in-latest-release{{end}}">
               {{/* For stable features */}}
@@ -149,10 +149,10 @@ and then a paragraph, and sometimes you just get the paragraph.
               <details>
               <summary>{{ T "feature_gate_more_details" }}</summary>
               <p>
-              {{- if $locked -}}            
+              {{- if $locked -}}
                 {{ T "feature_gate_stable_locked" (dict "featureGateName" $feature_gate_name "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "kubernetes" (T "feature_state_kubernetes_label") "stableVersion" .fromVersion) | safeHTML }}</p>
               {{- else -}}
-                <em>{{ T "feature_gate_stable_graduated" (dict "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "stableVersion" .fromVersion ) | safeHTML }}</em>
+                <em>{{ T "feature_gate_stable_graduated" (dict "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "stableVersion" .fromVersion "kubernetes" (T "feature_state_kubernetes_label")) | safeHTML }}</em>
                 {{/* Special message for feature that are both stable and disabled by default */}}
                 {{- if not .defaultValue -}}
                 <em>{{ T "feature_gate_stable_graduated_disabled" }}</em>
@@ -167,7 +167,7 @@ and then a paragraph, and sometimes you just get the paragraph.
                 <details>
                 <summary>{{ T "feature_gate_more_details" }}</summary>
                 {{ T "feature_gate_more_information_how_to_enable" (dict "feature_gate_name" $feature_gate_name ) | safeHTML }}
-         
+
                 </details>
                 {{ end -}}
               {{- end -}}
