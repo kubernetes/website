@@ -31,7 +31,7 @@ Podのメモリリソースに関する背景情報については、[コンテ�
 メモリリソースをPodの仕様で要求されている他のリソースと揃えるには、次の設定が必要です。
 
 - CPUマネージャーを有効にし、ノードに適切なCPUマネージャーポリシーを設定する必要があります。
-  [CPU管理ポリシーの制御](/ja/docs/tasks/administer-cluster/cpu-management-policies/)を参照してください。
+  [CPU管理ポリシーの制御](/docs/tasks/administer-cluster/cpu-management-policies/)を参照してください。
 - トポロジーマネージャーを有効にし、ノードに適切なトポロジーマネージャーポリシーを設定する必要があります。
   [トポロジー管理ポリシーの制御](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
