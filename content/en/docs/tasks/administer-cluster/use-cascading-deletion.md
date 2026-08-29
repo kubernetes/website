@@ -55,7 +55,6 @@ Kubernetes API.
 **Using kubectl**
 
 Run the following command:
-<!--TODO: verify release after which the --cascade flag is switched to a string in https://github.com/kubernetes/kubectl/commit/fd930e3995957b0093ecc4b9fd8b0525d94d3b4e-->
 
 ```shell
 kubectl delete deployment nginx-deployment --cascade=foreground
