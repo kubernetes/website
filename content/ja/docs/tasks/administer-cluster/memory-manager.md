@@ -33,7 +33,7 @@ Podのメモリリソースに関する背景情報については、[コンテ�
 - CPUマネージャーを有効にし、ノードに適切なCPUマネージャーポリシーを設定する必要があります。
   [CPU管理ポリシーの制御](/ja/docs/tasks/administer-cluster/cpu-management-policies/)を参照してください。
 - トポロジーマネージャーを有効にし、ノードに適切なトポロジーマネージャーポリシーを設定する必要があります。
-  [トポロジー管理ポリシーの制御](/ja/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+  [トポロジー管理ポリシーの制御](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
 ### Windowsのサポート
 
