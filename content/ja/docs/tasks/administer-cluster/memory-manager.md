@@ -35,7 +35,7 @@ Podのメモリリソースに関する背景情報については、[コンテ�
 - トポロジーマネージャーを有効にし、ノードに適切なトポロジーマネージャーポリシーを設定する必要があります。
   [トポロジー管理ポリシーの制御](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
-### Windowsのサポート
+### Windowsのサポート {#windows-support}
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
