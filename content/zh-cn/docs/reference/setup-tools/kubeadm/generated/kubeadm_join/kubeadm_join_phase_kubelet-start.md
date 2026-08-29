@@ -100,7 +100,8 @@ For token-based discovery, validate that the root CA public key matches this has
 <td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
@@ -114,7 +115,8 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -128,7 +130,8 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for kubelet-start
@@ -142,7 +145,8 @@ kubelet-start 操作的帮助命令。
 <td colspan="2">--node-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify the node name.
@@ -160,12 +164,12 @@ Specify the node name.
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 目录路径，指向的目录中包含名为 “target[suffix][+patchtype].extension” 的文件。
 例如，"kube-apiserver0+merge.yaml" 或 "etcd.json" 这种简单形式。
 "target" 可以是 “kube-apiserver”、“kube-controller-manager”、“kube-scheduler”、
-“etcd”、“kubeletconfiguration” 之一，
+“etcd”、“kubeletconfiguration”、“corednsdeployment”、“kubeproxydaemonset” 之一，
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
 默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。
 "suffix" 是一个可选字符串，可用于确定按字母顺序首先应用哪些补丁。
@@ -192,7 +196,8 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
@@ -221,7 +226,8 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
