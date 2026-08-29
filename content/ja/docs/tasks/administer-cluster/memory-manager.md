@@ -164,7 +164,7 @@ kubeletの`reservedMemory`設定例を次に示します。
       "hugepages-1Gi": "2Gi" # Linuxでのみ有効
 ```
 
-### NUMAメモリ予約の制約
+### NUMAメモリ予約の制約 {#constraints-on-numa-memory-reservation}
 
 `reservedMemory`の値を指定する場合、その値は、有効な`kubeReserved`および`systemReserved`の値と、`evictionHard`の一部として設定した`memory.available`の値に適合している必要があります。
 
