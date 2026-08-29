@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: 'Kubernetes v1.37: DRA Updates'
-draft: true
 slug: kubernetes-v1-37-dra-updates
+date: 2026-09-03T10:30:00-08:00
 author: >
   [Kashish Verma](https://github.com/KashishV999)
 ---

@@ -1,10 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Scale Workloads to Zero with HorizontalPodAutoscaler"
-slug: hpa-scale-to-zero-beta
+slug: kubernetes-v1-37-hpa-scale-to-zero-beta
 author: >
   Johannes Würbach
-draft: true
+date: 2026-09-02T10:30:00-08:00
 ---
 
 Kubernetes v1.37 includes API support for horizontal autoscaling of workloads down
