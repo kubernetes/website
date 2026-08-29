@@ -199,7 +199,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
   커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
 
 - **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이
-  [특권을 가진 컨테이너](/docs/concepts/workloads/pods/#컨테이너에-대한-특권-모드)의
+  [특권을 가진 컨테이너](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)의
   프로세스들과 동등한지 아닌지 정의한다.
   특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 
