@@ -276,6 +276,6 @@ Podを`Guaranteed` QoSクラスにするには、CPUとメモリの両方の要�
 
 - [トポロジー管理のトラブルシューティング](/ja/docs/tasks/debug/debug-cluster/topology/)を読む
 - メモリマネージャーに関する[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager)(Kubernetes Enhancement Proposal)を読む
-- [Podレベルのリソースマネージャー](/ja/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)について読む
+- [Podレベルのリソースマネージャー](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)について読む
 
 [2]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#the-concept-of-node-map-and-memory-maps
