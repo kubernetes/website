@@ -30,10 +30,16 @@ schedules:
 - endOfLifeDate: "2027-02-28"
   maintenanceModeStartDate: "2026-12-28"
   next:
-    cherryPickDeadline: "2026-07-10"
+    cherryPickDeadline: "2026-09-11"
+    release: 1.35.9
+    targetDate: "2026-09-15"
+  previousPatches:
+  - cherryPickDeadline: "2026-08-07"
+    release: 1.35.8
+    targetDate: "2026-08-11"
+  - cherryPickDeadline: "2026-07-10"
     release: 1.35.7
     targetDate: "2026-07-14"
-  previousPatches:
   - cherryPickDeadline: "2026-06-05"
     release: 1.35.6
     targetDate: "2026-06-09"
