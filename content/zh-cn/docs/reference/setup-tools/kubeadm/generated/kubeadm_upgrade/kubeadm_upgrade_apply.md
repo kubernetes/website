@@ -76,7 +76,8 @@ Show unstable versions of Kubernetes as an upgrade alternative and allow upgradi
 <td colspan="2">--allow-release-candidate-upgrades</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -91,7 +92,8 @@ Show release candidate versions of Kubernetes as an upgrade alternative and allo
 <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -106,7 +108,8 @@ Perform the renewal of certificates used by component changed during upgrades.
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -121,7 +124,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -141,7 +145,8 @@ Do not change any state, just output what actions would be performed.
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -156,7 +161,8 @@ Perform the upgrade of etcd.
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -181,7 +187,8 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 <td colspan="2">-f, --force</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -196,7 +203,8 @@ Force upgrading although some requirements might not be met. This also implies n
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -211,7 +219,8 @@ apply 操作的帮助命令。
 <td colspan="2">-ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -232,7 +241,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -248,18 +258,20 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
 例如，&quot;kube-apiserver0+merge.yaml&quot;或是简单的 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、
-&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
-&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
-并且它们与 kubectl 支持的补丁格式相同。
+&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot;、
+&quot;corednsdeployment&quot;、&quot;kubeproxydaemonset&quot; 之一。
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 
+或者 &quot;json&quot; 之一，并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
 &quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
@@ -271,7 +283,8 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <td colspan="2">--print-config</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -286,7 +299,8 @@ Specifies whether the configuration file that will be used in the upgrade should
 <td colspan="2">-y, --yes</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -316,7 +330,8 @@ Perform the upgrade and do not prompt for confirmation (non-interactive mode).
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
