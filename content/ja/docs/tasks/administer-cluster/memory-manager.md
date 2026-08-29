@@ -177,7 +177,8 @@ kubeletの`reservedMemory`設定例を次に示します。
 
 上記の式に従わない場合、メモリマネージャーは起動時にエラーを表示します。
 
-言い換えると、上記の例1では、通常のメモリ(`type=memory`)について、Kubernetesは合計3GiBを予約します。つまり、次のようになります。
+言い換えると、上記の例1では、通常のメモリ(`type=memory`)について、Kubernetesは合計3GiBを予約します。
+つまり、次のようになります。
 
 ```math
 \begin{equation*}
