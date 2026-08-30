@@ -20,7 +20,7 @@ weight: 15
 
 만약 클러스터 내 기존 노드에 스케줄링될 수 없는 파드가 있다면, 새 노드를 
 자동으로 클러스터에 추가(즉, 프로비저닝)하여 그 파드를 수용한다. 이는 특히 
-시간이 지나면서 파드의 개수가 바뀔 때 유용한데,[수평 워크로드를 노드 오토스케일링과 결합](#horizontal-workload-autoscaling)한 결과와 
+시간이 지나면서 파드의 개수가 바뀔 때 유용한데, [수평 워크로드를 노드 오토스케일링과 결합](#horizontal-workload-autoscaling)한 결과와 
 같은 예가 있다.
 
 오토스케일링은 노드를 프로비저닝하기 위해, 이를 뒷받침하는 클라우드 제공자 리소스를 생성하거나 삭제한다. 가장 일반적으로 노드를 뒷받침하는 리소스는 
@@ -62,7 +62,7 @@ weight: 15
 [파드 간 어피니티](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity),
 특정 [스토리지 볼륨](/docs/concepts/storage/volumes/) 요구사항이 있다.
 
-### 오토스케일 설정으로 부과되는 노드 제약 조건 {#provisioning-node-constraints}
+### 오토스케일러 설정으로 부과되는 노드 제약 조건 {#provisioning-node-constraints}
 
 프로비저닝 된 노드의 세부 사항(예: 리소스의 양, 특정 라벨의 존재 여부)은 
 오토스케일러 설정에 따라 달라진다. 오토스케일러는 미리 정의된 노드 설정 
@@ -97,12 +97,12 @@ weight: 15
 통합은 프로비저닝과 마찬가지로 실제 리소스 사용량이 아니라 파드의 리소스 요청만 
 고려한다.
 
-통합을 위해, 노드에는 DaemonSet과 스태틱(static) 파드만 실행 중이라면 
+통합을 위해, 노드에는 데몬셋(DaemonSet)과 스태틱(static) 파드만 실행 중이라면 
 해당 노드를 _비어 있는_ 노드로 간주한다. 통합 시 비어 있는 노드를 제거하는 것이 
 비어 있지 않은 노드를 제거하는 것보다 훨씬 단순하며, 오토스케일러는 일반적으로 비어 있는 노드 통합에 특화된 최적화를 갖추고 있다.
 
 비어 있지 않은 노드를 통합 과정에서 제거하면 중단(disruption)이 발생한다. 
-그 노드에서 재생 중인 파드가 종료되고 다시 생성되어야(예: Deployment에 
+그 노드에서 재생 중인 파드가 종료되고 다시 생성되어야(예: 디플로이먼트(Deployment)에 
 의해) 하기 때문이다. 그러나 이렇게 재생성된 모든 파드는 클러스터 내 기존 
 노드나 통합 과정에서 프로비저닝 된 대체 노드에 스케줄링될 수 있어야 한다. 
 _통합으로 인해 파드가 pending 상태에 머무르는 일은 정상적으로는 없어야 한다._
@@ -127,7 +127,7 @@ _통합으로 인해 파드가 pending 상태에 머무르는 일은 정상적�
 ## 오토스케일러 {#autoscalers}
 
 이전 섹션에서 설명된 기능들은 노드 _오토스케일러_ 에 의해 제공된다. 
-오토스케일러는 Kubernetes API뿐만 아니라 클라우드 제공자 API와도 
+오토스케일러는 쿠버네티스 API뿐만 아니라 클라우드 제공자 API와도 
 상호작용하여 노드를 프로비저닝하고 통합해야 한다. 이는 오토스케일러가 지원되는 
 각 클라우드 제공자와 명시적으로 통합되어야 함을 의미한다. 특정 오토스케일러의 
 성능과 기능 집합은 클라우드 제공자 통합 방식에 따라 달라질 수 있다.
@@ -153,7 +153,7 @@ graph TD
 
 [클러스터 오토스케일러](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)와 
 [Karpenter](https://github.com/kubernetes-sigs/karpenter)는 
-현재 [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling)에서 관리하는 두 가지 노드 오토스케일러이다.
+현재 [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling)에서 관리하는 두 가지 노드 오토스케일러이다.
 
 클러스터 사용자의 관점에서 두 오토스케일러는 유사한 노드 오토스케일링 경험을 
 제공해야 한다. 둘 다 스케줄할 수 없는 파드를 위해 새로운 노드를 프로비저닝하고, 
@@ -169,21 +169,21 @@ graph TD
 
 클러스터 오토스케일러는 미리 구성된 _노드 그룹(Node Groups)_ 에 노드를 
 추가하거나 제거한다. 노드 그룹은 일반적으로 클라우드 제공자의 리소스 그룹(가장 
-흔하게는 가장 머신 그룹)에 맵핑된다. 클러스터 오토스케일러의 단일 인스턴스는 
+흔하게는 가상 머신 그룹)에 맵핑된다. 클러스터 오토스케일러의 단일 인스턴스는 
 여러 노드 그룹을 동시에 관리할 수 있다. 프로비저닝할 때, 클러스터 오토스케일러는 
 Pending 파드의 요청에 가장 적합한 그룹에 노드를 추가한다. 통합할 때, 클러스터 
-오토스케일러는 항상 제거할 특정 노드를 선택하는데, 단순히 클라우드 제공자의 리소스그룹 크기를 조정하는 것과 대조된다.
+오토스케일러는 항상 제거할 특정 노드를 선택하는데, 단순히 클라우드 제공자의 리소스 그룹 크기를 조정하는 것과 대조된다.
 
 추가 자료:
 
 * [문서 개요](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [클라우드 제공자 통합](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
 * [클러스터 오토스케일러 FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-* [문의](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
+* [문의](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
 
-Karpenter는 클러스터 제공자가 제공한 [NodePool](https://karpenter.sh/docs/concepts/nodepools/) 설정을 기반으로 노드를 자동 
+Karpenter는 클러스터 운영자가 제공한 [NodePool](https://karpenter.sh/docs/concepts/nodepools/) 설정을 기반으로 노드를 자동 
 프로비저닝한다. Karpenter는 단순히 오토스케일링하는 것을 넘어, 모든 노드의 
 수명 주기의 모든 측면을 관리한다. 여기에는 노드가 특정 수명에 도달했을 때 
 자동으로 갱신하거나, 새로운 워커 노드 이미지가 릴리스되면 노드를 자동 
@@ -254,8 +254,8 @@ Karpenter는 클러스터 제공자가 제공한 [NodePool](https://karpenter.sh
 오토스케일링 기능을 유지하면서 파드의 리소스 요청을 조정할 수 있다.
 
 {{< caution >}}
-노드 오토스케일링을 사용할 때는 DaemonSet 파드에 대해 수직 워크로드 오토스케일링을 
-설정하는 것은 권장되지 않는다. 오토스케일러는 새로운 노드에서 DaemonSet 파드가 어떤 모습일지를 예측해야 
+노드 오토스케일링을 사용할 때는 데몬셋 파드에 대해 수직 워크로드 오토스케일링을 
+설정하는 것은 권장되지 않는다. 오토스케일러는 새로운 노드에서 데몬셋 파드가 어떤 모습일지를 예측해야 
 노드의 사용 가능한 리소스를 예측할 수 있다. 수직 워크로드 오토스케일링은 이러한 예측을 
 신뢰할 수 없게 만들고, 잘못된 스케일링 결정을 초래할 수 있다.
 {{</ caution >}}
