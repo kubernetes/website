@@ -150,7 +150,7 @@ and then a paragraph, and sometimes you just get the paragraph.
               <summary>{{ T "feature_gate_more_details" }}</summary>
               <p>
               {{- if $locked -}}
-                {{ T "feature_gate_stable_locked" (dict "featureGateName" $feature_gate_name "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "kubernetes" (T "feature_state_kubernetes_label") "stableVersion" .fromVersion) | safeHTML }}</p>
+                {{ T "feature_gate_stable_locked" (dict "featureGateName" $feature_gate_name "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "kubernetes" (T "feature_state_kubernetes_label") "stableVersion" .fromVersion) | safeHTML }}
               {{- else -}}
                 <em>{{ T "feature_gate_stable_graduated" (dict "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "stableVersion" .fromVersion "kubernetes" (T "feature_state_kubernetes_label")) | safeHTML }}</em>
                 {{/* Special message for feature that are both stable and disabled by default */}}
