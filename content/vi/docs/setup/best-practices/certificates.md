@@ -42,7 +42,7 @@ Kubernetes yêu cầu PKI cho các hoạt động sau:
 
 ### Chứng chỉ máy chủ và máy khách của Kubelet
 
-Để thiết lập kết nối an toàn và xác thực chính nó với kubelet, API Server
+Để thiết lập kết nối an toàn và tự xác thực với kubelet, API Server
 yêu cầu một cặp chứng chỉ và khóa máy khách.
 
 Trong kịch bản này, có hai cách tiếp cận để sử dụng chứng chỉ:
@@ -109,7 +109,7 @@ Nếu bạn không muốn sao chép các khóa riêng tư CA vào cụm của m�
 
 Các chứng chỉ bắt buộc:
 
-| CN mặc định                   | CA cha                     | O (trong Subject) | loại             | hosts (SAN)                                         |
+| CN mặc định                   | CA cha                     | O (trong Subject) | kind             | hosts (SAN)                                         |
 |-------------------------------|----------------------------|-------------------|------------------|-----------------------------------------------------|
 | kube-etcd                     | etcd-ca                    |                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                    |                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
@@ -231,7 +231,7 @@ Giá trị của `<nodeName>` cho `kubelet.conf` **phải** khớp chính xác v
 {{< note >}}
 Trong ví dụ trên, `<admin-group>` phụ thuộc vào cách triển khai cụ thể. Một số công cụ ký
 chứng chỉ trong `admin.conf` mặc định để thuộc nhóm `system:masters`.
-`system:masters` là một nhóm siêu người dùng break-glass, có thể bỏ qua lớp phân quyền
+`system:masters` là một nhóm siêu người dùng đặc quyền (break-glass) có thể bỏ qua lớp phân quyền
 của Kubernetes, chẳng hạn như RBAC. Ngoài ra, một số công cụ không tạo một tệp
 `super-admin.conf` riêng biệt với chứng chỉ được gắn vào nhóm siêu người dùng này.
 
