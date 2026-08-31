@@ -29,7 +29,7 @@ kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 
 
 ## Kubernetes APIを探索する {#exploring-the-kubernetes-api}
 
-プロキシサーバーが実行されているときは、`curl`、`wget`、またはブラウザを使用してAPIを探索できます。
+プロキシサーバーが実行されているときは、`curl`、`wget`、またはブラウザーを使用してAPIを探索できます。
 
 APIのバージョンを取得します:
 
