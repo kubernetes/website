@@ -466,12 +466,6 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   }
 }
 
-@media (max-width: 10cm) {
-  .td-home section#video {
-    display: none;
-  }
-}
-
 @media only screen and (max-width: 640px) and (orientation: portrait) {
   .td-home section#video {
     display: none;
