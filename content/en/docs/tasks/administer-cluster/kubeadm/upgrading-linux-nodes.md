@@ -15,8 +15,11 @@ This page explains how to upgrade a Linux Worker Nodes created with `kubeadm`.
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
->[!NOTE]
->There are additional constraints if you are upgrading the control-plane to bump multiple minor versions. Doing so before upgrading the worker nodes results in `kubectl` being more than +/- 1 version from kube-apiserver, which is not allowed by the version skew policy. To prevent this issue, avoid using the node-local `kubectl` before the node upgrade is done.
+{{< note >}}
+There are additional constraints if you are upgrading the control-plane to bump multiple minor versions.
+Doing so before upgrading the worker nodes results in `kubectl` being more than +/- 1 version from kube-apiserver, which is not allowed by the [version skew policy](/releases/version-skew-policy/).
+To prevent this issue, avoid using the node-local `kubectl` before the node upgrade is done.
+{{< /note >}}
 
 <!-- steps -->
 
