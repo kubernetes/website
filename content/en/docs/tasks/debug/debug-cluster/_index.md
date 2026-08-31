@@ -235,10 +235,29 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
   {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling
   (the kube-scheduler handles scheduling).
 
+The exact location of the control plane component log files depends on how your cluster
+was provisioned: some deployment tools write them directly to `/var/log`, while others
+run the components as static Pods (or containers) and place their logs under
+`/var/log/pods` and `/var/log/containers`, possibly using the `/var/log/kube-apiserver.log`-style
+names above as symlinks. On systemd-based systems, you may also need `journalctl`.
+
 ### Worker Nodes
 
 * `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
 * `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
+
+As with the control plane components, kube-proxy is often run as a static Pod, so its
+logs may live under `/var/log/pods` and `/var/log/containers` rather than at
+`/var/log/kube-proxy.log` directly. For the logs of the containers running on the node
+(and for kube-proxy when it runs as a Pod), look in:
+
+* `/var/log/pods/<namespace>_<pod-name>_<pod-uid>/<container-name>/` - one directory per
+  Pod, containing the log files of each of its containers
+* `/var/log/containers/` - symlinks to the individual container log files under
+  `/var/log/pods`, named `<pod-name>_<namespace>_<container-name>-<container-id>.log`
+
+For more details on these directories and on how container logs work, see
+[Logging Architecture](/docs/concepts/cluster-administration/logging/).
 
 ## Cluster failure modes
 
