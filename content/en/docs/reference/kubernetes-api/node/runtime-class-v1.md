@@ -49,7 +49,7 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>overhead</code><br/><em><a href="{{< ref "#Overhead" >}}">Overhead</a></em></td>
@@ -932,6 +932,8 @@ GET /apis/node.k8s.io/v1/watch/runtimeclasses
     </tr>
   </tbody>
 </table>
+
+
 
 
 

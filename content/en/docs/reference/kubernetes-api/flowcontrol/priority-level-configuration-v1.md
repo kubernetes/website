@@ -48,7 +48,7 @@ PriorityLevelConfiguration represents the configuration of a priority level.
       <td>`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a></em></td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a></em></td>
       <td>`spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
     <tr>
@@ -192,7 +192,7 @@ LimitedPriorityLevelConfiguration specifies how to handle requests that are subj
       <td>`lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.  LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )</td>
     </tr>
     <tr>
-      <td><code>limitResponse</code><br/><em><a href="{{< ref "#LimitResponse" >}}">LimitResponse</a></em></td>
+      <td><code>limitResponse</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#LimitResponse" >}}">LimitResponse</a></em></td>
       <td>`limitResponse` indicates what to do with requests that can not be executed right now</td>
     </tr>
     <tr>
@@ -226,10 +226,10 @@ PriorityLevelConfigurationCondition defines the condition of priority level.
     </tr>
     <tr>
       <td><code>status</code><br/><em>string</em></td>
-      <td>`status` is the status of the condition. Can be True, False, Unknown. Required.</td>
+      <td>`status` is the status of the condition. Should be specified and set to one of True, False, Unknown.</td>
     </tr>
     <tr>
-      <td><code>type</code><br/><em>string</em></td>
+      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>`type` is the type of the condition. Required.</td>
     </tr>
   </tbody>
@@ -1284,6 +1284,8 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/sta
     </tr>
   </tbody>
 </table>
+
+
 
 
 

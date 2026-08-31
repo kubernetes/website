@@ -45,7 +45,7 @@ Scale represents a scaling request for a resource.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.</td>
+      <td>metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.</td>
     </tr>
     <tr>
       <td><code>spec</code><br/><em><a href="{{< ref "#ScaleSpec" >}}">ScaleSpec</a></em></td>
@@ -95,6 +95,8 @@ ScaleStatus represents the current status of a scale subresource.
     </tr>
   </tbody>
 </table>
+
+
 
 
 

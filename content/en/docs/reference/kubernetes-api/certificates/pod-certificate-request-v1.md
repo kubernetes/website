@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "scheduling.k8s.io/v1alpha2"
-  import: "k8s.io/api/scheduling/v1alpha2"
-  kind: "Workload"
+  apiVersion: "certificates.k8s.io/v1"
+  import: "k8s.io/api/certificates/v1"
+  kind: "PodCertificateRequest"
 content_type: "api_reference"
-description: "Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate."
-title: "Workload"
+description: "PodCertificateRequest encodes a pod requesting a certificate from a given signer.\n\nKubelets use this API to implement podCertificate projected volumes"
+title: "PodCertificateRequest"
 weight: 30
 auto_generated: true
 ---
@@ -21,14 +21,16 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: scheduling.k8s.io/v1alpha2`
+`apiVersion: certificates.k8s.io/v1`
 
-`import "k8s.io/api/scheduling/v1alpha2"`
+`import "k8s.io/api/certificates/v1"`
 
 
-## Workload {#Workload}
+## PodCertificateRequest {#PodCertificateRequest}
 
-Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+
+Kubelets use this API to implement podCertificate projected volumes
 
 <hr>
 
@@ -45,19 +47,23 @@ Workload allows for expressing scheduling constraints that should be used when m
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata contains the object metadata.</td>
     </tr>
     <tr>
-      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#WorkloadSpec" >}}">WorkloadSpec</a></em></td>
-      <td>Spec defines the desired behavior of a Workload.</td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodCertificateRequestSpec" >}}">PodCertificateRequestSpec</a></em></td>
+      <td>spec contains the details about the certificate being requested.</td>
+    </tr>
+    <tr>
+      <td><code>status</code><br/><em><a href="{{< ref "#PodCertificateRequestStatus" >}}">PodCertificateRequestStatus</a></em></td>
+      <td>status contains the issued certificate, and a standard set of conditions.</td>
     </tr>
   </tbody>
 </table>
 
 
-## WorkloadSpec {#WorkloadSpec}
+## PodCertificateRequestSpec {#PodCertificateRequestSpec}
 
-WorkloadSpec defines the desired state of a Workload.
+PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
 
 <hr>
 
@@ -65,20 +71,85 @@ WorkloadSpec defines the desired state of a Workload.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>controllerRef</code><br/><em><a href="{{< ref "../definitions/typed-local-object-reference-v1#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a></em></td>
-      <td>ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.</td>
+      <td><code>maxExpirationSeconds</code><br/><em>integer</em></td>
+      <td>maxExpirationSeconds is the maximum lifetime permitted for the certificate.  If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).  The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.</td>
     </tr>
     <tr>
-      <td><code>podGroupTemplates</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#PodGroupTemplate" >}}">PodGroupTemplate array</a></em></td>
-      <td>PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.</td>
+      <td><code>nodeName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>nodeName is the name of the node the pod is assigned to.</td>
+    </tr>
+    <tr>
+      <td><code>nodeUID</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>nodeUID is the UID of the node the pod is assigned to.</td>
+    </tr>
+    <tr>
+      <td><code>podName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>podName is the name of the pod into which the certificate will be mounted.</td>
+    </tr>
+    <tr>
+      <td><code>podUID</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>podUID is the UID of the pod into which the certificate will be mounted.</td>
+    </tr>
+    <tr>
+      <td><code>serviceAccountName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>serviceAccountName is the name of the service account the pod is running as.</td>
+    </tr>
+    <tr>
+      <td><code>serviceAccountUID</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>serviceAccountUID is the UID of the service account the pod is running as.</td>
+    </tr>
+    <tr>
+      <td><code>signerName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>signerName indicates the requested signer.  All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.</td>
+    </tr>
+    <tr>
+      <td><code>stubPKCS10Request</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.  Most signer implementations will ignore the contents of the CSR except to extract the subject public key. The API server automatically verifies the CSR signature during admission, so the signer does not need to repeat the verification.  CSRs generated by kubelet are completely empty.  The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.  Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.</td>
+    </tr>
+    <tr>
+      <td><code>unverifiedUserAnnotations</code><br/><em>object</em></td>
+      <td>unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.  Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.  Signers should document the keys and values they support.  Signers should deny requests that contain keys they do not recognize.</td>
     </tr>
   </tbody>
 </table>
 
 
-## WorkloadList {#WorkloadList}
+## PodCertificateRequestStatus {#PodCertificateRequestStatus}
 
-WorkloadList contains a list of Workload resources.
+PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>beginRefreshAt</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.  This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.</td>
+    </tr>
+    <tr>
+      <td><code>certificateChain</code><br/><em>string</em></td>
+      <td>certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.  If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.  Validation requirements:  1. certificateChain must consist of one or more PEM-formatted certificates.  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as     described in section 4 of RFC5280.  If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.</td>
+    </tr>
+    <tr>
+      <td><code>conditions</code><br/><em><a href="{{< ref "../definitions/condition-v1-meta#Condition" >}}">Condition array</a></em><br/><em>patch strategy: merge on key <code>type</code></em></td>
+      <td>conditions applied to the request.  The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".  If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.</td>
+    </tr>
+    <tr>
+      <td><code>notAfter</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.</td>
+    </tr>
+    <tr>
+      <td><code>notBefore</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## PodCertificateRequestList {#PodCertificateRequestList}
+
+PodCertificateRequestList is a collection of PodCertificateRequest objects
 
 <hr>
 
@@ -90,8 +161,8 @@ WorkloadList contains a list of Workload resources.
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload array</a></em></td>
-      <td>Items is the list of Workloads.</td>
+      <td><code>items</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest array</a></em></td>
+      <td>items is a collection of PodCertificateRequest objects</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -99,48 +170,7 @@ WorkloadList contains a list of Workload resources.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/list-meta-v1-meta#ListMeta" >}}">ListMeta</a></em></td>
-      <td>Standard list metadata.</td>
-    </tr>
-  </tbody>
-</table>
-
-
-## PodGroupTemplate {#PodGroupTemplate}
-
-PodGroupTemplate represents a template for a set of pods with a scheduling policy.
-
-<hr>
-
-<table>
-  <thead><tr><th>Field</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>disruptionMode</code><br/><em>string</em></td>
-      <td>DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.<br/><br/>Possible enum values:<br/> - `"Pod"` means that individual pods can be disrupted or preempted independently. It doesn't depend on exact set of pods currently running in this PodGroup.<br/> - `"PodGroup"` means that the whole PodGroup needs to be disrupted or preempted together.</td>
-    </tr>
-    <tr>
-      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.</td>
-    </tr>
-    <tr>
-      <td><code>priority</code><br/><em>integer</em></td>
-      <td>Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>priorityClassName</code><br/><em>string</em></td>
-      <td>PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>resourceClaims</code><br/><em><a href="{{< ref "pod-group-v1alpha2#PodGroupResourceClaim" >}}">PodGroupResourceClaim array</a></em><br/><em>patch strategy: merge,retainKeys on key <code>name</code></em></td>
-      <td>ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.  This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.  This field is immutable.</td>
-    </tr>
-    <tr>
-      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "pod-group-v1alpha2#PodGroupSchedulingConstraints" >}}">PodGroupSchedulingConstraints</a></em></td>
-      <td>SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.</td>
-    </tr>
-    <tr>
-      <td><code>schedulingPolicy</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "pod-group-v1alpha2#PodGroupSchedulingPolicy" >}}">PodGroupSchedulingPolicy</a></em></td>
-      <td>SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.</td>
+      <td>metadata contains the list metadata.</td>
     </tr>
   </tbody>
 </table>
@@ -156,7 +186,7 @@ PodGroupTemplate represents a template for a set of pods with a scheduling polic
 
 #### HTTP Request
 
-POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
+POST /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests
 
 
 #### Path Parameters
@@ -209,7 +239,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -224,17 +254,17 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -244,7 +274,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
+PATCH /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}
 
 
 #### Path Parameters
@@ -255,7 +285,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the Workload</td>
+      <td>name of the PodCertificateRequest</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -322,12 +352,12 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -337,7 +367,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
+PUT /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}
 
 
 #### Path Parameters
@@ -348,7 +378,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the Workload</td>
+      <td>name of the PodCertificateRequest</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -395,7 +425,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -410,12 +440,12 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -425,7 +455,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
+DELETE /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}
 
 
 #### Path Parameters
@@ -436,7 +466,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the Workload</td>
+      <td>name of the PodCertificateRequest</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -523,7 +553,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
+DELETE /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests
 
 
 #### Path Parameters
@@ -656,7 +686,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
+GET /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}
 
 
 #### Path Parameters
@@ -667,7 +697,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the Workload</td>
+      <td>name of the PodCertificateRequest</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -701,7 +731,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#Workload" >}}">Workload</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -711,7 +741,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
+GET /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests
 
 
 #### Path Parameters
@@ -806,7 +836,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#WorkloadList" >}}">WorkloadList</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequestList" >}}">PodCertificateRequestList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -816,7 +846,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/workloads
+GET /apis/certificates.k8s.io/v1/podcertificaterequests
 
 
 
@@ -898,7 +928,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/workloads
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "workload-v1alpha2#WorkloadList" >}}">WorkloadList</a></em></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequestList" >}}">PodCertificateRequestList</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -908,7 +938,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/workloads
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/workloads/{name}
+GET /apis/certificates.k8s.io/v1/watch/namespaces/{namespace}/podcertificaterequests/{name}
 
 
 #### Path Parameters
@@ -919,7 +949,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/workloads/{nam
     <tr>
       <td><code>name</code></td>
       <td><em>string</em></td>
-      <td>name of the Workload</td>
+      <td>name of the PodCertificateRequest</td>
     </tr>
     <tr>
       <td><code>namespace</code></td>
@@ -1018,7 +1048,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/workloads/{nam
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/workloads
+GET /apis/certificates.k8s.io/v1/watch/namespaces/{namespace}/podcertificaterequests
 
 
 #### Path Parameters
@@ -1123,7 +1153,7 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha2/watch/workloads
+GET /apis/certificates.k8s.io/v1/watch/podcertificaterequests
 
 
 
@@ -1209,6 +1239,244 @@ GET /apis/scheduling.k8s.io/v1alpha2/watch/workloads
     </tr>
   </tbody>
 </table>
+
+
+### `patch` Patch Status
+
+#### HTTP Request
+
+PATCH /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the PodCertificateRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+    <tr>
+      <td><code>force</code></td>
+      <td><em>boolean</em></td>
+      <td>Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "../definitions/patch-v1-meta#Patch" >}}">Patch</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` Read Status
+
+#### HTTP Request
+
+GET /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the PodCertificateRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `put` Replace Status
+
+#### HTTP Request
+
+PUT /apis/certificates.k8s.io/v1/namespaces/{namespace}/podcertificaterequests/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the PodCertificateRequest</td>
+    </tr>
+    <tr>
+      <td><code>namespace</code></td>
+      <td><em>string</em></td>
+      <td>object name and auth scope, such as for teams and projects</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "pod-certificate-request-v1#PodCertificateRequest" >}}">PodCertificateRequest</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 
 

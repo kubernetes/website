@@ -306,7 +306,7 @@ HPAScalingRules configures the scaling behavior for one direction via scaling Po
 
 Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
-The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 
 <hr>
 
@@ -327,7 +327,7 @@ The tolerance is applied to the metric values and prevents scaling too eagerly f
     </tr>
     <tr>
       <td><code>tolerance</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
-      <td>tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).  For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.  This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.</td>
+      <td>tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).  For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.</td>
     </tr>
   </tbody>
 </table>
@@ -370,6 +370,10 @@ HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscale
     <tr>
       <td><code>message</code><br/><em>string</em></td>
       <td>message is a human-readable explanation containing details about the transition</td>
+    </tr>
+    <tr>
+      <td><code>observedGeneration</code><br/><em>integer</em></td>
+      <td>observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.</td>
     </tr>
     <tr>
       <td><code>reason</code><br/><em>string</em></td>
@@ -456,7 +460,7 @@ MetricStatus describes the last-read state of a single metric.
   <tbody>
     <tr>
       <td><code>containerResource</code><br/><em><a href="{{< ref "#ContainerResourceMetricStatus" >}}">ContainerResourceMetricStatus</a></em></td>
-      <td>container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.</td>
+      <td>containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.</td>
     </tr>
     <tr>
       <td><code>external</code><br/><em><a href="{{< ref "#ExternalMetricStatus" >}}">ExternalMetricStatus</a></em></td>
@@ -522,7 +526,7 @@ MetricValueStatus holds the current value for a metric
   <tbody>
     <tr>
       <td><code>averageUtilization</code><br/><em>integer</em></td>
-      <td>currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.</td>
+      <td>averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.</td>
     </tr>
     <tr>
       <td><code>averageValue</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
@@ -576,7 +580,7 @@ ObjectMetricStatus indicates the current value of a metric describing a kubernet
     </tr>
     <tr>
       <td><code>describedObject</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#CrossVersionObjectReference" >}}">CrossVersionObjectReference</a></em></td>
-      <td>DescribedObject specifies the descriptions of a object,such as kind,name apiVersion</td>
+      <td>describedObject specifies the descriptions of a object,such as kind,name apiVersion</td>
     </tr>
     <tr>
       <td><code>metric</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#MetricIdentifier" >}}">MetricIdentifier</a></em></td>
@@ -1969,6 +1973,8 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
     </tr>
   </tbody>
 </table>
+
+
 
 
 

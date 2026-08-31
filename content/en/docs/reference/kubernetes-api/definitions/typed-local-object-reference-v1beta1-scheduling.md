@@ -1,7 +1,7 @@
 ---
 api_metadata:
-  apiVersion: "scheduling.k8s.io/v1alpha2"
-  import: "k8s.io/api/scheduling/v1alpha2"
+  apiVersion: "scheduling.k8s.io/v1beta1"
+  import: "k8s.io/api/scheduling/v1beta1"
   kind: "TypedLocalObjectReference"
 content_type: "api_reference"
 description: "TypedLocalObjectReference allows to reference typed object inside the same namespace."
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: scheduling.k8s.io/v1alpha2`
+`apiVersion: scheduling.k8s.io/v1beta1`
 
-`import "k8s.io/api/scheduling/v1alpha2"`
+`import "k8s.io/api/scheduling/v1beta1"`
 
 
 ## TypedLocalObjectReference {#TypedLocalObjectReference}
@@ -37,18 +37,20 @@ TypedLocalObjectReference allows to reference typed object inside the same names
   <tbody>
     <tr>
       <td><code>apiGroup</code><br/><em>string</em></td>
-      <td>APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.</td>
+      <td>apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.</td>
     </tr>
     <tr>
       <td><code>kind</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Kind is the type of resource being referenced. It must be a path segment name.</td>
+      <td>kind is the type of resource being referenced. It must be a path segment name.</td>
     </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name is the name of resource being referenced. It must be a path segment name.</td>
+      <td>name is the name of resource being referenced. It must be a path segment name.</td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 
