@@ -90,7 +90,7 @@ DaemonSetSpec 是守护进程集的规约。
 
   对由守护进程集管理的 Pod 的标签查询。Pod 必须匹配此查询才能被此 DaemonSet 控制。
   查询条件必须与 Pod 模板的标签匹配。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  https://kubernetes.io/zh-cn/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!--
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
@@ -102,7 +102,7 @@ DaemonSetSpec 是守护进程集的规约。
   描述将要创建的 Pod 的对象。DaemonSet 将在与模板的节点选择器匹配的每个节点上
   （如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。`template.spec.restartPolicy`
   唯一被允许配置的值是 "Always"。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/#pod-template
+  https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
 - **minReadySeconds** (int32)

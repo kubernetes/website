@@ -91,7 +91,7 @@ JobSpec 描述了任务执行的情况。
 
   描述执行任务时将创建的 Pod。`template.spec.restartPolicy` 可以取的值只能是
   "Never" 或 "OnFailure"。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 - **parallelism** (int32)
 
@@ -99,7 +99,7 @@ JobSpec 描述了任务执行的情况。
   当 `(.spec.completions - .status.successful) < .spec.parallelism` 时，
   即当剩余的工作小于最大并行度时，在稳定状态下运行的 Pod 的实际数量将小于此数量。
   更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 ### Lifecycle
 
@@ -113,7 +113,7 @@ JobSpec 描述了任务执行的情况。
   指定任务应该运行并预期成功完成的 Pod 个数。设置为空意味着任何 Pod 的成功都标识着所有 Pod 的成功，
   并允许 `parallelism` 设置为任意正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。
   更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 <!--
 - **completionMode** (string)
@@ -229,7 +229,7 @@ JobSpec 描述了任务执行的情况。
   当此字段为 true 时，用户负责选择唯一标签并指定选择器。
   未能选择唯一标签可能会导致此任务和其他任务无法正常运行。但是，你可能会在使用旧的 `extensions/v1beta1` API
   创建的任务中看到 `manualSelector=true`。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/#specifying-your-own-pod-selector
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 <!--
 ### Beta level
@@ -658,7 +658,7 @@ JobStatus 表示 Job 的当前状态。
   此外，任务也不能处于 "Complete" 和 "FailureTarget" 状态。"Complete"、"Failed" 和 "FailureTarget" 状态不能被禁用。
 
   更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
   <a name="JobCondition"></a>
   **JobCondition 描述任务的当前状况。**
