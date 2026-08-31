@@ -411,7 +411,7 @@ Before reviewing blog PRs, be familiar with the [blog guidelines](/docs/contribu
 [#sig-docs-blog Slack 频道](https://kubernetes.slack.com/archives/CJDHVD54J)请求输入。
 
 在审查博客的拉取请求（PR）之前，请熟悉[博客指南](/zh-cn/docs/contribute/blog/guidelines/)
-和[提交博文和案例分析](/zh-cn/docs/contribute/new-content/blogs-case-studies/)。
+和[贡献新内容](/zh-cn/docs/contribute/new-content/)。
 
 <!--
 Make sure you also know about [evergreen](/docs/contribute/blog/#maintenance-evergreen) articles

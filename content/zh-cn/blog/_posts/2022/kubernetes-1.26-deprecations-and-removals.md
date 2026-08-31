@@ -59,7 +59,7 @@ Following the adoption of the [Container Runtime Interface](/docs/concepts/archi
 -->
 ## 有关移除 CRI `v1alpha2` API 和 containerd 1.5 支持的说明 {#cri-api-removal}
 
-在 v1.24 中采用[容器运行时接口](/zh-cn/docs/concepts/architecture/cri/) (CRI)
+在 v1.24 中采用[容器运行时接口](/zh-cn/docs/concepts/containers/cri/) (CRI)
 并[移除 dockershim] 之后，CRI 是 Kubernetes 与不同容器运行时交互所支持和记录的方式。
 每个 kubelet 会协商使用哪个版本的 CRI 来配合该节点上的容器运行时。
 

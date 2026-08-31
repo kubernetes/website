@@ -1,7 +1,7 @@
 ---
 title: 容器运行时接口（Container Runtime Interface；CRI）
 id: cri
-full_link: /zh-cn/docs/concepts/architecture/cri
+full_link: /zh-cn/docs/concepts/containers/cri/
 short_description: >
   在 kubelet 和本地容器运行时之间通讯的协议 
 

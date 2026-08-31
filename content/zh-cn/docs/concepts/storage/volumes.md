@@ -2130,7 +2130,7 @@ The allowed values are:
   * `readOnly` 设置为 `true`
   * `mountPropagation` 不设置，或设置为 `None`
   * 主机运行 Linux 内核 v5.12 或更高版本
-  * [CRI 级别](/zh-cn/docs/concepts/architecture/cri)的容器运行时支持递归只读挂载
+  * [CRI 级别](/zh-cn/docs/concepts/containers/cri/)的容器运行时支持递归只读挂载
   * OCI 级别的容器运行时支持递归只读挂载
 
   如果其中任何一个不满足，递归只读挂载将会失败。

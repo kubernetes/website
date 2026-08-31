@@ -284,7 +284,7 @@ option. Your cluster requirements may need a different configuration.
 
 ### Steps for the first control plane node
 -->
-## 使用堆控制平面和 etcd 节点
+## 使用堆控制平面和 etcd 节点 {#stacked-control-plane-and-etcd-nodes}
 
 ### 控制平面节点的第一步
 

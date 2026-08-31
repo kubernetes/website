@@ -112,7 +112,7 @@ want to know whether you use Docker Engine with dockershim.
 -->
 
 容器运行时使用 Unix Socket 与 kubelet 通信，这一通信使用基于 gRPC 框架的
-[CRI 协议](/zh-cn/docs/concepts/architecture/cri/)。kubelet 扮演客户端，运行时扮演服务器端。
+[CRI 协议](/zh-cn/docs/concepts/containers/cri/)。kubelet 扮演客户端，运行时扮演服务器端。
 在某些情况下，你可能想知道你的节点使用的是哪个 socket。
 如若集群是 Kubernetes v1.24 及以后的版本，
 或许你想知道当前运行时是否是使用 dockershim 的 Docker Engine。

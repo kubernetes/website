@@ -250,7 +250,7 @@ PodSpec 是对 Pod 的描述。
 
   nodeSelector 是一个选择算符，这些算符必须取值为 true 才能认为 Pod 适合在节点上运行。
   选择算符必须与节点的标签匹配，以便在该节点上调度 Pod。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/configuration/assign-pod-node/
+  https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/
 
 <!--
 - **nodeName** (string)

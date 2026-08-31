@@ -43,7 +43,7 @@ new pods are created, preventing them from entering a pending state while the cl
 - 你应该已经基本了解了 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、Pod
   {{<glossary_tooltip text="优先级" term_id="pod-priority">}}和
   {{< glossary_tooltip text="PriorityClass" term_id="priority-class" >}}。
-- 你的集群必须设置一个基于需求管理节点的[自动扩缩程序](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
+- 你的集群必须设置一个基于需求管理节点的[自动扩缩程序](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)。
 
 <!-- steps -->
 
@@ -219,7 +219,7 @@ If you use Karpenter or another node autoscaler that uses the same heuristic,
 the replica count you set here  also sets a minimum node count for your cluster.
 -->
 一些自动扩缩组件，特别是
-[Karpenter](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/#autoscaler-karpenter)，
+[Karpenter](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/#karpenter)，
 在考虑节点扩缩容时将偏好的亲和性规则视为硬性规则。如果你使用 Karpenter
 或其他使用同样启发式的节点扩缩容组件，你在此处设置的副本数也就是你的集群的最少节点数。
 {{< /note >}}
@@ -236,7 +236,7 @@ the replica count you set here  also sets a minimum node count for your cluster.
 -->
 - 进一步了解 [PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
   及其如何影响 Pod 调度。
-- 探索[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)，
+- 探索[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)，
   以基于工作负载需求动态调整集群的大小。
 - 了解 [Pod 抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)，
   这是 Kubernetes 处理资源竞争的关键机制。这篇文档还涵盖了**驱逐**，

@@ -86,7 +86,7 @@ as a permission check
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)).
 -->
 大多数 Kubernetes API
-资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
+资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/#kubernetes-objects)：
 它们代表集群上某个概念的具体实例，例如 Pod 或名字空间。
 少数 API 资源类型是“虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），

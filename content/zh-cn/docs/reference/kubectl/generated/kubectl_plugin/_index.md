@@ -29,7 +29,7 @@ Provides utilities for interacting with plugins.
 
 插件提供主要命令行发布版本所不具备的扩展功能，请参阅文档和示例以获取有关如何编写自己的插件的更多信息。
 
-发现和安装插件的最简单方法是通过 kubernetes 子项目 [krew](krew.sigs.k8s.io)，要安装 krew 请参阅
+发现和安装插件的最简单方法是通过 kubernetes 子项目 [krew](https://krew.sigs.k8s.io/)，要安装 krew 请参阅
 [krew.sigs.k8s.io](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)。
 
 ```shell

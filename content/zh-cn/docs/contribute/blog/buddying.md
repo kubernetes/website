@@ -29,7 +29,7 @@ Kubernetes 有两个官方博客，同时 CNCF 也有自己的博客，你也可
 当人们作为作者为任一博客撰稿时，Kubernetes 项目会将作者配对为**写作伙伴**。
 本页面解释了如何履行伙伴角色。
 
-在继续阅读本页面之前，你应该确保至少已经阅读了[文章提交](/zh-cn/docs/contribute/blog/submission/)的概述。
+在继续阅读本页面之前，你应该确保至少已经阅读了[文章提交](/zh-cn/docs/contribute/blog/article-submission/)的概述。
 
 <!-- body -->
 
@@ -155,7 +155,7 @@ need to do.
 
 无论他们选择哪种方式，你的角色是提供反馈，使博客团队能够轻松完成审核，
 并确认文章可以作为草稿合并。有关作者需要完成的操作，
-请参阅[向 Kubernetes 博客提交文章](/zh-cn/docs/contribute/blog/submission/)。
+请参阅[向 Kubernetes 博客提交文章](/zh-cn/docs/contribute/blog/article-submission/)。
 
 <!--
 Use GitHub suggestions to point out any required changes.

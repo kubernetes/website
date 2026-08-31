@@ -263,7 +263,7 @@ Swap configuration on a node is exposed to a cluster admin via the [`memorySwap`
 <!--
 The kubelet [employs the CRI](/docs/concepts/architecture/cri/) (container runtime interface) API to direct the CRI to configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will enable the desired swap configuration for a container. The CRI is then responsible to write these settings to the container-level cgroup.
 -->
-kubelet [使用 CRI](/zh-cn/docs/concepts/architecture/cri/)
+kubelet [使用 CRI](/zh-cn/docs/concepts/containers/cri/)
 （容器运行时接口）API 来指示 CRI 配置特定的 cgroup v2 参数（例如 `memory.swap.max`），
 配置方式要支持容器所期望的交换内存配置。接下来，CRI 负责将这些设置写入容器级的 cgroup。
 

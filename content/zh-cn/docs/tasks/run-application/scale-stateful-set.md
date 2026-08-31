@@ -94,7 +94,7 @@ update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl app
 -->
 ### 对 StatefulSet 执行就地更新    {#make-in-place-updates-on-statefulset}
 
-另外, 你可以[就地更新](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) StatefulSet。
+另外, 你可以[就地更新](/zh-cn/docs/concepts/workloads/management/#in-place-updates-of-resources) StatefulSet。
 
 如果你的 StatefulSet 最初通过 `kubectl apply` 或 `kubectl create --save-config` 创建，
 你可以更新 StatefulSet 清单中的 `.spec.replicas`，然后执行命令 `kubectl apply`：

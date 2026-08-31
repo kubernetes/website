@@ -365,7 +365,7 @@ simply as *nodes*).
   tools available to automatically manage your nodes and the capacity they
   provide.
 -->
-- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
+- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)，
   了解可以自动管理节点的工具及其提供的能力。
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure

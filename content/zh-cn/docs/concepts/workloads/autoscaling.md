@@ -272,4 +272,4 @@ for more information.
   - [HorizontalPodAutoscaler 演练](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
 - [自动扩缩集群 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-- 了解[节点自动扩缩]((/zh-cn/docs/concepts/cluster-administration/node-autoscaling/))
+- 了解[节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)

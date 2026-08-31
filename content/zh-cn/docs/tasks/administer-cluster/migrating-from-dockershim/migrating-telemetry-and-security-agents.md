@@ -64,7 +64,7 @@ Kubernetes 负责网络和调度，依靠 Docker Engine
 只能从 Kubernetes 组件中获得。其他数据，例如容器指标，不是容器运行时的责任。
 早期遥测代理需要查询容器运行时**和** Kubernetes 以报告准确的信息。
 随着时间的推移，Kubernetes 获得了支持多种运行时的能力，
-现在支持任何兼容[容器运行时接口](/zh-cn/docs/concepts/architecture/cri/)的运行时。
+现在支持任何兼容[容器运行时接口](/zh-cn/docs/concepts/containers/cri/)的运行时。
 
 <!-- 
 Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent

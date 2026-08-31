@@ -260,7 +260,7 @@ For that reason, an additional service [cri-dockerd](https://mirantis.github.io/
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
-Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，
+Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/containers/cri/)，
 而这是容器运行时在 Kubernetes 中工作所需要的。
 为此，必须安装一个额外的服务 [cri-dockerd](https://mirantis.github.io/cri-dockerd/)。
 cri-dockerd 是一个基于传统的内置 Docker 引擎支持的项目，

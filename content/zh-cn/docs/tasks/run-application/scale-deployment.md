@@ -373,4 +373,4 @@ kubectl delete deployment nginx-deployment
 - 进一步了解 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 - 学习[水平 Pod 自动扩缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
 - 了解如何[扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
-- 阅读[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)的相关内容。
+- 阅读[管理资源](/zh-cn/docs/concepts/workloads/management/)的相关内容。
