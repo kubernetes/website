@@ -262,7 +262,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will
   not display the offending alias IP address. Alternatively an API endpoint specific to
-  DigitalOcean allows to query for the anchor IP from the droplet:
+  DigitalOcean allows you to query for the anchor IP from the droplet:
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
