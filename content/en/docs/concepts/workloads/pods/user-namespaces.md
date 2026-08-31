@@ -66,7 +66,7 @@ on GitHub.
 
 ## Introduction
 
-User namespaces is a Linux feature that allows to map users in the container to
+User namespaces is a Linux feature that allows you to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
