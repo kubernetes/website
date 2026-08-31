@@ -27,7 +27,7 @@ To prevent this issue, avoid using the node-local `kubectl` before the node upgr
 
 If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
 enable the package repository for the desired Kubernetes minor release. This is explained in
-[Changing the Kubernetes package repository](/docs/tasks/administer-cluster//change-package-repository/)
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
 
 {{% legacy-repos-deprecation %}}
