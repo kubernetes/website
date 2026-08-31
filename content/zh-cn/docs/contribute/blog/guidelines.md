@@ -78,7 +78,7 @@ diverse - for example, a submission shouldn't contain only links back to a singl
 
 文章必须包含适用于整个 Kubernetes 社区的内容。例如，投稿应侧重于上游
 Kubernetes，而不是特定供应商的配置。
-对于提交到主博客且不是[镜像文章](/zh-cn/docs/contribute/blog/article-mirroring/)的文章，
+对于提交到主博客且不是[镜像文章](/zh-cn/docs/contribute/blog/mirroring/)的文章，
 文章中的超链接应通常指向官方 Kubernetes 文档。
 在进行外部引用时，链接应该是多样的 - 例如，投稿不应只包含返回单个公司博客的链接。
 
@@ -152,7 +152,7 @@ The project typically [mirrors](/docs/contribute/blog/mirroring/) these articles
 与参与 Kubernetes SIG 活动或其成果相关的主题总是合适的
 （参见[贡献者通讯团队](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)中的工作以获得这些帖子的支持）。
 
-该项目通常会将这些文章[镜像](/zh-cn/docs/contribute/blog/article-mirroring/)到两个博客上。
+该项目通常会将这些文章[镜像](/zh-cn/docs/contribute/blog/mirroring/)到两个博客上。
 
 <!--
 ## National restrictions on content

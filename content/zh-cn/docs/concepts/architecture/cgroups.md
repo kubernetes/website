@@ -291,5 +291,5 @@ Kubernetes 已弃用 CGroup v1。
 - Learn more about [cgroup drivers](/docs/setup/production-environment/container-runtimes#cgroup-drivers)
 -->
 - 进一步了解 [CGroup](https://man7.org/linux/man-pages/man7/cgroups.7.html)
-- 进一步了解[容器运行时](/zh-cn/docs/concepts/containers/cri/)
+- 进一步了解[容器运行时](/zh-cn/docs/concepts/architecture/cri)
 - 进一步了解 [CGroup 驱动](/zh-cn/docs/setup/production-environment/container-runtimes#cgroup-drivers)

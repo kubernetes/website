@@ -43,7 +43,7 @@ You can read more about bootstrap tokens here:
   https://kubernetes.io/docs/admin/bootstrap-tokens/
 -->
 你可以在此处阅读有关引导令牌（bootstrap token）的更多信息：
-  https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/
+  https://kubernetes.io/zh-cn/docs/admin/bootstrap-tokens/
 
 ```
 kubeadm token [flags]
