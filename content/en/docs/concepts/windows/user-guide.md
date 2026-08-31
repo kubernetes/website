@@ -170,7 +170,7 @@ to `windows`.
 {{< note >}}
 If you are running a version of Kubernetes older than 1.24, you may need to enable
 the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be able to set a value for `.spec.pod.os`.
+to be able to set a value for `.spec.os.name`.
 {{< /note >}}
 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
