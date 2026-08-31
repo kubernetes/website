@@ -13,7 +13,7 @@ author: >
   Matt Matejczyk (Google)
 ---
 
-AI/ML and complex batch workloads continue to push the boundaries of Kubernetes scheduling. Following the foundational workload-centric enhancements introduced in previous releases, Kubernetes v1.37 delivers the next major milestone in the Workload-Aware Scheduling (WAS) journey. In this release, the core Workload and PodGroup APIs—enabling gang scheduling—along with Workload-Aware Preemption (WAP) and Dynamic Resource Allocation (DRA) ResourceClaim support, all graduate to Beta, solidifying their role in the Kubernetes ecosystem.
+AI/ML and complex batch workloads continue to push the boundaries of Kubernetes scheduling. Following the foundational workload-centric enhancements introduced in previous releases, Kubernetes v1.37 delivers the next major milestone in the Workload-Aware Scheduling (WAS) journey. In this release, the core Workload and PodGroup APIs—enabling gang scheduling—along with Workload-Aware Preemption (WAP) and shared DRA ResourceClaims for PodGroups, all graduate to Beta, solidifying their role in the Kubernetes ecosystem.
 
 To address the hierarchical scheduling requirements of modern high-performance distributed workloads, v1.37 introduces the new [CompositePodGroup](/docs/concepts/workloads/compositepodgroup-api/) API.
 This new API allows expressing multi-level topology constraints, gang scheduling, and preemption policies for complex, heterogeneous groups of Pods. Crucially, this architectural expansion unlocks native scheduling support for advanced workload structures commonly managed by higher-order extension APIs such as JobSet and LeaderWorkerSet (LWS).
@@ -354,7 +354,7 @@ Neither the building blocks nor the library have a feature gate of their own; th
 
 ## Integration with the Job controller
 
-Building upon the new Controller Integration APIs, the Job API now features an explicit `.spec.scheduling` field, so you declare how a Job should be scheduled instead of relying on the Job controller to infer it from the Job's shape. This expands support well beyond static, indexed, and fully-parallel Jobs.
+Building upon the new _controller integration_ APIs, the Job API now features an explicit `.spec.scheduling` field, so you can declare how a Job should be scheduled instead of relying on the Job controller to infer it from the Job's shape. This expands support well beyond static, indexed, and fully-parallel Jobs.
 
 `.spec.scheduling` is composed of the building blocks described above:
 
