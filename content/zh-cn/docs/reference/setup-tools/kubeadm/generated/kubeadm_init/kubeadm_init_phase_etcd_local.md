@@ -1,11 +1,10 @@
 <!--
 ### Synopsis
+
+Generate the static Pod manifest file for a local, single-node local etcd instance
 -->
 ### 概要
 
-<!--
-Generate the static Pod manifest file for a local, single-node local etcd instance
--->
 为本地单节点 etcd 实例生成静态 Pod 清单文件。
 
 ```shell
@@ -57,7 +56,8 @@ kubeadm init phase etcd local --config config.yaml
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The path where to save and store the certificates.
@@ -71,7 +71,8 @@ The path where to save and store the certificates.
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -85,7 +86,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -99,7 +101,8 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for local
@@ -118,7 +121,8 @@ local 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -132,17 +136,20 @@ Choose a container registry to pull control plane images from
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
 例如，"kube-apiserver0+merge.yaml" 或是简单的 "etcd.json"。
-&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、
-&quot;etcd&quot; 、&quot;kubeletconfiguration&quot; 之一。
-&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
-并且它们与 kubectl 支持的补丁格式相匹配。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、
+&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、
+&quot;etcd&quot; 、&quot;kubeletconfiguration&quot;、
+&quot;corednsdeployment&quot;、&quot;kubeproxydaemonset&quot; 之一。
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 
+或者 &quot;json&quot; 之一，并且它们与 kubectl 支持的补丁格式相匹配。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
 &quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
@@ -169,7 +176,8 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

@@ -194,13 +194,9 @@ Don't apply any changes; just output what would be done.
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-NodeLocalCRISocket=true|false (default=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
-NodeLocalCRISocket=true|false (默认值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -273,13 +269,15 @@ Choose a specific Kubernetes version for the control plane.
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或是简单的 &quot;etcd.json&quot;。
-&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
-&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
-并且它们与 kubectl 支持的补丁格式相匹配。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;
+kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、
+&quot;kubeletconfiguration&quot;、&quot;corednsdeployment&quot;之一。
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 
+或者 &quot;json&quot; 之一，并且它们与 kubectl 支持的补丁格式相匹配。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
 &quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。

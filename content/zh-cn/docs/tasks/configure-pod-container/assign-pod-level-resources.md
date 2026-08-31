@@ -87,9 +87,11 @@ following limitations:
 * **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
 * **Operating System:** Pod-level resources are not supported for Windows
   pods.
-* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
-  align pods and containers based on pod-level resources as these resource managers 
-  don't currently support pod-level resources.
+* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager
+  support pod-level resources when the `PodLevelResourceManagers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled. See [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+  for more details. Without this feature gate enabled, they do not align pods
+  and containers based on pod-level resources.
 * **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
   of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
   which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
@@ -99,6 +101,12 @@ following limitations:
 * **操作系统：** Windows Pod 不支持 Pod 级别资源。
 * **资源管理器：** 拓扑管理器、内存管理器和 CPU 管理器不根据 Pod
   级别资源对齐 Pod 和容器，因为这些资源管理器目前不支持 Pod 级别资源。
+* **资源管理器**：当启用了 `PodLevelResourceManagers`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
+  拓扑管理器、内存管理器和 CPU 管理器支持 Pod 级别的资源。
+  更多详情请参阅
+  [Pod 级别资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)。
+  如果没有启用此特性门控，它们不会基于 Pod 级别的资源对 Pod 和容器进行对齐。
 * **原地调整大小：** 对 Pod
   级资源进行[原地调整](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)需要启用
   `InPlacePodLevelResourcesVerticalScaling` 特性门控，此特性门控在
@@ -182,8 +190,8 @@ and a memory limit of 200 MiB.
 
 ```yaml
 ...
-spec: 
-  containers:    
+spec:
+  containers:
   ...
   resources:
     requests:
@@ -375,7 +383,8 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 -->
 输出显示 Pod 中的一个容器具有 50 MiB 的内存请求和 0.5 核的 CPU 请求，
 内存限制为 100 MiB，CPU 限制为 0.5 核。
-Pod 本身具有 100 MiB 的内存请求和 1 核的 CPU 请求，以及 200 MiB 的内存限制和 1 核的 CPU 限制。
+Pod 本身具有 100 MiB 的内存请求和 1 核的 CPU 请求，
+以及 200 MiB 的内存限制和 1 核的 CPU 限制。
 
 ```yaml
 ...
@@ -392,7 +401,7 @@ Pod 本身具有 100 MiB 的内存请求和 1 核的 CPU 请求，以及 200 MiB
 ...
   -
     name: pod-resources-demo-ctr-2
-    resources: {}  
+    resources: {} 
 ...      
   resources:
     limits:
@@ -454,6 +463,8 @@ kubectl delete namespace pod-resources-example
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
+* [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
 -->
 ### 对于集群管理员
 
@@ -462,3 +473,4 @@ kubectl delete namespace pod-resources-example
 * [为命名空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [为命名空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Pod 级资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)

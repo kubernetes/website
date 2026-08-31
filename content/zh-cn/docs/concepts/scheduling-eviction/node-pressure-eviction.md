@@ -228,67 +228,76 @@ kubelet 可识别三个可与驱逐信号一起使用的特定文件系统标识
 
 <!--
 1. `imagefs`: An optional filesystem that container runtimes can use to store
-   container images (which are the read-only layers) and container writable
-   layers.
+   container images (which are the read-only layers). If there is no separate
+   `containerfs`, the image filesystem also stores container writable layers.
 
-1. `containerfs`: An optional filesystem that container runtime can use to
-   store the writeable layers. Similar to the main filesystem (see `nodefs`),
-   it's used to store local disk volumes, emptyDir volumes not backed by memory,
-   log storage, and ephemeral storage, except for the container images. When
-   `containerfs` is used, the `imagefs` filesystem can be split to only store
-   images (read-only layers) and nothing else.
+1. `containerfs`: An optional filesystem that container runtimes can use to
+   store container writable layers. When `containerfs` is used, the `imagefs`
+   filesystem can be split to only store images (read-only layers) and nothing
+   else.
 -->
-2. `imagefs`：可供容器运行时存储容器镜像（只读层）和容器可写层的可选文件系统。
+2. `imagefs`：可供容器运行时存储容器镜像（只读层）。如果没有单独的
+   `containerfs`，镜像文件系统也会存储容器可写层。
 
 3. `containerfs`：可供容器运行时存储可写层的可选文件系统。
-   与主文件系统（参见 `nodefs`）类似，
-   它用于存储本地磁盘卷、非内存介质的 `emptyDir` 卷、
-   日志存储和临时存储，但容器镜像除外。
-   当使用 `containerfs` 时，`imagefs` 文件系统可以分割为仅存储镜像（只读层）而不存储其他任何内容。
+   使用 `containerfs` 时，可以将 `imagefs` 文件系统拆分为仅存储镜像（只读层），
+   而不存储其他任何内容。
+
+<!--
+These identifiers describe the filesystems as the kubelet observes them. They do
+not always mean three different mount points: in common layouts, two or all
+three identifiers can refer to the same underlying filesystem.
+-->
+这些标识符描述了 kubelet 观察到的文件系统。
+它们并不总是代表三个不同的挂载点：在常见的布局中，
+两个或全部三个标识符可能指向同一个底层文件系统。
 
 {{<note>}}
 <!--
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-The _split image filesystem_ feature, which enables support for the `containerfs`
-filesystem, adds several new eviction signals, thresholds and metrics. To use
-`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
-`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
-filesystem support.
+The _split image filesystem_ feature adds new eviction signals, thresholds, and
+metrics for `containerfs`. To use `containerfs`, the Kubernetes release
+v{{< skew currentVersion >}} requires the `KubeletSeparateDiskGC`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+be enabled. For Kubernetes v{{< skew currentVersion >}}, only CRI-O (v1.29 or
+higher) offers `containerfs` filesystem support.
 -->
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-**拆分镜像文件系统**功能支持 `containerfs` 文件系统，并增加了几个新的驱逐信号、阈值和指标。
-要使用 `containerfs`，Kubernetes 版本 v{{< skew currentVersion >}} 需要启用 `KubeletSeparateDiskGC`
+**分割镜像文件系统**特性增加了新的驱逐信号、阈值和 `containerfs` 的指标。
+要使用 `containerfs`，Kubernetes 发行版 v{{< skew currentVersion >}}
+需要启用 `KubeletSeparateDiskGC`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-目前，只有 CRI-O（v1.29 或更高版本）提供对 `containerfs` 文件系统的支持。
+对于 Kubernetes v{{< skew currentVersion >}}，
+只有 CRI-O（v1.29 或更高版本）提供 `containerfs` 文件系统支持。
 {{</note>}}
 
 <!--
-As such, kubelet generally allows three options for container filesystems:
+The kubelet supports three common layouts for container filesystems:
 
 - Everything is on the single `nodefs`, also referred to as "rootfs" or
-  simply "root", and there is no dedicated image filesystem.
+  simply "root". In this layout, `nodefs`, `imagefs`, and `containerfs`
+  all refer to the same underlying filesystem.
 
-- Container storage (see `nodefs`) is on a dedicated disk, and `imagefs`
-  (writable and read-only layers) is separate from the root filesystem.
-  This is often referred to as "split disk" (or "separate disk") filesystem.
-
-- Container filesystem `containerfs` (same as `nodefs` plus writable
-  layers) is on root and the container images (read-only layers) are
-  stored on separate `imagefs`. This is often referred to as "split image"
+- Container runtime storage is on a dedicated disk, separate from the root
+  filesystem. In this layout, `imagefs` and `containerfs` refer to the same
+  underlying filesystem, which stores both image layers and container writable
+  layers. This is often referred to as "split disk" (or "separate disk")
   filesystem.
+
+- Container writable layers are on `nodefs`, and the container images
+  (read-only layers) are stored on a separate `imagefs`. In this layout,
+  `containerfs` and `nodefs` refer to the same underlying filesystem. This is
+  often referred to as a "split image" filesystem.
 -->
-因此，kubelet 通常允许三种容器文件系统选项：
+kubelet 支持三种常见的容器文件系统布局：
 
-- 所有内容都位于单个 `nodefs` 上，也称为 `rootfs` 或简称为 `root`，
-  并且没有专用镜像文件系统。
+- 所有内容都位于单个 `nodefs` 上，也称为 `rootfs` 或简称为 `root`。
+  在这种布局中，`nodefs`、`imagefs` 和 `containerfs` 都指向同一个底层文件系统。
 
-- 容器存储（参见 `nodefs`）位于专用磁盘上，
-  而 `imagefs`（可写和只读层）与根文件系统分开。
-  这通常称为“分割磁盘”（或“单独磁盘”）文件系统。
+- 容器运行时存储位于专用磁盘上，与根文件系统分离。在这种布局中，`imagefs` 和 `containerfs`
+  指向相同的底层文件系统，该文件系统同时存储镜像层和容器可写层。
+  这通常被称为“分割磁盘”（或“独立磁盘”）文件系统。
 
-- 容器文件系统 `containerfs`（与 `nodefs` 加上可写层相同）位于根文件系统上，
-  容器镜像（只读层）存储在单独的 `imagefs` 上。这通常称为“分割镜像”文件系统。
+- 容器可写层位于 `nodefs` 上，而容器镜像（只读层）则存储在独立的 `imagefs` 上。在这种布局中，
+  `containerfs` 和 `nodefs` 指向相同的底层文件系统。这通常被称为“分割镜像”文件系统。
 
 <!--
 The kubelet will attempt to auto-discover these filesystems with their current
@@ -466,24 +475,24 @@ inherit their default values instead of 0.
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
 eviction thresholds will be set as follows:
 
-- If a single filesystem is used for everything, then `containerfs` thresholds
-  are set the same as `nodefs`.
+- If `containerfs` and `nodefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `nodefs`.
 
-- If separate filesystems are configured for both images and containers,
-  then `containerfs` thresholds are set the same as `imagefs`.
+- If `containerfs` and `imagefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `imagefs`.
 
-Setting custom overrides for thresholds related to `containersfs` is currently
+Setting custom overrides for thresholds related to `containersfs` is
 not supported, and a warning will be issued if an attempt to do so is made; any
 provided custom values will, as such, be ignored.
 -->
 `containerfs.available` 和 `containerfs.inodesFree`（Linux 节点）默认驱逐阈值将被设置如下：
 
-- 如果所有数据都使用同一文件系统，则 `containerfs` 阈值将设置为与 `nodefs` 相同。
+- 如果 `containerfs` 和 `nodefs` 指的是同一个底层文件系统，那么 `containerfs` 的阈值设置与 `nodefs` 相同。
 
-- 如果为镜像和容器配置了单独的文件系统，则 `containerfs` 阈值将设置为与 `imagefs` 相同。
+- 如果 `containerfs` 和 `imagefs` 指的是同一个底层文件系统，那么 `containerfs` 的阈值设置与 `imagefs` 相同。
 
-目前不支持为与 `containersfs` 相关的阈值设置自定义覆盖，如果尝试这样做，将发出警告；
-因此，所提供的所有自定义值都将被忽略。
+不支持为与 `containerfs` 相关的阈值设置自定义覆盖值，如果尝试这样做，将会发出警告；
+任何提供的自定义值都将被忽略。
 
 <!--
 ## Eviction monitoring interval
@@ -746,7 +755,7 @@ kubelet 根据节点是否具有专用的 `imagefs` 文件系统或者 `containe
 - 如果 `imagefs` 触发驱逐，kubelet 将根据所有容器的可写层用量对 Pod 进行排序。
 
 <!--
-#### With `imagesfs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
+#### With `imagefs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
 
 - If `containerfs` triggers evictions, the kubelet sorts pods based on
   `containerfs` usage (`local volumes + logs and a writable layer of all containers`).
@@ -754,7 +763,7 @@ kubelet 根据节点是否具有专用的 `imagefs` 文件系统或者 `containe
 - If `imagefs` triggers evictions, the kubelet sorts pods based on the
   `storage of images` rank, which represents the disk usage of a given image.
 -->
-#### 有 `imagesfs` 和 `containerfs`（`imagefs` 和 `containerfs` 已拆分）{#with-containersfs}
+#### 有 `imagefs` 和 `containerfs`（`imagefs` 和 `containerfs` 已拆分）{#with-containersfs}
 
 - 如果 `containerfs` 触发驱逐，kubelet 将根据
   `containerfs` 使用情况（`本地卷 + 日志和所有容器的可写层`）对 Pod 进行排序。

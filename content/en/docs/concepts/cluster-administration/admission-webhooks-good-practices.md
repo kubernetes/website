@@ -261,8 +261,11 @@ calls to the webhook server. Consider the following scope limitations:
   failed node upgrades. Only apply validation controls to Lease objects in this
   namespace if you're confident that the controls won't put your cluster at
   risk.
-* Don't mutate TokenReview or SubjectAccessReview objects. These are always
-  read-only requests. Modifying these objects might break your cluster.
+* Don't match TokenReview, SubjectAccessReview, or other
+  [virtual authentication and authorization resources](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources).
+  These are always read-only requests, and intercepting them might break your
+  cluster. Starting with Kubernetes v1.37, admission webhooks are not called
+  for these resources by default.
 * Limit each webhook to a specific namespace by using a
   [`namespaceSelector`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector).
 

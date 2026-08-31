@@ -90,7 +90,7 @@ The architecture components, from right to left in the figure, consist of the fo
 <!-- body -->
 
 ## Metrics API
-{{< feature-state for_k8s_version="1.8" state="beta" >}}
+{{< feature-state for_k8s_version="1.37" state="stable" >}}
 
 The metrics-server implements the Metrics API. This API allows you to access CPU and memory usage
 for the nodes and pods in your cluster. Its primary role is to feed resource usage metrics to K8s
@@ -100,13 +100,13 @@ Here is an example of the Metrics API request for a `minikube` node piped throug
 reading:
 
 ```shell
-kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes/minikube" | jq '.'
+kubectl get --raw "/apis/metrics.k8s.io/v1/nodes/minikube" | jq '.'
 ```
 
 Here is the same API call using `curl`:
 
 ```shell
-curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/nodes/minikube
+curl http://localhost:8080/apis/metrics.k8s.io/v1/nodes/minikube
 ```
 
 Sample response:
@@ -114,10 +114,10 @@ Sample response:
 ```json
 {
   "kind": "NodeMetrics",
-  "apiVersion": "metrics.k8s.io/v1beta1",
+  "apiVersion": "metrics.k8s.io/v1",
   "metadata": {
     "name": "minikube",
-    "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/minikube",
+    "selfLink": "/apis/metrics.k8s.io/v1/nodes/minikube",
     "creationTimestamp": "2022-01-27T18:48:43Z"
   },
   "timestamp": "2022-01-27T18:48:33Z",
@@ -133,13 +133,13 @@ Here is an example of the Metrics API request for a `kube-scheduler-minikube` po
 `kube-system` namespace and piped through `jq` for easier reading:
 
 ```shell
-kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube" | jq '.'
+kubectl get --raw "/apis/metrics.k8s.io/v1/namespaces/kube-system/pods/kube-scheduler-minikube" | jq '.'
 ```
 
 Here is the same API call using `curl`:
 
 ```shell
-curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube
+curl http://localhost:8080/apis/metrics.k8s.io/v1/namespaces/kube-system/pods/kube-scheduler-minikube
 ```
 
 Sample response:
@@ -147,11 +147,11 @@ Sample response:
 ```json
 {
   "kind": "PodMetrics",
-  "apiVersion": "metrics.k8s.io/v1beta1",
+  "apiVersion": "metrics.k8s.io/v1",
   "metadata": {
     "name": "kube-scheduler-minikube",
     "namespace": "kube-system",
-    "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube",
+    "selfLink": "/apis/metrics.k8s.io/v1/namespaces/kube-system/pods/kube-scheduler-minikube",
     "creationTimestamp": "2022-01-27T19:25:00Z"
   },
   "timestamp": "2022-01-27T19:24:31Z",

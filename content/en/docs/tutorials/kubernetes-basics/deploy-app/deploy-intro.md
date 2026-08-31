@@ -26,11 +26,11 @@ with PowerShell or the Windows Command Prompt.
 _A Deployment is responsible for creating and updating instances of your application._
 {{% /alert %}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 This tutorial uses a container that requires the AMD64 architecture. If you are using
 minikube on a computer with a different CPU architecture, you could try using minikube with
 a driver that can emulate AMD64. For example, the Docker Desktop driver can do this.
-{{< /note >}}
+{{< /alert >}}
 
 Once you have a [running Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/),
 you can deploy your containerized applications on top of it. To do so, you create a
@@ -153,10 +153,10 @@ query the version directly through the API using the `curl` command:
 curl http://localhost:8001/version
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If port 8001 is not accessible, ensure that the `kubectl proxy` that you started
 above is running in the second terminal.
-{{< /note >}}
+{{< /alert >}}
 
 The API server will automatically create an endpoint for each pod, based on the
 pod name, that is also accessible through the proxy.

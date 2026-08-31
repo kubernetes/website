@@ -27,7 +27,7 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 ユーザーはYAMLファイル内でDaemonSetの設定を記述することができます。例えば、下記の`daemonset.yaml`ファイルでは`fluentd-elasticsearch`というDockerイメージを稼働させるDaemonSetの設定を記述します。
 
-{{% codenew file="controllers/daemonset.yaml" %}}
+{{% code_sample file="controllers/daemonset.yaml" %}}
 
 YAMLファイルに基づいてDaemonSetを作成します。
 
@@ -177,4 +177,4 @@ DaemonSetがNodeレベルの機能を提供し、他のPodがその特定のNode
     (例えば、ロールアウトが期待通りに動作しなかった場合)。
 * [Node上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)の仕組みを理解する
 * よくDaemonSetとして実行される[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)と[アドオン](/ja/docs/concepts/cluster-administration/addons/)について学ぶ。
-* `DaemonSet`は、Kubernetes REST APIのトップレベルのリソースです。デーモンセットのAPIを理解するため{{< api-reference page="workload-resources/daemon-set-v1" >}}オブジェクトの定義を読む。
+* `DaemonSet`は、Kubernetes REST APIのトップレベルのリソースです。DaemonSetのAPIを理解するため{{< api-reference page="workload-resources/daemon-set-v1" >}}オブジェクトの定義を読む。

@@ -23,7 +23,7 @@ This overview covers `kubectl` syntax, describes the command operations, and pro
 For details about each command, including all the supported flags and subcommands, see the
 [kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
 
-For a overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
+For an overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
@@ -271,10 +271,10 @@ Output format | Description
 `-o json`     | Output a JSON formatted API object.
 `-o jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 `-o jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
-`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object (beta).
+`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object.
 `-o name`     | Print only the resource name and nothing else.
 `-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o yaml`     | Output a YAML formatted API object. KYAML is an experimental Kubernetes-specific dialect of YAML, and can be parsed as YAML.
+`-o yaml`     | Output a YAML formatted API object. KYAML is a Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 
 ##### Example
 

@@ -481,6 +481,23 @@ Before you start an upgrade, back up your etcd cluster first.
 
 For details on etcd upgrade, refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
 
+## Streaming reads from etcd
+
+{{< feature-state feature_gate_name="EtcdRangeStream" >}}
+
+With the `EtcdRangeStream` feature gate enabled and etcd v3.7 or later, the API server
+reads large collections from etcd as a stream instead of in pages, which lowers peak
+memory use on both sides. If the backend does not implement the `RangeStream` RPC, the
+API server detects the gRPC `Unimplemented` response and falls back to paginated reads.
+If your etcd-compatible backend or proxy does not fall back cleanly, disable the gate
+with `--feature-gates=EtcdRangeStream=false`.
+
+{{< note >}}
+Streamed reads are recorded as `operation="listStream"` in the
+`etcd_request_duration_seconds` metric. Update any dashboard or alert that matches
+`operation="list"`.
+{{< /note >}}
+
 ## Maintaining etcd clusters
 
 For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.

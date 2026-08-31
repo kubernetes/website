@@ -39,19 +39,12 @@ Anyone can:
 - Give non-binding feedback on a pull request
 - Contribute to a localization
 - Suggest improvements on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-
-After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
-
-- Open a pull request to improve existing content, add new content, or write a blog post or case study
-- Create diagrams, graphics assets, and embeddable screencasts and videos
-
-For more information, see [contributing new content](/docs/contribute/new-content/).
 -->
 ## 任何人（Anyone）  {#anyone}
 
 任何拥有 GitHub 账号的人都可以对 Kubernetes 作出贡献。SIG Docs
 欢迎所有新的贡献者。
-
+  
 任何人都可以：
 
 - 在任何 [Kubernetes](https://github.com/kubernetes/) 仓库，包括
@@ -62,7 +55,15 @@ For more information, see [contributing new content](/docs/contribute/new-conten
   [SIG Docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
   上提出改进建议。
 
-在[签署了 CLA](https://github.com/kubernetes/community/blob/master/CLA.md) 之后，任何人还可以：
+<!--
+After [signing the CLA](https://github.com/kubernetes/community/blob/main/CLA.md), anyone can also:
+
+- Open a pull request to improve existing content, add new content, or write a blog post or case study
+- Create diagrams, graphics assets, and embeddable screencasts and videos
+
+For more information, see [contributing new content](/docs/contribute/new-content/).
+-->
+在[签署了 CLA](https://github.com/kubernetes/community/blob/main/CLA.md) 之后，任何人还可以：
 
 - 发起拉取请求（PR），改进现有内容、添加新内容、撰写博客或者案例分析
 - 创建示意图、图形资产或者嵌入式的截屏和视频内容
@@ -78,15 +79,6 @@ Members can:
 
 - Do everything listed under [Anyone](#anyone)
 - Use the `/lgtm` comment to add the LGTM (looks good to me) label to a pull request
-
-    {{< note >}}
-    Using `/lgtm` triggers automation. If you want to provide non-binding approval, commenting "LGTM" works too!
-    {{< /note >}}
-- Use the `/hold` comment to block merging for a pull request
-- Use the `/assign` comment to assign a reviewer to a pull request
-- Provide non-binding review on pull requests
-- Use automation to triage and categorize issues
-- Document new features
 -->
 ## 成员（Members）  {#members}
 
@@ -98,11 +90,21 @@ Members can:
 - 执行[任何人](#anyone)节区所列举操作
 - 使用 `/lgtm` 评论添加 LGTM (looks good to me（我觉得可以）) 标签到某个 PR
 
-  {{< note >}}
-  使用 `/lgtm` 会触发自动化机制。如果你希望提供非约束性的批准意见，
-  直接回复 "LGTM" 也是可以的。
-  {{< /note >}}
+    {{< note >}}
+    <!--
+    Using `/lgtm` triggers automation. If you want to provide non-binding approval, commenting "LGTM" works too!
+    -->
+    使用 `/lgtm` 会触发自动化机制。如果你希望提供非约束性的批准意见，
+    直接回复 "LGTM" 也是可以的。
+    {{< /note >}}
 
+<!--
+- Use the `/hold` comment to block merging for a pull request
+- Use the `/assign` comment to assign a reviewer to a pull request
+- Provide non-binding review on pull requests
+- Use automation to triage and categorize issues
+- Document new features
+-->
 - 利用 `/hold` 评论来阻止某个 PR 被合并
 - 使用 `/assign` 评论为某个 PR 指定评审人
 - 对 PR 提供非约束性的评审意见
@@ -112,12 +114,12 @@ Members can:
 <!--
 ### Becoming a member
 
-After submitting at least 5 substantial pull requests and meeting the other [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#member):
+After submitting at least 5 substantial pull requests and meeting the other [requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#member):
 -->
 ### 成为一个成员 {#becoming-a-member}
 
 在你成功地提交至少 5 个 PR 并满足
-[相关条件](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
+[相关条件](https://github.com/kubernetes/community/blob/main/community-membership.md#member)
 之后：
 
 <!--
@@ -156,12 +158,6 @@ After submitting at least 5 substantial pull requests and meeting the other [req
     Sponsors will approve your request with a `+1` vote. Once your sponsors approve the request, a Kubernetes GitHub admin adds you as a member. Congratulations!
 
     If your membership request is not accepted you will receive feedback. After addressing the feedback, apply again.
-
-4. Accept the invitation to the Kubernetes GitHub organization in your email account.
-
-    {{< note >}}
-    GitHub sends the invitation to the default email address in your account.
-    {{< /note >}}
 -->
 3. 告知你的担保人你所创建的 Issue，你可以：
 
@@ -174,6 +170,13 @@ After submitting at least 5 substantial pull requests and meeting the other [req
    如果你的成员请求未被接受，你会收到一些反馈。
    当处理完反馈意见之后，可以再次发起申请。
 
+<!--
+4. Accept the invitation to the Kubernetes GitHub organization in your email account.
+
+    {{< note >}}
+    GitHub sends the invitation to the default email address in your account.
+    {{< /note >}}
+-->
 4. 登录你的邮件账户，接受来自 Kubernetes GitHub 组织发出的成员邀请。
 
     {{< note >}}
@@ -192,15 +195,6 @@ Reviewers can:
 
 - Do everything listed under [Anyone](#anyone) and [Members](#members)
 - Review pull requests and provide binding feedback
-
-    {{< note >}}
-    To provide non-binding feedback, prefix your comments with a phrase like "Optionally: ".
-    {{< /note >}}
-
-- Edit user-facing strings in code
-- Improve code comments
-
-You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject area.
 -->
 ## 评审人（Reviewers）  {#reviewers}
 
@@ -214,9 +208,18 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
 - 评审 PR 并提供具约束性的反馈信息
 
     {{< note >}}
+    <!--
+    To provide non-binding feedback, prefix your comments with a phrase like "Optionally: ".
+    -->
     要提供非约束性的反馈，可以在你的评语之前添加 "Optionally: " 这样的说法。
     {{< /note >}}
 
+<!--
+- Edit user-facing strings in code
+- Improve code comments
+
+You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject area.
+-->
 - 编辑代码中用户可见的字符串
 - 改进代码注释
 
@@ -230,12 +233,6 @@ review from a specific person by commenting: `/assign
 [@_github_handle]`.
 
 If the assigned reviewer has not commented on the PR, another reviewer can step in. You can also assign technical reviewers as needed.
-
-### Using `/lgtm`
-
-LGTM stands for "Looks good to me" and indicates that a pull request is technically accurate and ready to merge. All PRs need a `/lgtm` comment from a reviewer and a `/approve` comment from an approver to merge.
-
-A `/lgtm` comment from reviewer is binding and triggers automation that adds the `lgtm` label.
 -->
 ### 为 PR 指派评审人  {#assigning-reviewers-to-pull-requests}
 
@@ -245,6 +242,13 @@ A `/lgtm` comment from reviewer is binding and triggers automation that adds the
 如果所指派的评审人未能及时评审，其他的评审人也可以参与进来。
 你可以根据需要指派技术评审人。
 
+<!--
+### Using `/lgtm`
+
+LGTM stands for "Looks good to me" and indicates that a pull request is technically accurate and ready to merge. All PRs need a `/lgtm` comment from a reviewer and a `/approve` comment from an approver to merge.
+
+A `/lgtm` comment from reviewer is binding and triggers automation that adds the `lgtm` label.
+-->
 ### 使用 `/lgtm`   {#using-lgtm}
 
 LGTM 代表的是 “Looks Good To Me （我觉得可以）”，用来标示某个 PR
@@ -258,13 +262,13 @@ LGTM 代表的是 “Looks Good To Me （我觉得可以）”，用来标示某
 ### Becoming a reviewer
 
 When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer), you can become a SIG Docs reviewer. Reviewers in other SIGs must apply separately for reviewer status in SIG Docs.
+[requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer), you can become a SIG Docs reviewer. Reviewers in other SIGs must apply separately for reviewer status in SIG Docs.
 
 To apply:
 -->
 ### 成为评审人   {#becoming-a-reviewer}
 
-当你满足[相关条件](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)时，
+当你满足[相关条件](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer)时，
 你可以成为一个 SIG Docs 评审人。
 来自其他 SIG 的评审人必须为 SIG Docs 单独申请评审人资格。
 
@@ -377,11 +381,11 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 <!--
 ### Becoming an approver
 
-When you meet the [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver), you can become a SIG Docs approver. Approvers in other SIGs must apply separately for approver status in SIG Docs.
+When you meet the [requirements](https://github.com/kubernetes/community/blob/main/community-membership.md#approver), you can become a SIG Docs approver. Approvers in other SIGs must apply separately for approver status in SIG Docs.
 -->
 ### 成为批准人  {#becoming-an-approver}
 
-当你满足[一定条件](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)时，可以成为一个 SIG Docs 批准人。
+当你满足[一定条件](https://github.com/kubernetes/community/blob/main/community-membership.md#approver)时，可以成为一个 SIG Docs 批准人。
 来自其他 SIG 的批准人也必须在 SIG Docs 独立申请批准人资格。
 
 <!--

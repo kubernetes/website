@@ -19,6 +19,7 @@
 /bn/docs/     /bn/docs/home/ 301!
 /de/docs/     /de/docs/home/ 301!
 /es/docs/     /es/docs/home/ 301!
+/fa/docs/     /fa/docs/home/ 301!
 /fr/docs/     /fr/docs/home/ 301!
 /hi/docs/     /hi/docs/home/ 301!
 /id/docs/     /id/docs/home/ 301!
@@ -276,11 +277,13 @@
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
-/docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
+/docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/ 301
+/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/administer-cluster/static-pod/ /docs/tasks/configure-pod-container/static-pod/ 301
-/docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
+/docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/ 301
+/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
 /docs/tasks/configure-pod-container/calico-network-policy/     /docs/tasks/administer-cluster/calico-network-policy/ 301
@@ -486,7 +489,8 @@
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
-/docs/concepts/policy/node-resource-managers/ /docs/concepts/workloads/resource-managers/ 301
+/docs/concepts/policy/node-resource-managers/ /docs/concepts/resource-management/resource-managers/ 301
+/docs/concepts/workloads/resource-managers/ /docs/concepts/resource-management/resource-managers/ 308
 
 # Redirects from old gen-resourcesdocs URL structure to gen-apidocs URLs.
 # Applied when kubernetes-api content was switched to the markdown backend.

@@ -2,10 +2,7 @@
 title: Versões Suportadas da Documentação do Kubernetes
 content_type: custom
 layout: supported-versions
-card:
-  name: about
-  weight: 10
-  title: Versões Suportadas da Documentação
+weight: 10
 ---
 
 Este site contém documentação para a versão atual do Kubernetes e as quatro versões anteriores do Kubernetes.

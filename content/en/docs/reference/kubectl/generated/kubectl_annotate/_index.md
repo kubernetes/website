@@ -73,14 +73,14 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Select all resources, in the namespace of the specified resource types.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Select all resources in the namespace of the specified resource types</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-A, --all-namespaces</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, check the specified action in all namespaces.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.</p></td>
 </tr>
 
 <tr>
@@ -115,7 +115,7 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Filename, directory, or URL to files identifying the resource to update the annotation</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>identifying the resource.</p></td>
 </tr>
 
 <tr>
@@ -129,7 +129,7 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Process the kustomization directory. This flag can't be used together with -f or -R.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Process a kustomization directory. This flag can't be used together with -f or -R.</p></td>
 </tr>
 
 <tr>
@@ -161,7 +161,7 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 </tr>
 
 <tr>
-<td colspan="2">-R, --recursive</td>
+<td colspan="2">-R, --recursive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.</p></td>
@@ -178,7 +178,7 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)</p></td>
 </tr>
 
 <tr>
@@ -340,6 +340,13 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>

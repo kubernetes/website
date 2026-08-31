@@ -656,6 +656,9 @@ A Deployment's label selector is **immutable** after creation;
 it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
 If you must change the selector, you have to delete the Deployment and recreate it.
+By default, deleting the Deployment also deletes its running Pods, causing downtime; use
+`--cascade=orphan` if you need those Pods to keep running while you recreate the Deployment
+(see the implications below).
 Exercise great caution and ensure you grasp the following implications:
 -->
 Deployment 的标签选择算符在创建后**不可更改**；
@@ -663,6 +666,9 @@ Deployment 的标签选择算符在创建后**不可更改**；
 或 `helm upgrade` 等工具进行更新。
 
 如果必须更改选择算符，则必须删除 Deployment 并重新创建。
+默认情况下，删除 Deployment 也会删除其正在运行的 Pod，从而导致停机；
+如果你需要在重建 Deployment 的同时保持这些 Pod 继续运行，
+请使用 `--cascade=orphan`（请参阅下文了解相关影响）。
 你务必要谨慎操作，并确保自己理解以下潜在影响：
 
 <!--

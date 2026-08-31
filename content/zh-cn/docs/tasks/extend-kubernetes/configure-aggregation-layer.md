@@ -112,7 +112,7 @@ The source for the above swimlanes can be found in the source of this document.
 Swimlanes generated at https://swimlanes.io with the source as follows:
 
 -----BEGIN-----
-title: Welcome to swimlanes.io
+title: Aggregation API request flow
 
 
 User -> kube-apiserver / aggregator:
@@ -174,7 +174,7 @@ note:
 在 https://swimlanes.io 生成的泳道，其源码如下：
 
 -----BEGIN-----
-title: 认证流程
+title: 聚合 API 请求流程
 
 User -> kube-apiserver / aggregator:
 
@@ -242,7 +242,17 @@ This path already has been registered with the Kubernetes apiserver by the exten
 The user communicates with the Kubernetes apiserver, requesting access to the path.
 The Kubernetes apiserver uses standard authentication and authorization configured
 with the Kubernetes apiserver to authenticate the user and authorize access to the specific path.
+-->
+### Kubernetes Apiserver 认证和授权   {#kubernetes-apiserver-authentication-and-authorization}
 
+由扩展 apiserver 服务的对 API 路径的请求以与所有 API 请求相同的方式开始：
+与 Kubernetes apiserver 的通信。该路径已通过扩展 apiserver 在
+Kubernetes apiserver 中注册。
+  
+用户与 Kubernetes apiserver 通信，请求访问路径。
+Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定路径的鉴权。
+
+<!--
 For an overview of authenticating to a Kubernetes cluster, see
 ["Authenticating to a Cluster"](/docs/reference/access-authn-authz/authentication/).
 For an overview of authorization of access to Kubernetes cluster resources, see
@@ -252,15 +262,6 @@ Everything to this point has been standard Kubernetes API requests, authenticati
 
 The Kubernetes apiserver now is prepared to send the request to the extension apiserver.
 -->
-### Kubernetes Apiserver 认证和授权   {#kubernetes-apiserver-authentication-and-authorization}
-
-由扩展 apiserver 服务的对 API 路径的请求以与所有 API 请求相同的方式开始：
-与 Kubernetes apiserver 的通信。该路径已通过扩展 apiserver 在
-Kubernetes apiserver 中注册。
-
-用户与 Kubernetes apiserver 通信，请求访问路径。
-Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定路径的鉴权。
-
 有关对 Kubernetes 集群认证的概述，
 请参见[对集群认证](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 有关对 Kubernetes 集群资源的访问鉴权的概述，
@@ -276,7 +277,14 @@ Kubernetes apiserver 现在准备将请求发送到扩展 apiserver。
 The Kubernetes apiserver now will send, or proxy, the request to the extension
 apiserver that registered to handle the request. In order to do so,
 it needs to know several things:
+-->
+### Kubernetes Apiserver 代理请求   {#kubernetes-apiserver-proxies-the-request}
 
+Kubernetes apiserver 现在将请求发送或代理到注册以处理该请求的扩展 apiserver。
+为此，它需要了解几件事：
+
+
+<!--
 1. How should the Kubernetes apiserver authenticate to the extension apiserver,
    informing the extension apiserver that the request, which comes over the network,
    is coming from a valid Kubernetes apiserver?
@@ -285,11 +293,6 @@ it needs to know several things:
 
 In order to provide for these two, you must configure the Kubernetes apiserver using several flags.
 -->
-### Kubernetes Apiserver 代理请求   {#kubernetes-apiserver-proxies-the-request}
-
-Kubernetes apiserver 现在将请求发送或代理到注册以处理该请求的扩展 apiserver。
-为此，它需要了解几件事：
-
 1. Kubernetes apiserver 应该如何向扩展 apiserver 认证，以通知扩展
    apiserver 通过网络发出的请求来自有效的 Kubernetes apiserver？
 
@@ -352,11 +355,6 @@ When started with these options, the Kubernetes apiserver will:
 2. Create a configmap in the `kube-system` namespace called `extension-apiserver-authentication`,
    in which it will place the CA certificate and the allowed CNs. These in turn can be retrieved
    by extension apiservers to validate requests.
-
-Note that the same client certificate is used by the Kubernetes apiserver to authenticate
-against _all_ extension apiservers. It does not create a client certificate per extension
-apiserver, but rather a single one to authenticate as the Kubernetes apiserver.
-This same one is reused for all extension apiserver requests.
 -->
 使用这些选项启动时，Kubernetes apiserver 将：
 
@@ -366,6 +364,12 @@ This same one is reused for all extension apiserver requests.
    它将在其中放置 CA 证书和允许的 CN。
    反过来，扩展 apiserver 可以检索这些内容以验证请求。
 
+<!--
+Note that the same client certificate is used by the Kubernetes apiserver to authenticate
+against _all_ extension apiservers. It does not create a client certificate per extension
+apiserver, but rather a single one to authenticate as the Kubernetes apiserver.
+This same one is reused for all extension apiserver requests.
+-->
 请注意，Kubernetes apiserver 使用相同的客户端证书对所有扩展 apiserver 认证。
 它不会为每个扩展 apiserver 创建一个客户端证书，而是创建一个证书作为
 Kubernetes apiserver 认证。所有扩展 apiserver 请求都重复使用相同的请求。
@@ -376,13 +380,6 @@ Kubernetes apiserver 认证。所有扩展 apiserver 请求都重复使用相同
 When the Kubernetes apiserver proxies the request to the extension apiserver,
 it informs the extension apiserver of the username and group with which the
 original request successfully authenticated. It provides these in http headers of its proxied request. You must inform the Kubernetes apiserver of the names of the headers to be used.
-
-* the header in which to store the username via `--requestheader-username-headers`
-* the header in which to store the group via `--requestheader-group-headers`
-* the prefix to append to all extra headers via `--requestheader-extra-headers-prefix`
-
-These header names are also placed in the `extension-apiserver-authentication` configmap,
-so they can be retrieved and used by extension apiservers.
 -->
 #### 原始请求用户名和组
 
@@ -391,6 +388,14 @@ so they can be retrieved and used by extension apiservers.
 它在其代理请求的 HTTP 头部中提供这些。你必须将要使用的标头名称告知
 Kubernetes apiserver。
 
+<!--
+* the header in which to store the username via `--requestheader-username-headers`
+* the header in which to store the group via `--requestheader-group-headers`
+* the prefix to append to all extra headers via `--requestheader-extra-headers-prefix`
+
+These header names are also placed in the `extension-apiserver-authentication` configmap,
+so they can be retrieved and used by extension apiservers.
+-->
 * 通过 `--requestheader-username-headers` 标明用来保存用户名的头部
 * 通过 `--requestheader-group-headers` 标明用来保存 group 的头部
 * 通过 `--requestheader-extra-headers-prefix` 标明用来保存拓展信息前缀的头部
@@ -404,7 +409,14 @@ Kubernetes apiserver。
 The extension apiserver, upon receiving a proxied request from the Kubernetes apiserver,
 must validate that the request actually did come from a valid authenticating proxy,
 which role the Kubernetes apiserver is fulfilling. The extension apiserver validates it via:
+-->
+### 扩展 Apiserver 认证请求    {#extension-apiserver-authenticates-the-request}
+  
+扩展 apiserver 在收到来自 Kubernetes apiserver 的代理请求后，
+必须验证该请求确实确实来自有效的身份验证代理，
+该认证代理由 Kubernetes apiserver 履行。扩展 apiserver 通过以下方式对其认证：
 
+<!--
 1. Retrieve the following from the configmap in `kube-system`, as described above:
     * Client CA certificate
     * List of allowed names (CNs)
@@ -415,12 +427,6 @@ which role the Kubernetes apiserver is fulfilling. The extension apiserver valid
     * Has a CN in the list of allowed CNs, unless the list is blank, in which case all CNs are allowed.
     * Extract the username and group from the appropriate headers
 -->
-### 扩展 Apiserver 认证请求    {#extension-apiserver-authenticates-the-request}
-
-扩展 apiserver 在收到来自 Kubernetes apiserver 的代理请求后，
-必须验证该请求确实确实来自有效的身份验证代理，
-该认证代理由 Kubernetes apiserver 履行。扩展 apiserver 通过以下方式对其认证：
-
 1. 如上所述，从 `kube-system` 中的 ConfigMap 中检索以下内容：
 
    * 客户端 CA 证书
@@ -463,11 +469,6 @@ The extension apiserver now can validate that the user/group retrieved from
 the headers are authorized to execute the given request. It does so by sending
 a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/)
 request to the Kubernetes apiserver.
-
-In order for the extension apiserver to be authorized itself to submit the
-`SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions.
-Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that
-has the appropriate permissions. It can be granted to the extension apiserver's service account.
 -->
 ### 扩展 Apiserver 对请求鉴权   {#extensions-apiserver-authorizes-the-request}
 
@@ -475,6 +476,12 @@ has the appropriate permissions. It can be granted to the extension apiserver's 
 通过向 Kubernetes apiserver 发送标准
 [SubjectAccessReview](/zh-cn/docs/reference/access-authn-authz/authorization/) 请求来实现。
 
+<!--
+In order for the extension apiserver to be authorized itself to submit the
+`SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions.
+Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that
+has the appropriate permissions. It can be granted to the extension apiserver's service account.
+-->
 为了使扩展 apiserver 本身被鉴权可以向 Kubernetes apiserver 提交 SubjectAccessReview 请求，
 它需要正确的权限。
 Kubernetes 包含一个具有相应权限的名为 `system:auth-delegator` 的默认 `ClusterRole`，
@@ -614,6 +621,23 @@ apiserver. The following is an example registration:
 
 你可以动态配置将哪些客户端请求代理到扩展 apiserver。以下是注册示例：
 
+<!--
+```yaml
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: <name of the registration object>
+spec:
+  group: <API group name this extension apiserver hosts>
+  version: <API version this extension apiserver hosts>
+  groupPriorityMinimum: <priority this APIService for this group, see API documentation>
+  versionPriority: <prioritizes ordering of this version within a group, see API documentation>
+  service:
+    namespace: <namespace of the extension apiserver service>
+    name: <name of the extension apiserver service>
+  caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
+```
+-->
 ```yaml
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService

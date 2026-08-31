@@ -213,24 +213,18 @@ and to have any required storage volumes mounted. Once these phases are complete
 the kubelet works with a container runtime
 (using {{< glossary_tooltip text="Container Runtime Interface (CRI)" term_id="cri" >}})
 to set up a runtime sandbox and configure networking for the Pod.
-If the `PodReadyToStartContainersCondition` feature gate is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}),
-the `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
+The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
 -->
 Pod 在节点上调度后，需要由 kubelet 准入并挂载任何所需的存储卷。
-这些阶段完成后，kubelet 与容器运行时（使用 {{< glossary_tooltip text="容器运行时接口（CRI）" term_id="cri" >}}）
-协作，为 Pod 设置运行时 sandbox 并配置网络。
-如果启用了 `PodReadyToStartContainersCondition` 特性门控
-（Kubernetes {{< skew currentVersion >}} 中默认启用），
-则 `PodReadyToStartContainers` 状况将添加到 Pod 的 `status.conditions` 字段。
+这些阶段完成后，kubelet 与容器运行时（使用{{< glossary_tooltip text="容器运行时接口（CRI）" term_id="cri" >}}）
+协作，为 Pod 设置运行时 Sandbox 并配置网络。
+`PodReadyToStartContainers` 状况会被添加到 Pod 的 `status.conditions` 字段。
 
 <!--
-The `PodReadyToStartContainers` condition is set to `False` by the kubelet
-when it detects a Pod does not have a runtime sandbox with networking configured. This occurs in the following scenarios:
+he condition is set to `False` by the kubelet when it detects a Pod does not have a runtime sandbox with networking configured. This occurs in the following scenarios:
 -->
-当 kubelet 检测到 Pod 没有配置网络的运行时 sandbox 时，
-`PodReadyToStartContainers` 状况设置为 `False`。
-这在以下情况下发生：
+当 kubelet 检测到 Pod 缺少已配置网络功能的运行时沙箱（runtime sandbox）时，
+该状况会被设置为 `False`。这种情况发生在以下场景中：
 
 <!--
 - Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.

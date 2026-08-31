@@ -675,7 +675,7 @@ Other alternatives for enforcing policies are being developed in the Kubernetes 
 在 Kubernetes 生态系统中还在开发一些其他的替代方案，例如：
 
 - [Kubewarden](https://github.com/kubewarden)
-- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [Kyverno](https://kyverno.io/policies)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
 <!--
