@@ -140,8 +140,12 @@ If you're editing this section, change both places.
 Given the order of execution for init, sidecar and app containers, the following rules
 for resource usage apply:
 
-* The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*. If any resource has no
+* Because a sidecar container keeps running once it starts, its resource usage
+  overlaps with every init container that starts after it. For each init
+  container, add its own resource request or limit to the combined requests or
+  limits of any sidecar containers that precede it in the list of init
+  containers. The highest such combined value, across all init containers, is
+  the *effective init request/limit* for that resource. If any resource has no
   resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the sum of
 [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
@@ -156,6 +160,18 @@ for resource usage apply:
 
 Quota and limits are applied based on the effective Pod request and
 limit.
+
+{{< note >}}
+For example, take a Pod with these init containers, in order: a sidecar
+container (`restartPolicy: Always`) requesting `100m` CPU, followed by a
+regular init container requesting `200m` CPU; plus one app container
+requesting `100m` CPU. The sidecar is still running while the regular init
+container executes, so the effective init request for that step is
+`100m + 200m = 300m` CPU. That's higher than the sum of the app and sidecar
+container requests (`100m + 100m = 200m`), so the Pod's effective CPU request
+is `300m` CPU (plus any pod overhead), even though no single container
+requests that much.
+{{< /note >}}
 
 ### Sidecar containers and Linux cgroups {#cgroups}
 
