@@ -139,9 +139,6 @@ The spec may specify only one of the following concurrency policies:
 * `Replace`: If it is time for a new Job run and the previous Job run hasn't finished yet, the
   CronJob replaces the currently running Job run with a new Job run
 
-Note that concurrency policy only applies to the Jobs created by the same CronJob.
-If there are multiple CronJobs, their respective Jobs are always allowed to run concurrently.
-
 ### Schedule suspension
 
 You can suspend execution of Jobs for a CronJob, by setting the optional `.spec.suspend` field
