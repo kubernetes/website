@@ -1,8 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.37: Garhwal"
+title: "Kubernetes v1.37: ガルワール"
 date: 2026-08-26
-evergreen: true
 slug: kubernetes-v1-37-release
 author: >
   [Kubernetes v1.37 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)
@@ -52,7 +51,7 @@ Watchキャッシュの初期化と再初期化は、`etcd`に対するリクエ
 
 この取り組みは、[SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/)が主導した[KEP #4568](https://kep.k8s.io/4568)の一環として行われました。
 
-### ベータ: HorizontalPodAutoscalerのゼロへのスケーリング {#beta-hpa-scale-to-zero}
+### ベータ: HorizontalPodAutoscalerによるゼロへのスケーリング {#beta-horizontalpodautoscaler-scale-to-zero}
 
 Kubernetes v1.37では、HorizontalPodAutoscalerの_scale to zero_(ゼロへのスケーリング)サポートがベータに昇格します。
 Kubernetes v1.16で初めて導入されたこの機能は、現在は**デフォルトで有効**です。
@@ -61,169 +60,128 @@ Kubernetes v1.16で初めて導入されたこの機能は、現在は**デフ�
 CPUおよびメモリメトリクスに基づくゼロへのスケーリングは、これらのメトリクスがアクティブなPodに依存しているため**サポートされていません**。
 代わりに、この機能は、処理すべきキューに入った作業があるまでレプリカ数をゼロに保つといった状況を想定しています。
 
-HorizontalPodAutoscalerがワークロードをゼロレプリカで保持している間、HorizontalPodAutoscalerのステータスに`ScaledToZero`条件を`True`で記録します。
-`HorizontalPodAutoscaler`コントローラーは、この条件を使用して、(メトリクスが戻ったときにスケールアップする)ゼロにスケールしたワークロードと、レプリカ数を0に設定することで手動で無効化されたワークロードを区別します。
-ワークロードがスケールアップされると、条件は理由`NotScaledToZero`で`False`に設定されます。
+HorizontalPodAutoscalerがワークロードをゼロレプリカで保持している間、HorizontalPodAutoscalerのステータスに`ScaledToZero`Conditionを`True`で記録します。
+`HorizontalPodAutoscaler`コントローラーは、このConditionを使用して、(メトリクスが戻ったときにスケールアップする)ゼロにスケールしたワークロードと、レプリカ数を0に設定することで手動で無効化されたワークロードを区別します。
+ワークロードがスケールアップされると、Conditionの理由は`NotScaledToZero`で`False`に設定されます。
 
 この取り組みは、[SIG Autoscaling](https://www.kubernetes.dev/community/community-groups/sigs/autoscaling/)が主導した[KEP #2021](https://kep.k8s.io/2021)の一環として行われました。
 
-### Beta: Manifest-based admission control configuration
+### ベータ: マニフェストベースのadmission control設定 {#beta-manifest-based-admission-control-configuration}
 
-Kubernetes v1.37 graduates [manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
-configuration to Beta. Admission webhooks and CEL-based policies can now be loaded from manifest files on disk, via the
-`staticManifestsDir` field in `AdmissionConfiguration`, instead of living only in the Kubernetes API. Policies loaded this
-way are enforced from API server startup, keep working while `etcd` is unavailable, and can protect the API-based admission
-resources themselves from modification.
+Kubernetes v1.37では、[マニフェストベースのadmission control](/docs/reference/access-authn-authz/manifest-admission-control/)設定がベータに昇格します。
+Admission webhookとCELベースのポリシーを、Kubernetes API内にのみ置かれる代わりに、`AdmissionConfiguration`の`staticManifestsDir`フィールドを介してディスク上のマニフェストファイルから読み込めるようになります。
+この方法で読み込まれたポリシーはAPIサーバーの起動時から適用され、`etcd`が利用できない間も機能し続け、APIベースのadmissionリソース自体を改変から保護することもできます。
 
-This work was done as part of [KEP #5793](https://www.kubernetes.dev/resources/keps/5793/) led by [SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/).
+この取り組みは、[SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/)が主導した[KEP #5793](https://kep.k8s.io/5793)の一環として行われました。
 
-### Alpha: Pod-level checkpoint and restore
+### アルファ: Podレベルのチェックポイントと復元 {#alpha-pod-level-checkpoint-and-restore}
 
-Kubernetes v1.37 introduces Alpha support for **Pod-level** checkpoint and restore,
-extending the CRI with `CheckpointPod` and `RestorePod` RPCs, which allow the kubelet and compatible container runtimes to create a Pod checkpoint and restore a Pod from it.
-To use this feature, your container runtime(s) must also implement these new RPCs.
+Kubernetes v1.37では、**Podレベルの**チェックポイントと復元に対するアルファサポートを導入します。
+これは、`CheckpointPod`と`RestorePod`RPCを提供することでCRIを拡張し、kubeletと互換性のあるコンテナランタイムがPodのチェックポイントを作成し、そこからPodを復元できるようにします。
+この機能を使用するには、コンテナランタイムがこれらの新しいRPCを実装している必要があります。
 
-This work was done as part of [KEP #5823](https://www.kubernetes.dev/resources/keps/5823/) led by
-[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/).
+この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/)が主導した[KEP #5823](https://kep.k8s.io/5823)の一環として行われました。
 
-## Features graduating to Stable
+## GAに昇格した機能 {#features-graduating-to-stable}
 
-This lists all the features that graduated to Stable (also known as _General Availability_). For a full list of updates
-including new features and graduations from Alpha to Beta, see the release notes.
+これは安定版(*一般提供、GA*とも呼ばれる)に昇格したすべての機能を一覧にしたものです。新機能やアルファからベータへの昇格を含むすべての更新の完全なリストについては、リリースノートをご覧ください。
 
-This release includes a total of 16 enhancements promoted to Stable:
+このリリースには、GAに昇格した合計16件の機能強化が含まれています。
 
-### KYAML
+### KYAML {#kyaml}
 
-_KYAML_ is a safer and less ambiguous subset of YAML designed specifically for Kubernetes, **not a replacement for it**. Every
-KYAML file is valid YAML, so KYAML is a valid input for any version of `kubectl`, and spec files do not need to be written in
-KYAML for the input to be parsed. Your existing manifests, tooling, and pipelines don't need to change.
-Introduced as an Alpha feature in v1.34 and graduating to Beta in v1.35, KYAML graduates to Stable in v1.37 with conformance
-testing complete, and `kubectl get -o kyaml` is now Stable.
+_KYAML_は、Kubernetes専用に設計された、より安全で曖昧さの少ないYAMLのサブセットであり、**YAMLの置き換えではありません**。
+すべてのKYAMLファイルは有効なYAMLであるため、KYAMLは任意のバージョンの`kubectl`にとって有効な入力であり、入力が解析されるためにspecファイルをKYAMLで記述する必要はありません。
+既存のマニフェスト、ツール、パイプラインを変更する必要はありません。
+v1.34でアルファ機能として導入され、v1.35でベータに昇格したKYAMLは、適合性テストの完了とともにv1.37でGAに昇格し、`kubectl get -o kyaml`が現在GAになりました。
 
-To learn more about KYAML, check out [How to Pretty-Print Your Kubernetes YAML as KYAML and Why You'd Want To](/blog/2026/08/11/how-to-pretty-print-kubernetes-yaml-as-kyaml/).
+KYAMLの詳細については、[How to Pretty-Print Your Kubernetes YAML as KYAML and Why You'd Want To](/blog/2026/08/11/how-to-pretty-print-kubernetes-yaml-as-kyaml/)をご覧ください。
 
-This work was done as part of [KEP #5295](https://www.kubernetes.dev/resources/keps/5295/) led by [SIG CLI](https://www.kubernetes.dev/community/community-groups/sigs/cli/).
+この取り組みは、[SIG CLI](https://www.kubernetes.dev/community/community-groups/sigs/cli/)が主導した[KEP #5295](https://kep.k8s.io/5295)の一環として行われました。
 
-### The metrics.k8s.io API
+### metrics.k8s.io API {#the-metrics-k8s-io-api}
 
-The _metrics.k8s.io_ API graduates to Stable in Kubernetes v1.37 after spending nearly nine years in Beta. The API provides a
-standard way to retrieve CPU and memory usage for pods and nodes, powering widely used Kubernetes features such as the
-HorizontalPodAutoscaler (HPA) and commands like `kubectl top`.
+_metrics.k8s.io_APIは、約9年間のベータ期間を経て、Kubernetes v1.37でGAに昇格します。このAPIは、PodとノードのCPUおよびメモリ使用量を取得する標準的な方法を提供し、HorizontalPodAutoscaler(HPA)や`kubectl top`コマンドなど、広く使用されているKubernetes機能を支えています。
 
-The graduation follows the Kubernetes project’s goal of avoiding permanent Beta APIs. Now that `v1` exists, future
-Kubernetes releases will move over to it; `v1beta1` remains usable throughout the transition, in line with the API
-deprecation policy, so you can adopt the Stable API without breaking existing workflows.
+この昇格は、永続的なベータAPIを避けるというKubernetesプロジェクトの目標に沿っています。`v1`が存在するようになったため、将来のKubernetesリリースはこちらに移行します。`v1beta1`はAPI非推奨ポリシーに沿って移行期間中も引き続き利用可能なので、既存のワークフローを壊すことなくGA APIを採用できます。
 
-This work was done as part of [KEP #5207](https://www.kubernetes.dev/resources/keps/5207/) led
-by [SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/).
+この取り組みは、[SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/)が主導した[KEP #5207](https://kep.k8s.io/5207)の一環として行われました。
 
-### `SELinuxMount` and `SELinuxChangePolicy`
+### `SELinuxMount`と`SELinuxChangePolicy` {#selinuxmount-and-selinuxchangepolicy}
 
-In Kubernetes v1.37, `SELinuxMount` and `SELinuxChangePolicy` flags reach Stable and are enabled by default: this means that
-volumes get mounted with `-o context=<label>` (the MountOption default) instead of being recursively relabeled, but only when
-the volume's CSI driver opts in via `.spec.seLinuxMount: true` for the CSIDriver object.
+Kubernetes v1.37では、`SELinuxMount`および`SELinuxChangePolicy`フラグがGAに達し、デフォルトで有効になります。つまり、ボリュームは再帰的なラベル再設定の代わりに`-o context=<label>`(MountOptionのデフォルト)でマウントされます。ただし、これはボリュームのCSIドライバーがCSIDriverオブジェクトの`.spec.seLinuxMount: true`を介してオプトインした場合のみです。
 
-A mount can only carry one SELinux context, so [Pods with different SELinux labels sharing a volume on the same node, which
-used to coexist under recursive relabeling, can now fail to start](https://www.kubernetes.dev/resources/keps/1710/#story-3-cluster-upgrade).
-To retain the old behavior for a workload, it is advised to set the `.spec.seLinuxChangePolicy` to `Recursive` on a Pod.
+マウントは1つのSELinuxコンテキストしか保持できないため、[再帰的なラベル再設定の下では共存できていた、同じノード上で異なるSELinuxラベルを持つPodがボリュームを共有するケースが、起動に失敗する可能性があります](https://www.kubernetes.dev/resources/keps/1710/#story-3-cluster-upgrade)。
+ワークロードの以前の動作を維持するには、Podで`.spec.seLinuxChangePolicy`を`Recursive`に設定することをお勧めします。
 
-This behavior itself also isn't locked until v1.38, so disabling it cluster-wide remains an option for one more release.
+この動作自体もv1.38までロックされないため、クラスター全体での無効化はあと1リリースの選択肢として残っています。
 
-Clusters without SELinux enabled see no effect at all. To learn more, check [SELinux Volume Label Changes goes GA (and likely
-implications in v1.37)](/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/).
+SELinuxが有効でないクラスターにはまったく影響がありません。詳細については、[SELinux Volume Label Changes goes GA (and likely implications in v1.37)](/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/)をご覧ください。
 
-This work was done as part of [KEP #1710](https://www.kubernetes.dev/resources/keps/1710/) led by [SIG Storage](https://www.kubernetes.dev/community/community-groups/sigs/storage/).
+この取り組みは、[SIG Storage](https://www.kubernetes.dev/community/community-groups/sigs/storage/)が主導した[KEP #1710](https://kep.k8s.io/1710)の一環として行われました。
 
-### DRA features graduating to Stable
+### GAに昇格したDRA機能 {#dra-features-graduating-to-stable}
 
-#### DRA: ResourceClaim status with possible standardized network interface data
+#### DRA: 標準化されたネットワークインターフェースデータを伴うResourceClaimステータス {#dra-resourceclaim-status-with-possible-standardized-network-interface-data}
 
-The ResourceClaim `.status.devices` reaches Stable in Kubernetes v1.37, which allows drivers to report device-specific device
-status data for each allocated device in a resource claim. This makes it easier to see how a device is configured,
-troubleshoot problems, and use the device with other services.
+ResourceClaimの`.status.devices`がKubernetes v1.37でGAに到達し、ドライバーがリソースクレーム内の割り当て済みデバイスごとにデバイス固有のステータスデータを報告できるようになります。これにより、デバイスがどのように構成されているかを確認し、問題をトラブルシューティングし、他のサービスとデバイスを使用することが容易になります。
 
-This is particularly useful for network devices; before this field was added, if a Pod requested a network device via DRA,
-there was no way for any other component in the system to learn the IP address that was assigned to that network device.
-The new status field provides a standardized way for the DRA driver to export that information to components that need it,
-making DRA fully usable for attaching secondary network interfaces to Pods.
+これは特にネットワークデバイスにとって有用です。このフィールドが追加される前は、PodがDRAを介してネットワークデバイスをリクエストした場合、システム内の他のコンポーネントがそのネットワークデバイスに割り当てられたIPアドレスを知る方法がありませんでした。
+新しいステータスフィールドは、DRAドライバーがその情報を必要とするコンポーネントにエクスポートする標準化された方法を提供し、DRAをPodへのセカンダリネットワークインターフェースの接続に完全に使用できるようにします。
 
-This work was done as part of [KEP #4817](https://www.kubernetes.dev/resources/keps/4817/) led by [SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/) and [SIG Network](https://www.kubernetes.dev/community/community-groups/sigs/network/).
+この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/)と[SIG Network](https://www.kubernetes.dev/community/community-groups/sigs/network/)が主導した[KEP #4817](https://kep.k8s.io/4817)の一環として行われました。
 
+#### DRA: DRAドライバーを介した拡張リソースリクエストの処理 {#dra-handle-extended-resource-requests-via-dra-driver}
 
-#### DRA: handle extended resource requests via DRA Driver
+Kubernetes v1.37で、DRA拡張リソースサポートがGAに到達します。この機能により、DRAドライバーは、Pod spec内の`abc.example/gpu: 3`のような従来の_extended resource_(拡張リソース)メカニズムを通じて行われたリクエストを、別の[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)を必要とせずに満たすことができます。
 
-DRA Extended Resource support reaches Stable in Kubernetes v1.37. This feature allows DRA drivers to fulfill requests made
-through the traditional _extended resource_ mechanism, such as `abc.example/gpu: 3` in a Pod spec, without requiring a
-separate [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
+このメカニズムにより、拡張リソース名をDeviceClassに直接割り当てられます。そのリソースをリクエストするPodは、ワークロード内でResourceClaimを定義する必要なしに、DRAを介してデバイスを割り当ててもらえます。
 
-With this mechanism, an extended resource name can be assigned directly to a DeviceClass. Pods requesting that resource can then have a device allocated through DRA without needing to define a ResourceClaim in the workload.
+この取り組みは、[SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/)が主導した[KEP #5004](https://kep.k8s.io/5004)の一環として行われました。
 
-This work was done as part of [KEP #5004](https://www.kubernetes.dev/resources/keps/5004/) led by [SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/).
+#### DRA: デバイスのTaintとToleration {#dra-device-taints-and-tolerations}
 
-#### DRA: device taints and tolerations
+DRAを介して管理される物理デバイスに対する_taints and tolerations_サポートが、Kubernetes v1.37でGAになりました。デフォルトでは、利用可能な任意のデバイスがスケジューリングの候補になり得ます。この拡張機能は、DRAドライバーが特定のデバイスをtaintされたものとしてマークしてワークロードに選択されないようにできるようにすることで、デバイススケジューリングに対するより大きな制御を提供します。あるいは、クラスター管理者はDeviceTaintRuleを作成して、特定のドライバーが管理するすべてのデバイスなど、特定の選択基準に基づいてデバイスをtaintできます。
 
-Support for _taints and tolerations_ for physical devices managed through DRA is now Stable in Kubernetes v1.37. By default, any available device can be considered for scheduling. This enhancement provides greater control over device scheduling by allowing DRA drivers to mark specific devices as tainted, preventing them from being selected for workloads. Alternatively, cluster administrators can create a DeviceTaintRule to taint devices based on specific selection criteria, such as all devices managed by a particular driver. 
+この取り組みは、[SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/)が主導した[KEP #5055](https://kep.k8s.io/5055)の一環として行われました。
 
-This work was done as part of [KEP #5055](https://www.kubernetes.dev/resources/keps/5055/)
-led by [SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/).
+#### DRA: 標準的なnumaNodeデバイス属性 {#dra-standard-numanode-device-attribute}
 
-#### DRA: standard numaNode device attribute {#dra-standard-numanode-device-attribute}
+Kubernetes v1.37は、新しい標準的な_NUMAノードデバイス属性_を定義します。`resource.kubernetes.io/numaNode`をデバイスのNUMAノード情報の共有属性名として標準化し、異なるDRAドライバーによって管理されるデバイスが同じNUMAノードに基づいて比較できるようにします。これにより、各ドライバーが独自の属性名を定義することを避け、デバイス全体でのNUMA配置を一貫した方法で識別できます。この拡張機能は、フィーチャーゲートやin-treeの動作変更がない命名・登録KEPであるため、直接GAとして着地します。
 
-Kubernetes v1.37 defines a new standard _NUMA node device attribute_. It standardizes
-`resource.kubernetes.io/numaNode` as a shared attribute name for device NUMA node information, allowing devices managed by
-different DRA drivers to be compared based on the same NUMA node. This avoids each driver defining its own attribute name and
-provides a consistent way to identify NUMA placement across devices. The enhancement lands directly as Stable because it is a
-naming and registration KEP with no feature gate or in-tree behavior changes.
-
-This work was done as part of [KEP #6072](https://www.kubernetes.dev/resources/keps/6072/) led by [SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node).
+この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node)が主導した[KEP #6072](https://kep.k8s.io/6072)の一環として行われました。
 
 ### Node declared features {#node-declared-features}
 
-_Node declared features_ graduate to Stable in Kubernetes v1.37, providing a framework to declare the availability of specific, feature-gated Kubernetes features for Nodes.
-This would then be used by control plane components (such as the `kube-scheduler`, admission controllers, or the API server itself) to manage version skew.
+_Node declared features_は、特定のフィーチャーゲートを備えたKubernetes機能の利用可能性をNodeのために宣言するフレームワークを提供し、Kubernetes v1.37でGAに昇格します。
+これは、コントロールプレーンコンポーネント(`kube-scheduler`、admissionコントローラー、APIサーバー自体など)がバージョンスキューを管理するために使用します。
 
-The feature introduces a new `.status.declaredFeatures` field for Nodes, which is used to declare a feature graduating
-through the Alpha → Beta → Stable stages. The control plane can use this to adopt
-the correct behavior even in a cluster running a mixture of different node versions.
+この機能は、Nodeに新しい`.status.declaredFeatures`フィールドを導入し、アルファ→ベータ→GAの段階を通過する機能を宣言するために使用されます。コントロールプレーンはこれを利用して、異なるノードバージョンが混在するクラスターでも正しい動作を採用できます。
 
-Once features graduate to Stable and the control plane can assume all nodes support them across the supported version skew
-window, nodes stop reporting them.
+機能がGAに昇格し、コントロールプレーンがサポートされるバージョンスキューの範囲内で全ノードがその機能をサポートすると想定できるようになると、ノードはそれらの報告を停止します。
 
-The `kubelet` determines its declared features when it starts, based only on feature gates and the node’s static
-configuration (so any changes require a `kubelet` restart).
+`kubelet`は起動時に、フィーチャーゲートとノードの静的な設定のみに基づいて宣言する機能を決定します(そのため、変更には`kubelet`の再起動が必要です)。
 
-This work was done as part of [KEP #5328](https://www.kubernetes.dev/resources/keps/5328/) led by [SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/).
+この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/)が主導した[KEP #5328](https://kep.k8s.io/5328)の一環として行われました。
 
 ### Storage version migrator {#storage-version-migrator}
 
-Kubernetes v1.37 sees the _StorageVersionMigration API_ (`storagemigration.k8s.io/v1`) graduate to Stable and become enabled by
-default. It helps migrate existing resources, both built-in and custom, from an older storage version to the new storage
-version after an API upgrade, such as when the preferred storage version changes from `v1beta1` to `v1`. It can also be used to rewrite existing
-data after a change to encryption at rest, so that stale data is stored using the new encryption settings.
+Kubernetes v1.37では、_StorageVersionMigration API_(`storagemigration.k8s.io/v1`)がGAに昇格し、デフォルトで有効になります。これは、APIアップグレード後(推奨ストレージバージョンが`v1beta1`から`v1`に変わる場合など)に、既存のリソース(組み込みとカスタムの両方)を古いストレージバージョンから新しいストレージバージョンへ移行するのに役立ちます。さらに、保存時の暗号化の変更後に既存データを書き換えるためにも使用でき、古いデータが新しい暗号化設定で保存されるようにできます。
 
-Historically, cluster administrators and CustomResourceDefinition authors had to use manual `kubectl get` or
-`kubectl replace` scripts, or deploy the out-of-tree `kube-storage-version-migrator` component to rewrite existing resources. These
-approaches were often tedious, error-prone, and difficult to monitor.
+歴史的には、クラスター管理者とCustomResourceDefinitionの作成者は、既存リソースを書き換えるために手動の`kubectl get`や`kubectl replace`スクリプトを使用するか、out-of-treeの`kube-storage-version-migrator`コンポーネントをデプロイする必要がありました。これらのアプローチはしばしば面倒で、エラーが発生しやすく、監視も困難でした。
 
-To start a storage version migration, users would need to create a declarative StorageVersionMigration object. The built-in
-`StorageVersionMigrator` controller in the Kubernetes control plane watches for these objects and automatically migrates
-existing resources to the default storage version for that API. Since StorageVersionMigration is a standard Kubernetes API,
-CRD authors can trigger migrations as part of a CRD upgrade instead of managing the migration separately.
+ストレージバージョン移行を開始するには、宣言的なStorageVersionMigrationオブジェクトを作成する必要があります。Kubernetesコントロールプレーンに組み込まれた`StorageVersionMigrator`コントローラーはこれらのオブジェクトを監視し、既存のリソースをそのAPIのデフォルトストレージバージョンへ自動的に移行します。StorageVersionMigrationは標準のKubernetes APIであるため、CRD作成者は移行を別途管理する代わりに、CRDアップグレードの一部として移行をトリガーできます。
 
-This work was done as part of [KEP #4192](https://www.kubernetes.dev/resources/keps/4192/) led by [SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/).
+この取り組みは、[SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/)が主導した[KEP #4192](https://kep.k8s.io/4192)の一環として行われました。
 
-### Stable: Pod certificates and Cluster Trust Bundles {#pod-certificates-and-clustertrustbundles} 
+### 安定版: Pod証明書とCluster Trust Bundles {#pod-certificates-and-clustertrustbundles}
 
-[Pod certificates](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests) and the closely related [ClusterTrustBundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)
-both graduate to Stable in Kubernetes v1.37, providing first-class support for distributing private keys, X.509
-certificates, and trust bundles to Pods.
+[Pod証明書](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests)と密接に関連する[ClusterTrustBundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)は、どちらもKubernetes v1.37でGAに昇格し、プライベートキー、X.509証明書、トラストバンドルをPodに配布するためのファーストクラスサポートを提供します。
 
-To use this, the developer or administrator chooses a signer name and deploys a _signer controller_ that
-watches PodCertificateRequest objects, issues and refreshes certificates for eligible Pods, and maintains the corresponding ClusterTrustBundle objects containing the trust anchors needed to verify those certificates.
-A workload then opts into this identity by defining a `podCertificate` projected volume with the chosen signer name. Workloads can also mount a ClusterTrustBundle projected volume to load the trust anchor information.
+これを使用するには、開発者または管理者が署名者名を選択し、_signer controller_をデプロイします。このコントローラーはPodCertificateRequestオブジェクトを監視し、対象となるPodに対して証明書を発行・更新し、それらの証明書の検証に必要なトラストアンカーを含む対応するClusterTrustBundleオブジェクトを維持します。
+ワークロードは、選択した署名者名を持つ`podCertificate`プロジェクテッドボリュームを定義することで、このアイデンティティにオプトインします。ワークロードはClusterTrustBundleプロジェクテッドボリュームをマウントしてトラストアンカー情報を読み込むこともできます。
 
-This work was done as part of two KEPs - [KEP #4317](https://www.kubernetes.dev/resources/keps/4317/) and [KEP #3257](https://www.kubernetes.dev/resources/keps/3257/) led by [SIG Auth](https://www.kubernetes.dev/community/community-groups/sigs/auth/).
+この取り組みは、[SIG Auth](https://www.kubernetes.dev/community/community-groups/sigs/auth/)が主導した[KEP #4317](https://kep.k8s.io/4317)と[KEP #3257](https://kep.k8s.io/3257)の2つのKEPの一環として行われました。
 
 ## Features graduating to Beta
 
