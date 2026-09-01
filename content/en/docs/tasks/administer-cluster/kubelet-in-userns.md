@@ -49,6 +49,21 @@ See the Minikube documentation:
 * [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
 * [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 
+### Usernetes
+
+[Usernetes](https://github.com/rootless-containers/usernetes) is a reference
+distribution that deploys multi-node Kubernetes clusters without root privileges
+on the host.
+
+Its default mode runs **Kubernetes-in-Docker** on Rootless Docker, Rootless
+Podman, or Rootless nerdctl (similar to rootless kind or minikube, with multi-host
+support). It also supports a **Kubernetes-in-Kubernetes** mode that runs inside
+an existing cluster as [UserNS-enabled pods](/docs/concepts/workloads/pods/user-namespaces/)
+(`hostUsers: false`).
+
+See [the Usernetes repository](https://github.com/rootless-containers/usernetes)
+for setup details.
+
 ## Running Kubernetes inside Unprivileged Containers
 
 {{% thirdparty-content %}}
@@ -76,14 +91,6 @@ the container plus several other advanced OS virtualization techniques.
 [K3s](https://k3s.io/) experimentally supports rootless mode.
 
 See [Running K3s with Rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental) for the usage.
-
-### Usernetes
-[Usernetes](https://github.com/rootless-containers/usernetes) is a reference distribution of Kubernetes that can be installed under `$HOME` directory without the root privilege.
-
-Usernetes supports both containerd and CRI-O as CRI runtimes.
-Usernetes supports multi-node clusters using Flannel (VXLAN).
-
-See [the Usernetes repo](https://github.com/rootless-containers/usernetes) for the usage.
 
 ## Manually deploy a node that runs the kubelet in a user namespace {#userns-the-hard-way}
 
