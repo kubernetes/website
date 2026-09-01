@@ -466,9 +466,22 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   }
 }
 
-@media only screen and (max-width: 640px) and (orientation: portrait) {
+.video-mobile-link {
+  display: none;
+}
+
+@media (max-width: 10cm), only screen and (max-width: 640px) and (orientation: portrait) {
   .td-home section#video {
     display: none;
+  }
+
+  .video-mobile-link {
+    display: block;
+    text-align: center;
+    background: #13110f; // match video section background
+    color: #fff;
+    font-weight: 700;
+    padding: 1rem;
   }
 }
 
