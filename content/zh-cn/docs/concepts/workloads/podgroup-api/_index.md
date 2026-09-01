@@ -29,13 +29,13 @@ for a specific instance of that group.
 ## 什么是 PodGroup？   {#what-is-a-podgroup}
 
 <!--
-The PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+The PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}
 and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 before you can use this API.
 -->
-PodGroup API 资源是 `scheduling.k8s.io/v1alpha2`
+PodGroup API 资源是 `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}}的一部分，
 在使用此 API 之前，你的集群必须启用该 API 组以及 `GenericWorkload`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
@@ -103,6 +103,38 @@ spec:
 ```
 
 <!--
+### Priority and Disruption mode
+
+Each PodGroup can also define its own `spec.priority`, `spec.preemptionPolicy` and
+`spec.disruptionMode`. Priority and preemption policy are set using a
+`spec.priorityClassName` field, which points to a `PriorityClass` resource.
+See
+[Pod Group Disruption and Priority](/docs/concepts/workloads/workload-api/disruption-and-priority/)
+for detailed description of these fields.
+-->
+### 优先级和干扰模式   {#priority-and-disruption-mode}
+
+每个 PodGroup 还可以定义自己的 `spec.priority`、`spec.preemptionPolicy` 和
+`spec.disruptionMode`。优先级和抢占策略通过 `spec.priorityClassName` 字段设置，
+该字段指向一个 `PriorityClass` 资源。有关这些字段的详细描述，请参阅
+[PodGroup 干扰和优先级](/zh-cn/docs/concepts/workloads/workload-api/disruption-and-priority/)。
+
+<!--
+When a workload controller creates the PodGroup, these fields are copied from
+the Workload's PodGroupTemplate at creation time. For standalone PodGroups,
+you set the fields directly.
+-->
+当工作负载控制器创建 PodGroup 时，这些字段在创建时从 Workload 的 PodGroupTemplate 复制。
+对于独立的 PodGroup，你直接设置这些字段。
+
+```yaml
+spec:
+  disruptionMode:
+    all: {}
+  priorityClassName: high-priority
+```
+
+<!--
 ### Requesting DRA devices for a PodGroup
 -->
 ### 为 PodGroup 请求 DRA 设备   {#requesting-dra-devices-for-a-podgroup}
@@ -115,11 +147,11 @@ spec:
 can be requested by a PodGroup through its `spec.resourceClaims` field:
 -->
 通过{{< glossary_tooltip text="动态资源分配（DRA）" term_id="dra" >}}
-可获得的{{< glossary_tooltip text="设备" term_id="device" >}}
-可以由 PodGroup 通过其 `spec.resourceClaims` 字段请求：
+可获得的{{< glossary_tooltip text="设备" term_id="device" >}}可以由
+PodGroup 通过其 `spec.resourceClaims` 字段请求：
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-group
@@ -166,21 +198,21 @@ For more details and a more complete example, see the
 
 <!--
 The scheduler updates `status.conditions` to report whether the group has been
-successfully scheduled. The primary condition is `PodGroupScheduled`, which is `True`
+successfully scheduled. The primary condition is `PodGroupInitiallyScheduled`, which is `True`
 when all required Pods have been placed and `False` when scheduling fails.
 -->
 调度器更新 `status.conditions` 以报告组是否已成功调度。
-主要条件是 `PodGroupScheduled`，当所有必需的 Pod 已放置时为 `True`，
+主要条件是 `PodGroupInitiallyScheduled`，当所有必需的 Pod 已放置时为 `True`，
 当调度失败时为 `False`。
 
 {{< note >}}
 <!--
-The `PodGroupScheduled` condition reflects the initial scheduling decision only.
+The `PodGroupInitiallyScheduled` condition reflects the initial scheduling decision only.
 The scheduler does not update it if Pods later fail or are evicted. See
 [Limitations](/docs/concepts/workloads/podgroup-api/lifecycle/#limitations)
 for details.
 -->
-`PodGroupScheduled` 条件仅反映初始调度决策。
+`PodGroupInitiallyScheduled` 条件仅反映初始调度决策。
 如果 Pod 后续失败或被驱逐，调度器不会更新它。
 有关详细信息，请参阅[限制](/zh-cn/docs/concepts/workloads/podgroup-api/lifecycle/#limitations)。
 {{< /note >}}
@@ -198,13 +230,13 @@ page for the full list of conditions and reasons.
 ## 创建 PodGroup   {#creating-a-podgroup}
 
 <!--
-A PodGroup API resource is part of the `scheduling.k8s.io/v1alpha2`
+A PodGroup API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 (and your cluster must have that API group enabled, as well as the `GenericWorkload`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 before you can use this API).
 -->
-PodGroup API 资源是 `scheduling.k8s.io/v1alpha2`
+PodGroup API 资源是 `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}}的一部分。
 （在使用此 API 之前，你的集群必须启用该 API 组以及 `GenericWorkload`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。）
@@ -216,7 +248,7 @@ at least 4 Pods to be schedulable simultaneously:
 以下清单创建一个具有 gang 调度策略的 PodGroup，该策略要求至少 4 个 Pod 同时可调度：
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0
@@ -261,7 +293,7 @@ The relationship between controllers, Workloads, PodGroups, and Pods follows thi
 3. The controller creates Pods that reference the PodGroup
    via the `spec.schedulingGroup.podGroupName` field.
 -->
-1. 工作负载控制器创建一个 Workload，该 Workload 定义带有调度策略的 PodGroupTemplates。
+1. 工作负载控制器创建一个 Workload，该 Workload 定义带有调度策略的 PodGroupTemplate。
 2. 对于每个运行时实例，控制器从 Workload 的其中一个 PodGroupTemplate 创建一个 PodGroup。
 3. 控制器创建通过 `spec.schedulingGroup.podGroupName` 字段引用 PodGroup 的 Pod。
 
@@ -274,7 +306,7 @@ Custom controllers can implement the same flow for their own workload types.
 自定义控制器可以为自己的工作负载类型实现相同的流程。
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: training-policy
@@ -285,7 +317,7 @@ spec:
       gang:
         minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: training-worker-0
@@ -318,6 +350,44 @@ individual PodGroups do not contend on the shared Workload object.
 Workload 充当长期存在的策略定义，而 PodGroup 处理瞬态的、每个实例的运行时状态。
 这种分离意味着单个 PodGroup 的状态更新不会与共享的 Workload 对象发生冲突。
 
+<!--
+## Parent group
+-->
+## 父组   {#parent-group}
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+<!--
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, a `PodGroup` can act as a leaf node in a multi-level group hierarchy that
+consists of `PodGroups` and `CompositePodGroups`. A `PodGroup` can specify its parent group using the
+`spec.parentCompositePodGroupName` field. Organizing a workload into a hierarchy of groups can be
+used to express multi-level gang scheduling requirements, multi-level topology constraints and
+disruption fate-sharing across parts of the workload.
+-->
+当 [`CompositePodGroup`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+特性门控启用时，`PodGroup` 可以作为由 `PodGroup` 和 `CompositePodGroup` 组成的多级组层级中的叶节点。
+`PodGroup` 可以使用 `spec.parentCompositePodGroupName` 字段指定其父组。
+将工作负载组织为组层级可用于表达多级编组调度需求、多级拓扑约束以及工作负载各部分之间的干扰命运共享。
+
+<!--
+For more details on hierarchical group structures and multi-level gang scheduling, see the
+[CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) overview.
+-->
+有关层级组结构和多级编组调度的更多详细信息，请参阅
+[CompositePodGroup API](/zh-cn/docs/concepts/workloads/compositepodgroup-api/) 概述。
+
+{{< note >}}
+<!--
+A `PodGroup` that specifies `spec.parentCompositePodGroupName` must also specify `spec.workloadRef`,
+linking the `PodGroup` back to its template in the `Workload`. Standalone `PodGroup` objects
+(created without a `spec.workloadRef`) are not allowed to specify a parent `CompositePodGroup`.
+-->
+指定了 `spec.parentCompositePodGroupName` 的 `PodGroup` 还必须指定 `spec.workloadRef`，
+将 `PodGroup` 关联回其在 `Workload` 中的模板。不允许独立的 `PodGroup` 对象
+（创建时没有 `spec.workloadRef`）指定父 `CompositePodGroup`。
+{{< /note >}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -327,6 +397,6 @@ Workload 充当长期存在的策略定义，而 PodGroup 处理瞬态的、每�
 * Understand the [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) algorithm.
 -->
 * 详细了解 [PodGroup 生命周期](/zh-cn/docs/concepts/workloads/podgroup-api/lifecycle/)。
-* 阅读提供 PodGroupTemplates 的[工作负载 API](/zh-cn/docs/concepts/workloads/workload-api/)。
+* 阅读提供 PodGroupTemplate 的 [Workload API](/zh-cn/docs/concepts/workloads/workload-api/)。
 * 查看 Pod 如何通过[调度组](/zh-cn/docs/concepts/workloads/pods/scheduling-group/)字段引用其 PodGroup。
-* 理解[Gang调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)算法。
+* 理解 [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)算法。
