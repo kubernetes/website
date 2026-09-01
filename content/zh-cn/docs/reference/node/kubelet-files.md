@@ -15,17 +15,16 @@ process running on a Kubernetes {{< glossary_tooltip text="node" term_id="node" 
 This document outlines files that kubelet reads and writes.
 -->
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 是一个运行在 Kubernetes
-{{< glossary_tooltip text="节点" term_id="node" >}}上的无状态进程。本文简要介绍了 kubelet 读写的文件。
+{{< glossary_tooltip text="节点" term_id="node" >}}上的无状态进程。
+本文简要介绍了 kubelet 读写的文件。
 
 {{< note >}}
-
 <!--
 This document is for informational purpose and not describing any guaranteed behaviors or APIs.
 It lists resources used by the kubelet, which is an implementation detail and a subject to change at any release.
 -->
 本文仅供参考，而非描述保证会发生的行为或 API。
 本文档列举 kubelet 所使用的资源。所给的信息属于实现细节，可能会在后续版本中发生变更。
-
 {{< /note >}}
 
 <!--
@@ -163,7 +162,7 @@ Names of files:
 <!--
 ### Checkpoint file for device manager {#device-manager-state}
 
-Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet root directory.
 The name of a checkpoint file is `kubelet_internal_checkpoint` for
 [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
@@ -171,7 +170,7 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for
 -->
 ### 设备管理器的检查点文件   {#device-manager-state}
 
-设备管理器在与套接字文件相同的目录（`/var/lib/kubelet/device-plugins/`）中创建检查点。
+此路径是硬编码的，且不相对于 kubelet 根目录。
 对于[设备管理器](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)，
 检查点文件的名称为 `kubelet_internal_checkpoint`。
 
@@ -187,7 +186,7 @@ for more details on how these records are used.
 -->
 如果某个节点已启用了 `InPlacePodVerticalScaling`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-则 kubelet 存储有关 Pod 资源**已分配**和**已应用**状态的本地记录。  
+则 kubelet 存储有关 Pod 资源**已分配**和**已应用**状态的本地记录。
 有关如何使用这些记录的更多细节，
 请参阅[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
 
@@ -237,8 +236,9 @@ various [Device Plugins to register](/docs/concepts/extend-kubernetes/compute-st
 
 When a device plugin registers itself, it provides its socket path for the kubelet to connect.
 
-The device plugin socket should be in the directory `device-plugins` within the kubelet base
-directory. On a typical Linux node, this means `/var/lib/kubelet/device-plugins`.
+The device plugin socket must be in the directory `/var/lib/kubelet/device-plugins/`.
+This path is hardcoded and is not relative to the kubelet base directory (root directory).
+On Linux, this path is always `/var/lib/kubelet/device-plugins`.
 -->
 ### 设备插件   {#device-plugins}
 
@@ -247,19 +247,20 @@ kubelet 在路径 `/var/lib/kubelet/device-plugins/kubelet.sock`
 
 当设备插件注册自己时，它会为提供其套接字路径供 kubelet 连接使用。
 
-设备插件套接字应位于 kubelet 基础目录中的 `device-plugins` 目录内。
-在典型的 Linux 节点上，这意味着 `/var/lib/kubelet/device-plugins`。
+设备插件套接字必须位于 `/var/lib/kubelet/device-plugins/` 目录下。
+此路径是硬编码的，且不相对于 kubelet 的基础目录（根目录）。
+在 Linux 系统上，此路径始终为 `/var/lib/kubelet/device-plugins`。
 
-<!--
 ### Pod resources API
 
+<!--
 [Pod Resources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-will be exposed at the path `/var/lib/kubelet/pod-resources`.
+will be exposed at the path `pod-resources` within the kubelet base directory (root directory).
+On a typical Linux node, this means `/var/lib/kubelet/pod-resources`.
 -->
-### Pod Resources API
-
-[Pod Resources API](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-将在路径 `/var/lib/kubelet/pod-resources` 上被公开。
+[Pod 资源 API](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+将在 kubelet 根目录下的 `pod-resources` 路径处公开。
+在典型的 Linux 节点上，这意味着路径为 `/var/lib/kubelet/pod-resources`。
 
 <!--
 ### DRA, CSI, and Device plugins
@@ -334,7 +335,7 @@ There are two subdirectories to `image_manager`:
   along with metadata about the credentials used for the pulls.
 -->
 这些记录作为文件缓存在 kubelet 基础目录下的 `image_registry` 目录中。
-在典型的 Linux 节点上，这个路径通常为 `/var/lib/kubelet/image_manager`。  
+在典型的 Linux 节点上，这个路径通常为 `/var/lib/kubelet/image_manager`。
 `image_manager` 目录下包含两个子目录：
 
 * `pulling`：存储 kubelet 正在尝试拉取的镜像的相关记录。
@@ -361,16 +362,14 @@ See the [seccomp reference](/docs/reference/node/seccomp/) for details.
 被 Pod 引用的 Seccomp 配置文件应放置在 `/var/lib/kubelet/seccomp`。
 有关细节请参见 [Seccomp 参考](/zh-cn/docs/reference/node/seccomp/)。
 
-<!--
 ### AppArmor
 
+<!--
 The kubelet does not load or refer to AppArmor profiles by a Kubernetes-specific path.
 AppArmor profiles are loaded via the node operating system rather then referenced by their path.
 
 ## Locking
 -->
-### AppArmor
-
 kubelet 不会通过特定于 Kubernetes 的路径加载或引用 AppArmor 配置文件。
 AppArmor 配置文件通过节点操作系统被加载，而不是通过其路径被引用。
 
@@ -399,4 +398,4 @@ kubelet 使用此文件确保尝试运行两个不同的、彼此冲突的 kubel
 - Review the [Kubelet Configuration (v1beta1) reference](/docs/reference/config-api/kubelet-config.v1beta1/)
 -->
 - 了解 kubelet [命令行参数](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
-- 查阅 [kubelet 配置 (v1beta1) 参考文档](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+- 查阅 [kubelet 配置（v1beta1）参考文档](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
