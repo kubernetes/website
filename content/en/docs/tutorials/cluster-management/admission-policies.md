@@ -121,7 +121,7 @@ the validation failure in both the API response body and the HTTP `Warning:` hea
 
 #### MutatingAdmissionPolicyBinding {#policy-actions-mutating}
 
-For MutatingAdmissionPolicyBinding, the the action is always to mutate the object.
+For MutatingAdmissionPolicyBinding, the action is always to mutate the object.
 
 You can use a JSON Patch or a Kubernetes _apply configuration_.
 
