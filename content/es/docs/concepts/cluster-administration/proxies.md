@@ -12,12 +12,12 @@ Esta página explica los proxies que se utilizan con Kubernetes.
 
 ## Proxies
 
-Existen varios proxies distintos que puedes encontrar al usar Kubernetes:
+Existen varios proxies que puedes encontrar al usar Kubernetes:
 
 1.  El [proxy de kubectl](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - se ejecuta en el escritorio de un usuario o en un Pod
-    - hace de proxy entre una dirección localhost y el apiserver de Kubernetes
+    - hace de intermediario entre una dirección localhost y el apiserver de Kubernetes
     - la conexión del cliente al proxy usa HTTP
     - la conexión del proxy al apiserver usa HTTPS
     - localiza el apiserver
@@ -41,7 +41,7 @@ Existen varios proxies distintos que puedes encontrar al usar Kubernetes:
     - proporciona balanceo de carga
     - solo se usa para llegar a los servicios
 
-1.  Un proxy o balanceador de carga delante de uno o varios apiservers:
+1.  Un proxy/balanceador de carga delante de uno o varios apiservers:
 
     - su existencia e implementación varían de un clúster a otro (por ejemplo, nginx)
     - se sitúa entre todos los clientes y uno o varios apiservers
