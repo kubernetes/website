@@ -136,6 +136,92 @@ profiles:
                 weight: 3
 ```
 
+<!--
+## Multi-level topology placements
+-->
+## 多级拓扑放置  {#multi-level-topology-placements}
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+<!--
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled, the Topology-Aware Scheduling plugins extend their support to multi-level
+`CompositePodGroup` hierarchies. These plugins are called for `CompositePodGroups` during
+[hierarchical scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling).
+-->
+当启用了
+[`CompositePodGroup`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)特性门控和
+`scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API 组" term_id="api-group" >}}时，
+拓扑感知调度插件将其支持扩展到多级 `CompositePodGroup` 层次结构。
+在[层次化调度](/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/)过程中，
+这些插件会被 `CompositePodGroup` 调用。
+
+<!--
+### Candidate placement generation
+
+For workloads defined with a `CompositePodGroup` hierarchy, the `TopologyPlacement` plugin generates
+candidate placements top-down across the group hierarchy by successive subdivision:
+-->
+### 候选放置方案生成  {#candidate-placement-generation}
+
+对于通过 `CompositePodGroup` 层次结构定义的工作负载，`TopologyPlacement` 插件通过逐级细分，
+自顶向下地在组层次结构中生成候选放置方案：
+
+<!--
+* For a root `CompositePodGroup`, `TopologyPlacement` generates candidate placements across all
+  available cluster nodes by grouping nodes based on the distinct values of the requested topology
+  `key`.
+* For a child `CompositePodGroup` or leaf `PodGroup`, `TopologyPlacement` generates candidate
+  placements confined in the placement assumed by the parent group. It subdivides the set of nodes
+  from the parent group's placement by grouping those nodes based on the child group's requested
+  topology `key`.
+-->
+* 对于根 `CompositePodGroup`，`TopologyPlacement` 根据所请求拓扑 `key` 的不同取值对节点进行分组，
+  从而在所有可用集群节点中生成候选放置方案。
+* 对于子 `CompositePodGroup` 或叶子 `PodGroup`，`TopologyPlacement` 在父组所假定的放置范围内生成候选放置方案。
+  它基于子组所请求的拓扑 `key`，对父组放置中的节点集合进行分组细分。
+
+{{< note >}}
+<!--
+If a topology constraint is not specified, the `TopologyPlacement` plugin generates a single
+candidate placement equivalent to the parent placement.
+
+Similarly, if the root group does not specify any topology constraint, the plugin generates a single
+candidate placement corresponding to all available nodes in the cluster. This is also true for
+single-level workloads using the `PodGroup` API where no topology constraint is specified.
+-->
+如果未指定拓扑约束，`TopologyPlacement` 插件将生成一个与父放置方案等价的单个候选放置方案。
+
+类似地，如果根组未指定任何拓扑约束，插件将生成一个对应于集群中所有可用节点的单个候选放置方案。
+对于使用 `PodGroup` API 且未指定拓扑约束的单级工作负载，同样如此。
+{{< /note >}}
+
+<!--
+### Placement scoring
+
+When scoring a candidate placement for a `CompositePodGroup`, the scoring plugins apply similar
+logic to the single-level `PodGroup` case:
+-->
+### 放置评分  {#placement-scoring}
+
+在对 `CompositePodGroup` 的候选放置方案进行评分时，评分插件所采用的逻辑与单级 `PodGroup` 的情况类似：
+
+<!--
+* `PodGroupPodsCount`: Scores candidate placements based on the total number of Pods (both
+  already scheduled and newly assumed) across all descendant leaf `PodGroups` of that
+  `CompositePodGroup`. Candidate placements capable of accommodating a higher total number of Pods
+  across the subhierarchy receive higher scores.
+* `NodeResourcesFit`: Aggregates the resource requests of all proposed Pods across all descendant
+  `PodGroups` of that `CompositePodGroup` and evaluates resource utilization across all nodes within
+  the candidate placement's domain.
+-->
+* `PodGroupPodsCount`：基于该 `CompositePodGroup` 的所有后代叶子 `PodGroup` 中
+  Pod 的总数（包括已调度的和已假定的）对候选放置方案进行评分。
+  能够在子层次结构中容纳更多 Pod 的候选放置方案将获得更高的评分。
+* `NodeResourcesFit`：汇总该 `CompositePodGroup` 的所有后代 `PodGroup` 中所有提议 Pod 的资源请求，
+  并评估候选放置方案域内所有节点的资源利用率。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
