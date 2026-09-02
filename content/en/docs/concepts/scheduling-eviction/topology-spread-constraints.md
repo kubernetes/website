@@ -65,8 +65,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # optional; beta since v1.27
-      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
-      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeAffinityPolicy: [Honor|Ignore] # optional
+      nodeTaintsPolicy: [Honor|Ignore] # optional
   ### other Pod fields go here
 ```
 
@@ -187,12 +187,6 @@ your cluster. Those fields are:
 
   If this value is null, the behavior is equivalent to the Honor policy.
 
-  {{< note >}}
-  The `nodeAffinityPolicy` became beta in 1.26 and graduated to GA in 1.33.
-  It's enabled by default in beta, you can disable it by disabling the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-  {{< /note >}}
-
 - **nodeTaintsPolicy** indicates how we will treat node taints when calculating
   pod topology spread skew. Options are:
   - Honor: nodes without taints, along with tainted nodes for which the incoming pod
@@ -200,12 +194,6 @@ your cluster. Those fields are:
   - Ignore: node taints are ignored. All nodes are included.
 
   If this value is null, the behavior is equivalent to the Ignore policy.
-
-  {{< note >}}
-  The `nodeTaintsPolicy` became beta in 1.26 and graduated to GA in 1.33.
-  It's enabled by default in beta, you can disable it by disabling the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-  {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are
 combined using a logical AND operation: the kube-scheduler looks for a node for the incoming Pod
