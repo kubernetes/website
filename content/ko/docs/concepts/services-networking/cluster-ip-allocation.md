@@ -10,7 +10,7 @@ weight: 120
 
 <!-- overview -->
 
-쿠버네티스에서 [서비스](/ko/docs/concepts/services-networking/service/)는 파드 집합에서
+쿠버네티스에서 [서비스](/docs/concepts/services-networking/service/)는 파드 집합에서
 실행되는 애플리케이션을 노출하는 추상적인 방법이다. 서비스는
 (`type: ClusterIP`인 서비스를 통해) 클러스터-범위의 가상 IP 주소를 가진다.
 클라이언트는 해당 가상 IP 주소로 접속할 수 있으며, 쿠버네티스는 해당 서비스를 거치는 트래픽을
@@ -20,8 +20,8 @@ weight: 120
 
 ## 어떻게 서비스 클러스터IP가 할당되는가?
 
-쿠버네티스가 서비스에 가상 IP를 할당해야 할 때,
-해당 요청분에는 두가지 방법 중 하나가 수행된다.
+쿠버네티스가 서비스에 가상 IP 주소를 할당해야 할 때,
+해당 할당은 다음 두 가지 방식 중 하나로 이루어진다:
 
 _동적 할당_
 : 클러스터의 컨트롤 플레인이 자동으로 `type: ClusterIP` 서비스의 설정된 IP 범위 내에서 가용 IP 주소를 선택한다.
@@ -38,9 +38,9 @@ _정적 할당_
 때로는 클러스터의 다른 컴포넌트들이나 사용자들이 사용할 수 있도록 이미 알려진 IP 주소를 통해
 서비스를 실행하고 싶을 것이다.
 
-가장 좋은 방법은 클러스터의 DNS 서비스이다.
-가벼운 관례로 일부 쿠버네티스 설치 관리자들은 DNS 서비스의 10번째 주소를 서비스 IP 범위로 지정한다.
-클러스터의 서비스 IP 범위가 10.96.0.0/16 인 상황에서 DNS 서비스 IP를 10.96.0.10 으로 지정하고 싶다면,
+가장 좋은 예시는 클러스터의 DNS 서비스이다. 가벼운 관례로 일부 쿠버네티스 설치 관리자들은
+서비스 IP 범위에서 10번째 IP 주소를 DNS 서비스에 할당한다. 클러스터의 서비스 IP 범위가
+10.96.0.0/16이고 DNS 서비스 IP를 10.96.0.10으로 지정하고 싶다면,
 아래와 같이 서비스를 생성해야 할 것이다.
 
 ```yaml
@@ -73,17 +73,17 @@ spec:
 그 전에 동적 할당으로 생성되었거나, 동시에 생성되었다면, 해당 서비스들이 IP를 할당받았을 수도 있다.
 따라서, 충돌 에러로 인해 DNS 서비스를 생성하지 못할 것이다.
 
-## 어떻게 하면 서비스 클러스터IP 충돌을 피할 수 있는가? {#avoid-ClusterIP-conflict} 
+## 어떻게 하면 서비스 클러스터IP 충돌을 피할 수 있는가? {#avoid-ClusterIP-conflict}
 
 쿠버네티스에 구현된 할당 전략은
 서비스에 클러스터IP 할당의 충돌 위험을 줄여준다.
 
-`ClusterIP` 범위는 16 이상 256 미만의 단계적인 차수를 나타내는
-`min(max(16, cidrSize / 16), 256)` 공식을 기반으로 나누어져 있다.
+`ClusterIP` 범위는 `min(max(16, cidrSize / 16), 256)` 공식에 따라 나뉘며,
+이 공식은 _절대 16보다 작거나 256보다 크지 않고, 그 사이에 단계가 있는 것_으로 설명된다.
 
 동적 IP 할당은 기본값으로 위쪽 밴드를 사용한다. 위쪽 범위가 모두 소진되었다면 아래쪽 밴드를
 사용할 것이다. 이것은 사용자로 하여금 아래쪽 밴드의 정적 할당을 낮은 충돌 확률로 수행할 수 있게
-해준다. 
+해준다.
 
 ## 예시 {#allocation-examples}
 
@@ -143,6 +143,7 @@ pie showData
 
 ## {{% heading "whatsnext" %}}
 
-* [클라이언트 소스 IP 보존하기](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해 알아보기
-* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)에 대해 알아보기
-* [서비스](/ko/docs/concepts/services-networking/service/)에 대해 알아보기
+* [클라이언트 소스 IP 보존하기](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해 알아보기
+* [서비스와 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/)에 대해
+  알아보기
+* [서비스](/docs/concepts/services-networking/service/)에 대해 알아보기
