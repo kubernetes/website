@@ -521,7 +521,7 @@ This work was done as part of [KEP #5963](https://www.kubernetes.dev/resources/k
 
 ### Scheduler preemption for in-place Pod resize {#scheduler-preemption-in-place-pod-resize}
 
-Kubernetes v1.37 introduces _scheduler preemption for in-place pod resize_, behind  the (opt-in, Alpha) `InPlacePodVerticalScalingSchedulerPreemption` feature gate. This change addresses an important feature gap that remained after the core [pn-place Pod vertical scaling](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize-inplace) feature graduated to Stable: if a running pod requested additional resources that exceeded the node's available capacity, `kubelet` marked the
+Kubernetes v1.37 introduces _scheduler preemption for in-place pod resize_, behind  the (opt-in, Alpha) `InPlacePodVerticalScalingSchedulerPreemption` feature gate. This change addresses an important feature gap that remained after the core [in-place Pod vertical scaling](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize-inplace) feature graduated to Stable: if a running pod requested additional resources that exceeded the node's available capacity, `kubelet` marked the
 request as `Deferred`, leaving the pod waiting until sufficient resources became available on the node. With this
 enhancement, the Kubernetes control plane can actively free up capacity on a fully-utilized node and preempt lower-priority
 workloads, enabling the pending in-place resizes of critical, higher-priority applications to succeed.
@@ -570,8 +570,7 @@ This work was done as part of [KEP #6012](https://www.kubernetes.dev/resources/k
 
 #### Workload Aware Scheduling Controller APIs
 
-As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS).
-As an Alpha feature Kubernetes v1.37 provides common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS).
+As an Alpha feature Kubernetes v1.37 provides a common framework for integrating workload controllers (such as JobSet, TrainJob, LWS, and RayJob, along with core workloads such as `Job`) with _Workload-aware Scheduling_ (WAS).
 
 The framework provides reusable `scheduling.k8s.io` API primitives, such as _topology constraints_ and _disruption policies_,
 along with shared libraries that handle the creation of scheduling resources. This allows controllers to expose WAS features
