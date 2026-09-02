@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Native Histograms Graduates to Beta"
-slug: kubernetes-1-37-feature-native-histograms-beta
+slug: kubernetes-1-37-native-histograms-beta
 date: 2026-09-11T10:30:00-08:00
 author: >
   Richa Banker (Google)
