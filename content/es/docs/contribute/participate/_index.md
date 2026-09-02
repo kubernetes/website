@@ -17,25 +17,20 @@ la documentación de Kubernetes en su conjunto. Consulta
 [SIG Docs en el repositorio de GitHub de la comunidad](https://github.com/kubernetes/community/tree/main/sig-docs)
 para obtener más información sobre el SIG.
 
-SIG Docs recibe con agrado contenido y revisiones de todas las personas
-colaboradoras. Cualquiera puede abrir una solicitud de cambios (PR), y
-cualquiera puede informar de problemas relacionados con el contenido o
-comentar en las solicitudes de cambios en curso.
+SIG Docs recibe con agrado contenido y revisiones de todas las personas colaboradoras. Cualquiera puede abrir una
+solicitud de cambios (PR), y cualquiera puede informar de problemas relacionados con el contenido o comentar
+en las solicitudes de cambios en curso.
 
-También puedes convertirte en
-[miembro](/docs/contribute/participate/roles-and-responsibilities/#members),
+También puedes convertirte en un [miembro](/docs/contribute/participate/roles-and-responsibilities/#members),
 [revisor](/docs/contribute/participate/roles-and-responsibilities/#reviewers) o
 [aprobador](/docs/contribute/participate/roles-and-responsibilities/#approvers).
-Estos roles requieren un mayor nivel de acceso y conllevan ciertas
-responsabilidades para aprobar y hacer commit de cambios. Consulta
-[la pertenencia a la comunidad](https://github.com/kubernetes/community/blob/main/community-membership.md)
-para obtener más información sobre cómo funciona la pertenencia a la comunidad
-de Kubernetes.
+Estos roles requieren un mayor nivel de acceso y conllevan ciertas responsabilidades para aprobar y hacer commit de cambios. Consulta
+[la membresía de la comunidad](https://github.com/kubernetes/community/blob/main/community-membership.md)
+para obtener más información sobre cómo funciona la membresía dentro de la comunidad de Kubernetes.
 
-El resto de este documento describe algunas formas particulares en las que
-funcionan estos roles dentro de SIG Docs, que se encarga de mantener uno de los
-aspectos más visibles para el público de Kubernetes: el sitio web y la
-documentación de Kubernetes.
+El resto de este documento describe algunas formas particulares en las que funcionan estos roles dentro
+de SIG Docs, que se encarga de mantener uno de los aspectos más visibles para el público
+de Kubernetes: el sitio web y la documentación de Kubernetes.
 
 <!-- body -->
 
@@ -101,7 +96,7 @@ Markdown determina los consejos que los propietarios de las solicitudes de
 cambios reciben de los sistemas automatizados sobre a quién solicitar una
 revisión técnica y editorial.
 
-## Cómo funciona la fusión
+## ¿Cómo funciona la fusión?
 
 Cuando una solicitud de cambios se fusiona en la rama utilizada para publicar
 contenido, ese contenido se publica en https://kubernetes.io. Para garantizar
