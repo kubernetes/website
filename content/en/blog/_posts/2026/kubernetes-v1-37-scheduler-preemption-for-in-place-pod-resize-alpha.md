@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Scheduler Preemption for In-Place Pod Resize (Alpha)"
-slug: scheduler-preemption-in-place-pod-resize-alpha
-draft: true
+slug: kubernetes-v1-37-scheduler-preemption-in-place-pod-resize-alpha
+date: 2026-09-10T10:30:00-08:00
 author: "Natasha Sarkar (Google)"
 ---
 

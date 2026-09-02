@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes v1.37: Introducing Node Lifecycle Conditions"
 slug: kubernetes-v1-37-node-lifecycle-conditions
-draft: true
+date: 2026-09-09T10:30:00-08:00
 author: >
   Ryan Hallisey (NVIDIA)
 ---

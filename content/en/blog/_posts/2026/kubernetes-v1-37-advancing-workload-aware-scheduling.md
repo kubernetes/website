@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Advancing Workload-Aware Scheduling"
-draft: true
 slug: kubernetes-v1-37-advancing-workload-aware-scheduling
+date: 2026-09-08T10:30:00-08:00
 author: >
   Antoni Zawodny (Google),
   Bartosz Rejman (Google),
