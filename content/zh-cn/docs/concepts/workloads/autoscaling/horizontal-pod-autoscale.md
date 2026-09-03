@@ -715,34 +715,45 @@ In order for it to access these APIs, cluster administrators must ensure that:
 集群管理员需要确保下述条件，以保证 HPA 控制器能够访问这些 API：
 
 <!--
-* The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
+- The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
 
-* The corresponding APIs are registered:
+- The corresponding APIs are registered:
 
-   * For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
-     generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-     It can be launched as a cluster add-on.
-
-   * For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
-     It's provided by "adapter" API servers provided by metrics solution vendors.
-     Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
-
-   * For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
-     It may be provided by the custom metrics adapters provided above.
+  - For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
+    generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
+    It can be launched as a cluster add-on.
 -->
-* 启用了 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+- 启用了 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
-* 相应的 API 已注册：
+- 相应的 API 已注册：
 
-  * 对于资源指标，将使用 `metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)，
+  - 对于资源指标，将使用 `metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)，
     一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
     它可以作为集群插件启动。
 
-  * 对于自定义指标，将使用 `custom.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+    {{< note >}}
+    <!--
+    The HorizontalPodAutoscaler currently supports the `metrics.k8s.io/v1beta1`
+    API for resource metrics. It does not support `metrics.k8s.io/v1` yet.
+    -->
+    HorizontalPodAutoscaler 目前支持用于资源指标的 `metrics.k8s.io/v1beta1` API。
+    它尚不支持 `metrics.k8s.io/v1`。
+    {{< /note >}}
+
+  <!--
+  - For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It's provided by "adapter" API servers provided by metrics solution vendors.
+     Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
+
+  - For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It may be provided by the custom metrics adapters provided above.
+  -->
+
+  - 对于自定义指标，将使用 `custom.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
 
-  * 对于外部指标，将使用 `external.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+  - 对于外部指标，将使用 `external.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
     可能由上面的自定义指标适配器提供。
 
 <!--
@@ -1092,6 +1103,67 @@ and the number of replicas between 2 and 5.
 此外，还有一个特殊的 `kubectl autoscale` 命令用于创建 HorizontalPodAutoscaler 对象。
 例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu=80%`
 将为 ReplicaSet **foo** 创建一个自动扩缩器，目标 CPU 利用率设置为 `80%`，副本数在 2 到 5 之间。
+
+<!--
+## Scaling to and from zero
+-->
+## 扩缩到零和从零扩缩   {#scaling-to-and-from-zero}
+
+{{< feature-state feature_gate_name="HPAScaleToZero" >}}
+
+<!--
+For HorizontalPodAutoscalers that scale on [custom](#scaling-on-custom-metrics) (object) or
+external metrics, you can set `spec.minReplicas` to `0`. The workload is then scaled all the way
+down to zero replicas when there is no load, and scaled back up when the metric indicates that at
+least one replica is needed. This is useful for workloads that are idle for long periods and
+expensive to keep running, such as consumers of an occasionally used queue or jobs that require
+dedicated hardware like GPUs.
+-->
+对于基于[自定义指标](#scaling-on-custom-metrics)（对象）或外部指标进行扩缩的
+HorizontalPodAutoscaler，你可以将 `spec.minReplicas` 设置为 `0`。
+当没有负载时，工作负载会一直缩容到零个副本，
+而当指标表明至少需要一个副本时再扩容回来。这对于长时间空闲且运行成本高昂的工作负载非常有用，
+例如偶尔使用的队列消费者或需要 GPU 等专用硬件的作业。
+
+<!--
+Scaling to zero is only supported for object and external metrics. It is not available for
+resource metrics (such as CPU or memory utilization), because those can only be measured on
+running Pods. Setting `minReplicas: 0` requires at least one object or external metric to be
+configured; the API server rejects the HorizontalPodAutoscaler otherwise.
+-->
+扩缩到零仅支持对象和外部指标。它不适用于资源指标（例如 CPU 或内存利用率），
+因为这些指标只能在运行中的 Pod 上测量。设置 `minReplicas: 0` 要求至少配置一个对象或外部指标；
+否则 API 服务器将拒绝该 HorizontalPodAutoscaler。
+
+<!--
+This behavior is controlled by the `HPAScaleToZero`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), which is enabled by
+default. The feature gate must be enabled on both the
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} (which allows
+`minReplicas: 0`) and the
+{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
+(which performs the scaling).
+-->
+此行为由 `HPAScaleToZero`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，默认已启用。
+该特性门控必须在
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}（允许 `minReplicas: 0`）
+和 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
+（执行扩缩操作）上同时启用。
+
+<!--
+While the HPA is holding a workload at zero replicas, it records a `ScaledToZero` condition set to
+`True` on the HorizontalPodAutoscaler's status. The HPA uses this condition to distinguish a
+workload that it scaled to zero (and will scale back up when the metric returns) from one that was
+[manually deactivated](#implicit-maintenance-mode-deactivation) by setting its replica count to
+`0`. Once the workload is scaled back up, the condition is set to `False` with the reason
+`NotScaledToZero`.
+-->
+当 HPA 将某个工作负载保持在零个副本时，它会在 HorizontalPodAutoscaler 的状态上记录一个
+`ScaledToZero` 状况并将其设置为 `True`。HPA 使用此状况来区分是由其自身缩容到零的工作负载
+（当指标恢复时会重新扩容），还是通过将副本数设置为 `0`
+而[手动停用](#implicit-maintenance-mode-deactivation)的工作负载。
+一旦工作负载被重新扩容，该状况将被设置为 `False`，原因为 `NotScaledToZero`。
 
 <!--
 ## Implicit maintenance-mode deactivation
