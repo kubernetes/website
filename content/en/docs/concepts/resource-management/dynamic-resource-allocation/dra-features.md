@@ -462,26 +462,22 @@ Optional node operations is controlled by the
 feature gate in the `kube-apiserver`, `kube-scheduler`, and `kubelet`.
 ## DRA device metadata in containers {#device-metadata}
 
-{{< feature-state state="alpha" for_k8s_version="v1.36" >}}
+{{< feature-state state="beta" for_k8s_version="v1.37" >}}
 
 DRA drivers can expose device metadata such as device attributes (PCI bus
-addresses or mdevUUID for mediated devices) or network configuration directly
-to containers as JSON files.
-This lets applications inside the container discover information about allocated
-devices without querying the Kubernetes API or building custom controllers.
+addresses or mediated device UUIDs) and network configuration directly to
+containers as JSON files.
+This lets applications discover information about allocated devices without
+querying the Kubernetes API or using custom controllers.
 
 KEP-5304 defines a
-[device metadata protocol](#device-metadata-protocol) that drivers must
-follow so applications inside the container see a consistent layout across
-drivers and clusters. The
+[device metadata protocol](#device-metadata-protocol) that drivers must follow
+so that applications see a consistent layout across drivers and clusters. The
 [DRA kubelet plugin library](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
-implements this protocol for you; the rest of this section describes how to
-use it.
+implements this protocol.
 
 Device metadata follows the same rules as device access: it is available inside
-a container only when that container requests the device in its container
-specification, and not otherwise. For how to request DRA devices in Pods and
-containers, see
+a container only when that container requests the device. For details, see
 [Request devices in workloads using DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/#request-devices-workloads).
 
 ### Device metadata protocol {#device-metadata-protocol}
@@ -490,77 +486,118 @@ The protocol consists of four rules:
 
 1. **File paths.** Metadata files live inside containers under
    `/var/run/kubernetes.io/dra-device-attributes`. For a directly referenced
-   ResourceClaim the path is
-   `resourceclaims/<claimName>/<requestName>/<driverName>-metadata.json`; for a
-   claim created from a ResourceClaimTemplate the path is
-   `resourceclaimtemplates/<podClaimName>/<requestName>/<driverName>-metadata.json`
-   (where `podClaimName` is `pod.spec.resourceClaims[].name`).
+   ResourceClaim, the path is
+   `resourceclaims/<claimName>/<requestName>/<driverName>-metadata.json`. For a
+   claim created from a ResourceClaimTemplate, the path is
+   `resourceclaimtemplates/<podClaimName>/<requestName>/<driverName>-metadata.json`,
+   where `podClaimName` is `pod.spec.resourceClaims[].name`.
 
-   In cases where the ResourceClaim request uses the
-   [prioritized list](#prioritized-list) feature, only the top-level request
-   name is used for the `<requestName>` segment in the file path (that is,
-   the `/<subrequest>` portion is dropped). Inside the
-   JSON file, the `requests[].name` field carries the full
-   `<request>/<subrequest>` reference (for example, `gpu/high-memory`) so
-   that consumers can identify which alternative was allocated.
+   When a request uses a [prioritized list](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#prioritized-list), only the
+   top-level request name is used for the `<requestName>` path segment. The
+   `requests[].name` field in the file contains the full
+   `<request>/<subrequest>` reference, such as `gpu/high-memory`.
 
    The path constants are defined in
    [`k8s.io/dynamic-resource-allocation/api/metadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata).
 
 1. **JSON API.** Each file is a stream of one or more
-   [`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1alpha1#DeviceMetadata)
-   objects serialized as versioned JSON with `apiVersion` and `kind`, following
-   Kubernetes API conventions. The same metadata is encoded once per supported
-   API version (newest first). All objects in the stream are semantically
-   equivalent; consumers should use the first object they can decode.
+   [`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1beta1#DeviceMetadata)
+   objects. Each object has `apiVersion` and `kind`, following Kubernetes API
+   conventions. The same metadata is encoded once per configured API version
+   in the order selected by the driver. Consumers use the first version that
+   they can decode and skip unknown versions. A malformed object in a known
+   version is an error.
 
-1. **Generation.** When a driver updates a metadata file the embedded
-   `metadata.generation` field must increase so consumers can detect changes.
+1. **Generation.** The initial file has `metadata.generation` set to `1`.
+   Each update increments the generation so that consumers can detect changes.
 
-1. **Container exposure.** Files are typically exposed via
-   {{< glossary_tooltip text="CDI" term_id="cdi" >}} bind-mounts, but other
-   mechanisms are permitted as long as the file appears at the correct path and
-   is read-only inside the container.
+1. **Container exposure.** The DRA kubelet plugin library uses
+   {{< glossary_tooltip text="CDI" term_id="cdi" >}} to bind-mount each file
+   read-only. Other implementations can use a different mechanism as long as
+   the file appears at the required path and is read-only.
 
-### How device metadata works {#device-metadata-how-it-works}
+### Enable device metadata in a driver {#device-metadata-enable}
 
-Device metadata is a driver-side feature that does not require any Kubernetes
-API changes or feature gates. Using the DRA kubelet plugin library is a common
-way to implement a driver, but drivers can be built in other ways as well.
-Drivers that use the kubelet plugin enable this feature by passing the
-`EnableDeviceMetadata` and `MetadataVersions`
-[options](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#Option)
-when starting the plugin. `MetadataVersions` specifies which API versions are
-serialized into the metadata file and must be set explicitly by the driver.
-Check the documentation of your DRA driver to learn whether device metadata is
-supported and how to enable it.
+Device metadata is a driver-side feature. It has no Kubernetes feature gate and
+is disabled by default in the DRA kubelet plugin library. A driver must enable
+the feature and explicitly select the versions that it writes:
 
-When device metadata is enabled, the driver generates metadata files and CDI
-bind-mount specifications while preparing the allocated devices for the pod,
-before the consuming containers start. The metadata appears inside containers at
-the well-known paths as [defined above](#device-metadata-protocol).
+```go
+kubeletplugin.EnableDeviceMetadata(true, []schema.GroupVersion{
+	metadatav1beta1.SchemeGroupVersion,
+	metadatav1alpha1.SchemeGroupVersion,
+})
+```
 
-When a single request allocates devices from multiple DRA drivers, each driver
-writes its own metadata file. Containers enumerate `*-metadata.json` files in
-the request directory to discover all devices.
+The `v1beta1` version is required. A driver can also write `v1alpha1` for
+compatibility with older consumers. The order in the slice is the order in the
+metadata stream; the framework does not sort the versions. Drivers should put
+the newest version first. Enabling device metadata with no versions, without
+`v1beta1`, or with an unknown version causes the plugin to fail during startup.
 
-The Go package
-[`k8s.io/dynamic-resource-allocation/devicemetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata)
-provides utilities for reading and decoding these metadata files by applications
-inside the container.
+For each prepared device, the driver can populate
+[`Device.Metadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#Device)
+with
+[`kubeletplugin.DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#DeviceMetadata).
+Drivers should include the attributes that they publish for that device in its
+ResourceSlice, so workloads see the same information at runtime. Drivers can
+also include attributes that are only relevant at runtime. For network devices,
+drivers can add interface names, IP addresses, and hardware addresses after CNI
+configuration by calling
+[`UpdateRequestMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#Helper.UpdateRequestMetadata).
+
+The kubelet plugin API links above describe integration for driver authors.
+The DRA framework does not define a universal command-line flag, so cluster
+operators enable the feature through the deployment configuration provided by
+their driver.
+
+When enabled, the DRA kubelet plugin library writes metadata files while
+preparing allocated devices. It also writes CDI specifications to `/var/run/cdi`
+by default. The container runtime must be configured to discover CDI
+specifications from that directory. The library determines the minimum CDI
+specification version required for each generated specification.
+
+When one request allocates devices from multiple DRA drivers, each driver writes
+its own metadata file. Consumers that know the driver name should construct the
+exact path from the claim, request, and driver names. Go consumers can use
+[`ReadResourceClaimMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata#ReadResourceClaimMetadata)
+or
+[`ReadResourceClaimTemplateMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata#ReadResourceClaimTemplateMetadata)
+to read and merge all per-driver files for a request.
 
 ### Metadata schema {#device-metadata-schema}
 
-Each metadata file conforms to the
-[`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1alpha1#DeviceMetadata)
-API (`metadata.resource.k8s.io/v1alpha1`).
-The following example shows a metadata file for a GPU device allocated through
-a ResourceClaimTemplate:
+Each object in a metadata file conforms to the
+[`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1beta1#DeviceMetadata)
+API (`metadata.resource.k8s.io/v1beta1`).
+
+The schema contains:
+
+- Standard object metadata for the ResourceClaim, including its name,
+  namespace, UID, and metadata generation.
+- The optional `podClaimName` for a claim generated from a
+  ResourceClaimTemplate.
+- A list of requests. Each request has a required name and a list of allocated
+  devices.
+- The driver, pool, and name for each device.
+- Optional device attributes and network data.
+
+Attribute values use the same representation as ResourceSlice device
+attributes. Each attribute has exactly one scalar value (`int`, `bool`,
+`string`, or `version`) or list value (`ints`, `bools`, `strings`, or
+`versions`). Device capacity values are not included in device metadata.
+
+Network data can contain `interfaceName`, `ips`, and `hardwareAddress`.
+For field constraints, see the
+[`DeviceMetadata` API documentation](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1beta1#DeviceMetadata).
+
+The following example shows one object in a metadata stream for a GPU device
+allocated through a ResourceClaimTemplate:
 
 ```json
 {
   "kind": "DeviceMetadata",
-  "apiVersion": "metadata.resource.k8s.io/v1alpha1",
+  "apiVersion": "metadata.resource.k8s.io/v1beta1",
   "metadata": {
     "name": "pod0-gpu-2kqrd",
     "namespace": "gpu-test1",
@@ -597,37 +634,36 @@ a ResourceClaimTemplate:
 }
 ```
 
+The DRA kubelet plugin does not validate metadata before writing it. Go
+consumers can opt in to generated validation when decoding a stream. Decoding
+and validation have separate results: a validation error does not prevent a
+successfully decoded object from being returned. For usage, see
+[Access DRA device metadata](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/#read-metadata-application).
+
 ### Immediate and deferred metadata {#device-metadata-lifecycle}
 
-Drivers provide metadata in one of two ways:
+For immediate metadata, the driver supplies attributes or network data while it
+prepares the claim. The DRA kubelet plugin writes the file with generation `1`
+before the consuming container starts.
 
-Immediate
-: The driver populates metadata while preparing the claim on the
-  node and writes the metadata file before the container starts. This is
-  typical for GPU drivers where device information is known at preparation time.
+For deferred metadata, the driver can prepare a device without attributes or
+network data. The initial generation `1` file contains the device identity. The
+driver later calls `UpdateRequestMetadata` to replace the complete stream
+atomically and increment the generation. An update requires the initial file to
+exist. If device preparation returns no devices for a request, the framework
+creates neither a metadata file nor a metadata CDI device for that request.
 
-Deferred
-: In some cases, for example a network driver, the device information is
-  not available during device allocation time but becomes available after the
-  pod sandbox is created. In those cases the driver creates the CDI mount with
-  an empty metadata file and writes the actual metadata later via an NRI hook
-  that runs before the container starts. This ensures applications never see a
-  missing or partially written file. Each update must increment
-  `metadata.generation` so consumers can detect changes. The `MetadataUpdater`
-  API in the DRA kubelet plugin library handles generation bookkeeping
-  automatically for driver authors.
-
-In both cases, metadata remains available to each consuming container for the
-lifetime of that container. Metadata files are cleaned up after all containers
-in the Pod have terminated.
+Metadata remains available to each consuming container for the lifetime of that
+container. The framework removes the metadata files and CDI specifications
+after the claim is unprepared.
 
 To learn how to use device metadata in your workloads, see
 [Access DRA device metadata](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/).
 
 ### Custom drivers {#device-metadata-custom-drivers}
 
-Custom, hand-crafted drivers that do not use the DRA kubelet plugin library
-must implement the [device metadata protocol](#device-metadata-protocol)
-themselves. That means writing `DeviceMetadata` JSON at the correct file paths,
-incrementing `metadata.generation` on every update, and exposing the files
-read-only inside the container through CDI or an equivalent mechanism.
+Custom drivers that do not use the DRA kubelet plugin library must implement the
+[device metadata protocol](#device-metadata-protocol) themselves. This includes
+writing the versioned `DeviceMetadata` stream at the correct paths, incrementing
+`metadata.generation` on every update, and exposing files read-only through CDI
+or an equivalent mechanism.

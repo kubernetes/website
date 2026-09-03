@@ -10,7 +10,7 @@ weight: 30
 <!-- overview -->
 
 This page shows you how to access
-[device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
+[device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata)
 from containers that use _dynamic resource allocation (DRA)_. Device metadata
 lets workloads discover information about allocated devices such as device
 attributes or network interface details by reading JSON files at
@@ -93,7 +93,7 @@ device metadata files appear inside the container at:
 
    The output contains device attributes such as the model, driver version,
    and device UUID. Device capacities are not part of the metadata schema. See
-   [metadata schema](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata-schema)
+   [metadata schema](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata-schema)
    for details on the JSON structure.
 
 ## Access device metadata with a ResourceClaimTemplate {#access-metadata-template}
@@ -225,7 +225,7 @@ kubectl delete -f https://k8s.io/examples/dra/dra-device-metadata-template-pod.y
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
+* [Learn more about DRA device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata)
 * [Allocate devices to workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 * For more information on the design, see
   [KEP-5304](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5304-dra-attributes-downward-api).
