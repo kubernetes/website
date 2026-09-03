@@ -1,15 +1,16 @@
 ---
-# title: Cluster Operations
-title: Операції з кластером
+title: Управління кластером
 id: cluster-operations
 full_link:
-# short_description: >
-#  Activities such as upgrading the clusters, implementing security, storage, ingress, networking, logging and monitoring, and other operations involved in managing a Kubernetes cluster.
 short_description: >
-  Дії і операції, такі як оновлення кластерів, впровадження і використання засобів безпеки, сховища даних, Ingress'а, мережі, логування, моніторингу та інших операцій, пов'язаних з управлінням Kubernetes кластером.
+  Робота, повʼязана з управлінням кластером Kubernetes: керування щоденними операціями та координація оновлень.
 aka:
 tags:
-- operations
+- operation
 ---
- <!-- Activities such as upgrading the clusters, implementing security, storage, ingress, networking, logging and monitoring, and other operations involved in managing a Kubernetes cluster. -->
-Дії і операції, такі як оновлення кластерів, впровадження і використання засобів безпеки, сховища даних, Ingress'а, мережі, логування, моніторингу та інших операцій, пов'язаних з управлінням Kubernetes кластером.
+
+Робота, повʼязана з управлінням кластером Kubernetes: керування щоденними операціями та координація оновлень.
+
+<!--more-->
+
+Приклади робіт з управління кластером включають: розгортання нових вузлів для масштабування кластера; виконання оновлень програмного забезпечення; впровадження заходів забезпечення безпеки; додавання чи видалення сховища; налаштування мережі кластера; управління загальнокластерною спостережуваністю та реагування на події.
