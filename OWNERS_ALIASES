@@ -57,6 +57,7 @@ aliases:
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
   sig-docs-en-owners: # Admins for English content
+    - Caesarsage # RT 1.38 Docs Lead
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
