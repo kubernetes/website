@@ -9,7 +9,7 @@ author: >
 
 Kubernetes User Namespaces reached General Availability in Kubernetes v1.36. The feature provides an additional isolation boundary by mapping the user and group IDs inside a Pod to different IDs on the host. [Kubernetes User Namespaces documentation](https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/)
 
-In a normal container, a process running as root inside the container is also seen as root from the host's perspective. With User Namespaces enabled, root inside the container can instead be mapped to an unprivileged user on the host.
+In a normal container, a process running as root inside the container is also seen as root from the host's perspective. With user namespaces enabled, root inside the container can instead be mapped to an unprivileged user on the host.
 
 A Pod can opt into this isolation by setting:
 
@@ -21,7 +21,7 @@ This allows a process to remain UID 0 inside the container while being mapped to
 
 For developers, however, testing this feature locally can be surprisingly difficult.
 
-A Pod that uses `hostUsers: false` can succeed in one Minikube setup and fail in another. The difference is not necessarily Kubernetes itself. It can come from **how the Kubernetes node is running and what environment the container runtime has available to it**.
+A Pod that uses `hostUsers: false` can succeed in one Minikube setup and fail in another. The difference is not necessarily Kubernetes itself. It can depend on how the Kubernetes node is running and what environment is available to the container runtime.
 
 The key relationship is:
 
@@ -360,7 +360,7 @@ The environment in which the Kubernetes node runs also matters.
 
 With a Docker-backed Minikube node, the container runtime is itself nested inside another container environment. That can introduce mount and namespace restrictions that are not present when the node runs inside a VM.
 
-The configurations therefore fail at different points:
+The configurations therefore have different outcomes:
 
 - **Docker + Docker runtime:** CRI/runtime capability limitation.
 - **Docker + containerd:** Nested runtime followed by an OCI/kernel mount restriction.
