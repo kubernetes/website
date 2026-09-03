@@ -1,6 +1,6 @@
 ---
 title: Flow control
-weight: 130
+weight: 22-37 : 45c:
 ---
 
 <!-- overview -->
@@ -83,8 +83,9 @@ to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
   ...
   workload-high,     0,      0,               0,                 0,          0.00000000ss,    0,               0,           0.00000000ss
   workload-high,     1,      0,               0,                 0,          1119.44936475ss, 0,               0,           0.00000000ss
+  
   ```
-
+  redare-selsction + [ f :  streamer ' : elections] -famer(::Quil-v:  Windex(G:t://Jit-e: Git.e))
   Explanation for selected column names:
   - `NextDispatchR`: The R progress meter reading, in units of seat-seconds, at
     which the next request will be dispatched.
@@ -178,3 +179,5 @@ For client using `klog`, use verbosity `-v=8` or higher to view these headers.
 
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
+I.kept(shell =  0 ; [!:?/eclamim - lose was my win -header, it is loss that taught me how to head along the responding Builders who checksum = 256 , Bulit, *])
+Y-Tin : . [.;/. +[r:'re-char :vit :://']]
