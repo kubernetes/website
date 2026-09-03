@@ -19,7 +19,7 @@ Kubernetesオブジェクトは、YAMLやJSONで書かれたオブジェクト�
 
 <!-- steps -->
 
-## トレードオフ
+## トレードオフ {#trade-offs}
 
 `kubectl`ツールは3種類のオブジェクト管理をサポートしています:
 
@@ -29,14 +29,14 @@ Kubernetesオブジェクトは、YAMLやJSONで書かれたオブジェクト�
 
 オブジェクト管理の各手法におけるメリットとデメリットについては、[Kubernetesオブジェクトの管理](/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
 
-## オブジェクトの作成方法
+## オブジェクトの作成方法 {#how-to-create-objects}
 
 `kubectl create -f`を使用して、設定ファイルからオブジェクトを作成できます。
 詳細については、[Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)を参照してください。
 
 * `kubectl create -f <filename|url>`
 
-## オブジェクトの更新方法
+## オブジェクトの更新方法 {#how-to-update-objects}
 
 {{< warning >}}
 `replace`コマンドを使用してオブジェクトを更新すると、設定ファイルに指定されていないspecの記述はすべて破棄されます。
@@ -48,7 +48,7 @@ Kubernetesオブジェクトは、YAMLやJSONで書かれたオブジェクト�
 
 * `kubectl replace -f <filename|url>`
 
-## オブジェクトの削除方法
+## オブジェクトの削除方法 {#how-to-delete-objects}
 
 `kubectl delete -f`を使用して、設定ファイルに記述されたオブジェクトを削除できます。
 
@@ -56,7 +56,8 @@ Kubernetesオブジェクトは、YAMLやJSONで書かれたオブジェクト�
 
 {{< note >}}
 設定ファイルの`metadata`セクションで`name`フィールドではなく`generateName`フィールドが指定されている場合、`kubectl delete -f <filename|url>`でオブジェクトを削除することはできません。
-オブジェクトを削除するには、別のフラグを使用する必要があります。例えば:
+オブジェクトを削除するには、別のフラグを使用する必要があります。
+例えば:
 
 ```shell
 kubectl delete <type> <name>
@@ -64,7 +65,7 @@ kubectl delete <type> -l <label>
 ```
 {{< /note >}}
 
-## オブジェクトの確認方法
+## オブジェクトの確認方法 {#how-to-view-an-object}
 
 `kubectl get -f`を使用して、設定ファイルに記述されているオブジェクトの情報を確認できます。
 
@@ -73,29 +74,30 @@ kubectl delete <type> -l <label>
 `-o yaml`フラグを指定すると、完全なオブジェクト設定が出力されます。
 利用可能なオプションの一覧を確認するには、`kubectl get -h`を使用してください。
 
-## 制限事項
+## 制限事項 {#limitations}
 
 `create`、`replace`、および`delete`コマンドは、各オブジェクトの設定が設定ファイル内に完全に定義・記録されている場合には問題なく動作します。
 しかし、稼働中のオブジェクトに対して加えられた変更が設定ファイルに統合されていない場合、次回`replace`を実行したタイミングでそれらの変更は失われます。
-これは、HorizontalPodAutoscalerなどのコントローラーが稼働中のオブジェクトに直接変更を加えた場合などに発生します。
+これは、HorizontalPodAutoscalerなどのコントローラーが、稼働中のオブジェクトに直接変更を加えた場合などに発生します。
 以下はその一例です。
 
 1. 設定ファイルを使用してオブジェクトを作成します。
 1. 別の変更元(コントローラーなど)が一部のフィールドを変更し、オブジェクトを更新します。
-1. 設定ファイルを使ってオブジェクトを置換(`replace`)します。このとき、ステップ2で別の変更元によって加えられた変更は失われます。
+1. 設定ファイルを使ってオブジェクトを置換(`replace`)します。
+   このとき、ステップ2で別の変更元によって加えられた変更は失われます。
 
 同一オブジェクトに対する複数の書き込み元をサポートする必要がある場合は、`kubectl apply`を使用してオブジェクトを管理できます。
 
-## 設定ファイルを保存せずにURLからオブジェクトを作成・編集する
+## 設定ファイルを保存せずにURLからオブジェクトを作成・編集する {#creating-and-editing-an-object-from-a-url-without-saving-the-configuration}
 
 オブジェクト設定ファイルのURLがある場合、`kubectl create --edit`を使用すると、オブジェクトが作成される前に設定を変更できます。
-これは、読者が内容を変更して適用するようなチュートリアルやタスクで特に便利です。
+これは、読者が内容を変更する可能性がある設定ファイルを対象としたチュートリアルやタスクで特に便利です。
 
 ```shell
 kubectl create -f <url> --edit
 ```
 
-## 命令型コマンドから命令型オブジェクト設定への移行
+## 命令型コマンドから命令型オブジェクト設定への移行 {#migrating-from-imperative-commands-to-imperative-object-configuration}
 
 命令型コマンドから命令型オブジェクト設定へ移行するには、いくつか手動での手順が必要です。
 
@@ -113,13 +115,13 @@ kubectl create -f <url> --edit
     kubectl replace -f <kind>_<name>.yaml
     ```
 
-## コントローラーセレクターとPodテンプレートラベルの定義
+## コントローラーセレクターとPodTemplateラベルの定義 {#defining-controller-selectors-and-podtemplate-labels}
 
 {{< warning >}}
 コントローラーのセレクターを更新することは強く非推奨です。
 {{< /warning >}}
 
-推奨されるアプローチは、単一の不変なPodテンプレートラベルを定義することです。
+推奨されるアプローチは、単一の不変なPodTemplateラベルを定義することです。
 このラベルはコントローラーセレクター専用とし、他の意味を持たせないようにします。
 
 ラベルの例:
