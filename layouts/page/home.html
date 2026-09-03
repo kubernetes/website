@@ -6,7 +6,9 @@
         </div>
     </div>
 </section>
+{{- if not (.HasShortcode "blocks/hero") }}
 {{ partial "tutorial-signpost.html" . }}
+{{- end }}
 {{ .Content }}
 <section id="cncf">
     {{ partial "cncf.html" . }}

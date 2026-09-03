@@ -17,6 +17,8 @@ Add styles or import other files. */
 //Media queries
 @import "base";
 
+@import "k8s_home";
+
 // Docsy 0.10's chroma helper: imports light + dark syntax-highlight CSS
 // gated on data-bs-theme. Requires hugo.toml [markup.highlight] noClasses = false.
 @import "td/code-dark";

@@ -444,8 +444,14 @@ a further notice period. The new package repositories provide downloads for Kube
 [main_by]
 other = "by"
 
+[main_cncf_phippy]
+other = "Meet Phippy & Friends"
+
 [main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project"""
+
+[main_cncf_store]
+other = "Kubernetes merchandise"
 
 [main_community_explore]
 other = "Explore the community"
@@ -488,6 +494,15 @@ other = "Read about"
 
 [main_read_more]
 other = "Read more"
+
+[main_stats_ai]
+other = "of organizations run generative AI workloads on Kubernetes"
+
+[main_stats_platforms]
+other = "Certified Kubernetes platforms"
+
+[main_stats_production]
+other = "of container users run Kubernetes in production"
 
 [monthly_patch_release]
 other = "Monthly Patch Release"
