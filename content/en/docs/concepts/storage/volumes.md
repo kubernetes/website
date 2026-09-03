@@ -405,6 +405,13 @@ accessible by root. You then either need to run your process as root in a
 [privileged container](/docs/tasks/configure-pod-container/security-context/)
 or modify the file permissions on the host to read from or write to a `hostPath` volume.
 
+{{< caution >}}
+`fsGroup` and `fsGroupChangePolicy` do **not** apply to `hostPath` volumes. The kubelet
+never changes the ownership of a host directory or file, so the volume retains its
+pre-existing ownership. For `fsGroup`-managed ownership on a node directory, use a
+[`local` PersistentVolume](#local) instead.
+{{< /caution >}}
+
 #### hostPath configuration example
 
 {{< tabs name="hostpath_examples" >}}
