@@ -43,7 +43,7 @@ before the drain can proceed.
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
 hardware maintenance, etc.). Safe evictions allow the pod's containers
-to [gracefully terminate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+to [gracefully terminate](/docs/concepts/workloads/pods/pod-termination/)
 and will respect the PodDisruptionBudgets you have specified.
 
 {{< note >}}
