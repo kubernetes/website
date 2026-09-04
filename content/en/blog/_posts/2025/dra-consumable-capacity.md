@@ -163,7 +163,7 @@ selectors:
 
 In device sharing, general device information is provided through the resource slice.
 However, some details are set dynamically after allocation.
-These can be conveyed using the [`.status.devices`](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status) field of a ResourceClaim.
+These can be conveyed using the [`.status.devices`](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resourceclaim-device-status) field of a ResourceClaim.
 That field is only published in clusters where the `DRAResourceClaimDeviceStatus`
 feature gate is enabled.
 
@@ -193,7 +193,7 @@ It also empowers drivers to enforce capacity limits, improves scheduling accurac
 Try it out, experiment with consumable resources, and help shape the future of dynamic resource allocation in Kubernetes!
 
 ### Further Reading
-* [DRA in the Kubernetes documentation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+* [DRA in the Kubernetes documentation](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * [KEP for DRA Partitionable Devices](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/4815-dra-partitionable-devices)
 * [KEP for DRA Device Status](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4817-resource-claim-device-status)
 * [KEP for DRA Consumable Capacity](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/5075-dra-consumable-capacity)

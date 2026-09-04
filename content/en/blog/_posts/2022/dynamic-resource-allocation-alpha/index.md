@@ -322,7 +322,7 @@ user_a='b'
 - See the
   [Dynamic Resource Allocation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
   KEP for more information on the design.
-- Read [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+- Read [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/)
   in the official Kubernetes documentation.
 - You can participate in
   [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)

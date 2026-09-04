@@ -139,7 +139,7 @@ These new APIs and scheduling enhancements are just the first steps.
 In the near future, the effort aims to tackle:
 
 * Introducing a workload scheduling phase
-* Improved support for multi-node [DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+* Improved support for multi-node [DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
   and topology aware scheduling
 * Workload-level preemption
 * Improved integration between scheduling and autoscaling

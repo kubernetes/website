@@ -80,7 +80,7 @@ You can find more in [KEP-1287: In-Place Update of Pod Resources](https://kep.k8
 
 The `devices` field in ResourceClaim `status`, originally introduced in the v1.32 release, is likely to graduate to beta in v1.33. This field allows drivers to report device status data, improving both observability and troubleshooting capabilities.
 
-For example, reporting the interface name, MAC address, and IP addresses of network interfaces in the status of a ResourceClaim can significantly help in configuring and managing network services, as well as in debugging network related issues. You can read more about ResourceClaim Device Status in [Dynamic Resource Allocation: ResourceClaim Device Status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status) document.
+For example, reporting the interface name, MAC address, and IP addresses of network interfaces in the status of a ResourceClaim can significantly help in configuring and managing network services, as well as in debugging network related issues. You can read more about ResourceClaim Device Status in [Dynamic Resource Allocation: ResourceClaim Device Status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resourceclaim-device-status) document.
 
 Also, you can find more about the planned enhancement in [KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817).
 

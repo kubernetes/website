@@ -314,12 +314,12 @@ The new "None" effect can be used to report a problem without immediately affect
 #### Partitionable Devices
 
 Devices belonging to the same partitionable devices may now be defined in different ResourceSlices.
-You can read more in the [official documentation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices).
+You can read more in the [official documentation](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices).
 
 #### Consumable Capacity, Device Binding Conditions
 
 Several bugs were fixed and/or more tests added.
-You can learn more about [Consumable Capacity](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#consumable-capacity) and [Binding Conditions](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-binding-conditions) in the official documentation.
+You can learn more about [Consumable Capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity) and [Binding Conditions](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions) in the official documentation.
 
 ### Comparable resource version semantics
 
