@@ -288,6 +288,21 @@ other = "Was this page helpful?"
 [feedback_yes]
 other = "Yes"
 
+[home_hero_get_involved]
+other = "Get involved"
+
+[home_hero_get_started]
+other = "Get started"
+
+[home_hero_intro]
+other = "Automate deployment, scaling, and management of containerized applications with the world's most widely adopted platform for cloud native workloads."
+
+[home_hero_read_docs]
+other = "Read the docs"
+
+[home_hero_title]
+other = "Run resilient applications, anywhere."
+
 [final_patch_release]
 other = "Final Patch Release"
 
