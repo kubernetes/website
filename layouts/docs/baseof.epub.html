@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Title }} | Kubernetes {{ .Site.Params.version }}</title>
+</head>
+<body>
+  {{ block "main" . }}{{ end }}
+</body>
+</html>
