@@ -33,7 +33,7 @@ There is also support for distributing [trust bundles](#cluster-trust-bundles).
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 
-A [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+A [CertificateSigningRequest](/docs/reference/kubernetes-api/certificates/certificate-signing-request-v1/)
 (CSR) resource is used to request that a certificate be signed
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
