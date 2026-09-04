@@ -114,10 +114,10 @@ Note that `NodeSwap` is supported for **cgroup v2** only. For Kubernetes v1.28, 
 ### 开始之前 {#before-you-begin}
 
 <!--
-It is required for this demo that the kubeadm tool be installed, following the steps outlined in the [kubeadm installation guide](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm). If swap is already enabled on the node, cluster creation may proceed. If swap is not enabled, please refer to the provided instructions for enabling swap.
+It is required for this demo that the kubeadm tool be installed, following the steps outlined in the [kubeadm installation guide](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). If swap is already enabled on the node, cluster creation may proceed. If swap is not enabled, please refer to the provided instructions for enabling swap.
 -->
 此演示需要安装 kubeadm 工具，
-安装过程按照 [kubeadm 安装指南](/zh-cn/docs/setup/product-environment/tools/kubeadm/create-cluster-kubeadm)中描述的步骤进行操作。
+安装过程按照 [kubeadm 安装指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)中描述的步骤进行操作。
 如果节点上已启用交换内存，则可以继续创建集群。如果未启用交换内存，请参阅提供的启用交换内存说明。
 
 <!--
