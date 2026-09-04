@@ -28,29 +28,38 @@ document.
 
 ## Upgrading worker nodes
 
-### Upgrade kubeadm
+### Upgrade kubeadm and kubectl
 
-Upgrade kubeadm:
+Upgrade kubeadm and kubectl:
+
+{{< note >}}
+kubectl must be within one minor version of kube-apiserver as per the
+[version skew policy](/releases/version-skew-policy/#kubectl).
+If you are upgrading the control plane across multiple minor versions before
+upgrading worker nodes, the node-local kubectl may fall outside the allowed
+skew. Upgrading kubectl alongside kubeadm here ensures it stays within
+the supported version range throughout the node upgrade process.
+{{< /note >}}
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo apt-mark unhold kubeadm && \
-sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-sudo apt-mark hold kubeadm
+sudo apt-mark unhold kubeadm kubectl && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 For systems with DNF:
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 For systems with DNF5:
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -73,29 +82,29 @@ Prepare the node for maintenance by marking it unschedulable and evicting the wo
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
-### Upgrade kubelet and kubectl
+### Upgrade kubelet
 
-1. Upgrade the kubelet and kubectl:
+1. Upgrade the kubelet:
 
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo apt-mark unhold kubelet kubectl && \
-   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   sudo apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet
    ```
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
    For systems with DNF:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
