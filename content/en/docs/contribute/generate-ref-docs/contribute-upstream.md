@@ -1,7 +1,7 @@
 ---
 title: Contributing to the Upstream Kubernetes Code
 content_type: task
-weight: 20
+weight: 70
 ---
 
 <!-- overview -->
