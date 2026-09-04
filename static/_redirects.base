@@ -43,6 +43,7 @@
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
 /docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
 /docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
+/pt-br/docs/reference/kubectl/cheatsheet/   /pt-br/docs/reference/kubectl/quick-reference/ 301
 /kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 # Serve custom "not found" pages
