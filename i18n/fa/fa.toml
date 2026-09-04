@@ -673,6 +673,12 @@ other = "در کلیپ‌بورد کپی شد: "
 [translated_by]
 other = "ترجمه توسط"
 
+[ui_nav_close_menu]
+other = "بستن منوی ناوبری"
+
+[ui_nav_open_menu]
+other = "باز کردن منوی ناوبری"
+
 [ui_search]
 other = "جستجو در این سایت"
 
