@@ -146,7 +146,7 @@ other = "Jelajahi komunitas"
 other = "Bantu"
 
 [main_copyright_notice]
-other = """Linux Foundation &reg;. Hak cipta dilindungi. Linux Foundation telah mendaftarkan merek dagang dan pengunaannya. Perinciannya bisa dilihat pada <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">halaman penggunaan merek dagang</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Untuk ketentuan penggunaan situs web, kebijakan merek dagang, dan kebijakan proyek lainnya, silakan lihat <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Para Pencipta Kubernetes | Dokumentasi didistribusikan di bawah <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""

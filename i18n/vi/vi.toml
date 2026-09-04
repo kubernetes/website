@@ -338,7 +338,7 @@ other = "Khám phá cộng đồng"
 other = "Đóng góp"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Tất cả các quyền được bảo lưu. The Linux Foundation đã đăng ký thương hiệu và sử dụng thương hiệu. Để xem danh sách các thương hiệu của The Linux Foundation, vui lòng xem trang <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Sử dụng Thương hiệu của chúng tôi</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Để biết điều khoản sử dụng trang web, chính sách thương hiệu và các chính sách dự án khác, vui lòng xem <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Tác giả Kubernetes | Tài liệu phân phối dưới <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
