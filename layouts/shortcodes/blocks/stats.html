@@ -1,0 +1,10 @@
+<ul class="k8s-stats">
+  {{- range site.Data.home.stats }}
+  <li class="k8s-stat">
+    {{- with .link }}<a href="{{ . | relLangURL }}">{{ end }}
+    <span class="k8s-stat__num">{{ .value }}</span>
+    <span class="k8s-stat__label">{{ T (printf "main_stats_%s" .id) }}</span>
+    {{- if .link }}</a>{{ end }}
+  </li>
+  {{- end }}
+</ul>
