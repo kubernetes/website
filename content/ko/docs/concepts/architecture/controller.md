@@ -26,7 +26,7 @@ weight: 30
 ## 컨트롤러 패턴
 
 컨트롤러는 적어도 하나 이상의 쿠버네티스 리소스 유형을 추적한다.
-이 [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+이 {{< glossary_tooltip text="오브젝트" term_id="object" >}}
 는 의도한 상태를 표현하는 사양 필드를 가지고 있다.
 해당 리소스의 컨트롤러(들)은 현재 상태를 의도한
 상태에 가깝게 만드는 역할을 한다.
@@ -50,9 +50,9 @@ weight: 30
 
 잡은 단일 {{< glossary_tooltip text="파드" term_id="pod" >}} 또는 여러 파드를 실행하고,
 작업을 수행한 다음 중지하는
-쿠버네티스 리소스 이다.
+쿠버네티스 리소스이다.
 
-(일단 [스케줄되면](/ko/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet
+(일단 [스케줄되면](/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet
 의 의도한 상태 중 일부가 된다.)
 
 잡 컨트롤러가 새로운 작업을 확인하면, 클러스터 어딘가에서
@@ -101,7 +101,7 @@ weight: 30
 
 온도 조절기 예에서 방이 매우 추우면 다른 컨트롤러가
 서리 방지 히터를 켤 수도 있다. 쿠버네티스 클러스터에서는
-[쿠버네티스 확장](/ko/docs/concepts/extend-kubernetes/)을 통해
+[쿠버네티스 확장](/docs/concepts/extend-kubernetes/)을 통해
 IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API 및
 기타 서비스 등과 간접적으로 연동하여 이를 구현한다.
 
@@ -161,9 +161,9 @@ IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API �
 
 ## {{% heading "whatsnext" %}}
 
-* [쿠버네티스 컨트롤 플레인](/ko/docs/concepts/overview/components/#컨트롤-플레인-컴포넌트)에 대해 읽기
-* [쿠버네티스 오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)의 몇 가지 기본 사항을 알아보자.
-* [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
+* [쿠버네티스 컨트롤 플레인](/docs/concepts/architecture/#컨트롤-플레인-컴포넌트)에 대해 읽기
+* [쿠버네티스 오브젝트](/docs/concepts/overview/working-with-objects/)의 몇 가지 기본 사항을 알아보자.
+* [쿠버네티스 API](/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
 * 만약 자신만의 컨트롤러를 작성하기 원한다면, 
-  쿠버네티스 확장하기의 [확장 패턴](/ko/docs/concepts/extend-kubernetes/#익스텐션-패턴)을 
+  [쿠버네티스 확장 패턴](/docs/concepts/extend-kubernetes/#익스텐션-패턴)과 [sample-controller](https://github.com/kubernetes/sample-controller) 리포지터리를
   본다.
