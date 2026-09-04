@@ -40,18 +40,20 @@ control layer.
 Admission control mechanisms may be _validating_, _mutating_, or both. Mutating
 controllers may modify the data for the resource being modified; validating controllers may not.
 
-The admission controllers in Kubernetes {{< skew currentVersion >}} consist of the
-[list](#what-does-each-admission-controller-do) below, are compiled into the
-`kube-apiserver` binary, and may only be configured by the cluster
-administrator.
+### Admission control built-in plugins
+Kubernetes includes several built-in admission plugins. These plugins are compiled into `kube-apiserver` and can be enabled or disabled using the `--enable-admission-plugins` and `--disable-admission-plugins` flags. Built-in admission plugins are configured by the cluster administrator and provide admission functionality that is included with Kubernetes.
+
+The admission controllers described later in this page include both these built-in admission plugins and the admission control extension points described in the following section.
 
 ### Admission control extension points
 
-Within the full [list](#what-does-each-admission-controller-do), there are three
-special controllers:
-[MutatingAdmissionWebhook](#mutatingadmissionwebhook),
-[ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
-[ValidatingAdmissionPolicy](#validatingadmissionpolicy).
+In addition to the built-in admission plugins, Kubernetes provides three admission
+controllers that serve as extension points:
+
+- [MutatingAdmissionWebhook](#mutatingadmissionwebhook)
+- [ValidatingAdmissionWebhook](#validatingadmissionwebhook)
+- [ValidatingAdmissionPolicy](#validatingadmissionpolicy)
+
 The two webhook controllers execute the mutating and validating (respectively)
 [admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API. ValidatingAdmissionPolicy provides a way to embed
@@ -90,7 +92,7 @@ to properly support the feature. As a result, a Kubernetes API server that is no
 configured with the right set of admission controllers is an incomplete server and will not
 support all the features you expect.
 
-## How do I turn on an admission controller?
+## How do I turn on admission plugins?
 
 The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
 For example, the following command line enables the `NamespaceLifecycle` and the `LimitRanger`
@@ -108,7 +110,7 @@ service, you may modify the manifest file for the API server if Kubernetes is de
 in a self-hosted way.
 {{< /note >}}
 
-## How do I turn off an admission controller?
+## How do I turn off admission plugins?
 
 The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimited list of admission control plugins to be disabled, even if they are in the list of plugins enabled by default.
 
