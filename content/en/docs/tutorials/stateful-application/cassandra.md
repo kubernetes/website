@@ -264,7 +264,7 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 
 ## Cassandra container environment variables
 
-The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
 The Docker image above is based on [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)
 and includes OpenJDK 8.
@@ -284,8 +284,8 @@ By using environment variables you can change values that are inserted into `cas
 
 
 * Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
-* See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+* See more custom [Seed Provider Configurations](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)
 
 
 
