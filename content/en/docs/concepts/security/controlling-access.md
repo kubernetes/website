@@ -178,6 +178,6 @@ Read more documentation on authentication, authorization and API access control:
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
 
 You can learn about:
-- how Pods can use
-  [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  to obtain API credentials.
+- how Pods can use a
+  [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
+  to access the Kubernetes API.
