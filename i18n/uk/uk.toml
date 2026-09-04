@@ -204,11 +204,47 @@ other = "Помилка"
 [examples_heading]
 other = "Приклади"
 
+# Використовується з feature_gate_stage_* і потім з feature_gate_enabled або feature_gate_disabled
+# Цей рядок локалізації використовується для визначення пунктуації та інших деталей (включаючи порядок слів).
+## Локалізатори: ви можете поставити знаки, такі як лапки « та » навколо .stage (якщо це корисно)
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span> починаючи з {{ .kubernetes }} v{{ .version }}; {{ .enabled_or_disabled }}"""
+
+## Локалізатори: ви можете поставити знаки, такі як лапки « та » навколо .stage (якщо це корисно)
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span> починаючи з {{ .kubernetes }} v{{ .version }}"""
+
 [feature_gate_enabled]
-other = "(стандартно увімкнено)"
+other = "стандартно увімкнено"
 
 [feature_gate_disabled]
-other = "(стандартно вимкнено)"
+other = "стандартно вимкнено"
+
+[feature_gate_more_details]
+other = "Докладніше про цей функціонал"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>Щоб скористатися цією функцією, вам (або адміністратору кластера) потрібно увімкнути функціональну можливість <a href="/uk/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> для всіх відповідних компонентів у вашому кластері.</p>
+<p>Перегляньте <a href="/uk/docs/tasks/administer-cluster/configure-feature-gates/">Увімкнення або вимкнення функціональних можливостей</a> для отримання додаткової інформації.</p>"""
+
+[feature_gate_stable_graduated]
+other = "Це стабільна функція в {{ .kubernetes }}, яка загальнодоступна починаючи з версії {{ .stableVersion }}. Вперше вона зʼявилась у випуску v{{ .firstReleaseWithThisFeature }}."
+
+[feature_gate_stable_graduated_disabled]
+other = "Ця стабільна функціональна можливість стандартно вимкнена. Ви більше не можете її увімкнути для ввімкнення відповідної поведінки."
+
+[feature_gate_stable_locked]
+other = """Це стабільна функція в {{ .kubernetes }}, яка загальнодоступна починаючи з версії v{{ .stableVersion }}. Вперше вона зʼявилась у випуску v{{ .firstReleaseWithThisFeature }}. Ви більше не можете вимкнути або відмовитися від цієї функції чи поведінки (це заблоковано); якщо ви явно встановите значення для повʼязаної функціональної можливості <tt>{{ .featureGateName }}</tt>, {{ .kubernetes }} проігнорує це, але не повідомить про помилку."""
+
+[feature_gate_removed_after_ga]
+other = """Це стабільна функція в {{ .kubernetes }}, яка доступна починаючи з випуску {{ .stableVersion }}. Ви більше не можете перемикати цю функцію (повʼязану <a href="/uk/docs/reference/command-line-tools-reference/feature-gates-removed/">функціональну можливість</a> було вилучено)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """{{ .kubernetes }} більше не містить цієї функції / поведінки. Останній випуск {{ .kubernetes }}, який розпізнавав функціональну можливість <tt>{{ .featureGateName }}</tt>, був {{ .toVersion }}. Ви більше не можете перемикати цей параметр."""
+
+# Використовується, коли з певних причин невідомо, коли функціональна можливість була вилучена.
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """{{ .kubernetes }} більше не містить цієї функції / поведінки. Ви більше не можете перемикати цей параметр."""
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -217,7 +253,7 @@ other = "Alpha"
 other = "Beta"
 
 [feature_gate_stage_stable]
-other = "GA"
+other = "Stable"
 
 [feature_gate_stage_deprecated]
 other = "Deprecated"
@@ -244,7 +280,7 @@ other = "До"
 other = "До"
 
 [feature_state]
-other = "СТАН ФУНКЦІОНАЛУ:"
+other = "Стан функціоналу:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
@@ -455,7 +491,7 @@ other = """Сховища застарілих пакунків (`apt.kubernetes
 other = "by"
 
 [main_cncf_project]
-other = """Ми є дипломованим проєктом <a href="https://cncf.io/">CNCF</a></p>"""
+other = """Ми є дипломованим проєктом <a href="https://cncf.io/">CNCF</a>"""
 
 [main_community_explore]
 other = "Познайомитись із спільнотою"
@@ -603,7 +639,7 @@ other = "Завантаження бінарних компонентів Kubern
 [release_binary_section]
 other = """Ви можете знайти посилання для завантаження компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами) нижче.
 Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в
-документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
+документації для [попередніх версій](/uk/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
