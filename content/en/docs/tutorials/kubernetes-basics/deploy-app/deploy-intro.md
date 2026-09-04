@@ -57,7 +57,7 @@ _Applications need to be packaged into one of the supported container formats in
 order to be deployed on Kubernetes._
 {{% /alert %}}
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg" class="diagram-medium" >}}
+{{< svg src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg" >}}
 
 You can create and manage a Deployment by using the Kubernetes command line interface,
 [kubectl](/docs/reference/kubectl/). `kubectl` uses the Kubernetes API to interact
