@@ -835,6 +835,12 @@ applied to Volumes as follows:
   [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
   for more details.
 
+  {{< note >}}
+  [`hostPath`](/docs/concepts/storage/volumes/#hostpath) volumes don't support ownership
+  management, so `fsGroup` and `fsGroupChangePolicy` have no effect on them. For `fsGroup`-managed ownership on a node directory, use a
+  [`local` PersistentVolume](/docs/concepts/storage/volumes/#local) instead.
+  {{< /note >}}
+
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
   by the label specified under `seLinuxOptions`. Usually you only
   need to set the `level` section. This sets the
