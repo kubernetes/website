@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
+This page explains how to upgrade a Linux Worker Nodes created with `kubeadm`.
 
 ## {{% heading "prerequisites" %}}
 
@@ -14,6 +14,12 @@ This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Linux Worker nodes.
+
+{{< note >}}
+There are additional constraints if you are upgrading the control-plane to bump multiple minor versions.
+Doing so before upgrading the worker nodes results in `kubectl` being more than +/- 1 version from kube-apiserver, which is not allowed by the [version skew policy](/releases/version-skew-policy/).
+To prevent this issue, avoid using the node-local `kubectl` before the node upgrade is done.
+{{< /note >}}
 
 <!-- steps -->
 
@@ -28,9 +34,9 @@ document.
 
 ## Upgrading worker nodes
 
-### Upgrade kubeadm
+### Upgrade 
 
-Upgrade kubeadm:
+Upgrade `kubeadm`:
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -57,7 +63,7 @@ sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_e
 
 ### Call "kubeadm upgrade"
 
-For worker nodes this upgrades the local kubelet configuration:
+For worker nodes this upgrades the local `kubelet` configuration:
 
 ```shell
 sudo kubeadm upgrade node
@@ -75,7 +81,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 ### Upgrade kubelet and kubectl
 
-1. Upgrade the kubelet and kubectl:
+1. Upgrade the `kubelet` and `kubectl`:
 
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -100,7 +106,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{< /tabs >}}
 
-1. Restart the kubelet:
+1. Restart the `kubelet`:
 
    ```shell
    sudo systemctl daemon-reload
