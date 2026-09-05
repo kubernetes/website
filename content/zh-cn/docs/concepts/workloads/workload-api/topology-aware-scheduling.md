@@ -141,7 +141,7 @@ Here is an example of a PodGroup configured with a topology constraint:
 下面是一个配置了拓扑约束的 PodGroup 示例：
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha2
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: example-podgroup
@@ -153,6 +153,242 @@ spec:
     topology:
       - key: topology.example.com/rack
 ```
+<!--
+## Multi-level topology-aware scheduling
+-->
+## 多级拓扑感知调度
+
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+<!--
+Complex workloads might require co-location of their Pods at different levels of the cluster
+infrastructure. For example, an entire workload may need to run within a single availability zone,
+while different parts of that workload may require strict co-location within specific server racks.
+
+Such multi-level co-location requirements can be expressed using the `CompositePodGroup` API and
+by specifying topology constraints at different levels of a group hierarchy.
+
+Using the `CompositePodGroup` API requires enabling the
+[`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate and the
+`scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
+-->
+复杂工作负载可能需要将其 Pod 共置于集群基础架构的不同层级。
+例如，整个工作负载可能需要运行在单个可用区内，而该工作负载的不同部分可能需要严格共置于特定服务器机架上。
+
+此类多层级共置需求可以通过 `CompositePodGroup` API 表达，并在组层级结构的不同层次上指定拓扑约束。
+
+使用 `CompositePodGroup` API 需要启用
+[`CompositePodGroup`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+特性门控和 `scheduling.k8s.io/v1alpha3` {{</* glossary_tooltip text="API 组" term_id="api-group" */>}}。
+
+
+<!--
+### Multi-level topology constraints resolution
+
+Every group inside a `CompositePodGroup` hierarchy can specify a topology constraint which
+guarantees that all descendant Pods of that group will be scheduled in the same topology domain,
+matching that group's constraint.
+
+During [hierarchical scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling), the
+scheduler resolves these constraints in a **top-down** manner. Specifically, topology domains that
+are considered during scheduling of a child group are confined within a topology domain that
+corresponds to the placement assumed by the parent group.
+
+Kubernetes does not impose any strict requirements on the physical hierarchy of topology labels - topology
+keys are arbitrary node labels. However, the order in which you specify topology constraints from
+parent to child determines the order in which the scheduler subdivides topology domains.
+-->
+### 多层级拓扑约束解析
+
+`CompositePodGroup` 层级结构中的每个组都可以指定一个拓扑约束，确保该组的所有后代
+Pod 都会在与该组约束相匹配的同一拓扑域中进行调度。
+
+在[分层调度](/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling)过程中，
+调度器以**自顶向下**的方式解析这些约束。具体而言，在对子组进行调度时所考虑的拓扑域，
+会被限定在父组所假定的位置对应的拓扑域之内。
+
+Kubernetes 并不对拓扑标签的物理层级结构施加任何严格的要求——拓扑键是任意的节点标签。
+不过，你从父组到子组指定拓扑约束的顺序，决定了调度器对拓扑域进行细分的顺序。
+
+{{< note >}}
+<!--
+As of Kubernetes v1.37, you can specify only a single topology constraint in each
+`CompositePodGroup`.
+-->
+从 Kubernetes v1.37 起，你只能在每个 `CompositePodGroup` 中指定一个拓扑约束。
+{{< /note >}}
+
+<!--
+### Example
+
+The following example configures a `Workload` where the parent `CompositePodGroupTemplate`
+constrains the entire workload to a single availability zone (`topology.example.com/zone`), while
+two child `PodGroupTemplate` entries (`workers` and `driver`) constrain their respective
+Pods to server racks (`topology.example.com/rack`) within that zone:
+-->
+### 示例
+
+下面的示例配置了一个 `Workload`，其中父级 `CompositePodGroupTemplate`
+将整个工作负载约束到单个可用区（`topology.example.com/zone`），而两个子级 `PodGroupTemplate`
+条目（`workers` 和 `driver`）将它们各自的 Pod 约束到该可用区内的服务器机架（`topology.example.com/rack`）：
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: Workload
+metadata:
+  name: example-workload
+spec:
+  compositePodGroupTemplates:
+  - name: root
+    schedulingPolicy:
+      gang:
+        minGroupCount: 2
+    schedulingConstraints:
+      topology:
+      - key: topology.example.com/zone
+    podGroupTemplates:
+    - name: workers
+      schedulingPolicy:
+        gang:
+          minCount: 8
+      schedulingConstraints:
+        topology:
+        - key: topology.example.com/rack
+    - name: driver
+      schedulingPolicy:
+        gang:
+          minCount: 1
+      schedulingConstraints:
+        topology:
+        - key: topology.example.com/rack
+```
+
+<!--
+After creating the `Workload` object, the corresponding group objects are created as follows:
+
+- Root `CompositePodGroup` referencing the `root` template.
+- Two child `PodGroup` objects (`workers` and `driver`), each referencing the root
+  `CompositePodGroup` as their parent group.
+-->
+在创建 `Workload` 对象之后，对应的组对象将被创建，如下：
+
+- 根级 `CompositePodGroup`，引用 `root` 模板。
+- 两个子级 `PodGroup` 对象（`workers` 和 `driver`），各自将根级 `CompositePodGroup` 引用为其父组。
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha3
+kind: CompositePodGroup
+metadata:
+  name: workload-root
+spec:
+  workloadRef:
+    workloadName: example-workload
+    templateName: root
+  schedulingPolicy:
+    gang:
+      minGroupCount: 2
+  schedulingConstraints:
+    topology:
+    - key: topology.example.com/zone
+---
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PodGroup
+metadata:
+  name: workload-workers
+spec:
+  parentCompositePodGroupName: workload-root
+  workloadRef:
+    workloadName: example-workload
+    templateName: workers
+  schedulingPolicy:
+    gang:
+      minCount: 8
+  schedulingConstraints:
+    topology:
+    - key: topology.example.com/rack
+---
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PodGroup
+metadata:
+  name: workload-driver
+spec:
+  parentCompositePodGroupName: workload-root
+  workloadRef:
+    workloadName: example-workload
+    templateName: driver
+  schedulingPolicy:
+    gang:
+      minCount: 1
+  schedulingConstraints:
+    topology:
+    - key: topology.example.com/rack
+```
+
+<!--
+During scheduling, the scheduler first selects an availability zone for `workload-root`. It then
+subdivides the nodes in that zone by rack to find feasible rack placements for `workload-workers`
+and `workload-driver` within the selected zone.
+
+For example, consider a cluster with five nodes labeled as follows:
+-->
+在调度过程中，调度器首先为 `workload-root` 选择一个可用区，然后按机架细分该可用区内的节点，
+以找到 `workload-workers` 和 `workload-driver` 在所选可用区内的可行机架放置位置。
+
+例如，考虑一个包含五个节点的集群，其标签如下：
+
+| Node | `topology.example.com/zone` | `topology.example.com/rack` |
+| --- | --- | --- |
+| `node-a` | `zone-1` | `rack-1` |
+| `node-b` | `zone-1` | `rack-1` |
+| `node-c` | `zone-1` | `rack-2` |
+| `node-d` | `zone-2` | `rack-1` |
+| `node-e` | `zone-2` | `rack-3` |
+
+<!--
+When processing `workload-root`, the scheduler evaluates candidate placements across all cluster
+nodes based on the `topology.example.com/zone` topology key:
+
+| Evaluated candidate placement | Nodes in candidate placement |
+| --- | --- |
+| `zone-1` | `node-a`, `node-b`, `node-c` |
+| `zone-2` | `node-d`, `node-e` |
+-->
+在处理 `workload-root` 时，调度器会基于 `topology.example.com/zone` 拓扑键，在所有集群节点上评估候选放置位置：
+
+| 评估的候选位置 | 候选位置内的节点 |
+| --- | --- |
+| `zone-1` | `node-a`, `node-b`, `node-c` |
+| `zone-2` | `node-d`, `node-e` |
+
+<!--
+When processing `workload-root`, the scheduler evaluates candidate placements across all cluster
+nodes based on the `topology.example.com/zone` topology key:
+
+
+| Evaluated candidate placement | Nodes in candidate placement |
+| --- | --- | --- |
+| `zone-1` | `rack-1` | `node-a`, `node-b` |
+| `zone-1` | `rack-2` | `node-c` |
+| `zone-2` | `rack-1` | `node-d` |
+| `zone-2` | `rack-3` | `node-e` |
+-->
+在处理 `workload-root` 时，调度器会基于 `topology.example.com/zone` 拓扑键，在所有集群节点上评估候选放置位置：
+
+| 评估的候选位置 | 候选位置内的节点 |
+| --- | --- | --- |
+| `zone-1` | `rack-1` | `node-a`, `node-b` |
+| `zone-1` | `rack-2` | `node-c` |
+| `zone-2` | `rack-1` | `node-d` |
+| `zone-2` | `rack-3` | `node-e` |
+
+<!--
+Candidate placements generated for the sibling `workload-driver` PodGroup are identical to those
+generated for `workload-workers`, since both groups specify the same topology key
+(`topology.example.com/rack`).
+-->
+为同级 `workload-driver` PodGroup 生成的候选放置位置与为 `workload-workers`
+生成的相同，因为这两个组都指定了相同的拓扑键（`topology.example.com/rack`）。
 
 ## {{% heading "whatsnext" %}}
 
@@ -160,7 +396,9 @@ spec:
 * Learn about [pod group policies](/docs/concepts/workloads/workload-api/policies/).
 * Learn about [plugins related Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) algorithm.
+* Learn about the [scheduling building blocks and the workloadbuilder library](/docs/concepts/workloads/workload-api/workloadbuilder/), including the scheduling constraints building block.
 -->
 * 了解 [Pod 组策略](/zh-cn/docs/concepts/workloads/workload-api/policies/)。
 * 了解[拓扑感知调度相关插件](/zh-cn/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
 * 参阅 [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)算法。
+* 了解[调度构建块和 workloadbuilder 库](/zh-cn/docs/concepts/workloads/workload-api/workloadbuilder/)，包括调度约束构建块。
