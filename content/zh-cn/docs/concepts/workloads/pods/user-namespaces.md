@@ -124,14 +124,14 @@ on GitHub.
 ## 介绍 {#introduction}
 
 <!--
-User namespaces is a Linux feature that allows to map users in the container to
+User namespaces is a Linux feature that allows you to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
 A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` field
 to `false`.
 -->
-用户命名空间是一个 Linux 功能，允许将容器中的用户映射到主机中的不同用户。
+用户命名空间是一个 Linux 功能，允许你将容器中的用户映射到主机中的不同用户。
 此外，在某用户命名空间中授予 Pod 的权能只在该命名空间中有效，在该命名空间之外无效。
 
 一个 Pod 可以通过将 `pod.spec.hostUsers` 字段设置为 `false` 来选择使用用户命名空间。
