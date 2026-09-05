@@ -355,6 +355,34 @@ for points to note in terms of resource management when using memory-backed `emp
 了解有关资源管理方面的注意事项。
 {{< /caution >}}
 
+{{< feature-state feature_gate_name="EmptyDirVolumeMode" >}}
+
+<!--
+The `emptyDir.mode` field lets you set Unix permission bits on the emptyDir directory,
+specifying a value between `0000` and `01777` (octal). This follows the same pattern as the
+`defaultMode` field on Secret and ConfigMap volumes. If `mode` is not specified, the
+directory is created with the default `0777` permissions.
+
+Setting a custom mode is useful when you want to restrict access to owner and group only
+(for example, `0750`), or set the sticky bit on a shared directory so that only file owners
+can delete their own files (for example, `01777`).
+-->
+`emptyDir.mode` 字段用于设置 emptyDir 目录的 Unix 权限位，取值范围为 `0000`
+到 `01777`（八进制）。与 Secret 和 ConfigMap 卷上的 `defaultMode` 字段用法一致。
+如果未指定 `mode`，则目录将以默认的 `0777` 权限创建。
+
+设置自定义模式适用于以下场景：仅允许属主和属组访问（例如 `0750`），或在共享目录上设置粘滞位，
+使得只有文件属主才能删除自己的文件（例如 `01777`）。
+
+{{< note >}}
+<!--
+If `fsGroup` is set in the Pod's security context, the group permissions applied by
+`fsGroup` override the `mode` specified here. The `mode` field has no effect on Windows.
+-->
+如果在 Pod 的安全上下文中设置了 `fsGroup`，则 `fsGroup` 所应用的组权限会覆盖此处指定的 `mode`。
+`mode` 字段在 Windows 上无效。
+{{< /note >}}
+
 <!--
 #### emptyDir configuration example
 -->
@@ -400,6 +428,67 @@ spec:
     emptyDir:
       sizeLimit: 500Mi
       medium: Memory
+```
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+<!--
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes ithout restarting the Pod. For more details, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/resizing-memory-backed-emptydir-volumes).
+-->
+启用 `InPlacePodVerticalScalingMemoryBackedVolumes` 特性门控后，
+你可以动态调整基于内存的（`medium: Memory`）`emptyDir` 卷的 `sizeLimit`，而无需重启 Pod。
+有关详情，请参阅[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/resizing-memory-backed-emptydir-volumes)。
+{{< /note >}}
+
+<!--
+#### emptyDir permissions configuration example
+-->
+#### emptyDir 权限配置示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volB
+    - name: volC
+      mountPath: /mnt/volC
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo # Owner=defaultUser
+        path: foo
+      - key: bar # Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: # Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo # Owner=root
+            path: moo
+          - key: baa # Owner=user
+            path: baa
+            user: 1000
 ```
 
 <!--
@@ -2151,13 +2240,101 @@ Example:
 When this property is recognized by kubelet and kube-apiserver,
 the `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` field is set to either
 `Enabled` or `Disabled`.
-
-#### Implementations {#implementations-rro}
 -->
 当此属性被 kubelet 和 kube-apiserver 识别到时，
 `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` 字段将被设置为
 `Enabled` 或 `Disabled`。
 
+<!--
+## File owner
+
+### Group ownership (GID)
+
+Volume file group ownership (GID) is controlled by the pod's `spec.securityContext.fsGroup`.
+
+For detailed configuration steps, refer to
+[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
+
+### User ownership (UID)
+-->
+## 文件属主
+
+### 属组（GID）
+
+卷文件的属组（GID）由 Pod 的 `spec.securityContext.fsGroup` 控制。
+
+有关详细配置步骤，请参阅[为 Pod 或容器配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+
+### 属主（UID）
+
+{{< feature-state feature_gate_name="AtomicWriteVolumeUserFields" >}}
+
+<!--
+Setting the `AtomicWriteVolumeUserFields` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enables file user ownership (UID) fields of `configMap`, `secret`, `downwardAPI` and `projected` volumes.
+
+When `defaultUser` is specified at the volume level, it sets the owner UID for all its data files at creation time.
+At the item level, the `user` field controls owner UID of an individual file and takes precedence over `defaultUser`.
+
+Example:
+-->
+启用 `AtomicWriteVolumeUserFields`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 后，将为
+`configMap`、`secret`、`downwardAPI` 和 `projected` 卷启用文件属主（UID）字段。
+
+在卷级别指定 `defaultUser` 时，会在创建时设置该卷所有数据文件的属主 UID。
+在项级别，`user` 字段控制单个文件的属主 UID，且优先于 `defaultUser`。
+
+示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volB
+    - name: volC
+      mountPath: /mnt/volC
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo # Owner=defaultUser
+        path: foo
+      - key: bar # Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: # Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo # Owner=root
+            path: moo
+          - key: baa # Owner=user
+            path: baa
+            user: 1000
+```
+
+<!--
+#### Implementations {#implementations-rro}
+-->
 #### 实现   {#implementations-rro}
 
 {{% thirdparty-content %}}
@@ -2186,6 +2363,44 @@ OCI 级别：
 
 - [runc](https://runc.io/)，自 v1.1 起
 - [crun](https://github.com/containers/crun)，自 v1.8.6 起
+
+<!--
+## Bind mount options
+-->
+## 绑定挂载选项
+
+{{< feature-state feature_gate_name="VolumeBindMountOptions" >}}
+
+<!--
+The `.spec.containers[*].volumeMounts[*].bindMountOptions` field lets you apply security-related
+Linux bind mount flags to any volume mount. The allowed values are:
+
+* `noexec` - prevents execution of binaries on the mounted volume
+* `nodev` - ignores device special files on the mounted volume
+* `nosuid` - ignores set-user-identifier or set-group-identifier bits on the mounted volume
+
+These options apply per container, so different containers in the same Pod can mount
+the same volume with different bind mount options. The field is not supported with
+[image volumes](#image).
+-->
+`.spec.containers[*].volumeMounts[*].bindMountOptions` 字段用于将安全相关的
+Linux bind 挂载标志应用于任何卷挂载。允许的值为：
+
+* `noexec` - 禁止在已挂载卷上执行二进制文件
+* `nodev` - 忽略已挂载卷上的设备特殊文件
+* `nosuid` - 忽略已挂载卷上的 set-user-identifier（SUID）和 set-group-identifier（SGID）位
+
+这些选项按容器分别生效，因此同一 Pod 中的不同容器可以以不同的 bind 挂载选项挂载同一卷。该字段不支持用于[镜像卷](#image)。
+
+{{< note >}}
+<!--
+The container runtime (such as containerd or CRI-O) must support the `mount_options`
+field in the CRI `Mount` message. If the runtime does not advertise support, the kubelet
+rejects Pods that use `bindMountOptions`. This field has no effect on Windows nodes.
+-->
+容器运行时（如 containerd 或 CRI-O）必须支持 CRI `Mount` 消息中的 `mount_options` 字段。
+如果运行时未声明支持此字段，kubelet 会拒绝使用 `bindMountOptions` 的 Pod。该字段在 Windows 节点上无效。
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
