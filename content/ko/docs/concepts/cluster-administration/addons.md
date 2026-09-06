@@ -15,7 +15,7 @@ weight: 150
 
 <!-- body -->
 
-## 네트워킹과 네트워크 폴리시
+## 네트워킹과 네트워크 정책
 
 * [ACI](https://www.github.com/noironetworks/aci-containers)는 Cisco ACI를 통해 통합된
   컨테이너 네트워킹과 네트워크 보안을 제공한다.
@@ -31,8 +31,8 @@ weight: 150
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)은
   Flannel과 Calico를 통합하여 네트워킹 및 네트워크 폴리시를 제공한다.
 * [Cilium](https://github.com/cilium/cilium)은 eBPF 기반 데이터 플레인을 사용하는 네트워킹, 가시성
-  및 보안 솔루션이다. Cilium은 여러 클러스터에 걸쳐 사용할 수 있는
-  단순한 플랫 레이어 3 네트워크를 네이티브 라우팅 또는 오버레이/캡슐화 모드로
+  및 보안 솔루션이다. Cilium은 네이티브 라우팅 또는 오버레이/캡슐화 모드로
+  여러 클러스터에 걸쳐 확장 가능한 단순한 플랫 레이어 3 네트워크를
   제공하며, 네트워크 주소 지정과 분리된 신원 기반 보안 모델을 사용하여
   L3-L7에서 네트워크 폴리시를 적용할 수 있다. Cilium은
   kube-proxy를 대체할 수 있으며, 선택적으로 사용할 수 있는 추가 가시성 및 보안 기능도 제공한다.
@@ -67,8 +67,8 @@ weight: 150
   k0s와 k3s 모두에서 사용된다.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni)는 쿠버네티스의
   다중 네트워크 지원을 위한 멀티 플러그인으로, 모든 CNI 플러그인
-  (예: Calico, Cilium, Contiv, Flannel)뿐만 아니라 SRIOV, DPDK, OVS-DPDK 및
-  쿠버네티스의 VPP 기반 워크로드도 지원한다.
+  (예: Calico, Cilium, Contiv, Flannel)뿐만 아니라 쿠버네티스의 SRIOV, DPDK, OVS-DPDK 및
+  VPP 기반 워크로드도 지원한다.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)는
   Open vSwitch(OVS) 프로젝트에서 나온 가상 네트워킹 구현인
   [OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)을 기반으로 하는 쿠버네티스용 네트워킹 제공자이다.
@@ -84,7 +84,7 @@ weight: 150
   쿠버네티스 파드와 비-쿠버네티스 환경 간에 가시성 및 보안 모니터링을 갖춘
   폴리시 기반 네트워킹을 제공하는 SDN 플랫폼이다.
 * [Romana](https://github.com/romana)는 파드
-  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API도 지원한다.
+  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [네트워크폴리시(NetworkPolicy)](/docs/concepts/services-networking/network-policies/) API도 지원한다.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool)은 쿠버네티스를 위한 언더레이 및 RDMA
   네트워킹 솔루션이다. Spiderpool은 베어 메탈, 가상 머신 및
   퍼블릭 클라우드 환경에서 지원된다.
@@ -112,11 +112,11 @@ weight: 150
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)는 쿠버네티스에서
   가상 머신을 실행하기 위한 애드온이다. 일반적으로 베어 메탈 클러스터에서 실행한다.
-* 쿠버네티스의
-  [node problem detector](https://github.com/kubernetes/node-problem-detector)는
+* [node problem detector](https://github.com/kubernetes/node-problem-detector)는
   리눅스 노드에서 실행되며 시스템 문제를
   [이벤트](/docs/reference/kubernetes-api/cluster-resources/event-v1/) 또는
-  [노드 컨디션](/docs/concepts/architecture/nodes/#condition)으로 보고한다.
+  [노드 컨디션](/docs/concepts/architecture/nodes/#condition)으로
+  보고한다.
 
 ## 계측
 
