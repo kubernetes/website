@@ -1,6 +1,6 @@
 ---
-reviewers:
-- jpbetz
+# reviewers:
+# - jpbetz
 title: 조정된 리더 선출
 content_type: concept
 weight: 200
@@ -13,8 +13,8 @@ weight: 200
 쿠버네티스 {{< skew currentVersion >}}에는 {{<
 glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}} 컴포넌트가
 _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 있도록 하는 베타 기능이 포함되어 있다.
-이 기능은 클러스터 업그레이드 중 쿠버네티스 버전 차이 제약 조건을 충족하는 데 유용하다.
-현재 내장된 선택 전략은 `OldestEmulationVersion`뿐이며,
+이 기능은 클러스터 업그레이드 중 쿠버네티스 버전 차이(skew) 제약 조건을 충족하는 데 유용하다.
+현재 내장된 선출 전략은 `OldestEmulationVersion`뿐이며,
 에뮬레이션 버전이 가장 낮은 리더를 우선한 다음 바이너리
 버전, 생성 타임스탬프 순으로 비교한다.
 
@@ -31,20 +31,20 @@ _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 �
 
 ## 컴포넌트 구성
 
-`CoordinatedLeaderElection` 기능 게이트와  
-`coordination.k8s.io/v1beta1` API 그룹을 _모두_ 활성화하면, 호환되는 컨트롤 플레인  
-컴포넌트는 필요에 따라 LeaseCandidate 및 Lease API를 사용하여 자동으로 리더를  
-선출한다.  
+`CoordinatedLeaderElection` 기능 게이트와
+`coordination.k8s.io/v1beta1` API 그룹을 _모두_ 활성화하면, 호환되는 컨트롤 플레인
+컴포넌트는 필요에 따라 LeaseCandidate 및 Lease API를 사용하여 자동으로 리더를
+선출한다.
 
-쿠버네티스 {{< skew currentVersion >}}에서는 두 개의 컨트롤 플레인 컴포넌트  
-(`kube-controller-manager`와 `kube-scheduler`)가 기능 게이트와 API 그룹이  
+쿠버네티스 {{< skew currentVersion >}}에서는 두 개의 컨트롤 플레인 컴포넌트
+(kube-controller-manager와 kube-scheduler)가 기능 게이트와 API 그룹이
 활성화된 경우 조정된 리더 선출을 자동으로 사용한다.
 
 ## 쿠버네티스 컴포넌트의 리더 선출
 
 쿠버네티스는 고가용성 클러스터에서 `kube-controller-manager`나 `kube-scheduler`와 같은 컨트롤 플레인 컴포넌트가 여러 인스턴스로 실행될 때, 그중 하나를 리더로 선출하기 위해 [Lease API](/docs/concepts/architecture/leases/)를 사용한다.
 
-[Lease](/docs/concepts/architecture/leases/)는 [쿠버네티스 API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)에 저장되는 경량 분산 잠금 역할을 한다.
+[리스(Lease)](/docs/concepts/architecture/leases/)는 [쿠버네티스 API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)에 저장되는 경량 분산 잠금 역할을 한다.
 컴포넌트의 실행 중인 모든 인스턴스는 관련 Lease 오브젝트를 감시하거나 주기적으로 읽어
 현재 어떤 인스턴스가 리더 역할을 하는지 확인한다.
 
