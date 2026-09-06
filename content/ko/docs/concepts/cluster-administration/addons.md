@@ -41,10 +41,9 @@ weight: 150
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie)를 사용하면 쿠버네티스가 Calico, Canal, Flannel 또는 Weave와 같은
   CNI 플러그인 중 하나를 선택하여 원활하게 연결할 수 있다.
   CNI-Genie는 [샌드박스 단계의 CNCF 프로젝트](https://www.cncf.io/projects/cni-genie/)이다.
-* [Contiv](https://contivpp.io/)는 다양한 사용 사례와 풍부한
-  정책 프레임워크를 위해 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3,
-  VXLAN을 사용하는 오버레이, 클래식 L2, Cisco-SDN/ACI)을 제공한다. Contiv 프로젝트는 완전히
-  [오픈 소스](https://github.com/contiv)로 공개되어 있다.
+* [Contiv](https://contivpp.io/)는 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3,
+  VXLAN을 사용하는 오버레이, 클래식 L2, Cisco-SDN/ACI)과 다양한 사용 사례를 위한 풍부한
+  정책 프레임워크를 제공한다. Contiv 프로젝트는 완전히 [오픈 소스](https://github.com/contiv)로 공개되어 있다.
   [인스톨러](https://github.com/contiv/install)는 kubeadm 기반 및
   비-kubeadm 기반 설치 옵션을 모두 제공한다.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)은
