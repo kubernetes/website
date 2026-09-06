@@ -84,7 +84,7 @@ weight: 150
   쿠버네티스 파드와 비-쿠버네티스 환경 간에 가시성 및 보안 모니터링을 갖춘
   정책 기반 네트워킹을 제공하는 SDN 플랫폼이다.
 * [Romana](https://github.com/romana)는 파드
-  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [네트워크정책(NetworkPolicy)](/docs/concepts/services-networking/network-policies/) API도 지원한다.
+  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [네트워크폴리시(NetworkPolicy)](/docs/concepts/services-networking/network-policies/) API도 지원한다.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool)은 쿠버네티스를 위한 언더레이 및 RDMA
   네트워킹 솔루션이다. Spiderpool은 베어 메탈, 가상 머신 및
   퍼블릭 클라우드 환경에서 지원된다.
