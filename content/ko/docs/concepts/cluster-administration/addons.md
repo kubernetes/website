@@ -23,32 +23,33 @@ weight: 150
   데이터 플레인으로 활용하여 쿠버네티스에 네트워킹 및 보안 서비스를 제공한다.
   Antrea는 [샌드박스 단계의 CNCF 프로젝트](https://www.cncf.io/projects/antrea/)이다.
 * [Calico](https://www.tigera.io/project-calico/)는 네트워킹 및 네트워크
-  폴리시 제공자이다. Calico는 유연한 네트워킹 옵션을 지원하므로
+  정책 제공자이다. Calico는 유연한 네트워킹 옵션을 지원하므로
   BGP 사용 여부와 관계없이 비오버레이 네트워크와 오버레이 네트워크를 포함하여
   상황에 가장 효율적인 옵션을 선택할 수 있다. Calico는 동일한 엔진을 사용하여
   호스트, 파드 및 (Istio와 Envoy를 사용하는 경우) 서비스 메시 계층의
-  애플리케이션에 네트워크 폴리시를 적용한다.
+  애플리케이션에 네트워크 정책을 적용한다.
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)은
-  Flannel과 Calico를 통합하여 네트워킹 및 네트워크 폴리시를 제공한다.
+  Flannel과 Calico를 통합하여 네트워킹 및 네트워크 정책을 제공한다.
 * [Cilium](https://github.com/cilium/cilium)은 eBPF 기반 데이터 플레인을 사용하는 네트워킹, 가시성
   및 보안 솔루션이다. Cilium은 네이티브 라우팅 또는 오버레이/캡슐화 모드로
   여러 클러스터에 걸쳐 확장 가능한 단순한 플랫 레이어 3 네트워크를
   제공하며, 네트워크 주소 지정과 분리된 신원 기반 보안 모델을 사용하여
-  L3-L7에서 네트워크 폴리시를 적용할 수 있다. Cilium은
-  kube-proxy를 대체할 수 있으며, 선택적으로 사용할 수 있는 추가 가시성 및 보안 기능도 제공한다.
+  L3-L7에서 네트워크 정책을 적용할 수 있다.
+  Cilium은 kube-proxy를 대체할 수 있으며, 선택적으로 사용할 수 있는
+  추가 가시성 및 보안 기능도 제공한다.
   Cilium은 [졸업 단계의 CNCF 프로젝트](https://www.cncf.io/projects/cilium/)이다.
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie)를 사용하면 쿠버네티스가 Calico, Canal, Flannel 또는 Weave와 같은
   CNI 플러그인 중 하나를 선택하여 원활하게 연결할 수 있다.
   CNI-Genie는 [샌드박스 단계의 CNCF 프로젝트](https://www.cncf.io/projects/cni-genie/)이다.
 * [Contiv](https://contivpp.io/)는 다양한 사용 사례와 풍부한
-  폴리시 프레임워크를 위해 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3,
+  정책 프레임워크를 위해 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3,
   VXLAN을 사용하는 오버레이, 클래식 L2, Cisco-SDN/ACI)을 제공한다. Contiv 프로젝트는 완전히
   [오픈 소스](https://github.com/contiv)로 공개되어 있다.
   [인스톨러](https://github.com/contiv/install)는 kubeadm 기반 및
   비-kubeadm 기반 설치 옵션을 모두 제공한다.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)은
   [Tungsten Fabric](https://tungsten.io)을 기반으로 하는 오픈 소스 멀티 클라우드
-  네트워크 가상화 및 폴리시 관리 플랫폼이다. Contrail과 Tungsten
+  네트워크 가상화 및 정책 관리 플랫폼이다. Contrail과 Tungsten
   Fabric은 쿠버네티스, OpenShift,
   OpenStack, Mesos와 같은 오케스트레이션 시스템과 통합되며, 가상 머신, 컨테이너/파드
   및 베어 메탈 워크로드를 위한 격리 모드를 제공한다.
@@ -73,7 +74,7 @@ weight: 150
   Open vSwitch(OVS) 프로젝트에서 나온 가상 네트워킹 구현인
   [OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)을 기반으로 하는 쿠버네티스용 네트워킹 제공자이다.
   OVN-Kubernetes는 쿠버네티스를 위한 오버레이 기반 네트워킹 구현을 제공하며,
-  여기에는 OVS 기반 로드 밸런싱 및 네트워크 폴리시 구현이 포함된다.
+  여기에는 OVS 기반 로드 밸런싱 및 네트워크 정책 구현이 포함된다.
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus)는 클라우드 네이티브 기반 서비스 기능 체이닝(SFC)을
   제공하는 OVN 기반 CNI 컨트롤러 플러그인이다.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) 컨테이너 플러그인(NCP)은
@@ -82,17 +83,17 @@ weight: 150
   플랫폼 간의 통합도 제공한다.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)는
   쿠버네티스 파드와 비-쿠버네티스 환경 간에 가시성 및 보안 모니터링을 갖춘
-  폴리시 기반 네트워킹을 제공하는 SDN 플랫폼이다.
+  정책 기반 네트워킹을 제공하는 SDN 플랫폼이다.
 * [Romana](https://github.com/romana)는 파드
-  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [네트워크폴리시(NetworkPolicy)](/docs/concepts/services-networking/network-policies/) API도 지원한다.
+  네트워크를 위한 레이어 3 네트워킹 솔루션이며 [네트워크정책(NetworkPolicy)](/docs/concepts/services-networking/network-policies/) API도 지원한다.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool)은 쿠버네티스를 위한 언더레이 및 RDMA
   네트워킹 솔루션이다. Spiderpool은 베어 메탈, 가상 머신 및
   퍼블릭 클라우드 환경에서 지원된다.
 * [Terway](https://github.com/AliyunContainerService/terway/)는
   AlibabaCloud의 VPC 및 ECS 네트워크 제품을 기반으로 하는 CNI 플러그인 모음이다. AlibabaCloud 환경에서 네이티브 VPC 네트워킹과
-  네트워크 폴리시를 제공한다.
+  네트워크 정책을 제공한다.
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)은
-  네트워킹과 네트워크 폴리시를 제공하고, 네트워크 파티션 양쪽에서 계속 동작하며,
+  네트워킹과 네트워크 정책을 제공하고, 네트워크 파티션 양쪽에서 계속 동작하며,
   외부 데이터베이스를 필요로 하지 않는다.
 
 ## 서비스 디스커버리
