@@ -16,7 +16,7 @@ _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 �
 이 기능은 클러스터 업그레이드 중 쿠버네티스 버전 차이 제약 조건을 충족하는 데 유용하다.
 현재 내장된 선택 전략은 `OldestEmulationVersion`뿐이며,
 에뮬레이션 버전이 가장 낮은 리더를 우선한 다음 바이너리
-버전, 생성 타임스탬프 순으로 우선한다.
+버전, 생성 타임스탬프 순으로 비교한다.
 
 ## 조정된 리더 선출 활성화
 
@@ -32,7 +32,7 @@ _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 �
 ## 컴포넌트 구성
 
 `CoordinatedLeaderElection` 기능 게이트와  
-`coordination.k8s.io/v1beta1` API 그룹을 모두 활성화하면, 호환되는 컨트롤 플레인  
+`coordination.k8s.io/v1beta1` API 그룹을 _모두_ 활성화하면, 호환되는 컨트롤 플레인  
 컴포넌트는 필요에 따라 LeaseCandidate 및 Lease API를 사용하여 자동으로 리더를  
 선출한다.  
 
@@ -42,7 +42,7 @@ _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 �
 
 ## 쿠버네티스 컴포넌트의 리더 선출
 
-쿠버네티스는 고가용성 클러스터에서 `kube-controller-manager`나 `kube-scheduler`와 같은 동일한 컨트롤 플레인 컴포넌트의 여러 인스턴스 중 리더를 선출하기 위해 [Lease API](/docs/concepts/architecture/leases/)를 사용한다.
+쿠버네티스는 고가용성 클러스터에서 `kube-controller-manager`나 `kube-scheduler`와 같은 컨트롤 플레인 컴포넌트가 여러 인스턴스로 실행될 때, 그중 하나를 리더로 선출하기 위해 [Lease API](/docs/concepts/architecture/leases/)를 사용한다.
 
 [Lease](/docs/concepts/architecture/leases/)는 [쿠버네티스 API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)에 저장되는 경량 분산 잠금 역할을 한다.
 컴포넌트의 실행 중인 모든 인스턴스는 관련 Lease 오브젝트를 감시하거나 주기적으로 읽어
@@ -52,7 +52,7 @@ _조정된 리더 선출_을 통해 결정론적으로 리더를 선택할 수 �
 필드를 정의한다.
 
 `holderIdentity`
-: 현재 리더의 신원(예: 파드 이름 또는 호스트 이름 기반 문자열)이다.
+: 현재 리더의 신원(예: 파드 이름 또는 호스트네임 기반 문자열)이다.
 
 `acquireTime`
 : 리더십을 획득한 시각의 타임스탬프이다.
@@ -80,6 +80,6 @@ API를 사용한다. `kube-controller-manager`와 `kube-scheduler` 같은 컨트
 
 (예를 들어, [Lease](/docs/concepts/architecture/leases/)가 만료되려 할 때 충돌을 방지하기 위해 `leaseDurationSeconds` ÷ 2마다 갱신한다.)
 리스가 만료되기 전에 계속 갱신되는 한 현재 리더 인스턴스가 리더십을 유지한다.
-리더가 충돌하거나 접근할 수 없게 되거나 Lease 갱신을 중단하면 해당 Lease가 만료된다. 다른 정상 인스턴스는 만료된 Lease를 감지하고 새로운 선출을 시도한다.
+리더가 비정상 종료되거나 접근할 수 없게 되거나 Lease 갱신을 중단하면 해당 Lease가 만료된다. 다른 정상 인스턴스는 만료된 Lease를 감지하고 새로운 선출을 시도한다.
 
-이 메커니즘을 통해 안정성과 복구를 위해 컴포넌트의 여러 레플리카가 실행되고 있더라도 _한 번에 하나의 인스턴스만 제어 작업을 능동적으로 수행_하며, 나머지 인스턴스는 Lease를 감시하면서 필요할 때 신속하게 인계할 수 있도록 대기 상태로 남는다.
+이 메커니즘을 통해 안정성과 복구를 위해 컴포넌트의 여러 레플리카가 실행되고 있더라도 _한 번에 하나의 인스턴스만 제어 작업을 능동적으로 수행_하며, 나머지 인스턴스는 Lease를 감시하면서 필요할 때 신속하게 리더 역할을 이어받을 수 있도록 대기 상태로 남는다.
