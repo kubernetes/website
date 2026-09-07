@@ -7,7 +7,7 @@ author: Kevin Torres Martinez (Google)
 ---
 
 Kubernetes v1.36 introduces
-[Pod-Level Resource Managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+[Pod-Level Resource Managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)
 as an alpha feature, bringing a more flexible and powerful resource management
 model to performance-sensitive workloads. This enhancement extends the kubelet's
 Topology, CPU, and Memory Managers to support pod-level resource specifications
@@ -195,7 +195,7 @@ have introduced several new kubelet metrics when the feature gate is enabled:
 
 While this feature opens up new possibilities, there are a few things to keep in
 mind during its alpha phase. Be sure to review the
-[Limitations and caveats](/docs/concepts/workloads/resource-managers/#limitations-and-caveats)
+[Limitations and caveats](/docs/concepts/resource-management/pod-level-resource-managers/#limitations-and-caveats)
 in the official documentation for full details on compatibility, requirements,
 and downgrade instructions.
 
@@ -204,7 +204,7 @@ and downgrade instructions.
 For a deep dive into the technical details and configuration of this feature,
 check out the official concept documentation:
 
-*   [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+*   [Pod-level resource managers](/docs/concepts/resource-management/pod-level-resource-managers/)
 
 To learn more about the overall pod-level resources feature and how to assign
 resources to pods, see:
