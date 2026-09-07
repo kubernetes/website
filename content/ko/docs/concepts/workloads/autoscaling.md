@@ -88,7 +88,7 @@ Cluster Proportional Autoscaler는 스케줄링 가능한 {{< glossary_tooltip t
 이 프로젝트는 **현재 베타** 상태이며, GitHub에서 확인할 수 있다.
 
 Cluster Proportional Autoscaler가 워크로드의 레플리카 수를 스케일링한다면,
-Cluster Proportional Vertical Autoscaler는 클러스터의 노드 수 및/또는 코어 수를 기반으로
+Cluster Proportional Vertical Autoscaler는 클러스터의 노드나 코어 수를 기반으로
 워크로드(예를 들면 디플로이먼트나 데몬셋(DaemonSet))의 리소스 요청(request)을 조정한다.
 
 ### 이벤트 기반 오토스케일링
