@@ -45,8 +45,8 @@ _수직 스케일링(vertical scaling)_ 이라고 부른다.
 쿠버네티스에서는 [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)(HPA)를 이용하여 워크로드를 수평으로 자동 스케일링할 수 있다.
 
 이것은 쿠버네티스 API 리소스와 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}로
-구현되어 있으며, 주기적으로 워크로드의 {{< glossary_tooltip text="레플리카" term_id="replica" >}} 수를 조정하여
-CPU나 메모리 사용량과 같이 관측된 리소스 사용률에 맞춘다.
+구현되어 있으며, CPU나 메모리 사용량과 같은 관측된 리소스 사용률에 맞춰
+워크로드의 레플리카 수를 주기적으로 조정한다.
 
 디플로이먼트에 HorizontalPodAutoscaler를 구성하는 [연습 튜토리얼](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)이 있다.
 
