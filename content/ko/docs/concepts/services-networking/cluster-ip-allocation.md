@@ -21,7 +21,7 @@ weight: 120
 ## 어떻게 서비스 클러스터IP가 할당되는가?
 
 쿠버네티스가 서비스에 가상 IP 주소를 할당해야 할 때,
-해당 할당은 다음 두 가지 방식 중 하나로 이루어진다:
+해당 할당은 다음 두 가지 방식 중 하나로 이루어진다.
 
 _동적 할당_
 : 클러스터의 컨트롤 플레인이 자동으로 `type: ClusterIP` 서비스의 설정된 IP 범위 내에서 가용 IP 주소를 선택한다.
@@ -78,8 +78,8 @@ spec:
 쿠버네티스에 구현된 할당 전략은
 서비스에 클러스터IP 할당의 충돌 위험을 줄여준다.
 
-`ClusterIP` 범위는 `min(max(16, cidrSize / 16), 256)` 공식에 따라 나뉘며,
-이 공식은 _절대 16보다 작거나 256보다 크지 않고, 그 사이에 단계가 있는 것_으로 설명된다.
+`ClusterIP` 범위는 16 이상 256 이하의 단계적인 값을 나타내는
+`min(max(16, cidrSize / 16), 256)` 공식을 기반으로 나누어져 있다.
 
 동적 IP 할당은 기본값으로 위쪽 밴드를 사용한다. 위쪽 범위가 모두 소진되었다면 아래쪽 밴드를
 사용할 것이다. 이것은 사용자로 하여금 아래쪽 밴드의 정적 할당을 낮은 충돌 확률로 수행할 수 있게
@@ -143,7 +143,7 @@ pie showData
 
 ## {{% heading "whatsnext" %}}
 
-* [클라이언트 소스 IP 보존하기](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해 알아보기
-* [서비스와 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/)에 대해
-  알아보기
+* [서비스 외부 트래픽 정책](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해 알아보기
+* [서비스와 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/)에 대해 알아보기
 * [서비스](/docs/concepts/services-networking/service/)에 대해 알아보기
+
