@@ -40,7 +40,7 @@ spec:
 
 `spec.schedulingGroup`을 설정하면, 스케줄러는 참조된
 [파드그룹](/docs/concepts/workloads/podgroup-api/)을 조회하고 해당 파드그룹에 정의된
-[스케줄링 정책](/docs/concepts/workloads/workload-api/policies/)을 적용한다.
+[스케줄링 정책](/docs/concepts/workloads/workload-api/policies/)을 다음과 같이 적용한다.
 
 * `파드그룹`이 `basic` 정책을 사용하는 경우, 각 `파드`는 표준 쿠버네티스 동작 방식에 따라
   독립적으로 스케줄링된다. 이때 그룹 지정은 그룹 수준 레이블로 사용된다.
@@ -51,19 +51,19 @@ spec:
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-기능 게이트가 활성화되면, `파드그룹`은 부모 `컴포지트파드그룹(CompositePodGroup)`을 지정할 수도 있다. 
+기능 게이트가 활성화되면, `파드그룹`은 부모 `컴포지트파드그룹(CompositePodGroup)`을 지정할 수도 있다.
 계층적 워크로드에서는, 전체 그룹 트리에 걸쳐 정의된 정책(예: 다단계 갱 스케줄링 또는
 토폴로지 제약 조건 등)에 따라 스케줄링이 결정된다.
 
-## 존재하지 않는 파드그룹 참조
+## 존재하지 않는 그룹 참조
 
 `파드`가 아직 존재하지 않는 `파드그룹`을 참조하는 경우, 해당 `파드`는 보류(pending) 상태로 유지된다.
 마찬가지로, 참조된 `파드그룹`이 (`spec.parentCompositePodGroupName`을 통해)
 아직 생성되지 않은 부모 `컴포지트파드그룹`을 지정하는 경우, 스케줄링이 시작되지 않으며
 전체 그룹 계층이 클러스터에 존재할 때까지 `파드`는 보류 상태로 유지된다.
 
-이는 최종 정책이 `basic`이든 `gang`이든 관계없이 적용되는데,
-스케줄러가 정책을 결정하기 위해서는 `파드그룹`이 필요하기 때문이다.
+필요한 모든 `파드그룹`과 `컴포지트파드그룹` 리소스가 존재하게 되면, 스케줄러는
+자동으로 해당 `파드`를 다시 검토한다.
 
 ## {{% heading "whatsnext" %}}
 
