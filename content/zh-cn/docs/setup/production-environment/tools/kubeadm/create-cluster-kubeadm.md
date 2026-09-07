@@ -592,7 +592,8 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 -->
 - 如果要为集群使用 IPv6（双协议栈或仅单协议栈 IPv6 网络），
   请确保你的 Pod 网络插件支持 IPv6。
-  IPv6 支持已在 CNI [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0) 版本中添加。
+  IPv6 支持已在 CNI [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0)
+  版本中添加。
 {{< /caution >}}
 
 {{< note >}}
@@ -673,18 +674,35 @@ for `kubeadm`.
 <!--
 By default, kubeadm enables the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 admission controller that restricts what labels can be self-applied by kubelets on node registration.
-The admission controller documentation covers what labels are permitted to be used with the kubelet `--node-labels` option.
-The `node-role.kubernetes.io/control-plane` label is such a restricted label and kubeadm manually applies it using
-a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
-and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
+The admission controller documentation covers what labels are permitted to be used with the kubelet
+`--node-labels` option。
 -->
 默认情况下，kubeadm 启用
 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-准入控制器来限制 kubelet 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
-其中 `node-role.kubernetes.io/control-plane` 标签就是这样一个受限制的标签，
-kubeadm 在节点创建后使用特权客户端手动应用此标签。
-你可以使用一个有特权的 kubeconfig，比如由 kubeadm 管理的 `/etc/kubernetes/admin.conf`，
-通过执行 `kubectl label` 来手动完成操作。
+准入控制器来限制 kubelet 在节点注册时可以应用哪些标签。
+准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
+
+{{< caution >}}
+<!--
+Because of the `NodeRestriction` admission controller, you **cannot** use the kubelet
+`--node-labels` flag to apply restricted labels (such as `node-role.kubernetes.io/*`) during initialization.
+
+If you attempt to add restricted labels by using this kubelet flag, the node will fail to register
+with the API server.
+-->
+由于存在 `NodeRestriction` 准入控制器，你**无法**在初始化期间使用
+kubelet 的 `--node-labels` 标志来应用受限标签（例如 `node-role.kubernetes.io/*`）。
+
+如果你尝试使用该 kubelet 标志添加受限标签，节点将无法向 API Server 注册。
+{{< /caution >}}
+
+<!--
+To apply these labels manually, you must use `kubectl label` after the node has joined the cluster.
+Ensure you are using a privileged kubeconfig, such as the kubeadm-managed `/etc/kubernetes/admin.conf`.
+-->
+要手动应用这些标签，必须在节点加入集群后使用 `kubectl label` 命令。
+请确保你使用的是特权 kubeconfig 文件，例如由 kubeadm 管理的
+`/etc/kubernetes/admin.conf` 文件。
 
 <!--
 ### Control plane node isolation
@@ -740,7 +758,13 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 
 See [Creating Highly Available Clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 for steps on creating a high availability kubeadm cluster by adding more control plane nodes.
+-->
+### 添加更多控制平面节点   {#adding-more-control-plane-nodes}
 
+请参阅[使用 kubeadm 创建高可用性集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+了解通过添加更多控制平面节点创建高可用性 kubeadm 集群的步骤。
+
+<!--
 ### Adding worker nodes {#join-nodes}
 
 The worker nodes are where your workloads run.
@@ -751,11 +775,6 @@ the `kubeadm join` command:
 * [Adding Linux worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
 * [Adding Windows worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 -->
-### 添加更多控制平面节点   {#adding-more-control-plane-nodes}
-
-请参阅[使用 kubeadm 创建高可用性集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
-了解通过添加更多控制平面节点创建高可用性 kubeadm 集群的步骤。
-
 ### 添加工作节点 {#join-nodes}
 
 <!--
@@ -809,7 +828,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 上面的示例假定为 root 用户启用了 SSH 访问。如果不是这种情况，
 你可以使用 `scp` 将 `admin.conf` 文件复制给其他允许访问的用户。
 
-admin.conf 文件为用户提供了对集群的超级用户特权。
+`admin.conf` 文件为用户提供了对集群的超级用户特权。
 该文件应谨慎使用。对于普通用户，建议生成一个你为其授予特权的唯一证书。
 你可以使用 `kubeadm kubeconfig user --client-name <CN>` 命令执行此操作。
 该命令会将 KubeConfig 文件打印到 STDOUT，你应该将其保存到文件并分发给用户。
@@ -1081,13 +1100,12 @@ the [Version Skew Policy](/releases/version-skew-policy/).
 The cluster created here has a single control-plane node, with a single etcd database
 running on it. This means that if the control-plane node fails, your cluster may lose
 data and may need to be recreated from scratch.
+
+Workarounds:
 -->
 此处创建的集群具有单个控制平面节点，运行单个 etcd 数据库。
 这意味着如果控制平面节点发生故障，你的集群可能会丢失数据并且可能需要从头开始重新创建。
 
-<!--
-Workarounds:
--->
 解决方法：
 
 <!--
@@ -1133,21 +1151,17 @@ supports your chosen platform.
 
 <!--
 ## Troubleshooting {#troubleshooting}
--->
-## 故障排除 {#troubleshooting}
 
-<!--
 If you are running into difficulties with kubeadm, please consult our
 [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
+## 故障排除 {#troubleshooting}
+
 如果你在使用 kubeadm 时遇到困难，
 请查阅我们的[故障排除文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 <!-- discussion -->
 
-<!--
-## {{% heading "whatsnext" %}}
--->
 ## {{% heading "whatsnext" %}}
 
 <!--

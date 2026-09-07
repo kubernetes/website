@@ -356,6 +356,40 @@ The tutorial illustrates using AppArmor to restrict a container's abilities and 
 The profile specified dictates the set of rules and restrictions that the containerized process must
 adhere to. This helps enforce security policies and isolation for your containers.
 
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+
+This annotation records the node identifier used by a CSI driver, as a fallback when the
+[CSINode](/docs/reference/kubernetes-api/storage/csi-node-v1/) object is not available.
+The CSI external-attacher sidecar container populates it before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when an appropriate CSINode is not present.
+
+Because this annotation is deprecated, the Kubernetes project recommends that you do
+**not** set this on a VolumeAttachment, nor on any other object.
+
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+
+This annotation specifies the identifier for a node as understood by the
+Container Storage Interface (CSI) driver. `kubelet` populates this annotation
+by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the
+node ID during driver registration. The external-attacher sidecar container
+reads this annotation to get the node ID when attaching or detaching volumes.
+
+This annotation is deprecated in favor of the CSINode object, which provides the same
+functionality via the [`spec.drivers[].nodeID` field](/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver).
+
 ### deployment.kubernetes.io/desired-replicas
 
 Type: Annotation
@@ -1210,6 +1244,19 @@ If `PersistentVolumeLabel` does not support automatic labeling of your Persisten
 you should consider adding the labels manually (or adding support for `PersistentVolumeLabel`).
 With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone.
 If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
+
+### volume.alpha.kubernetes.io/node-affinity (deprecated) {#volume-alpha-kubernetes-io-node-affinity}
+
+Type: Annotation
+
+Used on: PersistentVolume
+
+This annotation stored node affinity rules for a PersistentVolume as a JSON-serialized
+`NodeAffinity` object. The scheduler used these rules to limit which nodes could access the volume.
+
+This annotation has been deprecated since Kubernetes v1.10. Use the
+[`nodeAffinity` field](/docs/concepts/storage/persistent-volumes/#node-affinity) in the
+PersistentVolume spec instead.
 
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 

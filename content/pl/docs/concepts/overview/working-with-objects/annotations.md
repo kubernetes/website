@@ -75,6 +75,11 @@ Jeśli prefiks jest pominięty, zakłada się, że klucz adnotacji należy wył�
 
 Prefiksy `kubernetes.io/` i `k8s.io/` są zarezerwowane dla podstawowych komponentów Kubernetesa.
 
+Prawidłowe wartości adnotacji nie mają ograniczeń dotyczących zestawu znaków - w przeciwieństwie do wartości etykiet, wartości
+adnotacji mogą zawierać dowolny ciąg znaków, w tym znaki specjalne, spacje oraz dane strukturalne, takie jak JSON czy YAML. Jeśli
+planujesz przechowywać dane binarne (takie jak [CBOR](https://cbor.io/)), projekt Kubernetes zaleca ich kodowanie za pomocą
+base64. Jednak całkowity rozmiar **wszystkich** adnotacji na jednym obiekcie (łączna wielkość kluczy i wartości) nie może przekraczać 256 KiB.
+
 Na przykład, oto manifest dla Poda, który posiada adnotację `imageregistry: https://hub.docker.com/` :
 
 ```yaml

@@ -77,17 +77,17 @@ external IP address.
    my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
    ```
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
 
    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example. Please refer to [setting `type: LoadBalancer` for your Service](/docs/concepts/services-networking/service/#loadbalancer) for the details.
 
-   {{< /note >}}
+   {{< /alert >}}
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
 
    If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
 
-   {{< /note >}}
+   {{< /alert >}}
 
 1. Display detailed information about the Service:
 

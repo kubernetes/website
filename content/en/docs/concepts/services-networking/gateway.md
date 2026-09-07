@@ -121,7 +121,8 @@ to the Gateway by the implementation's controller. This address is used as a net
 processing traffic of backend network endpoints defined in routes.
 
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
-reference for a full definition of this API kind.
+reference for a full definition of this API kind. For guidance on configuring HTTPS/TLS listeners, see the
+[Gateway API TLS Guide](https://gateway-api.sigs.k8s.io/guides/tls/).
 
 {{< note >}}
 By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
@@ -223,7 +224,7 @@ to forward the traffic to the correct backend. Since there is only one match spe
 for the com.example.User.Login method to svc.example.com will be forwarded.
 RPCs of any other method` will not be matched by this Route.
 
-See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
 reference for a full definition of this API kind.
 
 ## Request flow
@@ -252,7 +253,7 @@ Gateway API covers a broad set of features and is widely implemented. This combi
 clear conformance definitions and tests to ensure that the API provides a consistent experience
 wherever it is used.
 
-See the [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) documentation to
+See the [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) documentation to
 understand details such as release channels, support levels, and running conformance tests.
 
 ## Migrating from Ingress

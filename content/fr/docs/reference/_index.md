@@ -47,8 +47,6 @@ Pour appeler l'API de Kubernetes depuis un langage de programmation on peut util
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - Démon en charge de la principale boucle de régulation (core control loop) de Kubernetes.
 * [kube-proxy](/docs/admin/kube-proxy/) - S'occupe de reacheminer (forwarding) simplement les flux TCP/UDP ou bien en utilisant un Round-Robin sur un ensemble de back-ends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - Ordonnanceur (scheduler) qui gère la disponibilité, la performance et la capacité.
-* [federation-apiserver](/docs/admin/federation-apiserver/) - Serveur API pour les clusters fédérés.
-* [federation-controller-manager](/docs/admin/federation-controller-manager/) - Démon en charge de la boucle de régulation (core control loop) d'une fédération de clusters Kubernetes.
 
 ## Documents de Conception
 

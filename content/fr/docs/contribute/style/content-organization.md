@@ -112,7 +112,6 @@ Il n'est utilisé que dans d'autres pages.
 ```bash
 en/includes
 ├── default-storage-class-prereqs.md
-├── federated-task-tutorial-prereqs.md
 ├── index.md
 ├── partner-script.js
 ├── partner-style.css

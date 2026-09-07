@@ -21,11 +21,11 @@ weight: 10
 <!-- overview -->
 
 <!--
-*Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom
+*Custom resources* are instances of resource types added to Kubernetes through API extensions. This page discusses when to add a custom
 resource to your Kubernetes cluster and when to use a standalone service. It describes the two
 methods for adding custom resources and how to choose between them.
 -->
-**定制资源（Custom Resource）** 是对 Kubernetes API 的扩展。
+**定制资源（Custom Resource）** 是通过 API 扩展添加到 Kubernetes 中的资源类型的实例。
 本页讨论何时向 Kubernetes 集群添加定制资源，何时使用独立的服务。
 本页描述添加定制资源的两种方法以及怎样在二者之间做出抉择。
 

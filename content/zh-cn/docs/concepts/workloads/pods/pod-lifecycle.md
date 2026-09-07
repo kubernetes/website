@@ -18,11 +18,18 @@ This page describes the lifecycle of a Pod. Pods follow a defined lifecycle, sta
 in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
+
+While a Pod runs, the kubelet manages containers and translates the Pod's spec
+for the container runtime. The kubelet also manages executing
+[probes](#container-probes) that track the health of your application.
 -->
 本页面讲述 Pod 的生命周期。
 Pod 遵循预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，
 如果至少其中有一个主要容器正常启动，则进入 `Running`，之后取决于 Pod
 中是否有容器以失败状态结束而进入 `Succeeded` 或者 `Failed` 阶段。
+
+在 Pod 运行期间，kubelet 负责管理容器，并将 Pod 规约转换为容器运行时所需的指令。
+此外，kubelet 还负责执行用于监控应用程序健康状况的[探针](#container-probes)。
 
 <!--
 Like individual application containers, Pods are considered to be relatively
@@ -46,16 +53,20 @@ Pod 也被计划在给定超时期限结束后[删除](#pod-garbage-collection)�
 <!--
 ## Pod lifetime
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle some
-kind of faults. Within a Pod, Kubernetes tracks different container
+While a Pod is running, the kubelet is able to restart containers to handle
+some kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
-healthy again.
+healthy again. This is done in a [polling
+loop](/docs/reference/node/kubelet-sync-loop/) that periodically reconciles the
+desired state (a Pod spec) with the actual state of the running containers.
 -->
 ## Pod 生命期   {#pod-lifetime}
 
 在 Pod 运行期间，`kubelet` 能够重启容器以处理一些失效场景。
 在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)并确定使
 Pod 重新变得健康所需要采取的动作。
+这一过程是在一个[轮询循环](/docs/reference/node/kubelet-sync-loop/)中完成的，
+该循环定期将期望状态（Pod 规约）与运行中容器的实际状态进行协调。
 
 <!--
 In the Kubernetes API, Pods have both a specification and an actual status. The
@@ -250,16 +261,25 @@ Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
 {{< /note >}}
 
 <!--
-Since Kubernetes 1.27, the kubelet transitions deleted Pods, except for
-[static Pods](/docs/tasks/configure-pod-container/static-pod/) and
-[force-deleted Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
-without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
-the exit statuses of the pod containers) before their deletion from the API server.
+Since Kubernetes 1.27, the kubelet transitions deleted Pods to a terminal phase
+(`Failed` or `Succeeded` depending on the exit statuses of the pod containers)
+before their deletion from the API server, with two exceptions:
+
+* [static Pods](/docs/tasks/configure-pod-container/static-pod/) (which are
+managed directly by the kubelet and represented by {{< glossary_tooltip
+text="mirror Pods" term_id="mirror-pod" >}}) 
+*  [force-deleted
+Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
+without a finalizer
 -->
-从 Kubernetes 1.27 开始，除了[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)
-和没有 Finalizer 的[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
-之外，`kubelet` 会将已删除的 Pod 转换到终止阶段
-（`Failed` 或 `Succeeded` 具体取决于 Pod 容器的退出状态），然后再从 API 服务器中删除。
+从 Kubernetes 1.27 起，kubelet 会在被删除的 Pod 从 API 服务器移除之前，
+将它们切换到一个终止阶段（`Failed` 或 `Succeeded`，具体取决于 Pod 容器的退出状态），
+但有两种例外情况：
+
+* [静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)
+  （由 kubelet 直接管理，并通过{{</* glossary_tooltip text="镜像 Pod" term_id="mirror-pod" */>}} 来表示）
+* 没有设置 finalizer
+  的[被强制删除的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
 
 <!--
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
@@ -1146,8 +1166,9 @@ Kubelet 管理以下 PodCondition：
 
 <!--
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
-  Pod sandbox has been successfully created and networking configured.
+* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-ready-to-start-containers)) the
+  Pod sandbox has been successfully created, networking configured, storage volumes mounted,
+  and any dynamic resources (if requested) allocated.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -1159,7 +1180,8 @@ Kubelet 管理以下 PodCondition：
   [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
-* `PodReadyToStartContainers`：Pod 沙箱被成功创建并且配置了网络（Beta 特性，[默认](#pod-has-network)启用）；
+* `PodReadyToStartContainers`：（Beta 特性，[默认](#pod-ready-to-start-containers)启用）表示
+  Pod 沙箱已成功创建，网络已配置，存储卷已挂载，并且（如果请求了）任何动态资源均已分配完成；
 * `ContainersReady`：Pod 中所有容器都已就绪；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
@@ -1284,9 +1306,9 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 `kubelet` 将 Pod 的[状况](#pod-conditions)设置为 `ContainersReady`。
 
 <!--
-### Pod network readiness {#pod-has-network}
+### Pod readiness to start containers {#pod-ready-to-start-containers}
 -->
-### Pod 网络就绪 {#pod-has-network}
+### Pod 启动容器的就绪状态 {#pod-has-network}
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
@@ -1302,15 +1324,20 @@ After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
 to have any required storage volumes mounted. Once these phases are complete,
 the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition`
+runtime sandbox and configure networking for the Pod. If the Pod uses
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+those resources are also allocated during this phase.
+If the `PodReadyToStartContainersCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 (it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
 `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
 -->
 在 Pod 被调度到某节点后，它需要被 kubelet 接受并且挂载所需的存储卷。
 一旦这些阶段完成，Kubelet 将与容器运行时（使用{{< glossary_tooltip term_id="cri" >}}）
-一起为 Pod 生成运行时沙箱并配置网络。如果启用了 `PodReadyToStartContainersCondition` 
+一起为 Pod 生成运行时沙箱并配置网络。
+如果该 Pod 使用了[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)，
+这些资源也会在该阶段被一起分配。
+如果启用了 `PodReadyToStartContainersCondition` 
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （Kubernetes {{< skew currentVersion >}} 版本中默认启用），
 `PodReadyToStartContainers` 状况会被添加到 Pod 的 `status.conditions` 字段中。
@@ -1338,15 +1365,12 @@ the following scenarios:
   * 对于使用虚拟机进行隔离的容器运行时，Pod 沙箱虚拟机重启时，需要创建一个新的沙箱和全新的容器网络配置。
 
 <!--
-The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
-successful completion of sandbox creation and network configuration for the Pod
-by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodReadyToStartContainers` condition has been set to `True`.
+After sandbox creation, network configuration, volume mounting, and (if requested) dynamic resource
+allocation are complete, the kubelet sets the `PodReadyToStartContainers` condition to `True`.
+Image pulling and container creation occur after this point.
 -->
-在运行时插件成功完成 Pod 的沙箱创建和网络配置后，
-kubelet 会将 `PodReadyToStartContainers` 状况设置为 `True`。
-当 `PodReadyToStartContainers` 状况设置为 `True` 后，
-Kubelet 可以开始拉取容器镜像和创建容器。
+在沙箱创建、网络配置、卷挂载以及（如有请求）动态资源分配完成之后，kubelet
+会将 `PodReadyToStartContainers` 状况设置为 `True`。镜像拉取与容器创建会在此之后进行。
 
 <!--
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
@@ -1366,6 +1390,7 @@ condition to `True` before sandbox creation and network configuration starts.
 ## 调整 Pod 大小   {#pod-resize}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+{{< feature-state feature_gate_name="InPlacePodLevelResourcesVerticalScaling" >}}
 
 <!--
 Kubernetes supports changing the CPU and memory resources allocated to Pods
@@ -1384,6 +1409,9 @@ You can resize a Pod's container-level CPU and memory resources without recreati
 This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
 allocation for running containers while potentially avoiding application disruption.
 
+If you have specified resources at the pod-level, you can also resize those in-place.
+For more details, see [Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources/).
+
 To perform an in-place resize, you update the Pod's desired state using the `/resize`
 subresource. The kubelet then attempts to apply the new resource values to the running
 containers. The Pod {{< glossary_tooltip text="conditions" term_id="condition" >}}
@@ -1396,6 +1424,9 @@ indicate the status of the resize operation. For more details about resize statu
 你可以调整 Pod 的容器级别 CPU 和内存资源，而无需重建 Pod。
 这亦被称为**原地 Pod 垂直扩缩**。这允许你在可能避免应用程序中断的同时，
 调整运行容器的资源配置。
+
+如果你已在 Pod 级别指定了资源，也可以直接调整这些资源的大小。
+更多详情，请参阅[调整分配给 Pod 的 CPU 和内存资源大小](/zh-cn/docs/tasks/configure-pod-container/resize-pod-resources/)。
 
 要执行原地调整大小，你可以使用 `/resize` 子资源更新 Pod 的期望状态。
 然后，kubelet 会尝试将新的资源值应用到运行中的容器。
@@ -1467,282 +1498,107 @@ to automatically manage Pod resource recommendations and updates.
 <!--
 ## Container probes
 
-A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
-on a container. To perform a diagnostic, the kubelet either executes code within the container,
-or makes a network request.
+Kubernetes lets you define _probes_ to continuously monitor the health
+of containers in a Pod. A probe is a diagnostic performed periodically
+by the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on a container.
+To perform a diagnostic, the kubelet either executes code within
+the container or makes a network request.
+
+Based on the probe results, Kubernetes can restart unhealthy containers
+or stop sending traffic to containers that are not ready.
 -->
 ## 容器探针    {#container-probes}
 
-**probe** 是由 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 对容器执行的定期诊断。
-要执行诊断，kubelet 既可以在容器内执行代码，也可以发出一个网络请求。
+Kubernetes 允许你定义**探针（Probe）** 来持续监测 Pod 中容器的健康状况。
+探针是由 {{</* glossary_tooltip text="kubelet" term_id="kubelet" */>}}
+周期性地在容器上执行的一种诊断操作。为执行该诊断，kubelet 要么在容器内执行一段代码，要么发起一次网络请求。
+
+根据探针检测结果，Kubernetes 可以重启不健康的容器，或者停止向未就绪的容器发送流量。
 
 <!--
-### Check mechanisms {#probe-check-methods}
-
-There are four different ways to check a container using a probe.
-Each probe must define exactly one of these four mechanisms:
-
-`exec`
-: Executes a specified command inside the container. The diagnostic
-  is considered successful if the command exits with a status code of 0.
--->
-### 检查机制    {#probe-check-methods}
-
-使用探针来检查容器有四种不同的方法。
-每个探针都必须准确定义为这四种机制中的一种：
-
-`exec`
-: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
-
-<!--
-`grpc`
-: Performs a remote procedure call using [gRPC](https://grpc.io/).
-  The target should implement
-  [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
-  The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.
-
-`httpGet`
-: Performs an HTTP `GET` request against the Pod's IP
-  address on a specified port and path. The diagnostic is
-  considered successful if the response has a status code
-  greater than or equal to 200 and less than 400. See
-  [Configure Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)
-  for more information on how the kubelet follows redirects.
--->
-`grpc`
-: 使用 [gRPC](https://grpc.io/) 执行一个远程过程调用。
-  目标应该实现
-  [gRPC 健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
-  如果响应的状态是 "SERVING"，则认为诊断成功。
-
-`httpGet`
-: 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
-  且小于 400，则诊断被认为是成功的。有关 kubelet 如何跟踪重定向的更多信息，
-  请参阅[配置探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)。
-
-<!--
-`tcpSocket`
-: Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if
-  the port is open. If the remote system (the container) closes
-  the connection immediately after it opens, this counts as healthy.
-
--->
-`tcpSocket`
-: 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的。
-  如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
-
-{{< caution >}}
-<!--
-Unlike the other mechanisms, `exec` probe's implementation involves
-the creation/forking of multiple processes each time when executed.
-As a result, in case of the clusters having higher pod densities,
-lower intervals of `initialDelaySeconds`, `periodSeconds`,
-configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
-In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.
--->
-和其他机制不同，`exec` 探针的实现涉及每次执行时创建/复制多个进程。
-因此，在集群中具有较高 pod 密度、较低的 `initialDelaySeconds` 和 `periodSeconds` 时长的时候，
-配置任何使用 exec 机制的探针可能会增加节点的 CPU 负载。
-这种场景下，请考虑使用其他探针机制以避免额外的开销。
-{{< /caution >}}
-
-<!--
-### Probe outcome
-Each probe has one of three results:
-
-`Success`
-: The container passed the diagnostic.
-
-`Failure`
-: The container failed the diagnostic.
-
-`Unknown`
-: The diagnostic failed (no action should be taken, and the kubelet
-  will make further checks).
--->
-### 探测结果    {#probe-outcome}
-
-每次探测都将获得以下三种结果之一：
-
-`Success`（成功）
-: 容器通过了诊断。
-
-`Failure`（失败）
-: 容器未通过诊断。
-
-`Unknown`（未知）
-: 诊断失败，因此不会采取任何行动。
-
-<!--
-### Types of probe
-
 The kubelet can optionally perform and react to three kinds of probes on running
-containers:
+containers, each serving a different purpose. For probe mechanisms (`exec`,
+`grpc`, `httpGet`, `tcpSocket`), configuration fields, and detailed usage
+guidance, see [Liveness, Readiness, and Startup Probes](/docs/concepts/workloads/pods/probes/).
 -->
-### 探测类型    {#types-of-probe}
-
-针对运行中的容器，`kubelet` 可以选择是否执行以下三种探针，以及如何针对探测结果作出反应：
+kubelet 可以选择性地对运行中的容器执行并响应三种探针，每种探针的作用各不相同。
+有关探针机制（`exec`、`grpc`、`httpGet`、`tcpSocket`）、配置字段以及详细的使用指南，
+请参见[存活态、就绪态与启动探针](/zh-cn/docs/concepts/workloads/pods/probes/)。
 
 <!--
-`livenessProbe`
-: Indicates whether the container is running. If
-  the liveness probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a liveness probe, the default state is `Success`.
+### Startup probe
 
-`readinessProbe`
-: Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
-  controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
-  The default state of readiness before the initial delay is `Failure`. If a container does
-  not provide a readiness probe, the default state is `Success`.
+Startup probes verify whether the application within a container is started.
+If a startup probe is configured, Kubernetes does not execute liveness or
+readiness probes until the startup probe succeeds, allowing the application
+time to finish its initialization.
+
+This type of probe is only executed at startup, unlike liveness and readiness
+probes, which are run periodically.
+
+If the startup probe fails, the kubelet kills the container, and the container
+is subjected to its [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy).
 -->
-`livenessProbe`
-: 指示容器是否正在运行。如果存活态探测失败，则 kubelet 会杀死容器，
-  并且容器将根据其[重启策略](#restart-policy)决定未来。如果容器不提供存活探针，
-  则默认状态为 `Success`。
+### 启动探针
 
-`readinessProbe`
-: 指示容器是否准备好为请求提供服务。如果就绪态探测失败，
-  {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}} 
-  控制器将从与该 Pod 匹配的所有 Service 的 EndpointSlice 中删除该 Pod 的 IP 地址。
-  初始延迟之前的就绪态的状态值默认为 `Failure`。
-  如果容器不提供就绪态探针，则默认状态为 `Success`。
+启动探针用于验证容器内的应用是否已启动。如果配置了启动探针，在启动探针成功之前，
+Kubernetes 不会执行存活态探针或就绪态探针，从而为应用的初始化留出时间。
+
+这种探针仅在启动阶段执行，与周期性运行的存活态探针和就绪态探针不同。
+
+如果启动探针失败，kubelet 会终止该容器，
+并按照其[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)对容器进行处理。
 
 <!--
-`startupProbe`
-: Indicates whether the application within the container is started.
-  All other probes are disabled if a startup probe is provided, until it succeeds.
-  If the startup probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a startup probe, the default state is `Success`.
+### Liveness probe
+
+Liveness probes determine when to restart a container.
+For example, liveness probes could catch a deadlock, where an application is
+running, but unable to make progress. Restarting a container in such a state
+can help to make the application more available despite bugs.
+
+If a container fails its liveness probe more times than the configured tolerance,
+the kubelet restarts that container.
+Liveness probes do not wait for readiness probes to succeed. If you want to
+wait before executing a liveness probe, you can either define
+`initialDelaySeconds` or use a startup probe.
 -->
-`startupProbe`
-: 指示容器中的应用是否已经启动。如果提供了启动探针，则所有其他探针都会被
-  禁用，直到此探针成功为止。如果启动探测失败，`kubelet` 将杀死容器，
-  而容器依其[重启策略](#restart-policy)进行重启。
-  如果容器没有提供启动探测，则默认状态为 `Success`。
+### 存活态探针
+
+存活态探针决定何时重启容器。例如，存活态探针可以捕捉到死锁——即应用仍在运行但无法继续推进。
+在此状态下重启容器有助于提高应用的可用性，即使存在缺陷。
+
+如果一个容器在存活态探针上的失败次数超过了配置的容忍度，kubelet 就会重启该容器。
+存活态探针不等待就绪态探针成功。如果你希望在执行存活态探针前进行等待，可以定义
+`initialDelaySeconds`，或者使用启动探针。
 
 <!--
-For more information about how to set up a liveness, readiness, or startup probe,
-see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+### Readiness probe
+
+Readiness probes determine when a container is ready to accept traffic.
+This is useful when waiting for an application to perform time-consuming initial
+tasks, such as establishing network connections, loading files, and warming
+caches.
+Readiness probes can also be useful later in the container's lifecycle,
+for example, when recovering from temporary faults or overloads.
+
+If the readiness probe returns a failed state, the
+{{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}}
+controller removes the Pod's IP address from the EndpointSlices of all Services
+that match the Pod.
+
+Readiness probes run on the container during its whole lifecycle.
 -->
-如欲了解如何设置存活态、就绪态和启动探针的进一步细节，
-可以参阅[配置存活态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+### 就绪态探针
 
-<!--
-#### When should you use a liveness probe?
--->
-#### 何时该使用存活态探针?    {#when-should-you-use-a-liveness-probe}
+就绪态探针用于确定容器何时可以接收流量。
+当应用需要执行耗时的初始化任务（例如建立网络连接、加载文件、预热缓存）时，它非常有用。
+就绪态探针在容器生命周期的后期同样很有用，例如在从临时故障或过载中恢复时。
 
-<!--
-If the process in your container is able to crash on its own whenever it
-encounters an issue or becomes unhealthy, you do not necessarily need a liveness
-probe; the kubelet will automatically perform the correct action in accordance
-with the Pod's `restartPolicy`.
+如果就绪态探针返回失败状态，{{</* glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" */>}}
+控制器会从所有与该 Pod 匹配的 Service 的 EndpointSlice 中移除该 Pod 的 IP 地址。
 
-If you'd like your container to be killed and restarted if a probe fails, then
-specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
--->
-如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针；
-`kubelet` 将根据 Pod 的 `restartPolicy` 自动执行修复操作。
-
-如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，
-并指定 `restartPolicy` 为 "`Always`" 或 "`OnFailure`"。
-
-<!--
-#### When should you use a readiness probe?
--->
-#### 何时该使用就绪态探针？      {#when-should-you-use-a-readiness-probe}
-
-<!--
-If you'd like to start sending traffic to a Pod only when a probe succeeds,
-specify a readiness probe. In this case, the readiness probe might be the same
-as the liveness probe, but the existence of the readiness probe in the spec means
-that the Pod will start without receiving any traffic and only start receiving
-traffic after the probe starts succeeding.
--->
-如果要仅在探测成功时才开始向 Pod 发送请求流量，请指定就绪态探针。
-在这种情况下，就绪态探针可能与存活态探针相同，但是规约中的就绪态探针的存在意味着
-Pod 将在启动阶段不接收任何数据，并且只有在探针探测成功后才开始接收数据。
-
-<!--
-If you want your container to be able to take itself down for maintenance, you
-can specify a readiness probe that checks an endpoint specific to readiness that
-is different from the liveness probe.
--->
-如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，
-检查某个特定于就绪态的因此不同于存活态探测的端点。
-
-<!--
-If your app has a strict dependency on back-end services, you can implement both
-a liveness and a readiness probe. The liveness probe passes when the app itself
-is healthy, but the readiness probe additionally checks that each required
-back-end service is available. This helps you avoid directing traffic to Pods
-that can only respond with error messages.
--->
-如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
-当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
-这可以帮助你避免将流量导向只能返回错误信息的 Pod。
-
-<!--
-If your container needs to work on loading large data, configuration files, or
-migrations during startup, you can use a
-[startup probe](#when-should-you-use-a-startup-probe). However, if you want to
-detect the difference between an app that has failed and an app that is still
-processing its startup data, you might prefer a readiness probe.
--->
-如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，
-你可以使用[启动探针](#when-should-you-use-a-startup-probe)。
-然而，如果你想区分已经失败的应用和仍在处理其启动数据的应用，你可能更倾向于使用就绪探针。
-
-{{< note >}}
-<!--
-If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
-in the `EndpointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
-the endpoint `ready` condition will be set to `false`, so load balancers
-will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
-for more information about how the kubelet handles Pod deletion.
--->
-请注意，如果你只是想在 Pod 被删除时能够排空请求，则不一定需要使用就绪态探针；
-当 Pod 被删除时，`EndpointSlice` 中对应的端点会更新其[状况](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)：
-该端点的 `ready` 状况将被设置为 `false`，因此负载均衡器不会再将该 Pod 用于常规流量。
-关于 kubelet 如何处理 Pod 删除的更多信息，请参见 [Pod 终止](#pod-termination)。
-{{< /note >}}
-
-<!--
-#### When should you use a startup probe?
--->
-#### 何时该使用启动探针？   {#when-should-you-use-a-startup-probe}
-
-<!--
-Startup probes are useful for Pods that have containers that take a long time to
-come into service. Rather than set a long liveness interval, you can configure
-a separate configuration for probing the container as it starts up, allowing
-a time longer than the liveness interval would allow.
--->
-对于所包含的容器需要较长时间才能启动就绪的 Pod 而言，启动探针是有用的。
-你不再需要配置一个较长的存活态探测时间间隔，只需要设置另一个独立的配置选定，
-对启动期间的容器执行探测，从而允许使用远远超出存活态时间间隔所允许的时长。
-
-<!-- ensure front matter contains math: true -->
-
-<!--
-If your container usually starts in more than
-\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
-startup probe that checks the same endpoint as the liveness probe. The default for
-`periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
-allow the container to start, without changing the default values of the liveness
-probe. This helps to protect against deadlocks.
--->
-如果你的容器启动时间通常超出 \\( initialDelaySeconds + failureThreshold \times  periodSeconds \\)
-总值，你应该设置一个启动探测，对存活态探针所使用的同一端点执行检查。
-`periodSeconds` 的默认值是 10 秒。你应该将其 `failureThreshold` 设置得足够高，
-以便容器有充足的时间完成启动，并且避免更改存活态探针所使用的默认值。
-这一设置有助于减少死锁状况的发生。
+就绪态探针会在容器的整个生命周期内持续运行。
 
 <!--
 ## Termination of Pods {#pod-termination}
@@ -2209,7 +2065,7 @@ Kubernetes 会选择更安全的处理方式，例如先停止再启动 kubelet�
   the containers `ready` value, after a kubelet restart, to be false.
 
   This legacy behavior was the default for a long time, but caused issue for people using Kubernetes,
-  especially in large scale deployments. Althought the feature gate allows reverting to this legacy
+  especially in large scale deployments. Although the feature gate allows reverting to this legacy
   behavior temporarily, the Kubernetes project recommends that you file a bug report if you encounter problems.
   The `ChangeContainerStatusOnKubeletRestart`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ChangeContainerStatusOnKubeletRestart)

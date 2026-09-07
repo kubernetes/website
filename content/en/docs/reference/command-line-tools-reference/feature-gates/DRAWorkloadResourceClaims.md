@@ -9,6 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.36"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.37"
 ---
 
 Enables PodGroup resources from the

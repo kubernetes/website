@@ -100,7 +100,7 @@ PersistentVolumeClaim 的 "cat-pictures-writer" Deployment。
 <!--
 If your storage plugin supports
 [Dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/),
-the "cat-picutres-pv" will be created for you, but its name may differ. To get
+the "cat-pictures-pv" will be created for you, but its name may differ. To get
 your PersistentVolume's name run:
 -->
 如果你的存储插件支持[动态制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，

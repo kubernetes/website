@@ -43,7 +43,9 @@ teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
 need the features they provide.
 -->
-名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。当需要名字空间提供的功能时，请开始使用它们。
+名字空间适用于存在很多跨多个团队或项目的用户的场景。
+对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。
+当需要名字空间提供的功能时，请开始使用它们。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
@@ -71,7 +73,8 @@ resources within the same namespace.
 <!--
 For a production cluster, consider _not_ using the `default` namespace. Instead, make other namespaces and use those.
 -->
-对于生产集群，请考虑**不要**使用 `default` 名字空间，而是创建其他名字空间来使用。
+对于生产集群，请考虑**不要**使用 `default` 名字空间，
+而是创建其他名字空间来使用。
 {{< /note >}}
 
 <!--
@@ -87,12 +90,6 @@ Kubernetes starts with four initial namespaces:
 
 `kube-node-lease`
 : This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#node-heartbeats) so that the control plane can detect node failure.
-
-`kube-public`
-: This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-
-`kube-system`
-: The namespace for objects created by the Kubernetes system.
 -->
 Kubernetes 启动时会创建四个初始名字空间：
 
@@ -104,6 +101,13 @@ Kubernetes 启动时会创建四个初始名字空间：
   节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#node-heartbeats)，
   由此控制面能够检测到节点故障。
 
+<!--
+`kube-public`
+: This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+
+`kube-system`
+: The namespace for objects created by the Kubernetes system.
+-->
 `kube-public`
 : **所有**的客户端（包括未经身份验证的客户端）都可以读取该名字空间。
   该名字空间主要预留为集群使用，以便某些资源需要在整个集群中可见可读。
@@ -162,6 +166,12 @@ For example:
 
 例如：
 
+<!--
+```shell
+kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+kubectl get pods --namespace=<insert-namespace-name-here>
+```
+-->
 ```shell
 kubectl run nginx --image=nginx --namespace=<名字空间名称>
 kubectl get pods --namespace=<名字空间名称>
@@ -177,6 +187,13 @@ context.
 
 你可以永久保存名字空间，以用于对应上下文中所有后续 kubectl 命令。
 
+<!--
+```shell
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+# Validate it
+kubectl config view --minify | grep namespace:
+```
+-->
 ```shell
 kubectl config set-context --current --namespace=<名字空间名称>
 # 验证
@@ -191,7 +208,7 @@ it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-po
 -->
 ## 名字空间和 DNS   {#namespaces-and-dns}
 
-当你创建一个[服务](/zh-cn/docs/concepts/services-networking/service/)时，
+当你创建一个 [Service](/zh-cn/docs/concepts/services-networking/service/) 时，
 Kubernetes 会创建一个相应的 [DNS 条目](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
@@ -201,8 +218,8 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
 -->
-该条目的形式是 `<服务名称>.<名字空间名称>.svc.cluster.local`，这意味着如果容器只使用
-`<服务名称>`，它将被解析到本地名字空间的服务。这对于跨多个名字空间（如开发、测试和生产）
+该条目的形式是 `<Service 名称>.<名字空间名称>.svc.cluster.local`，这意味着如果容器只使用
+`<Service 名称>`，它将被解析到本地名字空间的服务。这对于跨多个名字空间（如开发、测试和生产）
 使用相同的配置非常有用。如果你希望跨名字空间访问，则需要使用完全限定域名（FQDN）。
 
 <!--
@@ -221,10 +238,10 @@ Workloads from any namespace performing a DNS lookup without a [trailing dot](ht
 be redirected to those services, taking precedence over public DNS.
 -->
 通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)同名的名字空间，
-这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
+这些名字空间中的 Service 可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
 所有名字空间中的负载在执行 DNS 查找时，
 如果查找的名称没有[尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
-就会被重定向到这些服务上，因此呈现出比公共 DNS 更高的优先序。
+就会被重定向到这些 Service 上，因此呈现出比公共 DNS 更高的优先序。
 
 <!--
 To mitigate this, limit privileges for creating namespaces to trusted users. If
@@ -247,21 +264,29 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 ## 并非所有对象都在名字空间中    {#not-all-objects-are-in-a-namespace}
 
 <!--
-Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespaces.  However namespace resources are not themselves in a namespace.
-And low-level resources, such as
-[nodes](/docs/concepts/architecture/nodes/) and
-[persistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
+Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are in some namespaces. However namespace resources are not themselves in a namespace. And low-level resources, such as
+[Nodes](/docs/concepts/architecture/nodes/) and
+[PersistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
 但是名字空间资源本身并不在名字空间中。而且底层资源，
-例如[节点](/zh-cn/docs/concepts/architecture/nodes/)和[持久化卷](/zh-cn/docs/concepts/storage/persistent-volumes/)不属于任何名字空间。
+例如[节点](/zh-cn/docs/concepts/architecture/nodes/)和
+[持久化卷](/zh-cn/docs/concepts/storage/persistent-volumes/)不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:
 -->
 查看哪些 Kubernetes 资源在名字空间中，哪些不在名字空间中：
 
+<!--
+```shell
+# In a namespace
+kubectl api-resources --namespaced=true
+
+# Not in a namespace
+kubectl api-resources --namespaced=false
+```
+-->
 ```shell
 # 位于名字空间中的资源
 kubectl api-resources --namespaced=true

@@ -396,18 +396,6 @@ to learn how to set up a writable directory.
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configuring a cgroup driver
-
-Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
-for the management of cgroups on Linux machines.
-
-{{< warning >}}
-Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
-
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
-{{< /warning >}}
-
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our

@@ -4,8 +4,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
 ---
@@ -20,8 +20,8 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1alpha1"
-  kind: "ClusterTrustBundle"  
+- apiVersion: "certificates.k8s.io/v1beta1"
+  kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
 -->
@@ -276,8 +276,8 @@ If you want to make the _trust anchor_ (root certificate) available, this should
 separately from a CertificateSigningRequest and its `status.certificate` field. For example,
 you could use a ClusterTrustBundle.
 -->
-如果要让**信任锚点**（根证书）可用，应该将其与 CertificateSigningRequest 及其 `status.certificate`
-字段分开处理。例如，你可以使用 ClusterTrustBundle。
+如果要让**信任锚点**（根证书）可用，应该将其与 CertificateSigningRequest
+及其 `status.certificate` 字段分开处理。例如，你可以使用 ClusterTrustBundle。
 
 <!--
 The PKCS#10 signing request format does not have a standard mechanism to specify a
@@ -510,6 +510,15 @@ Kubernetes 控制平面实现了每一个
 [Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
 每个签名者的实现都是 kube-controller-manager 的一部分。
 
+<!--
+For a hands-on example of creating a CertificateSigningRequest and having it approved and
+signed by the Kubernetes control plane, see
+[Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/).
+-->
+若要查看创建 CertificateSigningRequest 并由 Kubernetes
+控制平面对其进行批准和签名的实际操作示例，
+请参阅[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
+
 {{< note >}}
 <!--
 Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
@@ -518,89 +527,6 @@ were marked as approved.
 在 Kubernetes v1.18 之前，
 kube-controller-manager 签名所有标记为 approved 的 CSR。
 {{< /note >}}
-
-{{< note >}}
-<!--
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.
-Earlier versions of Kubernetes do not honor this field.
-Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
--->
-`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的，早期的 Kubernetes 版本并不认识该字段，
-v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
-{{< /note >}}
-
-<!--
-### API-based signers {#signer-api}
-
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
-subresource of the CSR to be signed.
-
-As part of this request, the `status.certificate` field should be set to contain the
-signed certificate. This field contains one or more PEM-encoded certificates.
-
-All PEM blocks must have the "CERTIFICATE" label, contain no headers,
-and the encoded data must be a BER-encoded ASN.1 Certificate structure
-as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
-
-Example certificate content:
--->
-### 基于 API 的签名者   {#signer-api}
-
-REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交更新请求来对 CSR 进行签名。
-
-作为这个请求的一部分，`status.certificate` 字段应设置为已签名的证书。
-此字段可包含一个或多个 PEM 编码的证书。
-
-所有的 PEM 块必须具备 "CERTIFICATE" 标签，且不包含文件头，且编码的数据必须是
-[RFC5280 第 4 节](https://tools.ietf.org/html/rfc5280#section-4.1)
-中描述的 BER 编码的 ASN.1 证书结构。
-
-证书内容示例：
-
-```
------BEGIN CERTIFICATE-----
-MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
-BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
-BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
-MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
-dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
-+e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
-kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
-Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
-sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
-2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
-YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
-Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
-ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
-L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
-qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
-o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
-aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
-M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
------END CERTIFICATE-----
-```
-
-<!--
-Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
-
-When encoded in JSON or YAML, this field is base-64 encoded.
-A CertificateSigningRequest containing the example certificate above would look like this:
--->
-非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
-以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
-
-当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
-包含上述示例证书的 CertificateSigningRequest 如下所示：
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
-```
 
 <!--
 ## Approval or rejection  {#approval-rejection}
@@ -752,6 +678,83 @@ you like. If you want to add a note for human consumption, use the
 这是一个命名约定，但你也可以随你的个人喜好设置。
 如果你想添加一个供人类使用的注释，那就用 `status.conditions.message` 字段。
 
+<!--
+### API-based signers {#signer-api}
+
+Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
+subresource of the CSR to be signed.
+
+As part of this request, the `status.certificate` field should be set to contain the
+signed certificate. This field contains one or more PEM-encoded certificates.
+
+All PEM blocks must have the "CERTIFICATE" label, contain no headers,
+and the encoded data must be a BER-encoded ASN.1 Certificate structure
+as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
+
+Example certificate content:
+-->
+### 基于 API 的签名者   {#signer-api}
+
+REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交更新请求来对 CSR 进行签名。
+
+作为这个请求的一部分，`status.certificate` 字段应设置为已签名的证书。
+此字段可包含一个或多个 PEM 编码的证书。
+
+所有的 PEM 块必须具备 "CERTIFICATE" 标签，且不包含文件头，且编码的数据必须是
+[RFC5280 第 4 节](https://tools.ietf.org/html/rfc5280#section-4.1)中描述的
+BER 编码的 ASN.1 证书结构。
+
+证书内容示例：
+
+```
+-----BEGIN CERTIFICATE-----
+MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
+BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
+BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
+MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
+dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
++e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
+kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
+Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
+sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
+2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
+YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
+ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
+L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
+qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
+o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
+aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
+M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
+-----END CERTIFICATE-----
+```
+
+<!--
+Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
+
+When encoded in JSON or YAML, this field is base-64 encoded.
+After a CertificateSigningRequest has been approved and signed, it contains the signed 
+certificate in the `status.certificate` field. A CertificateSigningRequest containing 
+the example certificate above would look like this:
+-->
+非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
+以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
+
+当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
+当 CertificateSigningRequest 获得批准并完成签名后，其
+`status.certificate` 字段中便会包含已签名的证书。
+包含上述示例证书的 CertificateSigningRequest 如下所示：
+
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
+```
+
 ## PodCertificateRequests {#pod-certificate-requests}
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
@@ -786,10 +789,11 @@ simpler format enabled by their narrower use case.
 PodCertificateRequest 是专门为集群内以 Pod 形式运行的工作负载提供证书的 API 对象。
 用户通常不直接与 PodCertificateRequests 交互，而是使用
 [podCertificate 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#podcertificate)，
-这是 `kubelet` 的一个特性，处理安全密钥配置和自动证书刷新。
+这是 kubelet 的一个特性，处理安全密钥配置和自动证书刷新。
 Pod 内的应用程序只需要知道如何从文件系统读取证书。
 
-PodCertificateRequest 类似于 CertificateSigningRequest，但由于其使用场景更窄，因此格式更简单。
+PodCertificateRequest 类似于 CertificateSigningRequest，但由于其使用场景更窄，
+因此格式更简单。
 
 <!--
 A PodCertificateRequest has the following spec fields:
@@ -878,7 +882,8 @@ the signer name:
 * Verbs: **sign**, group: `certificates.k8s.io`, resource: `signers`,
   resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 -->
-要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest 类型以及签名者的适当权限：
+要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest
+类型以及签名者的适当权限：
 
 * verbs（动词）：**update**，
   group（组）：`certificates.k8s.io`，
@@ -891,8 +896,8 @@ the signer name:
 <!--
 The signing controller is free to consider other information beyond what's
 contained in the request, but it can rely on the information in the request to
-be accurate.  For example, the signing controller might load the Pod and read
-annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.  
+be accurate. For example, the signing controller might load the Pod and read
+annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.
 -->
 签名控制器可以考察除请求中包含的信息之外的其他信息，但它可以相信请求中的信息是准确的。
 例如，签名控制器可能会加载 Pod 并读取 Pod 上设置的注解，或者对 ServiceAccount
@@ -994,11 +999,6 @@ All ClusterTrustBundle objects have strong validation on the contents of their
 `trustBundle` field. That field must contain one or more X.509 certificates,
 DER-serialized, each wrapped in a PEM `CERTIFICATE` block. The certificates
 must parse as valid X.509 certificates.
-
-Esoteric PEM features like inter-block data and intra-block headers are either
-rejected during object validation, or can be ignored by consumers of the object.
-Additionally, consumers are allowed to reorder the certificates in
-the bundle with their own arbitrary but stable ordering.
 -->
 ### 常见属性和验证 {#ctb-common}
 
@@ -1006,8 +1006,14 @@ the bundle with their own arbitrary but stable ordering.
 该字段必须包含一个或多个经 DER 序列化的 X.509 证书，每个证书都封装在 PEM `CERTIFICATE` 块中，
 这些证书必须解析为有效的 X.509 证书。
 
+<!--
+Esoteric PEM features like inter-block data and intra-block headers are either
+rejected during object validation, or can be ignored by consumers of the object.
+Additionally, consumers are allowed to reorder the certificates in
+the bundle with their own arbitrary but stable ordering.
+-->
 诸如块间数据和块内标头之类的 PEM 特性在对象验证期间要么被拒绝，要么可能被对象的消费者忽略。
-此外，消费者被允许使用自己的任意但稳定的排序方式重新排序 bundle 中的证书。
+此外，消费者被允许使用自己的任意但稳定的排序方式重新排序 `bundle` 中的证书。
 
 <!--
 ClusterTrustBundle objects should be considered world-readable within the
@@ -1075,10 +1081,12 @@ controller in the cluster, so they have several security features:
 -->
 * 要创建或更新与一个签名者关联的 ClusterTrustBundle，你必须获准**证明**该签名者
   （自定义鉴权动词 `attest` API 组 `certificates.k8s.io`；资源路径 `signers`）。
-  你可以为特定资源名称 `<signerNameDomain>/<signerNamePath>` 或匹配 `<signerNameDomain>/*` 等模式来配置鉴权。
+  你可以为特定资源名称 `<signerNameDomain>/<signerNamePath>` 或匹配 `<signerNameDomain>/*`
+  等模式来配置鉴权。
 * 与签名者关联的 ClusterTrustBundle **必须**使用从其 `spec.signerName` 字段派生的前缀命名。
   斜杠（`/`）被替换为英文冒号（`:`），最后追加一个英文冒号，后跟任意名称。
-  例如，签名者 `example.com/mysigner` 可以关联到 ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`。
+  例如，签名者 `example.com/mysigner` 可以关联到 ClusterTrustBundle
+  `example.com:mysigner:<arbitrary-name>`。
 
 <!--
 Signer-linked ClusterTrustBundles will typically be consumed in workloads

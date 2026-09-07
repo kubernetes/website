@@ -283,7 +283,6 @@ they can follow these steps to inspect the kubelet configuration:
        "enableProfilingHandler": true,
        "enableDebugFlagsHandler": true,
        "seccompDefault": false,
-       "memoryThrottlingFactor": 0.9,
        "registerNode": true,
        "localStorageCapacityIsolation": true,
        "containerRuntimeEndpoint": "unix:///var/run/crio/crio.sock"

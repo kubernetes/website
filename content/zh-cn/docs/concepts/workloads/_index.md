@@ -147,8 +147,7 @@ you may have complex scheduling requirements where groups of Pods must be treate
 
 <!--
 The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define `PodGroupTemplates` to group Pods and apply advanced scheduling policies to them, 
-such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) and apply 
-advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
 Controllers create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates at runtime, 
 and `Pods` reference their `PodGroup` via the
 `spec.schedulingGroup` field. This is particularly useful for batch processing and machine
@@ -156,8 +155,7 @@ learning workloads where "all-or-nothing" placement is required.
 -->
 [Workload API](/zh-cn/docs/concepts/workloads/workload-api/)
 允许你定义 `PodGroupTemplates` 来对 Pod 进行分组，
-并应用高级调度策略，例如
-[Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)。
+并应用高级调度策略。
 控制器在运行时根据这些模板创建
 [PodGroup](/zh-cn/docs/concepts/workloads/podgroup-api/) 对象，
 而 `Pod` 通过 `spec.schedulingGroup` 字段引用其 `PodGroup`。

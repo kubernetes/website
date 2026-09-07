@@ -225,7 +225,7 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
+  [teams in k/org](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml), the
   [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
   [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
@@ -237,7 +237,7 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
 
 - 理解 SIG Docs 工作流程和工具：git、Hugo、本地化、博客子项目
 - 理解其他 Kubernetes SIG 和仓库会如何影响 SIG Docs 工作流程，包括：
-  [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
+  [k/org 中的团队](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)、
   [k/community 中的流程](https://github.com/kubernetes/community/tree/main/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
   [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture) 中的角色。

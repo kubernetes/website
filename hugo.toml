@@ -137,9 +137,9 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.36"
+latest = "v1.37"
 
-version = "v1.36"
+version = "v1.37"
 githubbranch = "main"
 docsbranch = "main"
 # Should be changed to Docsy provided `archived_version` in the future.
@@ -180,10 +180,16 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.36"
-githubbranch = "v1.36.0"
+version = "v1.37"
+githubbranch = "v1.37.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
+
+[[params.versions]]
+version = "v1.36"
+githubbranch = "v1.36.0"
+docsbranch = "release-1.36"
+url = "https://v1-36.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.35"
@@ -202,12 +208,6 @@ version = "v1.33"
 githubbranch = "v1.33.10"
 docsbranch = "release-1.33"
 url = "https://v1-33.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.32"
-githubbranch = "v1.32.13"
-docsbranch = "release-1.32"
-url = "https://v1-32.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]

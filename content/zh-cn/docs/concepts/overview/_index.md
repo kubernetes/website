@@ -4,6 +4,7 @@ description: >
   Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，方便进行声明式配置和自动化。Kubernetes 拥有一个庞大且快速增长的生态系统，其服务、支持和工具的使用范围广泛。
 content_type: concept
 weight: 20
+theme_lock: light
 card:
   name: concepts
   weight: 10
@@ -21,6 +22,7 @@ description: >
   Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 content_type: concept
 weight: 20
+theme_lock: light
 card:
   name: concepts
   weight: 10
@@ -157,7 +159,7 @@ Kubernetes 为你提供：
 * **Horizontal scaling**
   Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 * **IPv4/IPv6 dual-stack**
-  Allocation of IPv4 and IPv6 addresses to Pods and Services
+  Allocation of IPv4 and IPv6 addresses to Pods and Services.
 * **Designed for extensibility**
   Add features to your Kubernetes cluster without changing upstream source code.
 -->
@@ -371,13 +373,13 @@ Containers have become popular because they provide extra benefits, such as:
 
 <!--
 * Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
-* Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* Take a look at [kubectl](/docs/concepts/overview/kubectl/) - the primary CLI for Kubernetes
+* Take a look at the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* Take a look at [kubectl](/docs/concepts/overview/kubectl/): the primary CLI for Kubernetes
 * Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
 * Ready to [Get Started](/docs/setup/)?
 -->
 * 查阅 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
 * 查阅 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
-* 请查看 [kubectl](/zh-cn/docs/concepts/overview/kubectl/) —— Kubernetes 的主要命令行工具。
+* 请查看 [kubectl](/zh-cn/docs/concepts/overview/kubectl/)：Kubernetes 的主要命令行工具。
 * 查阅 [Cluster 架构](/zh-cn/docs/concepts/architecture/)
 * 开始 [Kubernetes 的建置](/zh-cn/docs/setup/)吧！

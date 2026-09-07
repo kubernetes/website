@@ -126,12 +126,19 @@ If you need more control over naming and lifecycle, you can create `PodGroup` ob
 * `PodGroup` 中的所有 Pod 必须使用相同的 `.spec.schedulerName`。
   如果检测到不匹配，调度器会拒绝组中的所有 Pod 为不可调度。
 
+<!--  
+* All Pods in a `PodGroup` must use the same `.spec.priority`.
+  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
+-->  
+* `PodGroup` 中的所有 Pod 必须使用相同的 `.spec.priority`。
+  如果检测到不一致，调度器会拒绝该组内的所有 Pod，并将其标记为不可调度。
+
 <!--
-* The `spec.schedulingPolicy.gang.minCount` field on a PodGroup is immutable.
-  Once created, you cannot change the minimum number of Pods that must be schedulable for the group to be admitted.
+* All Pods in a `PodGroup` must use the same `.spec.preemptionPolicy`.
+  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
 -->
-* PodGroup 上的 `spec.schedulingPolicy.gang.minCount` 字段是不可变的。
-  创建后，你无法更改组准入所需的可调度 Pod 最小数量。
+* `PodGroup` 中的所有 Pod 必须使用相同的 `.spec.preemptionPolicy`。
+  如果检测到不一致，调度器会拒绝该组内的所有 Pod，并将其标记为不可调度。
 
 <!--
 * The `spec.schedulingGroup` field on a Pod is immutable.
@@ -146,13 +153,13 @@ If you need more control over naming and lifecycle, you can create `PodGroup` ob
 * 单个 `Workload` 中 `PodGroupTemplates` 的最大数量为 8。
 
 <!--
-* The `PodGroupScheduled` condition reflects the outcome of the initial scheduling
-  attempt only. Once the condition is set to `True`, the scheduler does not update it
-  if Pods later fail, are evicted, or stop running.
+* The scheduler does not update status information regarding the ongoing operational state of a PodGroup
+  or subsequent scheduling attempts after initial placement. Consequently, the PodGroup status is not updated
+  when existing Pods fail, are evicted, or terminate, or when newly observed Pods fail to schedule.
 -->
-* `PodGroupScheduled` 状况仅反映初始调度尝试的结果。
-  一旦状况设置为 `True`，即使后续 Pod 后续失败、被驱逐或停止运行，调度器也不会更新它。
-
+* 调度器不会更新 `PodGroup` 的持续运行状态，也不会记录初始调度之后的后续调度尝试。
+  因此，当现有 Pod 失败、被驱逐或终止时，或者新观察到的 Pod 调度失败时，`PodGroup` 的状态都不会更新。
+  
 ## {{% heading "whatsnext" %}}
 
 <!--

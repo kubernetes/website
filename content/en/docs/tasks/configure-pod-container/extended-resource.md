@@ -128,7 +128,23 @@ kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
+## Extended resources backed by DRA
 
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+The exercise above uses an extended resource that a Node advertises. Extended
+resources can also be backed by
+{{< glossary_tooltip text="Dynamic Resource Allocation" term_id="dra" >}} (DRA):
+a DeviceClass sets an `extendedResourceName`, and the scheduler satisfies matching
+extended-resource requests using DRA devices instead of Node-advertised capacity.
+
+A Pod requests the resource the same way in both cases — through
+`resources.requests.<resource_name>` — so a workload does not need to know whether a
+device plugin or DRA provides it. The same resource name can even be provided by a
+device plugin on some Nodes and by DRA on others.
+
+For the DeviceClass setup and examples, see
+[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource).
 
 ## {{% heading "whatsnext" %}}
 

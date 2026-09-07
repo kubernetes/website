@@ -43,24 +43,24 @@ Kubernetes 的若干重要功能都要求启用一个准入控制器，以便正
 
 <!--
 ## What are they?
--->
-## 什么是准入控制插件？  {#what-are-they}
 
-<!--
 Admission controllers are code within the Kubernetes
 {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} that check the
 data arriving in a request to modify a resource.
+-->
+## 什么是准入控制插件？  {#what-are-they}
 
+准入控制器是 Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
+用于检查请求中到达的数据，以修改资源。
+
+<!--
 Admission controllers apply to requests that create, delete, or modify objects.
 Admission controllers can also block custom verbs, such as a request to connect to a
 pod via an API server proxy. Admission controllers do _not_ (and cannot) block requests
 to read (**get**, **watch** or **list**) objects, because reads bypass the admission
 control layer.
 -->
-准入控制器是 Kubernetes
-{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
-用于检查请求中到达的数据，以修改资源。
-
 准入控制器适用于创建、删除或修改对象的请求。
 准入控制器也可以阻止自定义动作，例如通过 API 服务器代理连接到 Pod 的请求。
 准入控制器**不会**（也不能）阻止读取（**get**、**watch** 或 **list**）对象的请求，
@@ -180,7 +180,8 @@ admission control plugins:
 -->
 ## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
-Kubernetes API 服务器的 `enable-admission-plugins` 标志接受一个（以逗号分隔的）准入控制插件列表，
+Kubernetes API 服务器的 `enable-admission-plugins`
+标志接受一个（以逗号分隔的）准入控制插件列表，
 这些插件会在集群修改对象之前被调用。
 
 例如，下面的命令启用 `NamespaceLifecycle` 和 `LimitRanger` 准入控制插件：
@@ -303,7 +304,7 @@ authorization checks to ensure the approving user has permission to **approve** 
 -->
 此准入控制器获取审批 CertificateSigningRequest 资源的请求并执行额外的鉴权检查，
 以确保针对设置了 `spec.signerName` 的 CertificateSigningRequest 资源而言，
-审批请求的用户有权限对证书请求执行 **审批** 操作。
+审批请求的用户有权限对证书请求执行**审批**操作。
 
 <!--
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
@@ -326,7 +327,7 @@ requests with the `spec.signerName` requested on the CertificateSigningRequest r
 -->
 此准入控制器监视对 CertificateSigningRequest 资源的 `status.certificate` 字段的更新请求，
 并执行额外的鉴权检查，以确保针对设置了 `spec.signerName` 的 CertificateSigningRequest 资源而言，
-签发证书的用户有权限对证书请求执行 **签发** 操作。
+签发证书的用户有权限对证书请求执行**签发**操作。
 
 <!--
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
@@ -348,7 +349,7 @@ of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies 
 of `system:masters`.
 -->
 此准入控制器监视 `spec.signerName` 被设置为 `kubernetes.io/kube-apiserver-client` 的
-CertificateSigningRequest 资源创建请求，并拒绝所有将 “group”（或 “organization attribute”）
+CertificateSigningRequest 资源创建请求，并拒绝所有将 `group`（或 `organization attribute`）
 设置为 `system:masters` 的请求。
 
 ### DefaultIngressClass {#defaultingressclass}
@@ -443,9 +444,9 @@ have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 -->
-此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds` 和
-`default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍 `notready:NoExecute` 和
-`unreachable:NoExecute` 污点
+此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds`
+和 `default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍
+`notready:NoExecute` 和 `unreachable:NoExecute` 污点
 （如果 Pod 尚未容忍 `node.kubernetes.io/not-ready：NoExecute` 和
 `node.kubernetes.io/unreachable：NoExecute` 污点的话）。
 `default-not-ready-toleration-seconds` 和 `default-unreachable-toleration-seconds`
@@ -455,10 +456,7 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
 feature is very powerful (allows network traffic interception) and not well
 controlled by policy.  When enabled, users of the cluster may not create new
@@ -466,6 +464,8 @@ Services which use `externalIPs` and may not add new values to `externalIPs` on
 existing `Service` objects.  Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 -->
+**类别**：验证。
+
 此准入控制器拒绝新的 `Service` 中使用字段 `externalIPs`。
 此功能非常强大（允许网络流量拦截），并且无法很好地受策略控制。
 启用后，集群用户将无法创建使用 `externalIPs` 的新 `Service`，也无法在现有
@@ -497,7 +497,7 @@ which can be surfaced to running containers using the
 [Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
 [topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -632,14 +632,13 @@ This admission controller is disabled by default.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
 
 This admission controller is disabled by default.
 -->
+**类别**：验证。
+
 ImagePolicyWebhook 准入控制器允许使用后端 Webhook 做出准入决策。
 
 此准入控制器默认被禁用。
@@ -745,7 +744,8 @@ ImagePolicyWebhook 的配置文件必须引用
 The kubeconfig file's `cluster` field must point to the remote service, and the `user` field
 must contain the returned authorizer.
 -->
-kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users` 字段需要包含已返回的授权者。
+kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users`
+字段需要包含已返回的授权者。
 
 <!--
 ```yaml
@@ -801,7 +801,8 @@ any pod annotations that match `*.image-policy.k8s.io/*`.
 
 当面对一个准入决策时，API 服务器发送一个描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
-该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*` 匹配的所有 Pod 注解。
+该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*`
+匹配的所有 Pod 注解。
 
 {{< note >}}
 <!--
@@ -813,7 +814,7 @@ Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API e
 group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
-实现者应该知道对 alpha 对象兼容性是相对宽松的，并检查请求的 "apiVersion" 字段，
+实现者应该知道对 Alpha 对象兼容性是相对宽松的，并检查请求的 "apiVersion" 字段，
 以确保正确的反序列化。此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
 {{< /note >}}
@@ -878,11 +879,25 @@ To disallow access, the service would return:
 }
 ```
 
+{{< note >}}
+<!--
+`ImageReview` objects will include all images in Pods intended to be executed as
+containers. This covers images specified as part of the containers,
+initContainers, or ephemeralContainers fields in a Pod specification. As a
+result, images included under image volumes are not in scope for the
+ImagePolicyWebhook.
+-->
+`ImageReview` 对象将包含打算作为容器执行的 Pod 中的所有镜像。
+这包括在 Pod 规约中 containers、initContainers 或 ephemeralContainers
+字段中指定的镜像。因此，包含在镜像卷中的镜像不在 ImagePolicyWebhook 的范围内。
+{{< /note >}}
+
 <!--
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 -->
-更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
+更多的文档，请参阅
+[`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
 
 <!--
 #### Extending with Annotations
@@ -909,7 +924,7 @@ Examples of information you might put here are:
 
 * 在紧急情况下，请求破例覆盖某个策略。
 * 从一个记录了破例的请求的工单（Ticket）系统得到的一个工单号码。
-* 向策略服务器提供提示信息，用于提供镜像的 imageID，以方便它进行查找。
+* 向策略服务器提供提示信息，用于提供镜像的 `imageID`，以方便它进行查找。
 
 <!--
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
@@ -1000,10 +1015,7 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 #### Use caution when authoring and installing mutating webhooks
--->
-#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
 
-<!--
 * Users may be confused when the objects they try to create are different from
   what they get back.
 * Built in control loops may break when the objects they try to create are
@@ -1015,6 +1027,8 @@ group/version via the `--runtime-config` flag, both are on by default.
   is finalized, not all possible webhook behaviors will be guaranteed to be supported
   indefinitely.
 -->
+#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
+
 * 当用户尝试创建的对象与返回的对象不同时，用户可能会感到困惑。
 * 当他们读回的对象与尝试创建的对象不同，内建的控制回路可能会出问题。
   * 与覆盖原始请求中设置的字段相比，使用原始请求未设置的字段会引起问题的可能性较小。
@@ -1026,16 +1040,15 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 **Type**: Mutating.
--->
-**类别**：变更。
 
-<!--
 This admission controller examines all incoming requests on namespaced resources and checks
 if the referenced namespace does exist.
 It creates a namespace if it cannot be found.
 This admission controller is useful in deployments that do not want to restrict creation of
 a namespace prior to its usage.
 -->
+**类别**：变更。
+
 此准入控制器会检查针对名字空间域资源的所有传入请求，并检查所引用的名字空间是否确实存在。
 如果找不到所引用的名字空间，控制器将创建一个名字空间。
 此准入控制器对于不想要求名字空间必须先创建后使用的集群部署很有用。
@@ -1044,13 +1057,12 @@ a namespace prior to its usage.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller checks all requests on namespaced resources other than `Namespace` itself.
 If the namespace referenced from a request doesn't exist, the request is rejected.
 -->
+**类别**：验证。
+
 此准入控制器检查针对名字空间作用域的资源（除 `Namespace` 自身）的所有请求。
 如果请求引用的名字空间不存在，则拒绝该请求。
 
@@ -1139,10 +1151,10 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
 并对前缀为 `kubernetes.io/` 或 `k8s.io/` 的标签的修改对 kubelet 作如下限制：
 
 <!--
-* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
-  This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
-  and kubelets will not be allowed to modify labels with that prefix.
-* **Allows** kubelets to add/remove/update these labels and label prefixes:
+* **Forbidden** (Kubelets are blocked from modifying these):
+  * Labels with a `node-restriction.kubernetes.io/` prefix. This prefix is reserved for administrators to label `Node` objects for workload isolation.
+  * Labels with a `node-role.kubernetes.io/` prefix (for example: `node-role.kubernetes.io/control-plane`). These are restricted to prevent unprivileged nodes from self-declaring cluster roles.
+* **Allowed** (Kubelets can add/remove/update these):
   * `kubernetes.io/hostname`
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
@@ -1155,10 +1167,12 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
 -->
-* **禁止** kubelet 添加、删除或更新前缀为 `node-restriction.kubernetes.io/` 的标签。
-  这类前缀的标签是保留给管理员的，用于为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
-  修改带有该前缀的标签。
-* **允许** kubelet 添加、删除、更新以下标签：
+* **禁止** （阻止 kubelet 修改以下标签）：
+  * 带有 `node-restriction.kubernetes.io/` 前缀的标签。
+    此前缀为管理员保留，用于标记 `Node` 对象以实现工作负载隔离。
+  * 带有 `node-role.kubernetes.io/` 前缀的标签（例如：`node-role.kubernetes.io/control-plane`）。
+    这些标签受到限制，以防止非特权节点自我声明集群角色。
+* **允许** （kubelet 可以添加/移除/更新以下标签）：
   * `kubernetes.io/hostname`
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
@@ -1174,9 +1188,15 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
 <!--
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
 and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
+* **Reserved**:
+  Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved.
+  The `NodeRestriction` admission plugin generally disallows these to prevent unauthorized self-labeling,
+  but may allow additional labels under these prefixes in the future as part of future features.
 -->
-以 `kubernetes.io` 或 `k8s.io` 为前缀的所有其他标签都限制 kubelet 使用，并且将来可能会被
-`NodeRestriction` 准入插件允许或禁止。
+**保留**：
+  以 `kubernetes.io` 或 `k8s.io` 为前缀的所有其他标签都限制 kubelet 使用。
+  `NodeRestriction` 准入插件通常禁止这些操作，以防止未经授权的自我标记，
+  但未来可能会作为新特性的一部分允许在这些前缀下添加额外的标签。
 
 <!--
 When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -1217,7 +1237,7 @@ subresource of the referenced *owner* can change it.
 此准入控制器保护对对象的 `metadata.ownerReferences` 的访问，以便只有对该对象具有
 **delete** 权限的用户才能对其进行更改。
 该准入控制器还保护对 `metadata.ownerReferences[x].blockOwnerDeletion` 对象的访问，
-以便只有对所引用的 **属主（owner）** 的 `finalizers` 子资源具有 **update**
+以便只有对所引用的 **属主（`owner`）** 的 `finalizers` 子资源具有 **update**
 权限的用户才能对其进行更改。
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
@@ -1581,7 +1601,7 @@ Refer to the
 for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或
-`kubernetes.io/pv-protection` 终结器（finalizers）添加到新创建的持久卷申领（PVC）
+`kubernetes.io/pv-protection` 终结器（`finalizers`）添加到新创建的持久卷申领（PVC）
 或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器，
 否则 PVC/PV 不会被删除。有关更多详细信息，
 请参考[保护使用中的存储对象](/zh-cn/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。

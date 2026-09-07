@@ -13,7 +13,12 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.37"
 ---
-Enables Nodes to report supported features via their `.status`. This enables the 
+Enables Nodes to report supported features via their `.status`. This enables the
 scheduler and admission controller to prevent operations on nodes lacking features
-required by the pod. See [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/).
+required by the Pod. See [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/).

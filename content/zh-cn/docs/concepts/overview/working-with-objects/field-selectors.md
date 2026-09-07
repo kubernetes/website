@@ -76,6 +76,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 | Pod                       | `spec.nodeName`<br>`spec.restartPolicy`<br>`spec.schedulerName`<br>`spec.serviceAccountName`<br>`spec.hostNetwork`<br>`status.phase`<br>`status.podIP`<br>`status.podIPs`<br>`status.nominatedNodeName`                                                         |
 | Event                     | `involvedObject.kind`<br>`involvedObject.namespace`<br>`involvedObject.name`<br>`involvedObject.uid`<br>`involvedObject.apiVersion`<br>`involvedObject.resourceVersion`<br>`involvedObject.fieldPath`<br>`reason`<br>`reportingComponent`<br>`source`<br>`type` |
 | Secret                    | `type`                                                                                                                                                                                                                                                          |
+| Service                   | `spec.clusterIP`<br>`spec.type`                                                                                                                                                                                                                                 | 
 | Namespace                 | `status.phase`                                                                                                                                                                                                                                                  |
 | ReplicaSet                | `status.replicas`                                                                                                                                                                                                                                               |
 | ReplicationController     | `status.replicas`                                                                                                                                                                                                                                               |
@@ -109,7 +110,7 @@ You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==`
 ## 支持的操作符   {#supported-operators}
 
 你可在字段选择算符中使用 `=`、`==` 和 `!=`（`=` 和 `==` 的意义是相同的）操作符。
-例如，下面这个 `kubectl` 命令将筛选所有不属于 `default` 命名空间的 Kubernetes 服务：
+例如，下面这个 `kubectl` 命令将筛选所有不属于 `default` 命名空间的 Kubernetes Service：
 
 ```shell
 kubectl get services  --all-namespaces --field-selector metadata.namespace!=default
@@ -148,7 +149,8 @@ You can use field selectors across multiple resource types. This `kubectl` comma
 ## 多种资源类型   {#multiple-resource-types}
 
 你能够跨多种资源类型来使用字段选择算符。
-下面这个 `kubectl` 命令将筛选出所有不在 `default` 命名空间中的 StatefulSet 和 Service：
+下面这个 `kubectl` 命令将筛选出所有不在 `default` 命名空间中的
+StatefulSet 和 Service：
 
 ```shell
 kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default

@@ -90,8 +90,6 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-  configure it properly, see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
   and investigating each container by running `docker logs`. For other container runtime, see
   [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
@@ -264,7 +262,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will
   not display the offending alias IP address. Alternatively an API endpoint specific to
-  DigitalOcean allows to query for the anchor IP from the droplet:
+  DigitalOcean allows you to query for the anchor IP from the droplet:
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address

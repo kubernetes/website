@@ -52,13 +52,13 @@ Pod、节点和其他类别的对象。例如，[你好，Minikube](/zh-cn/docs/
 * 启动一个运行 `nginx` 的 Pod，监听针对此 Pod 的 IP 地址的 TCP 80 端口的请求。
 * 学习此方案中不同组件之间如何交互。
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 <!--
 The kubelet configuration used for this tutorial is insecure by design and should
 _not_ be used in a production environment.
 -->
 本教程中所使用的 kubelet 配置在设计上是不安全的，**不**得用于生产环境中。
-{{< /caution >}}
+{{< /alert >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -72,7 +72,7 @@ _not_ be used in a production environment.
     {{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}})
   * Required CLI tools: `curl`, `tar`, `jq`.
 -->
-* 对使用 `systemd` 和 `iptables`（或使用 `iptables` 仿真的 nftables）的 Linux
+* 对使用 `systemd` 和 `iptables`（或使用 `iptables` 仿真的 `nftables`）的 Linux
   系统具有管理员（`root`）访问权限。
 * 有权限访问互联网以下载本教程所需的组件，例如：
   * 实现 Kubernetes {{< glossary_tooltip term_id="cri" text="CRI">}}
@@ -97,7 +97,7 @@ This means that swap should either be disabled or tolerated by kubelet.
 默认情况下，如果在节点上检测到内存交换，kubelet 将启动失败。
 这意味着内存交换应该被禁用或被 kubelet 容忍。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If you configure the kubelet to tolerate swap, the kubelet still configures Pods (and the
 containers in those Pods) not to use swap space. To find out how Pods can actually
@@ -107,7 +107,7 @@ use the available swap, you can read more about
 如果你配置 kubelet 为容忍内存交换，则 kubelet 仍会配置 Pod（以及这些 Pod 中的容器）不使用交换空间。
 要了解 Pod 实际上可以如何使用可用的交换，你可以进一步阅读 Linux
 节点上[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 If you have swap memory enabled, either disable it or add `failSwapOn: false` to the
@@ -141,15 +141,16 @@ To make this change persistent across reboots:
 
 Make sure swap is disabled in either `/etc/fstab` or `systemd.swap`, depending how it was
 configured on your system.
-
-### Enable IPv4 packet forwarding
-
-To check if IPv4 packet forwarding is enabled:
 -->
 要使此变更持续到重启之后：
 
 确保在 `/etc/fstab` 或 `systemd.swap` 中禁用交换内存，具体取决于它在你的系统上是如何配置的。
 
+<!--
+### Enable IPv4 packet forwarding
+
+To check if IPv4 packet forwarding is enabled:
+-->
 ### 启用 IPv4 数据包转发   {#enable-ipv4-packet-forwarding}
 
 检查 IPv4 数据包转发是否被启用：
@@ -166,7 +167,8 @@ To enable IPv4 packet forwarding, create a configuration file that sets the
 -->
 如果输出为 `1`，则 IPv4 数据包转发已被启用。如果输出为 `0`，按照以下步骤操作。
 
-要启用 IPv4 数据包转发，创建一个配置文件，将 `net.ipv4.ip_forward` 参数设置为 `1`：
+要启用 IPv4 数据包转发，创建一个配置文件，将 `net.ipv4.ip_forward`
+参数设置为 `1`：
 
 ```shell
 sudo tee /etc/sysctl.d/k8s.conf <<EOF
@@ -238,8 +240,10 @@ networking, and [`crun`](https://github.com/containers/crun) and
 The script will automatically detect your system's processor architecture
 (`amd64` or `arm64`) and select and install the latest versions of the software packages.
 -->
-此脚本安装并配置更多必需的软件，例如容器联网所用的 [`cni-plugins`](https://github.com/containernetworking/cni)
-以及运行容器所用的 [`crun`](https://github.com/containers/crun) 和 [`runc`](https://github.com/opencontainers/runc)。
+此脚本安装并配置更多必需的软件，例如容器联网所用的
+[`cni-plugins`](https://github.com/containernetworking/cni)
+以及运行容器所用的 [`crun`](https://github.com/containers/crun) 和
+[`runc`](https://github.com/opencontainers/runc)。
 
 此脚本将自动检测系统的处理器架构（`amd64` 或 `arm64`），并选择和安装最新版本的软件包。
 
@@ -369,7 +373,7 @@ The output is similar to:
 }
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Make sure that the default `subnet` range (`10.85.0.0/16`) does not overlap with
 any of your active networks. If there is an overlap, you can edit the file and change it
@@ -377,7 +381,7 @@ accordingly. Restart the service after the change.
 -->
 确保默认的 `subnet` 范围（`10.85.0.0/16`）不会与你已经在使用的任一网络地址重叠。
 如果出现重叠，你可以编辑此文件并进行相应的更改。更改后重启服务。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ### Download and set up the kubelet
@@ -445,7 +449,7 @@ containerRuntimeEndpoint: unix:///var/run/crio/crio.sock
 EOF
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Because you are not setting up a production cluster, you are using plain HTTP
 (`readOnlyPort: 10255`) for unauthenticated queries to the kubelet's API.
@@ -455,9 +459,6 @@ for the purpose of this tutorial. You can learn more about
 [authorization modes](/docs/reference/access-authn-authz/authorization/#authorization-modules)
 and [webhook authentication](/docs/reference/access-authn-authz/webhook/) to properly
 configure kubelet in standalone mode in your environment.
-
-See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
-understand which ports Kubernetes components use.
 -->
 由于你搭建的不是一个生产集群，所以你可以使用明文
 HTTP（`readOnlyPort: 10255`）对 kubelet API 进行不做身份认证的查询。
@@ -467,8 +468,13 @@ HTTP（`readOnlyPort: 10255`）对 kubelet API 进行不做身份认证的查询
 [Webhook 身份认证](/zh-cn/docs/reference/access-authn-authz/webhook/)，
 以正确地配置 kubelet 在你的环境中以独立模式运行。
 
-参阅[端口和协议](/zh-cn/docs/reference/networking/ports-and-protocols/)以了解 Kubernetes 组件使用的端口。
-{{< /note >}}
+<!--
+See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
+understand which ports Kubernetes components use.
+-->
+参阅[端口和协议](/zh-cn/docs/reference/networking/ports-and-protocols/)以了解
+Kubernetes 组件使用的端口。
+{{< /alert >}}
 
 <!--
 Install:
@@ -601,7 +607,8 @@ Create a manifest for a Pod:
 -->
 ## 在 kubelet 中运行 Pod   {#run-a-pod-in-the-kubelet}
 
-在独立模式下，你可以使用 Pod 清单运行 Pod。这些清单可以放在本地文件系统上，或通过 HTTP 从配置源获取。
+在独立模式下，你可以使用 Pod 清单运行 Pod。这些清单可以放在本地文件系统上，
+或通过 HTTP 从配置源获取。
 
 为 Pod 创建一个清单：
 
@@ -671,7 +678,8 @@ The output is similar to:
 <!--
 Connect to the `nginx` server Pod on `http://<IP>:<Port>` (port 80 is the default), in this case:
 -->
-连接到 `nginx` 服务器 Pod，地址为 `http://<IP>:<Port>`（端口 80 是默认端口），在本例中为：
+连接到 `nginx` 服务器 Pod，地址为 `http://<IP>:<Port>`（端口 80
+是默认端口），在本例中为：
 
 ```shell
 curl http://10.85.0.4
@@ -761,7 +769,12 @@ sudo rm -rf /var/lib/cni
 
 This page covered the basic aspects of deploying a kubelet in standalone mode.
 You are now ready to deploy Pods and test additional functionality.
+-->
+## 结论   {#conclusion}
 
+本页涵盖了以独立模式部署 kubelet 的各个基本方面。你现在可以部署 Pod 并测试更多功能。
+
+<!--
 Notice that in standalone mode the kubelet does *not* support fetching Pod
 configurations from the control plane (because there is no control plane connection).
 
@@ -769,14 +782,11 @@ You also cannot use a {{< glossary_tooltip text="ConfigMap" term_id="configmap" 
 {{< glossary_tooltip text="Secret" term_id="secret" >}} to configure the containers
 in a static Pod.
 -->
-## 结论   {#conclusion}
-
-本页涵盖了以独立模式部署 kubelet 的各个基本方面。你现在可以部署 Pod 并测试更多功能。
-
 请注意，在独立模式下，kubelet **不**支持从控制平面获取 Pod 配置（因为没有控制平面连接）。
 
 你还不能使用 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-或 {{< glossary_tooltip text="Secret" term_id="secret" >}} 来配置静态 Pod 中的容器。
+或 {{< glossary_tooltip text="Secret" term_id="secret" >}}
+来配置静态 Pod 中的容器。
 
 ## {{% heading "whatsnext" %}}
 

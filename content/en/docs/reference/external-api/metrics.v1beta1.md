@@ -15,7 +15,6 @@ auto_generated: true
 - [PodMetrics](#metrics-k8s-io-v1beta1-PodMetrics)
 - [PodMetricsList](#metrics-k8s-io-v1beta1-PodMetricsList)
   
-    
 
 ## `NodeMetrics`     {#metrics-k8s-io-v1beta1-NodeMetrics}
     
@@ -37,7 +36,7 @@ auto_generated: true
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>Standard object's metadata.
@@ -45,7 +44,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.</td>
 </tr>
 <tr><td><code>timestamp</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>The following fields define time interval from which metrics were
@@ -59,7 +58,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>usage</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <p>The memory usage is the memory working set.</p>
@@ -84,7 +83,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
     
   
 <tr><td><code>metadata</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <p>Standard list metadata.
@@ -121,7 +120,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>Standard object's metadata.
@@ -129,7 +128,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.</td>
 </tr>
 <tr><td><code>timestamp</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>The following fields define time interval from which metrics were
@@ -168,7 +167,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
     
   
 <tr><td><code>metadata</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <p>Standard list metadata.
@@ -209,7 +208,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </td>
 </tr>
 <tr><td><code>usage</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <p>The memory usage is the memory working set.</p>

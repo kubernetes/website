@@ -232,8 +232,8 @@ You could also download [`worker.py`](/examples/application/job/redis/worker.py)
 the container image. Here's an example using Docker to do the image build:
 -->
 你也可以下载 [`worker.py`](/zh-cn/examples/application/job/redis/worker.py)、
-[`rediswq.py`](zh-cn/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](zh-cn/examples/application/job/redis/Dockerfile) 文件，然后构建容器镜像。
+[`rediswq.py`](/zh-cn/examples/application/job/redis/rediswq.py) 和
+[`Dockerfile`](/zh-cn/examples/application/job/redis/Dockerfile) 文件，然后构建容器镜像。
 以下是使用 Docker 进行镜像构建的示例：
 
 ```shell

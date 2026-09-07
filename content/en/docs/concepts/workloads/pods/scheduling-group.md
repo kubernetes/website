@@ -48,16 +48,26 @@ When you set `spec.schedulingGroup`, the scheduler looks up the referenced
   lifecycle. The scheduler tries to place at least `minCount` `Pods` in the group
   simultaneously; none of them bind to nodes unless the minimum is met.
 
-## Missing PodGroup reference
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
+
+When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+feature gate is enabled, a `PodGroup` may also specify a parent `CompositePodGroup`. In a hierarchical
+workload, scheduling is governed by policies defined across the entire group tree (such as multi-level
+gang scheduling or topology constraints).
+
+## Missing group references
 
 If a `Pod` references a `PodGroup` that does not yet exist, the `Pod` remains pending.
-The scheduler automatically reconsiders the `Pod` once the `PodGroup` is created.
+Similarly, if the referenced `PodGroup` specifies a parent `CompositePodGroup` (via
+`spec.parentCompositePodGroupName`) that has not been created yet, scheduling does not start and
+the `Pod` remains pending until the entire group hierarchy exists in the cluster.
 
-This applies regardless of whether the eventual policy is `basic` or `gang`,
-because the scheduler requires the `PodGroup` to determine the policy.
+The scheduler automatically reconsiders the `Pod` once all required `PodGroup` and
+`CompositePodGroup` resources exist.
 
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [PodGroup API](/docs/concepts/workloads/podgroup-api/) and its lifecycle.
+* Read about the [CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/).
 * Read about [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
 * Understand the [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) algorithm.

@@ -10,6 +10,22 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* This is a workaround until we formally add support for announcements with
+   light backgrounds. */
+header:has(#announcement.display-announcement) .td-navbar:not(.navbar-bg-onscroll) .td-search .td-search__input {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-secondary-color);
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.16);
+  color: var(--bs-body-color);
+
+  &::placeholder {
+    color: var(--bs-secondary-color);
+    opacity: 1;
+  }
+}
+
 // PageFind Styles
 
 #search .pagefind-ui form {
@@ -21,4 +37,3 @@
     margin-left: 1rem;
   }
 }
-

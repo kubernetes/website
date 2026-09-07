@@ -28,9 +28,9 @@ with PowerShell or the Windows Command Prompt.
 本教程中的 Shell 命令使用 POSIX Shell 语法，
 大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
 Windows 用户必须使用兼容 POSIX 的 Shell，例如
-[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+[适用于 Linux 的 Windows 子系统（WSL）](https://learn.microsoft.com/en-us/windows/wsl/install)
 或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
-使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
+使用 `export`、`$()` 以及类似构造的命令**不兼容** PowerShell 或 Windows Command Prompt。
 
 <!--
 ## Kubernetes Deployments
@@ -41,10 +41,10 @@ Windows 用户必须使用兼容 POSIX 的 Shell，例如
 <!--
 _A Deployment is responsible for creating and updating instances of your application._
 -->
-**Deployment 负责创建和更新应用的实例**
+**Deployment 负责创建和更新应用的实例。**
 {{% /alert %}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 This tutorial uses a container that requires the AMD64 architecture. If you are using
 minikube on a computer with a different CPU architecture, you could try using minikube with
@@ -53,7 +53,7 @@ a driver that can emulate AMD64. For example, the Docker Desktop driver can do t
 本教程使用了一个需要 AMD64 架构的容器。如果你在使用 Minikube
 的计算机上使用了不同的 CPU 架构，可以尝试使用能够模拟 AMD64
 的 Minikube 驱动程序。例如，Docker Desktop 驱动程序可以实现这一点。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 Once you have a [running Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/),
@@ -110,17 +110,18 @@ You can create and manage a Deployment by using the Kubernetes command line inte
 [kubectl](/docs/reference/kubectl/). `kubectl` uses the Kubernetes API to interact
 with the cluster. In this module, you'll learn the most common `kubectl` commands
 needed to create Deployments that run your applications on a Kubernetes cluster.
+-->
+你可以使用 Kubernetes 命令行界面 `kubectl` 创建和管理 Deployment。
+kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，你将学习创建在 Kubernetes
+集群上运行应用的 Deployment 所需的最常见的 kubectl 命令。
 
+<!--  
 When you create a Deployment, you'll need to specify the container image for your
 application and the number of replicas that you want to run. You can change that
 information later by updating your Deployment; [Module 5](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 and [Module 6](/docs/tutorials/kubernetes-basics/update/update-intro/) of the bootcamp
 discuss how you can scale and update your Deployments.
 -->
-你可以使用 Kubernetes 命令行界面 `kubectl` 创建和管理 Deployment。
-kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，你将学习创建在 Kubernetes
-集群上运行应用的 Deployment 所需的最常见的 kubectl 命令。
-
 创建 Deployment 时，你需要指定应用的容器镜像以及要运行的副本数。
 你可以稍后通过更新 Deployment 来更改该信息；
 [模块 5](/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/)
@@ -235,11 +236,6 @@ is running inside a container on your node.
 on a private, isolated network. By default they are visible from other pods and services
 within the same Kubernetes cluster, but not outside that network. When we use `kubectl`,
 we're interacting through an API endpoint to communicate with our application.
-
-We will cover other options on how to expose your application outside the Kubernetes
-cluster later, in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
-Also as a basic tutorial, we're not explaining what `Pods` are in any
-detail here, it will be covered in later topics.
 -->
 ### 查看应用
 
@@ -247,6 +243,16 @@ detail here, it will be covered in later topics.
 运行在一个私有的、隔离的网络上。
 默认这些 Pod 可以从同一 Kubernetes 集群内的其他 Pod 和服务看到，但超出这个网络后则看不到。
 当我们使用 `kubectl` 时，我们通过 API 端点交互与应用进行通信。
+
+<!--
+We will cover other options on how to expose your application outside the Kubernetes
+cluster later, in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
+Also as a basic tutorial, we're not explaining what `Pods` are in any
+detail here, it will be covered in later topics.
+-->
+我们将在[模块 4](/zh-cn/docs/tutorials/kubernetes-basics/expose/)
+中介绍如何将你的应用暴露在 Kubernetes 集群之外的其他方式。
+此外，作为基础教程，我们在此不对 `Pod` 做详细说明，相关内容将在后续主题中介绍。
 
 <!--
 The `kubectl proxy` command can create a proxy that will forward communications
@@ -280,13 +286,14 @@ query the version directly through the API using the `curl` command:
 curl http://localhost:8001/version
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If port 8001 is not accessible, ensure that the `kubectl proxy` that you started
 above is running in the second terminal.
 -->
-如果 Port 8001 不可访问，确保你上述启动的 `kubectl proxy` 运行在第二个终端中。
-{{< /note >}}
+如果 Port 8001 不可访问，确保你上述启动的 `kubectl proxy`
+运行在第二个终端中。
+{{< /alert >}}
 
 <!--
 The API server will automatically create an endpoint for each pod, based on the

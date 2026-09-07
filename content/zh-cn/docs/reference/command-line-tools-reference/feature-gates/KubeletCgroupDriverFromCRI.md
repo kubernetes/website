@@ -50,9 +50,3 @@ kubelet 将在 Kubernetes 1.36 中停止回退到此配置。因此，用户必�
 
 * containerd：在 v2.0.0 版本中添加了对此特性的支持
 * CRI-O：在 v1.28.0 版本中添加了对此特性的支持
-
-<!--
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
-for more details.
--->
-详情参见[配置 CGroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。

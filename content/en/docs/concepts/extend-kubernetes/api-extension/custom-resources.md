@@ -12,7 +12,7 @@ weight: 10
 
 <!-- overview -->
 
-*Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom
+*Custom resources* are instances of resource types added to Kubernetes through API extensions. This page discusses when to add a custom
 resource to your Kubernetes cluster and when to use a standalone service. It describes the two
 methods for adding custom resources and how to choose between them.
 
@@ -266,7 +266,7 @@ Installing an Aggregated API server always involves running a new Deployment.
 Custom resources consume storage space in the same way that ConfigMaps do. Creating too many
 custom resources may overload your API server's storage space.
 
-Custom resources are placed into storage based upon the the current storage
+Custom resources are placed into storage based upon the current storage
 version of the resource, defined in the CRD spec. Any update to a custom
 resource will use the currently defined storage version to store the resource.
 All other versions either need to have all the fields of that version or define

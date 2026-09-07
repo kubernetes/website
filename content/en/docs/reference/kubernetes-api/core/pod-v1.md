@@ -101,6 +101,10 @@ PodSpec is a description of a pod.
       <td>List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.</td>
     </tr>
     <tr>
+      <td><code>evictionResponders</code><br/><em><a href="{{< ref "#EvictionResponder" >}}">EvictionResponder array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
+      <td>evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.  Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/\<name>/eviction subresource).  The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.</td>
+    </tr>
+    <tr>
       <td><code>hostAliases</code><br/><em><a href="{{< ref "#HostAlias" >}}">HostAlias array</a></em><br/><em>patch strategy: merge on key <code>ip</code></em></td>
       <td>HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.</td>
     </tr>
@@ -126,7 +130,7 @@ PodSpec is a description of a pod.
     </tr>
     <tr>
       <td><code>hostnameOverride</code><br/><em>string</em></td>
-      <td>HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value.<br/> - `setHostnameAsFQDN` must be nil or set to false.<br/> - `hostNetwork` must be set to false.  This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.</td>
+      <td>HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value.<br/> - `setHostnameAsFQDN` must be nil or set to false.<br/> - `hostNetwork` must be set to false.  This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.</td>
     </tr>
     <tr>
       <td><code>imagePullSecrets</code><br/><em><a href="{{< ref "../definitions/local-object-reference-v1#LocalObjectReference" >}}">LocalObjectReference array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
@@ -154,7 +158,7 @@ PodSpec is a description of a pod.
     </tr>
     <tr>
       <td><code>preemptionPolicy</code><br/><em>string</em></td>
-      <td>PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.<br/><br/>Possible enum values:<br/> - `"Never"` means that pod never preempts other pods with lower priority.<br/> - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.</td>
+      <td>PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.<br/><br/>Possible enum values:<br/> - `"Never"` means that pod never preempts other pods with lower priority.<br/> - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.</td>
     </tr>
     <tr>
       <td><code>priority</code><br/><em>integer</em></td>
@@ -286,7 +290,7 @@ PodStatus represents information about the status of a pod. Status may trail the
       <td>A human readable message indicating details about why the pod is in this condition.</td>
     </tr>
     <tr>
-      <td><code>nodeAllocatableResourceClaimStatuses</code><br/><em><a href="{{< ref "#NodeAllocatableResourceClaimStatus" >}}">NodeAllocatableResourceClaimStatus array</a></em></td>
+      <td><code>nodeAllocatableResourceClaimStatuses</code><br/><em><a href="{{< ref "#NodeAllocatableResourceClaimStatus" >}}">NodeAllocatableResourceClaimStatus array</a></em><br/><em>patch strategy: merge on key <code>resourceClaimName</code></em></td>
       <td>NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.</td>
     </tr>
     <tr>
@@ -332,6 +336,10 @@ PodStatus represents information about the status of a pod. Status may trail the
     <tr>
       <td><code>startTime</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
       <td>RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.</td>
+    </tr>
+    <tr>
+      <td><code>volumeHealth</code><br/><em><a href="{{< ref "#PodVolumeHealth" >}}">PodVolumeHealth array</a></em></td>
+      <td>volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.</td>
     </tr>
   </tbody>
 </table>
@@ -586,6 +594,10 @@ ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle
       <td><code>signerName</code><br/><em>string</em></td>
       <td>Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.</td>
     </tr>
+    <tr>
+      <td><code>user</code><br/><em>integer</em></td>
+      <td>user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -594,7 +606,7 @@ ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle
 
 ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
-The contents of the target ConfigMap&#39;s Data field will represent the key-value pairs as environment variables.
+The contents of the target ConfigMap&#39;s Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 
 <hr>
 
@@ -624,7 +636,7 @@ Selects a key from a ConfigMap.
   <tbody>
     <tr>
       <td><code>key</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>The key to select.</td>
+      <td>The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.</td>
     </tr>
     <tr>
       <td><code>name</code><br/><em>string</em></td>
@@ -679,6 +691,10 @@ The contents of the target ConfigMap&#39;s Data field will be presented in a vol
     <tr>
       <td><code>defaultMode</code><br/><em>integer</em></td>
       <td>defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</td>
+    </tr>
+    <tr>
+      <td><code>defaultUser</code><br/><em>integer</em></td>
+      <td>defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
     </tr>
     <tr>
       <td><code>items</code><br/><em><a href="{{< ref "#KeyToPath" >}}">KeyToPath array</a></em></td>
@@ -1093,6 +1109,10 @@ DownwardAPIVolumeFile represents information to create the file containing the p
       <td><code>resourceFieldRef</code><br/><em><a href="{{< ref "#ResourceFieldSelector" >}}">ResourceFieldSelector</a></em></td>
       <td>Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.</td>
     </tr>
+    <tr>
+      <td><code>user</code><br/><em>integer</em></td>
+      <td>user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1109,6 +1129,10 @@ DownwardAPIVolumeSource represents a volume containing downward API info. Downwa
     <tr>
       <td><code>defaultMode</code><br/><em>integer</em></td>
       <td>Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</td>
+    </tr>
+    <tr>
+      <td><code>defaultUser</code><br/><em>integer</em></td>
+      <td>defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
     </tr>
     <tr>
       <td><code>items</code><br/><em><a href="{{< ref "#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile array</a></em></td>
@@ -1130,6 +1154,10 @@ Represents an empty directory for a pod. Empty directory volumes support ownersh
     <tr>
       <td><code>medium</code><br/><em>string</em></td>
       <td>medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir</td>
+    </tr>
+    <tr>
+      <td><code>mode</code><br/><em>integer</em></td>
+      <td>mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.</td>
     </tr>
     <tr>
       <td><code>sizeLimit</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
@@ -1358,6 +1386,27 @@ Represents an ephemeral volume that is handled by a normal storage driver.
 </table>
 
 
+## EvictionResponder {#EvictionResponder}
+
+EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name allows you to identify the responder responding to the Eviction.  It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.</td>
+    </tr>
+    <tr>
+      <td><code>priority</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.  The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.  The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## ExecAction {#ExecAction}
 
 ExecAction describes a &#34;run in container&#34; action.
@@ -1447,6 +1496,10 @@ GRPCAction specifies an action involving a GRPC service.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
+      <td><code>mode</code><br/><em>string</em></td>
+      <td>mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.<br/><br/>Possible enum values:<br/> - `"Plaintext"` indicates that the probe should use a plaintext (insecure) gRPC connection.<br/> - `"TLS"` indicates that the probe should connect using TLS without certificate verification.</td>
+    </tr>
+    <tr>
       <td><code>port</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
       <td>Port number of the gRPC service. Number must be in the range 1 to 65535.</td>
     </tr>
@@ -1534,6 +1587,10 @@ HTTPGetAction describes an action based on HTTP Get requests.
     <tr>
       <td><code>port</code>&nbsp;<strong>*</strong><br/><em></em></td>
       <td>Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.</td>
+    </tr>
+    <tr>
+      <td><code>protocol</code><br/><em>string</em></td>
+      <td>Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.<br/><br/>Possible enum values:<br/> - `"HTTP1"` uses HTTP/1.1 (the existing default).<br/> - `"HTTP2"` uses HTTP/2. Currently, only cleartext with prior knowledge (h2c) is supported, and must be used with scheme HTTP.</td>
     </tr>
     <tr>
       <td><code>scheme</code><br/><em>string</em></td>
@@ -1718,6 +1775,10 @@ Maps a string key to a path within a volume.
       <td><code>path</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.</td>
     </tr>
+    <tr>
+      <td><code>user</code><br/><em>integer</em></td>
+      <td>user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1822,6 +1883,52 @@ Node affinity is a group of node affinity scheduling rules.
 </table>
 
 
+## NodeAllocatableMappedResources {#NodeAllocatableMappedResources}
+
+NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>Name is the name of the resource (e.g., cpu, memory).</td>
+    </tr>
+    <tr>
+      <td><code>quantity</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## NodeAllocatableOverheadResources {#NodeAllocatableOverheadResources}
+
+NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>Name is the name of the resource (e.g., cpu, memory).</td>
+    </tr>
+    <tr>
+      <td><code>perContainer</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.</td>
+    </tr>
+    <tr>
+      <td><code>perPod</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## NodeAllocatableResourceClaimStatus {#NodeAllocatableResourceClaimStatus}
 
 NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
@@ -1836,12 +1943,16 @@ NodeAllocatableResourceClaimStatus describes the status of node allocatable reso
       <td>Containers lists the names of all containers in this pod that reference the claim.</td>
     </tr>
     <tr>
-      <td><code>resourceClaimName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.</td>
+      <td><code>mapping</code><br/><em><a href="{{< ref "#NodeAllocatableMappedResources" >}}">NodeAllocatableMappedResources array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
+      <td>Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.</td>
     </tr>
     <tr>
-      <td><code>resources</code>&nbsp;<strong>*</strong><br/><em>object</em></td>
-      <td>Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.</td>
+      <td><code>overhead</code><br/><em><a href="{{< ref "#NodeAllocatableOverheadResources" >}}">NodeAllocatableOverheadResources array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
+      <td>Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaimName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.</td>
     </tr>
   </tbody>
 </table>
@@ -2021,6 +2132,10 @@ PodCertificateProjection provides a private key and X.509 certificate in the pod
     <tr>
       <td><code>signerName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>Kubelet's generated CSRs will be addressed to this signer.</td>
+    </tr>
+    <tr>
+      <td><code>user</code><br/><em>integer</em></td>
+      <td>user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
     </tr>
     <tr>
       <td><code>userAnnotations</code><br/><em>object</em></td>
@@ -2287,7 +2402,7 @@ PodSecurityContext holds pod-level security attributes and common container sett
     </tr>
     <tr>
       <td><code>seLinuxChangePolicy</code><br/><em>string</em></td>
-      <td>seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".  "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.  "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.  If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.  This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.  All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.</td>
+      <td>seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".  "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.  "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.  If not specified, "MountOption" is used.  This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.  All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.</td>
     </tr>
     <tr>
       <td><code>seLinuxOptions</code><br/><em><a href="{{< ref "#SELinuxOptions" >}}">SELinuxOptions</a></em></td>
@@ -2312,6 +2427,31 @@ PodSecurityContext holds pod-level security attributes and common container sett
     <tr>
       <td><code>windowsOptions</code><br/><em><a href="{{< ref "#WindowsSecurityContextOptions" >}}">WindowsSecurityContextOptions</a></em></td>
       <td>The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## PodVolumeHealth {#PodVolumeHealth}
+
+PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>healthConditions</code><br/><em><a href="{{< ref "../definitions/volume-health-condition-v1#VolumeHealthCondition" >}}">VolumeHealthCondition array</a></em><br/><em>patch strategy: merge on key <code>status</code></em></td>
+      <td>conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.</td>
+    </tr>
+    <tr>
+      <td><code>lastTransitionTime</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>lastTransitionTime is when the current set of conditions first appeared.</td>
+    </tr>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name matches an entry in pod.spec.volumes.</td>
     </tr>
   </tbody>
 </table>
@@ -2403,6 +2543,10 @@ Represents a projected volume source
     <tr>
       <td><code>defaultMode</code><br/><em>integer</em></td>
       <td>defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</td>
+    </tr>
+    <tr>
+      <td><code>defaultUser</code><br/><em>integer</em></td>
+      <td>defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
     </tr>
     <tr>
       <td><code>sources</code><br/><em><a href="{{< ref "#VolumeProjection" >}}">VolumeProjection array</a></em></td>
@@ -2564,7 +2708,7 @@ ResourceStatus represents the status of a single resource allocated to a Pod.
   <tbody>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:\<claim_name>/\<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.</td>
+      <td>Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:\<claim_name>/\<request>" when container.resources.claims[*].request is set or "claim:\<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:\<claim_name>/\<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.</td>
     </tr>
     <tr>
       <td><code>resources</code><br/><em><a href="{{< ref "#ResourceHealth" >}}">ResourceHealth array</a></em></td>
@@ -2768,6 +2912,10 @@ The contents of the target Secret&#39;s Data field will be presented in a volume
       <td>defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</td>
     </tr>
     <tr>
+      <td><code>defaultUser</code><br/><em>integer</em></td>
+      <td>defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
+    </tr>
+    <tr>
       <td><code>items</code><br/><em><a href="{{< ref "#KeyToPath" >}}">KeyToPath array</a></em></td>
       <td>items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.</td>
     </tr>
@@ -2864,6 +3012,10 @@ ServiceAccountTokenProjection represents a projected service account token volum
     <tr>
       <td><code>path</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>path is the path relative to the mount point of the file to project the token into.</td>
+    </tr>
+    <tr>
+      <td><code>user</code><br/><em>integer</em></td>
+      <td>user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.</td>
     </tr>
   </tbody>
 </table>
@@ -3174,8 +3326,12 @@ VolumeMount describes a mounting of a Volume within a container.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
+      <td><code>bindMountOptions</code><br/><em>string array</em></td>
+      <td>bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.</td>
+    </tr>
+    <tr>
       <td><code>mountPath</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Path within the container at which the volume should be mounted.  Must not contain ':'.</td>
+      <td>Path within the container at which the volume should be mounted.</td>
     </tr>
     <tr>
       <td><code>mountPropagation</code><br/><em>string</em></td>
@@ -3448,7 +3604,7 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/eviction
   <tbody>
     <tr>
       <td><code>body</code></td>
-      <td><em><a href="{{< ref "../definitions/eviction-v1-policy#Eviction" >}}">Eviction</a></em></td>
+      <td><em><a href="{{< ref "../lifecycle/eviction-v1alpha1#Eviction" >}}">Eviction</a></em></td>
       <td></td>
     </tr>
   </tbody>
@@ -3463,17 +3619,17 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/eviction
     <tr>
       <td>200</td>
       <td>OK</td>
-      <td><em><a href="{{< ref "../definitions/eviction-v1-policy#Eviction" >}}">Eviction</a></em></td>
+      <td><em><a href="{{< ref "../lifecycle/eviction-v1alpha1#Eviction" >}}">Eviction</a></em></td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
-      <td><em><a href="{{< ref "../definitions/eviction-v1-policy#Eviction" >}}">Eviction</a></em></td>
+      <td><em><a href="{{< ref "../lifecycle/eviction-v1alpha1#Eviction" >}}">Eviction</a></em></td>
     </tr>
     <tr>
       <td>202</td>
       <td>Accepted</td>
-      <td><em><a href="{{< ref "../definitions/eviction-v1-policy#Eviction" >}}">Eviction</a></em></td>
+      <td><em><a href="{{< ref "../lifecycle/eviction-v1alpha1#Eviction" >}}">Eviction</a></em></td>
     </tr>
   </tbody>
 </table>
@@ -6251,6 +6407,8 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/attach
     </tr>
   </tbody>
 </table>
+
+
 
 
 

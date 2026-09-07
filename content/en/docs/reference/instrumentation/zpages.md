@@ -135,6 +135,10 @@ type Statusz struct {
 
 Enabled using the `ComponentFlagz` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz), the `/flagz` endpoint shows you the command line arguments that were used to start a component.
 
+{{< note >}}
+`/flagz` reports command-line flags and defaults. For components that also load configuration files, such as the kubelet and kube-proxy, the effective running configuration can differ from `/flagz`; use `/configz` where available to inspect the merged component configuration.
+{{< /note >}}
+
 The `/flagz` plain text response from the API server looks something like:
 
 ```

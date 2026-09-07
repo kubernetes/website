@@ -11,12 +11,13 @@ auto_generated: true
 <!-- THIS CONTENT IS AUTO-GENERATED via https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 
 {{% pageinfo color="light" %}}
+
 <!-- 
 This content is auto-generated and links may not function. The source of the document is located
-[here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+[here](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md).
 -->
 此内容原文是自动生成的，链接可能无法正常访问。
-文档的来源在[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md)。
+文档的来源在[这里](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md)。
 {{% /pageinfo %}}
 
 <!-- Localization note: omit the pageinfo block when localizing -->
@@ -30,7 +31,8 @@ milestone.
 -->
 ## 针对发布里程碑的特性增强、Issue 和 PR  {#targeting-enhancements-issues-and-prs-to-release-milestones}
 
-本文档重点是面向于那些需要创建针对特定发布里程碑的特性增强、问题或拉取请求的 Kubernetes 开发人员和贡献者。
+本文档重点是面向于那些需要创建针对特定发布里程碑的特性增强、问题或拉取请求的
+Kubernetes 开发人员和贡献者。
 
 <!-- 
 - [TL;DR](#tldr)
@@ -67,7 +69,7 @@ milestone.
    - [优先级标签](#priority-label)
    - [Issue/PR 分类标签](#issuepr-kind-label)
 
-<!-- 
+<!--
 The process for shepherding enhancements, issues, and pull requests into a
 Kubernetes release spans multiple stakeholders:
 
@@ -85,7 +87,7 @@ Information on workflows and interactions are described below.
 
 关于工作流程和交互的信息如下所述。
 
-<!-- 
+<!--
 As the owner of an enhancement, issue, or pull request (PR), it is your
 responsibility to ensure release milestone requirements are met. Automation and
 the Release Team will be in contact with you if updates are required, but
@@ -93,19 +95,19 @@ inaction can result in your work being removed from the milestone. Additional
 requirements exist when the target milestone is a prior release (see
 [cherry pick process][cherry-picks] for more information).
 -->
-作为特性增强、问题或拉取请求 (PR) 的所有者，你有责任确保满足里程碑发布要求。
+作为特性增强、问题或拉取请求（PR）的所有者，你有责任确保满足里程碑发布要求。
 如果需要更新，自动化和发布团队将与你联系，但无响应可能会导致你的工作从里程碑中删除。
 当目标里程碑是先前版本时，还存在其他要求（请参阅 [Cherry Pick 流程][cherry-picks]了解更多信息）。
 
 ## TL;DR {#tldr}
 
-<!-- 
+<!--
 If you want your PR to get merged, it needs the following required labels and
 milestones, represented here by the Prow /commands it would take to add them:
 -->
 如果你希望你的 PR 被合并，它需要以下必备的标签和里程碑，它们由 Prow /commands 所添加表示：
 
-<!-- 
+<!--
 ### Normal Dev (Weeks 1-11)
 -->
 ### 正常开发（第 1-11 周）  {#normal-dev-weeks-1-11}
@@ -115,7 +117,7 @@ milestones, represented here by the Prow /commands it would take to add them:
 - /lgtm
 - /approved
 
-<!-- 
+<!--
 ### [Code Freeze][code-freeze] (Weeks 12-14)
 -->
 ### [代码冻结][code-freeze]（第 12-14 周）  {#code-freeze-code-freeze-weeks-12-14}
@@ -126,12 +128,12 @@ milestones, represented here by the Prow /commands it would take to add them:
 - /lgtm
 - /approved
 
-<!-- 
+<!--
 ### Post-Release (Weeks 14+)
 -->
 ### 发布后（第 14 周以上）  {#post-release-weeks-14}
 
-<!-- 
+<!--
 Return to 'Normal Dev' phase requirements:
 -->
 回到“正常开发”阶段要求：
@@ -155,11 +157,11 @@ The general labeling process should be consistent across artifact types.
 合并到 1.y 分支现在是[通过 Cherry Pick][cherry-picks]，由[发布管理员][release-managers]批准。
 
 过去，针对里程碑的拉取请求需要打开相关的 GitHub 问题，但现在情况不再如此。
-特性或特性增强实际上是 GitHub 问题或导致后续 PR 的 [KEPs][keps]。
+特性或特性增强实际上是 GitHub 问题或导致后续 PR 的 [KEP][keps]。
 
 一般的打标签过程应该在不同工件类型之间保持一致。
 
-<!-- 
+<!--
 ## Definitions
 
 - *issue owners*: Creator, assignees, and user who moved the issue into a
@@ -187,7 +189,7 @@ The general labeling process should be consistent across artifact types.
 
 - **增强**：参见“[我的改进是特性增强吗？](https://git.k8s.io/enhancements/README.md#is-my-thing-an-enhancement)”
 
-<!-- 
+<!--
 - *[Enhancements Freeze][enhancements-freeze]*:
   the deadline by which [KEPs][keps] have to be completed in order for
   enhancements to be part of the current release
@@ -195,7 +197,14 @@ The general labeling process should be consistent across artifact types.
 - *[Exception Request][exceptions]*:
   The process of requesting an extension on the deadline for a particular
   Enhancement
+-->
+- **[特性增强冻结][enhancements-freeze]**：
+  为了使特性增强成为当前版本的一部分，必须在 [KEPs][keps] 的截止日期前完成
+  
+- **[异常请求][exceptions]**：
+  请求延长特性增强的截止日期的过程
 
+<!--
 - *[Code Freeze][code-freeze]*:
   The period of ~4 weeks before the final release date, during which only
   critical bug fixes are merged into the release.
@@ -204,25 +213,19 @@ The general labeling process should be consistent across artifact types.
   The process of removing an Enhancement from a release milestone if it is not
   fully implemented or is otherwise considered not stable.
 -->
-- **[特性增强冻结][enhancements-freeze]**：
-  为了使特性增强成为当前版本的一部分，必须在 [KEPs][keps] 的截止日期前完成
-
-- **[异常请求][exceptions]**：
-  请求延长特性增强的截止日期的过程
-
 - **[代码冻结][code-freeze]**：
   最终发布日期前约 4 周的时间，在此期间，仅将关键错误修复合并到发布中。
 
 - **[修剪](https://git.k8s.io/sig-release/releases/release_phases.md#pruning)**：
   如果特性增强未完全实现或被认为不稳定，则在此过程中从发布里程碑中删除它。
 
-<!-- 
+<!--
 - *release milestone*: semantic version string or
   [GitHub milestone](https://help.github.com/en/github/managing-your-work-on-github/associating-milestones-with-issues-and-pull-requests)
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 
@@ -236,7 +239,7 @@ The general labeling process should be consistent across artifact types.
   [GitHub 里程碑](https://help.github.com/en/github/managing-your-work-on-github/associating-milestones-with-issues-and-pull-requests)
   指的是发布 主.次 `vX.Y` 版本。
 
-  另请参阅[发布版本控制](https://git.k8s.io/sig-release/release-engineering/versioning.md)。
+  另请参阅[发布版本控制](https://git.k8s.io/sig-release/release-engineering/reference/versioning.md#kubernetes-release-versioning)。
 
 - **发布分支**：为 `vX.Y` 里程碑创建的 Git 分支 `release-X.Y`。
 
@@ -244,14 +247,14 @@ The general labeling process should be consistent across artifact types.
 
   注意：1.19 及更高版本获得 1 年的补丁版本支持，1.18 及更早版本获得 9 个月的补丁版本支持。
 
-<!-- 
+<!--
 ## The Release Cycle
 -->
 ## 发布周期  {#the-release-cycle}
 
 ![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
-<!-- 
+<!--
 Kubernetes releases currently happen approximately three times per year.
 
 The release process can be thought of as having three main phases:
@@ -268,7 +271,7 @@ Kubernetes 目前大约每年发布三次。
 - 实现
 - 稳定
 
-<!-- 
+<!--
 But in reality, this is an open source and agile project, with feature planning
 and implementation happening at all times. Given the project scale and globally
 distributed developer base, it is critical to project velocity to not rely on a
@@ -280,7 +283,7 @@ flagged as having broken something.
 鉴于项目规模和全球分布的开发人员基础，对项目速度至关重要的是不依赖于后续的稳定阶段，
 而是进行持续集成测试，以确保项目始终稳定，以便可以将单个提交标记为有问题。
 
-<!-- 
+<!--
 With ongoing feature definition through the year, some set of items will bubble
 up as targeting a given release. **[Enhancements Freeze][enhancements-freeze]**
 starts ~4 weeks into release cycle. By this point all intended feature work for
@@ -288,13 +291,12 @@ the given release has been defined in suitable planning artifacts in
 conjunction with the Release Team's [Enhancements Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/enhancements/README.md).
 -->
 随着全年功能定义的不断进行，某些项目将冒泡作为给定版本的目标。
-在发布周期约 4 周后开始 **[冻结特性增强][enhancements-freeze]**。
+在发布周期约 4 周后开始**[冻结特性增强][enhancements-freeze]**。
 至此，针对给定版本的所有预期功能工作都已与发布团队的
 [特性增强负责人](https://git.k8s.io/sig-release/release-team/role-handbooks/enhancements/README.md)
 一起在合适的规划工件中定义。
 
-
-<!-- 
+<!--
 After Enhancements Freeze, tracking milestones on PRs and issues is important.
 Items within the milestone are used as a punchdown list to complete the
 release. *On issues*, milestones must be applied correctly, via triage by the
@@ -305,7 +307,7 @@ enhancement-related issue needs a milestone).
 **关于问题**，里程碑必须通过 SIG 的分类正确应用，
 以便[发布团队][release-team]可以跟踪错误和特性增强（任何与特性增强相关的问题都需要里程碑）。
 
-<!-- 
+<!--
 There is some automation in place to help automatically assign milestones to
 PRs.
 
@@ -333,7 +335,7 @@ management of the milestone is ever necessary.
 一旦合并，针对 `master` 分支的 PR 会自动应用里程碑，因此从那时起，不再需要人工管理该 PR 的里程碑。
 在指向发布分支的 PR 上，会在创建 PR 时自动应用里程碑，因此不需要对里程碑进行人工管理。
 
-<!-- 
+<!--
 Any other effort that should be tracked by the Release Team that doesn't fall
 under that automation umbrella should be have a milestone applied.
 
@@ -351,7 +353,7 @@ time.
 **[代码冻结][code-freeze]** 大约从第 12 周开始，持续约 2 周。
 在此期间，只有关键的错误修复才会被接受到发布代码库中。
 
-<!-- 
+<!--
 There are approximately two weeks following Code Freeze, and preceding release,
 during which all remaining critical issues must be resolved before release.
 This also gives time for documentation finalization.
@@ -373,7 +375,7 @@ Each release is part of a broader Kubernetes lifecycle:
 
 ![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
-<!-- 
+<!--
 ## Removal Of Items From The Milestone
 
 Before getting too far into the process for adding an item to the milestone,
@@ -396,7 +398,7 @@ following, or similar, reasons:
 
 发布团队的成员可以出于以下任何原因或类似原因从里程碑中删除 PR：
 
-<!-- 
+<!--
 - PR is potentially de-stabilizing and is not needed to resolve a blocking
   issue
 - PR is a new, late feature PR and has not gone through the enhancements
@@ -412,7 +414,7 @@ following, or similar, reasons:
 - PR 未正确标记
 - PR 工作明显停止，交付日期不确定或延迟
 
-<!-- 
+<!--
 While members of the Release Team will help with labelling and contacting
 SIG(s), it is the responsibility of the submitter to categorize PRs, and to
 secure support from the relevant SIG to guarantee that any breakage caused by
@@ -426,7 +428,7 @@ will be made by the Release Team through the following channels:
 
 如果需要采取其他措施，发布团队将通过以下渠道尝试进行人与人之间的对话：
 
-<!-- 
+<!--
 - Comment in GitHub mentioning the SIG team and SIG members as appropriate for
   the issue type
 - Emailing the SIG mailing list
@@ -443,11 +445,10 @@ will be made by the Release Team through the following channels:
    - 使用来自[社区 SIG 列表][sig-list]的群组电子邮件地址进行引导
    - 也可选择直接与 SIG 负责人或 SIG 其他成员联系
 - 向 SIG 的 Slack 频道发送消息
-   - 在 Slack 频道 和 SIG 负责人的引导下
-     [社区签名列表][签名列表]
-   - 可选地直接 “@” 来提及 SIG 负责人或其他人
+   - 在 Slack 频道 和 SIG 负责人的引导下[社区签名列表][签名列表]
+   - 可选地直接 `@` 来提及 SIG 负责人或其他人
 
-<!-- 
+<!--
 ## Adding An Item To The Milestone
 
 ### Milestone Maintainers
@@ -467,7 +468,8 @@ by SIG Release and has representation from the various SIGs' leadership.
 GitHub 团队的成员负责在 GitHub 工件上指定发布里程碑。
 
 该小组由 SIG Release
-[维护](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)，并有来自各个 SIG 负责人的代表。
+[维护](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)，
+并有来自各个 SIG 负责人的代表。
 
 <!--
 Adding the in-progress release milestone to pull requests after the Code Freeze is strictly prohibited, as it can compromise the stability of the release. Prior to making such changes, approval must be obtained from both the Release Team Lead and the Emeritus Advisor(s).
@@ -475,7 +477,7 @@ Adding the in-progress release milestone to pull requests after the Code Freeze 
 严禁在 Code Freeze（代码冻结）后将正在开发的版本里程碑任务添加到 PR，因为这可能会影响当前发布版本的稳定性。
 在实施此类变更之前，必须获得 Release Team Lead（发布团队负责人）和 Emeritus Advisor（荣誉顾问）的批准。
 
-<!-- 
+<!--
 ### Feature additions
 
 Feature planning and definition takes many forms today, but a typical example
@@ -491,7 +493,7 @@ by creating GitHub issues and marking them with the Prow "/milestone" command.
 当计划达到可实施状态并且工作正在进行中时，通过创建 GitHub 问题并使用
 Prow "/milestone" 命令对其进行标记，特性增强或其部分指向未来的里程碑。
 
-<!-- 
+<!--
 For the first ~4 weeks into the release cycle, the Release Team's Enhancements
 Lead will interact with SIGs and feature owners via GitHub, Slack, and SIG
 meetings to capture all required planning artifacts.
@@ -505,7 +507,7 @@ GitHub、Slack 和 SIG 会议与 SIG 和特性所有者互动，以获取所有�
 
 如果你有针对即将发布的里程碑的特性增强，请与你的 SIG 领导以及该版本的特性增强负责人开始对话。
 
-<!-- 
+<!--
 ### Issue additions
 
 Issues are marked as targeting a milestone via the Prow "/milestone" command.
@@ -522,7 +524,7 @@ the contributor guide section on
 发布团队的[错误分类负责人](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)和整个社区观察新出现的问题并对其进行分类，
 在贡献者指南部分中描述[问题分类](https://k8s.dev/docs/guide/issue-triage/)。
 
-<!-- 
+<!--
 Marking issues with the milestone provides the community better visibility
 regarding when an issue was observed and by when the community feels it must be
 resolved. During [Code Freeze][code-freeze], a milestone must be set to merge
@@ -539,7 +541,7 @@ priority.
 一个 PR 不再需要一个已开启的问题，但已开启的问题和相关的 PR 应该有同步的标签。
 例如，如果 PR 仅标记为较低优先级，则高优先级错误问题可能不会合并其关联的 PR。
 
-<!-- 
+<!--
 ### PR Additions
 
 PRs are marked as targeting a milestone via the Prow "/milestone" command.
@@ -548,11 +550,11 @@ This is a blocking requirement during Code Freeze as described above.
 -->
 ### PR 补充  {#pr-additions}
 
-PR 通过 Prow “/milestone” 命令标记并指向里程碑。
+PR 通过 Prow `/milestone` 命令标记并指向里程碑。
 
 如上所述，这是代码冻结期间的阻塞要求。
 
-<!-- 
+<!--
 ## Other Required Labels
 
 [Here is the list of labels and their use and purpose.](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
@@ -561,7 +563,7 @@ PR 通过 Prow “/milestone” 命令标记并指向里程碑。
 
 [这里是标签列表及其用途和目的](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)。
 
-<!-- 
+<!--
 ### SIG Owner Label
 
 The SIG owner label defines the SIG to which we escalate if a milestone issue
@@ -576,7 +578,7 @@ indicating SIG Storage is responsible, comment with `/sig storage`.
 SIG 所有者标签定义了当里程碑问题未取得进展或需要额外关注时，我们应该逐步升级的 SIG。
 如果升级后没有更新，该问题可能会自动从里程碑中删除。
 
-这些是通过 Prow "/sig" 命令添加的。
+这些是通过 Prow `/sig` 命令添加的。
 例如要添加指示 SIG Storage 负责的标签，请使用 `/sig storage` 进行评论。
 
 <!-- 

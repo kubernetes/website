@@ -222,9 +222,15 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    ```
 
 <!-- 
-Finally, add the same parameters into the API server start parameters.
+1. Fill in and add the following parameters into the API server start parameters:
 -->
-最后，为 API 服务器添加相同的启动参数。
+1. 在 API 服务器的启动参数中填写并添加以下参数：
+
+   ```shell
+   --client-ca-file=/yourdirectory/ca.crt
+   --tls-cert-file=/yourdirectory/server.crt
+   --tls-private-key-file=/yourdirectory/server.key
+   ```
 
 ### cfssl
 

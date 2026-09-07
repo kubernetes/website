@@ -62,3 +62,5 @@ Binding ties one object to another; for example, a pod is bound to a node by a s
 
 
 
+
+

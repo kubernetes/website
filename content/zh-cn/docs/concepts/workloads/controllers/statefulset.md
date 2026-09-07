@@ -715,9 +715,9 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 
 {{< note >}}
 <!--
-The `maxUnavailable` field is in Beta stage and it is enabled by default.
+The `maxUnavailable` field is in Beta stage and it is disabled by default.
 -->
-`maxUnavailable` 字段处于 Beta 阶段，默认启用。
+`maxUnavailable` 字段处于 Beta 阶段，默认禁用。
 {{< /note >}}
 
 <!--
@@ -1128,7 +1128,7 @@ the `.spec.replicas` field automatically.
   * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
   * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tutorials/configuration/configure-persistent-volume-storage/).
 * `StatefulSet` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  Read the {{< api-reference page="apps/stateful-set-v1" >}}
   object definition to understand the API for stateful sets.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
@@ -1142,7 +1142,7 @@ the `.spec.replicas` field automatically.
   * 了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/) 涉及到的操作。
   * 了解如何[配置 Pod 以使用卷进行存储](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
   * 了解如何[配置 Pod 以使用 PersistentVolume 作为存储](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/)。
-* `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
+* `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="apps/stateful-set-v1" >}}
   对象定义理解关于该资源的 API。
 * 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
   了解如何在干扰下运行高度可用的应用。

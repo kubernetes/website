@@ -72,7 +72,13 @@ extension points:
    nodes pass all the filters.
 1. `postFilter`: These plugins are called in their configured order when no
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
-   Pod _schedulable_, the remaining plugins are not called.
+   Pod _schedulable_, the remaining plugins are not called. These plugins are not
+   applicable for pods being scheduled as part of PodGroup scheduling.
+1. `podGroupPostFilter`: These plugins are called in their configured order when no
+   feasible placement is found for the pod group. If any `podGroupPostFilter` plugin marks
+   the pod group as _schedulable_, the remaining plugins are not called. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
 1. `preScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 1. `score`: These plugins provide a score to each node that has passed the
@@ -184,7 +190,7 @@ extension points:
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
-  Extension points: `postFilter`.
+  Extension points: `postFilter`, `podGroupPostFilter`.
 - `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
   constraints.
   Extension points: `placementGenerate`.

@@ -22,7 +22,7 @@ weight: 100
 ## 모든 네임스페이스의 모든 컨테이너 이미지 가져오기
 
 - `kubectl get pods --all-namespaces` 를 사용하여 모든 네임스페이스의 모든 파드 정보를 가져온다.
-- 컨테이너 이미지 이름만 출력하기 위해 `-o jsonpath={.items[*].spec.containers[*].image}` 를 사용한다.
+- 컨테이너 이미지 이름만 출력하기 위해 `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}` 를 사용한다.
   이 명령어는 결과값으로 받은 json을 반복적으로 파싱하여,
   `image` 필드만을 출력한다.
   - jsonpath를 사용하는 방법에 대해 더 많은 정보를 얻고 싶다면
@@ -33,7 +33,7 @@ weight: 100
   - `uniq` 를 사용하여 이미지 개수를 합산한다.
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
@@ -42,7 +42,7 @@ uniq -c
 
 - `.items[*]`: 각 결과값에 대하여
 - `.spec`: spec 값을 가져온다.
-- `.containers[*]`: 각 컨테이너에 대하여
+- `['initContainers', 'containers'][*]`: 각 컨테이너에 대하여
 - `.image`: image 값을 가져온다.
 
 {{< note >}}

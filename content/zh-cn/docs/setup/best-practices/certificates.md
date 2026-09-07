@@ -109,11 +109,11 @@ In this scenario, there are two approaches for certificate usage:
 
 {{< note >}}
 <!--
-`front-proxy` certificates are required only if you run kube-proxy to support
-[an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
+`front-proxy` certificates are required only when using the API server aggregation layer
+to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 -->
-只有当你运行 kube-proxy
-并要支持[扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)时，
+仅当使用 API Server
+聚合层来支持[扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)时，
 才需要 `front-proxy` 证书。
 {{< /note >}}
 

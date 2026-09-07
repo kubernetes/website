@@ -34,6 +34,3 @@ will lose support in 1.36. The following CRI versions support this CRI call:
 
 * containerd: Support was added in v2.0.0
 * CRI-O: Support was added in v1.28.0
-
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
-for more details.

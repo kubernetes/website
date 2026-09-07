@@ -275,11 +275,11 @@ clients that access it.
    You can use [Storage Plugins](#storage-plugins) to add support for new kinds
    of storage and other volume types.
 -->
-6. Kubelet 运行在各个服务器（节点）上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。
+6. kubelet 运行在各个服务器（节点）上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。
    [网络插件](#network-plugins)使得 Kubernetes 能够采用不同实现技术来连接 Pod 网络。
 
 7. 你可以使用[设备插件](#device-plugins)集成定制硬件或其他专用的节点本地设施，
-   使得这些设施可用于集群中运行的 Pod。Kubelet 包括了对使用设备插件的支持。
+   使得这些设施可用于集群中运行的 Pod。kubelet 包括了对使用设备插件的支持。
 
    kubelet 也会为 Pod 及其容器增加或解除{{< glossary_tooltip text="卷" term_id="volume" >}}的挂载。
    你可以使用[存储插件](#storage-plugins)增加对新存储类别和其他卷类型的支持。
@@ -518,7 +518,7 @@ you run a Pod that relies on FlexVolume storage, the kubelet calls a binary plug
 The archived [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 design proposal has more detail on this approach.
 
-The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 includes general information on storage plugins.
 -->
 FlexVolume 插件允许用户挂载 Kubernetes 本身不支持的卷类型。
@@ -526,7 +526,7 @@ FlexVolume 插件允许用户挂载 Kubernetes 本身不支持的卷类型。
 归档的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 设计提案对此方法有更多详细说明。
 
-[Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+[Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 包含了有关存储插件的通用信息。
 
 <!--
@@ -561,10 +561,10 @@ authentication methods and protocols.
 For plugin configuration details, see
 [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/).
 -->
-### Kubelet 镜像凭据提供程序插件   {#kubelet-image-credential-provider-plugins}
+### kubelet 镜像凭据提供程序插件   {#kubelet-image-credential-provider-plugins}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
-Kubelet 镜像凭据提供程序是 Kubelet 动态检索镜像仓库凭据的插件。
+kubelet 镜像凭据提供程序是 kubelet 动态检索镜像仓库凭据的插件。
 当你从与配置匹配的容器镜像仓库中拉取镜像时，这些凭据将被使用。
 
 这些插件可以与外部服务通信或使用本地文件来获取凭据。这样，kubelet

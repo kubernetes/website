@@ -1,5 +1,5 @@
 ---
-title: 命令行工具 (kubectl)
+title: 命令行工具（kubectl）
 content_type: reference
 weight: 110
 no_list: true
@@ -18,26 +18,26 @@ card:
   title: kubectl command line tool
   weight: 20
 -->
+
 <!-- overview -->
 
 {{< glossary_definition prepend="Kubernetes 提供" term_id="kubectl" length="short" >}}
 
 <!--
 This tool is named `kubectl`.
--->
-这个工具叫做 `kubectl`。
 
-<!--
 For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 files by setting the `KUBECONFIG` environment variable or by setting the
 [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
+这个工具叫做 `kubectl`。
 
 针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
 你可以通过设置 `KUBECONFIG` 环境变量或设置
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+参数来指定其它
+[kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
@@ -49,7 +49,7 @@ For details about each command, including all the supported flags and subcommand
 请参阅 [kubectl](/zh-cn/docs/reference/kubectl/generated/kubectl/) 参考文档。
 
 <!--
-For a overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
+For an overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
@@ -129,18 +129,19 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
       since YAML tends to be more user-friendly, especially for configuration files.<br/>
       Example: `kubectl get -f ./pod.yaml`
 -->
- * 要按类型和名称指定资源：
+  
+  * 要按类型和名称指定资源：
 
-  * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
-    例子：`kubectl get pod example-pod1 example-pod2`
+    * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
+      例子：`kubectl get pod example-pod1 example-pod2`
 
-  * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
-    例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
+    * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
+      例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
- * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
+  * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
 
-  * 使用 YAML 而不是 JSON 因为 YAML 对用户更友好, 特别是对于配置文件。<br/>
-    例子：`kubectl get -f ./pod.yaml`
+    * 使用 YAML 而不是 JSON 因为 YAML 对用户更友好, 特别是对于配置文件。<br/>
+      例子：`kubectl get -f ./pod.yaml`
 
 <!--
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags
@@ -251,12 +252,11 @@ kubectl config set-context --current --namespace=<namespace-name>
 
 <!--
 ## Operations
+  
+The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
 -->
 ## 操作   {#operations}
 
-<!--
-The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
--->
 下表包含所有 `kubectl` 操作的简短描述和普通语法：
 
 <!--
@@ -362,12 +362,11 @@ To learn more about command operations, see the [kubectl](/docs/reference/kubect
 
 <!--
 ## Resource types
+  
+The following table includes a list of all the supported resource types and their abbreviated aliases.
 -->
 ## 资源类型   {#resource-types}
 
-<!--
-The following table includes a list of all the supported resource types and their abbreviated aliases.
--->
 下表列出所有受支持的资源类型及其缩写别名。
 
 <!--
@@ -440,27 +439,25 @@ The following table includes a list of all the supported resource types and thei
 
 <!--
 ## Output options
--->
-## 输出选项   {#output-options}
-
-<!--
+  
 Use the following sections for information about how you can format or sort the output
 of certain commands. For details about which commands support the various output options,
 see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
+## 输出选项   {#output-options}
+  
 有关如何格式化或排序某些命令的输出的信息，请参阅以下章节。有关哪些命令支持不同输出选项的详细信息，
 请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ### Formatting output
--->
-### 格式化输出   {#formatting-output}
-
-<!--
+  
 The default output format for all `kubectl` commands is the human readable plain-text format.
 To output details to your terminal window in a specific format, you can add either the `-o`
 or `--output` flags to a supported `kubectl` command.
 -->
+### 格式化输出   {#formatting-output}
+  
 所有 `kubectl` 命令的默认输出格式都是人类可读的纯文本格式。要以特定格式在终端窗口输出详细信息，
 可以将 `-o` 或 `--output` 参数添加到受支持的 `kubectl` 命令中。
 
@@ -505,17 +502,17 @@ Output format | Description
 
 <!--
 ##### Example
+
+In this example, the following command outputs the details for a single pod as a YAML formatted object:
 -->
 ##### 示例
 
-<!--
-In this example, the following command outputs the details for a single pod as a YAML formatted object:
--->
 在此示例中，以下命令将单个 Pod 的详细信息输出为 YAML 格式的对象：
 
 ```shell
 kubectl get pod web-pod-13je7 -o yaml
 ```
+
 <!--
 Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation
 for details about which output format is supported by each command.
@@ -525,25 +522,23 @@ for details about which output format is supported by each command.
 
 <!--
 #### Custom columns
--->
-#### 自定义列   {#custom-columns}
-
-<!--
+  
 To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option.
 You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 -->
+#### 自定义列   {#custom-columns}
+  
 要定义自定义列并仅将所需的详细信息输出到表中，可以使用 `custom-columns` 选项。
 你可以选择内联定义自定义列或使用模板文件：`-o custom-columns=<spec>` 或
 `-o custom-columns-file=<filename>`。
 
 <!--
 ##### Examples
+  
+Inline:
 -->
 ##### 示例
 
-<!--
-Inline:
--->
 内联：
 
 ```shell
@@ -581,14 +576,13 @@ submit-queue   610995
 
 <!--
 #### Server-side columns
--->
-#### Server-side 列
 
-<!--
 `kubectl` supports receiving specific column information from the server about objects.
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 -->
+#### Server-side 列
+
 `kubectl` 支持从服务器接收关于对象的特定列信息。
 这意味着对于任何给定的资源，服务器将返回与该资源相关的列和行，以便客户端打印。
 通过让服务器封装打印的细节，这允许在针对同一集群使用的客户端之间提供一致的人类可读输出。
@@ -597,17 +591,16 @@ This allows for consistent human-readable output across clients used against the
 This feature is enabled by default. To disable it, add the
 `--server-print=false` flag to the `kubectl get` command.
 -->
-此功能默认启用。要禁用它，请将该 `--server-print=false` 参数添加到
+此特性默认启用。要禁用它，请将该 `--server-print=false` 参数添加到
 `kubectl get` 命令中。
 
 <!--
 ##### Examples
+
+To print information about the status of a pod, use a command like the following:
 -->
 ##### 例子
 
-<!--
-To print information about the status of a pod, use a command like the following:
--->
 要打印有关 Pod 状态的信息，请使用如下命令：
 
 ```shell
@@ -626,14 +619,13 @@ pod-name   1m
 
 <!--
 ### Sorting list objects
--->
-### 排序列表对象
-
-<!--
+  
 To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag
 to a supported `kubectl` command. Sort your objects by specifying any numeric or string field
 with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 -->
+### 排序列表对象
+  
 要将对象排序后输出到终端窗口，可以将 `--sort-by` 参数添加到支持的 `kubectl` 命令。
 通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。
 要指定字段，请使用 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式。
@@ -649,12 +641,11 @@ kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
 
 <!--
 ##### Example
+  
+To print a list of pods sorted by name, you run:
 -->
 ##### 示例
 
-<!--
-To print a list of pods sorted by name, you run:
--->
 要打印按名称排序的 Pod 列表，请运行：
 
 ```shell
@@ -663,12 +654,11 @@ kubectl get pods --sort-by=.metadata.name
 
 <!--
 ## Examples: Common operations
+
+Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 -->
 ## 示例：常用操作
 
-<!--
-Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
--->
 使用以下示例集来帮助你熟悉运行常用 `kubectl` 操作：
 
 <!--

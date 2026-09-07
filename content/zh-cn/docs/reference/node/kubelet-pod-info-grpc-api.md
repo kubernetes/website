@@ -4,7 +4,7 @@ title: Kubelet Pod Info gRPC API
 weight: 20
 ---
 
-{{< feature-state feature_gate_name="PodInfoAPI" >}}
+{{< feature-state feature_gate_name="PodsAPI" >}}
 
 <!--
 The Kubelet Pod Info gRPC API provides a way for node-local components to query information about pods running on the node directly from the kubelet. This increases reliability by removing the dependency on the Kubernetes API server for node-local information and reduces load on the control plane.

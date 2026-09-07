@@ -60,7 +60,7 @@ and a "cat-pictures-writer" Deployment that uses this PersistentVolumeClaim.
 {{< note >}}
 If your storage plugin supports
 [Dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/),
-the "cat-picutres-pv" will be created for you, but its name may differ. To get
+the "cat-pictures-pv" will be created for you, but its name may differ. To get
 your PersistentVolume's name run:
 
 ```shell

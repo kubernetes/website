@@ -45,11 +45,15 @@ CSINode holds information about all CSI drivers installed on a node. CSI drivers
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. metadata.name must be the Kubernetes node name.</td>
+      <td>metadata is the standard object metadata. metadata.name must be the Kubernetes node name.</td>
     </tr>
     <tr>
       <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#CSINodeSpec" >}}">CSINodeSpec</a></em></td>
       <td>spec is the specification of CSINode</td>
+    </tr>
+    <tr>
+      <td><code>status</code><br/><em><a href="{{< ref "#CSINodeStatus" >}}">CSINodeStatus</a></em></td>
+      <td>status contains health and status information for the node's storage.</td>
     </tr>
   </tbody>
 </table>
@@ -67,6 +71,23 @@ CSINodeSpec holds information about the specification of all CSI drivers install
     <tr>
       <td><code>drivers</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#CSINodeDriver" >}}">CSINodeDriver array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
       <td>drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## CSINodeStatus {#CSINodeStatus}
+
+CSINodeStatus contains health and status information for storage on a node.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>storageHealth</code><br/><em><a href="{{< ref "#StorageHealth" >}}">StorageHealth array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
+      <td>storageHealth contains backend health reports for CSI drivers registered on the node.</td>
     </tr>
   </tbody>
 </table>
@@ -125,6 +146,64 @@ CSINodeDriver holds information about the specification of one CSI driver instal
     <tr>
       <td><code>topologyKeys</code><br/><em>string array</em></td>
       <td>topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## StorageHealth {#StorageHealth}
+
+StorageHealth contains storage backend health reported by a CSI driver on a node.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>healthConditions</code><br/><em><a href="{{< ref "#StorageHealthCondition" >}}">StorageHealthCondition array</a></em></td>
+      <td>healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.</td>
+    </tr>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name is the CSI driver name, matching CSINodeDriver.name.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## StorageHealthCondition {#StorageHealthCondition}
+
+StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>accessMode</code><br/><em>string</em></td>
+      <td>accessMode is the access mode affected. Nil means all access modes are affected.<br/><br/>Possible enum values:<br/> - `"ReadOnlyMany"` can be mounted in read-only mode to many hosts<br/> - `"ReadWriteMany"` can be mounted in read/write mode to many hosts<br/> - `"ReadWriteOnce"` can be mounted in read/write mode to exactly 1 host<br/> - `"ReadWriteOncePod"` can be mounted in read/write mode to exactly 1 pod cannot be used in combination with other access modes</td>
+    </tr>
+    <tr>
+      <td><code>lastTransitionTime</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>lastTransitionTime is when this condition first appeared at its current state.</td>
+    </tr>
+    <tr>
+      <td><code>message</code><br/><em>string</em></td>
+      <td>message is a human-readable description. Maximum permitted length of a message is 1024 characters.</td>
+    </tr>
+    <tr>
+      <td><code>reason</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.</td>
+    </tr>
+    <tr>
+      <td><code>status</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>status is the health status category. One of "StorageUnreachable", "StorageDegraded".<br/><br/>Possible enum values:<br/> - `"StorageDegraded"` indicates the storage backend is functioning with reduced capability.<br/> - `"StorageUnreachable"` indicates the storage backend is unreachable.</td>
+    </tr>
+    <tr>
+      <td><code>volumeMode</code><br/><em>string</em></td>
+      <td>volumeMode is the volume mode affected. Nil means both are affected.<br/><br/>Possible enum values:<br/> - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.<br/> - `"Filesystem"` means the volume will be or is formatted with a filesystem.</td>
     </tr>
   </tbody>
 </table>
@@ -949,6 +1028,229 @@ GET /apis/storage.k8s.io/v1/watch/csinodes
     </tr>
   </tbody>
 </table>
+
+
+### `patch` Patch Status
+
+#### HTTP Request
+
+PATCH /apis/storage.k8s.io/v1/csinodes/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the CSINode</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+    <tr>
+      <td><code>force</code></td>
+      <td><em>boolean</em></td>
+      <td>Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "../definitions/patch-v1-meta#Patch" >}}">Patch</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `get` Read Status
+
+#### HTTP Request
+
+GET /apis/storage.k8s.io/v1/csinodes/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the CSINode</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### `put` Replace Status
+
+#### HTTP Request
+
+PUT /apis/storage.k8s.io/v1/csinodes/{name}/status
+
+
+#### Path Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><em>string</em></td>
+      <td>name of the CSINode</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Query Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>pretty</code></td>
+      <td><em>string</em></td>
+      <td>If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).</td>
+    </tr>
+    <tr>
+      <td><code>dryRun</code></td>
+      <td><em>string</em></td>
+      <td>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</td>
+    </tr>
+    <tr>
+      <td><code>fieldManager</code></td>
+      <td><em>string</em></td>
+      <td>fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.</td>
+    </tr>
+    <tr>
+      <td><code>fieldValidation</code></td>
+      <td><em>string</em></td>
+      <td>fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Body Parameters
+
+<table>
+  <thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>body</code></td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+#### Response
+
+<table>
+  <thead><tr><th>Status</th><th>Description</th><th>Response</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td><em><a href="{{< ref "csi-node-v1#CSINode" >}}">CSINode</a></em></td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 
 

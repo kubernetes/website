@@ -20,13 +20,13 @@ SIG Docs meeting, and attend the meeting to participate in the discussion.
 
 <!-- body -->
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Kubernetes documentation uses
 [Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
 with some adjustments along with a few
 [Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support
 glossary entries, tabs, and representing feature state.
-{{< /note >}}
+{{< /alert >}}
 
 ## Language
 
@@ -147,11 +147,11 @@ Use meaningful variable names that have a context. | Use variable names such as 
 Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
 {{< /table >}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The website supports syntax highlighting for code samples, but specifying a language
 is optional. Syntax highlighting in the code block should conform to the
 [contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
-{{< /note >}}
+{{< /alert >}}
 
 ### Use code style for object field names and namespaces
 
@@ -356,54 +356,59 @@ open source | Open source or open source as appropriate for sentence structure r
 ## Shortcodes
 
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
-different rhetorical appeal levels. Our documentation supports three different
-shortcodes in this category: **Note** `{{</* note */>}}`,
-**Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
+different rhetorical appeal levels. Our documentation supports three variants of
+the Docsy [`alert`](https://www.docsy.dev/docs/adding-content/shortcodes/#alert)
+shortcode in this category: **Note**, **Caution**, and **Warning**.
 
-1. Surround the text with an opening and closing shortcode.
+1. Surround the text with an opening and closing `alert` shortcode, choosing the
+   `color` and `title` attributes for the variant you need.
 
 2. Use the following syntax to apply a style:
 
    ```none
-   {{</* note */>}}
-   No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
-   {{</* /note */>}}
+   {{</* alert color="info" title="Note" */>}}
+   The shortcode renders the title as a heading, so do not repeat it inside the body.
+   {{</* /alert */>}}
    ```
 
    The output is:
 
-   {{< note >}}
-   The prefix you choose is the same text for the tag.
-   {{< /note >}}
+   {{< alert color="info" title="Note" >}}
+   The shortcode renders the title as a heading, so do not repeat it inside the body.
+   {{< /alert >}}
+
+Many existing pages still use the legacy `{{</* note */>}}`, `{{</* caution */>}}`,
+and `{{</* warning */>}}` shortcodes. These still work — prefer the `alert`
+shortcode for new content and when editing existing pages.
 
 ### Note
 
-Use `{{</* note */>}}` to highlight a tip or a piece of information that may be helpful to know.
+Use `{{</* alert color="info" title="Note" */>}}` to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
 
 ```
-{{</* note */>}}
+{{</* alert color="info" title="Note" */>}}
 You can _still_ use Markdown inside these callouts.
-{{</* /note */>}}
+{{</* /alert */>}}
 ```
 
 The output is:
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 You can _still_ use Markdown inside these callouts.
-{{< /note >}}
+{{< /alert >}}
 
-You can use a `{{</* note */>}}` in a list:
+You can use an `alert` shortcode in a list:
 
 ```
-1. Use the note shortcode in a list
+1. Use the alert shortcode in a list
 
 1. A second item with an embedded note
 
-   {{</* note */>}}
+   {{</* alert color="info" title="Note" */>}}
    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
-   {{</* /note */>}}
+   {{</* /alert */>}}
 
 1. A third item in a list
 
@@ -412,13 +417,13 @@ You can use a `{{</* note */>}}` in a list:
 
 The output is:
 
-1. Use the note shortcode in a list
+1. Use the alert shortcode in a list
 
 1. A second item with an embedded note
 
-    {{< note >}}
+    {{< alert color="info" title="Note" >}}
     Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
-    {{< /note >}}
+    {{< /alert >}}
 
 1. A third item in a list
 
@@ -426,39 +431,39 @@ The output is:
 
 ### Caution
 
-Use `{{</* caution */>}}` to call attention to an important piece of information to avoid pitfalls.
+Use `{{</* alert color="caution" title="Caution" */>}}` to call attention to an important piece of information to avoid pitfalls.
 
 For example:
 
 ```
-{{</* caution */>}}
+{{</* alert color="caution" title="Caution" */>}}
 The callout style only applies to the line directly above the tag.
-{{</* /caution */>}}
+{{</* /alert */>}}
 ```
 
 The output is:
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 The callout style only applies to the line directly above the tag.
-{{< /caution >}}
+{{< /alert >}}
 
 ### Warning
 
-Use `{{</* warning */>}}` to indicate danger or a piece of information that is crucial to follow.
+Use `{{</* alert color="danger" title="Warning" */>}}` to indicate danger or a piece of information that is crucial to follow.
 
 For example:
 
 ```
-{{</* warning */>}}
+{{</* alert color="danger" title="Warning" */>}}
 Beware.
-{{</* /warning */>}}
+{{</* /alert */>}}
 ```
 
 The output is:
 
-{{< warning >}}
+{{< alert color="danger" title="Warning" >}}
 Beware.
-{{< /warning >}}
+{{< /alert >}}
 
 ## Common Shortcode Issues
 
@@ -471,7 +476,7 @@ For example:
     1. Preheat oven to 350˚F
 
     1. Prepare the batter, and pour into springform pan.
-       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
+       {{</* alert color="info" title="Note" */>}}Grease the pan for best results.{{</* /alert */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -481,7 +486,7 @@ The output is:
 
 1. Prepare the batter, and pour into springform pan.
 
-   {{< note >}}Grease the pan for best results.{{< /note >}}
+   {{< alert color="info" title="Note" >}}Grease the pan for best results.{{< /alert >}}
 
 1. Bake for 20-25 minutes or until set.
 
@@ -491,9 +496,9 @@ Shortcodes inside include statements will break the build. You must insert them
 in the parent document, before and after you call the include. For example:
 
 ```
-{{</* note */>}}
+{{</* alert color="info" title="Note" */>}}
 {{</* include "task-tutorial-prereqs.md" */>}}
-{{</* /note */>}}
+{{</* /alert */>}}
 ```
 
 ## Markdown elements
@@ -565,10 +570,10 @@ marked up as list items; after all they are nothing but a group of related links
 - End each item in a list with a period if one or more items in the list are complete
   sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 
-  {{< note >}}
+  {{< alert color="info" title="Note" >}}
   Ordered lists that are part of an incomplete introductory sentence can be in lowercase
   and punctuated as if each item was a part of the introductory sentence.
-  {{< /note >}}
+  {{< /alert >}}
 
 - Use the number one (`1.`) for ordered lists.
 

@@ -15,6 +15,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.29"
+    toVersion: "1.36"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 Enable the kubelet to mark the [PodReadyToStartContainers](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.
 

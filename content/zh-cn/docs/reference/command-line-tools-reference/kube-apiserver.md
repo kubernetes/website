@@ -44,7 +44,7 @@ kube-apiserver [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. The order of plugins in which they are passed to this flag does not matter. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, JobValidation, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodGroupProtection, PodGroupWorkloadExists, PodNodeSelector, PodResizeValidator, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. (DEPRECATED: Use --enable-admission-plugins or --disable-admission-plugins instead. Will be removed in a future version.)
+Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. The order of plugins in which they are passed to this flag does not matter. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodGroupProtection, PodNodeSelector, PodResizeValidator, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. (DEPRECATED: Use --enable-admission-plugins or --disable-admission-plugins instead. Will be removed in a future version.)
 -->
 准入过程分为两个阶段。第一阶段仅运行变更型准入插件。第二阶段仅运行验证型准入插件。
 以下列表中的名称可能代表验证型插件、变更型插件或两者兼有。
@@ -53,10 +53,9 @@ AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
 CertificateSigning、CertificateSubjectRestriction、
 ClusterTrustBundleAttest、DefaultIngressClass、DefaultStorageClass、
 DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
-ExtendedResourceToleration、ImagePolicyWebhook、JobValidation、LimitPodHardAntiAffinityTopology、
+ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、
 LimitRanger、MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、
-NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PodGroupProtection、
-PodGroupWorkloadExists、PodNodeSelector、PodResizeValidator、PodSecurity、PodTolerationRestriction、
+NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PodGroupProtection、PodNodeSelector、PodResizeValidator、PodSecurity、PodTolerationRestriction、
 PodTopologyLabels、Priority、ResourceQuota、RuntimeClass、ServiceAccount、StorageObjectInUseProtection、
 TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
 （已弃用：请改用 <code>--enable-admission-plugins</code> 或 <code>--disable-admission-plugins</code>。将在未来版本中移除。）
@@ -607,12 +606,11 @@ API group and version used for serializing audit events written to webhook.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-File with Authentication Configuration to configure the JWT Token authenticator or the anonymous authenticator. Requires the StructuredAuthenticationConfiguration feature gate. This flag is mutually exclusive with the --oidc-* flags if the file configures the JWT Token authenticator. This flag is mutually exclusive with --anonymous-auth if the file configures the Anonymous authenticator.
+File with Authentication Configuration to configure the JWT Token authenticator or the anonymous authenticator. This flag is mutually exclusive with the --oidc-* flags if the file configures the JWT Token authenticator. This flag is mutually exclusive with --anonymous-auth if the file configures the Anonymous authenticator.
 -->
 用于配置 JWT 令牌身份认证模块或匿名身份认证模块的身份认证配置文件。
-你需要启用 <code>StructuredAuthenticationConfiguration</code> 特性门控。
-如果在配置文件中配置了 JWT 令牌认证模块，此标志与 <code>oidc-*</code> 标志互斥。
-如果在配置文件中配置了匿名身份认证模块，此标志与 <code>--anonymous-auth</code> 标志互斥。
+如果该文件配置的是 JWT Token 身份验证器（Authenticator），则此标志与 <code>--oidc-*</code> 系列标志互斥。
+如果该文件配置的是 Anonymous 身份验证器，则此标志与 <code>--anonymous-auth</code> 标志互斥。
 </p></td>
 </tr>
 
@@ -920,23 +918,28 @@ Number of workers spawned for DeleteCollection call. These are used to speed up 
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, NodeDeclaredFeatureValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PodGroupProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, NodeDeclaredFeatureValidator, PodResizeValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodGroupProtection, PodNodeSelector, PodResizeValidator, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
-尽管位于默认启用的插件列表中，仍须被禁用的准入插件（NamespaceLifecycle、LimitRanger、ServiceAccount、
-TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、
-StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、
-CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、DefaultIngressClass、
-PodTopologyLabels、NodeDeclaredFeatureValidator、MutatingAdmissionPolicy、MutatingAdmissionWebhook、
-ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）。
-取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
-CertificateSigning、CertificateSubjectRestriction、ClusterTrustBundleAttest、DefaultIngressClass、
-DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
-ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、
-MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、
-NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、OwnerReferencesPermissionEnforcement、
-PersistentVolumeClaimResize、PodNodeSelector、PodSecurity、PodTolerationRestriction、PodTopologyLabels、
-Priority、ResourceQuota、RuntimeClass、ServiceAccount、StorageObjectInUseProtection、
-TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+尽管位于默认启用的插件列表中，仍须被禁用的准入插件（NamespaceLifecycle、
+LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、
+Priority、DefaultTolerationSeconds、DefaultStorageClass、
+StorageObjectInUseProtection、PodGroupProtection、PersistentVolumeClaimResize、
+RuntimeClass、CertificateApproval、CertificateSigning、ClusterTrustBundleAttest、
+CertificateSubjectRestriction、DefaultIngressClass、PodTopologyLabels、
+NodeDeclaredFeatureValidator、PodResizeValidator、MutatingAdmissionPolicy、
+MutatingAdmissionWebhook、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）。
+取值为逗号分隔的准入插件列表：AlwaysAdmitAlwaysDeny、AlwaysPullImages、
+CertificateApproval、CertificateSigning、CertificateSubjectRestriction、
+ClusterTrustBundleAttest、DefaultIngressClass、DefaultStorageClass、
+DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
+ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、
+LimitRanger、MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、
+NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、
+NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、
+PodGroupProtection、PodNodeSelector、PodResizeValidator、PodSecurity、
+PodTolerationRestriction、PodTopologyLabels、Priority、ResourceQuota、RuntimeClass、
+ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、
+ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
 该标志中插件的顺序无关紧要。
 </p>
 </td>
@@ -986,12 +989,12 @@ File with apiserver egress selector configuration.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.33..1.36(default:1.36)<br/>If the component is not specified, defaults to &quot;kube&quot;
+The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.34..1.37(default:1.37)<br/>If the component is not specified, defaults to &quot;kube&quot;
 -->
 不同组件所模拟的能力（API、特性等）的版本。<br/>
 如果设置了该选项，组件将模拟此版本的行为，而不是下层可执行文件版本的行为。<br/>
 版本格式只能是 major.minor，例如 “--emulated-version=wardle=1.2,kube=1.31”。<br/>
-选项包括：kube=1.33..1.36（默认值：1.36）<br/>
+选项包括：kube=1.34..1.37（默认值：1.37）<br/>
 如果组件未被指定，默认为 “kube”。
 </p></td>
 </tr>
@@ -1019,26 +1022,27 @@ If true, for any beta+ APIs enabled by default or by --runtime-config at the emu
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PodGroupProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, PodGroupWorkloadExists, NodeDeclaredFeatureValidator, JobValidation, PodResizeValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, JobValidation, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodGroupProtection, PodGroupWorkloadExists, PodNodeSelector, PodResizeValidator, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PodGroupProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, NodeDeclaredFeatureValidator, PodResizeValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodGroupProtection, PodNodeSelector, PodResizeValidator, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
-除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、
-PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、
-StorageObjectInUseProtection、PodGroupProtection、PersistentVolumeClaimResize、RuntimeClass、
-CertificateApproval、CertificateSigning、ClusterTrustBundleAttest、
-CertificateSubjectRestriction、DefaultIngressClass、PodTopologyLabels、
-PodGroupWorkloadExists、NodeDeclaredFeatureValidator、JobValidation、
-PodResizeValidator、MutatingAdmissionPolicy、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、
-ValidatingAdmissionWebhook、ResourceQuota）之外要启用的准入插件。
-取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
-CertificateSigning、CertificateSubjectRestriction、ClusterTrustBundleAttest、
-DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、
-EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、JobValidation、LimitPodHardAntiAffinityTopology、
+除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、
+TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、
+DefaultStorageClass、StorageObjectInUseProtection、PodGroupProtection、
+PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、
+CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、
+DefaultIngressClass、PodTopologyLabels、NodeDeclaredFeatureValidator、
+PodResizeValidator、MutatingAdmissionPolicy、MutatingAdmissionWebhook、
+ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）之外要启用的准入插件。
+取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、
+CertificateApproval、CertificateSigning、CertificateSubjectRestriction、
+ClusterTrustBundleAttest、DefaultIngressClass、DefaultStorageClass、
+DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
+ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、
 LimitRanger、MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、
 NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、
 OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PodGroupProtection、
-PodGroupWorkloadExists、PodNodeSelector、PodResizeValidator、PodSecurity、PodTolerationRestriction、
-PodTopologyLabels、Priority、ResourceQuota、RuntimeClass、ServiceAccount、StorageObjectInUseProtection、
-TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+PodNodeSelector、PodResizeValidator、PodSecurity、PodTolerationRestriction、
+PodTopologyLabels、Priority、ResourceQuota、RuntimeClass、ServiceAccount、
+StorageObjectInUseProtection、TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
 该标志中插件的顺序无关紧要。
 </p>
 </td>
@@ -1089,10 +1093,9 @@ Enables the generic garbage collector. MUST be synced with the corresponding fla
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-If true, install a /logs handler for the apiserver logs. (DEPRECATED: Log handler functionality is deprecated)
+If true, install a /logs handler for the apiserver logs.
 -->
 如果为真，则为 API 服务器日志安装 /logs 处理程序。
-（已弃用：日志处理程序功能已弃用）
 </p></td>
 </tr>
 
@@ -1341,12 +1344,14 @@ Comma-separated list of component:key=value pairs that describe feature gates fo
 If the component is not specified, defaults to &quot;kube&quot;. This flag can be repeatedly invoked. For example: --feature-gates 'wardle:featureA=true,wardle:featureB=false' --feature-gates 'kube:featureC=true'Options are:<br/>
 kube:APIResponseCompression=true|false (BETA - default=true)<br/>
 kube:APIServerIdentity=true|false (BETA - default=true)<br/>
+kube:APIServerWebhookAuthenticationToken=true|false (ALPHA - default=false)<br/>
 kube:APIServingWithRoutine=true|false (ALPHA - default=false)<br/>
 kube:AllAlpha=true|false (ALPHA - default=false)<br/>
 kube:AllBeta=true|false (BETA - default=false)<br/>
 kube:AllowParsingUserUIDFromCertAuth=true|false (BETA - default=true)<br/>
-kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - default=false)<br/>
+kube:AllowUnsafeMalformedObjectDeletion=true|false (BETA - default=true)<br/>
 kube:AtomicFIFO=true|false (BETA - default=true)<br/>
+kube:AtomicWriteVolumeUserFields=true|false (ALPHA - default=false)<br/>
 kube:AuthorizePodWebsocketUpgradeCreatePermission=true|false (BETA - default=true)<br/>
 kube:CBORServingAndStorage=true|false (ALPHA - default=false)<br/>
 kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
@@ -1361,11 +1366,11 @@ kube:ClientsAllowTLSCacheGC=true|false (BETA - default=true)<br/>
 kube:ClientsPreferCBOR=true|false (ALPHA - default=false)<br/>
 kube:CloudControllerManagerWatchBasedRoutesReconciliation=true|false (ALPHA - default=false)<br/>
 kube:CloudControllerManagerWebhook=true|false (ALPHA - default=false)<br/>
-kube:ClusterTrustBundle=true|false (BETA - default=false)<br/>
-kube:ClusterTrustBundleProjection=true|false (BETA - default=false)<br/>
 kube:ComponentFlagz=true|false (BETA - default=true)<br/>
 kube:ComponentStatusz=true|false (BETA - default=true)<br/>
-kube:ConcurrentWatchObjectDecode=true|false (BETA - default=false)<br/>
+kube:CompositePodGroup=true|false (ALPHA - default=false)<br/>
+kube:ConcurrentWatchObjectDecode=true|false (BETA - default=true)<br/>
+kube:ConsistentListFromCacheSkipTimeoutFallback=true|false (ALPHA - default=false)<br/>
 kube:ConstrainedImpersonation=true|false (BETA - default=true)<br/>
 kube:ContainerCheckpoint=true|false (BETA - default=true)<br/>
 kube:ContainerRestartRules=true|false (BETA - default=true)<br/>
@@ -1375,75 +1380,87 @@ kube:ControllerManagerReleaseLeaderElectionLockOnExit=true|false (ALPHA - defaul
 kube:CoordinatedLeaderElection=true|false (BETA - default=false)<br/>
 kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 kube:DRAConsumableCapacity=true|false (BETA - default=true)<br/>
+kube:DRADerivedAttributes=true|false (ALPHA - default=false)<br/>
 kube:DRADeviceBindingConditions=true|false (BETA - default=true)<br/>
-kube:DRADeviceTaintRules=true|false (BETA - default=false)<br/>
-kube:DRADeviceTaints=true|false (BETA - default=true)<br/>
-kube:DRAExtendedResource=true|false (BETA - default=true)<br/>
+kube:DRADeviceCompatibilityGroups=true|false (ALPHA - default=false)<br/>
+kube:DRAFractionalCapacityRange=true|false (BETA - default=false), or DRAFractionalCapacityRange=true|false (BETA - default=true) if --min-compatibility-version&gt;=1.37<br/>
 kube:DRAListTypeAttributes=true|false (ALPHA - default=false)<br/>
 kube:DRANodeAllocatableResources=true|false (ALPHA - default=false)<br/>
+kube:DRAOptionalNodeOperations=true|false (ALPHA - default=false)<br/>
 kube:DRAPartitionableDevices=true|false (BETA - default=true)<br/>
-kube:DRAResourceClaimDeviceStatus=true|false (BETA - default=true)<br/>
+kube:DRAPartitionableDevicesType=true|false (ALPHA - default=false)<br/>
 kube:DRAResourceClaimGranularStatusAuthorization=true|false (BETA - default=true)<br/>
 kube:DRAResourcePoolStatus=true|false (ALPHA - default=false)<br/>
 kube:DRASchedulerFilterTimeout=true|false (BETA - default=true)<br/>
-kube:DRAWorkloadResourceClaims=true|false (ALPHA - default=false)<br/>
+kube:DRAWorkloadResourceClaims=true|false (BETA - default=false)<br/>
 kube:DeclarativeValidationBeta=true|false (BETA - default=true)<br/>
+kube:DefaultPodSysctls=true|false (ALPHA - default=false)<br/>
 kube:DeploymentReplicaSetTerminatingReplicas=true|false (BETA - default=true)<br/>
 kube:DetectCacheInconsistency=true|false (BETA - default=true)<br/>
+kube:EmptyDirVolumeMode=true|false (ALPHA - default=false)<br/>
 kube:EnvFiles=true|false (BETA - default=true)<br/>
+kube:EtcdRangeStream=true|false (BETA - default=true)<br/>
 kube:EventedPLEG=true|false (ALPHA - default=false)<br/>
+kube:EvictionRequestAPI=true|false (ALPHA - default=false)<br/>
+kube:ExcludeAdmissionWebhookVirtualResources=true|false (BETA - default=true)<br/>
 kube:ExtendWebSocketsToKubelet=true|false (BETA - default=true)<br/>
-kube:GangScheduling=true|false (ALPHA - default=false)<br/>
-kube:GenericWorkload=true|false (ALPHA - default=false)<br/>
+kube:GRPCContainerProbeTLS=true|false (ALPHA - default=false)<br/>
+kube:GenericWorkload=true|false (BETA - default=false)<br/>
 kube:GracefulNodeShutdown=true|false (BETA - default=true)<br/>
 kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
-kube:HPAConfigurableTolerance=true|false (BETA - default=true)<br/>
-kube:HPAScaleToZero=true|false (ALPHA - default=false)<br/>
-kube:HostnameOverride=true|false (BETA - default=true)<br/>
+kube:H2CContainerProbe=true|false (ALPHA - default=false)<br/>
+kube:HPAGeneration=true|false (BETA - default=true)<br/>
+kube:HPAOptimizedSelectorStore=true|false (BETA - default=true)<br/>
+kube:HPAScaleToZero=true|false (BETA - default=true)<br/>
+kube:HugepageAwareEviction=true|false (BETA - default=true)<br/>
 kube:ImageVolumeWithDigest=true|false (ALPHA - default=false)<br/>
 kube:InOrderInformersBatchProcess=true|false (BETA - default=true)<br/>
 kube:InPlacePodLevelResourcesVerticalScaling=true|false (BETA - default=true)<br/>
 kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - default=false)<br/>
 kube:InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - default=false)<br/>
-kube:InPlacePodVerticalScalingInitContainers=true|false (BETA - default=true)<br/>
+kube:InPlacePodVerticalScalingMemoryBackedVolumes=true|false (ALPHA - default=false)<br/>
+kube:InPlacePodVerticalScalingSchedulerPreemption=true|false (ALPHA - default=false)<br/>
+kube:InterPodAffinityHostnameFastPath=true|false (ALPHA - default=false)<br/>
+kube:KubeProxyNFTablesLocalhostNodePorts=true|false (ALPHA - default=false)<br/>
+kube:KubeletAllocatedPodsEndpoint=true|false (ALPHA - default=false)<br/>
 kube:KubeletCrashLoopBackOffMax=true|false (BETA - default=true)<br/>
 kube:KubeletEnsureSecretPulledImages=true|false (BETA - default=true)<br/>
-kube:KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
+kube:KubeletInUserNamespace=true|false (BETA - default=true)<br/>
 kube:KubeletSeparateDiskGC=true|false (BETA - default=true)<br/>
 kube:KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - default=true)<br/>
 kube:ListFromCacheSnapshot=true|false (BETA - default=true)<br/>
 kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - default=false)<br/>
 kube:LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
 kube:LoggingBetaOptions=true|false (BETA - default=true)<br/>
-kube:ManifestBasedAdmissionControlConfig=true|false (ALPHA - default=false)<br/>
+kube:ManifestBasedAdmissionControlConfig=true|false (BETA - default=true)<br/>
 kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 kube:MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - default=true)<br/>
-kube:MaxUnavailableStatefulSet=true|false (BETA - default=false)<br/>
-kube:MemoryQoS=true|false (ALPHA - default=false)<br/>
+kube:MaxUnavailableStatefulSet=true|false (BETA - default=true)<br/>
+kube:MemoryQoS=true|false (BETA - default=true)<br/>
 kube:MutablePVNodeAffinity=true|false (ALPHA - default=false)<br/>
 kube:MutablePodResourcesForSuspendedJobs=true|false (BETA - default=true)<br/>
 kube:MutableSchedulingDirectivesForSuspendedJobs=true|false (BETA - default=true)<br/>
-kube:NativeHistograms=true|false (ALPHA - default=false)<br/>
-kube:NodeDeclaredFeatures=true|false (BETA - default=true)<br/>
+kube:NFTablesNetlink=true|false (BETA - default=true)<br/>
+kube:NativeHistograms=true|false (BETA - default=true)<br/>
+kube:NodeControllerLeaseCircuitBreaker=true|false (BETA - default=true)<br/>
+kube:NodeLifecycleConditions=true|false (ALPHA - default=false)<br/>
 kube:NominatedNodeNameForExpectation=true|false (BETA - default=true)<br/>
 kube:OpenAPIEnums=true|false (BETA - default=true)<br/>
 kube:OpportunisticBatching=true|false (BETA - default=true)<br/>
-kube:PLEGOnDemandRelist=true|false (BETA - default=true)<br/>
-kube:PersistentVolumeClaimUnusedSinceTime=true|false (ALPHA - default=false)<br/>
-kube:PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
-kube:PodCertificateRequest=true|false (BETA - default=false)<br/>
+kube:PersistentVolumeClaimUnusedSinceTime=true|false (BETA - default=true)<br/>
+kube:PodAndContainerStatsFromCRI=true|false (BETA - default=false)<br/>
 kube:PodDeletionCost=true|false (BETA - default=true)<br/>
-kube:PodLevelResourceManagers=true|false (ALPHA - default=false)<br/>
+kube:PodGroupPreemptionPolicy=true|false (ALPHA - default=false)<br/>
+kube:PodLevelResourceManagers=true|false (BETA - default=false)<br/>
 kube:PodLevelResources=true|false (BETA - default=true)<br/>
+kube:PodLevelResourcesFixDefaulting=true|false (BETA - default=true)<br/>
+kube:PodLevelResourcesFixKubeletQOSClass=true|false (BETA - default=true)<br/>
 kube:PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
-kube:PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
 kube:PodTopologyLabelsAdmission=true|false (BETA - default=true)<br/>
-kube:PodsAPI=true|false (ALPHA - default=false)<br/>
+kube:PodsAPI=true|false (BETA - default=true)<br/>
 kube:PortForwardWebsockets=true|false (BETA - default=true)<br/>
-kube:PreventStaticPodAPIReferences=true|false (BETA - default=true)<br/>
 kube:QOSReserved=true|false (ALPHA - default=false)<br/>
 kube:ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - default=false)<br/>
-kube:RelaxedServiceNameValidation=true|false (BETA - default=true)<br/>
 kube:ReloadKubeletClientCAFile=true|false (BETA - default=true)<br/>
 kube:ReloadKubeletServerCertificateFile=true|false (BETA - default=true)<br/>
 kube:RemoteRequestHeaderUID=true|false (BETA - default=true)<br/>
@@ -1452,22 +1469,23 @@ kube:ResourceHealthStatusMessage=true|false (BETA - default=true)<br/>
 kube:RestartAllContainersOnContainerExits=true|false (BETA - default=true)<br/>
 kube:RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 kube:RuntimeClassInImageCriApi=true|false (ALPHA - default=false)<br/>
-kube:SELinuxMount=true|false (BETA - default=false)<br/>
 kube:SchedulerAsyncAPICalls=true|false (BETA - default=false)<br/>
 kube:SchedulerAsyncPreemption=true|false (BETA - default=true)<br/>
 kube:SchedulerPopFromBackoffQ=true|false (BETA - default=true)<br/>
+kube:SchedulerPreQueueingHints=true|false (ALPHA - default=false)<br/>
 kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - default=true)<br/>
 kube:ShardedListAndWatch=true|false (ALPHA - default=false)<br/>
 kube:SizeBasedListCostEstimate=true|false (BETA - default=true)<br/>
 kube:StaleControllerConsistencyDaemonSet=true|false (BETA - default=true)<br/>
+kube:StaleControllerConsistencyHPA=true|false (BETA - default=true)<br/>
 kube:StaleControllerConsistencyJob=true|false (BETA - default=true)<br/>
 kube:StaleControllerConsistencyReplicaSet=true|false (BETA - default=true)<br/>
 kube:StaleControllerConsistencyStatefulSet=true|false (BETA - default=true)<br/>
+kube:StatefulSetRecreateStrategy=true|false (ALPHA - default=false)<br/>
 kube:StatefulSetSemanticRevisionComparison=true|false (BETA - default=true)<br/>
-kube:StorageCapacityScoring=true|false (ALPHA - default=false)<br/>
+kube:StorageCapacityScoring=true|false (BETA - default=true)<br/>
 kube:StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 kube:StorageVersionHash=true|false (BETA - default=true)<br/>
-kube:StorageVersionMigrator=true|false (BETA - default=false)<br/>
 kube:StrictIPCIDRValidation=true|false (BETA - default=true)<br/>
 kube:StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - default=true)<br/>
 kube:StructuredAuthenticationConfigurationJWKSMetrics=true|false (BETA - default=true)<br/>
@@ -1481,13 +1499,14 @@ kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - default=true)<br/>
 kube:UnknownVersionInteroperabilityProxy=true|false (BETA - default=true)<br/>
 kube:UnlockWhileProcessingFIFO=true|false (BETA - default=true)<br/>
 kube:UserNamespacesHostNetworkSupport=true|false (ALPHA - default=false)<br/>
-kube:VolumeLimitScaling=true|false (ALPHA - default=false)<br/>
-kube:WatchCacheInitializationPostStartHook=true|false (BETA - default=true)<br/>
+kube:VolumeBindMountOptions=true|false (ALPHA - default=false)<br/>
+kube:VolumeLimitScaling=true|false (BETA - default=true)<br/>
 kube:WatchList=true|false (BETA - default=true)<br/>
 kube:WatchListClient=true|false (BETA - default=true)<br/>
+kube:WatchListCompression=true|false (BETA - default=true)<br/>
+kube:WebhookRoundTripLoadBalancing=true|false (BETA - default=true)<br/>
 kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - default=false)<br/>
 kube:WindowsGracefulNodeShutdown=true|false (BETA - default=true)<br/>
-kube:WorkloadAwarePreemption=true|false (ALPHA - default=false)<br/>
 kube:WorkloadWithJob=true|false (ALPHA - default=false)
 -->
 逗号分隔的组件列表，这些 key=value 对用来描述不同组件测试性/试验性特性的特性门控。<br/>
@@ -1496,12 +1515,14 @@ kube:WorkloadWithJob=true|false (ALPHA - default=false)
 可选项为：<br/>
 kube:APIResponseCompression=true|false (BETA - 默认值=true)<br/>
 kube:APIServerIdentity=true|false (BETA - 默认值=true)<br/>
+kube:APIServerWebhookAuthenticationToken=true|false (ALPHA - 默认值=false)<br/>
 kube:APIServingWithRoutine=true|false (ALPHA - 默认值=false)<br/>
 kube:AllAlpha=true|false (ALPHA - 默认值=false)<br/>
 kube:AllBeta=true|false (BETA - 默认值=false)<br/>
 kube:AllowParsingUserUIDFromCertAuth=true|false (BETA - 默认值=true)<br/>
-kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 默认值=false)<br/>
+kube:AllowUnsafeMalformedObjectDeletion=true|false (BETA - 默认值=true)<br/>
 kube:AtomicFIFO=true|false (BETA - 默认值=true)<br/>
+kube:AtomicWriteVolumeUserFields=true|false (ALPHA - 默认值=false)<br/>
 kube:AuthorizePodWebsocketUpgradeCreatePermission=true|false (BETA - 默认值=true)<br/>
 kube:CBORServingAndStorage=true|false (ALPHA - 默认值=false)<br/>
 kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
@@ -1516,11 +1537,11 @@ kube:ClientsAllowTLSCacheGC=true|false (BETA - 默认值=true)<br/>
 kube:ClientsPreferCBOR=true|false (ALPHA - 默认值=false)<br/>
 kube:CloudControllerManagerWatchBasedRoutesReconciliation=true|false (ALPHA - 默认值=false)<br/>
 kube:CloudControllerManagerWebhook=true|false (ALPHA - 默认值=false)<br/>
-kube:ClusterTrustBundle=true|false (BETA - 默认值=false)<br/>
-kube:ClusterTrustBundleProjection=true|false (BETA - 默认值=false)<br/>
 kube:ComponentFlagz=true|false (BETA - 默认值=true)<br/>
 kube:ComponentStatusz=true|false (BETA - 默认值=true)<br/>
-kube:ConcurrentWatchObjectDecode=true|false (BETA - 默认值=false)<br/>
+kube:CompositePodGroup=true|false (ALPHA - 默认值=false)<br/>
+kube:ConcurrentWatchObjectDecode=true|false (BETA - 默认值=true)<br/>
+kube:ConsistentListFromCacheSkipTimeoutFallback=true|false (ALPHA - 默认值=false)<br/>
 kube:ConstrainedImpersonation=true|false (BETA - 默认值=true)<br/>
 kube:ContainerCheckpoint=true|false (BETA - 默认值=true)<br/>
 kube:ContainerRestartRules=true|false (BETA - 默认值=true)<br/>
@@ -1530,75 +1551,88 @@ kube:ControllerManagerReleaseLeaderElectionLockOnExit=true|false (ALPHA - 默认
 kube:CoordinatedLeaderElection=true|false (BETA - 默认值=false)<br/>
 kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - 默认值=false)<br/>
 kube:DRAConsumableCapacity=true|false (BETA - 默认值=true)<br/>
+kube:DRADerivedAttributes=true|false (ALPHA - 默认值=false)<br/>
 kube:DRADeviceBindingConditions=true|false (BETA - 默认值=true)<br/>
-kube:DRADeviceTaintRules=true|false (BETA - 默认值=false)<br/>
-kube:DRADeviceTaints=true|false (BETA - 默认值=true)<br/>
-kube:DRAExtendedResource=true|false (BETA - 默认值=true)<br/>
+kube:DRADeviceCompatibilityGroups=true|false (ALPHA - 默认值=false)<br/>
+kube:DRAFractionalCapacityRange=true|false (BETA - 默认值=false) 或 DRAFractionalCapacityRange=true|false (BETA - 默认值=true) 
+if --min-compatibility-version&gt;=1.37<br/>
 kube:DRAListTypeAttributes=true|false (ALPHA - 默认值=false)<br/>
 kube:DRANodeAllocatableResources=true|false (ALPHA - 默认值=false)<br/>
+kube:DRAOptionalNodeOperations=true|false (ALPHA - 默认值=false)<br/>
 kube:DRAPartitionableDevices=true|false (BETA - 默认值=true)<br/>
-kube:DRAResourceClaimDeviceStatus=true|false (BETA - 默认值=true)<br/>
+kube:DRAPartitionableDevicesType=true|false (ALPHA - 默认值=false)<br/>
 kube:DRAResourceClaimGranularStatusAuthorization=true|false (BETA - 默认值=true)<br/>
 kube:DRAResourcePoolStatus=true|false (ALPHA - 默认值=false)<br/>
 kube:DRASchedulerFilterTimeout=true|false (BETA - 默认值=true)<br/>
-kube:DRAWorkloadResourceClaims=true|false (ALPHA - 默认值=false)<br/>
+kube:DRAWorkloadResourceClaims=true|false (BETA - 默认值=false)<br/>
 kube:DeclarativeValidationBeta=true|false (BETA - 默认值=true)<br/>
+kube:DefaultPodSysctls=true|false (ALPHA - 默认值=false)<br/>
 kube:DeploymentReplicaSetTerminatingReplicas=true|false (BETA - 默认值=true)<br/>
 kube:DetectCacheInconsistency=true|false (BETA - 默认值=true)<br/>
+kube:EmptyDirVolumeMode=true|false (ALPHA - 默认值=false)<br/>
 kube:EnvFiles=true|false (BETA - 默认值=true)<br/>
+kube:EtcdRangeStream=true|false (BETA - 默认值=true)<br/>
 kube:EventedPLEG=true|false (ALPHA - 默认值=false)<br/>
+kube:EvictionRequestAPI=true|false (ALPHA - 默认值=false)<br/>
+kube:ExcludeAdmissionWebhookVirtualResources=true|false (BETA - 默认值=true)<br/>
 kube:ExtendWebSocketsToKubelet=true|false (BETA - 默认值=true)<br/>
-kube:GangScheduling=true|false (ALPHA - 默认值=false)<br/>
-kube:GenericWorkload=true|false (ALPHA - 默认值=false)<br/>
+kube:GRPCContainerProbeTLS=true|false (ALPHA - 默认值=false)<br/>
+kube:GenericWorkload=true|false (BETA - 默认值=false)<br/>
 kube:GracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
 kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值=true)<br/>
-kube:HPAConfigurableTolerance=true|false (BETA - 默认值=true)<br/>
-kube:HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>
-kube:HostnameOverride=true|false (BETA - 默认值=true)<br/>
+kube:H2CContainerProbe=true|false (ALPHA - 默认值=false)<br/>
+kube:HPAGeneration=true|false (BETA - 默认值=true)<br/>
+kube:HPAOptimizedSelectorStore=true|false (BETA - 默认值=true)<br/>
+kube:HPAScaleToZero=true|false (BETA - 默认值=true)<br/>
+kube:HugepageAwareEviction=true|false (BETA - 默认值=true)<br/>
 kube:ImageVolumeWithDigest=true|false (ALPHA - 默认值=false)<br/>
 kube:InOrderInformersBatchProcess=true|false (BETA - 默认值=true)<br/>
 kube:InPlacePodLevelResourcesVerticalScaling=true|false (BETA - 默认值=true)<br/>
 kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 默认值=false)<br/>
 kube:InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - 默认值=false)<br/>
-kube:InPlacePodVerticalScalingInitContainers=true|false (BETA - 默认值=true)<br/>
+kube:InPlacePodVerticalScalingMemoryBackedVolumes=true|false (ALPHA - 默认值=false)<br/>
+kube:InPlacePodVerticalScalingSchedulerPreemption=true|false (ALPHA - 默认值=false)<br/>
+kube:InterPodAffinityHostnameFastPath=true|false (ALPHA - 默认值=false)<br/>
+kube:KubeProxyNFTablesLocalhostNodePorts=true|false (ALPHA - 默认值=false)<br/>
+kube:KubeletAllocatedPodsEndpoint=true|false (ALPHA - 默认值=false)<br/>
 kube:KubeletCrashLoopBackOffMax=true|false (BETA - 默认值=true)<br/>
 kube:KubeletEnsureSecretPulledImages=true|false (BETA - 默认值=true)<br/>
-kube:KubeletInUserNamespace=true|false (ALPHA - 默认值=false)<br/>
+kube:KubeletInUserNamespace=true|false (BETA - 默认值=true)<br/>
 kube:KubeletSeparateDiskGC=true|false (BETA - 默认值=true)<br/>
 kube:KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - 默认值=true)<br/>
 kube:ListFromCacheSnapshot=true|false (BETA - 默认值=true)<br/>
 kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默认值=false)<br/>
 kube:LoggingAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 kube:LoggingBetaOptions=true|false (BETA - 默认值=true)<br/>
-kube:ManifestBasedAdmissionControlConfig=true|false (ALPHA - 默认值=false)<br/>
+kube:ManifestBasedAdmissionControlConfig=true|false (BETA - 默认值=true)<br/>
 kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - 默认值=true)<br/>
 kube:MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - 默认值=true)<br/>
-kube:MaxUnavailableStatefulSet=true|false (BETA - 默认值=false)<br/>
-kube:MemoryQoS=true|false (ALPHA - 默认值=false)<br/>
+kube:MaxUnavailableStatefulSet=true|false (BETA - 默认值=true)<br/>
+kube:MemoryQoS=true|false (BETA - 默认值=true)<br/>
 kube:MutablePVNodeAffinity=true|false (ALPHA - 默认值=false)<br/>
 kube:MutablePodResourcesForSuspendedJobs=true|false (BETA - 默认值=true)<br/>
 kube:MutableSchedulingDirectivesForSuspendedJobs=true|false (BETA - 默认值=true)<br/>
-kube:NativeHistograms=true|false (ALPHA - 默认值=false)<br/>
-kube:NodeDeclaredFeatures=true|false (BETA - 默认值=true)<br/>
+kube:NFTablesNetlink=true|false (BETA - 默认值=true)<br/>
+kube:NativeHistograms=true|false (BETA - 默认值=true)<br/>
+kube:NodeControllerLeaseCircuitBreaker=true|false (BETA - 默认值=true)<br/>
+kube:NodeLifecycleConditions=true|false (ALPHA - 默认值=false)<br/>
 kube:NominatedNodeNameForExpectation=true|false (BETA - 默认值=true)<br/>
 kube:OpenAPIEnums=true|false (BETA - 默认值=true)<br/>
 kube:OpportunisticBatching=true|false (BETA - 默认值=true)<br/>
-kube:PLEGOnDemandRelist=true|false (BETA - 默认值=true)<br/>
-kube:PersistentVolumeClaimUnusedSinceTime=true|false (ALPHA - 默认值=false)<br/>
-kube:PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值=false)<br/>
-kube:PodCertificateRequest=true|false (BETA - 默认值=false)<br/>
+kube:PersistentVolumeClaimUnusedSinceTime=true|false (BETA - 默认值=true)<br/>
+kube:PodAndContainerStatsFromCRI=true|false (BETA - 默认值=false)<br/>
 kube:PodDeletionCost=true|false (BETA - 默认值=true)<br/>
-kube:PodLevelResourceManagers=true|false (ALPHA - 默认值=false)<br/>
+kube:PodGroupPreemptionPolicy=true|false (ALPHA - 默认值=false)<br/>
+kube:PodLevelResourceManagers=true|false (BETA - 默认值=false)<br/>
 kube:PodLevelResources=true|false (BETA - 默认值=true)<br/>
+kube:PodLevelResourcesFixDefaulting=true|false (BETA - 默认值=true)<br/>
+kube:PodLevelResourcesFixKubeletQOSClass=true|false (BETA - 默认值=true)<br/>
 kube:PodLogsQuerySplitStreams=true|false (ALPHA - 默认值=false)<br/>
-kube:PodReadyToStartContainersCondition=true|false (BETA - 默认值=true)<br/>
 kube:PodTopologyLabelsAdmission=true|false (BETA - 默认值=true)<br/>
-kube:PodsAPI=true|false (ALPHA - 默认值=false)<br/>
+kube:PodsAPI=true|false (BETA - 默认值=true)<br/>
 kube:PortForwardWebsockets=true|false (BETA - 默认值=true)<br/>
-kube:PreventStaticPodAPIReferences=true|false (BETA - 默认值=true)<br/>
 kube:QOSReserved=true|false (ALPHA - 默认值=false)<br/>
 kube:ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - 默认值=false)<br/>
-kube:RelaxedServiceNameValidation=true|false (BETA - 默认值=true)<br/>
 kube:ReloadKubeletClientCAFile=true|false (BETA - 默认值=true)<br/>
 kube:ReloadKubeletServerCertificateFile=true|false (BETA - 默认值=true)<br/>
 kube:RemoteRequestHeaderUID=true|false (BETA - 默认值=true)<br/>
@@ -1607,22 +1641,23 @@ kube:ResourceHealthStatusMessage=true|false (BETA - 默认值=true)<br/>
 kube:RestartAllContainersOnContainerExits=true|false (BETA - 默认值=true)<br/>
 kube:RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>
 kube:RuntimeClassInImageCriApi=true|false (ALPHA - 默认值=false)<br/>
-kube:SELinuxMount=true|false (BETA - 默认值=false)<br/>
 kube:SchedulerAsyncAPICalls=true|false (BETA - 默认值=false)<br/>
 kube:SchedulerAsyncPreemption=true|false (BETA - 默认值=true)<br/>
 kube:SchedulerPopFromBackoffQ=true|false (BETA - 默认值=true)<br/>
+kube:SchedulerPreQueueingHints=true|false (ALPHA - 默认值=false)<br/>
 kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - 默认值=true)<br/>
 kube:ShardedListAndWatch=true|false (ALPHA - 默认值=false)<br/>
 kube:SizeBasedListCostEstimate=true|false (BETA - 默认值=true)<br/>
 kube:StaleControllerConsistencyDaemonSet=true|false (BETA - 默认值=true)<br/>
+kube:StaleControllerConsistencyHPA=true|false (BETA - 默认值=true)<br/>
 kube:StaleControllerConsistencyJob=true|false (BETA - 默认值=true)<br/>
 kube:StaleControllerConsistencyReplicaSet=true|false (BETA - 默认值=true)<br/>
 kube:StaleControllerConsistencyStatefulSet=true|false (BETA - 默认值=true)<br/>
+kube:StatefulSetRecreateStrategy=true|false (ALPHA - 默认值=false)<br/>
 kube:StatefulSetSemanticRevisionComparison=true|false (BETA - 默认值=true)<br/>
-kube:StorageCapacityScoring=true|false (ALPHA - 默认值=false)<br/>
+kube:StorageCapacityScoring=true|false (BETA - 默认值=true)<br/>
 kube:StorageVersionAPI=true|false (ALPHA - 默认值=false)<br/>
 kube:StorageVersionHash=true|false (BETA - 默认值=true)<br/>
-kube:StorageVersionMigrator=true|false (BETA - 默认值=false)<br/>
 kube:StrictIPCIDRValidation=true|false (BETA - 默认值=true)<br/>
 kube:StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - 默认值=true)<br/>
 kube:StructuredAuthenticationConfigurationJWKSMetrics=true|false (BETA - 默认值=true)<br/>
@@ -1636,13 +1671,14 @@ kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默认值=true)<br/>
 kube:UnknownVersionInteroperabilityProxy=true|false (BETA - 默认值=true)<br/>
 kube:UnlockWhileProcessingFIFO=true|false (BETA - 默认值=true)<br/>
 kube:UserNamespacesHostNetworkSupport=true|false (ALPHA - 默认值=false)<br/>
-kube:VolumeLimitScaling=true|false (ALPHA - 默认值=false)<br/>
-kube:WatchCacheInitializationPostStartHook=true|false (BETA - 默认值=true)<br/>
+kube:VolumeBindMountOptions=true|false (ALPHA - 默认值=false)<br/>
+kube:VolumeLimitScaling=true|false (BETA - 默认值=true)<br/>
 kube:WatchList=true|false (BETA - 默认值=true)<br/>
 kube:WatchListClient=true|false (BETA - 默认值=true)<br/>
+kube:WatchListCompression=true|false (BETA - 默认值=true)<br/>
+kube:WebhookRoundTripLoadBalancing=true|false (BETA - 默认值=true)<br/>
 kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默认值=false)<br/>
 kube:WindowsGracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
-kube:WorkloadAwarePreemption=true|false (ALPHA - 默认值=false)<br/>
 kube:WorkloadWithJob=true|false (ALPHA - 默认值=false)
 </p></td>
 </tr>
@@ -1932,11 +1968,11 @@ Otherwise, this flag limits the maximum number of non-mutating requests in fligh
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-The min version of control plane components the server should be compatible with.<br/>Must be less or equal to the emulated-version. Version format could only be major.minor, for example: '--min-compatibility-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.33..1.36(default:1.35)<br/>If the component is not specified, defaults to &quot;kube&quot;
+The min version of control plane components the server should be compatible with.<br/>Must be less or equal to the emulated-version. Version format could only be major.minor, for example: '--min-compatibility-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.34..1.37(default:1.36)<br/>If the component is not specified, defaults to &quot;kube&quot;
 -->
 服务器应兼容的控制平面组件的最低版本。<br/>
 必须小于或等于模拟版本。版本格式只能是 major.minor，例如：'--min-compatibility-version=wardle=1.2,kube=1.31'。<br/>
-选项包括：kube=1.33..1.36（默认值：1.36）<br/>
+选项包括：kube=1.34..1.37（默认值：1.36）<br/>
 如果组件未被指定，默认为 “kube”。
 </p></td>
 </tr>

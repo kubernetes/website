@@ -18,11 +18,12 @@ Kubernetes API. These policies are active from API server startup, operate
 independently of {{< glossary_tooltip text="etcd" term_id="etcd" >}}, and can
 protect API-based admission resources from modification.
 
-To use the feature, enable the `ManifestBasedAdmissionControlConfig`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) and
-configure the `staticManifestsDir` field in the
+To use the feature, configure the `staticManifestsDir` field in the
 [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-AdmissionConfiguration)
 file passed to the kube-apiserver via `--admission-control-config-file`.
+The `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)
+must be enabled; it is enabled by default since Kubernetes v1.37.
 
 <!-- body -->
 
@@ -79,7 +80,7 @@ and ValidatingAdmissionPolicyBinding resources.
 To enable manifest-based admission control, you need:
 
 1. The `ManifestBasedAdmissionControlConfig` feature gate enabled on the
-   kube-apiserver.
+   kube-apiserver (enabled by default since Kubernetes v1.37).
 1. An `AdmissionConfiguration` file with `staticManifestsDir` fields pointing
    to directories containing your manifest files.
 1. The manifest files themselves on disk, accessible to the kube-apiserver
@@ -208,6 +209,15 @@ MutatingAdmissionPolicyBinding, ValidatingWebhookConfiguration,
 MutatingWebhookConfiguration), only manifest-based admission hooks are
 evaluated. API-based hooks are skipped for these resource types to prevent
 circular dependencies.
+
+{{< note >}}
+The non-persisted (virtual) authentication and authorization resources, such as
+TokenReview and SubjectAccessReview, are excluded from
+[admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+and admission policies alike. Manifest-based configurations cannot intercept
+them either, because doing so could lock the cluster out of its own
+authentication and authorization path.
+{{< /note >}}
 
 ## File watching and dynamic reloading {#dynamic-reloading}
 

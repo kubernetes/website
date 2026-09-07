@@ -23,11 +23,11 @@ This page shows how to enable and configure certificate rotation for the kubelet
 
 ## Overview
 
-The kubelet uses certificates for authenticating to the Kubernetes API.  By
-default, these certificates are issued with one year expiration so that they do
+The kubelet uses certificates to authenticate with the Kubernetes API.  By
+default, these certificates are issued with a one-year expiration so that they do
 not need to be renewed too frequently.
 
-Kubernetes contains [kubelet certificate
+Kubernetes contains the [kubelet certificate
 rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/),
 that will automatically generate a new key and request a new certificate from
 the Kubernetes API as the current certificate approaches expiration. Once the
@@ -56,9 +56,9 @@ status of certificate signing requests using:
 kubectl get csr
 ```
 
-Initially a certificate signing request from the kubelet on a node will have a
-status of `Pending`. If the certificate signing requests meets specific
-criteria, it will be auto approved by the controller manager, then it will have
+Initially, a certificate signing request from the kubelet on a node will have a
+status of `Pending`. If the certificate signing request meets specific
+criteria, it will be auto-approved by the controller manager, and then it will have
 a status of `Approved`. Next, the controller manager will sign a certificate,
 issued for the duration specified by the 
 `--cluster-signing-duration` parameter, and the signed certificate

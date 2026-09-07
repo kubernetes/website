@@ -197,7 +197,7 @@ AppArmor profiles are loaded via the node operating system rather then reference
 
 A lock file for the kubelet; typically `/var/run/kubelet.lock`. The kubelet uses this to ensure
 that two different kubelets don't try to run in conflict with each other.
-You can configure the path to the lock file using the the `--lock-file` kubelet command line argument.
+You can configure the path to the lock file using the `--lock-file` kubelet command line argument.
 
 If two kubelets on the same node use a different value for the lock file path, they will not be able to
 detect a conflict when both are running.
