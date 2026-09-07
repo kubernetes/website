@@ -27,7 +27,7 @@ _수직 스케일링(vertical scaling)_ 이라고 부른다.
 `kubectl` CLI를 사용해 수행할 수 있다.
 수직 스케일링의 경우, 워크로드의 리소스 정의를 _패치_ 해야 한다.
 
-두 가지 전략의 예시는 아래를 참고한다.
+두 전략의 예는 다음과 같다.
 
 - **수평 스케일링**: [복수의 앱 인스턴스를 구동하기](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **수직 스케일링**: [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources)
