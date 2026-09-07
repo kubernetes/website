@@ -12,7 +12,7 @@ weight: 30
 `kubeadm`을 사용하면, 모범 사례를 준수하는 최소 작동 가능한 쿠버네티스 클러스터를 생성할 수 있다.
 실제로 `kubeadm`을 사용하여 
 [쿠버네티스 적합성 테스트](/blog/2017/10/software-conformance-certification/)를 통과하는 클러스터를 구성할 수 있다.
-`kubeadm`은 [부트스트랩 토큰](/ko/docs/reference/access-authn-authz/bootstrap-tokens/) 및 
+`kubeadm`은 [부트스트랩 토큰](/docs/reference/access-authn-authz/bootstrap-tokens/) 및 
 클러스터 업그레이드와 같은 다른 클러스터 수명 주기 기능도 지원한다.
 
 `kubeadm` 도구는 다음과 같은 경우에 적합하다.
@@ -65,7 +65,7 @@ weight: 30
 
 ### 호스트 준비
 
-#### 구성 요소 설치
+#### 컴포넌트 설치
 
 모든 호스트에 {{< glossary_tooltip term_id="container-runtime" text="컨테이너 런타임" >}}과 
 kubeadm을 설치한다. 자세한 지침과 기타 전제 조건은 
@@ -130,7 +130,7 @@ ip route show # "default via"로 시작하는 줄을 찾는다
 
 {{< warning >}}
 쿠버네티스 프로젝트는 이 접근 방식(사용자 정의 IP 주소로 모든 구성 요소 인스턴스를 구성)을 
-권장하지 않는다. 대신 쿠버네티스 관리자는 기본 게이트웨이 IP가 쿠버네티스 구성 요소가 자동 감지하고 
+권장하지 않는다. 대신 쿠버네티스 메인테이너는 기본 게이트웨이 IP가 쿠버네티스 구성 요소가 자동 감지하고 
 사용하는 IP가 되도록 호스트 네트워크를 설정하는 것을 권장한다. 
 리눅스 노드에서는 `ip route`와 같은 명령을 사용하여 네트워킹을 구성할 수 있으며, 운영 
 체제에서 더 높은 수준의 네트워크 관리 도구를 제공할 수도 있다. 노드의 기본 게이트웨이가 
@@ -148,7 +148,7 @@ kubeadm에는 인터넷 연결 없이 클러스터를 생성할 때 필요한 �
 자세한 내용은 [인터넷 연결 없이 kubeadm 실행](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)을 
 참조한다.
 
-kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지 저장소를 사용할 수 있다. 자세한 내용은 
+kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지 리포지터리를 사용할 수 있다. 자세한 내용은 
 [사용자 정의 이미지 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)을 
 참조한다.
 
@@ -157,7 +157,7 @@ kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지
 컨트롤 플레인 노드는 {{< glossary_tooltip term_id="etcd" >}} 
 (클러스터 데이터베이스) 및 
 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}
-({{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 명령줄 도구가 통신하는)를 
+({{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 커맨드라인 툴이 통신하는)를 
 포함한 컨트롤 플레인 구성 요소가 실행되는 머신이다.
 
 1. (권장) 이 단일 컨트롤 플레인 `kubeadm` 클러스터를 
@@ -209,7 +209,7 @@ kubeadm에서 지원하지 않는다.
 구성 파일로 `kubeadm init`을 구성하려면 
 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)을 참조한다.
 
-컨트롤 플레인 구성 요소 및 etcd 서버에 대한 활성(liveness) 프로브에 선택적 IPv6 할당을 
+컨트롤 플레인 구성 요소 및 etcd 서버에 대한 활성 프로브(liveness probe)에 선택적 IPv6 할당을 
 포함하여 컨트롤 플레인 구성 요소를 사용자 정의하려면 
 [사용자 정의 인수](/ko/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)에 문서화된 대로 각 구성 요소에 추가 인수를 제공한다.
 
@@ -218,7 +218,7 @@ kubeadm에서 지원하지 않는다.
 
 `kubeadm init`을 다시 실행하려면 먼저 [클러스터를 해체](#tear-down)해야 한다.
 
-클러스터에 다른 아키텍처의 노드를 추가(join)하는 경우, 배포된 데몬셋이 
+클러스터에 다른 아키텍처의 노드를 추가(join)하는 경우, 배포된 데몬셋(DaemonSet)이 
 이 아키텍처에 대한 컨테이너 이미지를 지원하는지 확인한다.
 
 `kubeadm init`은 먼저 머신이 쿠버네티스를 실행할 준비가 되었는지 확인하기 위해 일련의 
@@ -263,7 +263,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 {{< warning >}}
 `kubeadm init`이 생성하는 kubeconfig 파일 `admin.conf`에는 
 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin` 인증서가 포함되어 있다. `kubeadm:cluster-admins` 그룹은 
-내장 `cluster-admin` ClusterRole에 바인딩된다.
+내장 `cluster-admin` 클러스터롤(ClusterRole)에 바인딩된다.
 `admin.conf` 파일을 누구와도 공유하지 않는다.
 
 `kubeadm init`은 `Subject: O = system:masters, CN = kubernetes-super-admin` 인증서가 
@@ -305,7 +305,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
   `--pod-network-cidr`과 함께 사용하고 네트워크 플러그인의 YAML에서 대체해야 한다.)
 
 - 기본적으로 `kubeadm`은 
-  [RBAC](/docs/reference/access-authn-authz/rbac/)(역할 기반 액세스 
+  [RBAC](/docs/reference/access-authn-authz/rbac/)(역할 기반 접근
   제어) 사용을 설정하고 시행한다. 
   파드 네트워크 플러그인이 RBAC를 지원하는지, 그리고 배포에 사용하는 매니페스트도 
   지원하는지 확인한다.
@@ -357,10 +357,19 @@ CoreDNS 파드가 실행 중이면 노드 추가를 계속할 수 있다.
 
 기본적으로 kubeadm은 노드 등록 시 kubelet이 자체 적용할 수 있는 레이블을 제한하는 
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) 어드미션 컨트롤러를 활성화한다. 
-어드미션 컨트롤러 문서에서는 kubelet `--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
-`node-role.kubernetes.io/control-plane` 레이블은 이러한 제한된 레이블이며 kubeadm은 
-노드가 생성된 후 권한 있는 클라이언트를 사용하여 수동으로 적용한다. 수동으로 수행하려면 `kubectl label`을 사용하고 
-kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하는지 확인한다.
+어드미션 컨트롤러 문서에서는 kubelet
+`--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
+
+{{< caution >}}
+`NodeRestriction` 어드미션 컨트롤러 때문에, 초기화 과정에서 kubelet
+`--node-labels` 플래그를 사용하여 제한된 레이블(`node-role.kubernetes.io/*` 등)을 적용할 **수 없다**.
+
+이 kubelet 플래그로 제한된 레이블을 추가하려고 하면 노드가 API 서버에
+등록되지 못한다.
+{{< /caution >}}
+
+이러한 레이블을 수동으로 적용하려면 노드가 클러스터에 참여한 후 `kubectl label`을 사용해야 한다.
+kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하고 있는지 확인한다.
 
 ### 컨트롤 플레인 노드 격리
 
@@ -616,6 +625,6 @@ kubeadm에 문제가 발생하면
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) 슬랙 채널을 방문한다
 * 일반 SIG 클러스터 수명 주기 개발 슬랙 채널: 
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/main/sig-cluster-lifecycle#readme)
 * SIG 클러스터 수명 주기 메일링 리스트: 
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
