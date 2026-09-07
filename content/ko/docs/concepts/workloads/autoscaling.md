@@ -84,8 +84,7 @@ GitHub의 별도 프로젝트에서 호스팅된다.
 Cluster Proportional Autoscaler는 스케줄링 가능한 {{< glossary_tooltip text="노드" term_id="node" >}} 수와 코어 수를 감시하고,
 이에 맞춰 대상 워크로드의 레플리카 수를 스케일링한다.
 
-만약 레플리카 수는 그대로 유지하면서, 클러스터의 크기에 따라 워크로드를 수직으로 스케일링하고자 한다면,
-[_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)를 사용할 수 있다.
+만약 레플리카 수는 그대로 유지해야 한다면, [_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)를 사용하여 클러스터의 크기에 따라 워크로드를 수직으로 스케일링할 수 있다.
 이 프로젝트는 **현재 베타** 상태이며, GitHub에서 확인할 수 있다.
 
 Cluster Proportional Autoscaler가 워크로드의 레플리카 수를 스케일링한다면,
