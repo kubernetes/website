@@ -79,7 +79,7 @@ VPA를 사용하려면 클러스터에
 [_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)를
 사용할 수 있다.
 VPA와 마찬가지로, 이것은 쿠버네티스 코어의 일부가 아니며,
-GitHub의 별도 프로젝트에서 호스팅된다.
+GitHub에서 별도 프로젝트로 호스팅된다.
 
 Cluster Proportional Autoscaler는 스케줄링 가능한 {{< glossary_tooltip text="노드" term_id="node" >}} 수와 코어 수를 감시하고,
 이에 맞춰 대상 워크로드의 레플리카 수를 스케일링한다.
