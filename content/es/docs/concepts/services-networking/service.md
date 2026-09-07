@@ -336,13 +336,13 @@ compatible](https://docs.docker.com/userguide/dockerlinks/) como variables más 
 Por ejemplo, el Service `redis-leader` que expone el puerto TCP 6739 y se le ha asignado una dirección IP de clúster 10.0.0.11, produce las siguientes variables de entorno:
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_LEADER_SERVICE_HOST=10.0.0.11
+REDIS_LEADER_SERVICE_PORT=6379
+REDIS_LEADER_PORT=tcp://10.0.0.11:6379
+REDIS_LEADER_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_LEADER_PORT_6379_TCP_PROTO=tcp
+REDIS_LEADER_PORT_6379_TCP_PORT=6379
+REDIS_LEADER_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 {{< note >}}
