@@ -3,13 +3,13 @@ title: Taint
 id: taint
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  A property applied to a node or node group that uses three fields: key, value, and effect. The key and effect fields are required. Taints prevent the scheduling of Pods on nodes or node groups.
+  A property applied to a node or node group with required `key` and `effect` fields and optional `value` and `timeAdded` fields. Taints prevent the scheduling of Pods on nodes or node groups.
 
 aka:
 tags:
 - fundamental
 ---
- A property applied to a {{< glossary_tooltip text="node" term_id="node" >}} or node group that uses three fields: key, value, and effect. The key and effect fields are required. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on nodes or node groups.
+ A property applied to a {{< glossary_tooltip text="node" term_id="node" >}} or node group with required `key` and `effect` fields and optional `value` and `timeAdded` fields. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on nodes or node groups.
 
 <!--more-->
 

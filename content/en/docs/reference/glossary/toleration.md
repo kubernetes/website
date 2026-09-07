@@ -3,13 +3,13 @@ title: Toleration
 id: toleration
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  A property applied to a Pod that allows scheduling onto nodes or node groups with matching taints. The key, operator, value, and effect fields define the match, and tolerationSeconds controls how long a NoExecute taint is tolerated.
+  A property applied to a Pod that allows scheduling onto nodes or node groups with matching taints. The `key`, `operator`, `value`, and `effect` fields define the match, and `tolerationSeconds` controls how long a `NoExecute` taint is tolerated.
 
 aka:
 tags:
 - fundamental
 ---
- A property applied to a {{< glossary_tooltip text="Pod" term_id="pod" >}} that allows scheduling onto nodes or node groups with matching {{< glossary_tooltip text="taints" term_id="taint" >}}. The key, operator, value, and effect fields define the match, and tolerationSeconds controls how long a NoExecute taint is tolerated.
+ A property applied to a {{< glossary_tooltip text="Pod" term_id="pod" >}} that allows scheduling onto nodes or node groups with matching {{< glossary_tooltip text="taints" term_id="taint" >}}. The `key`, `operator`, `value`, and `effect` fields define the match, and `tolerationSeconds` controls how long a `NoExecute` taint is tolerated.
 
 <!--more-->
 
