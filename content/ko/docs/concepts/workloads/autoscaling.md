@@ -55,7 +55,7 @@ CPU나 메모리 사용량과 같이 관측된 리소스 사용률에 맞춘다.
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)(VPA)를 이용하여 워크로드를 수직으로 자동 스케일링할 수 있다.
-HPA와 달리, VPA는 쿠버네티스에서 기본적으로 제공하지는 않지만, 사용하기 전에 사용자나 클러스터 관리자가 배포해야 할 수도 있는 애드온이다.
+HPA와 달리 VPA는 쿠버네티스에 기본으로 포함되지 않는 애드온이며, 사용하기 전에 사용자나 클러스터 관리자가 배포해야 할 수도 있다.
 
 설치 후에는, 워크로드에 대한 {{< glossary_tooltip text="커스텀리소스데피니션(CustomResourceDefinition)" term_id="customresourcedefinition" >}}
 (CRD)을 생성하여, 관리되는 레플리카의 리소스를 _어떻게_, _언제_ 스케일링할지 정의한다.
