@@ -7,9 +7,9 @@ canonicalUrl: https://www.kubernetes.dev/blog/2026/06/24/wg-device-management-sp
 author: "Natalie Fisher"
 ---
 
-The rising popularity of AI, Edge, and Telecommunications workloads on Kubernetes has led to new requirements for hardware management. We now need hardware specification beyond CPU time and memory allocations.  This includes allocating GPUs, TPUs, network interfaces, and other hardware, sometimes after pod start and occasionally through time-sharing. 
+The rising popularity of AI, Edge, and Telecommunications workloads on Kubernetes has led to new requirements for hardware management. We now need hardware specification beyond CPU time and memory allocations.  This includes allocating GPUs, TPUs, network interfaces, and other hardware, sometimes after pod start and occasionally through time-sharing.
 
-Efficiently managing this specialized hardware is the mission of the **[Device Management Working Group](https://www.kubernetes.dev/community/community-groups/wg/device-management/)**. Their cornerstone project, **[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)**, recently graduated to GA, marking a fundamental shift in how the project handles hardware-intensive workloads at scale.
+Efficiently managing this specialized hardware is the mission of the **[Device Management Working Group](https://www.kubernetes.dev/community/community-groups/wg/device-management/)**. Their cornerstone project, **[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)**, recently graduated to GA, marking a fundamental shift in how the project handles hardware-intensive workloads at scale.
 
 In this spotlight, we sit down with working group chairs **[Kevin Klues](https://github.com/klueska)**, **[Patrick Ohly](https://github.com/pohly)**, and
 **[John Belamaric](https://github.com/johnbelamaric)** to discuss the limitations of the legacy device model,
@@ -24,20 +24,20 @@ I have also been a kubelet maintainer since 2019, with a focus on its device man
 
 **Patrick Ohly:** I am a Principal Engineer at Intel. In Kubernetes, I am a Tech Lead for [SIG Testing](https://www.kubernetes.dev/community/community-groups/sigs/testing/) and [SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/) and co-chair of the Device Management WG. I was co-chair of the WG Structured Logging and a member of the Steering Committee. Some of my early contributions to Kubernetes include [ephemeral CSI volumes](/docs/concepts/storage/ephemeral-volumes/) and storage capacity tracking, so I had some experience with API design, implementation, and scheduling. We knew that introducing a major new API for accelerators would be hard. Somewhat foolishly, I accepted that challenge in 2020, wrote the initial DRA KEP (now known as “classic DRA”) and implemented most of it, then started over with a second KEP for today’s "structured parameters DRA". Initially, it was an uphill battle to convince maintainers that this work was necessary. It was only around 2023 that interest in DRA picked up, leading to the formation of the working group.
 
-**John Belamaric:** I am a Senior Staff SWE at Google, and the third co-chair of WG Device Management, also since its inception. I am also a co-chair of [SIG Architecture](https://www.kubernetes.dev/community/community-groups/sigs/architecture/) since 2019. As Patrick mentioned, in late 2023, interest in DRA really picked up. The initial implementation, made autoscaling very challenging, and so there was some concern in the community about advancing it to beta. I got involved to try to help address some of those concerns, and the three of us, along with Tim Hockin, worked hard over the next few months to build a consensus around a new design. To facilitate this collaboration, we formed the working group after discussion at KubeCon in Paris in 2024. 
+**John Belamaric:** I am a Senior Staff SWE at Google, and the third co-chair of WG Device Management, also since its inception. I am also a co-chair of [SIG Architecture](https://www.kubernetes.dev/community/community-groups/sigs/architecture/) since 2019. As Patrick mentioned, in late 2023, interest in DRA really picked up. The initial implementation, made autoscaling very challenging, and so there was some concern in the community about advancing it to beta. I got involved to try to help address some of those concerns, and the three of us, along with Tim Hockin, worked hard over the next few months to build a consensus around a new design. To facilitate this collaboration, we formed the working group after discussion at KubeCon in Paris in 2024.
 
 ## The problem and the solution
 
 The working group emerged from a fundamental rethink of how Kubernetes interacts with specialized hardware. At the heart of this evolution is **Dynamic Resource Allocation (DRA)**. Rather than treating devices as simple integers, DRA provides a structured framework that breaks device management into four distinct stages:
 
-* **Modeling:** Vendors use the **ResourceSlice API** to advertise the granular capabilities and capacity of their hardware.  
-* **Requesting:** Users define their specific hardware needs—such as GPU memory or interconnect requirements—through the **`ResourceClaim` API**.  
-* **Scheduling:** The Kubernetes scheduler uses these APIs to match workload requirements against available hardware intelligently.  
+* **Modeling:** Vendors use the **ResourceSlice API** to advertise the granular capabilities and capacity of their hardware.
+* **Requesting:** Users define their specific hardware needs—such as GPU memory or interconnect requirements—through the **`ResourceClaim` API**.
+* **Scheduling:** The Kubernetes scheduler uses these APIs to match workload requirements against available hardware intelligently.
 * **Actuation:** Once a match is made, the system handles the "handshake" that prepares and secures the device for the Pod's use.
 
 **NF: For readers who may not be familiar, what is the Device Management Working Group, and what problems is it trying to solve?**
 
-**KK:** The Device Management Working Group was chartered to enable simple and efficient configuration, sharing, and allocation of accelerators and other specialized hardware across Kubernetes workloads. Think GPUs, TPUs, FPGAs, and similar devices that don't fit neatly into Kubernetes' traditional resource model. 
+**KK:** The Device Management Working Group was chartered to enable simple and efficient configuration, sharing, and allocation of accelerators and other specialized hardware across Kubernetes workloads. Think GPUs, TPUs, FPGAs, and similar devices that don't fit neatly into Kubernetes' traditional resource model.
 
 The problem we set out to solve is that the legacy Device Plugin API  (which has been the primary mechanism for exposing hardware accelerators in Kubernetes) is fundamentally limited. It treats devices as opaque integers: you can request "2 GPUs," but you can't say anything meaningful about which GPUs you need, how they should be connected to each other, whether they can be shared, or how they should be partitioned. That was fine for simple cases, but modern AI/ML workloads are anything but simple. They span multiple nodes, require specific interconnect topologies, and increasingly need to share or partition hardware dynamically.
 
@@ -81,7 +81,7 @@ With DRA now generally available, the working group’s focus has expanded to en
 
 **PO:** The scope and feature set of core DRA were intentionally limited to enable graduation to GA within a reasonable time. Additional KEPs add more features, on their own schedule. Those fall roughly into three categories:
 
-1. Extend the expressiveness of DRA to support more complex devices and scheduling scenarios.  
+1. Extend the expressiveness of DRA to support more complex devices and scheduling scenarios.
 2. Support _day two_ operations like health monitoring.
 3. Improve multi-node support, primarily by integrating with workload-aware scheduling.
 
@@ -112,7 +112,7 @@ In addition to the project board, we also maintain a table which summarizes all 
 
 The ResourceClaim API is how the user asks for devices. We have built some features that allow the user to be more flexible in their requests. For example, instead of asking for a specific model of GPU, they can ask for a GPU with at least a certain amount of memory. Or they can ask for a list of alternatives: "I’d like one A100 (80GB) GPU, but if you don’t have it, I’ll take 2 A100 (40 GB) GPUs." This gives the scheduler some options to satisfy the request, which can lead to better obtainability and utilization of hardware that otherwise would not be selected.
 
-The ResourceClaim API allows users to explicitly share devices. You can point multiple containers (in the same or different Pods) at a ResourceClaim; this allows the devices allocated by that claim to be used in all of those containers, *if the device supports it*. 
+The ResourceClaim API allows users to explicitly share devices. You can point multiple containers (in the same or different Pods) at a ResourceClaim; this allows the devices allocated by that claim to be used in all of those containers, *if the device supports it*.
 
 The ResourceSlice API is how vendors model and advertise their devices. This is where we implement support for other sharing models. For example, we have a way to represent "overlapping partitions", enabling the scheduler to dynamically select a MIG partition, and make any overlapping MIG partitions unavailable automatically. This works well in combination with a request like “give me any GPU with 20GB or more of memory” \- the scheduler can satisfy that with a MIG or a real GPU.
 
@@ -164,7 +164,7 @@ I am really excited to see the creative ways people will use these APIs. They we
 
 We have two meeting slots to accommodate different time zones:
 
-- Europe/Americas: Tuesdays at 8:30 AM PT (biweekly)  
+- Europe/Americas: Tuesdays at 8:30 AM PT (biweekly)
 - Asia/Europe: Wednesdays at 9:00 AM CET (biweekly)
 
 Meeting notes, agendas, and recordings are all publicly accessible (links available from [Device Management page](https://www.kubernetes.dev/community/community-groups/wg/device-management/#meetings)). You can get a feel for the work in progress before attending your first meeting.

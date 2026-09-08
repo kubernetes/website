@@ -274,7 +274,7 @@ specification, and observe the resource allocation.
 
 This tutorial showcases only one basic example of a DRA ResourceClaim. Read
 [Dynamic Resource
-Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) to
+Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) to
 learn more about ResourceClaims. 
 
 ### Create the ResourceClaim
@@ -500,5 +500,5 @@ kubectl delete priorityclass dra-driver-high-priority
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)

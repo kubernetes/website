@@ -19,5 +19,5 @@ These resources have finite capacity, measured in a unit applicable to that reso
 Kubernetes abstracts common [resources](/docs/concepts/configuration/manage-resources-containers/)
 for allocation to workloads and utilizes operating system primitives (for example, Linux {{< glossary_tooltip text="cgroups" term_id="cgroup" >}}) to manage consumption by {{< glossary_tooltip text="workloads" term_id="workload" >}}).
 
-You can also use [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) to
+You can also use [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) to
 manage complex resource allocations automatically.

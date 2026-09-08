@@ -189,6 +189,6 @@ metrics.
 ## {{% heading "whatsnext" %}}
 
 * [Learn more about
-  DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * Read the [Kubernetes Metrics
 Reference](/docs/reference/instrumentation/metrics/)

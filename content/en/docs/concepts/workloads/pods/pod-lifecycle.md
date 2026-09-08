@@ -698,7 +698,7 @@ to have any required storage volumes mounted. Once these phases are complete,
 the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
 runtime sandbox and configure networking for the Pod. If the Pod uses
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+[Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/),
 those resources are also allocated during this phase.
 The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
 
