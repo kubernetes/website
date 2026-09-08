@@ -3,15 +3,15 @@ title: Pod shared pool
 id: pod-shared-pool
 full_link: /docs/concepts/resource-management/pod-level-resource-managers/
 short_description: >
-  The subset of a Pod's allocated resources that remains after all exclusive
-  slices have been reserved, shared by containers without an exclusive allocation.
+  The portion of a Pod's allocated resources remaining after all exclusive
+  slices are reserved, shared by containers without an exclusive allocation.
 
 aka:
 tags:
 - fundamental
 - architecture
 ---
-The subset of a Pod's allocated resources that remains after all exclusive slices have been reserved. These resources are shared by all containers in the Pod that do not receive an exclusive allocation.
+Resources remaining after a Pod's exclusive slices have been reserved, shared by the containers that do not receive an exclusive allocation.
 
 <!--more-->
 
