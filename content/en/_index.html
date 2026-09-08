@@ -7,33 +7,56 @@ sitemap:
   priority: 1.0
 ---
 
+{{< blocks/hero >}}
+<p class="k8s-hero__tagline">Automated deployment, scaling, and management of containerized applications.</p>
+<div class="k8s-hero__actions">
+    <a class="k8s-hero__btn k8s-hero__btn--primary" href="{{< relref "/docs/home/" >}}">Get Started</a>
+    <a class="k8s-hero__btn" href="{{< relref "/community/" >}}">Get Involved</a>
+</div>
+{{< /blocks/hero >}}
+
 {{< blocks/section class="k8s-overview" >}}
 {{% blocks/feature image="flower" id="feature-primary" %}}
-[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}) is an open source system for running containers across a cluster of machines.
 
-It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
+Developed in the open by a [community](/community/) that spans the industry, Kubernetes has become the common foundation of the cloud native ecosystem.
 {{% /blocks/feature %}}
+
+{{< blocks/stats >}}
 
 {{% blocks/feature image="scalable" %}}
-#### Planet scale
+#### Scalable
 
-Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.
+Scale to match demand. Kubernetes adjusts the number of running instances automatically based on CPU, memory, or your own metrics, and grows from a single laptop to thousands of nodes without changing how you work.
+
+[Learn more →]({{< relref "/docs/concepts/workloads/autoscaling/" >}})
 
 {{% /blocks/feature %}}
 
-{{% blocks/feature image="blocks" %}}
-#### Never outgrow
+{{% blocks/feature image="resilient" %}}
+#### Resilient
 
-Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
+Kubernetes keeps your applications running — restarting containers that fail, rescheduling them when a node goes down, and routing traffic only to instances that are ready. Recovery happens automatically, often before anyone notices.
+
+[Learn more →]({{< relref "/docs/concepts/workloads/controllers/deployment/" >}})
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### Run K8s anywhere
+#### Portable
 
-Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
+Run the same way on a laptop, on-premises, or across public clouds. Kubernetes is open source with no vendor lock-in, so you can move workloads to wherever makes the most sense.
 
-To download Kubernetes, visit the [download](/releases/download/) section.
+[Learn more →]({{< relref "/docs/concepts/architecture/" >}})
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Extensible
+
+Kubernetes is a platform to build on. Define your own resource types, automate operations with custom controllers, and draw on a vast ecosystem of tools — all through the same API, without forking the core.
+
+[Learn more →]({{< relref "/docs/concepts/extend-kubernetes/" >}})
 
 {{% /blocks/feature %}}
 
@@ -65,6 +88,85 @@ To download Kubernetes, visit the [download](/releases/download/) section.
 
 {{< /blocks/section >}}
 
-{{< blocks/kubernetes-features >}}
+{{< blocks/feature-groups >}}
+<div class="feature-group">
+    <div class="feature-group__header">
+        <h3 class="feature-group__title">Workloads</h3>
+        <p class="feature-group__desc">Run any kind of application.</p>
+    </div>
+    <ul class="feature-group__list">
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/controllers/deployment/" >}}">Deployments and rollbacks</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/controllers/job/" >}}">Batch jobs</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/controllers/statefulset/" >}}">Stateful applications</a></li>
+    </ul>
+</div>
+<div class="feature-group">
+    <div class="feature-group__header">
+        <h3 class="feature-group__title">Scaling</h3>
+        <p class="feature-group__desc">Match capacity to demand, automatically.</p>
+    </div>
+    <ul class="feature-group__list">
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/" >}}">Horizontal scaling</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/" >}}">Vertical scaling</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/configuration/manage-resources-containers/" >}}">Resource-aware scheduling</a></li>
+    </ul>
+</div>
+<div class="feature-group">
+    <div class="feature-group__header">
+        <h3 class="feature-group__title">Reliability</h3>
+        <p class="feature-group__desc">Recover from failure automatically.</p>
+    </div>
+    <ul class="feature-group__list">
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/architecture/self-healing/" >}}">Self-healing</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/workloads/pods/probes/" >}}">Health checks</a></li>
+    </ul>
+</div>
+<div class="feature-group">
+    <div class="feature-group__header">
+        <h3 class="feature-group__title">AI/ML</h3>
+        <p class="feature-group__desc">Run workloads on specialized hardware.</p>
+    </div>
+    <ul class="feature-group__list">
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/scheduling-eviction/dynamic-resource-allocation/" >}}">GPU scheduling</a></li>
+        <li class="feature-item"><a class="feature-item__title" href="{{< relref "/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/" >}}">Device plugins</a></li>
+    </ul>
+</div>
+{{< /blocks/feature-groups >}}
 
 {{< blocks/case-studies >}}
+
+{{< blocks/pathways >}}
+<h2 class="k8s-pathways__heading">Where to next?</h2>
+<p class="k8s-pathways__lead">Learn it, run it, or help build it. If you already know what you need, the release binaries and container images are on the <a href="{{< relref "/releases/download/" >}}">download page</a>.</p>
+<div class="k8s-pathways__inner">
+    <div class="pathway">
+        <h3 class="pathway__title">New to Kubernetes</h3>
+        <p class="pathway__desc">Start with the core ideas — what Kubernetes is and how it works.</p>
+        <div class="pathway__links">
+            <a class="pathway__cta" href="{{< relref "/docs/concepts/overview/" >}}">Learn the basics</a>
+        </div>
+    </div>
+    <div class="pathway">
+        <h3 class="pathway__title">Running in production</h3>
+        <p class="pathway__desc">Ship applications, or run the clusters they land on.</p>
+        <div class="pathway__links">
+            <a class="pathway__cta" href="{{< relref "/docs/tasks/run-application/" >}}">Deploy applications</a>
+            <a class="pathway__cta" href="{{< relref "/docs/tasks/administer-cluster/" >}}">Operate clusters</a>
+        </div>
+    </div>
+    <div class="pathway">
+        <h3 class="pathway__title">Building a career</h3>
+        <p class="pathway__desc">Training and certification for developers and cluster administrators.</p>
+        <div class="pathway__links">
+            <a class="pathway__cta" href="{{< relref "/training/" >}}">Training and certification</a>
+        </div>
+    </div>
+    <div class="pathway">
+        <h3 class="pathway__title">How to contribute</h3>
+        <p class="pathway__desc">Join the community and help build Kubernetes and its ecosystem.</p>
+        <div class="pathway__links">
+            <a class="pathway__cta" href="{{< relref "/community/" >}}">Get involved</a>
+        </div>
+    </div>
+</div>
+{{< /blocks/pathways >}}

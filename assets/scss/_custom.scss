@@ -172,6 +172,17 @@ body.td-404 main .error-details {
     min-height: 4em;
     width: calc(clamp(20em,18em + 20mm,100vw));
   }
+
+  .cncf-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.75rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
+  }
 }
 
 /* FOOTER */

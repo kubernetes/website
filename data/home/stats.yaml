@@ -1,0 +1,21 @@
+- id: platforms
+  value: "140+"
+  link: /partners/
+  source: >-
+    Certified Kubernetes platforms: 143 across distributions, hosted platforms
+    and installers in the CNCF Certified Kubernetes Conformance program (CNCF
+    landscape, checked 2026-07). The breakdown is on the Partners page.
+
+- id: production
+  value: "82%"
+  source: >-
+    Share of container users running Kubernetes in production. CNCF Annual
+    Cloud Native Survey, January 2026, Q22/Q23, n=351. Up from 66% in 2023;
+    the trend is left out because 66% also appears as the AI figure and two
+    identical values side by side read as an error.
+
+- id: ai
+  value: "66%"
+  source: >-
+    Share of organizations running generative AI workloads on Kubernetes.
+    Same survey, Q41, n=213 (organizations that host AI workloads).

@@ -15,11 +15,7 @@ Note that markdown can be used in the description.
 
  */}}
 <section class="features-container" id="features">
-    {{- with resources.Get "images/wheel.svg" -}}
-    <img class="kubernetes-logo wheel" src="{{ .RelPermalink }}" alt="">
-    {{- end -}}
-
-    <h2 class="k8s-features-heading">{{ T "main_kubernetes_features" }}</h2>
+    {{ partial "features-header.html" . }}
     <div>
         {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
         {{ range $i, $p := $pages }}

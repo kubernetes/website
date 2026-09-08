@@ -1,0 +1,16 @@
+<section id="hero" class="k8s-hero">
+  <div class="k8s-hero__inner">
+    <div class="k8s-hero__content">
+      <h1 class="k8s-hero__title">
+        <span class="visually-hidden">Kubernetes</span>
+        {{- with resources.Get "images/kubernetes-logo.svg" }}
+        {{ (. | minify).Content | safeHTML }}
+        {{- end }}
+      </h1>
+      {{ .Inner | htmlUnescape | safeHTML }}
+    </div>
+    <div class="k8s-hero__visual" aria-hidden="true">
+      <img src="{{ "/images/kubernetes-icon-color.svg" | relURL }}" alt="" width="230" height="223" loading="eager">
+    </div>
+  </div>
+</section>

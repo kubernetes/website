@@ -1,0 +1,6 @@
+<section class="features-container" id="features">
+    {{ partial "features-header.html" . }}
+    <div class="feature-groups">
+        {{ .Inner | htmlUnescape | safeHTML }}
+    </div>
+</section>
