@@ -39,7 +39,7 @@ API 요청의 유효성을 검사하거나 요청을 변형할 수 있다. 일�
 `ValidatingAdmissionPolicy`는 API 요청을 대상으로 동작하며, 규정을 준수하지 않는 구성을 차단하거나 감사(audit)하고, 해당 구성에 대해 사용자에게 경고하는 데 사용할 수 있다.
 
 `ValidatingAdmissionPolicy` API에 대한 세부 정보와 예시는 별도 섹션에 문서화되어 있다.
-* [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
+* [유효성 검사 어드미션 정책](/docs/reference/access-authn-authz/validating-admission-policy/)
 
 
 ## 동적 어드미션 컨트롤을 사용하여 정책 적용하기
