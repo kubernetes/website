@@ -31,8 +31,8 @@ hide_summary: true # 섹션 인덱스에서 별도로 나열된다
 스테이트풀셋은 다음 중 하나 또는 그 이상을 요구하는 애플리케이션에
 유용하다.
 
-* 안정된, 고유한 네트워크 식별자.
-* 안정된, 지속성을 갖는 스토리지.
+* 안정적인, 고유한 네트워크 식별자.
+* 안정적인, 지속성을 갖는 스토리지.
 * 순차적인, 정상 배포(graceful deployment)와 스케일링.
 * 순차적인, 자동 롤링 업데이트.
 
@@ -51,7 +51,7 @@ hide_summary: true # 섹션 인덱스에서 별도로 나열된다
 * 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 삭제되지 *_않는다_*.
   이는 일반적으로 스테이트풀셋과 연관된 모든 리소스를 자동으로 제거하는 것보다 더 중요한
   데이터의 안전을 보장하기 위함이다.
-* 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)가
+* 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)가
   필요하다.
   사용자는 이 서비스를 생성할 책임이 있다.
 * 스테이트풀셋은 삭제 시 파드 종료를 보장하지 않는다. 파드가 순차적이고 정상적으로 종료되게 하려면,
@@ -120,7 +120,7 @@ spec:
 
 {{< note >}}
 이 예제에서는 편의를 위해 `ReadWriteOnce` 접근 모드를 사용한다. 운영 환경에서는
-쿠버네티스 프로젝트에서 `ReadWriteOncePod` 액세스 모드를 사용할 것을 
+쿠버네티스 프로젝트에서 `ReadWriteOncePod` 액세스 모드를 사용할 것을
 권장한다.
 {{< /note >}}
 
@@ -138,7 +138,7 @@ spec:
 ### 파드 셀렉터
 
 스테이트풀셋의 `.spec.selector` 필드는
-`.spec.template.metadata.labels` 레이블과 일치하도록 설정해야 한다. 해당되는 파드 셀렉터를 찾지 못하면
+`.spec.template.metadata.labels` 레이블과 일치하도록 설정해야 한다. 해당되는 파드 셀렉터를 지정하지 않으면
 스테이트풀셋 생성 과정에서 검증 오류가 발생한다.
 
 ### 볼륨 클레임 템플릿
@@ -156,8 +156,8 @@ spec:
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-`.spec.minReadySeconds`는 새로 생성된 파드가 사용 가능하다고 간주되기 위해, 컨테이너가
-문제 없이 실행되고 준비되는 최소 시간(초)을 나타내는 선택적인 필드이다.
+`.spec.minReadySeconds`는 새로 생성된 파드가 컨테이너 중 어느 것도 충돌하지 않은 채
+실행 중이며 준비된 상태를 유지하여 사용 가능하다고 간주되기 위한 최소 시간(초)을 지정하는 선택적 필드이다.
 [롤링 업데이트](#롤링-업데이트) 전략을 사용할 때 롤아웃 진행 상황을 확인하는 데 사용된다.
 이 필드의 기본값은 0이다(이 경우, 파드가 Ready 상태가 되면 바로 사용 가능하다고 간주된다).
 파드가 언제 사용 가능하다고 간주되는지에 대한 자세한 정보는 [컨테이너 프로브(probe)](/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참고한다.
@@ -175,12 +175,12 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 기본적으로 파드는 0부터 N-1까지의 서수를 할당받는다. 또한, 스테이트풀셋 컨트롤러는
 `apps.kubernetes.io/pod-index`과 같은 인덱스 값을 가진 파드 레이블을 추가한다.
 
-### 시작 순서
+### 시작 서수
 
 {{< feature-state feature_gate_name="StatefulSetStartOrdinal" >}}
 
-`.spec.ordinals`은 각 파드에 할당할 순서에 대한
-정수값을 설정할 수 있게 해주는 선택적인 필드로, 기본값은 nil이다.
+`.spec.ordinals`은 각 파드에 할당되는 정수 서수를 설정할 수 있게 해주는 선택적인 필드로,
+기본값은 nil이다.
 이 필드를 사용하기 위해서는 다음과 같은 옵션들을 설정할 수 있다.
 
 * `.spec.ordinals.start`: 만약 `.spec.ordinals.start` 필드가 설정된 경우, 파드는
@@ -194,7 +194,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 `$(statefulset name)-$(ordinal)` 이다. 위의 예시에서 생성된 3개 파드의 이름은
 `web-0,web-1,web-2` 이다.
 스테이트풀셋은 스테이트풀셋에 있는 파드의 도메인을 제어하기 위해
-[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)를 사용할 수 있다.
+[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 사용할 수 있다.
 이 서비스가 관리하는 도메인은 `$(service name).$(namespace).svc.cluster.local`의 형식을 가지며,
 여기서 "cluster.local"은 클러스터 도메인이다.
 각 파드는 생성되면 `$(podname).$(governing service domain)` 형식을 가지고
@@ -215,7 +215,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 
 [제한사항](#제한사항) 섹션에서 언급한 것처럼 사용자는
 파드의 네트워크 신원을 책임지는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)를 생성할 책임이 있다.
+[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 생성할 책임이 있다.
 
 다음은 클러스터 도메인, 서비스 이름, 스테이트풀셋 이름을 선택하고,
 그 선택이 스테이트풀셋 파드의 DNS 이름에 어떻게 영향을 주는지에 대한 예시이다.
@@ -231,7 +231,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 `cluster.local`로 설정된다.
 {{< /note >}}
 
-### 안정된 스토리지
+### 안정적인 스토리지
 
 스테이트풀셋에 정의된 볼륨 클레임 템플릿 항목마다, 각 파드는 하나의
 퍼시스턴트볼륨클레임을 받는다. 위의 nginx 예시에서 각 파드는 `my-storage-class`라는 스토리지클래스와
@@ -244,8 +244,8 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 
 ### 파드 이름 레이블
 
-스테이트풀셋 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}
-가 파드를 생성할 때 파드 이름으로 `statefulset.kubernetes.io/pod-name`
+스테이트풀셋 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}가
+파드를 생성할 때 파드 이름으로 `statefulset.kubernetes.io/pod-name`
 레이블이 추가된다. 이 레이블로 스테이트풀셋의 특정 파드에 서비스를
 연결할 수 있다.
 
@@ -254,8 +254,8 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 {{< feature-state feature_gate_name="PodIndexLabel" >}}
 
 스테이트풀셋 {{<glossary_tooltip text="컨트롤러" term_id="controller">}}가 파드를 만들 때,
-새로운 파드는 `apps.kubernetes.io/pod-index`로 레이블링 된다. 이 레이블의 값은 파드의 
-인덱스 순서이다. 이 레이블을 사용하면 특정 파드 인덱스로 트래픽을 라우팅하고, 파드 인덱스 레이블을 사용하여 
+새로운 파드는 `apps.kubernetes.io/pod-index`로 레이블링 된다. 이 레이블의 값은 파드의
+서수 인덱스이다. 이 레이블을 사용하면 특정 파드 인덱스로 트래픽을 라우팅하고, 파드 인덱스 레이블을 사용하여
 로그/메트릭을 필터링하는 등의 작업을 수행할 수 있다. 기능 게이트 `PodIndexLabel`은 이 기능을 위해
 기본적으로 활성화되고 잠겨 있으며, 이를 비활성화하려면 사용자는 서버 에뮬레이션 버전 v1.31을 사용해야 한다.
 
@@ -310,17 +310,25 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 스테이트풀셋의 `.spec.updateStrategy` 필드는 스테이트풀셋의
 파드에 대한 컨테이너, 레이블, 리소스의 요청/제한 그리고 어노테이션에 대한 자동화된 롤링 업데이트를
-구성하거나 비활성화할 수 있다. 두 가지 가능한 전략이 있다.
+구성하거나 비활성화할 수 있다. 세 가지 가능한 전략이 있다.
 
-`OnDelete`(삭제 시)
+`OnDelete`
 : 스테이트풀셋의 `.spec.updateStrategy.type`이 `OnDelete`로 설정되면,
-스테이트풀셋 컨트롤러는 스테이트풀셋의 파드를 자동으로 업데이트하지 않는다. 
+스테이트풀셋 컨트롤러는 스테이트풀셋의 파드를 자동으로 업데이트하지 않는다.
 사용자는 컨트롤러가 스테이트풀셋의
 `.spec.template`를 반영하는 수정된 새로운 파드를 생성하도록 수동으로 파드를 삭제해야 한다.
 
-`RollingUpdate`(롤링 업데이트)
+`RollingUpdate`
 : `RollingUpdate` 업데이트 전략은 스테이트풀셋의 파드에 대한 자동화된 롤링 업데이트를
   구현한다. 기본 업데이트 전략이다.
+
+`Recreate`
+: {{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+  `Recreate` 업데이트 전략은 스테이트풀셋의 `.spec.template` 변경 사항을 반영한 새 파드를 생성하기 전에
+  스테이트풀셋의 모든 파드를 삭제한다. 이 전략을 사용하려면
+  `StatefulSetRecreateStrategy`
+  [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)를
+  활성화해야 한다. 자세한 내용은 [재생성](#재생성)을 참고한다.
 
 ## 롤링 업데이트
 
@@ -331,10 +339,10 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 쿠버네티스 컨트롤 플레인은 이전 파드를 업데이트하기 전에 업데이트된 파드가 Running 및 Ready 상태가 될 때까지 기다린다.
 `.spec.minReadySeconds`([최소 준비 시간 초](#최소-준비-시간-초) 참조)를
-설정한 경우, 
+설정한 경우,
 컨트롤 플레인은 파드가 Ready 상태로 전환된 후 해당 시간만큼 추가로 기다린 뒤 다음 단계로 진행한다.
 
-### 파티션 롤링 업데이트
+### 파티션 롤링 업데이트 {#partitions}
 
 `RollingUpdate` 업데이트 전략은 `.spec.updateStrategy.rollingUpdate.partition`을
 지정하여 파티션으로 나눌 수 있다. 만약 파티션을 지정하면 스테이트풀셋의 `.spec.template`가
@@ -344,14 +352,14 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 만약 스테이트풀셋의 `.spec.updateStrategy.rollingUpdate.partition`이
 `.spec.replicas`보다 큰 경우 `.spec.template`의 업데이트는 해당 파드에 전달하지 않는다.
 대부분의 케이스는 파티션을 사용할 필요가 없지만 업데이트를 준비하거나,
-카나리의 롤 아웃 또는 단계적인 롤아웃을 행하려는 경우에는 유용하다.
+카나리의 롤아웃 또는 단계적인 롤아웃을 행하려는 경우에는 유용하다.
 
 ### 최대 사용 불가능 파드 수
 
 {{< feature-state for_k8s_version="v1.35" state="beta" >}}
 
-`.spec.updateStrategy.rollingUpdate.maxUnavailable` 필드를 명시하여, 
-업데이트 과정에서 사용 불가능(unavailable) 파드를 최대 몇 개까지 허용할 것인지를 조절할 수 있다. 
+`.spec.updateStrategy.rollingUpdate.maxUnavailable` 필드를 명시하여,
+업데이트 과정에서 사용 불가능(unavailable) 파드를 최대 몇 개까지 허용할 것인지를 조절할 수 있다.
 값은 절대값(예: `5`) 또는 의도한 파드의 백분율(예: `10%`)로 지정할 수 있다.
 절대값은 백분율 값으로 계산한 뒤 올림하여 얻는다.
 이 필드는 0일 수 없다. 기본값은 1이다.
@@ -361,7 +369,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 `maxUnavailable`로 집계된다.
 
 {{< note >}}
-`maxUnavailable` 필드는 현재 베타 단계이며 기본적으로 비활성화되어 있다.
+`maxUnavailable` 필드는 현재 베타 단계이며 기본적으로 활성화되어 있다.
 {{< /note >}}
 
 ### 강제 롤백
@@ -384,6 +392,29 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 실행하려고 시도한 모든 파드를 삭제해야 한다.
 그러면 스테이트풀셋은 되돌린 템플릿을 사용해서 파드를 다시 생성하기 시작한다.
 
+## 재생성
+
+{{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+
+스테이트풀셋의 `.spec.updateStrategy.type`이 `Recreate`로 설정되면,
+스테이트풀셋 컨트롤러는 모든 스테이트풀셋 파드를 한 번에 삭제하고, 업데이트된
+`.spec.template`에 따라 새 파드를 생성하기 전에 파드가 완전히 종료될 때까지 기다린다.
+[`RollingUpdate`](#롤링-업데이트)와 달리 파드의 이전 리비전과 새 리비전은 동시에
+실행되지 않으므로, 이 전략은 업데이트 중에 다운타임을 유발한다. 이는 디플로이먼트의
+`Recreate` 전략과 동일하며, 공유 리소스에 대한 배타적 접근이 필요하거나
+버전이 호환되지 않는 디스크 형식을 사용하는 워크로드처럼
+두 버전을 동시에 실행할 수 없는 애플리케이션에 유용하다.
+
+[파드 관리 정책]((#파드-관리-정책))과 관계없이 삭제 시에는 항상 모든 파드가 함께 삭제된다.
+파드 관리 정책에 따라 모든 파드가 종료된 후 새 파드가 생성된다.
+`OrderedReady`(기본값)를 사용하면 파드는 오름차순 서수에 따라 한 번에 하나씩 다시
+생성되며, 다음 파드를 생성하기 전에 각 파드가 Running 및 Ready 상태가 될 때까지 기다린다.
+`Parallel`을 사용하면 모든 파드가 한 번에 다시 생성된다.
+
+이 기능은 알파 단계이므로, 사용하려면 kube-controller-manager와 kube-apiserver에서
+`StatefulSetRecreateStrategy`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)를 활성화해야 한다.
+
 ## 리비전 내역
 
 컨트롤러리비전(ControllerRevision)은 스테이트풀셋 컨트롤러와 같은 컨트롤러에서 구성 변경 내역을 추적하는 데 사용되는 쿠버네티스 API 리소스이다.
@@ -395,7 +426,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 스테이트풀셋의 파드 템플릿(`spec.template`)을 업데이트하면 스테이트풀셋 컨트롤러는 다음을 수행한다.
 
 1. 새 컨트롤러리비전 오브젝트를 준비한다.  
-2. 파드 템플릿 및 메타 데이터의 스냅샷을 저장한다.
+2. 파드 템플릿 및 메타데이터의 스냅샷을 저장한다.
 3. 증가하는 리비전 번호를 할당한다.
 
 #### 주요 속성
@@ -429,7 +460,7 @@ spec:
 # 수정 내역 보기
 kubectl rollout history statefulset/webapp
 
-# 특정 수정 내역으로 롤백 
+# 특정 수정 내역으로 롤백
 kubectl rollout undo statefulset/webapp --to-revision=3
 ```
 
@@ -459,13 +490,13 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### 모니터링
 
-- 다음을 사용하여 정기적으로 개정 내용을 확인한다.
+- 다음을 사용하여 리비전을 정기적으로 확인한다.
 
   ```bash
   kubectl get controllerrevisions
   ```
 
-- **급격한 개정 횟수 증가** 알림
+- **리비전 수가 급격히 증가하면** 알림을 설정한다.
 
 ##### 피해야 할 사항
 
@@ -503,7 +534,7 @@ kubectl get controllerrevision/webapp-3 -o yaml
 : 파드가 삭제되어도 `volumeClaimTemplate`으로부터 생성된 PVC는 영향을 받지 않는다.
   이는 이 신기능이 도입되기 전의 기본 동작이다.
 
-이러한 정책은 파드의 삭제가 스테이트풀셋 삭제 또는 스케일 다운으로 인한 경우에**만** 적용됨에 유의한다.
+이러한 정책은 파드의 삭제가 스테이트풀셋 삭제 또는 스케일 다운으로 인한 **경우에만** 적용됨에 유의한다.
 예를 들어, 스테이트풀셋과 연결된 파드가 노드 실패로 인해 실패했고,
 컨트롤 플레인이 대체 파드를 생성했다면, 스테이트풀셋은 기존 PVC를 유지한다.
 기존 볼륨은 영향을 받지 않으며,
