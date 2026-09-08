@@ -351,7 +351,7 @@ announcements:
     </a>
 
 - name: KubeCon 2026 NA
-  startTime: 2026-09-14T00:00:00
+  startTime: 2026-09-14T00:00:00 #Added in https://github.com/kubernetes/website/pull/57461
   endTime: 2026-11-12T18:00:00
   style: >-
     background: linear-gradient(90deg, rgb(17, 62, 130) 0%, rgb(17, 62, 130) 100%);
