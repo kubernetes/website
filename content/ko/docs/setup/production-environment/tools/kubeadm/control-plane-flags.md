@@ -187,8 +187,8 @@ node:
 
 - `target`은 `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
 `kubeletconfiguration`, `corednsdeployment` 중 하나가 될 수 있다.
-- `suffix` is an optional string that can be used to determine which patches are applied first
-alpha-numerically.
+- `suffix`는 영숫자순으로 어떤 패치가 먼저 적용될지 결정하는 데 사용할 수 있는 선택적
+문자열이다.
 - `patchtype`은 `strategic`, `merge` 그리고 `json` 중 하나가 될 수 있으며
 [kubectl에서 지원하는](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 패치 형식을 준수해야 한다.
 `patchtype`의 기본값은 `strategic`이다.
