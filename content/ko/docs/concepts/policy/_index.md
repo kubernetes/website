@@ -34,7 +34,7 @@ API 요청의 유효성을 검사하거나 요청을 변형할 수 있다. 일�
 
 ## ValidatingAdmissionPolicy를 사용하여 정책 적용하기
 
-Validating Admission Policy를 사용하면 Common Expression Language (CEL)를 이용해 구성 가능한 유효성 검사를 API 서버에서 실행할 수 있다. 예를 들어, `ValidatingAdmissionPolicy`를 사용하여 `latest` 이미지 태그의 사용을 금지할 수 있다.
+유효성 검사 어드미션 정책(validating admission policy)을 사용하면 공통 표현식 언어(Common Expression Language, CEL)를 이용해 구성 가능한 유효성 검사를 API 서버에서 실행할 수 있다. 예를 들어, `ValidatingAdmissionPolicy`를 사용하여 `latest` 이미지 태그의 사용을 금지할 수 있다.
 
 `ValidatingAdmissionPolicy`는 API 요청을 대상으로 동작하며, 규정을 준수하지 않는 구성을 차단하거나 감사(audit)하고, 해당 구성에 대해 사용자에게 경고하는 데 사용할 수 있다.
 
