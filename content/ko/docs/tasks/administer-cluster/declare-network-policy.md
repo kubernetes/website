@@ -7,7 +7,7 @@ min-kubernetes-server-version: v1.8
 content_type: task
 ---
 <!-- overview -->
-이 문서는 사용자가 쿠버네티스 [네트워크폴리시 API](/docs/concepts/services-networking/network-policies/)를 사용하여 파드(Pod)가 서로 통신하는 방법을 제어하는 네트워크 폴리시를 선언하는데 도움을 준다.
+이 문서는 사용자가 쿠버네티스 [네트워크폴리시 API](/docs/concepts/services-networking/network-policies/)를 사용하여 파드(Pod)가 서로 통신하는 방법을 제어하는 네트워크 폴리시를 선언하는 데 도움을 준다.
 
 {{% thirdparty-content %}}
 
@@ -46,7 +46,7 @@ kubectl expose deployment nginx --port=80
 service/nginx exposed
 ```
 
-위 명령어들은 nginx 파드에 대한 디플로이먼트를 생성하고, `nginx` 라는 이름의 서비스를 통해 디플로이먼트를 노출한다. `nginx` 파드와 디플로이먼트는 `default` 네임스페이스(namespace)에 존재한다.
+위 명령어들은 nginx 파드가 포함된 디플로이먼트를 생성하고, `nginx` 라는 이름의 서비스를 통해 디플로이먼트를 노출한다. `nginx` 파드와 디플로이먼트는 `default` 네임스페이스(namespace)에 있다.
 
 ```console
 kubectl get svc,pod
@@ -69,7 +69,7 @@ pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-사용자 쉘에서, 다음의 명령을 실행한다.
+사용자 셸에서, 다음의 명령을 실행한다.
 
 ```shell
 wget --spider --timeout=1 nginx
@@ -84,7 +84,7 @@ remote file exists
 
 `access: true` 레이블을 가지고 있는 파드만 `nginx` 서비스에 접근할 수 있도록 하기 위하여, 다음과 같은 네트워크폴리시 오브젝트를 생성한다.
 
-{{< codenew file="service/networking/nginx-policy.yaml" >}}
+{{% code_sample file="service/networking/nginx-policy.yaml" %}}
 
 네트워크폴리시 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
