@@ -313,9 +313,14 @@ exist by default, and it should be created before the curl command.
    ```shell
    sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
    ```
-   For systems with DNF5:
+   For Fedora systems with DNF5:
    ```shell
    sudo dnf install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes
+   ```
+
+   For RHEL/CentOS 10 and later, to avoid pulling in `iptables` as a dependency:
+   ```shell
+   sudo dnf install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes --setopt=install_weak_deps=False
    ```
 
 4. (Optional) Enable the kubelet service before running kubeadm:
