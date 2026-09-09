@@ -28,7 +28,7 @@ content_type: concept
 
 ## 컨트롤 플레인 동작
 
-모든 [컨트롤 플레인 컴포넌트](/docs/concepts/architecture/#control-plane-components)는
+모든 [컨트롤 플레인 컴포넌트](/docs/concepts/architecture/#컨트롤-플레인-컴포넌트)는
 컴포넌트별로 복제된 서로 대체 가능한 리소스 풀로 실행되는 것을
 지원한다.
 
@@ -109,7 +109,7 @@ content_type: concept
 {{< glossary_tooltip text="스토리지클래스(StorageClass)" term_id="storage-class" >}}를
 지정할 수 있으며, 해당 클래스의 스토리지가 사용할 수 있는 장애 도메인(영역)을 지정할 수 있다.
 장애 도메인 또는 영역을 인식하는 스토리지클래스 구성에 대한 자세한 내용은
-[허용된 토폴로지](/docs/concepts/storage/storage-classes/#allowed-topologies)를 참고한다.
+[허용된 토폴로지](/docs/concepts/storage/storage-classes/#허용된-토폴로지)를 참고한다.
 
 ## 네트워킹
 
