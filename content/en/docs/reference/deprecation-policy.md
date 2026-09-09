@@ -6,6 +6,8 @@ reviewers:
 title: Kubernetes Deprecation Policy
 content_type: concept
 weight: 40
+aliases:
+  - /docs/reference/using-api/deprecation-policy/
 ---
 
 <!-- overview -->
