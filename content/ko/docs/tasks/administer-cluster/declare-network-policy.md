@@ -112,7 +112,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-사용자 쉘에서, 다음의 명령을 실행한다.
+사용자 셸에서, 다음의 명령을 실행한다.
 
 ```shell
 wget --spider --timeout=1 nginx
@@ -131,7 +131,7 @@ wget: download timed out
 kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
-사용자 쉘에서, 다음의 명령을 실행한다.
+사용자 셸에서, 다음의 명령을 실행한다.
 
 ```shell
 wget --spider --timeout=1 nginx
