@@ -98,8 +98,9 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
-{{<note>}}
 {{< feature-state feature_gate_name="HugepageAwareEviction" >}}
+
+{{<note>}}
 On nodes with [hugepages](/docs/tasks/manage-hugepages/scheduling-hugepages/)
 configured, the kubelet subtracts the node's total hugepage capacity from
 `memory.available` used by eviction manager.
@@ -136,8 +137,9 @@ These identifiers describe the filesystems as the kubelet observes them. They do
 not always mean three different mount points: in common layouts, two or all
 three identifiers can refer to the same underlying filesystem.
 
-{{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
+
+{{<note>}}
 The _split image filesystem_ feature adds new eviction signals, thresholds, and
 metrics for `containerfs`. To use `containerfs`, the Kubernetes release
 v{{< skew currentVersion >}} requires the `KubeletSeparateDiskGC`
