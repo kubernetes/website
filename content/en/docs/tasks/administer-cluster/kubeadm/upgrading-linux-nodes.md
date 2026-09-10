@@ -42,15 +42,15 @@ sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-For systems with DNF:
+For systems with DNF4 (Fedora < 41, RHEL/Centos < 10):
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 For systems with DNF5:
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -87,15 +87,15 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    ```
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
-   For systems with DNF:
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}

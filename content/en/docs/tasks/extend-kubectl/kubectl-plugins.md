@@ -370,7 +370,7 @@ discover your plugin and install it.
 
 ### Native / platform specific package management {#distributing-native}
 
-Alternatively, you can use traditional package managers such as, `apt` or `yum`
+Alternatively, you can use traditional package managers such as, `apt` or `dnf`
 on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
