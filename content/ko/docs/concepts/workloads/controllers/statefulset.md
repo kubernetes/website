@@ -48,7 +48,7 @@ hide_summary: true # 섹션 인덱스에서 별도로 나열된다
 * 특정 파드의 스토리지는 요청된 _스토리지 클래스_ 를 기준으로
   [퍼시스턴트 볼륨 프로비저너](/docs/concepts/storage/dynamic-provisioning/)가 프로비저닝하거나,
   관리자가 미리 프로비저닝해야 한다.
-* 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 삭제되지 *_않는다_*.
+* 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 삭제되지 _않는다_.
   이는 일반적으로 스테이트풀셋과 연관된 모든 리소스를 자동으로 제거하는 것보다 더 중요한
   데이터의 안전을 보장하기 위함이다.
 * 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)가
@@ -144,7 +144,7 @@ spec:
 ### 볼륨 클레임 템플릿
 
 `.spec.volumeClaimTemplates` 필드를 설정하여
-[퍼시스턴트볼륨클레임(PersistentVolumeClaim)](/docs/concepts/storage/persistent-volumes/)을 생성할 수 있다.
+[퍼시스턴트볼륨클레임(PersistentVolumeClaim)](/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)을 생성할 수 있다.
 다음 두 조건 중 하나를 만족하면 스테이트풀셋에 안정적인 스토리지를 제공한다.
 
 * 볼륨 클레임에 지정된 스토리지클래스(StorageClass)가
@@ -405,7 +405,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 버전이 호환되지 않는 디스크 형식을 사용하는 워크로드처럼
 두 버전을 동시에 실행할 수 없는 애플리케이션에 유용하다.
 
-[파드 관리 정책]((#파드-관리-정책))과 관계없이 삭제 시에는 항상 모든 파드가 함께 삭제된다.
+[파드 관리 정책](#파드-관리-정책)과 관계없이 삭제 시에는 항상 모든 파드가 함께 삭제된다.
 파드 관리 정책에 따라 모든 파드가 종료된 후 새 파드가 생성된다.
 `OrderedReady`(기본값)를 사용하면 파드는 오름차순 서수에 따라 한 번에 하나씩 다시
 생성되며, 다음 파드를 생성하기 전에 각 파드가 Running 및 Ready 상태가 될 때까지 기다린다.
@@ -592,7 +592,7 @@ PVC가 삭제되기 전에(보존 정책에 따라 기반 PV와 볼륨이 삭제
 수동으로 설정했던 스테이트풀셋의 크기가 
 오버라이드된다.
 
-[HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가 
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가 
 스테이트풀셋 크기를 관리하고 있다면, `.spec.replicas`를 설정해서는 안 된다.
 대신, 쿠버네티스 
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이 
