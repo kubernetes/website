@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes v1.37: Hardening Container Storage with Bind Mount Options and EmptyDir Permissions"
 slug: kubernetes-v1-37-hardening-container-storage
-draft: true
+date: 2026-09-16T10:30:00-08:00
 author: >
   [Nispriha Jagan](https://github.com/nispriha) (Red Hat),
   [Neeraj Krishna Gopalakrishna](https://github.com/ngopalak-redhat) (Red Hat)

@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Memory QoS Graduates to Beta"
-draft: true
 slug: kubernetes-v1-37-memory-qos-graduates-to-beta
+date: 2026-09-14T10:30:00-08:00
 author: >
   Qi Wang (Red Hat),
   Sohan Kunkerkar (Red Hat)
