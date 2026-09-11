@@ -76,7 +76,7 @@ scope of the policy (using `matchResources`).
 Parameters allow separating configuration for the policy behavior from its definition.
 Parameter resources refer to Kubernetes resources available in the API. 
 They can be built-in API types (such as ConfigMap), or they can be
-[custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 A policy binding then uses `spec.paramRef` to reference an actual parameter resource. 
 
 If a policy does not require parameters, you leave `spec.paramKind` unspecified.
@@ -185,7 +185,7 @@ it without any changes). Apply that manifest using `kubectl apply`.
 
 ### Test the policy {#test-admission-policy-validation}
 
-Now, test the policy. Try [creating a Deployment](docs/tasks/run-application/run-stateless-application-deployment/)
+Now, test the policy. Try [creating a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/)
 and then scale it to 0 replicas using `kubectl scale`. What happens?
 
 You could change the ValidatingAdmissionPolicyBinding to have a different validation action,
