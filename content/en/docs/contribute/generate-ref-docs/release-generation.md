@@ -16,6 +16,14 @@ builds it, copies it into your website clone, and ends with a page to check, so
 you can finish one set before you start the next. The [summary](#summary) at the
 end lists every target, its output, and the pull requests to open.
 
+{{< note >}}
+The Release Team Docs Lead and the Docs shadows run this process during a release
+cycle. The
+[Docs role handbook](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
+in `kubernetes/sig-release` covers the rest of that role. If the handbook gains
+its own steps for generating reference documentation, update this page to match.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "prerequisites-ref-docs.md" >}}
@@ -500,3 +508,5 @@ or in the generator instead.
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 * [Generating Reference Documentation for Metrics](/docs/contribute/generate-ref-docs/metrics-reference/)
 * [Contributing to the Upstream Kubernetes Code](/docs/contribute/generate-ref-docs/contribute-upstream/)
+* [Docs role handbook](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
+  in `kubernetes/sig-release`
