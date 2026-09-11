@@ -181,11 +181,11 @@ div.api-reference-header-note.empty {
   border-width: 0 4px 0 0;
 }
 
-// Keep code blocks and inline code left-to-right (LTR) even on
-// right-to-left (RTL) documentation pages. Code syntax, indentation,
-// and punctuation are not localized and rely on LTR rendering.
-pre,
-code {
+// Keep code blocks and inline code left-to-right (LTR) on RTL pages
+// only. Code syntax, indentation, and punctuation are not localized
+// and rely on LTR rendering.
+pre:dir(rtl),
+code:dir(rtl) {
   direction: ltr;
   unicode-bidi: isolate;
 }
