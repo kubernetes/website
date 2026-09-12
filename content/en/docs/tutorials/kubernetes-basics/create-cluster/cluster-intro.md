@@ -101,7 +101,7 @@ To verify the cluster status:
 minikube status
 ```
 
-For a complete walkthrough including deploying your first app and exploring the Kubernetes dashboard, see the [Hello Minikube](/docs/tutorials/hello-minikube/) tutorial.
+
 
 ## {{% heading "whatsnext" %}}
 
