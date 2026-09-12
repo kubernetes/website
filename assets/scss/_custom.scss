@@ -1,5 +1,49 @@
 $announcement-size-adjustment: 8px;
 
+/* Sortable table headers: visual sort indicators */
+.sortable-table thead th {
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  // SVG sort icon: stacked up/down triangles (both grey = unsorted)
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0.65em;
+    height: 0.9em;
+    margin-left: 0.35em;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    // Both triangles in medium-grey (#6f6f6f)
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='13' viewBox='0 0 8 13'%3E%3Cpath d='M4 0L8 5H0Z' fill='%236f6f6f'/%3E%3Cpath d='M4 13L0 8H8Z' fill='%236f6f6f'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    transition: opacity 0.15s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+
+  // Ascending: top triangle in primary blue, bottom dimmed
+  &[aria-sort="ascending"]::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='13' viewBox='0 0 8 13'%3E%3Cpath d='M4 0L8 5H0Z' fill='%23326ce5'/%3E%3Cpath d='M4 13L0 8H8Z' fill='%23c8c8c8'/%3E%3C/svg%3E");
+    opacity: 1;
+  }
+
+  // Descending: bottom triangle in primary blue, top dimmed
+  &[aria-sort="descending"]::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='13' viewBox='0 0 8 13'%3E%3Cpath d='M4 0L8 5H0Z' fill='%23c8c8c8'/%3E%3Cpath d='M4 13L0 8H8Z' fill='%23326ce5'/%3E%3C/svg%3E");
+    opacity: 1;
+  }
+}
+
 // Although most of the site is documentation, that's not the only thing
 // on the site. This file has customizations not specific to documentation.
 
