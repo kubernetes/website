@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Storage Version Migration Enabled by Default"
-draft: true
 slug: kubernetes-v1-37-storage-version-migration-ga
+date: 2026-08-31T10:30:00-08:00
 author: >
   [Michael Aspinwall](https://github.com/michaelasp) (Google)
 ---

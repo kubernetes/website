@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 1.37: Pod Certificates and Cluster Trust Bundles"
-draft: true
-slug: pod-certificates-and-cluster-trust-bundles
+title: "Kubernetes v1.37: Pod Certificates and Cluster Trust Bundles"
+date: 2026-08-28T10:30:00-08:00
+slug: kubernetes-v1-37-pod-certificates-and-cluster-trust-bundles
 author: >
   [Taahir Ahmed](https://github.com/ahmedtd)
 ---

@@ -52,7 +52,7 @@ from cAdvisor. The following endpoints are affected:
 ### Summary API (`/stats/summary`)
 
 The kubelet fetches pod and container stats from the CRI runtime instead of cAdvisor for the
-[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/). This includes CPU, memory,
+[Summary API](/docs/reference/kubelet-api/stats.v1alpha1/). This includes CPU, memory,
 network, and process stats for pods and containers.
 
 ### `/metrics/cadvisor`

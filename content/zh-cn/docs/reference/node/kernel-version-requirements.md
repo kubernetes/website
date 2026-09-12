@@ -58,6 +58,8 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 - `net.ipv4.tcp_syncookies` (namespaced since kernel 4.6+).
 - `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
 - `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_slow_start_after_idle` (since Kubernetes 1.37, needs kernel 4.15+).
+- `net.ipv4.tcp_notsent_lowat` (since Kubernetes 1.37, needs kernel 4.6+).
 - `net.ipv4.vs.conn_reuse_mode` (used in `ipvs` proxy mode, needs kernel 4.1+);
 
 ### kube proxy `nftables` proxy mode
@@ -70,6 +72,8 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 - `net.ipv4.tcp_syncookies`（自内核 4.6+ 添加了命名空间作用域）。
 - `net.ipv4.tcp_rmem`（自 Kubernetes 1.32，需要内核 4.15+）。
 - `net.ipv4.tcp_wmem`（自 Kubernetes 1.32，需要内核 4.15+）。
+- `net.ipv4.tcp_slow_start_after_idle`（自 Kubernetes 1.37，需要内核 4.15+）。
+- `net.ipv4.tcp_notsent_lowat`（自 Kubernetes 1.37，需要内核 4.6+）。
 - `net.ipv4.vs.conn_reuse_mode`（用于 `ipvs` 代理模式，需要内核 4.1+）。
 
 ### kube proxy `nftables` 代理模式   {#kube-proxy-nftables-proxy-mode}
@@ -93,8 +97,10 @@ users on the system.
 [`nftables` 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-nftables)要求
 nft 命令行工具为 v1.0.1 或更高版本，要求内核为 v5.13 或更高版本。
 
-出于测试/开发目的，你可以使用较旧的内核，如果你在 kube-proxy 配置中设置 `nftables.skipKernelVersionCheck` 选项，
-最老可以回溯到 v5.4。但在生产环境中不推荐这样做，因为这可能会导致系统上其他 nftables 用户出现问题。
+出于测试/开发目的，你可以使用较旧的内核，如果你在 kube-proxy
+配置中设置 `nftables.skipKernelVersionCheck` 选项，
+最老可以回溯到 v5.4。但在生产环境中不推荐这样做，因为这可能会导致系统上其他
+nftables 用户出现问题。
 
 <!--
 ## Version 2 control groups
@@ -180,7 +186,8 @@ in the _Longterm_ category.
 -->
 ## Linux 内核长期维护   {#linux-kernel-long-term-maintenance}
 
-你可以在 [kernel.org](https://www.kernel.org/category/releases.html) 找到活动的内核版本。
+你可以在 [kernel.org](https://www.kernel.org/category/releases.html)
+找到活动的内核版本。
 
 通常会提供多个**长期维护**内核版本，用于将 Bug 修复反向移植到较旧的内核树。
 特别是对于较旧的树，只有重要的 Bug 修复才会被应用到此类内核，这些内核通常不会频繁发布新版本。

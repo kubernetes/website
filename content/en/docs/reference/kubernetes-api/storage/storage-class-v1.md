@@ -55,7 +55,7 @@ StorageClasses are non-namespaced; the name of the storage class according to et
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>mountOptions</code><br/><em>string array</em></td>
@@ -950,6 +950,8 @@ GET /apis/storage.k8s.io/v1/watch/storageclasses
     </tr>
   </tbody>
 </table>
+
+
 
 
 

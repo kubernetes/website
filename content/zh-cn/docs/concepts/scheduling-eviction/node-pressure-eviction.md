@@ -76,15 +76,14 @@ pods in place of the evicted pods.
 
 <!--
 ### Self healing for static pods
--->
-### 静态 Pod 的自我修复   {#self-healing-for-static-pods}
 
-<!--
 If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
 on a node that is under resource pressure, the kubelet may evict that static
 Pod. The kubelet then tries to create a replacement, because static Pods always
 represent an intent to run a Pod on that node.
 -->
+### 静态 Pod 的自我修复   {#self-healing-for-static-pods}
+
 如果你在面临资源压力的节点上运行静态 Pod，则 kubelet 可能会驱逐该静态 Pod。
 由于静态 Pod 始终表示在该节点上运行 Pod 的意图，kubelet 会尝试创建替代 Pod。
 
@@ -194,6 +193,27 @@ memory is reclaimable under pressure.
 kubelet 为计算 `memory.available` 而执行的相同步骤。
 kubelet 在其计算中排除了 inactive_file（非活动 LRU 列表上基于文件来虚拟的内存的字节数），
 因为它假定在压力下内存是可回收的。
+
+{{<note>}}
+{{< feature-state feature_gate_name="HugepageAwareEviction" >}}
+
+<!--
+On nodes with [hugepages](/docs/tasks/manage-hugepages/scheduling-hugepages/)
+configured, the kubelet subtracts the node's total hugepage capacity from
+`memory.available` used by eviction manager.
+Without this adjustment, hugepage-reserved RAM inflates
+`AvailableBytes` because the memory cgroup controller does not track hugetlb
+allocations in its working set. This can delay eviction and lead to OOM kills.
+To restore the previous behavior, disable the `HugepageAwareEviction`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+在配置了 [HugePage](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)
+的节点上，kubelet 会从驱逐管理器所使用的 `memory.available` 中减去该节点的
+HugePage 总容量。如果不做此调整，由于内存 CGroup 控制器不会将 hugetlb 分配计入其工作集，
+被 HugePage 预留的内存会虚增 `AvailableBytes`。这会延迟驱逐并导致 OOM 终止。
+要恢复原先行为，可以禁用 `HugepageAwareEviction`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+{{</note>}}
 
 <!--
 On Windows nodes, the value for `memory.available` is derived from the node's global
@@ -307,7 +327,8 @@ other local node filesystems.
 The kubelet does not support other container filesystems or storage configurations,
 and it does not currently support multiple filesystems for images and containers.
 -->
-kubelet 将尝试直接从底层容器运行时自动发现这些文件系统及其当前配置，并忽略其他本地节点文件系统。
+kubelet 将尝试直接从底层容器运行时自动发现这些文件系统及其当前配置，
+并忽略其他本地节点文件系统。
 
 kubelet 不支持其他容器文件系统或存储配置，并且目前不支持为镜像和容器提供多个文件系统。
 
@@ -340,13 +361,6 @@ eviction decisions. You can configure [soft](#soft-eviction-thresholds) and
 [hard](#hard-eviction-thresholds) eviction thresholds.
 
 Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where:
-
-- `eviction-signal` is the [eviction signal](#eviction-signals) to use.
-- `operator` is the [relational operator](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)
-  you want, such as `<` (less than).
-- `quantity` is the eviction threshold amount, such as `1Gi`. The value of `quantity`
-  must match the quantity representation used by Kubernetes. You can use either
-  literal values or percentages (`%`).
 -->
 ### 驱逐条件 {#eviction-thresholds}
 
@@ -355,6 +369,14 @@ Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where
 
 驱逐条件的形式为 `[eviction-signal][operator][quantity]`，其中：
 
+<!--
+- `eviction-signal` is the [eviction signal](#eviction-signals) to use.
+- `operator` is the [relational operator](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)
+  you want, such as `<` (less than).
+- `quantity` is the eviction threshold amount, such as `1Gi`. The value of `quantity`
+  must match the quantity representation used by Kubernetes. You can use either
+  literal values or percentages (`%`).
+-->
 - `eviction-signal` 是要使用的[驱逐信号](#eviction-signals)。
 - `operator` 是你想要的[关系运算符](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)，
   比如 `<`（小于）。
@@ -417,7 +439,8 @@ You can use the following flags to configure soft eviction thresholds:
   如果驱逐条件持续时长超过指定的宽限期，可以触发 Pod 驱逐。
 - `eviction-soft-grace-period`：一组驱逐宽限期，
   如 `memory.available=1m30s`，定义软驱逐条件在触发 Pod 驱逐之前必须保持多长时间。
-- `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod 时使用的最大允许宽限期（以秒为单位）。
+- `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod
+  时使用的最大允许宽限期（以秒为单位）。
 
 <!--
 #### Hard eviction thresholds {#hard-eviction-thresholds}
@@ -487,9 +510,11 @@ provided custom values will, as such, be ignored.
 -->
 `containerfs.available` 和 `containerfs.inodesFree`（Linux 节点）默认驱逐阈值将被设置如下：
 
-- 如果 `containerfs` 和 `nodefs` 指的是同一个底层文件系统，那么 `containerfs` 的阈值设置与 `nodefs` 相同。
+- 如果 `containerfs` 和 `nodefs` 指的是同一个底层文件系统，那么
+  `containerfs` 的阈值设置与 `nodefs` 相同。
 
-- 如果 `containerfs` 和 `imagefs` 指的是同一个底层文件系统，那么 `containerfs` 的阈值设置与 `imagefs` 相同。
+- 如果 `containerfs` 和 `imagefs` 指的是同一个底层文件系统，那么
+  `containerfs` 的阈值设置与 `imagefs` 相同。
 
 不支持为与 `containerfs` 相关的阈值设置自定义覆盖值，如果尝试这样做，将会发出警告；
 任何提供的自定义值都将被忽略。
@@ -746,11 +771,13 @@ kubelet 根据节点是否具有专用的 `imagefs` 文件系统或者 `containe
 -->
 #### 没有 `imagefs` 或 `containerfs`（`nodefs` 和 `imagefs` 使用相同的文件系统）{#without-imagefs}
 
-- 如果 `nodefs` 触发驱逐，kubelet 将根据 Pod 的总磁盘使用量（`本地卷 + 日志和所有容器的可写层`）对 Pod 进行排序。
+- 如果 `nodefs` 触发驱逐，kubelet 将根据 Pod
+  的总磁盘使用量（`本地卷 + 日志和所有容器的可写层`）对 Pod 进行排序。
 
 #### 有 `imagefs`（`nodefs` 和 `imagefs` 文件系统是独立的）{#with-imagefs}
 
-- 如果 `nodefs` 触发驱逐，kubelet 将根据 `nodefs` 使用量（`本地卷 + 所有容器的日志`）对 Pod 进行排序。
+- 如果 `nodefs` 触发驱逐，kubelet 将根据 `nodefs`
+  使用量（`本地卷 + 所有容器的日志`）对 Pod 进行排序。
 
 - 如果 `imagefs` 触发驱逐，kubelet 将根据所有容器的可写层用量对 Pod 进行排序。
 
@@ -783,7 +810,8 @@ for the `containerfs.available` metric. The configuration for this specific
 metric will be set automatically to reflect values set for either the `nodefs`
 or `imagefs`, depending on the configuration.
 -->
-在 Kubernetes v{{< skew currentVersion >}} 中，你无法为 `containerfs.available` 指标设置自定义值。
+在 Kubernetes v{{< skew currentVersion >}} 中，你无法为
+`containerfs.available` 指标设置自定义值。
 此特定指标的配置将自动设置为反映为 `nodefs` 或 `imagefs` 设置的值，具体取决于配置。
 {{</note>}}
 

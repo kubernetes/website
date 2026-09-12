@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer."
 title: "PriorityClass"
-weight: 20
+weight: 30
 auto_generated: true
 ---
 
@@ -53,7 +53,7 @@ PriorityClass defines mapping from a priority class name to the priority integer
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>preemptionPolicy</code><br/><em>string</em></td>
@@ -898,6 +898,8 @@ GET /apis/scheduling.k8s.io/v1/watch/priorityclasses
     </tr>
   </tbody>
 </table>
+
+
 
 
 

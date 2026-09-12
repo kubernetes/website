@@ -61,7 +61,9 @@ kubeadm 配置文件的路径。
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -75,7 +77,9 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for scheduler
@@ -90,11 +94,13 @@ scheduler 操作的帮助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值:"registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -113,7 +119,9 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -127,16 +135,19 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
 例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
-"target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
-"patchtype" 可以是 "strategic"、"merge"、"json" 之一，分别与 kubectl
-所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
+"target" 可以是 "kube-apiserver"、"kube-controller-manager"、
+"kube-scheduler"、"etcd"、"kubeletconfiguration"、"corednsdeployment"、
+"kubeproxydaemonset" 之一。"patchtype" 可以是 "strategic"、"merge"、"json"
+之一，分别与 kubectl 所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
 "extension" 必须是 "json" 或 "yaml"。
 "suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
 </p>
@@ -152,12 +163,15 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器或者覆盖其默认参数配置。
+一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，
+用来传递给调度器或者覆盖其默认参数配置。
 </p>
 </td>
 </tr>
@@ -181,7 +195,9 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

@@ -15,8 +15,7 @@ This page provides hints on diagnosing DNS problems.
 
 {{< include "task-tutorial-prereqs.md" >}}  
 Your cluster must be configured to use the CoreDNS
-{{< glossary_tooltip text="addon" term_id="addons" >}} or its precursor,
-kube-dns.  
+{{< glossary_tooltip text="addon" term_id="addons" >}}.
 
 {{% version-check %}}
 
@@ -84,7 +83,7 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
-Errors such as the following indicate a problem with the CoreDNS (or kube-dns)
+Errors such as the following indicate a problem with the CoreDNS
 add-on or with associated Services:
 
 ```shell
@@ -125,7 +124,8 @@ coredns-7b96bf9f76-mvmmt   1/1       Running   0           1h
 ```
 
 {{< note >}}
-The value for label `k8s-app` is `kube-dns` for both CoreDNS and kube-dns deployments.
+The value for label `k8s-app` for CoreDNS is `kube-dns`, for backward
+compatibility with the original kube-dns.
 {{< /note >}}
 
 
@@ -170,7 +170,8 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 ```
 
 {{< note >}}
-The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
+The Service for CoreDNS is named `kube-dns`, for backward compatibility with the
+original kube-dns.
 {{< /note >}}
 
 
@@ -190,7 +191,7 @@ kubectl get endpointslice -l kubernetes.io/service-name=kube-dns --namespace=kub
 ```
 ```
 NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
-kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
+coredns-zxoja    IPv4          53      10.180.3.17,10.180.3.17    1h
 ```
 
 If you do not see the endpoints, see the endpoints section in the

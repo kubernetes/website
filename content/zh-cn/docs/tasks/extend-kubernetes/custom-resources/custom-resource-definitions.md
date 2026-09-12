@@ -2290,9 +2290,9 @@ To use defaulting, your CustomResourceDefinition must use API version `apiextens
 {{< /note >}}
 
 <!--
-Defaulting allows to specify default values in the [OpenAPI v3 validation schema](#validation):
+Defaulting allows you to specify default values in the [OpenAPI v3 validation schema](#validation):
 -->
-设置默认值的功能允许在 [OpenAPI v3 合法性检查模式定义](#validation)中设置默认值：
+设置默认值的功能允许你在 [OpenAPI v3 合法性检查模式定义](#validation)中设置默认值：
 
 <!--
 # openAPIV3Schema is the schema for validating custom objects.

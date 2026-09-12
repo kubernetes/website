@@ -197,6 +197,9 @@ labels on that namespace. In clusters where Pod Security Admission is used, this
 for a more permissive policy than intended by the administrators.
 For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
 access to services that an administrator did not intend to allow.
+For clusters using Dynamic Resource Allocation, labeling a namespace with
+`resource.kubernetes.io/admin-access: "true"` allows any user who can create ResourceClaims in that namespace
+to request admin access to devices already allocated to any other claim in any namespace.
 
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 

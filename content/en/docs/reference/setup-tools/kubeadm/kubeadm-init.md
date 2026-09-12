@@ -65,12 +65,7 @@ following steps:
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional information.
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
-   In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
-
-   {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
-   {{< /warning >}}
 
 ### Using init phases with kubeadm {#init-phases}
 

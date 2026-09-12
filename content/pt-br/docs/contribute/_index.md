@@ -6,9 +6,9 @@ main_menu: true
 weight: 80
 no_list: true
 card:
-  name: contribuir
+  name: contribute
   weight: 10
-  title: Comece a contribuir para o K8s
+  title: Contribua com o Kubernetes
 ---
 ---
 
