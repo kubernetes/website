@@ -13,8 +13,11 @@
     <div class="container-fluid td-outer">
       <div class="td-main">
         <div class="row flex-xl-nowrap">
-          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
-            {{ partial "sidebar.html" . }}
+          <aside class="offcanvas-lg offcanvas-start col-lg-3 col-xl-2 td-sidebar d-print-none td-navbar-mobile-page-offcanvas" tabindex="-1" id="k8s-mobile-page-nav" aria-labelledby="k8s-mobile-page-nav-label">
+            {{ partialCached "page-navigation-offcanvas-header.html" . .Language.Lang }}
+            <div class="offcanvas-body d-block w-100">
+              {{ partial "sidebar.html" . }}
+            </div>
           </aside>
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
@@ -22,7 +25,7 @@
             {{ partial "page-meta-links.html" . }}
             {{ partial "toc.html" . }}
           </aside>
-          <main class="col-12 col-md-9 col-xl-8 ps-md-5" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
+          <main class="col-12 col-lg-9 col-xl-8 ps-lg-5" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
             {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
             {{ block "deprecation_warning" . }}
               {{ partial "version-banner.html" . }}
