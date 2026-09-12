@@ -23,7 +23,7 @@ operator, you should take both of the following additional measures:
 
 1. Use file ACLs to secure the Secrets' file location.
 1. Apply volume-level encryption using
-   [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
+   [BitLocker](https://learn.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
 
 ## Container users
 
@@ -34,7 +34,7 @@ processes as specific user. This is roughly equivalent to
 
 Windows containers offer two default user accounts, ContainerUser and ContainerAdministrator.
 The differences between these two user accounts are covered in
-[When to use ContainerAdmin and ContainerUser user accounts](https://docs.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
+[When to use ContainerAdmin and ContainerUser user accounts](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
 within Microsoft's _Secure Windows containers_ documentation.
 
 Local users can be added to container images during the container build process.
