@@ -1,7 +1,7 @@
 ---
 content_type: "api_reference"
 title: "Storage"
-weight: 210
+weight: 220
 auto_generated: true
 ---
 

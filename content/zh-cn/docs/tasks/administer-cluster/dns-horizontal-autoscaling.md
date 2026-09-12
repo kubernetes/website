@@ -101,9 +101,9 @@ kubectl get deployment --namespace=kube-system
 ```
 
 <!--
-and look for a deployment named `coredns` or `kube-dns`.
+and look for a deployment named `coredns`.
 -->
-并在输出中寻找名称为 `coredns` 或 `kube-dns` 的 Deployment。
+并在输出中寻找名称为 `coredns` 的 Deployment。
 
 <!--
 Your scale target is

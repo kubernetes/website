@@ -48,7 +48,7 @@ DaemonSet represents the configuration of a daemon set.
       <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#DaemonSetSpec" >}}">DaemonSetSpec</a></em></td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#DaemonSetSpec" >}}">DaemonSetSpec</a></em></td>
       <td>The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
     <tr>
@@ -196,11 +196,11 @@ DaemonSetCondition describes the state of a DaemonSet at a certain point.
       <td>The reason for the condition's last transition.</td>
     </tr>
     <tr>
-      <td><code>status</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>status</code><br/><em>string</em></td>
       <td>Status of the condition, one of True, False, Unknown.</td>
     </tr>
     <tr>
-      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>type</code><br/><em>string</em></td>
       <td>Type of DaemonSet condition.</td>
     </tr>
   </tbody>
@@ -1535,6 +1535,8 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

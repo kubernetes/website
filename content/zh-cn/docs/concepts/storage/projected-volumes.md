@@ -143,19 +143,6 @@ volume mount will not receive updates for those volume sources.
 
 {{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
-{{< note >}}
-<!--
-To use this feature in Kubernetes {{< skew currentVersion >}}, you must enable support for ClusterTrustBundle objects
-with the `ClusterTrustBundle` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and
-`--runtime-config=certificates.k8s.io/v1beta1/clustertrustbundles=true` kube-apiserver flag,
-then enable the `ClusterTrustBundleProjection` feature gate.
--->
-要在 Kubernetes {{< skew currentVersion >}} 中使用此特性，你必须通过 `ClusterTrustBundle`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和
-`--runtime-config=certificates.k8s.io/v1beta1/clustertrustbundles=true` kube-apiserver
-标志启用对 ClusterTrustBundle 对象的支持，然后才能启用 `ClusterTrustBundleProjection` 特性门控。
-{{< /note >}}
-
 <!--
 The `clusterTrustBundle` projected volume source injects the contents of one or more
 [ClusterTrustBundle](/docs/reference/access-authn-authz/certificate-signing-requests#cluster-trust-bundles)
@@ -214,17 +201,6 @@ and the pod will start up with an empty file at `path`.
 ## podCertificate 投射卷    {#podcertificate}
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
-
-{{< note >}}
-<!--
-Certificates using the `PodCertificateRequest` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
-kube-apiserver flag.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，你必须使用 `PodCertificateRequest`
-**特性门控**和 `--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
-kube-apiserver 标志来启用对 Pod 证书的支持。
-{{< /note >}}
 
 <!--
 The `podCertificate` projected volumes source securely provisions a private key

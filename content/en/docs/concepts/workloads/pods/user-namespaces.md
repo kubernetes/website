@@ -66,7 +66,7 @@ on GitHub.
 
 ## Introduction
 
-User namespaces is a Linux feature that allows to map users in the container to
+User namespaces is a Linux feature that allows you to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
@@ -120,7 +120,7 @@ isolate the users in the container from the users in the node.
 
 This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
-therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
+therefore tools like `apt`, `dnf`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you
 check which user the container process is running by executing `ps aux` from
 the host. The user `ps` shows is not the same as the user you see if you

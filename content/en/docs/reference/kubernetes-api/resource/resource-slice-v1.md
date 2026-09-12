@@ -93,6 +93,10 @@ ResourceSliceSpec contains the information published by the driver in one Resour
       <td>NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.  Must use exactly one term.  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.</td>
     </tr>
     <tr>
+      <td><code>partitionTypeAttribute</code><br/><em>string</em></td>
+      <td>PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.  When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.</td>
+    </tr>
+    <tr>
       <td><code>perDeviceNodeSelection</code><br/><em>boolean</em></td>
       <td>PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.</td>
     </tr>
@@ -103,6 +107,10 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     <tr>
       <td><code>sharedCounters</code><br/><em><a href="{{< ref "#CounterSet" >}}">CounterSet array</a></em></td>
       <td>SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.  The names of the counter sets must be unique in the ResourcePool.  Only one of Devices and SharedCounters can be set in a ResourceSlice.  The maximum number of counter sets is 8.</td>
+    </tr>
+    <tr>
+      <td><code>skipNodeOperations</code><br/><em>string array</em></td>
+      <td>SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:  - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This   value cannot be specified unless "NodeUnprepareResources" is also listed   (or "*" is specified). - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.  Other values may be added in the future. The kubelet must ignore unknown values.</td>
     </tr>
   </tbody>
 </table>
@@ -167,6 +175,8 @@ Must not set more than one ValidRequestValues.
 ## CapacityRequestPolicyRange {#CapacityRequestPolicyRange}
 
 CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+
+If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 
   - If the requested amount is less than Min, it is rounded up to the Min value.
   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -282,8 +292,8 @@ Device represents one individual hardware instance that can be selected based on
       <td>Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.</td>
     </tr>
     <tr>
-      <td><code>nodeAllocatableResourceMappings</code><br/><em>object</em></td>
-      <td>NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.</td>
+      <td><code>nodeAllocatableResources</code><br/><em>object</em></td>
+      <td>NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.</td>
     </tr>
     <tr>
       <td><code>nodeName</code><br/><em>string</em></td>
@@ -294,7 +304,7 @@ Device represents one individual hardware instance that can be selected based on
       <td>NodeSelector defines the nodes where the device is available.  Must use exactly one term.  Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.</td>
     </tr>
     <tr>
-      <td><code>taints</code><br/><em><a href="{{< ref "#DeviceTaint" >}}">DeviceTaint array</a></em></td>
+      <td><code>taints</code><br/><em><a href="{{< ref "device-taint-rule-v1#DeviceTaint" >}}">DeviceTaint array</a></em></td>
       <td>If specified, these are the driver-defined taints.  The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.  This is a beta field and requires enabling the DRADeviceTaints feature gate.</td>
     </tr>
   </tbody>
@@ -377,6 +387,10 @@ DeviceCounterConsumption defines a set of counters that a device will consume fr
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
+      <td><code>compatibilityGroups</code><br/><em>string array</em></td>
+      <td>CompatibilityGroups is a list of opaque group names for this counter set consumption.  Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.  An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.  Group names are opaque and meaningful only within the publishing driver's pool.  The maximum number of groups is 2, and the names must be unique.</td>
+    </tr>
+    <tr>
       <td><code>counterSet</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>CounterSet is the name of the set from which the counters defined will be consumed.</td>
     </tr>
@@ -388,9 +402,9 @@ DeviceCounterConsumption defines a set of counters that a device will consume fr
 </table>
 
 
-## DeviceTaint {#DeviceTaint}
+## NodeAllocatableMapping {#NodeAllocatableMapping}
 
-The device this taint is attached to has the &#34;effect&#34; on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
 
 <hr>
 
@@ -398,28 +412,24 @@ The device this taint is attached to has the &#34;effect&#34; on any claim which
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>effect</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.  Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.<br/><br/>Possible enum values:<br/> - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.<br/> - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.<br/> - `"None"` No effect, the taint is purely informational.</td>
+      <td><code>capacityKey</code><br/><em>string</em></td>
+      <td>CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.</td>
     </tr>
     <tr>
-      <td><code>key</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>The taint key to be applied to a device. Must be a label name.</td>
+      <td><code>capacityMultiplier</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.</td>
     </tr>
     <tr>
-      <td><code>timeAdded</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
-      <td>TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.  In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).</td>
-    </tr>
-    <tr>
-      <td><code>value</code><br/><em>string</em></td>
-      <td>The taint value corresponding to the taint key. Must be a label value.</td>
+      <td><code>deviceMultiplier</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.</td>
     </tr>
   </tbody>
 </table>
 
 
-## NodeAllocatableResourceMapping {#NodeAllocatableResourceMapping}
+## NodeAllocatableOverhead {#NodeAllocatableOverhead}
 
-NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
 
 <hr>
 
@@ -427,12 +437,33 @@ NodeAllocatableResourceMapping defines the translation between the DRA device/ca
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
-      <td><code>allocationMultiplier</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
-      <td>AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim. 	   a. A DRA driver representing each CPU core as a device would have        {ResourceName: "cpu", allocationMultiplier: "2"} in its        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim, 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.     b. A GPU device that needs additional node memory per GPU allocation would        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated 		  GPU device instance of this type will account for 2Gi of memory.  2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed. 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.     For example, if a Device's capacity "dra.example.com/cores" is consumed,     and each "core" provides 2 "cpu"s, the mapping would be:     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.</td>
+      <td><code>perContainer</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.</td>
     </tr>
     <tr>
-      <td><code>capacityKey</code><br/><em>string</em></td>
-      <td>CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".</td>
+      <td><code>perPod</code><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## NodeAllocatableResource {#NodeAllocatableResource}
+
+NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>mapping</code><br/><em><a href="{{< ref "#NodeAllocatableMapping" >}}">NodeAllocatableMapping</a></em></td>
+      <td>Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.</td>
+    </tr>
+    <tr>
+      <td><code>overhead</code><br/><em><a href="{{< ref "#NodeAllocatableOverhead" >}}">NodeAllocatableOverhead</a></em></td>
+      <td>Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.</td>
     </tr>
   </tbody>
 </table>
@@ -478,7 +509,7 @@ ResourcePool describes the pool that ResourceSlices belong to.
     </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.  It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.</td>
+      <td>Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.  It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.</td>
     </tr>
     <tr>
       <td><code>resourceSliceCount</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
@@ -1290,6 +1321,8 @@ GET /apis/resource.k8s.io/v1/watch/resourceslices
     </tr>
   </tbody>
 </table>
+
+
 
 
 

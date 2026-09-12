@@ -25,7 +25,8 @@ performance, and finer-grained visibility into distributions.
 Kubernetes 组件可以以
 [Prometheus 原生直方图](https://prometheus.io/docs/specs/native_histograms/)格式暴露直方图指标，
 以及经典直方图格式。
-原生直方图使用指数桶边界而不是固定边界，从而显著提高存储效率、改善查询性能，并更精细地了解分布情况。
+原生直方图使用指数桶边界而不是固定边界，
+从而显著提高存储效率、改善查询性能，并更精细地了解分布情况。
 
 <!-- body -->
 
@@ -37,24 +38,22 @@ Kubernetes 组件可以以
 <!--
 To use native histograms, you need:
 
-- **Kubernetes v1.36 or later** with the `NativeHistograms`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled.
+- **Kubernetes v1.36 or later**. In v1.36, the `NativeHistograms`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#NativeHistograms) must be enabled manually. From v1.37, the feature is in Beta and enabled by default.
 - **Prometheus 2.40 or later** to scrape and store native histograms.
   Prometheus 3.0+ is recommended for per-job configuration.
 -->
 要使用原生直方图，你需要：
 
-- **Kubernetes v1.36 或更高版本**，并启用 `NativeHistograms`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+- **Kubernetes v1.36 或更高版本**。在 v1.36 中，必须手动启用 `NativeHistograms`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#NativeHistograms)。
+  从 v1.37 起，该特性进入 Beta 阶段，并默认启用。
 - **Prometheus 2.40 或更高版本**来抓取和存储原生直方图。
   推荐使用 Prometheus 3.0+ 进行 per-job 配置。
 
 <!--
 ## What are native histograms?
--->
-## 什么是原生直方图？
 
-<!--
 Classic Prometheus histograms use fixed bucket boundaries (for example,
 `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` seconds).
 Each bucket creates a separate time series (`_bucket`, `_count`, `_sum`),
@@ -65,6 +64,8 @@ which can lead to:
   indistinguishable. For example, a request completing in 1µs and one completing
   in 4ms both fall into the same `le="0.005"` bucket.
 -->
+## 什么是原生直方图？
+
 经典 Prometheus 直方图使用固定桶边界（例如，
 `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` 秒）。
 每个桶创建一个单独的时间序列（`_bucket`、`_count`、`_sum`），这可能导致：
@@ -86,15 +87,13 @@ that automatically adjust to the data distribution. Benefits include:
 [原生直方图](https://prometheus.io/docs/specs/native_histograms/)
 通过使用自动适应数据分布的指数桶边界来解决这些限制。好处包括：
 
-- 每个直方图指标的时间序列数量减少约 **10 倍**，显著降低 Prometheus 存储成本并提高查询性能。
+- 每个直方图指标的时间序列数量减少约 **10 倍**，显著降低
+  Prometheus 存储成本并提高查询性能。
 - 更细粒度的分辨率，用于检测性能回归和设置精确的 SLO 阈值。
 
 <!--
 ## How it works
--->
-## 工作原理
 
-<!--
 When the `NativeHistograms` feature gate is enabled, Kubernetes components expose
 histogram metrics in both classic and native formats simultaneously (dual exposition).
 The format returned depends on the `Accept` header in the HTTP request
@@ -102,7 +101,10 @@ The format returned depends on the `Accept` header in the HTTP request
 Prometheus sets this header automatically based on your scrape configuration;
 you only need to be aware of it when querying the `/metrics` endpoint directly.
 -->
-当 `NativeHistograms` 特性门控启用时，Kubernetes 组件同时以经典格式和原生格式（双暴露）暴露直方图指标。
+## 工作原理
+
+当 `NativeHistograms` 特性门控启用时，Kubernetes
+组件同时以经典格式和原生格式（双暴露）暴露直方图指标。
 返回的格式取决于 HTTP 请求中的 `Accept` 头
 （[Prometheus 内容协商](https://prometheus.io/docs/instrumenting/exposition_formats/#content-negotiation)）。
 Prometheus 根据你的抓取配置自动设置此头；
@@ -152,26 +154,28 @@ This dual exposition strategy ensures:
 
 <!--
 ## Enabling native histograms
--->
-## 启用原生直方图
 
-<!--
 Enabling native histograms is a two-step process: enable the feature gate on
 Kubernetes components, and configure Prometheus to scrape native histograms.
 -->
+## 启用原生直方图
+
 启用原生直方图是一个两步过程：在 Kubernetes 组件上启用特性门控，
 并配置 Prometheus 抓取原生直方图。
 
 <!--
-### Step 1: Enable the Kubernetes feature gate
--->
-### 步骤 1：启用 Kubernetes 特性门控
+### Step 1: Ensure the Kubernetes feature gate is enabled
 
-<!--
-Enable the `NativeHistograms` feature gate on the Kubernetes components
+The `NativeHistograms` feature gate is enabled by default in Kubernetes v1.37.
+If you are using Kubernetes v1.36, or if you have explicitly disabled the feature,
+enable the `NativeHistograms` feature gate on the Kubernetes components
 you want to expose native histograms from:
 -->
-在你想要暴露原生直方图的 Kubernetes 组件上启用 `NativeHistograms` 特性门控：
+### 步骤 1：确保 Kubernetes 特性门控已启用
+
+`NativeHistograms` 特性门控在 Kubernetes v1.37 中默认启用。
+如果你正在使用 Kubernetes v1.36，或者已显式禁用该特性，请在需要暴露原生直方图的
+Kubernetes 组件上启用 `NativeHistograms` 特性门控：
 
 ```bash
 --feature-gates=NativeHistograms=true
@@ -196,12 +200,11 @@ gate per component.
 
 <!--
 ### Step 2: Configure Prometheus
+
+The Prometheus configuration depends on your Prometheus version.
 -->
 ### 步骤 2：配置 Prometheus
 
-<!--
-The Prometheus configuration depends on your Prometheus version.
--->
 Prometheus 配置取决于你的 Prometheus 版本。
 
 <!--
@@ -214,7 +217,7 @@ Prometheus 配置取决于你的 Prometheus 版本。
 | 3.9+               | Stable                   | Per-job `scrape_native_histograms` only                                   | Global flag removed. Must use per-job configuration.                         |
 -->
 | Prometheus 版本 | 原生直方图支持 | 配置 | 备注 |
-| ------------------ | ------------------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| -------- | -------- | -------- | -------- |
 | < 2.40 | 无 | 不适用 | 仅经典直方图。启用 Kubernetes 特性门控无效。 |
 | 2.40 – 2.x | 实验性 | `--enable-feature=native-histograms`（全局） | 全有或全无；无 per-job 控制。 |
 | 3.0 – 3.7 | 稳定 | Per-job `scrape_native_histograms` 和 `always_scrape_classic_histograms` | 推荐使用 per-job 配置。全局标志仍然支持。 |
@@ -298,6 +301,7 @@ When migrating from classic to native histogram queries, follow this workflow:
    Classic query:
    -->
    经典查询：
+
    ```promql
    histogram_quantile(0.99, rate(apiserver_request_duration_seconds_bucket[5m]))
    ```
@@ -306,6 +310,7 @@ When migrating from classic to native histogram queries, follow this workflow:
    Native histogram query:
    -->
    原生直方图查询：
+
    ```promql
    histogram_quantile(0.99, rate(apiserver_request_duration_seconds[5m]))
    ```
@@ -325,12 +330,11 @@ When migrating from classic to native histogram queries, follow this workflow:
 
 <!--
 ## Disabling native histograms
+
+You can disable native histograms at any time using either of two approaches:
 -->
 ## 禁用原生直方图
 
-<!--
-You can disable native histograms at any time using either of two approaches:
--->
 你可以随时使用以下两种方法之一禁用原生直方图：
 
 <!--
@@ -360,10 +364,7 @@ Prometheus 中的历史原生直方图数据仍然可查询。
 
 <!--
 ## Troubleshooting
--->
-## 故障排除
 
-<!--
 - **Dashboards show no data after enabling native histograms**
 : This occurs when Prometheus is configured with `scrape_native_histograms: true`
   but `always_scrape_classic_histograms: false` (the default), and your dashboards
@@ -372,6 +373,8 @@ Prometheus 中的历史原生直方图数据仍然可查询。
   Fix: Set `always_scrape_classic_histograms: true` to restore classic format
   ingestion while you migrate dashboards.
 -->
+## 故障排除
+
 - **启用原生直方图后仪表板不显示数据**
 : 当 Prometheus 配置了 `scrape_native_histograms: true`
   但 `always_scrape_classic_histograms: false`（默认值），且你的仪表板仍使用经典直方图查询
@@ -430,15 +433,14 @@ Prometheus 中的历史原生直方图数据仍然可查询。
 
 <!--
 ## References
--->
-## 参考
 
-<!--
 - Read the [Prometheus Native Histograms documentation](https://prometheus.io/docs/specs/native_histograms/)
   for details on the native histogram format and query functions.
 - See the [Kubernetes metrics reference](/docs/reference/instrumentation/metrics/)
   for the full list of metrics exposed by Kubernetes components.
 -->
+## 参考
+
 - 阅读 [Prometheus 原生直方图文档](https://prometheus.io/docs/specs/native_histograms/)
   以了解原生直方图格式和查询函数的详细信息。
 - 查看 [Kubernetes 指标参考](/zh-cn/docs/reference/instrumentation/metrics/)以获取

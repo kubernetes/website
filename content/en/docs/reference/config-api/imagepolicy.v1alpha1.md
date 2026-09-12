@@ -28,10 +28,10 @@ auto_generated: true
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
-   <p>Standard object's metadata.
+   <p>metadata is the standard object's metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.</td>
 </tr>
@@ -39,14 +39,14 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec"><code>ImageReviewSpec</code></a>
 </td>
 <td>
-   <p>Spec holds information about the pod being evaluated</p>
+   <p>spec holds information about the pod being evaluated</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewStatus"><code>ImageReviewStatus</code></a>
 </td>
 <td>
-   <p>Status is filled in by the backend and indicates whether the pod should be allowed.</p>
+   <p>status is filled in by the backend and indicates whether the pod should be allowed.</p>
 </td>
 </tr>
 </tbody>
@@ -72,7 +72,7 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 <code>string</code>
 </td>
 <td>
-   <p>This can be in the form image:tag or image@SHA:012345679abcdef.</p>
+   <p>image can be in the form image:tag or image@SHA:012345679abcdef.</p>
 </td>
 </tr>
 </tbody>
@@ -98,14 +98,14 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewContainerSpec"><code>[]ImageReviewContainerSpec</code></a>
 </td>
 <td>
-   <p>Containers is a list of a subset of the information in each container of the Pod being created.</p>
+   <p>containers is a list of a subset of the information in each container of the Pod being created.</p>
 </td>
 </tr>
 <tr><td><code>annotations</code><br/>
 <code>map[string]string</code>
 </td>
 <td>
-   <p>Annotations is a list of key-value pairs extracted from the Pod's annotations.
+   <p>annotations is a list of key-value pairs extracted from the Pod's annotations.
 It only includes keys which match the pattern <code>*.image-policy.k8s.io/*</code>.
 It is up to each webhook backend to determine how to interpret these annotations, if at all.</p>
 </td>
@@ -114,7 +114,7 @@ It is up to each webhook backend to determine how to interpret these annotations
 <code>string</code>
 </td>
 <td>
-   <p>Namespace is the namespace the pod is being created in.</p>
+   <p>namespace is the namespace the pod is being created in.</p>
 </td>
 </tr>
 </tbody>
@@ -140,14 +140,14 @@ It is up to each webhook backend to determine how to interpret these annotations
 <code>bool</code>
 </td>
 <td>
-   <p>Allowed indicates that all images were allowed to be run.</p>
+   <p>allowed indicates that all images were allowed to be run.</p>
 </td>
 </tr>
 <tr><td><code>reason</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>Reason should be empty unless Allowed is false in which case it
+   <p>reason should be empty unless Allowed is false in which case it
 may contain a short description of what is wrong.  Kubernetes
 may truncate excessively long errors when displaying to the user.</p>
 </td>
@@ -156,7 +156,7 @@ may truncate excessively long errors when displaying to the user.</p>
 <code>map[string]string</code>
 </td>
 <td>
-   <p>AuditAnnotations will be added to the attributes object of the
+   <p>auditAnnotations will be added to the attributes object of the
 admission controller request using 'AddAnnotation'.  The keys should
 be prefix-less (i.e., the admission controller will add an
 appropriate prefix).</p>

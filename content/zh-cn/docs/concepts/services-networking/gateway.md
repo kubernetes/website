@@ -413,7 +413,7 @@ Gateway API covers a broad set of features and is widely implemented. This combi
 clear conformance definitions and tests to ensure that the API provides a consistent experience
 wherever it is used.
 
-See the [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) documentation to
+See the [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) documentation to
 understand details such as release channels, support levels, and running conformance tests.
 -->
 ## 标准合规性 {#conformance}
@@ -421,7 +421,7 @@ understand details such as release channels, support levels, and running conform
 Gateway API 涵盖广泛的功能并得到广泛实现。
 这种组合需要明确的标准合规性定义和测试，以确保 API 在任何地方使用时都能提供一致的体验。
 
-请参阅[合规性](https://gateway-api.sigs.k8s.io/concepts/conformance/)相关的文档，
+请参阅[合规性](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/)相关的文档，
 以了解发布渠道、支持级别和运行合规性测试等详细信息。
 
 <!-- 

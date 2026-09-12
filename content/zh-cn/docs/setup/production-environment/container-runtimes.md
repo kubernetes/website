@@ -243,15 +243,6 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
-{{< note >}}
-<!--
-Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
-the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
--->
-从 v1.22 开始，在使用 kubeadm 创建集群时，如果用户没有在
-`KubeletConfiguration` 下设置 `cgroupDriver` 字段，kubeadm 默认使用 `systemd`。
-{{< /note >}}
-
 <!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
@@ -309,17 +300,6 @@ CGroup 驱动，当为现有 Pod 重新创建 PodSandbox 时会产生错误。
 如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
 或者使用自动化方案来重新安装。
 {{< /caution >}}
-
-<!-- 
-### Migrating to the `systemd` driver in kubeadm managed clusters
-
-If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
-follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
--->
-### 将 kubeadm 管理的集群迁移到 `systemd` 驱动
-
-如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` CGroup 驱动，
-请按照[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
 
 <!--
 ## CRI version support {#cri-versions}
@@ -461,13 +441,6 @@ sudo systemctl restart containerd
 ```
 
 <!--
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
--->
-当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)。
-
-<!--
 In Kubernetes v1.28, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
 for more details.
@@ -544,7 +517,7 @@ cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-d
 for more details.
 -->
 在 Kubernetes v1.28 中，你可以启用 CGroup 驱动程序的自动检测的 Alpha 级别特性。
-详情参阅 [systemd cgroup 驱动](#systemd-cgroup-driver)。
+详情参阅 [systemd CGroup 驱动](#systemd-cgroup-driver)。
 
 <!-- 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
@@ -596,7 +569,8 @@ Docker Engine 与 Kubernetes 集成。
 <!-- 
 2. Install [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install), following the directions in the install section of the documentation.
 -->
-2. 请按照文档中的安装部分指示来安装 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install)。
+2. 请按照文档中的安装部分指示来安装
+   [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install)。
 
 <!--
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.

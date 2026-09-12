@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes v1.37: Metrics API graduates to stable"
 slug: kubernetes-v1-37-metrics-api-ga
-draft: true
+date: 2026-08-27T10:30:00-08:00
 author: >
   [ChengHao Yang](https://github.com/tico88612)
 ---

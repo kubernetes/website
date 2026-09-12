@@ -7,6 +7,7 @@ aliases:
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - graz-dev
+    - KashishV999
     - lmktfy
     - natalisucks
     - nate-double-u
@@ -57,10 +58,10 @@ aliases:
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
   sig-docs-en-owners: # Admins for English content
+    - Caesarsage # RT 1.38 Docs Lead
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
-    - kernel-kun # RT 1.37 Docs Lead
     - lmktfy
     - natalisucks
     - nate-double-u

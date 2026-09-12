@@ -37,18 +37,20 @@ RoleRef contains information that points to the role being used
   <tbody>
     <tr>
       <td><code>apiGroup</code><br/><em>string</em></td>
-      <td>APIGroup is the group for the resource being referenced</td>
+      <td>apiGroup is the group for the resource being referenced</td>
     </tr>
     <tr>
       <td><code>kind</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Kind is the type of resource being referenced</td>
+      <td>kind is the type of resource being referenced</td>
     </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name is the name of resource being referenced</td>
+      <td>name is the name of resource being referenced</td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 

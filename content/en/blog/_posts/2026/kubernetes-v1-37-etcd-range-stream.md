@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: etcd RangeStream Cuts Memory Use on Large List Reads"
-draft: true
 slug: kubernetes-v1-37-etcd-range-stream
+date: 2026-09-01T10:30:00-08:00
 author: >
   [Jeffrey Ying](https://github.com/Jefftree) (Google)
 ---
