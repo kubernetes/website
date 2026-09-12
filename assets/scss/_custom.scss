@@ -2134,3 +2134,31 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
     visibility: hidden;
   }
 }
+
+
+/* Sortable table: visible sort indicators */
+.sortable-table thead th {
+  position: relative;
+  padding-right: 1.5em;
+  user-select: none;
+
+  &::after {
+    content: "↕";
+    position: absolute;
+    right: 0.4em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+    font-size: 0.85em;
+  }
+
+  &[data-sort-dir="asc"]::after {
+    content: "↑";
+    opacity: 1;
+  }
+
+  &[data-sort-dir="desc"]::after {
+    content: "↓";
+    opacity: 1;
+  }
+}
