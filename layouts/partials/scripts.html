@@ -47,7 +47,7 @@
 
 {{ if .Site.Params.prism_syntax_highlighting -}}
   <script src='{{ "js/prism.js" | relURL }}'></script>
-{{ else if false -}}
+{{ else if ( not .Site.Params.disable_click2copy_chroma ) -}}
   {{ $c2cJS := resources.Get "js/click-to-copy.js" -}}
   {{ if hugo.IsProduction -}}
     {{ $c2cJS = $c2cJS | minify | fingerprint -}}
