@@ -205,7 +205,7 @@ class changes,changes2 white
 
    {{< note >}}
    이 워크플로는
-   [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)와 다르다.
+   [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/main/contributors/guide/github-workflow.md)와 다르다.
    포크에 업데이트를 푸시하기 전에 로컬의 `main` 복사본을 `upstream/main` 과
    병합할 필요가 없다.
    {{< /note >}}
@@ -289,83 +289,10 @@ class changes,changes2 white
 
 ### 로컬에서 변경 사항 미리보기 {#preview-locally}
 
-푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을 로컬에서 미리 보는 것이 좋다.
-미리보기를 사용하면 빌드 오류나 마크다운 형식 문제를 알아낼 수 있다.
-
-website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행할 수 있다.
-도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로,
-디버깅에 유용할 수 있다.
-
-{{< tabs name="tab_with_hugo" >}}
-{{% tab name="Hugo 컨테이너" %}}
-
-{{< note >}}
-아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면
-`CONTAINER_ENGINE` 환경 변수를 설정한다.
-{{< /note >}}
-
-1. 로컬에서 이미지를 빌드한다.
-   _Hugo 도구 자체에 대한 변경을 테스트하는 경우에만 이 단계가 필요하다._
-
-   ```shell
-   # 터미널에서 실행 (필요에 따라)
-   make container-image
-   ```
-
-1. 로컬 리포지터리에서 서브모듈 의존성을 가져온다.
-
-   ```shell
-   # 터미널에서 실행
-   make module-init
-   ```
-
-1. 컨테이너에서 Hugo를 시작한다.
-
-   ```shell
-   # 터미널에서 실행
-   make container-serve
-   ```
-
-1. 웹 브라우저에서 `http://localhost:1313` 으로 이동한다. Hugo는
-   변경 사항을 보고 필요에 따라 사이트를 다시 빌드한다.
-
-1. 로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
-   터미널 창을 닫는다.
-
-{{% /tab %}}
-{{% tab name="Hugo 커맨드 라인" %}}
-
-또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
-
-1. [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo (확장 에디션)](https://gohugo.io/getting-started/installing/)과
-   [Node](https://nodejs.org/en) 버전을 설치한다.
-
-1. 모든 의존성을 설치한다.
-
-   ```shell
-   npm ci
-   ```
-
-1. 터미널에서, 쿠버네티스 website 리포지터리로 이동한 뒤 Hugo 서버를 실행한다.
-
-   ```shell
-   cd <path_to_your_repo>/website
-   make serve
-   ```
-   만약 윈도우 환경을 사용하거나 `make` 명령어를 실행할 수 없는 경우, 다음 명령을 대신 사용한다.
-
-   ```
-   hugo server --buildFuture
-   ```
-
-1. 웹 브라우저에서 `http://localhost:1313` 으로 이동한다. Hugo는
-   변경 사항을 보고 필요에 따라 사이트를 다시 빌드한다.
-
-1. 로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
-   터미널 창을 닫는다.
-
-{{% /tab %}}
-{{< /tabs >}}
+푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을
+로컬에서 미리 보는 것이 좋다. [로컬에서 미리보기](/docs/contribute/new-content/preview-locally/)
+문서에서는 웹사이트를 로컬에서 실행하여 제안한 변경 사항을
+미리 보는 방법을 설명한다.
 
 ### 포크한 리포지터리에서 kubernetes/website로 풀 리퀘스트 열기 {#open-a-pr}
 
