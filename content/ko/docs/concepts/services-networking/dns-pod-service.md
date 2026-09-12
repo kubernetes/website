@@ -12,7 +12,7 @@ description: >-
 ---
 <!-- overview -->
 
-쿠버네티스는 서비스와 파드에 대한 DNS 레코드를 생성한다. IP 주소 대신
+쿠버네티스는 서비스와 파드에 대한 DNS 레코드를 생성한다. 사용자는 IP 주소 대신
 일관된 DNS 이름을 사용하여 서비스에 연결할 수 있다.
 
 <!-- body -->
@@ -27,7 +27,7 @@ description: >-
 
 ### 서비스의 네임스페이스
 
-DNS 쿼리는 쿼리하는 파드의 네임스페이스에 따라 다른 결과를 반환할 수
+DNS 쿼리는 이를 수행한 파드의 네임스페이스에 따라 다른 결과를 반환할 수
 있다. 네임스페이스를 지정하지 않은 DNS 쿼리는 파드의
 네임스페이스로 제한된다. DNS 쿼리에 네임스페이스를 지정하여 다른 네임스페이스의 서비스에 접근한다.
 
@@ -270,7 +270,7 @@ DNS 정책은 파드별로 설정할 수 있다. 현재 쿠버네티스는 다�
 - "`None`": 파드가 쿠버네티스 환경의 DNS 설정을 무시하도록 한다.
   모든 DNS 설정은 파드 명세의 `dnsConfig` 필드를 사용하여
   제공해야 한다.
-  아래의 [파드의 DNS 구성](#pod-dns-config) 하위 섹션을 참고한다.
+  아래의 [파드의 DNS 설정](#pod-dns-config) 하위 섹션을 참고한다.
 
 {{< note >}}
 "Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어 있지 않다면
@@ -388,7 +388,7 @@ containerd v1.5.5 이하와 CRI-O v1.21 이하에서
   또는 네트워크 이름을 해석할 수 있다. 예를 들어, `default` 네임스페이스에서 생성된 파드는
   DNS 접미사 `default.svc.cluster.local`을 가진다.
   윈도우 파드 내부에서는 `kubernetes.default.svc.cluster.local`과
-  `kubernetes`를 모두 해석할 수 있지만, 부분 주소 이름(`kubernetes.default` 또는
+  `kubernetes`를 모두 해석할 수 있지만, 부분 주소 이름(partially qualified names)(`kubernetes.default` 또는
   `kubernetes.default.svc`)은 해석할 수 없다.
 
 ## {{% heading "whatsnext" %}}
