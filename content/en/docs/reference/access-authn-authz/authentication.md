@@ -1901,7 +1901,7 @@ you see the user details and properties for the user that was impersonated.
 
 This example response did not show all the available fields; not all
 authentication mechanisms fill in every available field.
-See the [SelfSubjectReview API reference](/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/)
+See the [SelfSubjectReview API reference](/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/)
 to see which fields are available.
 
 Here is another example that also includes the `uid` and `extra` fields:
