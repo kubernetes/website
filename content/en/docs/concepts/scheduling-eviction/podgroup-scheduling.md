@@ -272,5 +272,5 @@ In v1.37, the scheduler does not populate this field, however.
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
 * Read about the [CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) and its [lifecycle](/docs/concepts/workloads/compositepodgroup-api/lifecycle/).
 * Learn about [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/).
-* See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* See how to [reference a PodGroup](/docs/concepts/workloads/pods/scheduling-group/) in a Pod.
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
