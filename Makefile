@@ -3,7 +3,10 @@ NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
 # The segments variable is used to specify which segments to render.
-segments          ?= all
+segments           ?= all
+EPUB_LANG          ?= en
+EPUB_VERSION       ?= $(shell grep '^version = ' hugo.toml | head -1 | sed 's/.*"\(.*\)"/\1/')
+EPUB_RELEASE_LANGS ?= en bn zh-cn fr de hi id it ja ko pl pt-br ru es uk vi
 
 # The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
 # but this can be overridden when calling make, e.g.
@@ -36,7 +39,7 @@ CCEND=\033[0m
 # Docker buildx related settings for multi-arch images
 DOCKER_BUILDX ?= docker buildx
 
-.PHONY: all build build-preview help serve
+.PHONY: all build build-preview help serve epub epub-full epub-reference epub-clean epub-release
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -74,6 +77,40 @@ non-production-build: module-check ## Build the non-production site, which adds 
 
 serve: module-check ## Boot the development server.
 	hugo server --config hugo.toml,hugo.server.toml --buildDrafts --buildFuture --environment development --renderSegments $(segments)
+
+epub: epub-full ## Build full docs EPUB (Setup+Tutorials+Concepts+Tasks).
+
+epub-full: module-check ## Build full docs EPUB (combined only). Override with EPUB_LANG, EPUB_VERSION.
+	scripts/build-epub.sh "$(EPUB_VERSION)" "full" "$(EPUB_LANG)"
+
+epub-reference: module-check ## Build reference-only EPUB. Override with EPUB_LANG, EPUB_VERSION.
+	scripts/build-epub.sh "$(EPUB_VERSION)" "reference" "$(EPUB_LANG)"
+
+epub-clean: ## Remove generated EPUB build artifacts.
+	rm -rf build/epub
+
+epub-release: module-check epub-clean ## Build release EPUB assets for configured languages. Full and reference builds are skipped per-language when unavailable.
+	@set -e; \
+	for lang in $(EPUB_RELEASE_LANGS); do \
+		docs_root="content/$$lang/docs"; \
+		if [ "$$lang" = "en" ]; then docs_root="content/en/docs"; fi; \
+		if [ -d "$$docs_root/setup" ] && [ -d "$$docs_root/tutorials" ] && [ -d "$$docs_root/concepts" ] && [ -d "$$docs_root/tasks" ]; then \
+			echo "Building full EPUB for $$lang"; \
+			if ! scripts/build-epub.sh "$(EPUB_VERSION)" "full" "$$lang"; then \
+				echo "Skipping full EPUB for $$lang (required full-mode EPUB inputs unavailable)"; \
+			fi; \
+		else \
+			echo "Skipping full EPUB for $$lang (missing one or more required sections: setup/tutorials/concepts/tasks)"; \
+		fi; \
+		if [ -d "$$docs_root/reference" ]; then \
+			echo "Building reference EPUB for $$lang"; \
+			if ! scripts/build-epub.sh "$(EPUB_VERSION)" "reference" "$$lang"; then \
+				echo "Skipping reference EPUB for $$lang (reference EPUB input unavailable)"; \
+			fi; \
+		else \
+			echo "Skipping reference EPUB for $$lang (reference directory not available)"; \
+		fi; \
+	done
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
