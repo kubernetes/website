@@ -745,7 +745,7 @@ difference in their approaches:
 * `service.kubernetes.io/topology-mode: Auto` attempts to distribute traffic
   proportionally across zones based on allocatable CPU resources. This heuristic
   includes safeguards (such as the [fallback
-  behavior](/docs/concepts/services-networking/topology-aware-routing/#three-or-more-endpoints-per-zone)
+  behavior](/docs/concepts/services-networking/topology-aware-routing/#topology-mode-annotation)
   for small numbers of endpoints), sacrificing some predictability in favor of
   potentially better load balancing.
 

@@ -5,83 +5,52 @@ title: Topology Aware Routing
 content_type: concept
 weight: 100
 description: >-
-  _Topology Aware Routing_ provides a mechanism to help keep network traffic within the zone
-  where it originated. Preferring same-zone traffic between Pods in your cluster can help
-  with reliability, performance (network latency and throughput), or cost.
+  _Topology Aware Routing_ is a feature that helps keep network traffic close to
+  where it originated. Preferring topologically closer endpoints for Pods in your
+  cluster can help with reliability, performance (network latency and
+  throughput), or cost.
 ---
 
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
-
 {{< note >}}
 Prior to Kubernetes 1.27, this feature was known as _Topology Aware Hints_.
 {{</ note >}}
 
-_Topology Aware Routing_ adjusts routing behavior to prefer keeping traffic in
-the zone it originated from. In some cases this can help reduce costs or improve
-network performance.
+You can enable _Topology Aware Routing_ in one of two ways:
+
+* The [`spec.trafficDistribution`](#traffic-distribution) field (recommended).
+* The [`service.kubernetes.io/topology-mode`](#topology-mode-annotation)
+  annotation (legacy).
 
 <!-- body -->
 
-## Motivation
+## Why use Topology Aware Routing
 
 Kubernetes clusters are increasingly deployed in multi-zone environments.
-_Topology Aware Routing_ provides a mechanism to help keep traffic within the
-zone it originated from. When calculating the endpoints for a {{<
-glossary_tooltip term_id="Service" >}}, the EndpointSlice controller considers
-the topology (region and zone) of each endpoint and populates the hints field to
-allocate it to a zone. Cluster components such as {{< glossary_tooltip
-term_id="kube-proxy" text="kube-proxy" >}} can then consume those hints, and use
-them to influence how the traffic is routed (favoring topologically closer
-endpoints).
+Topology Aware Routing provides a mechanism to help keep traffic close to
+where it originated. When calculating the endpoints for a {{< glossary_tooltip
+term_id="Service" >}}, the EndpointSlice controller considers the topology
+(region and zone) of each endpoint and populates the `hints` field to indicate
+which zone (or node) should consume it. Cluster components such as
+{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} can then consume
+those hints, and use them to influence how the traffic is routed (favoring
+topologically closer endpoints).
 
-## Enabling Topology Aware Routing
+## How it works
 
-{{< note >}}
-Prior to Kubernetes 1.27, this behavior was controlled using the
-`service.kubernetes.io/topology-aware-hints` annotation.
-{{</ note >}}
-
-You can enable Topology Aware Routing for a Service by setting the
-`service.kubernetes.io/topology-mode` annotation to `Auto`. When there are
-enough endpoints available in each zone, Topology Hints will be populated on
-EndpointSlices to allocate individual endpoints to specific zones, resulting in
-traffic being routed closer to where it originated from.
-
-## When it works best
-
-This feature works best when:
-
-### 1. Incoming traffic is evenly distributed
-
-If a large proportion of traffic is originating from a single zone, that traffic
-could overload the subset of endpoints that have been allocated to that zone.
-This feature is not recommended when incoming traffic is expected to originate
-from a single zone.
-
-### 2. The Service has 3 or more endpoints per zone {#three-or-more-endpoints-per-zone}
-In a three zone cluster, this means 9 or more endpoints. If there are fewer than
-3 endpoints per zone, there is a high (≈50%) probability that the EndpointSlice
-controller will not be able to allocate endpoints evenly and instead will fall
-back to the default cluster-wide routing approach.
-
-## How It Works
-
-The "Auto" heuristic attempts to proportionally allocate a number of endpoints
-to each zone. Note that this heuristic works best for Services that have a
-significant number of endpoints.
+Topology Aware Routing is implemented by two cluster components working together.
+This is true regardless of which mechanism you use to configure it (the
+`trafficDistribution` field or the `topology-mode` annotation); the mechanism
+only changes how the hints are decided.
 
 ### EndpointSlice controller {#implementation-control-plane}
 
-The EndpointSlice controller is responsible for setting hints on EndpointSlices
-when this heuristic is enabled. The controller allocates a proportional amount of
-endpoints to each zone. This proportion is based on the
-[allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-CPU cores for nodes running in that zone. For example, if one zone had 2 CPU
-cores and another zone only had 1 CPU core, the controller would allocate twice
-as many endpoints to the zone with 2 CPU cores.
+The EndpointSlice controller is responsible for setting hints on EndpointSlices.
+Based on the topology of each endpoint (its region and zone) and the routing
+preference in effect, the controller populates a `hints` field on each endpoint
+indicating which zone (or node) it should serve.
 
 The following example shows what an EndpointSlice looks like when hints have
 been populated:
@@ -108,98 +77,82 @@ endpoints:
     hints:
       forZones:
         - name: "zone-a"
+      forNodes:
+        - name: "node-1"
 ```
 
 ### kube-proxy {#implementation-kube-proxy}
 
-The kube-proxy component filters the endpoints it routes to based on the hints set by
-the EndpointSlice controller. In most cases, this means that the kube-proxy is able
-to route traffic to endpoints in the same zone. Sometimes the controller allocates endpoints
-from a different zone to ensure more even distribution of endpoints between zones.
-This would result in some traffic being routed to other zones.
+The kube-proxy component filters the endpoints it routes to based on the hints
+set by the EndpointSlice controller. In most cases, this means that kube-proxy is
+able to route traffic to endpoints that are topologically close, for example in
+the same zone. When no suitable local endpoints are available, kube-proxy falls
+back to routing across the wider cluster.
 
-## Safeguards
+## Enabling Topology Aware Routing
 
-The Kubernetes control plane and the kube-proxy on each node apply some
-safeguard rules before using Topology Aware Hints. If these don't check out,
-the kube-proxy selects endpoints from anywhere in your cluster, regardless of the
-zone.
+There are two ways to express a topology-aware routing preference for a Service:
 
-1. **Insufficient number of endpoints:** If there are less endpoints than zones
-   in a cluster, the controller will not assign any hints.
+* The [`spec.trafficDistribution`](#traffic-distribution) field is the
+  recommended approach, and has been generally available since Kubernetes v1.33.
+* The [`service.kubernetes.io/topology-mode`](#topology-mode-annotation)
+  annotation is an older approach and is expected to be deprecated in favor of
+  the field.
 
-2. **Impossible to achieve balanced allocation:** In some cases, it will be
-   impossible to achieve a balanced allocation of endpoints among zones. For
-   example, if zone-a is twice as large as zone-b, but there are only 2
-   endpoints, an endpoint allocated to zone-a may receive twice as much traffic
-   as zone-b. The controller does not assign hints if it can't get this "expected
-   overload" value below an acceptable threshold for each zone. Importantly this
-   is not based on real-time feedback. It is still possible for individual
-   endpoints to become overloaded.
+If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
+will take precedence over `trafficDistribution`.
 
-3. **One or more Nodes has insufficient information:** If any node does not have
-   a `topology.kubernetes.io/zone` label or is not reporting a value for
-   allocatable CPU, the control plane does not set any topology-aware endpoint
-   hints and so kube-proxy does not filter endpoints by zone.
+### The trafficDistribution field {#traffic-distribution}
 
-4. **One or more endpoints does not have a zone hint:** When this happens,
-   the kube-proxy assumes that a transition from or to Topology Aware Hints is
-   underway. Filtering endpoints for a Service in this state would be dangerous
-   so the kube-proxy falls back to using all endpoints.
+{{< feature-state for_k8s_version="v1.33" state="stable" >}}
 
-5. **A zone is not represented in hints:** If the kube-proxy is unable to find
-   at least one endpoint with a hint targeting the zone it is running in, it falls
-   back to using endpoints from all zones. This is most likely to happen as you add
-   a new zone into your existing cluster.
+Set the `spec.trafficDistribution` field on a
+{{< glossary_tooltip term_id="Service" >}} to express a preference for how
+traffic should be routed, for example
+`PreferSameZone` to keep traffic within the client's zone, or `PreferSameNode` to
+prefer the client's node. This is the recommended way to use Topology Aware
+Routing.
 
-## Constraints
+For more details and comparison with the topology-mode annotation method, see
+[Traffic distribution control](/docs/reference/networking/virtual-ips/#traffic-distribution).
 
-* Topology Aware Hints are not used when `internalTrafficPolicy` is set to `Local`
-  on a Service. It is possible to use both features in the same cluster on different
-  Services, just not on the same Service.
+### The topology-mode annotation {#topology-mode-annotation}
 
-* This approach will not work well for Services that have a large proportion of
-  traffic originating from a subset of zones. Instead this assumes that incoming
-  traffic will be roughly proportional to the capacity of the Nodes in each
-  zone.
+Setting the `service.kubernetes.io/topology-mode` annotation to `Auto` enables an
+older heuristic: the EndpointSlice controller calculates each zone's share of the
+total allocatable CPU, and uses those proportions as the target for how much
+traffic each zone should receive. It then sets `forZones` hints on endpoints so
+that kube-proxy keeps traffic within the client's zone.
 
-* The EndpointSlice controller ignores unready nodes as it calculates the
-  proportions of each zone. This could have unintended consequences if a large
-  portion of nodes are unready.
+The `Auto` heuristic has several limitations:
 
-* The EndpointSlice controller ignores nodes with the
-  `node-role.kubernetes.io/control-plane` or `node-role.kubernetes.io/master`
-  label set. This could be problematic if workloads are also running on those
-  nodes.
+* **Requires enough endpoints per zone.** The heuristic works well only with
+  roughly 3 or more endpoints per zone. With fewer endpoints than zones, or no
+  balanced allocation, it sets no hints and kube-proxy routes cluster-wide.
 
-* The EndpointSlice controller does not take into account {{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}} when deploying or calculating the
-  proportions of each zone. If the Pods backing a Service are limited to a
-  subset of Nodes in the cluster, this will not be taken into account.
+* **Assumes traffic tracks zone capacity.** It assumes traffic is roughly
+  proportional to each zone's allocatable CPU. Traffic concentrated in one zone
+  can overload that zone's endpoints, and it interacts poorly with autoscaling: a
+  {{< glossary_tooltip text="HorizontalPodAutoscaler" term_id="horizontal-pod-autoscaler" >}}
+  may miss the load, or new Pods may start in another zone.
 
-* This may not work well with autoscaling. For example, if a lot of traffic is
-  originating from a single zone, only the endpoints allocated to that zone will
-  be handling that traffic. That could result in {{< glossary_tooltip
-  text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}
-  either not picking up on this event, or newly added pods starting in a
-  different zone.
+* **Sensitive to node information.** No hints are set if any node lacks the
+  `topology.kubernetes.io/zone` label or an allocatable CPU value. Not-ready
+  nodes, control plane nodes, and Pod
+  {{< glossary_tooltip text="tolerations" term_id="toleration" >}} are ignored
+  when computing proportions, which can skew results.
 
+* **Transitions fall back.** During changes such as adding a zone, kube-proxy may
+  route across all zones until hints are populated.
 
-## Custom heuristics
-
-Kubernetes is deployed in many different ways, there is no single heuristic for
-allocating endpoints to zones will work for every use case. A key goal of this
-feature is to enable custom heuristics to be developed if the built in heuristic
-does not work for your use case. The first steps to enable custom heuristics
-were included in the 1.27 release. This is a limited implementation that may not
-yet cover some relevant and plausible situations.
-
+* **Incompatible with `internalTrafficPolicy: Local`.** Topology Aware Routing
+  hints are ignored on a Service that sets `internalTrafficPolicy: Local`,
+  although you can still use each feature on different Services in the same
+  cluster.
 
 ## {{% heading "whatsnext" %}}
 
-* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Learn about the
-  [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution)
-  field, which is closely related to the `service.kubernetes.io/topology-mode`
-  annotation and provides flexible options for traffic routing within
-  Kubernetes.
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+  tutorial.
+* Read more about the [`trafficDistribution`](/docs/concepts/services-networking/service/#traffic-distribution)
+  field in the Service documentation.
