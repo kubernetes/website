@@ -11,7 +11,7 @@ using a client of the {{<glossary_tooltip term_id="kube-apiserver" text="API ser
 creates an `Eviction` object, which causes the API server to terminate the Pod.
 
 API-initiated evictions respect your configured [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)
-and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
+and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-termination/).
 
 Using the API to create an Eviction object for a Pod is like performing a
 policy-controlled [`DELETE` operation](/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
