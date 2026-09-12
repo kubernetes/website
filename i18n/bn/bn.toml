@@ -370,7 +370,7 @@ other = "কমিউনিটি এক্সপ্লোর করুন"
 other = "কান্ট্রিবিউট করুন"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. সমস্ত অধিকার সংরক্ষিত। The Linux Foundation নিবন্ধিত ট্রেডমার্ক এবং ট্রেডমার্ক ব্যবহার করে। The Linux Foundation এর ট্রেডমার্কের তালিকার জন্য, অনুগ্রহ করে আমাদের <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a> দেখুন """
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. ওয়েবসাইটের ব্যবহারের শর্তাবলী, ট্রেডমার্ক নীতি এবং অন্যান্য প্রকল্প নীতির জন্য অনুগ্রহ করে দেখুন <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """The Kubernetes Authors | ডকুমেন্টেশন  <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> লাইসেন্সের অধীনে বিতরণ করা হয়েছে"""

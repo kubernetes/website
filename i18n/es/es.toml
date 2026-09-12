@@ -464,6 +464,8 @@ other = "Leer sobre"
 [main_read_more]
 other = "Leer más"
 
+[main_copyright_notice]
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Para los términos de uso del sitio web, la política de marcas y otras políticas del proyecto, consulte <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 [monthly_patch_release]
 other = "Lanzamiento mensual de parche"
 

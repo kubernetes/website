@@ -379,7 +379,7 @@ other = "了解社区"
 other = "贡献"
 
 [main_copyright_notice]
-other = """Linux 基金会&reg;。保留所有权利。Linux 基金会已注册并使用商标。如需了解 Linux 基金会的商标列表，请访问<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商标使用页面</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. 有关网站使用条款、商标政策和其他项目政策，请参阅 <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """The Kubernetes 作者 | 文档发布基于 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授权许可"""
