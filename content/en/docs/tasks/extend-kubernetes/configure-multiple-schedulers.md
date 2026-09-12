@@ -96,6 +96,10 @@ detailed description of other customizable `kube-scheduler` configurations.
 
 ## Run the second scheduler in the cluster
 
+{{< caution >}}
+Before you deploy multiple schedulers or scheduling profiles, see [Running multiple schedulers](/docs/concepts/scheduling-eviction/running-multiple-schedulers/) to understand the different deployment strategies and how to avoid resource scheduling conflicts.
+{{< /caution >}}
+
 In order to run your scheduler in a Kubernetes cluster, create the deployment
 specified in the config above in a Kubernetes cluster:
 
