@@ -1064,7 +1064,7 @@ stopped the kubelet and then later started it).
 When the kubelet restarts, the container statuses are managed differently based on the feature gate setting:
 
 * By default, the kubelet does not change container statuses after a restart.
-  Containers that were in set to `ready: true` state remain remain ready.
+  Containers that were in set to `ready: true` state remain ready.
 
   If you stop the kubelet long enough for it to fail a series of
   [node heartbeat](/docs/concepts/architecture/leases/#node-heart-beats) checks,
