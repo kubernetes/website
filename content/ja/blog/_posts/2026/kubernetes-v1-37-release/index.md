@@ -24,14 +24,14 @@ translator: >
 
 ## リリースのテーマとロゴ {#release-theme-and-logo}
 
-{{< figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 ガルワールのロゴ: リングアル(ringaal)に着想を得た編み込みのフレームが、雪を頂いたヒマラヤの峰々、段々畑、デオダーの木々、曲がりくねった川、1.37と記された山小屋、色とりどりの旗、ニジキジ(Himalayan monal)、そして中心にKubernetesの舵輪シンボルを持つ赤いシャクナゲ(buransh)の花を取り囲んでいる" class="release-logo" >}}
+{{< figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 ガルワールのロゴ: ringaalに着想を得た編み込みのフレームが、雪を頂いたヒマラヤの峰々、段々畑、デオダーの木々、曲がりくねった川、1.37と記された山小屋、色とりどりの旗、ニジキジ(Himalayan monal)、そして中心にKubernetesの舵輪シンボルを持つ赤いシャクナゲ(buransh)の花を取り囲んでいる" class="release-logo" >}}
 
-Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、読み:_gaṛhvāl_)です。
+Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、発音:_gaṛhvāl_)です。
 インド・ウッタラカンド州のヒマラヤ地方です。
 雪を頂いたガルワールヒマラヤの峰々、デオダーの森、段々畑、川や小川、山道が、この地域とロゴの両方を形作っています。
 これらの要素が一体となって、あらゆるレイヤー、経路、貢献がつながっているコミュニティを反映しています。
 
-ロゴはガルワールの風景を覗く窓として想像されています。<sup>1</sup>
+ロゴはガルワールの風景を覗く窓として構想されています。<sup>1</sup>
 中には、雪の峰に向かって登る段々畑があり、各段は下の段によって支えられています。
 これは、すべてのKubernetesリリースが前の作業の上に成り立っているのと同じです。
 谷を曲がりくねって流れる川は山の小川を集め、多くのSIGやコミュニティからの貢献が一つのプロジェクトへと流れ込む様子を表しています。
@@ -40,15 +40,15 @@ Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、読み:_
 石造りと木工が道と山小屋を形作り、人々を中心に置き、後を継ぐ人々のために守られてきた共有の基盤を思い起こさせます。
 川の上では、色とりどりの旗が風をとらえ、風景に命を吹き込んでいます。
 
-風景を取り囲むのは、柔軟な矮性ヒマラヤ竹である_リングアル(ringaal)_から織られた籠細工に着想を得た模様のフレームです。
+風景を取り囲むのは、柔軟な矮性ヒマラヤ竹である _ringaal_ から織られた籠細工に着想を得た模様のフレームです。
 個々の細い帯は互いに絡み合うことで強度を得ます。
 これは、コード、レビュー、テスト、ドキュメント、そして調整が一体となってリリースを作り上げるのと同じです。
 
 フレームの内側には、ウッタラカンド州の州鳥である[ニジキジ](https://ja.wikipedia.org/wiki/%E3%83%8B%E3%82%B8%E3%82%AD%E3%82%B8)が、ヒマラヤの高地に生息しています。
 その虹色の羽毛は一度に多くの色を放ちます。
 これは、Kubernetesコミュニティが多くのスキルと視点を一つのプロジェクトにもたらすのと同じです。
-ウッタラカンド州の州木である赤い_シャクナゲ(buransh)_(_Rhododendron arboreum_)の花は、その中心にKubernetesの舵輪を冠し、ガルワールで馴染み深い花とコミュニティが共有するシンボルを結びつけています。
-家には१.३७(デーヴァナーガリー数字の1.37)と記され、リリースを風景に根付かせています。
+ウッタラカンド州の州木である赤い _シャクナゲ_(_buransh、Rhododendron arboreum_)の花は、その中心にKubernetesの舵輪を冠し、ガルワールで馴染み深い花とコミュニティが共有するシンボルを結びつけています。
+山小屋には१.३७(デーヴァナーガリー数字の1.37)と記され、リリースを風景に根付かせています。
 
 <sub>1. 窓(ロゴ)をじっと見続けてください。川の流れと風に揺れる旗を眺めてください。37秒後、風景はその魔法を明らかにします。😉</sub>
 
@@ -60,11 +60,11 @@ Kubernetes v1.37は新機能と改善点が満載です。
 ### 安定版: Resilient watchcache initialization {#stable-resilient-watchcache-initialization}
 
 Kubernetes v1.37は、_resilient watch cache initialization_(回復力のあるwatchキャッシュ初期化)の作業を完了します。
-`ResilientWatchCacheInitialization`フィーチャーゲートはv1.34でGAに到達し、v1.37では残りの`WatchCacheInitializationPostStartHook`ゲートがGAに昇格してロックされます。
+`ResilientWatchCacheInitialization`フィーチャーゲートはv1.34でGAに到達し、v1.37では残りの`WatchCacheInitializationPostStartHook`ゲートがGAに昇格して、オンの状態でロックされます。
 このゲートはv1.36以降デフォルトで有効であり、起動時と復旧時のAPIサーバーを強化します。
-Watchキャッシュの初期化と再初期化は、`etcd`に対するリクエストのトラフィックスパイクを発生させなくなり、キャッシュのウォームアップ中にリクエストが積み重なる代わりに、正常に処理されるようになります。
+Watchキャッシュの初期化と再初期化は、`etcd`に対するリクエストのトラフィックスパイクを発生させなくなり、キャッシュのウォームアップ中にリクエストが蓄積されることなく、正常に処理されるようになります。
 
-高コストなlistおよびwatchリクエストが`etcd`を過負荷にしたり、API Priority and Fairnessの容量を枯渇させたりすることを許す代わりに、`kube-apiserver`は現在、制限されたリクエストを安全に委譲し、それ以外のリクエストをHTTP 429レスポンスで拒否します。
+高コストなlistおよびwatchリクエストが`etcd`を過負荷にしたり、API Priority and Fairnessの容量を枯渇させたりすることを許可するのではなく、`kube-apiserver`は現在、制限されたリクエストを安全に委譲し、それ以外のリクエストをHTTP 429レスポンスで拒否します。
 これにより、大規模クラスターにおけるコントロールプレーンの停止リスクが低減します。
 クライアント(カスタムコントローラーやオペレーターを含む)は、`Retry-After`ヘッダーを尊重し、指数バックオフを実装することで、HTTP `429 Too Many Requests`レスポンスを正常に処理できるように設計する必要があります。
 
@@ -72,7 +72,7 @@ Watchキャッシュの初期化と再初期化は、`etcd`に対するリクエ
 
 ### ベータ: HorizontalPodAutoscalerによるゼロへのスケーリング {#beta-horizontalpodautoscaler-scale-to-zero}
 
-Kubernetes v1.37では、HorizontalPodAutoscalerの_scale to zero_(ゼロへのスケーリング)サポートがベータに昇格します。
+Kubernetes v1.37では、HorizontalPodAutoscalerの _scale to zero_(ゼロへのスケーリング)サポートがベータに昇格します。
 Kubernetes v1.16で初めて導入されたこの機能は、現在は**デフォルトで有効**です。
 オブジェクトまたは外部メトリクスを使用するワークロードでは、この機能によりHorizontalPodAutoscalerがアイドル時にPodをゼロまでスケールダウンし、需要が戻ったときにそれらを復元できるようになります。
 これにより、キューのコンシューマー、バッチジョブ、GPUワークロードのコストを削減できます。
@@ -81,7 +81,7 @@ Kubernetes v1.16で初めて導入されたこの機能は、現在は**デフ�
 CPUおよびメモリメトリクスに基づくゼロへのスケーリングは、これらのメトリクスがアクティブなPodに依存しているため**サポートされていません**。
 代わりに、この機能は、処理すべきキューに入った作業があるまでレプリカ数をゼロに保つといった状況を想定しています。
 
-HorizontalPodAutoscalerがワークロードをゼロレプリカで保持している間、HorizontalPodAutoscalerのステータスに`ScaledToZero`Conditionを`True`で記録します。
+HorizontalPodAutoscalerがワークロードをゼロレプリカで保持している間、HorizontalPodAutoscalerのステータスに`ScaledToZero` Conditionを`True`で記録します。
 `HorizontalPodAutoscaler`コントローラーは、このConditionを使用して、(メトリクスが戻ったときにスケールアップする)ゼロにスケールしたワークロードと、レプリカ数を0に設定することで手動で無効化されたワークロードを区別します。
 ワークロードがスケールアップされると、Conditionの理由は`NotScaledToZero`で`False`に設定されます。
 
@@ -90,7 +90,7 @@ HorizontalPodAutoscalerがワークロードをゼロレプリカで保持して
 ### ベータ: マニフェストベースのadmission control設定 {#beta-manifest-based-admission-control-configuration}
 
 Kubernetes v1.37では、[マニフェストベースのadmission control](/docs/reference/access-authn-authz/manifest-admission-control/)設定がベータに昇格します。
-Admission webhookとCELベースのポリシーを、Kubernetes API内にのみ置かれる代わりに、`AdmissionConfiguration`の`staticManifestsDir`フィールドを介してディスク上のマニフェストファイルから読み込めるようになります。
+Admission webhookとCELベースのポリシーを、Kubernetes API内にのみ置かれるのではなく、`AdmissionConfiguration`の`staticManifestsDir`フィールドを介してディスク上のマニフェストファイルから読み込めるようになります。
 この方法で読み込まれたポリシーはAPIサーバーの起動時から適用され、`etcd`が利用できない間も機能し続け、APIベースのadmissionリソース自体を改変から保護することもできます。
 
 この取り組みは、[SIG API Machinery](https://www.kubernetes.dev/community/community-groups/sigs/api-machinery/)が主導した[KEP #5793](https://kep.k8s.io/5793)の一環として行われました。
@@ -98,7 +98,7 @@ Admission webhookとCELベースのポリシーを、Kubernetes API内にのみ�
 ### アルファ: Podレベルのチェックポイントと復元 {#alpha-pod-level-checkpoint-and-restore}
 
 Kubernetes v1.37では、**Podレベルの**チェックポイントと復元に対するアルファサポートを導入します。
-これは、`CheckpointPod`と`RestorePod`RPCを提供することでCRIを拡張し、kubeletと互換性のあるコンテナランタイムがPodのチェックポイントを作成し、そこからPodを復元できるようにします。
+これは、`CheckpointPod`と`RestorePod` RPCを提供することでCRIを拡張し、kubeletと互換性のあるコンテナランタイムがPodのチェックポイントの作成と、そこからPodの復元をできるようにします。
 この機能を使用するには、コンテナランタイムがこれらの新しいRPCを実装している必要があります。
 
 この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/)が主導した[KEP #5823](https://kep.k8s.io/5823)の一環として行われました。
@@ -112,7 +112,7 @@ Kubernetes v1.37では、**Podレベルの**チェックポイントと復元に
 
 ### KYAML {#kyaml}
 
-_KYAML_は、Kubernetes専用に設計された、より安全で曖昧さの少ないYAMLのサブセットであり、**YAMLの置き換えではありません**。
+_KYAML_ は、Kubernetes専用に設計された、より安全で曖昧さの少ないYAMLのサブセットであり、**YAMLの置き換えではありません**。
 すべてのKYAMLファイルは有効なYAMLであるため、KYAMLは任意のバージョンの`kubectl`にとって有効な入力であり、入力が解析されるためにspecファイルをKYAMLで記述する必要はありません。
 既存のマニフェスト、ツール、パイプラインを変更する必要はありません。
 v1.34でアルファ機能として導入され、v1.35でベータに昇格したKYAMLは、適合性テストの完了とともにv1.37でGAに昇格し、`kubectl get -o kyaml`が現在GAになりました。
@@ -123,12 +123,12 @@ KYAMLの詳細については、[How to Pretty-Print Your Kubernetes YAML as KYA
 
 ### metrics.k8s.io API {#the-metrics-k8s-io-api}
 
-_metrics.k8s.io_APIは、約9年間のベータ期間を経て、Kubernetes v1.37でGAに昇格します。
+_metrics.k8s.io_ APIは、約9年間のベータ期間を経て、Kubernetes v1.37でGAに昇格します。
 このAPIは、PodとノードのCPUおよびメモリ使用量を取得する標準的な方法を提供し、HorizontalPodAutoscaler(HPA)や`kubectl top`コマンドなど、広く使用されているKubernetes機能を支えています。
 
 この昇格は、永続的なベータAPIを避けるというKubernetesプロジェクトの目標に沿っています。
 `v1`が存在するようになったため、将来のKubernetesリリースはこちらに移行します。
-`v1beta1`はAPI非推奨ポリシーに沿って移行期間中も引き続き利用可能なので、既存のワークフローを壊すことなくGA APIを採用できます。
+`v1beta1`は、API非推奨ポリシーに従って移行期間中も引き続き利用可能なため、既存のワークフローを壊すことなくGA APIを採用できます。
 
 この取り組みは、[SIG Instrumentation](https://www.kubernetes.dev/community/community-groups/sigs/instrumentation/)が主導した[KEP #5207](https://kep.k8s.io/5207)の一環として行われました。
 
@@ -138,10 +138,10 @@ Kubernetes v1.37では、`SELinuxMount`および`SELinuxChangePolicy`フラグ�
 つまり、ボリュームは再帰的なラベル再設定の代わりに`-o context=<label>`(MountOptionのデフォルト)でマウントされます。
 ただし、これはボリュームのCSIドライバーがCSIDriverオブジェクトの`.spec.seLinuxMount: true`を介してオプトインした場合のみです。
 
-マウントは1つのSELinuxコンテキストしか保持できないため、[再帰的なラベル再設定の下では共存できていた、同じノード上で異なるSELinuxラベルを持つPodがボリュームを共有するケースが、起動に失敗する可能性があります](https://www.kubernetes.dev/resources/keps/1710/#story-3-cluster-upgrade)。
-ワークロードの以前の動作を維持するには、Podで`.spec.seLinuxChangePolicy`を`Recursive`に設定することをお勧めします。
+マウントは1つのSELinuxコンテキストしか保持できないため、[同じノード上で異なるSELinuxラベルを持つPodがボリュームを共有する場合、従来は再帰的なラベル再設定の下では共存できていましたが、今後は起動に失敗する可能性があります](https://www.kubernetes.dev/resources/keps/1710/#story-3-cluster-upgrade)。
+ワークロードにおいて従来の動作を維持するには、Pod上で`.spec.seLinuxChangePolicy`を`Recursive`に設定することを推奨します。
 
-この動作自体もv1.38までロックされないため、クラスター全体での無効化はあと1リリースの選択肢として残っています。
+この動作自体もv1.38まではロックされないため、クラスター全体での無効化は、あと1リリースの間は選択肢として残されています。
 
 SELinuxが有効でないクラスターにはまったく影響がありません。
 詳細については、[SELinux Volume Label Changes goes GA (and likely implications in v1.37)](/blog/2026/04/22/breaking-changes-in-selinux-volume-labeling/)をご覧ください。
@@ -153,7 +153,7 @@ SELinuxが有効でないクラスターにはまったく影響がありませ�
 #### DRA: 標準化されたネットワークインターフェースデータを伴うResourceClaimステータス {#dra-resourceclaim-status-with-possible-standardized-network-interface-data}
 
 ResourceClaimの`.status.devices`がKubernetes v1.37でGAに到達し、ドライバーがリソースクレーム内の割り当て済みデバイスごとにデバイス固有のステータスデータを報告できるようになります。
-これにより、デバイスがどのように構成されているかを確認し、問題をトラブルシューティングし、他のサービスとデバイスを使用することが容易になります。
+これにより、デバイスがどのように構成されているかの確認、問題発生時のトラブルシューティング、他のサービスと連携したデバイスの使用が容易になります。
 
 これは特にネットワークデバイスにとって有用です。
 このフィールドが追加される前は、PodがDRAを介してネットワークデバイスをリクエストした場合、システム内の他のコンポーネントがそのネットワークデバイスに割り当てられたIPアドレスを知る方法がありませんでした。
@@ -164,34 +164,34 @@ ResourceClaimの`.status.devices`がKubernetes v1.37でGAに到達し、ドラ�
 #### DRA: DRAドライバーを介した拡張リソースリクエストの処理 {#dra-handle-extended-resource-requests-via-dra-driver}
 
 Kubernetes v1.37で、DRA拡張リソースサポートがGAに到達します。
-この機能により、DRAドライバーは、Pod spec内の`abc.example/gpu: 3`のような従来の_extended resource_(拡張リソース)メカニズムを通じて行われたリクエストを、別の[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)を必要とせずに満たすことができます。
+この機能により、DRAドライバーは、Pod spec内の`abc.example/gpu: 3`のような従来の _extended resource_(拡張リソース)メカニズムを通じて行われたリクエストを、別の[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)を必要とせずに満たすことができます。
 
 このメカニズムにより、拡張リソース名をDeviceClassに直接割り当てられます。
-そのリソースをリクエストするPodは、ワークロード内でResourceClaimを定義する必要なしに、DRAを介してデバイスを割り当ててもらえます。
+そのリソースをリクエストするPodに対しては、ワークロード内でResourceClaimを定義しなくても、DRAを介してデバイスが割り当てられるようになります。
 
 この取り組みは、[SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/)が主導した[KEP #5004](https://kep.k8s.io/5004)の一環として行われました。
 
 #### DRA: デバイスのTaintとToleration {#dra-device-taints-and-tolerations}
 
-DRAを介して管理される物理デバイスに対する_taints and tolerations_サポートが、Kubernetes v1.37でGAになりました。
+DRAを介して管理される物理デバイスに対する _taintとtoleration_ のサポートが、Kubernetes v1.37でGAになりました。
 デフォルトでは、利用可能な任意のデバイスがスケジューリングの候補になり得ます。
-この拡張機能は、DRAドライバーが特定のデバイスをtaintされたものとしてマークしてワークロードに選択されないようにできるようにすることで、デバイススケジューリングに対するより大きな制御を提供します。
+この機能強化は、DRAドライバーが特定のデバイスにtaintを付与し、それらをワークロードの選択対象から除外できるようにすることで、デバイスのスケジューリングに対するより高度な制御を提供します。
 あるいは、クラスター管理者はDeviceTaintRuleを作成して、特定のドライバーが管理するすべてのデバイスなど、特定の選択基準に基づいてデバイスをtaintできます。
 
 この取り組みは、[SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/)が主導した[KEP #5055](https://kep.k8s.io/5055)の一環として行われました。
 
 #### DRA: 標準的なnumaNodeデバイス属性 {#dra-standard-numanode-device-attribute}
 
-Kubernetes v1.37は、新しい標準的な_NUMAノードデバイス属性_を定義します。
+Kubernetes v1.37は、新しい標準的な _NUMAノードデバイス属性_ を定義します。
 `resource.kubernetes.io/numaNode`をデバイスのNUMAノード情報の共有属性名として標準化し、異なるDRAドライバーによって管理されるデバイスが同じNUMAノードに基づいて比較できるようにします。
-これにより、各ドライバーが独自の属性名を定義することを避け、デバイス全体でのNUMA配置を一貫した方法で識別できます。
-この拡張機能は、フィーチャーゲートやin-treeの動作変更がない命名・登録KEPであるため、直接GAとなります。
+これにより、各ドライバーが独自の属性名を定義する必要がなくなり、デバイス全体でのNUMA配置を一貫した方法で識別できます。
+この機能強化は、フィーチャーゲートやin-treeの動作変更がない命名・登録KEPであるため、直接GAとなります。
 
 この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node)が主導した[KEP #6072](https://kep.k8s.io/6072)の一環として行われました。
 
 ### Node declared features {#node-declared-features}
 
-_Node declared features_は、特定のフィーチャーゲートを備えたKubernetes機能の利用可能性をNodeのために宣言するフレームワークを提供し、Kubernetes v1.37でGAに昇格します。
+_Node declared features_ は、特定のフィーチャーゲートを備えたKubernetes機能の利用可能性をNodeのために宣言するフレームワークを提供し、Kubernetes v1.37でGAに昇格します。
 これは、コントロールプレーンコンポーネント(`kube-scheduler`、admissionコントローラー、APIサーバー自体など)がバージョンスキューを管理するために使用します。
 
 この機能は、Nodeに新しい`.status.declaredFeatures`フィールドを導入し、アルファ→ベータ→GAの段階を通過する機能を宣言するために使用されます。
@@ -628,7 +628,7 @@ client-goにおけるコンテキストの伝搬とコンテキストロギン�
 
 ### GAへの昇格 {#graduations-to-stable}
 
-これはGA(*一般提供*)に昇格したすべての機能を一覧にしたものです。
+これはGA(一般提供)に昇格したすべての機能を一覧にしたものです。
 アルファからベータへの昇格や新機能を含む更新の完全なリストについては、リリースノートをご覧ください。
 
 このリリースには、GAに昇格した合計16個の機能強化が含まれています:
@@ -800,7 +800,7 @@ v1.37リリースサイクル(2026年5月18日から2026年8月26日までの15�
 ### ウェビナーのご案内 {#upcoming-release-webinar}
 
 Kubernetes v1.37リリースチームのメンバーと一緒に **2026年9月23日(水)午後4時(UTC)** から、このリリースのハイライトについて学びましょう。
-詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community2.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v137-webinar/)をご覧ください。
+詳細および参加登録は、[CNCFオンラインプログラム・サイトのイベントページ](https://community2.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v137-webinar/)をご覧ください。
 
 ## 参加方法 {#get-involved}
 
@@ -814,7 +814,7 @@ Kubernetesに関わる最も簡単な方法は、あなたの興味に合った�
 - [Slack](http://slack.k8s.io/)に参加してください
 - 最新情報は[Bluesky](https://bsky.app/profile/kubernetes.io)でフォローしてください
 - [LinkedIn](https://www.linkedin.com/company/kubernetes/)でフォローしてください
-  - [X](https://x.com/kubernetesio)でフォローしてください
+- [X](https://x.com/kubernetesio)でフォローしてください
 - [Discuss](https://discuss.kubernetes.io/)でコミュニティディスカッションに参加してください
 - [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)で質問を投稿(または質問に回答)してください
 - あなたの[Kubernetesエンドユーザーストーリー](https://www.cncf.io/case-studies/)を共有してください
