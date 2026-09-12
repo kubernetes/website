@@ -1,30 +1,25 @@
 ---
 title: Código de Conduta da Comunidade Kubernetes
-layout: basic
-cid: community
-community_styles_migrated: true
+body_class: code-of-conduct
+cid: code-of-conduct
 ---
 
-<div class="community-section" id="cncf-code-of-conduct-intro">
-<p>
-Kubernetes segue
-<a href="https://github.com/cncf/foundation/blob/main/code-of-conduct.md">CNCF Código de Conduta</a>.
-O texto do CNCF CoC é reproduzido abaixo, a partir de
-<a href="https://github.com/cncf/foundation/blob/fff715fb000ba4d7422684eca1d50d80676be254/code-of-conduct.md">commit fff715fb0</a>.
-Se você perceber que isso está desatualizado, por favor
-<a href="https://github.com/kubernetes/website/issues/new">crie uma issue</a>.
-</p>
-
-
-<p>
-Se você notar uma violação do Código de Conduta em um evento ou encontro, no
-Slack, ou em outro meio de comunicação, entre em contato com
-o <a href="https://git.k8s.io/community/committee-code-of-conduct">Comitê de Código de Conduta da Comunidade Kubernetes</a>. 
-Você pode nos contatar por e-mail em <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>.
-Seu anonimato será protegido.
-</p>
-</div>
+_O Kubernetes segue o
+[Código de Conduta da CNCF](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
+O texto do CoC da CNCF é reproduzido abaixo, a partir do
+[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md)._
 
 <div id="cncf-code-of-conduct">
-{{< include "/static/cncf-code-of-conduct.md" >}}
+{{< include "static/cncf-code-of-conduct.md" >}}
 </div>
+
+---
+
+Se você notar uma violação do Código de Conduta em um evento ou reunião, no
+Slack, ou em outro mecanismo de comunicação, entre em contato com
+o [Comitê de Código de Conduta do Kubernetes](https://git.k8s.io/community/committee-code-of-conduct).
+
+Você pode contatá-los por e-mail em [conduct@kubernetes.io](mailto:conduct@kubernetes.io).
+Seu anonimato será protegido.
+
+Se você perceber que esta página está desatualizada, por favor [crie uma issue](https://github.com/kubernetes/website/issues/new/choose).
