@@ -694,7 +694,7 @@ spec:
       ports:
         - containerPort: 6379
       volumeMounts:
-        - mountPath: /redis-master-data
+        - mountPath: /redis-leader-data
           name: redis-data
   volumes:
     - name: redis-data

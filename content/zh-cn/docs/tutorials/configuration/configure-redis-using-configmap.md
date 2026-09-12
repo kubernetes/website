@@ -85,20 +85,20 @@ Examine the contents of the Redis pod manifest and note the following:
 * A volume named `config` is created by `spec.volumes[1]`
 * The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
-* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
+* The `config` volume is then mounted at `/redis-leader` by `spec.containers[0].volumeMounts[1]`.
 
 This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
-ConfigMap above as `/redis-master/redis.conf` inside the Pod.
+ConfigMap above as `/redis-leader/redis.conf` inside the Pod.
 -->
 检查 Redis pod 清单的内容，并注意以下几点：
 
 * 由 `spec.volumes[1]` 创建一个名为 `config` 的卷。
 * `spec.volumes[1].configMap.items[0]` 下的 `key` 和 `path` 会将来自 `example-redis-config`
   ConfigMap 中的 `redis-config` 键公开在 `config` 卷上一个名为 `redis.conf` 的文件中。
-* 然后 `config` 卷被 `spec.containers[0].volumeMounts[1]` 挂载在 `/redis-master`。
+* 然后 `config` 卷被 `spec.containers[0].volumeMounts[1]` 挂载在 `/redis-leader`。
 
 这样做的最终效果是将上面 `example-redis-config` 配置中 `data.redis-config`
-的数据作为 Pod 中的 `/redis-master/redis.conf` 公开。
+的数据作为 Pod 中的 `/redis-leader/redis.conf` 公开。
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
