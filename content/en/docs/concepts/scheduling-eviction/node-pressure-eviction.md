@@ -136,8 +136,8 @@ These identifiers describe the filesystems as the kubelet observes them. They do
 not always mean three different mount points: in common layouts, two or all
 three identifiers can refer to the same underlying filesystem.
 
-{{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
+{{<note>}}
 The _split image filesystem_ feature adds new eviction signals, thresholds, and
 metrics for `containerfs`. To use `containerfs`, the Kubernetes release
 v{{< skew currentVersion >}} requires the `KubeletSeparateDiskGC`
