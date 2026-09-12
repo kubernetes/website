@@ -10,8 +10,8 @@ calling Paginate. Kubernetes includes blog/index.html pages for languages which 
 have blog posts -->
 <div class="td-blog-posts">
   {{ if gt (len ($.Scratch.Get "blog-pages")) 0 -}}
-    {{ $pag := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) -}}
-    {{ range $pag.PageGroups -}}
+    {{ $pager := .Paginate (( $.Scratch.Get "blog-pages").GroupByDate "2006" ) -}}
+    {{ range $pager.PageGroups -}}
     <h2>{{ T "post_posts_in" }} {{ .Key }}</h2>
     <ul class="td-blog-posts-list">
       {{ range .Pages -}}
