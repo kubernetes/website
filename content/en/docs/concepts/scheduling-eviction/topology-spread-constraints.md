@@ -94,7 +94,11 @@ your cluster. Those fields are:
     For example, if you have 3 zones with 2, 2 and 1 matching pods respectively,
     `MaxSkew` is set to 1 then the global minimum is 1.
   - if you select `whenUnsatisfiable: ScheduleAnyway`, the scheduler gives higher
-    precedence to topologies that would help reduce the skew.
+    precedence to topologies that would help reduce the skew. `maxSkew` is not
+    enforced as a limit in this mode. Instead, it adjusts how strongly the
+    scheduler favors reducing the skew when it scores nodes: `maxSkew: 1` gives
+    the strongest spreading preference, and larger values make the scheduler
+    more tolerant of uneven spreading.
 
 - **minDomains** indicates a minimum number of eligible domains. This field is optional.
   A domain is a particular instance of a topology. An eligible domain is a domain whose
