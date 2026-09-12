@@ -1,7 +1,7 @@
 ---
 title: Generating Reference Pages for Kubernetes Components and Tools
 content_type: task
-weight: 120
+weight: 40
 ---
 
 <!-- overview -->
