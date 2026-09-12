@@ -262,6 +262,10 @@ Gateway API is the successor to the [Ingress](/docs/concepts/services-networking
 However, it does not include the Ingress kind. As a result, a one-time conversion from your existing
 Ingress resources to Gateway API resources is necessary.
 
+The [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway) tool can help translate
+Ingress manifests into Gateway API resources. Not every Ingress controller or feature is supported
+yet, so review its output and the tool documentation before applying changes to production clusters.
+
 Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)
 guide for details on migrating Ingress resources to Gateway API resources.
 
@@ -270,10 +274,14 @@ guide for details on migrating Ingress resources to Gateway API resources.
 Instead of Gateway API resources being natively implemented by Kubernetes, the specifications
 are defined as [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 supported by a wide range of [implementations](https://gateway-api.sigs.k8s.io/implementations/).
+Like Ingress, Gateway API requires a compatible controller implementation in your cluster.
 [Install](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) the Gateway API CRDs or
 follow the installation instructions of your selected implementation. After installing an
 implementation, use the [Getting Started](https://gateway-api.sigs.k8s.io/guides/) guide to help
 you quickly start working with Gateway API.
+
+To inspect and manage Gateway API resources from the command line, see the
+[gwctl](https://gateway-api.sigs.k8s.io/guides/gwctl/) documentation.
 
 {{< note >}}
 Make sure to review the documentation of your selected implementation to understand any caveats.
