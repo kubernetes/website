@@ -112,12 +112,17 @@ discovery. For more information on clustering, see
 
 For an example, consider a five-member etcd cluster running with the following
 client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
-`http://$IP4:2379`, and `http://$IP5:2379`. To start a Kubernetes API server:
+`http://$IP4:2379`, and `http://$IP5:2379`.
 
-1. Run the following:
+Each etcd member should be started separately using its own
+`--listen-client-urls` and `--advertise-client-urls` values.
+
+1. Run the following on each etcd member, replacing `$IP` with that member's
+   client IP address:
 
    ```shell
-   etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
+   etcd --listen-client-urls=http://$IP:2379 \
+        --advertise-client-urls=http://$IP:2379
    ```
 
 2. Start the Kubernetes API servers with the flag
