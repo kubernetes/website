@@ -24,10 +24,13 @@ card:
 
 
 Руководство подразумевает, что вы уже настроили `minikube`.
-См. документацию [minikube start](https://minikube.sigs.k8s.io/docs/start/) для инструкций по его установке.
+См. __шаг 1__ в документации [minikube start](https://minikube.sigs.k8s.io/docs/start/) для инструкций по его установке.
+{{< alert color="info" title="Примечание" >}}
+Выполните только инструкции из __шага 1 «Установка»__. Остальные шаги описаны на этой странице.
+{{< /alert >}}
 
 Вам также потребуется установить `kubectl`.
-См. [Установку и настройку kubectl](/ru/docs/tasks/tools/install-kubectl/) для инструкций по его установке.
+См. [Установку инструментов](/docs/tasks/tools/#kubectl) для инструкций по его установке.
 
 
 <!-- lessoncontent -->
@@ -36,6 +39,30 @@ card:
 
 ```shell
 minikube start
+```
+
+{{< alert color="info" title="Примечание" >}}
+Команда `minikube start` создаёт кластер с одним узлом. Этот узел одновременно выполняет функции управляющего слоя и рабочего узла. В отличие от него, во многих production-кластерах Kubernetes узлы управляющего слоя обычно изолированы от рабочих узлов с помощью
+[ограничений (taints)](/docs/concepts/scheduling-eviction/taint-and-toleration/) или полностью скрыты от пользователя.
+{{< /alert >}}
+
+## Проверка состояния кластера minikube
+
+Проверьте состояние кластера minikube, чтобы убедиться, что все компоненты работают.
+
+```shell
+minikube status
+```
+
+В выводе команды все компоненты должны иметь состояние Running или Configured, как в примере ниже:
+
+```
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
 ```
 
 ## Запуск панели (dashboard)
@@ -52,11 +79,11 @@ minikube dashboard
 
 Теперь можно вернуться к терминалу, где вы запускали `minikube start`.
 
-{{< note >}}
+{{< alert color="info" title="Примечание" >}}
 Команда `dashboard` активирует дополнение dashboard и открывает прокси в веб-браузере по умолчанию.
 В этой панели можно создавать такие Kubernetes-ресурсы, как Deployment и Service.
 
-Если вы работаете в окружении с правами root, см. вкладку «Копирование URL для запуска».
+Чтобы узнать, как получить URL панели, не запуская браузер непосредственно из терминала, см. вкладку «Копирование URL для запуска».
 
 По умолчанию панель доступна только из внутренней виртуальной сети Kubernetes.
 Команда `dashboard` создаёт временный прокси, чтобы панель была доступна извне внутренней виртуальной сети Kubernetes.
@@ -64,7 +91,7 @@ minikube dashboard
 Чтобы остановить работу прокси, выполните `Ctrl+C` для завершения процесса.
 Когда команда завершит работу, панель останется запущенной внутри кластера Kubernetes.
 Вы можете снова выполнить команду `dashboard`, чтобы создать новую прокси для доступа к панели.
-{{< /note >}}
+{{< /alert >}}
 
 {{% /tab %}}
 {{% tab name="Копирование URL для запуска" %}}
@@ -78,14 +105,14 @@ minikube dashboard
 minikube dashboard --url
 ```
 
-Теперь можно вернуться к терминалу, где вы запускали `minikube start`.
+Теперь можно открыть этот URL и вернуться к терминалу, где вы запускали `minikube start`.
 
 {{% /tab %}}
 {{< /tabs >}}
 
 ## Создание деплоймента
 
-[*Под*](/docs/concepts/workloads/pods/pod/) Kubernetes — это группа из одного или более контейнеров, связанных друг с другом для удобного администрирования и организации сети. В данном руководстве под включает в себя один контейнер. Деплоймент ([*Deployment*](/docs/concepts/workloads/controllers/deployment/)) в Kubernetes проверяет здоровье пода и перезагружает контейнер пода в случае, если он прекратил работу. Деплойменты — рекомендуемый способ создания и масштабирования подов.
+[*Под*](/docs/concepts/workloads/pods/) Kubernetes — это группа из одного или более контейнеров, связанных друг с другом для удобного администрирования и организации сети. В данном руководстве под включает в себя один контейнер. Деплоймент ([*Deployment*](/docs/concepts/workloads/controllers/deployment/)) в Kubernetes проверяет здоровье пода и перезагружает контейнер пода в случае, если он прекратил работу. Деплойменты — рекомендуемый способ создания и масштабирования подов.
 
 1. Используйте команду `kubectl create` для создания деплоймента, который будет управлять подом. Под запустит контейнер с указанным Docker-образом.
 
@@ -102,10 +129,12 @@ minikube dashboard --url
 
     Вывод будет примерно следующим:
 
-    ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
     ```
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
+    ```
+
+    (Может потребоваться некоторое время, прежде чем под станет доступен. Если вы видите «0/1», повторите попытку через несколько секунд.)
 
 1. Посмотреть информацию о поде:
 
@@ -114,7 +143,7 @@ minikube dashboard --url
     ```
     Вывод будет примерно следующим:
 
-    ```shell
+    ```
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
@@ -131,13 +160,36 @@ minikube dashboard --url
     kubectl config view
     ```
 
-{{< note >}}
+1. Посмотреть логи приложения для контейнера в поде (замените имя пода на полученное с помощью `kubectl get pods`).
+
+   {{< alert color="info" title="Примечание" >}}
+   Замените `hello-node-5f76cf6ccf-br9b5` в команде `kubectl logs` на имя пода из вывода команды `kubectl get pods`.
+   {{< /alert >}}
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   Вывод будет примерно следующим:
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
+{{< alert color="info" title="Примечание" >}}
 Больше информации о командах `kubectl` см. в [обзоре kubectl](/ru/docs/reference/kubectl/).
-{{< /note >}}
+{{< /alert >}}
 
 ## Создание сервиса
 
 По умолчанию под доступен только при обращении по его внутреннему IP-адресу внутри кластера Kubernetes. Чтобы сделать контейнер `hello-node` доступным вне виртуальной сети Kubernetes, необходимо представить под как сервис [*Service*](/docs/concepts/services-networking/service/) Kubernetes.
+
+{{< alert color="danger" title="Предупреждение" >}}
+В контейнере agnhost есть конечная точка `/shell`, которая полезна для
+отладки, но открывать к ней доступ из публичного интернета опасно. Не запускайте этот контейнер
+в кластере, доступном из интернета, или в production-кластере.
+{{< /alert >}}
 
 1. Сделать под доступным для публичного интернета можно с помощью команды `kubectl expose`:
 
@@ -157,7 +209,7 @@ minikube dashboard --url
 
     Вывод будет примерно следующим:
 
-    ```shell
+    ```
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
     hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
@@ -192,7 +244,6 @@ minikube dashboard --url
     efk: disabled
     freshpod: disabled
     gvisor: disabled
-    heapster: disabled
     helm-tiller: disabled
     ingress: disabled
     ingress-dns: disabled
@@ -212,13 +263,13 @@ minikube dashboard --url
     minikube addons enable metrics-server
     ```
 
-    Вывод:
+    Вывод будет примерно следующим:
 
-    ```shell
-    metrics-server was successfully enabled
+    ```
+    The 'metrics-server' addon is enabled
     ```
 
-3. Посмотреть Pod и Service, которые вы только что создали:
+3. Посмотреть Pod и Service, созданные при установке этого дополнения:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -226,7 +277,7 @@ minikube dashboard --url
 
     Вывод будет примерно следующим:
 
-    ```shell
+    ```
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
     pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
@@ -247,7 +298,26 @@ minikube dashboard --url
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Отключить `metrics-server`:
+4. Проверить вывод `metrics-server`:
+
+    ```shell
+    kubectl top pods
+    ```
+
+    Вывод будет примерно следующим:
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)
+    hello-node-ccf4b9788-4jn97   1m           6Mi
+    ```
+
+    Если появится следующее сообщение, подождите и повторите попытку:
+
+    ```
+    error: Metrics API not available
+    ```
+
+5. Отключить `metrics-server`:
 
     ```shell
     minikube addons disable metrics-server
@@ -277,16 +347,21 @@ minikube stop
 Удалите виртуальную машину minikube (опционально):
 
 ```shell
+# Необязательно
 minikube delete
 ```
 
 Если вы планируете использовать minikube в дальнейшем, чтобы больше узнать про Kubernetes, удалять инструмент не нужно.
+
+## Заключение
+
+На этой странице рассмотрены основные шаги создания и запуска кластера minikube. Теперь вы готовы развёртывать приложения.
 
 ## {{% heading "whatsnext" %}}
 
 
 * Руководство по _[деплою первого приложения в Kubernetes с kubectl](/ru/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Больше об [объектах Deployment](/docs/concepts/workloads/controllers/deployment/).
-* Больше о [развёртывании приложения](/docs/user-guide/deploying-applications/).
+* Больше о [развёртывании приложения](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Больше об [объектах Service](/docs/concepts/services-networking/service/).
 
