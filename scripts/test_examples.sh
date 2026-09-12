@@ -7,8 +7,10 @@ FILES=($( git diff "$( git merge-base --fork-point master )" --name-only ))
 
 TEST_EXAMPLES=No
 
-# Check if examples folders (all locales) change in this branch
-if printf -- '%s\n' "${FILES[@]}" | grep -qE '^"?content/[^/]+/examples/'; then
+# Check if examples folders (all locales) change in this branch. The generated
+# counterparts under examples-kyaml count too, so that a hand-edit there is
+# caught by scripts/kyaml.sh verify below.
+if printf -- '%s\n' "${FILES[@]}" | grep -qE '^"?content/[^/]+/examples(-kyaml)?/'; then
     TEST_EXAMPLES=Yes
 fi
 
@@ -44,6 +46,9 @@ function run_test() {
     exit 0
   fi
   go test -v k8s.io/website/content/en/examples
+  # The KYAML rendering of each manifest is generated; fail if it is stale or
+  # stopped describing the same objects. See scripts/README.md.
+  scripts/kyaml.sh verify
 }
 
 if [[ $1 == install ]]; then
