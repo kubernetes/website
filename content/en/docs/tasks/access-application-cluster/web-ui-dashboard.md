@@ -199,7 +199,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   You can use the command options and arguments to override the default.
 
 - **Run as privileged**: This setting determines whether processes in
-  [privileged containers](/docs/concepts/workloads/pods/#privileged-mode-for-containers)
+  [privileged containers](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)
   are equivalent to processes running as root on the host.
   Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
 
