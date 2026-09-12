@@ -357,10 +357,19 @@ CoreDNS 파드가 실행 중이면 노드 추가를 계속할 수 있다.
 
 기본적으로 kubeadm은 노드 등록 시 kubelet이 자체 적용할 수 있는 레이블을 제한하는 
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) 어드미션 컨트롤러를 활성화한다. 
-어드미션 컨트롤러 문서에서는 kubelet `--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
-`node-role.kubernetes.io/control-plane` 레이블은 이러한 제한된 레이블이며 kubeadm은 
-노드가 생성된 후 권한 있는 클라이언트를 사용하여 수동으로 적용한다. 수동으로 수행하려면 `kubectl label`을 사용하고 
-kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하는지 확인한다.
+어드미션 컨트롤러 문서에서는 kubelet
+`--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
+
+{{< caution >}}
+`NodeRestriction` 어드미션 컨트롤러 때문에, 초기화 과정에서 kubelet
+`--node-labels` 플래그를 사용하여 제한된 레이블(`node-role.kubernetes.io/*` 등)을 적용할 **수 없다**.
+
+이 kubelet 플래그로 제한된 레이블을 추가하려고 하면 노드가 API 서버에
+등록되지 못한다.
+{{< /caution >}}
+
+이러한 레이블을 수동으로 적용하려면 노드가 클러스터에 참여한 후 `kubectl label`을 사용해야 한다.
+kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하고 있는지 확인한다.
 
 ### 컨트롤 플레인 노드 격리
 
@@ -616,6 +625,6 @@ kubeadm에 문제가 발생하면
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) 슬랙 채널을 방문한다
 * 일반 SIG 클러스터 수명 주기 개발 슬랙 채널: 
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/main/sig-cluster-lifecycle#readme)
 * SIG 클러스터 수명 주기 메일링 리스트: 
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
