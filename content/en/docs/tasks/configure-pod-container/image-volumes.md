@@ -73,6 +73,17 @@ It is possible to utilize
 [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
 from Kubernetes v1.33 when using the image volume feature.
 
+{{% thirdparty-content %}}
+
+{{< note >}}
+The container runtime handles the `subPath` and `subPathExpr` fields for image
+volumes, so a recent enough Kubernetes version is not sufficient on its own. This
+support is available since containerd v2.2 and CRI-O v1.33.
+
+If your container runtime does not support this, it ignores the field and mounts the
+whole image at the mount path.
+{{< /note >}}
+
 {{% code_sample file="pods/image-volumes-subpath.yaml" %}}
 
 1. Create the pod on your cluster:
