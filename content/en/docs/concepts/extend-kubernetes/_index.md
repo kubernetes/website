@@ -185,7 +185,8 @@ For more about Custom Resources, see the
 ### API aggregation layer
 
 You can use Kubernetes' [API Aggregation Layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-to integrate the Kubernetes API with additional services such as for [metrics](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/).
+to integrate the Kubernetes API with additional services such as the
+[Metrics API](/docs/concepts/cluster-administration/observability/#metrics-api).
 
 ### Combining new APIs with automation
 
