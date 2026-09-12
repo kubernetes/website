@@ -173,10 +173,11 @@ kubectl get pods
 
 Notice that some of the Pods have a status of `ImagePullBackOff`.
 
-To get more insight into the problem, run the `describe pods` subcommand:
+To get more insight into the problem, describe the Pods and include events
+(needed when you describe more than one Pod at once):
 
 ```shell
-kubectl describe pods
+kubectl describe pods --show-events=true
 ```
 
 In the `Events` section of the output for the affected Pods, notice that the `v10`
