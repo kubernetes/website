@@ -79,4 +79,10 @@ is signed in the same way as for the multi-architecture manifest lists.
 
 ## Binaries
 
+The table below lists the individual component binaries. For release archives
+(the `kubernetes.tar.gz` source archive and the client, server, and node
+tarballs) along with their checksums, see the release archives linked under
+[Related Links](/releases/{{< skew currentVersion >}}/#related-links) on the
+current release page.
+
 {{< release-binaries >}}
