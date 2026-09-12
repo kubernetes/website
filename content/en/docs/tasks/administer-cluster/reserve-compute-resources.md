@@ -86,6 +86,8 @@ kubernetes system daemons.
 To optionally enforce `kubeReserved` on kubernetes system daemons, specify the parent
 control group for kube daemons as the value for `kubeReservedCgroup` setting,
 and [add `kube-reserved` to `enforceNodeAllocatable`](#enforcing-node-allocatable).
+Enforcement applies those reserved amounts as hard cgroup limits on that control
+group; see [Enforcing Node Allocatable](#enforcing-node-allocatable).
 
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
@@ -117,6 +119,11 @@ daemons.
 To optionally enforce `systemReserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `systemReservedCgroup` setting,
 and [add `system-reserved` to `enforceNodeAllocatable`](#enforcing-node-allocatable).
+Enforcement applies those reserved amounts as hard cgroup limits on that control
+group; see [Enforcing Node Allocatable](#enforcing-node-allocatable).
+Setting `systemReserved` alone only reduces Node Allocatable for scheduling and
+pod management; it does **not** hard-limit OS system daemons unless
+`system-reserved` is also listed in `enforceNodeAllocatable`.
 
 It is recommended that the OS system daemons are placed under a top level
 control group (`system.slice` on systemd machines for example).
@@ -186,6 +193,24 @@ specifying `kube-reserved-compressible` and `system-reserved-compressible`.
 Note that to enforce `kubeReserved` or `systemReserved`,
 `kubeReservedCgroup` or `systemReservedCgroup` needs to be specified
 respectively.
+
+When `kube-reserved` or `system-reserved` is listed in `enforceNodeAllocatable`,
+the kubelet applies the corresponding reserved resource amounts as **hard
+control group limits** on `kubeReservedCgroup` or `systemReservedCgroup`. On
+Linux with cgroup v2, this includes setting `memory.max` to the reserved memory
+value (for example, `systemReserved: {memory: 1.5Gi}` results in
+`memory.max=1610612736` on the system reserved cgroup). On cgroup v1, the
+equivalent hard memory controller limit is applied. CPU shares and process ID
+limits from the reservation are applied as well.
+
+This behavior is intentional: enforcement caps Kubernetes and OS system daemons
+so they cannot exceed their reserved budget, which helps keep pods within
+Allocatable. As a consequence, processes in that cgroup may be CPU throttled or
+OOM killed if they need more than the reserved amount. If you only want
+`kubeReserved` / `systemReserved` to affect Node Allocatable (scheduler capacity
+and pod eviction) without hard-limiting those daemons, set the reservation
+values but omit `kube-reserved` / `system-reserved` from
+`enforceNodeAllocatable`.
 
 ## General Guidelines
 
