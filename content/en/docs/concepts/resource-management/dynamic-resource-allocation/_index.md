@@ -89,6 +89,25 @@ The workflow of using DRA to allocate devices involves the following types of us
   becomes available, which happens when the conflicting Pod terminates or is
   manually deleted.
 
+### DRA and Topology Manager NUMA alignment
+
+DRA resources don't participate in
+[Topology Manager](/docs/tasks/administer-cluster/topology-manager/) decisions.
+Topology Manager makes Pod admission decisions using topology hints from
+kubelet-local resource managers, such as CPU Manager, Memory Manager, and
+Device Manager. The kubelet prepares DRA resources after Pod admission and
+before it creates the Pod sandbox.
+
+As a result, Topology Manager policies, including `single-numa-node`, don't
+guarantee NUMA alignment between DRA devices and CPU or memory that
+kubelet-local resource managers allocate.
+
+For topology-aware co-selection, model the resources that need alignment with
+DRA and use [ResourceClaim device constraints](/docs/reference/kubernetes-api/resource/resource-claim-v1/#DeviceConstraint),
+such as `matchAttribute`, with a shared topology attribute. These constraints
+co-select DRA resources; they don't align DRA resources with resources managed
+by kubelet-local resource managers.
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
