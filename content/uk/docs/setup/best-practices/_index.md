@@ -1,5 +1,4 @@
 ---
-#title: Best practices
-title: Найкращі практики
+title: Поради
 weight: 40
 ---

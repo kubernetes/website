@@ -1726,13 +1726,3 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale
     </tr>
   </tbody>
 </table>
-
-
-
-
-
-
-
-
-
-

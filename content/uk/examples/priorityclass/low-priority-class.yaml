@@ -1,0 +1,7 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: placeholder # ці Podʼи передставляють ємність заповнювача
+value: -1000
+globalDefault: false
+description: "Відʼємний пріоритет для pod-заповнювачів, щоб увімкнути надлишкове розміщення."

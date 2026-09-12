@@ -1,6 +1,7 @@
 ---
 title: Namespace
 id: namespace
+full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Абстракція, що використовується в Kubernetes для ізоляції груп ресурсів в межах одного кластера.
 
