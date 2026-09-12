@@ -8,9 +8,10 @@ weight: 85
 
 This page introduces _Quality of Service (QoS) classes_ in Kubernetes, and explains
 how Kubernetes assigns a QoS class to each Pod as a consequence of the resource
-constraints that you specify for the containers in that Pod. Kubernetes relies on this
-classification to make decisions about which Pods to evict when there are not enough
-available resources on a Node.
+constraints that you specify for the containers in that Pod. QoS is a useful
+hint for how likely a Pod is to be evicted under memory pressure, but
+[node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+ranks by usage versus requests and by Priority, not by QoS class itself.
 
 <!-- body -->
 
@@ -24,13 +25,13 @@ of the {{< glossary_tooltip text="Containers" term_id="container" >}} in that Po
 how those requests relate to resource limits.
 This is known as {{< glossary_tooltip text="Quality of Service" term_id="qos-class" >}}
 (QoS) class. Kubernetes assigns every Pod a QoS class based on the resource requests
-and limits of its component Containers. QoS classes are used by Kubernetes to decide
-which Pods to evict from a Node experiencing
-[Node Pressure](/docs/concepts/scheduling-eviction/node-pressure-eviction/). The possible
-QoS classes are `Guaranteed`, `Burstable`, and `BestEffort`. When a Node runs out of resources,
-Kubernetes will first evict `BestEffort` Pods running on that Node, followed by `Burstable` and
-finally `Guaranteed` Pods. When this eviction is due to resource pressure, only Pods exceeding
-resource requests are candidates for eviction.
+and limits of its component Containers. The possible QoS classes are
+`Guaranteed`, `Burstable`, and `BestEffort`. For
+[node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/),
+the kubelet ranks pods by whether usage exceeds requests, then by Priority.
+`BestEffort` pods request nothing, so they usually come first when they
+use any of the starved resource — that is a consequence of requests, not
+a separate QoS sort.
 
 ### Guaranteed
 

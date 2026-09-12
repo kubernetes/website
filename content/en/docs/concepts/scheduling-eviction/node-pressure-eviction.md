@@ -348,12 +348,14 @@ The kubelet uses the following parameters to determine the pod eviction order:
 
 As a result, kubelet ranks and evicts pods in the following order:
 
-1. `BestEffort` or `Burstable` pods where the usage exceeds requests. These pods
-   are evicted based on their Priority and then by how much their usage level
-   exceeds the request.
+1. Pods whose usage exceeds requests. That includes every `BestEffort` pod
+   (they request nothing) and any `Burstable` pod that is over its request.
+   Within this group, lower Priority goes first, then pods that exceed
+   requests by more.
 
-1. `Guaranteed` pods and `Burstable` pods where the usage is less than requests
-   are evicted last, based on their Priority.
+1. Pods whose usage is at or below requests (`Guaranteed` pods, and
+   `Burstable` pods still under request) are evicted last, based on
+   their Priority.
 
 {{<note>}}
 The kubelet does not use the pod's [QoS class](/docs/concepts/workloads/pods/pod-qos/) to determine the eviction order.
