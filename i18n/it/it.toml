@@ -137,7 +137,7 @@ other = "Explora la community"
 other = "Contribuire"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Tutti i diritti riservati. The Linux Foundation ha marchi registrati e utilizza marchi commerciali. Per un elenco dei marchi di Linux Foundation, consulta la <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">pagina sull'utilizzo dei marchi</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Per i termini di utilizzo del sito, la politica sui marchi e altre politiche del progetto, consultare <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Gli autori di Kubernetes | Documentazione distribuita sotto <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
