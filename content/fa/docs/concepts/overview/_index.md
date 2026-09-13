@@ -75,16 +75,16 @@ no_list: true
 * هیچ سیستم پیکربندی٬ نگهداری٬ مدیریت یا خوددرسمانی را ارائه یا اتخاذ نمی‌کند.
 * به علاوه٬ کوبرنتیز تنها یک سیستم ارکستراسیون نیست. در واقع٬  نیاز به ارکستراسیون را از بین می‌برد. تعریف فنی ارکستراسیون٬ اجرای یک جریان کاری تعریف شده است:
 اول الف را انجام بده٬ آنگاه ب آنگاه ث. در مقابل٬ کوبرنتیز شامل تعدادی .
-In contrast, Kubernetes comprises a set of independent, composable
-  control processes that continuously drive the current state towards the provided desired state.
-  It shouldn't matter how you get from A to C. Centralized control is also not required. This
-  results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+در مقابل، کوبرنتیز شامل مجموعه‌ای از اجزای مستقل و قابل ترکیب است.
+فرآیندهای کنترلی که به طور مداوم وضعیت فعلی را به سمت وضعیت مطلوب هدایت می‌کنند.
+فرقی نمی‌کند که چگونه از نقطه A به نقطه C می‌رسید. کنترل متمرکز نیز لازم نیست. این
+منجر به سیستمی می‌شود که استفاده از آن آسان‌تر و قدرتمندتر، مقاوم‌تر، انعطاف‌پذیرتر و قابل توسعه‌تر است.
 
 ## گذشته تاریخی کوبرنتیز {#going-back-in-time}
 
 بیایید نگاهی به گذشته بندازیم تا ببینیم چرا کوبرنتیز مفید است.
 
-![Deployment evolution](/images/docs/Container_Evolution.svg)
+![تکامل استقرار](/images/docs/Container_Evolution.svg)
 
 **دوره توسعه سنتی:**
 
@@ -116,9 +116,9 @@ In contrast, Kubernetes comprises a set of independent, composable
 * استفاده از منابع: راندمان و تراکم بالا.
 
 
-## {{% heading "بعدی" %}}
+## {{% heading "whatsnext" %}}
 
 * نگاهی بر [اجزای کوبرنتیز](/docs/concepts/overview/components/)
 * نگاهی بر [API کوبرنتیز](/docs/concepts/overview/kubernetes-api/)
 * نگاهی بر [ساختار کلاستر](/docs/concepts/architecture/)
-* آماده [شروع](/docs/setup/)؟
+* آماده [شروع](/docs/setup/) هستید؟
