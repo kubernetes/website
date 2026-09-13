@@ -50,10 +50,11 @@ de Kubernetes no dirigen automáticamente el tráfico hacia los endpoints del pl
 en la misma zona de fallo; sin embargo, tu proveedor de la nube puede tener sus propios mecanismos para hacerlo.
 
 Por ejemplo, usando un balanceador de carga administrado, configuras el balanceador para que envíe el tráfico
-que se origina en el kubelet y los pods de la zona de fallo _A_ únicamente a los hosts del plano de control
-que también están en la zona _A_. Si un solo host o endpoint del plano de control en la zona de fallo _A_ se desconecta,
-todo el tráfico del plano de control de los nodos de la zona _A_ se enviará entre zonas. Ejecutar varios hosts del
-plano de control en cada zona hace que este resultado sea menos probable.
+que se origina en el kubelet y los Pods de la zona de fallo _A_ únicamente
+a los hosts del plano de control que también están en la zona _A_. Si un solo host o
+endpoint del plano de control en la zona de fallo _A_ se desconecta, eso significa que todo el tráfico del plano de control para
+los nodos de la zona _A_ es ahora enviado entre zonas. Ejecutar varios hosts del plano de control
+en cada zona hace que este resultado sea menos probable.
 
 ### Almacenamiento de etcd
 
@@ -89,29 +90,32 @@ Por ejemplo, puedes establecer límites de CPU y memoria para un componente de r
         memory: 200Mi
 ```
 
-Los límites predeterminados de los addons normalmente se basan en datos recopilados a partir de la experiencia
-al ejecutar cada addon en clústeres de Kubernetes pequeños o medianos. Al ejecutar addons en clústeres grandes,
-a menudo consumen más recursos que los límites predeterminados. Si se despliega un clúster grande sin ajustar estos valores,
-el addon puede morir continuamente porque alcanza repetidamente el límite de memoria. Como alternativa, el addon puede
-ejecutarse, pero con un rendimiento bajo debido a las restricciones de la fracción de tiempo de CPU.
+Los límites predeterminados de los addons normalmente se basan en datos recopilados a partir de la experiencia al ejecutar
+cada addon en clústeres de Kubernetes pequeños o medianos. Al ejecutar addons en clústeres
+grandes, a menudo consumen más recursos que los límites predeterminados.
+Si se despliega un clúster grande sin ajustar estos valores, el addon
+puede morir continuamente porque alcanza repetidamente el límite de memoria.
+Como alternativa, el addon puede ejecutarse, pero con un rendimiento bajo debido a las restricciones
+de la fracción de tiempo de CPU.
 
 Para evitar problemas con los recursos de los addons del clúster, al crear un clúster con muchos nodos,
 considera lo siguiente:
 
-* Algunos addons escalan verticalmente: hay una réplica del addon para el clúster o para toda una zona de fallo. Para estos addons,
-  aumenta las solicitudes y los límites a medida que escalas tu clúster.
-* Muchos addons escalan horizontalmente: agregas capacidad ejecutando más pods; pero con un clúster muy grande también puede ser necesario
-aumentar ligeramente los límites de CPU o memoria. El [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-  puede ejecutarse en modo _recommender_ para proporcionar valores sugeridos para las solicitudes y los límites.
+* Algunos addons escalan verticalmente: hay una réplica del addon para el clúster
+  o para toda una zona de fallo. Para estos addons, aumenta las solicitudes y los límites
+  a medida que escalas tu clúster.
+* Muchos addons escalan horizontalmente: agregas capacidad ejecutando más pods; pero con
+  un clúster muy grande también puede ser necesario aumentar ligeramente los límites de CPU o memoria.
+  El [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) puede ejecutarse en modo _recommender_ para proporcionar valores sugeridos
+  para las solicitudes y los límites.
 * Algunos addons se ejecutan como una copia por nodo, controlados por un {{< glossary_tooltip text="DaemonSet"
-  term_id="daemonset" >}}: por ejemplo, un agregador de registros a nivel de nodo. Al igual que en el caso de los addons
-  escalados horizontalmente, también puede ser necesario aumentar ligeramente los límites de CPU o memoria.
+  term_id="daemonset" >}}: por ejemplo, un agregador de registros a nivel de nodo. Al igual que
+  en el caso de los addons escalados horizontalmente, también puede ser necesario aumentar
+  ligeramente los límites de CPU o memoria.
 
 ## Priorizar los componentes esenciales del clúster
 
-Para garantizar que los componentes esenciales del clúster (como CoreDNS, metrics-server y otros addons críticos)
-se programen antes que otras cargas de trabajo y no sean desalojados por pods de menor prioridad, ejecútalos con una
-[PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/) del sistema, como `system-cluster-critical` o `system-node-critical`.
+Para garantizar que los componentes esenciales del clúster (como CoreDNS, metrics-server y otros addons críticos) se programen antes que otras cargas de trabajo y no sean desalojados por pods de menor prioridad, ejecútalos con una [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/) del sistema, como `system-cluster-critical` o `system-node-critical`.
 
 ## {{% heading "whatsnext" %}}
 
