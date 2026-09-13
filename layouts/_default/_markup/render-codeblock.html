@@ -1,0 +1,14 @@
+{{- $opts := dict }}
+{{- if not (transform.CanHighlight .Type) }}
+  {{- $opts = dict "type" "text" }}
+{{- end }}
+{{- $result := transform.HighlightCodeBlock . $opts }}
+<div class="codeblock-with-copy">
+  <button class="copy-codeblock" type="button" aria-label="{{ T "copy_codeblock_to_clipboard" | default "Copy code to clipboard" }}" title="{{ T "copy_codeblock_to_clipboard" | default "Copy code to clipboard" }}" data-copied-label="{{ T "copied_to_clipboard" | default "Copied!" }}">
+    {{- with resources.Get "images/copycode.svg" -}}
+    <img src="{{ .RelPermalink }}" class="icon-copycode" alt="" aria-hidden="true" />
+    {{- end -}}
+    <span class="copy-codeblock-text" aria-hidden="true"></span>
+  </button>
+  {{- $result.Wrapped -}}
+</div>

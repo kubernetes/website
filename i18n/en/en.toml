@@ -111,6 +111,12 @@ other = "YouTube"
 [conjunction_1]
 other = "and"
 
+[copy_codeblock_to_clipboard]
+other = "Copy code to clipboard"
+
+[copied_to_clipboard]
+other = "Copied!"
+
 [copy_sample_to_clipboard]
 other = "Copy {{ .filename }} to clipboard"
 

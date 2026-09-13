@@ -58,6 +58,15 @@ function copyCode(elem) {
 </script>
 {{- end -}}
 
+{{/* Copy button for fenced code blocks (render-codeblock hook) */}}
+{{- $copyBlocks := resources.Get "js/copy-codeblocks.js" -}}
+{{- if hugo.IsProduction -}}
+  {{- $copyBlocks = $copyBlocks | minify | fingerprint -}}
+<script defer src="{{ $copyBlocks.RelPermalink }}" integrity="{{ $copyBlocks.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+<script defer src="{{ $copyBlocks.RelPermalink }}"></script>
+{{- end -}}
+
 {{/* JavaScript detector */}}
 {{- if hugo.IsProduction -}}
   {{- $jsDetect :=  resources.Get "js/detect-js.js" | minify | fingerprint -}}
