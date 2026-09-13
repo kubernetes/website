@@ -1954,11 +1954,11 @@ body.td-search {
 }
 
 .code-sample > .copy-code-icon {
-  cursor: pointer;
   display: flex;
-  gap:1rem;
-  justify-content: right;
+  justify-content: flex-end;
+  gap: 1rem;
   padding: 0.2rem;
+  cursor: pointer;
 }
 
 .codeblock-with-copy {
@@ -1969,53 +1969,28 @@ body.td-search {
   padding-right: 2.5rem;
 }
 
-.codeblock-with-copy .copy-codeblock {
+.copy-codeblock {
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
+  z-index: 2;
   padding: 0.25rem 0.4rem;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 0.375rem;
   background: transparent;
   cursor: pointer;
   opacity: 0.7;
-  z-index: 2;
 }
 
-.codeblock-with-copy:hover .copy-codeblock,
-.codeblock-with-copy .copy-codeblock:focus-visible {
-  opacity: 1;
-  border-color: rgba(127, 127, 127, 0.4);
-  background: rgba(127, 127, 127, 0.12);
-  outline-offset: 2px;
-}
-
-.codeblock-with-copy .copy-codeblock .icon-copycode {
+.icon-copycode {
   width: 1rem;
   height: 1rem;
 }
 
-[data-bs-theme="dark"] .codeblock-with-copy .copy-codeblock .icon-copycode {
+[data-bs-theme="dark"] .icon-copycode {
   filter: brightness(0) invert(1);
 }
 
-.codeblock-with-copy .copy-codeblock-text:empty {
-  display: none;
-}
-
-.codeblock-with-copy .copy-codeblock-text {
-  font-size: 0.75rem;
-  line-height: 1;
-}
-
-@media (hover: none) {
-  .codeblock-with-copy .copy-codeblock {
-    opacity: 1;
-  }
-}
 
 .includecode .highlight {
   margin-top: 0;
