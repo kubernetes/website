@@ -238,7 +238,9 @@ Now you can verify that all objects exist.
 
 6. Copy the IP address, and load the page in your browser to view your site.
 
-   You should see the WordPress set up page.
+   You should see the WordPress set up page similar to the following screenshot.
+
+   ![wordpress-init](/images/docs/tutorials/mysql-wordpress-persistent-volume/WordPress.png)
 
    {{< alert color="danger" title="Warning" >}}
    Do not leave your WordPress installation on this page. If another user finds it,
