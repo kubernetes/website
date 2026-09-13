@@ -40,7 +40,7 @@ manager) trên ít nhất ba failure zone. Nếu bạn đang chạy một cloud 
 manager thì bạn cũng nên nhân bản nó trên tất cả các failure zone mà bạn đã chọn.
 
 {{< note >}}
-Kubernetes không cung cấp khả năng chịu lỗi liên zone (cross-zone resilience)
+Kubernetes không cung cấp khả năng phục hồi liên zone (cross-zone resilience)
 cho các endpoint của API server. Bạn có thể sử dụng nhiều kỹ thuật khác nhau
 để cải thiện tính sẵn sàng cho API server của cluster, bao gồm DNS round-robin,
 bản ghi SRV, hoặc một giải pháp cân bằng tải của bên thứ ba có kiểm tra tình

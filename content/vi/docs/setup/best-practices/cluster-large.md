@@ -33,7 +33,7 @@ hãy cân nhắc:
     * Số lượng load balancer
     * Các subnet mạng
     * Các luồng log
-* Kiểm soát (gate) các hành động mở rộng cluster để khởi tạo node mới theo từng đợt, có
+* Kiểm soát các hành động mở rộng cluster để khởi tạo node mới theo từng đợt, có
   khoảng nghỉ giữa các đợt, vì một số nhà cung cấp cloud giới hạn tốc độ tạo instance mới.
 
 ## Các thành phần control plane
@@ -95,8 +95,8 @@ Các giới hạn mặc định của addon thường dựa trên dữ liệu th
 mỗi addon trên các cluster Kubernetes nhỏ hoặc trung bình. Khi chạy trên các
 cluster lớn, các addon thường tiêu thụ một số tài nguyên vượt quá giới hạn mặc định của chúng.
 Nếu một cluster lớn được triển khai mà không điều chỉnh các giá trị này, (các) addon
-có thể liên tục bị kill vì chúng cứ chạm tới giới hạn bộ nhớ.
-Hoặc cách khác, addon có thể vẫn chạy nhưng với hiệu năng kém do bị hạn chế
+có thể liên tục bị dừng vì chúng cứ chạm tới giới hạn bộ nhớ.
+Một cách khác, addon có thể vẫn chạy nhưng với hiệu năng kém do bị hạn chế
 về lát cắt thời gian CPU.
 
 Để tránh gặp các vấn đề về tài nguyên của addon trong cluster, khi tạo một cluster có
