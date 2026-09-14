@@ -1392,7 +1392,7 @@ Avoid nested lists and maps if possible where validation rules are used.
 To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
 {{< /note >}}
 
-Defaulting allows to specify default values in the [OpenAPI v3 validation schema](#validation):
+Defaulting allows you to specify default values in the [OpenAPI v3 validation schema](#validation):
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1

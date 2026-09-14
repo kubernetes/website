@@ -64,11 +64,11 @@ You can also use _parameters_, which are **optional**. To learn more, see
 [parameter resources](/docs/reference/access-authn-authz/validating-admission-policy/#parameter-resources) (ValidatingAdmissionPolicy) or
 [parameter resources](/docs/reference/access-authn-authz/mutating-admission-policy/#parameter-resources) (MutatingAdmissionPolicy).
 
-Policy objects describes the abstract logic of a policy using Common Expression Language (CEL). 
+Policy objects describe the abstract logic of a policy using Common Expression Language (CEL). 
 For example, a ValidatingAdmissionPolicy might enforce replica limits or ensure specific labels are present, 
 while a MutatingAdmissionPolicy can modify resources such as adding a default label to a namespace.
 
-Binding objects link the policy to your cluster and provides scoping. 
+Binding objects link the policy to your cluster and provide scoping. 
 A ValidatingAdmissionPolicyBinding or MutatingAdmissionPolicyBinding connects the policy to specific resources. 
 If you only want to enforce a policy for a specific subset of resources, the binding is where you narrow the
 scope of the policy (using `matchResources`).
@@ -121,7 +121,7 @@ the validation failure in both the API response body and the HTTP `Warning:` hea
 
 #### MutatingAdmissionPolicyBinding {#policy-actions-mutating}
 
-For MutatingAdmissionPolicyBinding, the the action is always to mutate the object.
+For MutatingAdmissionPolicyBinding, the action is always to mutate the object.
 
 You can use a JSON Patch or a Kubernetes _apply configuration_.
 

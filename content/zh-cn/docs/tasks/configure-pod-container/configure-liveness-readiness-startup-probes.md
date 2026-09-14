@@ -44,7 +44,8 @@ In this exercise, you create a Pod that runs a container based on the
 许多长时间运行的应用最终会进入损坏状态，除非重新启动，否则无法被恢复。
 Kubernetes 提供了存活探针来发现并处理这种情况。
 
-在本练习中，你会创建一个 Pod，其中运行一个基于 `registry.k8s.io/busybox:1.27.2` 镜像的容器。
+在本练习中，你会创建一个 Pod，其中运行一个基于
+`registry.k8s.io/busybox:1.27.2` 镜像的容器。
 下面是这个 Pod 的配置文件。
 
 {{% code_sample file="pods/probe/exec-liveness.yaml" %}}
@@ -172,7 +173,8 @@ file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-imag
 ## 定义一个存活态 HTTP 请求接口 {#define-a-liveness-HTTP-request}
 
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
-下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/e2e-test-images/agnhost` 镜像的容器。
+下面是一个 Pod 的配置文件，其中运行一个基于
+`registry.k8s.io/e2e-test-images/agnhost` 镜像的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -206,7 +208,8 @@ returns a status of 200. After that, the handler returns a status of 500.
 -->
 返回大于或等于 200 并且小于 400 的任何代码都标示成功，其它返回代码都标示失败。
 
-你可以访问 [`server.go`](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
+你可以访问
+[`server.go`](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 阅读服务的源码。
 
 容器存活期间的最开始 10 秒中，`/healthz` 处理程序返回 200 的状态码。
@@ -256,6 +259,49 @@ In releases after v1.13, local HTTP proxy environment variable settings do not
 affect the HTTP liveness probe.
 -->
 在 1.13 之后的版本中，设置本地的 HTTP 代理环境变量不会影响 HTTP 的存活探测。
+
+<!--
+### Use HTTP/2 cleartext (h2c) with HTTP probes {#use-h2c-with-http-probes}
+-->
+### 在 HTTP 探针中使用 HTTP/2 明文（h2c）  {#use-h2c-with-http-probes}
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+<!--
+By default the `kubelet` sends HTTP/1.1 requests when executing an HTTP probe.
+If your application serves health endpoints only over HTTP/2 cleartext (h2c),
+you can add the `protocol` field to the `httpGet` field in the probe specification and
+specify a value of `HTTP2`. This requires the `H2CContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
+enabled on both the `kube-apiserver` and the `kubelet`.
+-->
+默认情况下，`kubelet` 在执行 HTTP 探针时发送的是 HTTP/1.1 请求。
+
+如果你的应用仅通过 HTTP/2 明文（h2c）提供健康检查端点，你可以在探针规约的
+`httpGet` 字段下添加 `protocol` 字段，并将其值指定为 `HTTP2`。
+这要求在 `kube-apiserver` 和 `kubelet` 上同时启用 `H2CContainerProbe`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+{{% code_sample file="pods/probe/h2c-liveness.yaml" %}}
+
+<!--
+When `protocol` is set to `HTTP2`, the `kubelet` connects using HTTP/2 cleartext
+(h2c) — HTTP/2 over plain TCP without TLS. The following configurations aren't
+supported:
+
+*   `protocol: HTTP2` and `scheme: HTTPS`
+*   `protocol: HTTP2` and a value in the `host` field
+
+If the feature gate is disabled, the API server removes the `protocol`
+field from new or updated Pods.
+-->
+当 `protocol` 设置为 `HTTP2` 时，`kubelet` 将通过 HTTP/2
+明文（h2c）—— 即在明文 TCP 上使用 HTTP/2，且不启用 TLS —— 进行连接。以下配置不受支持：
+
+* `protocol: HTTP2` 与 `scheme: HTTPS`
+* `protocol: HTTP2` 与 `host` 字段中的任何值
+
+如果该特性门控处于禁用状态，API 服务器会从新建或更新的 Pod 中移除 `protocol` 字段。
 
 <!--
 ## Define a TCP liveness probe
@@ -366,7 +412,8 @@ When using a gRPC probe, there are some technical details to be aware of:
 
 - The probes run against the pod IP address or its hostname.
   Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
-- The probes do not support any authentication parameters (like `-tls`).
+- The probes connect over plaintext by default. See
+  [Use TLS with gRPC probes](#grpc-probe-tls) for how to enable TLS.
 - There are no error codes for built-in probes. All errors are considered as probe failures.
 - If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not**
   respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
@@ -375,11 +422,50 @@ When using a gRPC probe, there are some technical details to be aware of:
 
 - 这些探针运行时针对的是 Pod 的 IP 地址或其主机名。
   请一定配置你的 gRPC 端点使之监听于 Pod 的 IP 地址之上。
-- 这些探针不支持任何身份认证参数（例如 `-tls`）。
+- 默认情况下，探针通过明文连接。有关如何启用 TLS
+  的信息，请参阅[将 TLS 用于 gRPC 探针](#grpc-probe-tls)。
 - 对于内置的探针而言，不存在错误代码。所有错误都被视作探测失败。
 - 如果 `ExecProbeTimeout` 特性门控被设置为 `false`，则 `grpc-health-probe`
   不会考虑 `timeoutSeconds` 设置状态（默认值为 `1s`），
   而内置探针则会在超时时返回失败。
+
+<!--
+### Use TLS with gRPC probes {#grpc-probe-tls}
+-->
+### 在 gRPC 探针中使用 TLS {#grpc-probe-tls}
+
+{{< feature-state feature_gate_name="GRPCContainerProbeTLS" >}}
+
+<!--
+By default the `kubelet` connects to gRPC health endpoints over plaintext. If
+your application serves gRPC only over TLS, you can add the `mode` field to the
+`grpc` field in the probe specification and specify a value of `TLS`. This
+requires the `GRPCContainerProbeTLS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+be enabled on both the `kube-apiserver` and the `kubelet`.
+-->
+默认情况下，`kubelet` 通过明文连接 gRPC 健康检查端点。
+如果你的应用仅通过 TLS 提供 gRPC 服务，你可以在探针规约的 `grpc`
+字段下添加 `mode` 字段，并将其值指定为 `TLS`。这要求在 `kube-apiserver`
+和 `kubelet` 上同时启用 `GRPCContainerProbeTLS`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+{{% code_sample file="pods/probe/grpc-tls-liveness.yaml" %}}
+
+<!--
+When `mode` is set to `TLS`, the `kubelet` connects over TLS with
+`InsecureSkipVerify` and does not verify the server certificate. This matches
+the behavior of HTTPS probes. Certificate verification is not supported.
+
+If the feature gate is disabled, the `kube-apiserver` removes the `mode`
+field from new or updated Pods.
+-->
+当 `mode` 设置为 `TLS` 时，`kubelet` 通过 TLS 进行连接，并使用
+`InsecureSkipVerify`，不会对服务器证书进行校验。
+这与 HTTPS 探针的行为一致，目前不支持证书校验。
+
+如果该特性门控处于禁用状态，`kube-apiserver`
+会从新建或更新的 Pod 中移除 `mode` 字段。
 
 <!--
 ## Use a named port
@@ -496,7 +582,8 @@ If you want to wait before executing a readiness probe, you should use
 `initialDelaySeconds` or a `startupProbe`.
 -->
 存活探针与就绪性探针相互间不等待对方成功。
-如果要在执行就绪性探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
+如果要在执行就绪性探针之前等待，应该使用 `initialDelaySeconds`
+或 `startupProbe`。
 {{< /caution >}}
 
 <!--
@@ -525,6 +612,9 @@ Using both can ensure that traffic does not reach a container that is not ready
 for it, and that containers are restarted when they fail.
 -->
 HTTP 和 TCP 的就绪探针配置也和存活探针的配置完全相同。
+
+就绪态探针和存活态探针可以针对同一容器并行使用。
+同时使用两者可以确保流量不会进入尚未就绪的容器，并在容器发生故障时将其重启。
 
 ## {{% heading "whatsnext" %}}
 

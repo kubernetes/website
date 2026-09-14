@@ -971,47 +971,96 @@ for more details on how the static and dynamic bands are calculated.
 请参阅[避免将端口分配给 NodePort Service](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)。
 
 <!--
-#### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
+#### IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
-You can set up nodes in your cluster to use a particular IP address for serving node port
-services. You might want to do this if each node is connected to multiple networks (for example:
-one network for application traffic, and another network for traffic between nodes and the
-control plane).
+When using kube-proxy in [`iptables`
+mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables), NodePort Services are
+available on all node IPs by default. When using [`nftables`
+mode](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), they are only
+available only on the node's primary IP (or dual-stack primary IPs) by default.
 -->
-#### 为 `type: NodePort` Service 自定义 IP 地址配置  {#service-nodeport-custom-listen-address}
+#### `type: NodePort` Service 的 IP 地址配置 {#service-nodeport-custom-listen-address}
 
-你可以配置集群中的节点使用特定 IP 地址来支持 NodePort Service。
-如果每个节点都连接到多个网络（例如：一个网络用于应用流量，另一网络用于节点和控制平面之间的流量），
-你可能想要这样做。
+当 kube-proxy 处于 [`iptables` 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)时，
+NodePort Service 默认在所有节点 IP 上可用。当处于 [`nftables` 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-nftables)时，
+默认仅在节点的主 IP（或双栈主 IP）上可用。
 
 <!--
-If you want to specify particular IP address(es) to proxy the port, you can set the
-`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
-field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-to particular IP block(s).
+You can change the set of node IPs that NodePort Services are available on with the
+`--nodeport-addresses` flag for kube-proxy, or the equivalent `nodePortAddresses`
+field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/).
+It accepts a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) or one
+of more of the following keywords:
+
+- `primary` - the node's primary IPv4 and/or IPv6 address, according to the Node object.
+  (This is the default value for `nftables` mode.)
+- `localhost` - the node's loopback addresses (`127.0.0.0/8`, `::1/128`).
+- `all` - all addresses. (This is the default value for `iptables` and `ipvs` mode.)
+
+For example, if you start kube-proxy with the flag `--nodeport-addresses=192.168.0.0/24`,
+then kube-proxy will try to find a local IP address on that subnet on each node, and serve
+NodePort Services only via that IP.
 -->
-如果你要指定特定的 IP 地址来为端口提供代理，可以将 kube-proxy 的 `--nodeport-addresses` 标志或
-[kube-proxy 配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)中的等效字段
-`nodePortAddresses` 设置为特定的 IP 段。
+你可以通过 kube-proxy 的 `--nodeport-addresses` 参数，或
+[kube-proxy 配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)中与之等价的
+`nodePortAddresses` 字段，来更改 NodePort Service 可用的节点 IP 集合。
+该参数接受一个以逗号分隔的 IP 段列表（例如 `10.0.0.0/8`、`192.0.2.0/25`），或以下一个或多个关键字：
+
+- `primary` —— 节点的主 IPv4 和/或 IPv6 地址，根据 Node 对象确定。
+  （这是 `nftables` 模式的默认值。）
+- `localhost` —— 节点的本机回路地址（`127.0.0.0/8`、`::1/128`）。
+- `all` —— 所有地址。（这是 `iptables` 和 `ipvs` 模式的默认值。）
+
+例如，如果使用 `--nodeport-addresses=192.168.0.0/24` 参数启动 kube-proxy，
+那么 kube-proxy 会在每个节点上查找该子网内的本地 IP 地址，并仅通过该 IP 提供 NodePort Service。
 
 <!--
-This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`)
-to specify IP address ranges that kube-proxy should consider as local to this node.
+#### `type: NodePort` Services via localhost {#localhost-nodeports}
 
-For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
-kube-proxy only selects the loopback interface for NodePort Services.
-The default for `--nodeport-addresses` is an empty list.
-This means that kube-proxy should consider all available network interfaces for NodePort.
-(That's also compatible with earlier Kubernetes releases.)
+The mechanisms used by service proxies to implement NodePort Services do not always
+support providing NodePort Services on localhost. For kube-proxy:
+
+  - When using `iptables` mode, with a `--nodeport-addresses` value that includes
+    `127.0.0.1`, NodePort services will be available on `127.0.0.1`. However, this
+    requires enabling a kernel sysctl (`route_localnet`) that may have insecure side
+    effects in some clusters. IPTables localhost NodePorts can be disabled by passing
+    `--iptables-localhost-nodeports false` to kube-proxy, or by setting
+    `--nodeport-addresses` to a range that does not include `127.0.0.1`.
+
+  - When using `ipvs` mode, or `iptables` mode in a single-stack IPv6 clusters, NodePorts
+    Services are not available on localhost.
 -->
-此标志接受逗号分隔的 IP 段列表（例如 `10.0.0.0/8`、`192.0.2.0/25`），用来设置 IP 地址范围。
-kube-proxy 应视将其视为所在节点的本机地址。
+#### 通过本机回路访问 `type: NodePort` Service {#localhost-nodeports}
 
-例如，如果你使用 `--nodeport-addresses=127.0.0.0/8` 标志启动 kube-proxy，
-则 kube-proxy 仅选择 NodePort Service 的本地回路接口。
-`--nodeport-addresses` 的默认值是一个空的列表。
-这意味着 kube-proxy 将认为所有可用网络接口都可用于 NodePort Service
-（这也与早期的 Kubernetes 版本兼容。）
+服务代理用来实现 NodePort Service 的机制，并不总是支持在本机回路上提供 NodePort Service。对于 kube-proxy：
+
+- 当使用 `iptables` 模式且 `--nodeport-addresses` 的取值包含 `127.0.0.1` 时，
+  NodePort Service 将将在 `127.0.0.1` 上可用。但这需要启用一个内核 sysctl（`route_localnet`），
+  在某些集群中可能会带来不安全的副作用。可以通过为 kube-proxy 传入 `--iptables-localhost-nodeports false`，
+  或将 `--nodeport-addresses` 设置为不包含 `127.0.0.1` 的范围，来禁用 IPTables 模式下的本机回路 NodePort Service。
+
+- 当使用 `ipvs` 模式，或在纯 IPv6 集群中使用 `iptables` 模式时，NodePort Service 不在本机回路上不可用。
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+<!--
+  - When using `nftables` mode, NodePort Services will be available on localhost when the
+    `KubeProxyNFTablesLocalhostNodePorts` feature gate is enabled, and
+    `--nodeport-addresses` is set to a value that explicitly includes `localhost`.
+    (Setting it to just `all` will _not_ enable localhost NodePort Services.) This is
+    implemented by redirecting localhost NodePort connections through a userspace proxy,
+    so it is not as efficient as ordinary service proxying.
+
+Third-party network plugins that have their own service proxy implementations may or may
+not support localhost NodePorts; consult the documentation for those plugins.
+-->
+- 当使用 `nftables` 模式时，只有在启用了 `KubeProxyNFTablesLocalhostNodePorts`
+  特性门控（Feature Gate），并且将 `--nodeport-addresses` 设置为显式包含 `localhost`
+  的值时，NodePort Service 才在本机回路上可用。（仅将其设置为 `all` **不会**启用本机回路上的 NodePort Service。）
+  该实现是通过将本机回路上的 NodePort Service 连接重定向到一个用户态代理来完成的，因此其效率不如普通的服务代理方式。
+
+那些自带服务代理实现的第三方网络插件可能支持，也可能不支持本机回路上的
+NodePort Service；请参考相应插件的文档。
 
 {{< note >}}
 <!--

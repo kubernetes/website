@@ -79,8 +79,8 @@ the PodGroup will not be scheduled with `all pods in a single pod group should h
 
 When the [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/podgroup-preemption-policy/)
 feature gate is enabled, PodGroup has also `preemptionPolicy` field. This field is also taken from the PriorirtyClass.
-It is an authoratitive field for all pods in the group and it decides whether the PodGroup can perform a preemption of
-lower priority pods and pod groups to accomodate a place for itself.  When the feature gate is enabled all pods in the PodGroup
+It is an authoritative field for all pods in the group and it decides whether the PodGroup can perform a preemption of
+lower priority pods and pod groups to accommodate a place for itself.  When the feature gate is enabled all pods in the PodGroup
 must have the same `preemptionPolicy` as PodGroup. Otherwise the PodGroup will not be scheduled with
 `all pods in a single pod group should have the same preemption policy as the pod group's preemption policy` error.
 When PodGroup has `preemptionPolicy: Never` it will not perform workload aware preemption.

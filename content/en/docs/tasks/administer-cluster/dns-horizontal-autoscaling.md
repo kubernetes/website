@@ -63,7 +63,7 @@ If you don't see a Deployment for DNS services, you can also look for it by name
 kubectl get deployment --namespace=kube-system
 ```
 
-and look for a deployment named `coredns` or `kube-dns`.
+and look for a deployment named `coredns`.
 
 
 Your scale target is
