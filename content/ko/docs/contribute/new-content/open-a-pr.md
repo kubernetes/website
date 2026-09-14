@@ -30,7 +30,7 @@ card:
 ## GitHub를 사용하여 변경하기
 
 git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
-여는 쉬운 방법이 있다. 그림 1은 각 단계를 보여주며, 상세사항은 그 아래에 나온다.
+여는 쉬운 방법이 있다. 그림 1은 각 단계를 보여주며, 상세 사항은 그 아래에 나온다.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -38,7 +38,7 @@ git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
 {{< mermaid >}}
 flowchart LR
 A([fa:fa-user 신규<br>기여자]) --- id1[(kubernetes/website<br>GitHub)]
-subgraph tasks[GitHub 상에서 변경하기]
+subgraph tasks[GitHub를 사용하여 변경하기]
 direction TB
     0[ ] -.-
     1[1. '페이지 편집' 클릭] --> 2[2. GitHub 마크다운<br>에디터로 내용 변경]
@@ -105,10 +105,10 @@ class id1 k8s
 오너(owner)를 기준으로 리뷰어를 제안한다. 특정한 사람을 염두에 두고 있다면,
 GitHub 사용자 이름을 코멘트로 남긴다.
 
-리뷰어가 변경을 요청하는 경우
+리뷰어가 변경을 요청하는 경우, 다음과 같이 진행한다.
 
 1. **Files changed** 탭으로 이동한다.
-1. 풀 리퀘스트에 의해 변경된 파일에서 연필 (편집) 아이콘을 선택한다.
+1. 풀 리퀘스트에서 변경된 파일의 연필(편집) 아이콘을 선택한다.
 1. 요청된 변경에 대한 수정을 한다.
 1. 변경 사항을 커밋한다.
 
@@ -214,8 +214,8 @@ class changes,changes2 white
 
 1. 작업할 브랜치 기반을 결정한다.
 
-   - 기존 콘텐츠를 개선하려면, `upstream/main` 를 사용한다.
-   - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 를 사용한다.
+   - 기존 콘텐츠를 개선하려면, `upstream/main` 을 사용한다.
+   - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 을 사용한다.
    - 현지화된 콘텐츠의 경우, 현지화 규칙을 사용한다. 자세한 내용은
      [쿠버네티스 문서 현지화](/docs/contribute/localization_ko/)를 참고한다.
    - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는
@@ -226,7 +226,7 @@ class changes,changes2 white
    브랜치 선택에 도움이 필요하면, 슬랙 채널 `#sig-docs` 에 문의한다.
 
 1. 1단계에서 식별된 브랜치를 기반으로 새 브랜치를 작성한다. 이 예에서는 기본 브랜치가
-   `upstream/main` 라고 가정한다.
+   `upstream/main` 이라고 가정한다.
 
    ```shell
    git checkout -b <my_new_branch> upstream/main
@@ -432,7 +432,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다.
 자세한 내용은 [이슈 레이블 추가와 제거](/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거)를 참고한다.
 
-### 로컬에서 피드백 해결하기
+### 로컬에서 피드백 반영하기
 
 1. 변경을 완료한 후, 이전 커밋을 수정한다.
 
@@ -440,7 +440,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
    git commit -a --amend
    ```
 
-   - `-a`: 모든 변경 사항을 커밋
+   - `-a`: 모든 변경 사항을 커밋한다.
    - `--amend`: 새로운 커밋을 만들지 않고, 이전 커밋을 수정한다.
 
 1. 필요한 경우 커밋 메시지를 업데이트한다.
@@ -574,8 +574,8 @@ PR의 **Commits** 탭에서 또는 로컬에서 `git log` 명령을 실행하여
 
    ...
 
-    # 이 행들은 재정렬할 수 있으며, 위에서 아래로 순차적으로 실행된다.
-    ```
+   # 이 행들은 재정렬할 수 있으며, 위에서 아래로 순차적으로 실행된다.
+   ```
 
    출력의 첫 번째 섹션에는 리베이스의 커밋이 나열된다. 두 번째 섹션에는
    각 커밋에 대한 옵션이 나열되어 있다. `pick` 단어를 바꾸면 리베이스가 완료되었을 때
@@ -612,7 +612,7 @@ PR의 **Commits** 탭에서 또는 로컬에서 `git log` 명령을 실행하여
 
 1. 스쿼시된 커밋을 푸시한다.
 
-   ```bash
+   ```shell
    git push --force-with-lease origin <branch_name>
    ```
 
@@ -628,7 +628,7 @@ PR의 **Commits** 탭에서 또는 로컬에서 `git log` 명령을 실행하여
 각 리포지터리에는 고유한 프로세스와 절차가 있다. 이슈를 등록하거나 PR을 제출하기 전에,
 해당 리포지터리에 `README.md`, `CONTRIBUTING.md` 그리고 `code-of-conduct.md` 파일이 있다면 읽어본다.
 
-대부분의 리포지터리에는 이슈와 PR 템플릿을 사용한다. 해당 팀의 프로세스를 파악하기 위해
+대부분의 리포지터리는 이슈와 PR 템플릿을 사용한다. 해당 팀의 프로세스를 파악하기 위해
 공개된 이슈와 PR을 살펴보자. 이슈나 PR을 제출할 때는
 가능한 한 상세하게 템플릿의 내용을 작성한다.
 
