@@ -8,6 +8,8 @@ weight: 90
 For more details on how these commands can be used, see
 [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ## kubeadm certs {#cmd-certs}
 
 A collection of operations for operating Kubernetes certificates.
