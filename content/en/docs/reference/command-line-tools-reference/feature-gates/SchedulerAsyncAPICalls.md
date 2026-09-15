@@ -8,7 +8,11 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
-    fromVersion: "1.34"
+    fromVersion: "1.34.0"
+    toVersion: "1.34.1"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.34.2"
 ---
 
 Change the kube-scheduler to make the entire scheduling cycle free of blocking requests to the Kubernetes API server.

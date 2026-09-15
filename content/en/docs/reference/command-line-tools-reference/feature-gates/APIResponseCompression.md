@@ -15,3 +15,5 @@ stages:
     fromVersion: "1.16"
 ---
 Compress the API responses for `LIST` or `GET` requests.
+
+<!-- support added to Kubernetes an alpha in v1.7, but the feature gate was only implemented for the v1.8 release -->
