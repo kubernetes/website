@@ -1,0 +1,72 @@
+/* EPUB pagination overrides
+   Pandoc's default stylesheet forces page-break-before on h1, which can
+   create apparent blank/interstitial pages in some readers. Hence the !important override to disable it.
+*/
+h1 {
+  page-break-before: auto !important;
+  break-before: auto !important;
+}
+
+/* Improve heading readability for demoted content headings in EPUB. */
+h5 {
+  font-size: 1.08em;
+  line-height: 1.4;
+  margin: 1.05em 0 0.45em;
+}
+
+h6 {
+  font-size: 1em;
+  line-height: 1.35;
+  margin: 0.95em 0 0.4em;
+}
+
+.alert .alert-heading {
+  font-size: 1.05em;
+  line-height: 1.35;
+  margin: 0 0 0.35em;
+}
+
+/* Improve code readability in EPUB readers while reducing color noise. */
+pre {
+  background: #1f2937 !important;
+  border: 1px solid #111827 !important;
+  border-radius: 4px;
+  padding: 0.9em;
+}
+
+pre code {
+  background: transparent !important;
+  color: #f9fafb !important;
+}
+
+code {
+  background: #e8edf3;
+  color: #1f2937;
+  padding: 0.04em 0.2em;
+  border-radius: 2px;
+}
+
+/* Neutralize inline syntax token colors only inside code blocks. */
+pre span[style*="color"],
+.highlight span[style*="color"],
+.includecode span[style*="color"] {
+  color: #f3f4f6 !important;
+}
+
+.epub-tabset {
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  padding: 0.8em;
+  margin: 1em 0;
+}
+
+.epub-tab-title {
+  font-size: 1.02em;
+  line-height: 1.35;
+  font-weight: 700;
+  margin-top: 1.1em;
+}
+
+.epub-tab-title:first-child {
+  margin-top: 0;
+}
