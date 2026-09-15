@@ -1,119 +1,88 @@
 ---
-reviewers:
-- lavalamp
 title: Компоненты Kubernetes
 content_type: concept
-weight: 20
+description: >
+  Обзор основных компонентов кластера Kubernetes.
+weight: 10
+theme_lock: light
 card:
+  title: Компоненты кластера
   name: concepts
   weight: 20
 ---
 
 <!-- overview -->
-При развёртывании Kubernetes вы имеете дело с кластером.
-{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetes-кластер состоит из">}}
 
 На этой странице в общих чертах описываются различные компоненты, необходимые для работы кластера Kubernetes.
 
-Ниже показана диаграмма кластера Kubernetes со всеми связанными компонентами.
-
-![Компоненты Kubernetes](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Компоненты Kubernetes" caption="Компоненты кластера Kubernetes" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
-## Компоненты управляющего слоя
+## Основные компоненты
 
-Компоненты управляющего слоя (control plane) отвечают за основные операции кластера (например, планирование), а также обрабатывают события кластера (например, запускают новый {{< glossary_tooltip text="под" term_id="pod">}}, когда поле `replicas` развертывания не соответствует требуемому количеству реплик).
+Кластер Kubernetes состоит из управляющего слоя и одного или нескольких рабочих узлов.
+Ниже приведён краткий обзор основных компонентов:
 
-Компоненты управляющего слоя могут быть запущены на любой машине в кластере. Однако, для простоты, сценарии настройки обычно запускают все компоненты управляющего слоя на одном компьютере и в то же время не позволяют запускать пользовательские контейнеры на этом компьютере. Смотрите страницу [Создание высоконадёжных кластеров](/docs/admin/high-availability/) для примера настройки нескольких ведущих виртуальных машин.
+### Компоненты управляющего слоя
 
-### kube-apiserver
+Управляют общим состоянием кластера:
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+[kube-apiserver](https://kubernetes.io/docs/concepts/architecture/#kube-apiserver)
+: Основной серверный компонент, предоставляющий HTTP API Kubernetes.
 
-### etcd
+[etcd](https://kubernetes.io/docs/concepts/architecture/#etcd)
+: Консистентное и высокодоступное хранилище данных в формате «ключ-значение» для всех данных API-сервера.
 
-{{< glossary_definition term_id="etcd" length="all" >}}
+[kube-scheduler](https://kubernetes.io/docs/concepts/architecture/#kube-scheduler)
+: Отслеживает поды без назначенного для них узла и назначает каждому поду подходящий узел.
 
-### kube-scheduler
+[kube-controller-manager](https://kubernetes.io/docs/concepts/architecture/#kube-controller-manager)
+: Запускает {{< glossary_tooltip text="контроллеры" term_id="controller" >}} для реализации поведения API Kubernetes.
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+[cloud-controller-manager](https://kubernetes.io/docs/concepts/architecture/#cloud-controller-manager) (необязательный компонент)
+: Обеспечивает интеграцию с используемыми облачными провайдерами.
 
-### kube-controller-manager
+### Компоненты узла
 
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
+Компоненты узла работают на каждом узле, поддерживая работу подов и обеспечивая среду выполнения Kubernetes:
 
-Эти контроллеры включают:
+[kubelet](https://kubernetes.io/docs/concepts/architecture/#kubelet)
+: Обеспечивает работу подов, включая их контейнеры.
 
-  * Контроллер узла (Node Controller): уведомляет и реагирует на сбои узла.
-  * Контроллер репликации (Replication Controller): поддерживает правильное количество подов для каждого объекта контроллера репликации в системе.
-  * Контроллер конечных точек (Endpoints Controller): заполняет объект конечных точек (Endpoints), то есть связывает сервисы (Services) и поды (Pods).
-  * Контроллеры учетных записей и токенов (Account & Token Controllers): создают стандартные учетные записи и токены доступа API для новых пространств имен.
+[kube-proxy](https://kubernetes.io/docs/concepts/architecture/#kube-proxy) (необязательный компонент)
+: Поддерживает сетевые правила на узлах для реализации {{< glossary_tooltip text="сервисов" term_id="service" >}}.
 
-### cloud-controller-manager
+[Среда выполнения контейнера](https://kubernetes.io/docs/concepts/architecture/#container-runtime)
+: Программное обеспечение, предназначенное для запуска контейнеров. Подробнее читайте на странице
+  [Среды выполнения контейнеров](/docs/setup/production-environment/container-runtimes/).
 
-[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) запускает контроллеры, которые взаимодействуют с основными облачными провайдерами. Двоичный файл cloud-controller-manager — это альфа-функциональность, появившиеся в Kubernetes 1.6.
+{{% thirdparty-content single="true" %}}
 
-cloud-controller-manager запускает только циклы контроллера, относящиеся к облачному провайдеру. Вам нужно отключить эти циклы контроллера в kube-controller-manager. Вы можете отключить циклы контроллера, установив флаг `--cloud-provider` со значением `external` при запуске kube-controller-manager.
-
-С помощью cloud-controller-manager код как облачных провайдеров, так и самого Kubernetes может разрабатываться независимо друг от друга. В предыдущих версиях код ядра Kubernetes зависел от кода, предназначенного для функциональности облачных провайдеров. В будущих выпусках код, специфичный для облачных провайдеров, должен поддерживаться самим облачным провайдером и компоноваться с cloud-controller-manager во время запуска Kubernetes.
-
-Следующие контроллеры зависят от облачных провайдеров:
-
-  * Контроллер узла (Node Controller): проверяет облачный провайдер, чтобы определить, был ли удален узел в облаке после того, как он перестал работать
-  * Контроллер маршрутов (Route Controller): настраивает маршруты в основной инфраструктуре облака
-  * Контроллер сервисов (Service Controller): создаёт, обновляет и удаляет балансировщики нагрузки облачного провайдера.
-  * Контроллер тома (Volume Controller): создаёт, присоединяет и монтирует тома, а также взаимодействует с облачным провайдером для оркестрации томов.
-
-## Компоненты узла
-
-Компоненты узла работают на каждом узле, поддерживая работу подов и среды выполнения Kubernetes.
-
-### kubelet
-
-{{< glossary_definition term_id="kubelet" length="all" >}}
-
-### kube-proxy
-
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
-
-### Среда выполнения контейнера
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
+Вашему кластеру может потребоваться дополнительное программное обеспечение на каждом узле; например,
+на узле Linux можно также запустить [systemd](https://systemd.io/) для управления локальными компонентами.
 
 ## Дополнения
 
-Дополнения используют ресурсы Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}} и т.д.) для расширения функциональности кластера. Поскольку дополнения охватывают весь кластер, ресурсы относятся к пространству имен `kube-system`.
+Дополнения расширяют функциональность Kubernetes. Вот несколько важных примеров:
 
-Некоторые из дополнений описаны ниже; более подробный список доступных расширений вы можете найти на странице [Дополнения](/docs/concepts/cluster-administration/addons/).
+[DNS](https://kubernetes.io/docs/concepts/architecture/#dns)
+: Для разрешения DNS-имён во всём кластере.
 
-### DNS
+[Веб-интерфейс](https://kubernetes.io/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
+: Для управления кластером через веб-интерфейс.
 
-Хотя прочие дополнения не являются строго обязательными, однако при этом у всех Kubernetes-кластеров должен быть [кластерный DNS](/docs/concepts/services-networking/dns-pod-service/), так как многие примеры предполагают его наличие.
+[Мониторинг ресурсов контейнера](https://kubernetes.io/docs/concepts/architecture/#container-resource-monitoring)
+: Для сбора и хранения метрик контейнеров.
 
-Кластерный DNS — это DNS-сервер наряду с другими DNS-серверами в вашем окружении, который обновляет DNS-записи для сервисов Kubernetes.
+[Логирование кластера](https://kubernetes.io/docs/concepts/architecture/#cluster-level-logging)
+: Для сохранения логов контейнера в централизованном хранилище логов.
 
-Контейнеры, запущенные посредством Kubernetes, автоматически включают этот DNS-сервер в свои DNS.
+## Гибкость архитектуры
 
-### Веб-интерфейс (Dashboard)
+Kubernetes позволяет гибко подходить к развёртыванию этих компонентов и управлению ими.
+Архитектуру можно адаптировать к различным потребностям: от небольших сред разработки
+до масштабных развёртываний в производственной среде.
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) — это универсальный веб-интерфейс для кластеров Kubernetes. С помощью этой панели, пользователи могут управлять и устранять неполадки кластера и приложений, работающих в кластере.
-
-### Мониторинг ресурсов контейнера
-
-[Мониторинг ресурсов контейнера](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) записывает общие метрики о контейнерах в виде временных рядов в центральной базе данных и предлагает пользовательский интерфейс для просмотра этих данных.
-
-### Логирование кластера
-
-Механизм [логирования кластера](/docs/concepts/cluster-administration/logging/) отвечает за сохранение логов контейнера в централизованном хранилище логов с возможностью их поиска/просмотра.
-
-
-## {{% heading "whatsnext" %}}
-
-* Подробнее про [узлы](/docs/concepts/architecture/nodes/)
-* Подробнее про [контроллеры](/docs/concepts/architecture/controller/)
-* Подробнее про [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
-* Официальная [документация](https://etcd.io/docs/) etcd
-
+Более подробную информацию о каждом компоненте и различных способах настройки архитектуры
+кластера смотрите на странице [Кластерная архитектура](https://kubernetes.io/docs/concepts/architecture/).
