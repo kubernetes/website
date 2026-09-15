@@ -56,7 +56,7 @@ weight: 20
    kubectl get pods -l purpose=demonstrate-envars
    ```
 
-   결과는 다음과 같다.
+   출력은 다음과 유사하다.
 
    ```
    NAME            READY     STATUS    RESTARTS   AGE
@@ -69,7 +69,7 @@ weight: 20
    kubectl exec envar-demo -- printenv
    ```
 
-   결과는 다음과 같다.
+   출력은 다음과 유사하다.
 
    ```
    NODE_VERSION=4.4.2
