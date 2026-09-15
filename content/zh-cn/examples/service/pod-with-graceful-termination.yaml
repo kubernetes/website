@@ -22,11 +22,8 @@ spec:
         - containerPort: 80
         lifecycle:
           preStop:
-            exec:
-              # 实际生产环境中的 Pod 终止可能需要执行任何时长，但不会超过 terminationGracePeriodSeconds。
-              # 在本例中，只需挂起至少 terminationGracePeriodSeconds 所指定的持续时间，
-              # 在 120 秒时容器将被强制终止。
-              # 请注意，在所有这些时间点 nginx 都将继续处理请求。
-              command: [
-                "/bin/sh", "-c", "sleep 180"
-              ]
+            # 实际生产环境中的 Pod 终止可能需要执行任何时长，但不会超过 terminationGracePeriodSeconds。
+            # 在本例中，只需挂起至少 terminationGracePeriodSeconds 所指定的持续时间，
+            # 在 120 秒时容器将被强制终止。
+            # 请注意，在所有这些时间点 nginx 都将继续处理请求。
+            sleep: 180
