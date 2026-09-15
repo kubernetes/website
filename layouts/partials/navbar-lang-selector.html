@@ -5,32 +5,24 @@
      if possible, simplified to align with the default upstream configuration.
      See: https://github.com/google/docsy/pull/2303
      Related PR: https://github.com/kubernetes/website/pull/53804 -->
-{{ $currentLang := .Language.Lang }}
-{{ $translationMap := dict }}
-{{ range .Translations }}
-  {{ $translationMap = merge $translationMap (dict .Language.Lang .) }}
-{{ end }}
-{{ $homeMap := dict }}
-{{ range .Site.Home.Translations }}
-  {{ $homeMap = merge $homeMap (dict .Language.Lang .) }}
-{{ end }}
+{{ $languageOptions := partial "navbar-language-options.html" . }}
 <div class="dropdown">
   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     {{ .Language.LanguageName }}
   </a>
   <ul class="dropdown-menu dropdown-menu-end">
     {{ range site.Languages }}
-        {{- if ne .Lang $currentLang -}}
-            {{- with index $translationMap .Lang -}}
+        {{- if ne .Lang $languageOptions.currentLang -}}
+            {{- with index $languageOptions.translationMap .Lang -}}
                 <li><a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
             {{- end }}
         {{- end }}
     {{- end }} 
     {{ range site.Languages }}
-        {{- if and (ne .Lang $currentLang) (not (index $translationMap .Lang)) }}
+        {{- if and (ne .Lang $languageOptions.currentLang) (not (index $languageOptions.translationMap .Lang)) }}
             <li>
                 <span class="dropdown-item text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .LanguageName) }}">
-                    {{ with index $homeMap .Lang }}
+                    {{ with index $languageOptions.homeMap .Lang }}
                         {{ .Language.LanguageName }}
                         <a href="{{ .RelPermalink }}" class="ms-1" data-auto-burger-exclude><i class="fas fa-home fa-xs"></i></a>
                     {{- end }}
