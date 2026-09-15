@@ -305,6 +305,13 @@ When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity
    - Existing Pods' `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
      - Similarly, preferred anti-affinity rules of existing Pods are ignored during scheduling.
 
+#### Multiple Affinity Terms
+
+If you specify multiple terms in `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` or `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`, the elements of the array are intersected. In other words, all terms must be satisfied in order for the node to be selected.
+
+- **Pod affinity**: The node must satisfy all specified affinity terms.
+- **Pod anti-affinity**: The node must satisfy all specified anti-affinity terms. Since anti-affinity means the node should *not* match the given term, having multiple terms means that the node will be excluded if it matches *any* of the anti-affinity terms.
+
 #### Scheduling a Group of Pods with Inter-pod Affinity to Themselves
 
 If the current Pod being scheduled is the first in a series that have affinity to themselves,
