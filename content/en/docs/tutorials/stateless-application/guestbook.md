@@ -421,3 +421,5 @@ labels to delete multiple resources with one command.
 * Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
 * Read more about [using labels effectively](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively)
 
+* Try [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/) to learn how to safely test new application versions in production.
+
