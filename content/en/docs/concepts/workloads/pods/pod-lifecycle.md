@@ -438,8 +438,8 @@ spec:
     command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
 ```
 
-A Pod with `Always` restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This allows the Pod to fail if the initialization failed,
+Another example: A Pod with `Always` restart policy with an init container that only execute once.
+If the init container fails, the Pod fails. This allows the Pod to fail if the initialization failed,
 but also keep running once the initialization succeeds:
 
 ```yaml
@@ -460,8 +460,8 @@ spec:
     command: ['sh', '-c', 'sleep 1800 && exit 0']
 ```
 
-A Pod with Never restart policy with a container that ignores and restarts on specific exit codes.
-This is useful to differentiate between restartable errors and non-restartable errors:
+Last example: A Pod with Never restart policy with a container that ignores and restarts on specific
+exit codes. This is useful to differentiate between restartable errors and non-restartable errors:
 
 ```yaml
 apiVersion: v1
