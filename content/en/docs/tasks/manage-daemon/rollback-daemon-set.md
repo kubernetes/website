@@ -44,8 +44,10 @@ REVISION        CHANGE-CAUSE
 ```
 
 * Change cause is copied from DaemonSet annotation `kubernetes.io/change-cause`
-  to its revisions upon creation. You may specify `--record=true` in `kubectl`
-  to record the command executed in the change cause annotation.
+  to its revisions upon creation. You can set it with
+  `kubectl annotate daemonset/<daemonset-name> kubernetes.io/change-cause="..."`.
+  The deprecated `--record` flag can also populate it, but it no longer appears
+  in kubectl help output.
 
 To see the details of a specific revision:
 
