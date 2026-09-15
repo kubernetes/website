@@ -30,7 +30,7 @@ _퍼시스턴트볼륨클레임_ (PVC)은 사용자의 스토리지에 대한 �
 
 퍼시스턴트볼륨클레임을 사용하면 사용자가 추상화된 스토리지 리소스를 사용할 수 있지만, 다른 문제들 때문에 성능과 같은 다양한 속성을 가진 퍼시스턴트볼륨이 필요한 경우가 일반적이다. 클러스터 관리자는 사용자에게 해당 볼륨의 구현 방법에 대한 세부 정보를 제공하지 않고 크기와 접근 모드와는 다른 방식으로 다양한 퍼시스턴트볼륨을 제공할 수 있어야 한다. 이러한 요구에는 _스토리지클래스_ 리소스가 있다.
 
-[실습 예제와 함께 상세한 내용](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)을 참고하길 바란다.
+[실습 예제와 함께 상세한 내용](/ko/docs/tutorials/configuration/configure-persistent-volume-storage/)을 참고하길 바란다.
 
 ## 볼륨과 클레임 라이프사이클
 
@@ -780,7 +780,7 @@ spec:
 ### `hostPath` 유형의 퍼시스턴트볼륨
 
 `hostPath` 퍼시스턴트볼륨은 노드의 파일이나 디렉터리를 사용하여 네트워크 연결 스토리지를 에뮬레이션한다.
-[`hostPath` 유형 볼륨의 예](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)를 참고한다.
+[`hostPath` 유형 볼륨의 예](/ko/docs/tutorials/configuration/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)를 참고한다.
 
 ## 원시 블록 볼륨 지원
 
@@ -1101,8 +1101,8 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
 
 ## {{% heading "whatsnext" %}}
 
-* [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
-* [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨 생성](/ko/docs/tutorials/configuration/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨클레임 생성](/ko/docs/tutorials/configuration/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md) 읽어보기
 
 ### API 레퍼런스 {#reference}
