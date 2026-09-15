@@ -59,10 +59,10 @@ Examine o conteúdo do manifesto do Pod Redis e observe o seguinte:
 * Um volume chamado `config` é criado em `spec.volumes[1]`
 * A `key` e o `path` em `spec.volumes[1].configMap.items[0]` expõem a chave `redis-config` do ConfigMap
   `example-redis-config` como um arquivo chamado `redis.conf` no volume `config`.
-* O volume `config` é então montado em `/redis-master` por `spec.containers[0].volumeMounts[1]`.
+* O volume `config` é então montado em `/redis-leader` por `spec.containers[0].volumeMounts[1]`.
 
 O efeito final é expor os dados de `data.redis-config` do ConfigMap `example-redis-config`
-acima como `/redis-master/redis.conf` dentro do Pod.
+acima como `/redis-leader/redis.conf` dentro do Pod.
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
