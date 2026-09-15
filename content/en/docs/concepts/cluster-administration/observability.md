@@ -5,6 +5,11 @@ weight: 55
 content_type: concept
 description: >
   Understand how to gain end-to-end visibility of a Kubernetes cluster through the collection of metrics, logs, and traces.
+api_metadata:
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "NodeMetrics"
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "PodMetrics"
 no_list: true
 card:
   name: setup
@@ -72,12 +77,36 @@ For multi-cluster or multi-cloud visibility, distributed time series databases (
 
 See [Common observability tools - metrics tools](#metrics-tools) for metrics scrapers and time series databases.
 
+### Metrics API
+
+{{< feature-state for_k8s_version="v1.37" state="stable" >}}
+
+The Kubernetes Metrics API provides CPU and memory resource usage for nodes and Pods. The
+`kubectl top` command and components such as the
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+and [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+use this API.
+
+`kubectl top` supports both `metrics.k8s.io/v1` and `metrics.k8s.io/v1beta1`. It prefers `v1`
+when that version is available and falls back to `v1beta1`. In Kubernetes v1.37, the
+HorizontalPodAutoscaler controller supports only `metrics.k8s.io/v1beta1`; support for
+`metrics.k8s.io/v1` is planned but is not available yet.
+
+Unlike the component metrics endpoints described earlier, the Metrics API is served through the
+Kubernetes [API aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+Your cluster must run [Metrics Server](https://github.com/kubernetes-sigs/metrics-server) or another
+implementation that provides the API. The Metrics API intentionally provides only the resource
+metrics needed for autoscaling and basic inspection; it is not a replacement for a full monitoring
+pipeline.
+
+To learn about the API, its implementations, and the data flow from kubelets to its clients, see the
+[resource metrics pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/).
+
 #### {{% heading "seealso" %}}
 
 - [System metrics for Kubernetes components](/docs/concepts/cluster-administration/system-metrics/)
 - [Resource usage monitoring with metrics-server](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - [kube-state-metrics concept](/docs/concepts/cluster-administration/kube-state-metrics/)
-- [Resource metrics pipeline overview](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 
 ## Logs
 
