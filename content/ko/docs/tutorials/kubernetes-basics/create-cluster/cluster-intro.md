@@ -1,5 +1,6 @@
 ---
 title: Minikube를 사용해서 클러스터 생성하기
+content_type: tutorial
 weight: 10
 ---
 
@@ -11,6 +12,15 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+이 튜토리얼은 `minikube`가 이미 설치되어 있다고 가정한다.
+설치 방법은 [minikube 시작하기](https://minikube.sigs.k8s.io/docs/start/)를 참고한다.
+{{< note >}}
+**1단계: 설치**에 나온 지침만 실행한다. 나머지는 이 튜토리얼에서 다룬다.
+{{< /note >}}
+
+`kubectl`도 설치해야 한다.
+설치 방법은 [도구 설치](/docs/tasks/tools/#kubectl)를 참고한다.
+
 이 튜토리얼의 셸 명령어는 POSIX 셸 문법을 사용하며, 이는 대부분의 리눅스 및 macOS
 시스템의 기본 셸(예: bash, zsh, sh)에서 지원된다.
 윈도우 사용자는 명령어를 작성된 그대로 실행하려면
@@ -18,7 +28,6 @@ weight: 10
 또는 [Git Bash](https://gitforwindows.org/)와 같은 POSIX 호환 셸을 사용해야 한다.
 `export`, `$()` 및 이와 유사한 구문을 사용하는 명령어는 PowerShell이나 윈도우 명령
 프롬프트(Command Prompt)와 **호환되지 않는다**.
-
 
 ## 쿠버네티스 클러스터
 
@@ -61,10 +70,8 @@ _컨트롤 플레인은 실행 중인 애플리케이션을 호스팅하기 위�
 각 노드는 노드를 관리하고 쿠버네티스 컨트롤 플레인과 통신하는 Kubelet이라는 에이전트를
 갖는다. 노드는 컨테이너 운영을 처리하는
 {{< glossary_tooltip text="containerd" term_id="containerd" >}} 또는
-{{< glossary_tooltip term_id="cri-o" >}}와 같은 툴도 갖는다. 운영 트래픽을 처리하는
-쿠버네티스 클러스터는 최소 세 대의 노드를 가져야 하는데, 이는 한 노드가 다운되면
-[etcd](/docs/concepts/architecture/#etcd) 멤버와 컨트롤 플레인 인스턴스가 모두 사라져
-중복성(redundancy)을 잃기 때문이다. 컨트롤 플레인 노드를 더 추가하여 이러한 위험을 완화할 수 있다.
+{{< glossary_tooltip term_id="cri-o" >}}와 같은 툴도 갖는다. 일반적으로 지원되는 배포
+모델은 전용 컨트롤 플레인 노드에서 쿠버네티스 컨트롤 플레인 컴포넌트를 실행하는 것이다.
 
 애플리케이션을 쿠버네티스에 배포하기 위해서는, 컨트롤 플레인에 애플리케이션 컨테이너의
 구동을 지시하면 된다. 그러면 컨트롤 플레인은 컨테이너를 클러스터의 어느 노드에
@@ -80,7 +87,23 @@ _컨트롤 플레인은 실행 중인 애플리케이션을 호스팅하기 위�
 상태 조회 및 삭제 등의 기본적인 부트스트래핑(bootstrapping) 기능을
 제공한다.
 
+## minikube 클러스터 생성하기
+
+minikube 클러스터를 시작하려면 다음과 같이 실행한다.
+
+```shell
+minikube start
+```
+
+클러스터 상태를 확인하려면 다음과 같이 실행한다.
+
+```shell
+minikube status
+```
+
+첫 번째 애플리케이션을 배포하고 쿠버네티스 대시보드를 살펴보는 전체 과정은 [Hello Minikube](/docs/tutorials/hello-minikube/) 튜토리얼을 참고한다.
+
 ## {{% heading "whatsnext" %}}
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/) 튜토리얼.
+* [애플리케이션 배포하기](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/) 튜토리얼.
 * [클러스터 아키텍처](/docs/concepts/architecture/)에 대해 더 알아본다.
