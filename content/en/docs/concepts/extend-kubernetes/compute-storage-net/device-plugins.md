@@ -266,12 +266,37 @@ service PodResourcesLister {
 }
 ```
 
+### Consistency and reporting semantics
+
+The PodResources API is a node-local view of the kubelet's current state,
+intended for resource attribution and monitoring. It is not an API server read
+and does not provide a watch or resource version. Responses can change as Pods
+or resource assignments change.
+
+By default, the `List` endpoint reports Pods that the kubelet considers active:
+admitted Pods that have not fully terminated. The kubelet's local state and an
+API server client cache update independently, so `List` can return a Pod before
+a client's Pod watch observes it. Clients that join results with Pods from an
+API server informer must treat a missing Pod as transient and retry or refresh
+their cache.
+
+The response lists application containers and restartable init containers
+defined in each reported Pod. It does not list ordinary init containers. Resource
+fields report allocations from kubelet resource managers, not Pod resource
+requests, limits, or actual utilization. An empty resource field does not show
+that a resource was not requested or used; it only means that no allocation is
+reported for that resource.
+
+After force deletion, a Pod might be absent from `List` while resources assigned
+during admission are still being reclaimed. Do not treat the `List` response as
+a complete view of resources that are free for new workloads.
+
 ### `List` gRPC endpoint {#grpc-endpoint-list}
 
-The `List` endpoint provides information on resources of running pods, with details such as the
-id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
-information about memory and hugepages reserved for a container.
+The `List` endpoint provides allocation information for active Pods, such as
+the ID of exclusively allocated CPUs, a device ID reported by device plugins,
+and the ID of the NUMA node where devices are allocated. For NUMA-based
+machines, it also contains memory and hugepages reserved for a container.
 
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API.
@@ -422,9 +447,9 @@ will continue working.
 
 {{< feature-state state="beta" for_k8s_version="v1.34" >}}
 
-The `Get` endpoint provides information on resources of a running Pod. It exposes information
-similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
-and `PodNamespace` of the running Pod.
+The `Get` endpoint provides information about allocations known to the kubelet
+for one Pod. It exposes information similar to the `List` endpoint and requires
+the Pod's name and namespace.
 
 ```gRPC
 // GetPodResourcesRequest contains information about the pod
