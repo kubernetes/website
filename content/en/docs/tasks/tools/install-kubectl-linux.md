@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+  - mikedanese
 title: Install and Set Up kubectl on Linux
 content_type: task
 weight: 10
@@ -78,7 +78,7 @@ The following methods exist for installing kubectl on Linux:
    kubectl: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   If the check fails, `sha256sum` exits with nonzero status and prints output similar to:
 
    ```console
    kubectl: FAILED
@@ -141,7 +141,7 @@ The following methods exist for installing kubectl on Linux:
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
    ```
-   
+
 {{< note >}}
 In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 {{< /note >}}
@@ -223,7 +223,7 @@ before running `zypper update`. This procedure is described in more detail in
 {{< /note >}}
 
 2. Update `zypper` and confirm the new repo addition:
-   
+
    ```bash
    sudo zypper update
    ```
@@ -252,7 +252,7 @@ before running `zypper update`. This procedure is described in more detail in
 
    Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
    ```
-   
+
 3. Install kubectl using `zypper`:
 
    ```bash
@@ -353,7 +353,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    kubectl-convert: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   If the check fails, `sha256sum` exits with nonzero status and prints output similar to:
 
    ```console
    kubectl-convert: FAILED
