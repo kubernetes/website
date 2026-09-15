@@ -50,6 +50,11 @@ For a Pod to be given a QoS class of `Guaranteed`:
 * Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 
+{{< note >}}
+Setting CPU or memory requests and limits to zero does not qualify a Pod for the `Guaranteed` QoS class.
+A Pod with zero values for requests and limits is classified as `Burstable`.
+{{< /note >}}
+
 If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
