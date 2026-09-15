@@ -7,7 +7,7 @@ _build:
 
 stages:
   - stage: alpha 
-    defaultValue: true
+    defaultValue: false
     fromVersion: "1.26"
     toVersion: "1.32"
   - stage: deprecated
