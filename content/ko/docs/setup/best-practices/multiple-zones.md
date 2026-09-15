@@ -56,7 +56,7 @@ content_type: concept
 장애의 영향을 줄이는 데 도움이 된다.
 
 노드가 시작되면, 각 노드의 kubelet이 쿠버네티스 API에서
-해당 kubelet을 나타내는 Node 오브젝트에
+해당 kubelet을 나타내는 노드 오브젝트에
 {{< glossary_tooltip text="레이블" term_id="label" >}}을 자동으로 추가한다.
 이러한 레이블에는
 [영역 정보](/docs/reference/labels-annotations-taints/#topologykubernetesiozone)가 포함될 수 있다.
@@ -134,7 +134,7 @@ content_type: concept
 노드가 최소 하나가 있는 것에 의존하는가?
 클러스터에 중요한 복구 작업이 클러스터 내에
 최소 하나의 정상 노드가 존재하는 것에 의존하지 않는지 확인한다. 예를 들어, 모든 노드가
-비정상인 경우, 최소 하나의 노드를 사용 가능한 상태로 만들 수 있을 만큼 복구가 충분히 완료할 수 있도록 특별한
+비정상인 경우, 최소 하나의 노드를 사용 가능한 상태로 만들 수 있을 만큼 복구 작업이 충분히 완료될 수 있도록 특별한
 {{< glossary_tooltip text="톨러레이션(toleration)" term_id="toleration" >}}으로
 복구 작업을 실행해야 할 수 있다.
 
