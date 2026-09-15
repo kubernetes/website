@@ -788,11 +788,37 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
-<tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
-<tt>cidr('192.168.0.0/33')</tt> // error
-<tt>cidr('::1/129')</tt> // error
-<tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
+<table>
+<caption>Examples of CEL expressions using the cidr function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/16')</tt></td>
+  <td>Returns an IPv4 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128')</tt></td>
+  <td>Returns an IPv6 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/33')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/129')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/16')</tt></td>
+  <td>Error, because there are non-0 bits after the prefix.</td>
+</tr>
+</tbody>
+</table>
 
 #### `isCIDR`
 
@@ -805,10 +831,33 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>isCIDR('192.168.0.0/16')</tt> // returns true
-<tt>isCIDR('::1/128')</tt> // returns true
-<tt>isCIDR('192.168.0.0/33')</tt> // returns false
-<tt>isCIDR('::1/129')</tt> // returns false
+<table>
+<caption>Examples of CEL expressions using the isCIDR function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/16')</tt></td>
+  <td>Returns true for a valid IPv4 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/128')</tt></td>
+  <td>Returns true for a valid IPv6 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/33')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/129')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+</tbody>
+</table>
 
 #### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
 
@@ -847,11 +896,37 @@ IPv4 地址各字节中不允许出现前导零。
 
 示例：
 
-<tt>cidr('192.168.0.0/16')</tt> // 返回带 CIDR 掩码的 IPv4 地址
-<tt>cidr('::1/128')</tt> // 返回带 CIDR 掩码的 IPv6 地址
-<tt>cidr('192.168.0.0/33')</tt> // 错误
-<tt>cidr('::1/129')</tt> // 错误
-<tt>cidr('192.168.0.1/16')</tt> // 错误，因为前缀之后存在非 0 位
+<table>
+<caption><!-- Examples of CEL expressions using the cidr function -->使用 cidr 函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/16')</tt></td>
+  <td><!-- Returns an IPv4 address with a CIDR mask. -->返回带 CIDR 掩码的 IPv4 地址。</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128')</tt></td>
+  <td><!-- Returns an IPv6 address with a CIDR mask. -->返回带 CIDR 掩码的 IPv6 地址。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/33')</tt></td>
+  <td><!-- Error, because the prefix length exceeds the IPv4 address size. -->错误，因为前缀长度超过了 IPv4 地址的位数。</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/129')</tt></td>
+  <td><!-- Error, because the prefix length exceeds the IPv6 address size. -->错误，因为前缀长度超过了 IPv6 地址的位数。</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/16')</tt></td>
+  <td><!-- Error, because there are non-0 bits after the prefix. -->错误，因为前缀之后存在非 0 位。</td>
+</tr>
+</tbody>
+</table>
 
 #### `isCIDR`
 
@@ -864,10 +939,33 @@ IPv4 地址各字节中不允许出现前导零。
 
 示例：
 
-<tt>isCIDR('192.168.0.0/16')</tt> // 返回 true
-<tt>isCIDR('::1/128')</tt> // 返回 true
-<tt>isCIDR('192.168.0.0/33')</tt> // 返回 false
-<tt>isCIDR('::1/129')</tt> // 返回 false
+<table>
+<caption><!-- Examples of CEL expressions using the isCIDR function -->使用 isCIDR 函数的 CEL 表达式示例</caption>
+<thead>
+<tr>
+  <th><!-- CEL Expression -->CEL 表达式</th>
+  <th><!-- Purpose -->用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/16')</tt></td>
+  <td><!-- Returns true for a valid IPv4 CIDR. -->对于有效的 IPv4 CIDR，返回 true。</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/128')</tt></td>
+  <td><!-- Returns true for a valid IPv6 CIDR. -->对于有效的 IPv6 CIDR，返回 true。</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/33')</tt></td>
+  <td><!-- Returns false, because the prefix length exceeds the IPv4 address size. -->返回 false，因为前缀长度超过了 IPv4 地址的位数。</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/129')</tt></td>
+  <td><!-- Returns false, because the prefix length exceeds the IPv6 address size. -->返回 false，因为前缀长度超过了 IPv6 地址的位数。</td>
+</tr>
+</tbody>
+</table>
 
 #### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
 
