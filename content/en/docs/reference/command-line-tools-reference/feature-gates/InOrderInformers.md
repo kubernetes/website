@@ -14,6 +14,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
+    locked: true
 ---
 Force the informers to deliver watch stream events in order instead of out of order.
 
