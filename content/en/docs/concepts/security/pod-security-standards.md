@@ -370,6 +370,7 @@ fail validation.
 					<li><code>spec.volumes[*].downwardAPI</code></li>
 					<li><code>spec.volumes[*].emptyDir</code></li>
 					<li><code>spec.volumes[*].ephemeral</code></li>
+					<li><code>spec.volumes[*].image</code></li>
 					<li><code>spec.volumes[*].persistentVolumeClaim</code></li>
 					<li><code>spec.volumes[*].projected</code></li>
 					<li><code>spec.volumes[*].secret</code></li>
