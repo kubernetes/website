@@ -30,7 +30,7 @@ and when carrying out Pod eviction ranking.
 
 ## Configuring Pod overhead {#set-up}
 
-You need to make sure a `RuntimeClass` is utilized which defines the `overhead` field.
+Kubernetes has no cluster-wide default for Pod overhead. A Pod gets overhead only from a RuntimeClass that defines `overhead`.
 
 ## Usage example
 
