@@ -16,4 +16,4 @@ for authenticating to
 These tokens are bound to a specific ValidatingWebhookConfiguration or
 MutatingWebhookConfiguration and are scoped to particular API groups
 via attestation claims in the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API.
+[TokenRequest](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume) API.
