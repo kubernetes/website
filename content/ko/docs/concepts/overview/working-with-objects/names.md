@@ -9,7 +9,7 @@ weight: 30
 
 <!-- overview -->
 
-클러스터의 각 {{< glossary_tooltip text="오브젝트" term_id="object" >}}는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
+클러스터의 각 {{< glossary_tooltip text="오브젝트" term_id="object" >}}는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names)을 가지고 있다.
 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids)를 가지고 있다.
 
 예를 들어, 동일한 [네임스페이스](/docs/concepts/overview/working-with-objects/namespaces/) 안에서는 `myapp-1234`라는 이름의 파드를 하나만 가질 수 있지만, `myapp-1234`라는 이름의 파드와 디플로이먼트(Deployment)는 각각 하나씩 가질 수 있다.
