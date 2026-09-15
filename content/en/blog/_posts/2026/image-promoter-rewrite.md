@@ -152,10 +152,9 @@ graph LR
 | **Attest** | Generate promotion provenance attestations using a dedicated [in-toto](https://in-toto.io) predicate type. |
 
 Phases run sequentially, so each one gets exclusive access to the full rate
-limit budget. No more contention. Signature replication to mirror registries is
-no longer part of this pipeline and runs as a
-[dedicated periodic Prow job](https://prow.k8s.io/?job=ci-k8sio-image-signature-replication)
-instead.
+limit budget. No more contention. Signature replication was separated out of
+this pipeline and later
+[eliminated entirely](https://k8s.dev/blog/2026/05/11/image-signature-routing/).
 
 ## Making it fast
 
@@ -201,8 +200,7 @@ Here is what the rewrite looks like in aggregate.
 
 The codebase shrank by a fifth while gaining provenance attestations, a pipeline
 engine, vulnerability scanning integration, parallelized operations, retry
-logic, integration tests against local registries, and a standalone signature
-replication mode.
+logic, and integration tests against local registries.
 
 ## No user-facing changes
 
@@ -221,18 +219,16 @@ within hours. The phased release strategy ([v4.2.0](https://github.com/kubernete
 with legacy code removed) gave us a clear rollback path that we fortunately
 never needed.
 
-## What comes next
+## What came next
 
-Signature replication across all mirror registries remains the most expensive
-part of the promotion cycle. [Issue #1762](https://github.com/kubernetes-sigs/promo-tools/issues/1762)
-proposes eliminating it entirely by having
-[archeio](https://github.com/kubernetes/registry.k8s.io) (the `registry.k8s.io`
-redirect service) route signature tag requests to a single canonical upstream
-instead of per-region backends. Another option would be to move signing closer
-to the registry infrastructure itself. Both approaches need further discussion
-with the SIG Release and infrastructure teams, but either one would remove
-thousands of API calls per promotion cycle and simplify the codebase even
-further.
+Signature replication across all mirror registries was the most expensive
+part of the promotion cycle. As described in the follow-up post
+[Eliminating Kubernetes Image Signature Replication](https://k8s.dev/blog/2026/05/11/image-signature-routing/),
+we eliminated it entirely by having
+[archeio](https://github.com/kubernetes/registry.k8s.io) route signature tag
+requests to a single canonical upstream instead of per-region backends. This
+removed the dedicated replication pipeline, the periodic Prow job, and over
+1,200 lines of code.
 
 ## Thank you
 
