@@ -584,3 +584,5 @@
 /docs/reference/kubernetes-api/common-definitions/resource-field-selector/  /docs/reference/kubernetes-api/core/pod-v1/#ResourceFieldSelector  301
 /docs/reference/kubernetes-api/config-and-storage-resources/volume/  /docs/reference/kubernetes-api/core/pod-v1/#Volume  301
 /docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v1/  /docs/reference/kubernetes-api/autoscaling/horizontal-pod-autoscaler-v2/  301
++/case-studies/     https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes 301
++/case-studies/*    https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes 301

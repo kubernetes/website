@@ -19,7 +19,7 @@ Case studies require extensive review before they're approved.
 ## Submit a case study
 
 Have a look at the source for the
-[existing case studies](https://github.com/kubernetes/website/tree/main/content/en/case-studies).
+[existing case studies](https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes).
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/main/policies-guidance/case-study-guidelines.md)
 and submit your request as outlined in the guidelines.
