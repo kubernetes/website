@@ -12,9 +12,9 @@ weight: 20
 
 부트스트랩 토큰은 새 클러스터를 만들거나 새 노드를 기존 클러스터에 결합할 때
 사용되는 간단한 전달자 토큰이다.
-[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)을 지원하도록 구축되었지만
- `kubeadm` 없이 클러스터를 시작하려는 사용자를 위해 다른 컨텍스트에서 사용할 수 있다.
-또한 RBAC 정책을 통해 [Kubelet TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+[kubeadm](/docs/reference/setup-tools/kubeadm/)을 지원하도록 구축되었지만
+`kubeadm` 없이 클러스터를 시작하려는 사용자를 위해 다른 컨텍스트에서 사용할 수 있다.
+또한 RBAC 정책을 통해 [kubelet TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 시스템과 함께 동작하도록 구축되었다.
 
 
@@ -31,8 +31,8 @@ API 서버의 부트스트랩 인증자가 이러한 시크릿을 읽는다.
 
 ## 토큰 형식
 
-부트스트랩 토큰은 `abcdef.0123456789abcdef` 형식을 취한다. 더 공식적으로는
-정규식 `[a-z0-9]{6}\.[a-z0-9]{16}` 와 일치해야 한다.
+부트스트랩 토큰은 `abcdef.0123456789abcdef` 형식을 취한다.
+더 공식적으로는 정규식 `[a-z0-9]{6}\.[a-z0-9]{16}` 와 일치해야 한다.
 
 토큰의 첫 번째 부분은 "Token ID" 이며 공개 정보로 간주된다.
 인증에 사용하는 시크릿의 일부를 노출하지 않고 토큰을 참조할 때 사용한다.
@@ -55,9 +55,9 @@ API 서버에서 다음 플래그를 사용하여 부트스트랩 토큰 인증�
 Authorization: Bearer 07401b.f395accd246ae52d
 ```
 
-토큰은 사용자 이름 `system:bootstrap:<token id>` 로 인증되며 `system:bootstrappers` 그룹의 구성원이다.
-토큰의 시크릿에 추가 그룹을
-지정할 수 있다.
+토큰은 사용자 이름 `system:bootstrap:<token id>` 로 인증되며 
+`system:bootstrappers` 그룹의 구성원이다.
+토큰의 시크릿에 추가 그룹을 지정할 수 있다.
 
 만료된 토큰은 컨트롤러 관리자에서 `tokencleaner`
 컨트롤러를 활성화하여 자동으로 삭제할 수 있다.
@@ -103,9 +103,8 @@ stringData:
   auth-extra-groups: system:bootstrappers:worker,system:bootstrappers:ingress
 ```
 
-시크릿 유형은 `bootstrap.kubernetes.io/token` 이어야 하고
-이름은 `bootstrap-token-<token id>`여야 한다. 반드시 `kube-system`
-네임스페이스에도 존재해야 한다.
+시크릿 유형은 `bootstrap.kubernetes.io/token` 이어야 하고 이름은
+`bootstrap-token-<token id>`여야 한다. 반드시 `kube-system` 네임스페이스에도 존재해야 한다.
 
 `usage-bootstrap-*` 멤버는 이 시크릿의 용도를 나타낸다.
 활성화하려면 값을 `true` 로 설정해야 한다.
@@ -116,14 +115,14 @@ stringData:
 `cluster-info` 컨피그맵에 서명할 수 있음을 나타낸다.
 
 `expiration` 필드는 토큰의 만료를 제어한다. 만료된 토큰은
-인증에 사용될 때 거부되고 컨피그맵서명 중에 무시된다.
-만료된 값은 RFC3339를 사용하여 절대 UTC 시간으로 인코딩된다.
+인증에 사용될 때 거부되고 컨피그맵 서명 중에 무시된다.
+만료 값은 [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)를 사용하여 절대 UTC 시간으로 인코딩된다.
 만료된 토큰을 자동으로 삭제하려면 `tokencleaner` 컨트롤러를 활성화한다.
 
 ## kubeadm을 사용한 토큰 관리
 
 `kubeadm` 툴을 사용하여 실행중인 클러스터에서 토큰을 관리할 수 있다.
-자세한 내용은 [kubeadm token docs](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 에서 찾을 수 있다.
+자세한 내용은 [kubeadm 토큰 문서](/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고한다.
 
 ## 컨피그맵 서명
 
@@ -132,7 +131,7 @@ stringData:
 서명된 컨피그맵은 공유 토큰으로 인증할 수 있다.
 
 컨트롤러 관리자에서 `bootstrapsigner` 컨트롤러를 활성화하여
-컨피그맵서명을 활성화 한다.
+컨피그맵 서명을 활성화한다.
 
 ```
 --controllers=*,bootstrapsigner
@@ -172,12 +171,13 @@ data:
 이는 향후 확대될 수 있다.
 
 서명은 "detached" 모드를 사용하는 JWS 서명이다. 서명을 검증하려면
-사용자는 JWS 규칙(뒤로 오는 `=` 를 삭제하는 동안 인코딩된 base64)에 따라
-`kubeconfig` 페이로드를 인코딩해야 한다. 그런 다음 인코딩된 페이로드는
-두 개의 점 사이에 삽입하여 전체 JWS를 형성하는 데 사용된다.
-전체 토큰(예:`07401b.f395accd246ae52d`)을 공유 시크릿으로 사용하여
-`HS256` 방식(HMAC-SHA256)을 사용함으로 JWS를 확인할 수 있다.
-사용자는 _반드시_ HS256이 사용되고 있는지 확인해야 한다.
+사용자는 JWS 규칙(뒤에 오는 `=` 를 제거하고 base64로 인코딩)에 따라
+`kubeconfig` 페이로드를 인코딩해야 한다. 그런 다음 인코딩된 페이로드를
+두 개의 점 사이에 삽입하여 전체 JWS를 형성하는 데 사용한다.
+토큰 시크릿 부분(예: `f395accd246ae52d`)을 공유 시크릿으로 사용하여
+`HS256` 방식(HMAC-SHA256)으로 JWS를 검증할 수 있다.
+사용자는 _반드시_ HS256이 사용되고 있는지 확인해야 한다. 시크릿이 16바이트밖에
+안 되기 때문에, 일부 검증 도구에서 받아들이려면 오른쪽에 0을 채워야 할 수도 있다.
 
 {{< warning >}}
 부트스트래핑 토큰을 가진 모든 당사자는 해당 토큰에 대한 유효한 서명을 만들 수 있다.
@@ -186,5 +186,5 @@ data:
 TLS 트러스트를 부트스트랩하는 다른 클라이언트를 대신할 수 있기 때문이다.
 {{< /warning >}}
 
-자세한 내용은 [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
-섹션을 참조하면 된다.
+자세한 내용은 [kubeadm 구현 세부 정보](/docs/reference/setup-tools/kubeadm/implementation-details/)
+섹션을 참고한다.
