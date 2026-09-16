@@ -23,4 +23,3 @@ Have a look at the
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/main/policies-guidance/case-study-guidelines.md)
 and submit your request as outlined in the guidelines.
-
