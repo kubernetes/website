@@ -171,11 +171,18 @@ div.api-reference-header-note.empty {
     font-style: initial;
   }
 }
+// The RTL stylesheet is generated from this stylesheet by flipping it
+// with rtlcss. These border sides are already written direction-aware
+// (left for LTR locales, right for RTL locales), so the flip pass would
+// swap each one onto the wrong side. Exclude them so they survive as
+// written.
+/*rtl:ignore*/
 .alert:dir(ltr) {
   // color the left border (left-to-right locales)
   border-width: 0 0 0 4px;
 }
 
+/*rtl:ignore*/
 .alert:dir(rtl) {
   // color the right border (right-to-left locales)
   border-width: 0 4px 0 0;
