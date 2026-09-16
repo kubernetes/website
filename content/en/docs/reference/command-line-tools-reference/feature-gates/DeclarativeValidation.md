@@ -12,15 +12,23 @@ stages:
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
-Enables declarative validation of in-tree Kubernetes APIs. When enabled, APIs with declarative validation rules
-(defined using IDL tags in the Go code) will have both the generated declarative validation code
-and the original hand-written validation code executed.
-The results are compared, and any discrepancies are reported via the `declarative_validation_mismatch_total` metric.
-Only the hand-written validation result is returned to the user (eg: actually validates in the request path).
-The original hand-written validation are still the authoritative validations
-when this is enabled but this can be changed if the
-[DeclarativeValidationBeta feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
-is enabled in addition to this gate.
+Reports differences between declarative validation of in-tree Kubernetes APIs and the
+equivalent hand-written validation.
+
+When enabled, rules marked `+k8s:alpha` or `+k8s:beta` run alongside the hand-written
+validation, and the API server logs any discrepancy and counts it in the
+`declarative_validation_mismatch_total` metric.
+
+This gate controls only reporting, not which result the API server returns. Enforcement
+is:
+
+- No prefix: always enforced.
+- `+k8s:beta`: enforced when the
+  [`DeclarativeValidationBeta` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
+  is enabled (the default).
+- `+k8s:alpha`: never enforced.
+
 This feature gate only operates on the `kube-apiserver` component.
