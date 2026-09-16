@@ -46,6 +46,7 @@
 /kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 # Serve custom "not found" pages
+/docs/contribute/new-content/case-studies/ /docs/contribute/new-content/410_gone_case_studies/ 410
 /docs/tutorials/kubernetes-basics/expose/expose-interactive/ /docs/tutorials/kubernetes-basics/expose/expose-interactive-gone/ 404
 /docs/tutorials/kubernetes-basics/scale/scale-interactive/ /docs/tutorials/kubernetes-basics/scale/scale-interactive-gone/ 404
 /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive-gone/ 404
