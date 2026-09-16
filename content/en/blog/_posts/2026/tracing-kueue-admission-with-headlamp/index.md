@@ -100,8 +100,8 @@ identity cannot read a resource.
 ## Step 2: Read status, conditions, and events
 
 Open the Workload. Start with its current status and
-[conditions](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions), not
-with the full YAML.
+[conditions](https://kueue.sigs.k8s.io/docs/tasks/troubleshooting/troubleshooting_jobs/#is-my-job-admitted),
+not with the full YAML.
 
 For admission troubleshooting, the most important condition types are `QuotaReserved` and
 `Admitted`.
@@ -290,11 +290,11 @@ investigation.
 
 | Question | Headlamp path | Command-line equivalent |
 | --- | --- | --- |
-| Is the Workload admitted? | **Kueue → Workloads → status and conditions** | `kubectl describe workload` |
-| Which LocalQueue did it enter? | **Workload → linked LocalQueue** | `kubectl get localqueue -o yaml` |
-| Which ClusterQueue provides quota? | **LocalQueue → linked ClusterQueue** | `kubectl get clusterqueue -o yaml` |
-| Which flavor or shared quota matters? | **ClusterQueue → ResourceFlavor or Cohort** | `kubectl get resourceflavor/cohort -o yaml` |
-| What happened after admission? | **Workloads → Jobs and Pods → events** | `kubectl describe job/pod` |
+| Is the Workload admitted? | **Kueue → Workloads → status and conditions** | `kubectl describe workload <workload-name> -n <namespace>` |
+| Which LocalQueue did it enter? | **Workload → linked LocalQueue** | `kubectl get localqueue <localqueue-name> -n <namespace> -o yaml` |
+| Which ClusterQueue provides quota? | **LocalQueue → linked ClusterQueue** | `kubectl get clusterqueue <clusterqueue-name> -o yaml` |
+| Which flavor or shared quota matters? | **ClusterQueue → ResourceFlavor or Cohort** | `kubectl get resourceflavor <flavor-name> -o yaml` or `kubectl get cohort <cohort-name> -o yaml` |
+| What happened after admission? | **Workloads → Jobs and Pods → events** | `kubectl describe job <job-name> -n <namespace>` or `kubectl describe pod <pod-name> -n <namespace>` |
 
 For scripts and GitOps workflows, the command line remains the right tool. For a person asking “why
 is this waiting?”, the linked Headlamp path is usually faster to read.
