@@ -240,7 +240,10 @@ This is analogous to how Pods can share the resources on a Node; ResourceClaims 
 The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice`
 to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
 
-Users can set `capacity` field added in `spec.devices.requests` of `ResourceClaim` to specify the device resource requirements for each allocation.
+For an exact request in a `ResourceClaim`, set
+`spec.devices.requests[].exactly.capacity` to specify the device resource
+requirements for each allocation. For prioritized lists, set `capacity` within
+the relevant `spec.devices.requests[].firstAvailable[]` entries.
 
 For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity,
 a concept known as **consumable capacity**.
