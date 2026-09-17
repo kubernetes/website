@@ -72,14 +72,7 @@ class.
 
 A minimal GatewayClass example:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: GatewayClass
-metadata:
-  name: example-class
-spec:
-  controllerName: example.com/gateway-controller
-```
+{{% code_sample file="service/networking/gatewayclass.yaml" %}}
 
 In this example, a controller that has implemented Gateway API is configured to manage GatewayClasses
 with the controller name `example.com/gateway-controller`. Gateways of this class will be managed by
@@ -97,23 +90,7 @@ server that is configured to accept HTTP traffic.
 
 A typical Gateway resource example:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: example-gateway
-  namespace: example-namespace
-spec:
-  gatewayClassName: example-class
-  listeners:
-  - name: http
-    protocol: HTTP
-    port: 80
-    hostname: "www.example.com"
-    allowedRoutes:
-      namespaces:
-        from: Same
-```
+{{% code_sample file="service/networking/gateway.yaml" %}}
 
 In this example, an instance of traffic handling infrastructure is programmed to listen for HTTP
 traffic on port 80. Since the `addresses` field is unspecified, an address or hostname is assigned
@@ -138,25 +115,7 @@ traffic routes in a cloud load balancer or in-cluster proxy server.
 
 A typical HTTPRoute example:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: example-httproute
-spec:
-  parentRefs:
-  - name: example-gateway
-  hostnames:
-  - "www.example.com"
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /login
-    backendRefs:
-    - name: example-svc
-      port: 8080
-```
+{{% code_sample file="service/networking/httproute.yaml" %}}
 
 In this example, HTTP traffic from Gateway `example-gateway` with the Host: header set to `www.example.com`
 and the request path specified as `/login` will be routed to Service `example-svc` on port `8080`.
@@ -178,46 +137,14 @@ so gRPC traffic is guaranteed to flow properly.
 
 A typical GRPCRoute example:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: GRPCRoute
-metadata:
-  name: example-grpcroute
-spec:
-  parentRefs:
-  - name: example-gateway
-  hostnames:
-  - "svc.example.com"
-  rules:
-  - backendRefs:
-    - name: example-svc
-      port: 50051
-```
+{{% code_sample file="service/networking/grpcroute.yaml" %}}
 
 In this example, gRPC traffic from Gateway `example-gateway` with the host set to `svc.example.com`
 will be directed to the service `example-svc` on port `50051` from the same namespace.
 
 GRPCRoute allows matching specific gRPC services, as per the following example:
 
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: GRPCRoute
-metadata:
-  name: example-grpcroute
-spec:
-  parentRefs:
-  - name: example-gateway
-  hostnames:
-  - "svc.example.com"
-  rules:
-  - matches:
-    - method:
-        service: com.example
-        method: Login
-    backendRefs:
-    - name: foo-svc
-      port: 50051
-```
+{{% code_sample file="service/networking/grpcroute-matching.yaml" %}}
 
 In this case, the GRPCRoute will match any traffic for svc.example.com and apply its routing rules
 to forward the traffic to the correct backend. Since there is only one match specified,only requests
