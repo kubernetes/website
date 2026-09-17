@@ -2,12 +2,6 @@
 title: مرحبًا، مينيكيوب
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "ابدأ الآن"
-    weight: 10
-    post: >
-       <p>مستعد للبدء؟ قم ببناء عنقود كوبيرنيتيس بسيط لتشغيل تطبيق تجريبي .</p>
 card:
   name: tutorials
   weight: 10
