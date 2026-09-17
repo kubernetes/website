@@ -60,7 +60,7 @@ Kubernetes v1.37は新機能と改善点が満載です。
 ### 安定版: Resilient watchcache initialization {#stable-resilient-watchcache-initialization}
 
 Kubernetes v1.37は、_resilient watch cache initialization_(回復力のあるwatchキャッシュ初期化)の作業を完了します。
-`ResilientWatchCacheInitialization`フィーチャーゲートはv1.34でGAに到達し、v1.37では残りの`WatchCacheInitializationPostStartHook`ゲートがGAに昇格して、オンの状態でロックされます。
+`ResilientWatchCacheInitialization`フィーチャーゲートはv1.34でGAに到達し、v1.37では残りの`WatchCacheInitializationPostStartHook`ゲートがGAに昇格して、有効の状態でロックされます。
 このゲートはv1.36以降デフォルトで有効であり、起動時と復旧時のAPIサーバーを強化します。
 Watchキャッシュの初期化と再初期化は、`etcd`に対するリクエストのトラフィックスパイクを発生させなくなり、キャッシュのウォームアップ中にリクエストが蓄積されることなく、正常に処理されるようになります。
 
@@ -209,7 +209,7 @@ Kubernetes v1.37では、_StorageVersionMigration API_(`storagemigration.k8s.io/
 これは、APIアップグレード後(推奨ストレージバージョンが`v1beta1`から`v1`に変わる場合など)に、既存のリソース(組み込みとカスタムの両方)を古いストレージバージョンから新しいストレージバージョンへ移行するのに役立ちます。
 さらに、保存時の暗号化の変更後に既存データを書き換えるためにも使用でき、古いデータが新しい暗号化設定で保存されるようにできます。
 
-歴史的には、クラスター管理者とCustomResourceDefinitionの作成者は、既存リソースを書き換えるために手動の`kubectl get`や`kubectl replace`スクリプトを使用するか、out-of-treeの`kube-storage-version-migrator`コンポーネントをデプロイする必要がありました。
+かつては、クラスター管理者とCustomResourceDefinitionの作成者は、既存リソースを書き換えるために手動の`kubectl get`や`kubectl replace`スクリプトを使用するか、out-of-treeの`kube-storage-version-migrator`コンポーネントをデプロイする必要がありました。
 これらのアプローチはしばしば面倒で、エラーが発生しやすく、監視も困難でした。
 
 ストレージバージョン移行を開始するには、宣言的なStorageVersionMigrationオブジェクトを作成する必要があります。
@@ -220,9 +220,9 @@ StorageVersionMigrationは標準のKubernetes APIであるため、CRD作成者�
 
 ### 安定版: Pod証明書とCluster Trust Bundles {#pod-certificates-and-clustertrustbundles}
 
-[Pod証明書](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests)と密接に関連する[ClusterTrustBundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)は、どちらもKubernetes v1.37でGAに昇格し、プライベートキー、X.509証明書、トラストバンドルをPodに配布するためのファーストクラスサポートを提供します。
+[Pod証明書](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests)と密接に関連する[ClusterTrustBundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)は、どちらもKubernetes v1.37でGAに昇格し、秘密鍵、X.509証明書、トラストバンドルをPodに配布するためのファーストクラスサポートを提供します。
 
-これを使用するには、開発者または管理者が署名者名を選択し、_signer controller_をデプロイします。
+これを使用するには、開発者または管理者が署名者(signer)名を選択し、_signer controller_ をデプロイします。
 このコントローラーはPodCertificateRequestオブジェクトを監視し、対象となるPodに対して証明書を発行・更新し、それらの証明書の検証に必要なトラストアンカーを含む対応するClusterTrustBundleオブジェクトを維持します。
 ワークロードは、選択した署名者名を持つ`podCertificate`プロジェクテッドボリュームを定義することで、このアイデンティティにオプトインします。
 ワークロードはClusterTrustBundleプロジェクテッドボリュームをマウントしてトラストアンカー情報を読み込むこともできます。
@@ -275,7 +275,7 @@ Kubernetes v1.37では、ワークロードを考慮したプリエンプショ�
 
 #### DRA: ワークロードに対するResourceClaimのサポート {#dra-resourceclaim-support-for-workloads}
 
-`Dynamic Resource Allocation(DRA)`は、PodがResourceClaimを通じて特殊なリソースを要求できるようにする仕組みです。
+Dynamic Resource Allocation(DRA)は、PodがResourceClaimを通じて特殊なリソースを要求できるようにする仕組みです。
 Kubernetes v1.37では、ワークロードに対するDRAのResourceClaimのサポートがベータに昇格し、Workload APIとPodGroup APIがResourceClaimおよびResourceClaimTemplateをPodのグループに関連付けられるようになります。
 これにより、ResourceClaimはPodごとに個別に予約されるのではなくワークロード全体で共有できるようになり、ResourceClaimTemplateはPodGroupのためのクレームを自動的に作成できます。
 
@@ -283,27 +283,27 @@ Kubernetes v1.37では、ワークロードに対するDRAのResourceClaimのサ
 
 ### cAdvisorに依存しないCRI完結のコンテナとPodの統計情報 {#cadvisor-less-cri-full-stats}
 
-`kubelet`はこれまで、コンテナとPodの統計情報を`cAdvisor`から取得してきましたが、`Container Runtime Interface(CRI)`も独自の統計情報を公開しています。
+`kubelet`はこれまで、コンテナとPodの統計情報を`cAdvisor`から取得してきましたが、Container Runtime Interface(CRI)も独自の統計情報を公開しています。
 同じメトリクスに2つの情報源があると、特定の値がどこから来たのかを判別しにくくなります。
 
 Kubernetes v1.37では、cAdvisorに依存しないCRI完結のコンテナとPodの統計情報という機能強化がベータに昇格します。
 この機能強化はCRIを拡張してKubernetesが必要とするコンテナとPodの統計情報を提供し、`kubelet`がこれらのメトリクスを`cAdvisor`に頼らずコンテナランタイムから直接取得できるようにします。
 
-これによりコンテナとPodのメトリクスは単一の信頼できる情報源に近づき、メトリクス収集の重複が減り、`kubelet`がこれらの統計情報を収集して公開する方法も簡素化されます。
+これにより、コンテナとPodのメトリクスは単一の信頼できる情報源への一本化が進み、メトリクス収集の重複が減り、`kubelet`がこれらの統計情報を収集して公開する方法も簡素化されます。
 
 この機能はv1.37でベータですが、デフォルトでは**無効**です。
 試すには`PodAndContainerStatsFromCRI`フィーチャーゲートを有効にしてください。
 
 この取り組みは、[SIG Node](https://www.kubernetes.dev/community/community-groups/sigs/node/)が主導した[KEP #2371](https://www.kubernetes.dev/resources/keps/2371/)の一環として行われました。
 
-### cgroups v2によるメモリQoSのサポート {#support-memory-qos-with-cgroups-v2}
+### cgroup v2によるメモリQoSのサポート {#support-memory-qos-with-cgroups-v2}
 
 Kubernetesは、ワークロードのメモリの保護と分離を対象とするよう、QoS(Quality of Service)の仕組みを改善しています。
-Linuxで動作するNodeでは、*メモリQoS*機能がメモリのrequestsとlimitsを使ってcgroupの制御を設定し、要求されたメモリを回収から保護したり、ワークロードがハードリミットに達する前にメモリ使用量をスロットリングしたりできます。
-これは、メモリに敏感なワークロードへのメモリ圧迫の影響を軽減し、Nodeの安定性を向上させるのに役立ちます。
+Linuxで動作するノードでは、*メモリQoS*機能がメモリのrequestsとlimitsを使ってcgroupの制御を設定し、要求されたメモリを回収から保護したり、ワークロードがハードリミットに達する前にメモリ使用量をスロットリングしたりできます。
+これは、メモリに敏感なワークロードへのメモリ圧迫の影響を軽減し、ノードの安定性を向上させるのに役立ちます。
 
 Kubernetes v1.37では、メモリQoSのサポートがベータに昇格します。
-この機能は`memory.min`、`memory.low`、`memory.high`といったcgroups v2のメモリ制御を使用して、さまざまなレベルのメモリ保護とスロットリングを提供します。
+この機能は`memory.min`、`memory.low`、`memory.high`といったcgroup v2のメモリ制御を使用して、さまざまなレベルのメモリ保護とスロットリングを提供します。
 たとえば、メモリのrequestsはメモリを回収から保護するために使用でき、`memory.high`は設定されたしきい値を超えたワークロードをスロットリングするために使用できます。
 
 `MemoryQoS`フィーチャーゲートはv1.37でデフォルトで有効です。
@@ -383,7 +383,7 @@ Kubernetes v1.37では、CSIを考慮したオートスケーリングが`Volume
 スケジューラー側では、管理者は新しい`PreventPodSchedulingIfMissing`フィールドを通じて`CSIDriver`単位でオプトインし、ドライバーをまだ報告していないNodeへのPodの配置をブロックできます。
 専用の`CSIDriverMissingOnNode`エラーと`CSINodeMissing`エラーにより、これらのスケジューリングの失敗をデバッグしやすくなります。
 ベータの段階では、スケールダウンの動作とCSIのオプトインのシナリオに対するe2eテストのカバレッジが追加され、`failed_scale_ups_total`メトリクスと`scaled_up_nodes_total`メトリクスにCSIドライバーの情報が含まれるように更新されます。
-オートスケーラーとスケジューラーの変更はいずれも厳密にオプトインです: フィーチャーゲートを無効にすると、`CSINode`のデータがないNodeへのPodの配置を無制限とする現在のデフォルトに戻るため、まだCSIを考慮していないオートスケーラー(Karpenterなど)を運用しているディストリビューションや管理者が、新しい動作を強制されることはありません。
+オートスケーラーとスケジューラーの変更はいずれも厳密にオプトインのままです: フィーチャーゲートを無効にすると、`CSINode`のデータがないNodeへのPodの配置を無制限とする現在のデフォルトに戻るため、まだCSIを考慮していないオートスケーラー(Karpenterなど)を運用しているディストリビューションや管理者が、新しい動作を強制されることはありません。
 
 この取り組みは、[SIG Autoscaling](https://www.kubernetes.dev/community/community-groups/sigs/autoscaling/)が主導した[KEP #5030](https://www.kubernetes.dev/resources/keps/5030/)の一環として行われました。
 
@@ -394,8 +394,8 @@ Kubernetes v1.37では、CSIを考慮したオートスケーリングが`Volume
 
 Kubernetes v1.37では、PVCの「最終使用」の追跡が`PersistentVolumeClaimUnusedSinceTime`フィーチャーゲートの下でベータに昇格します。
 このゲートはアルファ(v1.36)ではデフォルトで無効の状態で提供されていましたが、現在はデフォルトで有効です。
-この機能は`PersistentVolumeClaimStatus`に新しい`Unused`条件を追加し、既存のPVC保護コントローラーがこれを管理します: PVCを参照する最後の非終了状態のPodがなくなると`Status=True (Reason=NoPodsUsingPVC)`となり、Podが再び参照を開始するとすぐに`Status=False (Reason=PodUsingPVC)`に戻ります。
-この条件の`lastTransitionTime`は「未使用になった時点」のタイムスタンプも兼ねるため、管理者はPVCが実際にどれだけの期間アイドル状態だったかを調べられます。
+この機能は`PersistentVolumeClaimStatus`に新しい`Unused` Conditionを追加し、既存のPVC保護コントローラーがこれを管理します: PVCを参照する最後の非終了状態のPodがなくなると`Status=True (Reason=NoPodsUsingPVC)`となり、Podが再び参照を開始するとすぐに`Status=False (Reason=PodUsingPVC)`に戻ります。
+このConditionの`lastTransitionTime`は「未使用になった時点」のタイムスタンプも兼ねるため、管理者はPVCが実際にどれだけの期間アイドル状態だったかを調べられます。
 Kubernetes自身はどのPodが最後に使用したかを追跡せず、削除の判断も一切しません。
 それは完全に管理者に委ねられています。
 注意すべき点として、このタイムスタンプはコントローラーがPVCを使用するPodがないことを観測した時点を反映しており、インフラストラクチャのレベルでボリュームがアンマウントされた正確な時刻ではありません。
@@ -405,35 +405,35 @@ Kubernetes自身はどのPodが最後に使用したかを追跡せず、削除�
 
 ### etcdのRangeStreamのサポート {#etcd-rangestream-support}
 
-`etcd`のunaryな`Range` RPCはレスポンス全体をメモリ上に構築してから返すため、大規模環境では問題になります。
-大きなlist、たとえば大規模クラスターでkube-apiserverのウォッチキャッシュがウォームアップする場合、生のキーバリューのスライス、そのシリアライズされたprotobuf形式、そしてgRPCの送信バッファがすべて同時にメモリ上に存在する必要があり、その結果生じるスパイクはkube-apiserverにも波及します。
+`etcd`の単項(unary)な`Range` RPCは、レスポンス全体をメモリ上に構築してから返すため、大規模環境では問題になります。
+大きなlist、たとえば大規模クラスターでkube-apiserverのwatchキャッシュがウォームアップする場合、生のキーバリューのスライス、そのシリアライズされたprotobuf形式、そしてgRPCの送信バッファがすべて同時にメモリ上に存在する必要があり、その結果生じるスパイクはkube-apiserverにも波及します。
 ページネーションも根本的なコストを解決しません。
-各ページが結果の総数を再計算するためにB-treeインデックス全体を走査するため、`O(limit)`であるべき操作がページごとに`O(total_keys)`になってしまうためです。
+分割された各ページであっても、結果の総数を再計算するためにB-treeインデックス全体を走査することで、`O(limit)`であるべき操作がページごとに`O(total_keys)`になってしまうためです。
 
-Kubernetes v1.37では、`etcd`の`RangeStream`のサポートが`EtcdRangeStream`フィーチャーゲートの下で、いきなりベータとして提供されます(`kube-apiserver`のみ、デフォルトで**有効**)。
+Kubernetes v1.37では、`etcd`の`RangeStream`のサポートが`EtcdRangeStream`フィーチャーゲートの下で、直接ベータとして提供されます(`kube-apiserver`のみ、デフォルトで**有効**)。
 このリリースでは、既存の`RangeRequest`を再利用しつつ、バッファリングされた1つのblobではなくチャンクを返す、サーバーストリーミング型の新しい`RangeStream` RPCが追加されます: サーバーは適応的なチャンクサイズで内部的にページネーションし(各チャンクの目標サイズは`MaxRequestBytes`とそれまでに観測された値のサイズに基づいて調整されます)、マージされたストリームがスナップショットとして一貫した状態を保つよう単一のMVCCリビジョンを固定し、キーの総数は別途インデックスを走査するのではなくストリーミング中に構築する集計から導出します。
-主な利用者は`kube-apiserver`のウォッチキャッシュの初期化であり、リスト全体をまずメモリ上に組み立てるのではなく、到着した各チャンクをその場で合成された*created*イベントにデコードするようになりました。
+主な利用者は`kube-apiserver`のwatchキャッシュの初期化であり、リスト全体をまずメモリ上に組み立てるのではなく、到着した各チャンクをその場で合成された*created*イベントにデコードするようになりました。
 `WatchList`が無効な場合の直接的な`GetList`呼び出しにも、同じ扱いが適用されます。
 
 この機能には`etcd` 3.7以降が必要です。
-それより古い`etcd`に対しては、`kube-apiserver`がUnimplementedのレスポンスを検出し、動作を変えることなく自動的にunaryな`Range`にフォールバックします。
-固定されたリビジョンがストリームの途中でコンパクションされた場合、`kube-apiserver`はそれを他のウォッチキャッシュの初期化の失敗と同様に扱ってリトライします。
+それより古い`etcd`に対しては、`kube-apiserver`がUnimplementedのレスポンスを検出し、動作を変えることなく自動的に単項の`Range`にフォールバックします。
+固定されたリビジョンがストリームの途中でコンパクションされた場合、`kube-apiserver`はそれを他のwatchキャッシュの初期化の失敗と同様に扱ってリトライします。
 これは、ページネーションされたList呼び出しが現在すでに遭遇しうるコンパクションの競合と比べて悪化するものではありません。
-ベータ昇格の基準には、5000 Nodeのクラスターで大きなlistのレイテンシーを測定するスケーラビリティテストが含まれます。
+ベータ昇格の基準には、5000ノードのクラスターで大きなlistのレイテンシーを測定するスケーラビリティテストが含まれます。
 また、新しいRPCを直接試したい人のために`etcdctl get --stream`も併せて提供されます。
 
 この取り組みは、[SIG etcd](https://www.kubernetes.dev/community/community-groups/sigs/etcd/)が主導した[KEP #5966](https://www.kubernetes.dev/resources/keps/5966/)の一環として行われました。
 
 ### watchオブジェクトの並行デコード {#concurrent-watch-object-decode}
 
-`kube-apiserver`は`etcd`からのすべてのwatchイベントを単一のgoroutine上で1つずつデコードして変換します。
+`kube-apiserver`は`etcd`からのすべてのwatchイベントを単一のゴルーチン(goroutine)上で1つずつデコードして変換します。
 そのため、イベントごとの変換が1つ遅いだけで、特にCRDの変換Webhookの呼び出しなどでは、その後ろにキューイングされたすべてのイベントがブロックされます。
-ビルトインのリソースでは些細な問題にとどまることが大半ですが、提供されるバージョンが保存されているバージョンと異なるCRDでは、コールドキャッシュを逐次的に変換するのに数分かかることがあります。
+ビルトインのリソースでは、単なる煩わしさにとどまることが大半ですが、提供されるバージョンが保存されているバージョンと異なるCRDでは、コールドキャッシュを逐次的に変換するのに数分かかることがあります。
 これが`etcd`のデフォルトである5分のコンパクション間隔を超えると、キャッシュが読み取りを開始したリビジョンが初期化の完了前にコンパクションされ、watchを再開できなくなります。
 そして十分に大きなリソースでは、初期化がやり直されるだけで収束せず、その間そのリソースをlistまたはwatchしようとするすべてのクライアントはエラーを受け取ります。
 
 `ConcurrentWatchObjectDecode`ゲートは実はv1.31以降、デフォルトで無効のベータとして存在していましたが、Kubernetes v1.37でデフォルトで有効になります。
-有効にすると、デコードと変換のステップは単一のgoroutineではなく上限のあるワーカーgoroutineのプール(デフォルトは10。8〜12あたりで効果が横ばいになることを示した測定に基づいて調整されています)で実行され、コレクターが配信前にイベントを元の順序に組み直すため、イベントの順序は厳密に保たれます。
+有効にすると、デコードと変換のステップは単一のゴルーチンではなく上限のあるワーカーゴルーチンのプール(デフォルトは10。8〜12あたりで効果が横ばいになることを示した測定に基づいて調整されています)で実行され、コレクターが配信前にイベントを元の順序に組み直すため、イベントの順序は厳密に保たれます。
 15万Podを超えるベンチマークでは、並行デコード単体でキャッシュの初期化が約40%短縮され、同じリリースで導入される新しい`EtcdRangeStream`機能と組み合わせると約55%短縮されます(KEP 5966を参照)。
 注意すべき主なトレードオフは、変換Webhookの負荷です。
 この機能を有効にすると、キャッシュの初期化中に1つずつではなく最大10個の変換がWebhookに対して並行して実行されるようになります。
@@ -450,13 +450,13 @@ Kubernetes v1.37では、`etcd`の`RangeStream`のサポートが`EtcdRangeStrea
 
 コントローラーの陳腐化の軽減はv1.36以降ベータであり、`StaleControllerConsistency<Controller>`フィーチャーゲートの下でコントローラー単位にデフォルトで有効になっています。
 Kubernetes v1.37ではこれをHorizontalPodAutoscalerコントローラーにも拡張し、以下で説明するサーキットブレーカー型の変種と追加のメトリクスを導入します。
-中核となる仕組みは*read your writes*の保証です: client-goの`ResourceEventHandlerFuncs`に新しい`BookmarkFunc`コールバックが追加され、既存のadd/update/deleteのコールバックが取りこぼすエッジケースでも、コントローラーは関心のあるオブジェクトのリソースバージョンを確実に追跡できます。
+中核となる仕組みは*read your writes*の保証です: client-goの`ResourceEventHandlerFuncs`に新しい`BookmarkFunc`コールバックが追加され、既存のadd/update/deleteのコールバックが取りこぼすエッジケースでも、コントローラーは管理対象のオブジェクトのリソースバージョンを確実に追跡できます。
 コントローラーは自身の書き込みのリソースバージョンを記録し、次の調整の際にはinformerのキャッシュがその書き込みに実際に追いつくまでスキップして再キューイングします。
 DaemonSetコントローラーはその良い例です。
 DaemonSetからPodへのリソースバージョンを追跡することで、自身の陳腐化したPodキャッシュに対して再調整しないようにしています。
 2つ目のサーキットブレーカー型の変種は、node-lifecycleのようなレイテンシーに敏感なコントローラーを対象としています。
-これらのコントローラーは、そうでなければ陳腐化したNodeのリースをキャッシュから読み取り、期限切れだと誤って判断してしまう可能性があります。
-この変種では、陳腐化した読み取りに基づいて動作する代わりに、破壊的な判断の際にライブのGETを実行し、追いつくまでキャッシュを「準備ができていない」とマークします。
+これらのコントローラーは、そうでなければ陳腐化したノードのリースをキャッシュから読み取り、期限切れだと誤って判断してしまう可能性があります。
+この変種では、陳腐化した読み取りに基づいて動作する代わりに、破壊的な判断の際には即時(live)でGETを実行し、追いつくまでキャッシュを「準備ができていない」とマークします。
 `StaleControllerConsistency`は軽減策そのものを制御します(当初はKCMが大規模とみなしたコントローラーに限定されます)。
 `MonitorInformerStaleness`は観測専用の別のゲートで、informerのキャッシュが実際にどれだけ遅れているかを明らかにするためだけに、5秒ごとにapiserverを直接ポーリングします。
 `AtomicFIFO`と`UnlockWhileProcessingFIFO`は、この軽減策が依存するclient-goのワークキューの基盤部分です。
@@ -468,7 +468,7 @@ DaemonSetからPodへのリソースバージョンを追跡することで、�
 
 ### マニフェストベースのAdmission Controlの設定 {#manifest-based-admission-control-config}
 
-Kubernetesでは、`Admission Control`がAPIサーバーに受け入れられる前のリソースに対してポリシーを適用する役割を担っています。
+Kubernetesでは、Admission ControlがAPIサーバーに受け入れられる前のリソースに対してポリシーを適用する役割を担っています。
 しかし、Kubernetes APIを通じて設定されたAdmission Webhookとポリシーは、クラスターの起動時にAPIサーバーとetcdに依存しており、Admissionの設定リソース自体を保護できません。
 これはクラスターのブートストラップ中に隙を生み、十分な特権的アクセス権を持つユーザーが重要なAdmissionポリシーを変更または削除できてしまいます。
 
@@ -520,7 +520,7 @@ kubeletはこれらの割り当てをPodおよびコンテナのcgroupに適用�
 Kubernetes v1.37では、[DRAにおける導出属性](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#derived-attributes)のアルファのサポートが導入されます。
 ワークロードはCEL式を使ってデバイスの情報から仮想的な属性を作成し、関連するデバイスを選択する際にそれを利用できます。
 
-これにより、ドライバーが異なる属性名や形式を使っている場合でも、GPUやネットワークインターフェイスなどのデバイスを同じ場所に配置しやすくなります。
+これにより、ドライバーが異なる属性名や形式を使っている場合でも、GPUやネットワークインターフェースなどのデバイスを同じ場所に配置しやすくなります。
 たとえばワークロードは、共有のNUMA識別子を導出し、それを使ってトポロジーが一致するデバイスを選択できます。
 
 この取り組みは、[SIG Network](https://www.kubernetes.dev/community/community-groups/sigs/network/)の参加を得て[SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/)が主導した[KEP #6080](https://www.kubernetes.dev/resources/keps/6080/)の一環として行われました。
@@ -549,7 +549,7 @@ Kubernetes v1.37では、(オプトイン、アルファの)`InPlacePodVerticalS
 
 これもインプレースPodの垂直スケーリングを基盤とする機能で、アルファの*メモリベースのボリュームのインプレーススケーリング*はPodの`/resize`サブリソースを拡張します。
 このサブリソースはこれまで、コンテナを再起動せずにCPUとメモリを動的に調整することしかできませんでしたが、実行中のPod上でメモリベース(`medium: Memory`)の`emptyDir`ボリュームの`sizeLimit`を更新できるようになります。
-ボリュームの`sizeLimit`が`/resize`サブリソースを通じて明示的に調整されると、kubeletはコンテナを中断させることなく基盤となるtmpfsのマウントを動的に更新し、同時にメモリ不足エラーやEvictionの誤検知を安全に防ぎます。
+ボリュームの`sizeLimit`が`/resize`サブリソースを通じて明示的に調整されると、kubeletはコンテナを中断させることなく基盤となるtmpfsのマウントを動的に更新し、同時にメモリ不足エラーや退避(eviction)の誤検知を安全に防ぎます。
 これは、メモリ上のエフェメラルストレージに依存するステートフルなワークロードやメモリを大量に使うワークロードで特に有用であり、Podの再起動やアプリケーションのダウンタイムを発生させることなく、コンテナのメモリ容量と合わせてストレージの上限を動的にスケールできます。
 
 これはオプトインの、デフォルトで無効なアルファ機能です。
@@ -616,12 +616,12 @@ v1.36でバグが確認されたことを受けて無効化されていたStatef
 
 ### `nftables`のパフォーマンスの改善 {#improved-nftables-performance}
 
-kube-proxyはnftablesのルール操作に、`nft`コマンドラインツールを介さずカーネルのnetlinkインターフェイスを使用するようになりました。
+kube-proxyはnftablesのルール操作に、`nft`コマンドラインツールを介さずカーネルのnetlinkインターフェースを使用するようになりました。
 これによりkube-proxyはnftablesのルールをより効率的に検査し、管理できるようになるため、ルール管理のパフォーマンスが向上します。
 
 ### client-goにおけるコンテキストの扱いとコンテキストロギング {#context-handling-and-contextual-logging-in-client-go}
 
-client-goにおけるコンテキストの伝搬とコンテキストロギングのサポートが完了しました。
+client-goにおけるコンテキストの伝播とコンテキストロギングのサポートが完了しました。
 ただし、基盤となるAPIがコンテキストの受け渡しをサポートしていないため、グローバルなklogのロガーに依然として依存している少数の認証プラグインのログ呼び出しは例外です。
 
 ## v1.37での昇格、非推奨、削除 {#graduations-deprecations-and-removals-in-v1-37}
@@ -646,7 +646,7 @@ client-goにおけるコンテキストの伝搬とコンテキストロギン�
 - [Nodeが宣言する機能](https://www.kubernetes.dev/resources/keps/5328/)
 - [サンドボックスの作成に関するConditionの追加](https://www.kubernetes.dev/resources/keps/3085/)
 - [ストレージバージョンマイグレーターのin-treeへの移行](https://www.kubernetes.dev/resources/keps/4192/)
-- [回復力のあるウォッチキャッシュの初期化](https://www.kubernetes.dev/resources/keps/4568/)
+- [回復力のあるwatchキャッシュの初期化](https://www.kubernetes.dev/resources/keps/4568/)
 - [DRA: 標準のnumaNodeデバイス属性](https://www.kubernetes.dev/resources/keps/6072/)
 - [metrics.k8s.io APIの定義](https://www.kubernetes.dev/resources/keps/5207/)
 - [KYAML](https://www.kubernetes.dev/resources/keps/5295/)
@@ -714,8 +714,8 @@ failCgroupV1: false # 一時的なオーバーライド
 ```
 
 このオーバーライドの使用は短期的な対処と考えるべきです。
-Memory QoSやメモリベースのボリュームのインプレースなスケーリングといった高度なリソース管理機能は、cgroups v2でのみ動作します。
-このオーバーライドはKubernetes v1.37でも引き続き利用できますが、cgroups v1のサポートは将来のリリースで削除される予定のため、cgroups v2への移行を推奨します。
+Memory QoSやメモリベースのボリュームのインプレースなスケーリングといった高度なリソース管理機能は、cgroup v2でのみ動作します。
+このオーバーライドはKubernetes v1.37でも引き続き利用できますが、cgroup v1のサポートは将来のリリースで削除される予定のため、cgroup v2への移行を推奨します。
 
 この非推奨化の詳細については、[KEP #5573](https://www.kubernetes.dev/resources/keps/5573/)をご覧ください。
 
@@ -809,13 +809,13 @@ Kubernetesに関わる最も簡単な方法は、あなたの興味に合った�
 どこから始めればよいかわからない場合は、毎月開催されている[New Contributor Orientations](https://www.kubernetes.dev/docs/orientation/)に参加してください。
 プロジェクトがどのように構成されているかをコミュニティに向けて解説し、プロジェクトへの最初の貢献の進め方をご案内します。
 
-- [Kubernetesのコントリビューター](https://www.kubernetes.dev/docs/guide/)になる方法についてはこちらをご覧ください
+- Kubernetesのコントリビューターになる方法は[コントリビューターガイド](https://www.kubernetes.dev/docs/guide/)をご覧ください
 - Kubernetesの最新の動向については[ブログ](https://kubernetes.io/blog/)をご覧ください
 - [Slack](http://slack.k8s.io/)に参加してください
 - 最新情報は[Bluesky](https://bsky.app/profile/kubernetes.io)でフォローしてください
 - [LinkedIn](https://www.linkedin.com/company/kubernetes/)でフォローしてください
-- [X](https://x.com/kubernetesio)でフォローしてください
+- [X(旧Twitter)](https://x.com/kubernetesio)でフォローしてください
 - [Discuss](https://discuss.kubernetes.io/)でコミュニティディスカッションに参加してください
 - [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)で質問を投稿(または質問に回答)してください
 - あなたの[Kubernetesエンドユーザーストーリー](https://www.cncf.io/case-studies/)を共有してください
-- [Kubernetesリリースチーム](https://github.com/kubernetes/sig-release/tree/master/release-team)について
+- リリースチームについての詳細は[Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)をご覧ください
