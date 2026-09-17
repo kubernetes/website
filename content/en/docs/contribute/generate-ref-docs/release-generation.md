@@ -129,31 +129,31 @@ To keep the temporary checkout and the generation log for troubleshooting:
 KEEP_TMP=1 make updateapispec-enums-from-source
 ```
 
-### Option 2: Copy the committed specification from a local clone
+### Option 2: Generate the specification in a local clone
 
-This option needs a local `kubernetes/kubernetes` clone, and it copies the
-specification much faster.
+This option uses an existing local `kubernetes/kubernetes` clone. In that clone,
+check out tag `v$K8S_RELEASE` before changing `hack/update-openapi-spec.sh`.
 
-{{< note >}}
-The specification committed in `kubernetes/kubernetes` is generated with
-`OpenAPIEnums=false`. In your `kubernetes/kubernetes` clone, set
-`OpenAPIEnums=true` in `hack/update-openapi-spec.sh` before you regenerate the
-specification. Without it, the specification carries no enum values, and the
-published API reference omits the possible values of every enumerated field.
-{{< /note >}}
+Set `OpenAPIEnums=true` in `hack/update-openapi-spec.sh`, then run the script
+to regenerate `api/openapi-spec/swagger.json`. Generating the specification
+requires the tools and free ports described in Option 1.
 
-In your `kubernetes/kubernetes` clone, run `hack/update-openapi-spec.sh` and
-commit the regenerated `api/openapi-spec/swagger.json` at tag `v$K8S_RELEASE`.
-Then copy it into `reference-docs`:
+Copy the regenerated file from your clone's working tree into the versioned
+configuration directory created earlier. Replace the paths below with your
+local clone paths:
 
 ```shell
-export K8S_ROOT=<your-path-to>/kubernetes
-cd <rdocs-base>
-make updateapispec
+export K8S_ROOT="<your-path-to>/kubernetes"
+cd "<rdocs-base>"
+version_dir="v$(printf "%s" "$K8S_RELEASE" | cut -d. -f1,2 | tr . _)"
+cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
+  "gen-apidocs/config/$version_dir/swagger.json"
 ```
 
-The target reads the file as it is committed at that tag, not the file in your
-working tree. This is the only step on this page that reads `K8S_ROOT`.
+Do not use `make updateapispec` for this copy. That target reads
+`v$K8S_RELEASE:api/openapi-spec/swagger.json` using `git show`, so it does not
+read a locally regenerated working-tree file or a commit made after the tag.
+There is no need to commit the regenerated file or move the release tag.
 
 ### Check the specification
 
