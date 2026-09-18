@@ -349,3 +349,20 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-india/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=KubeCon-India-2026&utm_content=hero">
     Buy your ticket now! 18 - 19 June | Mumbai, India
     </a>
+
+- name: KubeCon 2026 NA
+  startTime: 2026-09-14T00:00:00 #Added in https://github.com/kubernetes/website/pull/57461
+  endTime: 2026-11-12T18:00:00
+  dismissParameters:
+    dismissible: true
+  style: >-
+    background: #113e82;
+    color: #ffffff;
+  title: |
+    <img src ="/images/announcements/kccnc-na-2026-white.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=ribbon-banner&utm_campaign=KubeCon-CloudNativeCon-NA-2026&utm_content=hero">KubeCon + CloudNativeCon North America 2026</a>
+  message: |
+    Join us for four days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/>
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=ribbon-banner&utm_campaign=KubeCon-CloudNativeCon-NA-2026&utm_content=hero">
+    Buy your ticket now! 9 - 12 November | Salt Lake City, Utah
+    </a>

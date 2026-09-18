@@ -82,7 +82,7 @@ Names of files:
 
 - `memory_manager_state` for the [Memory Manager](/docs/tasks/administer-cluster/memory-manager/)
 - `cpu_manager_state` for the [CPU Manager](/docs/tasks/administer-cluster/cpu-management-policies/)
-- `dra_manager_state` for [DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+- `dra_manager_state` for [DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 
 ### Checkpoint file for device manager {#device-manager-state}
 
@@ -138,7 +138,7 @@ On a typical Linux node, this means `/var/lib/kubelet/pod-resources`.
 
 ### DRA, CSI, and Device plugins
 
-The kubelet looks for socket files created by device plugins managed via [DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+The kubelet looks for socket files created by device plugins managed via [DRA](/docs/concepts/resource-management/dynamic-resource-allocation/),
 device manager, or storage plugins, and then attempts to connect
 to these sockets. The directory that the kubelet looks in is `plugins_registry` within the kubelet base
 directory, so on a typical Linux node this means `/var/lib/kubelet/plugins_registry`.
