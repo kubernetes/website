@@ -18,6 +18,11 @@ stages:
     defaultValue: true
     locked: false
     fromVersion: "1.36"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.37"
 ---
 Allows specifying a prioritized list of alternative devices that can be allocated to a request in
 a claim if the preferred alternative is not available. 
