@@ -26,7 +26,7 @@ translator: >
 
 {{< figure src="k8s-v1.37.svg" alt="Kubernetes v1.37 ガルワールのロゴ: ringaalに着想を得た編み込みのフレームが、雪を頂いたヒマラヤの峰々、段々畑、デオダーの木々、曲がりくねった川、1.37と記された山小屋、色とりどりの旗、ニジキジ(Himalayan monal)、そして中心にKubernetesの舵輪シンボルを持つ赤いシャクナゲ(buransh)の花を取り囲んでいる" class="release-logo" >}}
 
-Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、発音:_gaṛhvāl_)です。
+Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、発音: _gaṛhvāl_)です。
 インド・ウッタラカンド州のヒマラヤ地方です。
 雪を頂いたガルワールヒマラヤの峰々、デオダーの森、段々畑、川や小川、山道が、この地域とロゴの両方を形作っています。
 これらの要素が一体となって、あらゆるレイヤー、経路、貢献がつながっているコミュニティを反映しています。
@@ -55,7 +55,7 @@ Kubernetes v1.37のテーマは**ガルワール**(गढ़वाल、発音:_
 ## 主なアップデート情報 {#spotlight-on-key-updates}
 
 Kubernetes v1.37は新機能と改善点が満載です。
-ここでは、[リリースチーム](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)が特に注目してほしい、選りすぐりのアップデートをご紹介します!
+ここでは、[リリースチーム](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.37/release-team.md)が特に注目してほしい、選りすぐりのアップデートをご紹介します！
 
 ### 安定版: Resilient watchcache initialization {#stable-resilient-watchcache-initialization}
 
