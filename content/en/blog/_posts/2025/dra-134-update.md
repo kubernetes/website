@@ -18,7 +18,7 @@ Let's dive into what's new for DRA in Kubernetes 1.34!
 
 The headline feature of the v1.34 release is that the core of DRA has graduated to General Availability.
 
-Kubernetes [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) provides
+Kubernetes [Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/) provides
 a flexible framework for managing specialized hardware and infrastructure resources, such as GPUs or FPGAs. DRA
 provides APIs that enable each workload to specify the properties of the devices it needs, but leaving it to the
 scheduler to allocate actual devices, allowing increased reliability and improved utilization of expensive hardware.
@@ -36,7 +36,7 @@ That's because the default API version for DRA is now the stable `v1` version, a
 Several powerful features have been promoted to beta, adding more control, flexibility, and observability to resource
 management with DRA.
 
-[Admin access labelling](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access) has been updated.
+[Admin access labelling](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access) has been updated.
 In v1.34, you can restrict device support to people (or software) authorized to use it. This is meant
 as a way to avoid privilege escalation if a DRA driver grants additional privileges when admin access is requested
 and to avoid accessing devices which are in use by normal applications, potentially in another namespace.
@@ -44,7 +44,7 @@ The restriction works by ensuring that only users with access to a namespace wit
 `resource.k8s.io/admin-access: "true"` label are authorized to create
 ResourceClaim or ResourceClaimTemplates objects with the `adminAccess` field set to true. This ensures that non-admin users cannot misuse the feature.
 
-[Prioritized list](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#prioritized-list) lets users specify
+[Prioritized list](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#prioritized-list) lets users specify
 a list of acceptable devices for their workloads, rather than just a single type of device. So while the workload
 might run best on a single high-performance GPU, it might also be able to run on 2 mid-level GPUs. The scheduler will
 attempt to satisfy the alternatives in the list in order, so the workload will be allocated the best set of devices
@@ -58,13 +58,13 @@ to develop new features and integrations.
 
 Kubernetes 1.34 also introduces several new alpha features that give us a glimpse into the future of resource management with DRA.
 
-[Extended resource mapping](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support in DRA allows
+[Extended resource mapping](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource) support in DRA allows
 cluster administrators to advertise DRA-managed resources as _extended resources_, allowing developers to consume them using
 the familiar, simpler request syntax while still benefiting from dynamic allocation. This makes it possible for existing
 workloads to start using DRA without modifications, simplifying the transition to DRA for both application developers and
 cluster administrators.
 
-[Consumable capacity](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#consumable-capacity) introduces a flexible
+[Consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity) introduces a flexible
 device sharing model where multiple, independent resource claims from unrelated
 pods can each be allocated a share of the same underlying physical device. This new capability is managed through optional,
 administrator-defined sharing policies that govern how a device's total capacity is divided and enforced by the platform for
@@ -72,7 +72,7 @@ each request. This allows for sharing of devices in scenarios where pre-defined 
 
 For more information, see [Kubernetes v1.34: DRA Consumable Capacity](/blog/2025/09/18/kubernetes-v1-34-dra-consumable-capacity/)
 
-[Binding conditions](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#binding-conditions) improve scheduling
+[Binding conditions](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions) improve scheduling
 reliability for certain classes of devices by allowing the Kubernetes scheduler to delay binding a pod to a node until its
 required external resources, such as attachable devices or FPGAs, are confirmed to be fully prepared. This prevents premature
 pod assignments that could lead to failures and ensures more robust, predictable scheduling by explicitly modeling resource

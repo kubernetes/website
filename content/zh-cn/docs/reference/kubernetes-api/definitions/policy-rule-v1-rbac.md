@@ -42,7 +42,7 @@ PolicyRule 包含描述策略规则的信息，但不包含关于该规则适用
       <td><code>apiGroups</code><br/><em>string array</em></td>
       <td>
       <!--
-      APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+      apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
       -->
       apiGroups 是包含相关资源的 API 组的名称。如果指定了多个 API 组，
       则针对其中任一 API 组内所列资源发起的任何操作请求都将被允许。
@@ -53,7 +53,7 @@ PolicyRule 包含描述策略规则的信息，但不包含关于该规则适用
       <td><code>nonResourceURLs</code><br/><em>string array</em></td>
       <td>
       <!--
-      NonResourceURLs is a set of partial urls that a user should have access to. 
+      nonResourceURLs is a set of partial urls that a user should have access to. 
       *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced,
       this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding.
       Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
@@ -69,7 +69,7 @@ PolicyRule 包含描述策略规则的信息，但不包含关于该规则适用
       <td><code>resourceNames</code><br/><em>string array</em></td>
       <td>
       <!--
-      ResourceNames is an optional white list of names that the rule applies to.
+      resourceNames is an optional white list of names that the rule applies to.
       An empty set means that everything is allowed.
       -->
       resourceNames 是一个可选的名称白名单，用于指定该规则适用的对象；
@@ -80,7 +80,7 @@ PolicyRule 包含描述策略规则的信息，但不包含关于该规则适用
       <td><code>resources</code><br/><em>string array</em></td>
       <td>
       <!--
-      Resources is a list of resources this rule applies to. '\*' represents all resources.
+      resources is a list of resources this rule applies to. '\*' represents all resources.
       -->
       resources 是该规则适用的资源列表。"*" 代表所有资源。
       </td>
@@ -89,7 +89,7 @@ PolicyRule 包含描述策略规则的信息，但不包含关于该规则适用
       <td><code>verbs</code>&nbsp;<strong>*</strong><br/><em>string array</em></td>
       <td>
       <!--
-      Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule.
+      verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule.
       '\*' represents all verbs.
       -->
       verbs 是一个动词列表，适用于该规则中包含的所有 ResourceKind。

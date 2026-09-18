@@ -44,7 +44,7 @@ leader election when the feature gate and API group are enabled.
 
 Kubernetes uses the [Lease API](/docs/concepts/architecture/leases/) to perform leader election among multiple instances of the same control-plane component in a high-availability cluster, such as `kube-controller-manager` or `kube-scheduler`.
 
-A [Lease](/docs/concepts/architecture/leases/) acts as a lightweight distributed lock. stored by the [Kubernetes API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+A [Lease](/docs/concepts/architecture/leases/) acts as a lightweight distributed lock, stored by the [Kubernetes API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
 All running instances of a component watch or periodically read the relevant Lease object
 to determine which instance is currently acting as the leader.
 
@@ -77,7 +77,6 @@ During an election, candidates coordinate through a shared [Lease](/docs/concept
 The Kubernetes control plane guarantees that only one candidate successfully acquires the [Lease](/docs/concepts/architecture/leases/) and assumes the role of _leader_, while all others remain as followers. If the current _leader_ fails to renew the [Lease](/docs/concepts/architecture/leases/) within the selected timeout period, the remaining candidates compete to acquire leadership and elect a new _leader_.
 
 Once elected, the leader periodically renews its Lease by updating the `renewTime` field
-
 (for example, performing renewal every `leaseDurationSeconds` ÷ 2, in order to avoid conflicts when the [Lease](/docs/concepts/architecture/leases/) is about to expire).
 As long as renewals occur before the lease expires, the current leader instance retains leadership.
 If the leader crashes, becomes unreachable, or stops renewing the Lease, that Lease expires. Other healthy instances detect the expired Lease and attempt a new election.

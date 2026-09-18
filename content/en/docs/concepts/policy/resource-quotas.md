@@ -151,7 +151,7 @@ you can define a quota as follows:
 
 * `examplegpu.deviceclass.resource.k8s.io/devices: 4`
 
-When [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+When [Extended Resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)
 is enabled, the same device class named `examplegpu` can be requested via extended resource either explicitly
 when the device class's ExtendedResourceName field is given, say, `example.com/gpu`, then you can define a quota as follows:
 
