@@ -28,32 +28,32 @@ card:
 
 Управляют общим состоянием кластера:
 
-[kube-apiserver](https://kubernetes.io/docs/concepts/architecture/#kube-apiserver)
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
 : Основной серверный компонент, предоставляющий HTTP API Kubernetes.
 
-[etcd](https://kubernetes.io/docs/concepts/architecture/#etcd)
+[etcd](/docs/concepts/architecture/#etcd)
 : Консистентное и высокодоступное хранилище данных в формате «ключ-значение» для всех данных API-сервера.
 
-[kube-scheduler](https://kubernetes.io/docs/concepts/architecture/#kube-scheduler)
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
 : Отслеживает поды без назначенного для них узла и назначает каждому поду подходящий узел.
 
-[kube-controller-manager](https://kubernetes.io/docs/concepts/architecture/#kube-controller-manager)
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
 : Запускает {{< glossary_tooltip text="контроллеры" term_id="controller" >}} для реализации поведения API Kubernetes.
 
-[cloud-controller-manager](https://kubernetes.io/docs/concepts/architecture/#cloud-controller-manager) (необязательный компонент)
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (необязательный компонент)
 : Обеспечивает интеграцию с используемыми облачными провайдерами.
 
 ### Компоненты узла
 
 Компоненты узла работают на каждом узле, поддерживая работу подов и обеспечивая среду выполнения Kubernetes:
 
-[kubelet](https://kubernetes.io/docs/concepts/architecture/#kubelet)
+[kubelet](/docs/concepts/architecture/#kubelet)
 : Обеспечивает работу подов, включая их контейнеры.
 
-[kube-proxy](https://kubernetes.io/docs/concepts/architecture/#kube-proxy) (необязательный компонент)
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (необязательный компонент)
 : Поддерживает сетевые правила на узлах для реализации {{< glossary_tooltip text="сервисов" term_id="service" >}}.
 
-[Среда выполнения контейнера](https://kubernetes.io/docs/concepts/architecture/#container-runtime)
+[Среда выполнения контейнера](/docs/concepts/architecture/#container-runtime)
 : Программное обеспечение, предназначенное для запуска контейнеров. Подробнее читайте на странице
   [Среды выполнения контейнеров](/docs/setup/production-environment/container-runtimes/).
 
@@ -66,16 +66,16 @@ card:
 
 Дополнения расширяют функциональность Kubernetes. Вот несколько важных примеров:
 
-[DNS](https://kubernetes.io/docs/concepts/architecture/#dns)
+[DNS](/docs/concepts/architecture/#dns)
 : Для разрешения DNS-имён во всём кластере.
 
-[Веб-интерфейс](https://kubernetes.io/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
+[Веб-интерфейс](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
 : Для управления кластером через веб-интерфейс.
 
-[Мониторинг ресурсов контейнера](https://kubernetes.io/docs/concepts/architecture/#container-resource-monitoring)
+[Мониторинг ресурсов контейнера](/docs/concepts/architecture/#container-resource-monitoring)
 : Для сбора и хранения метрик контейнеров.
 
-[Логирование кластера](https://kubernetes.io/docs/concepts/architecture/#cluster-level-logging)
+[Логирование кластера](/docs/concepts/architecture/#cluster-level-logging)
 : Для сохранения логов контейнера в централизованном хранилище логов.
 
 ## Гибкость архитектуры
@@ -85,4 +85,4 @@ Kubernetes позволяет гибко подходить к развёрты�
 до масштабных развёртываний в производственной среде.
 
 Более подробную информацию о каждом компоненте и различных способах настройки архитектуры
-кластера смотрите на странице [Кластерная архитектура](https://kubernetes.io/docs/concepts/architecture/).
+кластера смотрите на странице [Кластерная архитектура](/docs/concepts/architecture/).
