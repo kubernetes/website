@@ -8,9 +8,9 @@ _build:
 stages:
   - stage: deprecated
     defaultValue: false
+    locked: true
     fromVersion: "1.33"
-
 ---
 This controls if the `gitRepo` volume plugin is supported or not.
-The `gitRepo` volume plugin is disabled by default starting v1.33 release.
-This provides a way for users to enable it.
+The `gitRepo` volume plugin has been disabled and locked to disabled since v1.33.
+It can no longer be enabled.

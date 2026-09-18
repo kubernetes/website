@@ -12,8 +12,8 @@ stages:
     toVersion: "1.32"
   - stage: deprecated
     defaultValue: false
+    locked: true
     fromVersion: "1.33"
-
 ---
 Allows the API server watch cache to create a watch on a dedicated RPC.
 This prevents watch cache from being starved by other watches.
