@@ -1,11 +1,6 @@
 ---
 title: Общие сведения о безопасности Kubernetes и раскрытии информации
 aliases: [/ru/security/]
-reviewers:
-- eparis
-- erictune
-- philips
-- jessfraz
 content_type: concept
 weight: 20
 ---

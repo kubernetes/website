@@ -1,7 +1,4 @@
 ---
-reviewers:
-- TBD
-- TBD
 title: Хуки жизненного цикла контейнеров
 content_type: concept
 weight: 30

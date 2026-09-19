@@ -1,6 +1,4 @@
 ---
-reviewers:
-- lavalamp
 title: Компоненты Kubernetes
 content_type: concept
 weight: 20

@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Контейнерное окружение
 content_type: concept
 weight: 20
