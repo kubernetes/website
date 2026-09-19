@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dra-example-driver-role-binding
+subjects:
+- kind: ServiceAccount
+  name: dra-example-driver-service-account
+  namespace: dra-tutorial
+roleRef:
+  kind: ClusterRole
+  name: dra-example-driver-role
+  apiGroup: rbac.authorization.k8s.io
