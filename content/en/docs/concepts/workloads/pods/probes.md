@@ -86,7 +86,7 @@ If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; when the Pod is deleted, the corresponding
 endpoint in the EndpointSlice will update its [conditions](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/#conditions): the endpoint ready
 condition will be set to false, so load balancers will not use the Pod for
-regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-termination/)
 for more information about how the kubelet handles Pod deletion.
 {{< /note >}}
 
