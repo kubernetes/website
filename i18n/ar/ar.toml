@@ -3,6 +3,13 @@
 
 # For "and", see [conjunction_1]
 
+[api_reference_page_related_concepts]
+one = "توثيق المفهوم لـ {{ .title }}"
+other = "صفحات المفاهيم ذات الصلة"
+
+[api_reference_title]
+other = "مرجع واجهة برمجة التطبيقات (API Reference)"
+
 [auto_generated_edit_notice]
 other = "(صفحة مولدة آلياً)"
 
@@ -10,20 +17,62 @@ other = "(صفحة مولدة آلياً)"
 other = """<p>هذه الصفحة مولدة آلياً،</p>
 <p>إذا أردت الإبلاغ عن مشكلة في هذه الصفحة، أشر إلى أنها تم توليدها آلياً عند وصف مشكلتك، لاحتمال وجود سبب المشكلة في ملف آخر في مشروع كوبيرنيتيس.</p>"""
 
+[banner_acknowledgement]
+other = "إخفاء هذا الإشعار"
+
+[blog_mirrored_originally_published_at]
+other = 'هذه نسخة طبق الأصل من <a href="{{ .canonicalUrl }}">المقالة الأصلية</a>.'
+
+[blog_post_show_more]
+other = "عرض المزيد من المنشورات..."
+
+[browser_clipboard_support_warning]
+other = "عذرًا، متصفحك لا يدعم نسخ هذا المثال إلى الحافظة."
+
+[case_study_prefix]
+other = "دراسة حالة:"
+
 [caution]
 other = "تحذير:"
+
+[china_icp_license]
+other = "ترخيص ICP:"
 
 [cleanup_heading]
 other = "جاري الترتيب"
 
-[community_events_calendar]
+[community_advice_guidelines]
+other = "يمكنك أيضًا القراءة عن {{ .link }} الخاصة بنا."
+
+[community_bluesky_fallback_text]
+other = "تابعنا على"
+
+[community_bluesky_link]
+other = "عرض على Bluesky"
+
+[community_bluesky_loading]
+other = "جارٍ تحميل آخر الأخبار من Bluesky..."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
 other = "تقويم الفعاليات"
+
+[community_contributor_site_name]
+other = "موقع المساهمين"
 
 [community_forum_name]
 other = "المنتدى"
 
 [community_github_name]
 other = "(GitHub) جيت هاب"
+
+[community_linkedin_name]
+other = "(LinkedIn) لينكد إن"
+
+[community_server_fault_name]
+other = "Server Fault"
 
 [community_slack_name]
 other = "(Slack) سلاك"
@@ -34,6 +83,9 @@ other = "(Stack Overflow) ستاك أوفرفلو"
 [community_twitter_name]
 other = "(Twitter) تويتر"
 
+[community_x_name]
+other = "(X) إكس (Twitter سابقًا)"
+
 [community_youtube_name]
 other = "(YouTube) يوتيوب"
 
@@ -43,6 +95,9 @@ other = "(YouTube) يوتيوب"
 # For example the "and" in "Complete 1.25 Schedule and Changelog"
 [conjunction_1]
 other = "و"
+
+[copy_sample_to_clipboard]
+other = "نسخ {{ .filename }} إلى الحافظة"
 
 [cve_id]
 other = "رمز تعريف الCVE"
@@ -62,20 +117,14 @@ other = "02 Jan 2006 15:04:05 MST"
 [cve_table_date_format_string]
 other = "(آخر تحديث: %s)"
 
+[deprecation_file_warning]
+other = "مهمل"
+
 [deprecation_title]
 other = "تعرض الآن وثائق كوبيرنيتيس للنسخة الآتية:"
 
 [deprecation_warning]
 other = " خارج عن الخدمة، لذلك قد تكون المعلومات في هذه الوثيقة قديمة. للاطلاع على أحدث المعلومات الرجاء رؤية "
-
-[deprecation_file_warning]
-other = "مهمل"
-
-[outdated_content_title]
-other = "قد تكون المعلومات في هذه الوثيقة قديمة"
-
-[outdated_content_message]
-other = "إن محتوى هذه الوثيقة أقدم من محتوى قرينتها الإنجليزية، وقد يكون غير صحيح. إذا كنت تعرف اللغة الإنجليزية، فارجع إلى النسخة الإنجليزية للحصول على أحدث المعلومات: "
 
 [dockershim_message]
 other = """تم إزالة Dockershim من قاعدة مشروع الكوبيرنيتيس ابتدائاً من الإصدار `v1.24`. طالع <a href="/dockershim" hreflang="en">الأسئلة الشائعة</a> لقراءة التفاصيل."""
@@ -104,6 +153,9 @@ other = "آخر إصدار"
 [docs_version_other_heading]
 other = "إصدارات أخرى"
 
+[docs_version_release_information]
+other = "معلومات الإصدار"
+
 [end_of_life]
 other = "نهاية الصلاحية:"
 
@@ -113,20 +165,60 @@ other = "متغيرات البيئة"
 [error_404_were_you_looking_for]
 other = "هل تبحث عن:"
 
+[error_copy_to_clipboard]
+other = "خطأ"
+
 [examples_heading]
 other = "أمثلة"
 
-# [feature_gate_stage_alpha]
-# other = "Alpha"
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span> منذ {{ .kubernetes }} v{{ .version }}؛ {{ .enabled_or_disabled }}"""
 
-# [feature_gate_stage_beta]
-# other = "Beta"
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span> منذ {{ .kubernetes }} v{{ .version }}"""
 
-# [feature_gate_stage_stable]
-# other = "GA"
+[feature_gate_disabled]
+other = "معطلة طبيعيًا"
 
-# [feature_gate_stage_deprecated]
-# other = "Deprecated"
+[feature_gate_enabled]
+other = "مفعلة طبيعيًا"
+
+[feature_gate_more_details]
+other = "مزيد من المعلومات حول هذه الخاصية"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>لاستخدام هذه الخاصية، ستحتاج أنت (أو مدير العنقود) إلى تفعيل بوابة الخاصية <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> لجميع المكونات ذات الصلة في عنقودك.</p>
+<p>راجع <a href="/docs/tasks/administer-cluster/configure-feature-gates/">تفعيل أو تعطيل بوابات الخاصية</a> لمزيد من المعلومات.</p>"""
+
+[feature_gate_removed_after_ga]
+other = """هذه خاصية مستقرة في {{ .kubernetes }}، وذلك منذ إصدار {{ .stableVersion }}. لم يعد بإمكانك تبديل حالة هذه الخاصية (تمت إزالة <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">بوابة الخاصية</a> المرتبطة بها)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """لم يعد {{ .kubernetes }} يتضمن هذه الخاصية / السلوك. كان آخر إصدار من {{ .kubernetes }} يتعرف على بوابة الخاصية <tt>{{ .featureGateName }}</tt> هو {{ .toVersion }}. لم يعد بإمكانك تبديل هذا الإعداد."""
+
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """لم يعد {{ .kubernetes }} يتضمن هذه الخاصية / السلوك. لم يعد بإمكانك تبديل هذا الإعداد."""
+
+[feature_gate_stable_graduated]
+other = "هذه خاصية مستقرة في {{ .kubernetes }}، وذلك منذ الإصدار {{ .stableVersion }}. كانت متوفرة لأول مرة في الإصدار v{{ .firstReleaseWithThisFeature }}."
+
+[feature_gate_stable_graduated_disabled]
+other = "بوابة الخاصية المستقرة هذه معطلة طبيعيًا. لم يعد بإمكانك تفعيل بوابة الخاصية هذه للاستفادة من السلوك المرتبط بها."
+
+[feature_gate_stable_locked]
+other = """هذه خاصية مستقرة في {{ .kubernetes }}، وذلك منذ الإصدار v{{ .stableVersion }}. كانت متوفرة لأول مرة في الإصدار v{{ .firstReleaseWithThisFeature }}. لم يعد بإمكانك تعطيل هذه الخاصية أو السلوك أو إلغاء الاشتراك فيها (إنها مقفلة)؛ إذا قمت بتعيين قيمة صريحة لبوابة الخاصية المرتبطة <tt>{{ .featureGateName }}</tt>، فسيتجاهلها {{ .kubernetes }} دون الإبلاغ عن أي خطأ."""
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_deprecated]
+other = "مهملة"
+
+[feature_gate_stage_stable]
+other = "Stable"
 
 [feature_gate_table_header_default]
 other = "مفعلة طبيعياً"
@@ -151,6 +243,12 @@ other = "إلى"
 
 [feature_state]
 other = "حالة الخاصية:"
+
+[feature_state_feature_gate_tooltip]
+other = "بوابة الخاصية:"
+
+[feature_state_kubernetes_label]
+other = "كوبيرنيتيس"
 
 [feedback_heading]
 other = "التقييم"
@@ -183,35 +281,50 @@ other = """<h4>إيقاف التمارين التفاعلية</h4>
 <p>يتقدم فريق كوبيرنيتيس بجزيل الشكر والامتنان لشركتي Katacoda وO'Reilly Media على مساعدتهما الطلاب باتخاذ اول خطوات تعلم كوبيرنيتيس.</p>
 <p>سيتم إيقاف التمارين يوم ٣١ مارس سنة ٢٠٢٣. للمزيد من التفاصيل يرجى مراجعة <a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">هذه الصفحة</a>.</p>"""
 
+[kubecon_region_china]
+other = "الصين"
+
+[kubecon_region_europe]
+other = "أوروبا"
+
+[kubecon_region_event]
+other = "الفعالية"
+
+[kubecon_region_india]
+other = "الهند"
+
+[kubecon_region_japan]
+other = "اليابان"
+
+[kubecon_region_north_america]
+other = "أمريكا الشمالية"
+
+[kubectl_ref_collapse_all]
+other = "طي الكل"
+
+[kubectl_ref_expand_all]
+other = "توسيع الكل"
+
+[kubectl_ref_search_placeholder]
+other = "ابحث في الأوامر أو الوصف (مثل config view، authorization)..."
+
+[kubectl_ref_view_full]
+other = "عرض المرجع الكامل"
+
+[kubernetes]
+other = "كوبيرنيتيس"
+
 [latest_release]
 other = "آخر إصدار:"
 
 [latest_version]
 other = "آخر نسخة."
 
-[layouts_blog_pager_next]
-other = "التالي >>"
-
-[layouts_blog_pager_prev]
-other = "<< السابق"
-
-[layouts_case_studies_list_tell]
-other = "أخبرنا بقصتك"
-
-[layouts_docs_glossary_aka]
-other = "المعروف أيضاً ب"
-
 [layout_docs_glossary_architecture_description]
 other = "العناصر والتفاصيل الداخلية لكوبيرنيتيس."
 
 [layout_docs_glossary_architecture_name]
 other = "التصميم"
-
-[layouts_docs_glossary_click_details_after]
-other = "أسفل لقراءة شرح مفصل لأي من المصطلحات"
-
-[layouts_docs_glossary_click_details_before]
-other = "انقر على المؤشرات"
 
 [layout_docs_glossary_community_description]
 other = "ما يتعلق بالتطوير المفتوح المصدر لكوبيرنيتيس."
@@ -225,20 +338,11 @@ other = "نوع مورد يدعمه كوبيرنيتيس تلقائياً."
 [layout_docs_glossary_core-object_name]
 other = "مكون أساسي"
 
-[layouts_docs_glossary_description]
-other = "يهدف هذا المعجم إلى أن يكون مصدراً حاكماً كاملاً لمعاني الكلمات المتعلقة بكوبيرنيتيس. يشمل هذا المعجم المصطلحات التقنية الخاصة بكوبيرنيتيس وأية مصطحلات عامة تفيد السياق."
-
-[layouts_docs_glossary_deselect_all]
-other = "احذف الكل"
-
 [layout_docs_glossary_extension_description]
 other = "إضافات كوبيرنيتيس المدعومة."
 
 [layout_docs_glossary_extension_name]
 other = "إضافة توسيعية"
-
-[layouts_docs_glossary_filter]
-other = "صفي المصطلحات وفقاً لوسومها"
 
 [layout_docs_glossary_fundamental_description]
 other = "ما يهم مسخدمي كوبيرنيتيس الجُدَّد."
@@ -264,9 +368,6 @@ other = "الحفاظ على أمن تطبيقات الكوبيرنيتيس."
 [layout_docs_glossary_security_name]
 other = "الأمن"
 
-[layouts_docs_glossary_select_all]
-other = "اختر الكل"
-
 [layout_docs_glossary_storage_description]
 other = "معاملة كوبيرنيتيس للبيانات الثابتة."
 
@@ -290,6 +391,36 @@ other = "تطبيق يعمل على كوبيرنيتيس."
 
 [layout_docs_glossary_workload_name]
 other = "حمل عمل"
+
+[layouts_blog_pager_next]
+other = "التالي >>"
+
+[layouts_blog_pager_prev]
+other = "<< السابق"
+
+[layouts_case_studies_list_tell]
+other = "أخبرنا بقصتك"
+
+[layouts_docs_glossary_aka]
+other = "المعروف أيضاً ب"
+
+[layouts_docs_glossary_click_details_after]
+other = "أسفل لقراءة شرح مفصل لأي من المصطلحات"
+
+[layouts_docs_glossary_click_details_before]
+other = "انقر على المؤشرات"
+
+[layouts_docs_glossary_description]
+other = "يهدف هذا المعجم إلى أن يكون مصدراً حاكماً كاملاً لمعاني الكلمات المتعلقة بكوبيرنيتيس. يشمل هذا المعجم المصطلحات التقنية الخاصة بكوبيرنيتيس وأية مصطحلات عامة تفيد السياق."
+
+[layouts_docs_glossary_deselect_all]
+other = "احذف الكل"
+
+[layouts_docs_glossary_filter]
+other = "صفي المصطلحات وفقاً لوسومها"
+
+[layouts_docs_glossary_select_all]
+other = "اختر الكل"
 
 [layouts_docs_partials_feedback_improvement]
 other = "اقتراح تحسيناً"
@@ -342,8 +473,8 @@ other = "مميزات كوبيرنيتيس"
 [main_kubeweekly_baseline]
 other = "هل أنت مهتم بتلقي آخر أخبار كوبيرنيتيس؟ سجل اشتراكك بنشرة KubeWeekly الأسبوعية."
 
-[main_kubernetes_past_link]
-other = "تصفح إصدارات النشرة"
+[main_kubeweekly_past_link]
+other = "عرض النشرات الإخبارية السابقة"
 
 [main_kubeweekly_signup]
 other = "سجل اشتراكك"
@@ -359,6 +490,9 @@ other = "اقرأ عن"
 
 [main_read_more]
 other = "اقرأ المزيد"
+
+[monthly_patch_release]
+other = "إصدار التصحيح الشهري"
 
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
@@ -376,6 +510,21 @@ other = "الإعدادات"
 [outdated_blog__message]
 other = "يعود نشر هذا المقال إلى أكثر من عام، فقد يحتوي على معلومات قديمة. تأكد من موافقة معلومات هذا المقال أحدث الوثائق المتوفرة لضمان صحتها."
 
+[outdated_content_message]
+other = "إن محتوى هذه الوثيقة أقدم من محتوى قرينتها الإنجليزية، وقد يكون غير صحيح. إذا كنت تعرف اللغة الإنجليزية، فارجع إلى النسخة الإنجليزية للحصول على أحدث المعلومات: "
+
+[outdated_content_title]
+other = "قد تكون المعلومات في هذه الوثيقة قديمة"
+
+[page_deprecated]
+other = "(صفحة قديمة)"
+
+[page_not_available_in_language]
+other = "هذه الصفحة غير متوفرة باللغة {{ .Language }}"
+
+[parentoptions_heading]
+other = "الخيارات الموروثة من الأصل"
+
 [patch_release]
 other = "الإصدار التصحيحي"
 
@@ -387,6 +536,12 @@ other = "قبل أن تبدأ"
 
 [previous_patches]
 other = "إصدارات التصحيح (patch):"
+
+[release_actively_supported]
+other = "مدعوم نشطًا"
+
+[release_announcement_blog]
+other = "منشور إعلان الإصدار"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -402,14 +557,14 @@ other = "بنيات الحاسوب"
 [release_binary_copy_link]
 other = "انسخ الرابط"
 
-# [release_binary_copy_link_certifcate]
-# other = "cert"
+[release_binary_copy_link_certifcate]
+other = "الشهادة"
 
-# [release_binary_copy_link_checksum]
-# other = "checksum"
+[release_binary_copy_link_checksum]
+other = "رمز التحقق (checksum)"
 
-# [release_binary_copy_link_signature]
-# other = "signature"
+[release_binary_copy_link_signature]
+other = "التوقيع"
 
 [release_binary_copy_link_tooltip]
 other = "انسخ إلى الحافظة"
@@ -426,20 +581,17 @@ other = "اختيارات التحميل"
 [release_binary_os]
 other = "نظام التشغيل"
 
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
 [release_binary_os_option]
 other = "أنظمة التشغيل"
 
-# [release_binary_os_darwin]
-# other = "darwin"
-
-# [release_binary_os_linux]
-# other = "linux"
-
-# [release_binary_os_windows]
-# other = "windows"
-
-[release_binary_table_caption]
-other = "حمل ملفات تشغيل مكونات كوبيرنيتيس"
+[release_binary_os_windows]
+other = "windows"
 
 # NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> placeholder.
@@ -452,11 +604,20 @@ other = """بإمكانك تحميل ملفات تشغيل كوبيرنيتيس 
 [release_binary_section_note]
 other = """لتحميل ملفات تشغيل أحد الإصدارات التصحيحية (ورموز تحققها) لنسخة <current-version> من كوبيرنيتيس، الرجاء مراجعة [سجل التغيرات](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
 
+[release_binary_table_caption]
+other = "حمل ملفات تشغيل مكونات كوبيرنيتيس"
+
 [release_binary_version]
 other = "إصدار"
 
 [release_binary_version_option]
 other = "آخر إصدار"
+
+[release_changelog]
+other = "سجل التغييرات"
+
+[release_cherry_pick_deadline]
+other = "آخر موعد للاختيار الانتقائي"
 
 [release_date_after]
 other = ")"
@@ -469,23 +630,30 @@ other = "(أُُصدر: "
 [release_date_format]
 other = "02-01-2006"
 
-[release_cherry_pick_deadline]
-other = "آخر موعد للاختيار الانتقائي"
+[release_date_format_month]
+other = "January 2006"
+
+[release_details]
+other = "عرض تفاصيل الإصدار"
+
+[release_download_page]
+other = "تحميل كوبيرنيتيس {{ .minor_version }}"
+
+[release_end_of_life]
+other = "انتهاء الصلاحية (End Of Life)"
 
 [release_end_of_life_date]
 other = "تاريخ نهاية الخدمة"
 
+[release_end_of_life_details_past]
+other = """وصل هذا الإصدار إلى نهاية صلاحيته في {{ .release_eol_date }}.
+لم يعد كوبيرنيتيس {{ .minor_version }} يتلقى تحديثات أمنية أو إصلاحات للأخطاء. يرجى الترقية إلى [إصدار مدعوم](/releases/)."""
+
 [release_full_details_initial_text]
 other = "طالع"
 
-[release_information_navbar]
-other = "تفاصيل الإصدار"
-
-[release_minor_version]
-other = "الإصدار الفرعي"
-
-[release_info_next_patch]
-other = "سيتم نشر إصدار التصحيح (patch) التالي في **%s**."
+[release_github_tag]
+other = "وسم GitHub"
 
 # Localization note: You can use Markdown here.
 # The three placeholders (in order) are:
@@ -498,43 +666,114 @@ other = "سيتم نشر إصدار التصحيح (patch) التالي في **%
 [release_info_eol]
 other = "سيوضع إصدار **%s** في وضع الصيانة في **%s**، وسيتم صيانته إلى أن تنتهي صلاحيته في **%s**."
 
+[release_info_next_patch]
+other = "سيتم نشر إصدار التصحيح (patch) التالي في **%s**."
+
+[release_information_navbar]
+other = "تفاصيل الإصدار"
+
+[release_latest_patch]
+other = "أحدث إصدار تصحيح"
+
+[release_links]
+other = "روابط ذات صلة"
+
+[release_maintenance_and_end_of_life_details_current]
+other = "يدخل كوبيرنيتيس {{ .minor_version }} وضع الصيانة في {{ .maintenance_mode_start_date }}؛ وتاريخ نهاية الصلاحية لكوبيرنيتيس {{ .minor_version }} هو {{ .release_eol_date }}."
+
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **دخل كوبيرنيتيس {{ .minor_version }} وضع الصيانة في {{ .maintenance_mode_start_date }}**.
+
+تاريخ نهاية الصلاحية لكوبيرنيتيس {{ .minor_version }} هو {{ .release_eol_date }}."""
+
+[release_maintenance_details_past]
+other = "دخل هذا الإصدار وضع الصيانة في {{ .maintenance_mode_start_date }}. تُقبل الإصلاحات الأمنية الحرجة فقط. تاريخ نهاية الصلاحية لكوبيرنيتيس {{ .minor_version }} هو {{ .release_eol_date }}. يرجى التخطيط للترقية إلى [إصدار أحدث](/releases/)."
+
+[release_maintenance_mode]
+other = "وضع الصيانة"
+
+[release_maintenance_mode_start_date]
+other = "تاريخ بدء وضع الصيانة"
+
+[release_minor_version]
+other = "الإصدار الفرعي"
+
 [release_note]
 other = "ملاحظات"
+
+[release_patch_releases_heading]
+one = "إصدار تصحيح"
+other = "إصدارات التصحيح"
+
+[release_released_on]
+other = "صدر في {{ .date }}"
 
 [release_schedule]
 other = "جدول الإصدار"
 
+[release_series_page_intro]
+other = "تقدم هذه الصفحة نظرة عامة على سلسلة إصدارات كوبيرنيتيس {{ .minor_version }}."
+
+[release_status]
+other = "حالة الإصدار"
+
 [release_target_date]
 other = "تاريخ الإصدار المستهدف"
 
-[release_changelog]
-other = "سجل التغييرات"
+[release_upcoming_patch_heading]
+other = "التصحيح القادم"
+
+[rss_link_label]
+other = "RSS"
 
 [seealso_heading]
 other = "انظر أيضاً"
 
+[sidebar_toggle_nav]
+other = "تبديل التنقل في القسم"
+
 [subscribe_button]
 other = "إشترك"
+
+[success_copy_to_clipboard]
+other = "نجاح"
 
 [synopsis_heading]
 other = "الملخص"
 
+[tab_default]
+other = "تبويب {{ . }}"
+
+[theme_locked_notice]
+other = "المظهر المخصص ثابت لهذه الصفحة"
+
 [thirdparty_message]
 other = """تعرض القائمة الآتية مشاريع من جهات خارجية تقوم ببعض الوظائف المطلوبة لعمل كوبيرنيتيس. يبرئ فريق كوبيرنيتيس نفسه من أي مسؤولية تجاه تلك المشاريع. إذا  أردت إضافة مشروعك إلى القائمة، الرجاء مراجعة <a href="/docs/contribute/style/content-guide/#third-party-content">دليل كتابة المحتوى</a> قبل رغع طلب تغيير إلى الموقع."""
-
-[thirdparty_message_edit_disclaimer]
-other = """تنويه عن المحتوى الخارجي"""
-
-
-[thirdparty_message_single_item]
-other = """&#128711; يربط هذا العنصر بمشروع أو منتج خارجي وليس جزئاً من مشروع كوبيرنيتيس. <a class="alert-more-info" href="#third-party-content-disclaimer">االتفاصيل</a>"""
 
 [thirdparty_message_disclaimer]
 other = """<p>تعرض هذه االصفحة مشاريع من جهات خارجية تقوم ببعض الوظائف المطلوبة لعمل كوبيرنيتيس، فيبرئ فريق كوبيرنيتيس نفسه من أي مسؤولية تجاه تلك المشاريع. راجع <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">دليل مواقع منظمة الحوسبة السحابية الأصيلة (CNCF)</a> للمزيد من التفصيل.</p>
 <p>عليك أيضاً قرائة <a href="/docs/contribute/style/content-guide/#third-party-content">دليل كتابة المحتوى</a> قبل طلب أي تغيير في الموقع يضيف رابط إلى موقع خارجي.</p>"""
 
-[ui_search_placeholder]
-other = "ابحث في الموقع"
+[thirdparty_message_edit_disclaimer]
+other = """تنويه عن المحتوى الخارجي"""
+
+[thirdparty_message_single_item]
+other = """&#128711; يربط هذا العنصر بمشروع أو منتج خارجي وليس جزئاً من مشروع كوبيرنيتيس. <a class="alert-more-info" href="#third-party-content-disclaimer">االتفاصيل</a>"""
+
+[thirdparty_message_vendor]
+other = """تشير العناصر الموجودة في هذه الصفحة إلى جهات خارجية غير تابعة لمشروع كوبيرنيتيس. مؤلفو مشروع كوبيرنيتيس غير مسؤولين عن منتجات أو مشاريع الجهات الخارجية تلك. لإضافة جهة، أو منتج، أو مشروع إلى هذه القائمة، يرجى قراءة <a href="/docs/contribute/style/content-guide/#third-party-content">دليل المحتوى</a> قبل إرسال التغيير. <a href="#third-party-content-disclaimer">مزيد من المعلومات.</a>"""
+
+[toast_failure_copycode]
+other = "فشل النسخ إلى الحافظة: "
+
+[toast_success_copycode]
+other = "تم النسخ إلى الحافظة: "
+
+[translated_by]
+other = "تُرجم بواسطة"
+
+[ui_search]
+other = "البحث في هذا الموقع"
 
 [version_check_mustbe]
 other = "يجب تشغيل الإصدار الآتي من كوبيرنيتيس: "
@@ -550,6 +789,9 @@ other = "الإصدارات"
 
 [warning]
 other = "تحذير:"
+
+[warning_copy_to_clipboard]
+other = "تحذير"
 
 [whatsnext_heading]
 other = "ما القادم؟"
