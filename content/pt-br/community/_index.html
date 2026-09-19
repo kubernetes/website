@@ -55,6 +55,9 @@ menu:
   <div class="community-nav-item">
     <a href="/releases"><i>Releases</i></a>
   </div>
+  <div class="community-nav-item">
+    <a href="/case-studies">Estudos de caso</a>
+  </div>
 </div>
 
 <div class="community-section" id="gallery">
@@ -83,9 +86,8 @@ menu:
     comunicação, contate o Comitê de Código de Conduta do Kubernetes através do
     e-mail <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>.
     Todos os relatos são mantidos em confidencialidade. Você pode ler
-    <a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct">sobre o comitê</a>
-    no <a href="https://github.com/kubernetes/community">repositório da comunidade do Kubernetes</a>,
-    no GitHub.</p>
+    <a href="https://github.com/kubernetes/community/tree/main/committee-code-of-conduct">sobre o comitê</a>
+    no repositório da comunidade do Kubernetes, no GitHub.</p>
   <a href="/community/code-of-conduct/" class="community-cta-button">
     <span class="community-cta">Leia mais</span>
   </a>
@@ -139,12 +141,12 @@ menu:
         solução de problemas, e muito mais.</p>
     </div>
 
-    <div id="twitter" class="community-resource">
-      <a href="https://twitter.com/kubernetesio">
-        <img src="/images/community/twitter.png" alt="Twitter">
+    <div id="bluesky" class="community-resource">
+      <a href="https://bsky.app/profile/kubernetes.io">
+        <img src="/images/community/bluesky.png" alt="Bluesky">
       </a>
-      <a href="https://twitter.com/kubernetesio">Twitter&nbsp;&#9654;</a>
-      <p><em>#kubernetesio</em></p>
+      <a href="https://bsky.app/profile/kubernetes.io">Bluesky&nbsp;&#9654;</a>
+      <p><em>@kubernetes.io</em></p>
       <p>Anúncios em tempo real de postagens no blog, eventos, notícias e ideias.</p>
     </div>
 
@@ -173,7 +175,16 @@ menu:
       <p>Com mais de 170 canais, você vai encontrar um que atenda às suas necessidades.</p>
       <details><summary><em>Precisa de um convite?</em></summary>
         Visite <a href="https://slack.k8s.io/">https://slack.k8s.io/</a>
-        para obter um convite</details>
+        para obter um convite.</details>
+    </div>
+
+    <div id="twitter" class="community-resource">
+      <a href="https://x.com/kubernetesio">
+        <img src="/images/community/x-org.png" alt="X">
+      </a>
+      <a href="https://x.com/kubernetesio">𝕏&nbsp;&#9654;</a>
+      <p><em>@kubernetesio</em></p>
+      <p>Anúncios em tempo real de postagens no blog, eventos, notícias e ideias.</p>
     </div>
   </div>
 </div>
@@ -197,7 +208,5 @@ menu:
 
 <div class="community-section community-frame" id="news">
   <h2>Notícias Recentes</h2>
-  <div class="twittercol1">
-    <a class="twitter-timeline" data-tweet-limit="1" data-width="600" data-height="800" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tuítes por kubernetesio</a>
-  </div>
+  {{< social-media-feed kind="bluesky" >}}
 </div>
