@@ -78,22 +78,88 @@ operator to use or manage a cluster.
 * [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) and
   [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
+  - `admission.k8s.io/v1`
+    - [AdmissionReview](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionReview)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
-  [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
-  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+  - `apiserver.k8s.io/v1`
+    - [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AdmissionConfiguration)
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AuthorizationConfiguration)
+    - [EgressSelectorConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)
+ 
+* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/)
+  - `apiserver.k8s.io/v1beta1`
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-AuthorizationConfiguration)
+    - [EgressSelectorConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-EgressSelectorConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)
+ 
+* [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+  - `apiserver.config.k8s.io/v1`
+    - [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AdmissionConfiguration)
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
+    - [EncryptionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-EncryptionConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-TracingConfiguration)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) and
-  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  - `eventratelimit.admission.k8s.io/v1alpha1`
+    - [Configuration](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
+* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/)
+  - `kubelet.config.k8s.io/v1alpha1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
+    - [ImagePullIntent](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-ImagePullIntent)
+    - [ImagePulledRecord](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-ImagePulledRecord)
+* [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+  - `kubelet.config.k8s.io/v1beta1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
+    - [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+    - [SerializedNodeConfigSource](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
+* [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  - `kubelet.config.k8s.io/v1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1/#kubelet-config-k8s-io-v1-CredentialProviderConfig)
 * [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+  - `credentialprovider.kubelet.k8s.io/v1`
+    - [CredentialProviderRequest](/docs/reference/config-api/kubelet-credentialprovider.v1/#credentialprovider-kubelet-k8s-io-v1-CredentialProviderRequest)
+    - [CredentialProviderResponse](/docs/reference/config-api/kubelet-credentialprovider.v1/#credentialprovider-kubelet-k8s-io-v1-CredentialProviderResponse)
 * [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+  - `kubescheduler.config.k8s.io/v1`
+    - [DefaultPreemptionArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs)
+    - [DynamicResourcesArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs)
+    - [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+    - [KubeSchedulerConfiguration](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+    - [NodeAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeAffinityArgs)
+    - [NodeResourcesBalancedAllocationArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesBalancedAllocationArgs)
+    - [NodeResourcesFitArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
+    - [PodTopologySpreadArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-PodTopologySpreadArgs)
+    - [VolumeBindingArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-VolumeBindingArgs)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+  - `kubecontrollermanager.config.k8s.io/v1alpha1`
+    - [LeaderMigrationConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
+    - [KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+  - `cloudcontrollermanager.config.k8s.io/v1alpha1`
+    - [CloudControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+  - `kubeproxy.config.k8s.io/v1alpha1`
+    - [KubeProxyConfiguration](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
-  [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
+  - `audit.k8s.io/v1`
+    - [Event](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+    - [EventList](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-EventList)
+    - [Policy](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+    - [PolicyList](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-PolicyList)
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+  - `client.authentication.k8s.io/v1beta1`
+     - [ExecCredential](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+* [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
+  - `client.authentication.k8s.io/v1`
+     - [ExecCredential](/docs/reference/config-api/client-authentication.v1/#client-authentication-k8s-io-v1-ExecCredential)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+  - `apiserver.config.k8s.io/v1`
+    - [WebhookAdmission](/docs/reference/config-api/apiserver-webhookadmission.v1/#apiserver-config-k8s-io-v1-WebhookAdmission)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
+  - `imagepolicy.k8s.io/v1alpha1`
+    - [ImageReview](/docs/reference/config-api/imagepolicy.v1alpha1/#imagepolicy-k8s-io-v1alpha1-ImageReview)
 
 ## Config API for kubeadm
 
