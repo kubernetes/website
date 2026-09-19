@@ -145,6 +145,20 @@ Example:
 * `kubectl` is supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
   (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
 
+### etcd
+
+Kubernetes uses etcd as its backing datastore. Control plane components depend
+on a supported etcd version to maintain cluster stability and data consistency.
+
+Before upgrading etcd clusters, verify that the target etcd version is supported
+by your Kubernetes version. Refer to the Kubernetes release documentation and
+official etcd upgrade guidance before performing upgrades.
+
+For more information, see:
+
+* [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+* [etcd documentation](https://etcd.io/docs/)
+
 ## Supported component upgrade order
 
 The supported version skew between components has implications on the order
