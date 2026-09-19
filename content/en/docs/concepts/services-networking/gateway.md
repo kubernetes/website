@@ -212,7 +212,7 @@ spec:
   rules:
   - matches:
     - method:
-        service: com.example
+        service: com.example.User
         method: Login
     backendRefs:
     - name: foo-svc
