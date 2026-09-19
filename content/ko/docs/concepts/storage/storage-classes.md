@@ -14,7 +14,7 @@ weight: 40
 
 <!-- overview -->
 
-이 문서는 쿠버네티스의 스토리지클래스(StorageClass) 개념을 설명한다. 이 문서를 읽기 전에
+이 문서는 쿠버네티스 스토리지클래스(StorageClass) 개념을 설명한다. 이 문서를 읽기 전에
 [볼륨](/docs/concepts/storage/volumes/)과
 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes)을 알아두는 것이 좋다.
 
@@ -24,7 +24,7 @@ weight: 40
 매핑될 수 있다. 쿠버네티스 자체는 클래스가 무엇을 나타내야 하는지
 규정하지 않는다.
 
-쿠버네티스의 스토리지 클래스 개념은 다른 일부 스토리지 시스템 설계의
+쿠버네티스 스토리지 클래스 개념은 다른 일부 스토리지 시스템 설계의
 “프로파일(profile)”과 유사하다.
 
 <!-- body -->
@@ -43,7 +43,7 @@ weight: 40
 지정할 수 있다. 자세한 내용은
 [퍼시스턴트볼륨클레임](/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)을 참고한다.
 
-다음은 스토리지클래스의 예시이다.
+다음은 스토리지클래스 예시이다.
 
 {{% code_sample file="storage/storageclass-low-latency.yaml" %}}
 
@@ -74,7 +74,7 @@ PVC에 `storageClassName`이 지정되지 않은 경우 기본 스토리지클�
 해당 PVC의 `storageClassName`은 설정되지 않은 상태로 남는다.
 
 기본 스토리지클래스가 없는 클러스터를 구성할 수 있다. 어떤 스토리지클래스도
-기본값으로 표시하지 않았고(예를 들어 클라우드 공급자가 기본값을 대신 설정하지도 않았다면),
+기본값으로 표시하지 않았다면(예를 들어 클라우드 공급자가 기본값을 대신 설정하지도 않았다면),
 쿠버네티스는 기본값이 필요한 퍼시스턴트볼륨클레임에 기본값을 적용할 수
 없다.
 
@@ -85,8 +85,8 @@ PVC에 `storageClassName`이 지정되지 않은 경우 기본 스토리지클�
 `storageClassName`이 `""`인 기존 PVC가 있는 상태에서
 기본 스토리지클래스를 구성하면 해당 PVC는 업데이트되지 않는다.
 
-`storageClassName`이 `""`인 PV에 계속 바인딩하려면,
-(기본 스토리지클래스가 있는 상태에서도), 연결된 PVC의 `storageClassName`을
+기본 스토리지클래스가 있는 상태에서도 `storageClassName`이 `""`인 PV에
+계속 바인딩하려면, 연결된 PVC의 `storageClassName`을
 `""`로 설정해야 한다.
 
 ## 프로비저너
@@ -192,11 +192,11 @@ PVC에 `storageClassName`이 지정되지 않은 경우 기본 스토리지클�
 
 다음 플러그인은 동적 프로비저닝에서 `WaitForFirstConsumer`를 지원한다.
 
-- 특정 CSI 드라이버가 지원하는 경우의 CSI 볼륨
+- CSI 볼륨(해당 CSI 드라이버가 지원하는 경우)
 
 다음 플러그인은 미리 생성된 퍼시스턴트볼륨 바인딩에서 `WaitForFirstConsumer`를 지원한다.
 
-- 특정 CSI 드라이버가 지원하는 경우의 CSI 볼륨
+- CSI 볼륨(해당 CSI 드라이버가 지원하는 경우)
 - [`local`](#로컬)
 
 {{< note >}}
@@ -244,7 +244,7 @@ Kubernetes has gone out of support -->
 쿠버네티스 프로젝트는 트리 외(out-of-tree) [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 스토리지 드라이버를 대신 사용할 것을 권장한다.
 
-다음은 AWS EBS CSI 드라이버를 위한 스토리지클래스의 예시이다.
+다음은 AWS EBS CSI 드라이버를 위한 스토리지클래스 예시이다.
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-ebs.yaml" %}}
 
@@ -337,7 +337,7 @@ vSphere CSI 스토리지클래스 프로비저너는 Tanzu 쿠버네티스 클�
    공급자를 초기화하는 데 사용되는 vSphere 구성 파일에 지정된 데이터스토어에
    볼륨이 생성된다.
 
-3. 쿠버네티스 내부의 스토리지 정책 관리
+3. 쿠버네티스 내부 스토리지 정책 관리
 
    - 기존 vCenter SPBM 정책 사용
 
@@ -352,12 +352,12 @@ vSphere CSI 스토리지클래스 프로비저너는 Tanzu 쿠버네티스 클�
      스토리지클래스에서 `storagePolicyName` 파라미터를 사용하여
      SPBM 정책을 지정할 수 있다.
 
-   - 쿠버네티스 내부의 가상 SAN 정책 지원
+   - 쿠버네티스 내부 가상 SAN 정책 지원
 
      vSphere 인프라스트럭처(VI) 관리자는 동적 볼륨 프로비저닝 중에 사용자 정의
      가상 SAN 스토리지 기능을 지정할 수 있다.
      동적 볼륨 프로비저닝 중에
-     성능과 가용성 같은 스토리지 요구 사항을 스토리지 기능의 형태로
+     성능과 가용성 같은 스토리지 요구 사항을 스토리지 기능 형태로
      정의할 수 있다. 스토리지 기능 요구 사항은 가상 SAN
      정책으로 변환되며, 퍼시스턴트볼륨(가상 디스크)이 생성될 때 이 정책은
      가상 SAN 계층으로 전달된다. 가상 디스크는
@@ -367,7 +367,7 @@ vSphere CSI 스토리지클래스 프로비저너는 Tanzu 쿠버네티스 클�
      [볼륨의 동적 프로비저닝을 위한 스토리지 정책 기반 관리](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)를
      참고한다.
 
-### Ceph RBD (사용 중단) {#ceph-rbd}
+### Ceph RBD(사용 중단) {#ceph-rbd}
 
 {{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="v1.28" >}}
@@ -417,7 +417,7 @@ Kubernetes has gone out of support -->
 쿠버네티스 프로젝트는 타사 [Azure 디스크](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 스토리지 드라이버를 대신 사용할 것을 권장한다.
 
-### Azure 파일 (사용 중단) {#azure-file}
+### Azure 파일(사용 중단) {#azure-file}
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-azure-file.yaml" %}}
 
@@ -434,7 +434,7 @@ Kubernetes has gone out of support -->
   기본값은 `azure-storage-account-<accountName>-secret`이다.
 - `readOnly`: 스토리지를 읽기 전용으로 마운트할지 나타내는 플래그.
   기본값은 false이며 읽기/쓰기 마운트를 의미한다. 이 설정은
-  볼륨마운트(VolumeMounts)의 `ReadOnly` 설정에도 영향을 준다.
+  VolumeMounts의 `ReadOnly` 설정에도 영향을 준다.
 
 스토리지 프로비저닝 중에 `secretName`으로 이름을 지정한 시크릿이
 마운트 자격증명용으로 생성된다. 클러스터에서
@@ -447,14 +447,14 @@ Kubernetes has gone out of support -->
 강력히 권장하며, 그렇지 않으면 다른 사용자가 스토리지 계정 자격증명을
 읽을 수 있기 때문이다.
 
-### Portworx 볼륨 (사용 중단) {#portworx-volume}
+### Portworx 볼륨(사용 중단) {#portworx-volume}
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-portworx-volume.yaml" %}}
 
 - `fs`: 배치할 파일 시스템: `none/xfs/ext4`(기본값: `ext4`).
-- `block_size`: Kbytes 단위의 블록 크기(기본값: `32`).
-- `repl`: 레플리케이션 팩터 `1..3`의 형태로 제공될 동기식 레플리카의 수
-  (기본값: `1`). 여기에는 `1`이 아닌
+- `block_size`: Kbytes 단위 블록 크기(기본값: `32`).
+- `repl`: 레플리케이션 팩터 `1..3` 형태로 제공될
+  동기식 레플리카 수(기본값: `1`). 여기에는 `1`이 아닌
   `"1"`과 같은 문자열이 필요하다.
 - `priority_io`: 볼륨을 고성능 스토리지에서 생성할지 또는 우선순위가 낮은
   스토리지에서 생성할지 결정한다. 값은 `high/medium/low`이다(기본값: `low`).
@@ -462,7 +462,7 @@ Kubernetes has gone out of support -->
   스냅샷은 이전 스냅샷과의 차이를 기준으로 증분되며, 0은 스냅샷을
   비활성화한다(기본값: `0`). 여기에는 `70`이 아닌
   `"70"`과 같은 문자열이 필요하다.
-- `aggregation_level`: 볼륨이 분산될 청크의 수를 지정하며,
+- `aggregation_level`: 볼륨이 분산될 청크 수를 지정하며,
   0은 집계되지 않은 볼륨을 나타낸다(기본값: `0`). 여기에는
   `0`이 아닌 `"0"`과 같은 문자열이 필요하다.
 - `ephemeral`: 마운트 해제 후 볼륨을 정리할지 아니면 영구적으로 유지할지
