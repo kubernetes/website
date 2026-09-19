@@ -36,27 +36,98 @@
     }
   }
 
-  #hamburger {
+  .td-navbar-mobile-page-toggle {
+    align-items: center;
+    border: 0;
     color: $navbar-dark-color;
+    display: flex;
+    height: 2.75rem;
+    justify-content: center;
+    inset-inline-start: 0.75rem;
+    margin-inline: 0.4rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0.75rem;
+    transition:
+      color .3s ease,
+      opacity .75s ease,
+      visibility .75s ease;
+    visibility: hidden;
+    width: 2.75rem;
 
-    &:hover:focus {
+    &:hover {
       color: $navbar-dark-hover-color;
     }
-    margin-right: 0.4rem;
-    margin-left: 0.4rem;
+
+    .td-navbar-mobile-page-toggle-icon {
+      align-items: center;
+      display: flex;
+      height: 2em;
+      justify-content: center;
+      width: 1.7em;
+
+      svg {
+        display: block;
+        height: 1.6em;
+        width: 1.6em;
+      }
+    }
+
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the mobile menu button.
+    &:focus,
+    &:active {
+      box-shadow: none;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .2rem;
+    }
+
+    @include media-breakpoint-down(lg) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .td-navbar-mobile-menu-toggle {
+    color: $navbar-dark-color;
+
+    &:hover {
+      color: $navbar-dark-hover-color;
+    }
+    margin-inline: 0.4rem;
 
     position: absolute;
     top: 0.75rem;
-    right: 0.75rem;
+    inset-inline-end: 0.75rem;
     font-size: xx-large;
 
-    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the mobile menu button.
     &:focus,
     &:active {
-      box-shadow: none !important;
+      box-shadow: none;
     }
 
-    transition: all 0.75s;
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .2rem;
+    }
+
+    transition:
+      color .3s ease,
+      opacity .75s ease,
+      visibility .75s ease;
     opacity: 0;
     overflow: hidden;
     visibility: hidden;
@@ -67,8 +138,8 @@
     }
   }
 
-/* Centers logo without offset horizontally and vertically in the navbar on small / mobile viewports */
-@include media-breakpoint-down(sm) {
+/* Centers logo without offset horizontally and vertically below the desktop nav breakpoint */
+@include media-breakpoint-down(md) {
   .navbar-brand__logo {
     position: absolute;
     left: 50%;
@@ -83,7 +154,9 @@
   background: var(--bs-body-bg) !important;
   box-shadow: 0 1px 2px var(--bs-border-color);
 
-  .navbar-nav .nav-link, #hamburger {
+  .navbar-nav .nav-link,
+  .td-navbar-mobile-page-toggle,
+  .td-navbar-mobile-menu-toggle {
     color: var(--bs-body-color);
 
     &:hover, &:focus {
@@ -135,7 +208,7 @@
 .td-light-dark-menu .td-locked-theme__label {
   position: absolute;
   top: 100%;
-  right: 0;
+  inset-inline-end: 0;
   margin-top: 0.25rem;
   padding: 0.25rem 0.5rem;
   background: var(--bs-body-bg);
@@ -157,97 +230,172 @@
 
 /* Small/Mobile viewport nav menu */
 
-.pi-pushmenu {
-  display: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
+.td-navbar-mobile-offcanvas {
+  --bs-offcanvas-width: min(400px, 100vw);
+  --bs-offcanvas-padding-x: 0;
+  --bs-offcanvas-padding-y: 0;
+  --bs-offcanvas-bg: var(--bs-body-bg);
 
-  &.on {
-    opacity: 1;
-
-    .sled {
-      width: 400px;
-      max-width: 100vw;
-    }
+  .offcanvas-header {
+    justify-content: flex-end;
+    min-height: 4rem;
+    padding: .75rem 1rem;
   }
 
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+  .offcanvas-body {
+    // Leave room for Bootstrap's focus ring so it is not clipped at the drawer edges.
+    padding: var(--bs-focus-ring-width);
+  }
+
+  .td-navbar-mobile-nav {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+
+  .nav-link,
+  .td-navbar-mobile-group-toggle,
+  .td-navbar-mobile-group-item {
+    align-items: center;
+    color: $primary;
+    display: flex;
+    font-size: 1.25rem;
+    min-height: 2.75rem;
+    padding-block: 0;
+    padding-inline: 1.25rem 3.75rem;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .sled {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--bs-body-bg);
-    overflow: auto;
-    transition: 0.3s;
+  .nav-link,
+  .td-navbar-mobile-group-toggle {
+    background: transparent;
+    border: 0;
+    text-align: start;
+  }
 
-    .content ul {
-      padding: 0;
-      margin-top: 25px;
+  .nav-link.active,
+  .nav-link .active {
+    font-weight: 600;
+  }
 
-      li {
-        position: relative;
-        display: block;
-        width: 100%;
-        min-height: 2.75rem;
-        padding: 0 60px 0 20px;
-        border-bottom: 1px solid var(--bs-border-color);
+  .td-navbar-mobile-group-toggle {
+    justify-content: space-between;
 
-        // Hides the logo that will be in the list
-        &:first-child {
-          display: none;
-        }
-
-        a {
-          display: inline-block;
-          width: 100%;
-          height: 2.75rem;
-          line-height: 2.75rem;
-          font-size: 1.25rem;
-          color: $primary;
-
-          .nav-link {
-            padding: 0;
-          }
-        }
-      }
+    .fas {
+      font-size: .875rem;
+      transition: transform .2s ease-in-out;
     }
 
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: xx-large;
+    &[aria-expanded="true"] .fas {
+      transform: rotate(180deg);
+    }
+  }
 
-      &:focus,
-      &:active {
-        box-shadow: none !important;
-      }
+  .td-navbar-mobile-group-menu {
+    .td-navbar-mobile-group-menu-inner {
+      padding: .25rem 0 .75rem;
     }
 
-    // Theme-switcher icons lose Docsy's .td-light-dark-menu wrapper during auto-burger cloning.
+    .td-navbar-mobile-group-item {
+      font-size: 1rem;
+      min-height: 2.25rem;
+      padding-inline-start: 2rem;
+      text-decoration: none;
+    }
+
     .bi {
       width: 1em;
       height: 1em;
       vertical-align: -.125em;
       fill: currentcolor;
     }
+  }
 
-    // Hide the cloned dropdown toggle itself; Light/Dark/Auto rows below already cover the choice.
-    .content ul li:has(> a > svg.theme-icon-active) {
+  button.td-navbar-mobile-group-item {
+    background: transparent;
+    border: 0;
+    text-align: start;
+
+    &[aria-pressed="true"] {
+      font-weight: 600;
+    }
+  }
+}
+
+.td-navbar-mobile-page-offcanvas {
+  --bs-offcanvas-width: min(400px, 100vw);
+  --bs-offcanvas-padding-x: 0;
+  --bs-offcanvas-padding-y: 0;
+  --bs-offcanvas-bg: var(--bs-body-bg);
+
+  // Docsy uses an undefined Bootstrap background variable at md and above;
+  // keep the responsive drawer opaque until it becomes the persistent sidebar.
+  background-color: var(--bs-offcanvas-bg);
+
+  @include media-breakpoint-down(md) {
+    // Docsy adds this inset at md and above; extend it through smaller drawers.
+    padding-top: 4rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    // Bootstrap sets `.offcanvas-lg` to `background-color: transparent !important`
+    // at lg and above, so this override also requires `!important` to restore the
+    // persistent Docsy sidebar background.
+    background-color: var(--bs-tertiary-bg) !important;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .offcanvas-header {
+      justify-content: space-between;
+      min-height: 4rem;
+      padding: .75rem 1rem;
+    }
+
+    .offcanvas-body {
+      padding: 0 1.25rem 1rem;
+    }
+
+    .td-sidebar__inner {
+      height: auto;
+      position: static;
+    }
+
+    .td-sidebar__search {
+      background: var(--bs-body-bg);
+      margin-inline: -1.25rem;
+      padding: .25rem 1.25rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .td-sidebar__toggle {
       display: none;
+    }
+
+    // The language row uses Bootstrap's `.d-block`, which sets `display` with
+    // `!important`; this declaration must match it to hide the row below lg.
+    .td-sidebar-nav > .nav-item.dropdown {
+      display: none !important;
+    }
+
+    .td-search-box {
+      width: 100%;
+    }
+
+    .td-sidebar-nav {
+      display: block;
+      margin-inline: 0;
+      max-height: none;
+      overflow: visible;
+      padding-inline-end: 0;
+    }
+
+    .td-sidebar-nav > .td-sidebar-nav__section {
+      padding-inline-start: 0;
     }
   }
 }
