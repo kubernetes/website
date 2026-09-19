@@ -28,4 +28,4 @@ https://contributor-covenant.org/version/1/2/0/
 
 ### Quy tắc ứng xử sự kiện CNCF
 
-Các sự kiện CNCF được điều hành bởi Linux Foundation [Quy tắc ứng xử] (https://events.linuxfoundation.org/code-of-conduct/) có sẵn trên trang sự kiện. Điều này được thiết kế để tương thích với chính sách trên và cũng bao gồm nhiều chi tiết hơn về cách ứng phó với các sự cố.
+Các sự kiện CNCF được điều hành bởi Linux Foundation [Quy tắc ứng xử](https://events.linuxfoundation.org/code-of-conduct/) có sẵn trên trang sự kiện. Điều này được thiết kế để tương thích với chính sách trên và cũng bao gồm nhiều chi tiết hơn về cách ứng phó với các sự cố.
