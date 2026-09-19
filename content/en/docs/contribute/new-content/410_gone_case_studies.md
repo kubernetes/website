@@ -1,5 +1,5 @@
 ---
-title: Submitting case studies
+title: Content removed
 headless: true
 toc_hide: true
 _build:
