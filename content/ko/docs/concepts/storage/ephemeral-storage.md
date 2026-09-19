@@ -10,11 +10,11 @@ weight: 95
 
 파드는 스크래치 공간, 캐싱 및 로그에 대해 임시 로컬 스토리지를 사용한다.
 kubelet은 로컬 임시 스토리지를 사용하여 컨테이너에
-[`emptyDir`](/ko/docs/concepts/storage/volumes/#emptydir)
+[`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}을 마운트하기 위해 파드에 스크래치 공간을 제공할 수 있다.
 
 kubelet은 이러한 종류의 스토리지를 사용하여
-[노드-레벨 컨테이너 로그](/ko/docs/concepts/cluster-administration/logging/#노드-레벨에서의-로깅),
+[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
 컨테이너 이미지 및 실행 중인 컨테이너의 쓰기 가능한 레이어(writeable layer)를 보유한다.
 
 {{< caution >}}
@@ -27,17 +27,17 @@ kubelet은 이러한 종류의 스토리지를 사용하여
 임시 스토리지에 대해 리소스 쿼터가 적용되려면 다음 두 가지가 필요하다:
 
 * 관리자는 네임스페이스에 임시 스토리지 리소스 쿼터를 설정해야한다.
-
-
 * 사용자는 파드 명세에 임시 스토리지 리소스의 제한값을 지정해야한다.
 
-사용자가 파드 명세에 임시 스토리지 리소스 제한을 지정하지 않으면, 임시 스토리지에 대한 리소스 쿼터는 적용되지 않는다.
+사용자가 파드 명세에 임시 스토리지 리소스 제한을 지정하지 않으면,
+임시 스토리지에 대한 리소스 쿼터는 적용되지 않는다.
+
 {{< /note >}}
 
 쿠버네티스는 파드가 사용할 수 있는 임시 로컬 스토리지의 양을
 추적, 예약 및 제한할 수 있도록 해준다.
 
-### 로컬 임시 스토리지 구성
+## 로컬 임시 스토리지 구성 {#configurations}
 
 쿠버네티스는 노드에서 로컬 임시 스토리지를 구성하는 두 가지 방법을 지원한다:
 
@@ -47,7 +47,7 @@ kubelet은 이러한 종류의 스토리지를 사용하여
  (`emptyDir` 볼륨, 쓰기 가능한 레이어, 컨테이너 이미지, 로그)를 하나의 파일시스템에 배치한다.
 
 kubelet은 또한
-[노드-레벨 컨테이너 로그](/ko/docs/concepts/cluster-administration/logging/#노드-레벨에서의-로깅)를
+[노드-레벨 컨테이너 로그](/ko/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)를
 작성하고 임시 로컬 스토리지와 유사하게 처리한다.
 
 kubelet은 구성된 로그 디렉터리 내의 파일에 로그를 기록한다
@@ -67,12 +67,12 @@ kubelet은 구성된 로그 디렉터리 내의 파일에 로그를 기록한다
  심지어 노드의 루트 파일시스템일 수도 있다.
 
 kubelet은 또한
-[노드-레벨 컨테이너 로그](/ko/docs/concepts/cluster-administration/logging/#노드-레벨에서의-로깅)를
+[노드-레벨 컨테이너 로그](/ko/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)를
 첫 번째 파일시스템에 기록하고, 임시 로컬 스토리지와 유사하게 처리한다.
 
 또한 다른 논리 스토리지 장치가 지원하는 별도의 파일시스템을 사용한다.
-이 구성에서, 컨테이너 이미지 레이어와 쓰기 가능한 레이어를 배치하도록
-kubelet에 지시하는 디렉터리는 이 두 번째 파일시스템에 있다.
+이 구성에서, 컨테이너 런타임이 이미지 레이어와
+ 쓰기 가능 레이어를 이 두 번째 파일시스템에 저장한다.
 이 저장 위치는 kubelet이 아니라 컨테이너 런타임에서 설정해야한다.
 
 첫 번째 파일시스템에는 이미지 레이어나 쓰기 가능한 레이어가 없다.
@@ -82,17 +82,17 @@ kubelet에 지시하는 디렉터리는 이 두 번째 파일시스템에 있다
 {{% /tab %}}
 {{% tab name="분할 이미지 파일시스템" %}}
 이 구성에서는 컨테이너 이미지 레이어가 별도의 파일 시스템에 저장되고,
- 컨테이너의 쓰기 가능한 레이어는 로그 및  `emptyDir`  볼륨과 같은
+ 컨테이너의 쓰기 가능한 레이어는 로그 및 `emptyDir` 볼륨과 같은
  kubelet의 임시 데이터와 동일한 파일 시스템에 저장된다.
 
-이러한 구성은 `containerfs`  축출(eviction) 신호를 지원해야 한다.
+이러한 구성은 `containerfs` 축출(eviction) 신호를 지원해야 한다.
  기능 게이트와 이 구성을 지원하는 컨테이너 런타임에 대한 자세한 내용은
  [노드-압박 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/#filesystem-signals) 문서를 참고한다.
 {{% /tab %}}
 {{< /tabs >}}
 
 [노드-압박 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/#filesystem-signals)
- 문서에서는 이러한 관측 대상 파일 시스템을  `nodefs` ,  `imagefs` ,  `containerfs` 라고 부른다.
+ 문서에서는 이러한 관측 대상 파일 시스템을 `nodefs`, `imagefs`, `containerfs` 라고 부른다.
  이 명칭들이 항상 서로 분리된 마운트 지점을 의미하는 것은 아니다.
 
 로컬 임시 스토리지에 대해 지원되는 구성 방식 중 하나로 노드를 설정하면,
@@ -102,18 +102,18 @@ kubelet에 지시하는 디렉터리는 이 두 번째 파일시스템에 있다
  리소스 제한을 적용하지 않는다.
 
 {{< note >}}
-kubelet은  tmpfs 를 사용하는  emptyDir  볼륨을
+kubelet은 `tmpfs` 를 사용하는 emptyDir 볼륨을
  로컬 임시 스토리지 사용량이 아니라 컨테이너의 메모리 사용량으로 추적한다.
 {{< /note >}}
 
 {{< note >}}
 kubelet은 지원되는 파일시스템 구성 방식에 따라 관찰할 수 있는 파일시스템에서만 임시 스토리지 사용량을 추적할 수 있다.
-`/var/lib/kubelet`,  `/var/log`, 컨테이너 런타임 저장 디렉터리와
+`/var/lib/kubelet`, `/var/log`, 컨테이너 런타임 저장 디렉터리와
  같은 경로 아래에 별도의 파일시스템을 마운트하면,
  kubelet이 임시 스토리지(ephemeral storage)를 올바르게 보고하지 못할 수 있다.
 {{< /note >}}
 
-### 로컬 임시 스토리지에 대한 요청 및 제한 설정
+## 로컬 임시 스토리지에 대한 요청 및 제한 설정 {#requests-limits}
 
 `ephemeral-storage`를 명시하여 로컬 임시 저장소를 관리할 수 있다. 
 파드의 각 컨테이너는 다음 중 하나 또는 모두를 명시할 수 있다.
@@ -132,7 +132,7 @@ Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 - `123Mi`
 
 접미사의 대소문자에 유의한다.
-`400m`의 메모리를 요청하면, 이는 0.4 바이트를 요청한 것이다.
+`400m`의 임시 스토리지를 요청하면, 이는 0.4 바이트를 요청한 것이다.
 이 사람은 아마도 400 메비바이트(mebibytes) (`400Mi`) 또는 400 메가바이트 (`400M`) 를 요청하고 싶었을 것이다.
 
 다음 예에서, 파드에 두 개의 컨테이너가 있다. 
@@ -174,7 +174,7 @@ spec:
         sizeLimit: 500Mi
 ```
 
-### `ephemeral-storage` 요청이 있는 파드의 스케줄링 방법
+## `ephemeral-storage` 요청이 있는 파드의 스케줄링 방법
 
 파드를 생성할 때, 쿠버네티스 스케줄러는 파드를 실행할 노드를 선택한다. 
 각 노드에는 파드에 제공할 수 있는 최대 임시 스토리지 공간이 있다. 
@@ -183,7 +183,7 @@ spec:
 
 스케줄러는 스케줄링된 컨테이너들의 리소스 요청량 합계가 노드의 리소스 용량보다 작도록 보장한다.
 
-### 임시 스토리지 소비 관리 {#resource-emphemeralstorage-consumption}
+## 임시 스토리지 소비 관리 {#resource-emphemeralstorage-consumption}
 
 kubelet이 로컬 임시 스토리지를 리소스로 관리하는 경우,
 kubelet은 다음에서 스토리지 사용을 측정한다.
@@ -210,7 +210,7 @@ kubelet이 로컬 임시 스토리지를 측정하지 않는 경우,
  로컬 스토리지 리소스 제한을 위반해도 축출되지 않는다.
 
 하지만 컨테이너의 쓰기 가능한 레이어, 노드 수준 로그 또는
- emptyDir  볼륨이 사용하는 파일시스템의 여유 공간이 부족해지면,
+ `emptyDir` 볼륨이 사용하는 파일시스템의 여유 공간이 부족해지면,
  노드는 스스로 로컬 스토리지가 부족한 상태라고 판단하여 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 설정한다.
  이 테인트는 해당 테인트를 명시적으로 허용하지 않는 모든 파드의 축출을 유발한다.
 
@@ -241,9 +241,9 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 
 {{% /tab %}}
 
-{{% tab name="파일시스템 프로젝트 쿼터(기본적으로 비활성화됨" %}}
+{{% tab name="파일시스템 프로젝트 쿼터" %}}
 
-{{< feature-state for_k8s_version="v1.31" state="beta" >}}
+{{< feature-state feature_gate_name="LocalStorageCapacityIsolationFSQuotaMonitoring" >}}
 
 프로젝트 쿼터는 파일시스템에서 스토리지 사용을 관리하기 위한
 운영체제 레벨의 기능이다. 쿠버네티스를 사용하면, 스토리지 사용을
@@ -272,17 +272,17 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 쿼터를 사용하여 파드의 리소스 사용량을 추적하려면
  해당 파드가 사용자 네임스페이스(user namespace) 안에서 실행되어야 한다.
  사용자 네임스페이스 내부에서는 커널이 파일시스템의  projectID  변경을 제한하므로,
- 쿼터를 통해 계산되는 스토리지 메트릭의 신뢰성이 보장된드.
+ 쿼터를 통해 계산되는 스토리지 메트릭의 신뢰성이 보장된다.
 
 프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다:
 
 * [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)의
   `featureGates` 필드 또는 `--feature-gates` 커맨드 라인 플래그를 사용하여
   `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다.
+  [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다.
 
 * `UserNamespacesSupport`
- [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있는지 확인하고,
+ [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있는지 확인하고,
  커널, CRI 구현체, OCI 런타임이 모두 사용자 네임스페이스를 지원하는지 확인해야 한다.
 
 * 루트 파일시스템(또는 선택적인 런타임 파일시스템)에
@@ -302,7 +302,7 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 프로젝트 쿼터를 사용하지 않으려면 다음을 수행해야 한다:
 
 * `LocalStorageCapacityIsolationFSQuotaMonitoring`
- [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+ [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
 를 비활성화하기 위해
 [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)
 의 `featureGates` 필드를 사용한다.
