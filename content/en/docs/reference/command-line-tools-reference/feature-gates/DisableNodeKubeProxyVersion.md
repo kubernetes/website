@@ -24,7 +24,11 @@ stages:
   - stage: deprecated
     defaultValue: true
     fromVersion: "1.33"
-
+    toVersion: "1.36"
+  - stage: deprecated
+    defaultValue: true
+    locked: true
+    fromVersion: "1.36"
 
 ---
 Disable setting the `kubeProxyVersion` field of the Node.

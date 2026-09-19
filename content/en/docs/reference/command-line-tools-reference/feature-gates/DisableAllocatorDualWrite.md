@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.38"
+
+removed: true
 
 ---
 You can enable the `MultiCIDRServiceAllocator` feature gate. The API server supports migration

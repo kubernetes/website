@@ -19,6 +19,9 @@ stages:
   defaultValue: true
   locked: true
   fromVersion: "1.35"
+  toVersion: "1.38"
+
+removed: true
 ---
 Allows usage of the values `PreferSameZone` and `PreferSameNode` in
 the Service [`trafficDistribution`](/docs/reference/networking/virtual-ips/#traffic-distribution)
