@@ -24,7 +24,7 @@ etcd 클러스터를 외부 클러스터로 간주하고 별도의 호스트에 
   하지만 kubeadm 구성 파일을 통해 포트를 구성할 수 있다.
 - 각 호스트에는 systemd와 bash 호환 셸이 설치되어 있어야 한다.
 - 각 호스트에는 [컨테이너 런타임, kubelet 및 kubeadm이 설치되어 있어야 한다](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
-- 각 호스트는 Kubernetes 컨테이너 이미지 레지스트리(`registry.k8s.io`)에 접근할 수 있거나
+- 각 호스트는 쿠버네티스 컨테이너 이미지 레지스트리(`registry.k8s.io`)에 접근할 수 있거나
   `kubeadm config images list/pull`을 사용하여 필요한 etcd 이미지를 나열하거나 가져올 수 있어야 한다.
   이 가이드에서는 kubelet이 관리하는 [스태틱(static) 파드](/docs/tasks/configure-pod-container/static-pod/)로
   etcd 인스턴스를 설정한다.
@@ -45,7 +45,7 @@ kubeadm에는 아래에서 설명하는 인증서를 생성하는 데 필요한
 
 {{< note >}}
 아래 예시에서는 IPv4 주소를 사용하지만 kubeadm, kubelet 및 etcd가 IPv6 주소를 사용하도록 구성할 수도 있다.
-Kubernetes 옵션 일부는 이중 스택을 지원하지만 etcd는 지원하지 않는다. Kubernetes 이중 스택 지원에 관한 자세한 내용은
+쿠버네티스 옵션 일부는 이중 스택을 지원하지만 etcd는 지원하지 않는다. 쿠버네티스 이중 스택 지원에 관한 자세한 내용은
 [kubeadm에서 이중 스택 지원](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)을 참고한다.
 {{< /note >}}
 
@@ -291,7 +291,7 @@ Kubernetes 옵션 일부는 이중 스택을 지원하지만 etcd는 지원하�
 1. 선택 사항: 클러스터 헬스를 확인한다.
 
     만약 `etcdctl`을 사용할 수 없다면 컨테이너 이미지 안에서 이 도구를 실행할 수 있다.
-    이 작업은 `crictl run` 같은 도구를 사용해 Kubernetes를 거치지 않고 
+    이 작업은 `crictl run` 같은 도구를 사용해 쿠버네티스를 거치지 않고
     컨테이너 런타임에서 직접 수행한다.
 
     ```sh
