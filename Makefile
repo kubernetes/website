@@ -128,6 +128,13 @@ test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
 
+.PHONY: kyaml verify-kyaml
+kyaml: ## Regenerate the KYAML rendering of the English example manifests.
+	scripts/kyaml.sh generate
+
+verify-kyaml: ## Fail if the generated KYAML examples are stale or do not match their source.
+	scripts/kyaml.sh verify
+
 .PHONY: link-checker-setup
 link-checker-image-pull:
 	$(CONTAINER_ENGINE) pull wjdp/htmltest
