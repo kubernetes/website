@@ -1,6 +1,6 @@
 ---
 title: Content removed
-headless: true
+url: /410_gone_case_studies.html
 toc_hide: true
 _build:
   list: never
