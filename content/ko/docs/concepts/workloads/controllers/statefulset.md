@@ -51,7 +51,7 @@ hide_summary: true # 섹션 인덱스에서 별도로 나열된다
 * 스테이트풀셋을 삭제 또는 스케일 다운해도 스테이트풀셋과 연관된 볼륨이 삭제되지 _않는다_.
   이는 일반적으로 스테이트풀셋과 연관된 모든 리소스를 자동으로 제거하는 것보다 더 중요한
   데이터의 안전을 보장하기 위함이다.
-* 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)가
+* 스테이트풀셋은 현재 파드의 네트워크 신원을 책임지는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)가
   필요하다.
   사용자는 이 서비스를 생성할 책임이 있다.
 * 스테이트풀셋은 삭제 시 파드 종료를 보장하지 않는다. 파드가 순차적이고 정상적으로 종료되게 하려면,
@@ -144,7 +144,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 `$(statefulset name)-$(ordinal)` 이다. 위의 예시에서 생성된 3개 파드의 이름은
 `web-0,web-1,web-2` 이다.
 스테이트풀셋은 스테이트풀셋에 있는 파드의 도메인을 제어하기 위해
-[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 사용할 수 있다.
+[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)를 사용할 수 있다.
 이 서비스가 관리하는 도메인은 `$(service name).$(namespace).svc.cluster.local`의 형식을 가지며,
 여기서 "cluster.local"은 클러스터 도메인이다.
 각 파드는 생성되면 `$(podname).$(governing service domain)` 형식을 가지고
@@ -165,7 +165,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋의 경우, �
 
 [제한사항](#제한사항) 섹션에서 언급한 것처럼 사용자는
 파드의 네트워크 신원을 책임지는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 생성할 책임이 있다.
+[헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)를 생성할 책임이 있다.
 
 다음은 클러스터 도메인, 서비스 이름, 스테이트풀셋 이름을 선택하고,
 그 선택이 스테이트풀셋 파드의 DNS 이름에 어떻게 영향을 주는지에 대한 예시이다.
