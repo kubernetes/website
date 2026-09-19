@@ -28,7 +28,8 @@ kubeadm init phase addon all [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -48,7 +49,8 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -63,7 +65,8 @@ API 服务器绑定的端口。
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -78,7 +81,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--control-plane-endpoint string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -93,7 +97,8 @@ Specify a stable IP address or DNS name for the control plane.
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -108,18 +113,15 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-NodeLocalCRISocket=true|false (default=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
-NodeLocalCRISocket=true|false (默认值=true)<br/>
-PublicKeysECDSA=true|false (已弃用 - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -129,7 +131,8 @@ RootlessControlPlane=true|false (ALPHA - 默认值=false)
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -149,7 +152,8 @@ all 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -169,7 +173,8 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -190,7 +195,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -205,7 +211,8 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--pod-network-cidr string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -225,7 +232,8 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -245,7 +253,8 @@ Use alternative range of IP address for service VIPs.
 </td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -275,7 +284,8 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--

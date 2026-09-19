@@ -145,7 +145,7 @@ klaster, używając `curl`, adresu IP węzła i zewnętrznie wystawionego portu:
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
 ```
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli używasz minikube z Docker Desktop jako sterownik
 kontenerów, potrzebny jest tunel minikube. Dzieje się tak, ponieważ
 kontenery wewnątrz Docker Desktop są izolowane od twojego komputera głównego.
@@ -168,7 +168,7 @@ Następnie użyj podanego URL-a, aby uzyskać dostęp do aplikacji:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 Otrzymaliśmy odpowiedź od serwera. Usługa jest wystawiona.
 

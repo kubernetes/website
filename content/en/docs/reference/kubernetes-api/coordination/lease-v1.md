@@ -45,7 +45,7 @@ Lease defines a lease concept.
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code><br/><em><a href="{{< ref "#LeaseSpec" >}}">LeaseSpec</a></em></td>
@@ -82,7 +82,7 @@ LeaseSpec is a specification of a Lease.
     </tr>
     <tr>
       <td><code>preferredHolder</code><br/><em>string</em></td>
-      <td>PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.</td>
+      <td>preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.</td>
     </tr>
     <tr>
       <td><code>renewTime</code><br/><em><a href="{{< ref "../definitions/micro-time-v1-meta#MicroTime" >}}">MicroTime</a></em></td>
@@ -90,7 +90,7 @@ LeaseSpec is a specification of a Lease.
     </tr>
     <tr>
       <td><code>strategy</code><br/><em>string</em></td>
-      <td>Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.</td>
+      <td>strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.</td>
     </tr>
   </tbody>
 </table>
@@ -1188,6 +1188,8 @@ GET /apis/coordination.k8s.io/v1/watch/leases
     </tr>
   </tbody>
 </table>
+
+
 
 
 

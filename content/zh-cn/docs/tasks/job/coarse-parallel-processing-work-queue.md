@@ -20,7 +20,15 @@ In this example, as each pod is created, it picks up one unit of work
 from a task queue, completes it, deletes it from the queue, and exits.
 
 Here is an overview of the steps in this example:
+-->
+本例中，你将会运行包含多个并行工作进程的 Kubernetes Job。
 
+本例中，每个 Pod 一旦被创建，会立即从任务队列中取走一个工作单元并完成它，
+然后将工作单元从队列中删除后再退出。
+
+下面是本次示例的主要步骤：
+
+<!--
 1. **Start a message queue service.**  In this example, you use RabbitMQ, but you could use another
    one.  In practice you would set up a message queue service once and reuse it for many jobs.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
@@ -28,12 +36,6 @@ Here is an overview of the steps in this example:
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
    one task from the message queue, processes it, and exits.
 -->
-本例中，你将会运行包含多个并行工作进程的 Kubernetes Job。
-
-本例中，每个 Pod 一旦被创建，会立即从任务队列中取走一个工作单元并完成它，然后将工作单元从队列中删除后再退出。
-
-下面是本次示例的主要步骤：
-
 1. **启动一个消息队列服务**。
    本例中，我们使用 RabbitMQ，你也可以用其他的消息队列服务。
    在实际工作环境中，你可以创建一次消息队列服务然后在多个任务中重复使用。
@@ -46,7 +48,6 @@ Here is an overview of the steps in this example:
    该 Job 启动多个 Pod。每个 Pod 从消息队列中取走一个任务，处理任务，然后退出。
 
 ## {{% heading "prerequisites" %}}
-
 
 <!--
 You should already be familiar with the basic,
@@ -88,7 +89,10 @@ Start RabbitMQ as follows:
 按下面的方法启动 RabbitMQ：
 
 <!--
+```shell
 # make a Service for the StatefulSet to use
+kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-service.yaml
+```
 -->
 ```shell
 # 为 StatefulSet 创建一个 Service 来使用
@@ -101,7 +105,6 @@ service "rabbitmq-service" created
 ```shell
 kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-statefulset.yaml
 ```
-
 ```
 statefulset "rabbitmq" created
 ```
@@ -122,6 +125,12 @@ First create a temporary interactive Pod.
 
 首先创建一个临时的可交互的 Pod：
 
+<!--
+```shell
+# Create a temporary interactive container
+kubectl run -i --tty temp --image ubuntu:22.04
+```
+-->
 ```shell
 # 创建一个临时的可交互的 Pod
 kubectl run -i --tty temp --image ubuntu:22.04
@@ -156,13 +165,15 @@ Next, you will check that you can discover the Service for RabbitMQ:
 接着，你将要验证可以发现 RabbitMQ 服务：
 
 <!--
+```
 # Run these commands inside the Pod
 # Note the rabbitmq-service has a DNS name, provided by Kubernetes:
--->
+nslookup rabbitmq-service
 ```
+-->
+```shell
 # 在 Pod 内运行这些命令
 # 请注意 rabbitmq-service 拥有一个由 Kubernetes 提供的 DNS 名称：
-
 nslookup rabbitmq-service
 ```
 ```
@@ -172,20 +183,24 @@ Address:    10.0.0.10#53
 Name:    rabbitmq-service.default.svc.cluster.local
 Address: 10.0.147.152
 ```
+
 <!--
 (the IP addresses will vary)
 -->
 （IP 地址会有所不同）
 
 <!--
-If the kube-dns addon is not set up correctly, the previous step may not work for you.
+If the cluster DNS is not set up correctly, the previous step may not work for you.
 You can also find the IP address for that Service in an environment variable:
 -->
-如果 kube-dns 插件没有正确安装，上一步可能会出错。
+如果集群 DNS 没有正确安装，上一步可能会出错。
 你也可以在环境变量中找到该服务的 IP 地址。
 
 <!--
+```shell
 # run this check inside the Pod
+env | grep RABBITMQ_SERVICE | grep HOST
+```
 -->
 ```shell
 # 在 Pod 内运行此检查
@@ -194,6 +209,7 @@ env | grep RABBITMQ_SERVICE | grep HOST
 ```
 RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
 ```
+
 <!--
 (the IP address will vary)
 -->
@@ -205,26 +221,29 @@ Next you will verify that you can create a queue, and publish and consume messag
 接下来，你将验证是否可以创建队列以及发布和使用消息。
 
 <!--
+```shell
 # Run these commands inside the Pod
 # In the next line, rabbitmq-service is the hostname where the rabbitmq-service
 # can be reached.  5672 is the standard port for rabbitmq.
-
+export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 # If you could not resolve "rabbitmq-service" in the previous step,
 # then use this command instead:
-# Now create a queue:
--->
+BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
+# Now create a queue:
+
+/usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d
+```
+-->
 ```shell
 # 在 Pod 内运行这些命令
 # 下一行，rabbitmq-service 是访问 rabbitmq-service 的主机名。5672是 rabbitmq 的标准端口。
-
 export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 
 # 如果上一步中你不能解析 "rabbitmq-service"，可以用下面的命令替换：
 BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
 # 现在创建队列：
-
 /usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d
 ```
 ```
@@ -233,10 +252,18 @@ foo
 
 <!--
 Publish one message to the queue:
-# And get it back.
 -->
 向队列推送一条消息：
 
+<!--
+```shell
+/usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
+
+# And get it back.
+
+/usr/bin/amqp-consume --url=$BROKER_URL -q foo -c 1 cat && echo 1>&2
+```
+-->
 ```shell
 /usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
 
@@ -293,15 +320,18 @@ data from a cluster file system (for example: HDFS).
 For this example, you will create the queue and fill it using the AMQP command line tools.
 In practice, you might write a program to fill the queue using an AMQP client library.
 -->
-
 如果有大量的数据需要被 Job 的所有 Pod 读取，典型的做法是把它们放在一个共享文件系统中，
-如 NFS（Network File System 网络文件系统），并以只读的方式挂载到所有 Pod，或者 Pod 中的程序从类似 HDFS
-（Hadoop Distributed File System 分布式文件系统）的集群文件系统中读取。
+如 NFS（Network File System 网络文件系统），并以只读的方式挂载到所有 Pod，或者 Pod 中的程序从类似
+HDFS（Hadoop Distributed File System 分布式文件系统）的集群文件系统中读取。
 
-例如，你将创建队列并使用 AMQP 命令行工具向队列中填充消息。实践中，你可以写个程序来利用 AMQP 客户端库来填充这些队列。
+例如，你将创建队列并使用 AMQP 命令行工具向队列中填充消息。实践中，你可以写个程序来利用
+AMQP 客户端库来填充这些队列。
 
 <!--
+```shell
 # Run this on your computer, not in the Pod
+/usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
+```
 -->
 ```shell
 # 在你的计算机上运行此命令，而不是在 Pod 中
@@ -310,6 +340,7 @@ In practice, you might write a program to fill the queue using an AMQP client li
 ```
 job1
 ```
+
 <!--
 Add items to the queue:
 -->
@@ -353,7 +384,6 @@ Give the script execution permission:
 chmod +x worker.py
 ```
 
-
 <!--
 Now, build an image. Make a temporary directory, change to it,
 download the [Dockerfile](/examples/application/job/rabbitmq/Dockerfile),
@@ -375,7 +405,7 @@ For the [Docker Hub](https://hub.docker.com/), tag your app image with
 your username and push to the Hub with the below commands. Replace
 `<username>` with your Hub username.
 -->
-对于 [Docker Hub](https://hub.docker.com/), 给你的应用镜像打上标签，
+对于 [Docker Hub](https://hub.docker.com/)，给你的应用镜像打上标签，
 标签为你的用户名，然后用下面的命令推送到 Hub。用你的 Hub 用户名替换 `<username>`。 
 
 ```shell
@@ -423,10 +453,13 @@ Now, run the Job:
 运行 Job：
 
 <!--
-# this assumes you downloaded and then edited the manifest already
--->
-# 这假设你已经下载并编辑了清单
 ```shell
+# this assumes you downloaded and then edited the manifest already
+kubectl apply -f ./job.yaml
+```
+-->
+```shell
+# 这假设你已经下载并编辑了清单
 kubectl apply -f ./job.yaml
 ```
 
@@ -435,6 +468,12 @@ You can wait for the Job to succeed, with a timeout:
 -->
 你可以等待 Job 在某个超时时间后成功：
 
+<!--
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
+```
+-->
 ```shell
 # 状况名称的检查不区分大小写
 kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
@@ -543,12 +582,6 @@ have been processed.  It will start additional pods which will block waiting
 for a message.
 You would need to make your own mechanism to spot when there is work
 to do and measure the size of the queue, setting the number of completions to match.
-
-There is an unlikely race with this pattern.  If the container is killed in between the time
-that the message is acknowledged by the `amqp-consume` command and the time that the container
-exits with success, or if the node crashes before the kubelet is able to post the success of the pod
-back to the API server, then the Job will not appear to be complete, even though all items
-in the queue have been processed.
 -->
 ## 友情提醒   {#caveats}
 
@@ -558,6 +591,13 @@ in the queue have been processed.
 Job 也会显示为未完成。Job 将创建 Pod 并阻塞等待消息输入。
 你需要建立自己的机制来发现何时有工作要做，并测量队列的大小，设置匹配的完成数量。
 
+<!--
+There is an unlikely race with this pattern.  If the container is killed in between the time
+that the message is acknowledged by the `amqp-consume` command and the time that the container
+exits with success, or if the node crashes before the kubelet is able to post the success of the pod
+back to the API server, then the Job will not appear to be complete, even though all items
+in the queue have been processed.
+-->
 当发生下面两种情况时，即使队列中所有的消息都处理完了，Job 也不会显示为完成状态：
 * 在 `amqp-consume` 命令拿到消息和容器成功退出之间的时间段内，执行杀死容器操作；
 * 在 kubelet 向 API 服务器传回 Pod 成功运行之前，发生节点崩溃。

@@ -300,7 +300,7 @@ To protect your compute at runtime, you can:
 5. 使用提供安全限制的
    {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
 6. 在 Linux 节点上，使用 Linux 安全模式，例如 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)
-  或者 [seccomp](zh-cn/docs/tutorials/security/seccomp/)。
+  或者 [seccomp](/zh-cn/docs/tutorials/security/seccomp/)。
 
 <!--
 ### Runtime protection: storage {#protection-runtime-storage}

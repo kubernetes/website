@@ -69,6 +69,10 @@ ResourcePoolStatusRequestSpec defines the filters for the pool status request.
   <thead><tr><th>Field</th><th>Description</th></tr></thead>
   <tbody>
     <tr>
+      <td><code>defaultPartitionTypeAttribute</code><br/><em>string</em></td>
+      <td>DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.  A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.  Must include the domain qualifier.</td>
+    </tr>
+    <tr>
       <td><code>driver</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").</td>
     </tr>
@@ -138,6 +142,35 @@ ResourcePoolStatusRequestList is a collection of ResourcePoolStatusRequests.
 </table>
 
 
+## PartitionTypeStatus {#PartitionTypeStatus}
+
+PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>allocatable</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.</td>
+    </tr>
+    <tr>
+      <td><code>attribute</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.</td>
+    </tr>
+    <tr>
+      <td><code>total</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>Total is the number of devices of this partition type in the pool.</td>
+    </tr>
+    <tr>
+      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>Type is the partition type value (e.g. "Full" or "Half").</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## PoolStatus {#PoolStatus}
 
 PoolStatus contains status information for a single resource pool.
@@ -168,12 +201,20 @@ PoolStatus contains status information for a single resource pool.
       <td>NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).</td>
     </tr>
     <tr>
+      <td><code>partitionSummary</code><br/><em><a href="{{< ref "#PartitionTypeStatus" >}}">PartitionTypeStatus array</a></em></td>
+      <td>PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.</td>
+    </tr>
+    <tr>
       <td><code>poolName</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").</td>
     </tr>
     <tr>
       <td><code>resourceSliceCount</code><br/><em>integer</em></td>
       <td>ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.</td>
+    </tr>
+    <tr>
+      <td><code>shareableSummary</code><br/><em><a href="{{< ref "#ShareableSummaryStatus" >}}">ShareableSummaryStatus</a></em></td>
+      <td>ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.</td>
     </tr>
     <tr>
       <td><code>totalDevices</code><br/><em>integer</em></td>
@@ -186,6 +227,60 @@ PoolStatus contains status information for a single resource pool.
     <tr>
       <td><code>validationError</code><br/><em>string</em></td>
       <td>ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## ShareableCapacityStatus {#ShareableCapacityStatus}
+
+ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>available</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>Available is Total minus Consumed, never negative.</td>
+    </tr>
+    <tr>
+      <td><code>consumed</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>Consumed is the amount drawn by current allocations.</td>
+    </tr>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>Name is the capacity name.</td>
+    </tr>
+    <tr>
+      <td><code>total</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/quantity-resource#Quantity" >}}">Quantity</a></em></td>
+      <td>Total is the sum of this capacity across shareable devices in the pool.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## ShareableSummaryStatus {#ShareableSummaryStatus}
+
+ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>capacity</code><br/><em><a href="{{< ref "#ShareableCapacityStatus" >}}">ShareableCapacityStatus array</a></em></td>
+      <td>Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.</td>
+    </tr>
+    <tr>
+      <td><code>fullyAvailableDevices</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>FullyAvailableDevices is the number of shareable devices with no capacity consumed.</td>
+    </tr>
+    <tr>
+      <td><code>partiallyAvailableDevices</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td>PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.</td>
     </tr>
   </tbody>
 </table>
@@ -1214,6 +1309,8 @@ PUT /apis/resource.k8s.io/v1alpha3/resourcepoolstatusrequests/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

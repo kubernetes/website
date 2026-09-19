@@ -27,7 +27,8 @@ in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
 Each stage is exposed in an extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 -->
-调度模板（Profile）允许你配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+调度模板（Profile）允许你配置
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 中的不同调度阶段。每个阶段都暴露于某个扩展点中。插件通过实现一个或多个扩展点来提供调度行为。
 
 <!--
@@ -74,7 +75,8 @@ Each stage is exposed in an [extension point](#extension-points).
 [Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
 or more of these extension points.
 -->
-通过调度配置文件，你可以配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+通过调度配置文件，你可以配置
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 在不同阶段的调度行为。每个阶段都在一个[扩展点](#extension-points)中公开。
 [调度插件](#scheduling-plugins)通过实现一个或多个扩展点，来提供调度行为。
 
@@ -137,54 +139,67 @@ extension points:
 <!--
 1. `postFilter`: These plugins are called in their configured order when no
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
-   Pod _schedulable_, the remaining plugins are not called.
+   Pod _schedulable_, the remaining plugins are not called. These plugins are not
+   applicable for pods being scheduled as part of PodGroup scheduling.
 --> 
 6. `postFilter`：当无法为 Pod 找到可用节点时，按照这些插件的配置顺序调用他们。
-   如果任何 `postFilter` 插件将 Pod 标记为**可调度**，则不会调用其余插件。
+   如果任何 `postFilter` 插件将 Pod 标记为**可调度**，则不会调用其余插件。这些插件不适用于作为
+   PodGroup 调度一部分进行调度的 Pod。
+<!--
+1. `podGroupPostFilter`: These plugins are called in their configured order when no
+   feasible placement is found for the pod group. If any `podGroupPostFilter` plugin marks
+   the pod group as _schedulable_, the remaining plugins are not called. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
+-->
+7. `podGroupPostFilter`：当无法为 Pod 组找到可行的放置方案时，
+   这些插件将按配置顺序被调用。如果某个 `podGroupPostFilter`
+   插件将该 Pod 组标记为“可调度”（_schedulable_），则不再调用后续插件。
+   该扩展点仅适用于 PodGroup 调度，且要求启用工作负载（Workload）调度特性。
 <!--
 1. `preScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 -->
-7. `preScore`：这是一个信息扩展点，可用于预打分工作。
+8. `preScore`：这是一个信息扩展点，可用于预打分工作。
 <!--
 1. `score`: These plugins provide a score to each node that has passed the
    filtering phase. The scheduler will then select the node with the highest
    weighted scores sum.
 -->
-8. `score`：这些插件给通过筛选阶段的节点打分。调度器会选择得分最高的节点。
+9. `score`：这些插件给通过筛选阶段的节点打分。调度器会选择得分最高的节点。
 <!--
 1. `reserve`: This is an informational extension point that notifies plugins
    when resources have been reserved for a given Pod. Plugins also implement an
    `Unreserve` call that gets called in the case of failure during or after
    `Reserve`.
 -->
-9. `reserve`：这是一个信息扩展点，当资源已经预留给 Pod 时，会通知插件。
+10. `reserve`：这是一个信息扩展点，当资源已经预留给 Pod 时，会通知插件。
    这些插件还实现了 `Unreserve` 接口，在 `Reserve` 期间或之后出现故障时调用。
 <!--
 1. `permit`: These plugins can prevent or delay the binding of a Pod.
 -->
-10. `permit`：这些插件可以阻止或延迟 Pod 绑定。
+11. `permit`：这些插件可以阻止或延迟 Pod 绑定。
 <!--
 1. `preBind`: These plugins perform any work required before a Pod is bound.
 -->
-11. `preBind`：这些插件在 Pod 绑定节点之前执行。
+12. `preBind`：这些插件在 Pod 绑定节点之前执行。
 <!--
 1. `bind`: The plugins bind a Pod to a Node. `bind` plugins are called in order
    and once one has done the binding, the remaining plugins are skipped. At
    least one bind plugin is required.
 -->
-12. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，
+13. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，
    其余插件都会跳过。`bind` 插件至少需要一个。
 <!--
 1. `postBind`: This is an informational extension point that is called after
    a Pod has been bound.
 -->
-13. `postBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
+14. `postBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
 <!--
 1. `multiPoint`: This is a config-only field that allows plugins to be enabled
    or disabled for all of their applicable extension points simultaneously.
 -->
-14. `multiPoint`：这是一个仅配置字段，允许同时为所有适用的扩展点启用或禁用插件。
+15. `multiPoint`：这是一个仅配置字段，允许同时为所有适用的扩展点启用或禁用插件。
 
 <!--
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
@@ -320,7 +335,8 @@ extension points:
   {{< glossary_tooltip text="volumes" term_id="volume" >}}.
   Extension points: `preFilter`, `filter`, `reserve`, `preBind`, `score`.
 -->
-- `VolumeBinding`：检查节点是否有请求的卷，或是否可以绑定请求的{{< glossary_tooltip text="卷" term_id="volume" >}}。
+- `VolumeBinding`：检查节点是否有请求的卷，
+  或是否可以绑定请求的{{< glossary_tooltip text="卷" term_id="volume" >}}。
   实现的扩展点：`preFilter`、`filter`、`reserve`、`preBind` 和 `score`。
 
   {{< note >}}
@@ -419,11 +435,11 @@ extension points:
 
 <!--
 - `DefaultPreemption`: Provides the default preemption mechanism.
-  Extension points: `postFilter`.
+  Extension points: `postFilter`, `podGroupPostFilter`.
 -->
 - `DefaultPreemption`：提供默认的抢占机制。
 
-  实现的扩展点：`postFilter`。
+  实现的扩展点：`postFilter`、`podGroupPostFilter`。
 
 <!--
 - `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
@@ -878,8 +894,8 @@ as well as its seamless integration with the existing methods for configuring ex
 <!--
 * The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
-* 调度器插件 `NodeLabel` 已弃用；
-  相反，要使用 [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+* 调度器插件 `NodeLabel` 已弃用；相反，要使用
+  [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
   插件（默认启用）来实现类似的行为。
 
 <!--
