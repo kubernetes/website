@@ -13,6 +13,10 @@ stages:
   - stage: beta 
     defaultValue: false
     fromVersion: "1.35"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 Enables the migration of the [storage
 version](/docs/concepts/overview/working-with-objects/storage-version) of a
