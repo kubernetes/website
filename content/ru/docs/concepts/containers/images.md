@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Образы
 content_type: concept
 weight: 10

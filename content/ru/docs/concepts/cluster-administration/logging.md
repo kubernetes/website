@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Архитектура для сбора логов
 content_type: concept
 weight: 60
