@@ -28,7 +28,7 @@ Specify compute resource requirements (CPU, memory) for any resource that define
 
 对于每类计算资源，如果只指定限制值而省略请求值，则请求值将被默认设置为限制值。
 
-可能的资源包括（不区分大小写）：使用 "kubectl api-resources" 查看受支持资源的完整列表。
+可能的资源包括（不区分大小写）：使用 `kubectl api-resources` 查看受支持资源的完整列表。
 
 ```shell
 kubectl set resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS & --requests=REQUESTS]
@@ -52,13 +52,13 @@ kubectl set resources -f path/to/file.yaml --limits=cpu=200m,memory=512Mi --loca
 ```shell
 # 将 Deployment nginx 中容器 nginx 的 CPU 限制设置为 "200m"， 将内存限制设置为 "512Mi"
 kubectl set resources deployment nginx -c=nginx --limits=cpu=200m,memory=512Mi
-  
+
 # 为 nginx 中的所有容器设置资源请求和限制
 kubectl set resources deployment nginx --limits=cpu=200m,memory=512Mi --requests=cpu=100m,memory=256Mi
-  
+
 # 移除 nginx 中容器对资源的资源请求
 kubectl set resources deployment nginx --limits=cpu=0,memory=0 --requests=cpu=0,memory=0
-  
+
 # 打印基于本地清单更新 nginx 容器限制的结果（以 YAML 格式），不向服务器发送请求
 kubectl set resources -f path/to/file.yaml --limits=cpu=200m,memory=512Mi --local -o yaml
 ```
@@ -210,7 +210,7 @@ The resource requirement requests for this container.  For example, 'cpu=100m,me
 <!--
 If true, set resources will NOT contact api-server but run locally.
 -->
-如果为真，`set resources` 将不会与 API 服务器通信，而是在本地运行。
+如果为真，<code>set resources</code> 将不会与 API 服务器通信，而是在本地运行。
 </p>
 </td>
 </tr>
@@ -251,7 +251,7 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-The resource requirement requests for this container.  For example, 'cpu=100m,memory=256Mi'.  Note that server side components may assign requests depending on the server configuration, such as limit ranges.
+The resource requirement requests for this container. For example, 'cpu=100m,memory=256Mi'.  Note that server side components may assign requests depending on the server configuration, such as limit ranges.
 -->
 指定容器的资源请求。例如，“cpu=100m,memory=256Mi”。
 请注意，服务器端组件可能会根据服务器配置（例如 LimitRange）分配请求。
@@ -284,7 +284,7 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为真，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
+如果为真，在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
 </p>
 </td>
 </tr>
@@ -298,7 +298,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
+当 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p>
 </td>
@@ -364,7 +364,7 @@ UID to impersonate for the operation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--  
+<!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 --> 
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
@@ -373,7 +373,7 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -507,8 +507,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性来禁用此功能。
 </p>
 </td>
 </tr>
@@ -556,7 +556,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "none"-->默认值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -570,7 +570,7 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默认值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -584,7 +584,21 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -594,7 +608,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -607,11 +622,12 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -620,11 +636,12 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -633,11 +650,12 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -645,8 +663,9 @@ database name
 <!--
 database host:port
 -->
-数据库 host:port。
-</p></td>
+数据库 <code>host:port</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -659,7 +678,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -672,7 +692,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -685,7 +706,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -698,7 +720,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -725,7 +748,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -738,7 +762,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -751,31 +776,36 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
