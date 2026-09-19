@@ -40,6 +40,17 @@ For more information, see the Kubernetes [patch releases](/releases/patch-releas
 
 ## Supported version skew
 
+### etcd
+
+The Kubernetes API server supports the following versions of etcd:
+
+| Kubernetes version | Supported etcd versions |
+|--------------------|-------------------------|
+| 1.33               | 3.6.x (recommended), 3.5.x |
+| 1.32               | 3.6.x, 3.5.x            |
+| 1.31               | 3.5.x                   |
+| 1.30               | 3.5.x                   |
+
 ### kube-apiserver
 
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/),
