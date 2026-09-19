@@ -81,7 +81,11 @@ due to a voluntary disruption.
 - Restartable Batch Job:
   - Concern: Job needs to complete in case of voluntary disruption.
     - Possible solution: Do not create a PDB. The Job controller will create a replacement pod.
-
+- Workloads using Horizontal Pod Autoscaler (HPA) or Vertical Pod Autoscaler (VPA):
+  - Concern: Autoscaling may reduce the number of replicas below a fixed `minAvailable` value, which can block voluntary disruptions.
+  - Explanation: If `minAvailable` is set to an absolute number and the autoscaler scales the workload below that value, the number of allowed disruptions becomes 0. This can prevent operations such as node drains.
+  - Solution: Prefer using `maxUnavailable` (for example, `maxUnavailable: 1`). This ensures that at least one Pod can be disrupted at a time regardless of the current replica count.
+    
 ### Rounding logic when specifying percentages
 
 Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as a percentage.
