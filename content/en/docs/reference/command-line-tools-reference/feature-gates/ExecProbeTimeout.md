@@ -8,7 +8,12 @@ _build:
 stages:
   - stage: stable
     defaultValue: true
-    fromVersion: "1.20"  
+    fromVersion: "1.20"
+    toVersion: "1.34"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.35"
 ---
 Ensure kubelet respects exec probe timeouts.
 This feature gate exists in case any of your existing workloads depend on a

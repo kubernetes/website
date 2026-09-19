@@ -9,6 +9,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.35"
+    toVersion: "1.35"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Allows for the observed generation to be tracked in CRD conditions. Setting to
 false will make it so CRD conditions will have the observed generation wiped.
