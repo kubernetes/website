@@ -16,8 +16,6 @@ Case studies require extensive review before they're approved.
 
 <!-- body -->
 
-## Submit a case study
-
 Have a look at the
 [existing case studies](https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes).
 
