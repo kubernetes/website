@@ -131,29 +131,48 @@ KEEP_TMP=1 make updateapispec-enums-from-source
 
 ### Option 2: Generate the specification in a local clone
 
-This option uses an existing local `kubernetes/kubernetes` clone. In that clone,
-check out tag `v$K8S_RELEASE` before changing `hack/update-openapi-spec.sh`.
+Use this option when you already have a `kubernetes/kubernetes` clone and do
+not want a second one. You skip cloning, but still run the same generator as
+Option 1, and it modifies your clone.
 
-Set `OpenAPIEnums=true` in `hack/update-openapi-spec.sh`, then run the script
-to regenerate `api/openapi-spec/swagger.json`. Generating the specification
-requires the tools and free ports described in Option 1.
-
-Copy the regenerated file from your clone's working tree into the versioned
-configuration directory created earlier. Replace the paths below with your
-local clone paths:
+Commit or stash any existing changes in your clone before continuing.
+Replace the path below with your local clone path, then check out the release
+tag:
 
 ```shell
 export K8S_ROOT="<your-path-to>/kubernetes"
-cd "<rdocs-base>"
-version_dir="v$(printf "%s" "$K8S_RELEASE" | cut -d. -f1,2 | tr . _)"
-cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
-  "gen-apidocs/config/$version_dir/swagger.json"
+cd "$K8S_ROOT"
+git checkout "v$K8S_RELEASE"
 ```
 
-Do not use `make updateapispec` for this copy. That target reads
-`v$K8S_RELEASE:api/openapi-spec/swagger.json` using `git show`, so it does not
-read a locally regenerated working-tree file or a commit made after the tag.
-There is no need to commit the regenerated file or move the release tag.
+Then set `OpenAPIEnums=true` in `hack/update-openapi-spec.sh` and run it to
+regenerate `api/openapi-spec/swagger.json`. This requires the tools and free
+ports described in Option 1:
+
+```shell
+hack/update-openapi-spec.sh
+```
+
+{{< note >}}
+Without `OpenAPIEnums=true`, the specification carries no enum values, and the
+published API reference omits the possible values of every enumerated field.
+{{< /note >}}
+
+After generation, restore the script:
+
+```shell
+git checkout -- hack/update-openapi-spec.sh
+```
+
+Copy the regenerated specification from your clone's working tree into the
+versioned configuration directory created earlier. Replace `<rdocs-base>`
+with the path to your `reference-docs` clone:
+
+```shell
+cd "<rdocs-base>"
+cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
+  gen-apidocs/config/v{{< skew currentVersionAddMinor 1 "_" >}}/swagger.json
+```
 
 ### Check the specification
 
