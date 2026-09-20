@@ -3,11 +3,10 @@ layout: blog
 title: "Spotlight on SIG Apps"
 slug: sig-apps-spotlight
 canonicalUrl: https://www.kubernetes.dev/blog/2026/09/22/sig-apps-spotlight/
-draft: true
+date: 2026-09-22T10:00:00-08:00
 author: "Natalie Fisher (VMware by Broadcom)" 
 ---
 
-## Spotlight on SIG Apps
 
 As Kubernetes adoption has grown, the conversation has shifted beyond running containers to managing increasingly complex application lifecycles. Modern platforms support stateless web services, stateful databases, batch processing, AI workloads, and platform services. At the same time, they must remain reliable during upgrades, scaling events, and infrastructure failures.
 
@@ -23,7 +22,7 @@ In this spotlight, we sit down with two of the three SIG Apps chairs [**Janet Ku
 
 Janet Kuo: I'm a Senior Staff Software Engineer at Google and have been a Kubernetes maintainer since 2015, joining the community just as we were racing toward the 1.0 launch. In those early days, my focus was on building the core Workloads API, specifically developing controllers like Deployment, ReplicaSet, StatefulSet, and DaemonSet, defining their rollout behaviors, and bringing them from initial designs to GA. That hands-on work was my entry point into SIG Apps.
 
-Since then, I've stayed deeply involved in both the technical and community sides of Kubernetes. I have led SIG Apps as Co-Chair and Tech Lead since 2019\. Currently, in addition to maintaining the workloads API, I am driving new subprojects like the [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) to ensure Kubernetes is ready for next-generation agentic and AI workloads.
+Since then, I've stayed deeply involved in both the technical and community sides of Kubernetes. I have led SIG Apps as Co-Chair and Tech Lead since 2019. Currently, in addition to maintaining the workloads API, I am driving new subprojects like the [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) to ensure Kubernetes is ready for next-generation agentic and AI workloads.
 
 Maciej Szulik: I started contributing to Kubernetes all the way [back in 2014](https://github.com/kubernetes/kubernetes/pull/3065). Since then, I've worked across various areas of the project: controllers, kubectl, and apimachinery, which eventually led me to become one of the Chairs and Tech Leads for SIG Apps. My current focus is reliability of the workload controllers under the SIG Apps umbrella and stability and ease of use of kubectl as part of my SIG CLI Tech Lead role. I also care about overall community health and growth as part of my Steering Committee role. Outside of Kubernetes, I work as a Staff Platform Engineer at Defense Unicorns, where I'm helping make Kubernetes more airgap-native with a project called [zarf](https://zarf.dev/).
 
