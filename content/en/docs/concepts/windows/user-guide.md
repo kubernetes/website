@@ -287,11 +287,11 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
                cpu: 1
                memory: 800Mi
              requests:
-               cpu: .1
+               cpu: 100m
                memory: 300Mi
            ports:
              - containerPort: 80
-    selector:
+     selector:
        matchLabels:
          app: iis-2019
    ---
