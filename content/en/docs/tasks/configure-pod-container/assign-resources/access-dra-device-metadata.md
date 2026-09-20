@@ -1,23 +1,23 @@
 ---
 title: Access DRA Device Metadata
 content_type: task
-min-kubernetes-server-version: v1.36
+min-kubernetes-server-version: v1.37
 weight: 30
 ---
 
-{{< feature-state state="alpha" for_k8s_version="v1.36" >}}
+{{< feature-state state="beta" for_k8s_version="v1.37" >}}
 
 <!-- overview -->
 
 This page shows you how to access
-[device metadata](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)
+[device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
 from containers that use _dynamic resource allocation (DRA)_. Device metadata
 lets workloads discover information about allocated devices such as device
-attributes or network interface details — by reading JSON files at
+attributes or network interface details by reading JSON files at
 well-known paths inside the container.
 
 Before reading this page, familiarize yourself with
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)
 and how to
 [allocate devices to workloads](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
 
@@ -31,9 +31,12 @@ and how to
   drivers. For more information, see
   [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 * Ensure that the DRA driver deployed in your cluster supports device metadata.
-  Drivers that use the [DRA kubelet plugin](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin) enable the `EnableDeviceMetadata` and
-  `MetadataVersions` options when starting the plugin. Check the driver's
-  documentation for details.
+  Driver authors who use the
+  [DRA kubelet plugin](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
+  enable support with
+  [`EnableDeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#EnableDeviceMetadata)
+  and must include `metadata.resource.k8s.io/v1beta1` in the selected versions.
+  A driver can also emit `v1alpha1` for compatibility with older consumers.
 
 ## Access device metadata with a ResourceClaim {#access-metadata-resourceclaim}
 
@@ -71,7 +74,7 @@ device metadata files appear inside the container at:
    /var/run/kubernetes.io/dra-device-attributes/resourceclaims/gpu-claim/gpu/gpu.example.com-metadata.json
    {
      "kind": "DeviceMetadata",
-     "apiVersion": "metadata.resource.k8s.io/v1alpha1",
+     "apiVersion": "metadata.resource.k8s.io/v1beta1",
      ...
    }
    ```
@@ -83,9 +86,14 @@ device metadata files appear inside the container at:
      cat /var/run/kubernetes.io/dra-device-attributes/resourceclaims/gpu-claim/gpu/gpu.example.com-metadata.json
    ```
 
-   The output is a JSON object containing device attributes like the model,
-   driver version, and device UUID. See
-   [metadata schema](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata-schema)
+   A metadata file is a JSON stream. It contains one object for each API
+   version selected by the driver, in the order configured by the driver.
+   Drivers should put the newest version first. The objects contain equivalent
+   device metadata, so the command might print more than one JSON object.
+
+   The output contains device attributes such as the model, driver version,
+   and device UUID. Device capacities are not part of the metadata schema. See
+   [metadata schema](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata-schema)
    for details on the JSON structure.
 
 ## Access device metadata with a ResourceClaimTemplate {#access-metadata-template}
@@ -127,11 +135,13 @@ The `<podClaimName>` corresponds to the `name` field in the Pod's
 
 ### Go applications
 
-The `k8s.io/dynamic-resource-allocation/devicemetadata` package provides
-ready-made functions for reading metadata files. These functions handle
-version negotiation automatically, decoding the metadata stream and converting
-it to internal types so your code works across schema versions without manual
-version checks.
+The
+[`k8s.io/dynamic-resource-allocation/devicemetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata)
+package provides ready-made functions for reading metadata files. These
+functions handle version negotiation automatically, decoding the metadata
+stream and converting it to internal types so your code works across schema
+versions without manual version checks. They skip objects with unknown API
+versions and return the first compatible object.
 
 For a directly referenced ResourceClaim:
 
@@ -154,11 +164,55 @@ file:
 dm, err := devicemetadata.ReadResourceClaimMetadataWithDriverName("gpu.example.com", "gpu-claim", "gpu")
 ```
 
-The returned `*metadata.DeviceMetadata` contains the claim metadata, requests,
-and per-device attributes.
+The functions that read all drivers return a `*metadata.DeviceMetadata` with
+merged requests and per-device attributes. The functions that accept a driver
+name return the complete metadata object from that driver's file.
 
-Applications in other languages can read the JSON file directly and inspect
-the `apiVersion` field to determine the schema version before parsing.
+The read helper functions decode metadata without validating it. To opt in to
+validation, open the file and use
+[`DecodeMetadataFromStream`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata#DecodeMetadataFromStream):
+
+```go
+import (
+	"encoding/json"
+	"os"
+
+	"k8s.io/dynamic-resource-allocation/api/metadata"
+	"k8s.io/dynamic-resource-allocation/devicemetadata"
+)
+
+func readMetadata(path string) (*metadata.DeviceMetadata, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var deviceMetadata metadata.DeviceMetadata
+	var validationErr error
+	err = devicemetadata.DecodeMetadataFromStream(
+		json.NewDecoder(file),
+		&deviceMetadata,
+		devicemetadata.DecodeMetadataWithValidationResult(&validationErr),
+	)
+	if err != nil {
+		return nil, err
+	}
+	if validationErr != nil {
+		return nil, validationErr
+	}
+	return &deviceMetadata, nil
+}
+```
+
+Decoding and validation have separate results. A validation error does not
+prevent the decoder from populating `deviceMetadata`. Validation is useful when
+metadata comes from a custom driver because the DRA kubelet plugin does not
+validate objects before writing them.
+
+Applications in other languages can decode the JSON stream one object at a
+time, inspect each `apiVersion`, skip unknown versions, and use the first
+version that they support.
 
 ## Clean up {#clean-up}
 
@@ -171,7 +225,7 @@ kubectl delete -f https://k8s.io/examples/dra/dra-device-metadata-template-pod.y
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA device metadata](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)
+* [Learn more about DRA device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
 * [Allocate devices to workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 * For more information on the design, see
   [KEP-5304](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5304-dra-attributes-downward-api).

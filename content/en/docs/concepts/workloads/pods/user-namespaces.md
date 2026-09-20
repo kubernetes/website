@@ -66,7 +66,7 @@ on GitHub.
 
 ## Introduction
 
-User namespaces is a Linux feature that allows to map users in the container to
+User namespaces is a Linux feature that allows you to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
@@ -120,7 +120,7 @@ isolate the users in the container from the users in the node.
 
 This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
-therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
+therefore tools like `apt`, `dnf`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you
 check which user the container process is running by executing `ps aux` from
 the host. The user `ps` shows is not the same as the user you see if you
@@ -210,6 +210,22 @@ these entries for the `kubelet` user:
 
 kubelet:65536:7208960
 ```
+
+### Note if you reconfigure a node
+
+If you have an existing node that is running pods with user-namespaces and want to make the
+aforementioned configurations, here are some important notes.
+
+The configuration should be changed when no pods using user-namespaces are running on the node.
+When changing this in a node that is running any Pods with user namespaces,
+you need to first {{< glossary_tooltip text="drain" term_id="drain" >}} the
+node before applying the configuration and restarting the kubelet. 
+When you drain the node, bear in mind that DaemonSet Pods, or other Pods
+that tolerate the unschedulable taint will **not** be evicted.
+
+The reason why no pods using user-namespaces can be running is that they can be using any range,
+potentially outside the new configured range. The kubelet will fail to start if it can't honor the
+new configuration for existing pods on the node.
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow

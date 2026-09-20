@@ -72,7 +72,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 <tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
-<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+<td>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
@@ -242,7 +242,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 <tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
-<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+<td>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
@@ -427,7 +427,7 @@ image represented by this record is being requested.</p>
     
   
 <tr><td><code>lastUpdatedTime</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>LastUpdatedTime is the time of the last update to this record</p>
@@ -838,10 +838,9 @@ Default: &quot;4h&quot;</p>
 </td>
 <td>
    <p>nodeStatusUpdateFrequency is the frequency that kubelet computes node
-status. If node lease feature is not enabled, it is also the frequency that
-kubelet posts node status to master.
-Note: When node lease feature is not enabled, be cautious when changing the
-constant, it must work with nodeMonitorGracePeriod in nodecontroller.
+status and checks if an update to the API server is necessary. Status
+is posted to the API server either when it changes or when
+nodeStatusReportFrequency has elapsed since the last report.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -850,10 +849,11 @@ Default: &quot;10s&quot;</p>
 </td>
 <td>
    <p>nodeStatusReportFrequency is the frequency that kubelet posts node
-status to master if node status does not change. Kubelet will ignore this
-frequency and post node status immediately if any change is detected. It is
-only used when node lease feature is enabled. nodeStatusReportFrequency's
-default value is 5m. But if nodeStatusUpdateFrequency is set explicitly,
+status to the API server if node status does not change. Kubelet will
+ignore this frequency and post node status immediately if any change
+is detected.
+nodeStatusReportFrequency's default value is 5m. But if
+nodeStatusUpdateFrequency is set explicitly,
 nodeStatusReportFrequency's default value will be set to
 nodeStatusUpdateFrequency for backward compatibility.
 Default: &quot;5m&quot;</p>
@@ -1541,6 +1541,16 @@ and <code>net.*</code>. For example: &quot;<code>kernel.msg*,net.ipv4.route.min_
 Default: []</p>
 </td>
 </tr>
+<tr><td><code>defaultPodSysctls</code><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <p>DefaultPodSysctls is a set of default sysctls that will be applied to all pods.
+It can be overridden by sysctls set in pod spec.securityContext.sysctls.
+Support namespaced groups: <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>, <code>net.*</code>, <code>kernel.domainname</code>, and <code>user.*</code>.
+For example: {&quot;net.ipv4.ip_forward&quot;: &quot;1&quot;, &quot;kernel.shmall&quot;: &quot;1048576&quot;}</p>
+</td>
+</tr>
 <tr><td><code>volumePluginDir</code><br/>
 <code>string</code>
 </td>
@@ -1718,9 +1728,9 @@ Default: false</p>
    <p>MemoryThrottlingFactor specifies the factor multiplied by the memory limit or node allocatable memory
 when setting the cgroupv2 memory.high value to enforce MemoryQoS.
 Decreasing this factor will set lower high limit for container cgroups and put heavier reclaim pressure
-while increasing will put less reclaim pressure.
+while increasing will put less reclaim pressure. If nil, memory.high is not set.
 See https://kep.k8s.io/2570 for more details.
-Default: 0.9</p>
+Default: nil</p>
 </td>
 </tr>
 <tr><td><code>memoryReservationPolicy</code><br/>
@@ -1737,7 +1747,7 @@ Default: None</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1835,7 +1845,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -2366,7 +2376,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>

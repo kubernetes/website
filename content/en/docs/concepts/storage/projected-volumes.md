@@ -76,12 +76,6 @@ volume mount will not receive updates for those volume sources.
 
 {{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
-{{< note >}}
-To use this feature in Kubernetes {{< skew currentVersion >}}, you must enable support for ClusterTrustBundle objects
-with the `ClusterTrustBundle` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and
-`--runtime-config=certificates.k8s.io/v1beta1/clustertrustbundles=true` kube-apiserver flag,
-then enable the `ClusterTrustBundleProjection` feature gate.
-{{< /note >}}
 
 The `clusterTrustBundle` projected volume source injects the contents of one or more
 [ClusterTrustBundle](/docs/reference/access-authn-authz/certificate-signing-requests#cluster-trust-bundles)
@@ -113,12 +107,6 @@ and the pod will start up with an empty file at `path`.
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
-{{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
-Certificates using the `PodCertificateRequest` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
-kube-apiserver flag.
-{{< /note >}}
 
 The `podCertificate` projected volumes source securely provisions a private key
 and X.509 certificate chain for pod to use as client or server credentials.

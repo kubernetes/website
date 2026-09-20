@@ -53,7 +53,7 @@ following limitations:
   pods.
 * **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager
   support pod-level resources when the `PodLevelResourceManagers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled. See [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+  is enabled. See [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)
   for more details. Without this feature gate enabled, they do not align pods
   and containers based on pod-level resources.
 * **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
@@ -300,4 +300,4 @@ kubectl delete namespace pod-resources-example
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)
+* [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)

@@ -9,7 +9,9 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1beta1"
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "PodCertificateRequest"
+- apiVersion: "certificates.k8s.io/v1"
   kind: "ClusterTrustBundle"  
 content_type: concept
 weight: 60
@@ -22,7 +24,7 @@ Kubernetes certificate and trust bundle APIs enable automation of
 a programmatic interface for clients of the Kubernetes API to request and obtain
 X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}} from a Certificate Authority (CA).
 
-There is also experimental (alpha) support for distributing [trust bundles](#cluster-trust-bundles).
+There is also support for distributing [trust bundles](#cluster-trust-bundles).
 
 <!-- body -->
 
@@ -397,13 +399,6 @@ status:
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
-{{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
-Certificates using the `PodCertificateRequest` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
-kube-apiserver flag.
-{{< /note >}}
 
 PodCertificateRequests are API objects tailored to provisioning certificates to
 workloads running as Pods within a cluster.  The user typically does not
@@ -504,13 +499,6 @@ this 15-minute limit.
 
 {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
-{{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-_and_ the `certificates.k8s.io/v1alpha1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
-this API.
-{{< /note >}}
 
 A ClusterTrustBundles is a cluster-scoped object for distributing X.509 trust
 anchors (root certificates) to workloads within the cluster. They're designed
@@ -552,7 +540,7 @@ kubectl get clustertrustbundles --as='system:serviceaccount:mynamespace:default'
 Signer-linked ClusterTrustBundles are associated with a _signer name_, like this:
 
 ```yaml
-apiVersion: certificates.k8s.io/v1alpha1
+apiVersion: certificates.k8s.io/v1
 kind: ClusterTrustBundle
 metadata:
   name: example.com:mysigner:foo
@@ -586,7 +574,7 @@ by a combination of a
 Signer-unlinked ClusterTrustBundles have an empty `spec.signerName` field, like this:
 
 ```yaml
-apiVersion: certificates.k8s.io/v1alpha1
+apiVersion: certificates.k8s.io/v1
 kind: ClusterTrustBundle
 metadata:
   name: foo

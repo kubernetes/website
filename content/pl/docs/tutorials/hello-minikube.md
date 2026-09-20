@@ -23,9 +23,9 @@ obraz kontenera, który korzysta z NGINX, aby wyświetlić z powrotem wszystkie 
 
 Ten tutorial zakłada, że masz już skonfigurowane narzędzie `minikube`. Instrukcje instalacji
 znajdziesz w __Kroku 1__ dokumentacji [minikube start](https://minikube.sigs.k8s.io/docs/start/).
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Wykonaj tylko instrukcje zawarte w kroku 1, Instalacja. Reszta jest opisana na tej stronie.
-{{< /note >}}
+{{< /alert >}}
 
 Dodatkowo wymagane jest zainstalowanie `kubectl`. Szczegółowe instrukcje
 instalacji dostępne są w sekcji [Install tools](/docs/tasks/tools/#kubectl).
@@ -71,7 +71,7 @@ minikube dashboard
 
 Teraz wróć do terminala, w którym uruchomiłeś `minikube start`.
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Polecenie `dashboard` uruchamia dodatek panelu i otwiera proxy w domyślnej
 przeglądarce. W panelu można tworzyć różne obiekty Kubernetesa, takie jak _Deployment_ czy _Serwis_.
 
@@ -83,7 +83,7 @@ Panel jest domyślnie dostępny jedynie z wewnętrznej sieci Kubernetesa. Polece
 Aby zatrzymać proxy, wciśnij `Ctrl+C` i zakończ proces. Panel ciągle
 działa na klastrze Kubernetesa, nawet po przerwaniu działania proxy. Aby dostać się
 ponownie do panelu, trzeba stworzyć kolejne proxy poleceniem `dashboard`.
-{{< /note >}}
+{{< /alert >}}
 
 {{% /tab %}}
 {{% tab name="URL copy and paste" %}}
@@ -161,9 +161,9 @@ działać. Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i
 
 1. Pobierz logi aplikacji z kontenera działającego w podzie (użyj nazwy poda zwróconej przez polecenie `kubectl get pods`).
 
-   {{< note >}}
+   {{< alert color="info" title="Informacja" >}}
    Zastąp `hello-node-5f76cf6ccf-br9b5` w poleceniu `kubectl logs` nazwą poda z wyniku polecenia `kubectl get pods`.
-   {{< /note >}}
+   {{< /alert >}}
 
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -177,9 +177,9 @@ działać. Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i
    ```
 
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/reference/kubectl/).
-{{< /note >}}
+{{< /alert >}}
 
 ## Stwórz Serwis {#create-a-service}
 
@@ -188,11 +188,11 @@ wewnątrz klastra Kubernetes. Aby kontener `hello-node` był
 osiągalny spoza wirtualnej sieci Kubernetesa, musisz najpierw udostępnić
 Pod jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
-{{< warning >}}
+{{< alert color="danger" title="Ostrzeżenie" >}}
 Kontener agnhost udostępnia endpoint /shell, który jest przydatny do
 debugowania, ale niebezpieczny w przypadku wystawienia w publicznym internecie. Nie uruchamiaj
 go na klastrze dostępnym z internetu ani w środowisku produkcyjnym.
-{{< /warning >}}
+{{< /alert >}}
 
 1. Udostępnij Pod w Internecie przy pomocy polecenia `kubectl expose`:
 

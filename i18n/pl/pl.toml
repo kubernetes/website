@@ -19,6 +19,9 @@ other = """<p>Ta strona została utworzona automatycznie. Jeśli chcesz zgłosi�
 [banner_acknowledgement]
 other = "Ukryj to powiadomienie"
 
+[blog_mirrored_originally_published_at]
+other = 'Kopia <a href="{{ .canonicalUrl }}">artykułu</a>.'
+
 [blog_post_show_more]
 other = "Pokaż więcej wpisów..."
 

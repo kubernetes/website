@@ -70,7 +70,7 @@ to prevent accidental escalation. You can make roles specific to your use case i
 
 Consult the [authorization reference section](/docs/reference/access-authn-authz/authorization/) for more information.
 
-If your cluster uses [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+If your cluster uses [Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/),
 review DRA synthetic subresource authorization (`resourceclaims/binding` and
 `resourceclaims/driver`) and grant only the minimum required verbs to each
 component. For details, see

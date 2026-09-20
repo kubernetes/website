@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.36"
+    toVersion: "1.36"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 When enabled, the PVC protection controller adds an `Unused` condition to
 PersistentVolumeClaims that tracks whether the PVC is currently referenced by

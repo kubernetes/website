@@ -230,7 +230,7 @@ In order to verify whether the node supports the `noswap` option, the kubelet wi
   * If the `noswap` option is not supported, kubelet will emit a warning log entry,
     then continue its execution.
 
-See the [section above](#setting-up-encrypted-swap) with an example for setting unencrypted swap.
+See [Configuring swap memory on Kubernetes nodes](/docs/tutorials/cluster-management/provision-swap-memory/) for an example of setting up swap.
 However, handling encrypted swap is not within the scope of kubelet;
 rather, it is a general OS configuration concern and should be addressed at that level.
 It is the administrator's responsibility to provision encrypted swap to mitigate this risk.

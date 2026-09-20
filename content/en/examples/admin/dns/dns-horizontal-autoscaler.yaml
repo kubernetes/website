@@ -74,7 +74,7 @@ spec:
           - /cluster-proportional-autoscaler
           - --namespace=kube-system
           - --configmap=kube-dns-autoscaler
-          # Should keep target in sync with cluster/addons/dns/kube-dns.yaml.base
+          # Should keep target in sync with cluster/addons/dns/coredns/coredns.yaml.base
           - --target=<SCALE_TARGET>
           # When cluster is using large nodes(with more cores), "coresPerReplica" should dominate.
           # If using small nodes, "nodesPerReplica" should dominate.

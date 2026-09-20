@@ -18,7 +18,7 @@ stages:
     defaultValue: true
     fromVersion: "1.36"
 ---
-Enables support for requesting [admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access)
+Enables support for requesting [admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 in a ResourceClaim or a ResourceClaimTemplate. Admin access grants access to
 in-use devices and may enable additional permissions when making the device
 available in a container. Starting with Kubernetes v1.33, only users authorized

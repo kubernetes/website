@@ -206,7 +206,8 @@ to the Gateway by the implementation's controller. This address is used as a net
 processing traffic of backend network endpoints defined in routes.
 
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
-reference for a full definition of this API kind.
+reference for a full definition of this API kind. For guidance on configuring HTTPS/TLS listeners, see the
+[Gateway API TLS Guide](https://gateway-api.sigs.k8s.io/guides/tls/).
 -->
 在此示例中，流量处理基础设施的实例被编程为监听 80 端口上的 HTTP 流量。
 由于未指定 `addresses` 字段，因此对应实现的控制器负责将地址或主机名设置到 Gateway 之上。
@@ -214,6 +215,8 @@ reference for a full definition of this API kind.
 
 有关此类 API 的完整定义，请参阅
 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
+有关配置 HTTPS/TLS 监听器的指导，请参阅
+[Gateway API TLS 指南](https://gateway-api.sigs.k8s.io/guides/tls/)。
 
 {{< note >}}
 <!--
@@ -354,7 +357,7 @@ to forward the traffic to the correct backend. Since there is only one match spe
 for the com.example.User.Login method to svc.example.com will be forwarded.
 RPCs of any other method` will not be matched by this Route.
 
-See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
 reference for a full definition of this API kind.
 -->
 在这种情况下，GRPCRoute 将匹配发往 `svc.example.com` 的所有流量，
@@ -363,7 +366,7 @@ reference for a full definition of this API kind.
 其他请求方法的 RPC 调用都不会被此路由匹配。
 
 有关这种 API 类别的完整定义，请参阅
-[GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute) 参考文档。
+[GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute) 参考文档。
 
 <!-- 
 ## Request flow
@@ -410,7 +413,7 @@ Gateway API covers a broad set of features and is widely implemented. This combi
 clear conformance definitions and tests to ensure that the API provides a consistent experience
 wherever it is used.
 
-See the [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) documentation to
+See the [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) documentation to
 understand details such as release channels, support levels, and running conformance tests.
 -->
 ## 标准合规性 {#conformance}
@@ -418,7 +421,7 @@ understand details such as release channels, support levels, and running conform
 Gateway API 涵盖广泛的功能并得到广泛实现。
 这种组合需要明确的标准合规性定义和测试，以确保 API 在任何地方使用时都能提供一致的体验。
 
-请参阅[合规性](https://gateway-api.sigs.k8s.io/concepts/conformance/)相关的文档，
+请参阅[合规性](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/)相关的文档，
 以了解发布渠道、支持级别和运行合规性测试等详细信息。
 
 <!-- 
