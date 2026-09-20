@@ -9,7 +9,7 @@ weight: 34
 ---
 
 <!-- overview -->
-노드 인가는 kubelet이 생성한 API 요청을 특별히 인가하는
+노드 인가는 kubelet이 생성한 API 요청에 한해 적용되는
 특수 목적의 인가 모드다.
 
 
