@@ -83,7 +83,7 @@ sysctl net.ipv4.ip_forward
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
 그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용 해야 하는데, 이는
-[파드 및 컨테이너 자원 관리](/docs/concepts/configuration/manage-resources-containers/)가 수정될 수 있도록 하고
+[파드 및 컨테이너 리소스 관리](/docs/concepts/configuration/manage-resources-containers/)를 적용하고
 cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
 그룹과 상호작용하기 위해서는, kubelet과 컨테이너 런타임이 *cgroup 드라이버*를 사용해야 한다.
 매우 중요한 점은, kubelet과 컨테이너 런타임이 같은 cgroup 드라이버를
@@ -96,7 +96,7 @@ cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설
 
 ### cgroupfs 드라이버 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 드라이버는 kubelet의 기본 cgroup 드라이버이다. `cgroupfs`
+`cgroupfs` 드라이버는 [kubelet의 기본 cgroup 드라이버](/docs/reference/config-api/kubelet-config.v1beta1)이다. `cgroupfs`
 드라이버가 사용될 때, kubelet과 컨테이너 런타임은 직접적으로 
 cgroup 파일시스템과 상호작용하여 cgroup들을 설정한다.
 
@@ -135,11 +135,6 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
-{{< note >}}
-v1.22 이후부터는 kubeadm으로 클러스터를 생성할 때 사용자가 `KubeletConfiguration` 하위의
-`cgroupDriver` 필드를 설정하지 않으면, kubeadm이 기본값으로 `systemd`를 사용한다.
-{{< /note >}}
-
 `systemd`를 kubelet의 cgroup 드라이버로 구성했다면, 반드시
 컨테이너 런타임의 cgroup 드라이버 또한 `systemd`로 설정해야 한다. 자세한 설명은
 컨테이너 런타임에 대한 문서를 참조한다. 예를 들면 다음과 같다.
@@ -162,20 +157,14 @@ v1.22 이후부터는 kubeadm으로 클러스터를 생성할 때 사용자가 `
 오래된 containerd 버전은 최신 kubelet에서 동작하지 않게 된다.
 
 {{< caution >}}
-클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 신중하게 수행해야 한다.
+클러스터에 결합되어 있는 노드의 cgroup 드라이버를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
 컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
-kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
+kubelet을 재시작해도 이러한 오류가 해결되지 않을 수 있다.
 
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
-
-
-### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
-
-기존에 kubeadm으로 생성한 클러스터의 cgroup 드라이버를 `systemd`로 변경하려면,
-[cgroup 드라이버 설정하기](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
 
 ## CRI 버전 지원 {#cri-versions}
 
@@ -255,9 +244,6 @@ containerd 설정을 초기화한 뒤,
 ```shell
 sudo systemctl restart containerd
 ```
-
-kubeadm을 사용하는 경우,
-[kubelet용 cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)를 수동으로 구성한다.
 
 쿠버네티스 v1.28에서는 cgroup 드라이버 자동 감지를 알파 기능으로
 활성화할 수 있다. 자세한 내용은 [systemd cgroup 드라이버](#systemd-cgroup-driver)를
