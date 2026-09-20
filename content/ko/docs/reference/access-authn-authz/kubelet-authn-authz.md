@@ -15,7 +15,7 @@ kubelet의 HTTPS 엔드포인트는 다양한 민감도의 데이터에 대한 �
 
 ## Kubelet 인증
 
-기본적으로, 다른 구성의 인증 방법에 의해 거부되지 않은 kubelet의 HTTPS 엔드포인트에 대한 요청은
+기본적으로, 구성된 다른 인증 방법에 의해 거부되지 않은 kubelet의 HTTPS 엔드포인트에 대한 요청은
 익명의 요청으로 처리되며, 사용자 이름은 `system:anonymous`,
 그룹은 `system:unauthenticated`로 지정된다.
 
@@ -25,7 +25,7 @@ kubelet의 HTTPS 엔드포인트는 다양한 민감도의 데이터에 대한 �
 
 kubelet의 HTTPS 엔드포인트에 대한 X509 클라이언트 인증서 인증을 활성화하려면 다음을 수행한다.
 
-* 클라이언트 인증서 검증하는 데 사용할 CA 번들을 `--client-ca-file` 플래그에 지정하여 kubelet을 시작
+* 클라이언트 인증서를 검증하는 데 사용할 CA 번들을 `--client-ca-file` 플래그에 지정하여 kubelet을 시작
 * `--kubelet-client-certificate` 및 `--kubelet-client-key` 플래그를 사용하여 API 서버를 시작
 * 자세한 내용은 [API 서버 인증 문서](/docs/reference/access-authn-authz/authentication/#x509-client-certificates)를 참고
 
@@ -37,7 +37,7 @@ API 베어러(bearer) 토큰(서비스 어카운트 토큰 포함)을 kubelet의
 
 ## Kubelet 인가
 
-성공적으로 인증된 모든 요청(익명 요청 포함)이 인가된다. 기본 인가 모드는 모든 요청을 허용하는 `AlwaysAllow` 이다.
+성공적으로 인증된 모든 요청(익명 요청 포함)이 인가된다. 기본 인가 모드는 모든 요청을 허용하는 `AlwaysAllow`이다.
 
 kubelet API에 대한 접근을 세분화하는 데는 다양한 이유가 있다.
 
@@ -113,7 +113,7 @@ Kubelet API   | 리소스    | 하위 리소스
 /pods         | nodes    | pods, proxy
 /runningPods/ | nodes    | pods, proxy
 /healthz      | nodes    | healthz, proxy
-/configz      | nodes    | configz, proxy 
+/configz      | nodes    | configz, proxy
 *그 외 모두*   | nodes    | proxy
 
 
@@ -130,6 +130,6 @@ Kubelet API   | 리소스    | 하위 리소스
 * verb=\*, resource=nodes, subresource=pods
 
 [RBAC 인가](/docs/reference/access-authn-authz/rbac/)를 사용하는 경우,
-이 게이트를 활성화하면 내장된 `system:kubelet-api-admin` ClusterRole도
+이 게이트를 활성화하면 내장된 `system:kubelet-api-admin` 클러스터롤(ClusterRole)도
 위에서 언급한 모든 하위 리소스에 접근할 수 있는 권한을 갖도록 업데이트된다.
 
