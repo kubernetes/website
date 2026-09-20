@@ -17,17 +17,22 @@ weight: 80
 
 <!-- body -->
 
+{{< warning >}}
+여기에서 설명하는 커맨드라인 플래그와 달리, *로그
+출력* 자체에는 쿠버네티스 API 안정성 보장이 *적용되지 않는다*.
+개별 로그 항목과 그 형식은 릴리스마다
+변경될 수 있다!
+{{< /warning >}}
+
 ## Klog
 
 klog는 쿠버네티스의 로깅 라이브러리다. [klog](https://github.com/kubernetes/klog)는 
 쿠버네티스 시스템 컴포넌트의 로그 메시지를 생성한다.
 
-klog 설정에 대한 더 많은 정보는, [커맨드라인 툴](/ko/docs/reference/command-line-tools-reference/)을 참고한다.
-
 쿠버네티스는 각 컴포넌트의 로깅을 간소화하는 중에 있다. 
-다음 klog 명령줄 플래그는 쿠버네티스 1.23에서 
-[사용 중단](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)되었으며 
-이후 릴리스에서 제거될 것이다.
+다음 klog 명령줄 플래그는 쿠버네티스 v1.23부터
+[사용 중단(deprecated)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)되었으며
+쿠버네티스 v1.26에서 제거되었다.
 
 - `--add-dir-header`
 - `--alsologtostderr`
@@ -96,13 +101,13 @@ which has a line break.
 구조화된 로그 메시지의 기본 형식은 텍스트이며, 
 기존 klog와 하위 호환되는 형식이다.
 
-```ini
+```
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
 예시:
 
-```ini
+```
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
@@ -117,23 +122,24 @@ second line.}
 
 ### 컨텍스츄얼 로깅(Contextual Logging)
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.30" state="beta" >}}
 
 컨텍스츄얼 로깅은 구조화된 로깅을 기반으로 한다. 
 컨텍스츄얼 로깅은 주로 개발자가 로깅 호출을 사용하는 방법에 관한 것이다. 
 해당 개념을 기반으로 하는 코드는 좀 더 유연하며, 
 [컨텍스츄얼 로깅 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)에 기술된 추가적인 사용 사례를 지원한다.
 
-개발자가 자신의 구성 요소에서 
+개발자가 자신의 컴포넌트에서
 `WithValues` 또는 `WithName`과 같은 추가 기능을 사용하는 경우, 
 로그 항목에는 호출자가 함수로 전달하는 추가 정보가 포함된다.
 
-현재 이 기능은 `StructuredLogging` 기능 게이트 뒤에 있으며 
-기본적으로 비활성화되어 있다. 
-이 기능을 위한 인프라는 구성 요소를 수정하지 않고 1.24에 추가되었다. 
+쿠버네티스 {{< skew currentVersion >}}에서 이 기능은 `ContextualLogging`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)로 제어되며
+기본적으로 활성화되어 있다. 이 기능을 위한 인프라는 컴포넌트를 수정하지 않고
+1.24에 추가되었다.
 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go) 
 명령은 새 로깅 호출을 사용하는 방법과 
-컨텍스츄얼 로깅을 지원하는 구성 요소가 어떻게 작동하는지 보여준다.
+컨텍스츄얼 로깅을 지원하는 컴포넌트가 어떻게 작동하는지 보여준다.
 
 ```console
 $ cd $GOPATH/src/k8s.io/kubernetes/staging/src/k8s.io/component-base/logs/example/cmd/
@@ -142,16 +148,16 @@ $ go run . --help
       --feature-gates mapStringBool  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
                                      AllAlpha=true|false (ALPHA - default=false)
                                      AllBeta=true|false (BETA - default=false)
-                                     ContextualLogging=true|false (ALPHA - default=false)
+                                     ContextualLogging=true|false (BETA - default=true)
 $ go run . --feature-gates ContextualLogging=true
 ...
-I0404 18:00:02.916429  451895 logger.go:94] "example/myname: runtime" foo="bar" duration="1m0s"
-I0404 18:00:02.916447  451895 logger.go:95] "example: another runtime" foo="bar" duration="1m0s"
+I0222 15:13:31.645988  197901 example.go:54] "runtime" logger="example.myname" foo="bar" duration="1m0s"
+I0222 15:13:31.646007  197901 example.go:55] "another runtime" logger="example" foo="bar" duration="1h0m0s" duration="1m0s"
 ```
 
 `runtime` 메시지 및 `duration="1m0s"` 값을 로깅하는 
 기존 로깅 함수를 수정하지 않고도, 
-이 함수의 호출자에 의해 `example` 접두사 및 `foo="bar"` 문자열이 로그에 추가되었다.
+이 함수의 호출자에 의해 `logger` 키와 `foo="bar"`가 로그에 추가되었다.
 
 컨텍스츄얼 로깅이 비활성화되어 있으면, `WithValues` 및 `WithName` 은 아무 효과가 없으며, 
 로그 호출은 전역 klog 로거를 통과한다. 
@@ -160,8 +166,8 @@ I0404 18:00:02.916447  451895 logger.go:95] "example: another runtime" foo="bar"
 ```console
 $ go run . --feature-gates ContextualLogging=false
 ...
-I0404 18:03:31.171945  452150 logger.go:94] "runtime" duration="1m0s"
-I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
+I0222 15:14:40.497333  198174 example.go:54] "runtime" duration="1m0s"
+I0222 15:14:40.497346  198174 example.go:55] "another runtime" duration="1h0m0s" duration="1m0s"
 ```
 
 ### JSON 로그 형식
@@ -231,10 +237,80 @@ systemd를 사용하는 시스템에서는, kubelet과 컨테이너 런타임은
 `kube-up.sh` 스크립트로 생성된 쿠버네티스 클러스터에서는, `logrotate` 도구로 로그가 로테이트되도록 설정된다.
 `logrotate` 도구는 로그가 매일 또는 크기가 100MB 보다 클 때 로테이트된다.
 
+## 로그 쿼리
+
+{{< feature-state feature_gate_name="NodeLogQuery" >}}
+
+로그 쿼리 기능은 리눅스와 윈도우 노드 모두에서 문제를 디버깅하는 데 도움이 된다.
+쿠버네티스 v1.27에 도입된 이 기능을 사용하면 노드에서 실행 중인 서비스의 로그를
+볼 수 있다. 이 기능을 사용하려면 대상 노드의 kubelet 구성 옵션인
+`enableSystemLogHandler`와 `enableSystemLogQuery`를 모두
+*true*로 설정해야 한다.
+
+쿠버네티스 v1.36에서 이 기능은 스테이블로 승격되었고 `NodeLogQuery`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)는 이제 *true*로 고정되어 기본적으로 활성화되므로,
+로그 쿼리 기능을 활성화하거나 비활성화하는 데 필요한 옵션은
+`enableSystemLogHandler`뿐이다.
+
+`enableSystemLogHandler`의 기본값은 *false*이며, 실제로 디버깅 중인 경우가 아니라면
+비활성화해 둘 것을 권장한다.
+
+{{< warning >}}
+`nodes/proxy` 권한을 부여하면(**get** 권한만 부여하더라도)
+노드에서 실행 중인 어느 컨테이너에서든 명령을 실행하는 데 사용할 수 있는 강력한
+kubelet API에 대한 접근 권한도 부여되므로, 이를 관리하는 방식에 주의해야 한다.
+자세한 내용은 [Kubelet 인증/인가](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)를
+참고한다.
+{{< /warning >}}
+
+리눅스에서는 서비스 로그가 *journald*를 통해 제공된다고 가정한다.
+윈도우에서는 서비스 로그가 애플리케이션 로그 공급자를 통해 제공된다고 가정한다.
+두 운영 체제 모두에서 `/var/log/` 내의 파일을 읽어
+로그를 확인할 수도 있다.
+
+노드(Node) 오브젝트와 상호작용할 권한이 있다면, 모든 노드 또는 일부 노드에서 이 기능을 사용해 볼 수 있다.
+다음은 노드에서 kubelet 서비스 로그를 가져오는 예시이다.
+
+```shell
+# node-1.example이라는 이름의 노드에서 kubelet 로그 가져오기
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+
+kubelet이 로그 가져오기를 허용하는 디렉터리에 파일이 있다면 그 파일도 가져올 수 있다.
+예를 들어 리눅스 노드의 `/var/log`에서 로그를 가져올 수 있다.
+
+```shell
+kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"
+```
+
+kubelet은 로그를 가져오기 위해 휴리스틱을 사용한다. 이는 특정 시스템 서비스가
+journald와 같은 운영 체제의 네이티브 로거 또는 `/var/log/`의 로그 파일에
+로그를 기록하는지 모르는 경우에 도움이 된다. 휴리스틱은 먼저 네이티브 로거를 확인하고,
+사용할 수 없으면 `/var/log/<servicename>`이나 `/var/log/<servicename>.log` 또는 `/var/log/<servicename>/<servicename>.log`에서 첫 번째 로그를 가져오려고 시도한다.
+
+사용할 수 있는 전체 옵션 목록은 다음과 같다.
+
+| 옵션        | 설명                                                                                              |
+|-------------|---------------------------------------------------------------------------------------------------|
+| `boot`      | boot는 특정 시스템 부트의 메시지를 표시한다                                                       |
+| `pattern`   | pattern은 제공된 PERL 호환 정규 표현식으로 로그 항목을 필터링한다                                 |
+| `query`     | query는 로그를 반환할 서비스 또는 파일을 지정한다(필수)                                           |
+| `sinceTime` | 로그 표시 시작 시점인 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프(해당 시각 포함) |
+| `untilTime` | 로그 표시 종료 시점인 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프(해당 시각 포함) |
+| `tailLines` | 로그 끝에서부터 가져올 행 수를 지정하며, 기본적으로 전체 로그를 가져온다                          |
+
+더 복잡한 쿼리의 예시는 다음과 같다.
+
+```shell
+# node-1.example이라는 이름의 노드에서 "error"라는 단어가 포함된 kubelet 로그 가져오기
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
+
 ## {{% heading "whatsnext" %}}
 
 * [쿠버네티스 로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/) 알아보기
 * [구조화된 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging) 알아보기
 * [컨텍스츄얼 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging) 알아보기
 * [klog 플래그 사용 중단](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components) 알아보기
-* [로깅 심각도(serverity) 규칙](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 알아보기
+* [로깅 심각도(serverity) 규칙](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md) 알아보기
+* [로그 쿼리](https://kep.k8s.io/2258) 알아보기
