@@ -57,7 +57,7 @@ Kubernetesは、このコンセプトを実装するために、1つのPod内に
 
 更なる情報について学習するには、[Initコンテナとの違い](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-init-containers)を参照してください。
 
-## 組み込みのサイドカーコンテナを採用 {#adopting-built-in-sidecar-containers}
+## 組み込みのサイドカーコンテナの導入 {#adopting-built-in-sidecar-containers}
 
 `SidecarContainers`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)は、Kubernetesバージョン1.29から始まったベータ版で、デフォルトで有効化されています。
 いくつかのクラスターは、この機能を無効化しているかもしれません。
