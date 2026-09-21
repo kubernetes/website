@@ -11,6 +11,9 @@ release_announcement:
     - "Garhwal"
 translator: >
   [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/)),
+  [Masahiro Kitamura](https://github.com/nasa9084),
+  [Toshiaki Inukai](https://github.com/t-inu),
+  [Takuya Kitamura](https://github.com/kfess),
   [James Hong](https://github.com/Greyeye)
 ---
 
