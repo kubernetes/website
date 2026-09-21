@@ -78,22 +78,88 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 * [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) 및
   [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver 어드미션 (v1)](/docs/reference/config-api/apiserver-admission.v1/)
+  - `admission.k8s.io/v1`
+    - [AdmissionReview](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionReview)
 * [kube-apiserver 환경설정 (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) 및
-  [kube-apiserver 환경설정 (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) 및
-  [kube-apiserver 환경설정 (v1)](/docs/reference/config-api/apiserver-config.v1/)
+  - `apiserver.k8s.io/v1`
+    - [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AdmissionConfiguration)
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-AuthorizationConfiguration)
+    - [EgressSelectorConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)
+
+* [kube-apiserver 환경설정 (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/)
+  - `apiserver.k8s.io/v1beta1`
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-AuthorizationConfiguration)
+    - [EgressSelectorConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-EgressSelectorConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)
+
+* [kube-apiserver 환경설정 (v1)](/docs/reference/config-api/apiserver-config.v1/)
+  - `apiserver.config.k8s.io/v1`
+    - [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AdmissionConfiguration)
+    - [AuthenticationConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AuthenticationConfiguration)
+    - [AuthorizationConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
+    - [EncryptionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-EncryptionConfiguration)
+    - [TracingConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-config-k8s-io-v1-TracingConfiguration)
 * [kube-apiserver 이벤트 속도 제한 (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet 환경설정 (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) 및
-  [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) 및
-  [kubelet 환경설정 (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  - `eventratelimit.admission.k8s.io/v1alpha1`
+    - [Configuration](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
+* [kubelet 환경설정 (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/)
+  - `kubelet.config.k8s.io/v1alpha1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
+    - [ImagePullIntent](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-ImagePullIntent)
+    - [ImagePulledRecord](/docs/reference/config-api/kubelet-config.v1alpha1/#kubelet-config-k8s-io-v1alpha1-ImagePulledRecord)
+* [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+  - `kubelet.config.k8s.io/v1beta1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
+    - [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+    - [SerializedNodeConfigSource](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
+* [kubelet 환경설정 (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  - `kubelet.config.k8s.io/v1`
+    - [CredentialProviderConfig](/docs/reference/config-api/kubelet-config.v1/#kubelet-config-k8s-io-v1-CredentialProviderConfig)
 * [kubelet 자격증명 제공자 (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+  - `credentialprovider.kubelet.k8s.io/v1`
+    - [CredentialProviderRequest](/docs/reference/config-api/kubelet-credentialprovider.v1/#credentialprovider-kubelet-k8s-io-v1-CredentialProviderRequest)
+    - [CredentialProviderResponse](/docs/reference/config-api/kubelet-credentialprovider.v1/#credentialprovider-kubelet-k8s-io-v1-CredentialProviderResponse)
 * [kube-scheduler 환경설정 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+  - `kubescheduler.config.k8s.io/v1`
+    - [DefaultPreemptionArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs)
+    - [DynamicResourcesArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs)
+    - [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+    - [KubeSchedulerConfiguration](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+    - [NodeAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeAffinityArgs)
+    - [NodeResourcesBalancedAllocationArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesBalancedAllocationArgs)
+    - [NodeResourcesFitArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
+    - [PodTopologySpreadArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-PodTopologySpreadArgs)
+    - [VolumeBindingArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-VolumeBindingArgs)
 * [kube-controller-manager 환경설정 (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+  - `kubecontrollermanager.config.k8s.io/v1alpha1`
+    - [LeaderMigrationConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
+    - [KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+  - `cloudcontrollermanager.config.k8s.io/v1alpha1`
+    - [CloudControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+  - `kubeproxy.config.k8s.io/v1alpha1`
+    - [KubeProxyConfiguration](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및
-  [클라이언트 인증 API (v1)](/docs/reference/config-api/client-authentication.v1/)
+  - `audit.k8s.io/v1`
+    - [Event](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+    - [EventList](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-EventList)
+    - [Policy](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+    - [PolicyList](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-PolicyList)
+* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+  - `client.authentication.k8s.io/v1beta1`
+     - [ExecCredential](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+* [클라이언트 인증 API (v1)](/docs/reference/config-api/client-authentication.v1/)
+  - `client.authentication.k8s.io/v1`
+     - [ExecCredential](/docs/reference/config-api/client-authentication.v1/#client-authentication-k8s-io-v1-ExecCredential)
 * [WebhookAdmission 환경설정 (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+  - `apiserver.config.k8s.io/v1`
+    - [WebhookAdmission](/docs/reference/config-api/apiserver-webhookadmission.v1/#apiserver-config-k8s-io-v1-WebhookAdmission)
 * [이미지 정책 API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
+  - `imagepolicy.k8s.io/v1alpha1`
+    - [ImageReview](/docs/reference/config-api/imagepolicy.v1alpha1/#imagepolicy-k8s-io-v1alpha1-ImageReview)
 
 ## kubeadm을 위한 API 설정
 
