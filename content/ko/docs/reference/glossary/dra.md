@@ -3,8 +3,8 @@ title: 동적 리소스 할당 (원문, Dynamic Resource Allocation)
 id: dra
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/
 short_description: >
-  하드웨어 가속기와 같은 리소스를 파드에서 사용하도록 요청하고,
-  파드 간에 공유할 수 있게 하는 쿠버네티스 기능.
+  하드웨어 가속기와 같은 리소스를
+  파드 간에 요청하고 공유할 수 있게 하는 쿠버네티스 기능.
 
 aka:
 - DRA
