@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Tracking When a PersistentVolumeClaim Was Last Used (Beta)"
-draft: true
+date: 2026-09-21T10:30:00-08:00
 slug: kubernetes-v1-37-pvc-last-used-time
 author: >
   [Roman Bednář](https://github.com/RomanBednar) (Red Hat)
