@@ -17,7 +17,7 @@ tags:
 컴퓨터는 처리 능력, 저장 메모리, 네트워크 등 기본적인 하드웨어 기능을 제공한다.
 이러한 리소스는 유한한 용량을 가지며, 각 리소스에 알맞은 단위(CPU 수, 메모리의 바이트 수 등)로 측정된다.
 쿠버네티스는 {{< glossary_tooltip text="워크로드" term_id="workload" >}}에
-할당할 수 있도록 공통 [리소스](/docs/concepts/configuration/manage-resources-containers/)를 추상화하고, 리소스 사용량을 관리하기 위해 운영 체제의 기본 요소(예: Linux {{< glossary_tooltip text="cgroups" term_id="cgroup" >}})를 활용한다.
+일반적인 [리소스](/docs/concepts/configuration/manage-resources-containers/)를 할당할 수 있도록 추상화하고, 리소스 사용량을 관리하기 위해 운영 체제가 제공하는 기본 요소(예: Linux {{< glossary_tooltip text="cgroups" term_id="cgroup" >}})를 활용한다.
 
 [동적 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)을
 사용하여 복잡한 리소스 할당을 자동으로 관리할 수도 있다.
