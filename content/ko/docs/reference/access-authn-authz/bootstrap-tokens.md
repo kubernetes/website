@@ -167,7 +167,7 @@ data:
 ```
 
 컨피그맵의 `kubeconfig` 멤버는 클러스터 정보만 입력된 구성 파일이다.
-여기서 전달되는 핵심은 `certificate-authority-data` 이다.  
+여기서 전달되는 핵심은 `certificate-authority-data` 이다.
 이는 향후 확대될 수 있다.
 
 서명은 "detached" 모드를 사용하는 JWS 서명이다. 서명을 검증하려면
