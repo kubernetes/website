@@ -34,7 +34,7 @@ Kubernetesは、このコンセプトを実装するために、1つのPod内に
 [サイドカーコンテナ](/docs/concepts/workloads/pods/sidecar-containers/)のコンセプトページで詳細を読むことができます。
 
 サイドカーコンテナのコンセプトは新しいものではなく、このコンセプトには複数の実装があります。
-追加のサイドカーコンテナが存在するように、Podが起動し始める前に、Podを定義している人が動かしたいサイドカーコンテナだけでなく、いくつかの{{< glossary_tooltip text="アドオン" term_id="addons" >}}がPodを変更することを見つけることも可能です。
+Podを定義する人が実行したいサイドカーコンテナだけでなく、Podの実行開始前にいくつかの{{< glossary_tooltip text="アドオン" term_id="addons" >}}がPodを変更することで、追加のサイドカーコンテナが存在している場合があることもわかります。
 それらの追加のサイドカーを _注入する_ メカニズムは、多くの場合[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)です。
 例えば、サービスメッシュアドオンは、異なるPod間の通過で相互TLSと暗号化を設定したサイドカーを注入するかもしれません。
 
