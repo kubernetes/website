@@ -11,7 +11,7 @@ min-kubernetes-server-version: 1.29
 
 サイドカーコンテナは、[ブログ記事](/blog/2015/06/the-distributed-system-toolkit-patterns/)で述べられているように、新しいコンセプトではありません。
 Kubernetesは、このコンセプトを実装するために、1つのPod内に複数のコンテナを実行することを許可します。
-しかし、通常のコンテナとしてサイドカーコンテナを実行するには多くの制限があり、新しい組み込みのサイドカーコンテナのサポートで修正されます。
+通常のコンテナとしてサイドカーコンテナを実行するには多くの制限がありますが、新しい組み込みのサイドカーコンテナのサポートで解消されます。
 
 {{< feature-state feature_gate_name="SidecarContainers" >}}
 
