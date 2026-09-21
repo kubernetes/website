@@ -53,7 +53,7 @@ Podを定義する人が実行したいサイドカーコンテナだけでな�
    サイドカーコンテナがグレースフルシャットダウンされない場合、サイドカーコンテナを終了させるために`SIGKILL`シグナルが使用されます。
 1. Jobにおいて、Podが`restartPolicy: OnFailure`または`restartPolicy: Never`である場合、ネイティブサイドカーコンテナはPodの完了をブロックしません。
    レガシーサイドカーコンテナでは、この状況を処理するために特別な配慮を必要とします。
-1. また、Jobであれば、例え通常のコンテナが`restartPolicy: Never`でなかったとしても、組み込みサイドカーコンテナは、一度それらが終了したら再起動され続けます。
+1. また、Jobにおいて、Podの`restartPolicy: Never`によって通常のコンテナが再起動されないとしても、組み込みのサイドカーコンテナは、それらが完了するたびに再起動されます。
 
 更なる情報について学習するには、[Initコンテナとの違い](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-init-containers)を参照してください。
 
