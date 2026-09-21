@@ -8,7 +8,7 @@ aka:
 tags:
 - architecture
 ---
-하나 이상의 {{< glossary_tooltip text="노드" term_id="node" >}}에 제공되어, 해당 노드에서 실행 중인 {{< glossary_tooltip text="파드" term_id="pod" >}}가
+하나 이상의 {{< glossary_tooltip text="노드" term_id="node" >}}에서 제공되며, 해당 노드에서 실행되는 {{< glossary_tooltip text="파드" term_id="pod" >}}가
 사용할 수 있는 기능(CPU, 메모리, GPU 등)이다.
 
 쿠버네티스는 _리소스_ 라는 용어를 {{< glossary_tooltip text="API 리소스" term_id="api-resource" >}}를 설명할 때도 사용한다.
