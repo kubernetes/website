@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'The Shift to cgroup v2 in Kubernetes: What You Need to Know'
-draft: true
+date: 2026-09-22T10:30:00-08:00
 slug: kubernetes-cgroups-v2-shift
 author: >
    Paco Xu (DaoCloud)
