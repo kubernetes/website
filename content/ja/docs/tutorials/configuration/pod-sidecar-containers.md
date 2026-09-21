@@ -1,5 +1,5 @@
 ---
-title: サイドカーコンテナの採用
+title: サイドカーコンテナの導入
 content_type: tutorial
 weight: 40
 min-kubernetes-server-version: 1.29
