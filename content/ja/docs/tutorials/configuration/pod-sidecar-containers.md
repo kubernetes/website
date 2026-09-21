@@ -51,8 +51,8 @@ Kubernetesは、このコンセプトを実装するために、1つのPod内に
 1. 組み込みのサイドカーコンテナは、それらが最後に終了したことを保証するよう作成されます。
    サイドカーコンテナは、すべての通常のコンテナが完了して終了すると、`SIGTERM`シグナルによって終了します。
    サイドカーコンテナがグレースフルシャットダウンされない場合、サイドカーコンテナを終了させるために`SIGKILL`シグナルが使用されます。
-1. Jobであれば、Podが`restartPolicy: OnFailure`または`restartPolicy: Never`である場合、ネイティブサイドカーコンテナはPodの完了をブロックしません。
-   レガシーサイドカーコンテナであれば、この状況を扱うのに特別なケアを必要とします。
+1. Jobにおいて、Podが`restartPolicy: OnFailure`または`restartPolicy: Never`である場合、ネイティブサイドカーコンテナはPodの完了をブロックしません。
+   レガシーサイドカーコンテナでは、この状況を処理するために特別な配慮を必要とします。
 1. また、Jobであれば、例え通常のコンテナが`restartPolicy: Never`でなかったとしても、組み込みサイドカーコンテナは、一度それらが終了したら再起動され続けます。
 
 更なる情報について学習するには、[Initコンテナとの違い](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-init-containers)を参照してください。
