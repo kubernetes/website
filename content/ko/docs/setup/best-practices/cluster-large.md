@@ -72,7 +72,7 @@ weight: 10
 
 ## 애드온 리소스
 
-쿠버네티스 [리소스 한도](/docs/concepts/configuration/manage-resources-containers/)은
+쿠버네티스 [리소스 한도](/docs/concepts/configuration/manage-resources-containers/)는
 파드와 컨테이너가 다른 컴포넌트에 영향을 미칠 수 있는 메모리 누수 및 기타 방식의 영향을
 최소화하는 데 도움이 된다. 이러한 리소스 한도(limit)는 애플리케이션 워크로드에 적용되는 것과 마찬가지로
 {{< glossary_tooltip text="애드온" term_id="addons" >}} 리소스에도 적용된다.
