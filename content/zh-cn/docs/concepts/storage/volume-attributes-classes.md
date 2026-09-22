@@ -75,8 +75,8 @@ metadata:
   name: silver
 driverName: pd.csi.storage.gke.io
 parameters:
-  provisioned-iops: "3000"
-  provisioned-throughput: "50" 
+  iops: "3000"
+  throughput: "50Mi"
 ```
 
 <!--
@@ -159,7 +159,7 @@ metadata:
 driverName: pd.csi.storage.gke.io
 parameters:
   iops: "4000"
-  throughput: "60"
+  throughput: "60Mi"
 ```
 
 <!--
