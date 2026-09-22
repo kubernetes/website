@@ -515,7 +515,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    3           <none>
    ```
 
-   `CHANGE-CAUSE`는 리비전 생성 시 디플로이먼트 어노테이션 `kubernetes.io/change-cause`에서 해당 리비전으로 복사된다. 다음과 같이 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
+   `CHANGE-CAUSE`는 수정 버전 생성 시 디플로이먼트 어노테이션 `kubernetes.io/change-cause`에서 해당 수정 버전으로 복사된다. 다음과 같이 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
    * `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`로 디플로이먼트에 어노테이션을 추가한다.
    * 리소스 매니페스트를 수동으로 편집한다.
