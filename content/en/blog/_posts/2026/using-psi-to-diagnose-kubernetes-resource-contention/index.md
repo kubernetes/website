@@ -4,7 +4,7 @@ title: "Beyond CPU Utilization: Using PSI to Diagnose Kubernetes Resource Conten
 slug: using-psi-to-diagnose-kubernetes-resource-contention
 draft: true
 author: >
-  Nitin Ware
+  [Nitin Ware](https://github.com/nitinware)
 ---
 
 Most Kubernetes performance investigations start the same way: check CPU and
