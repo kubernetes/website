@@ -1,6 +1,6 @@
 ---
-reviewers:
-- mikedanese
+# reviewers:
+# - mikedanese
 title: 리눅스에 kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -45,7 +45,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
 
-   Linux ARM64의 경우 다음과 같이 입력한다:
+   Linux ARM64의 경우 다음과 같이 입력한다.
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
@@ -66,19 +66,19 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    {{< /tab >}}
    {{< /tabs >}}
 
-   kubectl 바이너리를 체크섬 파일과 대조하여 검증한다:
+   kubectl 바이너리를 체크섬 파일과 대조하여 검증한다.
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
-   검증에 성공하면 다음과 같이 출력된다:
+   검증에 성공하면 다음과 같이 출력된다.
 
    ```console
    kubectl: OK
    ```
 
-   검증이 실패한다면, `shasum`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다:
+   검증이 실패한다면, `shasum`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
 
    ```console
    kubectl: FAILED
@@ -146,7 +146,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉터리가 기본적으로 존재하지 않으므로 curl 명령을 실행하기 전에 생성해야 한다.
 {{< /note >}}
 
-3. 쿠버네티스 `apt` 리포지터리를 추가한다. {{< param "version" >}}과 다른 쿠버네티스 버전을 사용하려면 
+3. 쿠버네티스 `apt` 리포지터리를 추가한다. {{< param "version" >}}과 다른 쿠버네티스 버전을 사용하려면
 아래 명령에서 {{< param "version" >}}을 원하는 마이너 버전으로 바꾼다.
 
    ```shell
@@ -190,7 +190,7 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 다른 마이너 릴리스의 kubectl로 업그레이드하려면 `yum update`를 실행하기 전에 `/etc/yum.repos.d/kubernetes.repo`의 버전을 올려야 한다. 이 절차에 대한 자세한 내용은 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
 {{< /note >}}
 
-2. yum을 사용하여 kubectl을 설치한다:
+2. `yum`을 사용하여 kubectl을 설치한다.
 
    ```bash
    sudo yum install -y kubectl
@@ -222,13 +222,13 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
 {{< /note >}}
 
-2. zypper를 업데이트하고 새 리포지터리가 추가되었는지 확인한다:
+2. zypper를 업데이트하고 새 리포지터리가 추가되었는지 확인한다.
 
    ```bash
    sudo zypper update
    ```
 
-   다음 메시지가 나타나면 't' 또는 'a'를 누른다:
+   다음 메시지가 나타나면 't' 또는 'a'를 누른다.
 
    ```
    New repository or package signing key received:
@@ -253,7 +253,7 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
    Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
    ```
 
-3. `zypper`를 사용하여 kubectl을 설치한다:
+3. `zypper`를 사용하여 kubectl을 설치한다.
 
    ```bash
    sudo zypper install -y kubectl
@@ -262,12 +262,12 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 {{% /tab %}}
 {{< /tabs >}}
 
-### 다른 패키지 관리 도구를 사용하여 설치 
+### 다른 패키지 관리 도구를 사용하여 설치
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-[snap](https://snapcraft.io/docs/core/install) 패키지 관리자를 지원하는 
-Ubuntu 또는 다른 리눅스 배포판을 사용하는 경우, 
+[snap](https://snapcraft.io/docs/core/install) 패키지 관리자를 지원하는
+Ubuntu 또는 다른 리눅스 배포판을 사용하는 경우,
 kubectl을 [snap](https://snapcraft.io/) 애플리케이션으로 설치할 수 있다.
 
 ```shell
@@ -278,7 +278,7 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-리눅스 상에서 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 패키지 관리자를 사용한다면, 
+리눅스 상에서 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 패키지 관리자를 사용한다면,
 [설치](https://docs.brew.sh/Homebrew-on-Linux#install)를 통해 kubectl을 사용할 수 있다.
 
 ```shell
@@ -298,7 +298,7 @@ kubectl version --client
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로
 입력을 위한 타이핑을 많이 절약할 수 있다.
 
 다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
@@ -311,7 +311,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 
 ### kuberc 구성
 
-자세한 내용은 [kuberc](/docs/reference/kubectl/kuberc)를 참조하십시오.
+자세한 내용은 [kuberc](/docs/reference/kubectl/kuberc)를 참조한다.
 
 ### `kubectl convert` 플러그인 설치
 
@@ -378,7 +378,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 
    에러가 출력되지 않는다면, 플러그인이 정상적으로 설치된 것이다.
 
-1. 플러그인을 설치한 후 설치 파일을 정리한다: 
+1. 플러그인을 설치한 후 설치 파일을 정리한다:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
