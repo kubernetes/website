@@ -70,7 +70,17 @@ card:
   - カッコ`()`の前後にも半角スペースは不要
 - バッククォート`` ` ``で囲まれた英単語と、その前後の英単語の間には半角スペースが必要
   - 例: これは\`default\` ServiceAccountです(前は詰めて後ろは空ける)
-- 日本語文では、文章の途中で改行を行わない。句点「。」もしくは行末のコロン`:`で改行する
+- 改行は、原文ではなく翻訳後の日本語の文を基準にして、文末の「。」「！」「？」または行末のコロン`:`の後で必ず行う
+  - 読点「、」の後を含め、文の途中では改行しない
+  - 悪い例(句点の後で改行していない):
+    ```
+    Deploymentは、PodとReplicaSetの宣言的なアップデートを提供します。望ましい状態を記述すると、Deploymentコントローラーが実際の状態を望ましい状態へ変更します。
+    ```
+  - 良い例(句点の後で改行している):
+    ```
+    Deploymentは、PodとReplicaSetの宣言的なアップデートを提供します。
+    望ましい状態を記述すると、Deploymentコントローラーが実際の状態を望ましい状態へ変更します。
+    ```
 - コロン`:`の後には、半角スペースを入れる
   - 例外的に行末のコロンの後は半角スペースは不要
 - メタデータの`reviewers`の項目は削除する
@@ -81,7 +91,7 @@ card:
   - 見出しIDは、英語ページでの見出しのパーマリンクを確認して、URLの`#`以降を使用する
 - ブログ記事については、次のことに留意する
   - メタデータの`evergreen: true`は削除する
-  - PR作成者とレビュアーは、以下の形式で翻訳者として名前を掲載できる([サンプル](https://github.com/kubernetes/website/blob/main/content/ja/blog/_posts/2025-04-23-Kubernetes-v1-33-Release/index.md?plain=1))
+  - PR作成者とレビュアーは、以下の形式で翻訳者として名前を掲載できる([サンプル](https://github.com/kubernetes/website/blob/main/content/ja/blog/_posts/2025/kubernetes-v1-33-release/index.md?plain=1))
     ```
     translator: >
       [PR作成者の名前](GitHubのURL) ([所属](所属のURL)),

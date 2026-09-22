@@ -53,7 +53,7 @@ If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration,
 is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
 for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
 object spec.
-For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
+For more details, read [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
 -->
 类别：注解
 
@@ -66,9 +66,9 @@ For more details, read  [Maintenance of the Mandatory and Suggested Configuratio
 并且你对其添加了自动更新的注解，则 API 服务器将删除整个对象。否则，API 服务器不管理对象规约。
 更多细节参阅[维护强制性和建议的配置对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
 
-<!--
 ### app.kubernetes.io/component
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/component: "database"`
@@ -79,8 +79,6 @@ The component within the application architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-### app.kubernetes.io/component {#app-kubernetes-io-component}
-
 类别：标签
 
 例子：`app.kubernetes.io/component: "database"`
@@ -119,9 +117,9 @@ Starting from v1.9, this label is deprecated.
 从 v1.9 开始，这个标签被弃用。
 {{< /note >}}
 
-<!--
 ### app.kubernetes.io/instance
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/instance: "mysql-abcxyz"`
@@ -134,8 +132,6 @@ To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-nam
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-### app.kubernetes.io/instance {#app-kubernetes-io-instance}
-
 类别：标签
 
 示例：`app.kubernetes.io/instance: "mysql-abcxyz"`
@@ -146,9 +142,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
-<!--
 ### app.kubernetes.io/managed-by
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/managed-by: "helm"`
@@ -160,8 +156,6 @@ The tool being used to manage the operation of an application.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-### app.kubernetes.io/managed-by {#app-kubernetes-io-manged-by}
-
 类别：标签
 
 示例：`app.kubernetes.io/managed-by: "helm"`
@@ -172,9 +166,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
-<!--
 ### app.kubernetes.io/name
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/name: "mysql"`
@@ -186,8 +180,6 @@ The name of the application.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-### app.kubernetes.io/name {#app-kubernetes-io-name}
-
 类别：标签
 
 示例：`app.kubernetes.io/name: "mysql"`
@@ -198,9 +190,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
-<!--
 ### app.kubernetes.io/part-of
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/part-of: "wordpress"`
@@ -212,8 +204,6 @@ The name of a higher-level application this object is part of.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-### app.kubernetes.io/part-of {#app-kubernetes-io-part-of}
-
 类别：标签
 
 示例：`app.kubernetes.io/part-of: "wordpress"`
@@ -224,9 +214,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
-<!--
 ### app.kubernetes.io/version
 
+<!--
 Type: Label
 
 Example: `app.kubernetes.io/version: "5.7.21"`
@@ -236,8 +226,6 @@ Used on: All Objects (typically used on
 
 The current version of the application.
 -->
-### app.kubernetes.io/version {#app-kubernetes-io-version}
-
 类别：标签
 
 示例：`app.kubernetes.io/version: "5.7.21"`
@@ -260,17 +248,15 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
-<!--
-### applyset.kubernetes.io/contains-group-kinds (alpha) {#applyset-kubernetes-io-contains-group-kinds}
+### applyset.kubernetes.io/additional-namespaces (alpha) {#applyset-kubernetes-io-additional-namespaces}
 
+<!--
 Type: Annotation
 
 Example: `applyset.kubernetes.io/contains-group-kinds: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
 
 Used on: Objects being used as ApplySet parents.
 -->
-### applyset.kubernetes.io/additional-namespaces (alpha) {#applyset-kubernetes-io-additional-namespaces}
-
 类别：注解
 
 示例：`applyset.kubernetes.io/additional-namespaces: "namespace1,namespace2"`
@@ -282,7 +268,14 @@ Use of this annotation is Alpha.
 For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps,
 or custom resources if the CustomResourceDefinition
 defining them has the `applyset.kubernetes.io/is-parent-type` label.
-
+-->
+此注解处于 Alpha 阶段。
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+打了 `applyset.kubernetes.io/is-parent-type` 标签，
+那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
+  
+<!--
 Part of the specification used to implement
 [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
 This annotation is applied to the parent object used to track an ApplySet to optimize listing of
@@ -291,21 +284,15 @@ or use a different optimization. However, as of Kubernetes version {{< skew curr
 it is required by kubectl. When present, the value of this annotation must be a comma separated list
 of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
 -->
-此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
-{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，
-那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
-
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
 它在 ApplySet 规范中是可选的，因为工具可以执行发现或使用不同的优化。
 然而，对于 Kubernetes {{< skew currentVersion >}} 版本，它是 kubectl 必需的。
 当存在时，注解的值必须是一个以逗号分隔的 group-kinds 列表，采用完全限定的名称格式，例如 `<resource>.<group>`。
 
-<!--
 ### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
 
+<!--
 Type: Annotation
 
 Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
@@ -317,8 +304,6 @@ For Kubernetes version {{< skew currentVersion >}}, you can use this annotation 
 or custom resources if the CustomResourceDefinition
 defining them has the `applyset.kubernetes.io/is-parent-type` label.
 -->
-### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
-
 类别：注解
 
 示例：`applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
@@ -391,13 +376,14 @@ CustomResourceDefinition 打了 `applyset.kubernetes.io/is-parent-type` 标签�
 This annotation is currently deprecated and replaced by [`applyset.kubernetes.io/contains-group-kinds`](#applyset-kubernetes-io-contains-group-kinds),
 support for this will be removed in applyset beta or GA.
 -->
-此注解目前已弃用，替换为 [`applyset.kubernetes.io/contains-group-kinds`](#applyset-kubernetes-io-contains-group-kinds)，
+此注解目前已弃用，替换为
+[`applyset.kubernetes.io/contains-group-kinds`](#applyset-kubernetes-io-contains-group-kinds)，
 对此注解的支持将在 ApplySet 进阶至 Beta 或 GA 后移除。
 {{< /note >}}
 
-<!--
 ### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
 
+<!--
 Type: Label
 
 Example: `applyset.kubernetes.io/id: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmzc4e0HR1dsY-v1"`
@@ -409,8 +395,6 @@ For Kubernetes version {{< skew currentVersion >}}, you can use this label on Se
 or custom resources if the CustomResourceDefinition
 defining them has the `applyset.kubernetes.io/is-parent-type` label.
 -->
-### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
-
 类别：标签
 
 示例：`applyset.kubernetes.io/id: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmzc4e0HR1dsY-v1"`
@@ -420,7 +404,8 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在
+Secret、ConfigMap 或定制资源上使用此注解。
 
 <!--
 Part of the specification used to implement
@@ -439,9 +424,9 @@ There is no relation between the value of this label and object UID.
 格式为：`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`。
 此标签的值与对象 UID 之间没有关系。
 
-<!--
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
+<!--
 Type: Label
 
 Example: `applyset.kubernetes.io/is-parent-type: "true"`
@@ -456,8 +441,6 @@ defines (not the CRD itself) as an allowed parent for an ApplySet.
 The only permitted value for this label is `"true"`; if you want to mark a CRD as
 not being a valid parent for ApplySets, omit this label.
 -->
-### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
-
 类别：标签
 
 示例：`applyset.kubernetes.io/is-parent-type: "true"`
@@ -466,13 +449,13 @@ not being a valid parent for ApplySets, omit this label.
 
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
-你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
+你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}（CRD）
 上设置这个标签，以将它定义的定制资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
 这个标签唯一允许的值是 `"true"`；如果你想将一个 CRD 标记为不是 ApplySet 的有效父级，请省略这个标签。
 
-<!--
 ### applyset.kubernetes.io/part-of (alpha) {#applyset-kubernetes-io-part-of}
 
+<!--
 Type: Label
 
 Example: `applyset.kubernetes.io/part-of: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmzc4e0HR1dsY-v1"`
@@ -486,8 +469,6 @@ This label is what makes an object a member of an ApplySet.
 The value of the label **must** match the value of the `applyset.kubernetes.io/id`
 label on the parent object.
 -->
-### applyset.kubernetes.io/part-of (alpha) {#applyset-kubernetes-io-part-of}
-
 类别：标签
 
 示例：`applyset.kubernetes.io/part-of: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmzc4e0HR1dsY-v1"`
@@ -499,9 +480,9 @@ label on the parent object.
 此标签使对象成为 ApplySet 的成员。
 标签的值**必须**与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
 
-<!--
 ### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
 
+<!--
 Type: Annotation
 
 Example: `applyset.kubernetes.io/tooling: "kubectl/v{{< skew currentVersion >}}"`
@@ -513,8 +494,6 @@ For Kubernetes version {{< skew currentVersion >}}, you can use this annotation 
 ConfigMaps, or custom resources if the CustomResourceDefinitiondefining them has the
 `applyset.kubernetes.io/is-parent-type` label.
 -->
-### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
-
 类别：注解
 
 示例：`applyset.kubernetes.io/tooling: "kubectl/v{{< skew currentVersion >}}"`
@@ -569,15 +548,22 @@ feature gate must be enabled for this label to be added to pods.
 请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 特性门控必须被启用，才能将此标签添加到 Pod 上。
 
-<!--
 ### resource.kubernetes.io/pod-claim-name
 
+<!--
 Type: Annotation
 
 Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: ResourceClaim
+-->
+类别：注解
 
+示例：`resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+  
+用于：ResourceClaim
+
+<!--
 This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
 Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
@@ -585,14 +571,6 @@ discoverable device metadata feature uses this annotation to map a generated Res
 back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
 Kubernetes manages this annotation, so you should not modify it.
 -->
-### resource.kubernetes.io/pod-claim-name {#resource-kubernetes-io-pod-claim-name}
-
-类别：注解
-
-示例：`resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
-
-用于：ResourceClaim
-
 该注解被赋予自动生成的 ResourceClaim。
 注解的值对应于触发 ResourceClaim 创建的 Pod 在 `.spec` 中的资源声明名称。
 在[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)中，
@@ -701,6 +679,77 @@ adhere to. This helps enforce security policies and isolation for your container
 所指定的配置文件定义了容器进程必须遵守的规则集和限制集。这有助于针对容器实施安全策略和隔离措施。
 
 <!--
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+-->
+### csi.alpha.kubernetes.io/node-id（已弃用） {#csi-alpha-kubernetes-io-node-id}
+
+类别：注解
+
+例子：`csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+用于：VolumeAttachments
+
+<!--
+This annotation records the node identifier used by a CSI driver, as a fallback when the
+[CSINode](/docs/reference/kubernetes-api/storage/csi-node-v1/) object is not available.
+The CSI external-attacher sidecar container populates it before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when an appropriate CSINode is not present.
+
+Because this annotation is deprecated, the Kubernetes project recommends that you do
+**not** set this on a VolumeAttachment, nor on any other object.
+-->
+此注解用于记录 CSI 驱动所使用的节点标识符，作为
+[CSINode](/zh-cn/docs/reference/kubernetes-api/storage/csi-node-v1/)
+对象不可用时的回退。CSI external-attacher  
+边车容器会在卷被挂接之前填充该注解。
+
+它为在缺少合适的 CSINode 时解除挂接卷提供了一种回退机制。
+
+由于此注解已被弃用，Kubernetes 项目建议你**不要**在 VolumeAttachment
+或任何其他对象上设置它。
+
+<!--
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+-->
+### csi.volume.kubernetes.io/nodeid（已弃用） {#csi-volume-kubernetes-io-nodeid}
+
+类别：注解
+
+例子：`csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+用于：Nodes
+
+<!--
+This annotation specifies the identifier for a node as understood by the
+Container Storage Interface (CSI) driver. `kubelet` populates this annotation
+by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the
+node ID during driver registration. The external-attacher sidecar container
+reads this annotation to get the node ID when attaching or detaching volumes.
+
+This annotation is deprecated in favor of the CSINode object, which provides the same
+functionality via the [`spec.drivers[].nodeID` field](/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver).
+-->
+此注解用于指定由容器存储接口（Container Storage Interface，CSI）驱动所理解的节点标识符。
+`kubelet` 通过调用 CSI 驱动的 `NodeGetInfo` gRPC 方法在驱动注册期间获取节点
+ID，并填充此注解。external-attacher 边车容器在挂接或解除挂接卷时会读取此注解以获取节点 ID。
+
+此注解已被弃用，推荐改用 CSINode 对象，它通过
+[`spec.drivers[].nodeID` 字段](/zh-cn/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver)提供相同的功能。
+
+<!--
 ### deployment.kubernetes.io/desired-replicas
 
 Type: Annotation
@@ -730,7 +779,6 @@ modified manually.
 Deployment 控制器利用此注解在滚动更新和扩缩容操作期间追踪期望状态。
 
 这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
-
 
 <!--
 ### deployment.kubernetes.io/max-replicas
@@ -773,7 +821,16 @@ Type: Annotation
 Example: `deployment.kubernetes.io/revision: "2"`
 
 Used on: ReplicaSet
+-->
+### deployment.kubernetes.io/revision   {#deployment-kubernetes-io-revision}
 
+类别：注解
+  
+例子：`deployment.kubernetes.io/revision: "2"`
+
+用于：ReplicaSet
+
+<!--
 This annotation is set by the Deployment controller on ReplicaSets it manages.
 The value represents the revision number of the Deployment. Each time the Deployment's
 Pod template (`.spec.template`) is changed, the revision number is incremented.
@@ -785,14 +842,6 @@ The revision number is also visible when running `kubectl rollout history deploy
 This is an internal annotation used by the Deployment controller and should not be
 modified manually.
 -->
-### deployment.kubernetes.io/revision   {#deployment-kubernetes-io-revision}
-
-类别：注解
-
-例子：`deployment.kubernetes.io/revision: "2"`
-
-用于：ReplicaSet
-
 此注解由 Deployment 控制器在其所管理的 ReplicaSet 上进行设置。
 此注解的值表示 Deployment 的修订版本号。每当 Deployment 的
 Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增。
@@ -801,7 +850,6 @@ Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增
 在执行 `kubectl rollout history deployment/<name>` 命令时，也可以查看到对应的修订版本号。
 
 这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
-
 
 ### deployment.kubernetes.io/revision-history
 
@@ -2393,6 +2441,32 @@ If your infrastructure doesn't have this constraint, you don't need to add the z
 你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。
 基于 `PersistentVolumeLabel`，调度程序可以防止 Pod 挂载来自其他 Zone 的卷。
 如果你的基础架构没有此限制，则不需要将 Zone 标签添加到卷上。
+
+<!--
+### volume.alpha.kubernetes.io/node-affinity (deprecated) {#volume-alpha-kubernetes-io-node-affinity}
+
+Type: Annotation
+
+Used on: PersistentVolume
+
+This annotation stored node affinity rules for a PersistentVolume as a JSON-serialized
+`NodeAffinity` object. The scheduler used these rules to limit which nodes could access the volume.
+
+This annotation has been deprecated since Kubernetes v1.10. Use the
+[`nodeAffinity` field](/docs/concepts/storage/persistent-volumes/#node-affinity) in the
+PersistentVolume spec instead.
+-->
+### volume.alpha.kubernetes.io/node-affinity （已弃用） {#volume-alpha-kubernetes-io-node-affinity}
+  
+类别：注解
+  
+用于：PersistentVolumeClaim
+  
+此注解以 JSON 序列化的 `NodeAffinity` 对象形式存储了 PersistentVolume 的节点亲和性规则。
+调度器使用这些规则来限制哪些节点可以访问该卷。
+  
+自 Kubernetes v1.10 起，此注解已被弃用。请在 PersistentVolume 规格中使用
+[`nodeAffinity` 字段](/zh-cn/docs/concepts/storage/persistent-volumes/#node-affinity)。
 
 <!--
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)

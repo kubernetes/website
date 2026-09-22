@@ -22,5 +22,5 @@ Also adds the `includes()` helper function to CEL device selector expressions, w
 works on both scalar and list-type attributes.
 
 For more information, see
-[List type attributes](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#list-type-attributes)
+[List type attributes](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#list-type-attributes)
 in the Dynamic Resource Allocation documentation.

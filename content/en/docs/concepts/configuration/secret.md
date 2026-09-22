@@ -81,7 +81,7 @@ Files beginning with dot characters are hidden from the output of `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
 
-{{% code language="yaml" file="secret/dotfile-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/dotfile-secret.yaml" %}}
 
 ### Use case: Secret visible to one container in a Pod
 
@@ -226,7 +226,7 @@ fills in some other fields such as the `kubernetes.io/service-account.uid` annot
 
 The following example configuration declares a ServiceAccount token Secret:
 
-{{% code language="yaml" file="secret/serviceaccount-token-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/serviceaccount-token-secret.yaml" %}}
 
 After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 
@@ -254,7 +254,7 @@ you must use one of the following `type` values for that Secret:
 
 Below is an example for a `kubernetes.io/dockercfg` type of Secret:
 
-{{% code language="yaml" file="secret/dockercfg-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/dockercfg-secret.yaml" %}}
 
 {{< note >}}
 If you do not want to perform the base64 encoding, you can choose to use the
@@ -324,7 +324,7 @@ Secret manifest.
 
 The following manifest is an example of a basic authentication Secret:
 
-{{% code language="yaml" file="secret/basicauth-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/basicauth-secret.yaml" %}}
 
 {{< note >}}
 The `stringData` field for a Secret does not work well with server-side apply.
@@ -346,7 +346,7 @@ as the SSH credential to use.
 The following manifest is an example of a Secret used for SSH public/private
 key authentication:
 
-{{% code language="yaml" file="secret/ssh-auth-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/ssh-auth-secret.yaml" %}}
 
 The SSH authentication Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for SSH authentication.
@@ -379,7 +379,7 @@ the base64 encoded certificate and private key. For details, see
 
 The following YAML contains an example config for a TLS Secret:
 
-{{% code language="yaml" file="secret/tls-auth-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/tls-auth-secret.yaml" %}}
 
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
@@ -411,7 +411,7 @@ string of the token ID.
 As a Kubernetes manifest, a bootstrap token Secret might look like the
 following:
 
-{{% code language="yaml" file="secret/bootstrap-token-secret-base64.yaml" %}}
+{{% code_sample language="yaml" file="secret/bootstrap-token-secret-base64.yaml" %}}
 
 A bootstrap token Secret has the following keys specified under `data`:
 
@@ -429,7 +429,7 @@ A bootstrap token Secret has the following keys specified under `data`:
 You can alternatively provide the values in the `stringData` field of the Secret
 without base64 encoding them:
 
-{{% code language="yaml" file="secret/bootstrap-token-secret-literal.yaml" %}}
+{{% code_sample language="yaml" file="secret/bootstrap-token-secret-literal.yaml" %}}
 
 {{< note >}}
 The `stringData` field for a Secret does not work well with server-side apply.
@@ -509,7 +509,7 @@ When you reference a Secret in a Pod, you can mark the Secret as _optional_,
 such as in the following example. If an optional Secret doesn't exist,
 Kubernetes ignores it.
 
-{{% code language="yaml" file="secret/optional-secret.yaml" %}}
+{{% code_sample language="yaml" file="secret/optional-secret.yaml" %}}
 
 By default, Secrets are required. None of a Pod's containers will start until
 all non-optional Secrets are available.

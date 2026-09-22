@@ -13,30 +13,23 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="MutatingAdmissionPolicy" >}}
+
 <!-- due to feature gate history, use manual version specification here -->
 
 <!--
 This page provides an overview of _MutatingAdmissionPolicies_.
--->
-本页概要介绍 **MutatingAdmissionPolicy（变更性准入策略）**。
-
-<!--
 MutatingAdmissionPolicies allow you to change what happens when someone writes a change to the Kubernetes API.
 If you want to use declarative policies just to prevent a particular kind of change to resources (for example: protecting platform namespaces from deletion),
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
 is
 a simpler and more effective alternative.
-
-To use the feature, enable the `MutatingAdmissionPolicy` feature gate (which is off by default) and set `--runtime-config=admissionregistration.k8s.io/v1beta1=true` on the kube-apiserver.
 -->
+本页概要介绍 **MutatingAdmissionPolicy（变更性准入策略）**。
 MutatingAdmissionPolicies 允许你在有人向 Kubernetes API 写入变更时修改发生的操作。
 如果你只想使用声明式策略来阻止对资源的某种更改（例如：保护平台命名空间不被删除），
 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 是更简单且更有效的替代方案。
-
-要使用此特性，需要启用 `MutatingAdmissionPolicy` 特性门控（默认是关闭的），
-并在 kube-apiserver 上设置 `--runtime-config=admissionregistration.k8s.io/v1beta1=true`。
 
 <!-- body -->
 
@@ -90,8 +83,7 @@ A policy is generally made up of three resources:
   specify this mutation.
 -->
 - 为 MutatingAdmissionPolicy 提供信息的一个**参数资源（parameter resource）**，
-  有了参数之后，策略成为一条具体的语句
- （假想：“将 `owner` 标签设置为类似 `company.example.com` 的值”）。
+  有了参数之后，策略成为一条具体的语句（假想：“将 `owner` 标签设置为类似 `company.example.com` 的值”）。
   参数资源引用 Kubernetes API 中可用的 Kubernetes 某种资源。被引用的资源可以是内置类别或类似
   {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}（CRD）这种扩展资源。
   例如，你可以使用 ConfigMap 作为参数。
@@ -103,13 +95,29 @@ A policy is generally made up of three resources:
 <!--
 At least a MutatingAdmissionPolicy and a corresponding MutatingAdmissionPolicyBinding
 must be defined for a policy to have an effect.
-
-If a MutatingAdmissionPolicy does not need to be configured via parameters, simply leave
-`spec.paramKind` in  MutatingAdmissionPolicy not specified.
 -->
 你必须定义至少一个 MutatingAdmissionPolicy 和一个相应的 MutatingAdmissionPolicyBinding，
 才能使策略生效。
 
+{{< note >}}
+<!--
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based policies or bindings. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) is enabled.
+-->
+以 `.static.k8s.io`
+结尾的名称保留给[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)使用，
+不能用于基于 API 的策略或绑定。当启用 `ManifestBasedAdmissionControlConfig`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)时，
+将强制执行此保留规则。
+{{< /note >}}
+
+<!--
+If a MutatingAdmissionPolicy does not need to be configured via parameters, simply leave
+`spec.paramKind` in  MutatingAdmissionPolicy not specified.
+-->
 如果 MutatingAdmissionPolicy 不需要通过参数进行配置，在
 MutatingAdmissionPolicy 中不指定 `spec.paramKind` 即可。
 
@@ -264,7 +272,7 @@ The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata
 object. No other metadata properties are accessible.
 -->
 `apiVersion`、`kind`、`metadata.name`、`metadata.generateName` 和
-`metadata.labels` 始终可以从对象的根进行访问。其他元数据属性不可访问。
+`metadata.labels` 始终可以从对象的根进行访问。不可访问其他元数据属性。
 
 #### `JSONPatch` {#patch-type-json-patch}
 
@@ -317,8 +325,7 @@ To define a JSON object for the patch operation `value`, use CEL `Object` types.
 <!--
 To use strings containing '/' and '~' as JSONPatch path keys, use `jsonpatch.escapeKey()`. For example:
 -->
-要使用包含 '/' 和 '~' 的字符串作为 JSONPatch 路径键，可以使用
-`jsonpatch.escapeKey()`。例如：
+要使用包含 '/' 和 '~' 的字符串作为 JSONPatch 路径键，可以使用 `jsonpatch.escapeKey()`。例如：
 
 ```
   [
@@ -342,8 +349,7 @@ CEL expressions have access to the types needed to create JSON patches and objec
 CEL 表达式可以访问创建 JSON 补丁和对象所需的类型：
 
 - `JSONPatch` - JSON 补丁操作的 CEL 类型。JSONPatch 具有 `op`、`from`、`path` 和 `value` 字段。
-  有关细节参阅 [JSON 补丁](https://jsonpatch.com/)。
-  `value` 字段可以设置为字符串、整数、数组、映射或对象。
+  有关细节参阅 [JSON 补丁](https://jsonpatch.com/)。`value` 字段可以设置为字符串、整数、数组、映射或对象。
   如果设置，`path` 和 `from` 字段的值必须为
   [JSON 指针](https://datatracker.ietf.org/doc/html/rfc6901/)字符串，
   可以在指针中使用 `jsonpatch.escapeKey()` CEL 函数来转义包含 `/` 和 `~` 的路径键。
@@ -406,20 +412,58 @@ CEL 表达式可以访问
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
 
-The list of exempt API kinds is:
+The following admission configuration kinds are exempt from policies created
+via the REST API, to prevent circular dependencies:
 -->
 ## 豁免变更性准入的 API 类别   {#api-kinds-exempt-from-mutating-admission}
 
-某些 API 类别可以豁免准入时变更。例如，你无法创建更改 MutatingAdmissionPolicy
-的 MutatingAdmissionPolicy。
+某些 API 类别可以豁免准入时变更。例如，你无法创建更改 MutatingAdmissionPolicy 的 MutatingAdmissionPolicy。
 
-豁免变更性准入的 API 类别列表如下：
+以下准入配置类别豁免通过 REST API 创建的策略，以避免循环依赖：
 
-* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
-* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* ValidatingAdmissionPolicies
+* ValidatingAdmissionPolicyBindings
 * MutatingAdmissionPolicies
 * MutatingAdmissionPolicyBindings
-* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
-* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
-* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
-* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})
+
+{{< note >}}
+<!--
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a MutatingAdmissionPolicy can intercept the admission configuration kinds
+listed above. This bypasses the restrictions usually applied to policies
+created via the REST API, allowing you to mutate even admission configuration
+and security-sensitive resources. Unlike the REST API, a bad manifest-based
+admission policy intercepting these resources would not be unrecoverable since
+it is defined on disk rather than through the API.
+-->
+当通过[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)配置时，
+MutatingAdmissionPolicy 可以拦截上述准入配置类别。这绕过了通常应用于通过 REST API
+创建的策略的限制，允许你变更甚至准入配置和安全敏感资源。与 REST API 不同，
+拦截这些资源的不当基于清单的准入策略不会导致不可恢复的后果，因为它是通过磁盘而非通过 API 定义的。
+{{< /note >}}
+
+<!--
+Additionally, the following non-persisted (virtual) authentication and
+authorization API kinds are exempt from all admission policies, including
+manifest-based policies, because intercepting them could lock the cluster out
+of its own authentication and authorization path:
+-->
+此外，以下非持久化（虚拟）的认证和授权 API 类别豁免所有准入策略，包括基于清单的策略，
+因为拦截它们可能导致集群被锁定在自身的认证和授权路径之外：
+
+* TokenReviews
+* SelfSubjectReviews
+* LocalSubjectAccessReviews
+* SelfSubjectAccessReviews
+* SelfSubjectRulesReviews
+* SubjectAccessReviews
+
+<!--
+Starting with Kubernetes v1.37,
+[admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+also exclude these virtual resources by default.
+-->
+从 Kubernetes v1.37 开始，
+[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+也默认排除这些虚拟资源。

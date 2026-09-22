@@ -36,7 +36,7 @@ Jeśli nie pracowałeś z wcześniejszymi sekcjami, zacznij od sekcji
 
 _Skalowanie_ polega na zmianie liczby replik w Deploymencie.
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli próbujesz to zrobić po
 [poprzedniej sekcji](/pl/docs/tutorials/kubernetes-basics/expose/expose-intro/),
 mogłeś usunąć utworzoną usługę lub utworzyłeś usługę
@@ -51,7 +51,7 @@ polecenie, aby utworzyć nową z ustawionym `typem` na `LoadBalancer`:
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ## Ogólnie o skalowaniu {#scaling-overview}
 
@@ -186,7 +186,7 @@ Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli używasz minikube z Docker Desktop jako sterownika
 kontenerów, potrzebny jest tunel minikube. Wynika to z
 faktu, że kontenery w Docker Desktop są izolowane od Twojego hosta.
@@ -209,7 +209,7 @@ Następnie użyj podany URL, aby uzyskać dostęp do aplikacji:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ### Zmniejsz Skalę {#scale-down}
 

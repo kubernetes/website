@@ -355,6 +355,34 @@ for points to note in terms of resource management when using memory-backed `emp
 了解有关资源管理方面的注意事项。
 {{< /caution >}}
 
+{{< feature-state feature_gate_name="EmptyDirVolumeMode" >}}
+
+<!--
+The `emptyDir.mode` field lets you set Unix permission bits on the emptyDir directory,
+specifying a value between `0000` and `01777` (octal). This follows the same pattern as the
+`defaultMode` field on Secret and ConfigMap volumes. If `mode` is not specified, the
+directory is created with the default `0777` permissions.
+
+Setting a custom mode is useful when you want to restrict access to owner and group only
+(for example, `0750`), or set the sticky bit on a shared directory so that only file owners
+can delete their own files (for example, `01777`).
+-->
+`emptyDir.mode` 字段用于设置 emptyDir 目录的 Unix 权限位，取值范围为 `0000`
+到 `01777`（八进制）。与 Secret 和 ConfigMap 卷上的 `defaultMode` 字段用法一致。
+如果未指定 `mode`，则目录将以默认的 `0777` 权限创建。
+
+设置自定义模式适用于以下场景：仅允许属主和属组访问（例如 `0750`），或在共享目录上设置粘滞位，
+使得只有文件属主才能删除自己的文件（例如 `01777`）。
+
+{{< note >}}
+<!--
+If `fsGroup` is set in the Pod's security context, the group permissions applied by
+`fsGroup` override the `mode` specified here. The `mode` field has no effect on Windows.
+-->
+如果在 Pod 的安全上下文中设置了 `fsGroup`，则 `fsGroup` 所应用的组权限会覆盖此处指定的 `mode`。
+`mode` 字段在 Windows 上无效。
+{{< /note >}}
+
 <!--
 #### emptyDir configuration example
 -->
@@ -400,6 +428,67 @@ spec:
     emptyDir:
       sizeLimit: 500Mi
       medium: Memory
+```
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+<!--
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes ithout restarting the Pod. For more details, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/resizing-memory-backed-emptydir-volumes).
+-->
+启用 `InPlacePodVerticalScalingMemoryBackedVolumes` 特性门控后，
+你可以动态调整基于内存的（`medium: Memory`）`emptyDir` 卷的 `sizeLimit`，而无需重启 Pod。
+有关详情，请参阅[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/resizing-memory-backed-emptydir-volumes)。
+{{< /note >}}
+
+<!--
+#### emptyDir permissions configuration example
+-->
+#### emptyDir 权限配置示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volB
+    - name: volC
+      mountPath: /mnt/volC
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo # Owner=defaultUser
+        path: foo
+      - key: bar # Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: # Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo # Owner=root
+            path: moo
+          - key: baa # Owner=user
+            path: baa
+            user: 1000
 ```
 
 <!--
@@ -473,7 +562,8 @@ Kubernetes {{< skew latestVersion >}} **不**包含 `gitRepo` 卷驱动。
 并且自从 [v1.11](/zh-cn/releases/1.11) 小版本发布以来，它已被弃用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
-[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
+[EmptyDir](#emptydir) 卷挂载到
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
 使用 Git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
 
 ---
@@ -521,8 +611,8 @@ read-write host mount.
 例如，你可以改为定义并使用 [`local` PersistentVolume](#local)。
 
 如果你通过准入时的验证来限制对节点上特定目录的访问，这种限制只有在你额外要求所有
-`hostPath` 卷的挂载都是**只读**的情况下才有效。如果你允许不受信任的 Pod 以读写方式挂载任意主机路径，
-则该 Pod 中的容器可能会破坏可读写主机挂载卷的安全性。
+`hostPath` 卷的挂载都是**只读**的情况下才有效。如果你允许不受信任的 Pod
+以读写方式挂载任意主机路径，则该 Pod 中的容器可能会破坏可读写主机挂载卷的安全性。
 
 ---
 
@@ -625,7 +715,8 @@ or modify the file permissions on the host to read from or write to a `hostPath`
 -->
 下层主机上创建的某些文件或目录只能由 root 用户访问。
 此时，你需要在[特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
-root 身份运行进程，或者修改主机上的文件权限，以便能够从 `hostPath` 卷读取数据（或将数据写入到 `hostPath` 卷）。
+root 身份运行进程，或者修改主机上的文件权限，以便能够从 `hostPath`
+卷读取数据（或将数据写入到 `hostPath` 卷）。
 
 <!--
 #### hostPath configuration example
@@ -761,7 +852,11 @@ The following manifest defines a Pod that mounts `/var/local/aaa`
 inside the single container in the Pod. If the node does not
 already have a path `/var/local/aaa`, the kubelet creates
 it as a directory and then mounts it into the Pod.
+-->
+以下清单定义了一个 Pod，将 `/var/local/aaa` 挂载到 Pod 中的单个容器内。
+如果节点上还没有路径 `/var/local/aaa`，kubelet 会创建这一目录，然后将其挂载到 Pod 中。
 
+<!--
 If `/var/local/aaa` already exists but is not a directory,
 the Pod fails. Additionally, the kubelet attempts to make
 a file named `/var/local/aaa/1.txt` inside that directory
@@ -770,9 +865,6 @@ that path and isn't a regular file, the Pod fails.
 
 Here's the example manifest:
 -->
-以下清单定义了一个 Pod，将 `/var/local/aaa` 挂载到 Pod 中的单个容器内。
-如果节点上还没有路径 `/var/local/aaa`，kubelet 会创建这一目录，然后将其挂载到 Pod 中。
-
 如果 `/var/local/aaa` 已经存在但不是一个目录，Pod 会失败。
 此外，kubelet 还会尝试在该目录内创建一个名为 `/var/local/aaa/1.txt` 的文件（从主机的视角来看）；
 如果在该路径上已经存在某个东西且不是常规文件，则 Pod 会失败。
@@ -920,7 +1012,8 @@ Besides that:
 -->
 此外：
 
-- 从 Kubernetes v1.33 开始，才支持容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
+- 从 Kubernetes v1.33 开始，才支持容器的
+  [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
   [`subPathExpr`](/zh-cn/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
   挂载（`spec.containers[*].volumeMounts[*].subPath`、`spec.containers[*].volumeMounts[*].subPathExpr`）。
 - `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
@@ -965,8 +1058,64 @@ example for more details on how to use the volume source.
 : 拉取 OCI 对象的策略。可能的值为：`Always`、`Never` 或 `IfNotPresent`。
   如果指定了 `:latest` 标记，则默认为 `Always`，否则默认为 `IfNotPresent`。
 
-有关如何使用卷源的更多细节，
-请参见 [**Pod 使用镜像卷**](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
+有关如何使用卷源的更多细节，请参见
+[**Pod 使用镜像卷**](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
+
+<!--
+#### Pod status and `image` volumes {#image-volume-pod-status}
+-->
+#### Pod 状态与 `image` 卷    {#image-volume-pod-status}
+
+{{< feature-state feature_gate_name="ImageVolumeWithDigest" >}}
+
+<!--
+If the `ImageVolumeWithDigest` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in your cluster,
+then whenever you specify an `image` volume for a Pod,
+the kubelet updates the Pod status to record the _digest_
+of the container image that's being used as a volume source.
+
+Here's a simplified example of a running Pod, represented as YAML, including the status update.
+Note the new `ImageRef` field under `volumeMounts` in the container status.
+-->
+如果在你的集群中启用了 `ImageVolumeWithDigest`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+那么每当你为 Pod 指定一个 `image` 卷时，kubelet 都会更新 Pod 状态，
+记录作为卷来源使用的容器镜像的**摘要**（digest）。
+
+下面是一个正在运行的 Pod 的简化示例，以 YAML 表示，其中已包含状态更新。
+请注意容器状态中 `volumeMounts` 下新增的 `ImageRef` 字段。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  namespace: default
+spec:
+  containers:
+  - name: shell
+    command: ["sleep", "infinity"]
+    image: docker.io/library/debian:12
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+  volumes:
+  - name: artifact
+    image:
+      reference: quay.io/crio/artifact:v2
+      pullPolicy: IfNotPresent
+status:
+  containerStatuses:
+  - containerID: containerd://examplecontainerid1234567890abcdef
+    image: docker.io/library/debian:12
+    imageID: docker-pullable://docker.io/library/debian@sha256:3f1d6c17773a45c97bd8f158d665c9709d7b29ed7917ac934086ad96f92e4510
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+      readOnly: true
+      imageRef: quay.io/crio/artifact@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+```
 
 ### iscsi
 
@@ -1283,7 +1432,8 @@ directory. For more details, see [projected volumes](/docs/concepts/storage/proj
 -->
 ### 投射（projected）   {#projected}
 
-投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
+投射卷能将若干现有的卷来源映射到同一目录上。
+更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
 ### secret
 
@@ -1464,7 +1614,8 @@ Pods.
 
 `emptyDir` 卷的存储介质（例如磁盘、SSD 等）是由保存 kubelet
 数据的根目录（通常是 `/var/lib/kubelet`）的文件系统的介质确定。
-Kubernetes 对 `emptyDir` 卷或者 `hostPath` 卷可以消耗的空间没有限制，容器之间或 Pod 之间也没有隔离。
+Kubernetes 对 `emptyDir` 卷或者 `hostPath` 卷可以消耗的空间没有限制，容器之间或
+Pod 之间也没有隔离。
 
 <!--
 To learn about requesting space using a resource specification, see
@@ -1551,17 +1702,18 @@ may use the `csi` volume type to attach or mount the volumes exposed by the
 CSI driver.
 
 A `csi` volume can be used in a Pod in three different ways:
+-->
+一旦在 Kubernetes 集群上部署了 CSI 兼容卷驱动程序，用户就可以使用
+`csi` 卷类型来挂接、挂载 CSI 驱动所提供的卷。
+  
+`csi` 卷可以在 Pod 中以三种方式使用：
 
+<!--
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
   if the driver supports that
 -->
-一旦在 Kubernetes 集群上部署了 CSI 兼容卷驱动程序，用户就可以使用
-`csi` 卷类型来挂接、挂载 CSI 驱动所提供的卷。
-
-`csi` 卷可以在 Pod 中以三种方式使用：
-
 * 通过 [PersistentVolumeClaim](#persistentvolumeclaim) 对象引用
 * 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)，
@@ -1605,7 +1757,8 @@ persistent volume:
   "ControllerPublished" (attached) as read-only. Default is false. This value is passed
   to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 -->
-* `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。默认值是 `false`。
+* `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished`
+  关联该卷时是否设置该卷为只读。默认值是 `false`。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动。
 
 <!--
@@ -1988,6 +2141,7 @@ in `containers[*].volumeMounts`. Its values are:
   In addition, any volume mounts created by containers in Pods must be destroyed
   (unmounted) by the containers on termination.
   -->
+  
   `Bidirectional` 形式的挂载传播可能比较危险。
   它可以破坏主机操作系统，因此它只被允许在特权容器中使用。
   强烈建议你熟悉 Linux 内核行为。
@@ -2086,13 +2240,101 @@ Example:
 When this property is recognized by kubelet and kube-apiserver,
 the `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` field is set to either
 `Enabled` or `Disabled`.
-
-#### Implementations {#implementations-rro}
 -->
 当此属性被 kubelet 和 kube-apiserver 识别到时，
 `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` 字段将被设置为
 `Enabled` 或 `Disabled`。
 
+<!--
+## File owner
+
+### Group ownership (GID)
+
+Volume file group ownership (GID) is controlled by the pod's `spec.securityContext.fsGroup`.
+
+For detailed configuration steps, refer to
+[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
+
+### User ownership (UID)
+-->
+## 文件属主
+
+### 属组（GID）
+
+卷文件的属组（GID）由 Pod 的 `spec.securityContext.fsGroup` 控制。
+
+有关详细配置步骤，请参阅[为 Pod 或容器配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+
+### 属主（UID）
+
+{{< feature-state feature_gate_name="AtomicWriteVolumeUserFields" >}}
+
+<!--
+Setting the `AtomicWriteVolumeUserFields` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enables file user ownership (UID) fields of `configMap`, `secret`, `downwardAPI` and `projected` volumes.
+
+When `defaultUser` is specified at the volume level, it sets the owner UID for all its data files at creation time.
+At the item level, the `user` field controls owner UID of an individual file and takes precedence over `defaultUser`.
+
+Example:
+-->
+启用 `AtomicWriteVolumeUserFields`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，将为
+`configMap`、`secret`、`downwardAPI` 和 `projected` 卷启用文件属主（UID）字段。
+
+在卷级别指定 `defaultUser` 时，会在创建时设置该卷所有数据文件的属主 UID。
+在项级别，`user` 字段控制单个文件的属主 UID，且优先于 `defaultUser`。
+
+示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volB
+    - name: volC
+      mountPath: /mnt/volC
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo # Owner=defaultUser
+        path: foo
+      - key: bar # Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: # Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo # Owner=root
+            path: moo
+          - key: baa # Owner=user
+            path: baa
+            user: 1000
+```
+
+<!--
+#### Implementations {#implementations-rro}
+-->
 #### 实现   {#implementations-rro}
 
 {{% thirdparty-content %}}
@@ -2121,6 +2363,44 @@ OCI 级别：
 
 - [runc](https://runc.io/)，自 v1.1 起
 - [crun](https://github.com/containers/crun)，自 v1.8.6 起
+
+<!--
+## Bind mount options
+-->
+## 绑定挂载选项
+
+{{< feature-state feature_gate_name="VolumeBindMountOptions" >}}
+
+<!--
+The `.spec.containers[*].volumeMounts[*].bindMountOptions` field lets you apply security-related
+Linux bind mount flags to any volume mount. The allowed values are:
+
+* `noexec` - prevents execution of binaries on the mounted volume
+* `nodev` - ignores device special files on the mounted volume
+* `nosuid` - ignores set-user-identifier or set-group-identifier bits on the mounted volume
+
+These options apply per container, so different containers in the same Pod can mount
+the same volume with different bind mount options. The field is not supported with
+[image volumes](#image).
+-->
+`.spec.containers[*].volumeMounts[*].bindMountOptions` 字段用于将安全相关的
+Linux bind 挂载标志应用于任何卷挂载。允许的值为：
+
+* `noexec` - 禁止在已挂载卷上执行二进制文件
+* `nodev` - 忽略已挂载卷上的设备特殊文件
+* `nosuid` - 忽略已挂载卷上的 set-user-identifier（SUID）和 set-group-identifier（SGID）位
+
+这些选项按容器分别生效，因此同一 Pod 中的不同容器可以以不同的 bind 挂载选项挂载同一卷。该字段不支持用于[镜像卷](#image)。
+
+{{< note >}}
+<!--
+The container runtime (such as containerd or CRI-O) must support the `mount_options`
+field in the CRI `Mount` message. If the runtime does not advertise support, the kubelet
+rejects Pods that use `bindMountOptions`. This field has no effect on Windows nodes.
+-->
+容器运行时（如 containerd 或 CRI-O）必须支持 CRI `Mount` 消息中的 `mount_options` 字段。
+如果运行时未声明支持此字段，kubelet 会拒绝使用 `bindMountOptions` 的 Pod。该字段在 Windows 节点上无效。
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 

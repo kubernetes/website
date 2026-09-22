@@ -125,7 +125,7 @@ The general labeling process should be consistent across artifact types.
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 

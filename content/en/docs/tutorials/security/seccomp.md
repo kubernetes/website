@@ -55,11 +55,11 @@ for the version you are using.
 The tutorial also uses the `curl` tool for downloading examples to your computer.
 You can adapt the steps to use a different tool if you prefer.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 It is not possible to apply a seccomp profile to a container running with
 `privileged: true` set in the container's `securityContext`. Privileged containers always
 run as `Unconfined`.
-{{< /note >}}
+{{< /alert >}}
 
 <!-- steps -->
 
@@ -166,11 +166,11 @@ Most container runtimes provide a sane set of default syscalls that are allowed
 or not. You can adopt these defaults for your workload by setting the seccomp
 type in the security context of a pod or container to `RuntimeDefault`.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you have the `seccompDefault` [configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
-{{< /note >}}
+{{< /alert >}}
 
 Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
 for all its containers:
@@ -207,13 +207,13 @@ Here's a manifest for that Pod:
 
 {{% code_sample file="pods/security/seccomp/ga/audit-pod.yaml" %}}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Older versions of Kubernetes allowed you to configure seccomp
 behavior using {{< glossary_tooltip text="annotations" term_id="annotation" >}}.
 Kubernetes {{< skew currentVersion >}} only supports using fields within
 `.spec.securityContext` to configure seccomp, and this tutorial explains that
 approach.
-{{< /note >}}
+{{< /alert >}}
 
 Create the Pod in the cluster:
 
@@ -437,14 +437,14 @@ of security defaults while preserving the functionality of the workload. It is
 possible that the default profiles differ between container runtimes and their
 release versions, for example when comparing those from CRI-O and containerd.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Enabling the feature will neither change the Kubernetes
 `securityContext.seccompProfile` API field nor add the deprecated annotations of
 the workload. This provides users the possibility to rollback anytime without
 actually changing the workload configuration. Tools like
 [`crictl inspect`](https://github.com/kubernetes-sigs/cri-tools) can be used to
 verify which seccomp profile is being used by a container.
-{{< /note >}}
+{{< /alert >}}
 
 Some workloads may require a lower amount of syscall restrictions than others.
 This means that they can fail during runtime even with the `RuntimeDefault`

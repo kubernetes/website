@@ -189,7 +189,7 @@ The name of an Ingress object must be a valid
 For general information about working with config files, see
 [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/),
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/).
+[managing resources](/docs/concepts/workloads/management/).
 Ingress controllers frequently use [annotations](/docs/concepts/overview/working-with-objects/annotations/) to configure behavior.
 Review the documentation for your choice of ingress controller to learn which annotations are expected and / or supported.
 -->
@@ -197,7 +197,7 @@ Ingress 需要指定 `apiVersion`、`kind`、 `metadata`和 `spec` 字段。
 Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 关于如何使用配置文件的一般性信息，请参见[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
 [配置容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
-[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)。
+[管理资源](/zh-cn/docs/concepts/workloads/management/)。
 Ingress 控制器经常使用[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)来配置行为。
 请查阅你选择的 Ingress 控制器的文档，以了解预期和/或支持的注解。
 

@@ -85,6 +85,10 @@ NodeSpec describes the attributes that a node is created with.
       <td>podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.</td>
     </tr>
     <tr>
+      <td><code>podPreemptionPolicy</code><br/><em><a href="{{< ref "#NodePodPreemptionPolicy" >}}">NodePodPreemptionPolicy</a></em></td>
+      <td>PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.</td>
+    </tr>
+    <tr>
       <td><code>providerID</code><br/><em>string</em></td>
       <td>ID of the node assigned by the cloud provider in the format: \<ProviderName>://\<ProviderSpecificNodeID></td>
     </tr>
@@ -428,6 +432,23 @@ NodeFeatures describes the set of features implemented by the CRI implementation
 </table>
 
 
+## NodePodPreemptionPolicy {#NodePodPreemptionPolicy}
+
+NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>disableResizePreemption</code><br/><em>string array</em></td>
+      <td>DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## NodeRuntimeHandler {#NodeRuntimeHandler}
 
 NodeRuntimeHandler is a set of runtime handler information.
@@ -531,6 +552,10 @@ NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     <tr>
       <td><code>osImage</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).</td>
+    </tr>
+    <tr>
+      <td><code>runningInUserNamespace</code><br/><em>boolean</em></td>
+      <td>Whether the node is running in a user namespace.</td>
     </tr>
     <tr>
       <td><code>swap</code><br/><em><a href="{{< ref "#NodeSwapStatus" >}}">NodeSwapStatus</a></em></td>
@@ -2121,6 +2146,8 @@ PUT /api/v1/nodes/{name}/proxy/{path}
     </tr>
   </tbody>
 </table>
+
+
 
 
 

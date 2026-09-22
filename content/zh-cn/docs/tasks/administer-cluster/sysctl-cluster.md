@@ -3,7 +3,6 @@ title: 在 Kubernetes 集群中使用 sysctl
 content_type: task
 weight: 400
 ---
-
 <!--
 title: Using sysctls in a Kubernetes Cluster
 reviewers:
@@ -141,6 +140,8 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+).
 - `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
 - `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_slow_start_after_idle` (since Kubernetes 1.37, needs kernel 4.15+).
+- `net.ipv4.tcp_notsent_lowat` (since Kubernetes 1.37, needs kernel 4.6+).
 -->
 - `kernel.shm_rmid_forced`；
 - `net.ipv4.ip_local_port_range`；
@@ -153,7 +154,9 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_keepalive_intvl`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
 - `net.ipv4.tcp_keepalive_probes`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
 - `net.ipv4.tcp_rmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）；
-- `net.ipv4.tcp_wmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）。
+- `net.ipv4.tcp_wmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）；
+- `net.ipv4.tcp_slow_start_after_idle`（从 Kubernetes 1.37 开始，需要 kernel 4.15+）；
+- `net.ipv4.tcp_notsent_lowat`（从 Kubernetes 1.37 开始，需要 kernel 4.6+）。
 
 {{< note >}}
 <!--
@@ -340,3 +343,182 @@ to schedule those pods onto the right nodes.
 建议开启[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint)或
 [为节点配置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)以便将
 Pod 调度到正确的节点之上。
+
+<!--
+## Setting Sysctls for All Pods
+-->
+## 为所有 Pod 设置 sysctl {#setting-sysctls-for-all-pods}
+
+{{< feature-state feature_gate_name="DefaultPodSysctls" >}}
+
+<!--
+You can configure a default set of kernel parameters (sysctls) that the `kubelet`
+applies to all Pods running on a Linux Node, including {{< glossary_tooltip text="static Pods" term_id="static-pod" >}}.
+This is useful when Node administrators need to enforce consistent kernel parameter
+tuning across all workloads on a Node or within a Node group (for example,
+adjusting TCP buffer sizes for high-performance networking) without requiring
+every Pod specification to individually set `securityContext.sysctls`.
+-->
+你可以配置一组默认的内核参数（sysctl），由 `kubelet` 应用到运行于 Linux 节点上的所有 Pod，
+包括{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}。
+当节点管理员需要在节点上或节点组内对所有工作负载强制实施一致的内核参数调优
+（例如，为高性能网络调整 TCP 缓冲区大小），而又不要求每个 Pod 规约都单独设置
+`securityContext.sysctls` 时，此特性非常有用。
+
+<!--
+To use this feature, enable the `DefaultPodSysctls`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+for the `kubelet` and specify key-value pairs in the `defaultPodSysctls` field
+of your
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
+-->
+要使用此特性，请为 `kubelet` 启用 `DefaultPodSysctls`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并在你的
+[KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+中的 `defaultPodSysctls` 字段中指定键值对。
+
+<!--
+The `defaultPodSysctls` field supports all namespaced sysctls (`kernel.shm*`,
+`kernel.msg*`, `kernel.sem`, `kernel.domainname`, `fs.mqueue.*`, `net.*`, and
+`user.*`), covering both _safe_ and _unsafe_ sysctls. Because these defaults
+are configured directly by the Node administrator on the `kubelet`, you do not
+need to allow-list unsafe sysctls in `allowedUnsafeSysctls`.
+-->
+`defaultPodSysctls` 字段支持所有带命名空间的 sysctl（`kernel.shm*`、
+`kernel.msg*`、`kernel.sem`、`kernel.domainname`、`fs.mqueue.*`、`net.*` 和
+`user.*`），涵盖**安全的**和**非安全的** sysctl。由于这些默认值由节点管理员直接在
+`kubelet` 上配置，因此你无需在 `allowedUnsafeSysctls` 中为非安全 sysctl 设置白名单。
+
+<!--
+The following example configures the `kubelet` to apply default sysctls across
+multiple namespaced subsystems (networking, IPC, and user namespaces) to all
+Pods on the Node:
+-->
+以下示例配置 `kubelet` 将跨越多个命名空间子系统（网络、IPC 和用户命名空间）的默认
+sysctl 应用到节点上的所有 Pod：
+
+<!--
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  DefaultPodSysctls: true
+defaultPodSysctls:
+  # Network namespace sysctls (skipped if Pod uses hostNetwork: true)
+  net.ipv4.ip_forward: "1"
+  net.ipv4.tcp_rmem: "4096 87380 16777216"
+  net.ipv4.tcp_wmem: "4096 65536 16777216"
+  net.core.somaxconn: "1024"
+  # IPC namespace sysctls (skipped if Pod uses hostIPC: true)
+  kernel.shmall: "1048576"
+  kernel.msgmax: "65536"
+  kernel.sem: "250 32000 32 128"
+  fs.mqueue.msg_max: "1024"
+  # User namespace sysctls (skipped if Pod shares the host user namespace)
+  user.max_user_namespaces: "1000"
+```
+-->
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  DefaultPodSysctls: true
+defaultPodSysctls:
+  # 网络命名空间 sysctl（如果 Pod 使用 hostNetwork: true 则跳过）
+  net.ipv4.ip_forward: "1"
+  net.ipv4.tcp_rmem: "4096 87380 16777216"
+  net.ipv4.tcp_wmem: "4096 65536 16777216"
+  net.core.somaxconn: "1024"
+  # IPC 命名空间 sysctl（如果 Pod 使用 hostIPC: true 则跳过）
+  kernel.shmall: "1048576"
+  kernel.msgmax: "65536"
+  kernel.sem: "250 32000 32 128"
+  fs.mqueue.msg_max: "1024"
+  # 用户命名空间 sysctl（如果 Pod 共享宿主机用户命名空间则跳过）
+  user.max_user_namespaces: "1000"
+```
+
+<!--
+### Precedence and Overriding
+
+Values explicitly set in a Pod's `spec.securityContext.sysctls` always override
+the matching default values specified in the `kubelet`'s `defaultPodSysctls`. Overrides
+are applied individually on a per-key basis: if a Pod specifies a value for a sysctl
+that is also defined in `defaultPodSysctls`, the Pod-level setting takes precedence
+for that specific sysctl, while other defaults continue to apply. Note that there are
+no groups of connected sysctl settings; if your workload overrides a sysctl that is part
+of a related group (for example, networking buffer sizes), the Pod specification must
+account for all related settings as needed.
+-->
+### 优先级与覆盖 {#precedence-and-overriding}
+
+在 Pod 的 `spec.securityContext.sysctls` 中显式设置的值始终会覆盖 `kubelet` 的
+`defaultPodSysctls` 中指定的对应默认值。覆盖以逐键方式独立应用：如果 Pod 为某个在
+`defaultPodSysctls` 中也有定义的 sysctl 指定了值，则对该特定 sysctl 而言，
+Pod 级别的设置优先，而其他默认值继续生效。请注意，sysctl 设置之间不存在关联分组；
+如果你的工作负载覆盖了某个关联组（例如网络缓冲区大小）中的 sysctl，
+则 Pod 规约必须按需处理所有相关设置。
+
+<!--
+### Host Namespaces and Filtering
+
+The `kubelet` applies default sysctls during Pod sandbox creation only if the Pod
+runs in a separate namespace for the corresponding subsystem. If a Pod shares a
+host namespace, default sysctls for that namespace are skipped for that Pod:
+-->
+### 宿主机命名空间与过滤 {#host-namespaces-and-filtering}
+
+只有当 Pod 在相应的子系统独立命名空间中运行时，`kubelet` 才会应用默认的 sysctl 设置；
+如果 Pod 共享宿主机的命名空间，则该 Pod 将跳过针对该命名空间的默认 sysctl 设置：
+
+<!--
+- `net.*` sysctls are skipped if the Pod uses host networking (`hostNetwork: true`).
+- IPC sysctls (`kernel.sem`, `kernel.msg*`, `kernel.shm*`, `fs.mqueue.*`) are
+  skipped if the Pod uses host IPC (`hostIPC: true`).
+- `user.*` sysctls are skipped if the Pod shares the host user namespace
+  (`hostUsers: true` or unset).
+- UTS sysctls (`kernel.domainname`) are skipped if the Pod uses host networking
+  (`hostNetwork: true`).
+-->
+- 如果 Pod 使用宿主机网络（`hostNetwork: true`），则会跳过 `net.*` 类型的 sysctl 设置。
+- 如果 Pod 使用了宿主机 IPC（即 `hostIPC: true`），则会跳过 IPC sysctl 设置
+  （`kernel.sem`、`kernel.msg*`、`kernel.shm*`、`fs.mqueue.*`）。
+- 如果 Pod 共享宿主机用户命名空间（`hostUsers: true` 或未设置），则会跳过 `user.*` 类型的 sysctl 设置。
+- 如果 Pod 使用宿主机网络（`hostNetwork: true`），则跳过 UTS sysctl（`kernel.domainname`）设置。
+
+<!--
+### Validation and Limitations
+
+The `kubelet` validates `defaultPodSysctls` during startup. Non-namespaced
+sysctls, invalid sysctl names, or duplicate keys will prevent the `kubelet` from
+starting.
+-->
+### 校验与限制 {#validation-and-limitations}
+
+`kubelet` 在启动期间会校验 `defaultPodSysctls`。非命名空间级别的 sysctl、无效的
+sysctl 名称或重复的键将阻止 `kubelet` 启动。
+
+<!--
+In addition, certain `net.*` sysctls might be unnamespaced depending on your
+kernel version. Specifying an unnamespaced `net.*` sysctl in `defaultPodSysctls`
+will cause Pod sandbox creation to fail with a `FailedCreatePodSandBox` error.
+The Pod will keep retrying to create a sandbox forever. Ensure that all
+specified sysctls are namespaced on your Node's kernel.
+-->
+此外，某些 `net.*` sysctl 可能是非命名空间级别的，具体取决于你的内核版本。在
+`defaultPodSysctls` 中指定非命名空间级别的 `net.*` sysctl 将导致 Pod 沙箱创建失败，
+并报 `FailedCreatePodSandBox` 错误。Pod 将会永远重试创建沙箱。请确保所有指定的
+sysctl 在你的节点内核上都是命名空间级别的。
+
+<!--
+Changes to `defaultPodSysctls` apply only to newly created Pods. The `kubelet`
+does not dynamically reconfigure existing Pods (see [What Happens After a Node Restart](/docs/reference/node/what-happens-on-restart/#impact-of-a-kubelet-restart)).
+Existing Pods continue to run with the sysctls applied when their sandbox was created.
+If you want existing Pods to adopt the updated default sysctls, you must recreate those
+Pods (for example, by cordoning and draining the Node).
+-->
+对 `defaultPodSysctls` 的更改仅应用于新建的 Pod。`kubelet` 不会动态重新配置已存在的
+Pod（参见[节点重启后会发生什么](/zh-cn/docs/reference/node/what-happens-on-restart/#impact-of-a-kubelet-restart)）。
+已存在的 Pod 将继续使用其沙箱创建时所应用的 sysctl 运行。如果你希望已存在的 Pod
+采用更新后的默认 sysctl，你必须重新创建这些 Pod（例如，通过隔离并排空节点）。

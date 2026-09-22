@@ -28,10 +28,10 @@ tutorial does not cover the details you need for running a resilient control pla
 * Launch a Pod running `nginx` that listens to requests on TCP port 80 on the Pod's IP address.
 * Learn how the different components of the solution interact among themselves.
 
-{{< caution >}}
+{{< alert color="caution" title="Caution" >}}
 The kubelet configuration used for this tutorial is insecure by design and should
 _not_ be used in a production environment.
-{{< /caution >}}
+{{< /alert >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -53,12 +53,12 @@ _not_ be used in a production environment.
 By default, kubelet fails to start if swap memory is detected on a node.
 This means that swap should either be disabled or tolerated by kubelet.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you configure the kubelet to tolerate swap, the kubelet still configures Pods (and the
 containers in those Pods) not to use swap space. To find out how Pods can actually
 use the available swap, you can read more about
 [swap memory management](/docs/concepts/architecture/nodes/#swap-memory) on Linux nodes.
-{{< /note >}}
+{{< /alert >}}
 
 If you have swap memory enabled, either disable it or add `failSwapOn: false` to the
 kubelet configuration file.
@@ -232,11 +232,11 @@ The output is similar to:
 }
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Make sure that the default `subnet` range (`10.85.0.0/16`) does not overlap with
 any of your active networks. If there is an overlap, you can edit the file and change it
 accordingly. Restart the service after the change.
-{{< /note >}}
+{{< /alert >}}
 
 ### Download and set up the kubelet
 
@@ -276,7 +276,7 @@ containerRuntimeEndpoint: unix:///var/run/crio/crio.sock
 EOF
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Because you are not setting up a production cluster, you are using plain HTTP
 (`readOnlyPort: 10255`) for unauthenticated queries to the kubelet's API.
 
@@ -288,7 +288,7 @@ configure kubelet in standalone mode in your environment.
 
 See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
 understand which ports Kubernetes components use.
-{{< /note >}}
+{{< /alert >}}
 
 Install:
 

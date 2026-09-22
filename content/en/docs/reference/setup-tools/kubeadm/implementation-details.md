@@ -544,9 +544,6 @@ addon.
 
 - The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
 
-In Kubernetes version 1.21, support for using `kube-dns` with kubeadm was removed.
-You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
-
 ## kubeadm join phases internal design
 
 Similarly to `kubeadm init`, also `kubeadm join` internal workflow consists of a sequence of

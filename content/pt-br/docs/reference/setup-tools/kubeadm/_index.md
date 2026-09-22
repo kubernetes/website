@@ -4,8 +4,9 @@ weight: 10
 no_list: true
 content_type: concept
 card:
-  name: reference
-  weight: 40
+  title: Referência de comandos do kubeadm
+  name: setup
+  weight: 80
 ---
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">O Kubeadm é uma ferramenta criada para fornecer o `kubeadm init` e o `kubeadm join` como "caminhos rápidos" de melhores práticas para criar clusters Kubernetes.

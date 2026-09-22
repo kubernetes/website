@@ -4,7 +4,7 @@ content_type: tutorial
 min-kubernetes-server-version: v1.5
 weight: 40
 ---
-<!--  
+<!-- 
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
@@ -86,6 +86,13 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 示例使用一个小型 nginx Web 服务器，服务器通过 HTTP 标头返回它接收到的请求的源 IP。
 你可以按如下方式创建它：
 
+{{< alert color="info" title="Note" >}}
+<!--
+The image in the following command only runs on AMD64 architectures.
+-->
+以下命令中的镜像仅在 AMD64 架构上运行。
+{{< /alert >}}
+
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
@@ -144,7 +151,7 @@ kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 ```
 
-<!-- 
+<!--
 Get the proxy mode on one of the nodes (kube-proxy listens on port 10249):
 -->
 在其中一个节点上获取代理模式（kube-proxy 监听 10249 端口）：
@@ -157,7 +164,7 @@ Get the proxy mode on one of the nodes (kube-proxy listens on port 10249):
 curl http://localhost:10249/proxyMode
 ```
 
-<!-- 
+<!--
 The output is: 
 -->
 输出为：
@@ -174,7 +181,7 @@ You can test source IP preservation by creating a Service over the source IP app
 ```shell
 kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
 ```
-<!-- 
+<!--
 The output is: 
 -->
 输出为：
@@ -196,7 +203,7 @@ NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```
 
-<!-- 
+<!--
 And hitting the `ClusterIP` from a pod in the same cluster:
 -->
 并从同一集群中的 Pod 中访问 `ClusterIP`：
@@ -213,7 +220,7 @@ The output is similar to this:
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 ```
-<!-- 
+<!--
 You can then run a command inside that Pod:
 -->
 然后，你可以在该 Pod 中运行命令：
@@ -261,12 +268,13 @@ command=GET
 ...
 ```
 
-<!-- 
+<!--
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address` 始终是客户端 Pod 的 IP 地址。
+不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address`
+始终是客户端 Pod 的 IP 地址。
 
-<!-- 
+<!--
 ## Source IP for Services with `Type=NodePort`
 
 Packets sent to Services with
@@ -281,7 +289,7 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
 ```
-<!-- 
+<!--
 The output is: 
 -->
 输出为：
@@ -308,7 +316,7 @@ port allocated above.
 for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
 ```
 
-<!-- 
+<!--
 The output is similar to:
 -->
 输出类似于：
@@ -346,7 +354,7 @@ Visually:
 
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig01.svg" alt="图 1：源 IP NodePort" class="diagram-large" caption="如图。使用 SNAT 的源 IP（Type=NodePort）" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
-<!-- 
+<!--
 To avoid this, Kubernetes has a feature to
 [preserve the client source IP](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
 If you set `service.spec.externalTrafficPolicy` to the value `Local`,
@@ -372,7 +380,7 @@ Set the `service.spec.externalTrafficPolicy` field as follows:
 kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
-<!-- 
+<!--
 The output is:
 -->
 输出为：
@@ -381,7 +389,7 @@ The output is:
 service/nodeport patched
 ```
 
-<!-- 
+<!--
 Now, re-run the test:
 -->
 现在，重新运行测试：
@@ -390,7 +398,7 @@ Now, re-run the test:
 for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 ```
 
-<!-- 
+<!--
 The output is similar to:
 -->
 输出类似于：
@@ -399,7 +407,7 @@ The output is similar to:
 client_address=198.51.100.79
 ```
 
-<!-- 
+<!--
 Note that you only got one reply, with the *right* client IP, from the one node on which the endpoint pod
 is running.
 
@@ -426,7 +434,7 @@ Visually:
 用图表示：
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig02.svg" alt="图 2：源 IP NodePort" class="diagram-large" caption="如图。源 IP（Type=NodePort）保存客户端源 IP 地址" link="" >}}
 
-<!-- 
+<!--
 ## Source IP for Services with `Type=LoadBalancer`
 
 Packets sent to Services with
@@ -444,7 +452,7 @@ described in the previous section).
 节点对于负载均衡的流量都是符合条件的。
 因此，如果数据包到达一个没有端点的节点，系统会将其代理到一个**带有**端点的节点，用该节点的 IP 替换数据包上的源 IP（如上一节所述）。
 
-<!-- 
+<!--
 You can test this by exposing the source-ip-app through a load balancer:
 -->
 你可以通过负载均衡器上暴露 source-ip-app 进行测试：
@@ -453,7 +461,7 @@ You can test this by exposing the source-ip-app through a load balancer:
 kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
 ```
 
-<!-- 
+<!--
 The output is:
 -->
 输出为：
@@ -462,7 +470,7 @@ The output is:
 service/loadbalancer exposed
 ```
 
-<!-- 
+<!--
 Print out the IP addresses of the Service:
 -->
 打印 Service 的 IP 地址：
@@ -481,7 +489,7 @@ NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
 loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 ```
 
-<!-- 
+<!--
 Next, send a request to this Service's external-ip:
 -->
 接下来，发送请求到 Service 的 的外部 IP（External-IP）：
@@ -501,7 +509,7 @@ client_address=10.240.0.5
 ...
 ```
 
-<!-- 
+<!--
 However, if you're running on Google Kubernetes Engine/GCE, setting the same `service.spec.externalTrafficPolicy`
 field to `Local` forces nodes *without* Service endpoints to remove
 themselves from the list of nodes eligible for loadbalanced traffic by
@@ -519,7 +527,7 @@ Visually:
 
 ![具有 externalTrafficPolicy 的源 IP](/zh-cn/docs/images/sourceip-externaltrafficpolicy.svg)
 
-<!-- 
+<!--
 You can test this by setting the annotation:
 -->
 你可以通过设置注解进行测试：
@@ -537,7 +545,8 @@ by Kubernetes:
 ```shell
 kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
-<!-- 
+  
+<!--
 The output is similar to this:
 -->
 输出类似于：
@@ -546,7 +555,7 @@ The output is similar to this:
   healthCheckNodePort: 32122
 ```
 
-<!-- 
+<!--
 The `service.spec.healthCheckNodePort` field points to a port on every node
 serving the health check at `/healthz`. You can test this:
 -->
@@ -557,7 +566,7 @@ serving the health check at `/healthz`. You can test this:
 kubectl get pod -o wide -l app=source-ip-app
 ```
 
-<!-- 
+<!--
 The output is similar to this:
 -->
 输出类似于：
@@ -567,7 +576,7 @@ NAME                            READY     STATUS    RESTARTS   AGE       IP     
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
 ```
 
-<!-- 
+<!--
 Use `curl` to fetch the `/healthz` endpoint on various nodes:
 -->
 使用 `curl` 获取各个节点上的 `/healthz` 端点：
@@ -584,7 +593,7 @@ curl localhost:32122/healthz
 1 Service Endpoints found
 ```
 
-<!-- 
+<!--
 On a different node you might get a different result:
 -->
 在不同的节点上，你可能会得到不同的结果：
@@ -601,7 +610,7 @@ curl localhost:32122/healthz
 No Service Endpoints Found
 ```
 
-<!-- 
+<!--
 A controller running on the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} is
 responsible for allocating the cloud load balancer. The same controller also
@@ -617,7 +626,7 @@ then use `curl` to query the IPv4 address of the load balancer:
 curl 203.0.113.140
 ```
 
-<!-- 
+<!--
 The output is similar to this:
 -->
 输出类似于：
@@ -628,7 +637,7 @@ client_address=198.51.100.79
 ...
 ```
 
-<!-- 
+<!--
 ## Cross-platform support
 
 Only some cloud providers offer support for source IP preservation through
@@ -641,7 +650,7 @@ in a few different ways:
 只有部分云提供商为 `Type=LoadBalancer` 的 Service 提供保存源 IP 的支持。
 你正在运行的云提供商可能会以几种不同的方式满足对负载均衡器的请求：
 
-<!-- 
+<!--
 1. With a proxy that terminates the client connection and opens a new connection
 to your nodes/endpoints. In such cases the source IP will always be that of the
 cloud LB, not that of the client.
@@ -656,7 +665,7 @@ an intermediate proxy.
 2. 使用数据包转发器，这样客户端发送到负载均衡器 VIP
    的请求最终会到达具有客户端源 IP 的节点，而不是中间代理。
 
-<!-- 
+<!--
 Load balancers in the first category must use an agreed upon
 protocol between the loadbalancer and backend to communicate the true client IP
 such as the HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
@@ -676,7 +685,7 @@ the `service.spec.healthCheckNodePort` field on the Service.
 
 ## {{% heading "cleanup" %}}
 
-<!-- 
+<!--
 Delete the Services:
 -->
 删除 Service：
@@ -696,7 +705,7 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 * Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->

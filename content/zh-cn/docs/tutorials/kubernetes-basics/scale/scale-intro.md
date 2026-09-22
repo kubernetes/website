@@ -49,46 +49,48 @@ Previously we created a [Deployment](/docs/concepts/workloads/controllers/deploy
 and then exposed it publicly via a [Service](/docs/concepts/services-networking/service/).
 The Deployment created only one Pod for running our application. When traffic increases,
 we will need to scale the application to keep up with user demand.
-
-If you haven't worked through the earlier sections, start from
-[Using minikube to create a cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/).
-
-_Scaling_ is accomplished by changing the number of replicas in a Deployment.
 -->
 之前我们创建了一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
 然后通过 [Service](/zh-cn/docs/concepts/services-networking/service/) 让其可以公开访问。
 Deployment 仅创建了一个 Pod 用于运行这个应用。当流量增加时，我们需要扩容应用满足用户需求。
 
+<!--
+If you haven't worked through the earlier sections, start from
+[Using minikube to create a cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/).
+
+_Scaling_ is accomplished by changing the number of replicas in a Deployment.
+-->
 如果你还没有学习过之前的章节，
 需要从[使用 Minikube 创建集群](/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)开始。
 
 扩缩是通过改变 Deployment 中的副本数量来实现的。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If you are trying this after the
 [previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro/), then you
 may have deleted the service you created, or have created a Service of `type: NodePort`.
 In this section, it is assumed that a service with `type: LoadBalancer` is created
 for the kubernetes-bootcamp Deployment.
-
-If you have _not_ deleted the Service created in
-[the previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro),
-first delete that Service and then run the following command to create a new Service
-with its `type` set to `LoadBalancer`:
 -->
 如果你是在[上一节](/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/)之后尝试此操作，
 那么你可能已经删除了创建的 Service 或已创建了 `type: NodePort` 类型的 Service。
 在本节中，假设你已经为 kubernetes-bootcamp Deployment 创建了 `type: LoadBalancer`
 类型的 Service。
 
+<!--
+If you have _not_ deleted the Service created in
+[the previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro),
+first delete that Service and then run the following command to create a new Service
+with its `type` set to `LoadBalancer`:
+-->
 如果你**没有**删除在[前一节](/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro)中创建的 Service，
 请先删除该 Service，然后运行以下命令来创建一个新的 `type` 设置为 `LoadBalancer` 的 Service：
 
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Scaling overview
@@ -129,15 +131,16 @@ Running multiple instances of an application will require a way to distribute th
 traffic to all of them. Services have an integrated load-balancer that will distribute
 network traffic to all Pods of an exposed Deployment. Services will monitor continuously
 the running Pods using endpoints, to ensure the traffic is sent only to available Pods.
-
-Once you have multiple instances of an application running, you would be able to
-do Rolling updates without downtime. We'll cover that in the next section of the
-tutorial. Now, let's go to the terminal and scale our application.
 -->
 运行多实例的应用，需要有方法在多个实例之间分配流量。Service 有一个集成的负载均衡器，
 将网络流量分配到一个可公开访问的 Deployment 的所有 Pod 上。
 Service 将会通过 Endpoints 来持续监视运行中的 Pod 集合，保证流量只分配到可用的 Pod 上。
 
+<!--
+Once you have multiple instances of an application running, you would be able to
+do Rolling updates without downtime. We'll cover that in the next section of the
+tutorial. Now, let's go to the terminal and scale our application.
+-->
 一旦有了多个应用实例，就可以进行滚动更新而不会出现服务中断情况。我们将会在教程的下一节介绍这些内容。
 现在让我们进入终端，扩缩我们的应用。
 
@@ -302,7 +305,7 @@ Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 If you're running minikube with Docker Desktop as the container driver, a minikube
 tunnel is needed. This is because containers inside Docker Desktop are isolated
@@ -337,7 +340,7 @@ Then use the given URL to access the app:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ### Scale Down

@@ -1,11 +1,10 @@
 <!--
 ### Synopsis
+
+Pull images used by kubeadm.
 -->
 ### 概要
 
-<!--
-Pull images used by kubeadm.
--->
 拉取 kubeadm 使用的镜像。
 
 ```shell
@@ -28,7 +27,8 @@ kubeadm config images pull [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -42,12 +42,14 @@ kubeadm 配置文件的路径。
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
+仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
 </p>
 </td>
 </tr>
@@ -56,21 +58,14 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-NodeLocalCRISocket=true|false (default=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)
-NodeLocalCRISocket=true|false (默认值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -80,7 +75,8 @@ RootlessControlPlane=true|false (ALPHA - 默认值=false)
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for pull
@@ -99,7 +95,8 @@ pull 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -118,7 +115,8 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -152,7 +150,8 @@ Choose a specific Kubernetes version for the control plane.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
@@ -167,7 +166,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

@@ -53,9 +53,9 @@ cloud-controller-managerを正常に実行するにはクラスター構成に�
 
 Kubernetesのコアリポジトリにないクラウドコントローラーマネージャーの場合、クラウドベンダーまたはsigリードが管理するリポジトリでプロジェクトを見つけることができます。
 
-すでにKubernetesのコアリポジトリにあるプロバイダーの場合、クラスター内でデーモンセットとしてKubernetesリポジトリ内部のクラウドコントローラーマネージャーを実行できます。以下をガイドラインとして使用してください。
+すでにKubernetesのコアリポジトリにあるプロバイダーの場合、クラスター内でDaemonSetとしてKubernetesリポジトリ内部のクラウドコントローラーマネージャーを実行できます。以下をガイドラインとして使用してください。
 
-{{% codenew file="admin/cloud/ccm-example.yaml" %}}
+{{% code_sample file="admin/cloud/ccm-example.yaml" %}}
 
 
 ## 制限

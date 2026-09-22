@@ -192,9 +192,9 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 이 어노테이션의 값은 **true**로 설정되어야만 작동한다. 이 어노테이션은, 해당 서비스어카운트로 동작중인 파드가 그 서비스어카운트의 `secrets` 항목에 명시된 Secret API 오브젝트만을 참조한다는 뜻이다.
 
-### node.kubernetes.io/exclude-from-external-load-balancer
+### node.kubernetes.io/exclude-from-external-load-balancers
 
-예시: `node.kubernetes.io/exclude-from-external-load-balancer`
+예시: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 적용 대상: 노드
 

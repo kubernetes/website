@@ -39,7 +39,7 @@ The JSON and Protobuf serialization schemas follow the same guidelines for
 schema changes. The following descriptions cover both formats.
 
 The API versioning and software versioning are indirectly related.
-The [API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)
+The [API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/reference/versioning.md#kubernetes-release-versioning)
 describes the relationship between API versioning and software versioning.
 
 Different API versions indicate different levels of stability and support. You

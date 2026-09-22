@@ -41,7 +41,7 @@ Eviction evicts a pod from its node subject to certain policies and safety const
     </tr>
     <tr>
       <td><code>deleteOptions</code><br/><em><a href="{{< ref "delete-options-v1-meta#DeleteOptions" >}}">DeleteOptions</a></em></td>
-      <td>DeleteOptions may be provided</td>
+      <td>deleteOptions may be provided</td>
     </tr>
     <tr>
       <td><code>kind</code><br/><em>string</em></td>
@@ -49,10 +49,12 @@ Eviction evicts a pod from its node subject to certain policies and safety const
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>ObjectMeta describes the pod that is being evicted.</td>
+      <td>metadata describes the pod that is being evicted.</td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 

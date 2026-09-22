@@ -135,18 +135,14 @@ applications._
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
 communicating with the Kubernetes control plane. The node should also have tools for
 handling container operations, such as {{< glossary_tooltip text="containerd" term_id="containerd" >}}
-or {{< glossary_tooltip term_id="cri-o" >}}. A Kubernetes cluster that handles production
-traffic should have a minimum of three nodes because if one node goes down, both an
-[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance are lost,
-and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+or {{< glossary_tooltip term_id="cri-o" >}}. A common and supported deployment
+model runs Kubernetes control plane components on dedicated control plane nodes.
 -->
 **节点是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色。**
 每个节点都有 Kubelet，它管理节点而且是节点与控制面通信的代理。
 节点还应该具有用于处理容器操作的工具，例如 {{< glossary_tooltip text="containerd" term_id="containerd" >}}
 或 {{< glossary_tooltip term_id="cri-o" >}}。
-处理生产级流量的 Kubernetes 集群至少应具有三个节点，因为如果只有一个节点，出现故障时其对应的
-[etcd](/zh-cn/docs/concepts/architecture/#etcd) 成员和控制面实例都会丢失，
-并且冗余会受到影响。你可以通过添加更多控制面节点来降低这种风险。
+一种常见且受支持的部署模型是在专用控制面节点上运行 Kubernetes 控制面组件。
 
 <!--
 When you deploy applications on Kubernetes, you tell the control plane to start

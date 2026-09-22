@@ -105,7 +105,7 @@ Address: 10.0.147.152
 ```
 (the IP addresses will vary)
 
-If the kube-dns addon is not set up correctly, the previous step may not work for you.
+If the cluster DNS addon is not set up correctly, the previous step may not work for you.
 You can also find the IP address for that Service in an environment variable:
 
 ```shell

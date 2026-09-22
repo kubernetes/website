@@ -1079,10 +1079,32 @@ can exist in storage at a version that has never been a storage version.
 When deprecating versions and dropping support, select a storage upgrade
 procedure. 
 
-*Option 1:* Use the Storage Version Migrator
+*Option 1:* Use Storage Version Migration
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1. Run [Storage Version Migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration/) for the custom resource.
+
+   For example, you can include a `StorageVersionMigration` resource in the same manifest as your updated `CustomResourceDefinition`:
+
+   ```yaml
+   apiVersion: apiextensions.k8s.io/v1
+   kind: CustomResourceDefinition
+   metadata:
+     name: crontabs.example.com
+   spec:
+     group: example.com
+     ...
+   ---
+   apiVersion: storagemigration.k8s.io/v1
+   kind: StorageVersionMigration
+   metadata:
+     name: crontabs-migration
+   spec:
+     resource:
+       group: example.com
+       resource: crontabs
+   ```
+
+2. Once the migration succeeds, the old version will be removed from the CustomResourceDefinition `status.storedVersions` field.
 
 *Option 2:* Manually upgrade the existing objects to a new stored version
 

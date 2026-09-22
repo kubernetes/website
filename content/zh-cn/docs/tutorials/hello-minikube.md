@@ -42,14 +42,15 @@ This tutorial assumes that you have already set up `minikube`.
 See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 -->
 本教程假设你已经安装了 `minikube`。
-有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 的**步骤 1**。
+有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)
+的**步骤 1**。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.
 -->
 仅执行**步骤 1：安装**中的说明，其余内容均包含在本页中。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 You also need to install `kubectl`.
@@ -69,14 +70,25 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 minikube start
 ```
 
+{{< alert color="info" title="Note" >}}
+<!--
+The command `minikube start` creates a single-Node cluster. That Node acts as both the control plane and a worker Node. This differs from many production Kubernetes clusters, where control plane Nodes are typically isolated from worker Node using
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) or completely invisible to the user.
+-->
+`minikube start` 命令会创建一个单节点集群。该节点同时充当控制面节点和工作节点。
+这与许多生产环境中的 Kubernetes 集群不同；在这些集群中，控制面节点通常使用
+[污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
+与工作节点隔离，或者对用户完全不可见。
+{{< /alert >}}
+
 <!--
 ## Check the status of the minikube cluster
 
 Verify the status of the minikube cluster to ensure all the components are in a running state.
 -->
-## 检查 minikube 集群状态
+## 检查 Minikube 集群状态
 
-验证 minikube 集群的状态，确保所有组件都处于运行状态。
+验证 Minikube 集群的状态，确保所有组件都处于运行状态。
 
 ```shell
 minikube status
@@ -85,7 +97,8 @@ minikube status
 <!--
 The output from the above command should show all components Running or Configured, as shown in the example output below:
 -->
-上述命令的输出应显示所有处于“正在运行”或“已配置”状态的组件，如下例所示：
+上述命令的输出应显示所有处于“正在运行”或“已配置”状态的组件，
+如下例所示：
 
 ```
 minikube
@@ -112,6 +125,12 @@ Open a **new** terminal, and run:
 -->
 打开一个**新的**终端，然后运行：
 
+<!--
+```shell
+# Start a new terminal, and leave this running.
+minikube dashboard
+```
+-->
 ```shell
 # 启动一个新的终端，并保持此命令运行。
 minikube dashboard
@@ -122,12 +141,20 @@ Now, switch back to the terminal where you ran `minikube start`.
 -->
 现在，切换回运行 `minikube start` 的终端。
 
+{{< alert color="info" title="Note" >}}
 <!--
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
 To find out how to avoid directly invoking the browser from the terminal and get a URL for the web dashboard, see the "URL copy and paste" tab.
+-->
+`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
+你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
+要了解如何避免从终端直接调用浏览器并获取 Web 仪表板的 URL，请参阅
+"URL 复制和粘贴"选项卡。
+
+<!--
 By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
 The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
 
@@ -135,20 +162,14 @@ To stop the proxy, run `Ctrl+C` to exit the process.
 After the command exits, the dashboard remains running in the Kubernetes cluster.
 You can run the `dashboard` command again to create another proxy to access the dashboard.
 -->
-{{< note >}}
-`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
-你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
-
-要了解如何避免从终端直接调用浏览器并获取 Web 仪表板的 URL，请参阅
-"URL 复制和粘贴"选项卡。
-
 默认情况下，仪表板只能从内部 Kubernetes 虚拟网络中访问。
-`dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes 虚拟网络外部访问。
+`dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes
+虚拟网络外部访问。
 
 要停止代理，请运行 `Ctrl+C` 退出该进程。仪表板仍在运行中。
 命令退出后，仪表板仍然在 Kubernetes 集群中运行。
 你可以再次运行 `dashboard` 命令创建另一个代理来访问仪表板。
-{{< /note >}}
+{{< /alert >}}
 
 {{% /tab %}}
 {{% tab name="URL 复制粘贴" %}}
@@ -159,11 +180,18 @@ If you don't want minikube to open a web browser for you, run the `dashboard` su
 
 Open a **new** terminal, and run:
 -->
-如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行 `dashboard` 子命令。
+如果你不想 Minikube 为你打开 Web 浏览器，
+可以使用 `--url` 标志运行 `dashboard` 子命令。
 `minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
 
 打开一个**新的**终端，然后运行：
 
+<!--
+```shell
+# Start a new terminal, and leave this running.
+minikube dashboard
+```
+-->
 ```shell
 # 启动一个新的终端，并保持此命令运行。
 minikube dashboard --url
@@ -202,6 +230,13 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
    镜像运行容器。
 
+   <!--
+   ```shell
+   # Run a test container image that includes a webserver
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
+   ```
+   -->
+   
    ```shell
    # 运行包含 Web 服务器的测试容器镜像
    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
@@ -230,7 +265,8 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    <!--
    (It may take some time for the pod to become available. If you see "0/1", try again in a few seconds.)
    -->
-   （该 Pod 可能需要一些时间才能变得可用。如果你在输出结果中看到 “0/1”，请在几秒钟后重试。）
+   
+   （该 Pod 可能需要一些时间才能变得可用。如果你在输出结果中看到 `0/1`，请在几秒钟后重试。）
 
 <!--
 1. View the Pod:
@@ -273,14 +309,17 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 <!--
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 -->
-6. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
+6. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods`
+   命令获得的名称）。
 
-   {{< note >}}
+   {{< alert color="info" title="Note" >}}
    <!--
    Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
    -->
-   将 `kubectl logs` 命令中的 `hello-node-5f76cf6ccf-br9b5` 替换为 `kubectl get pods` 命令输出中的 Pod 名称。
-   {{< /note >}}
+   
+   将 `kubectl logs` 命令中的 `hello-node-5f76cf6ccf-br9b5` 替换为
+   `kubectl get pods` 命令输出中的 Pod 名称。
+   {{< /alert >}}
 
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -289,6 +328,7 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    <!--
    The output is similar to:
    -->
+   
    输出类似于：
 
    ```
@@ -296,12 +336,13 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
    ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
 -->
-有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
-{{< /note >}}
+有关 `kubectl` 命令的更多信息，请参阅
+[kubectl 概述](/zh-cn/docs/reference/kubectl/)。
+{{< /alert >}}
 
 <!--
 ## Create a Service
@@ -315,7 +356,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。
 要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，你必须将 Pod
-通过 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/) 公开出来。
+通过 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/)
+公开出来。
 
 {{< warning >}}
 <!--
@@ -377,8 +419,8 @@ agnhost 容器有一个 `/shell` 端点，对于调试很有帮助，但暴露�
    command.
    -->
 
-   对于支持负载均衡器的云服务平台而言，平台将提供一个外部 IP 来访问该服务。
-   在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
+   对于支持负载均衡器的云服务平台而言，平台将提供一个外部 IP 来访问该 Service。
+   在 Minikube 上，`LoadBalancer` 使得 Service 可以通过命令 `minikube service` 访问。
 
 <!--
 3. Run the following command:
@@ -392,6 +434,7 @@ agnhost 容器有一个 `/shell` 端点，对于调试很有帮助，但暴露�
    <!--
    This opens up a browser window that serves your app and shows the app's response.
    -->
+   
    这将打开一个浏览器窗口，为你的应用程序提供服务并显示应用的响应。
 
 <!--
@@ -416,6 +459,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    <!--
    The output is similar to:
    -->
+   
    输出结果类似于这样：
 
    ```
@@ -505,6 +549,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    <!--
    The output is similar to:
    -->
+   
    输出类似于：
 
    ```
@@ -515,6 +560,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    <!--
    If you see the following message, wait, and try again:
    -->
+   
    如果你看到以下消息，请等待并重试：
 
    ```
@@ -568,6 +614,12 @@ Optionally, delete the Minikube VM:
 -->
 可选地，删除 Minikube 虚拟机（VM）：
 
+<!--  
+```shell
+# Optional
+minikube delete
+```
+-->
 ```shell
 # 可选的
 minikube delete
@@ -576,7 +628,8 @@ minikube delete
 <!--
 If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
 -->
-如果你还想使用 Minikube 进一步学习 Kubernetes，那就不需要删除 Minikube。
+如果你还想使用 Minikube 进一步学习 Kubernetes，
+那就不需要删除 Minikube。
 
 <!--
 ## Conclusion
@@ -585,7 +638,7 @@ This page covered the basic aspects to get a minikube cluster up and running. Yo
 -->
 ## 结论
 
-本页介绍了启动和运行 minikube 集群的基本知识，现在部署应用的准备工作已经完成。
+本页介绍了启动和运行 Minikube 集群的基本知识，现在部署应用的准备工作已经完成。
 
 ## {{% heading "whatsnext" %}}
 

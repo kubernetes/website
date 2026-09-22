@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Building a Custom Metrics Exporter for Kubernetes"
-draft: true
+date: 2026-07-14T10:00:00-08:00
 slug: custom-metrics-exporter-kubernetes
 author: >
   Victor David Effiok
@@ -347,7 +347,7 @@ need a matching `scrape_config` rule in your Prometheus configuration —
 check with whoever manages your Prometheus installation to confirm it is
 in place.
 
-You can add the following two annotations to the Pod template regardless
+You can add the following three annotations to the Pod template regardless
 of which scraping method you use. They are ignored by the Prometheus
 Operator but picked up automatically by annotation-based setups:
 

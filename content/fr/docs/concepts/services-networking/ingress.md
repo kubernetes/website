@@ -330,7 +330,7 @@ type: kubernetes.io/tls
 
 Référencer ce secret dans un Ingress indiquera au contrôleur d'Ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un Common Name (CN), aussi appelé nom de domaine pleinement qualifié (FQDN), pour `https-example.foo.com`.
 
-{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
+{{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 
 {{< note >}}
@@ -437,7 +437,7 @@ Vous pouvez obtenir le même résultat en appelant `kubectl replace -f` sur un f
 ## Échec dans les zones de disponibilité
 
 Les techniques permettant de répartir le trafic sur plusieurs domaines de défaillance diffèrent d'un fournisseur de cloud à l'autre.
-Veuillez consulter la documentation du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) pour plus de détails. Vous pouvez également vous référer à la [documentation de la fédération](/docs/concepts/cluster-administration/federation/) pour plus d'informations sur le déploiement d'Ingress dans un cluster fédéré.
+Veuillez consulter la documentation du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) pour plus de détails.
 
 ## Travail futur
 
