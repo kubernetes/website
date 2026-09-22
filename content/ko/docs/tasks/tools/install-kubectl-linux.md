@@ -96,7 +96,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    ```
 
    {{< note >}}
-   대상 시스템에 root 접근 권한을 가지고 있지 않더라도, 
+   대상 시스템에 root 접근 권한을 가지고 있지 않더라도,
    `~/.local/bin` 디렉터리에 kubectl을 설치할 수 있다.
 
    ```bash
