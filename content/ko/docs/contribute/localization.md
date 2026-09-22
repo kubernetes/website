@@ -164,7 +164,7 @@ SIG Docs Leadership team이 고려해야 할 새로운 요구사항을 식별하
 [`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
 파일에 있다. 신규 현지화를 지원하려면 `hugo.toml`을 수정해야 한다.
 
-`hogo.toml`의 기존 [languages] 블록 아래에 신규 언어에 대한
+`hugo.toml`의 기존 [languages] 블록 아래에 신규 언어에 대한
 구성 블록을 추가한다. 예를 들어, 독일어 블록은 다음과 같다.
 
 ```toml
@@ -190,7 +190,7 @@ languageNameLatinScript = "Deutsch"
 `languageNameLatinScript`는 라틴 문자로 된 언어명을 가져와
 테마에서 사용할 수 있다. languageNameLatinScript에는 “라틴 문자로 된 언어명”을
 지정한다. 예를 들어, `languageNameLatinScript = "Korean"` 또는
-`languageNameLatinScript = "Deutsch"`롸 같이 설정한다.
+`languageNameLatinScript = "Deutsch"`와 같이 설정한다.
 
 `weight` 매개변수는 언어 선택 바에서 언어의 표시 순서를 결정한다.
 값이 낮을수록 우선순위가 높아, 해당 언어가 먼저 표시된다.
@@ -233,7 +233,7 @@ mkdir content/de
 - **approvers**: 승인자 역할을 가진 쿠버네티스 팀 목록.
 - 이 경우, [GitHub에 현지화 팀 추가하기](#Add-your-localization-team-in-GitHub) 단계에서 생성한 `sig-docs-**-owners` 팀이다.
 - **labels**: PR에 자동으로 적용할 Github 라벨 목록. 이 경우,
-[워크플로 구성하기](#워크플로-구성하기) 단계에서 생성한 언어 라벨이다다.
+[워크플로 구성하기](#워크플로-구성하기) 단계에서 생성한 언어 라벨이다.
 
 OWNERS 파일에 대한 더 많은 정보는
 [go.k8s.io/owners](https://go.k8s.io/owners)에서 확인할 수 있다.
