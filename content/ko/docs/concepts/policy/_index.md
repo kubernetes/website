@@ -26,7 +26,7 @@ API 서버에서 실행되며
 API 요청의 유효성을 검사하거나 요청을 변경할 수 있다. 일부 어드미션 컨트롤러는 정책을 적용하는 역할을 한다.
 예를 들어, [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러는 새 파드를 수정하여 이미지 풀 정책을 `Always`로 설정한다.
 
-쿠버네티스에는 API 서버의 `--enable-admission-plugins` 플래그로 구성할 수 있는 여러 빌트인 어드미션 컨트롤러가 있다.
+쿠버네티스에는 API 서버의 `--enable-admission-plugins` 플래그로 구성할 수 있는 여러 내장 어드미션 컨트롤러가 있다.
 
 어드미션 컨트롤러에 대한 세부 정보와 사용 가능한 어드미션 컨트롤러의 전체 목록은 별도 섹션에 문서화되어 있다.
 
