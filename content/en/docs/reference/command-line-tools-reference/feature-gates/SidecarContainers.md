@@ -18,6 +18,9 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.36"
+
+removed: true
 ---
 Allow setting the `restartPolicy` of an init container to
 `Always` so that the container becomes a sidecar container (restartable init containers).

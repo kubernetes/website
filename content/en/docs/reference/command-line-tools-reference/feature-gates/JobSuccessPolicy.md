@@ -19,5 +19,8 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.36"
+
+removed: true
 ---
 Allow users to specify when a Job can be declared as succeeded based on the set of succeeded pods.
