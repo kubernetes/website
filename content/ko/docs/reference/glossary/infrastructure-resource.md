@@ -19,5 +19,5 @@ tags:
 쿠버네티스는 {{< glossary_tooltip text="워크로드" term_id="workload" >}}에
 일반적인 [리소스](/docs/concepts/configuration/manage-resources-containers/)를 할당할 수 있도록 추상화하고, 리소스 사용량을 관리하기 위해 운영 체제가 제공하는 기본 요소(예: 리눅스 {{< glossary_tooltip text="cgroups" term_id="cgroup" >}})를 활용한다.
 
-[동적 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)을
+[동적 리소스 할당](/docs/concepts/resource-management/dynamic-resource-allocation/)을
 사용하여 복잡한 리소스 할당을 자동으로 관리할 수도 있다.
