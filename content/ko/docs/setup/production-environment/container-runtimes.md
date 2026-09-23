@@ -79,12 +79,12 @@ sysctl net.ipv4.ip_forward
 ## cgroup 드라이버
 
 리눅스에서, {{< glossary_tooltip text="control group" term_id="cgroup" >}}은
-프로세스에 할당된 리소스를 제한하는데 사용된다.
+프로세스에 할당된 리소스를 제한하는 데 사용된다.
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
-그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용 해야 하는데, 이는
+그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용해야 하는데, 이는
 [파드 및 컨테이너 리소스 관리](/docs/concepts/configuration/manage-resources-containers/)를 적용하고
-cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
+cpu 혹은 메모리와 같은 리소스의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
 그룹과 상호작용하기 위해서는, kubelet과 컨테이너 런타임이 *cgroup 드라이버*를 사용해야 한다.
 매우 중요한 점은, kubelet과 컨테이너 런타임이 같은 cgroup 드라이버를
 사용해야 하며 구성도 동일해야 한다는 것이다.
@@ -116,10 +116,10 @@ systemd는 cgroup과 긴밀하게 통합되어 있으며 매 systemd 단위로 c
 할당한다. 결과적으로, `systemd`를 init 시스템으로 사용하고 `cgroupfs`
 드라이버를 사용하면, 그 시스템은 두 개의 다른 cgroup 관리자를 갖게 된다.
 
-두 개의 cgroup 관리자는 시스템 상 사용 가능한 자원과 사용 중인 자원들에 대하여 두 가지 관점을 가져 혼동을
+두 개의 cgroup 관리자는 시스템 상 사용 가능한 리소스와 사용 중인 리소스에 대하여 두 가지 관점을 가져 혼동을
 초래한다. 예를 들어, kubelet과 컨테이너 런타임은 `cgroupfs`를 사용하고
 나머지 프로세스는 `systemd`를 사용하도록 노드를 구성한 경우, 노드가 
-자원 압박으로 인해 불안정해질 수 있다.
+리소스 압박으로 인해 불안정해질 수 있다.
 
 이러한 불안정성을 줄이는 방법은, `systemd`가 init 시스템으로 선택되었을 때에는 `systemd`를
 kubelet과 컨테이너 런타임의 cgroup 드라이버로 사용하는 것이다.
@@ -153,7 +153,7 @@ cgroupDriver: systemd
 이 질의(query)에 올바르게 응답하지 못할 수 있다. 이 경우 kubelet은
 자체 `--cgroup-driver` 플래그 값을 사용하도록 되돌아간다.
 
-쿠버네티스 1.37에서는 이 폴백 동작이 제거되므로,
+쿠버네티스 1.38에서는 이 폴백 동작이 제거되므로,
 오래된 containerd 버전은 최신 kubelet에서 동작하지 않게 된다.
 
 {{< caution >}}
@@ -180,7 +180,7 @@ kubelet은 노드로 등록되지 않는다.
 
 ### containerd
 
-이 섹션에는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계를 간략하게 설명한다.
+이 섹션에서는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계를 간략하게 설명한다.
 
 시스템에 containerd를 설치하려면,
 [containerd 시작하기](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)의 지침에 따라 유효한
@@ -188,10 +188,10 @@ kubelet은 노드로 등록되지 않는다.
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
-`/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있음.
+`/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있다.
 {{% /tab %}}
 {{< tab name="Windows" >}}
-`C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있음.
+`C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있다.
 {{< /tab >}}
 {{< /tabs >}}
 
