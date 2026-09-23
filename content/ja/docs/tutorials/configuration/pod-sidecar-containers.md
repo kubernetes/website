@@ -59,7 +59,7 @@ Podを定義する人が実行したいサイドカーコンテナだけでな�
 
 ## 組み込みのサイドカーコンテナの導入 {#adopting-built-in-sidecar-containers}
 
-`SidecarContainers`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)は、Kubernetesバージョン1.29から始まったベータ版で、デフォルトで有効化されています。
+`SidecarContainers`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)は、Kubernetesバージョン1.29でベータ版となり、デフォルトで有効化されています。
 いくつかのクラスターは、この機能を無効化しているかもしれません。
 または、この機能に非互換性があるソフトウェアがインストールされているかもしれません。
 
