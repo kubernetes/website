@@ -211,6 +211,7 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - jcjesus
+    - paulofponciano
     - stormqueen1990
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
