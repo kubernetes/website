@@ -145,8 +145,8 @@ Kubeadm을 사용하면 개별 노드의 `InitConfiguration`, `JoinConfiguration
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 {{< note >}}
@@ -159,8 +159,8 @@ kind: InitConfiguration
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 `kubeadm upgrade apply`와 `kubeadm upgrade node`를 사용하여 kubeadm 노드를 업그레이드하는
