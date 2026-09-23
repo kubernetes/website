@@ -1,15 +1,17 @@
 ---
 layout: blog
-title: Testing Kubernetes User Namespaces Locally and Overcoming Container Runtime & Driver Constraints
+title: Testing Kubernetes User Namespaces Locally
 draft: true
 slug: testing-kubernetes-user-namespaces-locally
 author: >
-  Chielo
+  Chiamaka Chielo
 ---
 
-Kubernetes User Namespaces reached General Availability in Kubernetes v1.36. The feature provides an additional isolation boundary by mapping the user and group IDs inside a Pod to different IDs on the host. [Kubernetes User Namespaces documentation](https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/)
+Kubernetes support for Pods using _user namespaces_ reached General Availability in Kubernetes v1.36.
+The feature provides an additional isolation boundary by mapping the user and group IDs inside a Pod to different IDs on the host. There's more about it in the [User Namespaces documentation](/docs/concepts/workloads/pods/user-namespaces/).
 
-In a normal container, a process running as root inside the container is also seen as root from the host's perspective. With user namespaces enabled, root inside the container can instead be mapped to an unprivileged user on the host.
+In a normal Linux container, a process running as root inside the container is also seen as root from the host's perspective.
+With user namespace support enabled, root inside the container can instead be mapped to an unprivileged user on the host.
 
 A Pod can opt into this isolation by setting:
 
@@ -23,11 +25,12 @@ For developers, however, testing this feature locally can be surprisingly diffic
 
 A Pod that uses `hostUsers: false` can succeed in one Minikube setup and fail in another. The difference is not necessarily Kubernetes itself. It can depend on how the Kubernetes node is running and what environment is available to the container runtime.
 
-The key relationship is:
+The relevant layers are:
 
-**Minikube driver → Kubernetes node → container runtime → OCI runtime → Linux kernel**
+**Kubernetes node → container runtime → OCI runtime → Linux kernel**
 
-The Minikube driver determines how the Kubernetes node is provisioned. That, in turn, determines the environment in which the container runtime and OCI runtime operate.
+In a Minikube environment, there is an additional consideration: the Minikube driver determines how the Kubernetes node itself runs. That, in turn, affects the environment available to the container runtime and OCI runtime.
+
 
 This article examines two Minikube configurations that failed during testing, identifies the layer responsible for each failure, and shows how a VM-backed driver can provide a working environment for testing `hostUsers: false` locally.
 
@@ -67,7 +70,7 @@ A different option is the `kvm2` driver:
 minikube start --driver=kvm2
 ```
 
-With `kvm2`, Minikube runs the Kubernetes node inside a **virtual machine** rather than a Docker container.
+With `kvm2`, Minikube runs the Kubernetes node(s) inside a *virtual machine* rather than as a container.
 
 The VM has its own guest operating system and Linux kernel, so the Kubernetes node is no longer itself a container nested inside the host's container environment.
 
@@ -77,7 +80,7 @@ The environment looks more like this:
 
 
 
-This difference in the **node boundary** is central to the behavior observed in the tests.
+This difference in the node boundary is central to the behavior observed in the tests.
 
 ### What are KVM and libvirt?
 
@@ -93,7 +96,7 @@ The important point is that `kvm2` gives the Kubernetes node a VM boundary inste
 
 Inside the Kubernetes node, the `kubelet` needs a container runtime to create and manage Pods.
 
-Kubernetes communicates with the container runtime through the **Container Runtime Interface (CRI)**.
+Kubernetes communicates with the container runtime through the *Container Runtime Interface* (CRI).
 
 For example, a Minikube node can use containerd:
 
@@ -106,9 +109,9 @@ The relationship looks like this:
 
 
 
-The distinction between the layers matters because User Namespaces depend on support from the container runtime and OCI runtime, while those runtimes ultimately depend on the Linux environment in which they operate.
+The distinction between the layers matters because user namespace integration depends on support from the container runtime and OCI runtime, while those runtimes ultimately depend on the Linux environment in which they operate.
 
-So testing User Namespaces locally is not simply checking whether Kubernetes supports the feature.
+So testing user namespaces locally (or even using them in production) is not simply about checking whether Kubernetes itself supports the feature.
 
 You are testing a chain:
 
@@ -140,9 +143,9 @@ When a Pod uses:
 hostUsers: false
 ```
 
-the kubelet asks the container runtime to create the Pod sandbox with User Namespace isolation.
+the kubelet asks the container runtime to create the Pod sandbox with user namespace isolation.
 
-In the tested configuration, sandbox creation failed because the runtime did not support the requested User Namespace configuration.
+In the tested configuration, sandbox creation failed because the runtime did not support the requested user namespace configuration.
 
 The observed event was:
 
@@ -157,13 +160,13 @@ The Pod never reached application-container startup. Sandbox creation failed fir
 
 **Why:**
 
-The selected container runtime rejected the requested User Namespace configuration.
+The selected container runtime rejected the requested user namespace configuration.
 
 **Responsible layer:**
 
 The container runtime capability exposed to Kubernetes in this configuration.
 
-This does **not** mean that Kubernetes User Namespaces are unsupported. It means this particular runtime configuration could not satisfy the request.
+This does **not** mean that Kubernetes user namespaces are unsupported. It means this particular runtime configuration could not satisfy the request.
 
 ### Failure mode 2: Docker driver with containerd
 
@@ -214,7 +217,7 @@ The configurations tested in this article can be summarized as follows:
 
 | Minikube configuration | Container runtime | Result | Failure or behavior |
 | --- | --- | --- | --- |
-| `--driver=docker --container-runtime=docker` | Docker | ❌ Failed | Runtime rejected the requested User Namespace configuration |
+| `--driver=docker --container-runtime=docker` | Docker | ❌ Failed | Runtime rejected the requested user namespace configuration |
 | `--driver=docker --container-runtime=containerd` | containerd | ❌ Failed in the tested environment | `runc` failed during sandbox initialization with a `sysfs` mount error |
 | `--driver=kvm2 --container-runtime=containerd` | containerd | ✅ Worked in the tested environment | Kubernetes node ran inside a VM instead of a Docker container |
 
@@ -305,17 +308,17 @@ Output:
 
 The node's process table confirms that container root (UID 0) is running as unprivileged UID 1947205632 on the VM node, isolated from root privileges.
 
-This provides a second way to verify that the User Namespace mapping is taking effect.
+This provides a second way to verify that the user namespace mapping is taking effect.
 
-## A common issue: capabilities inside User Namespaces
+## A common issue: capabilities inside user namespaces {#capabilities}
 
-Getting the User Namespace itself to work does not mean every application will start successfully.
+Getting the user namespace itself to work does not mean every application will start successfully.
 
-User Namespaces change how user IDs and capabilities are scoped. Some applications perform operations such as changing file ownership or switching user IDs during startup.
+User namespaces change how user IDs and capabilities are scoped. Some applications perform operations such as changing file ownership or switching user IDs during startup.
 
 Database images are one example where this can matter.
 
-If an application requires capabilities such as `CHOWN`, `SETUID`, `SETGID`, or `FOWNER`, dropping every capability can cause the application to fail even though User Namespaces are working correctly.
+If an application requires capabilities such as `CHOWN`, `SETUID`, `SETGID`, or `FOWNER`, dropping every capability can cause the application to fail even though user namespaces are working correctly.
 
 For example:
 
@@ -333,13 +336,13 @@ securityContext:
 
 The capabilities required depend on the application.
 
-Therefore, an application startup failure should not automatically be interpreted as a User Namespace failure. First establish whether the namespace itself is working, then troubleshoot the application's capability requirements.
+Therefore, an application startup failure should not automatically be interpreted as a user namespace failure. First establish whether the namespace itself is working, then troubleshoot the application's capability requirements.
 
 ## Troubleshooting checklist
 
-When `hostUsers: false` fails in a local Kubernetes environment, work through the layers rather than assuming Kubernetes itself is the problem.
+If trying out `hostUsers: false` fails in a local Kubernetes environment, I recommend you work through the layers rather than assuming Kubernetes itself is the problem.
 
--   Check the Kubernetes version and confirm that User Namespaces are available in the version you are testing.
+-   Check the Kubernetes version and confirm that user namespace support for Pods is available in the version you are testing.
 -   Check the Minikube driver with `minikube profile list` or the configuration used to start the cluster.
 -   Determine whether the Kubernetes node is running directly on a VM or inside another container.
 -   Check which container runtime the Minikube node is using.
@@ -347,14 +350,14 @@ When `hostUsers: false` fails in a local Kubernetes environment, work through th
 -   Read the Pod events and identify whether failure occurs at the runtime, OCI runtime, or sandbox initialization stage.
 -   Distinguish a runtime capability error from a namespace or mount restriction.
 -   If using a container-backed Minikube driver, test whether a VM-backed driver changes the result.
--   Once the Pod starts, inspect `/proc/self/uid_map` to verify the User Namespace mapping.
+-   Once the Pod starts, inspect `/proc/self/uid_map` to verify the user namespace mapping.
 -   If the namespace works but the application fails, check its required capabilities and startup behavior.
 
 The goal is to identify **which layer cannot provide the capability**, rather than treating every `hostUsers: false` failure as a Kubernetes feature limitation.
 
 ## Conclusion
 
-User namespaces can be enabled with `hostUsers: false`, but testing them locally involves more than the Kubernetes API and the container runtime.
+Pods can use a user namespace by setting `hostUsers: false`, but testing this feature locally involves more than the Kubernetes API and the container runtime.
 
 The environment in which the Kubernetes node runs also matters.
 
@@ -368,4 +371,4 @@ The configurations therefore have different outcomes:
 
 For local testing, a VM-backed driver such as `kvm2` provides a practical environment for validating `hostUsers: false` without the additional container nesting of the Docker driver. Minikube documents both the `kvm2` driver and explicit container-runtime selection.
 
-For additional details on User Namespaces, their requirements, limitations, and the `hostUsers` field, see the [Kubernetes User Namespaces documentation](https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/) and the [Kubernetes guide for using a User Namespace with a Pod](https://kubernetes.io/docs/tasks/configure-pod-container/user-namespaces/).
+For additional details on user namespaces, their requirements, limitations, and the `hostUsers` field, see the [Kubernetes User Namespaces documentation](/docs/concepts/workloads/pods/user-namespaces/) and the [Kubernetes guide for using a User Namespace with a Pod](/docs/tasks/configure-pod-container/user-namespaces/).
