@@ -88,14 +88,15 @@ metadata:
 spec:
   initContainers:
   - name: ambassador-sidecar
-    image: quay.io/prometheus/busybox:latest
+    image: docker.io/alpine/socat:1.8.0.3
     restartPolicy: Always
-    args: ["--target-db", "external-db.example.com:5432"]
+    args: ["tcp-listen:5432,fork", "tcp-connect:external-db.example.com:5432"]
     ports:
     - containerPort: 5432
   containers:
   - name: main-app
     image: quay.io/centos/centos:stream9
+    command: ["sleep", "infinity"]
     env:
     - name: DATABASE_URL
       value: "localhost:5432"
