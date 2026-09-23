@@ -90,7 +90,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 다음 값 중 하나로 설정한다.
 
 * `SingleStack`: 단일 스택 서비스. 컨트롤 플레인은 첫 번째로 설정된 서비스
-클러스터 IP 범위를 사용하여 서비스의 클러스터 IP를 할당한다.
+  클러스터 IP 범위를 사용하여 서비스의 클러스터 IP를 할당한다.
 * `PreferDualStack`: 이중 스택이 활성화되면, 서비스에 IPv4 및 IPv6 클러스터 IP가 모두 할당된다. 이중 스택이 활성화되어 있지 않거나 지원되지 않는 경우에는 단일 스택 방식으로 동작한다.
 * `RequireDualStack`: 이중 스택이 활성화되면, IPv4 및 IPv6 각 주소 범위에서 서비스의 `.spec.clusterIPs`가 할당된다. 이중 스택이 활성화되어 있지 않거나 지원되지 않는 경우에는 서비스 API 오브젝트 생성에 실패한다.
   * `.spec.ipFamilies` 배열의 첫 번째 요소의 주소 패밀리를 기준으로
@@ -112,7 +112,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 - `["IPv4","IPv6"]` (이중 스택)
 - `["IPv6","IPv4"]` (이중 스택)
 
-나열한 첫 번째 패밀리가 레거시`.spec.clusterIP` 필드에 사용된다.
+나열한 첫 번째 패밀리가 레거시 `.spec.clusterIP` 필드에 사용된다.
 
 ### 이중 스택 서비스 구성 시나리오
 
@@ -124,7 +124,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    이 서비스를 생성하면, 쿠버네티스는 첫 번째로 설정된 `service-cluster-ip-range`에서
    서비스의 클러스터 IP를 할당하고 `.spec.ipFamilyPolicy`를
    `SingleStack`으로 설정한다. ([셀렉터가 없는 서비스](/docs/concepts/services-networking/service/#셀렉터가-없는-서비스)와
-   셀렉터가 있는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)도
+   셀렉터가 있는 [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)도
    같은 방식으로 동작한다.)
 
    {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
@@ -266,7 +266,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 
 ### 셀렉터가 없는 헤드리스 서비스
 
-[셀렉터가 없는 헤드리스 서비스](/docs/concepts/services-networking/service/#셀렉터가-없는-서비스)에서
+[셀렉터가 없는 헤드리스 서비스](/docs/concepts/services-networking/service/#셀렉터가-없는-경우)에서
 `.spec.ipFamilyPolicy`를 명시적으로 설정하지 않으면, `.spec.ipFamilyPolicy` 필드의 기본값은
 `RequireDualStack`이다.
 
