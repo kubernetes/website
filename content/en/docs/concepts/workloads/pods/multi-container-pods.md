@@ -121,15 +121,16 @@ metadata:
 spec:
   initContainers:
   - name: adapter
-    image: quay.io/fluent/fluent-bit:3.0
+    image: registry.k8s.io/busybox:1.27.2
     restartPolicy: Always
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/app
-    args: ["--input", "/var/log/app/raw.log", "--output", "-"]
+    command: ["sh", "-c", 'touch /var/log/app/raw.log; tail -F /var/log/app/raw.log | while read line; do echo "adapted: $line"; done']
   containers:
   - name: main-app
     image: quay.io/centos/centos:stream9
+    command: ["sh", "-c", 'while true; do echo "$(date) raw event" >> /var/log/app/raw.log; sleep 2; done']
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/app
