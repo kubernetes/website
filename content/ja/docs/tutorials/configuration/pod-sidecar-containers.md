@@ -117,7 +117,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 しかし、未知のフィールドを取り除いてしまうツールも存在します。
 もしそのようなツールを使用している場合、それらをKubernetes APIクライアントコードのバージョン1.28以降で再コンパイルしなければなりません。
 
-これを確認する方法は、mutating admissionを通過したPodで`kubectl describe pod`コマンドを使用することです。
+これを確認する方法は、Mutating Admissionを通過したPodで`kubectl describe pod`コマンドを使用することです。
 いくつかのツールが新しいフィールド(`restartPolicy:Always`)を取り除いた場合、コマンド出力に表示されません。
 
 このような問題に遭遇した場合、ツールかWebhookの作者に完全なオブジェクトの更新に代わって、オブジェクトを変更するためのパッチ戦略の1つを使用するよう助言してください。
