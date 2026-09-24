@@ -119,7 +119,7 @@ sudo kubeadm reset
 
 `kubeadm init` 직후에는 이러한 상태의 파드가 없어야 한다.
 
-- `kubeadm init` _직후_ 에 이러한 상태의 파드가 있다면
+- `kubeadm init` _직후_ 이러한 상태의 파드가 있다면
   kubeadm 저장소에 이슈를 열자. `coredns`(또는 `kube-dns`)는
   네트워크 애드온을 배포하기 전까지는 `Pending` 상태여야 한다.
 - 네트워크 애드온을 배포한 이후에도 `RunContainerError`, `CrashLoopBackOff` 또는 `Error` 상태의
@@ -317,7 +317,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 ```
 
 이 문제는 Docker 1.13.1.84와 함께 CentOS 7을 실행하는 경우 나타난다.
-이 버전의 Docker는 kubelet이 etcd 컨테이너로 실행되는 것을 방지할 수 있다.
+이 버전의 Docker는 kubelet이 etcd 컨테이너 내부에서 명령을 실행하지 못하게 할 수 있다.
 
 이 문제를 해결하려면 다음 옵션 중 하나를 선택한다.
 
@@ -366,7 +366,7 @@ server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
 
-알려진 해결 방법은 kube-proxy DaemonSet을 패치하여 조건에 관계없이 컨트롤 플레인 노드에
+알려진 해결 방법은 kube-proxy 데몬셋(DaemonSet)을 패치하여 조건에 관계없이 컨트롤 플레인 노드에
 스케줄할 수 있도록 하고, 초기 보호 조건이 완화될 때까지 다른 노드에서
 제외하는 것이다.
 
@@ -514,7 +514,7 @@ kubeadm은 파드 해시의 변경을 기대하지만 kubelet은 해시를 업�
 
   이는 나중의 v1.28 패치 버전에서 새 etcd 버전이 도입된 경우 권장되지 않는다.
 
-- 업그레이드하기 전에 etcd 스태틱 파드의 매니페스트를 패치하여 문제가 있는 기본 속성을 제거한다.
+- 업그레이드하기 전에 etcd 스태틱(static) 파드의 매니페스트를 패치하여 문제가 있는 기본 속성을 제거한다.
 
   ```patch
   diff --git a/etc/kubernetes/manifests/etcd_defaults.yaml b/etc/kubernetes/manifests/etcd_origin.yaml
