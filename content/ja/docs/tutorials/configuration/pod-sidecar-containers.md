@@ -108,7 +108,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 
 ### サードパーティ製ツールとMutating Webhookを確認する {#check-for-3rd-party-tooling-and-mutating-webhooks}
 
-この機能を確認しているときに問題に遭遇した場合、それはサードパーティ製ツールの1つまたはMutating Webhookが故障していることを暗示しているかもしれません。
+この機能の検証時に問題に遭遇した場合、それはサードパーティ製ツールやMutating Webhookのいずれかが正しく動作していないことを示している可能性があります。
 
 `SidecarContainers`フィーチャーゲートが有効な場合、PodのAPIには新しいフィールドが追加されます。
 いくつかのツールまたはMutating WebhookはKubernetes APIのより古いバージョンでつくられた可能性があります。
