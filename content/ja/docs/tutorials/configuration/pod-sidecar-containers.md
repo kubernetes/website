@@ -110,7 +110,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 
 この機能を確認しているときに問題に遭遇した場合、それはサードパーティ製ツールの1つまたはMutating Webhookが故障していることを暗示しているかもしれません。
 
-`SidecarContainers`フィーチャーゲートが有効な場合、PodはAPIで新しいフィールドを取得します。
+`SidecarContainers`フィーチャーゲートが有効な場合、PodのAPIには新しいフィールドが追加されます。
 いくつかのツールまたはMutating WebhookはKubernetes APIのより古いバージョンでつくられた可能性があります。
 
 ツールが様々なパッチ戦略を使用してPodオブジェクトを変更する際に、未知のフィールドをそのまま渡す場合、これは問題とはなりません。
