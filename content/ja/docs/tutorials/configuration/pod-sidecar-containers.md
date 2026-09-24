@@ -118,7 +118,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 もしそのようなツールを使用している場合、それらをKubernetes APIクライアントコードのバージョン1.28以降で再コンパイルしなければなりません。
 
 これを確認する方法は、Mutating Admissionを通過したPodで`kubectl describe pod`コマンドを使用することです。
-いくつかのツールが新しいフィールド(`restartPolicy:Always`)を取り除いた場合、コマンド出力に表示されません。
+いずれかのツールが新しいフィールド(`restartPolicy:Always`)を取り除いた場合、コマンド出力に表示されません。
 
 このような問題に遭遇した場合、オブジェクト全体の更新ではなく、パッチ戦略のいずれかを使用してオブジェクトの変更をするよう、ツールやWebhookの作成者に助言してください。
 
