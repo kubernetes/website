@@ -687,6 +687,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-envars-pod":                {&api.Pod{}},
 			"secret-pod":                       {&api.Pod{}},
 		},
+		"pods/multi-container": {
+			"adapter":              {&api.Pod{}},
+			"ambassador":           {&api.Pod{}},
+			"localhost":            {&api.Pod{}},
+			"resources":            {&api.Pod{}},
+			"shared-volume":        {&api.Pod{}},
+			"startup-coordination": {&api.Pod{}},
+		},
 		"pods/probe": {
 			"exec-liveness":                   {&api.Pod{}},
 			"grpc-liveness":                   {&api.Pod{}},
