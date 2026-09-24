@@ -45,23 +45,7 @@ Plan port assignments for every container in the Pod, including sidecars that yo
 
 In the following example, the `client` sidecar sends a request to the `web` container over `localhost` every five seconds:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: localhost-example
-spec:
-  initContainers:
-  - name: client
-    image: registry.k8s.io/busybox:1.27.2
-    restartPolicy: Always
-    command: ["sh", "-c", 'while true; do wget -qO- http://localhost:80 | head -n 4; sleep 5; done']
-  containers:
-  - name: web
-    image: nginx:1.29
-    ports:
-    - containerPort: 80
-```
+{{% code_sample language="yaml" file="pods/multi-container/localhost.yaml" %}}
 
 To see the responses, check the logs of the `client` container:
 
@@ -90,31 +74,7 @@ Common uses for shared volumes include:
 In the following example, an init container writes a web page to an `emptyDir` volume,
 and the `web` container serves that page from the same volume:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: shared-volume-example
-spec:
-  initContainers:
-  - name: content-writer
-    image: registry.k8s.io/busybox:1.27.2
-    command: ["sh", "-c", 'echo "Hello from the init container" > /content/index.html']
-    volumeMounts:
-    - name: content
-      mountPath: /content
-  containers:
-  - name: web
-    image: nginx:1.29
-    volumeMounts:
-    - name: content
-      mountPath: /usr/share/nginx/html
-      readOnly: true
-  volumes:
-  - name: content
-    emptyDir:
-      sizeLimit: 10Mi
-```
+{{% code_sample language="yaml" file="pods/multi-container/shared-volume.yaml" %}}
 
 Mounting the volume as `readOnly` in the `web` container makes it clear which container owns the data.
 
@@ -198,42 +158,7 @@ For example, the scheduler treats the following Pod as requesting 350m of CPU an
 which is the sum of the `log-shipper` sidecar and the `app` container.
 The `setup` init container's request is lower than that sum, so it doesn't change the result:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resources-example
-spec:
-  initContainers:
-  - name: setup
-    image: registry.k8s.io/busybox:1.27.2
-    command: ["sh", "-c", "echo setting up"]
-    resources:
-      requests:
-        cpu: 200m
-        memory: 64Mi
-      limits:
-        memory: 64Mi
-  - name: log-shipper
-    image: registry.k8s.io/busybox:1.27.2
-    restartPolicy: Always
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
-    resources:
-      requests:
-        cpu: 50m
-        memory: 64Mi
-      limits:
-        memory: 64Mi
-  containers:
-  - name: app
-    image: nginx:1.29
-    resources:
-      requests:
-        cpu: 300m
-        memory: 128Mi
-      limits:
-        memory: 128Mi
-```
+{{% code_sample language="yaml" file="pods/multi-container/resources.yaml" %}}
 
 The Pod's [quality of service (QoS) class](/docs/concepts/workloads/pods/pod-qos/) is also based on all of its containers.
 For example, if you don't use Pod-level resources, a Pod is `Guaranteed` only if every container,
@@ -285,35 +210,7 @@ If one container depends on another, use one of these approaches:
 
 The following example uses a startup probe so that the app container starts only after the sidecar has written its configuration file:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: startup-coordination-example
-spec:
-  initContainers:
-  - name: config-sidecar
-    image: registry.k8s.io/busybox:1.27.2
-    restartPolicy: Always
-    command: ["sh", "-c", 'echo "greeting=hello" > /config/app.conf; while true; do sleep 3600; done']
-    startupProbe:
-      exec:
-        command: ["test", "-f", "/config/app.conf"]
-      periodSeconds: 2
-    volumeMounts:
-    - name: config
-      mountPath: /config
-  containers:
-  - name: main-app
-    image: registry.k8s.io/busybox:1.27.2
-    command: ["sh", "-c", 'cat /config/app.conf; while true; do sleep 3600; done']
-    volumeMounts:
-    - name: config
-      mountPath: /config
-  volumes:
-  - name: config
-    emptyDir: {}
-```
+{{% code_sample language="yaml" file="pods/multi-container/startup-coordination.yaml" %}}
 
 At runtime, containers can also coordinate implicitly through shared state.
 For example, a sidecar can write a status file to a shared volume that the app container, or a probe, checks.
@@ -372,27 +269,7 @@ The ambassador is typically implemented as a sidecar so the application can conn
 
 Here’s a minimal sidecar example that forwards local port `5432` to an external database:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: ambassador-sidecar-example
-spec:
-  initContainers:
-  - name: ambassador-sidecar
-    image: docker.io/alpine/socat:1.8.0.3
-    restartPolicy: Always
-    args: ["tcp-listen:5432,fork", "tcp-connect:external-db.example.com:5432"]
-    ports:
-    - containerPort: 5432
-  containers:
-  - name: main-app
-    image: quay.io/centos/centos:stream9
-    command: ["sleep", "infinity"]
-    env:
-    - name: DATABASE_URL
-      value: "localhost:5432"
-```
+{{% code_sample language="yaml" file="pods/multi-container/ambassador.yaml" %}}
 
 In this example, the `ambassador-sidecar` listens on `localhost:5432` inside the Pod and forwards traffic to `external-db.example.com:5432`.
 
@@ -405,31 +282,7 @@ The adapter sits alongside the primary application, receives output through a sh
 
 Here’s an example of the adapter pattern:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: adapter-pattern-example
-spec:
-  initContainers:
-  - name: adapter
-    image: registry.k8s.io/busybox:1.27.2
-    restartPolicy: Always
-    volumeMounts:
-    - name: shared-logs
-      mountPath: /var/log/app
-    command: ["sh", "-c", 'touch /var/log/app/raw.log; tail -F /var/log/app/raw.log | while read line; do echo "adapted: $line"; done']
-  containers:
-  - name: main-app
-    image: quay.io/centos/centos:stream9
-    command: ["sh", "-c", 'while true; do echo "$(date) raw event" >> /var/log/app/raw.log; sleep 2; done']
-    volumeMounts:
-    - name: shared-logs
-      mountPath: /var/log/app
-  volumes:
-  - name: shared-logs
-    emptyDir: {}
-```
+{{% code_sample language="yaml" file="pods/multi-container/adapter.yaml" %}}
 
 In this example, the *main application container* writes raw logs to `/var/log/app/raw.log`.
 The *adapter container* reads the raw logs, transforms them into a standard format, and writes the processed logs to stdout.
@@ -451,3 +304,11 @@ This section summarizes recommended practices and common anti-patterns when desi
 - Overloading a Pod: do not put unrelated services in the same Pod; prefer separate Pods for unrelated workloads.
 - Using Pods as a workaround: avoid using multi-container Pods to work around missing orchestration features; use Deployments, Services, or ConfigMaps instead.
 - Ignoring resource limits: sidecars should have a memory limit and a CPU request; the app container or the overall Pod should also have an appropriate CPU request and memory limit.
+
+## {{% heading "whatsnext" %}}
+
+* Learn how to [adopt sidecar containers](/docs/tutorials/configuration/pod-sidecar-containers/).
+* Learn how to [communicate between containers in the same Pod using a shared volume](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
+* Learn how to [share the process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
+* Learn how to [assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/).
+* Learn how to [debug a running Pod with an ephemeral container](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
