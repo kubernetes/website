@@ -66,8 +66,17 @@ The flow can be seen in the following diagram.
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and
-it requires support in the container runtime.
+In Kubernetes v1.38 and later, the `WindowsCPUAndMemoryAffinity` feature gate is enabled by default.
+
+Windows topology alignment requires CRI v1 with the `WindowsCpuGroupAffinity` field and containerd
+v2.3.0 or later with its paired runhcs release. The containerd 2.3 release uses
+[runhcs v0.15.0-rc.4](https://github.com/containerd/containerd/blob/release/2.3/script/setup/runhcs-version).
+The kubelet does not check the container runtime version or query its affinity capabilities. If the
+runtime does not support CPU affinity, the container starts without CPU affinity.
+
+For Windows workloads where cross-NUMA memory access is undesirable, use the `single-numa-node`
+policy with CPU Manager and the Memory Manager `BestEffort` policy. Windows does not guarantee
+physical NUMA-local memory allocation, so the container can still use pages from a remote NUMA node.
 
 ## Topology manager scopes and policies
 
