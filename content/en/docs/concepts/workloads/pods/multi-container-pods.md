@@ -1,7 +1,7 @@
 ---
 title: Multi-Container Pods
 content_type: concept
-weight: 60
+weight: 55
 ---
 
 <!-- overview -->
@@ -273,14 +273,14 @@ spec:
 Containers in `.spec.containers` start in parallel, and Kubernetes does not guarantee any ordering between them.
 If one container depends on another, use one of these approaches:
 
-- **Init containers** run to completion, one at a time, before any app container starts.
+- Init containers run to completion, one at a time, before any app containeOverloading starts.
   Use them for one-off setup such as creating files, running migrations, or waiting for a dependency.
-- **Sidecar containers** (init containers with `restartPolicy: Always`) start before the app containers
+- Sidecar containers (init containers with `restartPolicy: Always`) start before the app containers
   and keep running.
   If a sidecar defines a `startupProbe`, the kubelet waits for that probe to succeed before starting the next container,
   so the app container only starts once the sidecar is ready.
   During Pod termination, sidecars are stopped after the app containers, in the reverse order of their definition.
-- **Application-level checks** let a container wait for, or retry against, its dependency.
+- Application-level checks let a container wait for, or retry against, its dependency.
   This is the most resilient approach, because a dependency can also restart while the Pod is running.
 
 The following example uses a startup probe so that the app container starts only after the sidecar has written its configuration file:
