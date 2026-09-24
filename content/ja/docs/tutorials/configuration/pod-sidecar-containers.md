@@ -125,7 +125,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 {{< alert  title="Note" color="info" >}}
 
 Mutating Webhookはいくつかの条件に基づいてPodを更新する可能性があります。
-したがって、サイドカーコンテナはいくつかのPodについて動作するかもしれないし、その他について失敗するかもしれません。
+したがって、サイドカーコンテナは一部のPodでは動作し、他のPodでは動作しないことがあります。
 
 {{< /alert >}}
 
