@@ -150,10 +150,10 @@ Calico, Canal 및 Flannel CNI 공급자는 HostPort를 지원하는 것으로 �
 [서비스의 NodePort 기능](/docs/concepts/services-networking/service/#type-nodeport)을
 사용하거나 `HostNetwork=true`를 사용해야 할 수 있다.
 
-## 파드가 서비스 IP를 통해 액세스할 수 없음
+## 파드가 서비스 IP를 통해 접근할 수 없음
 
-- 많은 네트워크 애드온이 아직 파드가 서비스 IP를 통해 자신에 액세스할 수 있도록 하는 [헤어핀 모드](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
-  를 활성화하지 않는다. 이는
+- 많은 네트워크 애드온이 아직 파드가 서비스 IP를 통해 자신에 접근할 수 있도록 하는
+  [헤어핀 모드](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)를 활성화하지 않는다. 이는
   [CNI](https://github.com/containernetworking/cni/issues/476)와 관련된 문제다. 헤어핀 모드 지원의
   최신 상태를 확인하려면 네트워크 애드온 공급자에게 문의한다.
 
@@ -243,7 +243,7 @@ Error from server (NotFound): the server could not find the requested resource
 
   이는 호스트의 첫 번째 인터페이스를 기본값으로 하는 flannel에 문제를 일으킬 수 있다.
   이로 인해 모든 호스트가 동일한 공용 IP 주소를 가지고 있다고 생각하게 된다. 이를 방지하려면
-  flannel에 `--iface eth1` 플래그를 전달하여 두 번째 인터페이스가 선택하도록 한다.
+  flannel에 `--iface eth1` 플래그를 전달하여 두 번째 인터페이스가 선택되도록 한다.
 
 ## 컨테이너에 공용이 아닌 IP가 사용됨
 
@@ -254,8 +254,8 @@ Error from server (NotFound): the server could not find the requested resource
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
 ```
 
-- 이는 쿠버네티스에서 머신 공급자의 정책에 따라, 겉보기에는 동일한 서브넷에 있는 다른 IP와
-  통신할 수 없는 IP를 사용하는 쿠버네티스 (환경) 때문일 수 있다.
+- 이는 머신 공급자의 정책에 따라, 겉보기에는 동일한 서브넷에 있는 다른 IP와
+  통신할 수 없는 IP를 쿠버네티스가 사용하기 때문일 수 있다.
 - DigitalOcean은 `eth0`에 공용 IP와 플로팅 IP 기능의 앵커로 내부적으로
   사용되는 프라이빗 IP를 할당하지만, `kubelet`은 공용 IP 대신 후자를 노드의
   `InternalIP`로 선택한다.
@@ -337,8 +337,8 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 ## `--component-extra-args` 플래그 내부의 인수에 쉼표로 구분된 값 목록을 전달할 수 없음
 
 `--component-extra-args`와 같은 `kubeadm init` 플래그를 사용하면 kube-apiserver와 같은 컨트롤 플레인
-구성 요소에 사용자 정의 인수를 전달할 수 있다. 그러나 이 메커니즘은 값을 구문 분석하는 데 사용되는
-기본 유형(`mapStringString`)으로 인해 제한된다.
+컴포넌트에 사용자 정의 인수를 전달할 수 있다. 그러나 이 메커니즘은 값을 구문 분석하는 데 사용되는
+기본 타입(`mapStringString`)으로 인해 제한된다.
 
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"`와 같이
 여러 쉼표로 구분된 값을 지원하는 인수를 전달하기로 결정한 경우, 이 플래그는
@@ -397,9 +397,9 @@ kubectl -n kube-system patch ds kube-proxy -p='{
 
 Fedora CoreOS 또는 Flatcar Container Linux와 같은 리눅스 배포판에서는 `/usr` 디렉터리가 읽기 전용 파일시스템으로 마운트된다.
 [flex-volume 지원](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)을 위해
-kubelet 및 kube-controller-manager와 같은 쿠버네티스 구성 요소는
+kubelet 및 kube-controller-manager와 같은 쿠버네티스 컴포넌트는
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`의 기본 경로를 사용하지만, flex-volume 디렉터리는 기능이
-작동하려면 _쓰기 가능해야 한다._
+작동하려면 _쓰기 가능해야 한다_.
 
 {{< note >}}
 FlexVolume은 쿠버네티스 v1.23 릴리스에서 사용 중단되었다.
@@ -461,7 +461,7 @@ nodeRegistration:
 ## kubeadm 클러스터에서 metrics-server를 안전하게 사용할 수 없음
 
 kubeadm 클러스터에서 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)는
-`--kubelet-insecure-tls`를 전달하여 안전하지 않게 사용할 수 있다. 이는 프로덕션 클러스터에는  권장되지 않는다.
+`--kubelet-insecure-tls`를 전달하여 안전하지 않게 사용할 수 있다. 이는 프로덕션 클러스터에는 권장되지 않는다.
 
 metrics-server와 kubelet 간에 TLS를 사용하려는 경우 문제가 있다.
 kubeadm이 kubelet에 대해 자체 서명된 서빙 인증서를 배포하기 때문이다. 이로 인해
@@ -514,7 +514,7 @@ kubeadm은 파드 해시의 변경을 기대하지만 kubelet은 해시를 업�
 
   이는 나중의 v1.28 패치 버전에서 새 etcd 버전이 도입된 경우 권장되지 않는다.
 
-- 업그레이드하기 전에 etcd 정적 파드의 매니페스트를 패치하여 문제가 있는 기본 속성을 제거한다.
+- 업그레이드하기 전에 etcd 스태틱 파드의 매니페스트를 패치하여 문제가 있는 기본 속성을 제거한다.
 
   ```patch
   diff --git a/etc/kubernetes/manifests/etcd_defaults.yaml b/etc/kubernetes/manifests/etcd_origin.yaml
