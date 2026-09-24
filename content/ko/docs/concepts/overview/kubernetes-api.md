@@ -20,7 +20,7 @@ card:
 수 있도록 HTTP API를 제공한다.
 
 쿠버네티스 API를 사용하면 쿠버네티스의 API 오브젝트(예:
-파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
+파드, 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
 
 대부분의 작업은 [kubectl](/docs/reference/kubectl/)
 커맨드 라인 인터페이스 또는 API를 사용하는
@@ -87,7 +87,7 @@ card:
 문서이다.
 
 내장 리소스에 대한 [디스커버리 문서](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)는
-쿠버네티스 GitHub 저장소에서 확인할 수 있다.
+쿠버네티스 GitHub 리포지터리에서 확인할 수 있다.
 질의할 수 있는 쿠버네티스 클러스터가 없다면 이 GitHub 문서를 사용 가능한 리소스의
 기본 집합에 대한 참고 자료로 사용할 수 있다.
 
@@ -357,7 +357,7 @@ API 버전 수준 정의에 대한 자세한 내용은
 
 ## {{% heading "whatsnext" %}}
 
-- 자체 [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)을
+- 자체 [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)을
   추가하여 쿠버네티스 API를 확장하는 방법에 대해 배우기.
 - [쿠버네티스 API 접근 제어하기](/docs/concepts/security/controlling-access/)는
   클러스터가 API 접근을 위한 인증 및 권한을 관리하는 방법을 설명한다.
