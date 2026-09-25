@@ -163,7 +163,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    패밀리로 설정된다. 기존 서비스의 클러스터 IP는
    `.spec.clusterIPs`에 저장된다.
 
-   {{< code_sample file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
    kubectl로 기존 서비스를 확인하여 이 동작을 검증할 수 있다.
 
