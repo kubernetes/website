@@ -66,7 +66,7 @@ IPv4/IPv6 이중 스택을 구성하려면, 이중 스택 클러스터 네트워
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
 * kubelet:
   * `--node-ip=<IPv4 IP>,<IPv6 IP>`
-    * 이 옵션은 베어메탈 이중 스택 노드(`--cloud-provider` 플래그로 클라우드 
+    * 이 옵션은 베어메탈 이중 스택 노드(`--cloud-provider` 플래그로 클라우드
       공급자를 정의하지 않은 노드)에 필요하다.
       클라우드 공급자를 사용 중이고 클라우드 공급자가 선택한 노드 IP를 재정의하고 싶다면,
       `--node-ip` 옵션을 설정한다.
@@ -163,7 +163,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    패밀리로 설정된다. 기존 서비스의 클러스터 IP는
    `.spec.clusterIPs`에 저장된다.
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{< code_sample file="service/networking/dual-stack-default-svc.yaml" >}}
 
    kubectl로 기존 서비스를 확인하여 이 동작을 검증할 수 있다.
 
@@ -197,7 +197,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    ```
 
 1. 클러스터에서 이중 스택이 활성화되면, 셀렉터가 있는 기존
-   [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-headless-서비스)는
+   [헤드리스 서비스](/docs/concepts/services-networking/service/#헤드리스-서비스)는
    `.spec.clusterIP`가 `None`으로 설정되어 있더라도 컨트롤 플레인에 의해
    `.spec.ipFamilyPolicy`는 `SingleStack`으로, `.spec.ipFamilies`는 첫 번째 서비스
    클러스터 IP 범위(kube-apiserver의 `--service-cluster-ip-range` 플래그로 지정)의
