@@ -317,7 +317,7 @@ resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-c
 {{< /note >}}
 
 {{< note >}}
-{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+{{</* feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" */>}}
 
 When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled,
 deferred in-place resize requests can trigger `kube-scheduler` to preempt
@@ -352,7 +352,7 @@ directly or from your monitoring tools.
 ### Considerations for memory backed `emptyDir` volumes {#memory-backed-emptydir}
 
 {{< note >}}
-{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+{{</* feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" */>}}
 
 When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of a memory-backed (`medium: Memory`) `emptyDir` volume on a running Pod without requiring Pod recreation or container restarts. For step-by-step instructions, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
 {{< /note >}}
