@@ -18,11 +18,11 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 
 다음과 같은 방법으로 리눅스에 kubectl을 설치할 수 있다.
 
-- [리눅스에 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
-- [기본 패키지 관리 도구를 사용하여 설치](#install-using-native-package-management)
-- [다른 패키지 관리 도구를 사용하여 설치](#install-using-other-package-management)
+- [리눅스에서 curl을 사용하여 kubectl 바이너리 설치](#리눅스에서-curl을-사용하여-kubectl-바이너리-설치)
+- [기본 패키지 관리 도구를 사용하여 설치](#기본-패키지-관리-도구를-사용하여-설치)
+- [다른 패키지 관리 도구를 사용하여 설치](#다른-패키지-관리-도구를-사용하여-설치)
 
-### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-linux}
+### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치
 
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
@@ -36,8 +36,8 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    {{< /tabs >}}
 
    {{< note >}}
-   특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   명령 부분을 특정 버전으로 바꾼다.
+   특정 버전을 다운로드하려면 명령에서 `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   부분을 해당 버전으로 바꾼다.
 
    예를 들어, 리눅스 x86-64에서 {{< skew currentPatchVersion >}} 버전을 다운로드하려면 다음을 입력한다.
 
@@ -45,7 +45,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
 
-   Linux ARM64의 경우 다음과 같이 입력한다.
+   리눅스 ARM64의 경우 다음을 입력한다.
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
@@ -53,7 +53,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 
    {{< /note >}}
 
-1. 바이너리를 검증한다. (선택 사항)
+1. 바이너리 검증(선택 사항)
 
    kubectl 체크섬(checksum) 파일을 다운로드한다.
 
@@ -78,7 +78,7 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    kubectl: OK
    ```
 
-   검증이 실패한다면, `shasum`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+   검증에 실패하면 `sha256`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
 
    ```console
    kubectl: FAILED
@@ -96,14 +96,14 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    ```
 
    {{< note >}}
-   대상 시스템에 root 접근 권한을 가지고 있지 않더라도,
+   대상 시스템에 root 접근 권한이 없더라도
    `~/.local/bin` 디렉터리에 kubectl을 설치할 수 있다.
 
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
+   # 그런 다음 ~/.local/bin을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
 
    {{< /note >}}
@@ -114,16 +114,16 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
    kubectl version --client
    ```
 
-   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+   또는 다음 명령으로 버전 정보를 자세히 확인한다.
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치
 
 {{< tabs name="kubectl_install" >}}
-{{% tab name="데비안 기반의 배포판" %}}
+{{% tab name="데비안 기반 배포판" %}}
 
 1. `apt` 패키지 색인을 업데이트하고 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지들을 설치한다.
 
@@ -136,14 +136,14 @@ v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 2. 쿠버네티스 패키지 리포지터리용 공개 서명 키를 다운로드한다. 동일한 서명 키는 모든 리포지터리에 사용되므로 URL에 있는 버전은 무시해도 된다.
 
    ```shell
-   # `/etc/apt/keyrings` 디렉터리가 존재하지 않는다면 curl 명령을 실행하기 전에 생성해야 한다. 아래 note를 참고한다.
+   # `/etc/apt/keyrings` 디렉터리가 없다면 curl 명령을 실행하기 전에 생성해야 한다. 아래 참고를 확인한다.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # 권한이 없는 APT 프로그램이 이 키링을 읽을 수 있도록 한다.
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # 특권이 없는 APT 프로그램이 이 키링을 읽을 수 있도록 한다.
    ```
 
 {{< note >}}
-Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉터리가 기본적으로 존재하지 않으므로 curl 명령을 실행하기 전에 생성해야 한다.
+데비안 12 및 우분투 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉터리가 기본적으로 존재하지 않으므로 curl 명령을 실행하기 전에 생성해야 한다.
 {{< /note >}}
 
 3. 쿠버네티스 `apt` 리포지터리를 추가한다. {{< param "version" >}}과 다른 쿠버네티스 버전을 사용하려면
@@ -168,11 +168,11 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 
 {{% /tab %}}
 
-{{% tab name="레드햇 기반의 배포판" %}}
+{{% tab name="레드햇 기반 배포판" %}}
 
-1. 쿠버네티스 `yum` 리포지터리를 추가한다. {{< param "version" >}}과 다른 쿠버네티스 버전을
-   사용하려면, 아래 명령에서 {{< param "version" >}}을 원하는
-   마이너 버전으로 바꾼다.
+1. 쿠버네티스 `yum` 리포지터리를 추가한다. 쿠버네티스 버전이
+   {{< param "version" >}}과 다르다면 아래 명령의 {{< param "version" >}}을
+   원하는 마이너 버전으로 바꾼다.
 
    ```bash
    # /etc/yum.repos.d/kubernetes.repo의 기존 설정을 모두 덮어쓴다.
@@ -187,22 +187,22 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
    ```
 
 {{< note >}}
-다른 마이너 릴리스의 kubectl로 업그레이드하려면 `yum update`를 실행하기 전에 `/etc/yum.repos.d/kubernetes.repo`의 버전을 올려야 한다. 이 절차에 대한 자세한 내용은 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
+다른 마이너 릴리스의 kubectl로 업그레이드하려면 `dnf update`를 실행하기 전에 `/etc/yum.repos.d/kubernetes.repo`의 버전을 올려야 한다. 이 절차에 대한 자세한 내용은 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
 {{< /note >}}
 
-2. `yum`을 사용하여 kubectl을 설치한다.
+2. `dnf`를 사용하여 kubectl을 설치한다.
 
    ```bash
-   sudo yum install -y kubectl
+   sudo dnf install -y kubectl
    ```
 
 {{% /tab %}}
 
-{{% tab name="SUSE-based distributions" %}}
+{{% tab name="SUSE 기반 배포판" %}}
 
-1. 쿠버네티스 `zypper` 리포지터리를 추가한다. {{< param "version" >}}과 다른 쿠버네티스 버전을
-사용하려면, 아래 명령에서 {{< param "version" >}}을 원하는
-마이너 버전으로 바꾼다.
+1. 쿠버네티스 `zypper` 리포지터리를 추가한다. 쿠버네티스 버전이
+   {{< param "version" >}}과 다르다면 아래 명령의 {{< param "version" >}}을
+   원하는 마이너 버전으로 바꾼다.
 
    ```bash
    # /etc/zypp/repos.d/kubernetes.repo의 기존 설정을 모두 덮어쓴다.
@@ -222,7 +222,7 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 [쿠버네티스 패키지 리포지터리 변경하기](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)에서 확인할 수 있다.
 {{< /note >}}
 
-2. zypper를 업데이트하고 새 리포지터리가 추가되었는지 확인한다.
+2. `zypper`를 업데이트하고 새 리포지터리 추가를 확인한다.
 
    ```bash
    sudo zypper update
@@ -266,9 +266,9 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyrings` 디렉�
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-[snap](https://snapcraft.io/docs/core/install) 패키지 관리자를 지원하는
-Ubuntu 또는 다른 리눅스 배포판을 사용하는 경우,
-kubectl을 [snap](https://snapcraft.io/) 애플리케이션으로 설치할 수 있다.
+우분투 또는 다른 리눅스 배포판에서
+[snap](https://snapcraft.io/docs/core/install) 패키지 관리자를 지원한다면 kubectl을
+[snap](https://snapcraft.io/) 애플리케이션으로 설치할 수 있다.
 
 ```shell
 snap install kubectl --classic
@@ -278,8 +278,8 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-리눅스 상에서 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 패키지 관리자를 사용한다면,
-[설치](https://docs.brew.sh/Homebrew-on-Linux#install)를 통해 kubectl을 사용할 수 있다.
+리눅스에서 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 패키지 관리자를 사용한다면,
+kubectl을 [설치](https://docs.brew.sh/Homebrew-on-Linux#install)할 수 있다.
 
 ```shell
 brew install kubectl
@@ -298,10 +298,10 @@ kubectl version --client
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로
-입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, PowerShell의 자동 완성을 지원하므로
+입력량을 크게 줄일 수 있다.
 
-다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 Bash, Fish, Zsh에서 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
@@ -328,9 +328,9 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    {{< /tab >}}
    {{< /tabs >}}
 
-1. 바이너리를 검증한다. (선택 사항)
+1. 바이너리 검증(선택 사항)
 
-   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+   kubectl-convert 체크섬 파일을 다운로드한다.
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -341,19 +341,19 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    {{< /tab >}}
    {{< /tabs >}}
 
-   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+   kubectl-convert 바이너리를 체크섬 파일과 대조하여 검증한다.
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
-   검증이 성공한다면, 출력은 다음과 같다.
+   검증에 성공하면 다음과 같이 출력된다.
 
    ```console
    kubectl-convert: OK
    ```
 
-   검증이 실패한다면, `sha256`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+   검증에 실패하면 `sha256`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
 
    ```console
    kubectl-convert: FAILED
@@ -376,9 +376,9 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    kubectl convert --help
    ```
 
-   에러가 출력되지 않는다면, 플러그인이 정상적으로 설치된 것이다.
+   오류가 표시되지 않으면 플러그인이 정상적으로 설치된 것이다.
 
-1. 플러그인을 설치한 후 설치 파일을 정리한다:
+1. 플러그인을 설치한 후 설치 파일을 정리한다.
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
