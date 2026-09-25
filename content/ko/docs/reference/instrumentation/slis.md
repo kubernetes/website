@@ -13,7 +13,7 @@ description: >-
 
 {{< feature-state feature_gate_name="ComponentSLIs" >}}
 
-기본적으로 쿠버네티스 {{< skew currentVersion >}}는 각 쿠버네티스 컴포넌트 바이너리에 대한
+기본적으로 쿠버네티스 {{< skew currentVersion >}}에서는 각 쿠버네티스 컴포넌트 바이너리에 대한
 서비스 수준 지표(Service Level Indicator, SLI) 메트릭을 제공한다. 이 메트릭 엔드포인트는
 각 컴포넌트가 서비스를 제공하는 HTTPS 포트의 `/metrics/slis` 경로에 노출된다.
 `ComponentSLIs` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)는
@@ -51,7 +51,7 @@ kubernetes_healthcheck{name="ping",type="healthz"} 1
 kubernetes_healthcheck{name="ping",type="readyz"} 1
 ```
 
-카운터 데이터는 다음과 같다.
+반면 카운터 데이터는 다음과 같다.
 
 ```
 # HELP kubernetes_healthchecks_total [ALPHA] This metric records the results of all healthcheck.
