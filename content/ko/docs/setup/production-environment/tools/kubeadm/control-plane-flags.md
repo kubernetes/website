@@ -17,7 +17,7 @@ kube-proxy의 경우, 각각 `KubeletConfiguration`과 `KubeProxyConfiguration`�
 [API 참조 페이지](/docs/reference/config-api/kubeadm-config.v1beta4/)에서 찾아볼 수 있다.
 
 {{< note >}}
-이미 생성된 클러스터를 다시 구성하려면 
+이미 생성된 클러스터를 다시 구성하려면
 [kubeadm 클러스터 다시 구성하기](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure/)를 참고한다.
 {{< /note >}}
 
@@ -34,7 +34,7 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러 매�
 - `scheduler`
 - `etcd`
 
-이 구조체들은 공통 필드인 `extraArgs`를 포함하며, 이 필드는 `이름` /  `값` 쌍으로 구성된다.
+이 구조체들은 공통 필드인 `extraArgs`를 포함하며, 이 필드는 `name` / `value` 쌍으로 구성된다.
 컨트롤 플레인 컴포넌트의 플래그를 재정의하려면 다음을 수행한다.
 
 1.  사용자 구성에 적절한 `extraArgs`를 추가한다.
@@ -135,7 +135,7 @@ etcd:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm을 사용하면 개별 노드의 `InitConfiguration`, `JoinConfiguration`, 
+Kubeadm을 사용하면 개별 노드의 `InitConfiguration`, `JoinConfiguration`,
 `UpgradeConfiguration`에 패치 파일이 포함된 디렉터리를
 전달할 수 있다. 이 패치는 컴포넌트 구성이 디스크에 기록되기 전 최종 사용자 정의 단계로
 사용될 수 있다.
@@ -189,7 +189,7 @@ node:
 `kubeletconfiguration`, `corednsdeployment` 중 하나일 수 있다.
 - `suffix`는 영숫자순으로 어떤 패치가 먼저 적용될지 결정하는 데 사용할 수 있는 선택적
 문자열이다.
-- `patchtype`은 `strategic`, `merge`,  `json` 중 하나일 수 있으며
+- `patchtype`은 `strategic`, `merge` 또는 `json` 중 하나일 수 있으며
 [kubectl에서 지원하는](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 패치 형식을 준수해야 한다.
 `patchtype`의 기본값은 `strategic`이다.
 - `extension`은 `json` 또는 `yaml` 중 하나여야 한다.
@@ -201,26 +201,26 @@ kubelet을 사용자 정의하려면, [`KubeletConfiguration`](/docs/reference/c
 그런 다음 `kubeadm init`에 해당 파일을 전달하면, kubeadm은 동일한 기본 `KubeletConfiguration`을
 클러스터의 모든 노드에 적용한다.
 
-기본 `KubeletConfiguration`에 더하여 인스턴스별 구성을 적용하기 위해서는 
+기본 `KubeletConfiguration`에 더하여 인스턴스별 구성을 적용하기 위해서는
 [`kubeletconfiguration` 패치 대상](#patches)을 사용할 수 있다.
 
-다른 방법으로는, kubelet 플래그를 덮어쓰기(overrides)로 사용하여,
+다른 방법으로는, kubelet 플래그를 재정의로 사용하여,
 `InitConfiguration` 및 `JoinConfiguration` 모두에서 지원되는 `nodeRegistration.kubeletExtraArgs`에 전달할 수 있다.
 일부 kubelet 플래그는 사용 중단(deprecated) 상태이므로, 사용하기 전에
-[kubelet 참조 문서](/docs/reference/command-line-tools-reference/kubelet)에서 상태를 확인해야 한다.
+[kubelet 레퍼런스 문서](/docs/reference/command-line-tools-reference/kubelet)에서 상태를 확인한다.
 
 이 외 더 자세한 사항은 [kubeadm을 사용하여 클러스터의 각 kubelet 구성하기](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)에서 살펴본다.
 
 ## kube-proxy 사용자 정의하기
 
 kube-proxy를 사용자 정의하려면, `KubeProxyConfiguration`을 `---`로 구분된 `ClusterConfiguration`이나 `InitConfiguration`
-다음에 두고 `kubeadm init`에 전달하면 된다.
+다음에 두고 `kubeadm init`에 전달할 수 있다.
 
 자세한 사항은 [API 참조 페이지](/docs/reference/config-api/kubeadm-config.v1beta4/)에서 살펴볼 수 있다.
 
 {{< note >}}
 kubeadm은 kube-proxy를 {{< glossary_tooltip text="데몬셋" term_id="daemonset" >}}으로 배포하며, 이는
-`KubeProxyConfiguration`이 클러스터의 모든 kube-proxy 인스턴스에 적용된다는 것을 의미한다.
+`KubeProxyConfiguration`이 클러스터의 모든 kube-proxy 인스턴스에 적용될 것임을 의미한다.
 {{< /note >}}
 
 ## CoreDNS 사용자 정의하기
@@ -230,7 +230,7 @@ CoreDNS 디플로이먼트를 사용자 정의할 수 있다.
 
 `kube-system/coredns` {{< glossary_tooltip text="컨피그맵" term_id="configmap" >}}과 같은
 CoreDNS 관련 다른 API 오브젝트에 대한 패치는 현재 지원되지 않는다.
-이러한 오브젝트는 kubectl을 사용하여 수동으로 패치한 후, CoreDNS
+이러한 오브젝트는 어느 것이든 kubectl을 사용하여 수동으로 패치한 후, CoreDNS
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 다시 생성해야 한다.
 
 또는 `ClusterConfiguration`에 다음 옵션을 포함하여 kubeadm의 CoreDNS 디플로이먼트를
