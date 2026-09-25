@@ -41,7 +41,7 @@ apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: silver
-driverName: pd.csi.storage.gke.io
+driverName: csi.storage.example.com
 parameters:
   iops: "3000"
   throughput: "50Mi"
@@ -92,7 +92,7 @@ apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: gold
-driverName: pd.csi.storage.gke.io
+driverName: csi.storage.example.com
 parameters:
   iops: "4000"
   throughput: "60Mi"
