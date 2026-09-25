@@ -197,6 +197,22 @@ Please check [here](/docs/concepts/configuration/manage-resources-containers/#me
 for points to note in terms of resource management when using memory-backed `emptyDir`.
 {{< /caution >}}
 
+{{< feature-state feature_gate_name="EmptyDirVolumeMode" >}}
+
+The `emptyDir.mode` field lets you set Unix permission bits on the emptyDir directory,
+specifying a value between `0000` and `01777` (octal). This follows the same pattern as the
+`defaultMode` field on Secret and ConfigMap volumes. If `mode` is not specified, the
+directory is created with the default `0777` permissions.
+
+Setting a custom mode is useful when you want to restrict access to owner and group only
+(for example, `0750`), or set the sticky bit on a shared directory so that only file owners
+can delete their own files (for example, `01777`).
+
+{{< note >}}
+If `fsGroup` is set in the Pod's security context, the group permissions applied by
+`fsGroup` override the `mode` specified here. The `mode` field has no effect on Windows.
+{{< /note >}}
+
 #### emptyDir configuration example
 
 ```yaml
@@ -236,6 +252,32 @@ spec:
     emptyDir:
       sizeLimit: 500Mi
       medium: Memory
+```
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes without restarting the Pod. For more details, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
+{{< /note >}}
+
+#### emptyDir permissions configuration example
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      mode: 01777
 ```
 
 ### fc (fibre channel) {#fc}
@@ -1201,6 +1243,72 @@ When this property is recognized by kubelet and kube-apiserver,
 the `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` field is set to either
 `Enabled` or `Disabled`.
 
+## File owner
+
+### Group ownership (GID)
+
+Volume file group ownership (GID) is controlled by the pod's `spec.securityContext.fsGroup`.
+
+For detailed configuration steps, refer to
+[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
+
+### User ownership (UID)
+
+{{< feature-state feature_gate_name="AtomicWriteVolumeUserFields" >}}
+
+Setting the `AtomicWriteVolumeUserFields` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enables file user ownership (UID) fields of `configMap`, `secret`, `downwardAPI` and `projected` volumes.
+
+When `defaultUser` is specified at the volume level, it sets the owner UID for all its data files at creation time.
+At the item level, the `user` field controls owner UID of an individual file and takes precedence over `defaultUser`.
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-user-fields-example
+spec:
+  containers:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
+    - name: volA
+      mountPath: /mnt/volA
+    - name: volB
+      mountPath: /mnt/volB
+    - name: volC
+      mountPath: /mnt/volC
+  volumes:
+  - name: volA
+    configMap:
+      defaultUser: 1000
+      name: cm1
+      items:
+      - key: foo # Owner=defaultUser
+        path: foo
+      - key: bar # Owner=user
+        path: bar
+        user: 1001
+  - name: volB
+    secret: # Owner=defaultUser
+      defaultUser: 1000
+      secretName: secret1
+  - name: volC
+    projected:
+      sources:
+      - secret:
+          name: secret2
+          items:
+          - key: moo # Owner=root
+            path: moo
+          - key: baa # Owner=user
+            path: baa
+            user: 1000
+```
+
 #### Implementations {#implementations-rro}
 
 {{% thirdparty-content %}}
@@ -1216,6 +1324,27 @@ OCI-level:
 
 - [runc](https://runc.io/), since v1.1
 - [crun](https://github.com/containers/crun), since v1.8.6
+
+## Bind mount options
+
+{{< feature-state feature_gate_name="VolumeBindMountOptions" >}}
+
+The `.spec.containers[*].volumeMounts[*].bindMountOptions` field lets you apply security-related
+Linux bind mount flags to any volume mount. The allowed values are:
+
+* `noexec` - prevents execution of binaries on the mounted volume
+* `nodev` - ignores device special files on the mounted volume
+* `nosuid` - ignores set-user-identifier or set-group-identifier bits on the mounted volume
+
+These options apply per container, so different containers in the same Pod can mount
+the same volume with different bind mount options. The field is not supported with
+[image volumes](#image).
+
+{{< note >}}
+The container runtime (such as containerd or CRI-O) must support the `mount_options`
+field in the CRI `Mount` message. If the runtime does not advertise support, the kubelet
+rejects Pods that use `bindMountOptions`. This field has no effect on Windows nodes.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 

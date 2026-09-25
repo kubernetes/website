@@ -7,6 +7,7 @@ aliases:
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - graz-dev
+    - KashishV999
     - lmktfy
     - natalisucks
     - nate-double-u
@@ -57,10 +58,10 @@ aliases:
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
   sig-docs-en-owners: # Admins for English content
+    - Caesarsage # RT 1.38 Docs Lead
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
-    - kernel-kun # RT 1.37 Docs Lead
     - lmktfy
     - natalisucks
     - nate-double-u
@@ -91,6 +92,16 @@ aliases:
     - jossemarGT
     - krol3
     - raelga
+  sig-docs-fa-owners: # Admins for Persian content
+    - Behiuu
+    - mamrezb
+    - Moh0ps
+    - xirehat
+  sig-docs-fa-reviews: # PR reviews for Persian content
+    - Behiuu
+    - mamrezb
+    - Moh0ps
+    - xirehat
   sig-docs-fr-owners: # Admins for French content
     - perriea
     - rekcah78
@@ -200,6 +211,7 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - jcjesus
+    - paulofponciano
     - stormqueen1990
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio

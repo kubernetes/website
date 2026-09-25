@@ -3,7 +3,7 @@ title: Ephemeral Container
 id: ephemeral-container
 full_link: /docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
-  A type of container type that you can temporarily run inside a Pod
+  A type of container that you can temporarily run inside a Pod.
 
 aka:
 tags:

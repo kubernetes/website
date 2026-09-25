@@ -286,9 +286,9 @@ exist by default, and it should be created before the curl command.
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
-   not upgraded upon running `yum update` as there's a special procedure that
+   not upgraded upon running a normal `dnf update` as there's a special procedure that
    must be followed for upgrading Kubernetes. Please note that this repository
-   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   has packages only for Kubernetes {{< skew currentVersion >}}; for other
    Kubernetes minor versions, you need to change the Kubernetes minor version
    in the URL to match your desired minor version (you should also check that
    you are reading the documentation for the version of Kubernetes that you
@@ -309,13 +309,18 @@ exist by default, and it should be created before the curl command.
 
 3. Install kubelet, kubeadm and kubectl:
 
-   For systems with DNF:
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10)
    ```shell
-   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
    ```
-   For systems with DNF5:
+   For Fedora systems with DNF5:
    ```shell
-   sudo yum install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes
+   ```
+
+   For RHEL/CentOS 10 and later, to avoid pulling in `iptables` as a dependency:
+   ```shell
+   sudo dnf install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes --setopt=install_weak_deps=False
    ```
 
 4. (Optional) Enable the kubelet service before running kubeadm:
@@ -395,18 +400,6 @@ to learn how to set up a writable directory.
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
-
-## Configuring a cgroup driver
-
-Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
-for the management of cgroups on Linux machines.
-
-{{< warning >}}
-Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
-
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
-{{< /warning >}}
 
 ## Troubleshooting
 

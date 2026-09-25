@@ -234,24 +234,37 @@ Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
 
-{{< note >}}
-When configured via
-[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
-a MutatingAdmissionPolicy can intercept all resource types listed below.
-This bypasses the restrictions usually applied to policies created via the REST
-API, allowing you to mutate even admission configuration and security-sensitive
-resources. Unlike the REST API, a bad manifest-based admission policy
-intercepting these resources would not be unrecoverable since it is defined on
-disk rather than through the API.
-{{< /note >}}
-
-The list of exempt API kinds is:
+The following admission configuration kinds are exempt from policies created
+via the REST API, to prevent circular dependencies:
 
 * [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/" >}})
 * [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/" >}})
 * MutatingAdmissionPolicies
 * MutatingAdmissionPolicyBindings
+
+{{< note >}}
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a MutatingAdmissionPolicy can intercept the admission configuration kinds
+listed above. This bypasses the restrictions usually applied to policies
+created via the REST API, allowing you to mutate even admission configuration
+and security-sensitive resources. Unlike the REST API, a bad manifest-based
+admission policy intercepting these resources would not be unrecoverable since
+it is defined on disk rather than through the API.
+{{< /note >}}
+
+Additionally, the following non-persisted (virtual) authentication and
+authorization API kinds are exempt from all admission policies, including
+manifest-based policies, because intercepting them could lock the cluster out
+of its own authentication and authorization path:
+
 * [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
 * [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
 * [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
-* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
+* [SelfSubjectRulesReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/" >}})
+* [SubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/" >}})
+
+Starting with Kubernetes v1.37,
+[admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+also exclude these virtual resources by default.

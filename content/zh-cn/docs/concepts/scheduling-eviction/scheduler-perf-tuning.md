@@ -164,12 +164,11 @@ If you want the scheduler to score all nodes in your cluster, set
 
 <!--
 ## Example
+
+Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
 -->
 ## 示例
 
-<!--
-Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
--->
 下面就是一个将 `percentageOfNodesToScore` 参数设置为 50% 的例子。
 
 ```yaml
@@ -185,14 +184,13 @@ percentageOfNodesToScore: 50
 
 <!--
 ## Tuning percentageOfNodesToScore
--->
-## 调节 percentageOfNodesToScore 参数
 
-<!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
 minimum value of 100 nodes.
 -->
+## 调节 percentageOfNodesToScore 参数
+
 `percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。
 另外，还有一个 100 个 Node 的最小值是硬编码在程序中。
 
@@ -226,17 +224,18 @@ number of nodes in a cluster are checked for feasibility, some nodes are not
 sent to be scored for a given Pod. As a result, a Node which could possibly
 score a higher value for running the given Pod might not even be passed to the
 scoring phase. This would result in a less than ideal placement of the Pod.
+-->
+值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，
+很多节点都没有进入到打分阶段。这样就会造成一种后果，
+一个本来可以在打分阶段得分很高的节点甚至都不能进入打分阶段。
 
+<!--
 You should avoid setting `percentageOfNodesToScore` very low so that kube-scheduler
 does not make frequent, poor Pod placement decisions. Avoid setting the
 percentage to anything below 10%, unless the scheduler's throughput is critical
 for your application and the score of nodes is not important. In other words, you
 prefer to run the Pod on any Node as long as it is feasible.
 -->
-值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，
-很多节点都没有进入到打分阶段。这样就会造成一种后果，
-一个本来可以在打分阶段得分很高的节点甚至都不能进入打分阶段。
-
 由于这个原因，这个参数不应该被设置成一个很低的值。
 通常的做法是不会将这个参数的值设置的低于 10。
 很低的参数值一般在调度器的吞吐量很高且对节点的打分不重要的情况下才使用。
@@ -245,13 +244,12 @@ prefer to run the Pod on any Node as long as it is feasible.
 
 <!--
 ## How the scheduler iterates over Nodes
--->
-## 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
 
-<!--
 This section is intended for those who want to understand the internal details
 of this feature.
 -->
+## 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
+
 如果你想要理解这一个特性的内部细节，那么请仔细阅读这一章节。
 
 <!--
@@ -305,14 +303,23 @@ After going over all the Nodes, it goes back to Node 1.
 {{< feature-state feature_gate_name="OpportunisticBatching" >}}
 
 <!--
-When scheduling large workloads, pod definitions are typically identical and require the scheduler
+When scheduling large workloads, Pods often have equivalent scheduling constraints and require the scheduler
 to perform the same operations over and over again. The [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
 feature allows the scheduler to reuse the filtering and scoring results between scheduling cycles
 which greatly speeds up the scheduling process.
 -->
-在调度大型工作负载时，Pod 定义通常相同，这需要调度器反复执行相同的操作。
+在调度大规模工作负载时，Pod 往往具有相同的调度约束，这需要调度器反复执行相同的操作。
 [Opportunistic 批处理](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
 特性允许调度器在调度周期之间重用过滤和评分结果，从而显著加快调度过程。
+
+<!--
+With rescoring, the scheduler can continue batching in that situation. When the next Pod can still fit on
+the previously chosen Node, the scheduler updates that Node's score and puts it back into the cached candidate list.
+If rescoring does not succeed, the scheduler falls back to the existing behavior and flushes the cache.
+-->
+通过重新评分，调度器可以在该情况下继续进行批处理。如果下一个 Pod
+仍能放入之前选定的节点，调度器会更新该节点的评分，并将其放回缓存的候选列表中。
+如果重新评分失败，调度器将回退到原有行为并清空缓存。
 
 <!--
 Basically, this feature works like:
@@ -337,7 +344,6 @@ We apply this batching scheduling to specific pods that:
 1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
 1. Don't request extended resources that are backed by DRA
-1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 -->
 我们将这种批量调度应用于满足以下条件的特定 Pod：
 
@@ -345,7 +351,6 @@ We apply this batching scheduling to specific pods that:
 1. 没有拓扑分布约束
 1. 没有 DRA（即没有任何资源申领）
 1. 不要请求由 DRA 提供支持的扩展资源
-1. 排他性调度在节点上（即，将多个 Pod 部署在同一节点上会使缓存失效）
 
 <!--
 Also, to enable this feature, the scheduler configuration needs to:

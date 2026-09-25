@@ -299,7 +299,7 @@ Used on: ResourceClaim
 
 This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
+Within [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/), the
 discoverable device metadata feature uses this annotation to map a generated ResourceClaim
 back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
 Kubernetes manages this annotation, so you should not modify it.
@@ -2971,5 +2971,5 @@ a namespace. When this label is set on a namespace with the value `"true"`
 `resource.k8s.io` API types. Currently, this permission applies to
 `ResourceClaim` and `ResourceClaimTemplate` objects.
 
-See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+See [Dynamic Resource Allocation Admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 for more information.

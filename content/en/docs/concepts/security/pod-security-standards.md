@@ -511,7 +511,7 @@ of individual policies are not defined here.
 Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as:
 
 - [Kubewarden](https://github.com/kubewarden)
-- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [Kyverno](https://kyverno.io/policies)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
 ## Pod OS field

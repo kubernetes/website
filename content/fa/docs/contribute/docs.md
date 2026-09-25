@@ -44,7 +44,7 @@ PR به
 برای مشارکت در مستندات:
 
 1. توافق‌نامه مجوز مشارکت‌کنندگان (CLA) CNCF را امضا کنید:  
-   [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+   [Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md).
 2. با [مخزن مستندات](https://github.com/kubernetes/website)
    و [مولد سایت ایستای](https://gohugo.io) این وبسایت آشنا شوید.
 3. اطمینان حاصل کنید که فرایندهای پایه برای
@@ -176,7 +176,7 @@ SIG Docs با روش‌های مختلفی ارتباط برقرار می‌کن
 
 - [به کانال `#sig-docs` در Slack کوبرنتیز بپیوندید](https://slack.k8s.io/). حتماً خودتان را معرفی کنید!
 - به [لیست‌پستی `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) ملحق شوید؛ مباحث گسترده‌تر در اینجا انجام می‌شود و تصمیم‌های رسمی ثبت می‌شوند.
-- در [جلسه ویدئویی SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) که هر دو هفته یک‌بار برگزار می‌شود شرکت کنید. این جلسات همیشه در `#sig-docs` اعلام شده و به [تقویم جلسات جامعه کوبرنتیز](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) افزوده می‌شوند. لازم است [کلاینت Zoom](https://zoom.us/download) را نصب کنید یا از طریق تلفن وارد شوید.
+- در [جلسه ویدئویی SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs) که هر دو هفته یک‌بار برگزار می‌شود شرکت کنید. این جلسات همیشه در `#sig-docs` اعلام شده و به [تقویم جلسات جامعه کوبرنتیز](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) افزوده می‌شوند. لازم است [کلاینت Zoom](https://zoom.us/download) را نصب کنید یا از طریق تلفن وارد شوید.
 - در هفته‌هایی که جلسه حضوری Zoom برگزار نمی‌شود، در استندآپ غیرهمزمان (Async Stand-up) SIG Docs در Slack شرکت کنید. این جلسات نیز همیشه در `#sig-docs` اعلام می‌شوند. تا ۲۴ ساعت پس از اعلام جلسه می‌توانید در یکی از رشته‌ها مشارکت کنید.
 
 

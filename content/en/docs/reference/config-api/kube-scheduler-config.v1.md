@@ -398,7 +398,7 @@ settings for the proxy server to use when communicating with the apiserver.</p>
 <tr><td><code>DebuggingConfiguration</code> <B>[Required]</B><br/>
 <a href="#DebuggingConfiguration"><code>DebuggingConfiguration</code></a>
 </td>
-<td>(Members of <code>DebuggingConfiguration</code> are embedded into this type.)
+<td>
    <p>DebuggingConfiguration holds configuration for Debugging related features
 TODO: We might wanna make this a substruct like Debugging componentbaseconfigv1alpha1.DebuggingConfiguration</p>
 </td>
@@ -482,7 +482,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -581,7 +581,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -1203,6 +1203,14 @@ plugin through MultiPoint. This follows the same behavior as all other extension
 </td>
 <td>
    <p>PlacementScore is a list of plugins that should be invoked during workload scheduling cycle when ranking pod group assignments.</p>
+</td>
+</tr>
+<tr><td><code>podGroupPostFilter</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>PodGroupPostFilter is a list of plugins that are invoked after the workload scheduling phase,
+but only when the PodGroup cannot be scheduled (equivalent to PostFilter for single pods).</p>
 </td>
 </tr>
 </tbody>

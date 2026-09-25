@@ -75,7 +75,7 @@ sudo docker run -it --rm --privileged --net=host \
 ```
 
 آزمون انطباق گره نسخه کانتینری‌شده
-[آزمون گره e2e](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)
+[آزمون گره e2e](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/e2e-node-tests.md)
 است و به‌طور پیش‌فرض همه آزمون‌های انطباق را اجرا می‌کند.
 
 از نظر تئوری، اگر کانتینر را به‌درستی پیکربندی کرده و

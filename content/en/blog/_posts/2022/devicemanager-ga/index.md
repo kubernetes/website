@@ -74,7 +74,7 @@ case. For more details, refer to [PR #109016](https://github.com/kubernetes/kube
 
 ### Dynamic resource allocation
 In Kubernetes 1.26, inspired by how [Persistent Volumes](/docs/concepts/storage/persistent-volumes)
-are handled in Kubernetes, [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+are handled in Kubernetes, [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/)
 has been introduced to cater to devices that have more sophisticated resource requirements like:
 
 1. Decouple device initialization and allocation from the pod lifecycle.

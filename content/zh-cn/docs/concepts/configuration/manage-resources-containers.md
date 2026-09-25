@@ -88,7 +88,8 @@ Containers may not use more CPU than is specified in their `cpu` limit.
 -->
 `cpu` 限制通过 CPU 节流机制（CPU Throttling）来强制执行。
 当某容器接近其 `cpu` 限制值时，内核会基于容器的限制值来限制其对 CPU 的访问。
-因此，`cpu` 限制是内核强制执行的一个硬性限制。容器不得使用超出其 `cpu` 限制所指定的 CPU 核数。
+因此，`cpu` 限制是内核强制执行的一个硬性限制。
+容器不得使用超出其 `cpu` 限制所指定的 CPU 核数。
 
 <!--
 `memory` limits are enforced by the kernel with out of memory (OOM) kills. When
@@ -107,12 +108,12 @@ its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
 <!--
-There is an alpha feature `MemoryQoS` which adds memory throttling and optional
+There is a feature `MemoryQoS` which adds memory throttling and optional
 tiered memory reservation on Linux nodes using cgroup v2. For details, see
 [Memory QoS with cgroup v2](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2).
 -->
-有一个 Alpha 特性 `MemoryQoS`，它在使用 cgroup v2 的 Linux 节点上添加内存节流以及可选的分层内存预留功能。
-详细信息参阅[使用 cgroup v2 的内存 QoS](/zh-cn/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2)。
+有一个 `MemoryQoS` 特性，它在使用 CGroup v2 的 Linux 节点上添加内存节流以及可选的分层内存预留功能。
+详细信息参阅[使用 CGroup v2 的内存 QoS](/zh-cn/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2)。
 {{< /note >}}
 
 {{< note >}}
@@ -254,7 +255,8 @@ other, improving resource utilization.
 如果你的集群启用了 `PodLevelResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以在 Pod 级别指定资源请求和限制值。
-在 Pod 级别，Kubernetes {{< skew currentVersion >}} 仅支持为特定资源类型设置资源请求或限制值，
+在 Pod 级别，Kubernetes {{< skew currentVersion >}}
+仅支持为特定资源类型设置资源请求或限制值，
 具体包括 `cpu` 和/或 `memory` 和/或 `hugepages`。
 启用此特性时，Kubernetes 允许你为 Pod 声明一个资源总预算，
 这在处理大量容器时特别有用，因为在这种情况下很难准确评估各个容器的资源需求。
@@ -311,7 +313,8 @@ CPU resource is always specified as an absolute amount of resource, never as a r
 runs on a single-core, dual-core, or 48-core machine.
 -->
 CPU 资源总是设置为资源的绝对数量而非相对数量值。
-例如，无论容器运行在单核、双核或者 48 核的机器上，`500m` CPU 表示的是大约相同的算力。
+例如，无论容器运行在单核、双核或者 48 核的机器上，`500m` CPU
+表示的是大约相同的算力。
 
 {{< note >}}
 <!--
@@ -471,7 +474,8 @@ limits you defined.
 -->
 ## Kubernetes 处理资源请求与限制的方式 {#how-pods-with-resource-limits-are-run}
 
-当 kubelet 将容器作为 Pod 的一部分启动时，它会将容器的 CPU 和内存请求与限制值信息传递给容器运行时。
+当 kubelet 将容器作为 Pod 的一部分启动时，它会将容器的 CPU
+和内存请求与限制值信息传递给容器运行时。
 
 在 Linux 系统上，容器运行时通常会配置内核
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}}，负责应用并实施所定义的请求。
@@ -534,7 +538,7 @@ To determine whether a container cannot be scheduled or is being killed due to r
 see the [Troubleshooting](#troubleshooting) section.
 -->
 如果某容器内存用量超过其内存请求值并且所在节点内存不足时，容器所处的 Pod
-可能被{{< glossary_tooltip text="逐出" term_id="eviction" >}}。
+可能被{{< glossary_tooltip text="驱逐" term_id="eviction" >}}。
 
 每个容器可能被允许也可能不被允许使用超过其 CPU 限制值的处理时间。
 但是，容器运行时不会由于 CPU 使用率过高而杀死 Pod 或容器。
@@ -578,6 +582,21 @@ resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-c
 -->
 目前，就地调整大小仅适用于容器级别的资源。要调整 Pod 级别的资源大小，
 请参阅[调整 Pod CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-pod-resources/)。
+{{< /note >}}
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+<!--
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled,
+deferred in-place resize requests can trigger `kube-scheduler` to preempt
+lower-priority Pods on the assigned node to make room for the resize.
+For more details, see
+[Preemption for in-place Pod resize](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption-for-in-place-pod-resize).
+-->
+当启用 `InPlacePodVerticalScalingSchedulerPreemption`
+特性门控（Feature Gate）时，被延后的就地资源调整请求可以触发
+`kube-scheduler` 在已分配的节点上抢占优先级较低的 Pod，以为资源调整腾出空间。
+更多细节请参见[就地 Pod 资源调整的抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption-for-in-place-pod-resize)。
 {{< /note >}}
 
 <!--
@@ -633,6 +652,18 @@ kubelet 会将 Pod 的资源使用情况作为 Pod
 ### Considerations for memory backed `emptyDir` volumes {#memory-backed-emptydir}
 -->
 ### 使用内存作为介质的 `emptyDir` 卷的注意事项 {#memory-backed-emptydir}
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+<!--
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of a memory-backed (`medium: Memory`) `emptyDir` volume n a running Pod without requiring Pod recreation or container restarts. For step-by-step instructions, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/onfigure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
+-->
+当启用 `InPlacePodVerticalScalingMemoryBackedVolumes`
+特性门控时，你可以在运行中的 Pod 里动态调整基于内存的（`medium: Memory`）`emptyDir`
+卷的 `sizeLimit`，而无需重建 Pod 或重启容器。有关分步说明，
+请参见[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/onfigure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes)。
+{{< /note >}}
 
 {{< caution >}}
 <!--
@@ -1116,7 +1147,7 @@ Non-terminated Pods:        (5 in total)
   Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
   ---------    ----                                  ------------  ----------  ---------------  -------------
   kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
-  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
+  kube-system  coredns-3297075139-61lj3              260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
   kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
   kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
   kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
@@ -1134,7 +1165,8 @@ or more than 6.23Gi of memory, that Pod will not fit on the node.
 By looking at the “Pods” section, you can see which Pods are taking up space on
 the node.
 -->
-在上面的输出中，你可以看到如果 Pod 请求超过 1.120 CPU 或者 6.23Gi 内存，节点将无法满足。
+在上面的输出中，你可以看到如果 Pod 请求超过 1.120 CPU 或者
+6.23Gi 内存，节点将无法满足。
 
 通过查看 "Pods" 部分，你将看到哪些 Pod 占用了节点上的资源。
 
@@ -1189,7 +1221,6 @@ Your container might get terminated because it is resource-starved. To check
 whether a container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 -->
-
 ### 我的容器被终止了  {#my-container-is-terminated}
 
 你的容器可能因为资源紧张而被终止。要查看容器是否因为遇到资源限制而被杀死，
