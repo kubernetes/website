@@ -46,7 +46,7 @@ card:
 ### 저장소를 포크(fork) 및 클론(clone) 하기 {#fork-and-clone-the-repo}
 
 첫번째로, [kubernetes/website](https://github.com/kubernetes/website) 저장소를
-자신의 저장소로 [포크](/ko/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
+자신의 저장소로 [포크](/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
 
 그런 다음, 포크한 저장소를 클론하고 `cd` 명령어로 해당 디렉터리에 들어간다.
 
@@ -112,7 +112,7 @@ SIG Docs는 별도의 브랜치에서 작업할 수 있도록 도와주어
 다른 현지화 팀들이 신규 팀이 시작할 수 있도록 도움을 주고 질문에도 친절히
 답변해줄 것이다.
 
-또한, [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs)
+또한, [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/main/sig-docs)
 에도 참여를 고려해보길 바란다.
 SIG Docs localization subgroup의 목표는 SIG Docs의
 여러 현지화 팀들이 협력하여 각 언어별 기여 가이드를 만드는 프로세스를
@@ -463,7 +463,7 @@ other = "Suchen"
 팀이 따르는 모범 사례를 공식화할 수 있다.
 
 예를 들어,
-[한국어 현지화 가이드](/ko/docs/contribute/localization_ko/)에는
+[한국어 현지화 가이드](/docs/contribute/localization_ko/)에는
 다음과 같은 내용이 포함되어 있다.
 
 - 스프린트 주기와 릴리스
