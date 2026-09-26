@@ -102,7 +102,7 @@ kubernetes-bootcamp   1/1     1            1           11m
 We should have 1 Pod. If not, run the command again. This shows:
 
 * _NAME_ lists the names of the Deployments in the cluster.
-* _READY_ shows the ratio of CURRENT/DESIRED replicas
+* _READY_ shows the ratio of READY/DESIRED replicas
 * _UP-TO-DATE_ displays the number of replicas that have been updated to achieve the desired state.
 * _AVAILABLE_ displays how many replicas of the application are available to your users.
 * _AGE_ displays the amount of time that the application has been running.
