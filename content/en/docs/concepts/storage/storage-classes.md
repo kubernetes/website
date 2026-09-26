@@ -370,7 +370,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 ### Ceph RBD (deprecated) {#ceph-rbd}
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.28" >}}
+{{</* feature-state state="deprecated" for_k8s_version="v1.28" */>}}
 This internal provisioner of Ceph RBD is deprecated. Please use
 [CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
 {{< /note >}}

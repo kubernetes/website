@@ -409,7 +409,7 @@ pre-pulled images are also suitable for launching
 on images hosted in a private registry.
 
 {{< note >}}
-{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+{{</* feature-state feature_gate_name="KubeletEnsureSecretPulledImages" */>}}
 Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification).
 {{< /note >}}
 
