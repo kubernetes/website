@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Scaling Kubernetes Workloads with Node Swap'
-draft: true
+publication date: 29 September, 2026
 slug: scaling-kubernetes-workloads-with-node-swap
 author: >
   [Ocean Xie](https://github.com/oceanxie1),
