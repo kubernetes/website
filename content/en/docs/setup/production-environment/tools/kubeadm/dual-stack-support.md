@@ -188,4 +188,5 @@ networking:
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 * Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
+* Learn how to create a [single-stack IPv6 cluster](/docs/setup/production-environment/tools/kubeadm/single-stack-ipv6/)
 * Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta4/)
