@@ -47,18 +47,18 @@ no_list: true
 ## 컴포넌트
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - 각
-노드에서 구동되는 주요한 에이전트. kubelet은 PodSpecs 집합을 가지며
-기술된 컨테이너가 구동되고 있는지, 정상 작동하는지를 보장한다.
+  노드에서 구동되는 주요한 에이전트. kubelet은 PodSpecs 집합을 가지며
+  기술된 컨테이너가 구동되고 있는지, 정상 작동하는지를 보장한다.
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
-파드, 서비스, 레플리케이션 컨트롤러와 같은 API 오브젝트의 데이터를
-검증하고 설정하는 REST API.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - 
-쿠버네티스에 탑재된 핵심 제어 루프를 포함하는 데몬.
+  파드, 서비스, 레플리케이션 컨트롤러와 같은 API 오브젝트의 데이터를
+  검증하고 설정하는 REST API.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) -
+  쿠버네티스에 탑재된 핵심 제어 루프를 포함하는 데몬.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 간단한
-TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로빈 TCP/UDP 포워딩을
-할 수 있다.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 
-가용성, 성능 및 용량을 관리하는 스케줄러.
+  TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로빈 TCP/UDP 포워딩을
+  할 수 있다.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
+  가용성, 성능 및 용량을 관리하는 스케줄러.
 
   * [kube-scheduler 정책](/docs/reference/scheduling/policies)
   * [kube-scheduler 프로파일](/docs/reference/scheduling/config#프로파일)
@@ -168,7 +168,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 
 ## 외부 API
 
-쿠버네티스 프로젝트에서 정의하지만, 핵심 프로젝트에서는 
+쿠버네티스 프로젝트에서 정의하지만, 핵심 프로젝트에서는
 구현되어 있지 않은 API다.
 
 * [메트릭 API (v1beta1)](/docs/reference/external-api/metrics.v1beta1/)
@@ -195,5 +195,5 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 
 쿠버네티스는 HTTP 메시지 내에서만 사용되는 사용자 정의 [protobuf 인코딩](/docs/reference/using-api/api-concepts/#protobuf-encoding)도 갖고 있다.
 
-`kubectl` 도구는 _사용자 정의 열(custom columns)_ 과 같은 몇 가지 다른 출력 형식도 지원한다. kubectl 
-레퍼런스의 [출력 형식](/docs/reference/kubectl/#output-options)을 참고한다.
+`kubectl` 도구는 _사용자 정의 열(custom columns)_ 과 같은 몇 가지 다른 출력 형식도 지원한다. kubectl
+레퍼런스의 [출력 형식](/docs/reference/kubectl/#출력-옵션)을 참고한다.
