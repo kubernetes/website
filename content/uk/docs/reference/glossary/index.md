@@ -1,8 +1,7 @@
 ---
 approvers:
-- maxymvlasov
-- anastyakulyk
-# title: Standardized Glossary
+- chenopis
+- abiogenesis-now
 title: Глосарій
 layout: glossary
 noedit: true
@@ -12,7 +11,5 @@ weight: 5
 card:
   name: reference
   weight: 10
-#   title: Glossary
   title: Глосарій
 ---
-

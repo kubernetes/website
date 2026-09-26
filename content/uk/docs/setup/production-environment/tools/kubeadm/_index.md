@@ -1,5 +1,4 @@
 ---
-# title: "Bootstrapping clusters with kubeadm"
-title: "Запуск кластерів з kubeadm"
+title: "Створення кластерів за допомогою kubeadm"
 weight: 10
 ---
