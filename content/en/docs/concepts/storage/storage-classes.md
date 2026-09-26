@@ -136,28 +136,12 @@ whatever reclaim policy they were assigned at creation.
 
 ## Volume expansion {#allow-volume-expansion}
 
-PersistentVolumes can be configured to be expandable. This allows you to resize the
-volume by editing the corresponding PVC object, requesting a new larger amount of
-storage.
+PersistentVolumes can be configured to be expandable by setting the `allowVolumeExpansion`
+field to true in their StorageClass. This allows you to resize the volume by editing the
+corresponding PVC object, requesting a new larger amount of storage.
 
-The following types of volumes support volume expansion, when the underlying
-StorageClass has the field `allowVolumeExpansion` set to true.
-
-{{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
-
-| Volume type          | Required Kubernetes version for volume expansion |
-| :------------------- | :----------------------------------------------- |
-| Azure File           | 1.11                                             |
-| CSI                  | 1.24                                             |
-| FlexVolume           | 1.13                                             |
-| Portworx             | 1.11                                             |
-| rbd                  | 1.11                                             |
-
-{{< /table >}}
-
-{{< note >}}
-You can only use the volume expansion feature to grow a Volume, not to shrink it.
-{{< /note >}}
+For the supported volume types and the details of resizing, see
+[Expanding Persistent Volumes](/docs/concepts/storage/expanding-persistent-volumes/).
 
 ## Mount options
 
