@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/admissionregistration/v1"
   kind: "ValidatingWebhookConfiguration"
 content_type: "api_reference"
-description: "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it."
+description: "ValidatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects an object without changing it."
 title: "ValidatingWebhookConfiguration"
 weight: 60
 auto_generated: true
@@ -28,7 +28,7 @@ guide. You can file document formatting bugs against the
 
 ## ValidatingWebhookConfiguration {#ValidatingWebhookConfiguration}
 
-ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+ValidatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects an object without changing it.
 
 <hr>
 
