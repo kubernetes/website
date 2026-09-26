@@ -79,12 +79,12 @@ sysctl net.ipv4.ip_forward
 ## cgroup 드라이버
 
 리눅스에서, {{< glossary_tooltip text="control group" term_id="cgroup" >}}은
-프로세스에 할당된 리소스를 제한하는데 사용된다.
+프로세스에 할당된 리소스를 제한하는 데 사용된다.
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
-그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용 해야 하는데, 이는
-[파드 및 컨테이너 자원 관리](/docs/concepts/configuration/manage-resources-containers/)가 수정될 수 있도록 하고
-cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
+그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용해야 하는데, 이는
+[파드 및 컨테이너 리소스 관리](/docs/concepts/configuration/manage-resources-containers/)를 적용하고
+cpu 혹은 메모리와 같은 리소스의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
 그룹과 상호작용하기 위해서는, kubelet과 컨테이너 런타임이 *cgroup 드라이버*를 사용해야 한다.
 매우 중요한 점은, kubelet과 컨테이너 런타임이 같은 cgroup 드라이버를
 사용해야 하며 구성도 동일해야 한다는 것이다.
@@ -96,7 +96,7 @@ cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설
 
 ### cgroupfs 드라이버 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 드라이버는 kubelet의 기본 cgroup 드라이버이다. `cgroupfs`
+`cgroupfs` 드라이버는 [kubelet의 기본 cgroup 드라이버](/docs/reference/config-api/kubelet-config.v1beta1)이다. `cgroupfs`
 드라이버가 사용될 때, kubelet과 컨테이너 런타임은 직접적으로 
 cgroup 파일시스템과 상호작용하여 cgroup들을 설정한다.
 
@@ -116,10 +116,10 @@ systemd는 cgroup과 긴밀하게 통합되어 있으며 매 systemd 단위로 c
 할당한다. 결과적으로, `systemd`를 init 시스템으로 사용하고 `cgroupfs`
 드라이버를 사용하면, 그 시스템은 두 개의 다른 cgroup 관리자를 갖게 된다.
 
-두 개의 cgroup 관리자는 시스템 상 사용 가능한 자원과 사용 중인 자원들에 대하여 두 가지 관점을 가져 혼동을
+두 개의 cgroup 관리자는 시스템 상 사용 가능한 리소스와 사용 중인 리소스에 대하여 두 가지 관점을 가져 혼동을
 초래한다. 예를 들어, kubelet과 컨테이너 런타임은 `cgroupfs`를 사용하고
 나머지 프로세스는 `systemd`를 사용하도록 노드를 구성한 경우, 노드가 
-자원 압박으로 인해 불안정해질 수 있다.
+리소스 압박으로 인해 불안정해질 수 있다.
 
 이러한 불안정성을 줄이는 방법은, `systemd`가 init 시스템으로 선택되었을 때에는 `systemd`를
 kubelet과 컨테이너 런타임의 cgroup 드라이버로 사용하는 것이다.
@@ -134,11 +134,6 @@ kind: KubeletConfiguration
 ...
 cgroupDriver: systemd
 ```
-
-{{< note >}}
-v1.22 이후부터는 kubeadm으로 클러스터를 생성할 때 사용자가 `KubeletConfiguration` 하위의
-`cgroupDriver` 필드를 설정하지 않으면, kubeadm이 기본값으로 `systemd`를 사용한다.
-{{< /note >}}
 
 `systemd`를 kubelet의 cgroup 드라이버로 구성했다면, 반드시
 컨테이너 런타임의 cgroup 드라이버 또한 `systemd`로 설정해야 한다. 자세한 설명은
@@ -158,24 +153,18 @@ v1.22 이후부터는 kubeadm으로 클러스터를 생성할 때 사용자가 `
 이 질의(query)에 올바르게 응답하지 못할 수 있다. 이 경우 kubelet은
 자체 `--cgroup-driver` 플래그 값을 사용하도록 되돌아간다.
 
-쿠버네티스 1.37에서는 이 폴백 동작이 제거되므로,
+쿠버네티스 1.38에서는 이 폴백 동작이 제거되므로,
 오래된 containerd 버전은 최신 kubelet에서 동작하지 않게 된다.
 
 {{< caution >}}
-클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 신중하게 수행해야 한다.
+클러스터에 결합되어 있는 노드의 cgroup 드라이버를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
 컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
-kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
+kubelet을 재시작해도 이러한 오류가 해결되지 않을 수 있다.
 
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
-
-
-### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
-
-기존에 kubeadm으로 생성한 클러스터의 cgroup 드라이버를 `systemd`로 변경하려면,
-[cgroup 드라이버 설정하기](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
 
 ## CRI 버전 지원 {#cri-versions}
 
@@ -191,7 +180,7 @@ kubelet은 노드로 등록되지 않는다.
 
 ### containerd
 
-이 섹션에는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계를 간략하게 설명한다.
+이 섹션에서는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계를 간략하게 설명한다.
 
 시스템에 containerd를 설치하려면,
 [containerd 시작하기](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)의 지침에 따라 유효한
@@ -199,10 +188,10 @@ kubelet은 노드로 등록되지 않는다.
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
-`/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있음.
+`/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있다.
 {{% /tab %}}
 {{< tab name="Windows" >}}
-`C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있음.
+`C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있다.
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -255,9 +244,6 @@ containerd 설정을 초기화한 뒤,
 ```shell
 sudo systemctl restart containerd
 ```
-
-kubeadm을 사용하는 경우,
-[kubelet용 cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)를 수동으로 구성한다.
 
 쿠버네티스 v1.28에서는 cgroup 드라이버 자동 감지를 알파 기능으로
 활성화할 수 있다. 자세한 내용은 [systemd cgroup 드라이버](#systemd-cgroup-driver)를
