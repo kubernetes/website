@@ -917,7 +917,7 @@ it won't be supported in a future Kubernetes release.
 
 You can create a PersistentVolumeClaim without specifying a `storageClassName`
 for the new PVC, and you can do so even when no default StorageClass exists
-in your cluster. In this case, the new PVC creates as you defined it, and the
+in your cluster. In this case, the new PVC is created as you defined it, and the
 `storageClassName` of that PVC remains unset until default becomes available.
 
 When a default StorageClass becomes available, the control plane identifies any
@@ -931,11 +931,11 @@ In order to keep binding to PVs with `storageClassName` set to `""`
 (while a default StorageClass is present), you need to set the `storageClassName`
 of the associated PVC to `""`.
 
-This behavior helps administrators change default StorageClass by removing the
-old one first and then creating or setting another one. This brief window while
-there is no default causes PVCs without `storageClassName` created at that time
-to not have any default, but due to the retroactive default StorageClass
-assignment this way of changing defaults is safe.
+This behavior helps administrators change the default StorageClass by removing the
+old one first and then creating the new one. This brief window while
+there is no default StorageClass causes PVCs without `storageClassName` created 
+during that time frame to not have a default StorageClass. But due to the 
+retroactive default StorageClass assignment, this way of changing defaults is safe.
 
 ### Unused PVC tracking
 
