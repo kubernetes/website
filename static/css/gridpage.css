@@ -28,7 +28,7 @@
     height: 0 ;
 }
 
-.gridPage p:not(.announcement-main > p) {
+.gridPage p:not(.announcement-main > p):not(.k8s-deprecation-warning p) {
     color: rgb(255,255,255);
     margin-left: 0 !important;
     padding-left: 0 !important;

@@ -2,4 +2,10 @@ body.community .k8s-deprecation-warning {
   background-color: $primary;
   color: white;
   margin: 0;
+
+  // This is necessary to make anchor text readable on the blue background.
+  // The color is selected based on my(@kyu08) feeling, so it can be changed if needed.
+  a {
+    color: #93C5FD;
+  }
 }
