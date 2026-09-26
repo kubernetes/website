@@ -508,9 +508,11 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
 
-The following types of PersistentVolume are deprecated but still available.
-If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`,
-please install corresponding CSI drivers.
+The following PersistentVolume types use legacy storage integrations.
+Except for `flexVolume`, their in-tree drivers have been removed, but their API fields
+remain usable through [CSI migration](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins)
+when the corresponding CSI driver is installed.
+`flexVolume` is deprecated but remains supported without CSI migration.
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
   (**migration on by default** starting v1.23)
@@ -522,7 +524,7 @@ please install corresponding CSI drivers.
   (**migration on by default** starting v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** starting v1.23, no migration plan and no plan to remove support)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) - GCE Persistent Disk
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   (**migration on by default** starting v1.23)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**migration on by default** starting v1.31)
