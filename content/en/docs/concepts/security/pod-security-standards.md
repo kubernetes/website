@@ -486,6 +486,23 @@ fail validation.
 				</ul>
 			</td>
 		</tr>
+		<tr>
+			<td style="white-space: nowrap">Cgroup Options</td>
+			<td>
+				<p>Granting a container write access to its own cgroup subtree must be disallowed. {{< feature-state for_k8s_version="v1.38" state="alpha" >}}</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].securityContext.cgroupOptions.mountMode</code></li>
+					<li><code>spec.initContainers[*].securityContext.cgroupOptions.mountMode</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.cgroupOptions.mountMode</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>ReadOnly</code></li>
+				</ul>
+			</td>
+		</tr>
 	</tbody>
 </table>
 
