@@ -360,6 +360,6 @@ kubectl delete namespace mem-example
 
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [Configure Quotas for Storage](/docs/tasks/administer-cluster/quota-storage/)
 
 * [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
