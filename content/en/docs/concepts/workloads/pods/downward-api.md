@@ -84,6 +84,9 @@ The following information is available through environment variables
 `status.podIPs`
 : the IP addresses is a dual-stack version of `status.podIP`, the first is always the same as `status.podIP`
 
+Within the volume, you can find the exposed data as read-only files in the
+plain text format.
+
 The following information is available through a `downwardAPI` volume 
 `fieldRef`, **but not as environment variables**:
 
