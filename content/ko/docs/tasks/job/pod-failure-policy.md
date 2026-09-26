@@ -10,10 +10,10 @@ weight: 60
 <!-- overview -->
 
 이 문서에서는
-[파드 실패 정책](/docs/concepts/workloads/controllers/job#pod-failure-policy)을
+[파드 실패 정책](/docs/concepts/workloads/controllers/job/#파드-실패-정책)을
 기본값인
-[파드 백오프 실패 정책](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy)과 함께 사용하여
-{{<glossary_tooltip text="잡" term_id="job">}} 내의 컨테이너 수준 또는 파드 수준 실패 처리에 대한
+[파드 백오프 실패 정책](/docs/concepts/workloads/controllers/job/#파드-백오프-backoff-실패-정책)과 함께 사용하여
+{{<glossary_tooltip text="잡(Job)" term_id="job">}} 내의 컨테이너 수준 또는 파드 수준 실패 처리에 대한
 제어를 개선하는 방법을 보여 준다.
 
 파드 실패 정책을 정의하면 다음과 같은 도움을 받을 수 있다.
@@ -63,7 +63,7 @@ weight: 60
      `message` 필드에는 종료에 대한 자세한 정보가 담긴다. 예를 들면
      `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`과 같다.
      잡 컨트롤러는 잡이 실패로 간주되는 즉시 이 컨디션을 추가한다.
-     자세한 내용은 [잡 파드 종료](/docs/concepts/workloads/controllers/job/#termination-of-job-pods)를 참고한다.
+     자세한 내용은 [잡 파드 종료](/docs/concepts/workloads/controllers/job/#잡-파드-종료)를 참고한다.
    - `Failed` 컨디션은 `FailureTarget` 컨디션과 동일한 `reason`,
      `message` 값을 가진다. 잡 컨트롤러는 잡의 모든 파드가 종료된 뒤에
      이 컨디션을 추가한다.
@@ -86,9 +86,9 @@ kubectl delete jobs/job-pod-failure-policy-failjob
 
 ### 파드 실패 정책으로 파드 중단 무시하기 {#pod-failure-policy-ignore}
 
-다음 예시를 통해, 파드 중단이 파드 재시도 카운터를 증가시켜
-`.spec.backoffLimit` 한도에 이르지 않도록 파드 실패 정책으로 파드 중단을
-무시하는 방법을 배울 수 있다.
+다음 예시를 통해, 파드 실패 정책으로 파드 중단을 무시하여 파드 재시도
+카운터가 `.spec.backoffLimit` 한도를 향해 증가하지 않게 하는 방법을
+배울 수 있다.
 
 {{< caution >}}
 이 예시는 타이밍이 중요하므로, 실행하기 전에 단계를 미리 읽어 두는 것이 좋다.
@@ -153,7 +153,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 {{< note >}}
 아래 예시는 `Pending` 단계에 있는 삭제된 파드가 터미널 단계로 전환되는 것에
 의존하므로 1.27 버전부터 동작한다
-([파드의 단계](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) 참고).
+([파드의 단계](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참고).
 {{< /note >}}
 
 1. 다음 매니페스트를 살펴본다.
@@ -189,7 +189,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 
    잘못 구성된 이미지를 가져오지 못하기 때문에 파드가 `Pending` 단계에
    머물러 있다는 점에 유의한다. 원칙적으로 이는 일시적인 문제일 수 있고
-   이미지를 가져오게 될 수도 있다. 그러나 이 경우에는 이미지가 존재하지 않으므로
+   이미지가 가져와질 수도 있다. 그러나 이 경우에는 이미지가 존재하지 않으므로
    커스텀 컨디션으로 이 사실을 나타낸다.
 
 1. 커스텀 컨디션을 추가한다. 먼저 다음을 실행하여 패치를 준비한다.
@@ -256,7 +256,7 @@ kubectl delete jobs/job-pod-failure-policy-config-issue
 ### 파드 실패 정책으로 인덱스별 불필요한 파드 재시도 방지하기 {#backoff-limit-per-index-failindex}
 
 인덱스별 불필요한 파드 재시작을 방지하려면 _파드 실패 정책_ 과
-_인덱스당 백오프 제한_ 기능을 사용할 수 있다. 이 절에서는 두 기능을 함께 사용하는
+_인덱스당 백오프 제한_ 기능을 사용할 수 있다. 이 페이지의 이 섹션에서는 이러한 기능을 함께 사용하는
 방법을 보여 준다.
 
 1. 다음 매니페스트를 살펴본다.
@@ -316,8 +316,8 @@ kubectl delete jobs/job-backoff-limit-per-index-failindex
 ## 대안
 
 잡의 `.spec.backoffLimit` 필드를 지정하여
-[파드 백오프 실패 정책](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy)에만
-의존할 수도 있다. 그러나 많은 경우, 불필요한 파드 재시도를 피할 만큼
-`.spec.backoffLimit`을 낮게 설정하면서도 파드 중단으로 잡이 종료되지 않을 만큼
-충분히 높게 설정하는 균형점을 찾기가
-어렵다.
+[파드 백오프 실패 정책](/docs/concepts/workloads/controllers/job/#파드-백오프-backoff-실패-정책)에만
+의존할 수도 있다. 그러나 많은 상황에서 불필요한 파드 재시도를 방지하기 위해
+`.spec.backoffLimit`에 낮은 값을 설정하면서도, 파드 중단으로 인해 잡이 종료되지 않도록
+충분히 높은 값을 설정하는 것 사이에서 균형을
+찾기가 어렵다.
