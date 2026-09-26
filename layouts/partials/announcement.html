@@ -1,5 +1,20 @@
+{{/*
+  Announcement banners are scheduled in data/announcements/scheduled.yaml.
+  English title/message in that file are the default for every language.
+
+  Other localizations can override a banner without changing the YAML by adding
+  i18n keys named:
+    announcement_<slug>_title
+    announcement_<slug>_message
+  <slug> is the announcement `name`, lowercased, with each run of non-alphanumeric
+  characters turned into `_` (example: "KubeCon 2026 NA" → kubecon_2026_na).
+
+  If those keys are missing, the English YAML text is shown with lang="en".
+*/}}
 {{ $dateRegExp := "^[0-9]{4}-1[0-2]|0[1-9]-(?:3[01]|0[1-9]|[12][0-9])T(?:2[0-3]|[01][0-9]):(?:[0-5][0-9]):(?:60|[0-5][0-9])$" }}
 {{ $announcementShown := false }}
+{{ $pageLang := $.Site.Language.Lang }}
+{{ $pageDir := or $.Site.Language.LanguageDirection "ltr" }}
 {{ range $.Site.Data.announcements }}
   {{ range .announcements }}
   {{ if or ( eq .endTime nil ) ( eq .message nil ) }}
@@ -15,15 +30,35 @@
     {{- if or (eq .endTime nil ) (gt ( time .endTime ) now ) -}}
       {{- if not $announcementShown -}}
       {{- $announcementShown = true -}}
-  <div lang="en" id="announcement" data-announcement-name="{{ .name }}" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
+      {{- $title := .title -}}
+      {{- $message := .message -}}
+      {{- $bannerLang := "en" -}}
+      {{- $bannerDir := "ltr" -}}
+      {{- if and .name (ne $pageLang "en") -}}
+        {{- $slug := .name | lower | replaceRE "[^a-z0-9]+" "_" -}}
+        {{- $slug = $slug | strings.TrimPrefix "_" | strings.TrimSuffix "_" -}}
+        {{- $titleKey := printf "announcement_%s_title" $slug -}}
+        {{- $messageKey := printf "announcement_%s_message" $slug -}}
+        {{- $i18nTitle := i18n $titleKey -}}
+        {{- $i18nMessage := i18n $messageKey -}}
+        {{- $hasTitle := and $i18nTitle (ne $i18nTitle $titleKey) (ne $i18nTitle $title) -}}
+        {{- $hasMessage := and $i18nMessage (ne $i18nMessage $messageKey) (ne $i18nMessage $message) -}}
+        {{- if or $hasTitle $hasMessage -}}
+          {{- if $hasTitle -}}{{- $title = $i18nTitle -}}{{- end -}}
+          {{- if $hasMessage -}}{{- $message = $i18nMessage -}}{{- end -}}
+          {{- $bannerLang = $pageLang -}}
+          {{- $bannerDir = $pageDir -}}
+        {{- end -}}
+      {{- end -}}
+  <div lang="{{ $bannerLang }}" dir="{{ $bannerDir }}" id="announcement" data-announcement-name="{{ .name }}" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
     <aside>
       <div class="announcement-main" data-nosnippet>
-        {{ if .title }}
+        {{ if $title }}
         <h4>
-            {{ .title | markdownify }}
+            {{ $title | markdownify }}
         </h4>
         {{ end }}
-        <p>{{ .message | markdownify }}</p>
+        <p>{{ $message | markdownify }}</p>
         {{- if eq .dismissParameters.dismissible true -}}
           {{- $ttlDays := .dismissParameters.showDismissedAnnouncementAfterDays -}}
           {{- if $ttlDays -}}
