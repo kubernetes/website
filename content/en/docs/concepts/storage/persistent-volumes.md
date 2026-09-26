@@ -508,26 +508,27 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
 
-The following types of PersistentVolume are deprecated but still available.
-If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`,
-please install corresponding CSI drivers.
+The in-tree drivers for the following PersistentVolume types have been **removed** as of the versions listed below.  Kubernetes now redirects their operations to the matching CSI driver.  Please install the corresponding [CSI driver](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins).
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**migration on by default** starting v1.23)
+  (**removed** in v1.27)
 * [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**migration on by default** starting v1.23)
+  (**removed** in v1.27)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
-  (**migration on by default** starting v1.24)
+  (**removed** in v1.30)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**migration on by default** starting v1.21)
+  (**removed** in v1.26)
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+  (**removed** in v1.28)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+  (**removed** in v1.36)
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+  (**removed** in v1.30)
+
+The `flexVolume` PersistentVolume type is deprecated, but remains supported without CSI migration.
+
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** starting v1.23, no migration plan and no plan to remove support)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) - GCE Persistent Disk
-  (**migration on by default** starting v1.23)
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
-  (**migration on by default** starting v1.31)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
-  (**migration on by default** starting v1.25)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
@@ -538,13 +539,13 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 * `glusterfs` - GlusterFS storage.
   (**not available** starting v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** starting v1.15)
+  (**not available** starting v1.16)
 * `quobyte` - Quobyte volume.
   (**not available** starting v1.25)
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
 * `scaleIO` - ScaleIO volume.
-  (**not available** starting v1.21)
+  (**not available** starting v1.22)
 * `storageos` - StorageOS volume.
   (**not available** starting v1.25)
 
