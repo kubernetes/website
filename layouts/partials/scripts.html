@@ -37,6 +37,7 @@
 {{ if .Site.Params.ui.showLightDarkModeMenu -}}
   {{ $jsArray = $jsArray | append (resources.Get "js/dark-mode.js") -}}
 {{ end -}}
+{{ $jsArray = $jsArray | append (resources.Get "js/scrollspy-patch.js") -}}
 {{ $js := $jsArray | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
