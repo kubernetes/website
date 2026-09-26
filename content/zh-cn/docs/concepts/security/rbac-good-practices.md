@@ -279,16 +279,34 @@ PersistentVolumeClaim 来访问该存储。
 <!--
 ### Access to `proxy` subresource of Nodes
 
-Users with access to the proxy sub-resource of node objects have rights to the Kubelet API,
+Users with access to the `nodes/proxy` sub-resource have rights to the Kubelet API,
 which allows for command execution on every pod on the node(s) to which they have rights.
 This access bypasses audit logging and admission control, so care should be taken before
-granting rights to this resource.
+granting any rights to this resource.
+These APIs can be exercised via websocket HTTP `GET` requests, which only requires authorization of the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission.
+For example, permission to **get** `nodes/proxy` provides access to privileged kubelet
+APIs that can retrieve container logs or execute and attach to pod processes,
+even when a caller does not have the equivalent permissions through the
+Kubernetes API.
 -->
 ### 访问 Node 的 `proxy` 子资源  {#access-to-proxy-subresource-of-nodes}
 
-有权访问 Node 对象的 proxy 子资源的用户有权访问 kubelet API，
+有权访问 Node 对象的 `nodes/proxy` 子资源的用户有权访问 kubelet API，
 这允许在他们有权访问的节点上的所有 Pod 上执行命令。
-此访问绕过审计日志记录和准入控制，因此在授予对此资源的权限前应小心。
+此访问绕过审计日志记录和准入控制，因此在授予对任何资源的权限前应小心。
+这些 API 可以通过 WebSocket HTTP `GET` 请求来调用，而这只需要授权 **get** 操作。
+这意味着对 `nodes/proxy` 的 **get** 权限并非只读权限。
+例如，**get** `nodes/proxy` 权限提供了对特权 kubelet API 的访问权限，
+即使调用者没有通过 Kubernetes API 获得相应的权限，
+这些 API 也可以检索容器日志或执行并附加到 Pod 进程。
+
+<!--
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
+-->
+有关更多信息，请参阅
+[kubelet 身份验证/鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)。
 
 <!--
 ### Escalate verb
@@ -377,11 +395,18 @@ labels on that namespace. In clusters where Pod Security Admission is used, this
 for a more permissive policy than intended by the administrators.
 For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
 access to services that an administrator did not intend to allow.
+For clusters using Dynamic Resource Allocation, labeling a namespace with
+`resource.kubernetes.io/admin-access: "true"` allows any user who can create ResourceClaims in that namespace
+to request admin access to devices already allocated to any other claim in any namespace.
 -->
 ### 命名空间修改 {#namespace-modification}
 可以对命名空间对象执行 **patch** 操作的用户（通过命名空间内的 RoleBinding 关联到具有该权限的 Role），
 可以修改该命名空间的标签。在使用 Pod 安全准入的集群中，这可能允许用户将命名空间配置为比管理员预期更宽松的策略。
 对于使用 NetworkPolicy 的集群，用户所设置的标签可能间接导致对某些本不应被允许访问的服务的访问权限被开放。
+对于使用动态资源分配（DRA）的集群，如果为某个命名空间添加标签
+`resource.kubernetes.io/admin-access: "true"`，那么在该命名空间内有权创建
+ResourceClaim 的任何用户，均可请求获取对设备的管理访问权限 ——
+即使这些设备已被分配给任意命名空间中的其他 ResourceClaim。
 
 <!--
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}

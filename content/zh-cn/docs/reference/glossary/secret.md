@@ -1,7 +1,6 @@
 ---
 title: Secret
 id: secret
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/configuration/secret/
 short_description: >
   Secret 用于存储敏感信息，如密码、 OAuth 令牌和 SSH 密钥。
@@ -11,28 +10,23 @@ tags:
 - core-object
 - security
 ---
-
 <!--
----
 title: Secret
 id: secret
-date: 2018-04-12
 full_link: /docs/concepts/configuration/secret/
 short_description: >
   Stores sensitive information, such as passwords, OAuth tokens, and ssh keys.
 
-aka: 
+aka:
 tags:
 - core-object
 - security
----
 -->
 
 <!--
- Stores sensitive information, such as passwords, OAuth tokens, and SSH keys.
+Stores sensitive information, such as passwords, OAuth tokens, and SSH keys.
 -->
-
- Secret 用于存储敏感信息，如密码、OAuth 令牌和 SSH 密钥。
+Secret 用于存储敏感信息，如密码、OAuth 令牌和 SSH 密钥。
 
 <!--more-->
 
@@ -43,8 +37,8 @@ are stored unencrypted by default, but can be configured to be
 [encrypted at rest](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted).
 -->
 Secret 允许用户对如何使用敏感信息进行更多的控制，并减少信息意外暴露的风险。
-默认情况下，Secret 值被编码为 base64 字符串并以非加密的形式存储，但可以配置为
-[静态加密（Encrypt at rest）](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
+默认情况下，Secret 值被编码为 base64 字符串并以非加密的形式存储，
+但可以配置为[静态加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
 
 <!--
 A {{< glossary_tooltip text="Pod" term_id="pod" >}} can reference the Secret in

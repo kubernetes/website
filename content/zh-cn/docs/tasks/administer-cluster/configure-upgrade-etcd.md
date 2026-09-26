@@ -30,7 +30,7 @@ Refer to the [etcd documentation](https://etcd.io/docs/) for more context.
 <!--
 Key details include:
 
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+* The minimum recommended etcd versions to run in production are `3.4.29+` and `3.5.11+`.
 
 * etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
@@ -40,7 +40,7 @@ Key details include:
 -->
 关键要点包括：
 
-* 在生产环境中运行的 etcd 最低推荐版本为 `3.4.22+` 和 `3.5.6+`。
+* 在生产环境中运行的 etcd 最低推荐版本为 `3.4.29+` 和 `3.5.11+`。
 
 * etcd 是一个基于主节点（Leader-Based）的分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
 
@@ -69,7 +69,7 @@ For deploying in production, advanced hardware configuration is required.
 Before deploying etcd in production, see
 [resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
 -->
-## etcd 资源需求    {#resource-requirements-for-etcd}
+### etcd 资源需求    {#resource-requirements-for-etcd}
 
 使用有限的资源运行 etcd 只适合测试目的。在生产环境中部署 etcd，你需要有先进的硬件配置。
 在生产中部署 etcd 之前，请查阅[所需资源参考文档](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)。

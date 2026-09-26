@@ -102,7 +102,7 @@ Kubernetes reviews only the following API request attributes:
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [request verbs and authorization](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
- * **Subresource** - The subresource that is being accessed (for resource requests only).
+ * **Subresource** - The subresource that is being accessed (for resource requests only). This can be a standard subresource (for example, `status` or `scale`) or a synthetic subresource used for fine-grained authorization.
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the _core_ [API group](/docs/reference/using-api/#api-groups).
 -->
@@ -121,7 +121,8 @@ Kubernetes 仅审查以下 API 请求属性：
 * **HTTP 请求动词** —— HTTP 动词 `get`、`post`、`put` 和 `delete` 用于非资源请求。
 * **资源** —— 正在访问的资源的 ID 或名称（仅限资源请求）- 
   对于使用 `get`、`update`、`patch` 和 `delete` 动词的资源请求，你必须提供资源名称。
-* **子资源** —— 正在访问的子资源（仅限资源请求）。
+* **子资源** —— 正在访问的子资源（仅限资源请求）。这可以是标准子资源（例如，`status` 或 `scale`），
+  也可以是用于细粒度授权的合成子资源。
 * **名字空间** —— 正在访问的对象的名称空间（仅适用于名字空间资源请求）。
 * **API 组** —— 正在访问的 {{< glossary_tooltip text="API 组" term_id="api-group" >}}
   （仅限资源请求）。空字符串表示[核心 API 组](/zh-cn/docs/reference/using-api/#api-groups)。
@@ -194,6 +195,9 @@ Kubernetes sometimes checks authorization for additional permissions using speci
   * **approve** verb for CertificateSigningRequests, and **update** for revisions to existing approvals
  [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * **bind** and **escalate** verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
+* [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  * Synthetic subresources such as `resourceclaims/binding` and `resourceclaims/driver` in the `resource.k8s.io` API group.
+  * Node-aware verbs such as `associated-node:update`, `associated-node:patch`, `arbitrary-node:update`, and `arbitrary-node:patch` for DRA driver `resourceclaims/status` updates.
 -->
 Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如：
 
@@ -203,6 +207,12 @@ Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如
 * [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * 对 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 **bind**
     和 **escalate** 动词
+* [动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  * `resource.k8s.io` API 组中的合成子资源，例如
+    `resourceclaims/binding` 和 `resourceclaims/driver`。
+  * 用于 DRA 驱动程序 `resourceclaims/status` 更新的节点感知动词，
+    例如 `associated-node:update`、`associated-node:patch`、`arbitrary-node:update`
+    和 `arbitrary-node:patch`。
 
 <!--
 ## Authorization context
@@ -265,8 +275,9 @@ Kubernetes 需要 REST API 请求所共有的属性，
   要了解有关 Node 鉴权模式的更多信息，请参阅 [Node 鉴权](/zh-cn/docs/reference/access-authn-authz/node/)。
 
 `Webhook`
-: Kubernetes 的 [Webhook 鉴权模式](/docs/reference/access-authn-authz/webhook/)用于鉴权，进行同步 HTTP 调用，
-  阻塞请求直到远程 HTTP 服务响应查询。你可以编写自己的软件来处理这种向外调用，也可以使用生态系统中的解决方案。
+: Kubernetes 的 [Webhook 鉴权模式](/docs/reference/access-authn-authz/webhook/)用于鉴权，
+  进行同步 HTTP 调用，阻塞请求直到远程 HTTP 服务响应查询。
+  你可以编写自己的软件来处理这种向外调用，也可以使用生态系统中的解决方案。
 
 <a id="warning-always-allow" />
 
@@ -363,8 +374,8 @@ Kubernetes 允许你配置可包含多个 Webhook 的鉴权链。
 该链中的鉴权项可以具有明确定义的参数，这些参数可以按特定顺序检查请求，
 从而为你提供细粒度的控制，例如在失败时明确拒绝。
 
-配置文件方法甚至允许你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)规则，
-在将请求发送到 Webhook 之前对其进行预过滤，从而帮助你防止不必要的调用。
+配置文件方法甚至允许你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)
+规则，在将请求发送到 Webhook 之前对其进行预过滤，从而帮助你防止不必要的调用。
 修改配置文件时，API 服务器还会自动重新加载鉴权链。
 
 <!--
@@ -406,11 +417,23 @@ authorizers:
       # Same as setting `--authorization-webhook-cache-authorized-ttl` flag
       # Default: 5m0s
       authorizedTTL: 30s
+      # If set to false, 'authorized' responses from the webhook are not cached
+      # and the specified authorizedTTL is ignored/has no effect.
+      # Same as setting `--authorization-webhook-cache-authorized-ttl` flag to `0`.
+      # Note: Setting authorizedTTL to `0` results in its default value being used.
+      # Default: true
+      cacheAuthorizedRequests: true
       # The duration to cache 'unauthorized' responses from the webhook
       # authorizer.
       # Same as setting `--authorization-webhook-cache-unauthorized-ttl` flag
       # Default: 30s
       unauthorizedTTL: 30s
+      # If set to false, 'unauthorized' responses from the webhook are not cached
+      # and the specified unauthorizedTTL is ignored/has no effect.
+      # Same as setting `--authorization-webhook-cache-unauthorized-ttl` flag to `0`.
+      # Note: Setting unauthorizedTTL to `0` results in its default value being used.
+      # Default: true
+      cacheUnauthorizedRequests: true
       # Timeout for the webhook request
       # Maximum allowed is 30s.
       # Required, with no default.
@@ -506,10 +529,22 @@ authorizers:
       # 与设置 `--authorization-webhook-cache-authorized-ttl` 标志相同
       # 默认值：5m0s
       authorizedTTL: 30s
+      # 如果设置为 false，来自 Webhook 的 'authorized' 响应不会被缓存，
+      # 并且指定的 authorizedTTL 将被忽略/不起作用。
+      # 等同于将 `--authorization-webhook-cache-authorized-ttl` 标志设置为 `0`。
+      # 注意：将 authorizedTTL 设置为 `0` 会导致使用其默认值。
+      # 默认值：true
+      cacheAuthorizedRequests: true
       # 缓存来自 Webhook 鉴权组件的“未授权”响应的持续时间。
       # 与设置 `--authorization-webhook-cache-unauthorized-ttl` 标志相同
       # 默认值：30s
       unauthorizedTTL: 30s
+      # 如果设置为 false，来自 webhook 的 'unauthorized' 响应不会被缓存，
+      # 并且指定的 unauthorizedTTL 将被忽略/不起作用。
+      # 等同于将 `--authorization-webhook-cache-unauthorized-ttl` 标志设置为 `0`。
+      # 注意：将 unauthorizedTTL 设置为 `0` 会导致使用其默认值。
+      # 默认值：true
+      cacheUnauthorizedRequests: true
       # Webhook 请求超时
       # 允许的最大时间为 30 秒。
       # 必填，没有默认值。
@@ -554,7 +589,7 @@ authorizers:
         # 如果请求变量中 subjectAccessReviewVersion 指定的版本是 v1beta1，
         # 在评估 CEL 表达式之前，内容将转换为 v1 版本。
       #
-      # CEL 文档：https://kubernetes.io/docs/reference/using-api/cel/
+      # CEL 文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
       #
       # 仅向 Webhook 发送资源请求
       - expression: has(request.resourceAttributes)
@@ -734,8 +769,8 @@ As a system administrator, you should be cautious when deploying CustomResourceD
 that let users make changes to the above areas. These may open privilege escalations paths.
 Consider the consequences of this kind of change when deciding on your authorization controls.
 -->
-作为系统管理员，在部署允许用户更改上述区域的 CustomResourceDefinitions 时应谨慎行事，这些可能会打开特权升级路径。
-在配置你的鉴权控制时，请考虑这种变化的后果。
+作为系统管理员，在部署允许用户更改上述区域的 CustomResourceDefinitions 时应谨慎行事，
+这些可能会打开特权升级路径。在配置你的鉴权控制时，请考虑这种变化的后果。
 {{< /caution >}}
 
 <!--
@@ -801,7 +836,8 @@ no
 Similarly, to check whether a ServiceAccount named `dev-sa` in Namespace `dev`
 can list Pods in the Namespace `target`:
 -->
-类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账户是否可以列举名字空间 `target` 里的 Pod：
+类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账户是否可以列举名字空间
+`target` 里的 Pod：
 
 ```bash
 kubectl auth can-i list pods \
@@ -900,4 +936,3 @@ status:
 * 有关概述，请阅读[控制对 Kubernetes API 的访问](/zh-cn/docs/concepts/security/controlling-access/)。
 * 要了解有关准入控制的更多信息，请参阅[使用准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
 * 阅读更多关于 [Kubernetes 中的通用表达语言](/zh-cn/docs/reference/using-api/cel/)。
-

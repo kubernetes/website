@@ -1,6 +1,7 @@
 ---
 title: "Architektura klastra"
 weight: 30
+no_list: true
 description: >
   Podstawowe założenia architektury Kubernetesa.
 ---
@@ -188,9 +189,6 @@ zależności od wielkości klastra, wymagań dotyczących wydajności i polityk 
 Narzędzia takie jak kubeadm, kops i Kubespray oferują różne podejścia do wdrażania i
 zarządzania klastrami, z których każde ma własną metodę rozmieszczenia i zarządzania komponentami.
 
-Elastyczność architektury Kubernetesa umożliwia organizacjom dostosowanie ich klastrów do
-specyficznych potrzeb, balansując czynniki takie jak złożoność operacyjna, wydajność i narzut na zarządzanie.
-
 ### Dostosowywanie i rozszerzalność {#customization-and-extensibility}
 
 Architektura Kubernetesa pozwala na szeroką konfigurację:
@@ -210,6 +208,7 @@ Dowiedz się więcej na temat:
   [ich komunikacja](/docs/concepts/architecture/control-plane-node-communication/) z
   warstwą sterowania.
 - [Kontrolery Kubernetesa](/docs/concepts/architecture/controller/).
+- [Mechanizm usuwania zbędnych obiektów (ang. Garbage collection)](/docs/concepts/architecture/garbage-collection/).
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/), czyli domyślny scheduler dla Kubernetesa.
 - Oficjalna [dokumentacja](https://etcd.io/docs/) Etcd.
 - Wiele [środowisk uruchomieniowych kontenerów](/docs/setup/production-environment/container-runtimes/) w Kubernetesie.

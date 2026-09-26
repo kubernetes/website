@@ -178,7 +178,8 @@ or
 你可以通过
 [ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io)
 或者
-[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io) 动态配置哪些资源要被哪些准入 Webhook 处理。
+[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io)
+动态配置哪些资源要被哪些准入 Webhook 处理。
 
 <!--
 The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
@@ -231,7 +232,8 @@ resources ("Namespaced") will match this rule. "&lowast;" means that there are n
 When using `clientConfig.service`, the server cert must be valid for
 `<svc_name>.<svc_namespace>.svc`.
 -->
-当使用 `clientConfig.service` 时，服务器证书必须对 `<svc_name>.<svc_namespace>.svc` 有效。
+当使用 `clientConfig.service` 时，服务器证书必须对
+`<svc_name>.<svc_namespace>.svc` 有效。
 {{< /note >}}
 
 {{< note >}}
@@ -287,8 +289,6 @@ Webhook 提供身份证明。完成此配置需要三个步骤。
   凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
   以下是一个准入控制配置文件示例：
 
-{{< tabs name="admissionconfiguration_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -304,49 +304,6 @@ plugins:
     kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-<!--
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
--->
-```yaml
-# 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1，kind = WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # 1.17 中被弃用，推荐使用 apiserver.config.k8s.io/v1，kind = WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 For more information about `AdmissionConfiguration`, see the
@@ -356,7 +313,7 @@ See the [webhook configuration](#webhook-configuration) section for details abou
 In the kubeConfig file, provide the credentials:
 -->
 有关 `AdmissionConfiguration` 的更多信息，请参见
-[AdmissionConfiguration (v1) reference](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)。
+[AdmissionConfiguration（v1）参考](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)。
 有关每个配置字段的详细信息，请参见 [Webhook 配置](#webhook-配置)部分。
 
 在 kubeConfig 文件中，提供证书凭据：
@@ -512,7 +469,8 @@ API 服务器将发送的是 `admissionReviewVersions` 列表中所支持的第�
 如果 API 服务器遇到以前创建的 Webhook 配置，并且不支持该 API 服务器知道如何发送的任何
 `AdmissionReview` 版本，则调用 Webhook 的尝试将失败，并依据[失败策略](#failure-policy)进行处理。
 
-此示例显示了 `AdmissionReview` 对象中包含的数据，该数据用于请求更新 `apps/v1` `Deployment` 的 `scale` 子资源：
+此示例显示了 `AdmissionReview` 对象中包含的数据，该数据用于请求更新
+`apps/v1` `Deployment` 的 `scale` 子资源：
 
 <!--
 ```
@@ -740,7 +698,10 @@ Webhooks respond with a 200 HTTP status code, `Content-Type: application/json`,
 and a body containing an `AdmissionReview` object (in the same version they were sent),
 with the `response` stanza populated, serialized to JSON.
 -->
-Webhook 使用 HTTP 200 状态码、`Content-Type: application/json` 和一个包含 `AdmissionReview` 对象的 JSON 序列化格式来发送响应。该 `AdmissionReview` 对象与发送的版本相同，且其中包含的 `response` 字段已被有效填充。
+Webhook 使用 HTTP 200 状态码、`Content-Type: application/json`
+和一个包含 `AdmissionReview` 对象的 JSON 序列化格式来发送响应。
+该 `AdmissionReview` 对象与发送的版本相同，且其中包含的 `response`
+字段已被有效填充。
 
 <!--
 At a minimum, the `response` stanza must contain the following fields:
@@ -908,7 +869,27 @@ If more than 4096 characters of warning messages are added (from all sources), a
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
 The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+-->
+要注册准入 Webhook，请创建 `MutatingWebhookConfiguration` 或
+`ValidatingWebhookConfiguration` API 对象。
+`MutatingWebhookConfiguration` 或`ValidatingWebhookConfiguration` 对象的名称必须是有效的
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
+{{< note >}}
+<!--
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based webhook configurations. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) is enabled.
+-->
+以 `.static.k8s.io` 结尾的名字保留给
+[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)使用，
+不能用于基于 API 的 Webhook 配置。
+当启用了 `ManifestBasedAdmissionControlConfig` **特性门控**时，将强制执行此保留。
+{{< /note >}}
+
+<!--
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each must be given a unique name.
 This is required in order to make resulting audit logs and metrics easier to match up to active
@@ -916,10 +897,6 @@ configurations.
 
 Each webhook defines the following things.
 -->
-要注册准入 Webhook，请创建 `MutatingWebhookConfiguration` 或 `ValidatingWebhookConfiguration` API 对象。
-`MutatingWebhookConfiguration` 或`ValidatingWebhookConfiguration` 对象的名称必须是有效的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-
 每种配置可以包含一个或多个 Webhook。如果在单个配置中指定了多个
 Webhook，则应为每个 Webhook 赋予一个唯一的名称。
 这是必需的，以使生成的审计日志和指标更易于与激活的配置相匹配。
@@ -949,13 +926,6 @@ Each rule specifies one or more operations, apiGroups, apiVersions, and resource
   * `"*/*"` matches all resources and subresources.
   * `"pods/*"` matches all subresources of pods.
   * `"*/status"` matches all status subresources.
-
-* `scope` specifies a scope to match. Valid values are `"Cluster"`, `"Namespaced"`, and `"*"`.
-  Subresources match the scope of their parent resource. Default is `"*"`.
-
-  * `"Cluster"` means that only cluster-scoped resources will match this rule (Namespace API objects are cluster-scoped).
-  * `"Namespaced"` means that only namespaced resources will match this rule.
-  * `"*"` means that there are no scope restrictions.
 -->
 * `operations` 列出一个或多个要匹配的操作。
   可以是 `CREATE`、`UPDATE`、`DELETE`、`CONNECT` 或 `*` 以匹配所有内容。
@@ -968,6 +938,14 @@ Each rule specifies one or more operations, apiGroups, apiVersions, and resource
   * `"pods/*"` 匹配 pod 的所有子资源。
   * `"*/status"` 匹配所有 status 子资源。
 
+<!--
+* `scope` specifies a scope to match. Valid values are `"Cluster"`, `"Namespaced"`, and `"*"`.
+  Subresources match the scope of their parent resource. Default is `"*"`.
+
+  * `"Cluster"` means that only cluster-scoped resources will match this rule (Namespace API objects are cluster-scoped).
+  * `"Namespaced"` means that only namespaced resources will match this rule.
+  * `"*"` means that there are no scope restrictions.
+-->
 * `scope` 指定要匹配的范围。有效值为 `"Cluster"`、`"Namespaced"` 和 `"*"`。
   子资源匹配其父资源的范围。默认值为 `"*"`。
 
@@ -1076,8 +1054,8 @@ the admission webhook by setting the labels.
 <!--
 This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
 -->
-这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar` 的所有资源（但不包括子资源）的
-`CREATE` 操作：
+这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar`
+的所有资源（但不包括子资源）的 `CREATE` 操作：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1255,7 +1233,8 @@ for stable versions of resources.
 This example shows a validating webhook that intercepts modifications to deployments (no matter the API group or version),
 and is always sent an `apps/v1` `Deployment` object:
 -->
-此示例显示了一个验证性质的 Webhook，该 Webhook 拦截对 Deployment 的修改（无论 API 组或版本是什么），
+此示例显示了一个验证性质的 Webhook，该 Webhook 拦截对
+Deployment 的修改（无论 API 组或版本是什么），
 始终会发送一个 `apps/v1` 版本的 Deployment 对象：
 
 ```yaml
@@ -1292,7 +1271,8 @@ doesn't provide the filtering you want over when to call out over HTTP. Match co
 webhook to be called.
 -->
 如果你需要细粒度地过滤请求，你可以为 Webhook 定义**匹配条件**。
-如果你发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍然不能提供你想要的何时进行 HTTP
+如果你发现匹配规则、`objectSelectors` 和 `namespaceSelectors`
+仍然不能提供你想要的何时进行 HTTP
 调用的过滤条件，那么添加这些条件会很有用。
 匹配条件是 [CEL 表达式](/zh-cn/docs/reference/using-api/cel/)。
 所有匹配条件都必须为 true 才能调用 Webhook。
@@ -1499,7 +1479,8 @@ be a layering violation). `host` may also be an IP address.
 -->
 `host` 不应引用集群中运行的服务；通过指定 `service` 字段来使用服务引用。
 主机可以通过某些 API 服务器中的外部 DNS 进行解析。
-（例如，`kube-apiserver` 无法解析集群内 DNS，因为这将违反分层规则）。`host` 也可以是 IP 地址。
+（例如，`kube-apiserver` 无法解析集群内 DNS，因为这将违反分层规则）。
+`host` 也可以是 IP 地址。
 
 <!--
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -1515,7 +1496,7 @@ run in a new cluster.
 <!--
 The scheme must be "https"; the URL must begin with "https://".
 -->
-scheme 必须为 "https"；URL 必须以 "https://" 开头。
+`scheme` 必须为 "https"；URL 必须以 "https://" 开头。
 
 <!--
 Attempting to use a user or basic auth (for example `user:password@`) is not allowed.
@@ -1529,7 +1510,7 @@ Here is an example of a mutating webhook configured to call a URL
 (and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
 -->
 这是配置为调用 URL 的变更性质的 Webhook 的示例
-（并且期望使用系统信任根证书来验证 TLS 证书，因此不指定 caBundle）：
+（并且期望使用系统信任根证书来验证 TLS 证书，因此不指定 `caBundle`）：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1542,15 +1523,14 @@ webhooks:
 
 <!--
 #### Service reference
--->
-#### 服务引用  {#service-reference}
 
-<!--
 The `service` stanza inside `clientConfig` is a reference to the service for this webhook.
 If the webhook is running within the cluster, then you should use `service` instead of `url`.
 The service namespace and name are required. The port is optional and defaults to 443.
 The path is optional and defaults to "/".
 -->
+#### 服务引用  {#service-reference}
+
 `clientConfig` 内部的 Service 是对该 Webhook 服务的引用。
 如果 Webhook 在集群中运行，则应使用 `service` 而不是 `url`。
 服务的 `namespace` 和 `name` 是必需的。
@@ -1652,14 +1632,13 @@ webhooks:
 
 <!--
 ### Timeouts
--->
-### 超时   {#timeouts}
 
-<!--
 Because webhooks add to API request latency, they should evaluate as quickly as possible.
 `timeoutSeconds` allows configuring how long the API server should wait for a webhook to respond
 before treating the call as a failure.
 -->
+### 超时   {#timeouts}
+
 由于 Webhook 会增加 API 请求的延迟，因此应尽快完成自身的操作。
 `timeoutSeconds` 用来配置在将调用视为失败之前，允许 API 服务器等待 Webhook 响应的时间长度。
 
@@ -1720,7 +1699,7 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 <!--
 `reinvocationPolicy` may be set to `Never` or `IfNeeded`. It defaults to `Never`.
 -->
-可以将 `reinvocationPolicy` 设置为 `Never` 或 `IfNeeded`。 默认为 `Never`。
+可以将 `reinvocationPolicy` 设置为 `Never` 或 `IfNeeded`。默认为 `Never`。
 
 <!--
 * `Never`: the webhook must not be called more than once in a single admission evaluation.
@@ -1781,20 +1760,49 @@ in an object could already exist in the user-provided object, but it is essentia
 ### 失败策略 {#failure-policy}
 
 <!--
-`failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`.
+`failurePolicy` defines how errors encountered while _calling_ the admission webhook are handled.
+Allowed values are `Ignore` or `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
 
 Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
 -->
-`failurePolicy` 定义了如何处理准入 Webhook 中无法识别的错误和超时错误。允许的值为 `Ignore` 或 `Fail`。
+`failurePolicy` 定义了在**调用**准入 Webhook 时遇到错误应如何处理。
+允许的值为 `Ignore` 或 `Fail`。
 
 * `Ignore` 表示调用 Webhook 的错误将被忽略并且允许 API 请求继续。
 * `Fail` 表示调用 Webhook 的错误导致准入失败并且 API 请求被拒绝。
 
 这是一个变更性质的 Webhook，配置为在调用准入 Webhook 遇到错误时拒绝 API 请求：
+
+<!--
+The failure policy applies to the following types of errors:
+
+* Network errors, timeouts, or connection failures when contacting the webhook.
+* The webhook returns a non-2xx HTTP response or a malformed response.
+* The API server fails to serialize the admission request or create an internal HTTP client for the webhook.
+* (Only for mutating webhooks) the response contains an undecodable or unsupported patch type.
+-->
+失败策略（Failure Policy）适用于以下几类错误：
+
+* 联系 Webhook 时发生的网络错误、超时或连接失败。
+* Webhook 返回非 2xx 的 HTTP 响应或格式错误的响应。
+* API 服务器无法对准入请求进行序列化，或无法为 Webhook 创建内部 HTTP 客户端。
+* （仅针对变更类 Webhook）响应中包含无法解码或不受支持的补丁类型。
+
+<!--
+If a write to the Kubernetes API is rejected via an admission callout, this
+is a _rejection_ but Kubernetes does not consider it as a failure.
+The Kubernetes API server does **not** apply a failure policy when the webhook is reached successfully, and the webhook implementation
+has explicitly rejected the request (by specifying `allowed: false` in the response).
+An explicit rejection, correctly transmitted, always denies the API request, regardless of the `failurePolicy` setting.
+-->
+如果一次对 Kubernetes API 的写入操作被准入调用（Admission Callout）所拒绝，
+这属于**拒绝（Rejection）**，但 Kubernetes 并不将其视为一次失败。
+当 Webhook 被成功调用，并且 Webhook 的实现通过在响应中指定 `allowed: false`
+显式拒绝了该请求时，Kubernetes API 服务器**不会**应用失败策略。
+一条被正确传递的显式拒绝，无论 `failurePolicy` 如何设置，都会始终拒绝该 API 请求。
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1839,7 +1847,8 @@ API 服务器提供了监视准入 Webhook 行为的方法。这些监视机制�
 Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
 webhook apply.
 -->
-有时，了解 API 请求中的哪个变更性质的 Webhook 使对象改变以及该 Webhook 应用了哪些更改很有用。
+有时，了解 API 请求中的哪个变更性质的 Webhook 使对象改变以及该 Webhook
+应用了哪些更改很有用。
 
 <!--
 The Kubernetes API server performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each
@@ -2004,6 +2013,7 @@ The audit level of a event determines which annotations get recorded:
   For example, the following annotation gets recorded for a webhook being reinvoked. The webhook is ordered the fourth in the
   mutating webhook chain, and responded with a JSON patch which got applied to the request object.
   -->
+  
   例如，以下是针对正在被重新调用的某 Webhook 所记录的注解。
   Webhook 在变更性质的 Webhook 链中排在第四，并在其响应中包含一个 JSON 补丁，
   该补丁已被应用于请求对象。
@@ -2126,7 +2136,7 @@ metrics are labelled to identify the causes of webhook rejection(s):
 - `type`：Admission Webhook 类型，可以是 `admit` 和 `validating` 其中之一。
 - `error_type`：标识在 Webhook 调用期间是否发生了错误并且导致了拒绝。其值可以是以下之一：
   - `calling_webhook_error`：发生了来自准入 Webhook 的无法识别的错误或超时错误，
-    并且 Webhook 的 [失败策略](#failure-policy) 设置为 `Fail`。
+    并且 Webhook 的 [失败策略](#failure-policy)设置为 `Fail`。
   - `no_error`：未发生错误。Webhook 在准入响应中以 `allowed: false` 值拒绝了请求。
     度量标签 `rejection_code` 记录了在准入响应中设置的 `.status.code`。
   - `apiserver_internal_error`：apiserver 发生内部错误。
@@ -2158,4 +2168,4 @@ see
 [Admission Webhooks Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices).
 -->
 有关编写可变 Admission Webhook 时的建议和注意事项，请参阅
-[Admission Webhooks 良好实践](/zh-cn/docs/concepts/cluster-administration/admission-webhooks-good-practices)。
+[Admission Webhook 良好实践](/zh-cn/docs/concepts/cluster-administration/admission-webhooks-good-practices)。

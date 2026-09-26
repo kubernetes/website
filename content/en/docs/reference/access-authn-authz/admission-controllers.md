@@ -47,18 +47,19 @@ administrator.
 
 ### Admission control extension points
 
-Within the full [list](#what-does-each-admission-controller-do), there are three
+Within the full [list](#what-does-each-admission-controller-do), there are four
 special controllers:
 [MutatingAdmissionWebhook](#mutatingadmissionwebhook),
+[MutatingAdmissionPolicy](#mutatingadmissionpolicy),
 [ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
 [ValidatingAdmissionPolicy](#validatingadmissionpolicy).
 The two webhook controllers execute the mutating and validating (respectively)
 [admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-which are configured in the API. ValidatingAdmissionPolicy provides a way to embed
-declarative validation code within the API, without relying on any external HTTP
+which are configured in the API. MutatingAdmissionPolicy and ValidatingAdmissionPolicy provides a way to embed
+declarative mutation/validation code within the API, without relying on any external HTTP
 callouts.
 
-You can use these three admission controllers to customize cluster behavior at
+You can use these four admission controllers to customize cluster behavior at
 admission time.
 
 ### Admission control phases
@@ -81,7 +82,7 @@ other admission controllers.
 
 The ordering of these calls can be seen below.
 
-{{< figure src="/docs/reference/access-authn-authz/admission-control-phases.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. It shows that the continue until the first rejection, or being accepted by all of them. It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again." class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI](https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI)" >}}
+{{< figure src="/docs/reference/access-authn-authz/admission-control-phases.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. It shows that the continue until the first rejection, or being accepted by all of them. It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again." class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1v2zYQ_isHDcZazO-O34QhQJdiazAEKJquAwZ9oaSzxZoiNZJy4gT-7ztSL1bs5sPQ6otE8rm75-45inwOEpViEAa9HnxgewSrwKCFjZL2nj8hbIWKmRAHYAZsxg1wI3-2oNEUmFhMIS29UWZtYcLRaMttVsbDROWjHHXOeDr4aprPETemRDOardfjSPZ6z1xyGz5Hgc0wxygIo0BiaTUTUdCPgoYELUAUTKfFI03Tl8F_S5SJnyfjnGut9LvEKm1oyuoSj_1IAj215y9McxYLNJWFX6qWmbP6bbf1sX-aTRcJzl3sc8hnfLQ3SijtgQ8Zt3gGE0oVXRS85k8qixSxg9tqPJyBvpV6JI_HY68XyUg2FXjP2Vaz3E05OxLxc6URaYXAhB1YokRqamBJgsbwmAtuD31gMgWTqVKkECOURcqcmLhHfQDLc_QO0so9-RtWAcjJezSJ7hbxvubSol20XRnjgBXcoCaXkFE4weWW-obAxhpqG-3GnmaaU19wJaHImEFH68Gt5aVl1k0_YJwptTN9ci2EeiCi8QH2THBiTcjWQaEETzgan92GS9-4J1zraAgn-rfWB3QVY9bzSaj2XFJbl_QWfmrDtXFN_5V6nuL0gVKM0bl0ZS1sxYjCgdo4g_wsAhNGdcM0qRlnVg069CBhpUHvrtC456o0lEdCY4rTgmjTkXL1LNsyLmuRjk07FExbqkfBpIW_SAm3h_37cvndx1u3-ifJpiVaKqGbuffqfQNd2szB3RupSEml0y9-Qmn-5MdtT74wTfMbq4W3bnW_oYprJSqDWD3CH5SNiZVWlyD4NdbXN1XWlUBn4lzSvWsKTEHb79bxJf7LqWPIojM6s0GZulJXA1_YwfW1L1wIn6pGhzc43A77kGikDQYMCpW-revvgN6AihZ2a0md59WiJnbJJhkmu2qqoP9oxcA0cd1_B353G5zapc3uY70TTl3oNXPhGkwIt3KvdnhmdDiZtAsnlncq5ZuDa_-q3qBi_3rDNyARU0zfvqjN6wz_rvv4fzGsjX44RVK_ZdjRu6kicOkgrunEK7FPVi3rc0edynaWXib86XspN2X9bsqX-vwA0q3E1PvU8u5n3hGqPhxasNsfDuy2lotiCup7hGZPmdIfac4BuhsAhQv6dJjytLoE9IP62kHXG39ene4Z9JnihpXC-mOVzGjj_6NU3lhqVW6zINzQj5tG1fFYH7YNhJVW3R9k0owx5XRRuKuuU_5WRW4od9Q3in5UQTgZ-zBB-Bw8BuFgNpsOF_PF-mo-nkxmq-WsHxwINFkOr8aT5WoxW01Wy8l4fewHT57ZZDieL-fr8WI8W01XV7Px9PgfcW89xA](https://mermaid.live/edit#pako:eNqtVm1v2zYQ_isHDcZazO-O34QhQJdiazAEKJquAwZ9oaSzxZoiNZJy4gT-7ztSL1bs5sPQ6otE8rm75-45inwOEpViEAa9HnxgewSrwKCFjZL2nj8hbIWKmRAHYAZsxg1wI3-2oNEUmFhMIS29UWZtYcLRaMttVsbDROWjHHXOeDr4aprPETemRDOardfjSPZ6z1xyGz5Hgc0wxygIo0BiaTUTUdCPgoYELUAUTKfFI03Tl8F_S5SJnyfjnGut9LvEKm1oyuoSj_1IAj215y9McxYLNJWFX6qWmbP6bbf1sX-aTRcJzl3sc8hnfLQ3SijtgQ8Zt3gGE0oVXRS85k8qixSxg9tqPJyBvpV6JI_HY68XyUg2FXjP2Vaz3E05OxLxc6URaYXAhB1YokRqamBJgsbwmAtuD31gMgWTqVKkECOURcqcmLhHfQDLc_QO0so9-RtWAcjJezSJ7hbxvubSol20XRnjgBXcoCaXkFE4weWW-obAxhpqG-3GnmaaU19wJaHImEFH68Gt5aVl1k0_YJwptTN9ci2EeiCi8QH2THBiTcjWQaEETzgan92GS9-4J1zraAgn-rfWB3QVY9bzSaj2XFJbl_QWfmrDtXFN_5V6nuL0gVKM0bl0ZS1sxYjCgdo4g_wsAhNGdcM0qRlnVg069CBhpUHvrtC456o0lEdCY4rTgmjTkXL1LNsyLmuRjk07FExbqkfBpIW_SAm3h_37cvndx1u3-ifJpiVaKqGbuffqfQNd2szB3RupSEml0y9-Qmn-5MdtT74wTfMbq4W3bnW_oYprJSqDWD3CH5SNiZVWlyD4NdbXN1XWlUBn4lzSvWsKTEHb79bxJf7LqWPIojM6s0GZulJXA1_YwfW1L1wIn6pGhzc43A77kGikDQYMCpW-revvgN6AihZ2a0md59WiJnbJJhkmu2qqoP9oxcA0cd1_B353G5zapc3uY70TTl3oNXPhGkwIt3KvdnhmdDiZtAsnlncq5ZuDa_-q3qBi_3rDNyARU0zfvqjN6wz_rvv4fzGsjX44RVK_ZdjRu6kicOkgrunEK7FPVi3rc0edynaWXib86XspN2X9bsqX-vwA0q3E1PvU8u5n3hGqPhxasNsfDuy2lotiCup7hGZPmdIfac4BuhsAhQv6dJjytLoE9IP62kHXG39ene4Z9JnihpXC-mOVzGjj_6NU3lhqVW6zINzQj5tG1fFYH7YNhJVW3R9k0owx5XRRuKuuU_5WRW4od9Q3in5UQTgZ-zBB-Bw8BuFgNpsOF_PF-mo-nkxmq-WsHxwINFkOr8aT5WoxW01Wy8l4fewHT57ZZDieL-fr8WI8W01XV7Px9PgfcW89xA)" >}}
 
 ## Why do I need them?
 
@@ -127,7 +128,7 @@ kube-apiserver -h | grep enable-admission-plugins
 In Kubernetes {{< skew currentVersion >}}, the default ones are:
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
 
 ## What does each admission controller do?
@@ -466,6 +467,14 @@ To disallow access, the service would return:
 }
 ```
 
+{{< note >}}
+`ImageReview` objects will include all images in Pods intended to be executed as
+containers. This covers images specified as part of the containers,
+initContainers, or ephemeralContainers fields in a Pod specification. As a
+result, images included under image volumes are not in scope for the
+ImagePolicyWebhook.
+{{< /note >}}
+
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 
@@ -488,8 +497,8 @@ In any case, the annotations are provided by the user and are not validated by K
 
 **Type**: Validating.
 
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 
@@ -507,6 +516,14 @@ Pods in the `default` namespace.
 See the [LimitRange API reference](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 for more details.
+
+### MutatingAdmissionPolicy {#mutatingadmissionpolicy}
+
+**Type**: Mutating.
+
+[This admission controller](/docs/reference/access-authn-authz/mutating-admission-policy/) uses the Common Expression Language (CEL) to declare mutations to resources. Mutations can be defined either with an apply configuration that is merged using the server side apply merge strategy, or a JSON patch.
+It is enabled when both feature gate `mutatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+If any of the MutatingAdmissionPolicy fails, the request fails.
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
@@ -568,6 +585,23 @@ A `Namespace` deletion kicks off a sequence of operations that remove all object
 etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
 running this admission controller.
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+**Type**: Validating.
+
+This admission controller intercepts writes to bound Pods, to ensure that the
+changes are compatible with the features declared by the node where the Pod is
+currently running. It uses the `.status.declaredFeatures` field of the Node to
+determine the set of enabled features. If a Pod update requires a feature that
+is not listed in the features of its current node, the admission controller
+will reject the update request. This prevents runtime failures due to feature
+mismatch after a Pod has been scheduled.
+
+This admission controller is enabled by
+default if the [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) feature gate is enabled.
+
 ### NodeRestriction {#noderestriction}
 
 **Type**: Validating.
@@ -580,10 +614,10 @@ kubelets are not allowed to update or remove taints from their `Node` API object
 The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 
-* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
-  This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
-  and kubelets will not be allowed to modify labels with that prefix.
-* **Allows** kubelets to add/remove/update these labels and label prefixes:
+* **Forbidden** (Kubelets are blocked from modifying these):
+  * Labels with a `node-restriction.kubernetes.io/` prefix. This prefix is reserved for administrators to label `Node` objects for workload isolation.
+  * Labels with a `node-role.kubernetes.io/` prefix (for example: `node-role.kubernetes.io/control-plane`). These are restricted to prevent unprivileged nodes from self-declaring cluster roles.
+* **Allowed** (Kubelets can add/remove/update these):
   * `kubernetes.io/hostname`
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
@@ -595,9 +629,18 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
+* **Reserved**:
+  Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved.
+  The `NodeRestriction` admission plugin generally disallows these to prevent unauthorized self-labeling,
+  but may allow additional labels under these prefixes in the future as part of future features.
 
-Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
-and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this admission plugin also restricts the audiences for which a kubelet can
+request service account tokens via the `TokenRequest` API. The kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests), or for audiences explicitly granted
+through RBAC using the `request-serviceaccounts-token-audience` verb. For more details,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
 
 Future versions may add additional restrictions to ensure kubelets have the minimal set of
 permissions required to operate correctly.
@@ -763,7 +806,7 @@ This admission controller is disabled by default.
 
 ### PodTopologyLabels {#podtopologylabels}
 
-{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
 **Type**: Mutating
 
@@ -771,10 +814,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kubernetes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
 {{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,

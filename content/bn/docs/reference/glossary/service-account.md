@@ -1,7 +1,6 @@
 ---
 title: সার্ভিস অ্যাকাউন্ট
 id: service-account
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   পডে চলমান কার্যক্রমের জন্য একটি পরিচিতি সরবরাহ করে।

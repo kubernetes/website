@@ -17,6 +17,11 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.36"
 ---
 Enable support for VolumeAttributesClasses.
 See [Volume Attributes Classes](/docs/concepts/storage/volume-attributes-classes/)

@@ -1,7 +1,6 @@
 ---
 title: ServiceAccount
 id: service-account
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   Fornece uma identidade para os processos que são executados em um Pod.

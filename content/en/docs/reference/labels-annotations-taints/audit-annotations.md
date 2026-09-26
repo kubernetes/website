@@ -72,11 +72,21 @@ violated from the PodSecurity enforcement.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
+## audit.k8s.io/truncated
+
+Example: `audit.k8s.io/truncated: "true"`
+
+Value is always "true". This annotation indicates that the audit event has been truncated
+because the event size exceeded the configured maximum. Truncation is disabled by default
+and must be explicitly enabled via the API server flags.
+
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
+
 ## apiserver.latency.k8s.io/etcd
 
 Example: `apiserver.latency.k8s.io/etcd: "4.730661757s"`
 
-This annotation indiactes the measure of latency incurred inside the storage layer,
+This annotation indicates the measure of latency incurred inside the storage layer,
 it accounts for the time it takes to send data to the etcd and get the complete response back.
 
 The value of this audit annotation does not include the time incurred in admission, or validation.

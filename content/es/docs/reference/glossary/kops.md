@@ -1,7 +1,6 @@
 ---
 title: Kops
 id: kops
-date: 2018-04-12
 full_link: /docs/getting-started-guides/kops/
 short_description: >
 Herramienta de línea de comandos que facilita la creación, destrucción, actualización y mantenimiento de clústeres de Kubernetes en alta disponibilidad para entornos de producción. *NOTA: Oficialmente solo soporta AWS, aunque también ofrece soporte para GCE en beta y WMware vSphere en versión alpha*.

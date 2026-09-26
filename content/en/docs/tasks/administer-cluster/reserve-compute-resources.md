@@ -181,7 +181,9 @@ specifying `pods` value to the KubeletConfiguration setting `enforceNodeAllocata
 
 Optionally, `kubelet` can be made to enforce `kubeReserved` and
 `systemReserved` by specifying `kube-reserved` & `system-reserved` values in
-the same setting. Note that to enforce `kubeReserved` or `systemReserved`,
+the same setting. Additionally, only compressible resources may be enforced by
+specifying `kube-reserved-compressible` and `system-reserved-compressible`.
+Note that to enforce `kubeReserved` or `systemReserved`,
 `kubeReservedCgroup` or `systemReservedCgroup` needs to be specified
 respectively.
 
@@ -202,10 +204,15 @@ recommendation is to enforce `systemReserved` only if a user has profiled their
 nodes exhaustively to come up with precise estimates and is confident in their
 ability to recover if any process in that group is oom-killed.
 
+Enforcing only compressible resources for `kubeReserved` and `systemReserved`
+is less likely to cause disruption while ensuring that the resource is
+allocated appropriately when there is contention.
+
 * To begin with enforce 'Allocatable' on `pods`.
-* Once adequate monitoring and alerting is in place to track kube system
-  daemons, attempt to enforce `kubeReserved` based on usage heuristics.
-* If absolutely necessary, enforce `systemReserved` over time.
+* Once adequate monitoring and alerting is in place to track kube and system
+  daemons, attempt to enforce compressible resources on `kubeReserved` and `systemReserved`.
+* Attempt to enforce non-compressible `kubeReserved` resources based on usage heuristics.
+* If absolutely necessary, enforce non-compressible `systemReserved` resources over time.
 
 The resource requirements of kube system daemons may grow over time as more and
 more features are added. Over time, kubernetes project will attempt to bring

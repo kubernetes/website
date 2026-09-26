@@ -25,7 +25,7 @@ Security Account Manager(SAM)が分離されているため、コンテナはホ
 ## メモリ管理 {#resource-management-memory}
 
 WindowsではLinuxのようなOut-Of-Memoryによるプロセスの終了は提供されていません。
-Windowsではすべてのユーザモードでのメモリアロケーションを仮想的に取り扱います。
+Windowsではすべてのユーザーモードでのメモリアロケーションを仮想的に取り扱います。
 そのためpagefilesが必ず必要になります。
 
 Windowsノードではプロセスのメモリオーバーコミットを行いません。
@@ -49,7 +49,7 @@ Windowsではこれらの値はノードの[allocatable](/docs/tasks/administer-
 
 {{< caution >}}
 ワークロードをデプロイする時に、コンテナにメモリとCPUの制限を設定して下さい。
-これにより、`NodeAllocatable`が減少し、クラスタ全体のスケジューラーがどのPodをどのノードに配置するかの決定に役立ちます。
+これにより、`NodeAllocatable`が減少し、クラスター全体のスケジューラーがどのPodをどのノードに配置するかの決定に役立ちます。
 
 制限なしでPodをスケジューリングするとWindowsノードに過剰にプロビジョニングされ、極端な場合にはノードの健全性が低下する可能性があります。
 {{< /caution >}}

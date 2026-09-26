@@ -55,7 +55,7 @@ Deployment qui exécute un conteneur utilisant l'image `hpa-example`
 et l'expose en tant que {{< glossary_tooltip term_id="service">}} en utilisant le 
 manifeste suivant:
 
-{{% codenew file="application/php-apache.yaml" %}} 
+{{% code_sample file="application/php-apache.yaml" %}} 
 
 Pour créer les ressources, exécutez la commande suivante:
 ```shell
@@ -92,7 +92,7 @@ Consultez les [détails de l'algorithme](/docs/tasks/run-application/horizontal-
 Créez le HorizontalPodAutoscaler :
 
 ```shell
-kubectl autoscale deployment php-apache --cpu=50% --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
 
 ```
@@ -507,7 +507,7 @@ Cela signifie que vous pouvez voir la valeur de votre métrique fluctuer entre `
 Au lieu d'utiliser la commande `kubectl autoscale` pour créer un HorizontalPodAutoscaler de manière impérative, 
 nous pouvons utiliser le manifeste suivant pour le créer de manière déclarative :
 
-{{% codenew file=application/hpa/php-apache.yaml %}}
+{{% code_sample file=application/hpa/php-apache.yaml %}}
 
 Ensuite, créez l'autoscaler en exécutant la commande suivante :
 

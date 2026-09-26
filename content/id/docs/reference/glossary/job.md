@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   Tugas terbatas atau bertumpuk (_batch_) yang berjalan sampai selesai.

@@ -43,21 +43,27 @@ Namespace 为名字提供作用域。使用多个命名空间是可选的。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/namespace-v1#NamespaceSpec" >}}">NamespaceSpec</a>)
 
   <!--
   Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  spec 定义了 Namespace 的行为。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+  `spec` 定义了 Namespace 的行为。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../cluster-resources/namespace-v1#NamespaceStatus" >}}">NamespaceStatus</a>)
 
   <!--
   Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  status 描述了当前 Namespace 的状态。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+  `status` 描述了当前 Namespace 的状态。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## NamespaceSpec {#NamespaceSpec}
 
@@ -74,7 +80,8 @@ NamespaceSpec 用于描述 Namespace 的属性。
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
   -->
 
-  finalizers 是一个不透明的值列表，只有此列表为空时才能从存储中永久删除对象。 更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
+  `finalizers` 是一个不透明的值列表，只有此列表为空时才能从存储中永久删除对象。
+  更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
   <!--
   *Atomic: will be replaced during a merge*
@@ -100,6 +107,7 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
   
   Represents the latest available observations of a namespace's current state.
   -->
+
   **补丁策略：基于 `type` 健合并**
 
   **Map：键 `type` 的唯一值将在合并期间保留**
@@ -114,11 +122,13 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
 
     Status of the condition, one of True, False, Unknown.
   -->
+
   **NamespaceCondition 包含命名空间状态的详细信息。**
 
   - **conditions.status** (string)，必需
 
-    状况（condition）的状态，取值为 True、False 或 Unknown 之一。
+    状况（condition）的状态，取值为 `True`、`False` 或 `Unknown` 之一。
+
   <!--
   - **conditions.type** (string), required
 
@@ -128,6 +138,7 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
   
     Last time the condition transitioned from one status to another.
   -->
+  
   - **conditions.type** (string), 必需
 
     命名空间控制器状况的类型。
@@ -140,14 +151,16 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
     <!--
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
-    **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
+    
+    **`Time` 是对 `time.Time` 的封装。`Time` 支持对 YAML 和 JSON 进行正确封包。
+    为 `time` 包的许多函数方法提供了封装器。**
 
   - **conditions.message** (string)
 
     <!--
     Human-readable message indicating details about last transition.
     -->
-  
+
     人类可读的消息，指示上次转换的详细信息。
 
   - **conditions.reason** (string)
@@ -155,7 +168,7 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
     <!--
     Unique, one-word, CamelCase reason for the condition's last transition.
     -->
-  
+
     唯一、一个单词、驼峰命名的 Condition 转换原因。
 
 - **phase** (string)
@@ -163,7 +176,9 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
   <!--
   Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
   -->
-  phase 是命名空间的当前生命周期阶段。更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
+  
+  `phase` 是命名空间的当前生命周期阶段。更多信息：
+  https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
 ## NamespaceList {#NamespaceList}
 
@@ -179,10 +194,13 @@ NamespaceList 是一个命名空间列表。
 - **kind**: NamespaceList
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+ 
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
-  标准的列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
 - **items** ([]<a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>), required
@@ -193,7 +211,9 @@ NamespaceList 是一个命名空间列表。
   <!--
   Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
   -->
-  items 是列表中的 Namespace 对象列表。更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/
+  
+  `items` 是列表中的 Namespace 对象列表。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/
 
 <!--
 ## Operations {#Operations}
@@ -228,7 +248,7 @@ GET /api/v1/namespaces/{name}
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 - **pretty** (**查询参数**)：string
 
@@ -247,10 +267,6 @@ GET /api/v1/namespaces/{name}
 ### `get` read status of the specified Namespace
 
 #### HTTP Request
-
-GET /api/v1/namespaces/{name}/status
-
-#### Parameters
 -->
 ### `get` 读取指定 Namespace 的状态
 
@@ -258,6 +274,9 @@ GET /api/v1/namespaces/{name}/status
 
 GET /api/v1/namespaces/{name}/status
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -267,7 +286,7 @@ GET /api/v1/namespaces/{name}/status
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 <!--
 - **pretty** (*in query*): string
 -->
@@ -289,10 +308,6 @@ GET /api/v1/namespaces/{name}/status
 ### `list` list or watch objects of kind Namespace
 
 #### HTTP Request
-
-GET /api/v1/namespaces
-
-#### Parameters
 -->
 ### `list` 列出或者检查类别为 Namespace 的对象
 
@@ -300,6 +315,9 @@ GET /api/v1/namespaces
 
 GET /api/v1/namespaces
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -361,9 +379,16 @@ GET /api/v1/namespaces
 <!--
 - **sendInitialEvents** (*in query*): boolean
 -->
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -392,10 +417,6 @@ GET /api/v1/namespaces
 ### `create` create a Namespace
 
 #### HTTP Request
-
-POST /api/v1/namespaces
-
-#### Parameters
 -->
 ### `create` 创建一个 Namespace
 
@@ -403,6 +424,9 @@ POST /api/v1/namespaces
 
 POST /api/v1/namespaces
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -455,10 +479,6 @@ POST /api/v1/namespaces
 ### `update` replace the specified Namespace
 
 #### HTTP Request
-
-PUT /api/v1/namespaces/{name}
-
-#### Parameters
 -->
 ### `update` 替换指定的 Namespace
 
@@ -466,6 +486,9 @@ PUT /api/v1/namespaces/{name}
 
 PUT /api/v1/namespaces/{name}
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -477,7 +500,7 @@ PUT /api/v1/namespaces/{name}
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>，必需
 
@@ -524,10 +547,6 @@ PUT /api/v1/namespaces/{name}
 ### `update` replace finalize of the specified Namespace
 
 #### HTTP Request
-
-PUT /api/v1/namespaces/{name}/finalize
-
-#### Parameters
 -->
 ### `update` 替换指定 Namespace 的终结器
 
@@ -535,6 +554,9 @@ PUT /api/v1/namespaces/{name}/finalize
 
 PUT /api/v1/namespaces/{name}/finalize
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -546,7 +568,7 @@ PUT /api/v1/namespaces/{name}/finalize
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>，必需
 
@@ -593,10 +615,6 @@ PUT /api/v1/namespaces/{name}/finalize
 ### `update` replace status of the specified Namespace
 
 #### HTTP Request
-
-PUT /api/v1/namespaces/{name}/status
-
-#### Parameters
 -->
 ### `update` 替换指定 Namespace 的状态
 
@@ -604,6 +622,9 @@ PUT /api/v1/namespaces/{name}/status
 
 PUT /api/v1/namespaces/{name}/status
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -615,9 +636,9 @@ PUT /api/v1/namespaces/{name}/status
 -->
 - **name** (**路径阐述**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>，必需  
+- **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -662,10 +683,6 @@ PUT /api/v1/namespaces/{name}/status
 ### `patch` partially update the specified Namespace
 
 #### HTTP Request
-
-PATCH /api/v1/namespaces/{name}
-
-#### Parameters
 -->
 ### `patch` 部分更新指定的 Namespace
 
@@ -673,6 +690,9 @@ PATCH /api/v1/namespaces/{name}
 
 PATCH /api/v1/namespaces/{name}
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -682,7 +702,7 @@ PATCH /api/v1/namespaces/{name}
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -739,10 +759,6 @@ PATCH /api/v1/namespaces/{name}
 ### `patch` partially update status of the specified Namespace
 
 #### HTTP Request
-
-PATCH /api/v1/namespaces/{name}/status
-
-#### Parameters
 -->
 ### `patch` 部分更新指定 Namespace 的状态
 
@@ -750,6 +766,9 @@ PATCH /api/v1/namespaces/{name}/status
 
 PATCH /api/v1/namespaces/{name}/status
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -759,7 +778,7 @@ PATCH /api/v1/namespaces/{name}/status
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -816,16 +835,16 @@ PATCH /api/v1/namespaces/{name}/status
 ### `delete` delete a Namespace
 
 #### HTTP Request
-
-DELETE /api/v1/namespaces/{name}
-
-#### Parameters
 -->
 ### `delete` 删除一个 Namespace
 
 #### HTTP 请求
 
 DELETE /api/v1/namespaces/{name}
+
+<!--
+#### Parameters
+-->
 
 #### 参数
 
@@ -836,7 +855,7 @@ DELETE /api/v1/namespaces/{name}
 -->
 - **name** (**路径参数**)：string，必需
 
-  Namespace 的名称
+  Namespace 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 

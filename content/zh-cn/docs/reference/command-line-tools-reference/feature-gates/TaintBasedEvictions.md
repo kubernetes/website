@@ -15,11 +15,11 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.13"
-    toVersion: "1.17"    
+    toVersion: "1.17"
   - stage: stable
     defaultValue: true
     fromVersion: "1.18"
-    toVersion: "1.20"    
+    toVersion: "1.20"
 
 removed: true
 ---

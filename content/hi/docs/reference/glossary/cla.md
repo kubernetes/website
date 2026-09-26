@@ -1,7 +1,6 @@
 ---
 title: सीएलए (CLA/Contributor License Agreement)
 id: cla
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/CLA.md
 short_description: >
   शर्तें जिसके तहत एक योगदानकर्ता अपने योगदान के लिए एक ओपन सोर्स प्रोजेक्ट को लाइसेंस देता है।

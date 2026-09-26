@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
   Un agent qui s'exécute sur chaque nœud du cluster. Il s'assure que les conteneurs fonctionnent dans un pod.

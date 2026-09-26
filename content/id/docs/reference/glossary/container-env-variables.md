@@ -1,7 +1,6 @@
 ---
 title: Variabel Lingkungan Container
 id: container-env-variables
-date: 2019-06-24
 full_link: /docs/concepts/containers/container-environment-variables/
 short_description: >
   Variabel lingkungan Container merupakan pasangan nama=nilai yang dapat digunakan untuk menyediakan informasi penting bagi Container yang dijalankan pada Pod.

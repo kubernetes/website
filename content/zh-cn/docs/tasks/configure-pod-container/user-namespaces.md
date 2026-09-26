@@ -66,23 +66,10 @@ this is true when user namespaces are used.
 * The node OS needs to be Linux
 * You need to exec commands in the host
 * You need to be able to exec into pods
-* You need to enable the `UserNamespacesSupport`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 -->
 * 节点的操作系统必须为 Linux
 * 你需要在宿主机上执行命令
 * 你需要能够通过 exec 操作进入 Pod
-* 你需要启用 `UserNamespacesSupport` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-
-{{< note >}}
-<!--
-The feature gate to enable user namespaces was previously named
-`UserNamespacesStatelessPodsSupport`, when only stateless pods were supported.
-Only Kubernetes v1.25 through to v1.27 recognise `UserNamespacesStatelessPodsSupport`.
--->
-在 user 名字空间原来仅支持无状态的 Pod 时，启用 user 名字空间的特性门控先前被命名为 `UserNamespacesStatelessPodsSupport`。
-只有 Kubernetes v1.25 到 v1.27 才能识别 `UserNamespacesStatelessPodsSupport`。
-{{</ note >}}
 
 <!--
 The cluster that you're using **must** include at least one node that meets the

@@ -2,11 +2,16 @@
 title: "Orquestación de contenedores para producción"
 abstract: "Automatización del despliegue, escalado y administración de contenedores"
 cid: home
+layout: home
+sitemap:
+  priority: 1.0
 ---
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
-### Kubernetes (K8s) es una plataforma de código abierto para automatizar la implementación, el escalado y la administración de aplicaciones en contenedores.
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), también conocido como K8s, es un sistema de código abierto para automatizar el despliegue, el escalado y la gestión de aplicaciones en contenedores.
 
 Kubernetes agrupa los contenedores que conforman una aplicación en unidades lógicas para una fácil administración y descubrimiento. Kubernetes se basa en [15 años de experiencia en la ejecución de cargas de trabajo de producción en Google](https://queue.acm.org/detail.cfm?id=2898444), combinada con las mejores ideas y prácticas de la comunidad.
 {{% /blocks/feature %}}
@@ -30,28 +35,34 @@ Ya sea para pruebas locales o cargas de trabajo de una empresa global, la flexib
 
 Kubernetes es código abierto lo que le brinda la libertad de aprovechar su infraestructura propia (on-premises), híbrida o de nube pública, lo que le permite mover las cargas de trabajo sin esfuerzo dónde quiera.
 
+Para descargar Kubernetes, visite la sección [download](/es/releases/download/).
+
 {{% /blocks/feature %}}
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-<div class="light-text">
-<h2>El desafío de migrar más de 150 microservicios a Kubernetes</h2>
-        <p>Por Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Ver vídeo</button>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">Asiste a la KubeCon en Europa del 19 al 22 de Marzo 2024</a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2024/" button id="desktopKCButton">Asiste a la KubeCon en Norteamérica del 12 al 15 de Noviembre 2024</a>
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>The Absolute Beginner's Guide To Cloud Native</h2>
+    <p class="presenter-byline">by Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
 </div>
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
 {{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Asista a los próximos eventos de KubeCon + CloudNativeCon</h2>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europa</strong> (Amsterdam, Mar 23-26, 2026)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>Norte America</strong> (Salt Lake City, Nov 9-12, 2026)</a>
+  </div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}

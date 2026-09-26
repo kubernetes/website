@@ -1,7 +1,6 @@
 ---
 title: Horizontal Pod Autoscaler
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /ko/docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   CPU 사용률 또는 사용자 정의 메트릭을 기반으로 파드의 레플리카 수를 자동으로 조절하는 API 리소스이다.

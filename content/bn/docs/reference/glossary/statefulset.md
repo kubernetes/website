@@ -1,7 +1,6 @@
 ---
 title: স্টেটফুলসেট
 id: statefulset
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   একটি স্টেটফুলসেট প্রতিটি পডের জন্য টেকসই স্টোরেজ এবং ক্রমাগত শনাক্তকারী সহ পডের একটি সেট ডিপ্লয়মেন্ট এবং স্কেলিং পরিচালনা করে।

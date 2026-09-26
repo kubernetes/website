@@ -253,7 +253,7 @@ This should confirm that the two key-value pairs from the ConfigMap have been se
 kubectl apply -f env-configmap.yaml
 ```
 ```shell
-kubectl logs pod/ env-configmap
+kubectl logs pod/env-configmap
 ```
 The output is similar to this:
 ```console

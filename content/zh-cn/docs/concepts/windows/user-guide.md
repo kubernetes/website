@@ -354,7 +354,7 @@ it would need both the `nodeSelector` and the appropriate matching toleration to
 ```yaml
 nodeSelector:
     kubernetes.io/os: windows
-    node.kubernetes.io/windows-build: '10.0.17763'
+    node.kubernetes.io/windows-build: '10.0.20348'
 tolerations:
     - key: "os"
       operator: "Equal"
@@ -390,13 +390,13 @@ Kubernetes 自动添加了一个新标签
 <!-- 
 | Product Name                         | Version                |
 |--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
 | Windows Server 2022                  | 10.0.20348             |
+| Windows Server 2025                  | 10.0.26100             |
 -->
 | 产品名称                              |   版本                |
 |--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
-| Windows Server 2022                  | 10.0.20348             |
+| Windows Server 2019                  | 10.0.20348             |
+| Windows Server 2022                  | 10.0.26100             |
 
 <!-- 
 ### Simplifying with RuntimeClass
@@ -425,7 +425,7 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
      nodeSelector:
        kubernetes.io/os: 'windows'
        kubernetes.io/arch: 'amd64'
-       node.kubernetes.io/windows-build: '10.0.17763'
+       node.kubernetes.io/windows-build: '10.0.20348'
      tolerations:
      - effect: NoSchedule
        key: os

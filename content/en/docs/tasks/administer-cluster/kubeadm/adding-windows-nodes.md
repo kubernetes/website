@@ -41,7 +41,7 @@ To install containerd, first run the following command:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/Install-Containerd.ps1
-  ``````
+  ```
 
 Then run the following command, but first replace `CONTAINERD_VERSION` with a recent release
 from the [containerd repository](https://github.com/containerd/containerd/releases).
@@ -63,7 +63,7 @@ Run the following commands to install kubeadm and the kubelet:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/PrepareNode.ps1
-  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentVersion >}}
+  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentPatchVersion >}}
   ```
 
 * Adjust the parameter `KubernetesVersion` of `PrepareNode.ps1` if needed.
@@ -155,7 +155,6 @@ plane nodes must be prepared to support the CNI plugin running on Windows worker
 {{% thirdparty-content %}}
 
 Only a few CNI plugins currently support Windows. Below you can find individual setup instructions for them:
-* [Flannel](https://sigs.k8s.io/sig-windows-tools/guides/flannel.md)
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 
 ### Install kubectl for Windows (optional) {#install-kubectl}

@@ -1,7 +1,6 @@
 ---
 title: kube-proxy
 id: kube-proxy
-date: 2019-11-29
 full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` là một network proxy chạy trên mỗi node trong cluster.

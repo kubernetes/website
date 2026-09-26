@@ -132,7 +132,7 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-위 명령어는 처음에 `examples/application/nginx/` 아래의 리소스를 생성하고, 
+위 명령어는 처음에 `docs/concepts/cluster-administration/nginx/` 아래의 리소스를 생성하고, 
 `-o name`으로 생성된 리소스의 출력 형식을 정한다 (각 리소스를 리소스/이름으로 출력한다).
 서비스만 `grep`한 다음에, [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/)을 사용하여 출력한다.
 
@@ -286,8 +286,6 @@ kubectl rollout status statefulsets/backing-stateful-component --watch=false
 
 ## 카나리아 배포
 
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
-
 여러 레이블이 필요한 또 다른 시나리오는 동일한 컴포넌트 요소의 서로 다른 
 릴리스 또는 구성의 디플로이먼트를 구분하는 것이다. 새 애플리케이션 릴리스의 *카나리아* 버전을
 이전 릴리스와 나란히 배포하는 것이 일반적이다. (파드 템플릿의 이미지 태그를 통해 지정) 
@@ -379,7 +377,7 @@ deployment.apps/my-nginx scaled
 이제 배포에서 관리하는 파드는 하나뿐이다.
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none

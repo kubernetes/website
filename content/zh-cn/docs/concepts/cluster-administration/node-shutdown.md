@@ -21,6 +21,33 @@ either **graceful** or **non-graceful**.
 也可能因断电或其他某些外部原因被意外关闭。如果节点在关闭之前未被排空，则节点关闭可能会导致工作负载失败。
 节点可以**体面关闭**或**非体面关闭**。
 
+{{< caution >}}
+<!--
+The `unattended-upgrades` package from Debian conflicts with node graceful shutdown in
+its normal configuration.
+If you use the default configuration of `unattended-upgrades`, which customizes the server shutdown
+grace period, then the kubelet fails to obtain the necessary lock to handle shutdown events properly.
+
+This happens if the `shutdownGracePeriod` value is greater than 30 seconds.
+To avoid this, you can suppress part of the `unattended-upgrades` configuration,
+by making `/etc/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf` be a symbolic link
+to `/dev/null`.
+
+For more details, refer to the
+[`logind.conf` documentation](https://www.freedesktop.org/software/systemd/man/latest/logind.conf.html).
+-->
+Debian 的 `unattended-upgrades` 软件包在其默认配置下会与节点体面关闭功能冲突。
+如果你使用 `unattended-upgrades` 的默认配置（该配置会自定义服务器关机宽限期），
+则 kubelet 将无法获取处理关闭事件所需的锁。
+
+当 `shutdownGracePeriod` 值大于 30 秒时会发生此问题。
+为避免这种情况，你可以通过将 `/etc/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf`
+设置为指向 `/dev/null` 的符号链接，来抑制 `unattended-upgrades` 的部分配置。
+
+更多详细信息，请参阅
+[`logind.conf` 文档](https://www.freedesktop.org/software/systemd/man/latest/logind.conf.html)。
+{{< /caution >}}
+
 <!-- body -->
 
 <!-- 
@@ -45,7 +72,7 @@ kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所
 <!--
 ### Enabling graceful node shutdown
 -->
-## 启用节点体面关闭 {#enabling-graceful-node-shutdown}
+### 启用节点体面关闭 {#enabling-graceful-node-shutdown}
 
 {{< tabs name="graceful_shutdown_os" >}}
 {{% tab name="Linux" %}}
@@ -126,7 +153,7 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 -->
-## 配置节点体面关闭
+### 配置节点体面关闭 {#configuring-graceful-node-shutdown}
 
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭特性。

@@ -9,9 +9,16 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.37"
 ---
 Enables support for
-[tainting devices and selectively tolerating those taints](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-taints-and-tolerations)
+[tainting devices and selectively tolerating those taints](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations)
 when using dynamic resource allocation to manage devices.
-
-This feature gate has no effect unless you also enable the `DynamicResourceAllocation` feature gate.

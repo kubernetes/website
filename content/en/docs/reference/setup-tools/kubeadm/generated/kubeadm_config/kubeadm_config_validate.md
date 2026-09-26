@@ -40,6 +40,13 @@ kubeadm config validate [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--allow-deprecated-api</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow validation of deprecated APIs.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--allow-experimental-api</td>
 </tr>
 <tr>

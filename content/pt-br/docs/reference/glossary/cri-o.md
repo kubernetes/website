@@ -1,7 +1,6 @@
 ---
 title: CRI-O
 id: cri-o
-date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
   Um agente de execução leve de contêineres criado especificamente para o Kubernetes

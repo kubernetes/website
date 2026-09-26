@@ -1,7 +1,6 @@
 ---
 title: Managed Service
 id: managed-service
-date: 2018-04-12
 full_link: 
 short_description: >
   A software offering maintained by a third-party provider.

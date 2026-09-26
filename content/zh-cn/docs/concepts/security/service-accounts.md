@@ -358,6 +358,40 @@ following methods:
   此特性门控在 v1.27 版本中被移除，因为此特性已升级为正式发布（GA）状态；
   你仍然可以手动为 ServiceAccount 创建无限期的服务账户令牌，但应考虑到安全影响。
 
+<!--
+#### Node audience restriction for service account tokens {#node-audience-restriction}
+-->
+#### 服务账号令牌的节点受众限制  {#node-audience-restriction}
+
+{{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
+
+<!--
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction)
+admission plugin limits which audiences a kubelet can request when creating service
+account tokens via the `TokenRequest` API. By default, the kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests). Administrators can grant
+kubelets access to additional audiences using RBAC rules with the
+`request-serviceaccounts-token-audience` verb.
+-->
+当启用了 `ServiceAccountNodeAudienceRestriction`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
+[NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers#noderestriction)
+限制了 kubelet 在通过 `TokenRequest` API 创建服务账号令牌时可以请求的受众。
+默认情况下，kubelet 只能请求该节点上已有 Pod 引用的受众（通过 projected 服务账号令牌卷或 CSI 驱动程序令牌请求）。
+管理员可以使用带有 `request-serviceaccounts-token-audience`
+动词的 RBAC 规则授予 kubelet 访问其他受众的权限。
+
+<!--
+This restriction applies only to kubelets (node identities) and does not affect other
+callers of the `TokenRequest` API. For details and RBAC examples,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
+-->
+此限制仅适用于 kubelet（节点身份），不影响 `TokenRequest` API 的其他调用者。
+有关详细信息和 RBAC 示例，
+请参阅[服务账号令牌受众限制](/zh-cn/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction)。
+
 {{< note >}}
 <!--
 For applications running outside your Kubernetes cluster, you might be considering
@@ -423,7 +457,8 @@ metadata:
 When this annotation is set to "true", the Kubernetes control plane ensures that
 the Secrets from this ServiceAccount are subject to certain mounting restrictions.
 -->
-当此注解设置为 "true" 时，Kubernetes 控制平面确保来自该 ServiceAccount 的 Secret 受到特定挂载限制。
+当此注解设置为 "true" 时，Kubernetes 控制平面确保来自该 ServiceAccount
+的 Secret 受到特定挂载限制。
 
 <!--
 1. The name of each Secret that is mounted as a volume in a Pod must appear in the `secrets` field of the

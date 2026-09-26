@@ -640,6 +640,41 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod node-debugger-mynode-pdx84
 ```
 
+### Capturing and analyzing Node/Pod traffic
+
+When debugging networking issues, capturing and analyzing network traffic from Nodes/Pods can provide valuable insights
+into connectivity problems, DNS resolution failures, or unexpected network behavior.
+
+You can use `kubectl debug` with the `--profile=sysadmin` flag to run network capture tools on a node.
+First, create a debugging session on the node where your Pod is running:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} -it --image=ubuntu:latest
+```
+
+Once inside the debug container, install tcpdump and capture traffic on the node's network interfaces:
+
+```shell
+apt-get update && apt-get install -y tcpdump
+tcpdump -i any -n
+```
+
+{{< note >}}
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod node-debugger-mynode-pdx84
+```
+{{< /note >}}
+
+You can also capture traffic from a specific Pod:
+
+```shell
+kubectl debug --profile=sysadmin pod/${POD_NAME} -n ${NAMESPACE} -it --image=ubuntu:latest
+```
+
+And then perform the same `tcpdump` command inside the debug container to capture traffic from the Pod's network namespace.
+
 ## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 
 When using `kubectl debug` to debug a node via a debugging Pod, a Pod via an ephemeral container, 

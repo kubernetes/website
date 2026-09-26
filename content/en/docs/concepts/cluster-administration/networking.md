@@ -56,9 +56,9 @@ Kubernetes clusters, attending to the IP families configured, can be categorized
   - All components must agree on the configured primary IP family.
 
 Kubernetes clusters only consider the IP families present on the Pods, Services and Nodes objects,
-independently of the existing IPs of the represented objects. Per example, a server or a pod can have multiple
-IP addresses on its interfaces, but only the IP addresses in `node.status.addresses` or `pod.status.ips` are
-considered for implementing the Kubernetes network model and defining the type of the cluster.
+independently of the existing IPs of the represented objects. For example, a server or a pod can have multiple
+IP addresses assigned to its interfaces, but only the IP addresses in `node.status.addresses` or `pod.status.ips` are
+considered when implementing the Kubernetes network model and defining the cluster type.
 
 ## How to implement the Kubernetes network model
 

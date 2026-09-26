@@ -86,6 +86,16 @@ Here's an example of a Deployment with two containers, one of which is a sidecar
 
 下面是一个包含两个容器的 Deployment 示例，其中一个容器是边车形式：
 
+{{< note >}}
+<!--
+In this example, the sidecar container is intentionally defined under `initContainers`
+with `restartPolicy: Always`. Kubernetes treats such containers as sidecars that continue
+running for the lifetime of the Pod.
+-->
+在此示例中，边车容器被有意定义在 `initContainers` 下，并设置了 `restartPolicy: Always`。
+Kubernetes 会将此类容器视为边车容器，并在整个 Pod 生命周期内持续运行。
+{{< /note >}}
+
 {{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
 <!--

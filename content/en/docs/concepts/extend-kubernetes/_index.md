@@ -185,7 +185,8 @@ For more about Custom Resources, see the
 ### API aggregation layer
 
 You can use Kubernetes' [API Aggregation Layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-to integrate the Kubernetes API with additional services such as for [metrics](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/).
+to integrate the Kubernetes API with additional services such as the
+[Metrics API](/docs/concepts/cluster-administration/observability/#metrics-api).
 
 ### Combining new APIs with automation
 
@@ -272,7 +273,7 @@ you run a Pod that relies on FlexVolume storage, the kubelet calls a binary plug
 The archived [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 design proposal has more detail on this approach.
 
-The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 includes general information on storage plugins.
 
 ### Network plugins

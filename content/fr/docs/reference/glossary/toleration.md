@@ -1,7 +1,6 @@
 ---
 title: Toleration
 id: toleration
-date: 2019-01-11
 full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
   Un objet de base composé de trois caractéristiques requises : clé, valeur et effet. Les tolérances permettent d'ordonnancer les pods sur les nœuds ou les groupes de nœuds qui ont un marquage compatible.

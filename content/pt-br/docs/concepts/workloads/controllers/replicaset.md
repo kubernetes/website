@@ -28,7 +28,7 @@ prefira usar um Deployment, e defina sua aplicação na seção spec.
 
 ## Exemplo
 
-{{% codenew file="controllers/frontend.yaml" %}}
+{{% code_sample file="controllers/frontend.yaml" %}}
 
 Salvando esse manifesto como `frontend.yaml` e submetendo no cluster Kubernetes irá criar o ReplicaSet definido e os Pods mantidos pelo mesmo.
 
@@ -135,7 +135,7 @@ Enquanto você pode criar Pods diretamente sem problemas, é fortemente recomend
 
 Observe o exemplo anterior do ReplicaSet frontend, e seus Pods especificados no seguinte manifesto:
 
-{{% codenew file="pods/pod-rs.yaml" %}}
+{{% code_sample file="pods/pod-rs.yaml" %}}
 
 Como esses Pods não possuem um Controller (ou qualquer objeto) referenciados como seu dono e possuem labels que combinam com o seletor do ReplicaSet frontend, eles serão imediatamente adquiridos pelo ReplicaSet.
 
@@ -303,7 +303,7 @@ Um ReplicaSet pode também ser controlado por um
 [Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). Isto é,
 um ReplicaSet pode ser automaticamente escalonado por um HPA. Aqui está um exemplo de um HPA controlando o ReplicaSet que nós criamos no exemplo anterior.
 
-{{% codenew file="controllers/hpa-rs.yaml" %}}
+{{% code_sample file="controllers/hpa-rs.yaml" %}}
 
 Salvando esse manifesto como `hpa-rs.yaml` e enviando para o cluster Kubernetes deve 
 criar um HPA definido que autoescalona o ReplicaSet controlado dependendo do uso de CPU 
@@ -318,7 +318,7 @@ Alternativamente, você pode usar o comando `kubectl autoscale` para realizar a 
 (e é bem mais simples!)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## Alternativas ao ReplicaSet
@@ -331,7 +331,7 @@ Por isso, é recomendado o uso de Deployments quando você deseja ReplicaSets.
 
 ### Bare Pods
 
-Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptiva de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um container local para algum agente do nó (Kubelet ou Docker, por exemplo).
+Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptiva de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um contêiner local para algum agente do nó (Kubelet ou Docker, por exemplo).
 
 ### Job
 

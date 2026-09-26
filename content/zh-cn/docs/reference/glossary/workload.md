@@ -1,10 +1,9 @@
 ---
 title: 工作负载（Workload）
 id: workload
-date: 2019-02-13
 full_link: /zh-cn/docs/concepts/workloads/
 short_description: >
-   工作负载是在 Kubernetes 上运行的应用程序。
+   工作负载是在 Kubernetes 上运行的应用。
 
 aka: 
 tags:
@@ -13,7 +12,6 @@ tags:
 <!-- 
 title: Workload
 id: workload
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    A workload is an application running on Kubernetes.
@@ -24,11 +22,11 @@ tags:
 -->
 
 <!-- 
-   A workload is an application running on Kubernetes.
+A workload is an application running on Kubernetes.
 -->
-   工作负载是在 Kubernetes 上运行的应用程序。
+工作负载是在 Kubernetes 上运行的应用。
 
-<!--more--> 
+<!--more-->
 
 <!-- 
 Various core objects that represent different types or parts of a workload
@@ -42,4 +40,4 @@ in a {{< glossary_tooltip term_id="Deployment" >}}.
 
 例如，具有 Web 服务器和数据库的工作负载可能在一个
 {{< glossary_tooltip term_id="StatefulSet" >}} 中运行数据库，
-而 Web 服务器运行在 {{< glossary_tooltip term_id="Deployment" >}}。
+而 Web 服务器运行在 {{< glossary_tooltip term_id="Deployment" >}} 中。

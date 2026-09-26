@@ -1,7 +1,6 @@
 ---
 title: Drain
 id: drain
-date: 2024-12-27
 full_link:
 short_description: >
   Safely evicts Pods from a Node to prepare for maintenance or removal.

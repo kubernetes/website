@@ -234,7 +234,7 @@ Os seguintes provedores de nuvem implementaram CCMs:
 
 ## Administração de Cluster
 
-Voce vai encontrar instruções completas para configurar e executar o CCM
+Você vai encontrar instruções completas para configurar e executar o CCM
 [aqui](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
 

@@ -104,17 +104,17 @@ sudo apt-cache madison kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
-For systems with DNF:
+For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo dnf list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 For systems with DNF5:
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-sudo yum list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
+sudo dnf list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -146,15 +146,15 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
-   For systems with DNF:
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -241,6 +241,13 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 ### Upgrade kubelet and kubectl
 
+{{< note >}}
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+{{</ note >}}
+
 1. Upgrade the kubelet and kubectl:
 
    {{< tabs name="k8s_install_kubelet" >}}
@@ -256,15 +263,15 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
-   For systems with DNF:   
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:   
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}

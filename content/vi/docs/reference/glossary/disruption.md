@@ -1,7 +1,6 @@
 ---
 title: Disruption
 id: disruption
-date: 2019-09-10
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   Một sự kiện dẫn đến Pod(s) bị ngừng hoạt động

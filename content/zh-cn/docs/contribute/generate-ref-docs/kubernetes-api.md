@@ -63,8 +63,16 @@ Get a local clone of the following repositories:
 获取以下仓库的本地克隆：
 
 ```shell
-go get -u github.com/kubernetes-sigs/reference-docs
+git clone github.com/kubernetes-sigs/reference-docs
+```
 
+<!--
+Move into the `gen-apidocs` directory of the `reference-docs` repository and install the required Go packages:
+-->
+将其移动到 `reference-docs` 仓库的 `gen-apidocs` 目录中，
+并安装所需的 Go 包：
+
+```shell
 go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
 ```
@@ -75,40 +83,42 @@ If you don't already have the kubernetes/website repository, get it now:
 如果你还没有下载过 `kubernetes/website` 仓库，现在下载：
 
 ```shell
-git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
+git clone https://github.com/<your-username>/website
 ```
 
 <!-- 
-Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes: 
+Get a clone of the kubernetes/kubernetes repository： 
 -->
-克隆 kubernetes/kubernetes 仓库作为 k8s.io/kubernetes：
+克隆 `kubernetes/kubernetes` 仓库：
 
 ```shell
-git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+git clone https://github.com/kubernetes/kubernetes
 ```
 
 <!-- 
 * The base directory of your clone of the
   [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-  `$GOPATH/src/k8s.io/kubernetes.`
+  `<your-path-to>/src/k8s.io/kubernetes.`
   The remaining steps refer to your base directory as `<k8s-base>`.
 
 * The base directory of your clone of the
   [kubernetes/website](https://github.com/kubernetes/website) repository is
-  `$GOPATH/src/github.com/<your username>/website.`
+  `<your-path-to>/src/github.com/<your username>/website.`
   The remaining steps refer to your base directory as `<web-base>`.
 
 * The base directory of your clone of the
   [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`.
+  repository is `<your-path-to>/src/github.com/kubernetes-sigs/reference-docs`.
   The remaining steps refer to your base directory as `<rdocs-base>`.
 -->
 * [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 仓库克隆后的根目录为
-  `$GOPATH/src/k8s.io/kubernetes`。 后续步骤将此目录称为 `<k8s-base>`。
+  `<your-path-to>/src/k8s.io/kubernetes`。 后续步骤将此目录称为 `<k8s-base>`。
+
 * [kubernetes/website](https://github.com/kubernetes/website) 仓库克隆后的根目录为
-  `$GOPATH/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
+  `<your-path-to>/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
+
 * [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
+  仓库克隆后的基本目录为 `<your-path-to>/src/github.com/kubernetes-sigs/reference-docs`。
   后续步骤将此目录称为 `<rdocs-base>`。
 
 <!-- 
@@ -147,8 +157,8 @@ For example:
 例如：
 
 ```shell
-export K8S_WEBROOT=${GOPATH}/src/github.com/<your-username>/website
-export K8S_ROOT=${GOPATH}/src/k8s.io/kubernetes
+export K8S_WEBROOT=<your-path-to>/website
+export K8S_ROOT=<your-path-to>/kubernetes
 export K8S_RELEASE=1.17.0
 ```
 
@@ -188,8 +198,7 @@ Run the following command in `<rdocs-base>`:
 ### 构建 API 参考文档 
 
 构建目标 `copyapi` 会生成 API 参考文档并将所生成文件复制到
-`<web-base` 中的目录下。
-在 `<rdocs-base>` 目录中运行以下命令：
+`<web-base` 中的目录下。在 `<rdocs-base>` 目录中运行以下命令：
 
 ```shell
 cd <rdocs-base>
@@ -238,43 +247,26 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navDat
 static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
-<!-- 
-## Update the API reference index pages
-
-When generating reference documentation for a new release, update the file,
-`<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` with the new
-version number.
--->
-## 更新 API 参考索引页面
-
-在为新发行版本生成参考文档时，需要更新下面的文件，使之包含新的版本号：
-`<web-base>/content/en/docs/reference/kubernetes-api/api-index.md`。
-
 <!--
-* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing,
-  and update the API reference version number. For example:
+## API reference location and versioning
 
-  ```
-  title: v1.17
-  [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
-  ```
+The generated API reference files (HTML version) are copied to `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`. This directory contains the standalone HTML API documentation.
 -->
-* 打开并编辑 `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md`，
-  API 参考的版本号。例如：
+## API 参考位置和版本控制
 
-  ```
-  title: v1.17
-  [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
-  ```
+生成的 API 参考文件（HTML 版本）被复制到
+`<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`。
+此目录包含了独立的 HTML API 文档。
 
+{{< note >}}
 <!--
-* Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
-  new link for the latest API reference. Remove the oldest API reference version.
-  There should be five links to the most recent API references.
+The Markdown version of the API reference located at `<web-base>/content/en/docs/reference/kubernetes-api/`
+is generated separately using the [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs) generator.
 -->
-* 打开编辑 `<web-base>/content/en/docs/reference/_index.md`，添加指向最新 API
-  参考的链接，删除最老的 API 版本。
-  通常保留最近的五个版本的 API 参考的链接。
+API 参考的 Markdown 版本位于 `<web-base>/content/en/docs/reference/kubernetes-api/`，
+是使用 [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs)
+生成器单独生成的。
+{{< /note >}}
 
 <!--
 ## Locally test the API reference
@@ -288,7 +280,11 @@ Verify the [local preview](http://localhost:1313/docs/reference/generated/kubern
 检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/)。
 
 <!--
-# if not already done
+```shell
+cd <web-base>
+git submodule update --init --recursive --depth 1 # if not already done
+make container-serve
+```
 -->
 ```shell
 cd <web-base>

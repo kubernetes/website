@@ -231,7 +231,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-또는 _notion_ 연산자를 통해 부정 일치로 제한할 수 있다.
+또는 _notin_ 연산자를 통해 부정 일치로 제한할 수 있다.
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'

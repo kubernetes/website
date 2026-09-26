@@ -111,9 +111,22 @@ the configuration. For each handler, create a corresponding RuntimeClass object.
 The RuntimeClass resource currently only has 2 significant fields: the RuntimeClass name
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
 -->
-RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 (`metadata.name`) 和 handler (`handler`)。
+RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名（`metadata.name`）和 handler（`handler`）。
 对象定义如下所示：
 
+<!--
+```yaml
+# RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  # The name the RuntimeClass will be referenced by.
+  # RuntimeClass is a non-namespaced resource.
+  name: myclass 
+# The name of the corresponding CRI configuration
+handler: myconfiguration 
+```
+-->
 ```yaml
 # RuntimeClass 定义于 node.k8s.io API 组
 apiVersion: node.k8s.io/v1
@@ -181,7 +194,8 @@ error message.
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
 to the behavior when the RuntimeClass feature is disabled.
 -->
-如果未指定 `runtimeClassName`，则将使用默认的 RuntimeHandler，相当于禁用 RuntimeClass 功能特性。
+如果未指定 `runtimeClassName`，则将使用默认的 RuntimeHandler，
+相当于禁用 RuntimeClass 功能特性。
 
 <!--
 ### CRI Configuration
@@ -231,7 +245,8 @@ handler 需要配置在
 <!--
 See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) for more details.
 -->
-更详细信息，请查阅 CRI-O [配置文档](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
+更详细信息，请查阅 CRI-O
+[配置文档](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
 
 <!--
 ## Scheduling
@@ -257,8 +272,8 @@ the intersection of the set of nodes selected by each. If there is a conflict, t
 rejected.
 -->
 为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被
-`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
-Pod 的 nodeSelector 合并，取二者的交集。如果有冲突，Pod 将会被拒绝。
+`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 `nodeSelector` 将会与
+Pod 的 `nodeSelector` 合并，取二者的交集。如果有冲突，Pod 将会被拒绝。
 
 <!--
 If the supported nodes are tainted to prevent other RuntimeClass pods from running on the node, you
@@ -273,8 +288,8 @@ by each.
 To learn more about configuring the node selector and tolerations, see
 [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
-更多有关 node selector 和 tolerations 的配置信息，请查阅
-[将 Pod 分派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
+更多有关 node selector 和 tolerations 的配置信息，
+请查阅[将 Pod 分派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 
 <!--
 ### Pod Overhead
@@ -295,17 +310,20 @@ you can specify the overhead of running pods utilizing this RuntimeClass and ens
 are accounted for in Kubernetes.
 -->
 Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
-通过使用这个字段，你可以指定使用该 RuntimeClass 运行 Pod 时的开销并确保 Kubernetes 将这些开销计算在内。
+通过使用这个字段，你可以指定使用该 RuntimeClass 运行 Pod 时的开销并确保
+Kubernetes 将这些开销计算在内。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
+- {{< api-reference page="node/runtime-class-v1" text="RuntimeClass API reference" >}}
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 -->
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
+- {{< api-reference page="node/runtime-class-v1" text="RuntimeClass API reference" >}}
 - 阅读关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)的概念
 - [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

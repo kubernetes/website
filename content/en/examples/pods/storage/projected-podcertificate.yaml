@@ -18,9 +18,12 @@ spec:
   volumes:
   - name: my-x509-credentials
     projected:
-      defaultMode: 420
+      defaultMode: 0644
       sources:
       - podCertificate:
           keyType: ED25519
           signerName: coolcert.example.com/foo
           credentialBundlePath: credentialbundle.pem
+          userAnnotations:
+            example.com/annotation1: "value1"
+            example.com/annotation2: "value2"

@@ -40,7 +40,7 @@ sees.  The simplest way to do this is to run an interactive busybox Pod:
 最简单的方法是运行一个交互式的 busybox Pod：
 
 ```none
-kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
+kubectl run -it --rm --restart=Never busybox --image=registry.k8s.io/busybox:1.27.2 sh
 ```
 
 <!--
@@ -520,7 +520,7 @@ Assuming you have confirmed that DNS works, the next thing to test is whether yo
 Service works by its IP address.  From a Pod in your cluster, access the
 Service's IP (from `kubectl get` above).
 -->
-### Service 能够通过 IP 访问么？   {#does-the-service-work-by-ip}
+## Service 能够通过 IP 访问么？   {#does-the-service-work-by-ip}
 
 假设你已经确认 DNS 工作正常，那么接下来要测试的是你的 Service 能否通过它的 IP 正常访问。
 从集群中的一个 Pod，尝试访问 Service 的 IP（从上面的 `kubectl get` 命令获取）。
@@ -668,7 +668,7 @@ every Service and saves the results into a corresponding EndpointSlice object.
 EndpointSlice 对象中。
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=hostnames
+kubectl get endpointslices -l kubernetes.io/service-name=hostnames
 ```
 
 ```

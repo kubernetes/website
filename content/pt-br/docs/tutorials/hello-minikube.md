@@ -173,7 +173,7 @@ Para mais informações sobre o comando `kubectl`, consulte
 ## Criando um Service
 
 Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no cluster
-Kubernetes. Para dispobiblilizar o contêiner `hello-node` fora da rede virtual do
+Kubernetes. Para disponibilizar o contêiner `hello-node` fora da rede virtual do
 Kubernetes, você deve expor o Pod como um
 [*Service*](/docs/concepts/services-networking/service/) do Kubernetes.
 

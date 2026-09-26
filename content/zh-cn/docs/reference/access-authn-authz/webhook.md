@@ -19,8 +19,8 @@ weight: 36
 <!--
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen.
 -->
-WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST
-发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL。
+Webhook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST
+发送的简单事件通知。一个基于 web 应用实现的 Webhook 会在特定事件发生时把消息发送给特定的 URL。
 
 <!-- body -->
 
@@ -129,8 +129,9 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 -->
-在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview`
-对象来描述这个动作。这个对象包含了描述用户请求的字段，同时也包含了需要被访问资源或请求特征的具体信息。
+在做认证决策时，API 服务器会 POST 一个 JSON 序列化的 `authorization.k8s.io/v1beta1`
+`SubjectAccessReview` 对象来描述这个动作。这个对象包含了描述用户请求的字段，
+同时也包含了需要被访问资源或请求特征的具体信息。
 
 <!--
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
@@ -239,7 +240,7 @@ The webhook would return:
 <!--
 Access to non-resource paths are sent as:
 -->
-对于非资源的路径访问是这么发送的:
+对于非资源的路径访问是这么发送的：
 
 ```json
 {
@@ -262,12 +263,13 @@ Access to non-resource paths are sent as:
 {{< feature-state feature_gate_name="AuthorizeWithSelectors" >}}
 
 <!--
-With the `AuthorizeWithSelectors` feature enabled, field and label selectors in the request
-are passed to the authorization webhook. The webhook can make authorization decisions
+When calling out to an authorization webhook, Kubernetes passes
+label and field selectors in the request to the authorization webhook.
+The authorization webhook can make authorization decisions
 informed by the scoped field and label selectors, if it wishes.
 -->
-启用 `AuthorizeWithSelectors` 特性后，请求中的字段和标签选择算符将被传递给授权 Webhook。
-此 Webhook 可以根据作用域字段和标签选择算符做出授权决策（如果它愿意的话）。
+当调用授权 Webhook 时，Kubernetes 会在请求中向授权 Webhook 传递标签和字段选择器。
+此授权 Webhook 可以根据作用域字段和标签选择算符做出授权决策（如果它愿意的话）。
 
 <!--
 The [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
@@ -276,7 +278,8 @@ specifically using the parsed requirements rather than the raw selector strings,
 and how to handle unrecognized operators safely.
 -->
 [SubjectAccessReview API 文档](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)提供了这些字段应如何被授权
-Webhook 解释和处理的指南，特别是应使用解析后的要求而不是原始选择算符字符串，以及如何安全地处理未识别的操作符。
+Webhook 解释和处理的指南，特别是应使用解析后的要求而不是原始选择算符字符串，
+以及如何安全地处理未识别的操作符。
 
 ```json
 {
@@ -328,4 +331,4 @@ and
 -->
 更多信息请参阅
 [SubjectAccessReview API 文档](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)和
-[webhook.go 实现](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。
+[`webhook.go` 实现](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。

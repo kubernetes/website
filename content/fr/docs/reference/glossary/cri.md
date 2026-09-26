@@ -1,7 +1,6 @@
 ---
 title: Container Runtime Interface (CRI)
 id: cri
-date: 2019-03-07
 full_link: https://kubernetes.io/docs/concepts/overview/components/#container-runtime
 short_description: >
     Une API pour les runtimes de conteneurs à intégrer avec kubelet

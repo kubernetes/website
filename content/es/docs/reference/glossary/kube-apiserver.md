@@ -1,7 +1,6 @@
 ---
 title: API Server
 id: kube-apiserver
-date: 2020-07-01
 full_link: /docs/reference/generated/kube-apiserver/
 short_description: >
   Componente del plano de control que expone la API de Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: जॉब (Job)
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   एक परिमित या बैच कार्य जो पूरा होने तक चलता है।

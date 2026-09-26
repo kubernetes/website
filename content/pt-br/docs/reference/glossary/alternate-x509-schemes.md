@@ -1,7 +1,6 @@
 ---
 title: Esquemas alternativos x509 
 id: alternate-x509-schemes
-date: 2021-03-16
 full_link: 
 short_description: >
    X.509 é um formato padrão para certificados de chave pública, documentos digitais que associam com segurança pares de chaves criptográficas a identidades como sites, indivíduos ou organizações.

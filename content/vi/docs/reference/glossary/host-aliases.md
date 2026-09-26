@@ -1,7 +1,6 @@
 ---
 title: Khai báo hosts tùy chỉnh cho Pod (HostAliases)
 id: HostAliases
-date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
 short_description: >
   HostAliases là danh sách ánh xạ giữa địa chỉ IP và tên máy (hostname) sẽ được chèn vào tệp hosts của Pod.

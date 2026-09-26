@@ -253,12 +253,11 @@ You can enable this option by adding `prefer-closest-numa-nodes=true` to the Top
 By default (without this option), the Topology Manager aligns resources on either a single NUMA node or,
 in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
 
-### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+### `max-allowable-numa-nodes` {#policy-option-max-allowable-numa-nodes}
 
-The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}},
-this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
-`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-are enabled.
+The `max-allowable-numa-nodes` option is GA since Kubernetes 1.35. In Kubernetes {{< skew currentVersion >}},
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 
 The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
 By default, Kubernetes does not run a kubelet with the Topology Manager enabled, on any (Kubernetes) node where
@@ -272,7 +271,7 @@ lack of data, using this policy option with Kubernetes {{< skew currentVersion >
 at your own risk.
 {{< /note >}}
 
-You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+You can enable this option by adding `max-allowable-numa-nodes=<integer>` to the Topology Manager policy options, where the integer value must be greater than 8. The default is 8, which preserves the existing limit.
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
 latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
@@ -396,3 +395,7 @@ assignments.
 
 1. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
+
+## {{% heading "whatsnext" %}}
+
+- Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).

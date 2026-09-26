@@ -1,13 +1,15 @@
 ---
+# empty lines kept for alignment with the original EN file
+#
 title: Kubernetes — Dokumentacja
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "Dokumentacja"
 main_menu: true
 weight: 10
 hide_feedback: true
+notoc: true
 menu:
   main:
     title: "Dokumentacja"

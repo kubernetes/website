@@ -3,6 +3,8 @@ title: kubectl replace
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  通过文件名或标准输入替换资源
 ---
 <!--
 title: kubectl replace
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Replace a resource by file name or stdin
 -->
 
 ## {{% heading "synopsis" %}}
@@ -69,7 +73,7 @@ kubectl replace --force -f ./pod.json
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -80,140 +84,162 @@ kubectl replace --force -f ./pod.json
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："background"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
 -->
 必须是 "background"、"orphan" 或 "foreground"。
 选择依赖项（例如，由 ReplicationController 创建的 Pod）的删除级联策略，
 默认为 background。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-replace"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The files that contain the configurations to replace.
 -->
 包含了待替换的配置信息的文件列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--force</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
 -->
 如果为真，则立即从 API 中移除资源并略过体面删除处理。
 请注意，立即删除某些资源可能会导致不一致或数据丢失，并且需要确认操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：-1</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
 -->
 指定给资源的体面终止时间（以秒为单位）。
 如果为负数则忽略，为 1 表示立即关闭。
 仅当 --force 为真（强制删除）时才可以设置为 0。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for replace
 -->
 replace 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process a kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录，此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, name, kyaml, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、name、kyaml、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--raw string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Raw URI to PUT to the server.  Uses the transport specified by the kubeconfig file.
 -->
 标志值为以 PUT 方式发送到服务器上的原始 URI。使用 kubeconfig 文件中指定的传输方式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -226,7 +252,8 @@ Raw URI to PUT to the server.  Uses the transport specified by the kubeconfig fi
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -240,7 +267,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -253,7 +281,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -266,7 +295,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 If specified, replace will operate on the subresource of the requested object.
 -->
 如果指定此标志，replace 将操作所请求对象的子资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -280,7 +310,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -293,7 +324,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 -->
 放弃删除之前等待的时长；标志值为 0 表示根据对象的大小确定超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -333,7 +365,8 @@ silently dropping any unknown or duplicate fields.
 If true, wait for resources to be gone before returning. This waits for finalizers.
 -->
 如果为真，则等待资源消失后再返回。此参数会等待终结器被清空。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -358,7 +391,8 @@ If true, wait for resources to be gone before returning. This waits for finalize
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -371,7 +405,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -384,7 +419,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -397,7 +447,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -410,7 +461,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -423,7 +475,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -436,7 +489,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -449,7 +503,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 kubeconfig 中要使用的集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -562,9 +617,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
@@ -645,7 +700,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -657,7 +713,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -669,7 +726,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -681,7 +739,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -693,7 +752,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -705,7 +765,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -717,7 +778,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
@@ -729,7 +791,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -741,7 +804,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
@@ -753,7 +817,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->

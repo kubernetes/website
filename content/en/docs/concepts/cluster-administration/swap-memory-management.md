@@ -60,7 +60,7 @@ The swap behaviors you can choose for Linux nodes are:
 If you choose the NoSwap behavior, and you configure the kubelet to tolerate
 swap space (`failSwapOn: false`), then your workloads don't use any swap.
 
-However, processes outside of Kubernetes-managed containers, such as systemi
+However, processes outside of Kubernetes-managed containers, such as systemd
 services (and even the kubelet itself!) **can** utilize swap.
 {{< /note >}}
 
@@ -111,7 +111,7 @@ node2   5m           10%      6Mi             10%         2Mi            0%
 node3   3m           10%      4Mi             10%         <unknown>      <unknown>   
 ```
 
-In order to receive information about swap usage by pods, `kubectl top nodes --show-swap` can be used:
+In order to receive information about swap usage by pods, `kubectl top pods --show-swap` can be used:
 ```shell
 kubectl top pod -n kube-system --show-swap
 ```
@@ -230,7 +230,7 @@ In order to verify whether the node supports the `noswap` option, the kubelet wi
   * If the `noswap` option is not supported, kubelet will emit a warning log entry,
     then continue its execution.
 
-See the [section above](#setting-up-encrypted-swap) with an example for setting unencrypted swap.
+See [Configuring swap memory on Kubernetes nodes](/docs/tutorials/cluster-management/provision-swap-memory/) for an example of setting up swap.
 However, handling encrypted swap is not within the scope of kubelet;
 rather, it is a general OS configuration concern and should be addressed at that level.
 It is the administrator's responsibility to provision encrypted swap to mitigate this risk.
@@ -366,7 +366,7 @@ precise allocation of resources specified by the workload, with memory being imm
 To maintain the aforementioned security and node health guarantees,
 these Pods are not permitted to use swap memory when `LimitedSwap` is in effect.
 In addition, high-priority pods are not permitted to use swap in order to ensure the memory
-they consume always residents on disk, hence ready to use.
+they consume always resides in RAM, hence ready to use.
 
 Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
 * `nodeTotalMemory`: The total amount of physical memory available on the node.

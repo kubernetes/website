@@ -167,7 +167,7 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 
 - Se um mau ator conseguir roubar um token de inicialização através de algum tipo
   de vulnerabilidade, este mau ator conseguirá utilizar o token (juntamente com
-  accesso a nível de rede) para personificar um nó da camada de gerenciamento
+  acesso a nível de rede) para personificar um nó da camada de gerenciamento
   perante os outros nós de processamento. Esta contrapartida pode ou não ser
   aceitável no seu ambiente.
 

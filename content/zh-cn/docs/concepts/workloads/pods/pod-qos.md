@@ -66,12 +66,12 @@ to face eviction. They are guaranteed not to be killed until they exceed their l
 or there are no lower-priority Pods that can be preempted from the Node. They may
 not acquire resources beyond their specified limits. These Pods can also make
 use of exclusive CPUs using the
-[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
+[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy.
 -->
 `Guaranteed` Pod 具有最严格的资源限制，并且最不可能面临驱逐。
 在这些 Pod 超过其自身的限制或者没有可以从 Node 抢占的低优先级 Pod 之前，
 这些 Pod 保证不会被杀死。这些 Pod 不可以获得超出其指定 limit 的资源。这些 Pod 也可以使用
-[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy)
+[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration)
 CPU 管理策略来使用独占的 CPU。
 
 <!--
@@ -84,15 +84,31 @@ For a Pod to be given a QoS class of `Guaranteed`:
 Pod 被赋予 `Guaranteed` QoS 类的几个判据：
 
 <!--
-* Every Container in the Pod must have a memory limit and a memory request.
+* Every Container in the Pod must have a memory limit and a memory request, both greater than zero.
 * For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
+* Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 -->
-* Pod 中的每个容器必须有内存 limit 和内存 request。
+* Pod 中的每个容器必须有内存 limit 和内存 request，两者都必须大于零。
 * 对于 Pod 中的每个容器，内存 limit 必须等于内存 request。
-* Pod 中的每个容器必须有 CPU limit 和 CPU request。
+* Pod 中的每个容器必须有 CPU limit 和 CPU request，两者都必须大于零。
 * 对于 Pod 中的每个容器，CPU limit 必须等于 CPU request。
+
+<!--
+If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
+* The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
+-->
+如果 Pod 使用的是
+[Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* Pod 必须设置 Pod 级别的内存 limit 和内存 request，并且这两个值必须相等。
+* Pod 必须设置 Pod 级别的 CPU limit 和 CPU request，并且这两个值必须相等。
 
 ### Burstable
 
@@ -117,14 +133,16 @@ that is `Burstable` can try to use any amount of node resources.
 A Pod is given a QoS class of `Burstable` if:
 
 * The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+* At least one Container in the Pod has a memory or CPU request or limit,
+  or the Pod has a Pod-level memory or CPU request or limit.
 -->
 #### 判据   {#criteria-1}
 
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
 * Pod 不满足针对 QoS 类 `Guaranteed` 的判据。
-* Pod 中至少一个容器有内存或 CPU 的 request 或 limit。
+* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或
+  CPU 的 request 或 limit。
 
 ### BestEffort
 
@@ -148,7 +166,7 @@ The kubelet prefers to evict `BestEffort` Pods if the node comes under resource 
 A Pod has a QoS class of `BestEffort` if it doesn't meet the criteria for either `Guaranteed`
 or `Burstable`. In other words, a Pod is `BestEffort` only if none of the Containers in the Pod have a
 memory limit or a memory request, and none of the Containers in the Pod have a
-CPU limit or a CPU request.
+CPU limit or a CPU request,and the Pod does not have any Pod-level memory or CPU limits or requests.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 -->
@@ -156,7 +174,8 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 如果 Pod 不满足 `Guaranteed` 或 `Burstable` 的判据，则它的 QoS 类为 `BestEffort`。
 换言之，只有当 Pod 中的所有容器没有内存 limit 或内存 request，也没有 CPU limit 或
-CPU request 时，Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外的）
+CPU request，且 Pod 本身 也没有设置任何 Pod 级别的内存或 CPU 的 limit 或 request 时，
+Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外的）
 其他资源并且仍然被归类为 `BestEffort`。
 
 <!--
@@ -167,27 +186,186 @@ CPU request 时，Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 C
 {{< feature-state feature_gate_name="MemoryQoS" >}}
 
 <!--
-Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
-Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
-and `memory.high` provided by the memory controller. When `memory.min` is set to memory requests,
-memory resources are reserved and never reclaimed by the kernel; this is how Memory QoS ensures
-memory availability for Kubernetes pods. And if memory limits are set in the container,
-this means that the system needs to limit container memory usage; Memory QoS uses `memory.high`
-to throttle workload approaching its memory limit, ensuring that the system is not overwhelmed
-by instantaneous memory allocation.
+[Memory QoS](/docs/reference/command-line-tools-reference/feature-gates/#memoryqos) uses the memory controller of cgroup v2 to manage memory throttling
+and protection in Kubernetes. It uses the Pod's QoS class to decide which cgroup
+settings to apply, but it does not change how Pods are classified.
+
+The default `kubelet` configuration does not enable memory
+throttling or memory protection. To enable either behavior, [configure](/docs/reference/config-api/kubelet-config.v1beta1/)
+`memoryThrottlingFactor` or `memoryReservationPolicy`, respectively.
 -->
-内存 QoS 使用 cgroup v2 的内存控制器来保证 Kubernetes 中的内存资源。
-Pod 中容器的内存请求和限制用于设置由内存控制器所提供的特定接口 `memory.min` 和 `memory.high`。
-当 `memory.min` 被设置为内存请求时，内存资源被保留并且永远不会被内核回收；
-这就是内存 QoS 确保 Kubernetes Pod 的内存可用性的方式。而如果容器中设置了内存限制，
-这意味着系统需要限制容器内存的使用；内存 QoS 使用 `memory.high` 来限制接近其内存限制的工作负载，
-确保系统不会因瞬时内存分配而不堪重负。
+[内存 QoS](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#memoryqos)
+使用 CGroup v2 的内存控制器来管理 Kubernetes 中的内存抑制和保护。
+它使用 Pod 的 QoS 类来决定应用哪些 CGroup 设置，但不会改变 Pod 的分类方式。
+
+默认的 `kubelet` 配置未启用内存节流或内存保护。
+要启用任一行为，请分别[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+`memoryThrottlingFactor` 或 `memoryReservationPolicy`。
 
 <!--
-Memory QoS relies on QoS class to determine which settings to apply; however, these are different
-mechanisms that both provide controls over quality of service.
+### Memory throttling
+
+Memory throttling is controlled by the `kubelet` configuration field
+`memoryThrottlingFactor`. Its default value is `nil`, which means that the
+`kubelet` does not set `memory.high`. To enable memory throttling, set
+`memoryThrottlingFactor` to a value greater than 0 and less than or equal to 1.
+
+For Burstable Pods, the kubelet uses `memory.high` to throttle memory allocation
+before the workload hits its hard limit (`memory.max`). The throttling threshold
+for a container is calculated as:
 -->
-内存 QoS 依赖于 QoS 类来确定应用哪些设置；它们的机制不同，但都提供对服务质量的控制。
+### 内存抑制
+
+内存节流由 `kubelet` 配置字段 `memoryThrottlingFactor` 控制。
+其默认值为 `nil`，这意味着 `kubelet` 不会设置 `memory.high`。
+要启用内存节流，请将 `memoryThrottlingFactor` 设置为大于 0 且小于或等于 1 的值。
+
+对于 Burstable 级别的 Pod，kubelet 使用 `memory.high`
+来在工作负载达到其硬限制（`memory.max`）之前节流内存分配。
+容器的抑制阈值的计算方式为：
+
+```
+memory.high = requests + memoryThrottlingFactor * (limits - requests)
+```
+
+<!--
+For example, with `memoryThrottlingFactor` set to `0.9`, a container with a
+`256 MiB` request and a `1 GiB` limit gets `memory.high` set to roughly `947 MiB`.
+If a Burstable container has no memory limit, the kubelet uses node allocatable
+memory in place of the limit.
+-->
+例如，将 `memoryThrottlingFactor` 设置为 `0.9` 时，一个 `request`
+为 `256 MiB`、`limit` 为 `1 GiB` 的容器，其 `memory.high` 会被设置为约 `947 MiB`。
+如果一个 Burstable Pod 没有内存限制，kubelet 会使用节点可分配内存来代替该限制。
+
+<!--
+For BestEffort containers, which have no memory request or limit, the kubelet
+calculates `memory.high` using a request of zero and node allocatable memory in
+place of the limit. Guaranteed containers do not get `memory.high` because
+their requests equal their limits.
+-->
+对于 BestEffort 级别的 Pod（没有内存 request 或 limit），kubelet 会以零作为
+request、以节点可分配内存代替 limit 来计算 `memory.high`。
+Guaranteed 级别的 Pod 不会被设置 `memory.high`，因为其 request 等于 limit。
+
+<!--
+### Configuring memory reservation
+
+Memory reservation is controlled via the kubelet configuration field
+`memoryReservationPolicy`:
+-->
+### 配置内存预留
+
+内存预留通过 kubelet 配置字段 `memoryReservationPolicy` 进行控制：
+
+<!--
+- `None` (default): the kubelet does not set `memory.min` or `memory.low` for
+  containers and pods. No memory is hard-locked by the kernel.
+- `TieredReservation`: the kubelet sets tiered memory protection based on the
+  Pod's QoS class:
+  - **Guaranteed** pods: `memory.min` is set to memory requests. The kernel
+    will not reclaim this memory under any circumstances.
+  - **Burstable** pods: `memory.low` is set to memory requests. The kernel
+    preferentially retains this memory but may reclaim it under extreme pressure.
+  - **BestEffort** pods: no memory protection is set.
+-->
+- `None` （默认）：kubelet 不为容器和 Pod 设置 `memory.min` 或 `memory.low`。内核不会硬锁定任何内存。
+- `TieredReservation`：kubelet 根据 Pod 的 QoS 类设置分层内存保护：
+  - **Guaranteed** Pod：设置 `memory.min` 为内存请求值。内核在任何情况下都不会回收此内存。
+  - **Burstable** Pod：设置 `memory.low` 为内存请求值。内核优先保留此内存，但在极端压力下可能会回收它。
+  - **BestEffort** Pod：不设置内存保护。
+
+<!--
+For example, the following kubelet configuration enables memory throttling with
+a factor of `0.9` and tiered memory protection:
+-->
+例如，以下 kubelet 配置启用了系数为 `0.9` 的内存限流以及分层内存保护：
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+memoryThrottlingFactor: 0.9
+memoryReservationPolicy: TieredReservation
+```
+
+<!--
+You can configure either field independently. Omit `memoryThrottlingFactor` so
+that the kubelet does not set `memory.high`, or set
+`memoryReservationPolicy: None` to disable memory protection.
+
+Because cgroup v2 memory protection is hierarchical, the kubelet also configures
+the ancestor cgroups. It sets `memory.min` on the kubepods root cgroup to the sum
+of the memory requests for Guaranteed and Burstable Pods. It sets `memory.low`
+on the kubepods root cgroup and the Burstable QoS cgroup to the sum of the
+memory requests for Burstable Pods. Without this ancestor coverage, the
+per-Pod and per-container protection would be ineffective.
+-->
+你可以独立配置任一字段。省略 `memoryThrottlingFactor` 可使 kubelet 不设置
+`memory.high`，或设置 `memoryReservationPolicy: None` 以禁用内存保护。
+
+由于 CGroup v2 的内存保护是分层的，kubelet 还会配置祖先 CGroup。它在 kubepods 根
+CGroup 上将 `memory.min` 设置为 Guaranteed 和 Burstable Pod 的内存 requests 之和；
+在 kubepods 根 CGroup 和 Burstable QoS CGroup 上将 `memory.low` 设置为 Burstable Pod
+的内存 requests 之和。如果没有这种祖先覆盖，按 Pod 和按容器的保护将无法生效。
+
+{{< caution >}}
+<!--
+For a Guaranteed Pod, memory requests equal memory limits. With
+`memoryReservationPolicy: TieredReservation`, `memory.min` therefore equals
+`memory.max`. For a workload that uses a large page cache, the kernel might be
+unable to reclaim enough page cache before the cgroup reaches `memory.max`,
+which can result in an OOM kill. Size the memory limit to include sufficient
+headroom for page cache.
+-->
+对于 Guaranteed Pod，其内存 requests 等于 limits。
+在 `memoryReservationPolicy: TieredReservation` 下，`memory.min` 因此等于 `memory.max`。
+对于使用大量页缓存的工作负载，内核可能无法在 cgroup 达到 `memory.max`
+之前回收足够的页缓存，从而导致 OOM 终止。请调整内存 limit 的大小，为页缓存预留足够的缓冲空间。
+{{< /caution >}}
+
+<!--
+### Disabling or rolling back Memory QoS
+
+To disable Memory QoS, set the `MemoryQoS` feature gate to `false`, ensure that
+`memoryReservationPolicy` is unset or set to `None`, and restart the kubelet.
+At startup, the kubelet resets `memory.min` and `memory.low` on the kubepods
+root cgroup, and `memory.low` on the Burstable QoS cgroup, to zero. Pod-level
+and container-level `memory.min` and `memory.low` values can remain, but they
+are ineffective because the corresponding ancestor protection is zero.
+
+When Memory QoS is disabled, the kubelet sets `memory.high` to `max` whenever
+the container runtime applies a resource configuration to a new, restarted, or
+in-place resized container. An already running container that is not restarted
+or resized can retain its previous `memory.high` value until the next restart or
+in-place resize.
+-->
+### 禁用或回滚 Memory QoS
+
+要禁用 Memory QoS，请将 `MemoryQoS` 特性门控设置为 `false`，确保 `memoryReservationPolicy`
+未设置或设置为 `None`，然后重启 kubelet。启动时，kubelet 会将 kubepods 根 CGroup 上的
+`memory.min` 和 `memory.low`、以及 Burstable QoS CGroup 上的 `memory.low` 重置为零。
+Pod 级和容器级的 `memory.min`、`memory.low` 值可以保留，但由于对应的祖先保护为零，这些值不起作用。
+
+当 Memory QoS 禁用时，每当容器运行时将资源配置应用到新的、重启的或原地调整大小的容器时，
+kubelet 会将 `memory.high` 设置为 `max`。对于已经在运行但未被重启或调整大小的容器，
+其之前的 `memory.high` 值可以保留，直到下次重启或原地调整大小为止。
+
+<!--
+### System requirements
+
+Memory QoS requires Linux with cgroup v2. Kernel 5.9 or higher is recommended
+because `memory.high` throttling on older kernels can trigger a known
+[livelock bug](https://lore.kernel.org/all/20200710012662.GA29679@chep.ntu.edu.tw/).
+If the `MemoryQoS` feature gate is enabled on an older kernel, the kubelet logs
+a warning at startup.
+-->
+### 系统要求
+
+Memory QoS 需要使用 CGroup v2 的 Linux 系统。
+推荐使用 5.9 或更高版本的内核，因为在旧版本的内核上，
+`memory.high` 节流可能会触发一个已知的
+[livelock bug](https://lore.kernel.org/all/20200710012662.GA29679@chep.ntu.edu.tw/)。
+如果在较旧的内核上启用了 `MemoryQoS` 特性门控，kubelet 在启动时会记录一条警告日志。
 
 <!--
 ## Some behavior is independent of QoS class {#class-independent-behavior}
@@ -222,6 +400,16 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * Pod 的资源 request 等于其成员容器的资源 request 之和，Pod 的资源 limit 等于其成员容器的资源 limit 之和。
 * kube-scheduler 在选择要[抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)的
   Pod 时不考虑 QoS 类。当集群没有足够的资源来运行你所定义的所有 Pod 时，就会发生抢占。
+
+<!--
+* The QoS class is determined when the Pod is created and remains unchanged for the
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
+-->
+* QoS 类在 Pod 创建时确定，并在 Pod 的整个生命周期内保持不变。
+  如果你之后尝试进行一次[原地资源调整](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)，
+  且该调整会导致 QoS 类发生变化，则该调整请求会在准入阶段被拒绝。
 
 ## {{% heading "whatsnext" %}}
 

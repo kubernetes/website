@@ -1,7 +1,6 @@
 ---
 title: कंटेनर (Container)
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/containers/
 short_description: >
   एक हल्की और पोर्टेबल निष्पादन योग्य इमेज जिसमें सॉफ़्टवेयर और उसकी सभी निर्भरताएँ होती हैं।

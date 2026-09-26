@@ -84,6 +84,90 @@ content_type: concept
 
 ---
 
+### 한국어 문서 경로 변경을 위한 리다이렉트 파일은 별도의 풀 리퀘스트로 제출함
+
+이미 게시된 한국어 문서를 다른 디렉터리로 이동하면 문서의 URL도 함께 바뀐다.
+이때 문서 파일만 이동하면 이전 URL을 저장해 둔 사용자, 다른 웹사이트의 링크,
+검색 엔진의 검색 결과로 접근했을 때 404 오류가 발생한다.
+이를 방지하려면 이전 한국어 URL로 들어온 요청을 새 한국어 URL로 보내는
+**301 리다이렉트**를 함께 준비해야 한다.
+
+새 문서를 처음 추가하여 이전 한국어 URL이 존재하지 않는 경우에는 이 절차가 필요하지 않다.
+영어 원문의 이동에 맞추어 이미 게시된 한국어 문서의 경로를 변경하거나,
+기존 한국어 문서의 파일명 또는 디렉터리를 변경하는 경우에 적용한다.
+
+#### 리다이렉트 작성 방법
+
+한국어 문서 리다이렉트는 저장소의 `static/_redirects.base` 파일에 다음 형식으로 한 줄을 추가한다.
+
+```text
+이전 한국어 경로     새 한국어 경로 301
+```
+
+- 첫 번째 경로는 사용자가 기존에 접근하던 URL이고, 두 번째 경로는 문서가 이동한 새 URL이다.
+- 마지막의 `301`은 문서가 새 주소로 영구적으로 이동했음을 의미한다.
+- 이전 경로와 새 경로는 실제 한국어 웹사이트의 URL과 일치하도록 모두 `/ko`로 시작하고,
+  끝에 슬래시(`/`)를 포함한다.
+
+문서 본문에서 `/docs/...` 형식의 내부 링크를 작성할 때는 Hugo가 현재 언어에 맞는 경로를 처리하므로
+`/ko`를 수동으로 붙이지 않는다. 반면 `static/_redirects.base`의 규칙은 브라우저가 요청한
+실제 URL을 직접 지정하므로 `/ko`를 생략해서는 안 된다.
+
+#### 풀 리퀘스트 제출 방법
+
+문서 이동과 리다이렉트 추가는 하나의 풀 리퀘스트에 함께 넣지 않고 다음과 같이 나누어 제출한다.
+
+1. 한국어 문서를 이동하고 본문을 수정하는 풀 리퀘스트에는 `content/ko/` 아래의 변경만 포함한다.
+2. 리다이렉트를 추가하는 별도의 풀 리퀘스트에는 `static/_redirects.base`의 변경만 포함한다.
+3. 리뷰어가 두 변경의 관계를 알 수 있도록 각 풀 리퀘스트의 본문에 상대 풀 리퀘스트 링크를 남긴다.
+
+이렇게 분리하는 이유는 `content/ko/`와 `static/_redirects.base`의 OWNERS 범위가 다르기 때문이다.
+한국어 콘텐츠 승인자는 `content/ko/`의 변경을 승인할 수 있지만,
+저장소 공통 파일인 `static/_redirects.base`의 변경에는 해당 파일에 대한 별도의 승인이 필요하다.
+
+#### 예시
+
+영어 원문의 이동에 맞추어 기존 한국어 HorizontalPodAutoscaler 문서를
+다음 경로로 이동하는 경우를 예로 들 수 있다.
+
+```text
+/ko/docs/tasks/run-application/horizontal-pod-autoscale/
+→ /ko/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/
+```
+
+문서 이동과 본문 수정은 한국어 콘텐츠 풀 리퀘스트에 포함하고,
+다음 리다이렉트 규칙은 별도의 풀 리퀘스트로 제출한다.
+
+```text
+/ko/docs/tasks/run-application/horizontal-pod-autoscale/     /ko/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ 301
+```
+
+#### 참고 링크
+- [한국어 문서 경로 변경 사례(#55320)](https://github.com/kubernetes/website/pull/55320)
+- [리다이렉트 처리 방식 비교 및 논의 제안(#55320)](https://github.com/kubernetes/website/pull/55320#issuecomment-5192791862)
+- [리다이렉트 처리 방식에 관한 한글화 팀 논의(#55320)](https://github.com/kubernetes/website/pull/55320#issuecomment-5311031472)
+- [리다이렉트 변경을 별도 풀 리퀘스트로 분리한 사례(#57078)](https://github.com/kubernetes/website/pull/57078)
+
+---
+
+### 용어집(glossary) 현지화 가이드라인
+
+- [용어집(glossary)](/docs/reference/glossary)은 쿠버네티스 문서를 읽는 독자가 용어의 의미를 이해할 수 있도록 정의를 제공한다. 한글화 시, 해당 용어집의 목적을 고려하여 기존 영어 원문의 철자를 그대로 병기하여 독자가 원문의 철자를 빠르게 파악할 수 있도록 돕는다. 원문 병기 방식(예): `title: 파드 (원문, Pod)`, `컨테이너 네트워크 인터페이스(CNI) (원문, Container network interface (CNI))`
+단, [쿠버네티스 한글화 가이드](/docs/contribute/localization_ko/#한글화-용어집-정보)에 포함된 용어집은 한글화 방법 자체에 대한 지침이며 여기서 말하는 쿠버네티스 용어집과는 목적이 다르므로, 해당 용어집은 이 방식을 적용하지 않는다.) 
+
+#### 예시
+
+**[영어 원문]**
+> title: Pod
+
+**[권장 번역]**
+> title: 파드 (원문, Pod)
+
+#### 참고 링크
+- [쿠버네티스 한글화 가이드 - 한글화 용어집 정보](/docs/contribute/localization_ko/#한글화-용어집-정보)
+
+---
+
 ## 문체 및 표현
 
 ### 한국어 문장 부호 체계에 맞게 변환하여 사용함
@@ -157,6 +241,23 @@ content_type: concept
 
 ---
 
+### 내부 링크 현지화 가이드라인
+
+- `[xxx](/docs/~)`와 같은 형태의 내부 링크에 언어 디렉터리 접두사(`/ko`)를 수동으로 추가하지 않는다. (참고: 풀 리퀘스트 [#47620](https://github.com/kubernetes/website/pull/47620)에 의해서 자동화 되었음.)
+  - 기존 문서 수정 과정에서 내부 링크에 `/ko`가 포함되어 있다면 이를 제거한다.
+- 단, 원문의 헤더 제목에 별도의 영문 앵커 링크가 지정되어 있는 경우, 해당 앵커의 참조 링크 구문에서도 기존 영문 표기를 유지한다.
+  헤더 제목에 별도 명시된 영문 앵커가 없고 제목이 한글로 변환되었다면, 헤더 제목에 따라 자동 생성되는 한국어 앵커로 참조 링크 구문도 수정한다.
+
+#### 예시
+
+**[영어 원문]**
+> For more information, see \[Adding and removing issue labels\]\(/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels\).
+
+**[권장 번역]**
+> 자세한 내용은 \[이슈 레이블 추가와 제거\]\(/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거\)를 참고한다.
+
+---
+
 ## 원문
 
 ### 가급적 원문을 준수함
@@ -213,7 +314,7 @@ content_type: concept
 ### 한글화 용어집에 등록되지 않은 용어
 
 - 쿠버네티스 한글화 팀은 한글화 용어집을 준용하며, 등록되지 않은 용어의 경우 논의를 통해 용어집에 등록할 수 있다.
-- 자세한 내용은 [쿠버네티스 한글화 가이드](/ko/docs/contribute/localization_ko/#용어-한글화-가이드)를 참고한다.
+- 자세한 내용은 [쿠버네티스 한글화 가이드](/docs/contribute/localization_ko/#용어-한글화-가이드)를 참고한다.
 
 #### 참고 링크
 - [용어 논의 관련 사례(#51885)](https://github.com/kubernetes/website/issues/51885#issuecomment-3301329235)
@@ -241,7 +342,7 @@ content_type: concept
 
 ### 쿠버네티스 오브젝트 또는 필드 명칭 번역
 
-- [쿠버네티스 문서 한글화 가이드](/ko/docs/contribute/localization_ko/#api-오브젝트-용어-한글화-방침)에서 api 오브젝트 용어 한글화 방침에 대한 내용을 확인할 수 있다.
+- [쿠버네티스 문서 한글화 가이드](/docs/contribute/localization_ko/#api-오브젝트-용어-한글화-방침)에서 api 오브젝트 용어 한글화 방침에 대한 내용을 확인할 수 있다.
 
 #### 예시
 

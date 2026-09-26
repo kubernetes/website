@@ -3,7 +3,7 @@ title: Autoscaling Workloads
 description: >-
   With autoscaling, you can automatically update your workloads in one way or another. This allows your cluster to react to changes in resource demand more elastically and efficiently.
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -42,7 +42,7 @@ object that manages a set of Pods (for example a
 
 ### Scaling workloads horizontally
 
-In Kubernetes, you can automatically scale a workload horizontally using a _HorizontalPodAutoscaler_ (HPA).
+In Kubernetes, you can automatically scale a workload horizontally using a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (HPA).
 
 It is implemented as a Kubernetes API resource and a {{< glossary_tooltip text="controller" term_id="controller" >}}
 and periodically adjusts the number of {{< glossary_tooltip text="replicas" term_id="replica" >}}
@@ -54,9 +54,8 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
-Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
-that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
+You can automatically scale a workload vertically using a [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) (VPA).
+Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a an add-on that you or a cluster administrator may need to deploy before you can use it.
 
 Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
 (CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
@@ -65,17 +64,6 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
 installed to your cluster for the VPA to work.
 {{< /note >}}
-
-At the moment, the VPA can operate in four different modes:
-
-{{< table caption="Different modes of the VPA" >}}
-Mode | Description
-:----|:-----------
-`Auto` | Currently `Recreate`. This might change to in-place updates in the future.
-`Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
-`Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
-`Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
-{{< /table >}}
 
 #### In-place pod vertical scaling
 

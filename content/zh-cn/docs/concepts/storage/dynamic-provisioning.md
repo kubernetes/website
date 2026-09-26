@@ -62,10 +62,9 @@ have the ability to select from multiple storage options.
 该设计也确保终端用户不必担心存储制备的复杂性和细微差别，但仍然能够从多个存储选项中进行选择。
 
 <!--
-More information on storage classes can be found
-[here](/docs/concepts/storage/storage-classes/).
+For more details, see the [Storage Classes](/docs/concepts/storage/storage-classes/) concept.
 -->
-点击[这里](/zh-cn/docs/concepts/storage/storage-classes/)查阅有关存储类的更多信息。
+有关更多详细信息，请参阅[存储类](/zh-cn/docs/concepts/storage/storage-classes/)概念。
 
 <!--
 ## Enabling Dynamic Provisioning
@@ -127,13 +126,13 @@ their `PersistentVolumeClaim`. Before Kubernetes v1.6, this was done via the
 is deprecated since v1.9. Users now can and should instead use the
 `storageClassName` field of the `PersistentVolumeClaim` object. The value of
 this field must match the name of a `StorageClass` configured by the
-administrator (see [below](#enabling-dynamic-provisioning)).
+administrator (see [Enabling Dynamic Provisioning](#enabling-dynamic-provisioning)).
 -->
 用户通过在 `PersistentVolumeClaim` 中包含存储类来请求动态制备的存储。
 在 Kubernetes v1.9 之前，这通过 `volume.beta.kubernetes.io/storage-class` 注解实现。
 然而，这个注解自 v1.6 起就不被推荐使用了。
 用户现在能够而且应该使用 `PersistentVolumeClaim` 对象的 `storageClassName` 字段。
-这个字段的值必须能够匹配到集群管理员配置的 `StorageClass` 名称（见[下面](#enabling-dynamic-provisioning)）。
+这个字段的值必须能够匹配到集群管理员配置的 `StorageClass` 名称（见[启用动态卷制备](#enabling-dynamic-provisioning)）。
 
 <!--
 To select the "fast" storage class, for example, a user would create the
@@ -176,11 +175,11 @@ can enable this behavior by:
 集群管理员可以通过以下方式启用此行为：
 
 <!--
-- Marking one `StorageClass` object as *default*;
+- Marking one `StorageClass` object as *default*,
 - Making sure that the [`DefaultStorageClass` admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
   is enabled on the API server.
 -->
-- 标记一个 `StorageClass` 为 **默认**；
+- 标记一个 `StorageClass` 为 **默认**，
 - 确保 [`DefaultStorageClass` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在
   API 服务器端被启用。
 

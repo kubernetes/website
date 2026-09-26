@@ -3,6 +3,5 @@ Bạn cần có một cluster Kubernetes, và kubectl phải được cấu hìn
 * [iximiuz Labs](https://labs.iximiuz.com/playgrounds?category=kubernetes&filter=all)
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [KodeKloud](https://kodekloud.com/public-playgrounds)
-* [Play with Kubernetes](https://labs.play-with-k8s.com/)
 
 Để kiểm tra phiên bản của kubectl, hãy chạy lệnh `kubectl version`.

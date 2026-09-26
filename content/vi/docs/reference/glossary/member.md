@@ -1,7 +1,6 @@
 ---
 title: Thành viên
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   Một người đóng góp tích cực, liên tục trong cộng đồng K8s.

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bind-mount-options-demo
+spec:
+  containers:
+  - image: registry.k8s.io/busybox
+    name: test-container
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - mountPath: /tmp
+      name: tmp-volume
+      bindMountOptions:
+      - noexec
+      - nosuid
+  volumes:
+  - name: tmp-volume
+    emptyDir: {}

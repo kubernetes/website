@@ -2,14 +2,13 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - lmktfy
     - graz-dev
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - graz-dev
+    - KashishV999
     - lmktfy
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-website-owners: # Admins for overall website
@@ -25,6 +24,7 @@ aliases:
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -34,6 +34,7 @@ aliases:
     - tengqm
   sig-docs-localization-reviewers: # PR reviews for localization changes
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -57,6 +58,7 @@ aliases:
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
   sig-docs-en-owners: # Admins for English content
+    - Caesarsage # RT 1.38 Docs Lead
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
@@ -67,7 +69,6 @@ aliases:
     - salaxander
     - SayakMukhopadhyay
     - tengqm
-    - Urvashi0109 # RT 1.35 Doc Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -86,13 +87,21 @@ aliases:
     - electrocucaracha
     - krol3
     - raelga
-    - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
     - electrocucaracha
     - jossemarGT
     - krol3
     - raelga
-    - ramrodo
+  sig-docs-fa-owners: # Admins for Persian content
+    - Behiuu
+    - mamrezb
+    - Moh0ps
+    - xirehat
+  sig-docs-fa-reviews: # PR reviews for Persian content
+    - Behiuu
+    - mamrezb
+    - Moh0ps
+    - xirehat
   sig-docs-fr-owners: # Admins for French content
     - perriea
     - rekcah78
@@ -131,6 +140,7 @@ aliases:
   sig-docs-ja-owners: # Admins for Japanese content
     - bells17
     - inductor
+    - kfess
     - nasa9084
     - Okabe-Junya
     - t-inu
@@ -140,27 +150,35 @@ aliases:
     - bells17
     - inductor
     - kakts
+    - kfess
     - nasa9084
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
+    - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
     - natalisucks
@@ -193,12 +211,14 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - jcjesus
+    - paulofponciano
     - stormqueen1990
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
     - jcjesus
     - mrerlison
     - stormqueen1990
+    - paulofponciano
   sig-docs-vi-owners: # Admins for Vietnamese content
     - truongnh1992
     - khanhtc1202
@@ -235,9 +255,9 @@ aliases:
   committee-steering: # provide PR approvals for announcements
     - aojea
     - BenTheElder
-    - justaugustus
+    - katcosgrove
     - pacoxu
-    - pohly
+    - ritazh
     - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES

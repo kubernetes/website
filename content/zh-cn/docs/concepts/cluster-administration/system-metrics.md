@@ -90,10 +90,22 @@ rules:
 <!--
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
+Alpha metric → Beta metric → Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage.
+-->
+## 指标生命周期  {#metric-lifecycle}
+
+Alpha 指标 → Beta 指标 → 稳定的指标 → 弃用的指标 → 隐藏的指标 → 删除的指标
+
+Alpha 指标没有稳定性保证。这些指标可以随时被修改或者删除。
+
+Beta 指标相比其稳定版本，所遵循的 API 协议更宽松。
+在指标的 Beta 阶段生命周期内，其现有的标签不能被移除，但可以新增标签。
+
+<!--
 Stable metrics are guaranteed to not change. This means:
 
 * A stable metric without a deprecated signature will not be deleted or renamed
@@ -102,19 +114,13 @@ Stable metrics are guaranteed to not change. This means:
 Deprecated metrics are slated for deletion, but are still available for use.
 These metrics include an annotation about the version in which they became deprecated.
 -->
-## 指标生命周期  {#metric-lifecycle}
-
-Alpha 指标 →  稳定的指标 →  弃用的指标 →  隐藏的指标 → 删除的指标
-
-Alpha 指标没有稳定性保证。这些指标可以随时被修改或者删除。
-
 稳定的指标可以保证不会改变。这意味着：
 
-* 稳定的、不包含已弃用（deprecated）签名的指标不会被删除（或重命名）
+* 稳定的、不包含已弃用（deprecated）签名的指标不会被删除或重命名
 * 稳定的指标的类型不会被更改
 
 已弃用的指标最终将被删除，不过仍然可用。
-这类指标包含注解，标明其被废弃的版本。
+这类指标包含注解，标明其是在哪个版本被弃用的。
 
 <!--
 For example:
@@ -143,13 +149,26 @@ For example:
   ```
 
 <!--
-Hidden metrics are no longer published for scraping, but are still available for use. To use a
-hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section.
+Hidden metrics are no longer published for scraping, but are still available for use.
+A deprecated metric becomes a hidden metric after a period of time, based on its stability level:
+* **STABLE** metrics become hidden after a minimum of 3 releases or 9 months, whichever is longer.
+* **BETA** metrics become hidden after a minimum of 1 release or 4 months, whichever is longer.
+* **ALPHA** metrics can be hidden or removed in the same release in which they are deprecated.
+
+To use a hidden metric, you must enable it. For more details, refer to the
+[Show hidden metrics](#show-hidden-metrics) section. 
 
 Deleted metrics are no longer published and cannot be used.
 -->
 隐藏的指标不会再被发布以供抓取，但仍然可用。
-要使用隐藏指标，请参阅[显式隐藏指标](#show-hidden-metrics)节。
+弃用的指标会根据其稳定性级别在一段时间后成为隐藏的指标。
+
+* **STABLE** 指标在弃用后至少 3 个发行版或 9 个月（以较长者为准）后变为隐藏。
+* **BETA** 指标在弃用后至少 1 个发行版或 4 个月（以较长者为准）后变为隐藏。
+* **ALPHA** 指标可以在其被弃用的同一发行版内就被隐藏或移除。
+
+要使用某个隐藏的指标，你必须先启用此指标。
+更多细节请参阅[显示隐藏指标](#show-hidden-metrics)一节。
 
 删除的指标不再被发布，亦无法使用。
 
@@ -176,34 +195,34 @@ patch release, the reason for that is the metrics deprecation policy runs agains
 即使指标可能会在补丁程序发行版中弃用，原因是指标弃用策略规定仅针对次要版本。
 
 <!--
-The flag can only take the previous minor version as it's value. All metrics hidden in previous
-will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too
-old version is not allowed because this violates the metrics deprecated policy.
+The flag can only take the previous minor version as its value.
+If you want to show all metrics hidden in the previous release,
+you can set the `show-hidden-metrics-for-version` flag to the previous version.
+Using a version that is too old is not allowed because it violates the metrics deprecation policy.
 
-Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
-deprecated policy, we can reach the following conclusion:
+For example, let's assume metric `A` is deprecated in `1.29`.
+The version in which metric `A` becomes hidden depends on its stability level:
 -->
-此参数的取值只能使用前一个次要版本。如果管理员将前一个版本设置为 `show-hidden-metrics-for-version`，
-则前一个版本中隐藏的度量值会再度生成。不允许使用过旧的版本，因为那样会违反指标弃用策略。
+此参数的取值只能使用前一个次要版本。如果你想显示前一发行版中隐藏的所有指标，你可以将
+`show-hidden-metrics-for-version` 参数设置为前一个版本。
+不允许使用过旧的版本，因为那样会违反指标弃用策略。
 
-以指标 `A` 为例，此处假设 `A` 在 `1.n` 中已弃用。根据指标弃用策略，我们可以得出以下结论：
+例如，假设指标 `A` 在 `1.29` 中被弃用。指标 `A` 在哪个版本变为隐藏取决于其稳定性级别：
 
 <!--
-* In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
-  `show-hidden-metrics-for-version=1.n`.
-* In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
-
-If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
-`1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
-to remove this metric dependency before upgrading to `1.14`
+* If metric `A` is **ALPHA**, it could be hidden in `1.29`.
+* If metric `A` is **BETA**, it will be hidden in `1.30` at the earliest.
+  If you are upgrading to `1.30` and still need `A`, you must use the
+  command-line flag `--show-hidden-metrics-for-version=1.29`.
+* If metric `A` is **STABLE**, it will be hidden in `1.32` at the earliest.
+  If you are upgrading to `1.32` and still need `A`, you must use the
+  command-line flag `--show-hidden-metrics-for-version=1.31`.
 -->
-* 在版本 `1.n` 中，这个指标已经弃用，且默认情况下可以生成。
-* 在版本 `1.n+1` 中，这个指标默认隐藏，可以通过命令行参数 `show-hidden-metrics-for-version=1.n` 来再度生成。
-* 在版本 `1.n+2` 中，这个指标就将被从代码中移除，不会再有任何逃生窗口。
-
-如果你要从版本 `1.12` 升级到 `1.13`，但仍依赖于 `1.12` 中弃用的指标 `A`，则应通过命令行设置隐藏指标：
-`--show-hidden-metrics=1.12`，并记住在升级到 `1.14` 版本之前移除此指标依赖项。
+* 如果指标 `A` 是 **ALPHA** 指标，它可能会在 `1.29` 中被隐藏。
+* 如果指标 `A` 是 **BETA** 指标，它最早会在 `1.30` 中被隐藏。如果你要升级到 `1.30`
+  且仍然需要 `A`，你必须使用命令行参数 `--show-hidden-metrics-for-version=1.29`。
+* 如果指标 `A` 是 **STABLE（稳定）**版本，它最早会在 `1.32` 中被隐藏。如果你要升级到 `1.32`
+  且仍然需要 `A`，你必须使用命令行参数 `--show-hidden-metrics-for-version=1.31`。
 
 <!--
 ## Component metrics
@@ -257,8 +276,8 @@ of all running pods. These metrics can be used to build capacity planning dashbo
 current or historical scheduling limits, quickly identify workloads that cannot schedule due to
 lack of resources, and compare actual usage to the pod's request.
 -->
-调度器会暴露一些可选的指标，报告所有运行中 Pod 所请求的资源和期望的约束值。
-这些指标可用来构造容量规划监控面板、访问调度约束的当前或历史数据、
+调度器会暴露一些可选的指标，报告所有运行中 Pod 所请求的资源和期望的限制值。
+这些指标可用来构造容量规划监控面板、访问当前或历史的调度限制值、
 快速发现因为缺少资源而无法被调度的负载，或者将 Pod 的实际资源用量与其请求值进行比较。
 
 <!--
@@ -274,10 +293,10 @@ metrics timeseries. The time series is labelled by:
 - the name of the resource (for example, `cpu`)
 - the unit of the resource if known (for example, `cores`)
 -->
-kube-scheduler 组件能够辩识各个 Pod 所配置的资源
-[请求和约束](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
-在 Pod 的资源请求值或者约束值非零时，kube-scheduler 会以度量值时间序列的形式
-生成报告。该时间序列值包含以下标签：
+kube-scheduler 组件能够辩识各个 Pod
+所配置的资源[请求和限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
+在 Pod 的资源请求值或者限制值非零时，kube-scheduler 会以度量值时间序列的形式生成报告。
+该时间序列值包含以下标签：
 
 - 名字空间
 - Pod 名称
@@ -315,21 +334,24 @@ flag to expose these alpha stability metrics.
 <!--
 ### kubelet Pressure Stall Information (PSI) metrics
 -->
-### kubelet 压力阻塞信息（PSI）指标
+### kubelet 压力阻塞信息（PSI）指标  {#kubelet-pressure-stall-information-psi-metrics}
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletPSI" >}}
 
 <!--
-As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
+When the kernel has PSI enabled (version 4.20 or later), the kubelet collects
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
-The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
+
+*Prometheus Metrics*: Exposed at the `/metrics/cadvisor` endpoint as cumulative counters (totals) representing the total stall time in seconds. The metrics are exposed at this endpoint with the following names: 
 -->
-作为一个 Beta 阶段的特性，Kubernetes 允许你配置 kubelet 以基于 CPU、内存和 I/O 的使用情况收集 Linux
+当内核已启用 PSI（v4.20 或更高版本）时，kubelet 以基于 CPU、内存和 I/O 的使用情况收集 Linux
 内核的[压力阻塞信息（PSI）](https://docs.kernel.org/accounting/psi.html)。
 此信息是在节点、Pod 和容器级别进行收集的。
-这些指标通过 `/metrics/cadvisor` 端点暴露，指标名称如下：
+
+**Prometheus 指标**：通过 `/metrics/cadvisor` 端点以累积计数器（总量）的形式暴露，
+表示阻塞总时长（单位为秒）。这些指标在此端点暴露为以下名称：
 
 ```
 container_pressure_cpu_stalled_seconds_total
@@ -341,18 +363,111 @@ container_pressure_io_waiting_seconds_total
 ```
 
 <!--
-This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
-[Summary API](/docs/reference/instrumentation/node-metrics#psi).
+*Summary API*: Exposed at the `/stats/summary` endpoint, providing both the cumulative `totals` and the moving averages (`avg10`, `avg60`, `avg300`) in a JSON format. These averages represent the percentage of time that tasks were stalled on a resource over the respective 10-second, 60-second, and 5-minute intervals. 
+
+These metrics are also natively exported through the node's respective file in `/proc/pressure/` -- cpu, memory, and io in the following format:
 -->
-此特性默认启用，通过 `KubeletPSI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
-此信息也会通过 [Summary API](/zh-cn/docs/reference/instrumentation/node-metrics#psi) 暴露。
+**Summary API**：通过 `/stats/summary` 端点以 JSON 格式提供数据，
+同时包含累积值（`totals`）和滑动平均值（`avg10`、`avg60`、`avg300`）。
+这些平均值表示在对应的 10 秒、60 秒和 5 分钟时间窗口内，任务在某一资源上发生停滞的时间占比（百分比）。
+
+这些指标也可以通过节点上的 `/proc/pressure/` 目录中的相应文件（cpu、memory 和 io）原生导出，格式如下：
+
+```
+some avg10=0.00 avg60=0.00 avg300=0.00 total=0
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+```
 
 <!--
-You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+How can these metrics be interpreted together? Take for example the following query from the Summary API:  
+`kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'`. 
+This returns the information in a json format as such.
 -->
-参见[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)，
-学习如何解读 PSI 指标。
+如何将这些指标结合起来理解？例如，以下命令是来自 Summary API 的查询：
+
+```shell
+kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'
+```
+
+此查询会以如下 JSON 格式返回信息：
+
+```json
+{
+  "name": "<CONTAINER_NAME>",
+  "cpu": {
+    "full": {
+      "total": 0,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 35232438,
+      "avg10": 0.74,
+      "avg60": 0.52,
+      "avg300": 0.21,
+    },  
+  },
+  "memory": {
+    "full": {
+      "total": 539105,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 658164,
+      "avg10": 0.01,
+      "avg60": 0.01,
+      "avg300": 0.00,
+    },
+    }
+  },
+  "io": {
+    "full": {
+      "total": 33190987,
+      "avg10": 0.31,
+      "avg60": 0.22,
+      "avg300": 0.05,
+    },
+    "some": {
+      "total": 40809937,
+      "avg10": 0.52,
+      "avg60": 0.45,
+      "avg300": 0.12,
+    }
+  }
+}
+```
+
+<!--
+Here is a simple spike scenario. The cpu.some `avg10` value of `0.74` indicates that in the last 10 seconds, at least one task in this container was stalled on the CPU for 0.74% of the time (0.0074 seconds or 74 milliseconds). Because `avg10` (0.74) is significantly higher than `avg300` (0.21) on the same resource, this suggests a recent surge in resource contention rather than a sustained long-term bottleneck. If monitored continuously and the `avg300` metrics increase as well, we can diagnose a more serious, lasting issue!
+-->
+这是一个简单的突发场景示例。cpu.some 的 `avg10` 值为 `0.74`，表示在过去 10 秒内，
+此容器中至少有一个任务有 0.74% 的时间处于 CPU 等待状态（即 0.0074 秒或 74 毫秒）。
+由于同一资源上 `avg10`（0.74）显著高于 `avg300`（0.21），
+这表明这是一次近期的资源争用激增，而不是长期持续的瓶颈。
+如果持续监控并且 `avg300` 指标也开始上升，就可以判断为一个更严重、持续存在的问题。
+
+<!--
+Additionally, notice how in this example `cpu.some` shows pressure, while `cpu.full` remains at 0.00. This tells us that while some processes were delayed waiting for CPU time, the container as a whole was still making progress. A non-zero full value would indicate that all non-idle tasks were stalled simultaneously, a much bigger problem.
+Although not as human-readable, the `total` value of 35232438 represents the cumulative stall time in microseconds, that allow latency spike detection that otherwise may not show in the averages. They are also useful for monitoring systems, like Prometheus, to calculate precise rates of increase over specific time windows.
+As a final note, when observing high I/O Pressure alongside low Memory Pressure, it can indicate that the application is waiting on disk throughput rather than failing due to a lack of available RAM. The node is not over-committed on memory, and a different diagnosis for disk consumption can be investigated.
+-->
+此外，请注意在这个示例中，`cpu.some` 显示存在压力，而 `cpu.full` 仍然为 0.00。
+这说明虽然有部分进程在等待 CPU 时间而被延迟，但整个容器仍然在继续推进。
+如果 `full` 出现非零值，则表示所有非空闲任务在同一时间都发生了阻塞，这是一个更严重的问题。
+虽然不如平均值直观，`total` 值（35232438）表示累计的停滞时间（单位为微秒），
+它可以帮助检测那些在平均值中不易体现的延迟突发情况。同时，这些数据也非常适合用于像
+Prometheus 这样的监控系统，以便在特定时间窗口内计算精确的增长速率。
+最后需要注意的是，当观察到较高的 I/O 压力而内存压力较低时，通常意味着应用是在等待磁盘吞吐，
+而不是由于可用内存不足导致的问题。此时节点的内存并未过度分配，应进一步从磁盘使用情况入手进行诊断。
+
+<!--
+PSI metrics unlock a more robust way to monitor realitime resource contention at all levels for every cgroup, opening up the opportunity to dynamically handle workloads across the system. You can read more about the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+-->
+PSI 指标为在各个层级（每个 cgroup）实时监控资源争用提供了一种更强大的方式，使得可以在整个系统范围内动态地处理工作负载。
+你可以在[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)中了解更多信息。
 
 <!--
 #### Requirements
@@ -444,16 +559,20 @@ count of unexpected categorizations during cardinality enforcement, that is, whe
 is encountered that is not allowed with respect to the allow-list constraints.
 -->
 此外，`cardinality_enforcement_unexpected_categorizations_total`
-元指标记录基数执行期间意外分类的计数，即每当遇到允许列表约束不允许的标签值时。
+元指标记录基数执行期间意外分类的计数，
+即每当遇到不在允许列表约束中的标签值时进行计数。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
+* See the list of [stable Kubernetes metrics](/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
-* 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
-* 参阅[稳定的 Kubernetes 指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)的列表
-* 阅读有关 [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
+* 阅读有关指标的
+  [Prometheus 文本格式](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
+* 参阅
+  [Kubernetes 稳定指标](/zh-cn/docs/reference/config-api/instrumentation/metrics/#list-of-stable-kubernetes-metrics)
+* 阅读有关
+  [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

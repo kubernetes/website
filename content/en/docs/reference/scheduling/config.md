@@ -56,6 +56,13 @@ extension points:
 1. `queueSort`: These plugins provide an ordering function that is used to
    sort pending Pods in the scheduling queue. Exactly one queue sort plugin
    may be enabled at a time.
+1. `placementGenerate`: These plugins generate potential placements (sets of
+   nodes) where a considered PodGroup could be scheduled. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
+1. `placementScore`: These plugins score the placements proposed by
+   `placementGenerate`, to pick the optimal placement for the considered
+    PodGroup.
 1. `preFilter`: These plugins are used to pre-process or check information
    about a Pod or the cluster before filtering. They can mark a pod as
    unschedulable.
@@ -65,7 +72,13 @@ extension points:
    nodes pass all the filters.
 1. `postFilter`: These plugins are called in their configured order when no
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
-   Pod _schedulable_, the remaining plugins are not called.
+   Pod _schedulable_, the remaining plugins are not called. These plugins are not
+   applicable for pods being scheduled as part of PodGroup scheduling.
+1. `podGroupPostFilter`: These plugins are called in their configured order when no
+   feasible placement is found for the pod group. If any `podGroupPostFilter` plugin marks
+   the pod group as _schedulable_, the remaining plugins are not called. This extension point
+   is only applicable to PodGroup scheduling and requires Workload scheduling
+   to be enabled.
 1. `preScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 1. `score`: These plugins provide a score to each node that has passed the
@@ -132,10 +145,13 @@ extension points:
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
   true.
   Extension points: `filter`.
-- `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
-  requesting. The score can use one of three strategies: `LeastAllocated`
-  (default), `MostAllocated` and `RequestedToCapacityRatio`.
-  Extension points: `preFilter`, `filter`, `score`.
+- `NodeResourcesFit`: For pod-by-pod scheduling checks if the node has all
+  the resources that the Pod is requesting. The score can use one of three
+  strategies: `LeastAllocated` (default), `MostAllocated` and
+  `RequestedToCapacityRatio`.
+  For PodGroup scheduling calculates the resource utilization in the entire evaluated placement.
+  The score uses the `MostAllocated` strategy.
+  Extension points: `preFilter`, `filter`, `score`, `placementScore`.
 - `NodeResourcesBalancedAllocation`: Favors nodes that would obtain a more
   balanced resource usage if the Pod is scheduled there.
   Extension points: `score`.
@@ -154,7 +170,10 @@ extension points:
   might have.
   Extension points: `filter`.
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
-  node.
+  node. This plugin can also prevent pod placement to a node if no CSI driver is installed on the node, 
+  which requires `VolumeLimitScaling` feature gate to be enabled. It also
+  allows cluster-autoscaler to accurately calculate number of nodes required
+  for scheduling pending pods with attachable CSI volumes.
   Extension points: `filter`.
 - `EBSLimits`: Checks that AWS EBS volume limits can be satisfied for the node.
   Extension points: `filter`.
@@ -171,7 +190,13 @@ extension points:
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
-  Extension points: `postFilter`.
+  Extension points: `postFilter`, `podGroupPostFilter`.
+- `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
+  constraints.
+  Extension points: `placementGenerate`.
+- `PodGroupPodsCount`: Provides the placement scoring algorithm based on the number of pods that
+  can be scheduled in the given placement.
+  Extension points: `placementScore`.
 
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
@@ -396,7 +421,6 @@ profiles:
         enabled:
         - name: 'CustomPlugin1'
         - name: 'CustomPlugin2'
-        - name: 'DefaultPlugin2'
         disabled:
         - name: 'DefaultPlugin1'
 
@@ -406,60 +430,15 @@ profiles:
         - name: 'DefaultPlugin2'
           weight: 1
         - name: 'DefaultPlugin1'
+          weight: 1
+        - name: 'CustomPlugin1'
           weight: 3
+        - name: 'CustomPlugin2'
+          weight: 1
 ```
 
 While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config
 as well as its seamless integration with the existing methods for configuring extension points.
-
-## Scheduler configuration migrations
-
-{{< tabs name="tab_with_md" >}}
-{{% tab name="v1beta1 → v1beta2" %}}
-* With the v1beta2 configuration version, you can use a new score extension for the
-  `NodeResourcesFit` plugin.
-  The new extension combines the functionalities of the `NodeResourcesLeastAllocated`,
-  `NodeResourcesMostAllocated` and `RequestedToCapacityRatio` plugins.
-  For example, if you previously used the `NodeResourcesMostAllocated` plugin, you
-  would instead use `NodeResourcesFit` (enabled by default) and add a `pluginConfig`
-  with a `scoreStrategy` that is similar to:
-  ```yaml
-  apiVersion: kubescheduler.config.k8s.io/v1beta2
-  kind: KubeSchedulerConfiguration
-  profiles:
-  - pluginConfig:
-    - args:
-        scoringStrategy:
-          resources:
-          - name: cpu
-            weight: 1
-          type: MostAllocated
-      name: NodeResourcesFit
-  ```
-
-* The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
-
-* The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
-
-* The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
-
-* A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
-
-* Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
-{{% /tab %}}
-
-{{% tab name="v1beta2 → v1beta3" %}}
-* Three plugins' weight are increased by default:
-  * `InterPodAffinity` from 1 to 2
-  * `NodeAffinity` from 1 to 2
-  * `TaintToleration` from 1 to 3
-{{% /tab %}}
-
-{{% tab name="v1beta3 → v1" %}}
-* The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin (enabled by default)
-to achieve similar behavior.
-{{% /tab %}}
-{{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
 

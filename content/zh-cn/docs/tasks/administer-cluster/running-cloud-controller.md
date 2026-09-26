@@ -83,12 +83,12 @@ Successfully running cloud-controller-manager requires some changes to your clus
 你需要对集群配置做适当的修改以成功地运行云管理控制器：
 
 <!--
-* `kubelet`, `kube-apiserver`, and `kube-controller-manager` must be set according to the
+* `kubelet` and `kube-controller-manager` must be set according to the
   user's usage of external CCM. If the user has an external CCM (not the internal cloud
   controller loops in the Kubernetes Controller Manager), then `--cloud-provider=external`
   must be specified. Otherwise, it should not be specified.
 -->
-* `kubelet`、`kube-apiserver` 和 `kube-controller-manager` 必须根据用户对外部 CCM 的使用进行设置。
+* `kubelet` 和 `kube-controller-manager` 必须根据用户对外部 CCM 的使用进行设置。
   如果用户有一个外部的 CCM（不是 Kubernetes 控制器管理器中的内部云控制器回路），
   那么必须添加 `--cloud-provider=external` 参数。否则，不应添加此参数。
 

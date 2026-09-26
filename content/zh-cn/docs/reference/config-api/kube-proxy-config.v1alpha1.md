@@ -94,10 +94,6 @@ JSONOptions contains options for logging format &quot;json&quot;.
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
 <td>
-<!--
-(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
--->
-（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
 <span class="text-muted">
 <!--
 No description provided.
@@ -346,10 +342,6 @@ TextOptions 包含日志格式 &quot;text&quot; 的选项。
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
 <td>
-<!--
-(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
--->
-（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
 <span class="text-muted">
 <!--
 No description provided.
@@ -937,49 +929,80 @@ used.)
 <code>[]string</code>
 </td>
 <td>
-   <!--
-   nodePortAddresses is a list of CIDR ranges that contain valid node IPs, or
-alternatively, the single string 'primary'. If set to a list of CIDRs,
-the indicated ranges. If set to 'primary', NodePort services will only be
-accepted on the node's primary IPv4 and/or IPv6 address according to the Node
-object. If unset, NodePort connections will be accepted on all local IPs.</p>
-   -->
-   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表或单个字符串 `primary`。
-   如果设置为 CIDR 范围列表，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
-   如果设置为 `primary`，则根据 Node 对象，NodePort 服务将仅在节点的主 IPv4 和/或 IPv6 地址上被接受。
-   如果未设置，将接受所有本地 IP 的 NodePort 连接。</p>
+<p>
+<!--
+nodePortAddresses is a list of CIDR ranges and/or keywords that expand to CIDR
+ranges. NodePort services are only accessible on node IPs covered by the list.
+Supported keywords: 'primary' (the Node object's primary IPv4 and/or IPv6
+addresses), 'localhost' (127.0.0.0/8 and ::1/128), and 'all' (0.0.0.0/0 and ::/0).
+Any combination of valid keywords and CIDRs may be included in the list.
+-->
+<code>nodePortAddresses</code> 是一个由 CIDR 范围和/或关键字组成的列表，
+其中的关键字会展开为对应的 CIDR 范围。NodePort 服务只能通过该列表所覆盖的节点
+IP 进行访问。支持的关键字包括：`primary`（节点对象的主 IPv4 和/或 IPv6
+地址）、'localhost'（127.0.0.0/8 和 ::1/128）以及 'all'（0.0.0.0/0 和 ::/0）。
+该列表中可以包含任意有效关键字与 CIDR 的组合。
+</p>
+
+<p>
+<!--
+Serving NodePorts on loopback IPs is only supported in iptables mode (IPv4
+only, see iptables.localhostNodePorts), and, only for TCP, in nftables mode when
+the KubeProxyNFTablesLocalhostNodePorts feature gate is enabled and the list
+explicitly includes loopback (e.g. 'localhost').
+-->
+通过本地回路 IP 提供 NodePort Service，仅在 iptables
+模式下受支持（仅限 IPv4，参见 iptables.localhostNodePorts）；在
+nftables 模式下，则仅当 KubeProxyNFTablesLocalhostNodePorts
+特性门控已启用、且列表中明确包含本地回路（例如 'localhost'）时，才支持 TCP 流量。
+</p>
+
+<p>
+<!--
+If unset, this defaults to 'all' in iptables and ipvs mode, and to 'primary' in
+nftables mode.
+-->
+如果未设置，则在 iptables 和 ipvs 模式下默认为 'all'，在 nftables 模式下默认为 `primary`。
+</p>
+
 </td>
 </tr>
 <tr><td><code>oomScoreAdj</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
-   <!--
-   oomScoreAdj is the oom-score-adj value for kube-proxy process. Values must be within
+<p>
+<!--
+oomScoreAdj is the oom-score-adj value for kube-proxy process. Values must be within
 the range [-1000, 1000]
-   -->
-   <p><code>oomScoreAdj</code> 是 kube-proxy 进程的 OOM 评分调整值。该值必须在 [-1000, 1000] 范围内。</p>
+-->
+<code>oomScoreAdj</code> 是 kube-proxy 进程的 OOM 评分调整值。该值必须在 [-1000, 1000] 范围内。
+</p>
 </td>
 </tr>
 <tr><td><code>conntrack</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
 </td>
 <td>
-   <!--
-   conntrack contains conntrack-related configuration options.
-   -->
-   <p><code>conntrack</code> 包含与 conntrack 相关的配置选项。</p>
+<p>
+<!--
+conntrack contains conntrack-related configuration options.
+-->
+<code>conntrack</code> 包含与 conntrack 相关的配置选项。
+</p>
 </td>
 </tr>
 <tr><td><code>configSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+<p>
 <!--
 configSyncPeriod is how often configuration from the apiserver is refreshed. Must be greater
 than 0.
 -->
-   <p><code>configSyncPeriod</code> 指定从 apiserver 刷新配置的频率，必须大于 0。</p>
+<code>configSyncPeriod</code> 指定从 apiserver 刷新配置的频率，必须大于 0。
+</p>
 </td>
 </tr>
 
@@ -987,22 +1010,24 @@ than 0.
 <code>string</code>
 </td>
 <td>
-   <!--
-   portRange was previously used to configure the userspace proxy, but is now unused.
-   -->
-   <p><code>portRange</code> 之前用于配置用户空间代理，但现在已不再使用。</p>
+<p>
+<!--
+portRange was previously used to configure the userspace proxy, but is now unused.
+-->
+<code>portRange</code> 之前用于配置用户空间代理，但现在已不再使用。
+</p>
 </td>
 </tr>
 <tr><td><code>windowsRunAsService</code> <B>[Required]</B><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>
-    <!--
-    windowsRunAsService, if true, enables Windows service control manager API integration.
-    -->
-    如果为 <code>windowsRunAsService</code> 为 True，则启用 Windows 服务控制管理器 API 集成。
-   </p>
+<p>
+<!--
+windowsRunAsService, if true, enables Windows service control manager API integration.
+-->
+如果为 <code>windowsRunAsService</code> 为 True，则启用 Windows 服务控制管理器 API 集成。
+</p>
 </td>
 </tr>
 

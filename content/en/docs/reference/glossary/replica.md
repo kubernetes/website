@@ -1,7 +1,6 @@
 ---
 title: Replica
 id: replica
-date: 2023-06-11
 full_link: 
 short_description: >
   Replicas are copies of pods, ensuring availability, scalability, and fault tolerance by maintaining identical instances.

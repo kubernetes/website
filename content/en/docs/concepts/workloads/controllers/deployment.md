@@ -352,21 +352,28 @@ before changing course.
 ### Label selector updates
 
 It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
-In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
-all of the implications.
+A Deployment's label selector is **immutable** after creation;
+it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
-{{< note >}}
-In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
-{{< /note >}}
+If you must change the selector, you have to delete the Deployment and recreate it.
+By default, deleting the Deployment also deletes its running Pods, causing downtime; use
+`--cascade=orphan` if you need those Pods to keep running while you recreate the Deployment
+(see the implications below).
+Exercise great caution and ensure you grasp the following implications:
 
-* Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
-otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
-not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
-creating a new ReplicaSet.
-* Selector updates changes the existing value in a selector key -- result in the same behavior as additions.
-* Selector removals removes an existing key from the Deployment selector -- do not require any changes in the
-Pod template labels. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created, but note that the
-removed label still exists in any existing Pods and ReplicaSets.
+* **Additions:** When you create a new Deployment with a narrower selector, the new Deployment **must** also have a suitable Pod template.
+  If you have an existing manifest and you edit the manifest to narrow the selector, you need to edit the metadata of the Pod template inside that Deployment, adding the
+  new labels
+  to match, as otherwise the API server returns a validation error. This is a _non-overlapping_ change:
+  the new Deployment will not "see" the old Pods (which lack the new label), causing the old
+  ReplicaSet to be **orphaned** and a brand-new ReplicaSet to be created.
+* **Value Updates:** Changing the existing value in a selector key (e.g., from `v1` to `v2`)
+  results in the same behavior as additions (orphaning and recreation).
+* **Removals:** Removing an existing key from the Deployment selector does not require any changes
+  in the Pod template labels. This is an _overlapping_ change: the new, broader selector would
+  match the old Pods. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created,
+  but note that the removed label still exists in any existing Pods and ReplicaSets.
+  You can clean that up by triggering a rollout for the Deployment.
 
 ## Rolling Back a Deployment
 
@@ -503,15 +510,20 @@ Follow the steps given below to check the rollout history:
    ```
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
-   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-   2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
-   3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
+   1           <none>
+   2           <none>
+   3           <none>
    ```
 
    `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
+   * Using tooling that sets the annotation automatically.
+
+   {{< note >}}
+   In older versions of Kubernetes, you could use the `--record` flag with kubectl commands to automatically populate the `CHANGE-CAUSE` field. This flag is deprecated and will be removed in a future release.
+   {{< /note >}}
 
 2. To see the details of each revision, run:
    ```shell
@@ -523,7 +535,6 @@ Follow the steps given below to check the rollout history:
    deployments "nginx-deployment" revision 2
      Labels:       app=nginx
              pod-template-hash=1159050644
-     Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
      Containers:
       nginx:
        Image:      nginx:1.16.1
@@ -584,7 +595,6 @@ Follow the steps given below to rollback the Deployment from the current version
    CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
    Labels:                 app=nginx
    Annotations:            deployment.kubernetes.io/revision=4
-                           kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    Selector:               app=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
@@ -634,12 +644,12 @@ The output is similar to this:
 deployment.apps/nginx-deployment scaled
 ```
 
-Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
+Assuming [horizontal Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) is enabled
 in your cluster, you can set up an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell
-kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80%
 ```
 The output is similar to this:
 ```
@@ -1079,21 +1089,23 @@ Explicitly setting this field to 0, will result in cleaning up all the history o
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
-The cleanup only starts **after** a Deployment reaches a 
+The cleanup only starts **after** a Deployment reaches a
 [complete state](/docs/concepts/workloads/controllers/deployment/#complete-deployment).
 If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers creation of a new
 ReplicaSet before Kubernetes removes the old one.
 
 Even with a non-zero revision history limit, you can have more ReplicaSets than the limit
 you configure. For example, if pods are crash looping, and there are multiple rolling updates
-events triggered over time, you might end up with more ReplicaSets than the 
+events triggered over time, you might end up with more ReplicaSets than the
 `.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
 
-## Canary Deployment
+## Canary deployments
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
 [managing resources](/docs/concepts/workloads/management/#canary-deployments).
+
+To learn what's involved, follow the [Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/) tutorial.
 
 ## Writing a Deployment Spec
 
@@ -1132,7 +1144,7 @@ deployment --replicas=X`, and then you update that Deployment based on a manifes
 (for example: by running `kubectl apply -f deployment.yaml`),
 then applying that manifest overwrites the manual scaling that you previously did.
 
-If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (or any
+If a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (or any
 similar API for horizontal scaling) is managing scaling for a Deployment, don't set `.spec.replicas`.
 
 Instead, allow the Kubernetes
@@ -1315,8 +1327,7 @@ spec:
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `type: Progressing`, `status: "False"`.
 and `reason: ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
-controller will roll back a Deployment as soon as it observes such a condition.
+retrying the Deployment. This defaults to 600.
 
 If specified, this field needs to be greater than `.spec.minReadySeconds`.
 
@@ -1331,8 +1342,8 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+You can see the terminating pods only if the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 
@@ -1361,7 +1372,7 @@ it is created.
 
 * Learn more about [Pods](/docs/concepts/workloads/pods).
 * [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
+* Read the {{< api-reference page="apps/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 * Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).

@@ -13,6 +13,7 @@ Reference documentation:
    - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
    - [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+   - [Manifest-Based Admission Control](/docs/reference/access-authn-authz/manifest-admission-control/)
 - [Authorization](/docs/reference/access-authn-authz/authorization/)
    - [Role Based Access Control](/docs/reference/access-authn-authz/rbac/)
    - [Attribute Based Access Control](/docs/reference/access-authn-authz/abac/)

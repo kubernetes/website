@@ -15,7 +15,7 @@ card:
   - anchor: "#learning-environment"
     title: Learning environment
   - anchor: "#production-environment"
-    title: Production environment  
+    title: Production environment
 ---
 
 <!-- overview -->
@@ -45,7 +45,7 @@ bare metal environments.
 
 If you're learning Kubernetes, use the tools supported by the Kubernetes community,
 or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
-See [Install tools](/docs/tasks/tools/).
+See [Learning environment](/docs/setup/learning-environment/)
 
 ## Production environment
 

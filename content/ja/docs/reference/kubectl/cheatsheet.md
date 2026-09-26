@@ -49,7 +49,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
-# e2eユーザのパスワードを取得します。
+# e2eユーザーのパスワードを取得します。
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # 最初のユーザー名を表示します
@@ -370,7 +370,7 @@ kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/#custom-columns)を参照してください。
 
 ### Kubectlのログレベルとデバッグ
-kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
+kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)で説明します。
 
 ログレベル    | 説明
 --------------| -----------

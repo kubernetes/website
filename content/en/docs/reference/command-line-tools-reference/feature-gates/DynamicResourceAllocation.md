@@ -18,10 +18,11 @@ stages:
     defaultValue: true
     locked: false
     fromVersion: "1.34"
-
-# TODO: as soon as this is locked to "true" (= some time after GA, *not* yet in 1.34), comments about other DRA
-# feature gate(s) like "unless you also enable the `DynamicResourceAllocation` feature gate"
-# can be removed (for example, in dra-admin-access.md).
+    toVersion: "1.34"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.35"
 
 ---
 Enables support for resources with custom parameters and a lifecycle

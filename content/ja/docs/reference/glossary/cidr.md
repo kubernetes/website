@@ -1,7 +1,6 @@
 ---
 title: CIDR
 id: cidr
-date: 2019-11-12
 full_link: 
 short_description: >
   CIDRは、IPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。

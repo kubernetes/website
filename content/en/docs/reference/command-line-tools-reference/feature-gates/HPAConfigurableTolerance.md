@@ -9,6 +9,15 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.34"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.35"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.37"
 ---
-Enables setting a [tolerance threshold](/docs/tasks/run-application/horizontal-pod-autoscale.md#tolerance)
+Enables setting a [tolerance threshold](/docs/tasks/run-application/horizontal-pod-autoscale#tolerance)
 for HorizontalPodAutoscaler metrics.

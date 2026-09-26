@@ -30,13 +30,19 @@ a Pod or Container. Security context settings include, but are not limited to:
 * [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
 
 * `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
-  its parent process. This bool directly controls whether the
+  its parent process, for example, by executing a [setuid binary](https://en.wikipedia.org/wiki/Setuid).
+  This boolean value directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
-  flag gets set on the container process.
-  `allowPrivilegeEscalation` is always true when the container:
+  flag gets set on the container process, though note that the value is
+  inverted: if `allowPrivilegeEscalation` is true, then `no_new_privs` will be
+  set to false.
+
+  If `allowPrivilegeEscalation` is not defined in the `securityContext` field of a container specification, then it will default to true.
+
+  `allowPrivilegeEscalation: false` is inconsistent, and therefore cannot be set in combination, with a container that:
 
   - is run as privileged, or
-  - has `CAP_SYS_ADMIN`
+  - has the capability `CAP_SYS_ADMIN`
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
@@ -468,11 +474,11 @@ exit
 
 With [Linux capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html),
 you can grant certain privileges to a process without granting all the privileges
-of the root user. To add or remove Linux capabilities for a Container, include the
+of the root user. To add or drop Linux capabilities for a Container, include the
 `capabilities` field in the `securityContext` section of the Container manifest.
 
 First, see what happens when you don't include a `capabilities` field.
-Here is configuration file that does not add or remove any Container capabilities:
+Here is configuration file that does not add or drop any Container capabilities:
 
 {{% code_sample file="pods/security/security-context-3.yaml" %}}
 
@@ -694,31 +700,14 @@ below have no effect.
 
 {{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
 
-{{< note >}}
-Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
-to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
-
-Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
-as explained in detail below. While in beta, `SELinuxMount` is still disabled by default.
-{{< /note >}}
-
-With `SELinuxMount` feature gate disabled (the default in Kubernetes 1.33 and any previous release),
-the container runtime recursively assigns SELinux label to all
-files on all Pod volumes by default. To speed up this process, Kubernetes can change the
-SELinux label of a volume instantly by using a mount option
-`-o context=<label>`.
+By default, Kubernetes applies the SELinux label to eligible volumes instantly by using
+a mount option `-o context=<label>`.
 
 To benefit from this speedup, all these conditions must be met:
 
-* The [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  `SELinuxMountReadWriteOncePod` must be enabled.
-* Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
-  * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and all feature gates
-    `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
-    and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
+* Pod must use a PersistentVolumeClaim.
+* Pod has `spec.securityContext.seLinuxChangePolicy`
+  either nil (default) or `MountOption`.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
 * The corresponding PersistentVolume must be either:
@@ -764,13 +753,13 @@ with different SELinux labels:
 2. Raise `selinux_warning_controller_selinux_volume_conflict` metric. The metric has both pod
   names + namespaces as labels to identify the affected pods easily.
 
-A cluster admin can use this information to identify pods affected by the planning change and
+A cluster admin can use this information to identify pods affected by this change and
 proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
 
 {{< warning >}}
 We strongly recommend clusters that use SELinux to enable this controller and make sure that
-`selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before enabling `SELinuxMount`
-feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
+`selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before
+upgrading to Kubernetes v1.37 or later where `SELinuxMount` is GA and enabled by default.
 {{< /warning >}}
 
 #### Feature gates
@@ -779,15 +768,14 @@ The following feature gates control the behavior of SELinux volume relabeling:
 
 * `SELinuxMountReadWriteOncePod`: enables the optimization for volumes with `accessModes: ["ReadWriteOncePod"]`.
   This is a very safe feature gate to enable, as it cannot happen that two pods can share one single volume with
-  this access mode. This feature gate is enabled by default sine v1.28.
+  this access mode. GA since 1.36.
 * `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
-  in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
-  and to pro-actively opt-out Pods from the optimization.
-  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is beta and enabled by default in 1.33.
-* `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
-  enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
-  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is beta, but disabled
-  by default in 1.33.
+  in kube-controller-manager. This can be used to opt-out Pods from the mount optimization
+  when multiple Pods with different SELinux labels share a volume. GA since 1.36.
+* `SELinuxMount`: enables the optimization for all eligible volumes. GA since 1.37.
+  When upgrading from older Kubernetes versions where `SELinuxMount` was disabled by default,
+  we recommend enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to
+  check the impact of the change.
 
 ## Managing access to the `/proc` filesystem {#proc-access}
 

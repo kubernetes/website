@@ -453,7 +453,7 @@ Esse recurso é beta e ativado por padrão. Você pode desativá-lo usando o [fe
 
 Ao alocar recursos computacionais, cada contêiner pode especificar uma solicitação e um valor limite para CPU ou memória. A cota pode ser configurada para cotar qualquer valor.
 
-Se a cota tiver um valor especificado para `requests.cpu` ou `requests.memory`, ela exigirá que cada container faça uma solicitação explícita para esses recursos. Se a cota tiver um valor especificado para `limits.cpu` ou `limits.memory`, em seguida exige que cada contêiner de entrada especifique um limite explícito para esses recursos.
+Se a cota tiver um valor especificado para `requests.cpu` ou `requests.memory`, ela exigirá que cada contêiner faça uma solicitação explícita para esses recursos. Se a cota tiver um valor especificado para `limits.cpu` ou `limits.memory`, em seguida exige que cada contêiner de entrada especifique um limite explícito para esses recursos.
 
 ## Como visualizar e definir cotas
 
@@ -623,7 +623,7 @@ plugins:
 
 Em seguida, crie um objeto de cota de recurso no _namespace_ `kube-system`:
 
-{{% codenew file="policy/priority-class-resourcequota.yaml" %}}
+{{% code_sample file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system

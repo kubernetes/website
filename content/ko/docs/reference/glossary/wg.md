@@ -1,7 +1,6 @@
 ---
 title: WG(working group)
 id: wg
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
 short_description: >
   위원회(committee), SIG 내, 또는 SIG 간 노력을 위한 단기적이거나, 좁은 범위를 다루거나, 혹은 서로 연관되지 않은 프로젝트의 토론 및/또는 구현을 촉진한다.

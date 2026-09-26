@@ -53,7 +53,7 @@ Service 是软件服务（例如 mysql）的命名抽象，包含代理要侦听
   Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  spec 定义 Service 的行为。
+  `spec` 定义 Service 的行为。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status**（<a href="{{< ref "../service-resources/service-v1#ServiceStatus" >}}">ServiceStatus</a>）
@@ -80,7 +80,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/ 
   -->
 
-  将 Service 流量路由到具有与此 selector 匹配的标签键值对的 Pod。
+  将 Service 流量路由到具有与此 `selector` 匹配的标签键值对的 Pod。
   如果为空或不存在，则假定该服务有一个外部进程管理其端点，Kubernetes 不会修改该端点。
   仅适用于 ClusterIP、NodePort 和 LoadBalancer 类型。如果类型为 ExternalName，则忽略。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
@@ -133,7 +133,7 @@ ServiceSpec 描述用户在服务上创建的属性。
     编号必须在 1 到 65535 的范围内。名称必须是 IANA_SVC_NAME。
     如果此值是一个字符串，将在目标 Pod 的容器端口中作为命名端口进行查找。
     如果未指定字段，则使用 `port` 字段的值（直接映射）。
-    对于 clusterIP 为 None 的服务，此字段将被忽略，
+    对于 clusterIP 为 None 的 Service，此字段将被忽略，
     应忽略不设或设置为 `port` 字段的取值。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#defining-a-service
 
@@ -149,6 +149,19 @@ ServiceSpec 描述用户在服务上创建的属性。
     -->
 
     此端口的 IP 协议。支持 “TCP”、“UDP” 和 “SCTP”。默认为 TCP。
+  
+        <!--
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
+        -->
+  
+        可能的枚举值：
+        
+         - `"SCTP"` 是 SCTP 协议
+         - `"TCP"` 是 TCP 协议
+         - `"UDP"` 是 UDP 协议
 
   - **ports.name** (string)
 
@@ -170,7 +183,7 @@ ServiceSpec 描述用户在服务上创建的属性。
     当类型为 NodePort 或 LoadBalancer 时，Service 公开在节点上的端口，
     通常由系统分配。如果指定了一个在范围内且未使用的值，则将使用该值，否则操作将失败。
     如果在创建的 Service 需要该端口时未指定该字段，则会分配端口。
-    如果在创建不需要该端口的 Service时指定了该字段，则会创建失败。
+    如果在创建不需要该端口的 Service 时指定了该字段，则会创建失败。
     当更新 Service 时，如果不再需要此字段（例如，将类型从 NodePort 更改为 ClusterIP），这个字段将被擦除。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#type-nodeport
 
@@ -204,7 +217,7 @@ ServiceSpec 描述用户在服务上创建的属性。
       * 'kubernetes.io/ws'  - 基于明文的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
       * 'kubernetes.io/wss' - 基于 TLS 的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
         
-    * 其他协议应使用实现定义的前缀名称，例如 mycompany.com/my-custom-protocol。
+    * 其他协议应使用实现定义的前缀名称，例如 `mycompany.com/my-custom-protocol`。
 
 - **type** (string)
 
@@ -212,16 +225,32 @@ ServiceSpec 描述用户在服务上创建的属性。
   type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types 
   -->
 
-  type 确定 Service 的公开方式。默认为 ClusterIP。
+  `type` 确定 Service 的公开方式。默认为 ClusterIP。
   有效选项为 ExternalName、ClusterIP、NodePort 和 LoadBalancer。
   `ClusterIP` 为端点分配一个集群内部 IP 地址用于负载均衡。
-  Endpoints 由 selector 确定，如果未设置 selector，则需要通过手动构造 Endpoints 或 EndpointSlice 的对象来确定。
+  Endpoints 由 `selector` 确定，如果未设置 `selector`，则需要通过手动构造 Endpoints 或 EndpointSlice 的对象来确定。
   如果 clusterIP 为 `None`，则不分配虚拟 IP，并且 Endpoints 作为一组端点而不是虚拟 IP 发布。
   `NodePort` 建立在 ClusterIP 之上，并在每个节点上分配一个端口，该端口路由到与 clusterIP 相同的 Endpoints。
   `LoadBalancer` 基于 NodePort 构建并创建一个外部负载均衡器（如果当前云支持），该负载均衡器路由到与 clusterIP 相同的 Endpoints。
-  `externalName` 将此 Service 别名为指定的 externalName。其他几个字段不适用于 ExternalName Service。更多信息：
+  `externalName` 将此 Service 别名为指定的 `externalName`。其他几个字段不适用于 ExternalName Service。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types
 
+  <!--
+  Possible enum values:
+   - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+   - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+   - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+   - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
+  -->
+  
+  可能的枚举值：
+   - `"ClusterIP"` 表示 Service 只能在集群内部通过集群 IP 访问。
+   - `"ExternalName"` 表示 Service 仅包含一个对外部名称的引用，kube-dns 或等效组件会将其作为 CNAME 记录返回，
+     不涉及任何 Pod 的暴露或代理。
+   - `"LoadBalancer"` 表示 Service 将通过外部负载均衡器暴露（如果云提供商支持），
+     除了 'NodePort' 类型外。
+   - `"NodePort"` 表示 Service 将在每个节点的一个端口上暴露，除了 'ClusterIP' 类型外。
+  
 - **ipFamilies** ([]string)
 
   <!--
@@ -234,9 +263,9 @@ ServiceSpec 描述用户在服务上创建的属性。
   IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName. 
   -->
 
-  iPFamilies 是分配给此服务的 IP 协议（例如 IPv4、IPv6）的列表。
-  该字段通常根据集群配置和 ipFamilyPolicy 字段自动设置。
-  如果手动指定该字段，且请求的协议在集群中可用，且 ipFamilyPolicy 允许，则使用；否则服务创建将失败。
+  `ipFamilies` 是分配给此服务的 IP 协议（例如 IPv4、IPv6）的列表。
+  该字段通常根据集群配置和 `ipFamilyPolicy` 字段自动设置。
+  如果手动指定该字段，且请求的协议在集群中可用，且 `ipFamilyPolicy` 允许，则使用；否则服务创建将失败。
   该字段修改是有条件的：它允许添加或删除辅助 IP 协议，但不允许更改服务的主要 IP 协议。
   有效值为 “IPv4” 和 “IPv6”。
   该字段仅适用于 ClusterIP、NodePort 和 LoadBalancer 类型的服务，并且确实可用于“无头”服务。
@@ -264,6 +293,24 @@ ServiceSpec 描述用户在服务上创建的属性。
   ipFamilies 和 clusterIPs 字段取决于此字段的值。
   更新服务设置类型为 ExternalName 时，此字段将被擦除。
 
+  <!--
+  Possible enum values:
+   - `"PreferDualStack"` indicates that this service prefers dual-stack when the cluster is configured for dual-stack. If the cluster is not configured for dual-stack the service will be assigned a single IPFamily. If the IPFamily is not set in service.spec.ipFamilies then the service will be assigned the default IPFamily configured on the cluster
+   - `"RequireDualStack"` indicates that this service requires dual-stack. Using IPFamilyPolicyRequireDualStack on a single stack cluster will result in validation errors. The IPFamilies (and their order) assigned to this service is based on service.spec.ipFamilies. If service.spec.ipFamilies was not provided then it will be assigned according to how they are configured on the cluster. If service.spec.ipFamilies has only one entry then the alternative IPFamily will be added by apiserver
+   - `"SingleStack"` indicates that this service is required to have a single IPFamily. The IPFamily assigned is based on the default IPFamily used by the cluster or as identified by service.spec.ipFamilies field
+  -->
+
+  可能的枚举值：
+   - `"PreferDualStack"` 表示当集群配置为双栈时，此 Service 偏好使用双栈。
+     如果集群未配置为双栈，则服务将被分配一个 IP 族。
+     如果服务的 `spec.ipFamilies` 中未设置 IP 族，则 Service 将被分配集群上配置的默认 IP 家族。
+   - `"RequireDualStack"` 表示此 Service 需要双栈。在单栈集群上使用 IPFamilyPolicyRequireDualStack
+     将导致验证错误。分配给此服务的 IP 家族（及其顺序）基于 `service.spec.ipFamilies`。
+     如果未提供 `service.spec.ipFamilies`，则根据集群上的配置进行分配。
+     如果 `service.spec.ipFamilies` 只有一个条目，则 apiserver 将添加另一个 IP 家族。
+   - `"SingleStack"` 表示此 Service 必须只有一个 IP 家族。
+     分配的 IP 家族基于集群使用的默认 IP 家族或由 `service.spec.ipFamilies` 字段指定。
+
 - **clusterIP** (string)
 
   <!--
@@ -272,7 +319,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 
   clusterIP 是服务的 IP 地址，通常是随机分配的。
   如果地址是手动指定的，在范围内（根据系统配置），且没有被使用，它将被分配给服务，否则创建服务将失败。
-  clusterIP 一般不会被更改，除非 type 被更改为 ExternalName
+  clusterIP 一般不会被更改，除非 `type` 被更改为 ExternalName
   （ExternalName 需要 clusterIP 为空）或 type 已经是 ExternalName 时，可以更改 clusterIP（在这种情况下，可以选择指定此字段）。
   可选值 “None”、空字符串 (“”) 或有效的 IP 地址。
   clusterIP 为 “None” 时会生成“无头服务”（无虚拟 IP），这在首选直接 Endpoint 连接且不需要代理时很有用。
@@ -293,10 +340,10 @@ ServiceSpec 描述用户在服务上创建的属性。
   ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
   -->
 
-  clusterIPs 是分配给该 Service 的 IP 地址列表，通常是随机分配的。
+  `clusterIPs` 是分配给该 Service 的 IP 地址列表，通常是随机分配的。
   如果地址是手动指定的，在范围内（根据系统配置），且没有被使用，它将被分配给 Service；否则创建 Service 失败。
   clusterIP 一般不会被更改，除非 type 被更改为 ExternalName
-  （ExternalName 需要 clusterIPs 为空）或 type 已经是 ExternalName 时，可以更改 clusterIPs（在这种情况下，可以选择指定此字段）。
+  （ExternalName 需要 `clusterIPs` 为空）或 type 已经是 ExternalName 时，可以更改 `clusterIPs`（在这种情况下，可以选择指定此字段）。
   可选值 “None”、空字符串 (“”) 或有效的 IP 地址。
   clusterIPs 为 “None” 时会生成“无头服务”（无虚拟 IP），这在首选直接 Endpoint 连接且不需要代理时很有用。
   适用于 ClusterIP、NodePort、和 LoadBalancer 类型的服务。
@@ -308,9 +355,9 @@ ServiceSpec 描述用户在服务上创建的属性。
   This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies 
   -->
 
-  clusterIPs 最多可包含两个条目（双栈系列，按任意顺序）。
-  这些 IP 必须与 ipFamilies 的值相对应。
-  clusterIP 和 ipFamilies 都由 ipFamilyPolicy 管理。更多信息：
+  `clusterIPs` 最多可包含两个条目（双栈系列，按任意顺序）。
+  这些 IP 必须与 `ipFamilies` 的值相对应。
+  `clusterIP` 和 `ipFamilies` 都由 `ipFamilyPolicy` 管理。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **externalIPs** ([]string)
@@ -323,7 +370,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 
   **原子：将在合并期间被替换**
 
-  externalIPs 是一个 IP 列表，集群中的节点会为此 Service 接收针对这些 IP 地址的流量。
+  `externalIPs` 是一个 IP 列表，集群中的节点会为此 Service 接收针对这些 IP 地址的流量。
   这些 IP 不被 Kubernetes 管理。用户需要确保流量可以到达具有此 IP 的节点。
   一个常见的例子是不属于 Kubernetes 系统的外部负载均衡器。
 
@@ -337,6 +384,16 @@ ServiceSpec 描述用户在服务上创建的属性。
   启用基于客户端 IP 的会话亲和性。必须是 ClientIP 或 None。默认为 None。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
+  <!--
+  Possible enum values:
+   - `"ClientIP"` is the Client IP based.
+   - `"None"` - no session affinity.
+  -->
+
+  可能的枚举值：
+   - `"ClientIP"` 表示基于客户端 IP 的会话亲和性。
+   - `"None"` 表示没有会话亲和性。
+
 - **loadBalancerIP** (string)
 
   <!--
@@ -345,7 +402,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 
   仅适用于服务类型：LoadBalancer。此功能取决于底层云提供商是否支持负载均衡器。
   如果云提供商不支持该功能，该字段将被忽略。
-  已弃用：该字段信息不足，且其含义因实现而异。此字段是不可移植的，并且可能不支持双栈。。
+  已弃用：该字段信息不足，且其含义因实现而异。此字段是不可移植的，并且可能不支持双栈。
   我们鼓励用户在可用时使用特定于实现的注解。
 
 - **loadBalancerSourceRanges** ([]string)
@@ -368,14 +425,14 @@ ServiceSpec 描述用户在服务上创建的属性。
   loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
   -->
 
-  loadBalancerClass 是此 Service 所属的负载均衡器实现的类。
+  `loadBalancerClass` 是此 Service 所属的负载均衡器实现的类。
   如果设置了此字段，则字段值必须是标签风格的标识符，带有可选前缀，例如 ”internal-vip” 或 “example.com/internal-vip”。
   无前缀名称是为最终用户保留的。该字段只能在 Service 类型为 “LoadBalancer” 时设置。
   如果未设置此字段，则使用默认负载均衡器实现。默认负载均衡器现在通常通过云提供商集成完成，但应适用于任何默认实现。
   如果设置了此字段，则假定负载均衡器实现正在监测具有对应负载均衡器类的 Service。
   任何默认负载均衡器实现（例如云提供商）都应忽略设置此字段的 Service。
-  只有在创建或更新的 Service 的 type 为 “LoadBalancer” 时，才可设置此字段。
-  一经设定，不可更改。当 Service 的 type 更新为 “LoadBalancer” 之外的其他类型时，此字段将被移除。
+  只有在创建或更新的 Service 的 `type` 为 “LoadBalancer” 时，才可设置此字段。
+  一经设定，不可更改。当 Service 的 `type` 更新为 “LoadBalancer” 之外的其他类型时，此字段将被移除。
 
 - **externalName** (string)
 
@@ -383,7 +440,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName". 
   -->
 
-  externalName 是发现机制将返回的外部引用，作为此服务的别名（例如 DNS CNAME 记录）。
+  `externalName` 是发现机制将返回的外部引用，作为此服务的别名（例如 DNS CNAME 记录）。
   不涉及代理。必须是小写的 RFC-1123 主机名 (https://tools.ietf.org/html/rfc1123)，
   并且要求 `type` 为 `ExternalName`。
 
@@ -393,7 +450,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
   -->
 
-  externalTrafficPolicy 描述了节点如何分发它们在 Service 的“外部访问”地址
+  `externalTrafficPolicy` 描述了节点如何分发它们在 Service 的“外部访问”地址
   （NodePort、ExternalIP 和 LoadBalancer IP）接收到的服务流量。
   如果设置为 “Local”，代理将以一种假设外部负载均衡器将负责在节点之间服务流量负载均衡，
   因此每个节点将仅向服务的节点本地端点传递流量，而不会伪装客户端源 IP。
@@ -401,6 +458,17 @@ ServiceSpec 描述用户在服务上创建的属性。
   “Cluster” 默认值使用负载均衡路由到所有端点的策略（可能会根据拓扑和其他特性进行修改）。
   请注意，从集群内部发送到 External IP 或 LoadBalancer IP 的流量始终具有 “Cluster” 语义，
   但是从集群内部发送到 NodePort 的客户端需要在选择节点时考虑流量路由策略。
+  
+  <!--
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` preserves the source IP of the traffic by routing only to endpoints on the same node as the traffic was received on (dropping the traffic if there are no local endpoints).
+  -->
+
+  可能的枚举值：
+  - `"Cluster"` 路由流量到所有端点。
+  - `"Local"` 通过仅路由到与接收流量相同的节点上的端点来保留流量的源 IP 
+    （如果没有本地端点，则丢弃流量）。
 
 - **internalTrafficPolicy** (string)
 
@@ -408,9 +476,19 @@ ServiceSpec 描述用户在服务上创建的属性。
   InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
   -->
 
-  internalTrafficPolicy 描述节点如何分发它们在 ClusterIP 上接收到的服务流量。
+  `internalTrafficPolicy` 描述节点如何分发它们在 ClusterIP 上接收到的服务流量。
   如果设置为 “Local”，代理将假定 Pod 只想与在同一节点上的服务端点通信，如果没有本地端点，它将丢弃流量。
   “Cluster” 默认将流量路由到所有端点（可能会根据拓扑和其他特性进行修改）。
+
+  <!--
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` routes traffic only to endpoints on the same node as the client pod (dropping the traffic if there are no local endpoints
+  -->
+
+  可能的枚举值：
+  - `"Cluster"` 路由流量到所有端点。
+  - `"Local"` 仅将流量路由到与客户端 Pod 位于同一节点上的端点（如果没有本地端点，则丢弃流量）。
 
 - **healthCheckNodePort** (int32)
 
@@ -418,12 +496,12 @@ ServiceSpec 描述用户在服务上创建的属性。
   healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
   -->
 
-  healthCheckNodePort 指定 Service 的健康检查节点端口。
-  仅适用于 type 为 LoadBalancer 且 externalTrafficPolicy 设置为 Local 的情况。
+  `healthCheckNodePort` 指定 Service 的健康检查节点端口。
+  仅适用于 type 为 LoadBalancer 且 `externalTrafficPolicy` 设置为 Local 的情况。
   如果为此字段设定了一个值，该值在合法范围内且没有被使用，则使用所指定的值。
   如果未设置此字段，则自动分配字段值。外部系统（例如负载平衡器）可以使用此端口来确定给定节点是否拥有此服务的端点。
-  在创建不需要 healthCheckNodePort 的 Service 时指定了此字段，则 Service 创建会失败。
-  要移除 healthCheckNodePort，需要更改 Service 的 type。
+  在创建不需要 `healthCheckNodePort` 的 Service 时指定了此字段，则 Service 创建会失败。
+  要移除 `healthCheckNodePort`，需要更改 Service 的 `type`。
   该字段一旦设置就无法更改。
 
 - **publishNotReadyAddresses** (boolean)
@@ -432,10 +510,10 @@ ServiceSpec 描述用户在服务上创建的属性。
   publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior. 
   -->
 
-  publishNotReadyAddresses 表示任何处理此 Service 端点的代理都应忽略任何准备就绪/未准备就绪的指示。
+  `publishNotReadyAddresses` 表示任何处理此 Service 端点的代理都应忽略任何准备就绪/未准备就绪的指示。
   设置此字段的主要场景是为 StatefulSet 的服务提供支持，使之能够为其 Pod 传播 SRV DNS 记录，以实现对等发现。
   为 Service 生成 Endpoints 和 EndpointSlice 资源的 Kubernetes 控制器对字段的解读是，
-  即使 Pod 本身还没有准备好，所有端点都可被视为 “已就绪”。
+  即使 Pod 本身还没有准备好，所有端点都可被视为“已就绪”。
   对于代理而言，如果仅使用 Kubernetes 通过 Endpoints 或 EndpointSlice 资源所生成的端点，
   则可以安全地假设这种行为。
 
@@ -448,7 +526,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   *SessionAffinityConfig represents the configurations of session affinity.*
   -->
 
-  sessionAffinityConfig 包含会话亲和性的配置。
+  `sessionAffinityConfig` 包含会话亲和性的配置。
 
   <a name="SessionAffinityConfig"></a>
   **SessionAffinityConfig 表示会话亲和性的配置。**
@@ -473,7 +551,7 @@ ServiceSpec 描述用户在服务上创建的属性。
       timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && \<=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours). 
       -->
 
-      timeoutSeconds 指定 ClientIP 类型会话的维系时间秒数。
+      `timeoutSeconds` 指定 ClientIP 类型会话的维系时间秒数。
       如果 ServiceAffinity == "ClientIP"，则该值必须 >0 && <=86400（1 天）。默认值为 10800（3 小时）。
 
 - **allocateLoadBalancerNodePorts** (boolean)
@@ -482,7 +560,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. 
   -->
 
-  allocateLoadBalancerNodePorts 定义了是否会自动为 LoadBalancer 类型的 Service 分配 NodePort。默认为 true。
+  `allocateLoadBalancerNodePorts` 定义了是否会自动为 LoadBalancer 类型的 Service 分配 NodePort。默认为 true。
   如果集群负载均衡器不依赖 NodePort，则可以设置此字段为 false。
   如果调用者（通过指定一个值）请求特定的 NodePort，则无论此字段如何，都会接受这些请求。
   该字段只能设置在 type 为 LoadBalancer 的 Service 上，如果 type 更改为任何其他类型，该字段将被移除。
@@ -494,7 +572,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 -->
 - **trafficDistribution** (string)
 
-  trafficDistribution 提供了一种流量如何被分配到 Service 端点的偏好表达方式。
+  `trafficDistribution` 提供了一种流量如何被分配到 Service 端点的偏好表达方式。
   各个实现可以将此字段用作提示，但不需要严格遵守。如果此字段未设置，实现将应用其默认路由策略。
   如果设置为 “PreferClose”，则实现应优先考虑位于同一区域的端点。
 
@@ -540,7 +618,7 @@ ServiceStatus 表示 Service 的当前状态。
   
   - **conditions.lastTransitionTime**（Time），必需
 
-    lastTransitionTime 是状况最近一次状态转化的时间。
+    `lastTransitionTime` 是状况最近一次状态转化的时间。
     变化应该发生在下层状况发生变化的时候。如果不知道下层状况发生变化的时间，
     那么使用 API 字段更改的时间是可以接受的。
 
@@ -558,7 +636,7 @@ ServiceStatus 表示 Service 的当前状态。
     message is a human readable message indicating details about the transition. This may be an empty string. 
     -->
 
-    message 是人类可读的消息，有关转换的详细信息，可以是空字符串。
+    `message` 是人类可读的消息，有关转换的详细信息，可以是空字符串。
 
   <!--
   - **conditions.reason** (string), required
@@ -584,7 +662,7 @@ ServiceStatus 表示 Service 的当前状态。
     status of the condition, one of True, False, Unknown. 
     -->
 
-    condition 的状态，True、False、Unknown 之一。
+    `condition` 的状态，True、False、Unknown 之一。
 
   <!--
   - **conditions.type** (string), required
@@ -617,7 +695,7 @@ ServiceStatus 表示 Service 的当前状态。
   *LoadBalancerStatus represents the status of a load-balancer.*
   -->
 
-  loadBalancer 包含负载均衡器的当前状态（如果存在）。
+  `loadBalancer` 包含负载均衡器的当前状态（如果存在）。
 
   <a name="LoadBalancerStatus"></a>
   **LoadBalancerStatus 表示负载均衡器的状态。**
@@ -635,7 +713,7 @@ ServiceStatus 表示 Service 的当前状态。
   
     **原子：将在合并期间被替换**
 
-    ingress 是一个包含负载均衡器 Ingress 点的列表。Service 的流量需要被发送到这些 Ingress 点。
+    `ingress` 是一个包含负载均衡器 Ingress 点的列表。Service 的流量需要被发送到这些 Ingress 点。
 
     <a name="LoadBalancerIngress"></a>
     **LoadBalancerIngress 表示负载平衡器入口点的状态: 用于服务的流量是否被发送到入口点。**
@@ -646,7 +724,7 @@ ServiceStatus 表示 Service 的当前状态。
       Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)     
       -->
 
-      hostname 是为基于 DNS 的负载均衡器 Ingress 点（通常是 AWS 负载均衡器）设置的。
+      `hostname` 是为基于 DNS 的负载均衡器 Ingress 点（通常是 AWS 负载均衡器）设置的。
 
     - **loadBalancer.ingress.ip** (string)
 
@@ -654,7 +732,7 @@ ServiceStatus 表示 Service 的当前状态。
       IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers) 
       -->
 
-      ip 是为基于 IP 的负载均衡器 Ingress 点（通常是 GCE 或 OpenStack 负载均衡器）设置的。
+      `ip` 是为基于 IP 的负载均衡器 Ingress 点（通常是 GCE 或 OpenStack 负载均衡器）设置的。
     
     - **loadBalancer.ingress.ipMode** (string)
 
@@ -665,7 +743,7 @@ ServiceStatus 表示 Service 的当前状态。
       port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
       -->
 
-      ipMode 指定负载平衡器 IP 的行为方式，并且只能在设置了 ip 字段时指定。
+      `ipMode` 指定负载平衡器 IP 的行为方式，并且只能在设置了 ip 字段时指定。
       将其设置为 `VIP` 表示流量将传送到节点，并将目标设置为负载均衡器的 IP 和端口。
       将其设置为 `Proxy` 表示将流量传送到节点或 Pod，并将目标设置为节点的 IP 和节点端口或 Pod 的 IP 和端口。
       服务实现可以使用此信息来调整流量路由。
@@ -682,7 +760,7 @@ ServiceStatus 表示 Service 的当前状态。
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
       -->
 
-      ports 是 Service 的端口列表。如果设置了此字段，Service 中定义的每个端口都应该在此列表中。
+      `ports` 是 Service 的端口列表。如果设置了此字段，Service 中定义的每个端口都应该在此列表中。
 
       <a name="PortStatus"></a>
 
@@ -712,7 +790,12 @@ ServiceStatus 表示 Service 的当前状态。
         Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
         -->
 
-        protocol 是所记录的服务端口状态的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+        `protocol` 是所记录的服务端口状态的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+  
+        可能的枚举值：
+          - `"SCTP"` 是 SCTP 协议
+          - `"TCP"` 是 TCP 协议
+          - `"UDP"` 是 UDP 协议
 
       - **loadBalancer.ingress.ports.error** (string)
 
@@ -723,10 +806,10 @@ ServiceStatus 表示 Service 的当前状态。
           format foo.example.com/CamelCase. 
         -->
 
-        error 是记录 Service 端口的问题。
+        `error` 是记录 Service 端口的问题。
         错误的格式应符合以下规则：
         - 内置错误原因应在此文件中指定，应使用 CamelCase 名称。
-        - 云提供商特定错误原因的名称必须符合格式 foo.example.com/CamelCase。
+        - 云提供商特定错误原因的名称必须符合格式 `foo.example.com/CamelCase`。
 
 ## ServiceList {#ServiceList}
 
@@ -920,6 +1003,10 @@ GET /api/v1/namespaces/{namespace}/services
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -969,6 +1056,10 @@ GET /api/v1/namespaces/{namespace}/services
 - **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 
@@ -1037,6 +1128,10 @@ GET /api/v1/services
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1082,6 +1177,10 @@ GET /api/v1/services
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 
@@ -1660,6 +1759,10 @@ DELETE /api/v1/namespaces/{namespace}/services
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1719,6 +1822,10 @@ DELETE /api/v1/namespaces/{namespace}/services
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 

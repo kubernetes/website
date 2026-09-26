@@ -39,7 +39,7 @@ content_type: tutorial
 
 最初に、`redis-config`ファイルからConfigMapを含む`kustomization.yaml`を作成します:
 
-{{% codenew file="pods/config/redis-config" %}}
+{{% code_sample file="pods/config/redis-config" %}}
 
 ```shell
 curl -OL https://k8s.io/examples/pods/config/redis-config
@@ -54,7 +54,7 @@ EOF
 
 Podリソースの設定を`kustomization.yaml`に入れます:
 
-{{% codenew file="pods/config/redis-pod.yaml" %}}
+{{% code_sample file="pods/config/redis-pod.yaml" %}}
 
 ```shell
 curl -OL https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
@@ -89,7 +89,7 @@ pod/redis   1/1     Running   0          52s
 `kubectl exec`を使ってPodに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"

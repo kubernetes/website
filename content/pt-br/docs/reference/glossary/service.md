@@ -1,7 +1,6 @@
 ---
 title: Service
 id: service
-date: 2021-09-17
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   Uma forma abstrata de expor uma aplicação que está executando em um conjunto de Pods como um serviço de rede.

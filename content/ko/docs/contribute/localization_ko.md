@@ -47,12 +47,12 @@ content_type: concept
 지정한다.
 
 한글화팀의 PR 랭글러가 갖는 의무는 업스트림의
-[PR 랭글러](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기)가 갖는
+[PR 랭글러](/docs/contribute/participate/pr-wranglers)가 갖는
 의무와 유사하다. 단, 업스트림의 PR 랭글러와는 달리 승인자가 아니어도 팀 마일스톤의 PR 랭글러가
 될 수 있다. 그래서, 보다 상위 권한이 필요한 업무가 발생한 경우, PR 랭글러는 해당 권한을 가진
 한글화팀 멤버에게 처리를 요청한다.
 
-업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/ko/docs/contribute/advanced/#랭글러에게-유용한-github-쿼리)를
+업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/docs/contribute/participate/pr-wranglers/#랭글러를-위해-도움이-되는-github-쿼리)를
 기반으로 작성한, 한글화팀의 PR 랭글러에게 유용한 쿼리를 아래에 나열한다.
 
 - [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fko)
@@ -120,6 +120,14 @@ content_type: concept
 content_type: concept
 weight: 10
 ```
+
+### 내부 링크 자동 현지화
+쿠버네티스 웹사이트는 문서 빌드 과정에서 `/docs/~`와 같은 형태의 내부 링크 경로 앞에, 문서의 언어에 맞는 디렉터리 접두사(`/ko`)가 자동으로 추가된다.
+해당 기능은 풀 리퀘스트 [#47620](https://github.com/kubernetes/website/pull/47620)에서 구현되었으며, 2024년 8월에 병합되었다.
+
+따라서, 현지화 문서 작성 시 다음 기준으로 링크 표기를 통일한다.
+* **신규 문서 작성** : 영어 원문의 내부 링크 경로를 변경 없이 유지한다.(단, 앵커 링크의 경우 기존과 같이 한국어에 맞게 수정한다.)
+* **기존 문서 갱신** : 과거에 수동으로 추가한 `/ko` 접두사가 남아있는 경우 이를 제거한다.
 
 ## 용어 한글화 가이드
 
@@ -199,7 +207,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 
 ### 기능 게이트(feature gate) 한글화 방침
 
-쿠버네티스의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+쿠버네티스의 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
 의미하는 용어는 한글화하지 않고 원문 형태를 유지한다.
 
 기능 게이트의 예시는 다음과 같다.
@@ -210,7 +218,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 - ...
 
 전체 기능 게이트 목록은
-[여기](/ko/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
+[여기](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
 
 {{% note %}}
 단, 해당 원칙에는 예외가 있을 수 있으며, 이 경우에는 가능한
@@ -228,6 +236,20 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 각 영문 용어에 대한 한글화 방법을 제시한다.
 한글화 용어집에 포함된 용어는 쿠버네티스 문서 한글화팀 회의를 통해 결정되었으며,
 본 문서에 대한 ISSUE 및 PR을 통해서 개선한다.
+
+{{< note >}}
+
+한글화 작업 시 기여자의 혼란을 줄이기 위해 공식 문서에서 사용되는 용어집에 대해 추가로 설명한다.
+
+본 가이드의 한글화 용어집은 한글화 과정에서 자주 등장하여 논의가 이루어진 용어를 중심으로, 향후 번역 시 참고할 수 있도록 현지화 가이드 목적으로 정리한 것이다.
+
+[용어집(glossary)](/docs/reference/glossary)은 쿠버네티스 문서를 읽는 독자가 용어의 의미를 빠르게 이해할 수 있도록 간단한 정의를 툴팁으로 제공하기 위한 것이다.
+본 문서의 [한글화 방법을 가이드하기 위한 용어집](#한글화-용어집)과는 용도가 다르다.
+용도를 고려하여 [용어집(glossary)](/docs/reference/glossary)에 포함된 각 문서의 제목에는 의도적으로 영어 원문을 추가로 병행 표기한다.
+예를 들어, `title: 파드 (원문, Pod)`, `컨테이너 네트워크 인터페이스(CNI) (원문, Container network interface (CNI))`와 같이 표기한다.
+단, 영문 그대로 사용하는 경우 중복적으로 병기하지는 않는다. 예를 들어, `title: etcd` 는 원문을 그대로 유지하므로 원문을 추가로 표기하지 않는다. 
+
+{{< /note >}}
 
 #### 한글화 용어집 개선 가이드
 
@@ -248,19 +270,19 @@ PR을 생성하여 개선된 용어를 제안한다.
 
 English | 한글 | 비고
 --- | --- | ---
-Access | 접근 |
+access | 접근 |
 Active | Active | 잡의 상태
-Active Job | 액티브 잡 |
-Addons | 애드온 |
+active job | 액티브 잡 |
+addons | 애드온 |
 admission controller | 어드미션 컨트롤러 |
-Age | 기간 |
-Allocation | 할당량 |
+age | 기간 |
+allocation | 할당량 |
 alphanumeric | 영숫자 |
-Annotation | 어노테이션 |
+annotation | 어노테이션 |
 APIService | API서비스(APIService) | API 오브젝트인 경우
-App | 앱 |
-Appendix | 부록 |
-Application | 애플리케이션 |
+app | 앱 |
+appendix | 부록 |
+application | 애플리케이션 |
 Args | Args | 약어의 형태이므로 한글화하지 않고 영문 표기
 array | 배열 |
 autoscaler | 오토스케일러 |
@@ -269,31 +291,31 @@ bare pod | 베어(bare) 파드 |
 beta | 베타 |
 Binding | 바인딩(Binding) | API 오브젝트인 경우
 boilerplate | 상용구 |
-Boot | 부트 |
-Bootstrap | 부트스트랩 |
-Build | 빌드 |
-Cache | 캐시 |
+boot | 부트 |
+bootstrap | 부트스트랩 |
+build | 빌드 |
+cache | 캐시 |
 Calico | 캘리코(Calico) |
 canary | 카나리(canary) | 릴리스 방식에 관련한 용어인 경우에 한함
 cascading | 캐스케이딩(cascading) |
 CertificateSigningRequest | CertificateSigningRequest | API 오브젝트인 경우
 character set | 캐릭터 셋 |
-Charts | 차트 |
+charts | 차트 |
 checkpoint | 체크포인트 |
 Cilium | 실리움(Cilium) |
 CLI | CLI |
-Cluster | 클러스터 |
+cluster | 클러스터 |
 ClusterRole | 클러스터롤(ClusterRole) | API 오브젝트인 경우
 ClusterRoleBinding | 클러스터롤바인딩(ClusterRoleBinding) | API 오브젝트인 경우
-Command Line Tool | 커맨드라인 툴 |
-Component | 컴포넌트 |
+command line tool | 커맨드라인 툴 |
+component | 컴포넌트 |
 ComponentStatus | 컴포넌트스테이터스(ComponentStatus) | API 오브젝트인 경우
 ConfigMap | 컨피그맵(ConfigMap) | API 오브젝트인 경우
 configuration | 구성, 설정 |
-Connection | 연결 |
+connection | 연결 |
 containerized | 컨테이너화 된 |
-Context | 컨텍스트  |
-Control Plane | 컨트롤 플레인 |
+context | 컨텍스트 |
+control plane | 컨트롤 플레인 |
 controller | 컨트롤러 |
 ControllerRevision | 컨트롤러리비전(ControllerRevision) | API 오브젝트인 경우
 cron job | 크론 잡 |
@@ -303,21 +325,21 @@ CSINode | CSI노드(CSINode) | API 오브젝트인 경우
 custom metrics | 사용자 정의 메트릭 |
 custom resource | 사용자 정의 리소스 |
 CustomResourceDefinition | 커스텀리소스데피니션(CustomResourceDefinition) | API 오브젝트인 경우
-Daemon | 데몬 |
+daemon | 데몬 |
 DaemonSet | 데몬셋(DaemonSet) | API 오브젝트인 경우
-Dashboard | 대시보드 |
-Data Plane | 데이터 플레인 |
+dashboard | 대시보드 |
+data plane | 데이터 플레인 |
 Deployment | 디플로이먼트(Deployment) | API 오브젝트인 경우
 deprecated | 사용 중단(deprecated) |
 descriptor | 디스크립터, 식별자 |
-Desired number of pods | 의도한 파드의 수 |
-Desired State | 의도한 상태 |
+desired number of pods | 의도한 파드의 수 |
+desired state | 의도한 상태 |
 disruption | 중단(disruption) |
 distros | 배포판 |
 Docker | 도커 |
 Dockerfile | Dockerfile |
 Docker Swarm | Docker Swarm |
-Downward API | 다운워드(Downward) API |
+downward API | 다운워드(Downward) API |
 draining | 드레이닝(draining) |
 egress | 이그레스, 송신(egress) |
 endpoint | 엔드포인트 |
@@ -327,11 +349,11 @@ entry point | 진입점 |
 Event | 이벤트(Event) | API 오브젝트인 경우
 evict | 축출하다 |
 eviction | 축출 |
-Exec | Exec |
+exec | exec |
 expose | 노출시키다 |
 extension | 익스텐션(extension) |
 Failed | Failed | 파드의 상태에 한함
-Federation | 페더레이션 |
+federation | 페더레이션 |
 field | 필드 |
 finalizer | 파이널라이저(finalizer) |
 Flannel | 플란넬(Flannel) |
@@ -341,21 +363,21 @@ hash | 해시 |
 headless | 헤드리스 |
 health check | 헬스 체크 |
 Heapster | 힙스터(Heapster) |
-Heartbeat | 하트비트 |
+heartbeat | 하트비트 |
 Homebrew | Homebrew |
 hook | 훅(hook) |
 Horizontal Pod Autoscaler | Horizontal Pod Autoscaler | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 hosted zone | 호스팅 영역 |
 hostname | 호스트네임 |
-Huge page | Huge page |
-Hypervisor | 하이퍼바이저 |
+huge page | huge page |
+hypervisor | 하이퍼바이저 |
 idempotent | 멱등성 |
-Image | 이미지 |
-Image Pull Secrets | 이미지 풀(Pull) 시크릿 |
+image | 이미지 |
+image pull secrets | 이미지 풀(Pull) 시크릿 |
 Ingress | 인그레스(Ingress) | API 오브젝트인 경우
 IngressClass | 인그레스클래스(IngressClass) | API 오브젝트인 경우
-Init Container | 초기화 컨테이너 |
-Instance group | 인스턴스 그룹 |
+init container | 초기화 컨테이너 |
+instance group | 인스턴스 그룹 |
 introspection | 인트로스펙션(introspection) |
 Istio | 이스티오(Istio) |
 Job | 잡(Job) | API 오브젝트인 경우
@@ -371,17 +393,17 @@ limit | 한도(limit) | 리소스의 개수나 용량을 한정하기 위한 수
 Linux | 리눅스 |
 load | 부하 |
 LocalSubjectAccessReview | 로컬서브젝트액세스리뷰(LocalSubjectAccessReview) | API 오브젝트인 경우
-Log | 로그 |
+log | 로그 |
 loopback | 루프백(loopback) |
 Lost | Lost | 클레임의 상태에 한함
-Machine | 머신 |
+machine | 머신 |
 manifest | 매니페스트 |
-Master | 마스터 |
+master | 마스터 |
 metadata | 메타데이터 |
 metric | 메트릭 |
 masquerading | 마스커레이딩 |
 Minikube | Minikube |
-Mirror pod | 미러 파드(mirror pod) |
+mirror pod | 미러 파드(mirror pod) |
 monitoring | 모니터링 |
 multihomed | 멀티홈드(multihomed) |
 MutatingWebhookConfiguration | MutatingWebhookConfiguration | API 오브젝트인 경우
@@ -391,11 +413,11 @@ netfilter | 넷필터(netfilter) |
 NetworkPolicy | 네트워크폴리시(NetworkPolicy) | API 오브젝트인 경우
 Node | 노드(Node) | API 오브젝트인 경우
 node lease | 노드 리스(lease)
-Object | 오브젝트 |
-observability | 가시성(observability) |
-Operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](https://kubernetes.io/ko/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
-Orchestrate | 오케스트레이션하다 |
-Output | 출력 |
+object | 오브젝트 |
+observability | 옵저버빌리티(observability) |
+operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
+orchestrate | 오케스트레이션하다 |
+output | 출력 |
 parameter | 파라미터 |
 patch | 패치 |
 payload | 페이로드(payload) |
@@ -405,7 +427,7 @@ PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim) | 
 pipeline | 파이프라인 |
 placeholder pod | 플레이스홀더(placeholder) 파드 |
 Pod | 파드 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
-Pod Preset | 파드 프리셋 |
+pod preset | 파드 프리셋 |
 PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) |
 PodDisruptionBudget | PodDisruptionBudget | API 오브젝트인 경우
 PodSecurityPolicy | 파드시큐리티폴리시(PodSecurityPolicy) | API 오브젝트인 경우
@@ -413,22 +435,23 @@ PodTemplate | 파드템플릿(PodTemplate) | API 오브젝트인 경우
 postfix | 접미사 |
 prefix | 접두사 |
 PriorityClass | 프라이어리티클래스(PriorityClass) | API 오브젝트인 경우
-Privileged | 특권을 가진(privileged) |
+privileged | 특권을 가진(privileged) |
+probe | 프로브(probe) |
 Prometheus | 프로메테우스 |
 proxy | 프록시 |
 proof of concept | 개념 증명 |
-Pull Request | 풀 리퀘스트 |
-Pull Secret Credentials | 풀(Pull) 시크릿 자격증명 |
-QoS Class | QoS 클래스 |
-Quota | 쿼터 |
+pull request | 풀 리퀘스트 |
+pull secret credentials | 풀(Pull) 시크릿 자격증명 |
+QoS class | QoS 클래스 |
+quota | 쿼터 |
 readiness gate | 준비성 게이트(readiness gate) |
 readiness probe | 준비성 프로브(readiness probe) |
 Ready | Ready |
-Reclaim Policy | 반환 정책 |
+reclaim policy | 반환 정책 |
 redirect | 리다이렉트(redirect) |
 redirection | 리다이렉션 |
-Registry | 레지스트리 |
-Release | 릴리스 |
+registry | 레지스트리 |
+release | 릴리스 |
 ReplicaSet | 레플리카셋(ReplicaSet) | API 오브젝트인 경우
 replicas | 레플리카 |
 ReplicationController | 레플리케이션컨트롤러(ReplicationController) | API 오브젝트인 경우
@@ -447,60 +470,60 @@ Romana | 로마나(Romana) |
 Running | Running | 파드의 상태에 한함
 runtime | 런타임 |
 RuntimeClass | 런타임클래스(RuntimeClass) | API 오브젝트인 경우
-Scale | 스케일 |
+scale | 스케일 |
 Secret | 시크릿(Secret) | API 오브젝트인 경우
 segment | 세그먼트 |
-Selector | 셀렉터 |
-Self-healing | 자가 치유 |
+selector | 셀렉터 |
+self-healing | 자가 치유 |
 SelfSubjectAccessReview | 셀프서브젝트액세스리뷰(SelfSubjectAccessReview) | API 오브젝트인 경우
 SelfSubjectRulesReview | SelfSubjectRulesReview | API 오브젝트이지만 용어를 구성하는 단어 중 복수형 Rules를 '룰스'로 외래어 표기하는 경우 한국어 독자에게 다소 생경할 수 있어 예외적으로 영문 용어를 사용함
 Service | 서비스 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
 ServiceAccount | 서비스어카운트(ServiceAccount) | API 오브젝트인 경우
 service discovery | 서비스 디스커버리 |
 service mesh | 서비스 메시 |
-Session | 세션 |
-Session Affinity | 세션 어피니티(Affinity) |
-Setting | 세팅 |
-Shell | 셸 |
+session | 세션 |
+session affinity | 세션 어피니티(session affinity) |
+setting | 세팅 |
+shell | 셸 |
 sidecar | 사이드카(sidecar) |
-Sign In | 로그인 |
-Sign Out | 로그아웃 |
+sign in | 로그인 |
+sign out | 로그아웃 |
 skew | 차이(skew) |
 snippet | 스니펫(snippet) |
 spec | 명세, 스펙, 사양 |
 specification | 명세 |
 StatefulSet | 스테이트풀셋(StatefulSet) | API 오브젝트인 경우
 stateless | 스테이트리스 |
-Static pod | 스태틱(static) 파드 |
+static pod | 스태틱(static) 파드 |
 StorageClass | 스토리지클래스(StorageClass) | API 오브젝트인 경우
 SubjectAccessReview | 서브젝트액세스리뷰(SubjectAccessReview) | API 오브젝트인 경우
-Sub-Object | 서브-오브젝트 |
+sub-object | 서브-오브젝트 |
 support | 지원 |
-Surge | 증가율 | 롤링업데이트 전략에 한함
-System | 시스템 |
+surge | 증가율 | 롤링업데이트 전략에 한함
+system | 시스템 |
 taint | 테인트(taint) |
-Task | 태스크 |
+task | 태스크 |
 telepresence | 텔레프레즌스(telepresence) |
 Terminated | Terminated | 파드의 상태에 한함
 TokenReview | 토큰리뷰(TokenReview) | API 오브젝트인 경우
 tolerations | 톨러레이션(toleration) |
-Topology spread constraints | 토폴로지 분배 제약 조건 |
-Tools  | 도구 |
+topology spread constraints | 토폴로지 분배 제약 조건 |
+tools | 도구 |
 traffic | 트래픽 |
-Type | 타입 |
-ubuntu | 우분투 |
+type | 타입 |
+Ubuntu | 우분투 |
 use case | 유스케이스 |
 userspace | 유저스페이스(userspace) |
-Utilization | 사용량, 사용률 |
+utilization | 사용량, 사용률 |
 ValidatingWebhookConfiguration | ValidatingWebhookConfiguration | API 오브젝트인 경우
 verbosity | 로그 상세 레벨(verbosity) |
 virtualization | 가상화 |
-Volume | 볼륨 |
+volume | 볼륨 |
 VolumeAttachment | 볼륨어태치먼트(VolumeAttachment) | API 오브젝트인 경우
 Waiting | Waiting | 파드의 상태에 한함
-Walkthrough | 연습 |
+walkthrough | 연습 |
 Weave-net | 위브넷(Weave Net) | Weaveworks 사의 솔루션 공식 명칭은 'Weave Net'이므로 한영병기 시 공식 명칭 사용
 Windows | 윈도우 |
-Worker | 워커 | 노드의 형태에 한함
-Workload | 워크로드 |
+worker | 워커 | 노드의 형태에 한함
+workload | 워크로드 |
 YAML | YAML |

@@ -202,7 +202,7 @@ Must be at least one.</p>
 <tr><td><code>TracingConfiguration</code> <B>[Required]</B><br/>
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
-<td>(Members of <code>TracingConfiguration</code> are embedded into this type.)
+<td>
    <p>Embed the component config tracing configuration struct</p>
 </td>
 </tr>
@@ -1016,6 +1016,13 @@ Must be configured if TCPTransport.URL is prefixed with https://</p>
    <p>clientCert is the file location of the client certificate to be used in mtls handshakes with the konnectivity server.
 Must be absent/empty if TCPTransport.URL is prefixed with http://
 Must be configured if TCPTransport.URL is prefixed with https://</p>
+</td>
+</tr>
+<tr><td><code>tlsServerName</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>tlsServerName is used to check server certificate. If tlsServerName is empty, the hostname used to contact the server is used.</p>
 </td>
 </tr>
 </tbody>

@@ -97,15 +97,14 @@ Kubernetes 为了不同的用途，支持几种不同类型的临时卷：
 
 <!--
 `emptyDir`, `configMap`, `downwardAPI`, `secret` are provided as
-[local ephemeral
-storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+[local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 They are managed by kubelet on each node.
 
 CSI ephemeral volumes *must* be provided by third-party CSI storage
 drivers.
 -->
 `emptyDir`、`configMap`、`downwardAPI`、`secret` 是作为
-[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
+[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)
 提供的。它们由各个节点上的 kubelet 管理。
 
 CSI 临时卷 **必须** 由第三方 CSI 存储驱动程序提供。
@@ -138,12 +137,12 @@ is managed by kubelet, or injecting different data.
 
 <!--
 CSI ephemeral volumes are only supported by a subset of CSI drivers.
-The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
+The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
 shows which drivers support ephemeral volumes.
 -->
 {{< note >}}
 只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI
-[驱动程序列表](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
+[驱动程序列表](https://kubernetes-csi.github.io/docs/drivers.html)
 显示了支持临时卷的驱动程序。
 {{< /note >}}
 
@@ -425,10 +424,12 @@ Using generic ephemeral volumes allows users to create PVCs indirectly
 if they can create Pods, even if they do not have permission to create PVCs directly.
 Cluster administrators must be aware of this. If this does not fit their security model,
 they should use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+that rejects objects like Pods that have a generic ephemeral volume.
 -->
 只要用户有权限创建 Pod，就可以使用通用的临时卷间接地创建持久卷申领（PVCs），
 即使他们没有权限直接创建 PVCs。集群管理员必须注意这一点。如果这与他们的安全模型相悖，
-他们应该使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
+他们应该使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+来拒绝那些包含通用临时卷的对象（例如 Pod）。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota)
@@ -443,11 +444,11 @@ it to circumvent other policies.
 <!--
 ### Ephemeral volumes managed by kubelet
 
-See [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+See [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 -->
 ### kubelet 管理的临时卷 {#ephemeral-volumes-managed-by-kubelet}
 
-参阅[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
+参阅[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)。
 
 <!--
 ### CSI ephemeral volumes
@@ -468,7 +469,7 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 ### Generic ephemeral volumes
 
 - For more information on the design, see the
-[Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
+  [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 

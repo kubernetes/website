@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Pod Disruption
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   Tiến trình mà các Pod trên Node bị chấm dứt, có thể là chủ động hoặc bị động.
 

@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   Một tác vụ hữu hạn hoặc dạng batch chạy cho đến khi hoàn tất.

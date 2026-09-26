@@ -13,8 +13,12 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
-Enables support for requesting [admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access)
+Enables support for requesting [admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 in a ResourceClaim or a ResourceClaimTemplate. Admin access grants access to
 in-use devices and may enable additional permissions when making the device
 available in a container. Starting with Kubernetes v1.33, only users authorized
@@ -22,5 +26,3 @@ to create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled
 with `resource.kubernetes.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
 feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
-
-This feature gate has no effect unless you also enable the `DynamicResourceAllocation` feature gate.

@@ -26,6 +26,7 @@ auto_generated: true
 `import "k8s.io/api/events/v1"`
 
 ## Event {#Event}
+
 <!--
 Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 Events have a limited retention time and triggers and messages may evolve with time. 
@@ -48,7 +49,9 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的对象元数据。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **eventTime** (MicroTime), required
@@ -58,7 +61,7 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
 
 - **eventTime** (MicroTime)，必需
 
-  evenTime 是该事件首次被观察到的时间。它是必需的。
+  `evenTime` 是该事件首次被观察到的时间。它是必需的。
 
   <a name="MicroTime"></a>
 
@@ -73,7 +76,8 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
   -->
-  action 是针对相关对象所采取的或已失败的动作。字段值是机器可读的。对于新的 Event，此字段不能为空，
+  
+  `action` 是针对相关对象所采取的或已失败的动作。字段值是机器可读的。对于新的 Event，此字段不能为空，
   且最多为 128 个字符。
 
 - **deprecatedCount** (int32)
@@ -81,20 +85,23 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
   -->
-  deprecatedCount 是确保与 core.v1 Event 类型向后兼容的已弃用字段。
+  
+  `deprecatedCount` 是确保与 `core.v1` Event 类型向后兼容的已弃用字段。
 
 - **deprecatedFirstTimestamp** (Time)
 
   <!--
   deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
   -->
-  deprecatedFirstTimestamp 是确保与 core.v1 Event 类型向后兼容的已弃用字段。
+  
+  `deprecatedFirstTimestamp` 是确保与 `core.v1` Event 类型向后兼容的已弃用字段。
 
   <a name="Time"></a>
   
   <!--
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
+  
   **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
 
 - **deprecatedLastTimestamp** (Time)
@@ -102,13 +109,15 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
   -->
-  deprecatedLastTimestamp 是确保与 core.v1 Event 类型向后兼容的已弃用字段。
+  
+  `deprecatedLastTimestamp` 是确保与 `core.v1` Event 类型向后兼容的已弃用字段。
 
   <a name="Time"></a>
 
   <!--
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   --> 
+  
   **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
 
 - **deprecatedSource** (EventSource)
@@ -116,7 +125,8 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
   -->  
-  deprecatedSource 是确保与 core.v1 Event 类型向后兼容的已弃用字段。
+  
+  `deprecatedSource` 是确保与 `core.v1` Event 类型向后兼容的已弃用字段。
 
   <a name="EventSource"></a>
   
@@ -147,20 +157,23 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
   -->
-  note 是对该操作状态的可读描述。注释的最大长度是 1kB，但是库应该准备好处理最多 64kB 的值。
+  
+  `note` 是对该操作状态的可读描述。注释的最大长度是 1kB，但是库应该准备好处理最多 64kB 的值。
 
 - **reason** (string)
 
   <!--
   reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
   -->
-  reason 是采取行动的原因。它是人类可读的。对于新的 Event，此字段不能为空，且最多为128个字符。
+  
+  `reason` 是采取行动的原因。它是人类可读的。对于新的 Event，此字段不能为空，且最多为128个字符。
 
 - **regarding** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
   <!--
   regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
   -->
+  
   关于包含此 Event 所涉及的对象。在大多数情况下，所指的是报告事件的控制器所实现的一个 Object。
   例如 ReplicaSetController 实现了 ReplicaSet，这个事件被触发是因为控制器对 ReplicaSet 对象做了一些变化。
 
@@ -169,7 +182,8 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
   -->
-  related 是用于更复杂操作的、可选的、从属性的对象。例如，当 regarding 对象触发 related 对象的创建或删除时。
+  
+  `related` 是用于更复杂操作的、可选的、从属性的对象。例如，当 regarding 对象触发 related 对象的创建或删除时。
 
 - **reportingController** (string)
 
@@ -183,7 +197,8 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
   -->
-  reportingInstance 为控制器实例的 ID,例如 `kubelet-xyzf`。对于新的 Event，此字段不能为空，且最多为 128 个字符。 
+  
+  `reportingInstance` 为控制器实例的 ID,例如 `kubelet-xyzf`。对于新的 Event，此字段不能为空，且最多为 128 个字符。 
 
 - **series** (EventSeries)
 
@@ -411,6 +426,13 @@ GET /apis/events.k8s.io/v1/namespaces/{namespace}/events
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 -->
 - **timeoutSeconds** (**查询参数**)：integer
@@ -511,6 +533,13 @@ GET /apis/events.k8s.io/v1/events
 - **sendInitialEvents** (**查询参数**)： boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -951,6 +980,13 @@ DELETE /apis/events.k8s.io/v1/namespaces/{namespace}/events
 - **sendInitialEvents** (**查询参数**)： boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

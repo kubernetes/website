@@ -1,7 +1,6 @@
 ---
 title: SIG (nhóm quan tâm đặc biệt)
 id: sig
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups 
 short_description: >
   Các thành viên cộng đồng cùng nhau quản lý một phần hoặc khía cạnh liên tục của dự án mã nguồn mở Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: Operator pattern
 id: operator-pattern
-date: 2019-05-21
 full_link: /docs/concepts/extend-kubernetes/operator/
 short_description: >
   A specialized controller used to manage a custom resource

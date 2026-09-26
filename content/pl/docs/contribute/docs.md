@@ -44,7 +44,7 @@ aby efektywnie pracować w społeczności Kubernetesa.
 
 Aby zaangażować się w tworzenie dokumentacji:
 
-1. Podpisz [umowę licencyjną współtwórcy](https://github.com/kubernetes/community/blob/master/CLA.md) CNCF.
+1. Podpisz [umowę licencyjną współtwórcy](https://github.com/kubernetes/community/blob/main/CLA.md) CNCF.
 2. Zapoznaj się z [repozytorium dokumentacji](https://github.com/kubernetes/website)
    oraz [generatorem statycznych stron](https://gohugo.io) witryny.
 3. Upewnij się, że rozumiesz podstawowe procesy
@@ -164,16 +164,6 @@ która
 odbywa się w pierwszy wtorek każdego miesiąca. Możesz tu
 wchodzić w interakcje z Ambasadorami Nowych Współtwórców i uzyskać odpowiedzi na swoje pytania.
 
-## Następne kroki. {#next-steps}
-
-- Naucz się [pracować z lokalną kopią](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
-  repozytorium.
-- Zredaguj [funkcje w wydaniu](/docs/contribute/new-content/new-features/).
-- Weź udział w [SIG Docs](/docs/contribute/participate/) i zostań
-  [członkiem lub recenzentem](/docs/contribute/participate/roles-and-responsibilities/).
-                       
-- Rozpocznij lub pomóż w [lokalizacji](/docs/contribute/localization/).
-
 ## Zaangażuj się w SIG Docs. {#get-involved-with-sig-docs}
 
 [SIG Docs](/docs/contribute/participate/) to grupa współtwórców, którzy
@@ -187,7 +177,7 @@ SIG Dokumentacja komunikuje się za pomocą różnych metod:
   I nie zapomnij się przedstawić!
 - [Dołącz do listy mailingowej `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   gdzie odbywają się szersze dyskusje i zapisywane są oficjalne decyzje.
-- Dołącz do [spotkania wideo SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) odbywającego się
+- Dołącz do [spotkania wideo SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs) odbywającego się
   co dwa tygodnie. Spotkania są zawsze ogłaszane na `#sig-docs` i dodawane do
   [kalendarza spotkań społeczności Kubernetes](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
   Będziesz musiał pobrać [klienta Zoom](https://zoom.us/download) lub zadzwonić z telefonu.
@@ -205,3 +195,13 @@ SIG Dokumentacja komunikuje się za pomocą różnych metod:
   [współtwórcach Kubernetesa](https://www.kubernetes.dev/) oraz [dodatkowych zasobach dla współtwórców](https://www.kubernetes.dev/resources/).
 - Dowiedz się, jak [współtworzyć oficjalne blogi](/docs/contribute/blog/)
 - Prześlij [studium przypadku](/docs/contribute/new-content/case-studies/)
+
+## Następne kroki. {#next-steps}
+
+- Naucz się [pracować z lokalną kopią](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+  repozytorium.
+- Zredaguj [funkcje w wydaniu](/docs/contribute/new-content/new-features/).
+- Weź udział w [SIG Docs](/docs/contribute/participate/) i zostań
+  [członkiem lub recenzentem](/docs/contribute/participate/roles-and-responsibilities/).
+                       
+- Rozpocznij lub pomóż w [lokalizacji](/docs/contribute/localization/).

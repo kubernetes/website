@@ -387,7 +387,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 (그리고 더 쉽다!)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## 레플리카셋의 대안

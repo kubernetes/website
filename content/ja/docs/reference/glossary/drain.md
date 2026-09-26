@@ -1,7 +1,6 @@
 ---
 title: Drain
 id: drain
-date: 2024-12-27
 full_link:
 short_description: >
   メンテナンスや削除に備え、Podをノードから安全に退避します。

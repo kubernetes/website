@@ -1,7 +1,6 @@
 ---
 title: RBAC (Role-Based Access Control - Kiểm soát truy cập dựa trên vai trò)
 id: rbac
-date: 2018-04-12
 full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   Quản lý việc phân quyền, cho phép quản trị viên cấu hình các chính sách truy cập một cách linh hoạt thông qua Kubernetes API.

@@ -26,12 +26,11 @@ kubeadm, the kubelet and a {{< glossary_tooltip term_id="container-runtime" text
 in the document [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 * You need superuser access to the node.
 -->
-* 每个要加入的工作节点都已安装
-  [安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+* 每个要加入的工作节点都已安装[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
   中所需的组件，例如 kubeadm、kubelet 和
   {{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}}。
-* 一个正在运行的、由 `kubeadm init` 命令所创建的 kubeadm 集群，且该集群的创建遵循
-  [使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* 一个正在运行的、由 `kubeadm init` 命令所创建的 kubeadm 集群，
+  且该集群的创建遵循[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
   文档中所给的步骤。
 * 你需要对节点拥有超级用户权限。
 
@@ -58,7 +57,7 @@ To add new Linux worker nodes to your cluster do the following for each machine:
   sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
-### kubeadm join 的额外信息   {#additional-information-for-kubeadm-join}
+### `kubeadm join` 的额外信息   {#additional-information-for-kubeadm-join}
 
 {{< note >}}
 <!--
@@ -74,7 +73,10 @@ If you do not have the token, you can get it by running the following command on
 如果你没有令牌，可以在控制平面节点上运行以下命令来获取：
 
 <!--
+```bash
 # Run this on a control plane node
+sudo kubeadm token list
+```
 -->
 ```bash
 # 在控制平面节点上运行此命令
@@ -103,7 +105,10 @@ control plane node:
 可以在控制平面节点上运行以下命令来创建新令牌：
 
 <!--
+```bash
 # Run this on a control plane node
+sudo kubeadm token create
+```
 -->
 ```bash
 # 在控制平面节点上运行此命令
@@ -122,7 +127,7 @@ The output is similar to this:
 <!--
 To print a kubeadm join command while also generating a new token you can use:
 -->
-可以使用以下命令打印 kubeadm join 命令，并生成新的令牌：
+可以使用以下命令打印 `kubeadm join` 命令，并生成新的令牌：
 
 ```bash
 sudo kubeadm token create --print-join-command
@@ -132,10 +137,15 @@ sudo kubeadm token create --print-join-command
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
 following commands on the control plane node:
 -->
-如果你没有 `--discovery-token-ca-cert-hash` 的具体值，可以在控制平面节点上运行以下命令来获取：
+如果你没有 `--discovery-token-ca-cert-hash` 的具体值，
+可以在控制平面节点上运行以下命令来获取：
 
 <!--
+```bash
 # Run this on a control plane node
+sudo cat /etc/kubernetes/pki/ca.crt | openssl x509 -pubkey  | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
 -->
 ```bash
 # 在控制平面节点上运行此命令
@@ -183,9 +193,9 @@ As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are 
 on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-集群节点通常是按顺序初始化的，因此 CoreDNS Pods 可能会全部运行在第一个控制平面节点上。
+集群节点通常是按顺序初始化的，因此 CoreDNS Pod 可能会全部运行在第一个控制平面节点上。
 为了保证高可用，请在至少一个新节点加入后，使用
-`kubectl -n kube-system rollout restart deployment coredns` 命令重新平衡 CoreDNS Pods。
+`kubectl -n kube-system rollout restart deployment coredns` 命令重新平衡 CoreDNS Pod。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

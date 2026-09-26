@@ -25,7 +25,7 @@ format to read the credentials and the API Server address.
 ## Officially-supported Kubernetes client libraries
 
 The following client libraries are officially maintained by
-[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/main/sig-api-machinery).
 
 
 | Language   | Client Library | Sample Programs |
@@ -73,6 +73,7 @@ their authors, not the Kubernetes team.
 | Python               | [github.com/gtsystem/lightkube](https://github.com/gtsystem/lightkube) |
 | Python               | [github.com/kr8s-org/kr8s](https://github.com/kr8s-org/kr8s) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
+| Python               | [github.com/puzl-cloud/kubesdk](https://github.com/puzl-cloud/kubesdk) |
 | Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
 | Python               | [github.com/Frankkkkk/pykorm](https://github.com/Frankkkkk/pykorm) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |

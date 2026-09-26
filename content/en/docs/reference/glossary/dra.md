@@ -1,8 +1,7 @@
 ---
 title: Dynamic Resource Allocation
 id: dra
-date: 2025-05-13
-full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/
+full_link: /docs/concepts/resource-management/dynamic-resource-allocation/
 short_description: >
   A Kubernetes feature for requesting and sharing resources, like hardware
   accelerators, among Pods.

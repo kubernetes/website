@@ -1,7 +1,6 @@
 ---
 title: Hạ tầng bất biến (Immutable Infrastructure)
 id: immutable-infrastructure
-date: 2024-03-25
 full_link:
 short_description: >
   Hạ tầng bất biến là kiểu hạ tầng máy tính (máy ảo, container, thiết bị mạng) không được thay đổi sau khi đã triển khai.

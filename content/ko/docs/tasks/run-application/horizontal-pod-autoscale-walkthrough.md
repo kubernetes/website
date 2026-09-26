@@ -100,7 +100,7 @@ HorizontalPodAutoscaler를 생성하는 명령어를 실행할 것이다.
 HorizontalPodAutoscaler를 생성한다.
 
 ```shell
-kubectl autoscale deployment php-apache --cpu=50% --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
 
 ```

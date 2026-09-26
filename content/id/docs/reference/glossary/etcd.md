@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2019-04-21
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   Penyimpanan <i>key value</i> konsisten yang digunakan sebagai penyimpanan data klaster Kubernetes.

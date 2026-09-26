@@ -1,7 +1,6 @@
 ---
 title: Nó
 id: node
-date: 2020-04-19
 full_link: /pt-br/docs/concepts/architecture/nodes/
 short_description: >
   Um Nó é uma máquina de trabalho no Kubernetes.

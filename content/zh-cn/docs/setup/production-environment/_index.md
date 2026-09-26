@@ -361,11 +361,11 @@ simply as *nodes*).
   这一规模是基于你要运行的 Pod 和容器个数来确定的。
   如果你自行管理集群节点，这可能意味着要购买和安装你自己的物理设备。
 <!--
-- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 -->
-- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
+- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)，
   了解可以自动管理节点的工具及其提供的能力。
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure
@@ -386,7 +386,7 @@ hundreds of people. In a learning environment or platform prototype, you might h
 administrative account for everything you do. In production, you will want
 more accounts with different levels of access to different namespaces.
 -->
-### 生产级用户环境   {#production-user-management}
+## 生产级用户环境   {#production-user-management}
 
 在生产环境中，情况可能不再是你或者一小组人在访问集群，而是几十上百人需要访问集群。
 在学习环境或者平台原型环境中，你可能具有一个可以执行任何操作的管理账号。

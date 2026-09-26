@@ -220,6 +220,15 @@ during leader election cycles.</p>
 concurrently synchronizing nodes</p>
 </td>
 </tr>
+<tr><td><code>ConcurrentNodeStatusUpdates</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentNodeStatusUpdates is the number of workers
+concurrently updating node statuses.
+If unspecified or 0, ConcurrentNodeSyncs is used instead</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -289,6 +298,14 @@ both in cloud controller manager and kube-controller manager.</p>
 </td>
 <td>
    <p>NodeController holds configuration for node controller
+related features.</p>
+</td>
+</tr>
+<tr><td><code>NodeLifecycleController</code> <B>[Required]</B><br/>
+<code>k8s.io/cloud-provider/controllers/nodelifecycle/config/v1alpha1.NodeLifecycleControllerConfiguration</code>
+</td>
+<td>
+   <p>NodeLifecycleController holds configuration for node lifecycle controller
 related features.</p>
 </td>
 </tr>
@@ -404,13 +421,6 @@ individual service account credentials.</p>
 </td>
 <td>
    <p>routeReconciliationPeriod is the period for reconciling routes created for Nodes by cloud provider..</p>
-</td>
-</tr>
-<tr><td><code>NodeMonitorPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>nodeMonitorPeriod is the period for syncing NodeStatus in NodeController.</p>
 </td>
 </tr>
 <tr><td><code>ClusterName</code> <B>[Required]</B><br/>
@@ -737,6 +747,14 @@ related features.</p>
 DeploymentController related features.</p>
 </td>
 </tr>
+<tr><td><code>DisruptionController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-DisruptionControllerConfiguration"><code>DisruptionControllerConfiguration</code></a>
+</td>
+<td>
+   <p>DisruptionControllerConfiguration holds configuration for
+DisruptionController related features.</p>
+</td>
+</tr>
 <tr><td><code>StatefulSetController</code> <B>[Required]</B><br/>
 <a href="#kubecontrollermanager-config-k8s-io-v1alpha1-StatefulSetControllerConfiguration"><code>StatefulSetControllerConfiguration</code></a>
 </td>
@@ -914,6 +932,20 @@ TTLAfterFinishedController related features.</p>
 <td>
    <p>ValidatingAdmissionPolicyStatusControllerConfiguration holds configuration for
 ValidatingAdmissionPolicyStatusController related features.</p>
+</td>
+</tr>
+<tr><td><code>DeviceTaintEvictionController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-DeviceTaintEvictionControllerConfiguration"><code>DeviceTaintEvictionControllerConfiguration</code></a>
+</td>
+<td>
+   <p>DeviceTaintEvictionControllerConfiguration contains elements configuring the device taint eviction controller.</p>
+</td>
+</tr>
+<tr><td><code>ResourceClaimController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceClaimControllerConfiguration"><code>ResourceClaimControllerConfiguration</code></a>
+</td>
+<td>
+   <p>ResourceClaimControllerConfiguration contains elements configuring the resource claim controller.</p>
 </td>
 </tr>
 </tbody>
@@ -1166,6 +1198,62 @@ but more CPU (and network) load.</p>
 
 
 
+
+## `DeviceTaintEvictionControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeviceTaintEvictionControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>DeviceTaintEvictionControllerConfiguration contains elements configuring the device taint eviction controller.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentSyncs is the number of operations (deleting a pod, updating a ResourcClaim status, etc.)
+that will be done concurrently. Larger number = processing, but more CPU (and network) load.</p>
+<p>The default is 10.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DisruptionControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DisruptionControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>DisruptionControllerConfiguration contains elements describing DisruptionController.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentDisruptionSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>concurrentDisruptionSyncs is the number of PodDisruptionBudget objects that
+are allowed to sync concurrently. Larger number = more responsive PDB
+updates, but more CPU (and network) load.</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `EndpointControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointControllerConfiguration}
     
@@ -1688,6 +1776,13 @@ HTTP2_PING_TIMEOUT_SECONDS and HTTP2_READ_IDLE_TIMEOUT_SECONDS.</p>
 unhealthyZoneThreshold (no less than 3) of Nodes in the zone are NotReady</p>
 </td>
 </tr>
+<tr><td><code>NodeMonitorPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>NodeMonitorPeriod is the period for syncing NodeStatus in NodeLifecycleController.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1883,6 +1978,34 @@ CPU (and network) load.</p>
    <p>concurrentRCSyncs is the number of replication controllers that are
 allowed to sync concurrently. Larger number = more responsive replica
 management, but more CPU (and network) load.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ResourceClaimControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceClaimControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>ResourceClaimControllerConfiguration contains elements configuring the resource claim controller.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentSyncs is the number of operations (deleting a pod, updating a ResourcClaim status, etc.)
+that will be done concurrently. Larger number = processing, but more CPU (and network) load.</p>
+<p>The default is 50.</p>
 </td>
 </tr>
 </tbody>

@@ -9,6 +9,17 @@ weight: 10
 * Zrozum, jak etykiety (labels) i selektory (selectors) są powiązane z Service.
 * Wystaw aplikację na zewnątrz klastra Kubernetesa.
 
+## {{% heading "prerequisites" %}}
+
+Polecenia w tym poradniku są napisane w składni zgodnej ze standardem POSIX, którą
+obsługują domyślne powłoki w Linuxie i macOS (np. bash, zsh, sh). Jeśli
+używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) lub
+[Git Bash](https://gitforwindows.org/), żeby
+uruchomić je w takiej formie. Polecenia z `export`, `$()` i podobnymi
+elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
+
+
 ## Kubernetes Services - przegląd {#overview-of-kubernetes-services}
 
 [Pody](/docs/concepts/workloads/pods/) Kubernetesa są nietrwałe. Pody mają swój
@@ -134,7 +145,7 @@ klaster, używając `curl`, adresu IP węzła i zewnętrznie wystawionego portu:
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
 ```
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli używasz minikube z Docker Desktop jako sterownik
 kontenerów, potrzebny jest tunel minikube. Dzieje się tak, ponieważ
 kontenery wewnątrz Docker Desktop są izolowane od twojego komputera głównego.
@@ -157,7 +168,7 @@ Następnie użyj podanego URL-a, aby uzyskać dostęp do aplikacji:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 Otrzymaliśmy odpowiedź od serwera. Usługa jest wystawiona.
 

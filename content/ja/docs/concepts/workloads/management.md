@@ -113,7 +113,7 @@ NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
 my-nginx-svc LoadBalancer 10.0.0.208 <pending> 80/TCP 0s
 ```
 
-上記のコマンドでは、まず`examples/application/nginx/`内のリソースを作成し、`-o name`出力形式を使用して作成されたリソースを出力します(各リソースをresource/nameの形式で出力します)。次に`grep`を使ってServiceのみを抽出し、それを[`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/)で表示します。
+上記のコマンドでは、まず`docs/concepts/cluster-administration/nginx/`内のリソースを作成し、`-o name`出力形式を使用して作成されたリソースを出力します(各リソースをresource/nameの形式で出力します)。次に`grep`を使ってServiceのみを抽出し、それを[`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/)で表示します。
 
 ### ローカルファイルに対する再帰的操作
 
@@ -330,7 +330,7 @@ deployment.apps/my-nginx scaled
 これで、Deploymentによって管理されるPodは1つだけになりました。
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none

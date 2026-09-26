@@ -31,7 +31,7 @@ También se puede usar un Job para ejecutar múltiples Pods en paralelo.
 Aquí se muestra un ejemplo de configuración de Job. Este ejemplo calcula los primeros 2000 decimales de π y los imprime por pantalla.
 Tarda unos 10s en completarse.
 
-{{% codenew file="controllers/job.yaml" %}}
+{{% code_sample file="controllers/job.yaml" %}}
 
 Puedes ejecutar el ejemplo con este comando:
 
@@ -441,10 +441,6 @@ para aquellos pods con `RestartPolicy` igual a `OnFailure` o `Never`.
 Otro patrón es aquel donde un Job simple crea un Pod que, a su vez, crea otros Pods, actuando como una especie
 de controlador personalizado para esos Pods. Esto da la máxima flexibilidad, pero puede que
 cueste un poco más de entender y ofrece menos integración con Kubernetes.
-
-Un ejemplo de este patrón sería un Job que arranca un Pod que ejecuta una secuencia de comandos que, a su vez,
-arranca un controlador maestro de Spark (ver el [ejemplo de spark](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), 
-ejecuta un manejador de spark, y a continuación lo limpia todo.
 
 Una ventaja de este enfoque es que el proceso general obtiene la garantía del objeto Job,
 además del control completo de los Pods que se crean y cómo se les asigna trabajo.

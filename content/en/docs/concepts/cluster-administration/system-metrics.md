@@ -57,9 +57,11 @@ rules:
 
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
+Alpha metric → Beta metric → Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
+
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage.
 
 Stable metrics are guaranteed to not change. This means:
 
@@ -87,8 +89,13 @@ For example:
   some_counter 0
   ```
 
-Hidden metrics are no longer published for scraping, but are still available for use. To use a
-hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
+Hidden metrics are no longer published for scraping, but are still available for use.
+A deprecated metric becomes a hidden metric after a period of time, based on its stability level:
+* **STABLE** metrics become hidden after a minimum of 3 releases or 9 months, whichever is longer.
+* **BETA** metrics become hidden after a minimum of 1 release or 4 months, whichever is longer.
+* **ALPHA** metrics can be hidden or removed in the same release in which they are deprecated.
+
+To use a hidden metric, you must enable it. For more details, refer to the [Show hidden metrics](#show-hidden-metrics) section. 
 
 Deleted metrics are no longer published and cannot be used.
 
@@ -103,21 +110,12 @@ deprecated in that release. The version is expressed as x.y, where x is the majo
 the minor version. The patch version is not needed even though a metrics can be deprecated in a
 patch release, the reason for that is the metrics deprecation policy runs against the minor release.
 
-The flag can only take the previous minor version as it's value. All metrics hidden in previous
-will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too
-old version is not allowed because this violates the metrics deprecated policy.
+The flag can only take the previous minor version as its value. If you want to show all metrics hidden in the previous release, you can set the `show-hidden-metrics-for-version` flag to the previous version. Using a version that is too old is not allowed because it violates the metrics deprecation policy.
 
-Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
-deprecated policy, we can reach the following conclusion:
-
-* In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
-  `show-hidden-metrics-for-version=1.n`.
-* In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
-
-If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
-`1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
-to remove this metric dependency before upgrading to `1.14`
+For example, let's assume metric `A` is deprecated in `1.29`. The version in which metric `A` becomes hidden depends on its stability level:
+* If metric `A` is **ALPHA**, it could be hidden in `1.29`.
+* If metric `A` is **BETA**, it will be hidden in `1.30` at the earliest. If you are upgrading to `1.30` and still need `A`, you must use the command-line flag `--show-hidden-metrics-for-version=1.29`.
+* If metric `A` is **STABLE**, it will be hidden in `1.32` at the earliest. If you are upgrading to `1.32` and still need `A`, you must use the command-line flag `--show-hidden-metrics-for-version=1.31`.
 
 ## Component metrics
 
@@ -179,13 +177,14 @@ flag to expose these alpha stability metrics.
 
 ### kubelet Pressure Stall Information (PSI) metrics
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletPSI" >}}
 
-As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
+When the kernel has PSI enabled (version 4.20 or later), the kubelet collects
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
-The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
+
+*Prometheus Metrics*: Exposed at the `/metrics/cadvisor` endpoint as cumulative counters (totals) representing the total stall time in seconds. The metrics are exposed at this endpoint with the following names: 
 
 ```
 container_pressure_cpu_stalled_seconds_total
@@ -195,11 +194,75 @@ container_pressure_memory_waiting_seconds_total
 container_pressure_io_stalled_seconds_total
 container_pressure_io_waiting_seconds_total
 ```
+*Summary API*: Exposed at the `/stats/summary` endpoint, providing both the cumulative `totals` and the moving averages (`avg10`, `avg60`, `avg300`) in a JSON format. These averages represent the percentage of time that tasks were stalled on a resource over the respective 10-second, 60-second, and 5-minute intervals. 
 
-This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
-[Summary API](/docs/reference/instrumentation/node-metrics#psi).
+These metrics are also natively exported through the node's respective file in `/proc/pressure/` -- cpu, memory, and io in the following format: 
 
-You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+```
+some avg10=0.00 avg60=0.00 avg300=0.00 total=0
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+```
+
+How can these metrics be interpreted together? Take for example the following query from the Summary API:  
+`kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'`. 
+This returns the information in a json format as such. 
+
+```
+{
+  "name": "<CONTAINER_NAME>",
+  "cpu": {
+    "full": {
+      "total": 0,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 35232438,
+      "avg10": 0.74,
+      "avg60": 0.52,
+      "avg300": 0.21,
+    },  
+  },
+  "memory": {
+    "full": {
+      "total": 539105,
+      "avg10": 0,
+      "avg60": 0,
+      "avg300": 0
+    },
+    "some": {
+      "total": 658164,
+      "avg10": 0.01,
+      "avg60": 0.01,
+      "avg300": 0.00,
+    },
+    }
+  },
+  "io": {
+    "full": {
+      "total": 33190987,
+      "avg10": 0.31,
+      "avg60": 0.22,
+      "avg300": 0.05,
+    },
+    "some": {
+      "total": 40809937,
+      "avg10": 0.52,
+      "avg60": 0.45,
+      "avg300": 0.12,
+    }
+  }
+}
+```
+
+Here is a simple spike scenario. The cpu.some `avg10` value of `0.74` indicates that in the last 10 seconds, at least one task in this container was stalled on the CPU for 0.74% of the time (0.0074 seconds or 74 milliseconds). Because `avg10` (0.74) is significantly higher than `avg300` (0.21) on the same resource, this suggests a recent surge in resource contention rather than a sustained long-term bottleneck. If monitored continuously and the `avg300` metrics increase as well, we can diagnose a more serious, lasting issue!
+
+Additionally, notice how in this example `cpu.some` shows pressure, while `cpu.full` remains at 0.00. This tells us that while some processes were delayed waiting for CPU time, the container as a whole was still making progress. A non-zero full value would indicate that all non-idle tasks were stalled simultaneously, a much bigger problem.
+Although not as human-readable, the `total` value of 35232438 represents the cumulative stall time in microseconds, that allow latency spike detection that otherwise may not show in the averages. They are also useful for monitoring systems, like Prometheus, to calculate precise rates of increase over specific time windows.
+As a final note, when observing high I/O Pressure alongside low Memory Pressure, it can indicate that the application is waiting on disk throughput rather than failing due to a lack of available RAM. The node is not over-committed on memory, and a different diagnosis for disk consumption can be investigated. 
+
+PSI metrics unlock a more robust way to monitor realitime resource contention at all levels for every cgroup, opening up the opportunity to dynamically handle workloads across the system. You can read more about the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
 
 #### Requirements
 
@@ -253,5 +316,5 @@ is encountered that is not allowed with respect to the allow-list constraints.
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
+* See the list of [stable Kubernetes metrics](/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

@@ -80,7 +80,7 @@ Secara kasar, HPA akan menambah dan mengurangi jumlah replika
 Lihat [ini](/id/docs/tasks/run-application/horizontal-pod-autoscaler/#detail-algoritma) untuk detail lebih lanjut tentang algoritmanya.
 
 ```shell
-kubectl autoscale deployment php-apache --cpu=50% --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
 ```
 horizontalpodautoscaler.autoscaling/php-apache autoscaled

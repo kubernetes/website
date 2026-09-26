@@ -37,8 +37,8 @@ That will configure one of your Nodes to advertise a dongle resource.
 <!--
 ## Assign an extended resource to a Pod
 
-To request an extended resource, include the `resources:requests` field in your
-Container manifest. Extended resources are fully qualified with any domain outside of
+To request an extended resource, include the `resources.requests.<resource_name>` field
+in the container manifest. Extended resources are fully qualified with any domain outside of
 `*.kubernetes.io/`. Valid extended resource names have the form `example.com/foo` where
 `example.com` is replaced with your organization's domain and `foo` is a
 descriptive resource name.
@@ -47,7 +47,7 @@ Here is the configuration file for a Pod that has one Container:
 -->
 ## 给 Pod 分派扩展资源
 
-要请求扩展资源，需要在你的容器清单中包括 `resources:requests` 字段。
+要请求扩展资源，需要在你的容器清单中包括 `resources.requests.<resource_name>` 字段。
 扩展资源可以使用任何完全限定名称，只是不能使用 `*.kubernetes.io/`。
 有效的扩展资源名的格式为 `example.com/foo`，其中 `example.com` 应被替换为
 你的组织的域名，而 `foo` 则是描述性的资源名称。
@@ -185,6 +185,41 @@ kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
+<!--
+## Extended resources backed by DRA
+
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+The exercise above uses an extended resource that a Node advertises. Extended
+resources can also be backed by
+{{< glossary_tooltip text="Dynamic Resource Allocation" term_id="dra" >}} (DRA):
+a DeviceClass sets an `extendedResourceName`, and the scheduler satisfies matching
+extended-resource requests using DRA devices instead of Node-advertised capacity.
+-->
+## 由 DRA 支持的扩展资源
+
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+上面的练习使用的是由节点声明的扩展资源。扩展资源也可以由
+{{< glossary_tooltip text="动态资源分配" term_id="dra" >}}（DRA）提供支持：
+DeviceClass 可以设置一个 `extendedResourceName`，调度器在处理与之匹配的扩展资源请求时，
+会使用 DRA 设备来满足请求，而不是使用节点所声明的资源容量。
+
+<!--
+A Pod requests the resource the same way in both cases — through
+`resources.requests.<resource_name>` — so a workload does not need to know whether a
+device plugin or DRA provides it. The same resource name can even be provided by a
+device plugin on some Nodes and by DRA on others.
+
+For the DeviceClass setup and examples, see
+[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource).
+-->
+在这两种情况下，Pod 请求资源的方式完全相同 — 都是通过 `resources.requests.<resource_name>` 来指定，
+因此工作负载无需了解该资源究竟是由设备插件还是 DRA 提供的。
+
+有关 DeviceClass 的配置方法和示例，
+请参阅[通过 DRA 分配扩展资源](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -193,7 +228,7 @@ kubectl delete pod extended-resource-demo-2
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 -->
-## 应用开发者参考
+### 应用开发者参考
 
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)

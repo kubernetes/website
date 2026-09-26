@@ -1,7 +1,6 @@
 ---
 title: Immutable Infrastructure
 id: immutable-infrastructure
-date: 2024-03-25
 full_link:
 short_description: >
   Immutable Infrastructure refers to computer infrastructure (virtual machines, containers, network appliances) that cannot be changed once deployed

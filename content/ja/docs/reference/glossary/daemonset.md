@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   Podのコピーがクラスター内の一連のNodeに渡って実行されることを保証します。

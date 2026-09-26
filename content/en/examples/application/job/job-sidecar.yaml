@@ -15,6 +15,7 @@ spec:
       initContainers:
         - name: logshipper
           image: alpine:latest
+          # Setting restartPolicy: Always makes this a sidecar container.
           restartPolicy: Always
           command: ['sh', '-c', 'tail -F /opt/logs.txt']
           volumeMounts:

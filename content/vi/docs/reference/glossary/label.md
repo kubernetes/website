@@ -1,7 +1,6 @@
 ---
 title: Nhãn (Label)
 id: label
-date: 2019-11-29
 full_link: /docs/concepts/overview/working-with-objects/labels
 short_description: >
   Gán nhãn các đối tượng (tags objects) với các thuộc tính xác định, có ý nghĩa và có liên quan tới người dùng.

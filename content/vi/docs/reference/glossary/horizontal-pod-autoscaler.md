@@ -1,7 +1,6 @@
 ---
 title: Tự động điều chỉnh Pod theo chiều ngang (Horizontal Pod Autoscaler)
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   Một tài nguyên API tự động điều chỉnh số lượng bản sao (replica) của pod dựa vào mức sử dụng CPU mục tiêu hoặc các chỉ số tùy chỉnh.

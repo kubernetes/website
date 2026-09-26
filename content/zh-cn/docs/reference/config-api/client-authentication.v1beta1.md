@@ -1,5 +1,5 @@
 ---
-title: 客户端身份认证（Client Authentication）(v1beta1)
+title: 客户端身份认证（Client Authentication）（v1beta1）
 content_type: tool-reference
 package: client.authentication.k8s.io/v1beta1
 ---
@@ -37,11 +37,10 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialSpec"><code>ExecCredentialSpec</code></a>
 </td>
 <td>
-   <!--
-   Spec holds information passed to the plugin by the transport.
-   -->
-
-   字段 <code>spec</code> 包含由 HTTP 传输组件传递给插件的信息。
+<!--
+Spec holds information passed to the plugin by the transport.
+-->
+字段 <code>spec</code> 包含由 HTTP 传输组件传递给插件的信息。
 </td>
 </tr>
 
@@ -50,12 +49,11 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialStatus"><code>ExecCredentialStatus</code></a>
 </td>
 <td>
-   <!--
-   Status is filled in by the plugin and holds the credentials that the transport
-   should use to contact the API.
-   -->
-
-   字段 <code>status</code> 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
+<!--
+Status is filled in by the plugin and holds the credentials that the transport
+should use to contact the API.
+-->
+字段 <code>status</code> 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
 </td>
 </tr>
 
@@ -96,11 +94,10 @@ Cluster 中包含允许 exec 插件与 Kubernetes
 <code>string</code>
 </td>
 <td>
-   <!--
-   Server is the address of the kubernetes cluster (https://hostname:port).
-   -->
-
-   字段 server 是 Kubernetes 集群的地址（https://hostname:port）。
+<!--
+Server is the address of the kubernetes cluster (https://hostname:port).
+-->
+字段 server 是 Kubernetes 集群的地址（https://hostname:port）。
 </td>
 </tr>
 
@@ -114,8 +111,8 @@ Cluster 中包含允许 exec 插件与 Kubernetes
 check server certificates against. If ServerName is empty, the hostname
 used to contact the server is used.
 -->
-   tls-server-name 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
-   如此字段为空，则使用链接服务器时使用的主机名。
+<code>tls-server-name</code> 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
+如此字段为空，则使用链接服务器时使用的主机名。
 </td>
 </tr>
 
@@ -128,8 +125,8 @@ used to contact the server is used.
    InsecureSkipTLSVerify skips the validity check for the server's certificate.
 This will make your HTTPS connections insecure. 
 -->
-   设置此字段之后，会令客户端跳过对服务器端证书的合法性检查。
-   这会使得你的 HTTPS 链接不再安全。
+设置此字段之后，会令客户端跳过对服务器端证书的合法性检查。
+这会使得你的 HTTPS 链接不再安全。
 </td>
 </tr>
 
@@ -142,8 +139,8 @@ This will make your HTTPS connections insecure.
    CAData contains PEM-encoded certificate authority certificates.
 If empty, system roots should be used.
 -->
-   此字段包含 PEM 编码的证书机构（CA）证书。
-   如果为空，则使用系统的根证书。
+此字段包含 PEM 编码的证书机构（CA）证书。
+如果为空，则使用系统的根证书。
 </td>
 </tr>
 
@@ -152,11 +149,10 @@ If empty, system roots should be used.
 <code>string</code>
 </td>
 <td>
-   <!--
-   ProxyURL is the URL to the proxy to be used for all requests to this cluster.
-   -->
-
-   此字段用来设置向集群发送所有请求时要使用的代理服务器。
+<!--
+ProxyURL is the URL to the proxy to be used for all requests to this cluster.
+-->
+此字段用来设置向集群发送所有请求时要使用的代理服务器。
 </td>
 </tr>
 
@@ -165,18 +161,17 @@ If empty, system roots should be used.
 <code>bool</code>
 </td>
 <td>
-   <p>
-   <!--
-   DisableCompression allows client to opt-out of response compression for all requests to the server. This is useful
-   to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
-   compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
-   -->
-
-   disable-compression 允许客户端针对到服务器的所有请求选择取消响应压缩。
-   当客户端服务器网络带宽充足时，这有助于通过节省压缩（服务器端）和解压缩
-   （客户端）时间来加快请求（特别是列表）的速度：
-   https://github.com/kubernetes/kubernetes/issues/112296。
-   </p>
+<p>
+<!--
+DisableCompression allows client to opt-out of response compression for all requests to the server. This is useful
+to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
+compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
+-->
+disable-compression 允许客户端针对到服务器的所有请求选择取消响应压缩。
+当客户端服务器网络带宽充足时，这有助于通过节省压缩（服务器端）和解压缩
+（客户端）时间来加快请求（特别是列表）的速度：
+https://github.com/kubernetes/kubernetes/issues/112296。
+</p>
 </td>
 </tr>
 
@@ -237,7 +232,7 @@ Kubeconfig 中保存 Secret 数据。
 </p>
 </td>
 </tr>
-  
+
 </tbody>
 </table>
 
@@ -270,9 +265,9 @@ kubernetes cluster being authenticated to. Note that Cluster is non-nil only
 when provideClusterInfo is set to true in the exec provider config (i.e.,
 ExecConfig.ProvideClusterInfo).
 -->
-   此字段中包含的信息使得 exec 插件能够与要访问的 Kubernetes 集群通信。
-   注意，cluster 字段只有在 exec 驱动的配置中 provideClusterInfo
-  （即：<code>ExecConfig.ProvideClusterInfo</code>）被设置为 true 时才不能为空。
+ 此字段中包含的信息使得 exec 插件能够与要访问的 Kubernetes 集群通信。
+ 注意，cluster 字段只有在 exec 驱动的配置中 provideClusterInfo
+（即：<code>ExecConfig.ProvideClusterInfo</code>）被设置为 true 时才不能为空。
 </td>
 </tr>
 
@@ -312,14 +307,13 @@ exec 插件本身至少应通过文件访问许可来实施保护。
 
 <tr>
 <td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
-   <!--
-   ExpirationTimestamp indicates a time when the provided credentials expire.
-   -->
-
-   给出所提供的凭据到期的时间。
+<!--
+ExpirationTimestamp indicates a time when the provided credentials expire.
+-->
+给出所提供的凭据到期的时间。
 </td>
 </tr>
 
@@ -328,11 +322,10 @@ exec 插件本身至少应通过文件访问许可来实施保护。
 <code>string</code>
 </td>
 <td>
-   <!--
-   Token is a bearer token used by the client for request authentication.
-   -->
-
-   客户端用做请求身份认证的持有者令牌。
+<!--
+Token is a bearer token used by the client for request authentication.
+-->
+客户端用做请求身份认证的持有者令牌。
 </td>
 </tr>
 

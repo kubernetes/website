@@ -13,6 +13,14 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.34"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.35"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Allow using the [`image`](/docs/concepts/storage/volumes/) volume source in a Pod.
 This volume source lets you mount a container image as a read-only volume.

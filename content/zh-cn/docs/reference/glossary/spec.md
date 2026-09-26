@@ -1,7 +1,6 @@
 ---
-title: Spec
+title: 规约（Spec）
 id: spec
-date: 2023-12-17
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   在 Kubernetes 清单中的此字段用来定义预期状态或预期配置。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Spec
 id: spec
-date: 2023-12-17
 full_link: /docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   Field in Kubernetes manifests that defines the desired state or configuration.
@@ -36,9 +34,8 @@ Defines how each object, like Pods or Services, should be configured and its des
 Almost every Kubernetes object includes two nested object fields that govern the object's configuration: the object spec and the object status. For objects that have a spec, you have to set this when you create the object, providing a description of the characteristics you want the {{< glossary_tooltip text="resource" term_id="api-resource" >}} to have: its desired state.
 -->
 几乎每个 Kubernetes 对象都包含两个嵌套的对象字段，用于治理对象本身的配置：
-对象规约（spec）和对象状态（status）。
-对于具有规约的对象，你必须在创建对象时设置规约，并提供{{< glossary_tooltip text="资源" term_id="api-resource" >}}所需特征的描述：
-即其预期状态。
+对象规约（spec）和对象状态（status）。对于具有规约的对象，你必须在创建对象时设置规约，
+并提供{{< glossary_tooltip text="资源" term_id="api-resource" >}}所需特征的描述：即其预期状态。
 
 <!--
 It varies for different objects like Pods, StatefulSets, and Services, detailing settings such as containers, volumes, replicas, ports,

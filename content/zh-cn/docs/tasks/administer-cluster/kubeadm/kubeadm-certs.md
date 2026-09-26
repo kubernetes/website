@@ -245,7 +245,7 @@ Alternatively, it is possible to use kubeadm phase commands to automate this pro
 - 请注意，一些文件如 `pki/sa.*`、`pki/front-proxy-ca.*` 和 `pki/etc/ca.*`
   在控制平面各节点上是相同的，你可以一次性生成它们并[手动将其分发](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#manual-certs)到将执行
   `kubeadm join` 的节点，或者你可以使用 `kubeadm init` 的
-  [`--upload-certs`](/zh-cn/docs/setup/product-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
+  [`--upload-certs`](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
   和 `kubeadm join` 的 `--certificate-key` 特性来执行自动分发。
 
 <!--

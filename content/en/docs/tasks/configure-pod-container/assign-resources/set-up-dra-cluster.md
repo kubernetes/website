@@ -23,7 +23,7 @@ Ensure that you're familiar with how DRA works and with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For details, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 <!-- prerequisites -->
 
@@ -37,9 +37,13 @@ For details, see
 
 <!-- steps -->
 
-## Optional: enable legacy DRA API groups {#enable-dra}
+## Optional: enable additional DRA API groups {#enable-dra}
 
-DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+DRA overall is a stable feature in Kubernetes; however, aspects of it may still be alpha or beta.
+If you want to use any aspect of DRA that is not yet stable,
+and the associated feature relies on a dedicated API kind,
+then you must enable the associated alpha or beta API groups.
+
 Some older DRA drivers or workloads might still need the
 v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
 If and only if support for those is desired, then enable the following
@@ -47,6 +51,10 @@ If and only if support for those is desired, then enable the following
 
     * `resource.k8s.io/v1beta1`
     * `resource.k8s.io/v1beta2`
+
+Alpha features with separate API types need:
+
+   * `resource.k8s.io/v1alpha3`
 
 For more information, see
 [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
@@ -71,6 +79,9 @@ similar to the following:
 ```
 error: the server doesn't have a resource type "deviceclasses"
 ```
+
+For example, this can occur when the resource.k8s.io API group was disabled.
+A similar check is applicable to alpha or beta quality top-level types.
 
 Try the following troubleshooting steps:
 
@@ -98,8 +109,8 @@ The output is similar to the following:
 
 ```
 NAME                                                  NODE                DRIVER               POOL                             AGE
-cluster-1-device-pool-1-driver.example.com-lqx8x      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
-cluster-1-device-pool-2-driver.example.com-29t7b      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
+00000-driver.example.com-cluster-1-node-1-abcde      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
+00000-driver.example.com-cluster-1-node-2-fghij      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
 ```
 
 Try the following troubleshooting steps:
@@ -179,5 +190,5 @@ kubectl delete -f https://k8s.io/examples/dra/deviceclass.yaml
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)

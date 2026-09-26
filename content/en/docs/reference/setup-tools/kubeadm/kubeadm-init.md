@@ -65,12 +65,7 @@ following steps:
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional information.
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
-   In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
-
-   {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
-   {{< /warning >}}
 
 ### Using init phases with kubeadm {#init-phases}
 
@@ -153,16 +148,33 @@ directly to kubeadm is not supported. Instead, it is possible to pass them by
 List of feature gates:
 
 {{< table caption="kubeadm feature gates" >}}
-Feature | Default | Alpha | Beta | GA
-:-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
+Feature | Default | Alpha | Beta | GA | Deprecated
+:-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 
-{{< note >}}
-Once a feature gate goes GA its value becomes locked to `true` by default.
-{{< /note >}}
+Feature gate descriptions:
+
+`RootlessControlPlane`
+: Setting this flag configures the kubeadm deployed control plane component static Pod containers
+  for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
+  If the flag is not set, those components run as root. You can change the value of this feature gate before
+  you upgrade to a newer version of Kubernetes.
+
+List of removed feature gates:
+
+{{< table caption="kubeadm removed feature gates" >}}
+Feature | Alpha | Beta | GA | Removed
+:-------|:------|:-----|:---|:-------
+`ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
+`EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
+`IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`NodeLocalCRISocket` | 1.32 | 1.34 | 1.36 | 1.37
+`PublicKeysECDSA` | 1.19 | - | - | 1.37
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
+{{< /table >}}
 
 Feature gate descriptions:
 
@@ -170,6 +182,14 @@ Feature gate descriptions:
 : With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
   to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
   policy during rolling upgrades.
+
+`EtcdLearnerMode`
+: When joining a new control plane node, a new etcd member will be created
+as a learner and promoted to a voting member only after the etcd data are fully aligned.
+
+`IPv6DualStack`
+: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
+  dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
 
 `NodeLocalCRISocket`
 : With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
@@ -180,6 +200,28 @@ Feature gate descriptions:
   [KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
   is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
   kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
+
+`PublicKeysECDSA`
+: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
+  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
+  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
+  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
+  functionality available in kubeadm v1beta4.
+
+`UnversionedKubeletConfigMap`
+: This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
+  kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
+  If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
+  (for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
+  that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
+  or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
+  (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade`...), kubeadm attempts to use unversioned ConfigMap name first.
+  If that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+
+`UpgradeAddonsBeforeControlPlane`
+: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31.
+  For documentation on older versions, please switch to the corresponding website version.
 
 `WaitForAllControlPlaneComponents`
 : With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
@@ -196,66 +238,6 @@ Feature gate descriptions:
   on a control plane node to become ready. The wait process starts right after the kubelet on the host
   is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
   state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
-
-List of deprecated feature gates:
-
-{{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default | Alpha | Beta | GA | Deprecated
-:-------|:--------|:------|:-----|:---|:----------
-`PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
-`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
-{{< /table >}}
-
-Feature gate descriptions:
-
-`PublicKeysECDSA`
-: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
-  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
-  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
-  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
-  functionality available in kubeadm v1beta4.
-
-`RootlessControlPlane`
-: Setting this flag configures the kubeadm deployed control plane component static Pod containers
-  for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
-  If the flag is not set, those components run as root. You can change the value of this feature gate before
-  you upgrade to a newer version of Kubernetes.
-
-List of removed feature gates:
-
-{{< table caption="kubeadm removed feature gates" >}}
-Feature | Alpha | Beta | GA | Removed
-:-------|:------|:-----|:---|:-------
-`EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
-`IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
-`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
-`UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
-{{< /table >}}
-
-Feature gate descriptions:
-
-`EtcdLearnerMode`
-: When joining a new control plane node, a new etcd member will be created
-as a learner and promoted to a voting member only after the etcd data are fully aligned.
-
-`IPv6DualStack`
-: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
-  dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
-
-`UnversionedKubeletConfigMap`
-: This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
-  kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
-  If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
-  (for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
-  that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
-  or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
-  (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade`...), kubeadm attempts to use unversioned ConfigMap name first.
-  If that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
-
-`UpgradeAddonsBeforeControlPlane`
-: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31.
-  For documentation on older versions, please switch to the corresponding website version.
 
 ### Adding kube-proxy parameters {#kube-proxy}
 

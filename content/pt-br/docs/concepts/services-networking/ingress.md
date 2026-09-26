@@ -45,7 +45,7 @@ Normalmente se usa um serviço do tipo [Service.Type=NodePort](/docs/concepts/se
 Você deve ter um [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) para satisfazer um Ingress. 
 Apenas a criação de um recurso Ingress não tem efeito.
 
-Você pode precisar instalar um controlador Ingress, como [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). 
+Você pode precisar instalar um controlador Ingress. 
 Você pode escolher entre vários [controladores Ingress](/docs/concepts/services-networking/ingress-controllers).
 
 Idealmente, todos os controladores Ingress devem se encaixar na especificação de referência. 
@@ -59,12 +59,12 @@ Certifique-se de revisar a documentação do seu controlador Ingress para entend
 
 Um exemplo mínimo do recurso Ingress:
 
-{{% codenew file="service/networking/minimal-ingress.yaml" %}}
+{{% code_sample file="service/networking/minimal-ingress.yaml" %}}
 
 Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` e `spec`. 
 O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
 Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [instalar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
-O Ingress frequentemente usa anotações para configurar opções dependendo do controlador Ingress. Um exemplo deste uso é a [anotação rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md). 
+O Ingress frequentemente usa anotações para configurar opções dependendo do controlador Ingress.
 Diferentes [controladores Ingress](/docs/concepts/services-networking/ingress-controllers) suportam diferentes anotações. 
 Revise a documentação do seu controlador Ingress escolhido para saber quais anotações são suportadas.
 
@@ -75,8 +75,7 @@ O recurso Ingress suporta apenas regras para direcionar o tráfego HTTP(S).
 Se o `ingressClassName` for omitido, uma [classe Ingress padrão](#default-ingress-class) deve ser definida.
 
 Existem alguns controladores Ingress que funcionam sem a definição de uma `IngressClass` padrão. 
-Por exemplo, o controlador Ingress-NGINX pode ser configurado com uma [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) `--watch-ingress-without-class`. 
-No entanto, [recomenda-se](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) especificar a `IngressClass` padrão, conforme mostrado [abaixo](#default-ingress-class).
+Recomenda-se especificar a `IngressClass` padrão, conforme mostrado [abaixo](#default-ingress-class).
 
 ### Regras do Ingress
 
@@ -105,7 +104,7 @@ Um `Resource` backend é um ObjectRef para outro recurso Kubernetes dentro do me
 Um `Resource` é uma configuração mutuamente exclusiva com o serviço, e a validação irá falhar se ambos forem especificados. 
 Um uso comum para um `Resource` backend é inserir dados em um backend de armazenamento de objetos com ativos estáticos.
 
-{{% codenew file="service/networking/ingress-resource-backend.yaml" %}}
+{{% code_sample file="service/networking/ingress-resource-backend.yaml" %}}
 
 Depois de criar o Ingress acima, você pode visualizá-lo com o seguinte comando:
 
@@ -181,14 +180,14 @@ As correspondências curinga exigem que o cabeçalho do `host` HTTP seja igual a
 | `*.foo.com` | `baz.bar.foo.com` | Sem correspondência, o curinga cobre apenas um único rótulo DNS |
 | `*.foo.com` | `foo.com`         | Sem correspondência, o curinga cobre apenas um único rótulo DNS |
 
-{{% codenew file="service/networking/ingress-wildcard-host.yaml" %}}
+{{% code_sample file="service/networking/ingress-wildcard-host.yaml" %}}
 
 ## Classe Ingress
 
 Os Ingress podem ser implementados por diferentes controladores, muitas vezes com diferentes configurações. 
 Cada Ingress deve especificar uma classe, uma referência a um recurso IngressClass que contém uma configuração adicional, incluindo o nome do controlador que deve implementar a classe.
 
-{{% codenew file="service/networking/external-lb.yaml" %}}
+{{% code_sample file="service/networking/external-lb.yaml" %}}
 
 O campo `.spec.parameters` de uma classe Ingress permite que você faça referência a outro recurso que fornece a configuração relacionada a essa classe Ingress.
 
@@ -282,10 +281,9 @@ Se você tiver mais de uma classe Ingress marcada como padrão para o seu cluste
 Você pode resolver isso garantindo que no máximo uma classe Ingress seja marcada como padrão no seu cluster.
 {{< /caution >}}
 Existem alguns controladores Ingress que funcionam sem a definição de uma `IngressClass` padrão. 
-Por exemplo, o controlador Ingress-NGINX pode ser configurado com uma [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) `--watch-ingress-without-class`. 
-No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) especificar a `IngressClass` padrão:
+É recomendável especificar a `IngressClass` padrão:
 
-{{% codenew file="service/networking/default-ingressclass.yaml" %}}
+{{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
 ## Tipos de Ingress
 
@@ -294,7 +292,7 @@ No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-hav
 No Kubernetes existem conceitos que permitem expor um único serviço (veja [alternativas](#alternatives)). 
 Você também pode fazer isso com um Ingress especificando um *backend padrão* sem regras.
 
-{{% codenew file="service/networking/test-ingress.yaml" %}}
+{{% code_sample file="service/networking/test-ingress.yaml" %}}
 
 Se você criá-lo usando `kubectl apply -f`, você deve ser capaz de visualizar o estado do Ingress que você adicionou:
 
@@ -324,7 +322,7 @@ Por exemplo, uma configuração como:
 
 exigiria um Ingress como:
 
-{{% codenew file="service/networking/simple-fanout-example.yaml" %}}
+{{% code_sample file="service/networking/simple-fanout-example.yaml" %}}
 
 Quando você cria o Ingress com `kubectl apply -f`:
 
@@ -364,13 +362,13 @@ Os hosts virtuais baseados em nomes suportam o roteamento de tráfego HTTP para 
 
 O Ingress a seguir diz ao balanceador de carga de apoio para rotear solicitações com base no [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-{{% codenew file="service/networking/name-virtual-host-ingress.yaml" %}}
+{{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 Se você criar um recurso de Ingress sem nenhum host definido nas regras, qualquer tráfego da web para o endereço IP do seu controlador de Ingress pode ser correspondido sem que seja necessário um host virtual baseado em nome.
 
 Por exemplo, o Ingress a seguir roteia o tráfego solicitado para `first.bar.com` para `service1`, `second.bar.com` para `service2` e qualquer tráfego cujo cabeçalho de host de solicitação não corresponda a `first.bar.com` e `second.bar.com` para `service3`.
 
-{{% codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
+{{% code_sample file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
@@ -402,11 +400,11 @@ Tenha em mente que o TLS não funcionará na regra padrão porque os certificado
 Portanto, os hosts na seção `tls` precisam corresponder explicitamente ao `host` na seção `rules`.
 {{< /note >}}
 
-{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
+{{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
 Há uma lacuna entre os recursos TLS suportados por vários controladores Ingress. 
-Consulte a documentação sobre [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https) ou qualquer outro controlador Ingress específico da plataforma para entender como o TLS funciona em seu ambiente.
+Consulte a documentação sobre [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https) ou qualquer outro controlador Ingress específico da plataforma para entender como o TLS funciona em seu ambiente.
 {{< /note >}}
 
 ### Balanceador de carga {#load-balancing}
@@ -416,7 +414,7 @@ Conceitos mais avançados de balanceamento de carga (por exemplo, sessões persi
 Em vez disso, você pode obter esses recursos através do balanceador de carga usado para um serviço.
 
 Também vale a pena notar que, embora as verificações de integridade não sejam expostas diretamente através do Ingress, existem conceitos paralelos no Kubernetes, como [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/), que permitem alcançar o mesmo resultado final. 
-Revise a documentação específica do controlador para ver como eles lidam com as verificações de integridade (por exemplo: [nginx](https://git.k8s.io/ingress-nginx/README.md) ou [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+Revise a documentação específica do controlador para ver como eles lidam com as verificações de integridade (por exemplo: [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Atualizando um Ingress
 
@@ -436,8 +434,7 @@ Rules:
   ----         ----  --------
   foo.bar.com
                /foo   service1:80 (10.8.0.90:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+Annotations:  <none>
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -497,8 +494,7 @@ Rules:
                /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
                /foo   service2:80 (10.8.0.91:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+Annotations:  <none>
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -524,4 +520,3 @@ Você pode expor um serviço de várias maneiras que não envolve diretamente o 
 
 * Aprenda sobre a API [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)
 * Aprenda sobre [controladores Ingress](/docs/concepts/services-networking/ingress-controllers/)
-* [Configure o Ingress no Minikube usando o NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)

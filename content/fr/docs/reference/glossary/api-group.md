@@ -1,7 +1,6 @@
 ---
 title: Groupe d'API
 id: api-group
-date: 2024-09-12
 full_link: /fr/docs/concepts/overview/kubernetes-api/#groupes-d-api-et-versioning
 short_description: >
   Un ensemble de chemins liés dans l'API Kubernetes.

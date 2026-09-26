@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/pods/
 short_description: >
   一番小さく一番シンプルな Kubernetes のオブジェクト。Pod とはクラスターで動作しているいくつかのコンテナのまとまりです。

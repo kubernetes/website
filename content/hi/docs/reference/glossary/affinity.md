@@ -1,7 +1,6 @@
 ---
 title: आत्मीयता
 id: affinity
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      पॉड्स को कहां रखा जाए, यह निर्धारित करने के लिए शेड्यूलर द्वारा उपयोग किए जाने वाले नियम

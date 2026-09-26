@@ -13,7 +13,9 @@ min-kubernetes-server-version: v1.25
 -->
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.30" state="beta" >}}
+
+{{< feature-state feature_gate_name="UserNamespacesSupport" >}}
+
 <!--
 This page explains how user namespaces are used in Kubernetes pods. A user
 namespace isolates the user running inside the container from the one
@@ -79,8 +81,8 @@ ext4, xfs, fat, tmpfs, overlayfs.
 这通常是需要的，因为有几个 Kubernetes 功能特性使用 tmpfs
 （默认情况下挂载的服务账号令牌使用 tmpfs、Secret 使用 tmpfs 等等）。
 
-Linux 6.3 中支持 idmap 挂载的一些比较流行的文件系统是：btrfs、ext4、xfs、fat、
-tmpfs、overlayfs。
+Linux 6.3 中支持 idmap 挂载的一些比较流行的文件系统是：
+btrfs、ext4、xfs、fat、tmpfs、overlayfs。
 
 <!--
 In addition, the container runtime and its underlying OCI runtime must support
@@ -94,18 +96,6 @@ user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) 1.9 或更高版本（推荐 1.13+ 版本）。
 * [runc](https://github.com/opencontainers/runc) 1.2 或更高版本。
-
-{{< note >}}
-<!--
-Some OCI runtimes do not include the support needed for using user namespaces in
-Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's possible that nodes in your cluster use a runtime that doesn't
-include this support.
--->
-一些 OCI 运行时不包含在 Linux Pod 中使用用户命名空间所需的支持。
-如果你使用托管 Kubernetes，或者使用软件包下载并安装 Kubernetes 集群，
-则集群中的节点可能使用不包含支持此特性的运行时。
-{{< /note >}}
 
 <!--
 To use user namespaces with Kubernetes, you also need to use a CRI
@@ -134,14 +124,14 @@ on GitHub.
 ## 介绍 {#introduction}
 
 <!--
-User namespaces is a Linux feature that allows to map users in the container to
+User namespaces is a Linux feature that allows you to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
 A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` field
 to `false`.
 -->
-用户命名空间是一个 Linux 功能，允许将容器中的用户映射到主机中的不同用户。
+用户命名空间是一个 Linux 功能，允许你将容器中的用户映射到主机中的不同用户。
 此外，在某用户命名空间中授予 Pod 的权能只在该命名空间中有效，在该命名空间之外无效。
 
 一个 Pod 可以通过将 `pod.spec.hostUsers` 字段设置为 `false` 来选择使用用户命名空间。
@@ -192,10 +182,6 @@ files, even by running as the 65534 user/group.
 
 If the range 0-65535 is extended with a configuration knob, the aforementioned
 restrictions apply to the extended range.
-
-Most applications that need to run as root but don't access other host
-namespaces or resources, should continue to run fine without any changes needed
-if user namespaces is activated.
 -->
 使用这个范围之外的 UID/GID 的文件将被视为属于溢出 ID，
 通常是 65534（配置在 `/proc/sys/kernel/overflowuid和/proc/sys/kernel/overflowgid`）。
@@ -203,6 +189,11 @@ if user namespaces is activated.
 
 如果用配置旋钮将 0-65535 范围扩展，则上述限制适用于扩展的范围。
 
+<!--
+Most applications that need to run as root but don't access other host
+namespaces or resources, should continue to run fine without any changes needed
+if user namespaces is activated.
+-->
 大多数需要以 Root 身份运行但不访问其他主机命名空间或资源的应用程序，
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
 
@@ -217,16 +208,17 @@ containerd, CRI-O) use Linux namespaces for isolation. Other technologies exist
 and can be used with those runtimes too (e.g. Kata Containers uses VMs instead of
 Linux namespaces). This page is applicable for container runtimes using Linux
 namespaces for isolation.
-
-When creating a pod, by default, several new namespaces are used for isolation:
-a network namespace to isolate the network of the container, a PID namespace to
-isolate the view of processes, etc. If a user namespace is used, this will
-isolate the users in the container from the users in the node.
 -->
 一些容器运行时的默认配置（如 Docker Engine、containerd、CRI-O）使用 Linux 命名空间进行隔离。
 其他技术也存在，也可以与这些运行时（例如，Kata Containers 使用虚拟机而不是 Linux 命名空间）结合使用。
 本页适用于使用 Linux 命名空间进行隔离的容器运行时。
 
+<!--
+When creating a pod, by default, several new namespaces are used for isolation:
+a network namespace to isolate the network of the container, a PID namespace to
+isolate the view of processes, etc. If a user namespace is used, this will
+isolate the users in the container from the users in the node.
+-->
 在创建 Pod 时，默认情况下会使用几个新的命名空间进行隔离：
 一个网络命名空间来隔离容器网络，一个 PID 命名空间来隔离进程视图等等。
 如果使用了一个用户命名空间，这将把容器中的用户与节点中的用户隔离开来。
@@ -327,8 +319,10 @@ configure a custom range, the node needs to have:
    [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)).
 -->
 kubelet 可以对 Pod 的用户 ID 和组 ID 使用自定义范围。要配置自定义范围，节点需要具有：
+
 * 系统中的用户 `kubelet`（此处不能使用任何其他用户名）。
-* 已安装二进制文件 `getsubids`（[shadow-utils][shadow-utils] 的一部分）并位于 kubelet 二进制文件的 `PATH` 中。
+* 已安装二进制文件 `getsubids`（[shadow-utils][shadow-utils] 的一部分）并位于
+  kubelet 二进制文件的 `PATH` 中。
 * `kubelet` 用户的从属 UID/GID 配置
   （请参阅 [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) 和
   [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)）
@@ -352,7 +346,8 @@ to the `kubelet` user:
   configuration.
 -->
 * 启动 Pod 的 UID 范围的从属用户 ID **必须**是 65536 的倍数，并且还必须大于或等于 65536。
-  换句话说，Pod 不能使用 0-65535 范围内的任何 ID；kubelet 施加此限制是为了使创建意外不安全的配置变得困难。
+  换句话说，Pod 不能使用 0-65535 范围内的任何 ID；
+  kubelet 施加此限制是为了使创建意外不安全的配置变得困难。
 
 <!--
 * The subordinate ID count must be a multiple of 65536
@@ -366,9 +361,11 @@ to the `kubelet` user:
 -->
 * 从属 ID 计数必须是 65536 的倍数。
 
-* 从属 ID 计数必须至少为 `65536 x <maxPods>`，其中 `<maxPods>` 是节点上可以运行的最大 Pod 数量。
+* 从属 ID 计数必须至少为 `65536 x <maxPods>`，其中 `<maxPods>`
+  是节点上可以运行的最大 Pod 数量。
 
-* 你必须为用户 ID 和组 ID 分配相同的范围。如果其他用户的用户 ID 范围与组 ID 范围不一致也没关系。
+* 你必须为用户 ID 和组 ID 分配相同的范围。如果其他用户的用户 ID 范围与组
+  ID 范围不一致也没关系。
 
 <!--
 * None of the assigned ranges should overlap with any other assignment.
@@ -383,7 +380,8 @@ these entries for the `kubelet` user:
 
 * 从属配置必须只有一行。换句话说，你不能有多个范围。
 
-例如，你可以定义 `/etc/subuid` 和 `/etc/subgid` 来为 `kubelet` 用户定义以下条目：
+例如，你可以定义 `/etc/subuid` 和 `/etc/subgid` 来为 `kubelet`
+用户定义以下条目：
 
 <!--
 ```
@@ -405,6 +403,40 @@ these entries for the `kubelet` user:
 kubelet:65536:7208960
 ```
 
+<!--
+### Note if you reconfigure a node
+
+If you have an existing node that is running pods with user-namespaces and want to make the
+aforementioned configurations, here are some important notes.
+-->
+### 关于重新配置节点的注意事项
+
+如果你有一个正在运行用户命名空间 Pod
+的现有节点，并希望进行上述配置，有以下几点重要注意事项。
+
+<!--
+The configuration should be changed when no pods using user-namespaces are running on the node.
+When changing this in a node that is running any Pods with user namespaces,
+you need to first {{< glossary_tooltip text="drain" term_id="drain" >}} the
+node before applying the configuration and restarting the kubelet. 
+When you drain the node, bear in mind that DaemonSet Pods, or other Pods
+that tolerate the unschedulable taint will **not** be evicted.
+
+The reason why no pods using user-namespaces can be running is that they can be using any range,
+potentially outside the new configured range. The kubelet will fail to start if it can't honor the
+new configuration for existing pods on the node.
+-->
+应当在节点上没有运行使用用户命名空间的 Pod 时再更改该配置。
+在正在运行任何使用用户命名空间的 Pod 的节点上进行此项更改时，
+你需要在应用配置并重启 kubelet
+之前，先{{</* glossary_tooltip text="腾空（Drain）" term_id="drain" */>}}该节点。
+在腾空节点时，请注意，DaemonSet Pod 或其他容忍了不可调度污点的
+Pod 将**不会**被驱逐。
+
+之所以不能有任何使用用户命名空间的 Pod 正在运行，
+是因为它们可能正在使用某个 UID 区间，潜在地落在新配置的区间之外。
+如果 kubelet 无法针对节点上现有的 Pod 满足新的配置，它将无法启动。
+
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow
 
@@ -417,7 +449,8 @@ Starting with Kubernetes v1.33, the ID count for each of Pods can be set in
 ## Pod 的 ID 计数   {#id-count-for-each-of-pods}
 
 从 Kubernetes v1.33 开始，每个 Pod 的 ID 计数可以在 
-[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 中设置。
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+中设置。
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -436,8 +469,7 @@ Running containers are not affected by this config.
 In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 65536.
 -->
-`idsPerPod` 的值（uint32）必须是 65536 的倍数。
-默认值是 65536。
+`idsPerPod` 的值（uint32）必须是 65536 的倍数。默认值是 65536。
 此值仅适用于使用此 `KubeletConfiguration` 启动 kubelet 后创建的容器。
 正在运行的容器不受此配置的影响。
 
@@ -448,33 +480,23 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 -->
 ## 与 Pod 安全准入检查的集成   {#integration-with-pod-security-admission-checks}
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
-
 <!--
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
-This behavior can be controlled by the [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
-users. Admins have to ensure that user namespaces are enabled by all nodes
-within the cluster if using the feature gate.
 -->
 对于启用了用户命名空间的 Linux Pod，Kubernetes 会以受控方式放宽
 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)的应用。
-这种行为可以通过[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
-`UserNamespacesPodSecurityStandards` 进行控制，可以让最终用户提前尝试此特性。
-如果管理员启用此特性门控，必须确保群集中的所有节点都启用了用户命名空间。
 
 <!--
-If you enable the associated feature gate and create a Pod that uses user
+If you create a Pod that uses user
 namespaces, the following fields won't be constrained even in contexts that enforce the
 _Baseline_ or _Restricted_ pod security standard. This behavior does not
 present a security concern because `root` inside a Pod with user namespaces
 actually refers to the user inside the container, that is never mapped to a
-privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+privileged user on the host. Here's the list of fields that are **not** checked for Pods in those
 circumstances:
 -->
-如果你启用相关特性门控并创建了使用用户命名空间的 Pod，以下的字段不会被限制，
+如果你创建了使用用户命名空间的 Pod，以下的字段不会被限制，
 即使在执行了 **Baseline** 或 **Restricted** Pod 安全性标准的上下文中。这种行为不会带来安全问题，
 因为带有用户命名空间的 Pod 内的 `root` 实际上指的是容器内的用户，绝不会映射到主机上的特权用户。
 以下是在这种情况下**不进行**检查的 Pod 字段列表：
@@ -488,19 +510,31 @@ circumstances:
 - `spec.initContainers[*].securityContext.runAsUser`
 
 <!--
-## Limitations
+Further, if the pod is in a context with the _Baseline_ pod security standard,
+validation for the following fields will similarly be relaxed:
 -->
-## 限制 {#limitations}
+此外，如果 Pod 处于符合 **Baseline** Pod 安全标准的上下文中，
+则对以下字段的合法性检查也将类似地放宽：
+
+- `spec.containers[*].securityContext.procMount`
+- `spec.initContainers[*].securityContext.procMount`
+- `spec.ephemeralContainers[*].securityContext.procMount`
 
 <!--
+with the _Restricted_ pod security standard, a pod still must only use the
+default or empty ProcMount.
+-->
+如果使用 **Restricted** Pod 安全标准，Pod 仍然只能使用默认的或空的 `procMount`。
+
+<!--
+## Limitations
+
 When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
 allowed to set any of:
-
- * `hostNetwork: true`
- * `hostIPC: true`
- * `hostPID: true`
 -->
+## 限制 {#limitations}
+
 当 Pod 使用用户命名空间时，不允许 Pod 使用其他主机命名空间。
 特别是，如果你设置了 `hostUsers: false`，那么你就不可以设置如下属性：
 
@@ -511,15 +545,38 @@ allowed to set any of:
 <!--
 No container can use `volumeDevices` (raw block volumes, like /dev/sda) either.
 This includes all the container arrays in the pod spec:
- * `containers`
- * `initContainers`
- * `ephemeralContainers`
 -->
-任何容器都不能使用 `volumeDevices`（原始块设备卷，例如 /dev/sda）。
+任何容器都不能使用 `volumeDevices`（原始块设备卷，例如 `/dev/sda`）。
 这包括 Pod 规约中的所有容器数组：
+
  * `containers`
  * `initContainers`
  * `ephemeralContainers`
+
+<!--
+### Filesystem support
+
+Pods that use a user namespace require the filesystem to support idmap mounts.
+Some filesystems don't support idmap mounts, and therefore cannot be used with user namespaces.
+In such cases, the following events will be generated. Please note that the warning details depend on the container runtime you are using.
+-->
+### 文件系统支持
+
+使用用户命名空间的 Pod 需要文件系统支持 idmap 挂载。
+某些文件系统不支持 idmap 挂载，因此无法与用户命名空间一起使用。
+在这种情况下，将会生成以下事件。请注意，警告详情取决于您使用的容器运行时。
+
+```
+Warning  Failed 1s kubelet Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: failed to fulfil mount request: failed to set MOUNT_ATTR_IDMAP on ${your mount path} invalid argument (maybe the filesystem used doesn't support idmap mounts on this kernel?): unknown
+```
+
+<!--
+NFS volumes cannot be mounted in a user-namespace pod because the Linux NFS client doesn't yet support idmap mounts.
+For the current list of supported filesystems, see the Linux kernel’s [`mount_setattr(2)` man page](https://man7.org/linux/man-pages/man2/mount_setattr.2.html).
+-->
+由于 Linux NFS 客户端尚不支持 ID 映射挂载，因此无法在用户命名空间 Pod 中挂载 NFS 卷。
+有关当前支持的文件系统列表，请参阅 Linux 内核的 `mount_setattr(2)`
+手册页（https://man7.org/linux/man-pages/man2/mount_setattr.2.html）。
 
 <!--
 ## Metrics and observability
@@ -531,6 +588,7 @@ The kubelet exports two prometheus metrics specific to user-namespaces:
 ## 指标与可观测性
 
 kubelet 会导出两项与用户命名空间相关的 Prometheus 指标：
+
  * `started_user_namespaced_pods_total`：这个计数器跟踪尝试创建的、作用域为用户命名空间的 Pod 数量。
  * `started_user_namespaced_pods_errors_total`：这个计数器跟踪创建作用域为用户命名空间的 Pod 时发生的错误次数。
 
@@ -539,4 +597,4 @@ kubelet 会导出两项与用户命名空间相关的 Prometheus 指标：
 <!--
 * Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
 -->
-* 查阅[为 Pod 配置用户命名空间](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)
+* 查阅[为 Pod 配置用户命名空间](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)。

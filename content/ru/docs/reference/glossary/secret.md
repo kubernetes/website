@@ -1,7 +1,6 @@
 ---
 title: Секрет (Secret)
 id: secret
-date: 2018-04-12
 full_link: /docs/concepts/configuration/secret/
 short_description: >
   Хранит конфиденциальную информацию, такую как пароли, токены OAuth и ключи SSH.

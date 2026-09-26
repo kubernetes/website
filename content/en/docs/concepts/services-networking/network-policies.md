@@ -99,7 +99,7 @@ __Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy needs
 [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
-**spec**: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+**spec**: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to define a particular network policy in the given namespace.
 
 **podSelector**: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to
@@ -240,6 +240,12 @@ that selects all pods but does not allow any egress traffic from those pods.
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 egress traffic. This policy does not change the ingress isolation behavior of any pod.
+
+{{< caution >}}
+A default deny-all egress policy also blocks DNS traffic. If your workloads need DNS
+resolution, you must add a separate NetworkPolicy that allows egress to your
+cluster's DNS service.
+{{< /caution >}}
 
 ### Allow all egress traffic
 

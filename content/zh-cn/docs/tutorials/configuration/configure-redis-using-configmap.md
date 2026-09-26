@@ -155,7 +155,7 @@ Use `kubectl exec` to enter the pod and run the `redis-cli` tool to check the cu
 使用 `kubectl exec` 进入 pod，运行 `redis-cli` 工具检查当前配置：
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 <!--
@@ -246,7 +246,7 @@ Check the Redis Pod again using `redis-cli` via `kubectl exec` to see if the con
 通过 `kubectl exec` 使用 `redis-cli` 再次检查 Redis Pod，查看是否已应用配置：
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 <!--
@@ -305,7 +305,7 @@ Now re-check the configuration values one last time:
 现在，最后一次重新检查配置值：
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 <!--

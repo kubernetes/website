@@ -16,11 +16,11 @@ No entanto, a funcionalidade nativa fornecida por um mecanismo de contêiner ou 
 
 As arquiteturas de log no nível de cluster são descritas no pressuposto de que um back-end de log esteja presente dentro ou fora do cluster. Se você não estiver interessado em ter o log no nível do cluster, ainda poderá encontrar a descrição de como os logs são armazenados e manipulados no nó para serem úteis.
 
-## Log básico no Kubernentes
+## Log básico no Kubernetes {#basic-logging-in-kubernetes}
 
-Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão(standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
+Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão (standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
 
-{{% codenew file="debug/counter-pod.yaml" %}}
+{{% code_sample file="debug/counter-pod.yaml" %}}
 
 Para executar este pod, use o seguinte comando:
 
@@ -84,7 +84,7 @@ Existem dois tipos de componentes do sistema: aqueles que são executados em um 
 - O scheduler Kubernetes e o kube-proxy são executados em um contêiner.
 - O tempo de execução do kubelet e do contêiner, por exemplo, Docker, não é executado em contêineres.
 
-Nas máquinas com systemd, o tempo de execução do kubelet e do container é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
+Nas máquinas com systemd, o tempo de execução do kubelet e do contêiner é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
 Os componentes do sistema dentro dos contêineres sempre gravam no diretório `/var/log`, ignorando o mecanismo de log padrão. Eles usam a biblioteca de logs [klog][klog]. Você pode encontrar as convenções para a gravidade do log desses componentes nos [documentos de desenvolvimento sobre log](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Da mesma forma que os logs de contêiner, os logs de componentes do sistema no diretório `/var/log` devem ser rotacionados. Nos clusters do Kubernetes criados pelo script `kube-up.sh`, esses logs são configurados para serem rotacionados pela ferramenta `logrotate` diariamente ou quando o tamanho exceder 100MB.
@@ -115,12 +115,12 @@ O Kubernetes não especifica um agente de log, mas dois agentes de log opcionais
 
 Você pode usar um contêiner sidecar de uma das seguintes maneiras:
 
-- O container sidecar transmite os logs do aplicativo para seu próprio `stdout`.
-- O contêiner do sidecar executa um agente de log, configurado para selecionar logs de um contêiner de aplicativo.
+- O contêiner sidecar transmite os logs do aplicativo para seu próprio `stdout`.
+- O contêiner sidecar executa um agente de log, configurado para selecionar logs de um contêiner de aplicativo.
 
 #### Streaming sidecar conteiner
 
-![Conteiner sidecar com um streaming container](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
+![Contêiner sidecar com um contêiner de streaming](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
 Fazendo com que seus contêineres de sidecar fluam para seus próprios `stdout` e `stderr`, você pode tirar proveito do kubelet e do agente de log que já executam em cada nó. Os contêineres sidecar lêem logs de um arquivo, socket ou journald. Cada contêiner sidecar individual imprime o log em seu próprio `stdout` ou `stderr` stream.
 
@@ -128,13 +128,13 @@ Essa abordagem permite separar vários fluxos de logs de diferentes partes do se
 
 Considere o seguinte exemplo. Um pod executa um único contêiner e grava em dois arquivos de log diferentes, usando dois formatos diferentes. Aqui está um arquivo de configuração para o Pod:
 
-{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod.yaml" %}}
 
 Seria uma bagunça ter entradas de log de diferentes formatos no mesmo fluxo de logs, mesmo se você conseguisse redirecionar os dois componentes para o fluxo `stdout` do contêiner. Em vez disso, você pode introduzir dois contêineres sidecar. Cada contêiner sidecar pode direcionar um arquivo de log específico de um volume compartilhado e depois redirecionar os logs para seu próprio fluxo `stdout`.
 
 Aqui está um arquivo de configuração para um pod que possui dois contêineres sidecar:
 
-{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Agora, quando você executa este pod, é possível acessar cada fluxo de log separadamente, executando os seguintes comandos:
 
@@ -179,7 +179,7 @@ O uso de um agente de log em um contêiner sidecar pode levar a um consumo signi
 
 Como exemplo, você pode usar o [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/), que usa fluentd como um agente de log. Aqui estão dois arquivos de configuração que você pode usar para implementar essa abordagem. O primeiro arquivo contém um [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) para configurar o fluentd.
 
-{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
+{{% code_sample file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 A configuração do fluentd está além do escopo deste artigo. Para obter informações sobre como configurar o fluentd, consulte a [documentação oficial do fluentd](http://docs.fluentd.org/).
@@ -188,7 +188,7 @@ A configuração do fluentd está além do escopo deste artigo. Para obter infor
 O segundo arquivo descreve um pod que possui um contêiner sidecar rodando fluentemente.
 O pod monta um volume onde o fluentd pode coletar seus dados de configuração.
 
-{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 Depois de algum tempo, você pode encontrar mensagens de log na interface do Stackdriver.
 

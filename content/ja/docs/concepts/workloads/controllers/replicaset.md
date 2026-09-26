@@ -27,7 +27,7 @@ ReplicaSetはどんな時でも指定された数のPodのレプリカが稼働�
 
 ## ReplicaSetの使用例
 
-{{% codenew file="controllers/frontend.yaml" %}}
+{{% code_sample file="controllers/frontend.yaml" %}}
 
 上記のマニフェストを`frontend.yaml`ファイルに保存しKubernetesクラスターに適用すると、マニフェストに定義されたReplicaSetとそれが管理するPod群を作成します。
 
@@ -127,7 +127,7 @@ metadata:
 
 前のセクションで取り上げた`frontend`ReplicaSetと、下記のマニフェストのPodをみてみます。
 
-{{% codenew file="pods/pod-rs.yaml" %}}
+{{% code_sample file="pods/pod-rs.yaml" %}}
 
 これらのPodは`ownerReferences`に何のコントローラー(もしくはオブジェクト)も指定されておらず、そして`frontend`ReplicaSetにマッチするセレクターをもっており、これらのPodは即座に`frontend`ReplicaSetによって所有されます。
 
@@ -296,7 +296,7 @@ ReplicaSetはまた、[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-applica
 これはつまりReplicaSetがHPAによってオートスケールされうることを意味します。
 ここではHPAが、前の例で作成したReplicaSetをターゲットにする例を示します。
 
-{{% codenew file="controllers/hpa-rs.yaml" %}}
+{{% code_sample file="controllers/hpa-rs.yaml" %}}
 
 このマニフェストを`hpa-rs.yaml`に保存し、Kubernetesクラスターに適用すると、レプリケートされたPodのCPU使用量にもとづいてターゲットのReplicaSetをオートスケールするHPAを作成します。
 
@@ -307,7 +307,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 同様のことを行うための代替案として、`kubectl autoscale`コマンドも使用できます。(こちらの方がより簡単です。)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## ReplicaSetの代替案

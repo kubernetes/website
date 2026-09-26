@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-O Painel é uma interface de usuário web para o Kubernetes. Através do Painel, você pode implantar aplicações containerizadas em um cluster Kubernetes, solucionar problemas em suas aplicações e gerenciar os recursos do cluster.
+O Painel é uma interface de usuário web para o Kubernetes. Através do Painel, você pode implantar aplicações conteinerizadas em um cluster Kubernetes, solucionar problemas em suas aplicações e gerenciar os recursos do cluster.
 
 O Painel oferece uma visão geral das aplicações em execução no seu cluster, além de permitir a criação ou modificação de recursos individuais do Kubernetes (como Deployments, Jobs, DaemonSets, etc.). Por exemplo, você pode escalar um Deployment, iniciar uma atualização contínua (_rolling update_), reiniciar um pod ou implantar novas aplicações utilizando um assistente de implantação.
 
@@ -73,9 +73,9 @@ Além disso, você pode visualizar quais aplicações do sistema estão em execu
 
 ![Página de boas-vindas do painel do Kubernetes](/images/docs/ui-dashboard-zerostate.png)
 
-## Instalando aplicações containerizadas
+## Instalando aplicações conteinerizadas
 
-O Painel permite criar e implantar uma aplicação containerizada como um Deployment e um Service opcional através de um assistente simples. Você pode especificar os detalhes da aplicação manualmente ou carregar um arquivo de _manifesto_ em YAML ou JSON contendo a configuração da aplicação.
+O Painel permite criar e implantar uma aplicação conteinerizada como um Deployment e um Service opcional através de um assistente simples. Você pode especificar os detalhes da aplicação manualmente ou carregar um arquivo de _manifesto_ em YAML ou JSON contendo a configuração da aplicação.
 
 Clique no botão **CRIAR** no canto superior direito de qualquer página para iniciar.
 

@@ -1,7 +1,6 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Componente della Control Plane che controlla i pod appena creati che non hanno un nodo assegnato, e dopo averlo identificato glielo assegna.

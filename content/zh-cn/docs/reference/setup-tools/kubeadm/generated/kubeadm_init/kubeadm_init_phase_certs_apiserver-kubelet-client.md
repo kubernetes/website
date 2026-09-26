@@ -1,9 +1,4 @@
 <!-- 
-Generate the certificate for the API server to connect to kubelet 
--->
-生成供 API 服务器连接 kubelet 的证书。
-
-<!-- 
 ### Synopsis
 -->
 ### 概要
@@ -11,14 +6,15 @@ Generate the certificate for the API server to connect to kubelet
 <!--
 Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.crt and apiserver-kubelet-client.key files.
 -->
-生成供 API 服务器连接 kubelet 的证书，并将其保存到 apiserver-kubelet-client.crt 和 apiserver-kubelet-client.key 文件中。
+生成供 API 服务器连接 kubelet 的证书，并将其保存到 `apiserver-kubelet-client.crt`
+和 `apiserver-kubelet-client.key` 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
-```
+```shell
 kubeadm init phase certs apiserver-kubelet-client [flags]
 ```
 
@@ -27,7 +23,7 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -43,11 +39,14 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The path where to save and store the certificates.</p>
+The path where to save and store the certificates.
 -->
-<p>存储证书的路径。</p>
+存储证书的路径。
+</p>
 </td>
 </tr>
 
@@ -55,11 +54,14 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Path to a kubeadm configuration file.</p>
+Path to a kubeadm configuration file.
 -->
-<p>kubeadm 配置文件路径。</p>
+kubeadm 配置文件路径。
+</p>
 </td>
 </tr>
 
@@ -67,11 +69,12 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -81,11 +84,14 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for apiserver-kubelet-client</p>
+help for apiserver-kubelet-client
 -->
-<p>apiserver-kubelet-client 操作的帮助命令。</p>
+apiserver-kubelet-client 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -99,10 +105,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Choose a specific Kubernetes version for the control plane.</p>
+Choose a specific Kubernetes version for the control plane.
 -->
-<p>为控制平面指定特定的 Kubernetes 版本。</p>
+为控制平面指定特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -114,7 +122,7 @@ Don't apply any changes; just output what would be done.
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -126,10 +134,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 指向宿主机上的 '实际' 根文件系统的路径。</p>
+[实验] 指向宿主机上的 '实际' 根文件系统的路径。
+</p>
 </td>
 </tr>
 

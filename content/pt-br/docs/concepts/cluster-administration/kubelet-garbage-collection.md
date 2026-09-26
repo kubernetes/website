@@ -21,7 +21,7 @@ O Kubernetes gerencia o ciclo de vida de todas as imagens através do imageManag
 A política para o garbage collection de imagens leva dois fatores em consideração:
 `HighThresholdPercent` e `LowThresholdPercent`. Uso do disco acima do limite acionará o garbage collection. O garbage collection excluirá as imagens que foram menos usadas recentemente até que o nível fique abaixo do limite.
 
-## Coleta de container
+## Coleta de contêiner
 
 A política para o garbage collection de contêineres considera três variáveis definidas pelo usuário. `MinAge` é a idade mínima em que um contêiner pode ser coletado. `MaxPerPodContainer` é o número máximo de contêineres mortos que todo par de pod (UID, container name) pode ter. `MaxContainers` é o número máximo de contêineres mortos totais. Essas variáveis podem ser desabilitadas individualmente, definindo `MinAge` como zero e definindo `MaxPerPodContainer` e `MaxContainers` respectivamente para menor que zero.
 

@@ -1,7 +1,6 @@
 ---
 title: Persistent Volume Claim
 id: persistent-volume-claim
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   Yêu cầu (Claim) tài nguyên lưu trữ được định nghĩa trong PersistentVolume để có thể gắn (mount) như một volume trong container.

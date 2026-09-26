@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2022-06-21
 full_link: /it/docs/concepts/configuration/configmap/
 short_description: >
   Un oggetto API usato per memorizzare dati non riservati in coppie chiave-valore. Può essere utilizzato come variabili d'ambiente, argomenti da riga di comanto, o files di configurazione in un volume.

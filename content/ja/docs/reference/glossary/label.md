@@ -1,7 +1,6 @@
 ---
 title: ラベル
 id: label
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/labels
 short_description: >
   ユーザーにとって意味があり関連性のある識別属性を、オブジェクトにタグ付けするものです。

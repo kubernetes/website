@@ -1,7 +1,6 @@
 ---
 title: 平台开发人员（Platform Developer）
 id: platform-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   定制 Kubernetes 平台以满足自己的项目需求的人。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Platform Developer
 id: platform-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who customizes the Kubernetes platform to fit the needs of their project.
@@ -27,7 +25,6 @@ tags:
 <!--
 A person who customizes the Kubernetes platform to fit the needs of their project.
 -->
-
 定制 Kubernetes 平台以满足自己的项目需求的人。
 
 <!--more--> 
@@ -40,7 +37,6 @@ Some Platform Developers are also {{< glossary_tooltip text="contributors" term_
 develop extensions which are contributed to the Kubernetes community.
 Others develop closed-source commercial or site-specific extensions.
 -->
-
 平台开发人员可以使用[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 或[使用汇聚层扩展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 来为其 Kubernetes 实例增加功能，特别是为其应用程序添加功能。

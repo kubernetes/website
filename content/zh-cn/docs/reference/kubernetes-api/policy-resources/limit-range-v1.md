@@ -53,7 +53,7 @@ LimitRange 设置名字空间中每个资源类别的资源用量限制。
 
 - **spec** (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRangeSpec" >}}">LimitRangeSpec</a>)
 
-  spec 定义强制执行的限制。更多信息：
+  `spec` 定义强制执行的限制。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LimitRangeSpec {#LimitRangeSpec}
@@ -82,7 +82,7 @@ LimitRangeSpec 定义与类别匹配的资源的最小/最大使用限制。
 
   **原子：将在合并期间被替换**
 
-  limits 是强制执行的 LimitRangeItem 对象的列表。
+  `limits` 是强制执行的 LimitRangeItem 对象的列表。
 
   <a name="LimitRangeItem"></a>
   **LimitRangeItem 定义与类别匹配的任意资源的最小/最大使用限制。**
@@ -111,7 +111,7 @@ LimitRangeSpec 定义与类别匹配的资源的最小/最大使用限制。
 
   - **limits.defaultRequest** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    defaultRequest 是资源请求被省略时按资源名称设定的默认资源要求请求值。
+    `defaultRequest` 是资源请求被省略时按资源名称设定的默认资源要求请求值。
 
   - **limits.max** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -129,7 +129,7 @@ LimitRangeSpec 定义与类别匹配的资源的最小/最大使用限制。
 
   - **limits.maxLimitRequestRatio** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    如果指定 maxLimitRequestRatio，则所指定的资源必须设置非零的请求和限制值，
+    如果指定 `maxLimitRequestRatio`，则所指定的资源必须设置非零的请求和限制值，
     且限制除以请求小于或等于这里列举的值；此属性用来表示所指定资源的最大突发用量。
 
   - **limits.min** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -165,19 +165,21 @@ LimitRangeList 是 LimitRange 项的列表。
 
 - **items** ([]<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>)，必需
 
-  items 是 LimitRange 对象的列表。更多信息：
+  `items` 是 LimitRange 对象的列表。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified LimitRange
-#### HTTP Request
 -->
 ## 操作 {#Operations}
-
+  
 <hr>
-
+  
+<!--
+### `get` read the specified LimitRange
+  
+#### HTTP Request
+-->
 ### `get` 读取指定的 LimitRange
 
 #### HTTP 请求
@@ -186,6 +188,7 @@ GET /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the LimitRange
 - **namespace** (*in path*): string, required
@@ -216,6 +219,7 @@ GET /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 ### `list` list or watch objects of kind LimitRange
+  
 #### HTTP Request
 -->
 ### `list` 列出或监视 LimitRange 类别的对象
@@ -226,6 +230,7 @@ GET /api/v1/namespaces/{namespace}/limitranges
 
 <!--
 #### Parameters
+  
 - **namespace** (*in path*): string, required
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 - **allowWatchBookmarks** (*in query*): boolean
@@ -236,6 +241,8 @@ GET /api/v1/namespaces/{namespace}/limitranges
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -281,6 +288,10 @@ GET /api/v1/namespaces/{namespace}/limitranges
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -300,6 +311,7 @@ GET /api/v1/namespaces/{namespace}/limitranges
 
 <!--
 ### `list` list or watch objects of kind LimitRange
+  
 #### HTTP Request
 -->
 ### `list` 列出或监视 LimitRange 类别的对象
@@ -318,6 +330,8 @@ GET /api/v1/limitranges
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -359,6 +373,10 @@ GET /api/v1/limitranges
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -378,6 +396,7 @@ GET /api/v1/limitranges
 
 <!--
 ### `create` create a LimitRange
+  
 #### HTTP Request
 -->
 ### `create` 创建 LimitRange
@@ -388,6 +407,7 @@ POST /api/v1/namespaces/{namespace}/limitranges
 
 <!--
 #### Parameters
+  
 - **namespace** (*in path*): string, required
 - **body**: <a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>, required
 - **dryRun** (*in query*): string
@@ -434,6 +454,7 @@ POST /api/v1/namespaces/{namespace}/limitranges
 
 <!--
 ### `update` replace the specified LimitRange
+  
 #### HTTP Request
 -->
 ### `update` 替换指定的 LimitRange
@@ -444,6 +465,7 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the LimitRange
 - **namespace** (*in path*): string, required
@@ -494,6 +516,7 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 ### `patch` partially update the specified LimitRange
+  
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 LimitRange
@@ -504,6 +527,7 @@ PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the LimitRange
 - **namespace** (*in path*): string, required
@@ -559,6 +583,7 @@ PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 ### `delete` delete a LimitRange
+  
 #### HTTP Request
 -->
 ### `delete` 删除 LimitRange
@@ -569,6 +594,7 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the LimitRange
 - **namespace** (*in path*): string, required
@@ -624,6 +650,7 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
 
 <!--
 ### `deletecollection` delete collection of LimitRange
+  
 #### HTTP Request
 -->
 ### `deletecollection` 删除 LimitRange 的集合
@@ -634,6 +661,7 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 
 <!--
 #### Parameters
+  
 - **namespace** (*in path*): string, required
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **continue** (*in query*): string
@@ -647,6 +675,8 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -704,6 +734,10 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

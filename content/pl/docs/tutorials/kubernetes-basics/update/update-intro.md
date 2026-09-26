@@ -7,6 +7,17 @@ weight: 10
 
 Wykonaj aktualizację Rolling Update używając kubectl.
 
+## {{% heading "prerequisites" %}}
+
+Polecenia w tym poradniku są napisane w składni zgodnej ze standardem POSIX, którą
+obsługują domyślne powłoki w Linuxie i macOS (np. bash, zsh, sh). Jeśli
+używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) lub
+[Git Bash](https://gitforwindows.org/), żeby
+uruchomić je w takiej formie. Polecenia z `export`, `$()` i podobnymi
+elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
+
+
 ## Aktualizowanie aplikacji {#updating-an-application}
 
 {{% alert %}}
@@ -47,15 +58,12 @@ aktualizacja ma nadany numer wersji i każdy Deployment może być wycofany do w
 {{< /tutorials/carousel >}}
 
 {{% alert %}}
-_Jeśli Deployment jest udostępniony publicznie, Serwis będzie kierował ruch w trakcie aktualizacji tylko do Podów, które są aktualnie dostępne._
-
+Jeśli Deployment jest udostępniony publicznie, Serwis kieruje ruch wyłącznie do Podów, które są
+gotowe obsługiwać żądania. Zapewnia to nieprzerwany dostęp do aplikacji w trakcie procesu aktualizacji.
 {{% /alert %}}
 
-Podobnie, jak w przypadku skalowania aplikacji, jeśli Deployment jest udostępniony
-publicznie, Serwis będzie kierował ruch tylko do Podów, które są dostępne w trakcie
-aktualizacji. Dostępny Pod to taki, którego instancja jest dostępna dla użytkowników aplikacji.
-
-Płynne aktualizacje pozwalają na:
+Podczas płynnych aktualizacji (ang. rolling update) utrzymywana jest dostępność aplikacji przez
+kierowanie ruchu wyłącznie do Podów obsługujących żądania. _Rolling update_ umożliwia następujące działania:
 
 * Promocję aplikacji z jednego środowiska do innego (poprzez aktualizację obrazu kontenera)
 * Wycofywanie się do poprzedniej wersji

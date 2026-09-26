@@ -1,7 +1,6 @@
 ---
 title: 镜像 Pod（Mirror Pod）
 id: 静态-pod
-date: 2019-08-06
 short_description: >
   API 服务器中的一个对象，用于跟踪 kubelet 上的静态 pod。
 
@@ -10,22 +9,19 @@ tags:
 - 基本的
 ---
 <!--
----
 title: Mirror Pod
 id: mirror-pod
-date: 2019-08-06
 short_description: >
   An object in the API server that tracks a static pod on a kubelet.
 
-aka:
+aka: 
 tags:
 - fundamental
----
 -->
 
 <!--
- A {{< glossary_tooltip text="pod" term_id="pod" >}} object that a kubelet uses
- to represent a {{< glossary_tooltip text="static pod" term_id="static-pod" >}}
+A {{< glossary_tooltip text="pod" term_id="pod" >}} object that a kubelet uses
+to represent a {{< glossary_tooltip text="static pod" term_id="static-pod" >}}
 -->
 镜像 Pod（Mirror Pod）是被 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 用来代表{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 的

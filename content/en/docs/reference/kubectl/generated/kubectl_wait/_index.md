@@ -3,6 +3,8 @@ title: kubectl wait
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Wait for a specific condition on one or many resources
 no_list: true
 ---
 
@@ -22,7 +24,7 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-Experimental: Wait for a specific condition on one or many resources.
+Wait for a specific condition on one or many resources.
 
  The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.
 
@@ -59,6 +61,14 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
   # Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
   kubectl delete pod/busybox1
   kubectl wait --for=delete pod/busybox1 --timeout=60s
+  
+  # Wait for pod "busybox1" to be created AND reach the "Ready" status condition
+  kubectl wait --for=condition=Ready --for=create pod/busybox1
+  
+  # Wait for pod "busybox1" to reach the "Ready" status OR for its containers to report a "False" readiness state
+  until kubectl wait pod/busybox1 --for=condition=Ready --timeout=1s 2>/dev/null || \
+  kubectl wait pod/busybox1 --for=condition=ContainersReady=False --timeout=1s 2>/dev/null; \
+  do echo "Checking conditions..."; sleep 1; done
 ```
 
 ## {{% heading "options" %}}
@@ -106,10 +116,10 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 </tr>
 
 <tr>
-<td colspan="2">--for string</td>
+<td colspan="2">--for strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity. Multiple conditions are supported and AND'ed to each other in a sequential order. If --for=create is passed, it is always waited first.</p></td>
 </tr>
 
 <tr>
@@ -130,7 +140,7 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
 </tr>
 
 <tr>
@@ -201,6 +211,13 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
 </tr>
 
 <tr>
@@ -298,7 +315,7 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>
@@ -306,6 +323,13 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>

@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/job/
 short_description: >
   Job 是需要运行完成的确定性的或批量的任务。
@@ -12,11 +11,9 @@ tags:
 - core-object
 - workload
 ---
-
 <!--
 title: Job
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   A finite or batch task that runs to completion.
@@ -29,11 +26,11 @@ tags:
 -->
 
 <!--
- A finite or batch task that runs to completion.
+A finite or batch task that runs to completion.
 -->
 Job 是需要运行完成的确定性的或批量的任务。
 
-<!--more--> 
+<!--more-->
 
 <!--
 Creates one or more {{< glossary_tooltip term_id="pod" >}} objects and ensures that a specified number of them successfully terminate. As Pods successfully complete, the Job tracks the successful completions.

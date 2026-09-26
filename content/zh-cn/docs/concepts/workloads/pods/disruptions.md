@@ -60,7 +60,8 @@ an application.  Examples are:
 - 云提供商或虚拟机管理程序中的故障导致的虚拟机消失
 - 内核错误
 - 节点由于集群网络隔离从集群中消失
-- 由于节点[资源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)导致 pod 被驱逐。
+- 由于节点[资源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)导致
+  Pod 被驱逐。
 
 <!--
 Except for the out-of-resources condition, all these conditions
@@ -97,15 +98,16 @@ Cluster administrator actions include:
 -->
 集群管理员操作包括：
 
-- [排空（drain）节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
-- 从集群中排空节点以缩小集群（了解[节点自动扩缩](/docs/concepts/cluster-administration/node-autoscaling/)）。
+- [腾空（drain）节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
+- 从集群中腾空节点以缩小集群（了解[节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)）。
 - 从节点中移除一个 Pod，以允许其他 Pod 使用该节点。
 
 <!--
 These actions might be taken directly by the cluster administrator, or by automation
 run by the cluster administrator, or by your cluster hosting provider.
 -->
-这些操作可能由集群管理员直接执行，也可能由集群管理员所使用的自动化工具执行，或者由集群托管提供商自动执行。
+这些操作可能由集群管理员直接执行，也可能由集群管理员所使用的自动化工具执行，
+或者由集群托管提供商自动执行。
 
 <!--
 Ask your cluster administrator or consult your cloud provider or distribution documentation
@@ -113,7 +115,7 @@ to determine if any sources of voluntary disruptions are enabled for your cluste
 If none are enabled, you can skip creating Pod Disruption Budgets.
 -->
 咨询集群管理员或联系云提供商，或者查询发布文档，以确定是否为集群启用了任何资源干扰源。
-如果没有启用，可以不用创建 Pod Disruption Budgets（Pod 干扰预算）
+如果没有启用，可以不用创建 Pod Disruption Budgets（Pod 干扰预算）。
 
 {{< caution >}}
 <!--
@@ -164,12 +166,12 @@ disruptions, if any, to expect. Certain configuration options, such as
 in your pod spec can also cause voluntary (and involuntary) disruptions.
 -->
 自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，没有自愿干扰（只有用户触发的干扰）。
-然而，集群管理员或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
-更新可能导致自愿干扰。另外，集群（节点）自动缩放的某些
-实现可能导致碎片整理和紧缩节点的自愿干扰。集群
-管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
-有些配置选项，例如在 pod spec 中
-[使用 PriorityClasses](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+然而，集群管理员或托管提供商可能运行一些可能导致自愿干扰的额外服务。
+例如，节点软更新可能导致自愿干扰。
+另外，集群（节点）自动缩放的某些实现可能导致碎片整理和紧缩节点的自愿干扰。
+集群管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
+有些配置选项，例如在 Pod
+规约中[使用 PriorityClasses](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 也会产生自愿（和非自愿）的干扰。
 
 <!--
@@ -250,7 +252,6 @@ Pod 的“预期”数量由管理这些 Pod 的工作负载资源的 `.spec.rep
 [Involuntary disruptions](#voluntary-and-involuntary-disruptions) cannot be prevented by PDBs; however they
 do count against the budget.
 -->
-
 PDB 无法防止[非自愿干扰](#voluntary-and-involuntary-disruptions)；
 但它们确实计入预算。
 
@@ -261,8 +262,7 @@ are not limited by PDBs when doing rolling upgrades. Instead, the handling of fa
 during application updates is configured in the spec for the specific workload resource.
 -->
 由于应用的滚动升级而被删除或不可用的 Pod 确实会计入干扰预算，
-但是工作负载资源（如 Deployment 和 StatefulSet）
-在进行滚动升级时不受 PDB 的限制。
+但是工作负载资源（如 Deployment 和 StatefulSet）在进行滚动升级时不受 PDB 的限制。
 应用更新期间的故障处理方式是在对应的工作负载资源的 `spec` 中配置的。
 
 <!--
@@ -274,8 +274,9 @@ before the drain can proceed.
 建议在你的 PodDisruptionBudget 中将
 [不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
 设置为 `AlwaysAllow` 以支持在节点腾空期间驱逐行为不当的应用程序。
-默认行为是等待应用程序 Pod 变得
-[健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，然后才能继续执行腾空。
+默认行为是等待应用程序 Pod
+变得[健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，
+然后才能继续执行腾空。
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
@@ -283,8 +284,8 @@ When a pod is evicted using the eviction API, it is gracefully
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
-[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
-参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
+期间会参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中的 `terminationGracePeriodSeconds` 配置值。
 
 <!--
@@ -373,7 +374,7 @@ At this point, if an impatient cluster administrator tries to drain `node-2` or
 `node-3`, the drain command will block, because there are only 2 available
 pods for the deployment, and its PDB requires at least 2.  After some time passes, `pod-d` becomes available.
 -->
-此时，如果一个急躁的集群管理员试图排空（drain）`node-2` 或 `node-3`，drain 命令将被阻塞，
+此时，如果一个急躁的集群管理员试图腾空（drain）`node-2` 或 `node-3`，drain 命令将被阻塞，
 因为对于 Deployment 来说只有 2 个可用的 Pod，并且它的 PDB 至少需要 2 个。
 经过一段时间，`pod-d` 变得可用。
 
@@ -394,7 +395,7 @@ The drain command will try to evict the two pods in some order, say
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
 one pod available for the deployment.
 -->
-现在，集群管理员试图排空（drain）`node-2`。
+现在，集群管理员试图腾空（drain）`node-2`。
 drain 命令将尝试按照某种顺序驱逐两个 Pod，假设先是 `pod-b`，然后是 `pod-d`。
 命令成功驱逐 `pod-b`，但是当它尝试驱逐 `pod-d`时将被拒绝，因为对于
 Deployment 来说只剩一个可用的 Pod 了。
@@ -619,7 +620,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
 
-* 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 进一步了解[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性

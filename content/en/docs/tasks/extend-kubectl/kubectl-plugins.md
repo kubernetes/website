@@ -370,7 +370,7 @@ discover your plugin and install it.
 
 ### Native / platform specific package management {#distributing-native}
 
-Alternatively, you can use traditional package managers such as, `apt` or `yum`
+Alternatively, you can use traditional package managers such as, `apt` or `dnf`
 on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
@@ -392,5 +392,5 @@ installs easier.
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
   plugin written in Go.
   In case of any questions, feel free to reach out to the
-  [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
+  [SIG CLI team](https://github.com/kubernetes/community/tree/main/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.

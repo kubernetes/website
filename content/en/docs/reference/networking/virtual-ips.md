@@ -16,7 +16,7 @@ of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
 Each instance of kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}}
-for the addition and removal of Service and EndpointSlice
+for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
@@ -76,6 +76,15 @@ On Linux nodes, the available modes for kube-proxy are:
 
 [`nftables`](#proxy-mode-nftables)
 : a mode where the kube-proxy configures packet forwarding rules using nftables.
+
+If you do not choose a mode explicitly (via the `--proxy-mode`
+command-line option, or the `mode` field in a config file) when
+starting kube-proxy, then it will use the recommended default version.
+In Kubernetes {{< skew currentVersion >}}, this is `iptables`, but a
+future version of Kubernetes will change the default to `nftables`. To
+avoid having the proxy backend in a cluster be changed unexpectedly
+during an upgrade, you should ensure that all clusters have a
+kube-proxy configuration that explicitly indicates which mode to use.
 
 There is only one mode available for kube-proxy on Windows:
 
@@ -196,7 +205,13 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
 _This proxy mode is only available on Linux nodes._
+
+**The `ipvs` proxy mode is deprecated**. Support for `ipvs` mode will be disabled by default from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/));
+`ipvs` mode will be fully removed in Kubernetes v1.43.
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
 create rules to redirect traffic from Service IPs to endpoint IPs.
@@ -212,8 +227,7 @@ higher network-traffic throughput than the `iptables` mode. While it
 succeeded in those goals, the kernel IPVS API turned out to be a bad
 match for the Kubernetes Services API, and the `ipvs` backend was
 never able to implement all of the edge cases of Kubernetes Service
-functionality correctly. At some point in the future, it is expected
-to be formally deprecated as a feature.
+functionality correctly.
 
 The `nftables` proxy mode (described below) is essentially a
 replacement for both the `iptables` and `ipvs` modes, with better
@@ -276,20 +290,9 @@ These scheduling algorithms are configured through the
 [`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
 field in the kube-proxy configuration.
 
-{{< note >}}
-To run kube-proxy in IPVS mode, you must make IPVS available on
-the node before starting kube-proxy.
-
-When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
-kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-exits with an error.
-{{< /note >}}
-
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 
 ### `nftables` proxy mode {#proxy-mode-nftables}
-
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
 
 _This proxy mode is only available on Linux nodes, and requires kernel
 5.13 or later._
@@ -306,10 +309,6 @@ faster and more efficiently than the `iptables` mode, and is also able
 to more efficiently process packets in the kernel (though this only
 becomes noticeable in clusters with tens of thousands of services).
 
-As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
-still relatively new, and may not be compatible with all network
-plugins; consult the documentation for your network plugin.
-
 #### Migrating from `iptables` mode to `nftables`
 
 Users who want to switch from the default `iptables` mode to the
@@ -325,17 +324,6 @@ differently the `nftables` mode:
   override this by specifying an explicit value for that option:
   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
   IPv4 IPs.
-
-- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
-  `--nodeport-addresses` range includes `127.0.0.1` (and the option
-  `--iptables-localhost-nodeports false` option is not passed), then
-  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
-  In `nftables` mode (and `ipvs` mode), this will not work. If you
-  are not sure if you are depending on this functionality, you can
-  check kube-proxy's
-  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-  is non-0, that means that some client has connected to a `type: NodePort`
-  Service via localhost/loopback.
 
 - **NodePort interaction with firewalls**: The `iptables` mode of
   kube-proxy tries to be compatible with overly-aggressive firewalls;
@@ -358,6 +346,25 @@ differently the `nftables` mode:
   your cluster is depending on the workaround, and if so, you can run
   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
   around the problem in `nftables` mode.
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  Originally, in `nftables` mode, this did not work. However, in
+  Kubernetes {{< skew currentVersion >}}, you can enable localhost
+  NodePorts in `nftables` mode by enabling the
+  `KubeProxyNFTablesLocalhostNodePorts` feature gate, and setting
+  `--nodeport-addresses` to `primary,localhost` rather than the
+  default value of `primary`.
+
+  If you are not sure if you are depending on this functionality, you
+  can check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type:
+  NodePort` Service via localhost/loopback.
 
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
 
@@ -701,48 +708,36 @@ those terminating Pods. By the time the Pod completes termination, the external 
 should have seen the node's health check failing and fully removed the node from the backend
 pool.
 
-## Traffic Distribution
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+## Traffic distribution control {#traffic-distribution}
 
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 
-`PreferClose`
+`PreferSameZone`
 : This prioritizes sending traffic to endpoints in the same zone as the client.
   The EndpointSlice controller updates EndpointSlices with `hints` to
   communicate this preference, which kube-proxy then uses for routing decisions.
   If a client's zone does not have any available endpoints, traffic will be
   routed cluster-wide for that client.
 
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
-
-`PreferSameZone`
-: This means the same thing as `PreferClose`, but is more explicit. (Originally,
-  the intention was that `PreferClose` might later include functionality other
-  than just "prefer same zone", but this is no longer planned. In the future,
-  `PreferSameZone` will be the recommended value to use for this functionality,
-  and `PreferClose` will be considered a deprecated alias for it.)
-
 `PreferSameNode`
 : This prioritizes sending traffic to endpoints on the same node as the client.
-  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  As with `PreferSameZone`, the EndpointSlice controller updates
   EndpointSlices with `hints` indicating that a slice should be used for a
   particular node. If a client's node does not have any available endpoints,
   then the service proxy will fall back to "same zone" behavior, or cluster-wide
   if there are no same-zone endpoints either.
+
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
 
 In the absence of any value for `trafficDistribution`, the default strategy is
 to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+The `trafficDistribution` field with `PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
@@ -754,7 +749,7 @@ difference in their approaches:
   for small numbers of endpoints), sacrificing some predictability in favor of
   potentially better load balancing.
 
-* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+* `trafficDistribution: PreferSameZone` aims to be simpler and more predictable:
   "If there are endpoints in the zone, they will receive all traffic for that
   zone, if there are no endpoints in a zone, the traffic will be distributed to
   other zones". This approach offers more predictability, but it means that you

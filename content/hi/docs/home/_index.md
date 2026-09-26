@@ -1,9 +1,8 @@
 ---
 title: कुबेरनेट्स प्रलेखन  
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "प्रलेखन"
 main_menu: true
 weight: 10

@@ -1,7 +1,6 @@
 ---
 title: Volume Plugin
 id: volumeplugin
-date: 2018-04-12
 full_link: 
 short_description: >
   A Volume Plugin enables integration of storage within a Pod.

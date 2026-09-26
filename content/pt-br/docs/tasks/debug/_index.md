@@ -1,6 +1,6 @@
 ---
 title: "Monitoramento, Registro de Logs e Depuração"
-description: Configure o monitoramento e os logs para solucionar problemas em um cluster ou depurar uma aplicação containerizada.
+description: Configure o monitoramento e os logs para solucionar problemas em um cluster ou depurar uma aplicação conteinerizada.
 weight: 40
 content_type: concept
 no_list: true
@@ -34,7 +34,7 @@ A seção de [Referência](/docs/reference/) fornece documentação detalhada so
 
 ### Stack Exchange, Stack Overflow ou Server Fault {#stack-exchange}
 
-Se você tem dúvidas relacionadas ao *desenvolvimento de software* para sua aplicação containerizada, você pode perguntar no [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
+Se você tem dúvidas relacionadas ao *desenvolvimento de software* para sua aplicação conteinerizada, você pode perguntar no [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
 
 Se você tem perguntas sobre Kubernetes relacionadas à *gestão do cluster* ou *configuração*, você pode perguntar no [Server Fault](https://serverfault.com/questions/tagged/kubernetes).
 
@@ -92,7 +92,7 @@ Antes de registrar um problema, pesquise os problemas existentes para verificar 
 Se for relatar um bug, inclua informações detalhadas sobre como reproduzir o problema, como:
 
 * Versão do Kubernetes: `kubectl version`
-* Provedor de nuvem, distribuição do SO, configuração de rede e versão do runtime do container
+* Provedor de nuvem, distribuição do SO, configuração de rede e versão do agente de execução de contêiner
 * Passos para reproduzir o problema
 
 

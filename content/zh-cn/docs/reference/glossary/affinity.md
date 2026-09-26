@@ -1,7 +1,6 @@
 ---
 title: 亲和性（Affinity）
 id: affinity
-date: 2019-01-11
 full_link: /zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      调度程序用于确定在何处放置 Pod（亲和性）的规则。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Affinity
 id: affinity
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      Rules used by the scheduler to determine where to place pods

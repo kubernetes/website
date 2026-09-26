@@ -1,7 +1,6 @@
 ---
 title: Downstream (disambiguation)
 id: downstream
-date: 2018-04-12
 full_link: 
 short_description: >
   Có thể đề cập đến: mã nguồn trong hệ sinh thái Kubernetes phụ thuộc vào mã nguồn lõi của Kubernetes hoặc một repo được forked.

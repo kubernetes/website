@@ -34,7 +34,8 @@ This document shares how to extend the existing Service IP range assigned to a c
 <!--
 While you can use this feature with an earlier version, the feature is only GA and officially supported since v1.33.
 -->
-虽然你可以在更早的版本中使用此特性，但此特性只有从 v1.33 版本开始才进阶至 GA（正式发布）并获得官方支持。
+虽然你可以在更早的版本中使用此特性，但此特性只有从 v1.33 版本开始才进阶至
+GA（正式发布）并获得官方支持。
 {{< /note >}}
 
 <!-- steps -->
@@ -45,17 +46,12 @@ While you can use this feature with an earlier version, the feature is only GA a
 ## 扩展 Service IP 范围   {#extend-service-ip-ranges}
 
 <!--
-Kubernetes clusters with kube-apiservers that have enabled the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and have the
-`networking.k8s.io/v1beta1` API group active, will create a ServiceCIDR object that takes
-the well-known name `kubernetes`, and that specifies an IP address range
+The control plane ensures that there is a special ServiceCIDR object, with
+the well-known name `kubernetes`, that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 -->
-如果 Kubernetes 集群的 kube-apiserver 启用了 `MultiCIDRServiceAllocator`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)且激活了
-`networking.k8s.io/v1beta1` API 组，集群将创建一个新的 ServiceCIDR 对象，
-该对象采用 `kubernetes` 这个众所周知的名称并基于 kube-apiserver 的 `--service-cluster-ip-range`
-命令行参数的值来使用 IP 地址范围。
+控制平面确保存在一个特殊的 ServiceCIDR 对象，其名称为 `kubernetes`，
+该对象根据 kube-apiserver 的 `--service-cluster-ip-range` 命令行参数的值指定 IP 地址范围。
 
 ```sh
 kubectl get servicecidr
@@ -128,7 +124,7 @@ that leaves you with only 13 possible Services.
 -->
 ### 添加新的 ServiceCIDR   {#adding-a-new-servicecidr}
 
-对于 Service 范围为 10.96.0.0/28 的集群，只有 2^(32-28) - 2 = 14 个可用的 IP 地址。
+对于 Service 范围为 "10.96.0.0/28" 的集群，只有 2^(32-28) - 2 = 14 个可用的 IP 地址。
 `kubernetes.default` Service 始终会被创建；在这个例子中，你只剩下了 13 个可能的 Service。
 
 ```sh
@@ -155,11 +151,12 @@ error: failed to create ClusterIP service: Internal error occurred: failed to al
 You can increase the number of IP addresses available for Services, by creating a new ServiceCIDR
 that extends or adds new IP address ranges.
 -->
-通过创建一个扩展或新增 IP 地址范围的新 ServiceCIDR，你可以提高 Service 可用的 IP 地址数量。
+通过创建一个扩展或新增 IP 地址范围的新 ServiceCIDR，你可以提高 Service
+可用的 IP 地址数量。
 
 ```sh
 cat <EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newcidr1
@@ -216,7 +213,7 @@ kubectl get servicecidr newcidr1 -o yaml
 ```
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   creationTimestamp: "2023-10-12T15:11:07Z"
@@ -261,7 +258,8 @@ service "test-16" deleted
 the control plane notices the removal. The control plane then removes its finalizer,
 so that the ServiceCIDR that was pending deletion will actually be removed.
 -->
-控制平面会注意到这种移除操作。控制平面随后会移除其终结器，以便真正移除待删除的 ServiceCIDR。
+控制平面会注意到这种移除操作。控制平面随后会移除其终结器，
+以便真正移除待删除的 ServiceCIDR。
 
 ```sh
 kubectl get servicecidr newcidr1
@@ -295,7 +293,8 @@ Service IP ranges.
 -->
 ### 使用验证准入策略阻止未授权的 ServiceCIDR 创建或更新
 
-在某些情况下，集群管理员可能希望限制允许的 IP 范围，或完全禁止对集群 Service IP 范围的更改。
+在某些情况下，集群管理员可能希望限制允许的 IP 范围，或完全禁止对集群
+Service IP 范围的更改。
 
 {{< note >}}
 <!--
@@ -333,49 +332,14 @@ the value of `allowed` to something appropriate for you cluster.
 -->
 #### 限制 Service CIDR 范围为某些特定范围
 
-以下是一个 `ValidatingAdmissionPolicy` 的示例，它只允许在给定的 `allowed` 范围内的子范围创建 ServiceCIDR。
+以下是一个 `ValidatingAdmissionPolicy` 的示例，它只允许在给定的
+`allowed` 范围内的子范围创建 ServiceCIDR。
 （因此示例的策略允许 ServiceCIDR 使用 `cidrs: ['10.96.1.0/24']` 或
-`cidrs: ['2001:db8:0:0:ffff::/80', '10.96.0.0/20']`，但不允许 `cidrs: ['172.20.0.0/16']`。）  
+`cidrs: ['2001:db8:0:0:ffff::/80', '10.96.0.0/20']`，但不允许
+`cidrs: ['172.20.0.0/16']`。）
 你可以复制此策略，并将 `allowed` 的值更改为适合你集群的取值。
 
-<!--
-# For all CIDRs (newCIDR) listed in the spec.cidrs of the submitted ServiceCIDR
-# object, check if there exists at least one CIDR (allowedCIDR) in the `allowed`
-# list of the VAP such that the allowedCIDR fully contains the newCIDR.
--->
-```yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "servicecidrs.default"
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["servicecidrs"]
-  matchConditions:
-  - name: 'exclude-default-servicecidr'
-    expression: "object.metadata.name != 'kubernetes'"
-  variables:
-  - name: allowed
-    expression: "['10.96.0.0/16','2001:db8::/64']"
-  validations:
-  - expression: "object.spec.cidrs.all(newCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(newCIDR)))"
-  # 对提交的 ServiceCIDR 对象的 spec.cidrs 中列出的所有 CIDR（newCIDR），
-  # 检查 VAP 的 `allowed` 列表中是否至少存在一个 CIDR（allowedCIDR），
-  # 使 allowedCIDR 完全包含 newCIDR。
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "servicecidrs-binding"
-spec:
-  policyName: "servicecidrs.default"
-  validationActions: [Deny,Audit]
-```
+{{% code_sample file="service/networking/vap-servicecidr-default.yaml" %}}
 
 <!--
 Consult the [CEL documentation](https://kubernetes.io/docs/reference/using-api/cel/)
@@ -386,34 +350,12 @@ to learn more about CEL if you want to write your own validation `expression`.
 The following example demonstrates how to use a `ValidatingAdmissionPolicy` and
 its binding to restrict the creation of any new Service CIDR ranges, excluding the default "kubernetes" ServiceCIDR:
 -->
-如果你想要编写自己的验证 `expression`，参阅 [CEL 文档](/zh-cn/docs/reference/using-api/cel/)以了解更多信息。
+如果你想要编写自己的验证 `expression`，参阅
+[CEL 文档](/zh-cn/docs/reference/using-api/cel/)以了解更多信息。
 
 #### 限制任何对 ServiceCIDR API 的使用
 
 以下示例展示了如何使用 `ValidatingAdmissionPolicy` 及其绑定，
 来限制创建任何新的 Service CIDR 范围，但不包括默认的 "kubernetes" ServiceCIDR：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "servicecidrs.deny"
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["servicecidrs"]
-  validations:
-  - expression: "object.metadata.name == 'kubernetes'"
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "servicecidrs-deny-binding"
-spec:
-  policyName: "servicecidrs.deny"
-  validationActions: [Deny,Audit]
-```
+{{% code_sample file="service/networking/vap-servicecidr-deny.yaml" %}}

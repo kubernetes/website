@@ -6,6 +6,10 @@
 [api_reference_title]
 other = "API reference"
 
+[api_reference_page_related_concepts]
+one = "Concept documentation for {{ .title }}"
+other = "Related concept pages"
+
 [auto_generated_edit_notice]
 other = "(auto-generated page)"
 
@@ -14,6 +18,9 @@ other = """<p>This page is automatically generated.</p><p>If you plan to report 
 
 [banner_acknowledgement]
 other = "Hide this notice"
+
+[blog_mirrored_originally_published_at]
+other = 'This is a mirror of the <a href="{{ .canonicalUrl }}">original article</a>.'
 
 [blog_post_show_more]
 other = "Show More Posts..."
@@ -42,6 +49,15 @@ other = "You can also read about our {{ .link }}."
 
 [community_bluesky_name]
 other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Follow us on"
+
+[community_bluesky_link]
+other = "View on Bluesky"
+
+[community_bluesky_loading]
+other = "Loading the latest news from Bluesky..."
 
 [community_calendar_name]
 other = "Events Calendar"
@@ -158,6 +174,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[docs_version_release_information]
+other = "release information"
+
 [end_of_life]
 other = "End of Life:"
 
@@ -173,8 +192,47 @@ other = "Error"
 [examples_heading]
 other = "Examples"
 
+# Used with feature_gate_stage_* and then with either feature_gate_enabled or feature_gate_disabled
+# This localization string is for determining the punctuation and other details (including word order).
+## Localizers: you can put marks such as « and » around the .stage (if useful)
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span> since {{ .kubernetes }} v{{ .version }}; {{ .enabled_or_disabled }}"""
+
+## Localizers: you can put marks such as « and » around the .stage (if useful)
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span> since {{ .kubernetes }} v{{ .version }}"""
+
 [feature_gate_enabled]
-other = "(enabled by default: {{ .enabled }})"
+other = "enabled by default"
+
+[feature_gate_disabled]
+other = "disabled by default"
+
+[feature_gate_more_details]
+other = "More information about this feature"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>To use this feature, you (or a cluster administrator) will need to enable the <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> feature gate for all relevant components in your cluster.</p>
+<p>See <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Enable Or Disable Feature Gates</a> for more information.</p>"""
+
+[feature_gate_stable_graduated]
+other = "This is a stable feature in {{ .kubernetes }}, and has been since version {{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release."
+
+[feature_gate_stable_graduated_disabled]
+other = "This stable feature gate is disabled by default. You can no longer enable this feature gate to opt in to the associated behavior."
+
+[feature_gate_stable_locked]
+other = """This is a stable feature in {{ .kubernetes }}, and has been since version v{{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release. You can no longer disable or opt out of this feature or behavior (it is locked); if you explicitly set a value for the associated feature gate <tt>{{ .featureGateName }}</tt>, {{ .kubernetes }} ignores it but does not report any error."""
+
+[feature_gate_removed_after_ga]
+other = """This is a stable feature in {{ .kubernetes }}, and has been since the {{ .stableVersion }} release. You can no longer toggle this feature (the associated <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> has been removed)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """{{ .kubernetes }} no longer includes this feature / behavior. The last release of {{ .kubernetes }} that recognized the <tt>{{ .featureGateName }}</tt> feature gate was {{ .toVersion }}. You can no longer toggle that setting."""
+
+# Used when we somehow don't know when the feature gate was removed.
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """{{ .kubernetes }} no longer includes this feature / behavior. You can no longer toggle that setting."""
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -183,7 +241,7 @@ other = "Alpha"
 other = "Beta"
 
 [feature_gate_stage_stable]
-other = "GA"
+other = "Stable"
 
 [feature_gate_stage_deprecated]
 other = "Deprecated"
@@ -210,7 +268,7 @@ other = "To"
 other = "Until"
 
 [feature_state]
-other = "FEATURE STATE:"
+other = "Feature state:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
@@ -254,6 +312,39 @@ of Katacoda.</p>
 <p>The tutorials ceased to function after the <b>31<sup>st</sup> of March,
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
+
+[kubecon_region_china]
+other = "China"
+
+[kubecon_region_europe]
+other = "Europe"
+
+[kubecon_region_event]
+other = "Event"
+
+[kubecon_region_india]
+other = "India"
+
+[kubecon_region_japan]
+other = "Japan"
+
+[kubecon_region_north_america]
+other = "North America"
+
+[kubectl_ref_collapse_all]
+other = "Collapse all"
+
+[kubectl_ref_expand_all]
+other = "Expand all"
+
+[kubectl_ref_search_placeholder]
+other = "Search commands or description (e.g. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "View full reference"
+
+[kubernetes]
+other = "Kubernetes"
 
 [latest_release]
 other = "Latest Release:"
@@ -402,7 +493,7 @@ other = "Explore the community"
 other = "Contribute"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
@@ -459,6 +550,9 @@ other = "This article is more than one year old. Older articles may contain outd
 [page_deprecated]
 other = "(stale page)"
 
+[page_not_available_in_language]
+other = "This page is not available in {{ .Language }}"
+
 [parentoptions_heading]
 other = "Parent Options Inherited"
 
@@ -473,6 +567,12 @@ other = "Before you begin"
 
 [previous_patches]
 other = "Patch Releases:"
+
+[release_actively_supported]
+other = "Actively Supported"
+
+[release_announcement_blog]
+other = "Release Announcement Blog"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -552,22 +652,47 @@ other = ")"
 [release_date_before]
 other = "(released: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
 
+[release_details]
+other = "View release details"
+
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
+[release_download_page]
+other = "Download Kubernetes {{ .minor_version }}"
+
+[release_end_of_life]
+other = "End Of Life"
+
 [release_end_of_life_date]
 other = "End Of Life Date"
+
+[release_end_of_life_details_past]
+other = """This release has reached End of Life on {{ .release_eol_date }}.
+Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
+
+[release_github_tag]
+other = "GitHub Tag"
+
+[release_latest_patch]
+other = "Latest patch release"
+
+[release_links]
+other = "Related Links"
+
+[release_maintenance_details_past]
+other = "This release entered maintenance mode on {{ .maintenance_mode_start_date }}. Only critical security fixes are accepted. The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}. Please plan to upgrade to a [newer version](/releases/)."
 
 # Also see release_maintenance_and_end_of_life_details_past
 [release_maintenance_and_end_of_life_details_current]
@@ -580,6 +705,15 @@ other = """ℹ️ **Kubernetes {{ .minor_version }} entered maintenance mode on 
 
 The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."""
 
+[release_maintenance_mode]
+other = "Maintenance Mode"
+
+[release_maintenance_mode_start_date]
+other = "Maintenance Mode Start Date"
+
+[release_released_on]
+other = "Released on {{ .date }}"
+
 [release_full_details_initial_text]
 other = "Complete"
 
@@ -588,6 +722,13 @@ other = "Release Information"
 
 [release_minor_version]
 other = "Minor Version"
+
+[release_patch_releases_heading]
+one = "Patch Release"
+other = "Patch Releases"
+
+[release_upcoming_patch_heading]
+other = "Upcoming Patch"
 
 [release_info_next_patch]
 other = "Next patch release is **%s**."
@@ -606,11 +747,20 @@ other = "Note"
 [release_schedule]
 other = "Schedule"
 
+[release_series_page_intro]
+other = "This page provides an overview of the Kubernetes {{ .minor_version }} release series."
+
+[release_status]
+other = "Release Status"
+
 [release_target_date]
 other = "Target Date"
 
 [release_changelog]
 other = "Changelog"
+
+[rss_link_label]
+other = "RSS"
 
 [seealso_heading]
 other = "See Also"
@@ -627,6 +777,12 @@ other = "Success"
 [synopsis_heading]
 other = "Synopsis"
 
+[tab_default]
+other = "Tab {{ . }}"
+
+[theme_locked_notice]
+other = "Theme fixed for this page"
+
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
 
@@ -637,7 +793,7 @@ other="""Third party content advice"""
 [thirdparty_message_single_item]
 other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
 [thirdparty_message_disclaimer]
-other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
 
 [thirdparty_message_vendor]
 other = """Items on this page refer to vendors external to Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. To add a vendor, product or project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

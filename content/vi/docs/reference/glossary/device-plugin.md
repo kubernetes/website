@@ -1,7 +1,6 @@
 ---
 title: Device Plugin
 id: device-plugin
-date: 2019-02-02
 full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   Phần mở rộng phần mềm cho phép Pod truy cập các thiết bị cần khởi tạo hoặc thiết lập đặc thù từ nhà cung cấp

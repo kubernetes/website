@@ -27,11 +27,17 @@ card:
 <!-- body -->
 
 ## ダッシュボードUIのデプロイ
+{{< note >}}
+Kubernetes Dashboardは現在、Helmベースのインストールのみをサポートしています。
+これは、すべての依存関係をより高速かつ適切に制御できるためです。
+{{< /note >}}
 
 ダッシュボードUIはデフォルトではデプロイされていません。デプロイするには、以下のコマンドを実行します:
-
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+```shell
+# kubernetes-dashboardリポジトリを追加
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# "kubernetes-dashboard"という名前のHelm Releaseをkubernetes-dashboardチャートを使用してデプロイ
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
 ## ダッシュボードUIへのアクセス
@@ -50,12 +56,12 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 以下のコマンドを実行することで、kubectlコマンドラインツールを使ってダッシュボードにアクセスすることができます:
 
 ```
-kubectl proxy
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 ```
 
-kubectlは、ダッシュボードを http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ で利用できるようにします。
+kubectlは、ダッシュボードを[https://localhost:8443](https://localhost:8443)で利用可能にします。
 
-UIはコマンドを実行しているマシンから _のみ_ アクセスできます。オプションについては`kubectl proxy --help`を参照してください。
+UIはコマンドを実行しているマシンから _のみ_ アクセスできます。オプションについては`kubectl port-forward --help`を参照してください。
 
 {{< note >}}
 Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベースの認証には対応していません。

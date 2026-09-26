@@ -3,6 +3,8 @@ title: kubectl expose
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  将 Replication 控制器、Service、Deployment 或 Pod 暴露为新的 Kubernetes 服务
 ---
 <!--
 title: kubectl expose
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
 -->
 
 ## {{% heading "synopsis" %}}
@@ -115,7 +119,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -128,7 +133,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to 'None' to create a headless service.
 -->
 要指派给服务的 ClusterIP。留空表示自动分配，或设置为 “None” 以创建无头服务。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -142,7 +148,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -156,7 +163,8 @@ Additional external IP address (not managed by Kubernetes) to accept for the ser
 -->
 服务要接受的附加外部 IP 地址（不由 Kubernetes 管理）。
 如果此 IP 被路由到某个节点，则除了生成的服务 IP 之外，还可以通过此 IP 访问服务。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -169,7 +177,8 @@ Additional external IP address (not managed by Kubernetes) to accept for the ser
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -182,7 +191,8 @@ Name of the manager used to track field ownership.
 Filename, directory, or URL to files identifying the resource to expose a service
 -->
 文件名、目录或文件 URL 列表，用于标识要公开服务的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -195,7 +205,8 @@ Filename, directory, or URL to files identifying the resource to expose a servic
 help for expose
 -->
 expose 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -208,7 +219,8 @@ expose 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -221,7 +233,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 Labels to apply to the service created by this call.
 -->
 要应用到此子命令所创建的服务上的标签。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -234,7 +247,8 @@ Labels to apply to the service created by this call.
 IP to assign to the LoadBalancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
 -->
 要指派给负载均衡器的 IP。如果为空，将创建并使用一个临时 IP（具体取决于云提供商）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -247,7 +261,8 @@ IP to assign to the LoadBalancer. If empty, an ephemeral IP will be created and 
 The name for the newly created object.
 -->
 新建对象的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -257,11 +272,12 @@ The name for the newly created object.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -274,7 +290,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 The method used to override the generated object: json, merge, or strategic.
 -->
 用于覆盖已生成对象的方法：json、merge 或 strategic。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -288,7 +305,8 @@ An inline JSON override for the generated object. If this is non-empty, it is us
 -->
 用于覆盖已生成对象的内联 JSON。如果此字段非空，它将用于覆盖已生成的对象。
 要求对象提供一个有效的 apiVersion 字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -301,7 +319,8 @@ An inline JSON override for the generated object. If this is non-empty, it is us
 The port that the service should serve on. Copied from the resource being exposed, if unspecified
 -->
 应该用于提供服务的端口。如果不指定，则从正被公开的资源复制。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -314,7 +333,8 @@ The port that the service should serve on. Copied from the resource being expose
 The network protocol for the service to be created. Default is 'TCP'.
 -->
 要创建的服务的网络协议。默认是 'TCP'。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -327,7 +347,8 @@ The network protocol for the service to be created. Default is 'TCP'.
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -341,7 +362,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -351,11 +373,12 @@ If true, the configuration of current object will be saved in its annotation. Ot
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the replication controller or replica set.)
+A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the resource being exposed.
 -->
 指定服务所用的标签选择算符。仅支持基于等式的选择算符需求。
-如果为空（默认值），则从 ReplicationController 或 ReplicaSet 中推断选择算符。
-</p></td>
+如果为空（默认值），则从要公开的资源推断选择算符。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -368,7 +391,8 @@ A label selector to use for this service. Only equality-based selector requireme
 If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
 -->
 如果非空，将服务的会话亲和性设置为此值；有效值为：'None'、'ClientIP'。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -381,7 +405,8 @@ If non-empty, set the session affinity for the service to this; legal values: 'N
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -394,32 +419,37 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 Name or number for the port on the container that the service should direct traffic to. Optional.
 -->
 容器上服务应将流量导向的端口名称或端口号。可选。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--type string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Type for this service: ClusterIP, NodePort, LoadBalancer, or ExternalName. Default is 'ClusterIP'.
 -->
 此服务的类别：ClusterIP、NodePort、LoadBalancer 或 ExternalName。默认是 “ClusterIP”。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -438,103 +468,120 @@ Type for this service: ClusterIP, NodePort, LoadBalancer, or ExternalName. Defau
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--context string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig context to use
 -->
@@ -546,7 +593,8 @@ The name of the kubeconfig context to use
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
@@ -558,7 +606,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
@@ -570,7 +619,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
@@ -597,7 +647,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Require server version to match client version
 -->
@@ -609,7 +660,8 @@ Require server version to match client version
 <td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, the namespace scope for this CLI request
 -->
@@ -621,7 +673,8 @@ If present, the namespace scope for this CLI request
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
@@ -633,11 +686,12 @@ Password for basic authentication to the API server
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
@@ -645,7 +699,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the file to write the profile to
 -->
@@ -657,7 +712,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -670,7 +726,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -682,7 +739,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -694,7 +752,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -706,7 +765,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -718,7 +778,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -730,7 +791,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -742,7 +804,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -754,7 +817,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -766,7 +830,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -778,7 +843,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->

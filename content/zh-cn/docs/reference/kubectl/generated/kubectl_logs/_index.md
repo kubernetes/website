@@ -3,6 +3,8 @@ title: kubectl logs
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  打印 Pod 中某个容器的日志。
 ---
 <!--
 title: kubectl logs
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Print the logs for a container in a pod
 -->
 
 ## {{% heading "synopsis" %}}
@@ -151,7 +155,8 @@ kubectl logs deployment/nginx -c nginx-1
 <td colspan="2">--all-containers</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Get all containers' logs in the pod(s).
 -->
@@ -177,121 +182,141 @@ Get logs from all pod(s). Sets prefix to true.
 <td colspan="2">-c, --container string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Print the logs of this container
 -->
 打印指定容器的日志。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-f, --follow</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify if the logs should be streamed.
 -->
 指定日志是否应以流式传输。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for logs
 -->
 logs 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--ignore-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If watching / following pod logs, allow for any errors that occur to be non-fatal
 -->
 如果在监视/跟随 Pod 日志，则允许出现任何非致命的错误。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--insecure-skip-tls-verify-backend</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Skip verifying the identity of the kubelet that logs are requested from.  In theory, an attacker could provide invalid log content back. You might want to use this if your kubelet serving certificates have expired.
 -->
 跳过请求日志来源的 kubelet 的身份验证。从理论上讲，攻击者可能会提供无效的日志内容。
 如果你的 kubelet 提供的证书已过期，你可能需要使用此参数。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--limit-bytes int</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Maximum bytes of logs to return. Defaults to no limit.
 -->
 要返回的日志的最大字节数。默认为无限制。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--max-log-requests int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：5</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify maximum number of concurrent logs to follow when using by a selector. Defaults to 5.
 -->
 指定使用选择算符时要遵循的最大并发日志数。默认值为 5。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--pod-running-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：20s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 -->
 等待至少一个 Pod 运行的时长（例如 5s、2m 或 3h，大于零）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--prefix</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Prefix each log line with the log source (pod name and container name)
 -->
 在每行日志前添加日志来源（Pod 名称和容器名称）的前缀。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-p, --previous</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, print the logs for the previous instance of the container in a pod if it exists.
 -->
 如果为 true，则打印 Pod 中容器的前一个实例的日志（如果存在）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -305,7 +330,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
 （例如 -l key1=value1,key2=value2,key3 in (value3)）。
 匹配的对象必须满足所有指定的标签约束。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -318,7 +344,8 @@ Only return logs newer than a relative duration like 5s, 2m, or 3h. Defaults to 
 -->
 仅返回比相对时长更新的日志，如 5s、2m 或 3h。
 默认返回所有日志。只能使用 since-time 和 since 之一。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -331,7 +358,8 @@ Only return logs after a specific date (RFC3339). Defaults to all logs. Only one
 -->
 仅返回特定日期（RFC3339）之后的日志。默认返回所有日志。
 只能使用 since-time 和 since 之一。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -344,7 +372,8 @@ Lines of recent log file to display. Defaults to -1 with no selector, showing al
 -->
 要显示的最近日志文件的行数。不带选择算符时默认为 -1 将显示所有日志行。
 否则如果提供了选择算符，则为 10。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -356,7 +385,8 @@ Lines of recent log file to display. Defaults to -1 with no selector, showing al
 Include timestamps on each line in the log output
 -->
 在日志输出的每一行中包含时间戳。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -380,7 +410,8 @@ Include timestamps on each line in the log output
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -392,7 +423,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -404,7 +436,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -416,7 +463,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -428,7 +476,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -440,7 +489,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -452,7 +502,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -464,7 +515,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中的集群名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -476,7 +528,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -488,7 +541,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -500,7 +554,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -512,7 +567,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -539,7 +595,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -551,19 +608,22 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求所针对的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -572,17 +632,19 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the file to write the profile to
 -->
@@ -594,7 +656,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -607,7 +670,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -619,7 +683,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -631,7 +696,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -643,7 +709,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -655,7 +722,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -667,7 +735,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -679,7 +748,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -691,7 +761,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -703,7 +774,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -715,7 +787,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -727,7 +800,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
@@ -739,7 +813,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -751,7 +826,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
@@ -763,7 +839,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->

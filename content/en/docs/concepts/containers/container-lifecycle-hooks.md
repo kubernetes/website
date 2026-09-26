@@ -12,9 +12,6 @@ weight: 40
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle.
 
-
-
-
 <!-- body -->
 
 ## Overview
@@ -31,8 +28,16 @@ There are two hooks that are exposed to Containers:
 `PostStart`
 
 This hook is executed immediately after a container is created.
-However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
+It runs **concurrently** with the container's `ENTRYPOINT` (main process),
+meaning the hook may run before, during, or after the main process starts.
+
 No parameters are passed to the handler.
+
+{{< note >}}
+While the hook runs concurrently with the container process,
+it can delay container status updates;
+the container may not transition to `Running` until the hook completes.
+{{< /note >}}
 
 `PreStop`
 
@@ -69,12 +74,15 @@ Resources consumed by the command are counted against the Container.
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.35/#lifecyclehandler-v1-core))
 and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
 The `PostStart` hook handler call is initiated when a container is created,
 meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
-However, if the `PostStart` hook takes too long to execute or if it hangs,
+(This means it generally doesn't make sense to use an HTTP hook for `PostStart`, since
+there is no guarantee that the container's process will have fully started up when the
+hook runs.)
+If the `PostStart` hook takes too long to execute or if it hangs,
 it can prevent the container from transitioning to a `running` state.
 
 `PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must

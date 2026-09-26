@@ -553,11 +553,37 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
-<tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
-<tt>cidr('192.168.0.0/33')</tt> // error
-<tt>cidr('::1/129')</tt> // error
-<tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
+<table>
+<caption>Examples of CEL expressions using the cidr function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/16')</tt></td>
+  <td>Returns an IPv4 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128')</tt></td>
+  <td>Returns an IPv6 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/33')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/129')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/16')</tt></td>
+  <td>Error, because there are non-0 bits after the prefix.</td>
+</tr>
+</tbody>
+</table>
 
 #### `isCIDR`
 
@@ -570,10 +596,33 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>isCIDR('192.168.0.0/16')</tt> // returns true
-<tt>isCIDR('::1/128')</tt> // returns true
-<tt>isCIDR('192.168.0.0/33')</tt> // returns false
-<tt>isCIDR('::1/129')</tt> // returns false
+<table>
+<caption>Examples of CEL expressions using the isCIDR function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/16')</tt></td>
+  <td>Returns true for a valid IPv4 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/128')</tt></td>
+  <td>Returns true for a valid IPv6 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/33')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/129')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+</tbody>
+</table>
 
 #### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
 
@@ -1124,13 +1173,25 @@ because the `namex` field is not defined. However, `object.namex` would pass
 type checking even when the `namex` field is not defined for the resource kinds
 that `object` refers to, because `object` is dynamically typed.
 
-The `has()` macro in CEL may be used in CEL expressions to check if a field of a
-dynamically typed variable is accessible before attempting to access the field's
-value. For example:
+The `has()` macro in CEL may be used in CEL expressions to check whether a field
+of a dynamically typed variable is present before attempting to access the
+field's value. For example:
 
 ```cel
 has(object.namex) ? object.namex == 'special' : request.name == 'special'
 ```
+
+Use `has()` to check field presence. Do not use `has()` to check whether a map
+contains a key. For example, do not write
+`has(object.metadata.labels['example.com/environment'])`. For map key checks,
+use the `in` operator instead. For example:
+
+```cel
+has(object.metadata.labels) && 'example.com/environment' in object.metadata.labels
+```
+
+This expression checks that `metadata.labels` is present before checking whether
+the map contains the `example.com/environment` key.
 
 ## Type system integration
 

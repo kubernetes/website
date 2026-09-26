@@ -1,7 +1,6 @@
 ---
 title: 驱逐（Eviction）
 id: eviction
-date: 2021-05-08
 full_link: /zh-cn/docs/concepts/scheduling-eviction/
 short_description: >
     终止节点上一个或多个 Pod 的过程。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Eviction
 id: eviction
-date: 2021-05-08
 full_link: /docs/concepts/scheduling-eviction/
 short_description: >
     Process of terminating one or more Pods on Nodes

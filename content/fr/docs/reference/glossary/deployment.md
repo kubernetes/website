@@ -1,7 +1,6 @@
 ---
 title: Déploiement
 id: deployment
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/deployment/
 short_description: >
   Objet API gérant une application répliquée.

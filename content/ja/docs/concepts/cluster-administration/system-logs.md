@@ -123,4 +123,4 @@ systemdを使用しているマシンでは、kubeletとコンテナランタイ
 
 * [Kubernetesのログのアーキテクチャ](/docs/concepts/cluster-administration/logging/)について読む。
 * [構造化ログ](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)について読む。
-* [ログの深刻度の慣習](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)について読む。
+* [ログの深刻度の慣習](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)について読む。

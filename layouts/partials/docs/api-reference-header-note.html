@@ -1,0 +1,45 @@
+{{- $referenceApiVersion := .Params.api_metadata.apiVersion -}} {{- $referenceApiType := .Params.api_metadata.kind -}}
+{{- $allInboundConceptPages := partialCached "docs/api-reference-hyperlink-map.gotemplate" (.Site.GetPage "section" "docs/concepts" ) -}}
+{{- $thisPageInboundConceptPages := slice -}}
+{{- range $index, $page := $allInboundConceptPages -}}
+  {{- $matched := false -}}
+  {{- range $page.Params.api_metadata -}}
+    {{- if (and (eq .apiVersion $referenceApiVersion) (eq .kind $referenceApiType )) -}}
+      {{- $thisPageInboundConceptPages = $thisPageInboundConceptPages | append $page -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $pageUrl := slice -}}
+
+<div class="api-reference-header-note{{ if eq (len $thisPageInboundConceptPages) 0 }} empty{{ end }}">
+  {{- if gt (len $thisPageInboundConceptPages) 0 -}}
+  <details open>
+   <summary>{{ T "api_reference_page_related_concepts" (dict "count" (len $thisPageInboundConceptPages) "title" .Title) }}</summary>
+   <ul class="concept-page-list">
+     {{- range $thisPageInboundConceptPages -}}
+     <li>
+       <div><a href="{{ .RelPermalink }}">{{ .Title}}</a></div>
+       {{- $pageUrl = .RelPermalink -}}
+       {{- with .Description -}}
+       <p class="concept-page-description">{{ . }}</p>
+       {{- end -}}
+       <div class="concept-page-toc">
+        {{- with .Fragments -}}
+          <ol>
+          {{- range .Headings -}}
+            {{- range .Headings -}}
+              {{- if eq .Level 2 -}}
+              <li><a href="{{ $pageUrl }}#{{ .ID }}">{{ .Title }}</a></li>
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+          </ol>
+        {{- end -}}
+       </div>
+     </li> 
+     {{- end -}}
+   </ul>
+  </details>
+  {{- end -}}
+</div>

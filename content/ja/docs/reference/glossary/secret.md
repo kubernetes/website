@@ -1,7 +1,6 @@
 ---
 title: Secret
 id: secret
-date: 2018-04-12
 full_link: /ja/docs/concepts/configuration/secret/
 short_description: >
   パスワードやOAuthトークン、SSHキーのような機密の情報を保持します。

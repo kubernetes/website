@@ -134,6 +134,21 @@ Consult the [authorization reference section](/docs/reference/access-authn-authz
 如果你希望获取更多信息，请参阅[鉴权参考](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 <!--
+If your cluster uses [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+review DRA synthetic subresource authorization (`resourceclaims/binding` and
+`resourceclaims/driver`) and grant only the minimum required verbs to each
+component. For details, see
+[Hardening Guide - Dynamic Resource Allocation](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/)
+and
+[Harden Dynamic Resource Allocation in Your Cluster](/docs/tasks/administer-cluster/hardening-dra/).
+-->
+如果你的集群使用[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)，
+请检查 DRA 合成子资源授权（`resourceclaims/binding` 和 `resourceclaims/driver`），
+并且只向每个组件授予所需的最小权限动词。有关详细信息，
+请参阅[加固指南——动态资源分配](/zh-cn/docs/concepts/security/hardening-guide/dynamic-resource-allocation/)
+和[在集群中加固动态资源分配](/zh-cn/docs/tasks/administer-cluster/hardening-dra/)。
+
+<!--
 ## Controlling access to the Kubelet
 
 Kubelets expose HTTPS endpoints which grant powerful control over the node and containers. By default Kubelets allow unauthenticated access to this API.

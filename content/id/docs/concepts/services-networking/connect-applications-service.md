@@ -116,7 +116,7 @@ Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<
 ## Mengakses Service
 
 Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *environment* dan *DNS*.
-*DNS* membutuhkan [tambahan CoreDNS di dalam klaster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+*DNS* membutuhkan [tambahan CoreDNS di dalam klaster](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns).
 
 ### Variabel Environment
 
@@ -169,7 +169,7 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
+Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](/docs/tasks/administer-cluster/coredns/#installing-coredns).
 
 Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS klaster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam klaster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 

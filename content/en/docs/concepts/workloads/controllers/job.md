@@ -313,6 +313,153 @@ count towards the completion count and update the status of the Job. The other P
 or completed for the same index will be deleted by the Job controller once they are detected.
 {{< /note >}}
 
+## Integrate with Workload APIs
+
+{{< feature-state feature_gate_name="WorkloadWithJob" >}}
+
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) 
+feature gate is enabled, the Job controller compiles a Job's `.spec.scheduling`
+configuration into [Workload](/docs/concepts/workloads/workload-api/) and 
+[PodGroup](/docs/concepts/workloads/podgroup-api/) objects (`scheduling.k8s.io/v1beta1`) 
+before it creates any Pods. This lets you express explicit scheduling intent for a Job, 
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) (all Pods
+scheduled together or none), topology co-location, and disruption behavior.
+
+When you omit `.spec.scheduling`, the Job defaults to the `Basic` scheduling
+policy, which preserves the standard pod-by-pod scheduling outcome of an ordinary
+Job. The controller still creates a `Workload` and `PodGroup` for every
+eligible Job (including `Basic` ones), so the observable objects are consistent
+regardless of the policy.
+
+### Scheduling configuration
+
+The `.spec.scheduling` field accepts the following fields:
+
+- `schedulingPolicy`: exactly one of `basic` or `gang` must be specified. With `gang`, 
+  all Pods must be schedulable together before any of them are bound. An omitted 
+  `gang.minCount` defaults to the Job's `.spec.parallelism`. See
+  [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
+- `schedulingConstraints`:
+  [topology](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
+  co-location constraints for the Job's Pods.
+- `disruptionMode`: whether the Pods are disrupted individually (`single`) or as a
+  group (`all`). See
+  [disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
+- `resourceClaims`: dynamic resource claims shared across the Job's Pods.
+
+All `.spec.scheduling` fields are immutable after the Job is created, except for 
+`schedulingPolicy.gang.minCount`, which you can change to
+[scale a gang elastically](#elastic-indexed-jobs).
+
+### Gang scheduling
+
+The following Job requests gang scheduling for its 8 Pods, co-located within a
+single zone, and disrupted together:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training
+  namespace: training
+spec:
+  parallelism: 8
+  completions: 8
+  completionMode: Indexed
+  scheduling:
+    schedulingPolicy:
+      gang: {}                # minCount omitted -> defaults to parallelism (8)
+    schedulingConstraints:
+      key:
+      - level: topology.kubernetes.io/zone
+    disruptionMode:
+      all: {}                 # the entire group is disrupted together
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: trainer
+        image: training-image:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+```
+
+When the Job controller processes this Job, it:
+
+1. Creates a [Workload](/docs/concepts/workloads/workload-api/) object in the same
+   namespace, containing a `podGroupTemplate` compiled from `.spec.scheduling`
+   (here, a [gang policy](/docs/concepts/workloads/workload-api/policies/) with
+   `minCount: 8`).
+1. Creates a PodGroup object from that template. The PodGroup is the runtime
+   scheduling unit and carries an inline copy of the policy.
+1. Creates Pods with `.spec.schedulingGroup.podGroupName` set to the PodGroup's
+   name, linking each Pod to its scheduling group.
+
+The controller discovers these objects through spec references
+(`Workload.spec.controllerRef` and `PodGroup.spec.workloadRef`), not by
+name. Objects the controller creates carry an `ownerReferences` entry pointing to
+the Job, so they are garbage collected when the Job is deleted.
+
+### Default (Basic) scheduling
+
+A Job that omits `.spec.scheduling` defaults to `Basic`, which acts as an implicit
+opt-out of gang scheduling. Its Pods schedule the same way as an ordinary Job,
+while a `Basic` `Workload` and `PodGroup` are still created:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-processor
+  namespace: batch
+spec:
+  parallelism: 10
+  completions: 10
+  # .spec.scheduling omitted -> defaults to Basic scheduling.
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: processor
+        image: processor-image:v1
+```
+
+### Higher-level controllers
+
+For a standalone Job, the Job controller owns both the `Workload` and the
+`PodGroup`. When a Job instead carries an `ownerReference` to a parent controller
+that compiles the `Workload` (for example, `JobSet`), the Job controller defers
+`Workload` ownership to that parent. Whether the Job controller still creates the
+runtime `PodGroup` depends on what the parent delegates:
+
+- If the parent sets the `scheduling.k8s.io/group-template-name` annotation on the
+  Job, the Job controller creates and owns the `PodGroup`, mapped to the parent's
+  named `PodGroupTemplate`.
+- Otherwise, the parent owns both objects and the Job controller creates neither;
+  it discovers the existing objects and uses them when creating Pods.
+
+If a Job's Pod template already has `.spec.template.spec.schedulingGroup` set, the
+Job controller creates neither object, letting you (or a higher-level controller)
+manage the `Workload`/`PodGroup` lifecycle yourself.
+
+### CronJob behavior
+
+Jobs created by a `CronJob` are standalone; the `CronJob` does not create or manage
+`Workload` objects. If a `CronJob`'s `jobTemplate` sets `.spec.scheduling`, the Job
+controller creates a separate `Workload` and `PodGroup` for each Job instance,
+compiled from that Job's `.spec.scheduling` (defaulting to `Basic` when omitted).
+These objects are garbage collected when each Job completes or is deleted.
+
+### Limitations for Alpha release {#workload-integration-limitations}
+
+- Each Job maps to exactly one `PodGroup`; all Pods in the Job share a single
+  scheduling policy.
+- Only `schedulingPolicy.gang.minCount` is mutable; all other `.spec.scheduling`
+  fields are immutable after creation.
+- Suspended Jobs retain their `Workload` and `PodGroup` objects; they are not deleted
+  on suspend or recreated on resume.
+
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
@@ -320,7 +467,7 @@ a non-zero exit code, or the container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the container is re-run. Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
-See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
+See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
@@ -840,11 +987,7 @@ Here, `W` is the number of work items.
 | [Job with Pod-to-Pod Communication]             |          W          |         W            |
 | [Job Template Expansion]                        |          1          |     should be 1      |
 
-[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
-[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
-[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
-[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+
 
 ## Advanced usage
 
@@ -862,6 +1005,10 @@ To suspend a Job, you can update the `.spec.suspend` field of
 the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
+
+In Kubernetes 1.35 or later the `.status.startTime` field is cleared on Job suspension
+when the [MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
+feature gate is enabled.
 
 When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
@@ -971,11 +1118,31 @@ a custom queue controller has no influence on where the pods of a job will actua
 
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
 controllers the ability to influence pod placement while at the same time offloading actual
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never
-been unsuspended before.
+pod-to-node assignment to kube-scheduler. 
 
 The fields in a Job's pod template that can be updated are node affinity, node selector,
 tolerations, labels, annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
+
+#### Mutable Scheduling Directives for suspended Jobs
+
+{{< feature-state feature_gate_name="MutableSchedulingDirectivesForSuspendedJobs" >}}
+
+In Kubernetes 1.34 or earlier mutating of Pod's scheduling directives is allowed only for
+suspended Jobs that have never been unsuspended before. In Kubernetes 1.35, this is allowed
+for any suspended Jobs when the `MutableSchedulingDirectivesForSuspendedJobs` feature gate is enabled.
+
+Additionally, this feature gate enables clearing of the `.status.startTime` field on [Job suspension](#suspending-a-job).
+
+### Mutable Pod resources for suspended Jobs
+
+{{< feature-state feature_gate_name="MutablePodResourcesForSuspendedJobs" >}}
+
+A cluster administrator can define admission controls in Kubernetes, modifying the resource requests or limits for a Job, based on policy rules.
+
+With this feature, Kubernetes also lets you modify the pod template of a [suspended job](#suspending-a-job), to change the resource requirements of the Pods in the Job.
+This is different from _in-place Pod resize_ which lets you update resources, one Pod at a time, for Pods that are already running.
+
+The client that sets the new resource requests or limits can be different from the client that initially created the Job, and does not need to be a cluster administrator.
 
 ### Specifying your own Pod selector
 
@@ -1061,7 +1228,7 @@ See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) 
 observe that pods from a Job are stuck with the tracking finalizer.
 {{< /note >}}
 
-### Elastic Indexed Jobs
+### Elastic Indexed Jobs {#elastic-indexed-jobs}
 
 {{< feature-state feature_gate_name="ElasticIndexedJob" >}}
 
@@ -1071,6 +1238,23 @@ When scaling down, Kubernetes removes the Pods with higher indexes.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
+
+{{< note >}}
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled and a Job uses [gang scheduling](#integrate-with-workload-apis), 
+the gang size follows the mutable `schedulingPolicy.gang.minCount` (or 
+`.spec.parallelism` when `minCount` is unset).
+You can scale the gang in one of two ways:
+
+- set `.spec.scheduling.schedulingPolicy.gang.minCount` directly, or
+- change `.spec.parallelism` when `minCount` is unset.
+
+On either change, the controller recompiles the `Workload` and re-syncs the
+`PodGroup` size, rescaling the gang in place without recreating the Job. Updates
+apply only to Pods evaluated in future scheduling cycles and do not affect
+already-scheduled Pods. A `gang.minCount` greater than `.spec.parallelism` is
+rejected, since such a gang can never be satisfied.
+{{< /note >}}
 
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
@@ -1120,12 +1304,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
-
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
 
@@ -1150,15 +1328,6 @@ verify your implementation.
 Finally, when developing an external Job controller make sure it does not use the
 `batch.kubernetes.io/job-tracking` finalizer, reserved for the built-in controller.
 {{< /note >}}
-
-{{< warning >}}
-If you are considering to disable the `JobManagedBy` feature gate, or to
-downgrade the cluster to a version without the feature gate enabled, check if
-there are jobs with a custom value of the `spec.managedBy` field. If there
-are such jobs, there is a risk that they might be reconciled by two controllers
-after the operation: the built-in Job controller and the external controller
-indicated by the field value.
-{{< /warning >}}
 
 ## Alternatives
 
@@ -1202,10 +1371,18 @@ object, but maintains complete control over what Pods are created and how work i
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
 * `Job` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/job-v1" >}}
+  Read the {{< api-reference page="batch/job-v1" >}}
   object definition to understand the API for jobs.
 * Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
   can use to define a series of Jobs that will run based on a schedule, similar to
   the UNIX tool `cron`.
 * Practice how to configure handling of retriable and non-retriable pod failures
   using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).
+* Learn about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+  for all-or-nothing scheduling of parallel Jobs.
+
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/

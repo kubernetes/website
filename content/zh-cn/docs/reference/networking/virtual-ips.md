@@ -35,7 +35,7 @@ of `type` other than
 <!--
 Each instance of kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}}
-for the addition and removal of Service and EndpointSlice
+for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
@@ -47,7 +47,8 @@ the Service and EndpointSlice state as indicated by the API server.
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 -->
 kube-proxy 的每个实例都会监视 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中
-Service 和 EndpointSlice {{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除。对于每个
+Service 和 {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
+{{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除。对于每个
 Service，kube-proxy 调用适当的 API（取决于 kube-proxy 模式）来配置节点，以捕获流向 Service 的 `clusterIP` 和 `port`
 的流量，并将这些流量重定向到 Service 的某个端点（通常是 Pod，但也可能是用户提供的任意 IP 地址）。
 一个控制回路确保每个节点上的规则与 API 服务器指示的 Service 和 EndpointSlice 状态可靠同步。
@@ -99,8 +100,8 @@ to use as-is.
 因此，运行 kube-proxy 这件事应该只由了解在计算机上使用低级别、特权网络代理服务会带来的后果的管理员执行。
 尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但这个功能并不是官方特性，因此只能根据具体情况使用。
 
-<!--
 <a id="example"></a>
+<!--
 Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
 image-processing workloads, running with
@@ -109,7 +110,6 @@ fungible&mdash;frontends do not care which backend they use. While the actual Po
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
-<a id="example"></a>
 本文中的一些细节会引用这样一个例子：
 运行了 3 个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 副本的无状态图像处理后端工作负载。
@@ -152,6 +152,21 @@ kube-proxy 会根据不同配置以不同的模式启动。
 : kube-proxy 使用 nftables 配置数据包转发规则的一种模式。
 
 <!--
+If you do not choose a mode explicitly (via the `--proxy-mode`
+command-line option, or the `mode` field in a config file) when
+starting kube-proxy, then it will use the recommended default version.
+In Kubernetes {{< skew currentVersion >}}, this is `iptables`, but a
+future version of Kubernetes will change the default to `nftables`. To
+avoid having the proxy backend in a cluster be changed unexpectedly
+during an upgrade, you should ensure that all clusters have a
+kube-proxy configuration that explicitly indicates which mode to use.
+-->
+如果你在启动 kube-proxy 时未显式选择模式（通过 `--proxy-mode` 命令行参数，或在配置文件中的
+`mode` 字段），它将使用推荐的默认后端。在 Kubernetes {{</* skew currentVersion */>}} 中，
+当前为 `iptables`；但在未来版本的 Kubernetes 中，默认值将被改为 `nftables`。
+为避免集群中的代理后端在升级过程中被意外更改，你应确保所有集群的 kube-proxy 配置都明确指定使用哪种模式。
+
+<!--
 There is only one mode available for kube-proxy on Windows:
 
 [`kernelspace`](#proxy-mode-kernelspace)
@@ -167,6 +182,10 @@ Windows 上的 kube-proxy 只有一种模式可用：
 
 _This proxy mode is only available on Linux nodes._
 
+**The `ipvs` proxy mode is deprecated**. Support for `ipvs` mode will be disabled by default from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/));
+`ipvs` mode will be fully removed in Kubernetes v1.43.
+
 In this mode, kube-proxy configures packet forwarding rules using the
 iptables API of the kernel netfilter subsystem. For each endpoint, it
 installs iptables rules which, by default, select a backend Pod at
@@ -175,6 +194,10 @@ random.
 ### `iptables` 代理模式 {#proxy-mode-iptables}
 
 **此代理模式仅适用于 Linux 节点。**
+
+**`ipvs` 代理模式已弃用**。从 Kubernetes v1.40 起，对 `ipvs` 模式的支持将被默认禁用（你可以使用
+`KubeProxyIPVS` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)重新启用）；
+`ipvs` 模式将在 Kubernetes v1.43 中被完全移除。
 
 在这种模式下，kube-proxy 使用内核 netfilter 子系统的 iptables API 
 配置数据包转发规则。对于每个端点，kube-proxy 会添加 iptables 
@@ -305,8 +328,8 @@ indicates an average time much larger than 1 second, then bumping up
 `minSyncPeriod` may make updates more efficient.
 -->
 默认值 `1s` 适用于大多数集群，在大型集群中，可能需要将其设置为更大的值。
-（特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
-那么提高 `minSyncPeriod` 可能会使更新更有效率。）
+（特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds`
+指标表明平均时间远大于 1 秒，那么提高 `minSyncPeriod` 可能会使更新更有效率。）
 
 <!--
 ##### Updating legacy `minSyncPeriod` configuration {#minimize-iptables-restore}
@@ -368,11 +391,14 @@ and is likely to hurt functionality more than it improves performance.
 
 <!--
 ### IPVS proxy mode {#proxy-mode-ipvs}
-
-_This proxy mode is only available on Linux nodes._
 -->
 ### IPVS 代理模式 {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
+<!--
+_This proxy mode is only available on Linux nodes._
+-->
 **此代理模式仅适用于 Linux 节点。**
 
 <!--
@@ -398,14 +424,12 @@ higher network-traffic throughput than the `iptables` mode. While it
 succeeded in those goals, the kernel IPVS API turned out to be a bad
 match for the Kubernetes Services API, and the `ipvs` backend was
 never able to implement all of the edge cases of Kubernetes Service
-functionality correctly. At some point in the future, it is expected
-to be formally deprecated as a feature.
+functionality correctly.
 -->
 作为 Linux kube-proxy 的一种实验性功能，`ipvs` 代理模式提供了比 `iptables`
 模式更优的规则同步性能和更高的网络流量处理能力。
 虽然它在这些目标上取得了成功，但内核 IPVS API 被证明不适合实现 Kubernetes Service API，
 `ipvs` 后端从未能够正确实现所有 Kubernetes Service 功能的边缘情况。
-预计在未来某个时刻，此特性将被正式弃用。
 
 <!--
 The `nftables` proxy mode (described below) is essentially a
@@ -522,21 +546,6 @@ field in the kube-proxy configuration.
 [ipvs.scheduler](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
 字段进行配置的。
 
-{{< note >}}
-<!--
-To run kube-proxy in IPVS mode, you must make IPVS available on
-the node before starting kube-proxy.
-
-When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
-kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-exits with an error.
--->
-要在 IPVS 模式下运行 kube-proxy，必须在启动 kube-proxy 之前确保节点上的 IPVS 可用。
-
-当 kube-proxy 以 IPVS 代理模式启动时，它会验证 IPVS 内核模块是否可用。
-如果未检测到 IPVS 内核模块，则 kube-proxy 会退出并报错。
-{{< /note >}}
-
 <!--
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
@@ -545,14 +554,10 @@ exits with an error.
 <!--
 ### `nftables` proxy mode {#proxy-mode-nftables}
 
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
-
 _This proxy mode is only available on Linux nodes, and requires kernel
 5.13 or later._
 -->
 ### `nftables` 代理模式 {#proxy-mode-nftables}
-
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
 
 **此代理模式仅适用于 Linux 节点，并且需要 5.13 或更高的内核版本。**
 
@@ -577,15 +582,6 @@ becomes noticeable in clusters with tens of thousands of services).
 nftables API 是 iptables API 的后继，旨在提供比 iptables 更好的性能和可扩展性。
 `nftables` 代理模式能够比 `iptables` 模式更快、更高效地处理 Service 端点的变化，
 并且在内核中处理数据包的效率也更高（尽管这只有在拥有数万个 Service 的集群中才会比较明显）。
-
-<!--
-As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
-still relatively new, and may not be compatible with all network
-plugins; consult the documentation for your network plugin.
--->
-
-在 Kubernetes {{< skew currentVersion >}} 中，`nftables`
-模式仍然相对较新，可能还不兼容所有的网络插件；请查阅你的网络插件文档。
 
 <!--
 #### Migrating from `iptables` mode to `nftables`
@@ -616,25 +612,6 @@ differently the `nftables` mode:
   `type: NodePort` Service 只能通过节点上的主 IPv4 和/或 IPv6 地址进行访问。
   你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
   `--nodeport-addresses 0.0.0.0/0` 以监听所有（本地）IPv4 IP。
-
-<!--
-- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
-  `--nodeport-addresses` range includes `127.0.0.1` (and the option
-  `--iptables-localhost-nodeports false` option is not passed), then
-  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
-  In `nftables` mode (and `ipvs` mode), this will not work. If you
-  are not sure if you are depending on this functionality, you can
-  check kube-proxy's
-  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-  is non-0, that means that some client has connected to a `type: NodePort`
-  Service via localhost/loopback.
--->
-- **`127.0.0.1` 上的 `type: NodePort` Service**：在 `iptables` 模式下，如果
-  `--nodeport-addresses` 范围包括 `127.0.0.1`（且未传递 `--iptables-localhost-nodeports false` 选项），
-  则 `type: NodePort` Service 甚至可以在 "localhost" (`127.0.0.1`) 上访问。
-  在 `nftables` 模式（和 `ipvs` 模式）下，这将不起作用。如果你不确定是否依赖此功能，
-  可以检查 kube-proxy 的 `iptables_localhost_nodeports_accepted_packets_total` 指标；
-  如果该值非 0，则表示某些客户端已通过本地主机或本地回路连接到 `type: NodePort` Service。
 
 <!--
 - **NodePort interaction with firewalls**: The `iptables` mode of
@@ -672,6 +649,39 @@ differently the `nftables` mode:
   `iptables_ct_state_invalid_dropped_packets_total`
   指标，看看你的集群是否依赖于该修复程序，如果是，你可以使用 `--conntrack-tcp-be-liberal`
   选项运行 kube-proxy，以在 `nftables` 模式下解决该问题。
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+<!--
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  Originally, in `nftables` mode, this did not work. However, in
+  Kubernetes {{< skew currentVersion >}}, you can enable localhost
+  NodePorts in `nftables` mode by enabling the
+  `KubeProxyNFTablesLocalhostNodePorts` feature gate, and setting
+  `--nodeport-addresses` to `primary,localhost` rather than the
+  default value of `primary`.
+
+  If you are not sure if you are depending on this functionality, you
+  can check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type:
+  NodePort` Service via localhost/loopback.
+-->
+- `type: NodePort` **在 `127.0.0.1` 上的访问**：在 `iptables` 模式下，如果 `--nodeport-addresses`
+  范围包含 `127.0.0.1`（并且未设置 `--iptables-localhost-nodeports false` 选项），那么
+  `type: NodePort` Service 即使在 "localhost"（`127.0.0.1`）上也可被访问。
+  最初，在 `nftables` 模式下，这种行为并不生效。但在 Kubernetes {{</* skew currentVersion */>}} 中，
+  你可以通过启用 `KubeProxyNFTablesLocalhostNodePorts` 特性门控，并将
+  `--nodeport-addresses` 设置为 `primary,localhost`（而非默认值 `primary`），在
+  `nftables` 模式下启用 localhost NodePort。
+
+  如果你不确定是否依赖此特性，可以检查 kube-proxy 的
+  `iptables_localhost_nodeports_accepted_packets_total`
+  指标；如果该指标非 0，则表示已有客户端通过 localhost/本地回路连接了
+  `type: NodePort` 类型 Service。
 
 <!--
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
@@ -1262,17 +1272,15 @@ pool.
 到 Pod 完成终止时，外部负载均衡器应该已经发现节点的健康检查失败并从后端池中完全移除该节点。
 
 <!--
-## Traffic Distribution
+## Traffic Distribution control
 -->
-## 流量分发 {#traffic-distribution}
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+## 流量分发控制 {#traffic-distribution}
 
 <!--
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 
-`PreferClose`
+`PreferSameZone`
 : This prioritizes sending traffic to endpoints in the same zone as the client.
   The EndpointSlice controller updates EndpointSlices with `hints` to
   communicate this preference, which kube-proxy then uses for routing decisions.
@@ -1287,38 +1295,10 @@ Kubernetes Service 中的 `spec.trafficDistribution` 字段允许你表达对流
   之后，kube-proxy 会使用这些提示进行路由决策。如果客户端的区域没有可用的端点，
   则流量将在整个集群范围内路由。
 
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-<!--
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
--->
-当启用 `PreferSameTrafficDistribution`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，还可以使用两个额外的取值：
-
-在 Kubernetes {{< skew currentVersion >}} 中，除非禁用了
-`PreferSameTrafficDistribution` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-否则将提供另外两个值：
-
-<!--
-`PreferSameZone`
-: This means the same thing as `PreferClose`, but is more explicit. (Originally,
-  the intention was that `PreferClose` might later include functionality other
-  than just "prefer same zone", but this is no longer planned. In the future,
-  `PreferSameZone` will be the recommended value to use for this functionality,
-  and `PreferClose` will be considered a deprecated alias for it.)
--->
-`PreferSameZone`  
-: 这意味着与 `PreferClose` 相同，但表达更为明确。
-  （最初，`PreferClose` 被设想为未来可能包含除“优先同一区域”之外的其他功能，但这一计划已被取消。
-  未来，`PreferSameZone` 将成为实现此类功能的推荐取值，而 `PreferClose` 将被视为其弃用的别名。）
-
 <!--
 `PreferSameNode`
 : This prioritizes sending traffic to endpoints on the same node as the client.
-  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  As with `PreferSameZone`, the EndpointSlice controller updates
   EndpointSlices with `hints` indicating that a slice should be used for a
   particular node. If a client's node does not have any available endpoints,
   then the service proxy will fall back to "same zone" behavior, or cluster-wide
@@ -1326,9 +1306,18 @@ disabled):
 -->
 `PreferSameNode`  
 : 这意味着优先将流量发送到与客户端位于同一节点上的端点。
-  与 `PreferClose`/`PreferSameZone` 一样，EndpointSlice 控制器会更新 EndpointSlice，
+  与 `PreferSameZone` 一样，EndpointSlice 控制器会更新 EndpointSlice，
   添加 `hints` 表明某个切片应被用于特定节点。如果某客户端所在节点没有可用的端点，
   服务代理将回退至“同一区域”行为；如果同一区域也没有可用端点，则回退为集群范围内路由。
+
+<!--
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
+-->
+`PreferClose`（已弃用）
+: 这是 `PreferSameZone` 的一个较旧的别名，其语义不太明确。
+
 
 <!--
 In the absence of any value for `trafficDistribution`, the default strategy is
@@ -1339,14 +1328,14 @@ to distribute traffic evenly to all endpoints in the cluster.
 <!--
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+The `trafficDistribution` field with `PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
 -->
 ### 与 `service.kubernetes.io/topology-mode: Auto` 的比较 {#comparison-with-service-kubernetes-io-topology-mode-auto}
 
-`trafficDistribution` 字段中的 `PreferClose`/`PreferSameZone`
+`trafficDistribution` 字段中的 `PreferSameZone`
 以及使用 `service.kubernetes.io/topology-mode: Auto`
 注解的旧版“拓扑感知路由”特性都旨在优先处理同一区域的流量。
 然而，它们的方法存在一些关键差异：
@@ -1372,14 +1361,14 @@ difference in their approaches:
   predictability, it does mean that you are in control of managing a [potential
   overload](#considerations-for-using-traffic-distribution-control).
 
-* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+* `trafficDistribution: PreferSameZone` aims to be simpler and more predictable:
   "If there are endpoints in the zone, they will receive all traffic for that
   zone, if there are no endpoints in a zone, the traffic will be distributed to
   other zones". This approach offers more predictability, but it means that you
   are responsible for [avoiding endpoint
   overload](#considerations-for-using-traffic-distribution-control).
 -->
-* `trafficDistribution: PreferClose`：这种方法偏重更简单和更可预测：
+* `trafficDistribution: PreferSameZone`：这种方法偏重更简单和更可预测：
   “如果区域内有端点，它们将接收该区域的所有流量；如果区域内没有端点，流量将分配到其他区域”。
   这种方法提供更多的可预测性，但这意味着你需要负责[避免端点过载](#considerations-for-using-traffic-distribution-control)。
 

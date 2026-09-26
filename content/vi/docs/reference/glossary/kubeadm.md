@@ -1,7 +1,6 @@
 ---
 title: Kubeadm
 id: kubeadm
-date: 2018-04-12
 full_link: /docs/reference/setup-tools/kubeadm/
 short_description: >
   Một công cụ giúp cài đặt Kubernetes một cách nhanh chóng và thiết lập một cụm bảo mật.

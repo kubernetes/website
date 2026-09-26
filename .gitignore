@@ -38,3 +38,6 @@ nohup.out
 # Generated files when building with make container-build
 .config/
 .npm/
+
+# Local Netlify folder
+.netlify

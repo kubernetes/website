@@ -9,6 +9,17 @@ weight: 10
 * Understand how labels and selectors relate to a Service.
 * Expose an application outside a Kubernetes cluster.
 
+## {{% heading "prerequisites" %}}
+
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+or [Git Bash](https://gitforwindows.org/) to run the commands as written.
+Commands that use `export`, `$()`, and similar constructs are **not** compatible
+with PowerShell or the Windows Command Prompt.
+
+
 ## Overview of Kubernetes Services
 
 Kubernetes [Pods](/docs/concepts/workloads/pods/) are mortal. Pods have a
@@ -49,8 +60,7 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 
 * _ExternalName_ - Maps the Service to the contents of the `externalName` field
 (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
-No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
-or CoreDNS version 0.0.8 or higher.
+No proxying of any kind is set up.
 
 More information about the different types of Services can be found in the
 [Using Source IP](/docs/tutorials/services/source-ip/) tutorial. Also see
@@ -134,7 +144,7 @@ IP address of the Node and the externally exposed port:
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
 ```
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 If you're running minikube with Docker Desktop as the container driver, a minikube
 tunnel is needed. This is because containers inside Docker Desktop are isolated
 from your host computer.
@@ -157,7 +167,7 @@ Then use the given URL to access the app:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 And we get a response from the server. The Service is exposed.
 

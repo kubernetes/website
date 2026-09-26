@@ -1,7 +1,6 @@
 ---
 title: UID
 id: uid
-date: 2021-03-16
 full_link: /pt-br/docs/concepts/overview/working-with-objects/names
 short_description: >
    Uma string gerada pelos sistemas do Kubernetes para identificar objetos de

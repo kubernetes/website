@@ -1,7 +1,6 @@
 ---
 title: Controlador
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Los controladores son bucles de control que observan el estado del clúster,

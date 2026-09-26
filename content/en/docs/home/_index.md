@@ -9,6 +9,7 @@ linkTitle: "Documentation"
 main_menu: true
 weight: 10
 hide_feedback: true
+notoc: true
 menu:
   main:
     title: "Documentation"

@@ -1,7 +1,6 @@
 ---
 title: Volume
 id: volume
-date: 2018-04-12
 full_link: /fr/docs/concepts/storage/volumes/
 short_description: >
   Un répertoire contenant des données, accessible aux conteneurs d'un pod.

@@ -1,6 +1,7 @@
 ---
 title: "Cluster Architecture"
 weight: 30
+no_list: true
 description: >
   The architectural concepts behind Kubernetes.
 ---
@@ -188,9 +189,6 @@ performance requirements, and operational policies:
 Tools like kubeadm, kops, and Kubespray offer different approaches to deploying and managing clusters,
 each with its own method of component layout and management.
 
-The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
-balancing factors such as operational complexity, performance, and management overhead.
-
 ### Customization and extensibility
 
 Kubernetes architecture allows for significant customization:
@@ -210,6 +208,7 @@ Learn more about the following:
   [their communication](/docs/concepts/architecture/control-plane-node-communication/)
   with the control plane.
 - Kubernetes [controllers](/docs/concepts/architecture/controller/).
+- [Garbage collection](/docs/concepts/architecture/garbage-collection/) of cluster objects.
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
 - Etcd's official [documentation](https://etcd.io/docs/).
 - Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.

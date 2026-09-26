@@ -3,6 +3,8 @@ title: kubectl label
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  更新资源标签
 ---
 <!--
 title: kubectl label
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Update the labels on a resource
 -->
 
 ## {{% heading "synopsis" %}}
@@ -81,7 +85,7 @@ kubectl label pods foo bar-
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -92,204 +96,237 @@ kubectl label pods foo bar-
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Select all resources, in the namespace of the specified resource types
 -->
 在指定资源类型的命名空间中，选择所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-A, --all-namespaces</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, check the specified action in all namespaces.
 -->
 如果为 true，则在所有命名空间中执行指定的操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-label"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--field-selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
 -->
 过滤所用的选择算符（字段查询），支持 '='、'==' 和 '!='。
 （例如 --field-selector key1=value1,key2=value2）。服务器针对每种类型仅支持有限数量的字段查询。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Filename, directory, or URL to files identifying the resource to update the labels
 -->
 文件名、目录或文件 URL，用于标识要更新标签的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for label
 -->
 label 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--list</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, display the labels for a given resource.
 -->
 如果为 true，则显示给定资源的标签。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--local</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, label will NOT contact api-server but run locally.
 -->
 如果为 true，则 label 操作不会与 api-server 通信，而是在本地运行。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--overwrite</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
 -->
 如果为 true，则允许标签被覆盖，否则拒绝覆盖现有标签的更新。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中相互关联的清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--resource-version string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If non-empty, the labels update will only succeed if this is the current resource-version for the object. Only valid when specifying a single resource.
 -->
 如果非空，则只有在所给值是对象的当前资源版本时，标签更新才会成功。仅在指定单个资源时有效。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
@@ -301,7 +338,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
@@ -326,7 +364,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
@@ -338,7 +377,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
@@ -350,7 +390,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -359,10 +400,25 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
@@ -374,7 +430,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
@@ -386,7 +443,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
@@ -398,7 +456,8 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client key file for TLS
 -->
@@ -410,7 +469,8 @@ TLS 客户端密钥文件的路径。
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -523,9 +583,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 

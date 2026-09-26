@@ -8,6 +8,7 @@ _build:
   publishResources: false
 ---
 
+* Learn about [kubectl](/docs/concepts/overview/kubectl/) and its role in the Kubernetes ecosystem.
 * [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)

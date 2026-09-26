@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 配置 (v1beta1)
+title: kube-apiserver 配置（v1beta1）
 content_type: tool-reference
 package: apiserver.k8s.io/v1beta1
 ---
@@ -62,8 +62,7 @@ TracingConfiguration 为 OpenTelemetry 跟踪客户端提供版本化的配置�
    The connection is insecure, and does not currently support TLS.
    Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
    -->
-   采集器的端点，此组件将向其报告跟踪信息。
-   连接不安全，目前不支持 TLS。
+   <code>endpoint</code> 是采集器的端点，此组件将向其报告跟踪信息。连接不安全，目前不支持 TLS。
    推荐不设置，端点为 otlp grpc 默认值 localhost:4317。
    </p>
 </td>
@@ -78,7 +77,7 @@ TracingConfiguration 为 OpenTelemetry 跟踪客户端提供版本化的配置�
    Recommended is unset. If unset, sampler respects its parent span's sampling
    rate, but otherwise never samples.
    -->
-   samplingRatePerMillion 是每百万 span 中采集的样本数。
+   <code>samplingRatePerMillion</code> 是每百万 span 中采集的样本数。
    推荐不设置。如果不设置，采集器将继承其父级 span 的采样率，否则不进行采样。
    </p>
 </td>
@@ -120,7 +119,7 @@ authenticators is neither defined nor stable across releases.  Since
 each JWT authenticator must have a unique issuer URL, at most one
 JWT authenticator will attempt to cryptographically validate the token.
    -->
-   jwt 是一个身份认证器列表，用于对使用符合 JWT 的令牌的 Kubernetes 用户进行身份认证。
+   <code>jwt</code> 是一个身份认证器列表，用于对使用符合 JWT 的令牌的 Kubernetes 用户进行身份认证。
    身份认证器将尝试解析原始 ID 令牌，验证其是否由配置的发放者签名。用于验证签名的公钥是通过
    OIDC 发现从颁发者的公开端点获取的。对于传入的令牌，将按照此列表中指定的顺序尝试每个 JWT
    身份认证器。但是请注意，其他身份认证器可能会在 JWT 身份认证器之前或之后运行。JWT
@@ -131,7 +130,7 @@ JWT authenticator will attempt to cryptographically validate the token.
 <!--
 The minimum valid JWT payload must contain the following claims:
 -->
-最小有效 JWT 负载必须包含以下声明：
+最小有效 JWT 负载必须包含以下申领：
 <pre>
 {
     "iss": "https://issuer.example.com",
@@ -178,7 +177,7 @@ authorize requests against.
 This is similar to the --authorization-modes kube-apiserver flag
 Must be at least one.
    -->
-   authorizers 是一个有序的鉴权器列表，用于对请求进行鉴权。
+   <code>authorizers</code> 是一个有序的鉴权器列表，用于对请求进行鉴权。
    这类似于 kube-apiserver <code>--authorization-modes</code> 标志。
    此列表不能为空。
    </p>
@@ -208,7 +207,8 @@ EgressSelectorConfiguration 为出站流量选择器客户端（Egress Selector 
 </td>
 <td>
    <p>
-   <!-- connectionServices contains a list of egress selection client configurations
+   <!--
+   connectionServices contains a list of egress selection client configurations
    -->
    connectionServices 包含一组出站流量选择器客户端（Egress Selector Client）配置选项。
    </p>
@@ -237,10 +237,6 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
 <td>
-<!--
-(Members of <code>TracingConfiguration</code> are embedded into this type.)
--->
-（<code>TracingConfiguration</code> 的成员嵌入到这种类型中。）
    <p>
    <!-- 
    Embed the component config tracing configuration struct 
@@ -374,7 +370,7 @@ AudienceMatchPolicyType 是 issuer.audienceMatchPolicy 合法值的集合
 Other API servers may support additional authorizer
 types like Node, RBAC, ABAC, etc.
    -->
-   type 指的是鉴权器的类型。
+   <code>type</code> 指的是鉴权器的类型。
    通用 API 服务器支持 &quot;Webhook&quot;。
    其他 API 服务器可能支持其他鉴权器类型，如 Node、RBAC、ABAC 等。
    </p>
@@ -392,11 +388,9 @@ Note: Names must be DNS1123 labels like <code>myauthorizername</code> or
 subdomains like <code>myauthorizer.example.domain</code>
 Required, with no default
    -->
-   name 是用于描述 webhook 的名称。
-   此字段专为监控机制中的指标提供。
+   <code>name</code> 用于描述 webhook 的名称。此字段专为监控机制中的指标提供。
    注意：name 值必须是 DNS1123 标签，如 <code>myauthorizername</code>，
-   或子域名，如 <code>myauthorizer.example.domain</code>。
-   必需，没有默认值。
+   或子域名，如 <code>myauthorizer.example.domain</code>。必需，没有默认值。
    </p>
 </td>
 </tr>
@@ -410,9 +404,8 @@ Required, with no default
 Must be defined when Type=Webhook
 Must not be defined when Type!=Webhook
    -->
-   webhook 定义 Webhook 鉴权器的配置。
-   当 type=Webhook 时必须定义。
-   当 type!=Webhook 时不得定义。
+   <code>webhook</code> 定义 Webhook 鉴权器的配置。
+   当 type=Webhook 时必须定义。当 type!=Webhook 时不得定义。
    </p>
 </td>
 </tr>
@@ -432,7 +425,7 @@ Must not be defined when Type!=Webhook
 <!--
 ClaimMappings provides the configuration for claim mapping
 -->
-ClaimMappings 为声明映射提供配置信息
+ClaimMappings 为申领映射提供配置信息
 </p>
 
 <table class="table">
@@ -456,17 +449,16 @@ applied when username.claim is set to 'email' is 'claims.?email_verified.orValue
 the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
 claim will be caught at runtime.
    -->
-   username 表示用户名属性的一个选项。
-   声明的值必须是单一字符串。
+   <code>username</code> 表示用户名属性的一个选项。申领的值必须是单一字符串。
    与 <code>--oidc-username-claim</code> 和 <code>--oidc-username-prefix</code> 标志相同。
    如果设置了 <code>username.expression</code>，则该表达式必须生成一个字符串值。
    如果 <code>username.expression</code> 使用 'claims.email'，则必须在
    <code>username.expression</code> 或 <code>extra[*].valueExpression</code>
    或 <code>claimValidationRules[*].expression</code> 中使用 'claims.email_verified'。
-   这里有一个声明验证规则表达式的示例，当 username.claim 设置为 'email' 时与自动应用的验证所匹配：
+   这里有一个申领验证规则表达式的示例，当 username.claim 设置为 'email' 时与自动应用的验证所匹配：
    'claims.?email_verified.orValue(true) == true'。
    通过显式地将值与 true 进行比较，我们可以看到类型检查的结果将是一个布尔值，
-   并确保在运行时捕获到非布尔值的 email_verified 声明。
+   并确保在运行时捕获到非布尔值的 email_verified 申领。
    </p>
 <p>
 <!--
@@ -482,8 +474,8 @@ For prefix:
 -->
 在基于标志的方法中，--oidc-username-claim 和 --oidc-username-prefix
 是可选的。如果未设置 --oidc-username-claim，默认值为 &quot;sub&quot;。
-对于身份认证配置，声明或前缀都没有默认值。声明和前缀必须显式设置。
-对于声明，如果在传统标志方法中未设置 --oidc-username-claim，
+对于身份认证配置，申领或前缀都没有默认值。申领和前缀必须显式设置。
+对于申领，如果在传统标志方法中未设置 --oidc-username-claim，
 请在身份认证配置中配置 username.claim=&quot;sub&quot;。
 对于前缀：
 (1) --oidc-username-prefix="-", 未添加前缀到用户名。要实现相同的行为，请在身份认证配置中设置
@@ -568,14 +560,14 @@ This will result in:
 </pre>
 这将导致一个额外的属性 - foo: [&quot;bar&quot;]<br/>
 
-硬编码 key，value 从声明的值复制
+硬编码 key，value 从申领的值复制
 <pre>
  - key: "foo"
    valueExpression: "claims.some_claim"
 </pre>
 结果会是一个 extra 属性 - foo: [some_claim 的值]
 
-硬编码 key，value 从声明的值派生<br/>
+硬编码 key，value 从申领的值派生<br/>
 <pre>
 - key: "admin"
   valueExpression: '(has(claims.is_admin) && claims.is_admin) ? "true":""'
@@ -587,13 +579,13 @@ This will result in:
 <!--
 if is_admin claim is present and true, extra attribute - admin: [&quot;true&quot;]
 -->
-如果 is_admin 声明存在且为 true，则添加 extra 属性 - admin: [&quot;true&quot;]
+如果 is_admin 申领存在且为 true，则添加 extra 属性 - admin: [&quot;true&quot;]
 </li>
 <li>
 <!--
 if is_admin claim is present and false or is_admin claim is not present, no extra attribute will be added
 -->
-如果 is_admin 声明存在且为 false 或 is_admin 声明不存在，则不会添加 extra 属性
+如果 is_admin 申领存在且为 false 或 is_admin 申领不存在，则不会添加 extra 属性
 </li>
 </ul>
 </td>
@@ -614,7 +606,7 @@ if is_admin claim is present and false or is_admin claim is not present, no extr
 <!--
 ClaimOrExpression provides the configuration for a single claim or expression.
 -->
-ClaimOrExpression 为单个声明或表达式提供配置信息。
+ClaimOrExpression 为单个申领或表达式提供配置信息。
 </p>
 
 <table class="table">
@@ -631,7 +623,7 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 Either claim or expression must be set.
 Mutually exclusive with expression.
    -->
-   <code>claim</code> 是要使用的 JWT 声明。
+   <code>claim</code> 是要使用的 JWT 申领。
    <code>claim</code> 或 <code>expression</code> 必须设置一个。
    与 <code>expression</code> 互斥。
    </p>
@@ -646,16 +638,16 @@ Mutually exclusive with expression.
 <p>CEL expressions have access to the contents of the token claims, organized into CEL variable:</p>
    -->
    <p>expression 表示将由 CEL 求值的表达式。</p>
-   <p>CEL 表达式可以访问令牌声明的内容，这些内容被组织成 CEL 变量：</p>
+   <p>CEL 表达式可以访问令牌申领的内容，这些内容被组织成 CEL 变量：</p>
 <ul>
 <!--
 <li>'claims' is a map of claim names to claim values.
 For example, a variable named 'sub' can be accessed as 'claims.sub'.
 Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 -->
-<li>'claims' 是声明名称到声明值的映射。
+<li>'claims' 是申领名称到申领值的映射。
 例如，一个名为 'sub' 的变量可以通过 'claims.sub' 访问。
-嵌套的声明可以使用点表示法访问，例如 'claims.foo.bar'。</li>
+嵌套的申领可以使用点表示法访问，例如 'claims.foo.bar'。</li>
 </ul>
 <!--
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
@@ -681,7 +673,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <!--
 ClaimValidationRule provides the configuration for a single claim validation rule.
 -->
-ClaimValidationRule 为单个声明验证规则提供配置信息。
+ClaimValidationRule 为单个申领验证规则提供配置信息。
 </p>
 
 <table class="table">
@@ -699,9 +691,9 @@ Same as --oidc-required-claim flag.
 Only string claim keys are supported.
 Mutually exclusive with expression and message.
    -->
-   claim 是所需要的声明的名称。
+   claim 是所需要的申领的名称。
    与 <code>--oidc-required-claim</code> 标志相同。
-   仅支持用字符串声明键。
+   仅支持用字符串申领键。
    与 <code>expression</code> 和 <code>message</code> 互斥。
    </p>
 </td>
@@ -718,9 +710,8 @@ Only string claim values are supported.
 If claim is set and requiredValue is not set, the claim must be present with a value set to the empty string.
 Mutually exclusive with expression and message.
    -->
-   requiredValue 是声明中必须包含的值。
-   与 --oidc-required-claim 标志相同。
-   仅支持用字符串声明值。
+   requiredValue 是申领中必须包含的值。
+   与 --oidc-required-claim 标志相同。仅支持用字符串申领值。
    如果设置了 claim 而未设置 requiredValue，则 claim 必须存在且值必须设置为空字符串。
    与 expression 和 message 互斥。
    </p>
@@ -735,9 +726,8 @@ Mutually exclusive with expression and message.
 Must produce a boolean.</p>
 <p>CEL expressions have access to the contents of the token claims, organized into CEL variable:</p>
    -->
-   <p>expression 表示将由 CEL 求值的表达式。
-   必须生成一个布尔值。</p>
-   <p>CEL 表达式可以访问令牌声明的内容，这些内容被组织成 CEL 变量：</p>
+   <p>expression 表示将由 CEL 求值的表达式。必须生成一个布尔值。</p>
+   <p>CEL 表达式可以访问令牌申领的内容，这些内容被组织成 CEL 变量：</p>
 <ul>
 <!--
 <li>'claims' is a map of claim names to claim values.
@@ -748,9 +738,9 @@ Must return true for the validation to pass.</li>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 <p>Mutually exclusive with claim and requiredValue.</p>
 -->
-<li>'claims' 是声明名称到声明值的映射。
+<li>'claims' 是申领名称到申领值的映射。
 例如，一个名为 'sub' 的变量可以通过 'claims.sub' 访问。
-嵌套的声明可以使用点表示法访问，例如 'claims.foo.bar'。
+嵌套的申领可以使用点表示法访问，例如 'claims.foo.bar'。
 必须返回 true，才有可能通过检查。</li>
 </ul>
 <p>关于 CEL 的文档：<a href="https://kubernetes.io/zh-cn/docs/reference/using-api/cel/">https://kubernetes.io/zh-cn/docs/reference/using-api/cel/</a></p>
@@ -958,11 +948,11 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
    valueExpression 必须生成一个字符串或字符串数组值。
      &quot;&quot;、[] 和 null 值被视为不存在 extra 映射。
    字符串数组中包含的空字符串值将被过滤掉。</p>
-<p>CEL 表达式可以访问令牌声明的内容，这些内容被组织成 CEL 变量：</p>
+<p>CEL 表达式可以访问令牌申领的内容，这些内容被组织成 CEL 变量：</p>
 <ul>
-<li>'claims' 是声明名称到声明值的映射。
+<li>'claims' 是申领名称到申领值的映射。
 例如，一个名为 'sub' 的变量可以通过 'claims.sub' 访问。
-嵌套的声明可以使用点表示法访问，例如 'claims.foo.bar'。</li>
+嵌套的申领可以使用点表示法访问，例如 'claims.foo.bar'。</li>
 </ul>
 <p>关于 CEL 的文档：<a href="https://kubernetes.io/zh-cn/docs/reference/using-api/cel/">https://kubernetes.io/zh-cn/docs/reference/using-api/cel/</a></p>
 </td>
@@ -1003,7 +993,7 @@ Required to be unique across all JWT authenticators.
 Note that egress selection configuration is not used for this network connection.
    -->
    url 指向颁发者 URL，格式为 https://url 或 https://url/path。
-   此 URL 必须与所提供的 JWT 中的 &quot;iss&quot; 声明以及从发现中返回的颁发者匹配。
+   此 URL 必须与所提供的 JWT 中的 &quot;iss&quot; 申领以及从发现中返回的颁发者匹配。
    与 --oidc-issuer-url 标志的值相同。
    除非被 discoveryURL 覆盖，否则发现信息将从 &quot;{url}/.well-known/openid-configuration&quot; 获取。
    在所有 JWT 身份认证器中必须唯一。
@@ -1035,7 +1025,7 @@ This is for scenarios where the well-known and jwks endpoints are hosted at a di
 location than the issuer (such as locally in the cluster).
 -->
 所获取的发现信息中的 &quot;issuer&quot; 字段必须与 AuthenticationConfiguration
-中的 &quot;issuer.url&quot; 字段匹配，并将用于检验所提供的 JWT 中的 &quot;iss&quot; 声明。
+中的 &quot;issuer.url&quot; 字段匹配，并将用于检验所提供的 JWT 中的 &quot;iss&quot; 申领。
 这适用于 well-known 和 jwks 端点托管在与颁发者不同的位置（例如在集群中本地托管）的场景。
 </p>
 <p>
@@ -1106,7 +1096,7 @@ Same value as the --oidc-client-id flag (though this field supports an array).
 Required to be non-empty.
    -->
    audiences 是 JWT 必须签发给的可接受受众集。
-   所提供的 JWT 中的 &quot;aud&quot; 声明必须至少与其中一个条目匹配。
+   所提供的 JWT 中的 &quot;aud&quot; 申领必须至少与其中一个条目匹配。
    与 --oidc-client-id 标志的值相同（尽管此字段支持数组）。
    必须为非空。
    </p>
@@ -1121,7 +1111,7 @@ Required to be non-empty.
    audienceMatchPolicy defines how the &quot;audiences&quot; field is used to match the &quot;aud&quot; claim in the presented JWT.
 Allowed values are:
    -->
-   audienceMatchPolicy 定义了如何使用 "audiences" 字段来匹配所提供的 JWT 中的 "aud" 声明。
+   audienceMatchPolicy 定义了如何使用 "audiences" 字段来匹配所提供的 JWT 中的 "aud" 申领。
    允许的值有：
    </p>
 <ol>
@@ -1138,10 +1128,10 @@ Allowed values are:
 <p>MatchAny: the &quot;aud&quot; claim in the presented JWT must match at least one of the entries in the &quot;audiences&quot; field.
 For example, if &quot;audiences&quot; is [&quot;foo&quot;, &quot;bar&quot;], the &quot;aud&quot; claim in the presented JWT must contain either &quot;foo&quot; or &quot;bar&quot; (and may contain both).</p>
 -->
-<p>MatchAny：所提供的 JWT 中的 &quot;aud&quot; 声明必须至少与 &quot;audiences&quot;
+<p>MatchAny：所提供的 JWT 中的 &quot;aud&quot; 申领必须至少与 &quot;audiences&quot;
 字段中的一个条目匹配。
 例如，如果 &quot;audiences&quot; 是 [&quot;foo&quot;, &quot;bar&quot;]，则所提供的
-JWT 中的 &quot;aud&quot; 声明必须包含 &quot;foo&quot; 或 &quot;bar&quot;（也可以同时包含两者）。
+JWT 中的 &quot;aud&quot; 申领必须包含 &quot;foo&quot; 或 &quot;bar&quot;（也可以同时包含两者）。
 </p>
 </li>
 <li>
@@ -1149,7 +1139,7 @@ JWT 中的 &quot;aud&quot; 声明必须包含 &quot;foo&quot; 或 &quot;bar&quot
 <p>&quot;&quot;: The match policy can be empty (or unset) when a single audience is specified in the &quot;audiences&quot; field. The &quot;aud&quot; claim in the presented JWT must contain the single audience (and may contain others).</p>
 -->
 <p>&quot;&quot;：当 &quot;audiences&quot; 字段中指定单个受众时，匹配策略可以为空（或未设置）。
-所提供的 JWT 中的 &quot;aud&quot; 声明必须包含该单个受众（并且可以包含其他受众）。</p>
+所提供的 JWT 中的 &quot;aud&quot; 申领必须包含该单个受众（并且可以包含其他受众）。</p>
 </li>
 </ul>
 <p>
@@ -1175,7 +1165,7 @@ When specified, the valid choices are &quot;controlplane&quot; and &quot;cluster
 values in the --egress-selector-config-file.
 -->
 <code>egressSelectorType</code> 是一个指示符，
-表明应使用哪种出口选择器来发送与此颁发者相关的所有流量（发现、JWKS、分布式声明等）。
+表明应使用哪种出口选择器来发送与此颁发者相关的所有流量（发现、JWKS、分布式申领等）。
 如果未指定，则不使用自定义拨号器。当指定时，有效选项是 &quot;controlplane&quot;
 和 &quot;cluster&quot;。
 这些对应于 <code>--egress-selector-config-file</code> 中的关联值。
@@ -1243,7 +1233,7 @@ JWTAuthenticator 为单个 JWT 身份认证器提供配置信息。
    <!--
    claimValidationRules are rules that are applied to validate token claims to authenticate users.
    -->
-   claimValidationRules 是用于验证令牌声明以认证用户的规则。
+   claimValidationRules 是用于验证令牌申领以认证用户的规则。
    </p>
 </td>
 </tr>
@@ -1255,7 +1245,7 @@ JWTAuthenticator 为单个 JWT 身份认证器提供配置信息。
    <!--
    claimMappings points claims of a token to be treated as user attributes.
    -->
-   claimMappings 指向要视为用户属性的令牌声明。
+   claimMappings 指向要视为用户属性的令牌申领。
    </p>
 </td>
 </tr>
@@ -1292,7 +1282,7 @@ The validation rules are logically ANDed together and must all return true for t
 <!--
 PrefixedClaimOrExpression provides the configuration for a single prefixed claim or expression.
 -->
-PrefixedClaimOrExpression 为单个带前缀的声明或表达式提供配置。
+PrefixedClaimOrExpression 为单个带前缀的申领或表达式提供配置。
 </p>
 
 <table class="table">
@@ -1308,8 +1298,7 @@ PrefixedClaimOrExpression 为单个带前缀的声明或表达式提供配置。
    claim is the JWT claim to use.
 Mutually exclusive with expression.
    -->
-   claim 是要使用的 JWT 声明。
-   与 expression 互斥。
+   claim 是要使用的 JWT 申领。与 expression 互斥。
    </p>
 </td>
 </tr>
@@ -1323,7 +1312,7 @@ Mutually exclusive with expression.
 prefix needs to be set if claim is set and can be the empty string.
 Mutually exclusive with expression.
    -->
-   prefix 是添加到声明值前面的前缀，以防止与现有名称冲突。
+   prefix 是添加到申领值前面的前缀，以防止与现有名称冲突。
    如果设置了 claim，则需要设置 prefix，并且可以是空字符串。
    与 expression 互斥。
    </p>
@@ -1345,11 +1334,11 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <p>Mutually exclusive with claim and prefix.</p>
 -->
    <p>expression 表示将由 CEL 评估的表达式。</p>
-<p>CEL 表达式可以访问令牌声明的内容，这些内容被组织成 CEL 变量：</p>
+<p>CEL 表达式可以访问令牌申领的内容，这些内容被组织成 CEL 变量：</p>
 <ul>
-<li>'claims' 是声明名称到声明值的映射。
+<li>'claims' 是申领名称到申领值的映射。
 例如，一个名为 'sub' 的变量可以通过 'claims.sub' 访问。
-嵌套的声明可以使用点表示法访问，例如 'claims.foo.bar'。</li>
+嵌套的申领可以使用点表示法访问，例如 'claims.foo.bar'。</li>
 </ul>
 <p>关于 CEL 的文档：<a href="https://kubernetes.io/zh-cn/docs/reference/using-api/cel/">https://kubernetes.io/zh-cn/docs/reference/using-api/cel/</a></p>
 <p>与 claim 和 prefix 互斥。</p>
@@ -1415,12 +1404,12 @@ TCPTransport 提供使用 TCP 连接 konnectivity 服务器时需要的信息。
 <a href="#apiserver-k8s-io-v1beta1-TLSConfig"><code>TLSConfig</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   TLSConfig is the config needed to use TLS when connecting to konnectivity server
-   -->
-   tlsConfig 是使用 TLS 来连接 konnectivity 服务器时需要的信息。
-   </p>
+<p>
+<!--
+TLSConfig is the config needed to use TLS when connecting to konnectivity server
+-->
+tlsConfig 是使用 TLS 来连接 konnectivity 服务器时需要的信息。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1492,6 +1481,18 @@ TLSConfig 为连接 konnectivity 服务器提供身份认证信息。仅用于 T
    <code>clientCert</code> 是与 konnectivity 服务器进行 mTLS 握手时使用的客户端证书文件位置。
    如果 TCPTransport.URL 前缀为 http://，必须不指定或者为空；
    如果 TCPTransport.URL 前缀为 https://，必须设置。
+   </p>
+</td>
+</tr>
+<tr><td><code>tlsServerName</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>
+   <!--
+   tlsServerName is used to check server certificate. If tlsServerName is empty, the hostname used to contact the server is used.
+   -->
+   <code>tlsServerName</code> 用于校验服务器证书。如果 <code>tlsServerName</code> 为空，则使用与服务器联系的主机名。
    </p>
 </td>
 </tr>
@@ -1613,14 +1614,14 @@ UserValidationRule 为单个用户信息验证规则提供配置信息。
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   expression represents the expression which will be evaluated by CEL.
+<p>
+<!--
+expression represents the expression which will be evaluated by CEL.
 Must return true for the validation to pass.
-   -->
-   expression 表示将由 CEL 求值的表达式。
-   验证通过时必须返回 true。
-   </p>
+-->
+expression 表示将由 CEL 求值的表达式。
+验证通过时必须返回 true。
+</p>
 <!--
 <p>CEL expressions have access to the contents of UserInfo, organized into CEL variable:</p>
 <ul>
@@ -1643,14 +1644,14 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   message customizes the returned error message when rule returns false.
-   message is a literal string.
-   -->
-   message 自定义当规则返回 false 时的错误消息。
-   message 是一个字符串文字。
-   </p>
+<p>
+<!--
+message customizes the returned error message when rule returns false.
+message is a literal string.
+-->
+message 自定义当规则返回 false 时的错误消息。
+message 是一个字符串文字。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1742,16 +1743,16 @@ Default: true
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Timeout for the webhook request
+<p>
+<!--
+Timeout for the webhook request
 Maximum allowed value is 30s.
 Required, no default value.
-   -->
-   Webhook 请求超时时间。
-   允许的最大时间为 30 秒。
-   必需，没有默认值。
-   </p>
+-->
+Webhook 请求超时时间。
+允许的最大时间为 30 秒。
+必需，没有默认值。
+</p>
 </td>
 </tr>
 <tr><td><code>subjectAccessReviewVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1793,16 +1794,16 @@ Required, no default value
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Controls the authorization decision when a webhook request fails to
+<p>
+<!--
+Controls the authorization decision when a webhook request fails to
 complete or returns a malformed response or errors evaluating
 matchConditions.
 Valid values:
-   -->
-   控制当 Webhook 请求无法完成或返回格式错误的响应或计算 matchConditions 出现错误时的鉴权决定。
-   有效值：
-   </p>
+-->
+控制当 Webhook 请求无法完成或返回格式错误的响应或计算 matchConditions 出现错误时的鉴权决定。
+有效值：
+</p>
 <ul>
 <!--
 <li>NoOpinion: continue to subsequent authorizers to see if one of
@@ -1820,12 +1821,12 @@ Required, with no default.</li>
 <a href="#apiserver-k8s-io-v1beta1-WebhookConnectionInfo"><code>WebhookConnectionInfo</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   ConnectionInfo defines how we talk to the webhook
-   -->
-   ConnectionInfo 定义 Webhook 如何与服务器通信。
-   </p>
+<p>
+<!--
+ConnectionInfo defines how we talk to the webhook
+-->
+ConnectionInfo 定义 Webhook 如何与服务器通信。
+</p>
 </td>
 </tr>
 <tr><td><code>matchConditions</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1903,14 +1904,14 @@ allowed for kube-apiserver.</li>
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Path to KubeConfigFile for connection info
+<p>
+<!--
+Path to KubeConfigFile for connection info
 Required, if connectionInfo.Type is KubeConfig
-   -->
-   包含连接信息的 KubeConfig 文件的路径。
-   如果 connectionInfo.type 是 KubeConfig，则为必需项。
-   </p>
+-->
+包含连接信息的 KubeConfig 文件的路径。
+如果 connectionInfo.type 是 KubeConfig，则为必需项。
+</p>
 </td>
 </tr>
 </tbody>

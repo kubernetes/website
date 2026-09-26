@@ -29,7 +29,8 @@ auto_generated: true
 <!--
 CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \<.spec.name>.\<.spec.group>.
 -->
-CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名称必须采用 `<.spec.name>.<.spec.group>` 格式。
+CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名称必须采用
+`<.spec.name>.<.spec.group>` 格式。
 
 <hr>
 
@@ -38,30 +39,36 @@ CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名�
 - **kind**：CustomResourceDefinition
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+  
   <!--
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
+  
   标准的对象元数据，更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionSpec" >}}">CustomResourceDefinitionSpec</a>)，<!--required-->必需
+ 
   <!--
   spec describes how the user wants the resources to appear
   -->
-  spec 描述了用户希望资源的呈现方式。
+  
+  `spec` 描述了用户希望资源的呈现方式。
 
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
+  
   <!--
   status indicates the actual state of the CustomResourceDefinition
   -->
-  status 表示 CustomResourceDefinition 的实际状态。
+  
+  `status` 表示 CustomResourceDefinition 的实际状态。
 
 ## CustomResourceDefinitionSpec {#CustomResourceDefinitionSpec}
 
 <!--
 CustomResourceDefinitionSpec describes how a user wants their resource to appear
 -->
-CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
+`CustomResourceDefinitionSpec` 描述了用户希望资源的呈现方式。
 
 <hr>
 
@@ -72,7 +79,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 -->
 - **group** (string)，必需
 
-  group 是自定义资源的 API 组。自定义资源在 `/apis/<group>/...` 下提供。
+  `group` 是自定义资源的 API 组。自定义资源在 `/apis/<group>/...` 下提供。
   必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。
 
 <!--
@@ -83,7 +90,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **names** (CustomResourceDefinitionNames)，必需
 
-  names 表示自定义资源的资源和种类名称。
+  `names` 表示自定义资源的资源和种类名称。
 
   <a name="CustomResourceDefinitionNames"></a>
   <!--
@@ -93,11 +100,12 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
   -->
+  
   **CustomResourceDefinitionNames 表示提供此 CustomResourceDefinition 资源的名称。**
 
   - **names.kind** (string)，必需
 
-    kind 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
+    `kind` 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
 
   <!--
   - **names.plural** (string), required
@@ -107,7 +115,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **names.plural** (string)，必需
 
-    plural 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
+    `plural` 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
     必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。必须全部小写。
 
   - **names.categories** ([]string)
@@ -122,7 +130,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
 
-    categories 是自定义资源所属的分组资源列表（例如 'all'）。
+    `categories` 是自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并支持客户端像 `kubectl get all` 这样的调用。
 
   - **names.listKind** (string)
@@ -131,7 +139,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此资源列表的序列化类型。默认为 "`kind`List"。
+    `listKind` 是此资源列表的序列化类型。默认为 "`kind`List"。
 
   - **names.shortNames** ([]string)
 
@@ -145,7 +153,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
+    `shortNames` 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
     `kubectl get <shortname>`。必须全部小写。
 
   - **names.singular** (string)
@@ -154,7 +162,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是资源的单数名称。必须全部小写。默认为小写 `kind`。
+    `singular` 是资源的单数名称。必须全部小写。默认为小写 `kind`。
 
 <!--  
 - **scope** (string), required
@@ -164,7 +172,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **scope** (string)，必需
 
-  scope 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
+  `scope` 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
 
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
@@ -178,7 +186,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   **原子：将在合并期间被替换**
 
-  versions 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
+  `versions` 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
   如果版本字符串与 Kubernetes 的版本号形式类似，则它将被排序在非 Kubernetes 形式版本字符串之前。
   Kubernetes 的版本号字符串按字典顺序排列。Kubernetes 版本号以 “v” 字符开头，
   后面是一个数字（主版本），然后是可选字符串 “alpha” 或 “beta” 和另一个数字（次要版本）。
@@ -193,11 +201,12 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/\<group>/\<version>/...` if `served` is true.
   -->
+  
   **CustomResourceDefinitionVersion 描述 CRD 的一个版本。**
 
   - **versions.name** (string)，必需
 
-    name 是版本名称，例如 “v1”、“v2beta1” 等。如果 `served` 是 true，自定义资源在
+    `name` 是版本名称，例如 “v1”、“v2beta1” 等。如果 `served` 是 true，自定义资源在
     `/apis/<group>/<version>/...` 版本下提供。
 
   <!--
@@ -208,7 +217,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.served** (boolean)，必需
 
-    served 是用于启用/禁用该版本通过 REST API 提供服务的标志。
+    `served` 是用于启用/禁用该版本通过 REST API 提供服务的标志。
 
   <!--
   - **versions.storage** (boolean), required
@@ -218,7 +227,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.storage** (boolean)，必需
 
-    storage 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 storage=true。
+    `storage` 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 `storage=true`。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
@@ -232,7 +241,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
     -->
 
-    additionalPrinterColumns 表示在表输出中返回的附加列。
+    `additionalPrinterColumns` 表示在表输出中返回的附加列。
     有关详细信息，请参阅 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#receiving-resources-as-tables。
     如果没有指定列，则显示自定义资源存活时间（AGE）列。
 
@@ -249,7 +258,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.jsonPath** (string)，必需
 
-      jsonPath 是一个简单的 JSON 路径（使用数组表示法），它对每个自定义资源进行评估，以生成该列的值。
+      `jsonPath` 是一个简单的 JSON 路径（使用数组表示法），它对每个自定义资源进行评估，以生成该列的值。
 
     <!--
     - **versions.additionalPrinterColumns.name** (string), required
@@ -259,7 +268,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.name** (string)，必需
 
-      name 是便于阅读的列名称。
+      `name` 是便于阅读的列名称。
 
     <!--
     - **versions.additionalPrinterColumns.type** (string), required
@@ -269,7 +278,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.type** (string)，必需
 
-      type 是此列的 OpenAPI 类型定义。有关详细信息，
+      `type` 是此列的 OpenAPI 类型定义。有关详细信息，
       请参阅 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
 
     - **versions.additionalPrinterColumns.description** (string)
@@ -278,7 +287,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       description is a human readable description of this column.
       -->
 
-      description 是该列的可读性描述。
+      `description` 是该列的可读性描述。
 
     - **versions.additionalPrinterColumns.format** (string)
 
@@ -286,7 +295,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
       -->
 
-      format 是这个列的可选 OpenAPI 类型定义。'name' 格式应用于主标识符列，以帮助客户端识别列是资源名称。
+      `format` 是这个列的可选 OpenAPI 类型定义。'name' 格式应用于主标识符列，以帮助客户端识别列是资源名称。
       有关详细信息，请参阅 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types。
 
     - **versions.additionalPrinterColumns.priority** (int32)
@@ -295,7 +304,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
       -->
 
-      priority 是一个定义此列相对于其他列的相对重要性的整数。数字越低，优先级越高。
+      `priority` 是一个定义此列相对于其他列的相对重要性的整数。数字越低，优先级越高。
       在空间有限的情况下，可以省略的列的优先级应大于 0。
 
   - **versions.deprecated** (boolean)
@@ -304,7 +313,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
     -->
 
-    deprecated 表示此版本的自定义资源 API 已弃用。设置为 true 时，对此版本的 API
+    `deprecated` 表示此版本的自定义资源 API 已弃用。设置为 true 时，对此版本的 API
     请求会在服务器响应头信息中带有警告（warning）信息。此值默认为 false。
 
   - **versions.deprecationWarning** (string)
@@ -313,7 +322,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
     -->
 
-    deprecationWarning 会覆盖返回给 API 客户端的默认警告。只能在 `deprecated` 为 true 时设置。
+    `deprecationWarning` 会覆盖返回给 API 客户端的默认警告。只能在 `deprecated` 为 true 时设置。
     默认警告表示此版本已弃用，建议使用最新的同等或更高稳定性版本（如果存在）。
 
   - **versions.schema** (CustomResourceValidation)
@@ -322,7 +331,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
     -->
 
-    schema 描述了用于验证、精简和默认此版本的自定义资源的模式。
+    `schema` 描述了用于验证、精简和默认此版本的自定义资源的模式。
 
     <a name="CustomResourceValidation"></a>
     <!--
@@ -337,7 +346,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
       -->
 
-      openAPIV3Schema 是用于验证和精简的 OpenAPI v3 模式。
+      `openAPIV3Schema` 是用于验证和精简的 OpenAPI v3 模式。
 
   - **versions.selectableFields** ([]SelectableField)
 
@@ -351,7 +360,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
     -->
 
-    selectableFields 指定可用作字段选择器的字段路径，最多允许 8 个可选字段。
+    `selectableFields` 指定可用作字段选择器的字段路径，最多允许 8 个可选字段。
     请参阅：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/field-selectors
   
     <a name="SelectableField"></a>
@@ -368,9 +377,9 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metadata fields. Required.
     -->
 
-    jsonPath 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
+    `jsonPath` 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
     只允许使用不带数组符号的 JSON 路径。必须指向字符串、布尔值或整数类型的字段。
-    允许使用枚举值类型和带格式的字符串。如果 jsonPath 引用资源中不存在的字段，则 jsonPath
+    允许使用枚举值类型和带格式的字符串。如果 `jsonPath` 引用资源中不存在的字段，则 `jsonPath`
     的求值结果为空字符串。不得指向元数据字段。必需。
   
   - **versions.subresources** (CustomResourceSubresources)
@@ -379,14 +388,14 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     subresources specify what subresources this version of the defined custom resource have.
     -->
 
-    subresources 指定此版本已定义的自定义资源具有哪些子资源。
+    `subresources` 指定此版本已定义的自定义资源具有哪些子资源。
 
     <a name="CustomResourceSubresources"></a>
     <!--
     *CustomResourceSubresources defines the status and scale subresources for CustomResources.*
     -->
 
-    **CustomResourceSubresources 定义了 CustomResources 子资源的状态和规模。**  
+    **CustomResourceSubresources 定义了 CustomResources 子资源的状态和规模。**
 
     - **versions.subresources.scale** (CustomResourceSubresourceScale)
 
@@ -394,7 +403,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
       -->
 
-      scale 表示自定义资源应该提供一个 `/scale` 子资源，该子资源返回一个 `autoscaling/v1` Scale 对象。
+      `scale` 表示自定义资源应该提供一个 `/scale` 子资源，该子资源返回一个 `autoscaling/v1` Scale 对象。
 
       <a name="CustomResourceSubresourceScale"></a>
       <!--
@@ -409,7 +418,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       - **versions.subresources.scale.specReplicasPath** (string)，必需
 
-        specReplicasPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `spec.replicas`。
+        `specReplicasPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `spec.replicas`。
         只允许没有数组表示法的 JSON 路径。必须是 `.spec` 下的 JSON 路径。
         如果自定义资源中的给定路径下没有值，那么 GET `/scale` 子资源将返回错误。
 
@@ -421,7 +430,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       - **versions.subresources.scale.statusReplicasPath** (string)，必需
 
-        statusReplicasPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.replicas`。
+        `statusReplicasPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.replicas`。
         只允许不带数组表示法的 JSON 路径。必须是 `.status` 下的 JSON 路径。
         如果自定义资源中给定路径下没有值，则 `/scale` 子资源中的 `status.replicas` 值将默认为 0。
 
@@ -431,7 +440,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         -->
 
-        labelSelectorPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.selector`。
+        `labelSelectorPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.selector`。
         只允许不带数组表示法的 JSON 路径。必须是 `.status` 或 `.spec` 下的路径。
         必须设置为与 HorizontalPodAutoscaler 一起使用。
         此 JSON 路径指向的字段必须是字符串字段（不是复杂的选择器结构），其中包含字符串形式的序列化标签选择器。
@@ -444,7 +453,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
       -->
 
-      status 表示自定义资源应该为 `/status` 子资源服务。当启用时：
+      `status` 表示自定义资源应该为 `/status` 子资源服务。当启用时：
 
       1. 对自定义资源主端点的请求会忽略对对象 `status` 节的改变；
       2. 对自定义资源 `/status` 子资源的请求忽略对对象 `status` 节以外的任何变化。
@@ -454,19 +463,19 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
       -->
 
-      CustomResourceSubresourceStatus 定义了如何为自定义资源提供 status 子资源。
+      `CustomResourceSubresourceStatus` 定义了如何为自定义资源提供 status 子资源。
       状态由 CustomResource 中的 `.status` JSON 路径表示。设置后，
 
       * 为自定义资源提供一个 `/status` 子资源。
-      * 向 `/status` 子资源发出的 PUT 请求时，需要提供自定义资源对象，服务器端会忽略对 status 节以外的任何内容更改。
-      * 对自定义资源的 PUT/POST/PATCH 请求会忽略对 status 节的更改。
+      * 向 `/status` 子资源发出的 PUT 请求时，需要提供自定义资源对象，服务器端会忽略对 `status` 节以外的任何内容更改。
+      * 对自定义资源的 PUT/POST/PATCH 请求会忽略对 `status` 节的更改。
 
 - **conversion** (CustomResourceConversion)
 
   <!--
   conversion defines conversion settings for the CRD.
   -->
-  conversion 定义了 CRD 的转换设置。
+  `conversion` 定义了 CRD 的转换设置。
 
   <a name="CustomResourceConversion"></a>
   <!--
@@ -482,11 +491,11 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **conversion.strategy** (string)，必需
 
-    strategy 指定如何在版本之间转换自定义资源。允许的值为：
+    `strategy` 指定如何在版本之间转换自定义资源。允许的值为：
 
-    - `"None"`：转换器仅更改 apiVersion 并且不会触及自定义资源中的任何其他字段。
+    - `"None"`：转换器仅更改 `apiVersion` 并且不会触及自定义资源中的任何其他字段。
     - `"Webhook"`：API 服务器将调用外部 Webhook 进行转换。此选项需要其他信息。这要求
-      spec.preserveUnknownFields 为 false，并且设置 spec.conversion.webhook。
+      spec.preserveUnknownFields 为 false，并且设置 `spec.conversion.webhook`。
 
   - **conversion.webhook** (WebhookConversion)
 
@@ -494,7 +503,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
     -->
 
-    webhook 描述了如何调用转换 Webhook。当 `strategy` 设置为 `"Webhook"` 时有效。
+    `webhook` 描述了如何调用转换 Webhook。当 `strategy` 设置为 `"Webhook"` 时有效。
 
     <a name="WebhookConversion"></a>
     <!--
@@ -513,7 +522,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **conversion.webhook.conversionReviewVersions** ([]string)，必需
 
-      conversionReviewVersions 是 Webhook 期望的 `ConversionReview` 版本的有序列表。
+      `conversionReviewVersions` 是 Webhook 期望的 `ConversionReview` 版本的有序列表。
       API 服务器将使用它支持的列表中的第一个版本。如果 API 服务器不支持此列表中指定的版本，则自定义资源的转换将失败。
       如果持久化的 Webhook 配置指定了允许的版本但其中不包括 API 服务器所了解的任何版本，则对 Webhook 的调用将失败。
 
@@ -538,7 +547,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         -->
 
-        caBundle 是一个 PEM 编码的 CA 包，用于验证 Webhook 服务器的服务证书。
+        `caBundle` 是一个 PEM 编码的 CA 包，用于验证 Webhook 服务器的服务证书。
         如果未指定，则使用 API 服务器上的系统根证书。
 
       - **conversion.webhook.clientConfig.service** (ServiceReference)
@@ -549,7 +558,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         If the webhook is running within the cluster, then you should use `service`.
         -->
 
-        service 是对此 Webhook 服务的引用。必须指定 service 或 url 字段之一。
+        `service` 是对此 Webhook 服务的引用。必须指定 `service` 或 `url` 字段之一。
 
         如果在集群中运行 Webhook，那么你应该使用 `service`。
 
@@ -566,7 +575,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
         - **conversion.webhook.clientConfig.service.name** (string)，必需
 
-          name 是服务的名称。必需。
+          `name` 是服务的名称。必需。
 
         <!--
         - **conversion.webhook.clientConfig.service.namespace** (string), required
@@ -576,7 +585,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
         - **conversion.webhook.clientConfig.service.namespace** (string)，必需
 
-          namespace 是服务的命名空间。必需。
+          `namespace` 是服务的命名空间。必需。
 
         - **conversion.webhook.clientConfig.service.path** (string)
 
@@ -584,7 +593,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
           path is an optional URL path at which the webhook will be contacted.
           -->
 
-          path 是一个可选的 URL 路径，Webhook 将通过该路径联系服务。
+          `path` 是一个可选的 URL 路径，Webhook 将通过该路径联系服务。
 
         - **conversion.webhook.clientConfig.service.port** (int32)
 
@@ -592,7 +601,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
           port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
           -->
 
-          port 是 Webhook 联系的可选服务端口。`port` 应该是一个有效的端口号（1-65535，包含）。
+          `port` 是 Webhook 联系的可选服务端口。`port` 应该是一个有效的端口号（1-65535，包含）。
           为实现向后兼容，默认端口号为 443。
 
       - **conversion.webhook.clientConfig.url** (string)
@@ -627,9 +636,9 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         -->
 
-        scheme 必须是 "https"；URL 必须以 "https://" 开头。
+        `scheme` 必须是 "https"；URL 必须以 "https://" 开头。
 
-        路径（path）是可选的，如果存在，则可以是 URL 中允许的任何字符串。
+        路径（`path`）是可选的，如果存在，则可以是 URL 中允许的任何字符串。
         你可以使用路径传递一个任意字符串给 Webhook，例如，一个集群标识符。
 
         不允许使用用户或基本认证，例如 "user:password@"，是不允许的。片段（"#..."）和查询参数（"?..."）也是不允许的。
@@ -640,8 +649,8 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
   preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
   -->
 
-  preserveUnknownFields 表示将对象写入持久性存储时应保留 OpenAPI 模式中未规定的对象字段。
-  apiVersion、kind、元数据（metadata）和元数据中的已知字段始终保留。不推荐使用此字段，而建议在
+  `preserveUnknownFields` 表示将对象写入持久性存储时应保留 OpenAPI 模式中未规定的对象字段。
+  `apiVersion`、`kind`、元数据（`metadata`）和元数据中的已知字段始终保留。不推荐使用此字段，而建议在
   `spec.versions[*].schema.openAPIV3Schema` 中设置 `x-preserve-unknown-fields` 为 true。
   更多详细信息参见：
   https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
@@ -696,13 +705,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
   -->
-  default 是未定义对象字段的默认值。设置默认值操作是 CustomResourceDefaulting 特性门控所控制的一个 Beta 特性。
-  应用默认值设置时要求 spec.preserveUnknownFields 为 false。
+  
+  `default` 是未定义对象字段的默认值。设置默认值操作是 CustomResourceDefaulting 特性门控所控制的一个 Beta 特性。
+  应用默认值设置时要求 `spec.preserveUnknownFields` 为 false。
 
   <a name="JSON"></a>
   <!--
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
   -->
+  
   **JSON 表示任何有效的 JSON 值。支持以下类型：bool、int64、float64、string、[]interface{}、map[string]interface{} 和 nil。**
 
 - **definitions** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
@@ -729,6 +740,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
   -->
+  
   **JSON 表示任何有效的 JSON 值。支持以下类型：bool、int64、float64、string、[]interface{}、map[string]interface{} 和 nil。**
 
 - **example** (JSON)
@@ -737,6 +749,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
   -->
+  
   **JSON 表示任何有效的 JSON 值。支持以下类型：bool、int64、float64、string、[]interface{}、map[string]interface{} 和 nil。**
 
 - **exclusiveMaximum** (boolean)
@@ -749,6 +762,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *ExternalDocumentation allows referencing an external resource for extended documentation.*
   -->
+  
   **ExternalDocumentation 允许引用外部资源作为扩展文档。**
 
   - **externalDocs.description** (string)
@@ -762,7 +776,8 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
   - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
   -->
-  format 是 OpenAPI v3 格式字符串。未知格式将被忽略。以下格式会被验证合法性：
+  
+  `format` 是 OpenAPI v3 格式字符串。未知格式将被忽略。以下格式会被验证合法性：
 
   - bsonobjectid：一个 bson 对象的 ID，即一个 24 个字符的十六进制字符串
   - uri：由 Go 语言 net/url.ParseRequestURI 解析得到的 URI
@@ -799,6 +814,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.*
   -->
+  
   **JSONSchemaPropsOrArray 表示可以是 JSONSchemaProps 或 JSONSchemaProps 数组的值。这里目的主要用于序列化。**
 
 - **maxItems** (int64)
@@ -856,17 +872,19 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
   -->
-  x-kubernetes-embedded-resource 定义该值是一个嵌入式 Kubernetes runtime.Object，具有 TypeMeta 和 ObjectMeta。
-  类型必须是对象。允许进一步限制嵌入对象。会自动验证 kind、apiVersion 和 metadata 等字段值。
-  x-kubernetes-preserve-unknown-fields 允许为 true，但如果对象已完全指定
-  （除 kind、apiVersion、metadata 之外），则不必为 true。
+  
+  `x-kubernetes-embedded-resource` 定义该值是一个嵌入式 Kubernetes `runtime.Object`，具有 TypeMeta 和 ObjectMeta。
+  类型必须是对象。允许进一步限制嵌入对象。会自动验证 `kind`、`apiVersion` 和 `metadata` 等字段值。
+  `x-kubernetes-preserve-unknown-fields` 允许为 true，但如果对象已完全指定
+  （除 `kind`、`apiVersion`、`metadata` 之外），则不必为 true。
 
 - **x-kubernetes-int-or-string** (boolean)
 
   <!--
   x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
   -->
-  x-kubernetes-int-or-string 指定此值是整数或字符串。如果为 true，则允许使用空类型，
+  
+  `x-kubernetes-int-or-string` 指定此值是整数或字符串。如果为 true，则允许使用空类型，
   并且如果遵循以下模式之一，则允许作为 anyOf 的子类型：
 
   1) anyOf:
@@ -897,7 +915,8 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
   The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
   -->
-  X-kubernetes-list-map-keys 通过指定用作 map 索引的键来使用 x-kubernetes-list-type `map` 注解数组。
+  
+  `x-kubernetes-list-map-keys` 通过指定用作 map 索引的键来使用 x-kubernetes-list-type `map` 注解数组。
 
   这个标签必须只用于 "x-kubernetes-list-type" 扩展设置为 "map" 的列表。
   而且，为这个属性指定的值必须是子结构的标量类型的字段（不支持嵌套）。
@@ -909,7 +928,8 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
   -->
-  x-kubernetes-list-type 注解一个数组以进一步描述其拓扑。此扩展名只能用于列表，并且可能有 3 个可能的值：
+  
+  `x-kubernetes-list-type` 注解一个数组以进一步描述其拓扑。此扩展名只能用于列表，并且可能有 3 个可能的值：
 
   <!--
   1) `atomic`: the list is treated as a single entity, like a scalar.
@@ -963,7 +983,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
   -->
 
-  x-kubernetes-preserve-unknown-fields 针对未在验证模式中指定的字段，禁止 API 服务器的解码步骤剪除这些字段。
+  `x-kubernetes-preserve-unknown-fields` 针对未在验证模式中指定的字段，禁止 API 服务器的解码步骤剪除这些字段。
   这一设置对字段的影响是递归的，但在模式中指定了嵌套 properties 或 additionalProperties 时，会切换回正常的字段剪除行为。
   该值可为 true 或 undefined，不能为 false。
 
@@ -981,7 +1001,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
   **Map：合并时将保留 rule 键的唯一值**
 
-  x-kubernetes-validations 描述了用 CEL 表达式语言编写的验证规则列表。此字段是 Alpha 级别。
+  `x-kubernetes-validations` 描述了用 CEL 表达式语言编写的验证规则列表。此字段是 Alpha 级别。
 
   <a name="ValidationRule"></a>
   <!--
@@ -1001,15 +1021,16 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
     -->
 
-    rule 表示将由 CEL 评估的表达式。参考： https://github.com/google/cel-spec。
-    rule 的作用域为模式中的 x-kubernetes-validation 扩展所在的位置。CEL 表达式中的 `self` 与作用域值绑定。
-    例子：rule 的作用域是一个具有状态子资源的资源根：{"rule": "self.status.actual \<= self.spec.maxDesired"}。
+    `rule` 表示将由 CEL 评估的表达式。参考： https://github.com/google/cel-spec。
+    `rule` 的作用域为模式中的 `x-kubernetes-validation` 扩展所在的位置。CEL 表达式中的 `self` 与作用域值绑定。
+    例子：`rule` 的作用域是一个具有状态子资源的资源根：
+    `{"rule": "self.status.actual <= self.spec.maxDesired"}`。
 
     <!--
     If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
     -->
 
-    如果 rule 的作用域是一个带有属性的对象，那么该对象的可访问属性是通过 `self` 进行字段选择的，
+    如果 `rule` 的作用域是一个带有属性的对象，那么该对象的可访问属性是通过 `self` 进行字段选择的，
     并且可以通过 `has(self.field)` 来检查字段是否存在。在 CEL 表达式中，Null 字段被视为不存在的字段。
     如果该 rule 的作用域是一个带有附加属性的对象（例如一个 map），那么该 map 的值可以通过
     `self[mapKey]`来访问，map 是否包含某主键可以通过 `mapKey in self` 来检查。
@@ -1017,16 +1038,16 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     如果 rule 的作用域是一个数组，数组的元素可以通过 `self[i]` 访问，也可以通过宏和函数访问。
     如果 rule 的作用域为标量，`self` 绑定到标量值。举例：
 
-    - rule 作用域为对象映射：{"rule": "self.components['Widget'].priority \< 10"}
-    - rule 作用域为整数列表：{"rule": "self.values.all(value, value >= 0 && value \< 100)"}
-    - rule 作用域为字符串值：{"rule": "self.startsWith('kube')"}
+    - `rule` 作用域为对象映射：`{"rule": "self.components['Widget'].priority < 10"}`
+    - `rule` 作用域为整数列表：`{"rule": "self.values.all(value, value >= 0 && value < 100)"}`
+    - `rule` 作用域为字符串值：`{"rule": "self.startsWith('kube')"}`
 
     <!--
     The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
     -->
 
     `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以从对象的根和任何带
-    x-kubernetes-embedded-resource 注解的对象访问。其他元数据属性都无法访问。
+    `x-kubernetes-embedded-resource` 注解的对象访问。其他元数据属性都无法访问。
 
     <!--
     Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
@@ -1035,15 +1056,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
       - An object where the additionalProperties schema is of an "unknown type"
     -->
 
-    在 CEL 表达式中无法访问通过 x-kubernetes-preserve-unknown-fields 保存在自定义资源中的未知数据。
+    在 CEL 表达式中无法访问通过 `x-kubernetes-preserve-unknown-fields` 保存在自定义资源中的未知数据。
     这包括：
 
-    - 由包含 x-kubernetes-preserve-unknown-fields 的对象模式所保留的未知字段值；
+    - 由包含 `x-kubernetes-preserve-unknown-fields` 的对象模式所保留的未知字段值；
     - 属性模式为 "未知类型" 的对象属性。"未知类型" 递归定义为：
 
-      - 没有设置 type 但 x-kubernetes-preserve-unknown-fields 设置为 true 的模式。
+      - 没有设置 `type` 但 `x-kubernetes-preserve-unknown-fields` 设置为 true 的模式。
       - 条目模式为"未知类型"的数组。
-      - additionalProperties 模式为"未知类型"的对象。
+      - `additionalProperties` 模式为"未知类型"的对象。
 
     <!--
     Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
@@ -1080,8 +1101,8 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
       non-intersecting keys are appended, retaining their partial order.
     -->
 
-    对 x-kubernetes-list-type 为 'set' 或 'map' 的数组进行比较时忽略元素顺序，如：[1, 2] == [2, 1]。
-    使用 x-kubernetes-list-type 对数组进行串接使用下列类型的语义：
+    对 `x-kubernetes-list-type` 为 'set' 或 'map' 的数组进行比较时忽略元素顺序，如：[1, 2] == [2, 1]。
+    使用 `x-kubernetes-list-type` 对数组进行串接使用下列类型的语义：
 
     - 'set'：`X + Y` 执行合并，其中 `X` 保留所有元素的数组位置，并附加不相交的元素 `Y`，保留其局部顺序。
     - 'map'：`X + Y` 执行合并，保留 `X` 中所有键的数组位置，但当 `X` 和 `Y` 的键集相交时，会被 `Y` 中的值覆盖。
@@ -1120,15 +1141,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
     -->
 
-    fieldPath 表示验证失败时返回的字段路径。
-    它必须是相对 JSON 路径（即，支持数组表示法），范围仅限于此 x-kubernetes-validations
+    `fieldPath` 表示验证失败时返回的字段路径。
+    它必须是相对 JSON 路径（即，支持数组表示法），范围仅限于此 `x-kubernetes-validations`
     扩展在模式的位置，并引用现有字段。
-    例如，当验证检查 `testMap` 映射下是否有 `foo` 属性时，可以将 fieldPath 设置为 `.testMap.foo`。
-    如果验证需要确保两个列表具有各不相同的属性，则可以将 fieldPath 设置到其中任一列表，例如 `.testList`。
+    例如，当验证检查 `testMap` 映射下是否有 `foo` 属性时，可以将 `fieldPath` 设置为 `.testMap.foo`。
+    如果验证需要确保两个列表具有各不相同的属性，则可以将 `fieldPath` 设置到其中任一列表，例如 `.testList`。
     它支持使用子操作引用现有字段，而不支持列表的数字索引。
-    有关更多信息，请参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/docs/reference/kubectl/jsonpath/)。
+    有关更多信息，请参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/zh-cn/docs/reference/kubectl/jsonpath/)。
     因为其不支持数组的数字索引，所以对于包含特殊字符的字段名称，请使用 `['specialName']` 来引用字段名称。
-    例如，对于出现在列表 `testList` 中的属性 `foo.34$`，fieldPath 可以设置为 `.testList['foo.34$']`。
+    例如，对于出现在列表 `testList` 中的属性 `foo.34$`，`fieldPath` 可以设置为 `.testList['foo.34$']`。
 
   - **x-kubernetes-validations.message** (string)
 
@@ -1137,7 +1158,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
     -->
 
-    message 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
+    `message` 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
     如果未设置，则消息为 "failed rule: {Rule}"，如："must be a URL with the host matching spec.host"
 
   - **x-kubernetes-validations.messageExpression** (string)
@@ -1154,14 +1175,14 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
     -->
 
-    messageExpression 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
-    由于 messageExpression 用作失败消息，因此它的值必须是一个字符串。
-    如果在规则中同时存在 message 和 messageExpression，则在验证失败时使用 messageExpression。
-    如果是 messageExpression 出现运行时错误，则会记录运行时错误，并生成验证失败消息，
-    就好像未设置 messageExpression 字段一样。如果 messageExpression 求值为空字符串、
-    只包含空格的字符串或包含换行符的字符串，则验证失败消息也将像未设置 messageExpression 字段一样生成，
-    并记录 messageExpression 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
-    messageExpression 可以访问的变量与规则相同；唯一的区别是返回类型。
+    `messageExpression` 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
+    由于 `messageExpression` 用作失败消息，因此它的值必须是一个字符串。
+    如果在规则中同时存在 `message` 和 `messageExpression`，则在验证失败时使用 `messageExpression`。
+    如果是 `messageExpression` 出现运行时错误，则会记录运行时错误，并生成验证失败消息，
+    就好像未设置 `messageExpression` 字段一样。如果 `messageExpression` 求值为空字符串、
+    只包含空格的字符串或包含换行符的字符串，则验证失败消息也将像未设置 `messageExpression` 字段一样生成，
+    并记录 `messageExpression` 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
+    `messageExpression` 可以访问的变量与规则相同；唯一的区别是返回类型。
     例如："x must be less than max ("+string(self.max)+")"。
 
   - **x-kubernetes-validations.optionalOldSelf** (boolean)
@@ -1197,12 +1218,12 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     reasons should be treated as FieldValueInvalid.
     -->
 
-    reason 提供机器可读的验证失败原因，当请求未通过此验证规则时，该原因会返回给调用者。
+    `reason` 提供机器可读的验证失败原因，当请求未通过此验证规则时，该原因会返回给调用者。
     返回给调用者的 HTTP 状态代码将与第一个失败的验证规则的原因相匹配。
     目前支持的原因有：`FieldValueInvalid`、`FieldValueForbidden`、`FieldValueRequired`、`FieldValueDuplicate`。
     如果未设置，则默认使用 `FieldValueInvalid`。
     所有未来添加的原因在读取该值时必须被客户端接受，未知原因应被视为 `FieldValueInvalid`。
-
+  
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
 
 <!--
@@ -1218,7 +1239,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
   acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
   -->
 
-  acceptedNames 是实际用于服务发现的名称。它们可能与规约（spec）中的名称不同。
+  `acceptedNames` 是实际用于服务发现的名称。它们可能与规约（`spec`）中的名称不同。
 
   <a name="CustomResourceDefinitionNames"></a>
   <!--
@@ -1233,7 +1254,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **acceptedNames.kind** (string)，必需
 
-    kind 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
+    `kind` 是资源的序列化类型。它通常是驼峰命名的单数形式。
+    自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
 
   <!--
   - **acceptedNames.plural** (string), required
@@ -1243,7 +1265,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **acceptedNames.plural** (string)，必需
 
-    plural 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
+    `plural` 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
     必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。必须全部小写。
 
   - **acceptedNames.categories** ([]string)
@@ -1256,7 +1278,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     **原子：将在合并期间被替换**
 
-    categories 是此自定义资源所属的分组资源列表（例如 'all'）。
+    `categories` 是此自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并被客户端用于支持像 `kubectl get all` 这样的调用。
 
   - **acceptedNames.listKind** (string)
@@ -1265,7 +1287,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此资源列表的序列化类型。默认为 "`<kind>List`"。
+    `listKind` 是此资源列表的序列化类型。默认为 "`<kind>List`"。
 
   - **acceptedNames.shortNames** ([]string)
 
@@ -1277,7 +1299,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     **原子：将在合并期间被替换**
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
+    `shortNames` 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
+    `kubectl get <shortname>`。必须全部小写。
 
   - **acceptedNames.singular** (string)
 
@@ -1285,7 +1308,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是资源的单数名称。必须全部小写。默认为小写形式的 `kind`。
+    `singular` 是资源的单数名称。必须全部小写。默认为小写形式的 `kind`。
 
 - **conditions** ([]CustomResourceDefinitionCondition)
 
@@ -1297,7 +1320,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   **Map：合并时将保留 type 键的唯一值**
 
-  conditions 表示 CustomResourceDefinition 特定方面的状态
+  `conditions` 表示 CustomResourceDefinition 特定方面的状态
 
   <a name="CustomResourceDefinitionCondition"></a>
   <!--
@@ -1312,7 +1335,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.status** (string)，必需
 
-    status 表示状况（Condition）的状态，取值为 True、False 或 Unknown 之一。
+    `status` 表示状况（Condition）的状态，取值为 `True`、`False` 或 `Unknown` 之一。
 
   <!--
   - **conditions.type** (string), required
@@ -1322,7 +1345,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.type** (string)，必需
 
-    type 是条件的类型。类型包括：Established、NamesAccepted 和 Terminating。
+    `type` 是条件的类型。类型包括：`Established`、`NamesAccepted` 和 `Terminating`。
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -1330,14 +1353,15 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     lastTransitionTime last time the condition transitioned from one status to another.
     -->
 
-    lastTransitionTime 是上一次发生状况状态转换的时间。
+    `lastTransitionTime` 是上一次发生状况状态转换的时间。
 
     <a name="Time"></a>
     <!--
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
+    **Time 是对 `time.Time` 的封装。Time 支持对 YAML 和 JSON 进行正确封包。
+    为 `time` 包的许多函数方法提供了封装器。**
 
   - **conditions.message** (string)
 
@@ -1345,15 +1369,33 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     message is a human-readable message indicating details about last transition.
     -->
 
-    message 是有关上次转换的详细可读信息。
+    `message` 是有关上次转换的详细可读信息。
 
+  - **conditions.observedGeneration** (int64)
+
+    <!--
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+    -->
+  
+    `observedGeneration` 表示状况被设置时所依据的 `.metadata.generation` 值。
+    例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration`
+    为 9，则该状况相对于实例的当前状态已过时。
+    
   - **conditions.reason** (string)
 
     <!--
     reason is a unique, one-word, CamelCase reason for the condition's last transition.
     -->
 
-    reason 表述状况上次转换原因的、驼峰格式命名的、唯一的一个词。
+    `reason` 表述状况上次转换原因的、驼峰格式命名的、唯一的一个词。
+
+- **observedGeneration** (int64)
+
+  <!--
+  The generation observed by the CRD controller.
+  -->
+
+  CRD 控制器观测到的世代值。
 
 - **storedVersions** ([]string)
 
@@ -1365,7 +1407,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   **原子：将在合并期间被替换**
 
-  storedVersions 列出了曾经被持久化的所有 CustomResources 版本。跟踪这些版本可以为 etcd 中的存储版本提供迁移路径。
+  `storedVersions` 列出了曾经被持久化的所有 CustomResources 版本。跟踪这些版本可以为 etcd 中的存储版本提供迁移路径。
   该字段是可变的，因此迁移控制器可以完成到另一个版本的迁移（确保存储中没有遗留旧对象），然后从该列表中删除其余版本。
   当版本在此列表中时，则不能从 `spec.versions` 中删除。
 
@@ -1382,7 +1424,6 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
 
   items list individual CustomResourceDefinition objects
 -->
-
 - **items** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>)，必需
 
   items 列出单个 CustomResourceDefinition 对象。
@@ -1393,7 +1434,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
   -->
 
-  apiVersion 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
+  `apiVersion` 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
   更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
@@ -1544,6 +1585,10 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 - **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** <!--(*in query*):-->（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 
@@ -1961,6 +2006,10 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 - **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** <!--(*in query*):-->（**查询参数**）: string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 

@@ -1,7 +1,6 @@
 ---
 title: Group Version Resource
 id: gvr
-date: 2023-07-24
 short_description: >
   The API group, API version and name of a Kubernetes API.
 

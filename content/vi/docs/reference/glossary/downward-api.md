@@ -1,7 +1,6 @@
 ---
 title: Downward API
 id: downward-api
-date: 2022-03-21
 short_description: >
   Một cơ chế để cung cấp các trường giá trị của Pod và container cho đoạn mã đang chạy bên trong container.
 aka:

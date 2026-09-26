@@ -45,7 +45,7 @@ Linux 6.3でidmapマウントをサポートするポピュラーなファイル
 
 {{< note >}}
 いくつかのOCIランタイムには、LinuxのPodでユーザー名前空間を利用するのに必要なサポートが含まれていません。
-マネージドKubernetesを利用している場合やOCIランタイムをパッケージとしてダウンロードしてセットアップした場合には、クラスタ内のノードがユーザー名前空間をサポートしない可能性があります。
+マネージドKubernetesを利用している場合やOCIランタイムをパッケージとしてダウンロードしてセットアップした場合には、クラスター内のノードがユーザー名前空間をサポートしない可能性があります。
 {{< /note >}}
 
 Kubernetesでユーザー名前空間を利用する際、Podでこの機能を使うためにはCRI{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}} も必要です。
@@ -175,7 +175,7 @@ kubelet:65536:7208960
 
 ユーザー名前空間を有効化したLinuxのPodでは、Kubernetesは[Pod Security Standards](/docs/concepts/security/pod-security-standards)で制御されるアプリケーションの制限を緩和します。
 この挙動はエンドユーザーの早期オプトインを可能にするための`UserNamespacesPodSecurityStandards`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)で制御することが可能です。
-このフィーチャーゲートを使う場合、クラスタ管理者はユーザー名前空間が全てのノードで有効化されていることを確実にする必要があります。
+このフィーチャーゲートを使う場合、クラスター管理者はユーザー名前空間が全てのノードで有効化されていることを確実にする必要があります。
 
 フィーチャーゲートを有効化した上でユーザー名前空間を使うPodを作成する場合、_Baseline_ないしは_Restricted_Podセキュリティ基準のセキュリティコンテキストが強制されていても、以下のフィールドによる制約がなされません。
 

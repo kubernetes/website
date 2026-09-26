@@ -33,16 +33,16 @@ auto_generated: true
 <!--
 Event captures all the information that can be included in an API audit log.
 -->
-Event 结构包含可出现在 API 审计日志中的所有信息。
+<code>Event</code> 结构包含可出现在 API 审计日志中的所有信息。
 </p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Event</code></td></tr>
-  
+
 <tr><td><code>level</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#audit-k8s-io-v1-Level"><code>Level</code></a>
 </td>
@@ -55,7 +55,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    </p>
 </td>
 </tr>
-    
+
 <tr><td><code>auditID</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
@@ -77,7 +77,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    <!--
    Stage of the request handling when this event instance was generated.
    -->
-   生成此事件时请求的处理阶段。
+   生成此事件实例时请求的处理阶段。
    </p>
 </td>
 </tr>
@@ -90,7 +90,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    <!--
    RequestURI is the request URI as sent by the client to a server.
    -->
-   requestURI 是客户端发送到服务器端的请求 URI。
+   <code>requestURI</code> 是客户端发送到服务器的请求 URI。
    </p>
 </td>
 </tr>
@@ -105,13 +105,13 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    For non-resource requests, this is the lower-cased HTTP method.
    -->
    <code>verb</code> 是与请求对应的 Kubernetes 动词。对于非资源请求，
-   此字段为 HTTP 方法的小写形式。
+   此字段为小写形式的 HTTP 方法。
    </p>
 </td>
 </tr>
-    
+
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -124,7 +124,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -132,6 +132,19 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    Impersonated user information.
    -->
    关于所伪装（<code>impersonatedUser</code>）的用户的信息。
+   </p>
+</td>
+</tr>
+
+<tr><td><code>authenticationMetadata</code><br/>
+<a href="#audit-k8s-io-v1-AuthenticationMetadata"><code>AuthenticationMetadata</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   AuthenticationMetadata contains details about how the request was authenticated.
+   -->
+   <code>authenticationMetadata</code> 包含有关请求如何进行身份认证的详细信息。
    </p>
 </td>
 </tr>
@@ -145,21 +158,20 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    Source IPs, from where the request originated and intermediate proxies.
    The source IPs are listed from (in order):
    -->
-   发起请求和中间代理的源 IP 地址。
-   源 IP 从以下（按顺序）列出：
+   发起请求和中间代理的源 IP 地址。源 IP 从以下（按顺序）列出：
    </p>
 <ol>
 <li>
 <!--
 X-Forwarded-For request header IPs
 -->
-X-Forwarded-For 请求标头 IP
+X-Forwarded-For 请求标头 IP。
 </li>
 <li>
 <!--
 X-Real-Ip header, if not present in the X-Forwarded-For list
 -->
-X-Real-Ip 标头，如果 X-Forwarded-For 列表中不存在
+X-Real-Ip 标头，如果 X-Forwarded-For 列表中不存在。
 </li>
 <li>
 <!--
@@ -183,8 +195,8 @@ Note: All but the last IP can be arbitrarily set by the client.
    UserAgent records the user agent string reported by the client.
    Note that the UserAgent is provided by the client, and must not be trusted.
    -->
-   userAgent 中记录客户端所报告的用户代理（User Agent）字符串。
-   注意 userAgent 信息是由客户端提供的，一定不要信任。
+   <code>userAgent</code> 中记录客户端所报告的用户代理（User Agent）字符串。
+   注意 <code>userAgent</code> 信息是由客户端提供的，一定不要信任。
    </p>
 </td>
 </tr>
@@ -204,7 +216,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>
@@ -214,7 +226,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    For non-status type error responses, this will be auto-populated with the error Message.
    -->
    响应的状态，当 <code>responseStatus</code> 不是 Status 类型时被赋值。
-   对于成功的请求，此字段仅包含 code 和 statusSuccess。
+   对于成功的请求，此字段仅包含 <code>code</code> 和 <code>statusSuccess</code>。
    对于非 Status 类型的错误响应，此字段会被自动赋值为出错信息。
    </p>
 </td>
@@ -235,7 +247,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    （可能会采用 JSON 重新编码），之后会进入版本转换、默认值填充、准入控制以及配置信息合并等阶段。
    此对象为外部版本化的对象类型，甚至其自身可能并不是一个合法的对象。对于非资源请求，此字段被忽略。
    只有当审计级别为 Request 或更高的时候才会记录。
-   </p>  
+   </p>
 </td>
 </tr>
 
@@ -257,7 +269,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -270,7 +282,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -295,14 +307,12 @@ Note: All but the last IP can be arbitrarily set by the client.
    component to avoid name collisions (e.g. podsecuritypolicy.admission.k8s.io/policy). Values
    should be short. Annotations are included in the Metadata level.
    -->
-   <code>annotations</code> 是一个无结构的键-值映射，其中保存的是一个审计事件。
+   <code>annotations</code> 是一个无结构的键值映射，其中保存的是一个审计事件。
    该事件可以由请求处理链路上的插件来设置，包括身份认证插件、鉴权插件以及准入控制插件等。
-   注意这些注解是针对审计事件本身的，与所提交的对象中的 metadata.annotations
-   之间不存在对应关系。
-   映射中的键名应该唯一性地标识生成该事件的组件，从而避免名字上的冲突
+   注意这些注解是针对审计事件本身的，与所提交的对象中的 <code>metadata.annotations</code>
+   之间不存在对应关系。映射中的键名应该唯一地标识生成该事件的组件，从而避免名字上的冲突
    （例如 <code>podsecuritypolicy.admission.k8s.io/policy</code>）。
-   映射中的键值应该比较简洁。
-   当审计级别为 Metadata 时会包含 <code>annotations</code> 字段。
+   映射中的键值应该比较简短。当审计级别为 Metadata 时会包含 <code>annotations</code> 字段。
    </p>
 </td>
 </tr>
@@ -312,10 +322,10 @@ Note: All but the last IP can be arbitrarily set by the client.
 ## `EventList`     {#audit-k8s-io-v1-EventList}
 
 <p>
-<!--    
+<!--
 EventList is a list of audit Events.
 -->
-EventList 是审计事件（Event）的列表。
+<code>EventList</code> 是审计事件（Event）的列表。
 </p>
 
 <table class="table">
@@ -326,7 +336,7 @@ EventList 是审计事件（Event）的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -357,7 +367,7 @@ EventList 是审计事件（Event）的列表。
 Policy defines the configuration of audit logging, and the rules for how different request
 categories are logged.
 -->
-Policy 定义的是审计日志的配置以及不同类型请求的日志记录规则。
+<code>Policy</code> 定义的是审计日志的配置以及不同类型请求的日志记录规则。
 </p>
 
 <table class="table">
@@ -366,9 +376,9 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
-  
+
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>
@@ -377,10 +387,12 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
    -->
    包含 <code>metadata</code> 字段是为了便于与 API 基础设施之间实现互操作。
    </p>
+   <p>
    <!--
    Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.
    -->
    参考 Kubernetes API 文档了解 <code>metadata</code> 字段的详细信息。
+   </p>
 </td>
 </tr>
 
@@ -449,13 +461,13 @@ in a rule will override the global default.
 <!--
 PolicyList is a list of audit Policies.
 -->
-PolicyList 是由审计策略（Policy）组成的列表。
+<code>PolicyList</code> 是由审计策略（Policy）组成的列表。
 </p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>PolicyList</code></td></tr>
 
@@ -477,6 +489,36 @@ PolicyList 是由审计策略（Policy）组成的列表。
 </tbody>
 </table>
 
+## `AuthenticationMetadata`     {#audit-k8s-io-v1-AuthenticationMetadata}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [Event](#audit-k8s-io-v1-Event)
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>impersonationConstraint</code><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+ImpersonationConstraint is the verb associated with the constrained impersonation mode that was used to authorize
+the ImpersonatedUser associated with this audit event.  It is only set when constrained impersonation was used.
+-->
+<code>impersonationConstraint</code> 是与用于鉴权与此审计事件关联的
+<code>impersonatedUser</code> 的受限伪装模式相关的动词。它仅在使用了受限伪装时设置。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `GroupResources`     {#audit-k8s-io-v1-GroupResources}
 
 <!--
@@ -490,7 +532,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <!--
 GroupResources represents resource kinds in an API group.
 -->
-GroupResources 代表的是某 API 组中的资源类别。
+<code>GroupResources</code> 代表的是某 API 组中的资源类别。
 </p>
 
 <table class="table">
@@ -501,12 +543,16 @@ GroupResources 代表的是某 API 组中的资源类别。
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    Group is the name of the API group that contains the resources.
    The empty string represents the core API group.
+   <code>*</code> matches all groups
    -->
    字段 <code>group</code> 给出包含资源的 API 组的名称。
    空字符串代表 <code>core</code> API 组。
+   <code>*</code> 匹配所有组。
+   </p>
 </td>
 </tr>
 
@@ -535,13 +581,19 @@ GroupResources 代表的是某 API 组中的资源类别。
   <li><code>&ast;/scale</code> 匹配所有的 scale 子资源。</li>
 </ul>
 
+<p>
 <!--
-<p>If wildcard is present, the validation rule will ensure resources do not
-overlap with each other.</p>
-<p>An empty list implies all resources and subresources in this API groups apply.</p>
+If wildcard is present, the validation rule will ensure resources do not
+overlap with each other.
 -->
-<p>如果存在通配符，则合法性检查逻辑会确保 <code>resources</code> 中的条目不会彼此重叠。</p>
-<p>空的列表意味着规则适用于该 API 组中的所有资源及其子资源。</p>
+如果存在通配符，则合法性检查逻辑会确保 <code>resources</code> 中的条目不会彼此重叠。
+</p>
+<p>
+<!--
+An empty list implies all resources and subresources in this API groups apply.
+-->
+空的列表意味着规则适用于该 API 组中的所有资源及其子资源。
+</p>
 </td>
 </tr>
 
@@ -556,7 +608,7 @@ overlap with each other.</p>
    An empty list implies that every instance of the resource is matched.
    -->
    字段 <code>resourceNames</code> 是策略将匹配的资源实例名称列表。
-   使用此字段时，<code>resources</code> 必须指定。
+   使用此字段时，必须指定 <code>resources</code>。
    空的 <code>resourceNames</code> 列表意味着资源的所有实例都会匹配到此策略。
    </p>
 </td>
@@ -583,7 +635,7 @@ overlap with each other.</p>
 <!--
 Level defines the amount of information logged during auditing
 -->
-Level 定义的是审计过程中在日志内记录的信息量。
+<code>Level</code> 定义的是审计过程中在日志内记录的信息量。
 </p>
 
 ## `ObjectReference`     {#audit-k8s-io-v1-ObjectReference}
@@ -599,7 +651,7 @@ Level 定义的是审计过程中在日志内记录的信息量。
 <!--
 ObjectReference contains enough information to let you inspect or modify the referred object.
 -->
-ObjectReference 包含的是用来检查或修改所引用对象时将需要的全部信息。
+<code>ObjectReference</code> 包含的是用来检查或修改所引用对象时将需要的全部信息。
 </p>
 
 <table class="table">
@@ -698,8 +750,8 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 PolicyRule maps requests based off metadata to an audit Level.
 Requests must match the rules of every field (an intersection of rules).
 -->
-PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别。
-请求必须与每个字段所定义的规则都匹配（即 rules 的交集）才被视为匹配。
+<code>PolicyRule</code> 包含一个映射，基于元数据将请求映射到某审计级别。
+请求必须与每个字段所定义的规则都匹配（即 <code>rules</code> 的交集）才被视为匹配。
 </p>
 
 <table class="table">
@@ -759,7 +811,7 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    The verbs that match this rule.
    An empty list implies every verb.
    -->
-   此规则所适用的动词（verb）列表。
+   此规则所适用的动词（<code>verb</code>）列表。
    空列表意味着适用于所有动词。
    </p>
 </td>
@@ -783,16 +835,16 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <code>[]string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Namespaces that this rule matches.
-   The empty string &quot;&quot; matches non-namespaced resources.
-   An empty list implies every namespace.
-   -->
-   此规则所适用的名字空间列表。
-   空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
-   空列表意味着适用于所有名字空间。
-   </p>
+<p>
+<!--
+Namespaces that this rule matches.
+The empty string &quot;&quot; matches non-namespaced resources.
+An empty list implies every namespace.
+-->
+此规则所适用的名字空间列表。
+空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
+空列表意味着适用于所有名字空间。
+</p>
 </td>
 </tr>
 
@@ -800,24 +852,26 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <code>[]string</code>
 </td>
 <td>
-   <!--
-   <p>NonResourceURLs is a set of URL paths that should be audited.
-   <code>*</code>s are allowed, but only as the full, final step in the path.
-   Examples:</p>
-   <ul>
-   <li><code>/metrics</code> - Log requests for apiserver metrics</li>
-   <li><code>/healthz*</code> - Log all health checks</li>
-   </ul>
-   -->
-   <p>
-   <code>nonResourceURLs</code> 是一组需要被审计的 URL 路径。
-   允许使用 <code>&ast;<code>，但只能作为路径中最后一个完整分段。
-   例如：
-   </p>
-   <ul>
-     <li>&quot;/metrics&quot; - 记录对 API 服务器度量值（metrics）的所有请求；</li>
-     <li>&quot;/healthz&ast;&quot; - 记录所有健康检查。</li>
-   </ul>
+<p>
+<!--
+NonResourceURLs is a set of URL paths that should be audited.
+<code>*</code>s are allowed, but only as the full, final step in the path.
+Examples:
+-->
+<code>nonResourceURLs</code> 是一组需要被审计的 URL 路径。
+允许使用 <code>&ast;<code>，但只能作为路径中最后一个完整分段。
+例如：
+</p>
+<!--
+<ul>
+<li><code>/metrics</code> - Log requests for apiserver metrics</li>
+<li><code>/healthz*</code> - Log all health checks</li>
+</ul>
+-->
+<ul>
+  <li>&quot;/metrics&quot; - 记录对 API 服务器度量值（metrics）的所有请求；</li>
+  <li>&quot;/healthz&ast;&quot; - 记录所有健康检查。</li>
+</ul>
 </td>
 </tr>
 
@@ -825,17 +879,17 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <a href="#audit-k8s-io-v1-Stage"><code>[]Stage</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   OmitStages is a list of stages for which no events are created. Note that this can also
-   be specified policy wide in which case the union of both are omitted.
-   An empty list means no restrictions will apply.
-   -->
-   字段 <code>omitStages</code> 是一个阶段（Stage）列表，针对所列的阶段服务器不会生成审计事件。
-   注意这一选项也可以在策略（Policy）级别指定。服务器审计组件会忽略
-   <code>omitStages</code> 中给出的阶段，也会忽略策略中给出的阶段。
-   空列表意味着不对阶段作任何限制。
-   </p>
+<p>
+<!--
+OmitStages is a list of stages for which no events are created. Note that this can also
+be specified policy wide in which case the union of both are omitted.
+An empty list means no restrictions will apply.
+-->
+字段 <code>omitStages</code> 是一个阶段（Stage）列表，针对所列的阶段服务器不会生成审计事件。
+注意这一选项也可以在策略（Policy）级别指定。服务器审计组件会忽略
+<code>omitStages</code> 中给出的阶段，也会忽略策略中给出的阶段。
+空列表意味着不对阶段作任何限制。
+</p>
 </td>
 </tr>
 
@@ -844,9 +898,15 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <code>bool</code>
 </td>
 <td>
+<p>
 <!--
-   <p>OmitManagedFields indicates whether to omit the managed fields of the request
-and response bodies from being written to the API audit log.</p>
+   OmitManagedFields indicates whether to omit the managed fields of the request
+and response bodies from being written to the API audit log.
+-->
+<code>omitManagedFields</code> 决定将请求和响应主体写入 API
+审计日志时，是否省略其托管字段。
+</p>
+<!--
 <ul>
 <li>a value of 'true' will drop the managed fields from the API audit log</li>
 <li>a value of 'false' indicates that the managed fields should be included
@@ -856,16 +916,13 @@ If a value is not specified then the global default specified in
 Policy.OmitManagedFields will stand.</li>
 </ul>
 -->
-<p>
-<code>omitManagedFields</code> 决定将请求和响应主体写入 API 审计日志时，是否省略其托管字段。
-</p>
 <ul>
-  <li>值为 'true' 将从 API 审计日志中删除托管字段</li>
-  <li>
-  值为 'false' 表示托管字段应包含在 API 审计日志中
-  请注意，如果指定此规则中的值将覆盖全局默认值。
-  如果未指定，则使用 <code>policy.omitManagedFields</code> 中指定的全局默认值。
-  </li>
+<li>值为 'true' 将从 API 审计日志中删除托管字段</li>
+<li>
+值为 'false' 表示托管字段应包含在 API 审计日志中
+请注意，如果指定此规则中的值将覆盖全局默认值。
+如果未指定，则使用 <code>policy.omitManagedFields</code> 中指定的全局默认值。
+</li>
 </ul>
 </td>
 </tr>
@@ -893,5 +950,5 @@ Policy.OmitManagedFields will stand.</li>
 <!--
 Stage defines the stages in request handling that audit events may be generated.
 -->
-Stage 定义在请求处理过程中可以生成审计事件的阶段。
+<code>Stage</code> 定义在请求处理过程中可以生成审计事件的阶段。
 </p>

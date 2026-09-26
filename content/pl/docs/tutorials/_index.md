@@ -57,9 +57,10 @@ kroków. Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Zarządzanie Klastrem {#cluster-management}
 
-* [Configuring Swap Memory on Kubernetes Nodes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Configuring Swap Memory on Kubernetes Nodes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
+* [Explore Validating and Mutating Admission Policies](/docs/tutorials/cluster-management/admission-policies/)
 
 ## {{% heading "whatsnext" %}}
 

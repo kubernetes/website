@@ -1,9 +1,4 @@
 <!--
-Upload the kubelet configuration to a ConfigMap
--->
-将 kubelet 配置上传到 ConfigMap
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -11,7 +6,7 @@ Upload the kubelet configuration to a ConfigMap
 <!--
 Upload the kubelet configuration to a ConfigMap
 -->
-将 kubelet 配置上传到 ConfigMap
+将 kubelet 配置上传到 ConfigMap。
 
 ```shell
 kubeadm upgrade apply phase upload-config kubelet [flags]
@@ -33,11 +28,12 @@ kubeadm upgrade apply phase upload-config kubelet [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -47,7 +43,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Do not change any state, just output the actions that would be performed.
@@ -61,11 +58,12 @@ Do not change any state, just output the actions that would be performed.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for kubelet
 -->
-<p>
 kubelet 操作的帮助命令。
 </p>
 </td>
@@ -76,16 +74,18 @@ kubelet 操作的帮助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm
+将会搜索一个已经存在于标准路径的 KubeConfig 文件。
 </p>
 </td>
 </tr>
@@ -109,7 +109,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->

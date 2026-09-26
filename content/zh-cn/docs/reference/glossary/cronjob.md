@@ -1,7 +1,6 @@
 ---
 title: 周期调度任务（CronJob）
 id: cronjob
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   周期调度的任务（作业）。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: CronJob
 id: cronjob
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   A repeating task (a Job) that runs on a regular schedule.

@@ -279,7 +279,7 @@ after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
 There are two types of system components: those that typically run in a container,
 and those components directly involved in running containers. For example:
 -->
-### 系统组件日志   {#system-component-logs}
+## 系统组件日志   {#system-component-logs}
 
 系统组件有两种类型：通常在容器中运行的组件和直接参与容器运行的组件。例如：
 
