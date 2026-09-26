@@ -267,7 +267,7 @@ spec:
     targetPort: http-web-svc
 
 ---
-+apiVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
