@@ -30,7 +30,20 @@ and when carrying out Pod eviction ranking.
 
 ## Configuring Pod overhead {#set-up}
 
-You need to make sure a `RuntimeClass` is utilized which defines the `overhead` field.
+Kubernetes has no default Pod overhead. A Pod's overhead comes from the `overhead` field
+of the Pod's RuntimeClass: at admission time, the
+[RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
+sets `.spec.overhead` in the Pod to the value defined in that RuntimeClass.
+
+If a Pod does not specify a `runtimeClassName`, Kubernetes does not apply any RuntimeClass
+to that Pod, and the Pod runs with the default handler of the node's container runtime.
+In that case, or if the Pod's RuntimeClass does not define `overhead`, the Pod's
+`.spec.overhead` remains unset, and Kubernetes treats the Pod overhead as zero.
+This is true even if your cluster uses a single container runtime.
+If you want every Pod to account for the overhead of your container runtime, make sure that
+every Pod specifies a RuntimeClass that defines `overhead`; for example, by using a
+[mutating admission policy](/docs/reference/access-authn-authz/mutating-admission-policy/)
+to set `runtimeClassName`.
 
 ## Usage example
 
