@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Сеть в кластере
 content_type: concept
 weight: 50

@@ -1,7 +1,4 @@
 ---
-reviewers:
-- dchen1107
-- liggitt
 title: Связь между управляющим слоем и узлом
 content_type: concept
 weight: 20
