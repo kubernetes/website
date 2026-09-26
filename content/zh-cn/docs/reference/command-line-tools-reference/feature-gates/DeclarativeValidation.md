@@ -12,25 +12,43 @@ stages:
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
+<!--
+Reports differences between declarative validation of in-tree Kubernetes APIs and the
+equivalent hand-written validation.
+-->
+报告树内 Kubernetes API 的声明式验证与等价的手写验证之间的差异。
 
 <!--
-Enables declarative validation of in-tree Kubernetes APIs. When enabled, APIs with declarative validation rules
-(defined using IDL tags in the Go code) will have both the generated declarative validation code
-and the original hand-written validation code executed.
-The results are compared, and any discrepancies are reported via the `declarative_validation_mismatch_total` metric.
-Only the hand-written validation result is returned to the user (eg: actually validates in the request path).
-The original hand-written validation are still the authoritative validations
-when this is enabled but this can be changed if the
-[DeclarativeValidationBeta feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
-is enabled in addition to this gate.
+When enabled, rules marked `+k8s:alpha` or `+k8s:beta` run alongside the hand-written
+validation, and the API server logs any discrepancy and counts it in the
+`declarative_validation_mismatch_total` metric.
+-->
+启用后，标记为 `+k8s:alpha` 或 `+k8s:beta` 的规则会与手写验证并行运行，
+API 服务器会记录所有不一致之处，并通过 `declarative_validation_mismatch_total` 指标进行计数。
+
+<!--
+This gate controls only reporting, not which result the API server returns. Enforcement
+is:
+-->
+此门控仅控制是否报告，不控制 API 服务器返回哪个结果。各类规则的生效情况如下：
+
+<!--
+- No prefix: always enforced.
+- `+k8s:beta`: enforced when the
+  [`DeclarativeValidationBeta` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
+  is enabled (the default).
+- `+k8s:alpha`: never enforced.
+-->
+- 无前缀：始终生效。
+- `+k8s:beta`：当
+  [`DeclarativeValidationBeta` 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)
+  启用时（默认）生效。
+- `+k8s:alpha`：从不生效。
+
+<!--
 This feature gate only operates on the `kube-apiserver` component.
 -->
-启用树内 Kubernetes API 的声明式验证。启用后，具有声明式验证规则（使用 Go 代码中的 IDL 标签定义）的
-API 将同时执行所生成的声明式验证代码和原来手工编写的验证代码。两者的结果将进行比较，任何不一致都会通过
-`declarative_validation_mismatch_total` 指标进行报告。
-返回给用户的仅是手工编写验证的结果（也就是说，实际在请求路径中起到验证作用者）。
-在启用此特性门控时，原来手工编写的验证逻辑仍然是权威的验证方式，但如果同时启用了
-[DeclarativeValidationBeta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta)，
-将发生变化。此特性门控仅作用于 kube-apiserver 组件。
+此特性门控仅作用于 `kube-apiserver` 组件。
