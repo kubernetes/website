@@ -414,7 +414,7 @@ NetworkPolicy | 네트워크폴리시(NetworkPolicy) | API 오브젝트인 경�
 Node | 노드(Node) | API 오브젝트인 경우
 node lease | 노드 리스(lease)
 object | 오브젝트 |
-observability | 가시성(observability) |
+observability | 옵저버빌리티(observability) |
 operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
 orchestrate | 오케스트레이션하다 |
 output | 출력 |
