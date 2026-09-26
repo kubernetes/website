@@ -1,7 +1,7 @@
 ---
 title: Generating Reference Documentation for kubectl Commands
 content_type: task
-weight: 90
+weight: 30
 ---
 
 <!-- overview -->
