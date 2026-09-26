@@ -220,7 +220,7 @@ kubectl delete namespace default-mem-example
 
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [Configure Quotas for Storage](/docs/tasks/administer-cluster/quota-storage/)
 
 ### For app developers
 
