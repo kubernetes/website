@@ -24,7 +24,7 @@ weight: 10
 지시한다. `gang` 정책과 달리, `basic` 정책을 사용하는 파드그룹은 현재 스케줄링
 가능한 파드의 수와 관계없이 실행 가능한 것으로 간주된다.
  
-`basic` 정책을 사용하는 주된 이유는 파드를 그룹으로 묶어 관측가능성과 관리를 개선하며, 
+`basic` 정책을 사용하는 주된 이유는 파드를 그룹으로 묶어 가시성과 관리를 개선하며,
 단일하고 원자적인 [파드그룹 스케줄링 주기](/docs/concepts/scheduling-eviction/podgroup-scheduling/#파드그룹-스케줄링-주기)
 내에서 함께 평가되도록 하기 위함이다.
  
@@ -46,7 +46,7 @@ schedulingPolicy:
 기타 배치 프로세스에 사용할 수 있다.
  
 `gang` 정책에는 `minCount` 필드가 필요하며, 이는 그룹이 실행 가능한 것으로
-간주되기 위해 동시에 스케줄링될 수 있어야 하는 최소 파드 수를 의미한다:
+간주되기 위해 동시에 스케줄링될 수 있어야 하는 최소 파드 수를 의미한다.
  
 ```yaml
 schedulingPolicy:
@@ -71,4 +71,4 @@ schedulingPolicy:
 * 정책이 런타임에 어떻게 전달되는지 알아보려면 [파드그룹 API](/docs/concepts/workloads/podgroup-api/)를 참고한다.
 * `PodGroupTemplates`를 정의하는 [워크로드 API](/docs/concepts/workloads/workload-api/)에 대해 알아본다.
 * [파드그룹 스케줄링](/docs/concepts/scheduling-eviction/podgroup-scheduling/)에 대해 읽어본다.
-* [갱 스케줄링](/docs/concepts/scheduling-eviction/gang-scheduling/)에 대해 읽어본다.
+* [갱 스케줄링](/docs/concepts/scheduling-eviction/gang-scheduling/) 알고리즘에 대해 읽어본다.
