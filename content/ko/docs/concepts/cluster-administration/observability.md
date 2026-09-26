@@ -5,6 +5,11 @@ weight: 55
 content_type: concept
 description: >
   메트릭, 로그, 트레이스를 수집하여 쿠버네티스 클러스터의 엔드투엔드 가시성을 확보하는 방법을 이해한다.
+api_metadata:
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "NodeMetrics"
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "PodMetrics"
 no_list: true
 card:
   name: setup
@@ -70,14 +75,39 @@ flowchart LR
 
 멀티 클러스터 또는 멀티 클라우드 가시성이 필요하다면 분산 시계열 데이터베이스(예: Thanos 또는 Cortex)로 프로메테우스를 보완하면 된다.
 
-메트릭 수집기와 시계열 데이터베이스는 [일반적인 관측가능성 도구 - 메트릭 도구](#메트릭-도구)를 참고한다.
+메트릭 수집기와 시계열 데이터베이스는 [일반적인 옵저버빌리티 도구 - 메트릭 도구](#메트릭-도구)를 참고한다.
+
+### 메트릭 API
+
+{{< feature-state for_k8s_version="v1.37" state="stable" >}}
+
+쿠버네티스 메트릭 API는 노드와 파드의 CPU 및 메모리 리소스 사용량을 제공한다.
+`kubectl top` 명령과
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+및 [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)와 같은
+컴포넌트가 이 API를 사용한다.
+
+`kubectl top`은 `metrics.k8s.io/v1`과 `metrics.k8s.io/v1beta1`을 모두 지원한다.
+`v1` 버전을 사용할 수 있으면 이를 우선 사용하고, 사용할 수 없으면
+`v1beta1`로 대체한다. 쿠버네티스 v1.37에서 HorizontalPodAutoscaler 컨트롤러는
+`metrics.k8s.io/v1beta1`만 지원한다. `metrics.k8s.io/v1` 지원은 계획되어 있지만
+아직 사용할 수 없다.
+
+앞에서 설명한 컴포넌트 메트릭 엔드포인트와 달리, 메트릭 API는 쿠버네티스
+[API 애그리게이션 레이어](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 통해
+제공된다. 클러스터에서는 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+또는 이 API를 제공하는 다른 구현체를 실행해야 한다. 메트릭 API는 의도적으로 오토스케일링과
+기본적인 확인에 필요한 리소스 메트릭만 제공하며, 완전한 모니터링 파이프라인을 대체하지는
+않는다.
+
+API, 구현체, kubelet에서 클라이언트로의 데이터 흐름에 대해 알아보려면
+[리소스 메트릭 파이프라인](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)을 참고한다.
 
 #### {{% heading "seealso" %}}
 
 - [쿠버네티스 컴포넌트의 시스템 메트릭](/docs/concepts/cluster-administration/system-metrics/)
 - [metrics-server를 사용한 리소스 사용량 모니터링](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - [kube-state-metrics 개념](/docs/concepts/cluster-administration/kube-state-metrics/)
-- [리소스 메트릭 파이프라인 개요](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 
 ## 로그
 
@@ -116,7 +146,7 @@ flowchart LR
 
 *그림 3. 일반적인 쿠버네티스 로그 파이프라인의 컴포넌트.*
 
-로깅 에이전트와 중앙 로그 저장소는 [일반적인 관측가능성 도구 - 로깅 도구](#로깅-도구)를 참고한다.
+로깅 에이전트와 중앙 로그 저장소는 [일반적인 옵저버빌리티 도구 - 로깅 도구](#로깅-도구)를 참고한다.
 
 #### {{% heading "seealso" %}}
 
@@ -150,7 +180,7 @@ flowchart LR
 
 *그림 4. 일반적인 쿠버네티스 트레이스 파이프라인의 컴포넌트.*
 
-트레이싱 수집기와 백엔드는 [일반적인 관측가능성 도구 - 트레이싱 도구](#트레이싱-도구)를 참고한다.
+트레이싱 수집기와 백엔드는 [일반적인 옵저버빌리티 도구 - 트레이싱 도구](#트레이싱-도구)를 참고한다.
 
 #### {{% heading "seealso" %}}
 
