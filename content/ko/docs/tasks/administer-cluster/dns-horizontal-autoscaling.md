@@ -1,5 +1,5 @@
 ---
-title: 클러스터에서 DNS 서비스 오토스케일
+title: 클러스터에서 DNS 서비스 오토스케일링
 content_type: task
 weight: 80
 ---
