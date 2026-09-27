@@ -78,7 +78,7 @@ sysctl net.ipv4.ip_forward
 
 ## cgroup 드라이버
 
-리눅스에서, {{< glossary_tooltip text="control group" term_id="cgroup" >}}은
+리눅스에서, {{< glossary_tooltip text="컨트롤 그룹" term_id="cgroup" >}}은
 프로세스에 할당된 리소스를 제한하는 데 사용된다.
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
@@ -97,7 +97,7 @@ cpu 혹은 메모리와 같은 리소스의 요청(request)과 상한(limit)을 
 ### cgroupfs 드라이버 {#cgroupfs-cgroup-driver}
 
 `cgroupfs` 드라이버는 [kubelet의 기본 cgroup 드라이버](/docs/reference/config-api/kubelet-config.v1beta1)이다. `cgroupfs`
-드라이버가 사용될 때, kubelet과 컨테이너 런타임은 직접적으로 
+드라이버가 사용될 때, kubelet과 컨테이너 런타임은 직접적으로
 cgroup 파일시스템과 상호작용하여 cgroup들을 설정한다.
 
 `cgroupfs` 드라이버가 권장되지 **않는** 때가 있는데,
@@ -116,9 +116,9 @@ systemd는 cgroup과 긴밀하게 통합되어 있으며 매 systemd 단위로 c
 할당한다. 결과적으로, `systemd`를 init 시스템으로 사용하고 `cgroupfs`
 드라이버를 사용하면, 그 시스템은 두 개의 다른 cgroup 관리자를 갖게 된다.
 
-두 개의 cgroup 관리자는 시스템 상 사용 가능한 리소스와 사용 중인 리소스에 대하여 두 가지 관점을 가져 혼동을
-초래한다. 예를 들어, kubelet과 컨테이너 런타임은 `cgroupfs`를 사용하고
-나머지 프로세스는 `systemd`를 사용하도록 노드를 구성한 경우, 노드가 
+두 개의 cgroup 관리자는 시스템에서 사용 가능한 리소스와 사용 중인 리소스에 대해
+두 가지 관점을 갖게 만든다. 어떤 경우에는, kubelet과 컨테이너 런타임은 `cgroupfs`를 사용하고
+나머지 프로세스는 `systemd`를 사용하도록 구성된 노드가
 리소스 압박으로 인해 불안정해질 수 있다.
 
 이러한 불안정성을 줄이는 방법은, `systemd`가 init 시스템으로 선택되었을 때에는 `systemd`를
@@ -159,7 +159,7 @@ cgroupDriver: systemd
 {{< caution >}}
 클러스터에 결합되어 있는 노드의 cgroup 드라이버를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
-컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
+컨테이너 런타임을 다른 cgroup 드라이버로 변경하면, 그러한 기존 파드의 파드 샌드박스를 다시 생성하려 할 때 에러가 발생할 수 있다.
 kubelet을 재시작해도 이러한 오류가 해결되지 않을 수 있다.
 
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
@@ -190,9 +190,9 @@ kubelet은 노드로 등록되지 않는다.
 {{% tab name="Linux" %}}
 `/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있다.
 {{% /tab %}}
-{{< tab name="Windows" >}}
+{{% tab name="Windows" %}}
 `C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있다.
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 리눅스에서, containerd를 위한 기본 CRI 소켓은 `/run/containerd/containerd.sock`이다.
