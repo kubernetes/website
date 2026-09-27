@@ -1,5 +1,5 @@
 ---
-title: 客户端身份认证（Client Authentication）(v1beta1)
+title: 客户端身份认证（Client Authentication）（v1beta1）
 content_type: tool-reference
 package: client.authentication.k8s.io/v1beta1
 ---
@@ -111,7 +111,7 @@ Server is the address of the kubernetes cluster (https://hostname:port).
 check server certificates against. If ServerName is empty, the hostname
 used to contact the server is used.
 -->
-tls-server-name 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
+<code>tls-server-name</code> 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
 如此字段为空，则使用链接服务器时使用的主机名。
 </td>
 </tr>
@@ -307,7 +307,7 @@ exec 插件本身至少应通过文件访问许可来实施保护。
 
 <tr>
 <td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
 <!--

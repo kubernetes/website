@@ -7,8 +7,6 @@ author: >
   [Taahir Ahmed](https://github.com/ahmedtd)
 ---
 
-## Pod Certificate / Cluster Trust Bundles Blog Post
-
 Kubernetes brings a wealth of features that make it easy to run your production
 workloads securely and reliably.  While aspects like scheduling, health checks
 and resource limits are probably at the front of your mind, one other important
