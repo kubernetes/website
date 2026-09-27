@@ -146,8 +146,6 @@ calculation.
 
 ## {{% heading "whatsnext" %}}
 
-You can read about [`downwardAPI` volumes](/docs/concepts/storage/volumes/#downwardapi).
-
 You can try using the downward API to expose container- or Pod-level information:
 * as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
