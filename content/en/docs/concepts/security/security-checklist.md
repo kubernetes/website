@@ -257,7 +257,7 @@ to alternatives such as ConfigMap. Secret resources stored within etcd should
 be [encrypted at rest](/docs/tasks/administer-cluster/encrypt-data/).
 
 Pods needing secrets should have these automatically mounted through volumes,
-preferably stored in memory like with the [`emptyDir.medium` option](/docs/concepts/storage/volumes/#emptydir).
+preferably stored in memory like with the [`emptyDir.medium` option](/docs/reference/storage/volume-types/#emptydir).
 Mechanism can be used to also inject secrets from third-party storages as
 volume, like the [Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/).
 This should be done preferentially as compared to providing the pods service

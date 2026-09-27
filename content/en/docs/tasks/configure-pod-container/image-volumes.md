@@ -101,4 +101,4 @@ from Kubernetes v1.33 when using the image volume feature.
 
 ## Further reading
 
-- [`image` volumes](/docs/concepts/storage/volumes/#image)
+- [`image` volumes](/docs/reference/storage/volume-types/#image)

@@ -82,7 +82,7 @@ Here is a sample Job manifest that uses `Indexed` completion mode:
 In the example above, you use the builtin `JOB_COMPLETION_INDEX` environment
 variable set by the Job controller for all containers. An [init container](/docs/concepts/workloads/pods/init-containers/)
 maps the index to a static value and writes it to a file that is shared with the
-container running the worker through an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
+container running the worker through an [emptyDir volume](/docs/reference/storage/volume-types/#emptydir).
 Optionally, you can [define your own environment variable through the downward
 API](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 to publish the index to containers. You can also choose to load a list of values
