@@ -24,7 +24,7 @@ applications, such as key-value stores (such as Redis) and databases.
 
 In this exercise, you create a Pod that runs one Container. This Pod has a
 Volume of type
-[emptyDir](/docs/concepts/storage/volumes/#emptydir)
+[emptyDir](/docs/reference/storage/volume-types/#emptydir)
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 

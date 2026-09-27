@@ -499,14 +499,14 @@ Kubernetes does not support shrinking a PVC to less than its current size.
 PersistentVolume types are implemented as plugins. Kubernetes currently supports the following plugins:
 
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
-* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
+* [`fc`](/docs/reference/storage/volume-types/#fc) - Fibre Channel (FC) storage
+* [`hostPath`](/docs/reference/storage/volume-types/#hostpath) - HostPath volume
   (for single node testing only; WILL NOT WORK in a multi-node cluster;
   consider using `local` volume instead)
-* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
-* [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
+* [`iscsi`](/docs/reference/storage/volume-types/#iscsi) - iSCSI (SCSI over IP) storage
+* [`local`](/docs/reference/storage/volume-types/#local) - local storage devices
   mounted on nodes.
-* [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
+* [`nfs`](/docs/reference/storage/volume-types/#nfs) - Network File System (NFS) storage
 
 The following PersistentVolume types use legacy storage integrations.
 Except for `flexVolume`, their in-tree drivers have been removed, but their API fields
@@ -514,26 +514,26 @@ remain usable through [CSI migration](/docs/concepts/storage/volumes/#migrating-
 when the corresponding CSI driver is installed.
 `flexVolume` is deprecated but remains supported without CSI migration.
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+* [`awsElasticBlockStore`](/docs/reference/storage/volume-types/#awselasticblockstore) - AWS Elastic Block Store (EBS)
   (**migration on by default** starting v1.23)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+* [`azureDisk`](/docs/reference/storage/volume-types/#azuredisk) - Azure Disk
   (**migration on by default** starting v1.23)
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`azureFile`](/docs/reference/storage/volume-types/#azurefile) - Azure File
   (**migration on by default** starting v1.24)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+* [`cinder`](/docs/reference/storage/volume-types/#cinder) - Cinder (OpenStack block storage)
   (**migration on by default** starting v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** starting v1.23, no migration plan and no plan to remove support)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+* [`gcePersistentDisk`](/docs/reference/storage/volume-types/#gcepersistentdisk) - GCE Persistent Disk
   (**migration on by default** starting v1.23)
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+* [`portworxVolume`](/docs/reference/storage/volume-types/#portworxvolume) - Portworx volume
   (**migration on by default** starting v1.31)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+* [`vsphereVolume`](/docs/reference/storage/volume-types/#vspherevolume) - vSphere VMDK volume
   (**migration on by default** starting v1.25)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs)
+* [`cephfs`](/docs/reference/storage/volume-types/#cephfs)
   (**not available** starting v1.31)
 * `flocker` - Flocker storage.
   (**not available** starting v1.25)
@@ -543,7 +543,7 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** starting v1.15)
 * `quobyte` - Quobyte volume.
   (**not available** starting v1.25)
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
+* [`rbd`](/docs/reference/storage/volume-types/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
 * `scaleIO` - ScaleIO volume.
   (**not available** starting v1.21)
@@ -735,7 +735,7 @@ it will become fully deprecated in a future Kubernetes release.
 
 {{< note >}}
 For most volume types, you do not need to set this field.
-You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
+You need to explicitly set this for [local](/docs/reference/storage/volume-types/#local) volumes.
 {{< /note >}}
 
 A PV can specify node affinity to define constraints that limit what nodes this

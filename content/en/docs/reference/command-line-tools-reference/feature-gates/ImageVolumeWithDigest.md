@@ -10,5 +10,5 @@ stages:
     defaultValue: false
     fromVersion: "1.35"
 ---
-For each [`image` volume](/docs/concepts/storage/volumes#image) in a Pod,
+For each [`image` volume](/docs/reference/storage/volume-types/#image) in a Pod,
 image digest as part of the pod's status.
