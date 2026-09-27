@@ -31,8 +31,8 @@ use the CRI based collection mechanism.
 [cAdvisor](https://github.com/google/cadvisor) 收集 Pod 和容器指标。作为一个 Beta 特性，
 Kubernetes 允许你通过{{< glossary_tooltip term_id="cri" text="容器运行时接口">}}（CRI）
 配置收集 Pod 和容器指标。要使用基于 CRI 的收集机制，你必须启用 `PodAndContainerStatsFromCRI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-并使用兼容的 CRI 实现（containerd >= 2.2, CRI-O >= 1.31.0）。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)并使用兼容的
+CRI 实现（containerd >= 2.2, CRI-O >= 1.31.0）。
 
 <!-- body -->
 
@@ -94,13 +94,13 @@ from cAdvisor. The following endpoints are affected:
 ### Summary API (`/stats/summary`)
 
 The kubelet fetches pod and container stats from the CRI runtime instead of cAdvisor for the
-[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/). This includes CPU, memory,
+[Summary API](/docs/reference/kubelet-api/stats.v1alpha1/). This includes CPU, memory,
 network, and process stats for pods and containers.
 -->
 ### Summary API（`/stats/summary`）
 
 kubelet 从 CRI 运行时而非 cAdvisor 获取 Pod 和容器统计信息，用于
-[Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
+[Summary API](/zh-cn/docs/reference/kubelet-api/stats.v1alpha1/)。
 这包括 Pod 和容器的 CPU、内存、网络和进程统计信息。
 
 <!--
@@ -157,8 +157,8 @@ CRI-O added `namespace`, `pod`, and `container` labels to CRI metrics on the
 these labels, which may affect metric queries that rely on them to match
 cAdvisor-produced metrics.
 -->
-CRI-O 从 1.36.3 版本开始，在 `/metrics/cadvisor` 端点上为 CRI 指标添加了 `namespace`、
-`pod` 和 `container` 标签。更早的版本不包含这些标签，这可能会影响依赖它们来匹配
+CRI-O 从 1.36.3 版本开始，在 `/metrics/cadvisor` 端点上为 CRI 指标添加了
+`namespace`、`pod` 和 `container` 标签。更早的版本不包含这些标签，这可能会影响依赖它们来匹配
 cAdvisor 生成的指标的查询。
 {{< /note >}}
 

@@ -1,5 +1,5 @@
 ---
-title: 客户端身份认证（Client Authentication） (v1)
+title: 客户端身份认证（Client Authentication）（v1）
 content_type: tool-reference
 package: client.authentication.k8s.io/v1
 ---
@@ -38,12 +38,12 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <a href="#client-authentication-k8s-io-v1-ExecCredentialSpec"><code>ExecCredentialSpec</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Spec holds information passed to the plugin by the transport.
-   -->
-   字段 <code>spec</code> 包含由 HTTP 传输组件传递给插件的信息。
-   </p>
+<p>
+<!--
+Spec holds information passed to the plugin by the transport.
+-->
+字段 <code>spec</code> 包含由 HTTP 传输组件传递给插件的信息。
+</p>
 </td>
 </tr>
 
@@ -51,13 +51,13 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <a href="#client-authentication-k8s-io-v1-ExecCredentialStatus"><code>ExecCredentialStatus</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Status is filled in by the plugin and holds the credentials that the transport
-   should use to contact the API.
-   -->
-   字段 <code>status</code> 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
-   </p>
+<p>
+<!--
+Status is filled in by the plugin and holds the credentials that the transport
+should use to contact the API.
+-->
+字段 <code>status</code> 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
+</p>
 </td>
 </tr>
 </tbody>
@@ -100,12 +100,12 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Server is the address of the kubernetes cluster (https://hostname:port).
-   -->
-   字段 <code>server</code> 是 Kubernetes 集群的地址（https://hostname:port）。
-   </p>
+<p>
+<!--
+Server is the address of the kubernetes cluster (https://hostname:port).
+-->
+字段 <code>server</code> 是 Kubernetes 集群的地址（https://hostname:port）。
+</p>
 </td>
 </tr>
 
@@ -113,15 +113,15 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   TLSServerName is passed to the server for SNI and is used in the client to
-   check server certificates against. If ServerName is empty, the hostname
-   used to contact the server is used.
-   -->
-   <code>tls-server-name</code> 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
-   如此字段为空，则使用链接服务器时使用的主机名。
-   </p>
+ <p>
+ <!--
+ TLSServerName is passed to the server for SNI and is used in the client to
+ check server certificates against. If ServerName is empty, the hostname
+ used to contact the server is used.
+ -->
+ <code>tls-server-name</code> 是用来提供给服务器用作 SNI 解析的，客户端以此检查服务器的证书。
+ 如此字段为空，则使用链接服务器时使用的主机名。
+ </p>
 </td>
 </tr>
 
@@ -129,14 +129,14 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 <code>bool</code>
 </td>
 <td>
-   <p>
-   <!--
-   InsecureSkipTLSVerify skips the validity check for the server's certificate.
-   This will make your HTTPS connections insecure.
-   -->
-   设置此字段之后，会令客户端跳过对服务器端证书的合法性检查。
-   这会使得你的 HTTPS 链接不再安全。
-   </p>
+<p>
+<!--
+InsecureSkipTLSVerify skips the validity check for the server's certificate.
+This will make your HTTPS connections insecure.
+-->
+设置此字段之后，会令客户端跳过对服务器端证书的合法性检查。
+这会使得你的 HTTPS 链接不再安全。
+</p>
 </td>
 </tr>
 
@@ -144,13 +144,13 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 <code>[]byte</code>
 </td>
 <td>
-   <p>
-   <!--
-   CAData contains PEM-encoded certificate authority certificates.
-   If empty, system roots should be used.
-   -->
-   此字段包含 PEM 编码的证书机构（CA）证书。如果为空，则使用系统的根证书。
-   </p>
+<p>
+<!--
+CAData contains PEM-encoded certificate authority certificates.
+If empty, system roots should be used.
+-->
+此字段包含 PEM 编码的证书机构（CA）证书。如果为空，则使用系统的根证书。
+</p>
 </td>
 </tr>
 
@@ -158,13 +158,13 @@ of CertificateAuthority, since CA data will always be passed to the plugin as by
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   ProxyURL is the URL to the proxy to be used for all requests to this
-   cluster.
-   -->
-   此字段用来设置向集群发送所有请求时要使用的代理服务器。
-   </p>
+<p>
+<!--
+ProxyURL is the URL to the proxy to be used for all requests to this
+cluster.
+-->
+此字段用来设置向集群发送所有请求时要使用的代理服务器。
+</p>
 </td>
 </tr>
 
@@ -329,7 +329,7 @@ itself should at least be protected via file permissions.
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>
