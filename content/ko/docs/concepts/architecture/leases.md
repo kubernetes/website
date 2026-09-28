@@ -9,7 +9,7 @@ weight: 30
 
 <!-- overview -->
 
-분산 시스템에는 종종 공유 리소스를 잠그는 메커니즘을 제공하는 _리스(Lease)_가 필요하며,
+분산 시스템에는 종종 공유 리소스를 잠그는 메커니즘을 제공하는 _리스(Lease)_ 가 필요하며,
 리스는 집합 구성원 간의 활동을 조정한다.
 쿠버네티스에서 리스 개념은 [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
 오브젝트로 표현되며, 이 오브젝트는 `coordination.k8s.io` {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}에 속하고,
@@ -54,8 +54,8 @@ weight: 30
 쿠버네티스 v1.26부터 각 `kube-apiserver`는 리스 API를 사용하여 시스템의
 나머지 부분에 자신의 신원을 게시한다. 그 자체로는 특별히 유용하지 않지만, 이를 통해 클라이언트는
 쿠버네티스 컨트롤 플레인을 운영 중인 `kube-apiserver` 인스턴스 수를 파악할 수 있다.
-kube-apiserver 리스가 존재하면 향후 각 kube-apiserver 간의 조정이 필요한
-기능을 사용할 수 있다.
+kube-apiserver 리스가 존재하면 향후 각 kube-apiserver 간의 조정이 필요할 수 있는
+기능이 가능해진다.
 
 각 kube-apiserver가 소유한 리스는 `kube-system` 네임스페이스에서
 이름이 `apiserver-<sha256-hash>`인 리스 오브젝트를 찾아 확인할 수 있다. 또는 `apiserver.kubernetes.io/identity=kube-apiserver` 레이블 셀렉터를 사용할 수 있다.
