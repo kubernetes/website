@@ -71,7 +71,7 @@ min-kubernetes-server-version: 1.29
 1. 또한 잡에서 파드의 `restartPolicy: Never`일 때 일반 컨테이너는 재시작되지 않는 반면에
    빌트인 사이드카 컨테이너는 완료된 후에도 계속 재시작된다.
 
-자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-application-containers)
+자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-init-containers)
 에서 확인할 수 있다.
 
 ## 빌트인 사이드카 컨테이너 도입
