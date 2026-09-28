@@ -48,7 +48,7 @@ and then a paragraph, and sometimes you just get the paragraph.
       {{ $featureGateStage = (T "feature_gate_stage_stable" ) }}
     {{- end -}}
 
-    {{/* Feature state info box (manual mode) */}}
+    {{- /* Feature state info box (manual mode) */ -}}
     <div class="feature-state-notice feature-{{ $state }}">
       <span class="feature-state-name">{{ T "feature_state" }}</span>
       <span class="feature-state-details">
@@ -81,7 +81,7 @@ and then a paragraph, and sometimes you just get the paragraph.
           {{- $currentStage := index $featureGateFile.Params.stages (sub (len $featureGateFile.Params.stages) 1) -}}
           {{- with $currentStage -}}
             {{/* Whether the feature gate is locked to true */}}
-            {{ $locked := (or false .locked ) }}
+            {{- $locked := (or false .locked ) -}}
 
             {{/* Whether this feature is GA (aka stable) in the latest release */}}
             {{- if and (eq .stage "stable") (eq (printf "v%s" .fromVersion) $latestVersion) -}}
@@ -108,7 +108,7 @@ and then a paragraph, and sometimes you just get the paragraph.
             {{/* Handle active feature gates */}}
             {{- else -}}
               {{/* Determine if feature is enabled or disabled by default */}}
-              {{ $featureGateEnabledOrDisabled := "unknown" -}}
+              {{- $featureGateEnabledOrDisabled := "unknown" -}}
               {{- if eq .defaultValue true -}}
                 {{ $featureGateEnabledOrDisabled = (T "feature_gate_enabled" ) }}
               {{- else -}}
@@ -129,11 +129,11 @@ and then a paragraph, and sometimes you just get the paragraph.
                 {{ $featureGateStage = (T "feature_gate_stage_stable" ) }}
               {{- end -}}
 
-              {{/* Feature gate info box (automatic mode) */}}
+              {{- /* Feature gate info box (automatic mode) */ -}}
             <div class="feature-state-notice feature-{{ .stage }}{{ if and (eq .stage "stable") (not .defaultValue) }} feature-stable-but-disabled{{ end }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
               <span class="feature-state-name">{{ T "feature_state" }}</span>
               <span class="feature-state-details">
-               {{ if $locked -}}
+               {{- if $locked -}}
                  {{ T "feature_gate_details_partial" (dict "enabled_or_disabled" $featureGateEnabledOrDisabled "stage" (T (printf "feature_gate_stage_%s" .stage)) "kubernetes" (T "feature_state_kubernetes_label") "version" .fromVersion) | safeHTML }}
                {{ else -}}
                  {{/* Otherwise, show stage and enabled/disabled status */}}
@@ -142,9 +142,9 @@ and then a paragraph, and sometimes you just get the paragraph.
               </span>
             </div>
 
-            {{/* Additional details section (expandable using HTML details element) */}}
+            {{- /* Additional details section (expandable using HTML details element) */ -}}
             <div class="feature-{{ .stage }}{{ if $stableInLatestRelease }} stable-in-latest-release{{end}}">
-              {{/* For stable features */}}
+              {{- /* For stable features */ -}}
               {{ if and (eq .stage "stable") -}}
               <details>
               <summary>{{ T "feature_gate_more_details" }}</summary>
@@ -160,13 +160,13 @@ and then a paragraph, and sometimes you just get the paragraph.
               {{ end -}}</p>
               </details>
 
-              {{/* Other feature gates are disabled by default, and get a notice about enabling it */}}
+              {{- /* Other feature gates are disabled by default, and get a notice about enabling it */ -}}
               {{ else -}}
                 {{ if not .defaultValue -}}
                 {{/* Signpost to guidance on how to enable the feature gate */}}
                 <details>
                 <summary>{{ T "feature_gate_more_details" }}</summary>
-                {{ T "feature_gate_more_information_how_to_enable" (dict "feature_gate_name" $feature_gate_name ) | safeHTML }}
+                {{ T "feature_gate_more_information_how_to_enable" (dict "feature_gate_name" $feature_gate_name ) | safeHTML -}}
 
                 </details>
                 {{ end -}}
