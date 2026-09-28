@@ -124,12 +124,12 @@ containers:
 ### 戦略的マージパッチについての注意 {#notes-on-the-strategic-merge-patch}
 
 前の演習で行ったパッチは*戦略的マージパッチ*と呼ばれます。パッチが`containers`リストを置き換えなかったことに注目してください。
-代わりに、新しいコンテナががリストに追加されました。つまり、パッチ内のリストは既存のリストとマージされたのです。
-これは、リストに対して戦略的マージパッチをを使用したからといって、常にこのような挙動になるとは限りません。
+代わりに、新しいコンテナがリストに追加されました。つまり、パッチ内のリストは既存のリストとマージされたのです。
+これは、リストに対して戦略的マージパッチを使用したからといって、常にこのような挙動になるとは限りません。
 場合によっては、リストがマージされずに置換される場合もあります。
 
 リストはパッチ戦略によって置換かマージされます。パッチ戦略は、Kubernetesソースコードのフィールドタグ内にある`patchStrategy`キーの値で指定します。
-例えば、`PodSpec`構造体の`Container`フィールドにある`patchStrategy`の値は`merge`に指定されています: 
+例えば、`PodSpec`構造体の`Containers`フィールドにある`patchStrategy`の値は`merge`に指定されています: 
 
 ```go
 type PodSpec struct {
@@ -177,7 +177,7 @@ kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```shell
 kubectl get deployment patch-demo --output yaml
 ```
-出力から、DeploymentのPodSpecがTorelationが一つしかないことが確認できます: 
+出力から、DeploymentのPodSpecがTolerationが一つしかないことが確認できます: 
 
 ```yaml
 tolerations:
@@ -186,7 +186,7 @@ tolerations:
   value: ssd
 ```
 PodSpecにある`tolerations`リストがマージされたのではなく、置換されたことに注目してください。
-これは、PodSpecのTorelationフィールドが`patchStrategy`キーが無いためです。
+これは、PodSpecのTolerationフィールドが`patchStrategy`キーが無いためです。
 そのため戦略的パッチはデフォルトのパッチ戦略である`replace`を使用します。
 
 ```go
@@ -211,7 +211,7 @@ type PodSpec struct {
   <tr><td>strategic</td><td>Strategic merge patch</td></tr>
 </table>
 
-JSONパッチとJSONマージパッチの比較は[JSONパッとJSONマージパッチ](https://erosb.github.io/post/json-patch-vs-merge-patch/)を参照してください。
+JSONパッチとJSONマージパッチの比較は[JSONパッチとJSONマージパッチ](https://erosb.github.io/post/json-patch-vs-merge-patch/)を参照してください。
 
 `type`パラメータの基本値は`strategic`です。
 したがって、前の演習で行ったパッチは戦略的マージパッチになります。
@@ -271,13 +271,13 @@ patch-demo-1307768864-c86dc   1/1       Running   0          1m
 
 {{% code_sample file="application/deployment-retainkeys.yaml" %}}
 
-deploymentを作成します: 
+Deploymentを作成します: 
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/deployment-retainkeys.yaml
 ```
 
-現状では`RollingUpdate`戦略が使用されたdeploymnetは作成されます。
+現状では`RollingUpdate`戦略が使用されたDeploymentは作成されます。
 
 下記の内容の`patch-file-no-retainkeys.yaml`ファイルを作成してください: 
 
