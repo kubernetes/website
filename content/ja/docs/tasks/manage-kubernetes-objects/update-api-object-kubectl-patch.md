@@ -33,11 +33,13 @@ Deploymentを作成します:
 ```shell
 kubectl apply -f https://k8s.io/examples/application/deployment-patch.yaml
 ```
+
 Deploymentに関連するPodを参照します: 
 
 ```shell
 kubectl get pods
 ```
+
 下記の出力はDeploymentの二つのPodを表しています。
 `1/1`はPodが1つのコンテナがあることを表しています。
 
@@ -69,6 +71,7 @@ Deploymentにパッチを適用します:
 ```shell
 kubectl patch deployment patch-demo --patch-file patch-file.yaml
 ```
+
 パッチが適用されたDeploymentの参照: 
 
 ```shell
@@ -138,6 +141,7 @@ type PodSpec struct {
   ...
 }
 ```
+
 パッチ戦略に関しては[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)にもあります:
 
 ```yaml
@@ -177,6 +181,7 @@ kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```shell
 kubectl get deployment patch-demo --output yaml
 ```
+
 出力から、DeploymentのPodSpecがTolerationが一つしかないことが確認できます: 
 
 ```yaml
@@ -185,6 +190,7 @@ tolerations:
   key: disktype
   value: ssd
 ```
+
 PodSpecにある`tolerations`リストがマージされたのではなく、置換されたことに注目してください。
 これは、PodSpecのTolerationフィールドが`patchStrategy`キーが無いためです。
 そのため戦略的パッチはデフォルトのパッチ戦略である`replace`を使用します。
@@ -297,7 +303,6 @@ kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-fil
 
 ```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
-retainkeys-demo deploymentは無効です: spec.strategy.rollingUpdate: Forbidden: 戦略`type`が`Recreate`の場合指定することはできません。
 ```
 
 `type`の値を更新するときに`spec.strategy.rollingUpdate`の値を削除するには、戦略的マージに`retainKeys`戦略を使用します。
@@ -327,7 +332,7 @@ Deploymentの内容を確認します:
 kubectl get deployment retainkeys-demo --output yaml
 ```
 
-出力では、Deployment内のstrategyオブジェクトに`rollingUpdate`キーがすでに含まれていないことが確認できます:
+出力では、Deployment内のstrategyオブジェクトに`rollingUpdate`キーがもう含まれていないことが確認できます:
 
 ```yaml
 spec:
@@ -360,7 +365,7 @@ type DeploymentSpec struct {
 }
 ```
 
-You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
+`retainKeys`戦略は[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)でも確認できます:
 
 ```yaml
 "io.k8s.api.apps.v1.DeploymentSpec": {
@@ -400,6 +405,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
    }
 }
 ```
+
 以下のコマンドは同じ動作をします: 
 
 
