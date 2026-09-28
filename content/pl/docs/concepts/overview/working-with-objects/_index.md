@@ -1,5 +1,5 @@
 ---
-title: Objekty w Kubernetesie
+title: Obiekty w Kubernetesie
 content_type: concept
 weight: 30
 description: >
