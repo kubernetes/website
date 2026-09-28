@@ -30,7 +30,7 @@ _수직 스케일링(vertical scaling)_ 이라고 부른다.
 두 전략의 예는 다음과 같다.
 
 - **수평 스케일링**: [복수의 앱 인스턴스를 구동하기](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-- **수직 스케일링**: [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources)
+- **수직 스케일링**: [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources/)
 
 ## 자동 워크로드 스케일링
 
@@ -71,7 +71,7 @@ VPA를 사용하려면 클러스터에
 
 쿠버네티스 {{< skew currentVersion >}} 기준으로, VPA는 파드를 인플레이스로 리사이즈하는 것을 지원하지 않지만,
 해당 통합 작업은 진행 중이다.
-파드를 수동으로 인플레이스 리사이즈하려면, [컨테이너 리소스 인플레이스 리사이즈](/docs/tasks/configure-pod-container/resize-container-resources/)를 참고한다.
+파드를 수동으로 인플레이스 리사이즈하려면, [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources/)를 참고한다.
 
 ### 클러스터 크기 기반 오토스케일링
 
@@ -123,6 +123,6 @@ KEDA는 CNCF 졸업(graduated) 프로젝트로, 처리해야 할 이벤트의 �
 - 수평 스케일링에 대해 더 알아보기
   - [스테이트풀셋(StatefulSet) 확장하기](/docs/tasks/run-application/scale-stateful-set/)
   - [HorizontalPodAutoscaler 연습](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
-- [컨테이너 리소스 인플레이스 리사이즈](/docs/tasks/configure-pod-container/resize-container-resources/)
+- [컨테이너에 할당된 CPU와 메모리 리소스 크기 조정하기](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [클러스터에서 DNS 서비스 오토스케일](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - [노드 오토스케일링](/docs/concepts/cluster-administration/node-autoscaling/) 알아보기
