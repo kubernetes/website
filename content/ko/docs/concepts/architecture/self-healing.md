@@ -33,7 +33,7 @@ feature:
 
 - **[kubelet](/docs/concepts/architecture/#kubelet):** 컨테이너가 실행 중인지 확인하고, 실패한 컨테이너를 재시작한다.
 
-- **레플리카셋(ReplicaSet), 스테이트풀셋, 데몬셋 컨트롤러:** 파드 레플리카를 원하는 수로 유지한다.
+- **디플로이먼트(Deployment)(레플리카셋(ReplicaSet)을 통해), 레플리카셋(ReplicaSet), 스테이트풀셋, 데몬셋 컨트롤러:** 파드 레플리카를 원하는 수로 유지한다.
 
 - **퍼시스턴트볼륨 컨트롤러:** 상태 저장 워크로드의 볼륨 연결 및 연결 해제를 관리한다.
 
@@ -49,4 +49,4 @@ feature:
 - [쿠버네티스 컨트롤러](/ko/docs/concepts/architecture/controller/) 학습하기
 - [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/) 살펴보기
 - [노드 오토스케일링](/docs/concepts/cluster-administration/node-autoscaling/) 읽어보기. 노드 오토스케일링은
-  클러스터의 노드가 실패할 경우 자동 치유 기능도 제공한다. 
+  클러스터의 노드가 실패할 경우 자동 치유 기능도 제공한다.
