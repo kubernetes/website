@@ -23,10 +23,10 @@ weight: 20
 
 ## RBAC 누락으로 인해 v1.18 노드를 v1.17 클러스터에 참여할 수 없음
 
-v1.18 kubeadm은 같은 이름의 노드가 이미 존재하는 경우 클러스터에 노드가 참여하는 것을 방지하는 기능을 추가했다.
-이를 위해 bootstrap-token 사용자가 노드 객체를 GET할 수 있도록 RBAC를 추가해야 했다.
+kubeadm은 v1.18에서 같은 이름의 노드가 이미 존재하는 경우 노드가 클러스터에 참여하지 못하도록 막는 기능을 추가했다.
+이를 위해 bootstrap-token 사용자가 노드 오브젝트를 GET할 수 있도록 RBAC를 추가해야 했다.
 
-그러나 이로 인해 v1.18의 `kubeadm join`이 kubeadm 1.17로 생성된 클러스터에 참여할 수 없는 문제가 발생한다.
+그러나 이로 인해 kubeadm v1.17로 생성한 클러스터에는 v1.18의 `kubeadm join`으로 참여할 수 없는 문제가 발생한다.
 
 이 문제를 해결하기 위한 두 가지 옵션이 있다.
 
@@ -79,7 +79,7 @@ subjects:
 - 우분투/데비안 사용자의 경우, `apt install ebtables ethtool`을 실행한다.
 - CentOS/페도라 사용자의 경우, `dnf install ebtables ethtool`을 실행한다.
 
-## 설치 중 kubeadm이 컨트롤 플레인을 기다리다가 진행되지 않음 (block)
+## 설치 중 kubeadm이 컨트롤 플레인을 기다리다가 진행되지 않음
 
 `kubeadm init`이 다음 줄을 출력한 후 중단되는 경우
 
@@ -87,7 +87,7 @@ subjects:
 [apiclient] Created API client, waiting for the control plane to become ready
 ```
 
-이는 여러 문제로 인해 발생할 수 있다. 가장 일반적인 원인은
+이는 여러 문제로 인해 발생할 수 있다. 가장 일반적인 원인은 다음과 같다.
 
 - 네트워크 연결 문제: 계속하기 전에 머신에 완전한 네트워크 연결이 있는지 확인한다.
 - 컨트롤 플레인 컨테이너가 크래시 루프에 있거나 중단: `docker ps`를 실행하고
@@ -120,13 +120,13 @@ sudo kubeadm reset
 `kubeadm init` 직후에는 이러한 상태의 파드가 없어야 한다.
 
 - `kubeadm init` _직후_ 이러한 상태의 파드가 있다면
-  kubeadm 저장소에 이슈를 열자. `coredns`(또는 `kube-dns`)는
+  kubeadm 저장소에 이슈를 연다. `coredns`(또는 `kube-dns`)는
   네트워크 애드온을 배포하기 전까지는 `Pending` 상태여야 한다.
 - 네트워크 애드온을 배포한 이후에도 `RunContainerError`, `CrashLoopBackOff` 또는 `Error` 상태의
   파드가 보이고 `coredns`(또는 `kube-dns`)에 아무 일도 일어나지 않는다면,
   설치한 파드 네트워크 애드온이 어떤 식으로든 손상되었을 가능성이 높다.
   더 많은 RBAC 권한을 부여하거나 최신 버전을 사용해야 할 수 있다. 파드
-  네트워크 공급자의 이슈 트래커에 이슈를 제출하고 분류를 받자.
+  네트워크 공급자의 이슈 트래커에 이슈를 제출하고 분류를 받는다.
 
 ## `coredns`가 `Pending` 상태에 멈춤
 
@@ -141,7 +141,7 @@ sudo kubeadm reset
 달라진다. `HostPort` 및 `HostIP` 기능을 사용할 수 있는지 알아보려면 파드 네트워크 애드온
 작성자에게 문의한다.
 
-Calico, Canal 및 Flannel CNI 공급자는 HostPort를 지원하는 것으로 확인되었다.
+Calico, Canal 및 Flannel CNI 공급자는 HostPort를 지원하는 것으로 확인된다.
 
 자세한 내용은
 [CNI portmap 문서](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md)를 참조한다.
@@ -247,7 +247,7 @@ Error from server (NotFound): the server could not find the requested resource
 
 ## 컨테이너에 공용이 아닌 IP가 사용됨
 
-정상적으로 작동하는 클러스터에서 `kubectl logs` 및 `kubectl run` 명령이
+일부 상황에서는 정상적으로 작동하는 클러스터에서 `kubectl logs` 및 `kubectl run` 명령이
 다음 오류와 함께 반환될 수 있다.
 
 ```console
@@ -291,7 +291,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 - [SELinux 비활성화](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 
-- `coredns` 배포를 수정하여 `allowPrivilegeEscalation`을 `true`로 설정
+- `coredns` 디플로이먼트를 수정하여 `allowPrivilegeEscalation`을 `true`로 설정한다.
 
 ```bash
 kubectl -n kube-system get deployment coredns -o yaml | \
@@ -299,7 +299,7 @@ kubectl -n kube-system get deployment coredns -o yaml | \
   kubectl apply -f -
 ```
 
-CoreDNS가 `CrashLoopBackOff`를 가지는 또 다른 원인은 쿠버네티스에 배포된 CoreDNS 파드가 루프를 감지하는 경우다.
+CoreDNS가 `CrashLoopBackOff` 상태가 되는 또 다른 원인은 쿠버네티스에 배포된 CoreDNS 파드가 루프를 감지하는 경우다.
 CoreDNS가 루프를 감지하고 종료할 때마다 쿠버네티스가 CoreDNS 파드를 재시작하지 않도록
 [여러 해결 방법](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)을 사용할 수 있다.
 
@@ -321,13 +321,13 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 
 이 문제를 해결하려면 다음 옵션 중 하나를 선택한다.
 
-- 1.13.1-75와 같은 이전 버전의 Docker로 롤백
+- 1.13.1-75와 같은 이전 버전의 Docker로 롤백한다.
 
   ```
   dnf downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
   ```
 
-- 18.06과 같은 최신 권장 버전 중 하나를 설치
+- 18.06과 같은 최신 권장 버전 중 하나를 설치한다.
 
   ```bash
   sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -337,7 +337,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 ## `--component-extra-args` 플래그 내부의 인수에 쉼표로 구분된 값 목록을 전달할 수 없음
 
 `--component-extra-args`와 같은 `kubeadm init` 플래그를 사용하면 kube-apiserver와 같은 컨트롤 플레인
-컴포넌트에 사용자 정의 인수를 전달할 수 있다. 그러나 이 메커니즘은 값을 구문 분석하는 데 사용되는
+컴포넌트에 사용자 정의 인수를 전달할 수 있다. 그러나 이 메커니즘은 값을 파싱하는 데 사용되는
 기본 타입(`mapStringString`)으로 인해 제한된다.
 
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"`와 같이
@@ -427,7 +427,7 @@ controllerManager:
     value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
-참여하는 노드에서
+참여하는 노드에서는 다음 파일을 전달한다.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -452,7 +452,7 @@ nodeRegistration:
 
 ## `kubeadm reset`이 `/var/lib/kubelet`을 언마운트함
 
-`/var/lib/kubelet`이 마운트되어 있는 경우, `kubeadm reset`을 수행하면 효과적으로 언마운트된다.
+`/var/lib/kubelet`이 마운트되어 있는 경우, `kubeadm reset`을 수행하면 사실상 언마운트된다.
 
 이 문제를 해결하려면 `kubeadm reset` 작업을 수행한 후 `/var/lib/kubelet` 디렉터리를 다시 마운트한다.
 
