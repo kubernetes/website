@@ -7,7 +7,7 @@ author: >
   [Janet Kuo](https://github.com/janetkuo),
   [Justin Santa Barbara](https://github.com/justinsb)
 translator: >
-  [Suhyen Im](https://github.com/suhyenim)
+  [Suhyen Im](https://github.com/suhyenim), [Eunjeong Park (Innogrid)](https://github.com/Eundms), [쿠버네티스 문서 한글화 팀](https://kubernetes.slack.com/archives/CA1MMR86S)
 ---
 
 인공지능 지형이 거대한 구조 변화를 겪고 있습니다. 생성형 AI 초기에는 모델과 상호작용하는 일을 대체로 일시적이고 스테이트리스한 함수 호출로 다뤘습니다. 요청이 뜨고, 50밀리초 남짓 실행되고, 종료되는 식이었습니다.
