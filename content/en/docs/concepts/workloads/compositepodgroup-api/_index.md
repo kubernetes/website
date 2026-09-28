@@ -1,6 +1,6 @@
 ---
 title: CompositePodGroup API
-weight: 25
+weight: 80
 no_list: true
 ---
 
