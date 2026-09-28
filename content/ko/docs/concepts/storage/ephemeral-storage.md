@@ -256,9 +256,9 @@ kubelet은 해당 공간을 사용 중인 것으로 분류하지 않는다.
 {{< /note >}}
 
 쿠버네티스는 `1048576`부터 프로젝트 ID를 사용한다. 사용 중인 ID는
-`/etc/projects`와 `/etc/projid` 에 등록되어 있다. 이 범위의 프로젝트 ID가
+`/etc/projects`와 `/etc/projid`에 등록되어 있다. 이 범위의 프로젝트 ID가
 시스템에서 다른 목적으로 사용되는 경우, 쿠버네티스가
-이를 사용하지 않도록 해당 프로젝트 ID를 `/etc/projects`와 `/etc/projid` 에
+이를 사용하지 않도록 해당 프로젝트 ID를 `/etc/projects`와 `/etc/projid`에
 등록해야 한다.
 
 쿼터는 디렉터리 스캔보다 빠르고 정확하다. 디렉터리가
