@@ -790,7 +790,7 @@ Read [Limit Storage Consumption](/docs/tasks/administer-cluster/limit-storage-co
 ## {{% heading "whatsnext" %}}
 
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 - Learn about [LimitRanges](/docs/concepts/policy/limit-range/)
 - You can read the historical [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
   for more information.
