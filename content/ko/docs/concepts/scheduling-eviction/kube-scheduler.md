@@ -6,9 +6,9 @@ weight: 10
 
 <!-- overview -->
 
-쿠버네티스에서 _스케줄링_ 은 {{< glossary_tooltip term_id="kubelet" >}}이
-파드를 실행할 수 있도록 {{< glossary_tooltip text="파드" term_id="pod" >}}가
-{{< glossary_tooltip text="노드" term_id="node" >}}에 적합한지 확인하는 것을 말한다.
+쿠버네티스에서 _스케줄링_ 은 {{< glossary_tooltip text="파드" term_id="pod" >}}가
+{{< glossary_tooltip text="노드" term_id="node" >}}에 매칭되어
+{{< glossary_tooltip term_id="kubelet" >}}이 파드를 실행할 수 있도록 보장하는 것을 말한다.
 
 <!-- body -->
 
