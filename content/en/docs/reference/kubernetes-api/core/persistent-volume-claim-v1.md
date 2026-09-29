@@ -74,11 +74,11 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
     </tr>
     <tr>
       <td><code>dataSource</code><br/><em><a href="{{< ref "../definitions/typed-local-object-reference-v1#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a></em></td>
-      <td>dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.</td>
+      <td>dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.</td>
     </tr>
     <tr>
       <td><code>dataSourceRef</code><br/><em><a href="{{< ref "#TypedObjectReference" >}}">TypedObjectReference</a></em></td>
-      <td>dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef   allows any non-core object, as well as PersistentVolumeClaim objects. * While dataSource ignores disallowed values (dropping them), dataSourceRef   preserves all values, and generates an error if a disallowed value is   specified. * While dataSource only allows local objects, dataSourceRef allows objects   in any namespaces. (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.</td>
+      <td>dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef   allows any non-core object, as well as PersistentVolumeClaim objects. * While dataSource ignores disallowed values (dropping them), dataSourceRef   preserves all values, and generates an error if a disallowed value is   specified. * While dataSource only allows local objects, dataSourceRef allows objects   in any namespaces. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.</td>
     </tr>
     <tr>
       <td><code>resources</code><br/><em><a href="{{< ref "#VolumeResourceRequirements" >}}">VolumeResourceRequirements</a></em></td>
@@ -140,6 +140,10 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     <tr>
       <td><code>currentVolumeAttributesClassName</code><br/><em>string</em></td>
       <td>currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim</td>
+    </tr>
+    <tr>
+      <td><code>healthStatus</code><br/><em><a href="{{< ref "#VolumeHealthStatus" >}}">VolumeHealthStatus</a></em></td>
+      <td>healthStatus contains the latest controller-reported health information for the volume bound to this claim.</td>
     </tr>
     <tr>
       <td><code>modifyVolumeStatus</code><br/><em><a href="{{< ref "#ModifyVolumeStatus" >}}">ModifyVolumeStatus</a></em></td>
@@ -264,6 +268,27 @@ TypedObjectReference contains enough information to let you locate the typed ref
     <tr>
       <td><code>namespace</code><br/><em>string</em></td>
       <td>Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## VolumeHealthStatus {#VolumeHealthStatus}
+
+VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>healthConditions</code><br/><em><a href="{{< ref "../definitions/volume-health-condition-v1#VolumeHealthCondition" >}}">VolumeHealthCondition array</a></em><br/><em>patch strategy: merge on key <code>status</code></em></td>
+      <td>conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.</td>
+    </tr>
+    <tr>
+      <td><code>lastTransitionTime</code><br/><em><a href="{{< ref "../definitions/time-v1-meta#Time" >}}">Time</a></em></td>
+      <td>lastTransitionTime is when the current set of conditions first appeared.</td>
     </tr>
   </tbody>
 </table>
@@ -1589,6 +1614,8 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

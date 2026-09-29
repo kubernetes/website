@@ -720,7 +720,7 @@ very
 ```
 
 {{< caution >}}
-Like before, all previous files in the `/etc/config/` directory will be deleted.
+Like before, all previous files in the `/etc/config/` directory will be inaccessible.
 {{< /caution >}}
 
 Delete that Pod:

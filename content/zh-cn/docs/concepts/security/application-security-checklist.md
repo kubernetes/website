@@ -147,7 +147,7 @@ would apply to most applications deploying to Kubernetes.
 - [ ] Review bindings for the `system:unauthenticated` group and remove them where
   possible, as this gives access to anyone who can contact the API server at a network level.
 -->
-### 基于角色的访问控制 (RBAC)   {#rbac}
+### 基于角色的访问控制（RBAC）   {#rbac}
 
 - [ ] 仅在必要时才授予 **create**、**patch**、**update** 和 **delete** 等权限。
 - [ ] 避免创建允许用户能够创建或更新角色的 RBAC 权限，

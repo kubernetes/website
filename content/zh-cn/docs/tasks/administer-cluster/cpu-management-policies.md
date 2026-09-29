@@ -69,8 +69,8 @@ work fine without any intervention.
 -->
 ## 配置 CPU 管理策略   {#cpu-management-policies}
 
-默认情况下，kubelet 使用 [CFS 配额](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
-来执行 Pod 的 CPU 约束。
+默认情况下，kubelet 使用
+[CFS 配额](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)来执行 Pod 的 CPU 约束。
 当节点上运行了很多 CPU 密集的 Pod 时，工作负载可能会迁移到不同的 CPU 核，
 这取决于调度时 Pod 是否被扼制，以及哪些 CPU 核是可用的。
 许多工作负载对这种迁移不敏感，因此无需任何干预即可正常工作。
@@ -85,17 +85,16 @@ management policies to determine some placement preferences on the node.
 
 <!--
 ## Windows Support
-
-{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
-
-CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate
-and it requires support in the container runtime.
-Once the feature gate is enabled, follow the steps below to configure the [CPU manager policy](#configuration).
 -->
 ## Windows 支持
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
+<!--
+CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate
+and it requires support in the container runtime.
+Once the feature gate is enabled, follow the steps below to configure the [CPU manager policy](#configuration).
+-->
 可以通过使用 "WindowsCPUAndMemoryAffinity" 特性门控在 Windows 上启用 CPU 管理器支持。
 这个能力还需要容器运行时的支持。
 
@@ -110,8 +109,7 @@ There are two supported policies:
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-中的 `cpuManagerPolicy` 字段来指定。
-支持两种策略：
+中的 `cpuManagerPolicy` 字段来指定。支持两种策略：
 
 <!--
 * [`none`](#none-policy): the default policy.
@@ -237,11 +235,11 @@ exclusive CPUs.
 ### `static` 策略配置
 
 此策略管理一个 CPU 共享池，该共享池最初包含节点上所有的 CPU 资源。
-可独占性 CPU 资源数量等于节点的 CPU 总量减去通过 kubelet `--kube-reserved` 或 `--system-reserved`
-参数保留的 CPU 资源。
+可独占性 CPU 资源数量等于节点的 CPU 总量减去通过 kubelet `--kube-reserved`
+或 `--system-reserved` 参数保留的 CPU 资源。
 从 1.17 版本开始，可以通过 kubelet `--reserved-cpus` 参数显式地指定 CPU 预留列表。
-由 `--reserved-cpus` 指定的显式 CPU 列表优先于由 `--kube-reserved` 和 `--system-reserved`
-指定的 CPU 预留。
+由 `--reserved-cpus` 指定的显式 CPU 列表优先于由 `--kube-reserved`
+和 `--system-reserved` 指定的 CPU 预留。
 通过这些参数预留的 CPU 是以整数方式，按物理核心 ID 升序从初始共享池获取的。
 共享池是 `BestEffort` 和 `Burstable` Pod 运行的 CPU 集合。
 `Guaranteed` Pod 中的容器，如果声明了非整数值的 CPU `requests`，也将运行在共享池的 CPU 上。
@@ -267,14 +265,6 @@ using the following feature gates:
 * `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
 * `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
-
-The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
-* `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
-* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
-* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
-* `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
-* `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
 -->
 ### Static 策略选项  {#cpu-policy-static--options}
 
@@ -283,13 +273,23 @@ The following policy options exist for the static `CPUManager` policy:
 * `CPUManagerPolicyAlphaOptions` 默认禁用。启用以显示 alpha 级选项。
 你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
 
+<!--
+The following policy options exist for the static `CPUManager` policy:
+* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
+* `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
+* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
+* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
+* `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
+* `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
+-->
 静态 `CPUManager` 策略存在以下策略选项：
+
 * `full-pcpus-only`（GA，默认可见）（1.33 或更高版本）
 * `distribute-cpus-across-numa`（Beta，默认可见）（1.33 或更高版本）
 * `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
-* `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
-* `strict-cpu-reservation` (GA，默认可见) (1.35 或更高版本)
-* `prefer-align-cpus-by-uncorecache` (GA, 默认可见) (1.36 或更高版本)
+* `distribute-cpus-across-cores`（Alpha，默认隐藏）（1.31 或更高版本）
+* `strict-cpu-reservation`（GA，默认可见）（1.35 或更高版本）
+* `prefer-align-cpus-by-uncorecache`（GA，默认可见）（1.36 或更高版本）
 
 <!--
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
@@ -341,11 +341,9 @@ For mode detail about the behavior of the individual options you can configure, 
 
 有关你可以配置的各个选项的行为的模式详细信息，请参阅[节点资源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文档。
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## {{% heading "whatsnext" %}}
-
-* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).
+* Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).
 -->
-## {{% heading "whatsnext" %}}
-
-* 阅读 [Pod 级别资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)。
+* 阅读 [Pod 级别资源管理器](/zh-cn/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)。

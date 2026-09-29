@@ -23,8 +23,6 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
-* [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
-* [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!-- steps -->
 

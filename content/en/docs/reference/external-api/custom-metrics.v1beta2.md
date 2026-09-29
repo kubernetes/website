@@ -14,7 +14,6 @@ auto_generated: true
 - [MetricValue](#custom-metrics-k8s-io-v1beta2-MetricValue)
 - [MetricValueList](#custom-metrics-k8s-io-v1beta2-MetricValueList)
   
-    
 
 ## `MetricListOptions`     {#custom-metrics-k8s-io-v1beta2-MetricListOptions}
     
@@ -69,7 +68,7 @@ Defaults to everything.</p>
     
   
 <tr><td><code>describedObject</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectreference-v1-core"><code>core/v1.ObjectReference</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectreference-v1-core"><code>core/v1.ObjectReference</code></a>
 </td>
 <td>
    <p>a reference to the described object</p>
@@ -82,7 +81,7 @@ Defaults to everything.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>timestamp</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>indicates the time at which the metrics were produced</p>
@@ -124,7 +123,7 @@ non-calculated instantaneous metrics).</p>
     
   
 <tr><td><code>metadata</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
@@ -163,7 +162,7 @@ non-calculated instantaneous metrics).</p>
 </td>
 </tr>
 <tr><td><code>selector</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#labelselector-v1-meta"><code>meta/v1.LabelSelector</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#labelselector-v1-meta"><code>meta/v1.LabelSelector</code></a>
 </td>
 <td>
    <p>selector represents the label selector that could be used to select

@@ -31,7 +31,7 @@ APIリクエストは、通常のユーザーかサービスアカウントに�
 
 Kubernetesは、クライアント証明書、Bearerトークン、認証プロキシ、HTTP Basic認証を使い、認証プラグインを通してAPIリクエストを認証します。APIサーバーにHTTPリクエストが送信されると、プラグインは以下の属性をリクエストに関連付けようとします。
 
-* ユーザー名: エンドユーザーを識別する文字列です。一般的にな値は、`kube-admin`や`jane@example.com`です。
+* ユーザー名: エンドユーザーを識別する文字列です。一般的な値は、`kube-admin`や`jane@example.com`です。
 * UID: エンドユーザーを識別する文字列であり、ユーザー名よりも一貫性と一意性を持たせようとするものです。
 * グループ: 各要素がユーザーの役割を示すような意味を持つ文字列の集合です。`system:masters`や`devops-team`といった値が一般的です。
 * 追加フィールド: 認証者が有用と思われる追加情報を保持する文字列のリストに対する、文字列のマップです。
@@ -112,7 +112,7 @@ APIサーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token 
 * `--service-account-key-file`: Bearerトークンに署名するためのPEMエンコードされた鍵を含むファイルです。指定しない場合は、APIサーバーのTLS秘密鍵が使われます。
 * `--service-account-lookup`: 有効にすると、APIから削除されたトークンは取り消されます。
 
-サービスアカウントは通常、APIサーバーによって自動的に作成され、`ServiceAccount`[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/)を介してクラスター内のPodに関連付けられます。Bearerトークンは、Podのよく知られた場所にマウントされ、これによりクラスター内のプロセスがAPIサーバー通信できるようになります。アカウントは`PodSpec`の`serviceAccountName`フィールドを使って、明示的にPodに関連付けることができます。
+サービスアカウントは通常、APIサーバーによって自動的に作成され、`ServiceAccount`[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/)を介してクラスター内のPodに関連付けられます。Bearerトークンは、Podのよく知られた場所にマウントされ、これによりクラスター内のプロセスがAPIサーバーと通信できるようになります。アカウントは`PodSpec`の`serviceAccountName`フィールドを使って、明示的にPodに関連付けることができます。
 
 {{< note >}}
 自動で行われるため、通常`serviceAccountName`は省略します。
@@ -192,7 +192,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 ### OpenID Connectトークン
 [OpenID Connect](https://openid.net/connect/)は、Azure Active Directory、Salesforce、Googleなど、いくつかのOAuth2プロバイダーでサポートされているOAuth2の一種です。
-このプロトコルのOAuth2の主な拡張機能は、[ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)と呼ばれる、アクセストークンとアクセストークンと一緒に返される追加フィールドです。
+このプロトコルのOAuth2の主な拡張機能は、[ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)と呼ばれる、アクセストークンと一緒に返される追加フィールドです。
 このトークンは、ユーザーの電子メールなどのよく知られたフィールドを持つJSON Web Token(JWT)であり、サーバーによって署名されています。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。
 
 ![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
@@ -296,7 +296,7 @@ users:
         refresh-token: q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXq
       name: oidc
 ```
-`id_token`の有効期限が切れると、`kubectl`は`refresh_token`と`client_secret`を用いて`id_token`の更新しようとします。`refresh_token`と`id_token`の新しい値は、`.kube/config`に格納されます。
+`id_token`の有効期限が切れると、`kubectl`は`refresh_token`と`client_secret`を用いて`id_token`を更新しようとします。`refresh_token`と`id_token`の新しい値は、`.kube/config`に格納されます。
 
 ##### 選択肢2 - `--token`オプションの使用
 
@@ -341,13 +341,13 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
 クライアントが[上記](#putting-a-bearer-token-in-a-request)のようにBearerトークンを使用してAPIサーバーとの認証を試みた場合、認証Webhookはトークンを含むJSONでシリアライズされた`authentication.k8s.io/v1beta1` `TokenReview`オブジェクトをリモートサービスにPOSTします。Kubernetesはそのようなヘッダーが不足しているリクエストを作成しようとはしません。
 
-Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/ja/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、ベータオブジェクトで保証される互換性が緩いことに注意し、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があります。さらにAPIサーバーは、API拡張グループ`authentication.k8s.io/v1beta1`を有効にしなければなりません(`--runtime config=authentication.k8s.io/v1beta1=true`)。
+Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/ja/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、ベータオブジェクトで保証される互換性が緩いことに注意し、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があります。さらにAPIサーバーは、API拡張グループ`authentication.k8s.io/v1beta1`を有効にしなければなりません(`--runtime-config=authentication.k8s.io/v1beta1=true`)。
 
 POSTボディは、以下の形式になります。
 
@@ -405,7 +405,7 @@ HTTPステータスコードは、追加のエラーコンテキストを提供�
 ### 認証プロキシ {#authenticating-proxy}
 
 APIサーバーは、`X-Remote-User`のようにリクエストヘッダの値からユーザーを識別するように設定することができます。
-これは、リクエストヘッダの値を設定する認証プロキシと組み合わせて使用するために設計です。
+これは、リクエストヘッダの値を設定する認証プロキシと組み合わせて使用するための設計です。
 
 * `--requestheader-username-headers`: 必須であり、大文字小文字を区別しません。ユーザーのIDをチェックするためのヘッダー名を順番に指定します。値を含む最初のヘッダーが、ユーザー名として使われます。
 * `--requestheader-group-headers`: バージョン1.6以降で任意であり、大文字小文字を区別しません。"X-Remote-Group"を推奨します。ユーザーのグループをチェックするためのヘッダー名を順番に指定します。指定されたヘッダーの全ての値が、グループ名として使われます。
@@ -470,7 +470,7 @@ extra:
 
 ## ユーザーの偽装
 
-ユーザーは偽装ヘッダーを使って別のユーザーとして振る舞うことができます。これにより、リクエストが認証したユーザー情報を手動で上書きすることが可能です。例えば、管理者はこの機能を使って一時的に別のユーザーに偽装、リクエストが拒否されたかどうかを確認することで認可ポリシーをデバッグすることができます。
+ユーザーは偽装ヘッダーを使って別のユーザーとして振る舞うことができます。これにより、リクエストが認証したユーザー情報を手動で上書きすることが可能です。例えば、管理者はこの機能を使って一時的に別のユーザーに偽装し、リクエストが拒否されたかどうかを確認することで認可ポリシーをデバッグすることができます。
 
 偽装リクエストは最初にリクエスト中のユーザーとして認証を行い、次に偽装ユーザー情報に切り替えます。
 
@@ -655,7 +655,7 @@ current-context: my-cluster
 
 ### 入出力フォーマット
 
-実行されたコマンドは`ExecCredential`オブジェクトを`stdout`に出力します。`k8s.io/client-go`は`status`で返された認証情報を用いて、Kubernetes APIに対して認証を行ういます。
+実行されたコマンドは`ExecCredential`オブジェクトを`stdout`に出力します。`k8s.io/client-go`は`status`で返された認証情報を用いて、Kubernetes APIに対して認証を行います。
 
 対話的なセッションから実行する場合、`stdin`はプラグインに直接公開されます。プラグインは[TTYチェック](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal)を使って、対話的にユーザーにプロンプトを出すことが適切かどうかを判断する必要があります。
 
@@ -689,7 +689,7 @@ Bearerトークンのクレデンシャルを使用するために、プラグ�
 }
 ```
 
-オプションで、レスポンスにはRFC3339のタイムスタンプとしてフォーマットされたクレデンシャルの有効期限を含めることができます。有効期限の有無には、以下のような影響あります。
+オプションで、レスポンスにはRFC3339のタイムスタンプとしてフォーマットされたクレデンシャルの有効期限を含めることができます。有効期限の有無には、以下のような影響があります。
 
 - 有効期限が含まれている場合、BearerトークンとTLSクレデンシャルは有効期限に達するまで、またはサーバーがHTTPステータスコード401で応答したとき、またはプロセスが終了するまでキャッシュされます。
 - 有効期限が省略された場合、BearerトークンとTLSクレデンシャルはサーバーがHTTPステータスコード401で応答したとき、またはプロセスが終了するまでキャッシュされます。

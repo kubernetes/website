@@ -64,11 +64,11 @@ You can also use _parameters_, which are **optional**. To learn more, see
 [parameter resources](/docs/reference/access-authn-authz/validating-admission-policy/#parameter-resources) (ValidatingAdmissionPolicy) or
 [parameter resources](/docs/reference/access-authn-authz/mutating-admission-policy/#parameter-resources) (MutatingAdmissionPolicy).
 
-Policy objects describes the abstract logic of a policy using Common Expression Language (CEL). 
+Policy objects describe the abstract logic of a policy using Common Expression Language (CEL). 
 For example, a ValidatingAdmissionPolicy might enforce replica limits or ensure specific labels are present, 
 while a MutatingAdmissionPolicy can modify resources such as adding a default label to a namespace.
 
-Binding objects link the policy to your cluster and provides scoping. 
+Binding objects link the policy to your cluster and provide scoping. 
 A ValidatingAdmissionPolicyBinding or MutatingAdmissionPolicyBinding connects the policy to specific resources. 
 If you only want to enforce a policy for a specific subset of resources, the binding is where you narrow the
 scope of the policy (using `matchResources`).
@@ -76,7 +76,7 @@ scope of the policy (using `matchResources`).
 Parameters allow separating configuration for the policy behavior from its definition.
 Parameter resources refer to Kubernetes resources available in the API. 
 They can be built-in API types (such as ConfigMap), or they can be
-[custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 A policy binding then uses `spec.paramRef` to reference an actual parameter resource. 
 
 If a policy does not require parameters, you leave `spec.paramKind` unspecified.
@@ -121,7 +121,7 @@ the validation failure in both the API response body and the HTTP `Warning:` hea
 
 #### MutatingAdmissionPolicyBinding {#policy-actions-mutating}
 
-For MutatingAdmissionPolicyBinding, the the action is always to mutate the object.
+For MutatingAdmissionPolicyBinding, the action is always to mutate the object.
 
 You can use a JSON Patch or a Kubernetes _apply configuration_.
 
@@ -185,7 +185,7 @@ it without any changes). Apply that manifest using `kubectl apply`.
 
 ### Test the policy {#test-admission-policy-validation}
 
-Now, test the policy. Try [creating a Deployment](docs/tasks/run-application/run-stateless-application-deployment/)
+Now, test the policy. Try [creating a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/)
 and then scale it to 0 replicas using `kubectl scale`. What happens?
 
 You could change the ValidatingAdmissionPolicyBinding to have a different validation action,

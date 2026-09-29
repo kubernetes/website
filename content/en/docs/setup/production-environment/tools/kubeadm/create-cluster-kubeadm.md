@@ -433,7 +433,7 @@ and `scp` using that other user instead.
 
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
-generate an unique credential to which you grant privileges. You can do
+generate a unique credential to which you grant privileges. You can do
 this with the `kubeadm kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, grant

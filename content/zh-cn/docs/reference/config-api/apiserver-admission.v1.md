@@ -33,7 +33,6 @@ AdmissionReview describes an admission review request/response.
 <tr><td><code>apiVersion</code><br/>string</td><td><code>admission.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AdmissionReview</code></td></tr>
 
-
 <tr><td><code>request</code><br/>
 <a href="#admission-k8s-io-v1-AdmissionRequest"><code>AdmissionRequest</code></a>
 </td>
@@ -86,13 +85,14 @@ AdmissionRequest describes the admission.Attributes for the admission request.
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
-   <!--
-   <p>uid is an identifier for the individual request/response. It allows us to distinguish instances of requests which are
+<p>
+ <!--
+uid is an identifier for the individual request/response. It allows us to distinguish instances of requests which are
 otherwise identical (parallel requests, requests when earlier requests did not modify etc)
 The UID is meant to track the round trip (request/response) between the KAS and the WebHook, not the user request.
 It is suitable for correlating log entries between the webhook and apiserver, for either auditing or debugging.</p>
-   -->
-   <p><code>uid</code> 是用于标识单个请求/响应的标识符。它允许我们区分在其他情况下完全相同的请求实例（并行请求、在先前请求未修改时的请求等）。
+-->
+<code>uid</code> 是用于标识单个请求/响应的标识符。它允许我们区分在其他情况下完全相同的请求实例（并行请求、在先前请求未修改时的请求等）。
 <code>uid</code> 的目的是跟踪 KAS（Kubernetes Admission Server）和 Webhook 之间的轮询（请求/响应），而不是用户请求。
 它适用于在 Webhook 和 API 服务器之间建立日志条目上的关联，从而服务于审计或调试目的。</p>
 
@@ -102,36 +102,36 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionKind"><code>meta/v1.GroupVersionKind</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)
-   -->
-   <code>kind</code> 是正被提交的对象的全限定类别名称（例如 <code>v1.Pod</code> 或 <code>autoscaling.v1.Scale</code>）。
-   </p>
+<p>
+<!--
+kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)
+-->
+<code>kind</code> 是正被提交的对象的全限定类别名称（例如 <code>v1.Pod</code> 或 <code>autoscaling.v1.Scale</code>）。
+</p>
 </td>
 </tr>
 <tr><td><code>resource</code> <br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionResource"><code>meta/v1.GroupVersionResource</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   resource is the fully-qualified resource being requested (for example, v1.pods)
-   -->
-   <code>resource</code> 是正被请求的资源的全限定名称（例如 <code>v1.pods</code>）。
-   </p>
+<p>
+<!--
+resource is the fully-qualified resource being requested (for example, v1.pods)
+-->
+<code>resource</code> 是正被请求的资源的全限定名称（例如 <code>v1.pods</code>）。
+</p>
 </td>
 </tr>
 <tr><td><code>subResource</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   subResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)
-   -->
-   <code>subResource</code> 是正被请求的子资源——如果存在的话（例如 &quot;status&quot; 或 &quot;scale&quot;）。
-   </p>
+<p>
+<!--
+subResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)
+-->
+<code>subResource</code> 是正被请求的子资源——如果存在的话（例如 &quot;status&quot; 或 &quot;scale&quot;）。
+</p>
 </td>
 </tr>
 <tr><td><code>requestKind</code><br/>
@@ -187,13 +187,13 @@ and <code>requestResource: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;,
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   requestSubResource is the name of the subresource of the original API request, if any (for example, &quot;status&quot; or &quot;scale&quot;)
+<p>
+<!--
+requestSubResource is the name of the subresource of the original API request, if any (for example, &quot;statusquot; or &quot;scale&quot;)
 If this is specified and differs from the value in &quot;subResource&quot;, an equivalent match and conversion was performed.
 See documentation for the &quot;matchPolicy&quot; field in the webhook configuration type.
-   -->
-   <code>requestSubResource</code> 是可能存在的、原始 API 所请求的子资源（例如 &quot;status&quot; 或 &quot;scale&quot;）。
+-->
+<code>requestSubResource</code> 是可能存在的、原始 API 所请求的子资源（例如 &quot;status&quot; 或 &quot;scale&quot;）。
 如果此字段被指定且不同于 &quot;subResource&quot; 中的值，则执行等效的匹配和转换。
 参阅文档了解 Webhook 配置类型中的 &quot;matchPolicy&quot; 字段。
 </p>
@@ -203,44 +203,44 @@ See documentation for the &quot;matchPolicy&quot; field in the webhook configura
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
+<p>
+<!--
+name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
 rely on the server to generate the name.  If that is the case, this field will contain an empty string.
-   -->
-   <code>name</code> 是出现在请求中的对象的名称。客户端在执行 CREATE 操作时，可以忽略此命令并依赖服务器生成此名称。
-   如果是这种情况，此字段将包含一个空白字符串。
-   </p>
+-->
+<code>name</code> 是出现在请求中的对象的名称。客户端在执行 CREATE 操作时，可以忽略此命令并依赖服务器生成此名称。
+如果是这种情况，此字段将包含一个空白字符串。
+</p>
 </td>
 </tr>
 <tr><td><code>namespace</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   namespace is the namespace associated with the request (if any).
-   -->
-   <p><code>namespace</code> 是与请求（如果有的话）关联的命名空间。
-   </p>
+<p>
+<!--
+namespace is the namespace associated with the request (if any).
+-->
+<code>namespace</code> 是与请求（如果有的话）关联的命名空间。
+</p>
 </td>
 </tr>
 <tr><td><code>operation</code> <br/>
 <a href="#admission-k8s-io-v1-Operation"><code>Operation</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   operation is the operation being performed. This may be different than the operation
+<p>
+<!--
+operation is the operation being performed. This may be different than the operation
 requested. e.g. a patch can result in either a CREATE or UPDATE Operation.
-   -->
-   <code>operation</code> 是正在执行的操作。这可能不同于请求的操作，
-   例如 patch 可以造成 CREATE 或 UPDATE 操作。
-   </p>
+-->
+<code>operation</code> 是正在执行的操作。这可能不同于请求的操作，
+例如 patch 可以造成 CREATE 或 UPDATE 操作。
+</p>
 </td>
 </tr>
 <tr><td><code>userInfo</code> <br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -357,7 +357,7 @@ This must be copied over from the corresponding AdmissionRequest.
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
 <p>

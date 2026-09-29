@@ -246,7 +246,7 @@ The Project's `prerelease:/main` prefix at the CRI-O's package path, can be repl
 <!--
 Bootstrapping [a cluster using `kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) can be done by running `kubeadm init` command, which automatically detects that CRI-O is running in the background. There are also `Vagrantfile` examples available for [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile) as well as [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile) for testing the packages together with `kubeadm`.
 -->
-你可以使用 `kubeadm init` 命令来[引导集群](/docs/setup/product-environment/tools/kubeadm/install-kubeadm/)，
+你可以使用 `kubeadm init` 命令来[引导集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)，
 该命令会自动检测后台正在运行 CRI-O。还有适用于
 [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile)
 以及 [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile)

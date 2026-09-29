@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "WebhookClientConfig contains the information to make a TLS connection with the webhook"
 title: "WebhookClientConfig"
-weight: 650
+weight: 660
 auto_generated: true
 ---
 
@@ -49,6 +49,8 @@ WebhookClientConfig contains the information to make a TLS connection with the w
     </tr>
   </tbody>
 </table>
+
+
 
 
 

@@ -60,8 +60,7 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 
 * _ExternalName_ - Maps the Service to the contents of the `externalName` field
 (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
-No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
-or CoreDNS version 0.0.8 or higher.
+No proxying of any kind is set up.
 
 More information about the different types of Services can be found in the
 [Using Source IP](/docs/tutorials/services/source-ip/) tutorial. Also see

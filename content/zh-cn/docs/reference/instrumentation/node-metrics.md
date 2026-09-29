@@ -18,11 +18,11 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 gathers metric statistics at the node, volume, pod and container level,
 and emits this information in the
-[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/).
+[Summary API](/docs/reference/kubelet-api/stats.v1alpha1/).
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 在节点、卷、Pod 和容器级别收集统计信息，
-并在 [Summary API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
+并在 [Summary API](/zh-cn/docs/reference/kubelet-api/stats.v1alpha1/)
 中输出这些信息。
 
 <!--
@@ -97,18 +97,17 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 As a stable feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory and I/O usage. The information is collected at node, pod and container level.
-See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detailed schema.
+See [Summary API](/docs/reference/kubelet-api/stats.v1alpha1/) for detailed schema.
 Starting with Kubernetes v.1.36, the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to true and cannot be disabled. The information is also exposed in
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 -->
 作为稳定特性，Kubernetes 允许你配置 kubelet 来收集 Linux
 内核的[压力停滞信息](https://docs.kernel.org/accounting/psi.html)（PSI）的
 CPU、内存和 I/O 使用情况。这些信息是在节点、Pod 和容器级别上收集的。
-详细模式请参见 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
+详细模式请参见 [Summary API](/zh-cn/docs/reference/kubelet-api/stats.v1alpha1/)。
 从 Kubernetes v1.36 开始，`KubeletPSI`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被锁定为
-true，无法被禁用。
-这些信息也在
+true，无法被禁用。这些信息也在
 [Prometheus 指标](/zh-cn/docs/concepts/cluster-administration/system-metrics#psi-metrics)中暴露。
 
 <!--

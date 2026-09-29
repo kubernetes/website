@@ -22,7 +22,7 @@ which means that you have to install this software first
 
 bash-completion is provided by many package managers
 (see [here](https://github.com/scop/bash-completion#installation)).
-You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
+You can install it with `apt-get install bash-completion` or `dnf install bash-completion`, etc.
 
 The above commands create `/usr/share/bash-completion/bash_completion`,
 which is the main script of bash-completion. Depending on your package manager,

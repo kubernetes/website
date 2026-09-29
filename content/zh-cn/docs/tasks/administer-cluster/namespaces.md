@@ -137,7 +137,7 @@ See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive
 A namespace can be in one of two phases:
 
 * `Active` the namespace is in use
-* `Terminating` the namespace is being deleted, and can not be used for new objects
+* `Terminating` the namespace is being deleted, and cannot be used for new objects
 
 For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
 in the API reference.
@@ -200,7 +200,7 @@ The name of your namespace must be a valid
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)。
 
 <!--
-There's an optional field `finalizers`, which allows observables to purge resources whenever the
+There is an optional field `finalizers`, which allows observables to purge resources whenever the
 namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will
 be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
@@ -272,9 +272,9 @@ default   Active    13m
 ### 创建新的名字空间
 
 <!--
-For this exercise, we will create two additional Kubernetes namespaces to hold our content.
+For this exercise, you create two additional Kubernetes namespaces to hold your content.
 -->
-在本练习中，我们将创建两个额外的 Kubernetes 名字空间来保存我们的内容。
+在本练习中，你将创建两个额外的 Kubernetes 名字空间来保存你的内容。
 
 <!--
 In a scenario where an organization is using a shared Kubernetes cluster for development and
@@ -302,10 +302,10 @@ production use cases:
    
 <!--
 One pattern this organization could follow is to partition the Kubernetes cluster into two
-namespaces: `development` and `production`. Let's create two new namespaces to hold our work.
+namespaces: `development` and `production`. Create two new namespaces to hold your work.
 -->
 该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个名字空间：`development` 和 `production`。
-让我们创建两个新的名字空间来保存我们的工作。
+创建两个新的名字空间来保存你的工作。
 
 <!--
 Create the `development` namespace using kubectl:
@@ -317,16 +317,16 @@ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 ```
 
 <!--
-And then let's create the `production` namespace using kubectl:
+Create the `production` namespace using kubectl:
 -->
-让我们使用 kubectl 创建 `production` 名字空间。
+使用 kubectl 创建 `production` 名字空间。
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
 ```
 
 <!--
-To be sure things are right, list all of the namespaces in our cluster.
+To be sure things are right, list all of the namespaces in the cluster.
 -->
 为了确保一切正常，列出集群中的所有名字空间。
 
@@ -349,11 +349,11 @@ production    Active    23s       name=production
 <!--
 A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 Users interacting with one namespace do not see the content in another namespace.
-To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
+To demonstrate this, create a Deployment and Pods in the `development` namespace.
 -->
 Kubernetes 名字空间为集群中的 Pod、Service 和 Deployment 提供了作用域。
 与一个名字空间交互的用户不会看到另一个名字空间中的内容。
-为了演示这一点，让我们在 `development` 名字空间中启动一个简单的 Deployment 和 Pod。
+为了演示这一点，在 `development` 名字空间中创建一个 Deployment 和一些 Pod。
 
 ```shell
 kubectl create deployment snowflake \
@@ -362,10 +362,10 @@ kubectl create deployment snowflake \
 ```
 
 <!--
-We have created a deployment whose replica size is 2 that is running the pod called `snowflake`
+You created a deployment whose replica size is 2 that is running the pod called `snowflake`
 with a basic container that serves the hostname.
 -->
-我们创建了一个副本个数为 2 的 Deployment，运行名为 `snowflake` 的
+你创建了一个副本个数为 2 的 Deployment，运行名为 `snowflake` 的
 Pod，其中包含一个负责提供主机名的基本容器。
 
 ```shell
@@ -386,16 +386,16 @@ snowflake-3968820950-vgc4n   1/1       Running   0          2m
 ```
 
 <!--
-And this is great, developers are able to do what they want, and they do not have to worry about
+This demonstrates that developers are able to do what they want, and they do not have to worry about
 affecting content in the `production` namespace.
 
-Let's switch to the `production` namespace and show how resources in one namespace are hidden from
-the other.  The `production` namespace should be empty, and the following commands should return nothing.
+Switch to the `production` namespace and show how resources in one namespace are hidden from
+the other. The `production` namespace should be empty, and the following commands should return nothing.
 -->
-看起来还不错，开发人员能够做他们想做的事，而且他们不必担心会影响到
+这说明开发人员能够做他们想做的事，而且他们不必担心会影响到
 `production` 名字空间下面的内容。
 
-让我们切换到 `production` 名字空间，
+切换到 `production` 名字空间，
 展示一下一个名字空间中的资源是如何对另一个名字空间隐藏的。
 名字空间 `production` 应该是空的，下面的命令应该不会返回任何东西。
 
@@ -405,9 +405,9 @@ kubectl get pods -n=production
 ```
 
 <!--
-Production likes to run cattle, so let's create some cattle pods.
+Create some pods in the `production` namespace.
 -->
-生产环境下一般以养牛的方式运行负载，所以让我们创建一些 Cattle（牛）Pod。
+在 `production` 名字空间中创建一些 Pod。
 
 ```shell
 kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
@@ -440,10 +440,10 @@ the other namespace.
 此时，应该很清楚地展示了用户在一个名字空间中创建的资源对另一个名字空间是隐藏的。
 
 <!--
-As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
+As the policy support in Kubernetes evolves, this scenario extends to show how you can provide different
 authorization rules for each namespace.
 -->
-随着 Kubernetes 中的策略支持的发展，我们将扩展此场景，以展示如何为每个名字空间提供不同的授权规则。
+随着 Kubernetes 中的策略支持不断发展，此场景也会扩展，以展示如何为每个名字空间提供不同的授权规则。
 
 <!-- discussion -->
 

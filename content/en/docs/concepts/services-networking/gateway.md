@@ -253,7 +253,7 @@ Gateway API covers a broad set of features and is widely implemented. This combi
 clear conformance definitions and tests to ensure that the API provides a consistent experience
 wherever it is used.
 
-See the [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) documentation to
+See the [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) documentation to
 understand details such as release channels, support levels, and running conformance tests.
 
 ## Migrating from Ingress

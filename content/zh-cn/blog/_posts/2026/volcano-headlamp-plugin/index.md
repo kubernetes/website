@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "使用 Headlamp 更快地检查 Volcano 工作负载"
-draft: true
+date: 2026-06-25T12:00:00-08:00
 slug: visual-context-volcano-headlamp-plugin
 author: >
   [Mahmoud Magdy](https://github.com/mahmoudmagdy1-1) (independent)

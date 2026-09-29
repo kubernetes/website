@@ -1147,9 +1147,9 @@ very
 
 {{< caution >}}
 <!--
-Like before, all previous files in the `/etc/config/` directory will be deleted.
+Like before, all previous files in the `/etc/config/` directory will be inaccessible.
 -->
-如前，`/etc/config/` 目录中所有先前的文件都将被删除。
+如前，`/etc/config/` 目录中所有先前的文件都将无法访问。
 {{< /caution >}}
 
 <!--

@@ -48,7 +48,8 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）。
 * 控制平面机器需要 CPU 2 核心或更多。
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
-* 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
+* 节点之中不可以有重复的主机名、MAC 地址或 `product_uuid`。
+  请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 
 {{< note >}}
@@ -85,10 +86,12 @@ that provides the expected symbols.
 
 For more information, see [Linux Kernel Requirements](/docs/reference/node/kernel-version-requirements/).
 -->
-* kubeadm 项目支持 LTS 内核。参阅 [LTS 内核列表](https://www.kernel.org/category/releases.html)。
+* kubeadm 项目支持 LTS 内核。参阅
+  [LTS 内核列表](https://www.kernel.org/category/releases.html)。
 * 你可以使用命令 `uname -r` 获取内核版本。
 
-欲了解更多信息，参阅 [Linux 内核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
+欲了解更多信息，参阅
+[Linux 内核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
 
 {{% /tab %}}
 
@@ -104,7 +107,8 @@ For more information, see [Windows OS version compatibility](/docs/concepts/wind
   [Windows Server 版本信息](https://learn.microsoft.com/zh-cn/windows/release-health/windows-server-release-info)。
 * 你可以使用命令 `systeminfo` 获取内核版本（也称为操作系统版本）。
 
-欲了解更多信息，参阅 [Windows 操作系统版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
+欲了解更多信息，参阅
+[Windows 操作系统版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -127,10 +131,11 @@ pre-flight check. This check fails if the kernel version is not supported.
 You may choose to skip the check, if you know that your kernel
 provides the required features, even though kubeadm does not support its version.
 -->
-为帮助你避免因内核版本不受支持而引发的意外错误，kubeadm 运行 `SystemVerification` 执行预检。  
-如果内核版本不受支持，预检将失败。
+为帮助你避免因内核版本不受支持而引发的意外错误，kubeadm 运行 `SystemVerification`
+执行预检。如果内核版本不受支持，预检将失败。
 
-如果你确认你的内核具备所需特性，尽管其版本不在 kubeadm 支持范围内，你也可以选择跳过此检查。
+如果你确认你的内核具备所需特性，尽管其版本不在 kubeadm 支持范围内，
+你也可以选择跳过此检查。
 
 <!--
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
@@ -143,10 +148,10 @@ identical values. Kubernetes uses these values to uniquely identify the nodes in
 If these values are not unique to each node, the installation process
 may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 -->
-## 确保每个节点上 MAC 地址和 product_uuid 的唯一性    {#verify-mac-address}
+## 确保每个节点上 MAC 地址和 `product_uuid` 的唯一性    {#verify-mac-address}
 
 * 你可以使用命令 `ip link` 或 `ifconfig -a` 来获取网络接口的 MAC 地址
-* 可以使用 `sudo cat /sys/class/dmi/id/product_uuid` 命令对 product_uuid 校验
+* 可以使用 `sudo cat /sys/class/dmi/id/product_uuid` 命令对 `product_uuid` 校验
 
 一般来讲，硬件设备会拥有唯一的地址，但是有些虚拟机的地址可能会重复。
 Kubernetes 使用这些值来唯一确定集群中的节点。
@@ -160,7 +165,8 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 -->
 ## 检查网络适配器   {#check-network-adapters}
 
-如果你有一个以上的网络适配器，同时你的 Kubernetes 组件通过默认路由不可达，我们建议你预先添加 IP 路由规则，
+如果你有一个以上的网络适配器，同时你的 Kubernetes
+组件通过默认路由不可达，我们建议你预先添加 IP 路由规则，
 这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 
 <!--
@@ -172,8 +178,9 @@ You can use tools like [netcat](https://netcat.sourceforge.net) to check if a po
 -->
 ## 检查所需端口   {#check-required-ports}
 
-启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
-可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
+启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使
+Kubernetes 的各组件相互通信。可以使用
+[netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
 nc 127.0.0.1 6443 -zv -w 2
@@ -213,7 +220,7 @@ kubelet 的默认行为是在节点上检测到交换内存时无法启动。
   请设置 `swapBehavior` 的值，这个值不能是默认的 `NoSwap`。
   更多细节参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
 * 要禁用交换分区（swap），可以使用命令 `sudo swapoff -a` 暂时关闭交换分区功能。
-  要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换功能，
+  要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换分区功能，
   具体取决于你的系统配置方式。
 
 <!--
@@ -420,7 +427,8 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 -->
-2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
+2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，
+   因此你可以忽略 URL 中的版本：
 
    ```shell
    # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
@@ -518,7 +526,7 @@ exist by default, and it should be created before the curl command.
 - You can leave SELinux enabled if you know how to configure it but it may require
   settings that are not supported by kubeadm.
 -->
-- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式相当于将其禁用。
+- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 `permissive` 模式相当于将其禁用。
   这是允许容器访问主机文件系统所必需的，例如，某些容器网络插件需要这一能力。
   你必须这么做，直到 kubelet 改进其对 SELinux 的支持。
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定部分 kubeadm 不支持的配置。
@@ -571,7 +579,8 @@ exist by default, and it should be created before the curl command.
 <!--
 3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
 -->
-3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet 以确保它在启动时自动启动:
+3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet
+   以确保它在启动时自动启动:
 
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
@@ -615,7 +624,7 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 <!--
 Optionally install crictl (required for interaction with the Container Runtime Interface (CRI), optional for kubeadm):
 -->
-可以选择安装 crictl（与容器运行时接口 (CRI) 交互时必需，但对 kubeadm 来说是可选的）：
+可以选择安装 crictl（与容器运行时接口（CRI）交互时必需，但对 kubeadm 来说是可选的）：
 
 ```bash
 CRICTL_VERSION="v1.31.0"
@@ -681,31 +690,6 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 -->
 kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
-
-<!--
-## Configuring a cgroup driver
-
-Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
-for the management of cgroups on Linux machines.
--->
-## 配置 cgroup 驱动程序  {#configuring-a-cgroup-driver}
-
-容器运行时和 kubelet 都具有名字为
-["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/#cgroup-drivers)
-的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
-
-{{< warning >}}
-<!--
-Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
-
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
--->
-你需要确保容器运行时和 kubelet 所使用的是相同的 cgroup 驱动，否则 kubelet
-进程会失败。
-
-相关细节可参见[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
-{{< /warning >}}
 
 <!--
 ## Troubleshooting

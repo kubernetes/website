@@ -45,7 +45,7 @@ IPAddress represents a single IP of a single IP Family. The object is designed t
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#IPAddressSpec" >}}">IPAddressSpec</a></em></td>
@@ -66,7 +66,7 @@ IPAddressSpec describe the attributes in an IP Address.
   <tbody>
     <tr>
       <td><code>parentRef</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#ParentReference" >}}">ParentReference</a></em></td>
-      <td>ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.</td>
+      <td>parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.</td>
     </tr>
   </tbody>
 </table>
@@ -112,19 +112,19 @@ ParentReference describes a reference to a parent object.
   <tbody>
     <tr>
       <td><code>group</code><br/><em>string</em></td>
-      <td>Group is the group of the object being referenced.</td>
+      <td>group is the group of the object being referenced.</td>
     </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name is the name of the object being referenced.</td>
+      <td>name is the name of the object being referenced.</td>
     </tr>
     <tr>
       <td><code>namespace</code><br/><em>string</em></td>
-      <td>Namespace is the namespace of the object being referenced.</td>
+      <td>namespace is the namespace of the object being referenced.</td>
     </tr>
     <tr>
       <td><code>resource</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Resource is the resource of the object being referenced.</td>
+      <td>resource is the resource of the object being referenced.</td>
     </tr>
   </tbody>
 </table>
@@ -932,6 +932,8 @@ GET /apis/networking.k8s.io/v1/watch/ipaddresses
     </tr>
   </tbody>
 </table>
+
+
 
 
 

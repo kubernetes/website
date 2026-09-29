@@ -240,7 +240,7 @@ Now you can verify that all objects exist.
 
    You should see the WordPress set up page similar to the following screenshot.
 
-   ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
+   ![wordpress-init](/images/docs/tutorials/mysql-wordpress-persistent-volume/WordPress.png)
 
    {{< alert color="danger" title="Warning" >}}
    Do not leave your WordPress installation on this page. If another user finds it,

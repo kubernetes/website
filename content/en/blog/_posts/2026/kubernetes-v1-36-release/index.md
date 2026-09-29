@@ -355,13 +355,13 @@ This work was done as a part of [KEP #5284](https://kep.k8s.io/5284) led by SIG 
 
 ### DRA features in beta
 
-The [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) framework reaches another maturity milestone in Kubernetes v1.36 as several core features graduate to beta and are enabled by default.
-This transition moves DRA beyond basic allocation by graduating [partitionable devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices) and [consumable capacity](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#consumable-capacity), allowing for more granular sharing of hardware like GPUs,
-while [device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-taints-and-tolerations) ensure that specialized resources are only utilized by the appropriate workloads.
+The [Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/) framework reaches another maturity milestone in Kubernetes v1.36 as several core features graduate to beta and are enabled by default.
+This transition moves DRA beyond basic allocation by graduating [partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices) and [consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity), allowing for more granular sharing of hardware like GPUs,
+while [device taints and tolerations](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations) ensure that specialized resources are only utilized by the appropriate workloads.
 
-Now, users benefit from a much more reliable and observable resource lifecycle through [ResourceClaim device status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status)
+Now, users benefit from a much more reliable and observable resource lifecycle through [ResourceClaim device status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resourceclaim-device-status)
 and the ability to ensure device attachment before Pod scheduling.
-By integrating these features with [extended resource](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support,
+By integrating these features with [extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource) support,
 Kubernetes provides a robust production-ready alternative to the legacy device plugin system,
 enabling complex AI and HPC workloads to manage hardware with unprecedented precision and operational safety.
 

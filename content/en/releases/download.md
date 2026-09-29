@@ -57,12 +57,6 @@ For Kubernetes {{< param "version" >}},
 container images are signed using [sigstore](https://sigstore.dev)
 signatures:
 
-{{< note >}}
-Container image sigstore signatures do currently not match between different geographical locations.
-More information about this problem is available in the corresponding
-[GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
-{{< /note >}}
-
 The Kubernetes project publishes a list of signed Kubernetes container images
 in [SPDX 2.3](https://spdx.dev/specifications/) format.
 You can fetch that list using:
