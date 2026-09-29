@@ -184,6 +184,24 @@ networking:
   serviceSubnet: 10.96.0.0/16
 ```
 
+{{< note >}}
+The example above leaves the `bind-address` settings of the control plane
+components unset, which is the recommended configuration. `advertiseAddress`
+selects the address that other components dial, not the address that the API
+server listens on; when `bind-address` is unset or a wildcard (`0.0.0.0` or
+`::`), the API server listens on all interfaces and both address families.
+{{< /note >}}
+
+{{< note >}}
+A single-stack cluster still logs that kube-proxy is "running in dual-stack
+mode". That message reports whether the node can program both address families,
+based on the node's iptables and kernel IPv6 support, and not whether the
+cluster uses both. The `primary ipFamily` field on that same log line shows the
+cluster's real address family. For a full walkthrough, including how `kubeadm`
+derives kube-proxy's `bindAddress` from `advertiseAddress`, see
+[single-stack IPv6 support with kubeadm](/docs/setup/production-environment/tools/kubeadm/single-stack-ipv6/).
+{{< /note >}}
+
 ## {{% heading "whatsnext" %}}
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking

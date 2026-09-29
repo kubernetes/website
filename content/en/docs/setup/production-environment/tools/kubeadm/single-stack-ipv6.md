@@ -101,6 +101,13 @@ Notes:
   single-stack IPv6 cluster it must be an IPv6 address.
 * Setting `node-ip` to the node's IPv6 address keeps the kubelet from trying to
   select an address that does not fit the cluster's single address family.
+* This configuration deliberately leaves the `bind-address` settings of the
+  control plane components unset. `advertiseAddress` selects the address that
+  other components dial; it is not the address that the API server listens on.
+  When `bind-address` is unset or a wildcard (`0.0.0.0` or `::`), the API server
+  listens on all interfaces and both address families, so it still accepts IPv6
+  connections. Setting it to a specific address only narrows the API server down
+  to that one address.
 
 Run kubeadm to initiate the control plane node:
 
@@ -160,6 +167,52 @@ The output shows a single IPv6 address for the Pod, for example:
 ```
 [{"ip":"2001:db8:42:0::a"}]
 ```
+
+## Check that kube-proxy uses IPv6
+
+You don't have to set `bindAddress` for kube-proxy either. `kubeadm` derives it
+from the address family of `advertiseAddress`, so the example configuration above
+produces a `::` (IPv6 wildcard) bind rather than `0.0.0.0`. If you do set
+`bindAddress` explicitly, prefer the wildcard for your family; binding it to one
+specific node address also pins kube-proxy's primary address family to that
+address.
+
+To see which address family kube-proxy resolved for the node, check its startup
+log:
+
+```shell
+kubectl -n kube-system logs -l k8s-app=kube-proxy | grep "retrieved NodeIPs"
+```
+
+On a single-stack IPv6 cluster, the listed node addresses are IPv6-only, for
+example:
+
+```
+"Successfully retrieved NodeIPs" NodeIPs=["2001:db8:42:2::1"]
+```
+
+{{< note >}}
+On a single-stack IPv6 cluster, kube-proxy may still report that it is
+"running in dual-stack mode". That message describes the node, not the cluster.
+At startup kube-proxy works out whether it is able to program both address
+families. In `iptables` mode it checks that the `iptables` and `ip6tables`
+binaries are available, and it separately checks that IPv6 is not disabled in
+the kernel. A node with both binaries installed is treated as dual-stack capable
+even when every Pod and Service in the cluster is IPv6-only.
+
+The rule programming stays correct regardless, because kube-proxy only writes
+rules for the Services and EndpointSlices that actually exist, and in this
+cluster those are all IPv6. The `primary ipFamily` field on the same log line
+tells you the cluster's actual address family, and should read `IPv6`:
+
+```shell
+kubectl -n kube-system logs -l k8s-app=kube-proxy | grep "dual-stack mode"
+```
+
+```
+"kube-proxy running in dual-stack mode" primary ipFamily="IPv6"
+```
+{{< /note >}}
 
 ## CoreDNS upstream DNS resolution
 
