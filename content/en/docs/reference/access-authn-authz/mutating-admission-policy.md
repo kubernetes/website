@@ -92,6 +92,12 @@ a policy.
 Once the binding and policy are created, any resource request that matches the
 `spec.matchConditions` of a policy will trigger the set of mutations defined.
 
+Match conditions cannot use `namespaceObject` or `variables`. `namespaceObject` is not populated
+for match conditions and always evaluates to null, and `variables` cannot be referenced because
+match conditions are evaluated before the rest of the policy. To select requests based on namespace
+labels, use a `namespaceSelector` in the policy's `matchConstraints` or in the binding's
+`matchResources`.
+
 In the example above, creating a Pod will add the `mesh-proxy` initContainer mutation:
 
 ```yaml
