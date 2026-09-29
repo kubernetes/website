@@ -162,6 +162,11 @@ kubectl patch pod <pod-name> --subresource resize --patch \
 
 You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
 
+## Resizing Pods managed by static CPU manager
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingExclusiveCPUs" >}}
+
+When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports updating the CPUs of in-place Guaranteed QoS Pods managed by [static PCU manager policy](/docs/tasks/administer-cluster/cpu-manager-policies/).
+
 ## Limitations
 
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
@@ -187,11 +192,12 @@ to a race condition where memory usage may spike right after the check is perfor
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
-* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
+* **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
+* **Static CPU management policy:** One container can resize per operation, resize of regular non-restartable init-containers with exclusive CPUs is not supported.
 
 These restrictions might be relaxed in future Kubernetes versions.
 
@@ -307,6 +313,288 @@ Delete your namespace. This deletes all the Pods that you created for this task:
 
 ```shell
 kubectl delete namespace qos-example
+```
+
+## Resizing CPU without restart, alongside Static CPU Management policy
+
+To demonstrate this feature, we use a controlled environment with minikube in the following examples with 5 CPUs using
+kvm as driver.
+
+### Create a minikube node
+
+First we create a minikube node with the static CPU Manager policy and InPlacePodVerticalScalingExclusiveCPUs.
+
+```shell
+minikube start \
+  -v=5 \
+  --driver="kvm2" \
+  --cpus="5" \
+  --extra-config=kubelet.cpu-manager-policy=static \
+  --extra-config=kubelet.kube-reserved="cpu=500m" \
+  --feature-gates=InPlacePodVerticalScalingExclusiveCPUs=true
+```
+
+Confirm the minikube node is started without any issues.
+
+```shell
+minikube kubectl get nodes
+```
+
+You should see an output similar to:
+
+```
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   5m    v1.38.0
+```
+
+Next we confirm that the minikube node has capacity of 5 CPUs and Allocatable 4500m
+
+
+```shell
+minikube kubectl describe node | grep -E -A1 'Capacity|Allocatable'
+```
+
+You should see an output similar to:
+
+```
+Capacity:
+  cpu:                5
+--
+Allocatable:
+  cpu:                4500m
+```
+
+Now, we confirm that Kubernetes has successfully started without problem the two feature gates, crucial
+for the examples to succeed.
+
+```shell
+minikube kubectl get -- --raw /metrics | grep kubernetes_feature_enable | grep -E 'InPlacePodVerticalScalingExclusiveCPUs|CPUManager'
+```
+
+You should see an output similar to:
+
+```
+kubernetes_feature_enabled{name="CPUManagerPolicyAlphaOptions",stage="ALPHA"} 0
+kubernetes_feature_enabled{name="CPUManagerPolicyBetaOptions",stage="BETA"} 1
+kubernetes_feature_enabled{name="CPUManagerPolicyOptions",stage=""} 1
+kubernetes_feature_enabled{name="InPlacePodVerticalScalingExclusiveCPUs",stage="ALPHA"} 1
+```
+
+We confirm that static policy is enabled and started, via the logs (for this reason we have started minikube with verbosity equal to 5)
+
+```shell
+minikube logs | grep 'policy_static.go'
+```
+
+You should see an output similar to:
+```
+Nov 17 15:05:46 minikube kubelet[2622]: I1117 15:05:46.993732    2622 policy_static.go:321] "Allocate start" pod="kube-system/storage-provisioner" podUID="7244c198-04c3-43d1-a63c-81d9ab01466f" containerName="storage-provisioner"
+Nov 17 15:05:47 minikube kubelet[2622]: I1117 15:05:47.862602    2622 policy_static.go:321] "Allocate start" pod="kube-system/kube-proxy-5l42d" podUID="b931a9b1-f944-460f-ab03-e4fc3f935423" containerName="kube-proxy"
+Nov 17 15:05:48 minikube kubelet[2622]: I1117 15:05:48.157667    2622 policy_static.go:321] "Allocate start" pod="kube-system/coredns-7d764666f9-4zsb8" podUID="87c47789-5c0b-4798-bed6-f742f7d20607" containerName="coredns"
+```
+
+### Create a namespace
+
+Create a namespace so that the resources you create in this exercise are isolated from the rest of your cluster.
+```shell
+minikube kubectl create namespace qos-example
+```
+
+### Create a pod using two exclusive CPUs
+
+First, create a guaranteed Pod using exclusive CPUs designed for in-place CPU resize.
+
+{{% code_sample file="pods/resource/pod-resize-exclusive-cpus.yaml" %}}
+
+Create the pod:
+
+```shell
+minikube kubectl -- -n qos-example create -f pod-resize-exclusive-cpus.yaml
+```
+
+This pod starts in the Guaranteed QoS class, using exclusive CPUs. Verify its initial state:
+
+```shell
+# Wait a moment for the pod to be running
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+Observe `spec.containers[0].resources` , `status.containerStatuses[0].resources` and `spec.containers[0].allocatedResources`.
+
+They should match the manifest (2 CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
+
+### Scale up pod with one additional CPU
+
+Now, increase the CPU request and limit to `3`. You use `kubectl patch` with the `--subresource resize` command line argument.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"3"}, "limits":{"cpu":"3"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 3` both for limits and requests.
+* `status.containerStatuses[0].allocatedResources` shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+### Scale up above available CPUs
+
+Now, increase the CPU request and limit to `4000m`.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"4"}, "limits":{"cpu":"4"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "4"`).
+* A condition with `type: PodResizePending` and `reason: Deferred` was added to the Pod.
+* The condition's `message` will explain why (`Node didn't have enough resource: cpu, requested: 4000, used: 750, capacity: 4500`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 3`, `memory: 200Mi`),
+  because the resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+### Scale down to baseline CPUs
+
+Now, decrease the CPU request and limit to `2`.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"2"}, "limits":{"cpu":"2"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 2` both for limits and requests.
+* `status.containerStatuses[0].allocatedResources` shows `cpu: 2`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].resources` also shows `cpu: 2`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+### Scale down below baseline CPUs
+
+Now, decrease the CPU request and limit to `1`, this value is less than baseline CPUs.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1"}, "limits":{"cpu":"1"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, ... not allowed to reduce container exclusively allocated pool below baseline, (baseline CPUs = 2, requested CPUs = 1)`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
+  because the resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+### Scale up to a shared pool above baseline CPUs
+
+Now, increase the CPU request and limit to `2500m`, this value is above than baseline CPUs (2) but it is not integer,
+which means is asking to resize the container and change its QoS to use CPUs from the shared pool.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"2500m"}, "limits":{"cpu":"2500m"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "2500m"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, nothing to be done ... cannot move container from exclusive to shared pool`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
+  because the resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+
+To fix this, we patch the pod again with a feasible resource values.
+
+```shell
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"3"}, "limits":{"cpu":"3"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 3`.
+* `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+### Scale down below baseline CPUs
+
+Next, try requesting one extra CPU, below the baseline CPUs.
+
+```shell
+# Attempt to patch with an excessively large CPU request
+minikube kubectl -- -n qos-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000m"}, "limits":{"cpu":"1000m"}}}]}}'
+```
+
+Query the Pod's details:
+
+```shell
+minikube kubectl -- -n qos-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1000"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, nothing to be done ... not allowed to reduce container exclusively allocated pool below basline (baseline CPUs = 2, requested CPUs = 1)`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 3000m`, `memory: 300Mi`),
+  because the infeasible resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+To fix this, you would need to patch the pod again with feasible resource values.
+
+## Clean up
+
+Delete your namespace. This deletes all the Pods that you created for this task:
+
+```shell
+minikube kubectl delete namespace qos-example
+```
+
+Delete your minikube or keep it and continue experimenting :-). This deletes minkube
+```shell
+minikube delete
 ```
 
 ## {{% heading "whatsnext" %}}
