@@ -97,6 +97,44 @@ To learn more about seccomp, see
 [Seccomp BPF](https://www.kernel.org/doc/html/latest/userspace-api/seccomp_filter.html)
 in the Linux kernel documentation.
 
+#### seccomp profiles from OCI registries {#seccomp-oci}
+
+{{< feature-state feature_gate_name="SecurityProfileOCI" >}}
+
+Instead of installing a seccomp profile on every node, you can publish the
+profile to an OCI registry and reference it from the `seccompProfile` of a Pod
+or container by setting `type: OCI`. The `oci.ref` field must be a
+digest-pinned reference, such as
+`registry.example.com/profiles/app@sha256:<digest>`. Tags are not accepted, so
+the profile that a workload uses changes only when you change the reference.
+Before the kubelet starts the Pod, it asks the container runtime to pull the
+profile, using the same credentials as for the Pod's container images.
+
+The container runtime merges the pulled profile with its baseline, which is the
+runtime's default seccomp profile unless the node administrator configured a
+different one. A syscall is allowed only if both the pulled profile and the
+baseline allow it, so a profile from a registry can restrict a workload further,
+but it can never loosen the node's baseline. You can also set `oci.baseProfile`
+to `RuntimeDefault` or to a `Localhost` profile on the node, which then takes
+part in the same merge.
+
+To publish a profile, push it as an OCI artifact whose single layer is the
+profile itself: a JSON seccomp profile in the format of the `linux.seccomp`
+section of the
+[OCI runtime specification](https://github.com/opencontainers/runtime-spec/blob/main/config-linux.md#seccomp),
+stored as is rather than in a tar archive. Set the config media type of the
+artifact, or its `artifactType` together with an empty config, to
+`application/vnd.cncf.seccomp-profile.config.v1+json`. This is the format that
+Kubernetes recommends; which formats a container runtime accepts is up to the
+runtime. Use the digest of the pushed artifact in `oci.ref`.
+
+The scheduler places Pods that use `type: OCI` only on nodes where the feature
+is enabled, and the kubelet rejects them if the node's container runtime does
+not support pulling seccomp profiles. Privileged containers cannot use
+`type: OCI`. While the feature is alpha, the `baseline` and `restricted`
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+reject `type: OCI`.
+
 #### Considerations for seccomp {#seccomp-considerations}
 
 seccomp is a low-level security configuration that you should only configure
