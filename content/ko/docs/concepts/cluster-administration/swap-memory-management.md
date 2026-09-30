@@ -356,7 +356,7 @@ Kubernetes {{< skew currentVersion >}}에서 스왑 메모리 사용량을 고�
 영향을 줄 수 있다. 이러한 위험을 완화하고 노드의 안정성을 보장하기 위해
 스왑 한도를 자동으로 구성하도록 구현되었다.
 
-`LimitedSwap`을 사용하면  Burstable QoS에 해당하지 않는 파드
+`LimitedSwap`을 사용하면 Burstable QoS에 해당하지 않는 파드
 (`BestEffort` 또는 `Guaranteed` QoS 파드)는 스왑 메모리를 사용할 수 없다.
 `BestEffort` QoS 파드는 메모리 사용량을 예측하기 어렵고
 메모리 사용량에 대한 정보도 없기 때문에, 안전한 스왑 메모리 할당량을
