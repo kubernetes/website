@@ -344,6 +344,14 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">KUBECTL_DRAIN_NODE_CONDITIONS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, `kubectl drain` reports drain progress using the `DrainInProgress` and `Drained` Node conditions. `kubectl uncordon` clears the drain observations that kubectl reports. This feature is in alpha.
+</td>
+</tr>
+
+<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
