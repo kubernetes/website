@@ -41,7 +41,7 @@ no_list: true
 ## CLI
 
 * [kubectl](/docs/reference/kubectl/) - 명령어를 실행하거나 쿠버네티스 클러스터를 관리하기 위해 사용하는 주된 CLI 도구.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl에서 [JSONPath 표현](https://goessner.net/articles/JsonPath/)을 사용하기 위한 문법 가이드.
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl에서 [JSONPath 표현](https://goessner.net/articles/JsonPath/)을 사용하기 위한 문법 가이드.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - 안정적인 쿠버네티스 클러스터를 쉽게 프로비전하기 위한 CLI 도구.
 
 ## 컴포넌트
