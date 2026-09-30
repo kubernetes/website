@@ -157,8 +157,12 @@ To learn more about configuring the node selector and tolerations, see
 
 ### Pod Overhead
 
-You can set Pod overhead using the `overhead` field of a RuntimeClass. To learn more, read
-[Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
+Pod overhead accounts for the resources that a Pod's infrastructure uses in addition to the
+resources requested by its containers. You define the overhead using the `overhead` field of a
+RuntimeClass. Kubernetes applies that overhead to Pods that use the RuntimeClass. To learn more,
+read [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
 
 ## {{% heading "whatsnext" %}}
 
