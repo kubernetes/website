@@ -197,7 +197,7 @@ spec:
   파드그룹 내 파드 간에 공유할 수 있다.
 
 파드그룹 API는 파드 API의 `spec.resourceClaims` 필드와 동일한 구조와
-유사한 의미를 갖는 `spec.resourceClaims` 필드를 정의한다:
+유사한 의미를 갖는 `spec.resourceClaims` 필드를 정의한다.
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1beta1
@@ -251,7 +251,7 @@ spec:
 파드그룹이 삭제되고 리소스클레임이
 더 이상 예약되지 않으면 리소스클레임이 삭제된다.
 
-다음 예시를 살펴본다:
+다음 예시를 살펴본다.
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1beta1
@@ -311,7 +311,7 @@ spec:
 
 리소스슬라이스는 디바이스 사용자와 스케줄러에 유용한 정보를 제공하며,
 동적 리소스 할당에 필수적이다. 모든 리소스슬라이스에는 다음 정보가 포함되어야
-한다:
+한다.
 
 * **리소스 풀**: 드라이버가 관리하는 하나 이상의 리소스로 이루어진 그룹이다.
   풀은 둘 이상의 리소스슬라이스에 걸쳐 있을 수 있다. 풀의 리소스 변경 사항은
@@ -332,7 +332,7 @@ spec:
 클러스터 사용자가 리소스슬라이스를 생성하거나 수정하는 것과 같은 수동 변경을
 덮어쓴다.
 
-다음은 리소스슬라이스의 예시다:
+다음은 리소스슬라이스의 예시다.
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -360,7 +360,7 @@ spec:
 이 리소스슬라이스는 `black-cat-pool` 풀에서
 `resource-driver.example.com` 드라이버가 관리한다. `allNodes: true` 필드는 클러스터의
 모든 노드가 디바이스에 접근할 수 있음을 나타낸다. 리소스슬라이스에는
-`large-black-cat`이라는 디바이스 하나가 있으며, 다음 속성을 가진다:
+`large-black-cat`이라는 디바이스 하나가 있으며, 다음 속성을 가진다.
 
 * `color`: `black`
 * `size`: `large`
@@ -393,7 +393,7 @@ spec:
 유지 관리 및 문제 해결 작업에 필요한 특권 기능을 사용할 수 있도록 리소스클레임 또는
 리소스클레임템플릿의 요청을 표시할 수 있다.
 관리자 접근 권한이 있는 요청은 사용 중인 디바이스에 접근할 수 있게 하며 컨테이너에서
-디바이스를 사용할 수 있게 할 때 추가 권한을 활성화할 수도 있다:
+디바이스를 사용할 수 있게 할 때 추가 권한을 활성화할 수도 있다.
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -456,7 +456,7 @@ device.attributes["dra.example.com"].supported-models.includes("model-c")  # fal
 기본적으로 각 `DeviceAttribute`는 부울, 정수, 문자열 또는 시맨틱 버전 문자열 중
 하나의 스칼라 값만 보유한다. `DRAListTypeAttributes` 기능 게이트는
 `DeviceAttribute`에 네 가지 목록 유형 필드를 추가하여, 디바이스가 하나의 속성에 대해
-여러 값을 알릴 수 있도록 한다:
+여러 값을 알릴 수 있도록 한다.
 
 - **`bools`** — 부울 값 목록
 - **`ints`** — 64비트 정수 값 목록
@@ -470,7 +470,7 @@ device.attributes["dra.example.com"].supported-models.includes("model-c")  # fal
 디바이스만 포함할 수 있다. 목록 유형 속성 또는 테인트와 같은 다른 고급 기능을 사용한다.
 
 다음은 목록 유형 문자열 속성을 사용하여 여러 지원 모델을 알리는 디바이스의
-예시다:
+예시다.
 
 ```yaml
 kind: ResourceSlice
@@ -553,7 +553,7 @@ spec:
 합의한 적이 없더라도 `matchAttribute` 제약 조건은
 이 가상 속성을 기준으로 두 요청을 맞춘다.
 
-`derivedAttributes`에 대해 알아둘 몇 가지 사항은 다음과 같다:
+`derivedAttributes`에 대해 알아둘 몇 가지 사항은 다음과 같다.
 
 - **이름 지정**: `name`은 DNS 서브도메인 뒤에 `/`와 C
   식별자가 오는 형식이어야 하며, 드라이버가 제공하는 속성 이름에 사용하는 형식과
