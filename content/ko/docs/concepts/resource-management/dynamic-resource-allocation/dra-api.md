@@ -502,7 +502,7 @@ spec:
 {{< feature-state feature_gate_name="DRADerivedAttributes" >}}
 
 `matchAttribute` 및 `distinctAttribute` 제약 조건은 일반적으로
-디바이스가 정확히 동일한 이름의 속성을 게시해야 한다. GPU 드라이버가
+디바이스가 정확히 동일한 이름의 속성을 게시하도록 요구한다. GPU 드라이버가
 `pcie_locality`를 게시하고 NIC 드라이버가 `pcie_root`를 게시하는 경우(또는
 `numa0-pcie1`과 같은 문자열에 동일한 정보를 담는 경우), 스케줄러는
 이것이 같은 의미라는 것을 인식할 방법이 없으므로, 두 드라이버의 디바이스는
