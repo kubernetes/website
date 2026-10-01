@@ -227,7 +227,7 @@ spec:
 
 Dans ce cas, la GRPCRoute correspond à tout le trafic destiné à svc.example.com et applique ses règles
 de routage pour transmettre le trafic au bon backend. Comme une seule correspondance est définie,
-seules les requêtes vers la méthode `Login` du service `com.example` sur svc.example.com seront
+seules les requêtes vers la méthode com.example.User.Login sur svc.example.com seront
 transmises. Les RPC vers toute autre méthode ne correspondront pas à cette route.
 
 Consultez la référence de [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
