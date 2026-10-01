@@ -622,6 +622,10 @@ target = "i18n"
 source = "i18n/tr"
 target = "i18n"
 
+[[module.mounts]]
+source = "i18n/tr"
+target = "i18n"
+
 [segments]
   [segments.all]
     [[segments.all.includes]]
@@ -677,6 +681,9 @@ target = "i18n"
   [segments.vi]
     [[segments.vi.includes]]
       lang = 'vi'
+  [segments.tr]
+    [[segments.tr.includes]]
+      lang = 'tr'
   [segments.tr]
     [[segments.tr.includes]]
       lang = 'tr'
