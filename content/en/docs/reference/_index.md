@@ -31,12 +31,15 @@ To call the Kubernetes API from a programming language, you can use
 [client libraries](/docs/reference/using-api/client-libraries/). Officially supported
 client libraries:
 
+- [Kubernetes C client library](https://github.com/kubernetes-client/c)
+- [Kubernetes C# / .NET client library](https://github.com/kubernetes-client/csharp)
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
-- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
 - [Kubernetes Java client library](https://github.com/kubernetes-client/java)
 - [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
-- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
-- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
+- [Kubernetes Perl client library](https://github.com/kubernetes-client/perl)
+- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+- [Kubernetes Ruby client library](https://github.com/kubernetes-client/ruby)
 
 ## CLI
 
