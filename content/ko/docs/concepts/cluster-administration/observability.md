@@ -90,8 +90,7 @@ flowchart LR
 `kubectl top`은 `metrics.k8s.io/v1`과 `metrics.k8s.io/v1beta1`을 모두 지원한다.
 `v1` 버전을 사용할 수 있으면 이를 우선 사용하고, 사용할 수 없으면
 `v1beta1`로 대체한다. 쿠버네티스 v1.37에서 HorizontalPodAutoscaler 컨트롤러는
-`metrics.k8s.io/v1beta1`만 지원한다. `metrics.k8s.io/v1` 지원은 계획되어 있지만
-아직 사용할 수 없다.
+`metrics.k8s.io/v1beta1`만 지원한다. `metrics.k8s.io/v1` 지원은 계획되어 있지만 아직 사용할 수 없다.
 
 앞에서 설명한 컴포넌트 메트릭 엔드포인트와 달리, 메트릭 API는 쿠버네티스
 [API 애그리게이션 레이어](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 통해
