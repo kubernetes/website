@@ -1,7 +1,9 @@
 ---
 reviewers:
-- robscott
-- rikatz
+- remyleone
+- feloy
+- rekcah78
+- rbenzair
 title: Ingress
 api_metadata:
 - apiVersion: "networking.k8s.io/v1"
