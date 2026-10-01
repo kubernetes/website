@@ -1,42 +1,49 @@
 ---
 reviewers:
+- freehan
 title: EndpointSlices
-feature:
-  title: EndpointSlices
-  description: >
-    Suivi évolutif des réseaux Endpoints dans un cluster Kubernetes.
-
+api_metadata:
+- apiVersion: "discovery.k8s.io/v1"
+  kind: "EndpointSlice"
 content_type: concept
-weight: 10
+weight: 60
+description: >-
+  L'API EndpointSlice est le mécanisme que Kubernetes utilise pour permettre à votre Service
+  de passer à l'échelle et de gérer un grand nombre de backends, et elle permet au cluster
+  de mettre à jour efficacement sa liste de backends sains.
 ---
 
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-_EndpointSlices_ offrent une méthode simple pour suivre les Endpoints d'un réseau au sein d'un cluster de Kubernetes. Ils offrent une alternative plus évolutive et extensible aux Endpoints.
-
-
+{{< glossary_definition term_id="endpoint-slice" length="short" >}}
 
 <!-- body -->
 
-## Ressource pour EndpointSlice {#endpointslice-resource}
+## API EndpointSlice {#endpointslice-resource}
 
-Dans Kubernetes, un EndpointSlice contient des références à un ensemble de Endpoints.
-Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Service quand un {{< glossary_tooltip text="sélecteur" term_id="selector" >}} est spécifié.
-Ces EndpointSlices vont inclure des références à n'importe quels Pods qui correspondent aux selecteurs de Service.
-EndpointSlices groupent ensemble les Endpoints d'un réseau par combinaisons uniques de Services et de Ports.
+Dans Kubernetes, un EndpointSlice contient des références à un ensemble de points
+de terminaison réseau. Le plan de contrôle crée automatiquement des EndpointSlices
+pour tout Service Kubernetes pour lequel un {{< glossary_tooltip text="sélecteur"
+term_id="selector" >}} est spécifié. Ces EndpointSlices contiennent des
+références à tous les Pods qui correspondent au sélecteur du Service. Les EndpointSlices
+regroupent les points de terminaison réseau par combinaison unique de famille d'adresses IP,
+de protocole, de numéro de port et de nom de Service.
+Le nom d'un objet EndpointSlice doit être un
+[nom de sous-domaine DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) valide.
 
-Par exemple, voici un échantillon d'une ressource EndpointSlice pour le Kubernetes Service `exemple`.
+Voici par exemple un objet EndpointSlice dont le propriétaire est le Service Kubernetes
+`example`.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: exemple-abc
+  name: example-abc
   labels:
-    kubernetes.io/service-name: exemple
+    kubernetes.io/service-name: example
 addressType: IPv4
 ports:
   - name: http
@@ -48,70 +55,185 @@ endpoints:
     conditions:
       ready: true
     hostname: pod-1
-    topology:
-      kubernetes.io/hostname: node-1
-      topology.kubernetes.io/zone: us-west2-a
+    nodeName: node-1
+    zone: us-west2-a
 ```
 
-Les EndpointSlices gérés par le contrôleur d'EndpointSlice n'auront, par défaut, pas plus de 100 Endpoints chacun.
-En dessous de cette échelle, EndpointSlices devraient mapper 1:1 les Endpoints et les Services et devraient avoir une performance similaire.
+Par défaut, le plan de contrôle crée et gère des EndpointSlices qui ne contiennent
+pas plus de 100 points de terminaison chacun. Vous pouvez modifier cette valeur avec l'option
+`--max-endpoints-per-slice` de
+{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}},
+jusqu'à un maximum de 1000.
 
-EndpointSlices peuvent agir en tant que source de vérité pour kube-proxy quand il s'agit du routage d'un trafic interne.
-Lorsqu'ils sont activés, ils devraient offrir une amélioration de performance pour les services qui ont une grand quantité d'Endpoints.
+Les EndpointSlices constituent la source de vérité de
+{{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} pour déterminer
+comment acheminer le trafic interne.
 
-### Types d'addresses
+### Types d'adresses {#address-types}
 
-Les EndpointSlices supportent 3 types d'addresses :
+Les EndpointSlices prennent en charge deux types d'adresses :
 
 * IPv4
 * IPv6
-* FQDN (Fully Qualified Domain Name) - [nom de domaine entièrement qualifié]
 
-### Topologie
+Chaque objet `EndpointSlice` correspond à un type d'adresse IP précis. Si vous avez
+un Service accessible en IPv4 et en IPv6, il existera au moins deux objets
+`EndpointSlice` (un pour IPv4 et un pour IPv6).
 
-Chaque Endpoint dans un EndpointSlice peut contenir des informations de topologie pertinentes.
-Ceci est utilisé pour indiquer où se trouve un Endpoint, qui contient les informations sur le Node, zone et région correspondantes. Lorsque les valeurs sont disponibles, les labels de Topologies suivants seront définis par le contrôleur EndpointSlice:
+### Conditions {#conditions}
 
-* `kubernetes.io/hostname` - Nom du Node sur lequel l'Endpoint se situe.
-* `topology.kubernetes.io/zone` - Zone dans laquelle l'Endpoint se situe.
-* `topology.kubernetes.io/region` - Région dans laquelle l'Endpoint se situe.
+L'API EndpointSlice enregistre, pour les points de terminaison, des conditions qui peuvent être utiles à ses consommateurs.
+Les trois conditions sont `serving`, `terminating` et `ready`.
 
-Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que leurs correspondances avec les EndpointSlices sont à jour.
-Le contrôleur gère les EndpointSlices pour tous les Services qui ont un sélecteur - [référence: {{< glossary_tooltip text="sélecteur" term_id="selector" >}}] - specifié. Celles-ci représenteront les IPs des Pods qui correspondent au sélecteur.
+#### Serving {#serving}
 
-### Capacité d'EndpointSlices
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-Les EndpointSlices sont limités à une capacité de 100 Endpoints chacun, par défaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
+La condition `serving` indique que le point de terminaison répond actuellement aux requêtes, et
+qu'il devrait donc être utilisé comme cible pour le trafic du Service. Pour les points de terminaison
+adossés à un Pod, elle correspond à la condition `Ready` du Pod.
 
-### Distribution d'EndpointSlices
+#### Terminating {#terminating}
 
-Chaque EndpointSlice a un ensemble de ports qui s'applique à tous les Endpoints dans la ressource.
-Lorsque les ports nommés sont utilisés pour un Service, les Pods peuvent se retrouver avec différents ports cibles pour le même port nommé, nécessitant différents EndpointSlices.
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-Le contrôleur essaie de remplir les EndpointSlices aussi complètement que possible, mais ne les rééquilibre pas activement. La logique du contrôleur est assez simple:
+La condition `terminating` indique que le point de terminaison est
+en cours d'arrêt. Pour les points de terminaison adossés à un Pod, cette condition est définie
+dès que la suppression du Pod est demandée (c'est-à-dire lorsqu'il reçoit un horodatage
+de suppression, mais très probablement avant que les conteneurs du Pod ne s'arrêtent).
 
-1. Itérer à travers les EndpointSlices existants, retirer les Endpoints qui ne sont plus voulus et mettre à jour les Endpoints qui ont changé.
-2. Itérer à travers les EndpointSlices qui ont été modifiés dans la première étape et les remplir avec n'importe quel Endpoint nécéssaire.
-3. S'il reste encore des Endpoints nouveaux à ajouter, essayez de les mettre dans une slice qui n'a pas été changée et/ou en créer une nouvelle.
+Les proxys de Service ignorent normalement les points de terminaison marqués `terminating`,
+mais ils peuvent acheminer le trafic vers des points de terminaison à la fois `serving` et
+`terminating` si tous les points de terminaison disponibles sont marqués `terminating`. (Cela
+contribue à garantir qu'aucun trafic du Service n'est perdu pendant les mises à jour progressives
+des Pods sous-jacents.)
 
-Par-dessus tout, la troisième étape priorise la limitation de mises à jour d'EndpointSlice sur une distribution complètement pleine d'EndpointSlices. Par exemple, s'il y avait 10 nouveaux Endpoints à ajouter et 2 EndpointSlices qui peuvent contenir 5 Endpoints en plus chacun; cette approche créera un nouveau EndpointSlice au lieu de remplir les EndpointSlice existants. C'est à dire, une seule création EndpointSlice est préférable à plusieurs mises à jour d'EndpointSlices.
+#### Ready {#ready}
 
-Avec kube-proxy exécuté sur chaque Node et surveillant EndpointSlices, chaque changement d'un EndpointSlice devient relativement coûteux puisqu'ils seront transmis à chaque Node du cluster.
-Cette approche vise à limiter le nombre de modifications qui doivent être envoyées à chaque Node, même si ça peut causer plusieurs EndpointSlices non remplis.
+La condition `ready` est essentiellement un raccourci pour vérifier
+« `serving` et non `terminating` » (elle vaut toutefois toujours
+`true` pour les Services dont `spec.publishNotReadyAddresses` est défini sur
+`true`).
 
-En pratique, cette distribution bien peu idéale devrait être rare. La plupart des changements traités par le contrôleur EndpointSlice seront suffisamment petits pour tenir dans un EndpointSlice existant, et sinon, un nouveau EndpointSlice aurait probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également une compaction naturelle des EndpointSlices avec tous leurs pods et les Endpoints correspondants qui se feront remplacer.
+### Informations de topologie {#topology}
 
-## Motivation
+Chaque point de terminaison d'un EndpointSlice peut contenir des informations de topologie pertinentes.
+Ces informations comprennent l'emplacement du point de terminaison ainsi que des informations
+sur le nœud et la zone correspondants. Elles sont disponibles dans les champs suivants,
+propres à chaque point de terminaison d'un EndpointSlice :
 
-L'API des Endpoints fournit une méthode simple et facile à suivre pour les Endpoints dans Kubernetes. Malheureusement, comme les clusters Kubernetes et Services sont devenus plus grands, les limitations de cette API sont devenues plus visibles. Plus particulièrement, celles-ci comprennent des limitations liées au dimensionnement vers un plus grand nombre d'Endpoints d'un réseau.
+* `nodeName` : le nom du nœud sur lequel se trouve ce point de terminaison.
+* `zone` : la zone dans laquelle se trouve ce point de terminaison.
 
-Puisque tous les Endpoints d'un réseau pour un Service ont été stockés dans une seule ressource Endpoints, ces ressources pourraient devenir assez lourdes. Cela affecte les performances des composants Kubernetes (notamment le plan de contrôle) et cause une grande quantité de trafic réseau et de traitements lorsque les Endpoints changent. Les EndpointSlices aident à atténuer ces problèmes ainsi qu'à fournir une plate-forme extensible pour des fonctionnalités supplémentaires telles que le routage topologique.
+### Gestion {#management}
 
+Le plus souvent, c'est le plan de contrôle (plus précisément, le
+{{< glossary_tooltip text="contrôleur" term_id="controller" >}} d'EndpointSlices) qui crée et
+gère les objets EndpointSlice. Les EndpointSlices ont de nombreux autres cas d'usage,
+comme les implémentations de service mesh, qui peuvent amener d'autres entités
+ou contrôleurs à gérer des ensembles supplémentaires d'EndpointSlices.
 
+Pour que plusieurs entités puissent gérer des EndpointSlices sans se gêner
+mutuellement, Kubernetes définit le
+{{< glossary_tooltip term_id="label" text="label" >}}
+`endpointslice.kubernetes.io/managed-by`, qui indique l'entité qui gère
+un EndpointSlice.
+Le contrôleur d'EndpointSlices attribue la valeur `endpointslice-controller.k8s.io`
+à ce label sur tous les EndpointSlices qu'il gère. Les autres entités qui gèrent
+des EndpointSlices doivent elles aussi attribuer une valeur unique à ce label.
+
+### Propriété {#ownership}
+
+Dans la plupart des cas d'usage, le propriétaire d'un EndpointSlice est le Service dont
+l'objet EndpointSlice suit les points de terminaison. Cette propriété est indiquée par une référence
+de propriétaire (owner reference) sur chaque EndpointSlice, ainsi que par un label
+`kubernetes.io/service-name` qui permet de retrouver simplement tous les EndpointSlices
+d'un Service.
+
+### Répartition des EndpointSlices {#distribution-of-endpointslices}
+
+Chaque EndpointSlice possède un ensemble de ports qui s'applique à tous les points de terminaison
+de la ressource. Lorsqu'un Service utilise des ports nommés, les Pods peuvent se retrouver avec
+des numéros de port cible différents pour un même port nommé, ce qui nécessite des
+EndpointSlices distincts.
+
+Le plan de contrôle essaie de remplir les EndpointSlices autant que possible, mais ne
+les rééquilibre pas activement. La logique est assez simple :
+
+1. Parcourir les EndpointSlices existants, retirer les points de terminaison qui ne sont plus
+   souhaités et mettre à jour les points de terminaison correspondants qui ont changé.
+2. Parcourir les EndpointSlices modifiés lors de la première étape et
+   les compléter avec les nouveaux points de terminaison nécessaires.
+3. S'il reste encore de nouveaux points de terminaison à ajouter, essayer de les placer dans un
+   EndpointSlice resté inchangé et/ou en créer de nouveaux.
+
+Point important : la troisième étape privilégie la limitation des mises à jour d'EndpointSlices
+plutôt qu'un remplissage optimal des EndpointSlices. Par exemple, s'il y a 10
+nouveaux points de terminaison à ajouter et 2 EndpointSlices pouvant chacun en accueillir 5 de plus,
+cette approche créera un nouvel EndpointSlice au lieu de remplir les 2
+EndpointSlices existants. Autrement dit, une seule création d'EndpointSlice est
+préférable à plusieurs mises à jour d'EndpointSlices.
+
+Comme kube-proxy s'exécute sur chaque nœud et surveille les EndpointSlices, chaque modification
+d'un EndpointSlice devient relativement coûteuse, puisqu'elle est transmise à
+chaque nœud du cluster. Cette approche vise à limiter le nombre de
+modifications à envoyer à chaque nœud, même si elle peut aboutir à plusieurs
+EndpointSlices partiellement remplis.
+
+En pratique, cette répartition moins qu'idéale devrait être rare. La plupart des modifications
+traitées par le contrôleur d'EndpointSlices sont suffisamment petites pour tenir dans un
+EndpointSlice existant ; dans le cas contraire, un nouvel EndpointSlice sera de toute façon
+probablement nécessaire bientôt. Les mises à jour progressives des Deployments entraînent
+aussi un réagencement naturel des EndpointSlices, puisque tous les Pods et leurs points de terminaison
+correspondants sont remplacés.
+
+### Points de terminaison en double {#duplicate-endpoints}
+
+En raison de la nature des modifications d'EndpointSlices, un point de terminaison peut figurer dans
+plusieurs EndpointSlices en même temps. Cela se produit naturellement, car les modifications de
+différents objets EndpointSlice peuvent parvenir au watch / cache du client Kubernetes
+à des moments différents.
+
+{{< note >}}
+Les clients de l'API EndpointSlice doivent parcourir tous les EndpointSlices existants
+associés à un Service et construire une liste complète de points de terminaison réseau uniques.
+Il est important de noter que des points de terminaison peuvent être dupliqués dans différents EndpointSlices.
+
+Vous trouverez une implémentation de référence de cette agrégation et de cette
+déduplication des points de terminaison dans le code `EndpointSliceCache` de `kube-proxy`.
+{{< /note >}}
+
+### Mise en miroir des EndpointSlices {#endpointslice-mirroring}
+
+{{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
+
+L'API EndpointSlice remplace l'ancienne API Endpoints. Pour
+préserver la compatibilité avec les anciens contrôleurs et les charges de travail des utilisateurs qui
+s'attendent à ce que {{<glossary_tooltip term_id="kube-proxy" text="kube-proxy">}}
+achemine le trafic à partir des ressources Endpoints, le plan de contrôle du cluster
+reproduit (en miroir) la plupart des ressources Endpoints créées par les utilisateurs
+dans des EndpointSlices correspondants.
+
+(Cette fonctionnalité est toutefois dépréciée, comme le reste de l'API Endpoints.
+Les utilisateurs qui définissent manuellement des points de terminaison pour des Services
+sans sélecteur doivent le faire en créant directement des ressources EndpointSlice,
+plutôt qu'en créant des ressources Endpoints et en laissant le plan de contrôle les reproduire en miroir.)
+
+Le plan de contrôle reproduit les ressources Endpoints en miroir, sauf si :
+
+* la ressource Endpoints a un label `endpointslice.kubernetes.io/skip-mirror`
+  défini sur `true` ;
+* la ressource Endpoints a une annotation `control-plane.alpha.kubernetes.io/leader` ;
+* la ressource Service correspondante n'existe pas ;
+* la ressource Service correspondante a un sélecteur non nul.
+
+Une même ressource Endpoints peut donner lieu à plusieurs EndpointSlices. C'est le
+cas si une ressource Endpoints comporte plusieurs sous-ensembles (subsets) ou contient des points
+de terminaison de plusieurs familles d'adresses IP (IPv4 et IPv6). Au maximum 1000 adresses par
+sous-ensemble sont reproduites dans les EndpointSlices.
 
 ## {{% heading "whatsnext" %}}
 
-
-* [Activer EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
-* Lire [Connecter des applications aux Services](/docs/concepts/services-networking/connect-applications-service/)
-
+* Suivre le tutoriel [Connecter des applications avec des Services](/docs/tutorials/services/connect-applications-service/)
+* Lire la [référence de l'API](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) EndpointSlice
+* Lire la [référence de l'API](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) Endpoints

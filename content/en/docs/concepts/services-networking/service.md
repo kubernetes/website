@@ -62,6 +62,8 @@ track of the set of backends themselves.
 
 The Service abstraction enables this decoupling.
 
+Canary deployments are a common use case for Services. To learn what's involved, follow the [Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/) tutorial.
+
 The set of Pods targeted by a Service is usually determined
 by a {{< glossary_tooltip text="selector" term_id="selector" >}} that you
 define.
@@ -526,7 +528,7 @@ the manual assignment scenarios. When a user wants to create a NodePort service 
 uses a specific port, the target port may conflict with another port that has already been assigned.
 
 To avoid this problem, the port range for NodePort services is divided into two bands.
-Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
+Dynamic port assignment uses the upper band by default, and it may use the lower band once the
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 
 When using the default NodePort range 30000-32767, the bands are partitioned as follows: 
@@ -537,32 +539,55 @@ When using the default NodePort range 30000-32767, the bands are partitioned as 
 See [Avoid Collisions Assigning Ports to NodePort Services](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)
 for more details on how the static and dynamic bands are calculated.
 
-#### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
+#### IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
-You can set up nodes in your cluster to use a particular IP address for serving node port
-services. You might want to do this if each node is connected to multiple networks (for example:
-one network for application traffic, and another network for traffic between nodes and the
-control plane).
+When using kube-proxy in [`iptables`
+mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables), NodePort Services are
+available on all node IPs by default. When using [`nftables`
+mode](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), they are only
+available only on the node's primary IP (or dual-stack primary IPs) by default.
 
-If you want to specify particular IP address(es) to proxy the port, you can set the
-`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
-field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-to particular IP block(s).
+You can change the set of node IPs that NodePort Services are available on with the
+`--nodeport-addresses` flag for kube-proxy, or the equivalent `nodePortAddresses`
+field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/).
+It accepts a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) or one
+of more of the following keywords:
 
-This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`)
-to specify IP address ranges that kube-proxy should consider as local to this node.
+- `primary` - the node's primary IPv4 and/or IPv6 address, according to the Node object.
+  (This is the default value for `nftables` mode.)
+- `localhost` - the node's loopback addresses (`127.0.0.0/8`, `::1/128`).
+- `all` - all addresses. (This is the default value for `iptables` and `ipvs` mode.)
 
-For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
-kube-proxy only selects the loopback interface for NodePort Services.
-The default for `--nodeport-addresses` is an empty list.
-This means that kube-proxy should consider all available network interfaces for NodePort.
-(That's also compatible with earlier Kubernetes releases.)
-{{< note >}}
-This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
-If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
-in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered
-node IP address (or possibly IP addresses).
-{{< /note >}}
+For example, if you start kube-proxy with the flag `--nodeport-addresses=192.168.0.0/24`,
+then kube-proxy will try to find a local IP address on that subnet on each node, and serve
+NodePort Services only via that IP.
+
+#### `type: NodePort` Services via localhost {#localhost-nodeports}
+
+The mechanisms used by service proxies to implement NodePort Services do not always
+support providing NodePort Services on localhost. For kube-proxy:
+
+  - When using `iptables` mode, with a `--nodeport-addresses` value that includes
+    `127.0.0.1`, NodePort services will be available on `127.0.0.1`. However, this
+    requires enabling a kernel sysctl (`route_localnet`) that may have insecure side
+    effects in some clusters. IPTables localhost NodePorts can be disabled by passing
+    `--iptables-localhost-nodeports false` to kube-proxy, or by setting
+    `--nodeport-addresses` to a range that does not include `127.0.0.1`.
+
+  - When using `ipvs` mode, or `iptables` mode in a single-stack IPv6 clusters, NodePorts
+    Services are not available on localhost.
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+  - When using `nftables` mode, NodePort Services will be available on localhost when the
+    `KubeProxyNFTablesLocalhostNodePorts` feature gate is enabled, and
+    `--nodeport-addresses` is set to a value that explicitly includes `localhost`.
+    (Setting it to just `all` will _not_ enable localhost NodePort Services.) This is
+    implemented by redirecting localhost NodePort connections through a userspace proxy,
+    so it is not as efficient as ordinary service proxying.
+
+Third-party network plugins that have their own service proxy implementations may or may
+not support localhost NodePorts; consult the documentation for those plugins.
 
 ### `type: LoadBalancer` {#loadbalancer}
 
@@ -687,15 +712,15 @@ Unprefixed names are reserved for end-users.
 
 #### Load balancer IP address mode {#load-balancer-ip-mode}
 
-For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
-The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
+For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`.
+The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves.
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
 
-There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
-The default value is "VIP" meaning that traffic is delivered to the node 
-with the destination set to the load-balancer's IP and port. 
-There are two cases when setting this to "Proxy", depending on how the load-balancer 
-from the cloud provider delivers the traffics:  
+There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy".
+The default value is "VIP" meaning that traffic is delivered to the node
+with the destination set to the load-balancer's IP and port.
+There are two cases when setting this to "Proxy", depending on how the load-balancer
+from the cloud provider delivers the traffics:
 
 - If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
 - If the traffic is delivered directly to the pod, the destination would be set to the pod's IP and port.

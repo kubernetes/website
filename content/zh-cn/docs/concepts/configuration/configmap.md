@@ -50,11 +50,10 @@ debug the exact same code locally if needed.
 
 使用 ConfigMap 来将你的配置数据和应用程序代码分开。
 
-比如，假设你正在开发一个应用，它可以在你自己的电脑上（用于开发）和在云上
-（用于实际流量）运行。
+比如，假设你正在开发一个应用，它可以在你自己的电脑上（用于开发）和在云上（用于实际流量）运行。
 你的代码里有一段是用于查看环境变量 `DATABASE_HOST`，在本地运行时，
-你将这个变量设置为 `localhost`，在云上，你将其设置为引用 Kubernetes 集群中的
-公开数据库组件的 {{< glossary_tooltip text="服务" term_id="service" >}}。
+你将这个变量设置为 `localhost`，在云上，你将其设置为引用 Kubernetes
+集群中的公开数据库组件的 {{< glossary_tooltip text="服务" term_id="service" >}}。
 
 这让你可以获取在云中运行的容器镜像，并且如果有需要的话，在本地调试完全相同的代码。
 
@@ -66,8 +65,7 @@ larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
 -->
 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过
-1 MiB。如果你需要保存超出此尺寸限制的数据，你可能希望考虑挂载存储卷
-或者使用独立的数据库或者文件服务。
+1 MiB。如果你需要保存超出此尺寸限制的数据，你可能希望考虑挂载存储卷或者使用独立的数据库或者文件服务。
 {{< /note >}}
 <!--
 ## ConfigMap object
@@ -119,8 +117,8 @@ the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 ## ConfigMap 和 Pod   {#configmaps-and-pods}
 
 你可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该
-Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
-{{< glossary_tooltip text="名字空间" term_id="namespace" >}} 中。
+Pod 中配置容器。这个 Pod 和 ConfigMap
+必须要在同一个{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中。
 
 {{< note >}}
 <!--
@@ -136,9 +134,29 @@ Here's an example ConfigMap that has some keys with single values,
 and other keys where the value looks like a fragment of a configuration
 format.
 -->
-这是一个 ConfigMap 的示例，它的一些键只有一个值，其他键的值看起来像是
-配置的片段格式。
+这是一个 ConfigMap 的示例，它的一些键只有一个值，其他键的值看起来像是配置的片段格式。
 
+<!--
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  # property-like keys; each key maps to a simple value
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+
+  # file-like keys
+  game.properties: |
+    enemy.types=aliens,monsters
+    player.maximum-lives=5
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+```
+-->
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -216,14 +234,12 @@ definition specifies an `items` array in the `volumes` section.
 If you omit the `items` array entirely, every key  in the ConfigMap becomes
 a file with the same name as the key, and you get 4 files.
 -->
-ConfigMap 不会区分单行属性值和多行类似文件的值，重要的是 Pods
+ConfigMap 不会区分单行属性值和多行类似文件的值，重要的是 Pod
 和其他对象如何使用这些值。
 
 上面的例子定义了一个卷并将它作为 `/config` 文件夹挂载到 `demo` 容器内，
-创建两个文件，`/config/game.properties` 和
-`/config/user-interface.properties`，
-尽管 ConfigMap 中包含了四个键。
-这是因为 Pod 定义中在 `volumes` 节指定了一个 `items` 数组。
+创建两个文件，`/config/game.properties` 和 `/config/user-interface.properties`，
+尽管 ConfigMap 中包含了四个键。这是因为 Pod 定义中在 `volumes` 节指定了一个 `items` 数组。
 如果你完全忽略 `items` 数组，则 ConfigMap 中的每个键都会变成一个与该键同名的文件，
 因此你会得到四个文件。
 
@@ -252,8 +268,7 @@ adjust their behavior based on a ConfigMap.
 ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容器执行配置。
 你也可以单独使用 ConfigMap。
 
-比如，你可能会遇到基于 ConfigMap 来调整其行为的
-{{< glossary_tooltip text="插件" term_id="addons" >}} 或者
+比如，你可能会遇到基于 ConfigMap 来调整其行为的{{< glossary_tooltip text="插件" term_id="addons" >}}或者
 {{< glossary_tooltip text="operator" term_id="operator-pattern" >}}。
 
 <!--
@@ -279,8 +294,7 @@ To consume a ConfigMap in a volume in a Pod:
    that directory. Each key in the ConfigMap `data` map becomes the filename
    under `mountPath`.
 -->
-1. 创建一个 ConfigMap 对象或者使用现有的 ConfigMap 对象。多个 Pod 可以引用同一个
-   ConfigMap。
+1. 创建一个 ConfigMap 对象或者使用现有的 ConfigMap 对象。多个 Pod 可以引用同一个 ConfigMap。
 1. 修改 Pod 定义，在 `spec.volumes[]` 下添加一个卷。
    为该卷设置任意名称，之后将 `spec.volumes[].configMap.name` 字段设置为对你的
    ConfigMap 对象的引用。
@@ -341,8 +355,8 @@ the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1be
 kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否为最新。
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
-[KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
-的 `configMapAndSecretChangeDetectionStrategy` 字段来配置。
+[KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
+`configMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
@@ -362,8 +376,7 @@ ConfigMap 既可以通过 watch 操作实现内容传播（默认形式），也
 <!--
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart.
 -->
-以环境变量方式使用的 ConfigMap 数据不会被自动更新。
-更新这些数据需要重新启动 Pod。
+以环境变量方式使用的 ConfigMap 数据不会被自动更新。更新这些数据需要重新启动 Pod。
 
 {{< note >}}
 <!--
@@ -558,7 +571,7 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 -->
 一旦某 ConfigMap 被标记为不可变更，则 **无法** 逆转这一变化，也无法更改
 `data` 或 `binaryData` 字段的内容。你只能删除并重建 ConfigMap。
-因为现有的 Pod 会维护一个已被删除的 ConfigMap 的挂载点，建议重新创建这些 Pods。
+因为现有的 Pod 会维护一个已被删除的 ConfigMap 的挂载点，建议重新创建这些 Pod。
 
 ## {{% heading "whatsnext" %}}
 

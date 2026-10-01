@@ -45,7 +45,7 @@ kubectl 的 Bash 补全脚本可以用命令 `kubectl completion bash` 生成。
 <!-- 
 bash-completion is provided by many package managers
 (see [here](https://github.com/scop/bash-completion#installation)).
-You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
+You can install it with `apt-get install bash-completion` or `dnf install bash-completion`, etc.
 
 The above commands create `/usr/share/bash-completion/bash_completion`,
 which is the main script of bash-completion. Depending on your package manager,
@@ -55,7 +55,7 @@ To find out, reload your shell and run `type _init_completion`.
 If the command succeeds, you're already set, otherwise add the following to your `~/.bashrc` file:
 -->
 很多包管理工具均支持 bash-completion（参见[这里](https://github.com/scop/bash-completion#installation)）。
-可以通过 `apt-get install bash-completion` 或 `yum install bash-completion` 等命令来安装它。
+可以通过 `apt-get install bash-completion` 或 `dnf install bash-completion` 等命令来安装它。
 
 上述命令将创建文件 `/usr/share/bash-completion/bash_completion`，它是 bash-completion 的主脚本。
 依据包管理工具的实际情况，你需要在 `~/.bashrc` 文件中手工导入此文件。

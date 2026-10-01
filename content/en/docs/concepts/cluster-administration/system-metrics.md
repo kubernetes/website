@@ -316,5 +316,5 @@ is encountered that is not allowed with respect to the allow-list constraints.
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
+* See the list of [stable Kubernetes metrics](/docs/reference/instrumentation/metrics/#list-of-stable-kubernetes-metrics)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

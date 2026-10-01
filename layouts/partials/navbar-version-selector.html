@@ -3,13 +3,13 @@
     {{ T "version_menu" }}
   </a>
   <ul class="dropdown-menu">
-    {{ $path := "" -}}
+    {{ $versionPath := "" -}}
     {{ if .Site.Params.version_menu_pagelinks -}}
-      {{ $path = .Page.RelPermalink -}}
+      {{ $versionPath = .Page.RelPermalink -}}
     {{ end -}}
-	<li><a class="dropdown-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a></li>
-    {{ range .Site.Params.versions -}}
-    <li><a class="dropdown-item" href="{{ .url }}{{ $path }}">{{ .version }}</a></li>
+    {{ $options := partialCached "navbar-version-options.html" . .Language.Lang $versionPath -}}
+    {{ range $options -}}
+    <li><a class="dropdown-item" href="{{ .url }}">{{ .label }}</a></li>
     {{ end -}}
   </ul>
 </div>

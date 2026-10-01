@@ -37,22 +37,24 @@ Subject contains a reference to the object or user identities a role binding app
   <tbody>
     <tr>
       <td><code>apiGroup</code><br/><em>string</em></td>
-      <td>APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.</td>
+      <td>apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.</td>
     </tr>
     <tr>
       <td><code>kind</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
+      <td>kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.</td>
     </tr>
     <tr>
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
-      <td>Name of the object being referenced.</td>
+      <td>name of the object being referenced.</td>
     </tr>
     <tr>
       <td><code>namespace</code><br/><em>string</em></td>
-      <td>Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.</td>
+      <td>namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.</td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 

@@ -188,16 +188,32 @@ Kubernetes 会立即触发对此节点可分配卷数量的更新。此外，kub
 {{< feature-state feature_gate_name="VolumeLimitScaling" >}}
 
 <!--
-If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)
-is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing`
-set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.
-For example:
+The `VolumeLimitScaling`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)
+is enabled by default in Kubernetes v1.37.
 -->
-如果启用了 `VolumeLimitScaling`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)，
-并且已安装了相应的 `CSIDriver` 对象，且 `spec.preventPodSchedulingIfMissing`
-设置为 true，则调度器将阻止将 Pod 放置到尚未安装 CSI 驱动程序的节点上。
-例如：
+`VolumeLimitScaling`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)在
+Kubernetes v1.37 中默认启用。
+
+<!--
+However, preventing pod placement on nodes without a CSI driver requires explicit opt-in
+via the `spec.preventPodSchedulingIfMissing` field of the `CSIDriver` object.
+
+The `preventPodSchedulingIfMissing` field defaults to `false` and must be set to `true`
+if you do not want pods to be scheduled on nodes without a CSI driver. This decision
+to default to `false` was made for backward compatibility reasons and compatibility
+with [Cluster AutoScaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+which may not be aware of CSI volume limits during the autoscaling
+phase (see section below).
+-->
+然而，要在缺少 CSI 驱动的节点上阻止 Pod 调度，需要通过 `CSIDriver` 对象的
+`spec.preventPodSchedulingIfMissing` 字段显式启用。
+
+`preventPodSchedulingIfMissing` 字段默认为 `false`，如果你不希望 Pod 被调度到缺少 CSI 驱动的节点上，
+必须将其设置为 `true`。之所以默认设为 `false`，是出于向后兼容的考虑，同时也是为了兼容
+[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)，
+因为后者在自动扩缩阶段可能无法感知 CSI 卷的限制（见下文相应章节）。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -209,53 +225,27 @@ spec:
 ```
 
 <!--
-This limitation only applies to pods that require corresponding CSI volume.
--->
-此限制仅适用于需要相应 CSI 卷的 Pod。
-
-<!--
 ### CSI volume attach limits and cluster autoscaler
 
-If `--enable-csi-node-aware-scheduling` option is enabled in cluster-autoscaler,
-then cluster-autoscaler can accurately calculate number of nodes required to
-satisfy pending pods that require CSI volumes.
+[Cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) can account for CSI 
+volume limits when
+`--enable-csi-node-aware-scheduling=true`. This option is independent of the
+`VolumeLimitScaling` feature gate.
 -->
 ### CSI 卷附加限制和集群自动扩缩器
 
-如果在 cluster-autoscaler 中启用了 `--enable-csi-node-aware-scheduling` 选项，
-则 cluster-autoscaler 可以准确地计算满足需要 CSI 卷的待处理 Pod 所需的节点数。
+当传入 `--enable-csi-node-aware-scheduling=true` 参数时，
+[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+可以将 CSI 卷限制纳入考量。此选项与 `VolumeLimitScaling` 特性门控相互独立。
 
 <!--
-If you are using cluster-autoscaler in your
-Kubernetes cluster, we do not recommend preventing pod placement via `PreventPodSchedulingIfMissing` field,
-unless cluster-autoscaler also has `--enable-csi-node-aware-scheduling` command line option enabled.
-Underlying reason for this limitation while `VolumeLimitScaling`
-feature remains in alpha is - preventing pod placement can break scheduling
-simulation cluster-autoscaler runs if cluster-autoscaler is not already aware of CSI volume limits.
-We expect this limitation to go away once `--enable-csi-node-aware-scheduling`
-becomes enabled by default in cluster-autoscaler.
+If you use cluster autoscaler, only set `spec.preventPodSchedulingIfMissing` to
+`true` when cluster autoscaler is configured with
+`--enable-csi-node-aware-scheduling=true`. Otherwise, its scheduling simulations
+do not include the required `CSINode` information for new nodes, and cluster
+autoscaler might fail to scale up for pending Pods that use CSI volumes.
 -->
-如果你在 Kubernetes 集群中使用 cluster-autoscaler，
-我们不建议通过 `PreventPodSchedulingIfMissing` 字段阻止 Pod 部署，
-除非 cluster-autoscaler 同时启用了 `--enable-csi-node-aware-scheduling`
-命令行选项。此限制的根本原因是，在 `VolumeLimitScaling` 特性仍处于
-Alpha 测试阶段时，阻止 Pod 部署可能会破坏 cluster-autoscaler 运行的调度模拟，
-尤其是在 cluster-autoscaler 尚未感知 CSI 卷限制的情况下。
-我们预计，一旦 cluster-autoscaler 默认启用 `--enable-csi-node-aware-scheduling`，
-此限制将不复存在。
-
-<!--
-Command line `--enable-csi-node-aware-scheduling` in cluster-autoscaler can be
-enabled regardless of `VolumeLimitScaling` feature state in Kubernetes.
-We recommend enabling it if your cluster is
-using CSI volumes and you are running into issues related to, too many pods
-crowding a node when a new node is spun via cluster-autoscaler, because current version of
-cluster-autoscaler does not compute correct number of nodes required to satisfy all pending pods.
--->
-无论 Kubernetes 中的 `VolumeLimitScaling` 特性状态如何，
-都可以在 cluster-autoscaler 中启用命令行参数
-`--enable-csi-node-aware-scheduling`。
-如果你的集群使用 CSI 卷，并且遇到通过 cluster-autoscaler
-启动新节点时，节点上 Pod 过多导致资源占用过高的问题，我们建议启用此特性，
-因为当前版本的 cluster-autoscaler 无法正确计算满足所有待处理 Pod
-所需的节点数量。
+如果你使用 Cluster Autoscaler，只有当 Cluster Autoscaler 配置了
+`--enable-csi-node-aware-scheduling=true` 时，才可以将 `spec.preventPodSchedulingIfMissing`
+设置为 `true`。否则，其调度模拟不会包含新节点所需的 `CSINode` 信息，Cluster Autoscaler
+可能无法为使用 CSI 卷的 Pending Pod 完成扩容。

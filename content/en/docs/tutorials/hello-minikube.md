@@ -39,6 +39,11 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 minikube start
 ```
 
+{{< alert color="info" title="Note" >}}
+The command `minikube start` creates a single-Node cluster. That Node acts as both the control plane and a worker Node. This differs from many production Kubernetes clusters, where control plane Nodes are typically isolated from worker Node using
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) or completely invisible to the user.
+{{< /alert >}}
+
 ## Check the status of the minikube cluster
 
 Verify the status of the minikube cluster to ensure all the components are in a running state.

@@ -24,7 +24,7 @@ To support this, the `kube-scheduler` features a new *PodGroup scheduling cycle*
 and paves the way for future enhancements. This release also debuts the first iterations of *topology-aware scheduling*
 and *workload-aware preemption* to advance scheduling capabilities. Additionally,
 *ResourceClaim support for workloads* unlocks *Dynamic Resource Allocation
-([DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/))* for PodGroups. Finally,
+([DRA](/docs/concepts/resource-management/dynamic-resource-allocation/))* for PodGroups. Finally,
 to demonstrate real-world readiness, v1.36 delivers the first phase of integration between the Job controller and the new API.
 
 ## Workload and PodGroup API updates

@@ -1,0 +1,15 @@
+{{- $versionPath := "" -}}
+{{- if .Site.Params.version_menu_pagelinks -}}
+  {{- $versionPath = .Page.RelPermalink -}}
+{{- end -}}
+{{- $options := slice (dict
+  "label" (i18n "release_information_navbar" .)
+  "url" ("releases" | relLangURL)
+) -}}
+{{- range .Site.Params.versions -}}
+  {{- $options = $options | append (dict
+    "label" .version
+    "url" (printf "%s%s" .url $versionPath)
+  ) -}}
+{{- end -}}
+{{- return $options -}}

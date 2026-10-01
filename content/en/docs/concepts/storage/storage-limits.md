@@ -98,7 +98,19 @@ If a volume attachment operation fails with a `ResourceExhausted` error (gRPC co
 
 {{< feature-state feature_gate_name="VolumeLimitScaling" >}}
 
-If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing` set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.  For example:
+The `VolumeLimitScaling`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling)
+is enabled by default in Kubernetes v1.37. 
+
+However, preventing pod placement on nodes without a CSI driver requires explicit opt-in
+via the `spec.preventPodSchedulingIfMissing` field of the `CSIDriver` object.
+
+The `preventPodSchedulingIfMissing` field defaults to `false` and must be set to `true`
+if you do not want pods to be scheduled on nodes without a CSI driver. This decision
+to default to `false` was made for backward compatibility reasons and compatibility
+with [Cluster AutoScaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+which may not be aware of CSI volume limits during the autoscaling
+phase (see section below).
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -109,20 +121,16 @@ spec:
   preventPodSchedulingIfMissing: true
 ```
 
-This limitation only applies to pods that require corresponding CSI volume.
-
 
 ### CSI volume attach limits and cluster autoscaler
 
-If `--enable-csi-node-aware-scheduling` option is enabled in cluster-autoscaler, then cluster-autoscaler can
-accurately calculate number of nodes required to satisfy pending pods that require CSI volumes.
+[Cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) can account for CSI 
+volume limits when
+`--enable-csi-node-aware-scheduling=true`. This option is independent of the
+`VolumeLimitScaling` feature gate.
 
-If you are using cluster-autoscaler in your
-Kubernetes cluster, we do not recommend preventing pod placement via `PreventPodSchedulingIfMissing` field,
-unless cluster-autoscaler also has `--enable-csi-node-aware-scheduling` command line option enabled. Underlying reason for this limitation while `VolumeLimitScaling`
-feature remains in alpha is - preventing pod placement can break scheduling simulation cluster-autoscaler runs if cluster-autoscaler is not already aware of CSI volume limits. We expect this limitation to go away once `--enable-csi-node-aware-scheduling` becomes enabled by default in cluster-autoscaler.
-
-Command line `--enable-csi-node-aware-scheduling` in cluster-autoscaler can be enabled regardless of `VolumeLimitScaling` feature state in Kubernetes. We recommend enabling it if your cluster is
-using CSI volumes and you are running into issues related to, too many pods crowding a node when a new node is spun via cluster-autoscaler, because current version of
-cluster-autoscaler does not compute correct number of nodes required to satisfy all pending pods.
-
+If you use cluster autoscaler, only set `spec.preventPodSchedulingIfMissing` to
+`true` when cluster autoscaler is configured with
+`--enable-csi-node-aware-scheduling=true`. Otherwise, its scheduling simulations
+do not include the required `CSINode` information for new nodes, and cluster
+autoscaler might fail to scale up for pending Pods that use CSI volumes.

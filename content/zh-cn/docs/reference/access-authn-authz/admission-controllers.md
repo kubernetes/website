@@ -43,24 +43,24 @@ Kubernetes 的若干重要功能都要求启用一个准入控制器，以便正
 
 <!--
 ## What are they?
--->
-## 什么是准入控制插件？  {#what-are-they}
 
-<!--
 Admission controllers are code within the Kubernetes
 {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} that check the
 data arriving in a request to modify a resource.
+-->
+## 什么是准入控制插件？  {#what-are-they}
 
+准入控制器是 Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
+用于检查请求中到达的数据，以修改资源。
+
+<!--
 Admission controllers apply to requests that create, delete, or modify objects.
 Admission controllers can also block custom verbs, such as a request to connect to a
 pod via an API server proxy. Admission controllers do _not_ (and cannot) block requests
 to read (**get**, **watch** or **list**) objects, because reads bypass the admission
 control layer.
 -->
-准入控制器是 Kubernetes
-{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
-用于检查请求中到达的数据，以修改资源。
-
 准入控制器适用于创建、删除或修改对象的请求。
 准入控制器也可以阻止自定义动作，例如通过 API 服务器代理连接到 Pod 的请求。
 准入控制器**不会**（也不能）阻止读取（**get**、**watch** 或 **list**）对象的请求，
@@ -180,7 +180,8 @@ admission control plugins:
 -->
 ## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
-Kubernetes API 服务器的 `enable-admission-plugins` 标志接受一个（以逗号分隔的）准入控制插件列表，
+Kubernetes API 服务器的 `enable-admission-plugins`
+标志接受一个（以逗号分隔的）准入控制插件列表，
 这些插件会在集群修改对象之前被调用。
 
 例如，下面的命令启用 `NamespaceLifecycle` 和 `LimitRanger` 准入控制插件：
@@ -443,9 +444,9 @@ have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 -->
-此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds` 和
-`default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍 `notready:NoExecute` 和
-`unreachable:NoExecute` 污点
+此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds`
+和 `default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍
+`notready:NoExecute` 和 `unreachable:NoExecute` 污点
 （如果 Pod 尚未容忍 `node.kubernetes.io/not-ready：NoExecute` 和
 `node.kubernetes.io/unreachable：NoExecute` 污点的话）。
 `default-not-ready-toleration-seconds` 和 `default-unreachable-toleration-seconds`
@@ -455,10 +456,7 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
 feature is very powerful (allows network traffic interception) and not well
 controlled by policy.  When enabled, users of the cluster may not create new
@@ -466,6 +464,8 @@ Services which use `externalIPs` and may not add new values to `externalIPs` on
 existing `Service` objects.  Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 -->
+**类别**：验证。
+
 此准入控制器拒绝新的 `Service` 中使用字段 `externalIPs`。
 此功能非常强大（允许网络流量拦截），并且无法很好地受策略控制。
 启用后，集群用户将无法创建使用 `externalIPs` 的新 `Service`，也无法在现有
@@ -497,7 +497,7 @@ which can be surfaced to running containers using the
 [Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
 [topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -632,14 +632,13 @@ This admission controller is disabled by default.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
 
 This admission controller is disabled by default.
 -->
+**类别**：验证。
+
 ImagePolicyWebhook 准入控制器允许使用后端 Webhook 做出准入决策。
 
 此准入控制器默认被禁用。
@@ -745,7 +744,8 @@ ImagePolicyWebhook 的配置文件必须引用
 The kubeconfig file's `cluster` field must point to the remote service, and the `user` field
 must contain the returned authorizer.
 -->
-kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users` 字段需要包含已返回的授权者。
+kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users`
+字段需要包含已返回的授权者。
 
 <!--
 ```yaml
@@ -801,7 +801,8 @@ any pod annotations that match `*.image-policy.k8s.io/*`.
 
 当面对一个准入决策时，API 服务器发送一个描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
-该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*` 匹配的所有 Pod 注解。
+该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*`
+匹配的所有 Pod 注解。
 
 {{< note >}}
 <!--
@@ -887,7 +888,7 @@ result, images included under image volumes are not in scope for the
 ImagePolicyWebhook.
 -->
 `ImageReview` 对象将包含打算作为容器执行的 Pod 中的所有镜像。
-这包括在 Pod 规范中 containers、initContainers 或 ephemeralContainers
+这包括在 Pod 规约中 containers、initContainers 或 ephemeralContainers
 字段中指定的镜像。因此，包含在镜像卷中的镜像不在 ImagePolicyWebhook 的范围内。
 {{< /note >}}
 
@@ -895,7 +896,8 @@ ImagePolicyWebhook.
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 -->
-更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
+更多的文档，请参阅
+[`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
 
 <!--
 #### Extending with Annotations
@@ -1013,10 +1015,7 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 #### Use caution when authoring and installing mutating webhooks
--->
-#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
 
-<!--
 * Users may be confused when the objects they try to create are different from
   what they get back.
 * Built in control loops may break when the objects they try to create are
@@ -1028,6 +1027,8 @@ group/version via the `--runtime-config` flag, both are on by default.
   is finalized, not all possible webhook behaviors will be guaranteed to be supported
   indefinitely.
 -->
+#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
+
 * 当用户尝试创建的对象与返回的对象不同时，用户可能会感到困惑。
 * 当他们读回的对象与尝试创建的对象不同，内建的控制回路可能会出问题。
   * 与覆盖原始请求中设置的字段相比，使用原始请求未设置的字段会引起问题的可能性较小。
@@ -1039,16 +1040,15 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 **Type**: Mutating.
--->
-**类别**：变更。
 
-<!--
 This admission controller examines all incoming requests on namespaced resources and checks
 if the referenced namespace does exist.
 It creates a namespace if it cannot be found.
 This admission controller is useful in deployments that do not want to restrict creation of
 a namespace prior to its usage.
 -->
+**类别**：变更。
+
 此准入控制器会检查针对名字空间域资源的所有传入请求，并检查所引用的名字空间是否确实存在。
 如果找不到所引用的名字空间，控制器将创建一个名字空间。
 此准入控制器对于不想要求名字空间必须先创建后使用的集群部署很有用。
@@ -1057,13 +1057,12 @@ a namespace prior to its usage.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller checks all requests on namespaced resources other than `Namespace` itself.
 If the namespace referenced from a request doesn't exist, the request is rejected.
 -->
+**类别**：验证。
+
 此准入控制器检查针对名字空间作用域的资源（除 `Namespace` 自身）的所有请求。
 如果请求引用的名字空间不存在，则拒绝该请求。
 

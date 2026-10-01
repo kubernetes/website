@@ -129,7 +129,7 @@ If the node appears healthy, remove Docker.
 {{% tab name="CentOS" %}}
 
 ```shell
-sudo yum remove docker-ce docker-ce-cli
+sudo dnf remove docker-ce docker-ce-cli
 ```
 {{% /tab %}}
 {{% tab name="Debian" %}}
