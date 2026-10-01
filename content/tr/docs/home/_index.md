@@ -21,7 +21,7 @@ cards:
   title: "Kubernetes'i Anlayın"
   description: "Kubernetes ve onun temel kavramları hakkında bilgi edinin."
   button: "Kavramları İnceleyin"
-  button_path: "/tr/docs/concepts"
+  button_path: "/docs/concepts"
 - name: tutorials
   title: "Kubernetes'i Deneyin"
   description: "Uygulamaları Kubernetes üzerinde nasıl dağıtacağınızı öğrenmek için öğreticileri takip edin."
@@ -41,17 +41,17 @@ cards:
   title: Referans Belgeleri
   description: Terminoloji, komut satırı sözdizimi, API kaynak türleri ve kurulum araçları kılavuzları.
   button: Referansa Git
-  button_path: /docs/reference
+  button_path: "/docs/reference"
 - name: contribute
   title: Kubernetes'e Katkıda Bulunun
   description: Kubernetes'i daha da iyi hale getirmeye nasıl yardımcı olabileceğinizi keşfedin.
   button: Katkı Yollarını Görün
-  button_path: "/tr/README"
+  button_path: "/README"
 - name: training
   title: "Eğitim"
   description: "Kubernetes sertifikası alın ve bulut yerel projelerinizde başarıya ulaşın!"
   button: "Eğitimleri İnceleyin"
-  button_path: "/tr/training"
+  button_path: "/training"
 - name: Download
   title: Kubernetes'i İndirin
   description: Kubernetes'i yükleyin veya en yeni sürüme yükseltin.
