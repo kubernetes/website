@@ -1,0 +1,59 @@
+---
+title: "Üretim Seviyesinde Konteyner Orkestrasyonu"
+abstract: "Otomatik konteyner dağıtımı, ölçeklendirme ve yönetim"
+cid: home
+layout: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), diğer adıyla K8s; konteynerleştirilmiş uygulamaların dağıtımını, ölçeklendirilmesini ve yönetimini otomatikleştiren açık kaynaklı bir platformdur.
+
+Bir uygulamayı oluşturan konteynerleri kolay yönetim ve keşif için mantıksal birimler halinde gruplandırır. Kubernetes; [Google'ın üretim ortamlarında 15 yıllık iş yükü çalıştırma deneyimine](https://queue.acm.org/detail.cfm?id=2898444) ve küresel açık kaynak topluluğunun en iyi fikir ve uygulamalarına dayanır.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Gezegen Ölçeğinde Tasarlandı
+
+Google'ın haftada milyarlarca konteyner çalıştırmasını sağlayan ilkelerle geliştirilen Kubernetes, operasyon ekibinizi büyütmenize gerek kalmadan devasa boyutlara ölçeklenebilir.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Asla Gerisinde Kalmazsınız
+
+İster yerel bilgisayarınızda test yapıyor olun ister küresel bir şirketi yönetiyor olun; Kubernetes'in esnekliği, ihtiyaçlarınız ne kadar karmaşık olursa olsun uygulamalarınızı tutarlı ve kolay bir şekilde sunmak için sizinle birlikte büyür.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### Kubernetes'i Her Yerde Çalıştırın
+
+Kubernetes tamamen açık kaynaklıdır; şirket içi (on-premises), hibrit veya genel bulut altyapılarının tüm avantajlarından yararlanma özgürlüğü sunarak iş yüklerinizi dilediğiniz ortama zahmetsizce taşımanıza olanak tanır.
+
+Kubernetes'i indirmek için [indirme](/releases/download/) bölümünü ziyaret edin.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>Bulut Yerel Teknolojilere Başlangıç Rehberi</h2>
+    <p class="presenter-byline">Sunanlar: Kyle Penfound (Dagger) &amp; Cortney Nickerson (Kubeshop)</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Videoyu İzle</button>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Yaklaşan KubeCon + CloudNativeCon Etkinlikleri</h2>
+{{< kubecon-events >}}
+
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
