@@ -86,7 +86,7 @@ spec:
 
 `bindingConditions`
 : Podがバインドできるようになる前に、(関連付けられたResourceClaimの`.status.conditions`フィールドで)Trueに設定する必要がある _condition type_ のリストです。
-これらの条件は通常、DeviceAttachedやDeviceInitializedなど、準備完了を示すシグナルを表します。
+  これらの条件は通常、DeviceAttachedやDeviceInitializedなど、準備完了を示すシグナルを表します。
 
 `bindingFailureConditions`
 : 関連付けられたResourceClaimのstatus.conditionsフィールドでTrueに設定された場合に、障害状態であることを示す、condition typeのリストです。
@@ -185,7 +185,7 @@ DRAドライバーは、デバイスがノードの割り当て可能なリソ�
 
 *   Podレベルのリソースが使用される場合、スケジューラーはコンテナのrequestsとlimitsの両方に対してこれらを厳密に検証します:
     * すべてのコンテナのrequestsとDRAクレームのリソースの合計が、Podレベルのrequestsを超えてはなりません。
-    そうでないと、Podはスケジューリングに失敗します。
+      そうでないと、Podはスケジューリングに失敗します。
     * 個々のコンテナのlimitsとDRAの割り当ての合計が、Podレベルのlimitsを超えてはなりません。
       そうでないと、Podはスケジューリングに失敗します。
 *   コンテナのリソース要件の合計は、コンテナレベルのリソースと、関連づけられたクレームから提供されるノードの割り当て可能なリソースの合計です。
@@ -207,7 +207,7 @@ DRAドライバーは、ResourceSlice内のデバイス上の`nodeAllocatableRes
 *   **Overhead**: デバイスが補助的なノード依存関係(GPUが消費するホストメモリなど)を必要とする場合に使用します。
     これは、固定の`perPod`コスト、または参照するコンテナ数に比例してスケールする可変の`perContainer`コストとして定義できます。
 
-#### 例: CPU DRAドライバー (mapping) {#example-cpu-dra-driver-mapping}
+#### 例: CPU DRAドライバー(mapping) {#example-cpu-dra-driver-mapping}
 
 以下は、CPU DRAドライバーが[DRAの消費可能な容量](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)を使用して、1つのCPUソケットを128CPUのプールとして公開する例です。
 `capacityKey`は、消費された`cpu.example.com/cpu`容量をノードの標準の`cpu`割り当て可能リソースに直接関連付けます:
@@ -244,7 +244,7 @@ spec:
           capacityMultiplier: 1
 ```
 
-#### 例: 補助リソースを必要とするアクセラレーター (overhead) {#example-accelerator-with-auxiliary-resources-overhead}
+#### 例: 補助リソースを必要とするアクセラレーター(overhead) {#example-accelerator-with-auxiliary-resources-overhead}
 
 以下は、アクセラレーターが機能するために、1つのデバイスインスタンスにつき追加で8Giのメモリを必要とする場合のResourceSliceの例です:
 
