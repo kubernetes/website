@@ -57,12 +57,6 @@ Dla Kubernetesa {{< param "version" >}},
 obrazy kontenerów są podpisywane za
 pomocą podpisów [sigstore](https://sigstore.dev):
 
-{{< note >}}
-Sygnatury `sigstore` obrazów kontenera nie pasują obecnie do siebie w różnych
-lokalizacjach geograficznych. Więcej informacji na temat tego problemu można znaleźć w
-odpowiednim [zgłoszeniu na GitHubie](https://github.com/kubernetes/registry.k8s.io/issues/187).
-{{< /note >}}
-
 Projekt Kubernetes publikuje listę podpisanych obrazów kontenerów
 Kubernetes w formacie
 [SPDX 2.3](https://spdx.dev/specifications/). Możesz pobrać tę listę za pomocą:
