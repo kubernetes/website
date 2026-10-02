@@ -46,6 +46,15 @@ other = "راهنمای مشارکت"
 [community_bluesky_name]
 other = "Bluesky"
 
+[community_bluesky_fallback_text]
+other = "ما را دنبال کنید در"
+
+[community_bluesky_link]
+other = "مشاهده در Bluesky"
+
+[community_bluesky_loading]
+other = "در حال بارگذاری آخرین اخبار از Bluesky..."
+
 [community_calendar_name]
 other = "تقویم رویدادها"
 
