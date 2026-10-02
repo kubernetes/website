@@ -126,8 +126,7 @@ JobSet or Kubeflow TrainJob), which vendor it like any other Go dependency. It s
 `k8s.io/component-helpers/scheduling/schedulingv1/workloadbuilder`.
 
 The library consumes the `scheduling.k8s.io/v1alpha3` building blocks and compiles them into
-`scheduling.k8s.io/v1beta1` Workload and PodGroup objects, while CompositePodGroup
-objects remain `scheduling.k8s.io/v1alpha3`.
+`scheduling.k8s.io/v1beta1` Workload, PodGroup and CompositePodGroup objects.
 
 ### How a controller uses it
 

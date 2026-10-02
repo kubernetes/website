@@ -144,7 +144,7 @@ and the PodGroup is rejected if the constraint is not met.
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, the scheduler extends the PodGroup scheduling cycle to support multi-level group
 hierarchies.
 
@@ -230,6 +230,36 @@ In addition, because the scheduler evaluates group hierarchies using a greedy ap
 * Even when the scheduler successfully finds a valid placement for a `CompositePodGroup` hierarchy,
   that placement is not guaranteed to be optimal across the cluster.
 
+### Workload design recommendations
+
+Because the scheduler evaluates sibling child groups sequentially in a greedy, single-pass manner
+without backtracking, hierarchies in which heterogeneous groups compete for shared capacity can
+experience order-dependent placement failures. While finding a valid placement cannot be guaranteed
+in all cases, the chances of scheduling success can be improved by following these practices:
+
+* **Keep individual `PodGroup` objects homogeneous:** Group Pods with identical resource requests,
+  [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector) and scheduling
+  constraints into the same leaf `PodGroup`. When all Pods within a `PodGroup` (or all replicated
+  child groups within a `CompositePodGroup`) are homogeneous, greedy placement is invariant to
+  evaluation order. Split distinct Pod roles into separate homogeneous `PodGroup` objects under a
+  parent `CompositePodGroup`.
+
+* **Segregate non-competing heterogeneous groups onto disjoint node pools:** When heterogeneous
+  child groups do not require the same physical node hardware (for example, CPU-only coordinator or
+  driver Pods versus GPU/TPU worker Pods), use `nodeSelector`,
+  [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) or
+  [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) to prevent
+  flexible Pods from landing on specialized nodes required by stricter sibling groups. When sibling
+  groups target disjoint sets of candidate nodes, evaluation order between them cannot cause
+  resource stealing or order-induced placement failures.
+
+* **Scope topology constraints to the minimal required subtree:** Attach topology constraints only
+  to the specific `CompositePodGroup` or `PodGroup` subtrees that strictly require high-bandwidth
+  physical co-location rather than placing them on the root `CompositePodGroup` by default. Using a
+  root `CompositePodGroup` without topology constraints still provides coordinated gang scheduling
+  and collective preemption fate-sharing across the entire workload without forcing non-topological
+  components to compete for capacity inside constrained topology domains.
+
 ## PodGroup conditions
 
 After a PodGroup scheduling cycle completes, the scheduler updates conditions on the
@@ -263,9 +293,44 @@ kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-The CompositePodGroup API exposes the `status.conditions` field as well.
+After a hierarchical scheduling cycle completes (or fails runtime validation before scheduling), the
+scheduler updates conditions on every `CompositePodGroup`'s `status.conditions` in the hierarchy:
 
-However, in v1.37, the scheduler does not populate this field.
+* `CompositePodGroupInitiallyScheduled`: reports whether the scheduling requirement for the subtree
+  under this CompositePodGroup has been satisfied for the first time.
+
+You can check conditions with:
+
+```shell
+kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
+```
+
+### `CompositePodGroupInitiallyScheduled`
+
+When the scheduling cycle succeeds for the `CompositePodGroup`, the condition is set to `True` with
+reason `Scheduled`. For `gang` policy `CompositePodGroup` objects, this means at least
+`minGroupCount` child groups were successfully placed.
+
+When scheduling fails, the condition is set to `False` with one of the following reasons:
+
+* `Unschedulable` - the `CompositePodGroup`'s subtree could not be placed (for example, due to unmet
+  `minGroupCount`, topology or placement constraints, or insufficient capacity for its child
+  groups) or an ancestor `CompositePodGroup` was unschedulable.
+* `CompositePodGroupError` - scheduling was rejected during runtime hierarchy validation because of
+  an invalid group layout or configuration (for example, exceeding the maximum hierarchy depth or an
+  invalid parent-child scheduling policy or disruption mode combination).
+* `SchedulerError` - scheduling failed because of an internal scheduler error or an ancestor
+  `CompositePodGroup` encountered an internal error.
+
+Once `CompositePodGroupInitiallyScheduled` is set to `True`, it never changes - even if member Pods
+or child groups are later deleted or evicted or if newly added Pods fail to schedule in subsequent
+cycles.
+
+{{< note >}}
+Group hierarchies with cyclical `spec.parentCompositePodGroupName` references cannot resolve a root
+group and never enter the scheduling cycle, so the scheduler does not populate `status.conditions`
+for them.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 

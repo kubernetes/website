@@ -16,7 +16,7 @@ carry policies and hierarchy references for a specific workload instance.
 
 ## What is a CompositePodGroup?
 
-The `CompositePodGroup` API resource is part of the `scheduling.k8s.io/v1alpha3`
+The `CompositePodGroup` API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}. Your cluster must have that API
 group enabled, as well as the `CompositePodGroup`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -86,7 +86,7 @@ The following manifest creates a root `CompositePodGroup` with a gang scheduling
 that requires at least 2 child groups to be schedulable simultaneously:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: root-group-0
@@ -127,7 +127,7 @@ Pods follows this pattern:
 The following example illustrates a complete manifest hierarchy for a two-level workload:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: hierarchical-workload
@@ -148,7 +148,7 @@ spec:
         gang:
           minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: root-group-0
@@ -161,7 +161,7 @@ spec:
     gang:
       minGroupCount: 2
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: workers-a-0
@@ -175,7 +175,7 @@ spec:
     gang:
       minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: workers-b-0
@@ -211,4 +211,5 @@ The `Workload` acts as a long-lived policy template, while `CompositePodGroup` a
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/) and template definitions.
 * See how leaf groups are structured in the [PodGroup API](/docs/concepts/workloads/podgroup-api/).
 * Read about [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
+* Understand [hierarchical scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/#hierarchical-scheduling-with-compositepodgroups) and [workload design recommendations](/docs/concepts/scheduling-eviction/podgroup-scheduling/#workload-design-recommendations) for `CompositePodGroup` hierarchies.
 * Learn about [Workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).

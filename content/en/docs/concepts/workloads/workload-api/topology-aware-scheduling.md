@@ -99,7 +99,7 @@ by specifying topology constraints at different levels of a group hierarchy.
 Using the `CompositePodGroup` API requires enabling the
 [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the
-`scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
+`scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 
 ### Multi-level topology constraints resolution
 
@@ -129,7 +129,7 @@ two child `PodGroupTemplate` entries (`workers` and `driver`) constrain their re
 Pods to server racks (`topology.example.com/rack`) within that zone:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: example-workload
@@ -166,7 +166,7 @@ After creating the `Workload` object, the corresponding group objects are create
   `CompositePodGroup` as their parent group.
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: workload-root
