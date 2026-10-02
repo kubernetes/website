@@ -25,18 +25,24 @@ the `priority` or `disruptionMode` fields of the PodGroup. This limitation no lo
 applies in v1.37.
 {{< /note >}}
 
-The API supports two disruption modes: `Single` and `All`.
-The default one is `Single`.
+The API supports two disruption modes: `single` and `all`.
+The default one is `single`.
 
 ### Single
 
-The `Single` mode instructs the scheduler to treat all Pods in the group as separate entities,
+The `single` mode instructs the scheduler to treat all Pods in the group as separate entities,
 allowing independent disruption of a single pod from a PodGroup.
 
 ### All
 
-The `All` mode emphasizes "all-or-nothing" semantics for disruption.
+The `all` mode emphasizes "all-or-nothing" semantics for disruption.
 It instructs the scheduler that all pods from the PodGroup have to be disrupted together.
+
+{{< note >}}
+The `all` disruption mode is only supported with the `gang` scheduling policy; `kube-apiserver`
+rejects any `PodGroup`, `CompositePodGroup`, or group template with the `basic` scheduling policy
+that specifies the `all` disruption mode.
+{{< /note >}}
 
 ## CompositePodGroup
 
@@ -47,19 +53,19 @@ how the scheduler disrupts child groups within the composite group during preemp
 
 The API supports two disruption modes for `CompositePodGroups`:
 
-- **`Single`**: Allows individual child groups within the `CompositePodGroup` to be disrupted
+- **`single`**: Allows individual child groups within the `CompositePodGroup` to be disrupted
   independently during preemption.
-- **`All`**: Enforces all-or-nothing disruption semantics across the `CompositePodGroup` hierarchy.
+- **`all`**: Enforces all-or-nothing disruption semantics across the `CompositePodGroup` hierarchy.
   If any Pod contained in the hierarchy below this `CompositePodGroup` has to be preempted, all of
   the Pods from the entire hierarchy must be preempted.
 
-If not specified, the mode defaults to `Single`.
+If not specified, the mode defaults to `single`.
 
 {{< note >}}
-In v1.37, a group can set its disruption mode to `All` and have child groups that have a mode set to
-`Single`. In such case, the top-level `All` mode overrides the descendant `Single` modes.
-
-This configuration is discouraged due to unclear semantics.
+A group with the disruption mode set to `all` must only have child groups that have a mode set to
+`all` as well. If a `Workload` object does not satisfy this condition, `kube-apiserver` rejects it
+at creation time. Similarly, `kube-scheduler` does not proceed to scheduling `CompositePodGroup`
+hierarchies not adhering to this constraint.
 {{< /note >}}
 
 ## Pod group priority
@@ -112,16 +118,10 @@ is performed in the same way as for the `PodGroups`, through the priority admiss
 The priority of a root `CompositePodGroup` acts as the authoritative priority for all child groups
 and Pods within its hierarchy during
 [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
-All Pods within a single group hierarchy must share the exact same priority and must be equal to the
-priority of the root `CompositePodGroup`.
+All Pods and all groups within a single group hierarchy must share the exact same priority.
 
 The value of priority is also used for the ordering of root `CompositePodGroups` in the scheduling
 active queue.
-
-{{< note >}}
-In v1.37, the scheduler doesn't validate if the non-root groups have priority value that is equal to
-the priority of the root `CompositePodGroup`.
-{{< /note >}}
 
 ### PreemptionPolicy in CompositePodGroup
 

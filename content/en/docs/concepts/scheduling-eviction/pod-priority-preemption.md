@@ -202,8 +202,9 @@ When the `CompositePodGroup` feature gate is enabled, the scheduler treats the f
 units of scheduling that can be enqueued:
 
 - Standalone Pods - Pods that are not part of any PodGroup,
-- Standalone PodGroups - PodGroups that do not specify `ParentCompositePodGroup`,
-- Root CompositePodGroups - CompositePodGroups that do not specify `ParentCompositePodGroup`.
+- Standalone PodGroups - PodGroups that do not specify `spec.parentCompositePodGroupName`,
+- Root CompositePodGroups - CompositePodGroups that do not specify
+  `spec.parentCompositePodGroupName`.
 
 These objects specify a `priority` field value of which is used to determine their position in the
 active scheduling queue.
