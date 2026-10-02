@@ -33,7 +33,7 @@ kubeletの`PodResourcesLister` gRPCサービスを使用すると、使用中の
 
 DRAドライバーは、ResourceClaimの`status.devices`フィールドに、割り当てられた各デバイスについてのドライバー固有の[デバイスステータス](/docs/concepts/overview/working-with-objects/#object-spec-and-status)データを報告できます。
 例えば、ドライバーはネットワークインターフェースデバイスに割り当てられたIPアドレスを一覧表示します。
-このフィールドを更新するには、専用のsynthetic RBAC権限が必要です。
+このフィールドを更新するには、合成サブリソースに対する専用のRBAC権限が必要です。
 [堅牢化ガイド - Dynamic Resource Allocation](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/)および[クラスターのDynamic Resource Allocationを堅牢化する](/docs/tasks/administer-cluster/hardening-dra/)を参照してください。
 
 ドライバーがResourceClaimの`status.devices`フィールドに追加する情報の正確性は、ドライバーの実装によって異なります。
@@ -90,7 +90,7 @@ status:
 
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
-Kubernetesは、動的に割り当てられたインフラストラクチャーリソースの正常性を監視し、その状態を報告する仕組みを提供します。
+Kubernetesは、動的に割り当てられたインフラストラクチャリソースの正常性を監視し、その状態を報告する仕組みを提供します。
 特殊なハードウェア上で動作するステートフルなアプリケーションでは、デバイスが故障したり異常な状態になったりしたことを把握できることが重要です。
 また、デバイスが正常な状態に復旧したことを確認できることも有用です。
 
@@ -163,8 +163,8 @@ ResourcePoolStatusRequest APIを使用すると、リソースプール内のデ
      - `nodeName`: もし存在する場合、プールに関連付けられているノード。
      - `validationError`: プールのデータを完全に検証できなかった場合に設定(例えば、世代のロールアウト中)。
        設定されている場合、デバイス数に関するフィールドが設定されないことがあります。
-     - `partitionSummary`: [パーティション可能](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)なプールに対する、パーティションタイプごとの割り当て可能性([パーティションサマリー](#resource-pool-partition-summary)を参照)。
-     - `shareableSummary`: [共有可能デバイス](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)を持つプールに対する、容量の使用状況の集計([共有可能なサマリー](#resource-pool-shareable-summary)を参照)。
+     - `partitionSummary`: [パーティション可能](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)なプールに対する、パーティションタイプごとの割り当て可能性([パーティションサマリ](#resource-pool-partition-summary)を参照)。
+     - `shareableSummary`: [共有可能デバイス](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)を持つプールに対する、容量の使用状況の集計([共有可能なサマリ](#resource-pool-shareable-summary)を参照)。
    - `conditions`: `Complete`(成功)または`Failed`(エラー)の状態の種類が含まれます。
 
 1. 完了したら、リクエストを削除します:
@@ -183,7 +183,7 @@ specは一度作成されると変更ができず、statusが設定されると�
 
 リソースプールのステータスは、`kube-apiserver`と`kube-controller-manager`で[`DRAResourcePoolStatus`フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)が有効になっている場合にのみ使用できます。
 
-### パーティションサマリー {#resource-pool-partition-summary}
+### パーティションサマリ {#resource-pool-partition-summary}
 
 {{< feature-state feature_gate_name="DRAPartitionableDevicesType" >}}
 
@@ -199,7 +199,7 @@ GPUなどの単体の物理デバイスは、同じ共有カウンターから�
 - `allocatable`: 現在の共有カウンターの消費状況をふまえて、このパーティションタイプについてまだ割り当てが可能な*追加*のデバイス数です。
 
 指定する属性は文字列型の属性である必要があります。
-パーティション可能なデバイスにパーティションタイプ属性がない場合や文字列型ではない場合(例えば、整数、ブール値、バージョン値)、プールはパーティションサマリーを返さずに検証エラーを報告します。
+パーティション可能なデバイスにパーティションタイプ属性がない場合や文字列型ではない場合(例えば、整数、ブール値、バージョン値)、プールはパーティションサマリを返さずに検証エラーを報告します。
 [リスト型属性](/docs/reference/command-line-tools-reference/feature-gates/#DRAListTypeAttributes)について特別な扱いはありません。
 文字列型ではない属性は、単にパーティションタイプ属性として有効なものではありません。
 
@@ -215,7 +215,7 @@ spec:
   partitionTypeAttribute: gpu.example.com/profile
 ```
 
-ドライバーがまだ`partitionTypeAttribute`を宣言するように更新されていない場合でも、リクエストはspecの中でフォールバック属性を指定することで、パーティションサマリーを取得することができます。
+ドライバーがまだ`partitionTypeAttribute`を宣言するように更新されていない場合でも、リクエストはspecの中でフォールバック属性を指定することで、パーティションサマリを取得することができます。
 スライス自身の`partitionTypeAttribute`が常に優先されます。
 リクエストレベルの既定値が適用されるのは、スライスでそれが宣言されていないデバイスのみです:
 
@@ -234,7 +234,7 @@ spec:
 
 `partitionSummary`ビューは`kube-apiserver`と`kube-controller-manager`の[`DRAPartitionableDevicesType`フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)で制御され、有効にするには、[`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)と[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)のフィーチャーゲートも必要です。
 
-### 共有可能なサマリー {#resource-pool-shareable-summary}
+### 共有可能なサマリ {#resource-pool-shareable-summary}
 
 [共有可能なデバイス](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)(`allowMultipleAllocations`を設定し、複数のクレームから使用可能なデバイス)を含むプールでは、`shareableSummary`によってプール全体の容量の使用状況の集計が報告されます:
 
@@ -244,7 +244,7 @@ spec:
 
 `shareableSummary`はプール内の少なくとも1つのデバイスが共有可能である場合にのみ設定されます。
 これは[リソースプールのステータス](#resource-pool-status)の機能([`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)フィーチャーゲート)の一部であり、`DRAPartitionableDevicesType`は必要としません。
-サマリーの対象となる共有可能なデバイスは、[消費可能容量](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)の機能によって提供されます。
+サマリの対象となる共有可能なデバイスは、[消費可能容量](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)の機能によって提供されます。
 
 
 ## コンテナ内のDRAデバイスメタデータ {#device-metadata}

@@ -84,7 +84,7 @@ Podから特定のResourceClaimを直接参照する場合、ResourceClaimはあ
 ResourceClaimがNamespaceに存在していない場合、Podはスケジュールされません。
 この動作は、PersistentVolumeClaimを参照するPodでは、そのPersistentVolumeClaimがPodと同じNamespaceに存在している必要があることと同様です。
 
-Podから自動生成されたResourceClaimを参照することもできますが、自動生成されたResourceClaimは、それを生成するトリガーとなったPodまたはPodGroupのライフサイクルに関連づけられるため、推奨されません。
+Podから自動生成されたResourceClaimを参照することもできますが、自動生成されたResourceClaimは、それを生成するトリガーとなったPodまたはPodGroupのライフサイクルに関連付けられるため、推奨されません。
 
 これらの方法のいずれかを使用してリソースを要求する手順については、[DRAを使用してワークロードにデバイスを割り当てる](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)を参照してください。
 
@@ -146,7 +146,7 @@ Podがクラスター内の複数のノードで利用できる場合、スケ�
 
 - ResourceClaim APIの`status.reservedFor`リストには、最大256個の項目しか含められません。
   kube-schedulerはこのリストに個々のPodしか記録しないため、1つのResourceClaimを共有できるPodは最大256個です。
- `status.reservedFor`にPodGroupを記録できるようにすることで、256個を超えるPodが1つのResourceClaimを共有できるようになります。
+  `status.reservedFor`にPodGroupを記録できるようにすることで、256個を超えるPodが1つのResourceClaimを共有できるようになります。
 - PodがResourceClaimを共有できるのは、その正確な名前がわかっている場合に限られます。
   Podの _groups_ を複製するような複雑なワークロードでは、各グループ内のPodが共有するResourceClaimを、グループのスケールアップまたはスケールダウンに応じて明示的に作成および削除する必要があります。
   PodGroupごとにResourceClaimを生成することで、1つのResourceClaimTemplateを基に、PodGroup内のPod間で自動複製、共有されるResourceClaimを作成できます。
@@ -323,7 +323,7 @@ spec:
 ```
 
 管理者アクセスは特権モードであり、マルチテナントクラスターでは一般ユーザーに付与すべきではありません。
-`resource.kubernetes.io/admin-access: "true"` (大文字と小文字は区別されます)のラベルが付いたNamespaceにおいて、ResourceClaimまたはResourceClaimTemplateオブジェクトを作成する権限を持つユーザーのみが`adminAccess`フィールドを使用できます。
+`resource.kubernetes.io/admin-access: "true"`(大文字と小文字は区別されます)のラベルが付いたNamespaceにおいて、ResourceClaimまたはResourceClaimTemplateオブジェクトを作成する権限を持つユーザーのみが`adminAccess`フィールドを使用できます。
 これにより、管理者以外のユーザーがこの機能を不正に利用することを防ぎます。
 
 管理者アクセスは`kube-apiserver`、`kube-scheduler`および`kubelet`の[`DRAAdminAccess`フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/#DRAAdminAccess)によって制御されます。
