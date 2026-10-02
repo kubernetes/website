@@ -2,11 +2,9 @@
 layout: blog
 title: "From Working Group to SIG Architecture: spotlight on AI Conformance"
 slug: sig-arch-ai-conformance-2026
-############
 # Note: use the correct canonicalUrl when publishing the article
-canonicalUrl: https://www.kubernetes.dev/blog/2026/00/00/sig-arch-ai-conformance-2026
-############
-date: 2026-07-09
+# canonicalUrl: to be added with the data PR
+# date: idem
 draft: true
 
 author: >-
