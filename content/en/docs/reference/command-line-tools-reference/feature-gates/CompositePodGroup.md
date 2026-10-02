@@ -9,6 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.38"
 ---
 
 Enable hierarchical gang scheduling for [CompositePodGroups](/docs/concepts/workloads/compositepodgroup-api/) and PodGroups.
