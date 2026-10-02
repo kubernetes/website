@@ -59,9 +59,8 @@ Serwisy mogą być wystawiane na zewnątrz na kilka różnych sposobów, poprzez
   ile jest taka możliwość) i przypisuje serwisowi stały, zewnętrzny adres IP. Nadzbiór NodePort.
 
 * _ExternalName_ - Przypisuje Service do `externalName` (np.
-  `foo.bar.example.com`), zwracając rekord `CNAME` wraz z zawartością. W tym przypadku nie
-  jest wykorzystywany proces przekierowania ruchu metodą proxy. Ta metoda
-  wymaga `kube-dns` w wersji v1.7 lub wyższej lub CoreDNS w wersji 0.0.8 lub wyższej.
+  `foo.bar.example.com`), zwracając rekord `CNAME` wraz z zawartością. W tym
+  przypadku nie jest wykorzystywany proces przekierowania ruchu metodą proxy.
 
 Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku
 [Używanie adresu źródłowego (Source IP)](/docs/tutorials/services/source-ip/). Warto też zapoznać się
