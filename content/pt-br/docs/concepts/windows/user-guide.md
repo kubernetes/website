@@ -246,11 +246,11 @@ Este rótulo reflete o número principal, secundário e de build do Windows que 
                cpu: 1
                memory: 800Mi
              requests:
-               cpu: .1
+               cpu: 100m
                memory: 300Mi
            ports:
              - containerPort: 80
-    selector:
+     selector:
        matchLabels:
          app: iis-2019
    ---
