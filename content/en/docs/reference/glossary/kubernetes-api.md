@@ -3,14 +3,14 @@ title: Kubernetes API
 id: kubernetes-api
 full_link: /docs/concepts/overview/kubernetes-api/
 short_description: >
-  The application that serves Kubernetes functionality through a RESTful interface and stores the state of the cluster.
+  The HTTP API that lets users, cluster components, and external components communicate with one another and query or manipulate the state of Kubernetes objects.
 
 aka: 
 tags:
 - fundamental
 - architecture
 ---
- The application that serves Kubernetes functionality through a RESTful interface and stores the state of the cluster.
+ The HTTP API that lets users, cluster components, and external components communicate with one another and query or manipulate the state of Kubernetes objects.
 
 <!--more--> 
 
