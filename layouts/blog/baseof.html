@@ -22,7 +22,7 @@
       {{ end }}
     </header>
     <div class="container-fluid td-outer">
-      <div class="td-main">
+      <div class="td-main" {{- partialCached "td/scrollspy-attr.txt" . .Section | safeHTMLAttr }}>
         <div class="row flex-xl-nowrap">
           <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
             {{ partial "blog/sidebar.html" . }}
