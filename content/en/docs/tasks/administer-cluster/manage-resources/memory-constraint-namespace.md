@@ -13,7 +13,7 @@ description: >-
 This page shows how to set minimum and maximum values for memory used by containers
 running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. 
 You specify minimum and maximum memory values in a
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/docs/reference/kubernetes-api/core/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 
