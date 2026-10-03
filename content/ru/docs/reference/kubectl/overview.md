@@ -1,6 +1,4 @@
 ---
-reviewers:
-- hw-qiaolei
 title: Обзор kubectl
 content_type: concept
 weight: 20
