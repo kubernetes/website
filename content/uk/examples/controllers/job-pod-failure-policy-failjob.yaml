@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-pod-failure-policy-failjob
+spec:
+  completions: 8
+  parallelism: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: main
+        image: docker.io/library/bash:5
+        command: ["bash"]
+        args:
+        - -c
+        - echo "Hello world! I'm going to exit with 42 to simulate a software bug." && sleep 30 && exit 42
+  backoffLimit: 6
+  podFailurePolicy:
+    rules:
+    - action: FailJob
+      onExitCodes:
+        containerName: main
+        operator: In
+        values: [42]

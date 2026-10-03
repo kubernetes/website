@@ -1,0 +1,19 @@
+# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # якщо ваш кластер підтримує це, розкоментуйте наступне, щоб автоматично створити
+  # зовнішню IP-адресу з балансуванням навантаження для служби frontend.
+  # type: LoadBalancer
+  #type: LoadBalancer
+  ports:
+    # порт на якому має працювати цей Service
+  - port: 80
+  selector:
+    app: guestbook
+    tier: frontend

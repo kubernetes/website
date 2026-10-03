@@ -1,0 +1,21 @@
+apiVersion: apiserver.k8s.io/v1beta1
+kind: EgressSelectorConfiguration
+egressSelections:
+# Оскільки ми хочемо контролювати вихідний трафік з кластеру, ми використовуємо
+# "cluster" як назву. Інші підтримувані значення: "etcd" та "controlplane".
+- name: cluster
+  connection:
+    # Це керує протоколом між API-сервером та сервером Konnectivity.
+    # Підтримувані значення: "GRPC" та "HTTPConnect". Між двома режимами
+    # немає відмінностей для кінцевого користувача. Вам потрібно встановити
+    # сервер Konnectivity в тому ж режимі.
+    proxyProtocol: GRPC
+    transport:
+      # Це керує транспортом, який використовує API-сервер для спілкування з
+      # сервером Konnectivity. Якщо сервер Konnectivity розташований на тому ж
+      # компʼютері, рекомендується використовувати UDS. Вам потрібно налаштувати
+      # сервер Konnectivity на прослуховування того самого UDS-сокету.
+      # Інший підтримуваний транспорт - "tcp". Вам потрібно налаштувати TLS-конфігурацію
+      # для захисту TCP-транспорту.
+      uds:
+        udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket

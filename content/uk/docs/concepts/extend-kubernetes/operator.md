@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Оператори — це розширення програмного забезпечення для Kubernetes, які використовують [власні ресурси](/uk/docs/concepts/extend-kubernetes/api-extension/custom-resources/) для управління застосунками та їх компонентами. Оператори дотримуються принципів Kubernetes, зокрема [control loop](/uk/docs/concepts/architecture/controller).
+Оператори — це розширення програмного забезпечення для Kubernetes, які використовують [власні ресурси](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) для управління застосунками та їх компонентами. Оператори дотримуються принципів Kubernetes, зокрема [control loop](/docs/concepts/architecture/controller).
 
 <!-- body -->
 
@@ -20,7 +20,7 @@ _Шаблон operator_ спрямований на досягнення клю�
 
 Kubernetes створений для автоматизації. З коробки ви отримуєте багато вбудованої автоматизації від ядра Kubernetes. Ви можете використовувати Kubernetes для автоматизації розгортання та запуску робочих навантажень, *та* ви можете автоматизувати те, як це робить Kubernetes.
 
-Концепція {{< glossary_tooltip text="шаблону operator" term_id="operator-pattern" >}} Kubernetes дозволяє розширити поведінку кластера без зміни коду самого Kubernetes, звʼязавши {{< glossary_tooltip text="контролери" term_id="controller" >}} з одним або кількома власними ресурсами. Оператори є клієнтами API Kubernetes, які діють як контролери для [власного ресурсу](/uk/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+Концепція {{< glossary_tooltip text="шаблону operator" term_id="operator-pattern" >}} Kubernetes дозволяє розширити поведінку кластера без зміни коду самого Kubernetes, звʼязавши {{< glossary_tooltip text="контролери" term_id="controller" >}} з одним або кількома власними ресурсами. Оператори є клієнтами API Kubernetes, які діють як контролери для [власного ресурсу](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 ## Приклад оператора {#example}
 
@@ -41,13 +41,13 @@ Kubernetes створений для автоматизації. З коробк
 4. Код контролера, який надсилає запити до панелі управління, щоб дізнатися, яким чином налаштовано ресурси SampleDB.
 5. Ядром оператора є код, який говорить API серверу, які дії потрібно виконати, щоб поточний стан ресурсу SampleDB відповідав бажаному стану ресурсів.
    * Якщо ви додаєте новий ресурс SampleDB, оператор створює PersistentVolumeClaim для забезпечення місця для надійного зберігання даних, StatefulSet — для запуску SampleDB, та завдання (Job) для ініціалізації бази даних.
-   * Якщо ви видаляєте ресурс SampleDB, оператор зробить зліпок з усіх даних, потім переконається, що ресурси StatefulSet та Volume також видалені.
+   * Якщо ви видаляєте ресурс SampleDB, оператор зробить знімок усіх даних, потім переконається, що ресурси StatefulSet та Volume також видалені.
 6. Оператор також керує процесом створення резервних копій бази даних. Для кожного ресурсу SampleDB оператор визначає, коли потрібно створити Pod, який підʼєднається до бази даних, та зробить резервну копію. Ці Podʼи можуть використовувати ConfigMap чи Secret, що містять облікові дані для підʼєднання до бази даних.
-7. Оскільки оператор призначений для надання високого рівня автоматизації для керування ресурсами, тож для цього може використовуватись додатковий код. Наприклад, код, що визначає, чи база даних працює на старій версії, та якщо так, то створює Job для оновлення бази даних.
+7. Оскільки оператор призначений для надання надійної автоматизації для керування ресурсами, тож для цього може використовуватись додатковий код. Наприклад, код, що визначає, чи база даних працює на старій версії, та якщо так, то створює Job для оновлення бази даних.
 
 ## Розгортання операторів {#deploying-operators}
 
-Найпоширеніший спосіб розгортання операторів — це додавання CustomResourceDefinition (CRD) та контролера для них до вашого кластера. Контролери мають зазвичай запускатись за межами {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}} кластера, так само як ви запускаєте будь-який інший контейнеризований застосунок. Наприклад, ви можете запустити ваш контролер як Deployment.
+Найпоширеніший спосіб розгортання операторів — це додавання CustomResourceDefinition (CRD) та контролера для них до вашого кластера. Контролери зазвичай запускаються за межами {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}} кластера, так само як ви запускаєте будь-який інший контейнеризований застосунок. Наприклад, ви можете запустити ваш контролер як Deployment.
 
 ## Використання операторів {#using-operators}
 
@@ -59,13 +59,13 @@ kubectl get SampleDB                   # пошук налаштованої б�
 kubectl edit SampleDB/example-database # ручна заміна деяких параметрів
 ```
 
-&hellip;і все! Оператор візьме на себе роботу застосування змін, а такою як і підтримання сервісу у відповідному стані.
+&hellip;і все! Оператор візьме на себе роботу застосування змін, а також підтримання сервісу у відповідному стані.
 
 ## Створення власних операторів {#writing-operator}
 
 Якщо в екосистемі немає оператора, який реалізує потрібну вам поведінку, ви можете створити власний.
 
-Ви також можете створити оператор (тобто, Контролер) використовуючи мову або рушій виконання, який працює як [клієнт API Kubernetes](/uk/docs/reference/using-api/client-libraries/).
+Ви також можете створити оператор (тобто, Контролер) використовуючи мову або рушій виконання, який працює як [клієнт API Kubernetes](/docs/reference/using-api/client-libraries/).
 
 Нижче наведено кілька бібліотек та інструментів, які ви можете використовувати для написання власного хмарного оператора.
 
@@ -78,16 +78,15 @@ kubectl edit SampleDB/example-database # ручна заміна деяких п
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
-* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
-  you implement yourself
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) разом з WebHooks, які ви реалізуєте самостійно
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 
-## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}} {#whats-next}
 
 * Ознайомтесь з {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
-* Дізнайтесь більше про [Custom Resources](/uk/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-* Пошукайте готові оператори в [OperatorHub](https://operatorhub.io/), що можуть відповідати вашому випадку
+* Дізнайтесь більше про [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* Пошукайте готові оператори в [OperatorHub.io](https://operatorhub.io/), що можуть відповідати вашому випадку
 * [Опублікуйте](https://operatorhub.io/) свій оператор для використання іншими
-* Подивіться [оригінальну статтю від CoreOS](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html), що розповідає про шаблон оператора (тут посилання на архівну версію статті)
+* Прочитайте [оригінальну статтю від CoreOS](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html), що запровадила шаблон оператора (тут посилання на архівну версію статті)
 * Ознайомтесь зі [статтею](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) від Google Cloud про найкращі практики створення операторів

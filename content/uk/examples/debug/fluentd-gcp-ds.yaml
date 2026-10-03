@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-gcp-v2.0
+  labels:
+    k8s-app: fluentd-gcp
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    version: v2.0
+spec:
+  selector:
+    matchLabels:
+      k8s-app: fluentd-gcp
+      kubernetes.io/cluster-service: "true"
+      version: v2.0
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app: fluentd-gcp
+        kubernetes.io/cluster-service: "true"
+        version: v2.0
+      # Ця анотація забезпечує, що fluentd не буде видалено, якщо вузол
+      # підтримує схему пріоритетів на основі критичної анотації для Pod.
+      # Зверніть увагу, що це не гарантує допуску на вузли (#40573).
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      dnsPolicy: Default
+      containers:
+      - name: fluentd-gcp
+        image: registry.k8s.io/fluentd-gcp:2.0.2
+        # Якщо fluentd використовує свої власні логи, може виникнути така ситуація:
+        # fluentd не вдається надіслати фрагмент на сервер => записує його в журнал =>
+        # намагається відправити це повідомлення на сервер => знову не вдається надіслати фрагмент і так далі.
+        # Запис в файл, який не експортується в бекенд, запобігає цьому.
+        # Це також дозволяє збільшити типовий рівень деталізації fluentd.
+        command:
+          - '/bin/sh'
+          - '-c'
+          - '/run.sh $FLUENTD_ARGS 2>&1 >>/var/log/fluentd.log'
+        env:
+        - name: FLUENTD_ARGS
+          value: --no-supervisor
+        resources:
+          limits:
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+        - name: libsystemddir
+          mountPath: /host/lib
+          readOnly: true
+        - name: config-volume
+          mountPath: /etc/fluent/config.d
+        # Визначення життєздатності приходить на допомогу в ситуаціях, коли fluentd
+        # мовчки висить з невідомих причин до ручного перезапуску.
+        # Ідея цього тесту полягає в тому, що якщо fluentd не у черзі або
+        # не пропускає фрагменти протягом 5 хвилин, щось не так. Якщо
+        # ви хочете змінити конфігурацію fluentd, зменшуючи кількість
+        # логів, які збирає fluentd, розгляньте можливість зміни порога чи
+        # повністю вимкнення перевірки життєздатності.
+        livenessProbe:
+          initialDelaySeconds: 600
+          periodSeconds: 60
+          exec:
+            command:
+            - '/bin/sh'
+            - '-c'
+            - >
+              LIVENESS_THRESHOLD_SECONDS=${LIVENESS_THRESHOLD_SECONDS:-300};
+              STUCK_THRESHOLD_SECONDS=${LIVENESS_THRESHOLD_SECONDS:-900};
+              if [ ! -e /var/log/fluentd-buffers ];
+              then
+                exit 1;
+              fi;
+              LAST_MODIFIED_DATE=`stat /var/log/fluentd-buffers | grep Modify | sed -r "s/Modify: (.*)/\1/"`;
+              LAST_MODIFIED_TIMESTAMP=`date -d "$LAST_MODIFIED_DATE" +%s`;
+              if [ `date +%s` -gt `expr $LAST_MODIFIED_TIMESTAMP + $STUCK_THRESHOLD_SECONDS` ];
+              then
+                rm -rf /var/log/fluentd-buffers;
+                exit 1;
+              fi;
+              if [ `date +%s` -gt `expr $LAST_MODIFIED_TIMESTAMP + $LIVENESS_THRESHOLD_SECONDS` ];
+              then
+                exit 1;
+              fi;
+      nodeSelector:
+        beta.kubernetes.io/fluentd-ds-ready: "true"
+      tolerations:
+      - key: "node.alpha.kubernetes.io/ismaster"
+        effect: "NoSchedule"
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+      - name: libsystemddir
+        hostPath:
+          path: /usr/lib64
+      - name: config-volume
+        configMap:
+          name: fluentd-gcp-config
