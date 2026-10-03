@@ -24,4 +24,4 @@ stages:
 removed: true
 ---
 Enable the injection of service account tokens into a Pod through a
-[`projected` volume](/docs/concepts/storage/volumes/#projected).
+[`projected` volume](/docs/reference/storage/volume-types/#projected).
