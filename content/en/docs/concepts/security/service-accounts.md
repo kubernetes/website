@@ -166,7 +166,7 @@ If you need the credentials for a ServiceAccount to mount in a non-standard
 location, or for an audience that isn't the API server, use one of the
 following methods:
 
-* [TokenRequest API](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+* [TokenRequest API](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
   (recommended): Request a short-lived service account token from within
   your own *application code*. The token expires automatically and can rotate
   upon expiration.
@@ -288,7 +288,7 @@ For more information about the authentication process, refer to
 If you have services of your own that need to validate Kubernetes service
 account credentials, you can use the following methods:
 
-* [TokenReview API](/docs/reference/kubernetes-api/authentication-resources/token-review-v1/)
+* [TokenReview API](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/)
   (recommended)
 * OIDC discovery
 
@@ -328,4 +328,4 @@ used in your application and nowhere else.
 
 * Learn how to [manage your ServiceAccounts as a cluster administrator](/docs/reference/access-authn-authz/service-accounts-admin/).
 * Learn how to [assign a ServiceAccount to a Pod](/docs/tasks/configure-pod-container/configure-service-account/).
-* Read the [ServiceAccount API reference](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/).
+* Read the [ServiceAccount API reference](/docs/reference/kubernetes-api/core/service-account-v1/).
