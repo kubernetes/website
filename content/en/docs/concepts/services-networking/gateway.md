@@ -93,9 +93,9 @@ reference for a full definition of this API kind.
 A Gateway describes an instance of traffic handling infrastructure. It defines a network endpoint
 that can be used for processing traffic, i.e. filtering, balancing, splitting, etc. for backends
 such as a Service. For example, a Gateway may represent a cloud load balancer or an in-cluster proxy
-server that is configured to accept HTTP traffic.
+server that is configured to accept HTTP or HTTPS traffic.
 
-A typical Gateway resource example:
+A typical Gateway resource with HTTP example:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -113,6 +113,30 @@ spec:
     allowedRoutes:
       namespaces:
         from: Same
+```
+
+A typical Gateway resource with HTTPS example:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: example-gateway
+  namespace: example-namespace
+spec:
+  gatewayClassName: example-class
+  listeners:
+  - name: https
+    protocol: HTTPS
+    port: 443
+    hostname: "www.example.com"
+    allowedRoutes:
+      namespaces:
+        from: Same
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: tls-certificate
 ```
 
 In this example, an instance of traffic handling infrastructure is programmed to listen for HTTP
