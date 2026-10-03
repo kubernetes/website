@@ -159,12 +159,10 @@ To learn more about configuring the node selector and tolerations, see
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
-the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
-
-Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,
-you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
-are accounted for in Kubernetes.
+Pod overhead accounts for the resources that a Pod's infrastructure uses in addition to the
+resources requested by its containers. You define the overhead using the `overhead` field of a
+RuntimeClass. Kubernetes applies that overhead to Pods that use the RuntimeClass. To learn more,
+read [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
 
 ## {{% heading "whatsnext" %}}
 
