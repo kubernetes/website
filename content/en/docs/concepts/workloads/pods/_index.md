@@ -475,6 +475,10 @@ Containers that you explicitly define as sidecar containers
 start up before the main application Pod and remain running until the Pod is
 shut down.
 
+To learn how containers in a Pod communicate and share resources, and about common
+design patterns such as sidecar, ambassador, and adapter, read
+[Multi-container Pods](/docs/concepts/workloads/pods/multi-container-pods/).
+
 
 ## Container probes
 
@@ -496,6 +500,8 @@ in the Pod Lifecycle documentation.
 * Pod is a top-level resource in the Kubernetes REST API.
   The {{< api-reference page="core/pod-v1" >}}
   object definition describes the object in detail.
+* Learn about [multi-container Pods](/docs/concepts/workloads/pods/multi-container-pods/),
+  including how containers in a Pod communicate and common design patterns.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Read [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) to learn the topic in detail.
