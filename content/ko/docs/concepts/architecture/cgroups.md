@@ -11,7 +11,7 @@ weight: 50
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
 기반 컨테이너 런타임은 컨테이너화된 워크로드에 대한 CPU/메모리 요청 및 제한을 포함하는
-[파드와 컨테이너를 위한 자원 관리](/ko/docs/concepts/configuration/manage-resources-containers/)를
+[파드와 컨테이너를 위한 자원 관리](/docs/concepts/configuration/manage-resources-containers/)를
 강제하기 위해 cgroup과 연동해야 한다.
 
 리눅스에는 두 가지 버전의 cgroup이 있다. cgroup v1과 cgroup v2. cgroup v2는
@@ -34,15 +34,15 @@ cgroup v2는 cgroup v1에 비해 다음과 같은 여러 개선 사항을 제공
 - [Pressure Stall Information](https://www.kernel.org/doc/html/latest/accounting/psi.html)과 같은 새로운 기능
 - 다중 자원에 걸친 향상된 자원 할당 관리 및 격리
   - 다양한 유형의 메모리 할당(네트워크 메모리, 커널 메모리 등)에 대한 통합 집계
-  - 페이지 캐시 라이트백(write back)과 같은 즉각적이지 않은 자원 변경에 대한 집계
+  - 페이지 캐시 라이트 백(write backs)과 같은 즉각적이지 않은 자원 변경에 대한 집계
 
 일부 쿠버네티스 기능은 향상된 자원 관리 및 격리를 위해
 오직 cgroup v2만을 사용한다. 예를 들어,
-[MemoryQoS](/ko/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) 기능은 메모리 QoS를 향상시키고
-cgroup v2 기본 요소에 의존한다.
+[MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) 기능은 메모리 QoS를 향상시키고
+cgroup v2 기본 요소(primitives)에 의존한다.
 
 
-## cgorup v2 사용하기 {#using-cgroupv2}
+## cgroup v2 사용하기 {#using-cgroupv2}
 
 cgroup v2를 사용하는 권장 방식은 cgroup v2를 기본적으로 활성화하고 사용하는
 리눅스 배포판을 이용하는 것이다.
@@ -58,7 +58,7 @@ cgroup v2에는 다음과 같은 요구 사항이 있다.
 * 컨테이너 런타임이 cgroup v2를 지원해야 한다. 예를 들어,
   * [containerd](https://containerd.io/) v1.4 이상
   * [cri-o](https://cri-o.io/) v1.20 이상
-* kubelet과 컨테이너 런타임은 [systemd cgroup 드라이버](/ko/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)를 사용하도록 구성되어야 한다.
+* kubelet과 컨테이너 런타임은 [systemd cgroup 드라이버](/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)를 사용하도록 구성되어야 한다.
 
 ### 리눅스 배포판 cgroup v2 지원
 
@@ -108,6 +108,13 @@ cgroup v2는 cgroup v1과 다른 API를 사용하므로, cgroup 파일 시스템
     * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 이상
 * [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) 패키지를 사용하는 경우, 사용하는
   버전이 v1.5.1 이상인지 확인한다.
+* [Node.js](https://nodejs.org/) 애플리케이션을 배포하는 경우, cgroup v2 메모리 제한(limits)을
+  감지하는 버전을 사용하는 것이 좋다. Node.js는 v20.3.0부터 ([libuv](https://libuv.org/)를 통해)
+  cgroup v2 메모리 제한을 읽는다. v18 릴리스 라인은 cgroup v2 메모리 제한을 안정적으로
+  감지하지 못한다. 이 기능을 지원하지 않는 버전은 파드에 적용된 제한 대신
+  호스트의 전체 메모리를 읽을 수 있으며, 이로 인해 힙 크기가 잘못 설정되거나
+  메모리 부족(OOM)으로 종료될 수 있다. 영향을 받는 버전에서는 예를 들어
+  `--max-old-space-size` 플래그를 사용하여 힙 크기를 명시적으로 설정한다.
 
 ## 리눅스 노드에서 cgroup 버전 확인하기  {#check-cgroup-version}
 
@@ -124,8 +131,18 @@ cgroup v2의 경우, 출력은 `cgroup2fs`이다.
 
 cgroup v1의 경우, 출력은 `tmpfs`이다.
 
+## cgroup v1 사용 중단
+
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
+쿠버네티스는 cgroup v1을 사용 중단했다.
+제거는 [쿠버네티스 사용 중단 정책](/docs/reference/using-api/deprecation-policy/)을 따른다.
+
+Kubelet은 기본적으로 더 이상 cgroup v1 노드에서 시작되지 않는다.
+이 설정을 비활성화하려면 클러스터 관리자가 [kubelet 구성 파일](/docs/tasks/administer-cluster/kubelet-config-file/)에서 `failCgroupV1`을 false로 설정해야 한다.
+
 ## {{% heading "whatsnext" %}}
 
 - [cgroup](https://man7.org/linux/man-pages/man7/cgroups.7.html)에 대해 더 알아보기
-- [컨테이너 런타임](/ko/docs/concepts/architecture/cri)에 대해 더 알아보기
+- [컨테이너 런타임](/docs/concepts/architecture/cri)에 대해 더 알아보기
 - [cgroup 드라이버](/ko/docs/setup/production-environment/container-runtimes#cgroup-드라이버)에 대해 더 알아보기
