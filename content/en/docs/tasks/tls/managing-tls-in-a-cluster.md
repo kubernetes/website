@@ -50,7 +50,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
 
 {{< note >}}
-Even though the custom CA certificate may be included in the filesystem (in the
+Even though the root CA certificate may be included in the filesystem (in the
 ConfigMap `kube-root-ca.crt`),
 you should not use that certificate authority for any purpose other than to verify internal
 Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
@@ -68,7 +68,7 @@ The following section demonstrates how to create a TLS certificate for a
 Kubernetes service accessed through DNS.
 
 {{< note >}}
-This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit See the Cloudflare blog
+This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit. See the Cloudflare blog
 article [Introducing CFSSL - CloudFlare's PKI toolkit](https://blog.cloudflare.com/introducing-cfssl/) for more information.
 {{< /note >}}
 
