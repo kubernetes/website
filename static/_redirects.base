@@ -482,6 +482,7 @@
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
 /docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tutorials/cluster-management/namespaces-walkthrough/ 301
 /uk/docs/tasks/administer-cluster/namespaces-walkthrough/   /uk/docs/tutorials/cluster-management/namespaces-walkthrough/ 301
+/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/   /ko/docs/tutorials/configuration/configure-persistent-volume-storage/ 301
 
 /docs/concepts/configuration/overview/ /blog/2025/11/25/configuration-good-practices/ 301
 
