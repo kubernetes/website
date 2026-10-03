@@ -93,7 +93,7 @@ Terbaru ini BCF diakui oleh Gartner sebagai visioner dalam [_Magic Quadrant_](ht
 
 ### CNI-Genie dari Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie juga mendukung [menetapkan beberapa alamat IP ke sebuah Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-address-per-pod), masing-masing dari _plugin_ CNI yang berbeda.
 
@@ -113,7 +113,7 @@ Plugin ini dirancang untuk secara langsung mengkonfigurasi dan _deploy_ dalam VP
 
 ### DANM
 
-[DANM] (https://github.com/nokia/danm) adalah solusi jaringan untuk beban kerja telco yang berjalan di klaster Kubernetes. Dibangun dari komponen-komponen berikut:
+[DANM](https://github.com/nokia/danm) adalah solusi jaringan untuk beban kerja telco yang berjalan di klaster Kubernetes. Dibangun dari komponen-komponen berikut:
 
    * Plugin CNI yang mampu menyediakan antarmuka IPVLAN dengan fitur-fitur canggih
    * Modul IPAM built-in dengan kemampuan mengelola dengan jumlah banyak, _cluster-wide_, _discontinous_ jaringan L3 dan menyediakan skema dinamis, statis, atau tidak ada permintaan skema IP
@@ -125,7 +125,7 @@ Dengan _toolset_ ini, DANM dapat memberikan beberapa antarmuka jaringan yang ter
 
 ### Flannel
 
-[Flannel] (https://github.com/coreos/flannel#flannel) adalah jaringan overlay yang sangat sederhana yang memenuhi persyaratan Kubernetes. Banyak orang telah melaporkan kesuksesan dengan Flannel dan Kubernetes.
+[Flannel](https://github.com/coreos/flannel#flannel) adalah jaringan overlay yang sangat sederhana yang memenuhi persyaratan Kubernetes. Banyak orang telah melaporkan kesuksesan dengan Flannel dan Kubernetes.
 
 ### Google Compute Engine (GCE)
 
