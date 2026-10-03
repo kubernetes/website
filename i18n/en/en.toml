@@ -16,6 +16,16 @@ other = "(auto-generated page)"
 [auto_generated_pageinfo]
 other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
+# Announcement banners:
+# English title/message come from data/announcements/scheduled.yaml.
+# Other languages can override a banner by adding:
+#   [announcement_<slug>_title]
+#   [announcement_<slug>_message]
+# <slug> is the YAML `name`, lowercased, with non-alphanumeric runs turned into
+# `_` (example: name "KubeCon 2026 NA" → announcement_kubecon_2026_na_title).
+# Omit the keys to keep the English banner (lang="en"). See
+# layouts/partials/announcement.html.
+
 [banner_acknowledgement]
 other = "Hide this notice"
 
