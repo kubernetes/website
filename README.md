@@ -56,6 +56,9 @@ To build the site in a container, run the following:
 ```bash
 # You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
 
+# Build the container image
+make container-image
+
 # Render the full website
 make container-serve
 
