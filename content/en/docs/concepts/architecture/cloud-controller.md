@@ -58,6 +58,43 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 Some cloud provider implementations split this into a node controller and a separate node
 lifecycle controller.
 
+#### Reconcile additional node labels {#reconcile-additional-node-labels}
+
+{{< feature-state feature_gate_name="CloudNodeAdditionalLabelsReconciliation" >}}
+
+Cloud providers can return additional node labels through
+`InstanceMetadata.AdditionalLabels`. By default, the cloud node controller
+applies these labels during node initialization.
+
+To also reconcile additional labels on already initialized nodes, enable the
+`CloudNodeAdditionalLabelsReconciliation` feature gate in a cloud-controller-manager
+implementation that supports it:
+
+```text
+--feature-gates=CloudNodeAdditionalLabelsReconciliation=true
+```
+
+When enabled, the controller adds missing labels and updates values that differ
+from the current cloud provider metadata. Reconciliation runs when the controller
+starts and then at the interval configured by `--node-status-update-frequency`,
+which defaults to five minutes.
+
+The controller preserves unrelated node labels and does not remove labels that
+the cloud provider stops returning. Kubernetes-reserved label namespaces remain
+excluded from additional labels. Initial node labeling and node-address updates
+are unchanged.
+
+{{< note >}}
+With this feature enabled, provider values overwrite conflicting changes to the
+same label keys made by users or other controllers during reconciliation.
+Coordinate ownership of these labels before enabling the feature.
+{{< /note >}}
+
+For example, a cloud provider may return an updated compute-host label after an
+instance migration. Reconciling that label makes the current topology available
+for subsequent scheduling decisions. This change does not automatically
+reschedule existing Pods.
+
 ### Route controller
 
 The route controller is responsible for configuring routes in the cloud
