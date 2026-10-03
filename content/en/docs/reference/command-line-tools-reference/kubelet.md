@@ -820,10 +820,10 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-default RuntimeDefault</td>
+<td colspan="2">--seccomp-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: false</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Enable the use of RuntimeDefault as the default seccomp profile for all workloads.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, enable the use of RuntimeDefault as the default seccomp profile for all workloads.</p></td>
 </tr>
 
 <tr>
