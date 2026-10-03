@@ -21,6 +21,25 @@ Add styles or import other files. */
 // gated on data-bs-theme. Requires hugo.toml [markup.highlight] noClasses = false.
 @import "td/code-dark";
 
+// Makes Docsy's native click-to-copy button (scoped to the Gateway API page
+// via layouts/partials/scripts.html, icon swapped in assets/js/click-to-copy.js)
+// render identically to the existing .copy-code-icon used by the
+// code/codenew/code_sample shortcodes, so the two mechanisms are visually
+// indistinguishable. Positioning/hover rules for .td-click-to-copy itself
+// already ship via Docsy's main.scss -> _code.scss, so only icon sizing is
+// needed here.
+.td-content .highlight button.td-click-to-copy {
+  padding: 0.4rem;
+  right: 6px;
+  top: 6px;
+
+  .icon-copycode {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+}
+
 // This is based on Bootstrap's grid system with classes like d-lg-block and d-xl-block
 // Bootstrap 5 included in Docsy 0.7 has a breakpoint at 1400px and it can be used once 0.7 upgrade is done
 @media (min-width: 1500px) {
