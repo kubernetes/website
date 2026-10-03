@@ -31,7 +31,8 @@ articles that you want to publish to the contributor blog only, you can also
 pitch directly to
 [SIG ContribEx comms](https://kubernetes.slack.com/archives/C03KT3SUJ20).
 
-<!-- FIXME: or using this [form] -->
+If you want to submit a draft more directly, you can also use the
+[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform).
 
 Unless there's a problem with your submission, the blog team / SIG ContribEx
 will pair you up with:
