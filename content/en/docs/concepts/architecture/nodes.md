@@ -308,5 +308,5 @@ Learn more about the following:
 * [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+* [Node Resource Managers](/docs/concepts/resource-management/resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
