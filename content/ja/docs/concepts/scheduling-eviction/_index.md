@@ -17,7 +17,6 @@ Kubernetesにおいてスケジューリングとは、稼働させたい{{<glos
 * [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [スケジューリングフレームワーク](/docs/concepts/scheduling-eviction/scheduling-framework)
-* [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 * [スケジューラーのパフォーマンスチューニング](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [拡張リソースのリソースビンパッキング](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
