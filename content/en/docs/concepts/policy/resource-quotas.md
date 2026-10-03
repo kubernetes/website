@@ -784,7 +784,7 @@ When the quota is scoped for the volume attributes class using the `scopeSelecto
 * `persistentvolumeclaims`
 * `requests.storage`
 
-Read [Limit Storage Consumption](/docs/tasks/administer-cluster/limit-storage-consumption/) to learn more about this.
+Read [use a ResourceQuota to limit storage use](/docs/tasks/administer-cluster/quota-storage/) to learn more about this.
 
 
 ## {{% heading "whatsnext" %}}
