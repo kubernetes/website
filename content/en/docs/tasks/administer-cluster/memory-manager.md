@@ -123,6 +123,10 @@ and does not reserve the memory in the internal [NodeMap][2] object.
 
 This policy is only supported on Linux.
 
+If the kubelet fails to start after a reboot with
+`the expected machine state is different from the real one`, see the
+[`memory-drift-tolerance`](#policy-option-memory-drift-tolerance) policy option.
+
 #### BestEffort policy {#policy-best-effort}
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
@@ -138,6 +142,59 @@ The policy does track the amount of memory available and requested through the i
 The memory manager makes a best effort at ensuring that enough memory is available on a NUMA node before making
 a resource assignment.  
 This means that in most cases memory assignment should function as specified.
+
+## Memory manager policy options
+
+{{< feature-state feature_gate_name="MemoryManagerDriftTolerance" >}}
+
+Memory manager policy options let you fine-tune the behavior of the `Static` policy.
+You set them with the `memoryManagerPolicyOptions` field in the
+[kubelet configuration]({{< relref "/docs/reference/config-api/kubelet-config.v1beta1" >}}),
+as a map of option names to values. In Kubernetes {{< skew currentVersion >}} the options
+are alpha and require the `MemoryManagerDriftTolerance`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+Only the `Static` policy accepts options. The `None` and `BestEffort` policies reject them.
+
+### `memory-drift-tolerance` {#policy-option-memory-drift-tolerance}
+
+The `Static` policy records the total memory of each NUMA node in its state file and, when the
+kubelet starts, requires the recorded totals to match the machine exactly. On Linux, the total
+memory a NUMA node reports can change by a small amount across a reboot: the kernel places its
+own image at a random physical address on every boot (KASLR), and the amount of boot-time memory
+it frees varies. When that happens, the kubelet fails to start with
+`the expected machine state is different from the real one` until the state file
+(`memory_manager_state` in the kubelet root directory) is deleted by hand.
+
+With `memory-drift-tolerance` set, the `Static` policy tolerates a bounded change of the memory
+reported for a NUMA node, re-baselines its state onto the current machine and starts. A change
+of `systemReserved`, a change in hugepages, a NUMA node that gains or loses more memory than the
+bound, or a recorded assignment that no longer fits still fail the start as before.
+
+The option takes one of the following values:
+
+* `auto`: derive the bound from the size of the running kernel image, read from `/proc/iomem`,
+  plus 64 MiB. If the size cannot be read, the kubelet keeps the exact comparison and logs why.
+* A quantity, such as `128Mi`: use that bound.
+* `off`: keep the exact comparison. This is also the behavior when the option is not set,
+  even with the feature gate enabled.
+
+For example:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  MemoryManagerDriftTolerance: true
+memoryManagerPolicy: Static
+memoryManagerPolicyOptions:
+  memory-drift-tolerance: auto
+```
+
+The kubelet exports the bound in effect as `kubelet_memory_manager_drift_tolerance_bytes`
+(0 means the exact comparison) and, per NUMA node, the change observed at the last start as
+`kubelet_memory_manager_memory_drift_bytes`.
+
+This option is only supported on Linux.
 
 ## Reserved memory configuration {#reserved-memory-flag}
 
