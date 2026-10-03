@@ -51,7 +51,7 @@ including resource limits, [volumes](/docs/concepts/storage/volumes/), and secur
 resource requests and limits for an init container are handled differently,
 as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
-Regular init containers (in other words: excluding sidecar containers) do not support the
+Init containers that run to completion (without `restartPolicy: Always`) do not support the
 `lifecycle`, `livenessProbe`, `readinessProbe`, or `startupProbe` fields. Init containers
 must run to completion before the Pod can be ready; sidecar containers continue running
 during a Pod's lifetime, and _do_ support some probes. See [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
@@ -325,9 +325,11 @@ for resource usage apply:
 * The highest of any particular resource request or limit defined on all init
   containers is the *effective init request/limit*. If any resource has no
   resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the higher of:
-  * the sum of all app containers request/limit for a resource
-  * the effective init request/limit for a resource
+* The Pod's *effective request/limit* for a resource is the sum of
+  [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
+  * the sum of all app containers and sidecar containers (that is, init containers with
+    `restartPolicy: Always`) request/limit for a resource.
+  * the effective init request/limit for a resource.
 * Scheduling is done based on effective requests/limits, which means
   init containers can reserve resources for initialization that are not used
   during the life of the Pod.
