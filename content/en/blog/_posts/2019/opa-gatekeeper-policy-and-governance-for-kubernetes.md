@@ -62,7 +62,7 @@ Before defining a Constraint, you need to create a Constraint Template that allo
 For example, here is a Constraint template CRD that requires certain labels to be present on an arbitrary object. 
 
 ```yaml
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8srequiredlabels
@@ -86,7 +86,7 @@ spec:
       rego: |
         package k8srequiredlabels
 
-        deny[{"msg": msg, "details": {"missing_labels": missing}}] {
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
           provided := {label | input.review.object.metadata.labels[label]}
           required := {label | label := input.parameters.labels[_]}
           missing := required - provided
