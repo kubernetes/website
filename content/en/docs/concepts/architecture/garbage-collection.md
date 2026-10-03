@@ -8,7 +8,7 @@ weight: 70
 {{<glossary_definition term_id="garbage-collection" length="short">}} This
 allows the clean up of resources like the following:
 
-* [Terminated pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [Terminated pods](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)
 * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [Objects without owner references](#owners-dependents)
 * [Unused containers and container images](#containers-images)

@@ -50,7 +50,7 @@ the handler, the container will eventually terminate within the Pod's terminatio
 parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+[Termination of Pods](/docs/concepts/workloads/pods/pod-termination/).
 
 `StopSignal`
 
@@ -58,7 +58,7 @@ The StopSignal lifecycle can be used to define a stop signal which would be sent
 stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
 
 A more detailed description of termination behaviour with custom stop signals can be found in
-[Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+[Stop Signals](/docs/concepts/workloads/pods/pod-termination/#pod-termination-stop-signals).
 
 ### Hook handler implementations
 
