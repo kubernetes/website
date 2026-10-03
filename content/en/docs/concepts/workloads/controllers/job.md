@@ -668,7 +668,7 @@ These are some requirements and semantics of the API:
   handling applies.
 - you may want to restrict a rule to a specific container by specifying its name
   in`spec.podFailurePolicy.rules[*].onExitCodes.containerName`. When not specified the rule
-  applies to all containers. When specified, it should match one the container
+  applies to all containers. When specified, it should match one of the container
   or `initContainer` names in the Pod template.
 - you may specify the action taken when a Pod failure policy is matched by
   `spec.podFailurePolicy.rules[*].action`. Possible values are:
