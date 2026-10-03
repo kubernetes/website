@@ -24,10 +24,13 @@
     <div class="container-fluid td-outer">
       <div class="td-main">
         <div class="row flex-xl-nowrap">
-          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
-            {{ partial "blog/sidebar.html" . }}
+          <aside class="offcanvas-lg offcanvas-start col-lg-3 col-xl-2 td-sidebar d-print-none td-navbar-mobile-page-offcanvas" tabindex="-1" id="k8s-mobile-page-nav" aria-labelledby="k8s-mobile-page-nav-label">
+            {{ partialCached "page-navigation-offcanvas-header.html" . .Language.Lang }}
+            <div class="offcanvas-body d-block w-100">
+              {{ partial "blog/sidebar.html" . }}
+            </div>
           </aside>
-          <main class="col-12 col-md-9 col-xl-8 ps-md-5 pe-md-4" role="main"
+          <main class="col-12 col-lg-9 col-xl-8 ps-lg-5 pe-md-4" role="main"
               {{ if .IsPage }}data-pagefind-body data-pagefind-meta="date:{{  $.Date.Format "2006-01-02" }}"{{ end }}
             ><!-- inside main element -->
             {{ with .CurrentSection.OutputFormats.Get "rss" -}}

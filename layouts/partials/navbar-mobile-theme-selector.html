@@ -1,0 +1,32 @@
+{{- if .Site.Params.ui.showLightDarkModeMenu -}}
+  {{- with .Params.theme_lock }}
+    <li class="nav-item">
+      <span class="td-navbar-mobile-group-item text-muted" title="{{ T "theme_locked_notice" }}">
+        {{ T "theme_locked_notice" }}
+      </span>
+    </li>
+  {{- else }}
+    <li class="nav-item td-navbar-mobile-group">
+      <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#k8s-mobile-main-nav-theme" aria-expanded="false" aria-controls="k8s-mobile-main-nav-theme">
+        <span>{{ T "theme_menu" }}</span>
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <div id="k8s-mobile-main-nav-theme" class="collapse td-navbar-mobile-group-menu">
+        <div class="td-navbar-mobile-group-menu-inner">
+          <button type="button" class="td-navbar-mobile-group-item" data-k8s-theme-value="light" aria-pressed="false">
+            <svg class="bi me-2" aria-hidden="true"><use href="#sun-fill"></use></svg>
+            {{ T "theme_light" }}
+          </button>
+          <button type="button" class="td-navbar-mobile-group-item" data-k8s-theme-value="dark" aria-pressed="false">
+            <svg class="bi me-2" aria-hidden="true"><use href="#moon-stars-fill"></use></svg>
+            {{ T "theme_dark" }}
+          </button>
+          <button type="button" class="td-navbar-mobile-group-item" data-k8s-theme-value="auto" aria-pressed="false">
+            <svg class="bi me-2" aria-hidden="true"><use href="#circle-half"></use></svg>
+            {{ T "theme_auto" }}
+          </button>
+        </div>
+      </div>
+    </li>
+  {{- end }}
+{{- end }}

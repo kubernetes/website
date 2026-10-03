@@ -1,0 +1,17 @@
+{{/*
+  Build page-specific lookups shared by all language selector renderers.
+*/}}
+{{- $page := . -}}
+{{- $translationMap := dict -}}
+{{- range .Translations -}}
+  {{- $translationMap = merge $translationMap (dict .Language.Lang .) -}}
+{{- end -}}
+{{- $homeMap := dict -}}
+{{- range .Site.Home.Translations -}}
+  {{- $homeMap = merge $homeMap (dict .Language.Lang .) -}}
+{{- end -}}
+{{- return (dict
+  "currentLang" $page.Language.Lang
+  "translationMap" $translationMap
+  "homeMap" $homeMap
+) -}}
