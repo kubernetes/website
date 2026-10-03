@@ -1,0 +1,15 @@
+# Words to ignore during spell checking (one per line, lowercase).
+# These are passed to misspell's -i flag which matches case-insensitively.
+# Use this for proper nouns, product names, technical terms, etc.
+# that misspell incorrectly flags.
+#
+# Proper names
+revelant
+stichting
+# Product/project names
+mosquitto
+mirrord
+# Linux commands
+exportfs
+# CSS class names in SVG files
+composit
