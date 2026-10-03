@@ -615,6 +615,23 @@ body.docs-portal {
   }
 }
 
+// scrolling for formulae
+@media (max-width: 799px) {
+  .td-main main div.math {
+    overflow-x: auto;
+    max-width: 92vw; // try to avoid scroll bar if not needed
+    > span:first-child:last-child {
+      min-width: calc(max(100vw - 15em, 30em))
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .td-main main div.math {
+    max-width: 80%;
+  }
+}
+
 /* SCSS related to the list of metrics in Kubernetes */
 main {
 
