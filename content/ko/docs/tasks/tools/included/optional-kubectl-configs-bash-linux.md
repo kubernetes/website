@@ -12,7 +12,7 @@ Bash의 kubectl 자동 완성 스크립트는 `kubectl completion bash` 명령�
 
 ### bash-completion 설치
 
-bash-completion은 많은 패키지 관리자에 의해 제공된다([여기](https://github.com/scop/bash-completion#installation) 참고). `apt-get install bash-completion` 또는 `yum install bash-completion` 등으로 설치할 수 있다.
+bash-completion은 많은 패키지 관리자에 의해 제공된다([여기](https://github.com/scop/bash-completion#installation) 참고). `apt-get install bash-completion` 또는 `dnf install bash-completion` 등으로 설치할 수 있다.
 
 위의 명령은 bash-completion의 기본 스크립트인 `/usr/share/bash-completion/bash_completion` 을 생성한다. 패키지 관리자에 따라, `~/.bashrc` 파일에서 이 파일을 수동으로 소스(source)해야 한다.
 
@@ -36,6 +36,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
 {{< tab name="시스템 전체에 적용" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+sudo chmod a+r /etc/bash_completion.d/kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -51,7 +52,7 @@ bash-completion은 `/etc/bash_completion.d` 에 있는 모든 자동 완성 스�
 {{< /note >}}
 
 두 방법 모두 동일하다. 셸을 다시 로드하면, kubectl 자동 완성 기능이 작동할 것이다.
-셸의 현재 세션에서 bash 자동 완성을 활성화하려면 `exec bash`를 실행한다.
+셸의 현재 세션에서 bash 자동 완성을 활성화하려면 `source ~/.bashrc`를 실행한다.
 ```bash
-exec bash
+source ~/.bashrc
 ```
