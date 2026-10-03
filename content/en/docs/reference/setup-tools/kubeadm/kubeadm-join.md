@@ -12,6 +12,8 @@ This command initializes a new Kubernetes node and joins it to the existing clus
 <!-- body -->
 {{< include "generated/kubeadm_join/_index.md" >}}
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ### The join workflow {#join-workflow}
 
 `kubeadm join` bootstraps a Kubernetes worker node or a control-plane node and adds it to the cluster.

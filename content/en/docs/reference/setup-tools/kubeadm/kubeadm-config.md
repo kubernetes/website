@@ -37,6 +37,8 @@ API version to a newer, supported API version.
 that kubeadm requires.
 
 <!-- body -->
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ## kubeadm config print {#cmd-config-print}
 
 {{< include "generated/kubeadm_config/kubeadm_config_print.md" >}}
