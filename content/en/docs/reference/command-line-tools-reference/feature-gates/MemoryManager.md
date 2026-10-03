@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    toVersion: "1.35"
+
+removed: true
 ---
 Allows setting memory affinity for a container based on
 NUMA topology.
