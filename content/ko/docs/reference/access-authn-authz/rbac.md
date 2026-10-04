@@ -48,11 +48,11 @@ _롤바인딩(RoleBinding)_, _클러스터롤바인딩(ClusterRoleBinding)_ 을 
 {{< caution >}}
 이 오브젝트들은 설계상 접근 제한을 적용한다. 학습하면서
 클러스터를 변경하는 경우,
-[권한 상승 방지 및 부트스트래핑](#privilege-escalation-prevention-and-bootstrapping)을 참고하여
+[권한 상승 방지 및 부트스트래핑](#권한-상승-방지-및-부트스트래핑)을 참고하여
 이러한 제한으로 인해 일부 변경이 차단될 수 있는 이유를 알아본다.
 {{< /caution >}}
 
-### 롤과 클러스터롤 {#role-and-clusterrole}
+### 롤과 클러스터롤
 
 RBAC _롤_ 또는 _클러스터롤_ 에는 권한 집합을 나타내는 규칙이 포함된다.
 권한은 추가하는 방식으로만 부여된다("거부" 규칙은 없다).
@@ -73,14 +73,14 @@ RBAC _롤_ 또는 _클러스터롤_ 에는 권한 집합을 나타내는 규칙�
 네임스페이스 내에서 역할을 정의하려면 롤을 사용하고, 클러스터 전체에 걸쳐
 역할을 정의하려면 클러스터롤을 사용한다.
 
-#### 롤 예시 {#role-example}
+#### 롤 예시
 
 다음은 "default" 네임스페이스에서 {{< glossary_tooltip text="파드" term_id="pod" >}}에 대한
 읽기 접근 권한을 부여하는 데 사용할 수 있는 롤의 예시이다.
 
 {{% code_sample file="access/simple-role.yaml" %}}
 
-#### 클러스터롤 예시 {#clusterrole-example}
+#### 클러스터롤 예시
 
 클러스터롤을 사용하면 롤과 동일한 권한을 부여할 수 있다.
 클러스터롤은 클러스터 범위에 적용되므로 다음에 대한 접근 권한도 부여할 수 있다.
@@ -94,14 +94,14 @@ RBAC _롤_ 또는 _클러스터롤_ 에는 권한 집합을 나타내는 규칙�
 
 다음은 특정 네임스페이스 또는 모든 네임스페이스의
 {{< glossary_tooltip text="시크릿(Secret)" term_id="secret" >}}에 대한 읽기 접근 권한을 부여하는 클러스터롤의 예시이다.
-적용 범위는 [바인딩 방식](#rolebinding-and-clusterrolebinding)에 따라 달라진다.
+적용 범위는 [바인딩 방식](#롤바인딩과-클러스터롤바인딩)에 따라 달라진다.
 
 {{% code_sample file="access/simple-clusterrole.yaml" %}}
 
 롤 또는 클러스터롤 오브젝트의 이름은 유효한
 [경로 세그먼트 이름](/docs/concepts/overview/working-with-objects/names#경로-세그먼트-이름)이어야 한다.
 
-### 롤바인딩과 클러스터롤바인딩 {#rolebinding-and-clusterrolebinding}
+### 롤바인딩과 클러스터롤바인딩
 
 롤 바인딩은 롤에 정의된 권한을 사용자 또는 사용자 집합에 부여한다.
 롤 바인딩에는 *주체(subject)* 목록(사용자, 그룹 또는 서비스 어카운트)과
@@ -136,7 +136,7 @@ RBAC _롤_ 또는 _클러스터롤_ 에는 권한 집합을 나타내는 규칙�
 
 {{% code_sample file="access/simple-rolebinding-with-clusterrole.yaml" %}}
 
-#### 클러스터롤바인딩 예시 {#clusterrolebinding-example}
+#### 클러스터롤바인딩 예시
 
 클러스터 전체에 걸쳐 권한을 부여하려면 클러스터롤바인딩을 사용할 수 있다.
 다음 클러스터롤바인딩은 "manager" 그룹에 속한 모든 사용자가 모든 네임스페이스의
@@ -165,7 +165,7 @@ RBAC _롤_ 또는 _클러스터롤_ 에는 권한 집합을 나타내는 규칙�
 참조하는 롤을 변경하기 위해 필요한 경우 바인딩 오브젝트의 삭제 및 재생성도 처리한다.
 자세한 내용은 [명령 사용법 및 예시](#kubectl-auth-reconcile)를 참고한다.
 
-### 리소스 참조하기 {#referring-to-resources}
+### 리소스 참조하기
 
 쿠버네티스 API에서 대부분의 리소스는 파드의 `pods`와 같이
 오브젝트 이름을 문자열로 표현하여 나타내고 접근한다. RBAC은 해당 API 엔드포인트의
@@ -253,7 +253,7 @@ rules:
 필요한 권한만 적용해야 한다.
 {{< /caution >}}
 
-### 집계된 클러스터롤 {#aggregated-clusterroles}
+### 집계된 클러스터롤
 
 여러 클러스터롤을 하나의 클러스터롤로 _집계(aggregate)_ 할 수 있다.
 클러스터 컨트롤 플레인의 일부로 실행되는 컨트롤러는 `aggregationRule`이
@@ -313,7 +313,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-[기본 사용자 대상 롤](#default-roles-and-role-bindings)은 클러스터롤 집계를 사용한다. 이를 통해
+[기본 사용자 대상 롤](#기본-롤과-롤-바인딩)은 클러스터롤 집계를 사용한다. 이를 통해
 클러스터 관리자는 {{< glossary_tooltip term_id="CustomResourceDefinition" text="커스텀리소스데피니션(CustomResourceDefinition)" >}}이나
 집계된 API 서버가 제공하는 리소스와 같은 사용자 정의 리소스에 대한 규칙을
 포함하여 기본 롤을 확장할 수 있다.
@@ -349,7 +349,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-#### 롤 예시 {#role-examples}
+#### 롤 예시
 
 다음 예시들은 롤 또는 클러스터롤 오브젝트에서 발췌한 것으로,
 `rules` 섹션만 보여준다.
@@ -437,7 +437,7 @@ rules:
   verbs: ["get", "post"]
 ```
 
-### 주체 참조하기 {#referring-to-subjects}
+### 주체 참조하기
 
 롤바인딩이나 클러스터롤바인딩은 롤을 주체에 바인딩한다.
 주체는 그룹, 사용자 또는
@@ -549,7 +549,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-## 기본 롤과 롤 바인딩 {#default-roles-and-role-bindings}
+## 기본 롤과 롤 바인딩
 
 API 서버는 기본 클러스터롤 및 클러스터롤바인딩 오브젝트 집합을 생성한다.
 이 중 다수는 `system:` 접두사를 사용하며, 이는 해당 리소스를 클러스터
@@ -562,7 +562,7 @@ API 서버는 기본 클러스터롤 및 클러스터롤바인딩 오브젝트 �
 이 리소스들을 수정하면 클러스터가 정상적으로 동작하지 않을 수 있다.
 {{< /caution >}}
 
-### 자동 조정 {#auto-reconciliation}
+### 자동 조정
 
 API 서버는 시작할 때마다 기본 클러스터롤에 누락된 권한을 추가하고,
 기본 클러스터롤바인딩에 누락된 주체를 추가한다.
@@ -590,7 +590,7 @@ kubectl get clusterroles system:discovery -o yaml
 
 {{< note >}}
 해당 클러스터롤을 수정하면 API 서버가 다시 시작될 때
-[자동 조정](#auto-reconciliation)에 의해 변경 사항이 덮어써진다. 이를 방지하려면
+[자동 조정](#자동-조정)에 의해 변경 사항이 덮어써진다. 이를 방지하려면
 롤을 수동으로 수정하지 않거나 자동 조정을 비활성화한다.
 {{< /note >}}
 
@@ -623,14 +623,14 @@ kubectl get clusterroles system:discovery -o yaml
 </tbody>
 </table>
 
-### 사용자 대상 롤 {#user-facing-roles}
+### 사용자 대상 롤
 
 일부 기본 클러스터롤에는 `system:` 접두사가 없다. 이들은 사용자를 대상으로 하는 롤이다.
 여기에는 슈퍼유저 롤(`cluster-admin`), 클러스터롤바인딩을 통해 클러스터 전체에
 부여하도록 설계된 롤, 롤바인딩을 통해 특정 네임스페이스 내에서
 부여하도록 설계된 롤(`admin`, `edit`, `view`)이 포함된다.
 
-사용자 대상 클러스터롤은 [클러스터롤 집계](#aggregated-clusterroles)를 사용하여 관리자가 이 클러스터롤에
+사용자 대상 클러스터롤은 [클러스터롤 집계](#집계된-클러스터롤)를 사용하여 관리자가 이 클러스터롤에
 사용자 정의 리소스에 대한 규칙을 포함할 수 있도록 한다. `admin`, `edit`, `view` 롤에 규칙을 추가하려면,
 다음 레이블 중 하나 이상을 포함하는 클러스터롤을 생성한다.
 
@@ -697,7 +697,7 @@ metadata:
 </tbody>
 </table>
 
-### 핵심 컴포넌트 롤 {#core-component-roles}
+### 핵심 컴포넌트 롤
 
 <table>
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
@@ -743,7 +743,7 @@ metadata:
 </tbody>
 </table>
 
-### 기타 컴포넌트 롤 {#other-component-roles}
+### 기타 컴포넌트 롤
 
 <table>
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
@@ -845,12 +845,12 @@ metadata:
 * `system:controller:statefulset-controller`
 * `system:controller:ttl-controller`
 
-## 권한 상승 방지 및 부트스트래핑 {#privilege-escalation-prevention-and-bootstrapping}
+## 권한 상승 방지 및 부트스트래핑
 
 RBAC API는 사용자가 롤이나 롤 바인딩을 수정하여 권한을 상승시키는 것을 방지한다.
 이는 API 수준에서 적용되므로 RBAC 인가자를 사용하지 않는 경우에도 적용된다.
 
-### 롤 생성 또는 업데이트 제한 {#restrictions-on-role-creation-or-update}
+### 롤 생성 또는 업데이트 제한
 
 다음 중 하나 이상에 해당하는 경우에만 롤을 생성하거나 업데이트할 수 있다.
 
@@ -870,7 +870,7 @@ RBAC API는 사용자가 롤이나 롤 바인딩을 수정하여 권한을 상�
      `escalate` 동사를 수행할 권한을 부여하여 롤 또는 클러스터롤에
      어떤 권한이든 지정할 수 있도록 명시적으로 허용한다.
 
-### 롤 바인딩 생성 또는 업데이트 제한 {#restrictions-on-role-binding-creation-or-update}
+### 롤 바인딩 생성 또는 업데이트 제한
 
 참조하는 롤에 포함된 모든 권한을 롤 바인딩과 동일한 범위에서 이미 가지고 있거나,
 참조하는 롤에 대해 `bind` 동사를 수행하도록 인가받은 경우에만 롤 바인딩을 생성하거나 업데이트할 수 있다.
@@ -919,7 +919,7 @@ subjects:
 
 * 기본 바인딩에 의해 "cluster-admin" 슈퍼유저 롤에 바인딩된 "system:masters" 그룹의 자격 증명을 사용한다.
 
-## 커맨드라인 유틸리티 {#command-line-utilities}
+## 커맨드라인 유틸리티
 
 ### `kubectl create role`
 
@@ -1176,7 +1176,7 @@ subjects:
 
 {{% code_sample file="access/endpoints-aggregated.yaml" %}}
 
-## ABAC에서 업그레이드하기 {#upgrading-from-abac}
+## ABAC에서 업그레이드하기
 
 처음에 이전 쿠버네티스 버전으로 실행되던 클러스터는 모든 서비스 어카운트에
 전체 API 접근 권한을 부여하는 등의
@@ -1189,7 +1189,7 @@ subjects:
 이 방식은 훨씬 더 안전하지만, API 권한이 자동으로 부여된다고 가정하는 기존 워크로드에는 지장을 줄 수 있다.
 이 전환을 관리하는 두 가지 방법은 다음과 같다.
 
-### 인가자 병행 사용 {#parallel-authorizers}
+### 인가자 병행 사용
 
 RBAC 및 ABAC 인가자를 모두 실행하고,
 [기존 ABAC 정책](/docs/reference/access-authn-authz/abac/#policy-file-format)이 포함된 정책 파일을 지정한다.
@@ -1211,7 +1211,7 @@ RBAC 거부 내역을 확인할 수 있다(`RBAC` 접두사로 표시).
 [서비스 어카운트에 롤을 부여](#service-account-permissions)하고 서버 로그에 RBAC 거부 메시지 없이
 워크로드가 실행되면, ABAC 인가자를 제거할 수 있다.
 
-### 관대한 RBAC 권한 {#permissive-rbac-permissions}
+### 관대한 RBAC 권한
 
 RBAC 롤 바인딩을 사용하여 관대한 ABAC 정책을 재현할 수 있다.
 
