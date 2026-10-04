@@ -22,11 +22,11 @@ weight: 15
 
 <!-- body -->
 
-## 프로필 상세 {#profile-details}
+## 프로필 상세
 
 ### 특권 {#privileged}
 
-**_특권_ 정책은 의도적으로 개방되어 있으며 아무런 제한이 없다.** 이 유형의 정책은
+**_특권_ 정책은 의도적으로 개방되어 있으며 아무런 제한이 없다.** 이 타입의 정책은
 일반적으로 특권을 가진(privileged), 신뢰할 수 있는 사용자가 관리하는 시스템 및 인프라 수준의 워크로드를 대상으로 한다.
 
 특권 정책은 제한이 없는 것으로 정의된다. 특권 보안 정책이 적용되는 파드를
@@ -379,7 +379,7 @@ weight: 15
 		<tr>
 			<td style="white-space: nowrap">권한 상승 (v1.8+)</td>
 			<td>
-				<p>set-user-ID나 set-group-ID 파일 모드를 통한 권한 상승 등을 허용해서는 안 된다. <em>v1.25 이상에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다</a> <code>(spec.os.name != windows)</code></em></p>
+				<p>set-user-ID나 set-group-ID 파일 모드를 통한 권한 상승 등을 허용해서는 안 된다. <em>v1.25 이상에서는 <a href="#os별-정책-제어">리눅스 전용 정책이다</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -434,7 +434,7 @@ weight: 15
 		<tr>
 			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
 			<td>
-				<p>Seccomp 프로필은 허용된 값 중 하나로 명시적으로 설정해야 한다. <code>Unconfined</code> 프로필과 프로필 <em>미설정</em> 모두 금지된다. <em>v1.25 이상에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다</a> <code>(spec.os.name != windows)</code></em></p>
+				<p>Seccomp 프로필은 허용된 값 중 하나로 명시적으로 설정해야 한다. <code>Unconfined</code> 프로필과 프로필 <em>미설정</em> 모두 금지된다. <em>v1.25 이상에서는 <a href="#os별-정책-제어">리눅스 전용 정책이다</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -460,7 +460,7 @@ weight: 15
 			<td>
 				<p>
 					컨테이너는 <code>ALL</code>로 모든 리눅스 기능을 제거해야 하며, 다시 추가할 수 있는 것은
-					<code>NET_BIND_SERVICE</code> 기능뿐이다. <em>v1.25 이상에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다</a> <code>(.spec.os.name != "windows")</code></em>
+					<code>NET_BIND_SERVICE</code> 기능뿐이다. <em>v1.25 이상에서는 <a href="#os별-정책-제어">리눅스 전용 정책이다</a> <code>(.spec.os.name != "windows")</code></em>
 				</p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
@@ -489,7 +489,7 @@ weight: 15
 	</tbody>
 </table>
 
-## 정책 구현 {#policy-instantiation}
+## 정책 구현
 
 정책 정의와 정책 구현을 분리하면, 실제 적용 메커니즘과
 관계없이 클러스터 전반에서 정책에 대한 공통된 이해와
@@ -504,7 +504,7 @@ weight: 15
 - {{< example file="security/podsecurity-baseline.yaml" >}}기본 네임스페이스{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}제한 네임스페이스{{< /example >}}
 
-### 대안 {#alternatives}
+### 대안
 
 {{% thirdparty-content %}}
 
@@ -514,7 +514,7 @@ weight: 15
 - [Kyverno](https://kyverno.io/policies)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
-## 파드 OS 필드 {#pod-os-field}
+## 파드 OS 필드
 
 쿠버네티스에서는 리눅스 또는 윈도우를 실행하는 노드를 사용할 수 있다. 한 클러스터에서
 두 종류의 노드를 함께 사용할 수도 있다.
@@ -526,26 +526,26 @@ weight: 15
 v1.24 이전의 kubelet은 파드 OS 필드를 적용하지 않으므로, 클러스터에 v1.24 이전 버전의 노드가 있다면 제한 정책을 v1.25 이전 버전으로 고정해야 한다.
 {{< /note >}}
 
-### 제한 파드 시큐리티 표준의 변경 사항 {#restricted-pod-security-standard-changes}
+### 제한 파드 시큐리티 표준의 변경 사항
 쿠버네티스 v1.25의 또 다른 중요한 변경 사항은 _제한_ 정책이
 `pod.spec.os.name` 필드를 사용하도록 업데이트되었다는 점이다. OS 이름을 기준으로,
 특정 OS에만 해당하는 정책은 다른 OS에서 완화할 수 있다.
 
-#### OS별 정책 제어 {#os-specific-policy-controls}
+#### OS별 정책 제어
 다음 제어 사항에 대한 제한은 `.spec.os.name`이 `windows`가 아닌 경우에만 필요하다.
 - 권한 상승
 - Seccomp
 - 리눅스 기능
 
-## 사용자 네임스페이스 {#user-namespaces}
+## 사용자 네임스페이스
 
 사용자 네임스페이스는 격리 수준을 높여 워크로드를 실행하는
 리눅스 전용 기능이다. 파드 시큐리티 표준과 함께 동작하는 방식은
 사용자 네임스페이스를 사용하는 파드의 [문서](https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)에 설명되어 있다.
 
-## 자주 묻는 질문 {#faq}
+## 자주 묻는 질문
 
-### 특권과 기본 사이의 프로필이 없는 이유는 무엇인가? {#why-isn-t-there-a-profile-between-privileged-and-baseline}
+### 특권과 기본 사이의 프로필이 없는 이유는 무엇인가?
 
 여기에 정의된 세 프로필은 가장 안전한 수준(제한)에서 가장 덜 안전한
 수준(특권)까지 명확한 선형 단계를 이루며, 다양한 워크로드를 포괄한다. 기본 정책을
@@ -555,7 +555,7 @@ v1.24 이전의 kubelet은 파드 OS 필드를 적용하지 않으므로, 클러
 
 다른 프로필에 대한 명확한 필요가 생기면 SIG Auth는 향후 이 입장을 재검토할 수 있다.
 
-### 보안 프로필과 시큐리티 컨텍스트의 차이는 무엇인가? {#what-s-the-difference-between-a-security-profile-and-a-security-context}
+### 보안 프로필과 시큐리티 컨텍스트의 차이는 무엇인가?
 
 [시큐리티 컨텍스트](/docs/tasks/configure-pod-container/security-context/)는 런타임에서 파드와
 컨테이너를 구성한다. 시큐리티 컨텍스트는 파드 매니페스트의 파드 및 컨테이너 명세의
@@ -567,7 +567,7 @@ v1.24 이전의 kubelet은 파드 OS 필드를 적용하지 않으므로, 클러
 기본 제공 [파드 시큐리티 어드미션 컨트롤러](/docs/concepts/security/pod-security-admission/)로 대체되었다.
 
 
-### 샌드박스(sandbox) 파드는 어떻게 다루는가? {#what-about-sandboxed-pods}
+### 샌드박스(sandbox) 파드는 어떻게 다루는가?
 
 현재 파드가 샌드박스에서 실행되는 것으로 간주할지 제어하는 API
 표준은 없다. gVisor나 Kata Containers와 같은 샌드박스 런타임의 사용 여부로
