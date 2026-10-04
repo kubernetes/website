@@ -25,7 +25,7 @@ weight: 40
 기대하는 모든 기능을 지원하지 못한다.
 
 <!-- body -->
-## 어드미션 컨트롤러란? {#what-are-they}
+## 어드미션 컨트롤러란?
 
 어드미션 컨트롤러는 쿠버네티스
 {{< glossary_tooltip term_id="kube-apiserver" text="API 서버" >}}에 포함된 코드로,
@@ -41,13 +41,13 @@ weight: 40
 변형 컨트롤러는 수정 대상 리소스의 데이터를 변경할 수 있지만, 검증 컨트롤러는 변경할 수 없다.
 
 쿠버네티스 {{< skew currentVersion >}}의 어드미션 컨트롤러는 아래
-[목록](#what-does-each-admission-controller-do)으로 구성되며,
+[목록](#각-어드미션-컨트롤러의-역할)으로 구성되며,
 `kube-apiserver` 바이너리에 컴파일되어 포함된다. 이 컨트롤러는 클러스터
 관리자만 구성할 수 있다.
 
-### 어드미션 컨트롤 확장 지점 {#admission-control-extension-points}
+### 어드미션 컨트롤 확장 지점
 
-전체 [목록](#what-does-each-admission-controller-do)에는 네 가지
+전체 [목록](#각-어드미션-컨트롤러의-역할)에는 네 가지
 특별한 컨트롤러가 있다.
 [MutatingAdmissionWebhook](#mutatingadmissionwebhook),
 [MutatingAdmissionPolicy](#mutatingadmissionpolicy),
@@ -62,7 +62,7 @@ weight: 40
 이 네 가지 어드미션 컨트롤러를 사용하여 어드미션 시점의
 클러스터 동작을 사용자 정의할 수 있다.
 
-### 어드미션 컨트롤 단계 {#admission-control-phases}
+### 어드미션 컨트롤 단계
 
 어드미션 컨트롤 과정은 두 단계로 진행된다. 첫 번째 단계에서는
 변형 어드미션 컨트롤러를 실행한다. 두 번째 단계에서는 검증
@@ -84,14 +84,14 @@ weight: 40
 
 {{< figure src="/docs/reference/access-authn-authz/admission-control-phases.svg" alt="어드미션 단계에서 kube-apiserver가 요청을 처리하는 순서도. 변형 웹훅, ValidatingAdmissionPolicy, 검증 웹훅 순으로 실행하며, 처음으로 요청이 거부되거나 모든 검사를 통과할 때까지 진행한다. 변형 웹훅이 오브젝트를 변경하면 이전에 호출된 모든 웹훅을 다시 호출한다." class="diagram-large" link="https://mermaid.live/edit#pako:eNqtVm1v2zYQ_isHDcZazO-O34QhQJdiazAEKJquAwZ9oaSzxZoiNZJy4gT-7ztSL1bs5sPQ6otE8rm75-45inwOEpViEAa9HnxgewSrwKCFjZL2nj8hbIWKmRAHYAZsxg1wI3-2oNEUmFhMIS29UWZtYcLRaMttVsbDROWjHHXOeDr4aprPETemRDOardfjSPZ6z1xyGz5Hgc0wxygIo0BiaTUTUdCPgoYELUAUTKfFI03Tl8F_S5SJnyfjnGut9LvEKm1oyuoSj_1IAj215y9McxYLNJWFX6qWmbP6bbf1sX-aTRcJzl3sc8hnfLQ3SijtgQ8Zt3gGE0oVXRS85k8qixSxg9tqPJyBvpV6JI_HY68XyUg2FXjP2Vaz3E05OxLxc6URaYXAhB1YokRqamBJgsbwmAtuD31gMgWTqVKkECOURcqcmLhHfQDLc_QO0so9-RtWAcjJezSJ7hbxvubSol20XRnjgBXcoCaXkFE4weWW-obAxhpqG-3GnmaaU19wJaHImEFH68Gt5aVl1k0_YJwptTN9ci2EeiCi8QH2THBiTcjWQaEETzgan92GS9-4J1zraAgn-rfWB3QVY9bzSaj2XFJbl_QWfmrDtXFN_5V6nuL0gVKM0bl0ZS1sxYjCgdo4g_wsAhNGdcM0qRlnVg069CBhpUHvrtC456o0lEdCY4rTgmjTkXL1LNsyLmuRjk07FExbqkfBpIW_SAm3h_37cvndx1u3-ifJpiVaKqGbuffqfQNd2szB3RupSEml0y9-Qmn-5MdtT74wTfMbq4W3bnW_oYprJSqDWD3CH5SNiZVWlyD4NdbXN1XWlUBn4lzSvWsKTEHb79bxJf7LqWPIojM6s0GZulJXA1_YwfW1L1wIn6pGhzc43A77kGikDQYMCpW-revvgN6AihZ2a0md59WiJnbJJhkmu2qqoP9oxcA0cd1_B353G5zapc3uY70TTl3oNXPhGkwIt3KvdnhmdDiZtAsnlncq5ZuDa_-q3qBi_3rDNyARU0zfvqjN6wz_rvv4fzGsjX44RVK_ZdjRu6kicOkgrunEK7FPVi3rc0edynaWXib86XspN2X9bsqX-vwA0q3E1PvU8u5n3hGqPhxasNsfDuy2lotiCup7hGZPmdIfac4BuhsAhQv6dJjytLoE9IP62kHXG39ene4Z9JnihpXC-mOVzGjj_6NU3lhqVW6zINzQj5tG1fFYH7YNhJVW3R9k0owx5XRRuKuuU_5WRW4od9Q3in5UQTgZ-zBB-Bw8BuFgNpsOF_PF-mo-nkxmq-WsHxwINFkOr8aT5WoxW01Wy8l4fewHT57ZZDieL-fr8WI8W01XV7Px9PgfcW89xA" >}}
 
-## 어드미션 컨트롤러가 필요한 이유 {#why-do-i-need-them}
+## 어드미션 컨트롤러가 필요한 이유
 
 쿠버네티스의 여러 주요 기능을 올바르게 지원하려면 어드미션 컨트롤러를
 활성화해야 한다. 따라서 적절한 어드미션 컨트롤러 집합으로
 올바르게 구성하지 않은 쿠버네티스 API 서버는 불완전한 서버이며,
 기대하는 모든 기능을 지원하지 못한다.
 
-## 어드미션 컨트롤러 활성화하기 {#how-do-i-turn-on-an-admission-controller}
+## 어드미션 컨트롤러 활성화하기
 
 쿠버네티스 API 서버의 `enable-admission-plugins` 플래그는 클러스터의 오브젝트를 수정하기 전에 호출할 어드미션 컨트롤 플러그인의 목록을 쉼표로 구분하여 받는다.
 예를 들어 다음 커맨드라인은 `NamespaceLifecycle`과 `LimitRanger`
@@ -109,7 +109,7 @@ systemd 서비스로 배포되어 있다면 systemd 유닛 파일을 수정해�
 매니페스트 파일을 수정해야 할 수 있다.
 {{< /note >}}
 
-## 어드미션 컨트롤러 비활성화하기 {#how-do-i-turn-off-an-admission-controller}
+## 어드미션 컨트롤러 비활성화하기
 
 쿠버네티스 API 서버의 `disable-admission-plugins` 플래그는 비활성화할 어드미션 컨트롤 플러그인의 목록을 쉼표로 구분하여 받는다. 기본적으로 활성화되는 플러그인 목록에 포함되어 있어도 비활성화한다.
 
@@ -117,7 +117,7 @@ systemd 서비스로 배포되어 있다면 systemd 유닛 파일을 수정해�
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
 ```
 
-## 기본적으로 활성화되는 플러그인 {#which-plugins-are-enabled-by-default}
+## 기본적으로 활성화되는 플러그인
 
 활성화되는 어드미션 플러그인을 확인하려면 다음을 실행한다.
 
@@ -131,13 +131,13 @@ kube-apiserver -h | grep enable-admission-plugins
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
 
-## 각 어드미션 컨트롤러의 역할 {#what-does-each-admission-controller-do}
+## 각 어드미션 컨트롤러의 역할
 
 ### AlwaysAdmit {#alwaysadmit}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 모든 파드를 클러스터에 허용한다. 어드미션 컨트롤러가 전혀
 없는 경우와 동작이 같으므로 **사용 중단(deprecated)** 되었다.
@@ -146,13 +146,13 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 모든 요청을 거부한다. AlwaysDeny는 실질적인 의미가 없으므로 **사용 중단** 되었다.
 
 ### AlwaysPullImages {#alwayspullimages}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 이 어드미션 컨트롤러는 새 파드를 모두 수정하여 이미지 풀 정책을 `Always`로 강제한다. 이는 멀티테넌트(multitenant)
 클러스터에서 유용하며, 사용자는 이미지를 가져올 자격 증명을 보유한 사람만 자신의
@@ -164,7 +164,7 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 
 ### CertificateApproval {#certificateapproval}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 CertificateSigningRequest 리소스의 승인 요청을 관찰하고 추가
 인가 검사를 수행하여, 승인하는 사용자가 CertificateSigningRequest 리소스의
@@ -175,7 +175,7 @@ CertificateSigningRequest 리소스에 대해 여러 작업을 수행하는 데 
 
 ### CertificateSigning {#certificatesigning}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 CertificateSigningRequest 리소스의 `status.certificate` 필드 업데이트를
 관찰하고 추가 인가 검사를 수행하여, 서명하는 사용자가 CertificateSigningRequest 리소스의
@@ -186,7 +186,7 @@ CertificateSigningRequest 리소스에 대해 여러 작업을 수행하는 데 
 
 ### CertificateSubjectRestriction {#certificatesubjectrestriction}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 `spec.signerName`이 `kubernetes.io/kube-apiserver-client`인
 CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '조직 속성')으로
@@ -194,7 +194,7 @@ CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '
 
 ### DefaultIngressClass {#defaultingressclass}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 특정 인그레스 클래스를 요청하지 않는 인그레스(Ingress) 오브젝트의
 생성을 관찰하고, 기본 인그레스 클래스를 자동으로 추가한다. 따라서 특별한
@@ -212,7 +212,7 @@ CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '
 
 ### DefaultStorageClass {#defaultstorageclass}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 특정 스토리지 클래스를 요청하지 않는 퍼시스턴트볼륨클레임(PersistentVolumeClaim) 오브젝트의 생성을
 관찰하고, 기본 스토리지 클래스를 자동으로 추가한다.
@@ -232,7 +232,7 @@ CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 파드에 `node.kubernetes.io/not-ready:NoExecute` 또는
 `node.kubernetes.io/unreachable:NoExecute` 테인트(taint)에 대한 톨러레이션(toleration)이
@@ -243,7 +243,7 @@ CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '
 
 ### DenyServiceExternalIPs
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 서비스의 `externalIPs` 필드를 새로 사용하는 모든 요청을 거부한다.
 이 기능은 네트워크 트래픽 가로채기를 허용하는 매우 강력한 기능이며,
@@ -262,7 +262,7 @@ CertificateSigningRequest 리소스의 생성을 관찰한다. '그룹'(또는 '
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 새 이벤트(Event)를 저장하는 요청이 API 서버에
 폭주하는 문제를 완화한다. 클러스터 관리자는 다음과 같이 이벤트 속도 제한을 지정할 수 있다.
@@ -280,7 +280,7 @@ plugins:
 ...
 ```
 
-구성에는 네 가지 유형의 제한을 지정할 수 있다.
+구성에는 네 가지 타입의 제한을 지정할 수 있다.
 
  * `Server`: API 서버가 받은 모든 이벤트 요청(생성 또는 수정)이 하나의 버킷(bucket)을 공유한다.
  * `Namespace`: 각 네임스페이스가 전용 버킷을 가진다.
@@ -310,7 +310,7 @@ limits:
 
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 플러그인은 확장 리소스가 있는 전용 노드의 생성을 돕는다.
 운영자가 GPU, FPGA 등 확장 리소스가 있는 전용 노드를 생성하려면, 확장 리소스의 이름을
@@ -323,7 +323,7 @@ limits:
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
 
-**유형**: 검증.
+**타입**: 검증.
 
 ImagePolicyWebhook 어드미션 컨트롤러는 백엔드 웹훅이 어드미션 결정을 내릴 수 있도록 한다.
 
@@ -401,7 +401,7 @@ users:
 추가 HTTP 구성은
 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를 참고한다.
 
-#### 요청 페이로드(payload) {#request-payloads}
+#### 요청 페이로드(payload)
 
 어드미션 결정이 필요하면 API 서버는 작업을 설명하는
 `imagepolicy.k8s.io/v1alpha1` 이미지리뷰(ImageReview) 오브젝트를 JSON으로 직렬화하여 POST 요청으로 보낸다.
@@ -478,7 +478,7 @@ ImagePolicyWebhook의 적용 범위에 포함되지 않는다.
 자세한 문서는
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/)를 참고한다.
 
-#### 어노테이션으로 확장하기 {#extending-with-annotations}
+#### 어노테이션으로 확장하기
 
 파드의 어노테이션 중 `*.image-policy.k8s.io/*`에 일치하는 것은 모두 웹훅으로 전송된다.
 어노테이션을 전송하면 이미지 정책 백엔드를 알고 있는 사용자가
@@ -495,7 +495,7 @@ ImagePolicyWebhook의 적용 범위에 포함되지 않는다.
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 `requiredDuringSchedulingIgnoredDuringExecution`에서
 `kubernetes.io/hostname` 이외의 `AntiAffinity` 토폴로지 키를 정의하는 모든 파드를 거부한다.
@@ -504,7 +504,7 @@ ImagePolicyWebhook의 적용 범위에 포함되지 않는다.
 
 ### LimitRanger {#limitranger}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 이 어드미션 컨트롤러는 수신 요청을 관찰하고 네임스페이스(Namespace)의 리밋레인지(LimitRange) 오브젝트에
 나열된 제약 조건을 위반하지 않는지 확인한다. 쿠버네티스 배포에서
@@ -519,7 +519,7 @@ ImagePolicyWebhook의 적용 범위에 포함되지 않는다.
 
 ### MutatingAdmissionPolicy {#mutatingadmissionpolicy}
 
-**유형**: 변형.
+**타입**: 변형.
 
 [이 어드미션 컨트롤러](/docs/reference/access-authn-authz/mutating-admission-policy/)는 공통 표현식 언어(Common Expression Language, CEL)를 사용하여 리소스의 변형을 선언한다. 변형은 서버 사이드 어플라이의 병합 전략으로 병합되는 어플라이 구성이나 JSON 패치로 정의할 수 있다.
 `mutatingadmissionpolicy` 기능 게이트와 `admissionregistration.k8s.io/v1alpha1` 그룹/버전을 모두 활성화하면 활성화된다.
@@ -527,7 +527,7 @@ MutatingAdmissionPolicy 중 하나라도 실패하면 요청이 실패한다.
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 요청과 일치하는 모든 변형 웹훅을 호출한다. 일치하는
 웹훅은 순차적으로 호출되며, 각 웹훅은 필요에 따라 오브젝트를 수정할 수 있다.
@@ -542,7 +542,7 @@ MutatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를 �
 `admissionregistration.k8s.io/v1` 그룹/버전의 `MutatingWebhookConfiguration`
 오브젝트도 비활성화해야 한다. 두 가지 모두 기본적으로 활성화되어 있다.
 
-#### 변형 웹훅 작성 및 설치 시 주의 사항 {#use-caution-when-authoring-and-installing-mutating-webhooks}
+#### 변형 웹훅 작성 및 설치 시 주의 사항
 
 * 생성하려던 오브젝트와 반환받은 오브젝트가 다르면
   사용자가 혼란을 느낄 수 있다.
@@ -557,7 +557,7 @@ MutatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를 �
 
 ### NamespaceAutoProvision {#namespaceautoprovision}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 네임스페이스에 속하는 리소스에 대한 모든 수신 요청을 검사하고,
 참조하는 네임스페이스가 존재하는지 확인한다.
@@ -567,14 +567,14 @@ MutatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를 �
 
 ### NamespaceExists {#namespaceexists}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 네임스페이스 자체를 제외한 네임스페이스 범위 리소스의 모든 요청을 검사한다.
 요청에서 참조하는 네임스페이스가 존재하지 않으면 요청을 거부한다.
 
 ### NamespaceLifecycle {#namespacelifecycle}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 종료 중인 네임스페이스에 새 오브젝트를 생성하지 못하도록
 하고, 존재하지 않는 네임스페이스에 대한 요청을 거부한다.
@@ -589,7 +589,7 @@ MutatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를 �
 
 {{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 바인딩된 파드에 대한 쓰기를 가로채어,
 변경 사항이 파드가 현재 실행 중인 노드(Node)에서 선언한 기능과
@@ -604,7 +604,7 @@ MutatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를 �
 
 ### NodeRestriction {#noderestriction}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 kubelet이 수정할 수 있는 노드와 파드 오브젝트를 제한한다. 이 어드미션 컨트롤러의 제한을 받으려면,
 kubelet은 `system:node:<nodeName>` 형식의 사용자 이름으로 `system:nodes` 그룹의 자격 증명을 사용해야 한다.
@@ -647,7 +647,7 @@ RBAC의 `request-serviceaccounts-token-audience` 동사를 통해 명시적으�
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 오브젝트에 대한 **delete** 권한을 가진 사용자만
 `metadata.ownerReferences`를 변경할 수 있도록 해당 필드에 대한 접근을 보호한다.
@@ -659,7 +659,7 @@ RBAC의 `request-serviceaccounts-token-audience` 동사를 통해 명시적으�
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 수신되는 퍼시스턴트볼륨클레임 크기 조정 요청을
 확인하기 위한 추가 검증을 구현한다.
@@ -690,14 +690,14 @@ allowVolumeExpansion: true
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 네임스페이스 어노테이션과 전역 구성을 읽어,
 네임스페이스 내에서 사용할 노드 셀렉터의 기본값을 설정하고 사용 범위를 제한한다.
 
 이 어드미션 컨트롤러는 기본적으로 비활성화되어 있다.
 
-#### 구성 파일 형식 {#configuration-file-format}
+#### 구성 파일 형식
 
 `PodNodeSelector`는 구성 파일을 사용하여 백엔드 동작의 옵션을 설정한다.
 향후 릴리스에서는 구성 파일 형식이 버전이 지정된 파일로 바뀔 예정임에 유의한다.
@@ -722,7 +722,7 @@ plugins:
 ...
 ```
 
-#### 구성 어노테이션 형식 {#configuration-annotation-format}
+#### 구성 어노테이션 형식
 
 `PodNodeSelector`는 `scheduler.alpha.kubernetes.io/node-selector` 어노테이션 키를 사용하여
 네임스페이스에 노드 셀렉터를 할당한다.
@@ -736,7 +736,7 @@ metadata:
   name: namespace3
 ```
 
-#### 내부 동작 {#internal-behavior}
+#### 내부 동작
 
 이 어드미션 컨트롤러는 다음과 같이 동작한다.
 
@@ -758,7 +758,7 @@ PodNodeSelector를 사용하면 파드가 특정 레이블을 가진 노드에�
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-**유형**: 검증.
+**타입**: 검증.
 
 PodSecurity 어드미션 컨트롤러는 새 파드를 허용하기 전에
 검사하고, 요청한 시큐리티 컨텍스트와 파드가 속할 네임스페이스에
@@ -774,7 +774,7 @@ PodSecurity는 PodSecurityPolicy라는 이전 어드미션 컨트롤러를 대�
 
 {{< feature-state for_k8s_version="v1.7" state="alpha" >}}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 PodTolerationRestriction 어드미션 컨트롤러는 파드의 톨러레이션과
 해당 네임스페이스의 톨러레이션 사이에 충돌이 있는지 확인한다.
@@ -808,7 +808,7 @@ metadata:
 
 {{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
-**유형**: 변형
+**타입**: 변형
 
 PodTopologyLabels 어드미션 컨트롤러는 노드에 바인딩된 모든 파드의
 `pods/binding` 하위 리소스를 변형하여, 바인딩된 노드와 일치하는 토폴로지 레이블을 추가한다.
@@ -829,7 +829,7 @@ PodTopologyLabels 어드미션 컨트롤러는 노드에 바인딩된 모든 파
 
 ### Priority {#priority}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 Priority 어드미션 컨트롤러는 `priorityClassName` 필드를 사용하여 우선순위의
 정숫값을 채운다.
@@ -837,7 +837,7 @@ Priority 어드미션 컨트롤러는 `priorityClassName` 필드를 사용하여
 
 ### ResourceQuota {#resourcequota}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 수신 요청을 관찰하고 네임스페이스의 리소스쿼터(ResourceQuota) 오브젝트에
 나열된 제약 조건을 위반하지 않는지 확인한다. 쿠버네티스 배포에서
@@ -849,7 +849,7 @@ Priority 어드미션 컨트롤러는 `priorityClassName` 필드를 사용하여
 
 ### RuntimeClass {#runtimeclass}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 [파드 오버헤드](/docs/concepts/scheduling-eviction/pod-overhead/)를 구성한 런타임클래스(RuntimeClass)를
 정의하면, 이 어드미션 컨트롤러가 수신되는 파드를 검사한다.
@@ -864,7 +864,7 @@ Priority 어드미션 컨트롤러는 `priorityClassName` 필드를 사용하여
 
 ### ServiceAccount {#serviceaccount}
 
-**유형**: 변형 및 검증.
+**타입**: 변형 및 검증.
 
 이 어드미션 컨트롤러는
 [서비스어카운트(ServiceAccount)](/docs/tasks/configure-pod-container/configure-service-account/)를 위한 자동화를 구현한다.
@@ -876,7 +876,7 @@ Priority 어드미션 컨트롤러는 `priorityClassName` 필드를 사용하여
 
 ### StorageObjectInUseProtection
 
-**유형**: 변형.
+**타입**: 변형.
 
 `StorageObjectInUseProtection` 플러그인은 새로 생성된 퍼시스턴트볼륨클레임(PVC) 또는 퍼시스턴트볼륨(PersistentVolume, PV)에
 `kubernetes.io/pvc-protection` 또는 `kubernetes.io/pv-protection` 파이널라이저(finalizer)를 추가한다.
@@ -888,7 +888,7 @@ PVC 또는 PV에서 파이널라이저를 제거할 때까지 PVC 또는 PV는 �
 
 ### TaintNodesByCondition {#taintnodesbycondition}
 
-**유형**: 변형.
+**타입**: 변형.
 
 이 어드미션 컨트롤러는 새로 생성된 노드에 `NotReady`와 `NoSchedule`
 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 설정한다. 이를 통해 보고된 상태를 정확히 반영하도록
@@ -897,7 +897,7 @@ PVC 또는 PV에서 파이널라이저를 제거할 때까지 PVC 또는 PV는 �
 
 ### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
 
-**유형**: 검증.
+**타입**: 검증.
 
 [이 어드미션 컨트롤러](/docs/reference/access-authn-authz/validating-admission-policy/)는 일치하는 수신 요청에 대한 CEL 검증을 구현한다.
 `validatingadmissionpolicy` 기능 게이트와 `admissionregistration.k8s.io/v1alpha1` 그룹/버전을 모두 활성화하면 활성화된다.
@@ -905,7 +905,7 @@ ValidatingAdmissionPolicy 중 하나라도 실패하면 요청이 실패한다.
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
 
-**유형**: 검증.
+**타입**: 검증.
 
 이 어드미션 컨트롤러는 요청과 일치하는 모든 검증 웹훅을 호출한다. 일치하는
 웹훅은 병렬로 호출되며, 하나라도 요청을 거부하면 요청이
@@ -920,10 +920,11 @@ ValidatingAdmissionWebhook을 비활성화하면 `--runtime-config` 플래그를
 `admissionregistration.k8s.io/v1` 그룹/버전의 `ValidatingWebhookConfiguration`
 오브젝트도 비활성화해야 한다.
 
-## 권장하는 어드미션 컨트롤러 집합 {#is-there-a-recommended-set-of-admission-controllers-to-use}
+## 권장하는 어드미션 컨트롤러 집합
 
 권장하는 어드미션 컨트롤러는 기본적으로 활성화되어 있으므로
 ([여기](/docs/reference/command-line-tools-reference/kube-apiserver/#options)에 표시됨),
 명시적으로 지정할 필요가 없다.
 `--enable-admission-plugins` 플래그를 사용하면 기본 집합 외에 추가 어드미션 컨트롤러를
 활성화할 수 있다(**순서는 중요하지 않다**).
+
