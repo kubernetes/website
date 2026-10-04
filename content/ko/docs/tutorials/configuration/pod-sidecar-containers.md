@@ -71,7 +71,7 @@ min-kubernetes-server-version: 1.29
 1. 또한 잡에서 파드의 `restartPolicy: Never`일 때 일반 컨테이너는 재시작되지 않는 반면에
    빌트인 사이드카 컨테이너는 완료된 후에도 계속 재시작된다.
 
-자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-init-containers)
+자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#초기화-컨테이너와의-차이점)
 에서 확인할 수 있다.
 
 ## 빌트인 사이드카 컨테이너 도입
@@ -168,7 +168,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
    사이드카 주입 중에 다음 전략을 사용하여 노드 호환성을 확인할 수 있다.
    - 노드 버전을 질의하고 버전 1.29+에서 기능 게이트가 활성화되었다고 가정한다.
    - 노드 프로메테우스 메트릭을 질의하고 기능 활성화 상태를 확인한다.
-   - 노드가 API 서버와 [지원되는 버전 차이](/releases/version-skew-policy/#supported-version-skew)로 실행 중이라고 가정한다.
+   - 노드가 API 서버와 [지원되는 버전 차이](/releases/version-skew-policy/#지원되는-버전-차이)로 실행 중이라고 가정한다.
    - 노드 호환성을 감지하는 다른 사용자 정의 방법이 있을 수 있다.
 1. 범용 사이드카 주입기를 개발한다. 범용 사이드카 주입기의 아이디어는 
    사이드카 컨테이너를 일반 컨테이너와 네이티브 사이드카 
