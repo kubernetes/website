@@ -379,7 +379,7 @@ Kubernetes v1.37 вводить _витіснення планувальнико
 
 #### API контролера планування з урахуванням навантаження {#workload-aware-scheduling-controller-apis}
 
-Як Alpha функція, в Kubernetes v1.37 надається спільний фреймворк для інтеграції контролерів навантажень (таких як JobSet, TrainJob, LWS, та RayJob, поряд з основними навантаженнями, такими як `Job`) з _Workload-aware Scheduling_ (WAS). Які функція альфа-версії, Kubernetes v1.37 надає загальну платформу для інтеграції контролерів робочих навантажень (таких як JobSet, TrainJob, LWS та RayJob, а також основних робочих навантажень, таких як `Job`) із _плануванням з урахуванням робочих навантажень_ (WAS).
+Як Alpha функція, в Kubernetes v1.37 надається спільний фреймворк для інтеграції контролерів робочих навантажень (таких як JobSet, TrainJob, LWS та RayJob, а також основних робочих навантажень, таких як `Job`) з _Workload-aware Scheduling_ (WAS).
 
 Ця робота була виконана як частина [KEP #6089](https://www.kubernetes.dev/resources/keps/6089/) під керівництвом [SIG Scheduling](https://www.kubernetes.dev/community/community-groups/sigs/scheduling/).
 
