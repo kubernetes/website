@@ -11,8 +11,8 @@ no_list: true
 
 - [인증](/docs/reference/access-authn-authz/authentication/)
    - [부트스트랩 토큰 인증](/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [승인 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)
-   - [동적 승인 제어](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)
+   - [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)
    - [매니페스트 기반 어드미션 컨트롤](/docs/reference/access-authn-authz/manifest-admission-control/)
 - [인가](/docs/reference/access-authn-authz/authorization/)
    - [역할 기반 접근 제어](/docs/reference/access-authn-authz/rbac/)
