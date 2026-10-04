@@ -10,17 +10,18 @@ stages:
     defaultValue: true
     fromVersion: "1.36"
 ---
-This feature gate acts as the Global Safety Switch for Beta-stage validation rules (`+k8s:beta`).
-It allows cluster admins to disable enforcement for validations in the Beta stage if
-regressions are found, forcing them back to Shadow mode.
+The global safety switch for Beta validation rules (`+k8s:beta`). Disable it to revert
+those rules to shadow mode if regressions are found.
 
-In Shadow mode, declarative validation is executed and mismatches against handwritten
-validation are logged as metrics, but failures do not reject requests.
-Handwritten validation remains authoritative and enforced.
+In shadow mode, declarative validation still runs and mismatches are logged and metered,
+but they do not reject requests; hand-written validation stays authoritative.
 
-Enforcement logic for resources using `WithDeclarativeEnforcement()`:
-- Standard tags (no prefix): Always Enforced (Bypasses this gate).
-- Beta tags (`+k8s:beta`): Enforced when this gate is enabled (default), otherwise Shadowed.
-- Alpha tags (`+k8s:alpha`): Always Shadowed.
+Enforcement for resources using `WithDeclarativeEnforcement()`:
 
-This gate has no effect if the master `DeclarativeValidation` feature gate is disabled.
+- No prefix: always enforced, regardless of this gate.
+- `+k8s:beta`: enforced when this gate is enabled (the default), otherwise shadowed.
+- `+k8s:alpha`: always shadowed.
+
+This gate takes effect independently of the
+[`DeclarativeValidation` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidation),
+which controls only mismatch reporting.
