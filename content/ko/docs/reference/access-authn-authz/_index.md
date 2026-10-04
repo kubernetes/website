@@ -24,7 +24,6 @@ no_list: true
      [인증서 서명](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)을 포함함
 - 서비스 어카운트
   - [개발자 가이드](/docs/tasks/configure-pod-container/configure-service-account/)
-  - [관리](/ko/docs/reference/access-authn-authz/service-accounts-admin/)
   - [관리](/docs/reference/access-authn-authz/service-accounts-admin/)
 - [kubelet 인증과 인가](/docs/reference/access-authn-authz/kubelet-authn-authz/)
   - kubelet [TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 포함함
