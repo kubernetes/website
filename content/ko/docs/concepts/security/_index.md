@@ -21,9 +21,9 @@ simple_list: true
 ## 쿠버네티스 보안 메커니즘 {#security-mechanisms}
 
 쿠버네티스는 여러 API와 보안 제어 수단을 제공하며, 정보 보안 관리의 일부로
-사용할 수 있는 [정책](#policies)을 정의하는 방법도 제공한다.
+사용할 수 있는 [정책](#정책)을 정의하는 방법도 제공한다.
 
-### 컨트롤 플레인 보호 {#control-plane-protection}
+### 컨트롤 플레인 보호
 
 모든 쿠버네티스 클러스터의 핵심 보안 메커니즘은
 [쿠버네티스 API에 대한 접근 제어](/docs/concepts/security/controlling-access)이다.
@@ -35,12 +35,12 @@ TLS를 구성하고 사용해야 한다.
 [저장 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/)도 활성화할 수 있다. 이는 자체 워크로드의
 저장 데이터를 암호화하는 것과 별개이며, 워크로드의 데이터 암호화도 고려할 만하다.
 
-### 시크릿(Secret) {#secrets}
+### 시크릿(Secret)
 
 [시크릿](/docs/concepts/configuration/secret/) API는 기밀성이 필요한
 구성 값에 대한 기본적인 보호를 제공한다.
 
-### 워크로드 보호 {#workload-protection}
+### 워크로드 보호
 
 [파드 시큐리티 표준](/docs/concepts/security/pod-security-standards/)을 적용하여
 파드와 컨테이너를 적절하게 격리한다. 필요한 경우
@@ -62,14 +62,14 @@ TLS를 구성하고 사용해야 한다.
 방지하는 데 도움이 된다. 설계 시 고려 사항은
 [어드미션 웹훅 모범 사례](/docs/concepts/cluster-administration/admission-webhooks-good-practices/)를 참고한다.
 
-### 감사 {#auditing}
+### 감사
 
 쿠버네티스 [감사 로깅](/docs/tasks/debug/debug-cluster/audit/)은 클러스터에서 수행된
 작업의 순서를 문서화하는 보안 관련 기록을 시간순으로 제공한다.
 클러스터는 사용자, 쿠버네티스 API를 사용하는 애플리케이션,
 컨트롤 플레인 자체에서 발생한 활동을 감사한다.
 
-## 클라우드 제공자 보안 {#cloud-provider-security}
+## 클라우드 제공자 보안
 
 {{% thirdparty-content vendor="true" %}}
 
@@ -93,7 +93,7 @@ VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 
-## 정책 {#policies}
+## 정책
 
 [네트워크폴리시(NetworkPolicy)](/docs/concepts/services-networking/network-policies/)
 (네트워크 패킷 필터링에 대한 선언적 제어)나
@@ -136,3 +136,4 @@ API 접근 제어, 네트워킹 등에 대한 자체 정책 제어를
   자격증 및 공식 교육 과정.
 
 이 섹션에서 더 읽어본다.
+
