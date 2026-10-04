@@ -19,7 +19,7 @@ weight: 25
 
 ## 서비스 어카운트란? {#what-are-service-accounts}
 
-서비스 어카운트는 사람이 아닌 주체를 위한 계정 유형으로, 쿠버네티스
+서비스 어카운트는 사람이 아닌 주체를 위한 계정 타입으로, 쿠버네티스
 클러스터에서 구별되는 신원을 제공한다. 애플리케이션 파드, 시스템
 컴포넌트, 클러스터 내부와 외부의 주체는 특정 서비스어카운트의
 자격 증명을 사용하여 해당 서비스어카운트로 자신을 식별할 수 있다. 이 신원은
@@ -64,7 +64,7 @@ API 서버에 대한 인증이나 신원 기반 보안 정책 구현을 비롯�
 클러스터를 생성하면 쿠버네티스는 클러스터의 모든 네임스페이스에 `default`라는
 서비스어카운트 오브젝트를 자동으로 생성한다. 각 네임스페이스의 `default`
 서비스 어카운트에는 역할 기반 접근 제어(RBAC)가 활성화된 경우 쿠버네티스가 인증된 모든 주체에
-부여하는 [기본 API 디스커버리 권한](/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)
+부여하는 [기본 API 디스커버리 권한](/docs/reference/access-authn-authz/rbac/#기본-롤과-롤-바인딩)
 외에는 기본적으로 아무런 권한도 없다.
 네임스페이스의 `default` 서비스어카운트 오브젝트를 삭제하면,
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이
@@ -209,7 +209,7 @@ kubelet에 추가 오디언스에 대한 접근 권한을 부여할 수 있다.
 유효 기간이 긴 베어러(bearer) 토큰은 한 번 유출되면 악용될 수 있으므로
 보안 위험이 된다. 대신 다른 방법을 고려한다. 예를 들어 외부
 애플리케이션은 안전하게 보호되는 개인 키와 인증서를 사용하여 인증하거나,
-직접 구현한 [인증 웹훅](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)과 같은 사용자 정의 메커니즘으로 인증할 수 있다.
+직접 구현한 [인증 웹훅](/docs/reference/access-authn-authz/authentication/#웹훅-토큰-인증)과 같은 사용자 정의 메커니즘으로 인증할 수 있다.
 
 TokenRequest를 사용하여 외부 애플리케이션용 단기 토큰을 얻을 수도 있다.
 {{< /note >}}
@@ -224,7 +224,7 @@ TokenRequest를 사용하여 외부 애플리케이션용 단기 토큰을 얻�
 
 쿠버네티스는 서비스어카운트에 추가할 수 있는
 `kubernetes.io/enforce-mountable-secrets` 어노테이션을 제공한다. 이 어노테이션을 적용하면,
-서비스어카운트의 시크릿을 지정된 유형의 리소스에만 마운트할 수 있으므로
+서비스어카운트의 시크릿을 지정된 타입의 리소스에만 마운트할 수 있으므로
 클러스터의 보안 수준을 강화할 수 있다.
 
 매니페스트를 사용하여 서비스어카운트에 어노테이션을 추가할 수 있다.
@@ -281,7 +281,7 @@ TokenRequest API는 서비스어카운트에 대한 _바운드 토큰(bound toke
 API 서버는 토큰을 시크릿과 대조하여 확인한다.
 
 인증 과정에 대한 자세한 내용은
-[인증](/docs/reference/access-authn-authz/authentication/#service-account-tokens)을 참고한다.
+[인증](/docs/reference/access-authn-authz/authentication/#서비스-어카운트-토큰)을 참고한다.
 
 ### 자체 코드에서 서비스 어카운트 자격 증명 인증하기 {#authenticating-in-code}
 
@@ -305,17 +305,17 @@ API 서버는 토큰을 시크릿과 대조하여 확인한다.
 일치하는지 확인해야 한다. 이를 통해 토큰의 범위를 최소화하여,
 해당 애플리케이션에서만 사용하고 다른 곳에서는 사용하지 못하도록 할 수 있다.
 
-## 대안 {#alternatives}
+## 대안
 
 * 다른 메커니즘으로 자체 토큰을 발급한 후,
-  [웹훅 토큰 인증](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)을 통해
+  [웹훅 토큰 인증](/docs/reference/access-authn-authz/authentication/#웹훅-토큰-인증)을 통해
   자체 검증 서비스로 베어러 토큰을 검증한다.
 * 파드에 자체 신원을 제공한다.
   * [SPIFFE CSI 드라이버 플러그인으로 파드에 SPIFFE SVID를 X.509 인증서 쌍으로 제공한다](https://cert-manager.io/docs/projects/csi-driver-spiffe/).
     {{% thirdparty-content single="true" %}}
   * [이스티오(Istio)와 같은 서비스 메시로 파드에 인증서를 제공한다](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/).
 * 서비스 어카운트 토큰을 사용하지 않고 클러스터 외부에서 API 서버에 인증한다.
-  * [신원 제공자의 OpenID Connect(OIDC) 토큰을 수락하도록 API 서버를 구성한다](/docs/reference/access-authn-authz/authentication/#openid-connect-tokens).
+  * [신원 제공자의 OpenID Connect(OIDC) 토큰을 수락하도록 API 서버를 구성한다](/docs/reference/access-authn-authz/authentication/#openid-connect-토큰).
   * 클라우드 제공자 등이 제공하는 외부 신원 및 접근 관리
     (Identity and Access Management, IAM) 서비스로 생성한 서비스 어카운트나 사용자 계정을
     사용하여 클러스터에 인증한다.
