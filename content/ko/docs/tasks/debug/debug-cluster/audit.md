@@ -45,7 +45,9 @@ title: 감사(auditing)
 - `Panic` - 패닉(panic)이 발생했을 때 생성되는 이벤트이다.
 
 {{< note >}}
-[감사 이벤트 구성](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)의 구조는
+감사 이벤트를 정의하는
+[감사 이벤트 구성](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)은
+쿠버네티스
 [이벤트(Event)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API 오브젝트와 다르다.
 {{< /note >}}
@@ -54,7 +56,7 @@ API 오브젝트와 다르다.
 API 서버의 메모리 사용량을 증가시킨다.
 메모리 사용량은 감사 로깅 구성에 따라 달라진다.
 
-## 감사 정책 {#audit-policy}
+## 감사 정책
 
 감사 정책은 어떤 이벤트를 기록하고 어떤 데이터를 포함할지에 대한
 규칙을 정의한다. 감사 정책 오브젝트의 구조는
@@ -97,7 +99,7 @@ rules:
 정의된 필드에 대한 자세한 내용은 [`Policy` 구성 레퍼런스](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)도
 참고할 수 있다.
 
-## 감사 백엔드 {#audit-backends}
+## 감사 백엔드
 
 감사 백엔드는 감사 이벤트를 외부 스토리지에 영구 저장한다.
 kube-apiserver는 기본적으로 두 가지 백엔드를 제공한다.
@@ -129,7 +131,7 @@ kube-apiserver는 기본적으로 두 가지 백엔드를 제공한다.
 
 {{< /note >}}
 
-### 로그 백엔드 {#log-backend}
+### 로그 백엔드
 
 로그 백엔드는 감사 이벤트를 [JSONlines](https://jsonlines.org/) 형식으로 파일에 기록한다.
 다음 `kube-apiserver` 플래그로 로그 감사 백엔드를 구성할 수 있다.
@@ -176,7 +178,7 @@ volumes:
     type: DirectoryOrCreate
 ```
 
-### 웹훅 백엔드 {#webhook-backend}
+### 웹훅 백엔드
 
 웹훅 감사 백엔드는 원격 웹 API로 감사 이벤트를 전송한다. 이 API는 인증 수단을
 포함하여 쿠버네티스 API의 형태를 따른다고 가정한다. 다음 kube-apiserver
@@ -240,7 +242,7 @@ volumes:
 {{% /tab %}}
 {{< /tabs >}}
 
-## 파라미터 조정 {#parameter-tuning}
+## 파라미터 조정
 
 파라미터는 API 서버의 부하를 감당할 수 있도록 설정해야 한다.
 
