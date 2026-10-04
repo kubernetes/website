@@ -14,7 +14,7 @@ weight: 10
 쿠버네티스 인증의 개요를 제공한다.
 
 <!-- body -->
-## 쿠버네티스의 사용자 {#users-in-kubernetes}
+## 쿠버네티스의 사용자
 
 모든 쿠버네티스 클러스터에는 쿠버네티스가 관리하는 서비스 어카운트와
 일반 사용자라는 두 가지 사용자 범주가 있다.
@@ -43,7 +43,7 @@ API 호출로 일반 사용자를 추가할 수는 없지만, 클러스터의 �
 쿠버네티스 API와 통신할 수 있도록 한다.
 
 API 요청은 일반 사용자나 서비스 어카운트에 연결되거나,
-[익명 요청](#anonymous-requests)으로 처리된다. 즉, 워크스테이션에서 `kubectl`을 입력하는
+[익명 요청](#익명-요청)으로 처리된다. 즉, 워크스테이션에서 `kubectl`을 입력하는
 사용자부터 노드의 `kubelets`, 컨트롤 플레인 구성 요소에 이르기까지
 클러스터 내부 또는 외부의 모든 프로세스는 API 서버에 요청할 때 인증해야 하며,
 그렇지 않으면 익명 사용자로 처리된다.
@@ -51,7 +51,7 @@ API 요청은 일반 사용자나 서비스 어카운트에 연결되거나,
 인증을 시도하여 성공하면 API 서버는 자동으로 해당 사용자를
 특별한 그룹인 `system:authenticated`의 멤버로 표시한다.
 
-## 인증 전략 {#authentication-strategies}
+## 인증 전략
 
 쿠버네티스는 인증 플러그인을 통해 클라이언트 인증서, 베어러(bearer) 토큰 또는
 인증 프록시를 사용하여 API 요청을 인증한다. API 서버에 HTTP 요청이
@@ -69,7 +69,7 @@ API 요청은 일반 사용자나 서비스 어카운트에 연결되거나,
 [인가자](/docs/reference/access-authn-authz/authorization/)가 해석할 때만 의미를 가진다.
 {{< /note >}}
 
-## 익명 요청 {#anonymous-requests}
+## 익명 요청
 
 익명 접근을 활성화하면 구성된 다른 인증 방식에서 거부하지 않은 요청을
 익명 요청으로 처리하고, 사용자 이름 `system:anonymous`와 그룹
@@ -88,7 +88,7 @@ API 요청은 일반 사용자나 서비스 어카운트에 연결되거나,
 기존 정책 규칙이 있다면, `*` 사용자나 `*` 그룹에 접근 권한을 부여하는
 해당 규칙은 익명 사용자에게 자동으로 접근을 허용하지 않는다.
 
-### 익명 인증자 구성 {#anonymous-authenticator-configuration}
+### 익명 인증자 구성
 
 {{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
 
@@ -122,7 +122,7 @@ anonymous:
 익명 요청으로 접근할 수 있다. 인가 구성에서 허용하더라도 다른
 엔드포인트에는 익명으로 접근할 수 없다.
 
-## 인증 방식 {#authentication-methods}
+## 인증 방식
 
 여러 인증 방식을 동시에 활성화할 수 있다. 일반적으로 최소한 다음 두 가지 방식을 사용해야 한다.
 
@@ -132,13 +132,13 @@ anonymous:
 사용 가능한 인증 방식은 다음과 같다.
 
 * [X.509 클라이언트 인증서](#x509-client-certificates)
-* [부트스트랩 토큰](#bootstrap-tokens)
-* [서비스 어카운트 토큰](#service-account-tokens)
+* [부트스트랩 토큰](#부트스트랩-토큰)
+* [서비스 어카운트 토큰](#서비스-어카운트-토큰)
 * [정적 토큰 파일](#static-token-file)
-* [외부 통합](#external-integrations)
-  * [JSON 웹 토큰](#json-web-token-authentication)
-  * [OpenID Connect 토큰](#openid-connect-tokens)
-  * [웹훅 토큰 인증](#webhook-token-authentication)
+* [외부 통합](#외부-통합)
+  * [JSON 웹 토큰](#json-웹-토큰-인증)
+  * [OpenID Connect 토큰](#openid-connect-토큰)
+  * [웹훅 토큰 인증](#웹훅-토큰-인증)
   * [인증 리버스 프록시](#authenticating-proxy)
 
 여러 인증자 모듈을 활성화하면 요청을 처음으로 인증하는 데 성공한
@@ -183,7 +183,7 @@ _확장 키 용도(extended key usage)_ 에 클라이언트 인증(`ClientAuth`)
 쿠버네티스는 클라이언트 인증서에 주체의 사용자 이름으로 사용하는
 `commonName`(OID `2.5.4.3`) 속성이 포함되어 있다고 가정한다.
 
-##### 사용자 ID 매핑 {#user-id-mapping}
+##### 사용자 ID 매핑
 
 {{< feature-state feature_gate_name="AllowParsingUserUIDFromCertAuth" >}}
 
@@ -248,12 +248,12 @@ openssl req -new -key alovelace.pem -out alovelace-csr.pem -subj "/CN=alovelace/
 
 이 명령은 "app1"과 "app2"라는 두 그룹에 속하는 사용자 이름 "alovelace"에 대한 서명 요청을 생성한다. 이후 클러스터의 클라이언트 신뢰 인증 기관이 이 요청에 서명하도록 하여, 클러스터에 대한 클라이언트 인증에 사용할 인증서를 얻을 수 있다.
 
-### 부트스트랩 토큰 {#bootstrap-tokens}
+### 부트스트랩 토큰
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 새 클러스터의 부트스트래핑을 간소화하기 위해, 쿠버네티스는 동적으로
-관리되는 베어러 토큰 유형인 *부트스트랩 토큰*을 제공한다. 이 토큰은
+관리되는 베어러 토큰 타입인 *부트스트랩 토큰*을 제공한다. 이 토큰은
 `kube-system` 네임스페이스에 시크릿으로 저장되며,
 동적으로 관리하고 생성할 수 있다. 컨트롤러 매니저에는 부트스트랩 토큰이
 만료되면 삭제하는 TokenCleaner 컨트롤러가 포함된다.
@@ -284,7 +284,7 @@ API 서버에서 `--enable-bootstrap-token-auth` 플래그를 사용하여
 방법에 대한 자세한 문서는
 [부트스트랩 토큰](/docs/reference/access-authn-authz/bootstrap-tokens/)을 참고한다.
 
-#### 요청에 베어러 토큰 포함하기 {#putting-a-bearer-token-in-a-request}
+#### 요청에 베어러 토큰 포함하기
 
 HTTP 클라이언트에서 베어러 토큰 인증을 사용할 때, API 서버는
 값이 `Bearer <token>`인 `Authorization` 헤더를
@@ -299,7 +299,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
 
-### 서비스 어카운트 토큰 {#service-account-tokens}
+### 서비스 어카운트 토큰
 
 서비스 어카운트는 서명된 베어러 토큰으로 요청을 검증하는,
 자동으로 활성화되는 인증자이다. 이 플러그인은 두 가지 선택적 플래그를 받는다.
@@ -366,7 +366,7 @@ eyJhbGciOiJSUzI1NiIsImtp...
 생성된 토큰은 서명된 [JSON 웹 토큰(JSON Web Token)](https://www.rfc-editor.org/rfc/rfc7519)(JWT)이다.
 
 서명된 JWT는 해당 서비스 어카운트로 인증하기 위한 베어러 토큰으로
-사용할 수 있다. 요청에 토큰을 포함하는 방법은 [앞의 설명](#putting-a-bearer-token-in-a-request)을
+사용할 수 있다. 요청에 토큰을 포함하는 방법은 [앞의 설명](#요청에-베어러-토큰-포함하기)을
 참고한다. 일반적으로 이 토큰은 클러스터 내부에서 API 서버에 접근하기 위해
 파드에 마운트되지만, 클러스터 외부에서도 사용할 수 있다.
 
@@ -382,13 +382,13 @@ eyJhbGciOiJSUzI1NiIsImtp...
 
 
 
-## 외부 통합 {#external-integrations}
+## 외부 통합
 
-쿠버네티스는 JWT와 OpenID Connect(OIDC)를 기본적으로 지원한다. [JSON 웹 토큰 인증](#json-web-token-authentication)을 참고한다.
+쿠버네티스는 JWT와 OpenID Connect(OIDC)를 기본적으로 지원한다. [JSON 웹 토큰 인증](#json-웹-토큰-인증)을 참고한다.
 
 다른 인증 프로토콜(예: LDAP, SAML, Kerberos, 대체 X.509 방식)과의 통합은
 [인증 프록시](#authenticating-proxy)를 사용하거나
-[인증 웹훅](#webhook-token-authentication)과 통합하여 구현할 수 있다.
+[인증 웹훅](#웹훅-토큰-인증)과 통합하여 구현할 수 있다.
 
 API 서버가 유효한 인증서를 신뢰한다면, 클라이언트에게 [X.509 클라이언트 인증서](#x509-client-certificates)를
 발급하는 사용자 정의 방식도 사용할 수 있다.
@@ -399,7 +399,7 @@ API 서버가 유효한 인증서를 신뢰한다면, 클라이언트에게 [X.5
 유효 기간과 그 밖의 설계상 선택이 적절한 보안 수준을
 제공하도록 해야 한다.
 
-### JSON 웹 토큰 인증 {#json-web-token-authentication}
+### JSON 웹 토큰 인증
 
 [JSON 웹 토큰](https://www.rfc-editor.org/rfc/rfc7519)(JWT)을 준수하는 토큰으로 사용자를 인증하도록
 쿠버네티스를 구성할 수 있다. JWT 인증 메커니즘은 쿠버네티스 자체에서 발급하는 서비스어카운트 토큰에 사용되며,
@@ -419,7 +419,7 @@ API 서버가 유효한 인증서를 신뢰한다면, 클라이언트에게 [X.5
 }
 ```
 
-#### JWT 이그레스 셀렉터 유형 {#jwt-egress-selector-type}
+#### JWT 이그레스 셀렉터 타입
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
 
@@ -427,7 +427,7 @@ JWT 발급자 구성의 `egressSelectorType` 필드를 사용하면 발급자와
 (디스커버리, JWKS, 분산 클레임 등)을 보낼 때 사용할 _이그레스 셀렉터(egress selector)_ 를 지정할 수 있다.
 이 기능을 사용하려면 `StructuredAuthenticationConfigurationEgressSelector` 기능 게이트를 활성화해야 한다.
 
-#### OpenID Connect 토큰 {#openid-connect-tokens}
+#### OpenID Connect 토큰
 
 [OpenID Connect](https://openid.net/connect/)는 OAuth2의 한 형태로,
 Microsoft Entra ID, Salesforce, Google 등의 OAuth2 제공자가 지원한다.
@@ -439,7 +439,7 @@ Microsoft Entra ID, Salesforce, Google 등의 OAuth2 제공자가 지원한다.
 인증자는 사용자를 식별하기 위해 OAuth2
 [토큰 응답](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)의 `id_token`을
 베어러 토큰으로 사용한다(`access_token`이 아님). 요청에 토큰을 포함하는 방법은
-[앞의 설명](#putting-a-bearer-token-in-a-request)을 참고한다.
+[앞의 설명](#요청에-베어러-토큰-포함하기)을 참고한다.
 
 {{< mermaid >}}
 sequenceDiagram
@@ -493,9 +493,9 @@ sequenceDiagram
 1. 쿠버네티스 대시보드에 인증하려면 `kubectl proxy` 명령이나 `id_token`을 주입하는
    리버스 프록시를 사용해야 한다.
 
-#### API 서버 구성하기 {#configuring-the-api-server}
+#### API 서버 구성하기
 
-##### 커맨드라인 인자 사용하기 {#using-command-line-arguments}
+##### 커맨드라인 인자 사용하기
 
 플러그인을 활성화하려면 API 서버에 다음 커맨드라인 인자를 구성한다.
 
@@ -893,9 +893,9 @@ TLS 클라이언트 구현이 인증서 검증 표준을 매우 엄격하게 따
 사용할 CA가 없다면 표준 인증서 생성 도구를 사용하여 간단한 CA와
 서명된 인증서 및 키 쌍을 생성할 수 있다.
 
-#### kubectl 사용하기 {#using-kubectl}
+#### kubectl 사용하기
 
-##### 방법 1 - OIDC 인증자 {#option-1-oidc-authenticator}
+##### 방법 1 - OIDC 인증자
 
 첫 번째 방법은 모든 요청에 `id_token`을 베어러 토큰으로 설정하고, 토큰이 만료되면 갱신하는
 kubectl `oidc` 인증자를 사용하는 것이다. 제공자에 로그인한 후, kubectl을 사용하여
@@ -958,7 +958,7 @@ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo
 ```
 
 
-### 웹훅 토큰 인증 {#webhook-token-authentication}
+### 웹훅 토큰 인증
 
 쿠버네티스의 _웹훅 인증_ 은 베어러 토큰을 검증하기 위해 외부로 HTTP 호출을 수행하는 메커니즘이다.
 
@@ -1001,7 +1001,7 @@ contexts:
   name: webhook
 ```
 
-클라이언트가 [앞에서](#putting-a-bearer-token-in-a-request) 설명한 것처럼 베어러 토큰을 사용하여
+클라이언트가 [앞에서](#요청에-베어러-토큰-포함하기) 설명한 것처럼 베어러 토큰을 사용하여
 API 서버에 인증하려고 하면, 인증 웹훅은 토큰을 포함한 토큰리뷰 오브젝트를
 JSON으로 직렬화하여 원격 서비스에 POST 요청으로 보낸다.
 
@@ -1265,9 +1265,9 @@ token,user,uid,"group1,group2,group3"
 
 그 밖의 상황, 특히 신속한 토큰 교체가 중요한 경우에는,
 쿠버네티스 프로젝트는 이 메커니즘 대신
-[웹훅 토큰 인증자](#webhook-token-authentication)를 사용할 것을 권장한다.
+[웹훅 토큰 인증자](#웹훅-토큰-인증)를 사용할 것을 권장한다.
 
-## 사용자 가장 {#user-impersonation}
+## 사용자 가장
 
 [사용자 가장](/docs/reference/access-authn-authz/user-impersonation/)은
 가장 헤더를 통해 사용자가 다른 사용자로 동작할 수 있는 방법을 제공한다.
@@ -1290,12 +1290,12 @@ API 서버의 [커맨드라인 레퍼런스](/docs/reference/command-line-tools-
 #### 익명 인증 구성 {#api-server-authn-config-cli-anonymous}
 
 `--anonymous-auth`
-: 인증하지 않은 클라이언트가 API 서버의 보안 포트로 요청할 수 있는지 제어한다. 익명 요청의 사용자 이름은 `system:anonymous`이고, 그룹 이름은 `system:unauthenticated`이다. [익명 요청](#anonymous-requests)도 참고한다.
+: 인증하지 않은 클라이언트가 API 서버의 보안 포트로 요청할 수 있는지 제어한다. 익명 요청의 사용자 이름은 `system:anonymous`이고, 그룹 이름은 `system:unauthenticated`이다. [익명 요청](#익명-요청)도 참고한다.
 
 #### 부트스트랩 토큰 구성 {#api-server-authn-config-cli-bootstrap}
 
 `--enable-bootstrap-token-auth`
-: 이 플래그를 설정하면 [부트스트랩 토큰](#bootstrap-tokens)으로 인증할 수 있다.
+: 이 플래그를 설정하면 [부트스트랩 토큰](#부트스트랩-토큰)으로 인증할 수 있다.
 
 #### 인증서 인증 구성 {#api-server-authn-config-cli-x-509}
 
@@ -1453,7 +1453,7 @@ anonymous:
   enabled: false
 {{< /highlight >}}
 
-## client-go 자격 증명 플러그인 {#client-go-credential-plugins}
+## client-go 자격 증명 플러그인
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
@@ -1464,17 +1464,17 @@ anonymous:
 (LDAP, Kerberos, OAuth2, SAML 등)과의 클라이언트 측 통합을 위한 것이다. 플러그인은
 프로토콜별 로직을 구현한 후, 클라이언트가 의미를 해석하지 않고 사용할 자격 증명을 반환한다. 거의 모든 자격 증명 플러그인
 유스케이스에서는 클라이언트 플러그인이 생성한 자격 증명 형식을 해석하기 위해
-[웹훅 토큰 인증자](#webhook-token-authentication)를 지원하는 서버 측 컴포넌트가 필요하다.
+[웹훅 토큰 인증자](#웹훅-토큰-인증)를 지원하는 서버 측 컴포넌트가 필요하다.
 
 {{< note >}}
 이전 `kubectl` 버전에는 AKS 및 GKE 인증을 위한 기본 지원이 포함되어 있었지만, 현재는 제공되지 않는다.
 {{< /note >}}
 
-### 유스케이스 예시 {#example-use-case}
+### 유스케이스 예시
 
 가상의 유스케이스로, 조직이 LDAP 자격 증명을 사용자별 서명된 토큰으로 교환하는
 외부 서비스를 운영한다고 가정한다. 이 서비스는 토큰을 검증하기 위한 [웹훅 토큰
-인증자](#webhook-token-authentication) 요청에도 응답할 수 있다. 사용자는 워크스테이션에
+인증자](#웹훅-토큰-인증) 요청에도 응답할 수 있다. 사용자는 워크스테이션에
 자격 증명 플러그인을 설치해야 한다.
 
 API에 인증하는 과정은 다음과 같다.
@@ -1482,10 +1482,10 @@ API에 인증하는 과정은 다음과 같다.
 * 사용자가 `kubectl` 명령을 실행한다.
 * 자격 증명 플러그인이 사용자에게 LDAP 자격 증명을 요청하고, 외부 서비스에서 이를 토큰으로 교환한다.
 * 자격 증명 플러그인이 client-go에 토큰을 반환하면, client-go는 이를 API 서버에 대한 베어러 토큰으로 사용한다.
-* API 서버는 [웹훅 토큰 인증자](#webhook-token-authentication)를 사용하여 외부 서비스에 토큰리뷰를 보낸다.
+* API 서버는 [웹훅 토큰 인증자](#웹훅-토큰-인증)를 사용하여 외부 서비스에 토큰리뷰를 보낸다.
 * 외부 서비스가 토큰의 서명을 검증하고 사용자의 사용자 이름과 그룹을 반환한다.
 
-### 구성 {#configuration}
+### 구성
 
 자격 증명 플러그인은 [kubectl 구성 파일](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)의
 사용자 필드 일부로 구성한다.
@@ -1654,7 +1654,7 @@ KUBECONFIG가 `/home/jane/kubeconfig`이고 exec 명령이 `./bin/example-client
       interactiveMode: Never
 ```
 
-### 입력 및 출력 형식 {#input-and-output-formats}
+### 입력 및 출력 형식
 
 실행된 명령은 `stdout`에 `ExecCredential` 오브젝트를 출력한다. `k8s.io/client-go`는
 `status`에 반환된 자격 증명을 사용하여 쿠버네티스 API에 인증한다.
@@ -1843,10 +1843,10 @@ exec 플러그인이 클러스터별 정보를 얻을 수 있도록 하려면,
 
 일반적인 쿠버네티스 클러스터에서는 인증된 모든 사용자가 셀프서브젝트리뷰를 생성할 수 있다.
 이 작업에 대한 접근은 기본 제공 `system:basic-user`
-[클러스터롤(ClusterRole)](/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)이 허용한다.
+[클러스터롤(ClusterRole)](/docs/reference/access-authn-authz/rbac/#롤과-클러스터롤)이 허용한다.
 
 클라이언트가 자신의 신원을 확인하는 기능은 쿠버네티스 클러스터에서 사용하는 복잡한 인증 흐름의 문제를 해결할 때 매우 유용하다.
-예를 들어 [웹훅 토큰 인증](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)이나
+예를 들어 [웹훅 토큰 인증](/docs/reference/access-authn-authz/authentication/#웹훅-토큰-인증)이나
 [인증 프록시](/docs/reference/access-authn-authz/authentication/#authenticating-proxy)를 사용하는 경우이다.
 
 커맨드라인에서 이 정보를 조회하려면
@@ -1893,7 +1893,7 @@ POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 
 
 {{< note >}}
-쿠버네티스 API 서버는 [가장](/docs/reference/access-authn-authz/authentication/#user-impersonation)을 포함한
+쿠버네티스 API 서버는 [가장](/docs/reference/access-authn-authz/authentication/#사용자-가장)을 포함한
 모든 인증 메커니즘을 적용한 후 `userInfo`를 채운다.
 사용자나 인증 프록시가 가장을 사용하여 셀프서브젝트리뷰를 생성하면,
 가장한 사용자의 상세 정보와 속성이 표시된다.
