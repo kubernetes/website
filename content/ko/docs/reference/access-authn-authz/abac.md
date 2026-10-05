@@ -19,7 +19,7 @@ weight: 39
 `ABAC` 모드를 활성화하려면, 시작 시 `--authorization-policy-file=SOME_FILENAME`과
 `--authorization-mode=ABAC`를 지정한다.
 
-파일 형식은 [한 줄에 하나의 JSON 객체](https://jsonlines.org/)이다. 감싸는
+파일 형식은 [한 줄에 하나의 JSON 오브젝트](https://jsonlines.org/)이다. 감싸는
 리스트나 맵이 있어서는 안 되며, 한 줄에 하나의 맵만 있어야 한다.
 
 각 줄은 "정책 오브젝트"이며, 각 오브젝트는 다음 속성을 갖는
