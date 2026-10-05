@@ -26,7 +26,7 @@ weight: 75
   포함하는 쿠버네티스 클러스터를 생성한다.
 * 쿠버네티스에서 서비스와 워크로드를 생성하고 배포하는 것은 리눅스나 윈도우 컨테이너
   모두 비슷한 방식이라는 것이 중요하다.
-  [kubectl 커맨드](/ko/docs/reference/kubectl/)로 클러스터에 접속하는 것은 동일하다.
+  [kubectl 커맨드](/docs/reference/kubectl/)로 클러스터에 접속하는 것은 동일하다.
   아래 단원의 예시를 통해 윈도우 컨테이너와 좀 더 빨리 친숙해질 수 있다.
 
 ## 시작하기: 윈도우 컨테이너 배포하기
@@ -80,7 +80,7 @@ spec:
 ```
 
 {{< note >}}
-포트 매핑도 지원하지만, 이 예시에서는 간결성을 위해 
+포트 매핑도 지원하지만, 이 예시에서는 간결성을 위해
 컨테이너 포트 80을 서비스로 직접 노출한다.
 {{< /note >}}
 
@@ -104,11 +104,11 @@ spec:
     * 리눅스 컨트롤 플레인 노드에서 나열된 두 파드가 존재하는지 확인하려면, `kubectl get pods`를 사용한다.
     * 네트워크를 통한 노드에서 파드로의 통신이 되는지 확인하려면, 리눅스 컨트롤 플레인 노드에서 `curl`을
       파드 IP 주소의 80 포트로 실행하여 웹 서버 응답을 확인한다.
-    * 파드 간 통신이 되는지 확인하려면, `docker exec` 나 `kubectl exec`를 이용해 파드 간에
+    * 파드 간 통신이 되는지 확인하려면, `docker exec`나 `kubectl exec`를 이용해 파드 간에
       핑(ping)한다(윈도우 노드가 2대 이상이라면, 서로 다른 노드에 있는 파드 간 통신도 확인할 수 있다).
     * 서비스에서 파드로의 통신이 되는지 확인하려면, 리눅스 컨트롤 플레인 노드와 독립 파드에서 `curl`을 가상 서비스
       IP 주소(`kubectl get services`로 볼 수 있는)로 실행한다.
-    * 서비스 검색(discovery)이 되는지 확인하려면, 쿠버네티스 [기본 DNS 접미사](/ko/docs/concepts/services-networking/dns-pod-service/#서비스)와 서비스 이름으로 `curl`을 실행한다.
+    * 서비스 검색(discovery)이 되는지 확인하려면, 쿠버네티스 [기본 DNS 접미사](/docs/concepts/services-networking/dns-pod-service/#서비스)와 서비스 이름으로 `curl`을 실행한다.
     * 인바운드 연결이 되는지 확인하려면, 클러스터 외부 장비나 리눅스 컨트롤 플레인 노드에서 NodePort로 `curl`을 실행한다.
     * 아웃바운드 연결이 되는지 확인하려면, `kubectl exec`를 이용해서 파드에서 외부 IP 주소로 `curl`을 실행한다.
 
@@ -130,7 +130,7 @@ spec:
 Microsoft의 오픈 소스 도구인 [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)는
 윈도우 컨테이너 안에 구성된 로그 소스를 모니터링하는 권장하는 방법이다.
 LogMonitor는 이벤트 로그, ETW 공급자 그리고 사용자 정의 애플리케이션 로그 모니터링을 지원하고
-`kubectl logs <pod>` 에 의한 사용을 위해 STDOUT으로 파이프한다.
+`kubectl logs <pod>`에 의한 사용을 위해 STDOUT으로 파이프한다.
 
 LogMonitor GitHub 페이지의 지침에 따라 모든 컨테이너 바이너리와 설정 파일을 복사하고,
 LogMonitor가 로그를 STDOUT으로 푸시할 수 있도록 필요한 엔트리포인트를 추가한다.
@@ -139,9 +139,9 @@ LogMonitor가 로그를 STDOUT으로 푸시할 수 있도록 필요한 엔트리
 
 ### 설정 가능한 컨테이너 username 사용하기
 
-윈도우 컨테이너는 이미지 기본값과는 다른 username으로 
+윈도우 컨테이너는 이미지 기본값과는 다른 username으로
 엔트리포인트와 프로세스를 실행하도록 설정할 수 있다.
-[여기](/ko/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다.
+[여기](/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다.
 
 ### 그룹 매니지드 서비스 어카운트를 이용하여 워크로드 신원 관리하기
 
@@ -149,33 +149,29 @@ LogMonitor가 로그를 STDOUT으로 푸시할 수 있도록 필요한 엔트리
 그룹 매니지드 서비스 어카운트는 액티브 디렉터리 어카운트의 특정한 종류로 자동 암호 관리 기능,
 단순화된 서비스 주체 이름(SPN, simplified service principal name), 여러 서버의 다른 관리자에게 관리를 위임하는 기능을 제공한다.
 GMSA로 구성한 컨테이너는 GMSA로 구성된 신원을 들고 있는 동안 외부 액티브 디렉터리 도메인 리소스를 접근할 수 있다.
-윈도우 컨테이너를 위한 GMSA를 이용하고 구성하는 방법은 [여기](/ko/docs/tasks/configure-pod-container/configure-gmsa/)에서 알아보자.
+윈도우 컨테이너를 위한 GMSA를 이용하고 구성하는 방법은 [여기](/docs/tasks/configure-pod-container/configure-gmsa/)에서 알아보자.
 
 ## 테인트(Taint)와 톨러레이션(Toleration)
 
-사용자는 리눅스와 윈도우 워크로드를 (동일한 OS를 실행하는) 적절한 노드에 스케줄링되도록 하기 위해 
-테인트와 노드셀렉터(nodeSelector)의 조합을 이용해야 한다.
+사용자는 리눅스와 윈도우 워크로드를 각각의 운영 체제에 맞는 노드에 스케줄링하기 위해
+테인트와 노드 셀렉터(nodeSelector)의 조합을 이용해야 한다.
 아래는 권장되는 방식의 개요인데,
-이것의 주요 목표 중에 하나는 이 방식이 기존 리눅스 워크로드와 호환되어야 한다는 것이다.
+이 방식의 주요 목표 중 하나는 기존 리눅스 워크로드와의 호환성을 유지하는 것이다.
 
-1.25부터, 파드의 컨테이너가 어떤 운영체제 용인지를 파드의 `.spec.os.name`에 설정할 수 있다(그리고 설정해야 한다). 
-리눅스 컨테이너를 실행하는 파드에는 `.spec.os.name`을 `linux`로 설정한다. 
-윈도우 컨테이너를 실행하는 파드에는 `.spec.os.name`을 
+각 파드에는 `.spec.os.name`을 설정할 수 있으며 또한 설정해야 한다. 이 필드는 해당 파드의 컨테이너가
+어떤 운영 체제에서 실행되도록 설계되었는지를 나타낸다. 리눅스 컨테이너를 실행하는 파드는
+`.spec.os.name`을 `linux`로 설정한다. 윈도우 컨테이너를 실행하는 파드는 `.spec.os.name`을
 `windows`로 설정한다.
 
-{{< note >}}
-1.25부터, `IdentifyPodOS` 기능은 GA 단계이며 기본적으로 활성화되어 있다.
-{{< /note >}}
+스케줄러는 파드를 노드에 할당할 때 `.spec.os.name` 필드의 값을 사용하지 않는다.
+일반적인 쿠버네티스 메커니즘을 사용하여
+[파드를 노드에 할당](/docs/concepts/scheduling-eviction/assign-pod-node/)하고,
+클러스터의 컨트롤 플레인이 적절한 운영 체제를 실행하는 노드에 파드를 배치하도록
+해야 한다.
 
-스케줄러는 파드를 노드에 할당할 때 
-`.spec.os.name` 필드의 값을 사용하지 않는다. 
-컨트롤 플레인이 파드를 적절한 운영 체제가 실행되고 있는 노드에 배치하도록 하려면, 
-[파드를 노드에 할당](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)하는 
-일반적인 쿠버네티스 메카니즘을 사용해야 한다. 
-
-`.spec.os.name` 필드는 윈도우 파드의 스케줄링에는 영향을 미치지 않기 때문에, 
-윈도우 파드가 적절한 윈도우 노드에 할당되도록 하려면 
-테인트, 톨러레이션 및 노드 셀렉터가 여전히 필요하다.
+`.spec.os.name` 값은 윈도우 파드의 스케줄링에 영향을 미치지 않으므로,
+윈도우 파드가 적절한 윈도우 노드에 배치되도록 하려면 여전히
+테인트와 톨러레이션(또는 노드 셀렉터)이 필요하다.
 
 ### 특정 OS 워크로드를 적절한 컨테이너 호스트에서 처리하도록 보장하기
 
@@ -199,7 +195,7 @@ GMSA로 구성한 컨테이너는 GMSA로 구성된 신원을 들고 있는 동�
 예를 들면,  `--register-with-taints='os=windows:NoSchedule'`
 
 모든 윈도우 노드에 테인트를 추가하여 아무 것도 거기에 스케줄링하지 않게 될 것이다(존재하는 리눅스 파드를 포함하여).
-윈도우 파드가 윈도우 노드에 스케줄링되도록 하려면,
+윈도우 파드를 윈도우 노드에 스케줄링하려면,
 윈도우 노드가 선택되도록 하기 위한 노드 셀렉터 및 적합하게 일치하는 톨러레이션이 모두 필요하다.
 
 ```yaml
@@ -218,7 +214,7 @@ tolerations:
 파드에서 사용하는 윈도우 서버 버전은 노드의 윈도우 서버 버전과 일치해야 한다. 만약 동일한 클러스터에서 여러 윈도우
 서버 버전을 사용하려면, 추가로 노드 레이블과 nodeSelectors를 설정해야 한다.
 
-쿠버네티스 1.17은 이것을 단순화하기 위해 새로운 레이블인 `node.kubernetes.io/windows-build` 를 자동으로 추가한다.
+쿠버네티스 1.17은 이것을 단순화하기 위해 새로운 레이블인 `node.kubernetes.io/windows-build`를 자동으로 추가한다.
 만약 이전 버전을 실행 중인 경우, 이 레이블을 윈도우 노드에 수동으로 추가하는 것을 권장한다.
 
 이 레이블은 호환성을 위해 일치시켜야 하는 윈도우 메이저, 마이너 및 빌드 번호를 나타낸다.
@@ -233,11 +229,11 @@ tolerations:
 
 ### RuntimeClass로 단순화
 
-[런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화 할 수 있다.
+[런타임클래스(RuntimeClass)](/docs/concepts/containers/runtime-class/)를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화할 수 있다.
 클러스터 관리자는 이 테인트와 톨러레이션을 캡슐화하는 데 사용되는 `RuntimeClass` 오브젝트를 생성할 수 있다.
 
-1. 이 파일을 `runtimeClasses.yml` 로 저장한다. 여기에는 윈도우 OS,
-아키텍처 및 버전에 적합한 `nodeSelector` 가 포함되어 있다.
+1. 이 파일을 `runtimeClasses.yml`로 저장한다. 여기에는 윈도우 OS,
+아키텍처 및 버전에 적합한 `nodeSelector`가 포함되어 있다.
 
 ```yaml
 apiVersion: node.k8s.io/v1
@@ -257,8 +253,8 @@ scheduling:
     value: "windows"
 ```
 
-1. 클러스터 관리자로 `kubectl create -f runtimeClasses.yml` 를 실행해서 사용한다.
-1. 파드 사양에 적합한 `runtimeClassName: windows-2019` 를 추가한다.
+1. 클러스터 관리자로 `kubectl create -f runtimeClasses.yml`를 실행해서 사용한다.
+1. 파드 사양에 적합한 `runtimeClassName: windows-2019`를 추가한다.
 
 예시:
 
@@ -286,11 +282,11 @@ spec:
             cpu: 1
             memory: 800Mi
           requests:
-            cpu: .1
+            cpu: 100m
             memory: 300Mi
         ports:
           - containerPort: 80
- selector:
+  selector:
     matchLabels:
       app: iis-2019
 ---
@@ -307,4 +303,4 @@ spec:
     app: iis-2019
 ```
 
-[RuntimeClass]: https://kubernetes.io/ko/docs/concepts/containers/runtime-class/
+[RuntimeClass]: /docs/concepts/containers/runtime-class/
