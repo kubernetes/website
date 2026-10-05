@@ -617,6 +617,13 @@ PodConditions:
 * `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 * `PodResizeInProgress`: the pod is in the process of resizing. See
   [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `InsecureImplicitUserID`: one or more containers in the Pod are observed running as
+  UID 0 without `runAsUser` explicitly set. See
+  [InsecureImplicitUserID and InsecureImplicitGroupID](/docs/concepts/workloads/pods/pod-condition/#insecure-implicit-user-and-group-id).
+* `InsecureImplicitGroupID`: one or more containers in the Pod are observed running as
+  GID 0 (as the primary GID or a supplemental group) without `runAsGroup`,
+  `fsGroup`, or `supplementalGroups` explicitly set. See
+  [InsecureImplicitUserID and InsecureImplicitGroupID](/docs/concepts/workloads/pods/pod-condition/#insecure-implicit-user-and-group-id).
 
 Field name           | Description
 :--------------------|:-----------
