@@ -40,8 +40,8 @@ Deploymentに関連するPodを参照します:
 kubectl get pods
 ```
 
-下記の出力はDeploymentの2つのPodを表しています。
-`1/1`はPodが1つのコンテナがあることを表しています。
+出力から、Deploymentに2つのPodがあることが確認できます。
+`1/1`は、各Podに1つのコンテナがあることを示しています:
 
 
 ```
@@ -50,9 +50,9 @@ patch-demo-28633765-670qr   1/1       Running   0          23s
 patch-demo-28633765-j5qs3   1/1       Running   0          23s
 ```
 
-実行中のPodの名前に注目してください。これらのPodは後ほど違う名前のPodと置換されます。
+実行中のPodの名前に注目してください。これらのPodは後ほど違う名前のPodと置換されることが確認できます。
 
-現時点では、各Podは1つのnginxイメージが実行中のコンテナがあります。
+現時点では、各Podには1つのnginxイメージのコンテナが実行中です。
 これを2つのコンテナにしたいとします: 1つはnginx、もう1つはredisを実行します。
 
 `patch-file.yaml`ファイルを以下の内容で作成します:
@@ -72,13 +72,13 @@ Deploymentにパッチを適用します:
 kubectl patch deployment patch-demo --patch-file patch-file.yaml
 ```
 
-パッチが適用されたDeploymentの参照:
+パッチを適用したDeploymentを参照します:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
 ```
 
-出力から、DeploymentのPodSpecに2つのコンテナが含まれていることがわかります:
+出力から、DeploymentのPodSpecに2つのコンテナが含まれていることが確認できます:
 
 ```yaml
 containers:
@@ -92,15 +92,15 @@ containers:
   ...
 ```
 
-パッチが適用されたDeploymentに関連するPodを参照:
+パッチを適用したDeploymentに関連するPodを参照します:
 
 ```shell
 kubectl get pods
 ```
 
-出力から、以前のPodとは違う名前になっていることがわかります。
-Deploymentが古いPodを削除しDeployment Specに従った新しい2つのPodを作成しています。
-`2/2`は2つのコンテナが実行されていることを表しています:
+出力から、以前のPodとは異なる名前になっていることが確認できます。
+Deploymentは古いPodを終了させ、更新されたDeploymentのspecに従う2つの新しいPodを作成しました。
+`2/2`は2つのコンテナが実行されていることを示しています:
 
 ```
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -108,13 +108,13 @@ patch-demo-1081991389-2wrn5   2/2       Running   0          1m
 patch-demo-1081991389-jmg7b   2/2       Running   0          1m
 ```
 
-patch-demo Podsの詳細を確認します。
+patch-demo Podの詳細を確認します:
 
 ```shell
 kubectl get pod <your-pod-name> --output yaml
 ```
 
-Podに2つのコンテナがあることが出力でわかります: 1つはnginx、もう1つはredisを実行しています:
+出力から、Podに2つのコンテナがあることが確認できます: 1つはnginx、もう1つはredisを実行しています:
 
 ```
 containers:
@@ -126,13 +126,13 @@ containers:
 
 ### 戦略的マージパッチについての注意 {#notes-on-the-strategic-merge-patch}
 
-前の演習で行ったパッチは *戦略的マージパッチ* と呼ばれます。パッチが`containers`リストを置き換えなかったことに注目してください。
+前の演習で適用したパッチは *戦略的マージパッチ* です。パッチが`containers`リストを置き換えなかったことに注目してください。
 代わりに、新しいコンテナがリストに追加されました。つまり、パッチ内のリストは既存のリストとマージされたのです。
-これは、リストに対して戦略的マージパッチを使用したからといって、常にこのような挙動になるとは限りません。
+戦略的マージパッチをリストに対して使用したからといって、常にこのような挙動になるとは限りません。
 場合によっては、リストがマージされずに置換される場合もあります。
 
 リストはパッチ戦略によって置換かマージされます。パッチ戦略は、Kubernetesソースコードのフィールドタグ内にある`patchStrategy`キーの値で指定します。
-例えば、`PodSpec`構造体の`Containers`フィールドにある`patchStrategy`の値は`merge`に指定されています:
+例えば、`PodSpec`構造体の`Containers`フィールドにある`patchStrategy`の値は`merge`に設定されています:
 
 ```go
 type PodSpec struct {
@@ -142,7 +142,7 @@ type PodSpec struct {
 }
 ```
 
-パッチ戦略に関しては[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)にもあります:
+パッチ戦略については、[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)で参照できます:
 
 ```yaml
 "io.k8s.api.core.v1.PodSpec": {
@@ -176,13 +176,13 @@ Deploymentにパッチを適用します:
 kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
 
-パッチが適用されたDeploymentを参照します:
+パッチを適用したDeploymentを確認する:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
 ```
 
-出力から、DeploymentのPodSpecにTolerationが1つしかないことがわかります:
+出力から、DeploymentのPodSpecにTolerationが1つだけ含まれていることが確認できます:
 
 ```yaml
 tolerations:
@@ -192,8 +192,8 @@ tolerations:
 ```
 
 PodSpecにある`tolerations`リストがマージされたのではなく、置換されたことに注目してください。
-これは、PodSpecのTolerationフィールドが`patchStrategy`キーが無いためです。
-そのため戦略的パッチはデフォルトのパッチ戦略である`replace`を使用します。
+これは、PodSpecのTolerationフィールドに`patchStrategy`キーが存在しないためです。
+そのため、戦略的マージパッチはデフォルトのパッチ戦略である`replace`を使用します。
 
 ```go
 type PodSpec struct {
@@ -206,7 +206,8 @@ type PodSpec struct {
 ## DeploymentをJSONマージパッチで更新 {#use-a-json-merge-patch-to-update-a-deployment}
 
 戦略的マージパッチは[JSONマージパッチ](https://tools.ietf.org/html/rfc7386)とは違います。
-リストを更新したい場合、JSONマージパッチではリストの全てを指定しなければなりません、現存のリストは新しいリストに置き換えられます。
+リストを更新する場合、JSONマージパッチではリストの全要素を指定する必要があります。
+既存のリストは新しいリストに置き換えられます。
 
 `kubectl patch`コマンドは`type`パラメータがあり、以下の値のいずれかで設定できます。
 
@@ -219,7 +220,7 @@ type PodSpec struct {
 
 JSONパッチとJSONマージパッチの比較は[JSONパッチとJSONマージパッチ](https://erosb.github.io/post/json-patch-vs-merge-patch/)を参照してください。
 
-`type`パラメータの基本値は`strategic`です。
+`type`パラメータのデフォルト値は`strategic`です。
 したがって、前の演習で行ったパッチは戦略的マージパッチになります。
 
 次に、同じDeploymentに対してJSONマージパッチを実行します。
@@ -240,14 +241,14 @@ spec:
 kubectl patch deployment patch-demo --type merge --patch-file patch-file-2.yaml
 ```
 
-パッチが適用されたDeploymentを参照します:
+パッチを適用したDeploymentを確認する:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
 ```
 
 パッチ内で指定した`containers`リストにはコンテナが1つだけあります。
-出力を見ると、1つのコンテナのリストが既存の`containers`リストを置き換えていることがわかります。
+出力から、1つのコンテナのリストが既存の`containers`リストを置き換えていることが確認できます。
 
 ```yaml
 spec:
@@ -263,7 +264,7 @@ spec:
 kubectl get pods
 ```
 
-出力では、既存のPodが終了し、新しいPodが作成されたことが確認できます。`1/1`は、各新しいPodがContainerを1つだけ実行していることを示しています。
+出力から、既存のPodが終了し、新しいPodが作成されたことが確認できます。`1/1`は、各新しいPodがコンテナを1つだけ実行していることを示しています。
 
 ```shell
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -283,7 +284,7 @@ Deploymentを作成します:
 kubectl apply -f https://k8s.io/examples/application/deployment-retainkeys.yaml
 ```
 
-現状では`RollingUpdate`戦略が使用されたDeploymentは作成されます。
+現状では`RollingUpdate`戦略が使用されたDeploymentが作成されます。
 
 `patch-file-no-retainkeys.yaml`ファイルを以下の内容で作成します:
 
@@ -299,13 +300,13 @@ Deploymentにパッチを適用します:
 kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-no-retainkeys.yaml
 ```
 
-出力では、`spec.strategy.rollingUpdate`に値が定義されている場合、`type`を`Recreate`に設定できないことが確認できます:
+出力から、`spec.strategy.rollingUpdate`に値が定義されている場合、`type`を`Recreate`に設定できないことが確認できます:
 
 ```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
-`type`の値を更新するときに`spec.strategy.rollingUpdate`の値を削除するには、戦略的マージに`retainKeys`戦略を使用します。
+`type`の値を更新する際に`spec.strategy.rollingUpdate`の値を削除するには、戦略的マージの`retainKeys`戦略を使用します。
 
 もう1つの`patch-file-retainkeys.yaml`ファイルを以下の内容で作成します:
 
@@ -332,7 +333,7 @@ Deploymentの内容を確認します:
 kubectl get deployment retainkeys-demo --output yaml
 ```
 
-出力では、Deployment内のstrategyオブジェクトに`rollingUpdate`キーがもう含まれていないことが確認できます:
+出力から、Deployment内のstrategyオブジェクトに`rollingUpdate`キーがもう含まれていないことが確認できます:
 
 ```yaml
 spec:
@@ -365,7 +366,7 @@ type DeploymentSpec struct {
 }
 ```
 
-`retainKeys`戦略は[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)でも確認できます:
+`retainKeys`戦略は[OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)でも参照できます:
 
 ```yaml
 "io.k8s.api.apps.v1.DeploymentSpec": {
@@ -380,7 +381,7 @@ type DeploymentSpec struct {
 ```
 <!-- 編集者向け: ここではSyntaxハイライトのエラーを予防するために、jsonではなく意図的にyamlを使用しています。-->
 
-`retainKeys`戦略は[Kubernetes APIレファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)を参照してください。
+`retainKeys`戦略は[Kubernetes APIレファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)を参照できます。
 
 ### kubectl patchコマンドのその他の形式 {#alternate-forms-of-the-kubectl-patch-command}
 
@@ -420,7 +421,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 ### `kubectl patch`と`--subresource`を使用してオブジェクトのレプリカ数を更新する {#scale-kubectl-patch}
 
 `--subresource=[subresource-name]`フラグは、get、patch、edit、apply、replaceなどのkubectlコマンドと組み合わせて使用することで、指定したリソースの`status`、`scale`、`resize`サブリソースを取得・更新できます。
-`status`、`scale`、`resize`のいずれかのサブリソースを持つKubernetes APIリソース(ビルトインおよびCR)であれば、どのリソースに対してもサブリソースを指定できます。
+`status`、`scale`、`resize`のいずれかのサブリソースを持つKubernetes APIリソース(ビルトインおよびCR)であれば、どのリソースに対してもサブリソースを指定可能です。
 
 例えば、Deploymentには`status`サブリソースと`scale`サブリソースがあるため、`kubectl`を使用してDeploymentの`status`サブリソースのみを取得・変更できます。
 
@@ -434,13 +435,13 @@ Deploymentを作成します:
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
-Deploymentに関連するPodを参照します:
+Deploymentに関連するPodを確認する:
 
 ```shell
 kubectl get pods -l app=nginx
 ```
 
-出力から、Deploymentに2つのPodがあることがわかります。
+出力から、Deploymentに2つのPodがあることが確認できます。
 例:
 
 ```
@@ -461,13 +462,13 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 scale.autoscaling/nginx-deployment patched
 ```
 
-パッチが適用されたDeploymentに関連するPodを参照します:
+パッチを適用したDeploymentに関連するPodを確認する:
 
 ```shell
 kubectl get pods -l app=nginx
 ```
 
-出力から、新しいPodが1つ作成され、実行中のPodが3つになったことがわかります。
+出力から、新しいPodが1つ作成され、実行中のPodが計3つになったことが確認できます。
 
 ```
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -476,7 +477,7 @@ nginx-deployment-7fb96c846b-lxfr2   1/1     Running   0          14s
 nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          107s
 ```
 
-パッチが適用されたDeploymentを参照します:
+パッチを適用したDeploymentを確認する:
 
 ```shell
 kubectl get deployment nginx-deployment -o yaml
