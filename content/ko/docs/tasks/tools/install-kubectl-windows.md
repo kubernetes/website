@@ -27,7 +27,7 @@ v{{< skew currentVersionAddMinor 1 >}} 컨트롤 플레인과 통신할 수 있�
 
    - 직접 다운로드.
 
-     [쿠버네티스 릴리스 페이지](https://kubernetes.io/releases/download/#binaries)에서 사용 중인 아키텍처에 맞는 최신 {{< skew currentVersion >}} 패치 릴리스 바이너리를 직접 다운로드한다. 사용하는 아키텍처(예: amd64, arm64)에 맞는 바이너리를 선택해야 한다.
+     [쿠버네티스 릴리스 페이지](https://kubernetes.io/releases/download/#binaries)에서 사용 중인 아키텍처에 맞는 최신 {{< skew currentVersion >}} 패치 릴리스 바이너리를 직접 다운로드한다. 사용하는 아키텍처(예: amd64, arm64 등)에 맞는 바이너리를 선택해야 한다.
 
    - curl 사용.
 
@@ -74,7 +74,7 @@ v{{< skew currentVersionAddMinor 1 >}} 컨트롤 플레인과 통신할 수 있�
    kubectl version --client
    ```
 
-   더 자세한 버전 정보를 확인하려면 다음 명령을 사용한다.
+   또는 더 자세한 버전 정보를 확인하려면 다음 명령을 사용한다.
 
    ```cmd
    kubectl version --client --output=yaml
