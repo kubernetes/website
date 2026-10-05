@@ -44,7 +44,7 @@ kubectl cluster-info dump
 ### 'No Auth Provider Found' 오류 메시지 문제 해결 {#no-auth-provider-found}
 
 쿠버네티스 1.26에서 다음 클라우드
-제공자가 관리하는 쿠버네티스 서비스에 대한 kubectl 내장 인증이 제거되었다. 각 제공자는
+제공자의 관리형 쿠버네티스 서비스에 대한 내장 인증을 제거했다. 각 제공자는
 클라우드별 인증을 위한 kubectl 플러그인을 출시했다. 사용 방법은 다음 제공자 문서를 참고한다.
 
 * Azure AKS: [kubelogin 플러그인](https://azure.github.io/kubelogin/)
