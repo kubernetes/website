@@ -14,7 +14,7 @@ card:
 워크로드가 단일 컴포넌트이거나 함께 작동하는 여러 컴포넌트이든 관계없이, 쿠버네티스에서는 워크로드를
 [_파드_](/docs/concepts/workloads/pods) 집합에서 실행한다.
 쿠버네티스에서 파드는 클러스터에서 실행되는 하나 이상의
-{{< glossary_tooltip text="컨테이너" term_id="container" >}} 집합을 나타낸다.
+{{< glossary_tooltip text="컨테이너" term_id="container" >}}로 구성된 집합을 나타낸다.
 
 쿠버네티스 파드에는 [정의된 라이프사이클](/docs/concepts/workloads/pods/pod-lifecycle/)이 있다.
 예를 들어, 클러스터에서 실행 중인 파드가 있는
@@ -33,14 +33,14 @@ card:
 * [디플로이먼트(Deployment)](/docs/concepts/workloads/controllers/deployment/)와 [레플리카셋(ReplicaSet)](/docs/concepts/workloads/controllers/replicaset/)은
   레거시 리소스인
   {{< glossary_tooltip text="레플리케이션컨트롤러(ReplicationController)" term_id="replication-controller" >}}를 대체한다.
-  디플로이먼트는 모든 파드를 서로 대체할 수 있고 필요할 때 교체할 수 있는
-  스테이트리스 애플리케이션 워크로드를 관리하는 데 적합하다.
+  디플로이먼트는 클러스터의 스테이트리스 애플리케이션 워크로드를 관리하는 데 적합하며,
+  디플로이먼트의 모든 파드는 서로 바꾸어 쓸 수 있고 필요하면 교체할 수 있다.
 * [스테이트풀셋(StatefulSet)](/docs/concepts/workloads/controllers/statefulset/)은
   상태를 추적하는 서로 관련된 파드를 하나 이상 실행할 수 있게 한다. 예를 들어 워크로드가
   데이터를 영구적으로 기록한다면, 각 파드에
   [퍼시스턴트볼륨(PersistentVolume)](/docs/concepts/storage/persistent-volumes/)을 연결하는 스테이트풀셋을 실행할 수 있다.
-  해당 스테이트풀셋의 파드에서 실행되는 코드는 같은 스테이트풀셋의 다른 파드로
-  데이터를 복제하여 전반적인 복원력을 높일 수 있다.
+  해당 스테이트풀셋의 파드에서 실행되는 코드는 같은 스테이트풀셋의 다른 파드로 데이터를 복제하여
+  전반적인 복원력을 높일 수 있다.
 * [데몬셋(DaemonSet)](/docs/concepts/workloads/controllers/daemonset/)은 노드 로컬
   기능을 제공하는 파드를 정의한다.
   데몬셋의 명세에 맞는 노드를 클러스터에 추가할 때마다,
@@ -58,10 +58,10 @@ card:
   [크론잡](/docs/concepts/workloads/controllers/cron-jobs/)을
   사용하면 동일한 잡을 일정에 따라 여러 번 실행할 수 있다.
 
-더 넓은 쿠버네티스 에코시스템에서는 추가 기능을 제공하는 써드파티 워크로드 리소스를
+더 넓은 쿠버네티스 에코시스템에서는 추가 동작을 제공하는 써드파티 워크로드 리소스를
 찾을 수 있다.
 [커스텀리소스데피니션(CustomResourceDefinition)](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)을 사용하면,
-쿠버네티스 핵심 기능에 포함되지 않은 특정 기능이 필요한 경우 써드파티 워크로드 리소스를
+쿠버네티스 핵심 기능에 포함되지 않은 특정 동작이 필요한 경우 써드파티 워크로드 리소스를
 추가할 수 있다. 예를 들어 애플리케이션을 위한 파드 그룹을 실행하되
 _모든_ 파드를 사용할 수 있어야만 작업을 수행하도록 하려는 경우(예: 처리량이 높은 분산 태스크),
 해당 기능을 제공하는 익스텐션(extension)을 구현하거나 설치할 수 있다.
