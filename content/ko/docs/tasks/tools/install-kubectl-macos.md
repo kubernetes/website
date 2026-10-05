@@ -279,7 +279,7 @@ kubectl은 Bash, Zsh, Fish, PowerShell의 자동 완성을 지원하므로
 
 `kubectl` 설치 방법에 따라 다음 방법 중 하나를 사용한다.
 
-### 명령줄에서 kubectl 제거
+### 커멘드라인을 사용하여 kubectl 제거
 
 1.  시스템에서 `kubectl` 바이너리의 위치를 확인한다.
 
