@@ -30,9 +30,9 @@ URL 응답이 나타나면 kubectl이 클러스터에 접근하도록 올바르�
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-예를 들어, 랩톱에서 쿠버네티스 클러스터를 로컬로 실행하려면
-[Minikube](https://minikube.sigs.k8s.io/docs/start/)와 같은 도구를
-먼저 설치한 다음 위 명령을 다시 실행해야 한다.
+예를 들어, 노트북(로컬)에서 쿠버네티스 클러스터를 실행하려면
+먼저 [Minikube](https://minikube.sigs.k8s.io/docs/start/)와 같은 도구를 설치한 다음, 
+위에 언급된 명령어를 다시 실행해야 한다.
 
 `kubectl cluster-info`가 URL 응답을 반환했지만 클러스터에 접근할 수 없다면
 다음 명령으로 구성이 올바른지 확인한다.
