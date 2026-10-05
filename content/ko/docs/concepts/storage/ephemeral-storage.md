@@ -14,7 +14,7 @@ kubelet은 로컬 임시 스토리지를 사용하여 컨테이너에
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}을 마운트하기 위해 파드에 스크래치 공간을 제공할 수 있다.
 
 kubelet은 이러한 종류의 스토리지를 사용하여
-[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
+[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#노드가-컨테이너-로그를-처리하는-방법),
 컨테이너 이미지 및 실행 중인 컨테이너의 쓰기 가능한 레이어를 보유한다.
 
 {{< caution >}}
@@ -39,7 +39,7 @@ kubelet은 이러한 종류의 스토리지를 사용하여
 
 ## 로컬 임시 스토리지 구성 {#configurations}
 
-쿠버네티스는 노드에서 로컬 임시 스토리지를 구성하는 다음과 같은 방법을 지원한다:
+쿠버네티스는 노드에서 로컬 임시 스토리지를 구성하는 다음과 같은 방법을 지원한다.
 
 {{< tabs name="local_storage_configurations" >}}
 {{% tab name="단일 파일시스템" %}}
@@ -47,7 +47,7 @@ kubelet은 이러한 종류의 스토리지를 사용하여
 (`emptyDir` 볼륨, 쓰기 가능한 레이어, 컨테이너 이미지, 로그)를 하나의 파일시스템에 배치한다.
 
 kubelet은 또한
-[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)를
+[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#노드가-컨테이너-로그를-처리하는-방법)를
 작성하고 임시 로컬 스토리지와 유사하게 처리한다.
 
 kubelet은 구성된 로그 디렉터리 내의 파일에 로그를 기록한다
@@ -67,7 +67,7 @@ kubelet은 구성된 로그 디렉터리 내의 파일에 로그를 기록한다
 심지어 노드의 루트 파일시스템일 수도 있다.
 
 kubelet은 또한
-[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)를
+[노드-레벨 컨테이너 로그](/docs/concepts/cluster-administration/logging/#노드가-컨테이너-로그를-처리하는-방법)를
 첫 번째 파일시스템에 기록하고, 임시 로컬 스토리지와 유사하게 처리한다.
 
 또한 다른 논리 스토리지 장치가 지원하는 별도의 파일시스템을 사용한다.
@@ -115,13 +115,13 @@ kubelet이 임시 스토리지(ephemeral storage)를 올바르게 보고하지 �
 
 ## 로컬 임시 스토리지에 대한 요청 및 제한 설정 {#requests-limits}
 
-`ephemeral-storage`를 명시하여 로컬 임시 스토리지를 관리할 수 있다. 
+`ephemeral-storage`를 명시하여 로컬 임시 스토리지를 관리할 수 있다.
 파드의 각 컨테이너는 다음 중 하나 또는 모두를 명시할 수 있다.
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 
-`ephemeral-storage`에 대한 제한 및 요청은 바이트 단위로 측정된다. 
+`ephemeral-storage`에 대한 제한 및 요청은 바이트 단위로 측정된다.
 E, P, T, G, M, k와 같은 접미사 중 하나를 사용하여 스토리지를 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다.
 Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 예를 들어, 다음은 거의 동일한 값을 나타낸다.
@@ -135,9 +135,9 @@ Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 `400m`의 임시 스토리지를 요청하면, 이는 0.4 바이트를 요청한 것이다.
 이 사람은 아마도 400 메비바이트(mebibytes) (`400Mi`) 또는 400 메가바이트 (`400M`)를 요청하고 싶었을 것이다.
 
-다음 예에서, 파드에 두 개의 컨테이너가 있다. 
-각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 
-각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 
+다음 예에서, 파드에 두 개의 컨테이너가 있다.
+각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다.
+각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다.
 따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB의 로컬 임시 스토리지 제한을 가진다.
 이 제한 중 500Mi까지는 `emptyDir` 볼륨에 의해 소진될 수 있다.
 
@@ -176,9 +176,9 @@ spec:
 
 ## `ephemeral-storage` 요청이 있는 파드의 스케줄링 방법
 
-파드를 생성할 때, 쿠버네티스 스케줄러는 파드를 실행할 노드를 선택한다. 
-각 노드에는 파드에 제공할 수 있는 최대 임시 스토리지 공간이 있다. 
-자세한 정보는, 
+파드를 생성할 때, 쿠버네티스 스케줄러는 파드를 실행할 노드를 선택한다.
+각 노드에는 파드에 제공할 수 있는 최대 임시 스토리지 공간이 있다.
+자세한 정보는,
 [노드 할당 가능](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)을 참고한다.
 
 스케줄러는 스케줄링된 컨테이너들의 리소스 요청량 합계가 노드의 리소스 용량보다 작도록 보장한다.
@@ -274,7 +274,7 @@ kubelet은 해당 공간을 사용 중인 것으로 분류하지 않는다.
 사용자 네임스페이스 내부에서는 커널이 파일시스템의  projectID  변경을 제한하므로,
 쿼터를 통해 계산되는 스토리지 메트릭의 신뢰성이 보장된다.
 
-프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다:
+프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다.
 
 * [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)의
   `featureGates` 필드를 사용하여
@@ -299,7 +299,7 @@ kubelet은 해당 공간을 사용 중인 것으로 분류하지 않는다.
   활성화한 상태에서 마운트해야 한다. XFS와 ext4fs 모두에서,
   마운트 옵션의 이름은 `prjquota`이다.
 
-프로젝트 쿼터를 사용하지 않으려면 다음을 수행해야 한다:
+프로젝트 쿼터를 사용하지 않으려면 다음을 수행해야 한다.
 
 * `LocalStorageCapacityIsolationFSQuotaMonitoring`
   [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
