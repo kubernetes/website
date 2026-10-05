@@ -528,7 +528,7 @@ description = "Giải pháp điều phối container trong môi trường produc
 language_alternatives = ["en"]
 
 [languages.ar]
-title = "كوبرنيتيز"
+title = "كوبيرنيتيس"
 languageName = "العربية (Arabic)"
 weight = 18
 contentDir = "content/ar"
