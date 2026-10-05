@@ -54,20 +54,20 @@ kube-controller-manager को पूरी तरह से `system:masters` �
 - [ ] उपयोग में आने वाले CNI प्लगइन्स नेटवर्क पॉलिसी का समर्थन करते हैं।
 - [ ] इनग्रेस (ingress) और एग्रेस (egress) नेटवर्क पॉलिसी क्लस्टर में सभी वर्कलोड पर
   लागू हैं।
-- [ ] प्रत्येक namespace में, सभी pods का चयन करने वाली, सब कुछ अस्वीकार करने वाली
+- [ ] प्रत्येक नेमस्पेस में, सभी पॉड्स का चयन करने वाली, सब कुछ अस्वीकार करने वाली
   डिफ़ॉल्ट नेटवर्क पॉलिसी मौजूद हैं।
 - [ ] यदि उपयुक्त हो, तो क्लस्टर के अंदर के सभी संचारों को एन्क्रिप्ट करने के लिए
   सर्विस मेश का उपयोग किया जाता है।
-- [ ] Kubernetes API, kubelet API और etcd सार्वजनिक रूप से इंटरनेट पर उजागर नहीं हैं।
+- [ ] कुबरनेट्स API, क्यूबलेट API और etcd सार्वजनिक रूप से इंटरनेट पर उजागर नहीं हैं।
 - [ ] वर्कलोड से क्लाउड मेटाडेटा API तक का एक्सेस फ़िल्टर किया जाता है।
 - [ ] LoadBalancer और ExternalIPs का उपयोग प्रतिबंधित है।
 
 कई [Container Network Interface (CNI) प्लगइन्स](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 वह कार्यक्षमता प्रदान करते हैं जो
-pods के लिए उपलब्ध नेटवर्क संसाधनों को प्रतिबंधित करती है जिनसे वे संवाद कर सकते हैं। यह सबसे अधिक
+पॉड्स के लिए उपलब्ध नेटवर्क संसाधनों को प्रतिबंधित करती है जिनसे वे संवाद कर सकते हैं। यह सबसे अधिक
 इसके माध्यम से [Network Policies](/docs/concepts/services-networking/network-policies/)
-के माध्यम से किया जाता है, जो नियमों को परिभाषित करने के लिए एक namespace स्कोप वाला संसाधन प्रदान करते हैं।
-प्रत्येक namespace में सभी इग्रेस और एग्रेस को ब्लॉक करने वाली, सभी pods का चयन करने वाली डिफ़ॉल्ट
+के माध्यम से किया जाता है, जो नियमों को परिभाषित करने के लिए एक नेमस्पेस स्कोप वाला संसाधन प्रदान करते हैं।
+प्रत्येक नेमस्पेस में इनग्रेस और एग्रेस को ब्लॉक करने वाली, सभी पॉड्स का चयन करने वाली डिफ़ॉल्ट
 नेटवर्क पॉलिसी, यह सुनिश्चित करने के लिए अनुमति सूची (allow list) दृष्टिकोण अपनाने में
 उपयोगी हो सकती हैं कि कोई भी वर्कलोड छूट न जाए।
 
@@ -85,12 +85,12 @@ API सार्वजनिक रूप से उजागर न हो। �
 डिफ़ॉल्ट रूप से API सर्वर को सार्वजनिक रूप से उजागर करते हैं। इसके बाद आप सर्वर तक पहुँचने के लिए
 एक बैस्टियन होस्ट (bastion host) का उपयोग कर सकते हैं।
 
-[kubelet](/docs/reference/command-line-tools-reference/kubelet/) API एक्सेस
+[क्यूबलेट](/docs/reference/command-line-tools-reference/kubelet/) API एक्सेस
 को प्रतिबंधित किया जाना चाहिए और इसे सार्वजनिक रूप से उजागर नहीं होना चाहिए; जब `--config` फ़्लैग के साथ कोई
 कॉन्फ़िगरेशन फ़ाइल निर्दिष्ट नहीं की जाती, तो डिफ़ॉल्ट प्रमाणीकरण और
 प्राधिकरण सेटिंग्स अत्यधिक उदार होती हैं।
 
-यदि Kubernetes को होस्ट करने के लिए किसी क्लाउड प्रदाता का उपयोग किया जाता है, तो pods से क्लाउड
+यदि Kubernetes को होस्ट करने के लिए किसी क्लाउड प्रदाता का उपयोग किया जाता है, तो पॉड्स से क्लाउड
 मेटाडेटा API `169.254.169.254` तक के एक्सेस को भी प्रतिबंधित या अवरुद्ध किया जाना चाहिए यदि
 आवश्यकता न हो, क्योंकि यह जानकारी लीक कर सकता है।
 
@@ -102,7 +102,7 @@ API सार्वजनिक रूप से उजागर न हो। �
 ## पॉड सुरक्षा
 
 - [ ] वर्कलोड को `create`, `update`, `patch`, `delete` करने के RBAC अधिकार केवल आवश्यकता होने पर ही दिए जाते हैं।
-- [ ] उचित Pod Security Standards पॉलिसी सभी namespaces के लिए लागू और लागू-अनिवार्य (enforced) है।
+- [ ] उचित पॉड Security Standards पॉलिसी सभी नेमस्पेस के लिए लागू की गई है और उसका पालन अनिवार्य रूप से कराया जाता है।
 - [ ] उन वर्कलोड के लिए मेमोरी लिमिट सेट है जिनकी सीमा अनुरोध (request) के बराबर या उससे कम है।
 - [ ] संवेदनशील वर्कलोड पर CPU लिमिट सेट की जा सकती है।
 - [ ] जिन नोड्स पर समर्थन है, वहाँ प्रोग्राम के लिए उपयुक्त syscalls प्रोफ़ाइल के साथ
@@ -111,36 +111,36 @@ API सार्वजनिक रूप से उजागर न हो। �
   AppArmor या SELinux सक्षम है।
 
 RBAC प्राधिकरण महत्वपूर्ण है लेकिन
-[Pods के संसाधनों पर प्राधिकरण होने के लिए पर्याप्त बारीक नहीं हो सकता](/docs/concepts/security/rbac-good-practices/#workload-creation)
-(या किसी भी संसाधन पर जो Pods को प्रबंधित करता है)। एकमात्र बारीकी संसाधन स्वयं
-पर API verbs की है, उदाहरण के लिए, Pods पर `create`। अतिरिक्त
+[पॉड्स के संसाधनों पर प्राधिकरण होने के लिए पर्याप्त बारीक नहीं हो सकता](/docs/concepts/security/rbac-good-practices/#workload-creation)
+(या किसी भी संसाधन पर जो पॉड्स को प्रबंधित करता है)। एकमात्र बारीकी संसाधन स्वयं
+पर API verbs की है, उदाहरण के लिए, पॉड्स पर `create`। अतिरिक्त
 एडमिशन के बिना, इन संसाधनों को बनाने की प्राधिकरण क्लस्टर के शेड्यूल करने योग्य नोड्स तक
 सीधी अप्रतिबंधित पहुँच की अनुमति देता है।
 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+[पॉड Security Standards](/docs/concepts/security/pod-security-standards/)
 तीन अलग-अलग पॉलिसी परिभाषित करते हैं — privileged, baseline और restricted — जो
 सुरक्षा के संबंध में `PodSpec` में फ़ील्ड्स को कैसे सेट किया जा सकता है, उसे सीमित
 करते हैं।
-इन मानकों को namespace स्तर पर नए
-[Pod Security](/docs/concepts/security/pod-security-admission/) एडमिशन,
+इन मानकों को नेमस्पेस स्तर पर नए
+[पॉड Security](/docs/concepts/security/pod-security-admission/) एडमिशन,
 जो डिफ़ॉल्ट रूप से सक्षम है, या किसी थर्ड-पार्टी एडमिशन वेबहुक द्वारा लागू किया जा सकता है। कृपया ध्यान दें कि,
-इसके द्वारा प्रतिस्थापित हटाई गई PodSecurityPolicy एडमिशन के विपरीत,
-[Pod Security](/docs/concepts/security/pod-security-admission/)
+इसके विपरीत, हटाए गए PodSecurityPolicy एडमिशन की जगह लेने वाले
+[पॉड Security](/docs/concepts/security/pod-security-admission/)
 एडमिशन को एडमिशन वेबहुक्स और बाहरी सेवाओं के साथ आसानी से जोड़ा जा सकता है।
 
-Pod Security एडमिशन की `restricted` पॉलिसी, जो
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) सेट
+पॉड Security एडमिशन की `restricted` पॉलिसी, जो
+[पॉड Security Standards](/docs/concepts/security/pod-security-standards/) सेट
 की सबसे प्रतिबंधात्मक पॉलिसी है,
 [कई मोड में संचालित हो सकती है](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces),
 `warn`, `audit` या `enforce`, सुरक्षा सर्वोत्तम प्रथाओं के अनुसार सबसे उपयुक्त
 [security context](/docs/tasks/configure-pod-container/security-context/)
-को धीरे-धीरे लागू करने के लिए। फिर भी, pods के
+को धीरे-धीरे लागू करने के लिए। फिर भी, पॉड्स के
 [security context](/docs/tasks/configure-pod-container/security-context/)
 की अलग से जाँच की जानी चाहिए ताकि विशिष्ट उपयोग के मामलों के लिए,
-पूर्वनिर्धारित सुरक्षा मानकों के ऊपर pods के पास मौजूद विशेषाधिकारों और पहुँच को
+पूर्वनिर्धारित सुरक्षा मानकों के ऊपर पॉड्स के पास मौजूद विशेषाधिकारों और पहुँच को
 सीमित किया जा सके।
 
-[Pod Security](/docs/concepts/security/pod-security-admission/) पर
+[पॉड Security](/docs/concepts/security/pod-security-admission/) पर
 एक हैंड्स-ऑन ट्यूटोरियल के लिए, ब्लॉग पोस्ट
 [Kubernetes 1.23: Pod Security Graduates to Beta](/blog/2021/12/09/pod-security-admission-beta/)
 देखें।
@@ -162,7 +162,7 @@ Pod Security एडमिशन की `restricted` पॉलिसी, जो
 Seccomp का पूरा नाम secure computing mode है और यह Linux kernel की सुविधा रही है संस्करण 2.6.12 से।
 इसका उपयोग किसी प्रक्रिया के विशेषाधिकारों को सैंडबॉक्स करने के लिए किया जा सकता है, जो उसे
 userspace से kernel में करने योग्य कॉल को प्रतिबंधित करता है। Kubernetes आपको नोड पर लोड की गई
-seccomp प्रोफ़ाइल को आपके Pods और कंटेनरों पर स्वचालित रूप से लागू करने की अनुमति देता है।
+seccomp प्रोफ़ाइल को आपके पॉड्स और कंटेनरों पर स्वचालित रूप से लागू करने की अनुमति देता है।
 
 Seccomp, कंटेनरों के अंदर उपलब्ध Linux kernel syscall हमले की सतह को कम करके
 आपके वर्कलोड की सुरक्षा में सुधार कर सकता है। seccomp फ़िल्टर मोड BPF का लाभ उठाकर विशिष्ट syscalls की
@@ -199,7 +199,7 @@ AppArmor केवल Linux नोड्स पर उपलब्ध है, �
 [SELinux](https://github.com/SELinuxProject/selinux-notebook/blob/main/src/selinux_overview.md) भी एक
 Linux kernel सुरक्षा मॉड्यूल है जो एक्सेस
 नियंत्रण सुरक्षा पॉलिसी का समर्थन करने के लिए एक तंत्र प्रदान कर सकता है, जिसमें Mandatory Access Controls (MAC) शामिल हैं। SELinux
-लेबल को कंटेनरों या pods को
+लेबल को कंटेनरों या पॉड्स को
 [उनके `securityContext` सेक्शन के माध्यम से](/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container) सौंपा जा सकता है।
 
 {{< note >}}
@@ -218,10 +218,10 @@ SELinux केवल Linux नोड्स पर उपलब्ध है, औ
 - [ ] संवेदनशील एप्लिकेशन नोड्स पर अलग-थलग चल रहे हैं या विशिष्ट
   सैंडबॉक्स्ड (sandboxed) रनटाइम के साथ।
 
-विभिन्न संवेदनशीलता के स्तरों पर मौजूद pods, उदाहरण के लिए, एक एप्लिकेशन pod
+विभिन्न संवेदनशीलता के स्तरों पर मौजूद पॉड्स, उदाहरण के लिए, एक एप्लिकेशन पॉड
 और Kubernetes API सर्वर, को अलग-अलग नोड्स पर तैनात किया जाना चाहिए। नोड अलगाव
 का उद्देश्य किसी एप्लिकेशन कंटेनर ब्रेकआउट को रोकना है ताकि वह सीधे
-अधिक संवेदनशीलता वाले एप्लिकेशन तक पहुँच प्रदान करके क्लस्टर के भीतर आसानी से आगे न बढ़ सके। pods को
+अधिक संवेदनशीलता वाले एप्लिकेशन तक पहुँच प्रदान करके क्लस्टर के भीतर आसानी से आगे न बढ़ सके। पॉड्स को
 गलती से उसी नोड पर तैनात होने से रोकने के लिए यह अलगाव लागू किया जाना चाहिए। इसे
 निम्नलिखित सुविधाओं के साथ लागू किया जा सकता है:
 
@@ -229,17 +229,17 @@ SELinux केवल Linux नोड्स पर उपलब्ध है, औ
 : कुंजी-मूल्य (key-value) जोड़े, पॉड विनिर्देश के हिस्से के रूप में, जो निर्दिष्ट करते हैं कि किन नोड्स पर
 तैनात करना है। इन्हें
 [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-एडमिशन कंट्रोलर के साथ namespace और क्लस्टर स्तर पर लागू किया जा सकता है।
+एडमिशन कंट्रोलर के साथ नेमस्पेस और क्लस्टर स्तर पर लागू किया जा सकता है।
 
 [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-: एक एडमिशन कंट्रोलर जो प्रशासकों को एक namespace के भीतर अनुमत
-[tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) को प्रतिबंधित करने की अनुमति देता है। एक namespace के भीतर के pods केवल उन्हीं tolerations का उपयोग कर सकते हैं
-जो namespace ऑब्जेक्ट एनोटेशन कुंजियों पर निर्दिष्ट हैं और जो डिफ़ॉल्ट और अनुमत
+: एक एडमिशन कंट्रोलर जो प्रशासकों को एक नेमस्पेस के भीतर अनुमत
+[tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) को प्रतिबंधित करने की अनुमति देता है। एक नेमस्पेस के भीतर के पॉड्स केवल उन्हीं tolerations का उपयोग कर सकते हैं
+जो नेमस्पेस ऑब्जेक्ट एनोटेशन कुंजियों पर निर्दिष्ट हैं और जो डिफ़ॉल्ट और अनुमत
 tolerations का एक सेट प्रदान करती हैं।
 
 [RuntimeClass](/docs/concepts/containers/runtime-class/)
 : RuntimeClass कंटेनर रनटाइम कॉन्फ़िगरेशन का चयन करने के लिए एक सुविधा है।
-कंटेनर रनटाइम कॉन्फ़िगरेशन का उपयोग Pod के कंटेनरों को चलाने के लिए किया जाता है और
+कंटेनर रनटाइम कॉन्फ़िगरेशन का उपयोग पॉड के कंटेनरों को चलाने के लिए किया जाता है और
 यह प्रदर्शन ओवरहेड की कीमत पर होस्ट से अधिक या कम अलगाव प्रदान कर सकता है।
 
 ## सीक्रेट्स (Secrets)
@@ -248,30 +248,30 @@ tolerations का एक सेट प्रदान करती हैं।
 - [ ] Secret API के लिए एन्क्रिप्शन एट रेस्ट (encryption at rest) कॉन्फ़िगर किया गया है।
 - [ ] यदि उपयुक्त हो, तो थर्ड-पार्टी संग्रहण में संग्रहीत सीक्रेट्स को इंजेक्ट करने का एक तंत्र
   तैनात और उपलब्ध है।
-- [ ] सर्विस अकाउंट टोकन उन pods में माउंट नहीं किए जाते जिन्हें उनकी आवश्यकता नहीं है।
+- [ ] सर्विस अकाउंट टोकन उन पॉड्स में माउंट नहीं किए जाते जिन्हें उनकी आवश्यकता नहीं है।
 - [ ] गैर-समाप्ति वाले टोकन के बजाय
   [Bound service account token volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
   का उपयोग किया जा रहा है।
 
-pods के लिए आवश्यक सीक्रेट्स को ConfigMap जैसे विकल्पों के बजाय
+पॉड्स के लिए आवश्यक सीक्रेट्स को ConfigMap जैसे विकल्पों के बजाय
 Kubernetes Secrets के भीतर संग्रहीत किया जाना चाहिए। etcd के भीतर संग्रहीत Secret
 संसाधनों को [एन्क्रिप्टेड एट रेस्ट](/docs/tasks/administer-cluster/encrypt-data/) होना चाहिए।
 
-सीक्रेट्स की आवश्यकता वाले pods में ये वॉल्यूम के माध्यम से स्वचालित रूप से माउंट होने चाहिए,
+सीक्रेट्स की आवश्यकता वाले पॉड्स में ये वॉल्यूम के माध्यम से स्वचालित रूप से माउंट होने चाहिए,
 बेहतर यह होगा कि उन्हें मेमोरी में संग्रहीत किया जाए, जैसे कि
 [`emptyDir.medium` विकल्प](/docs/concepts/storage/volumes/#emptydir) के साथ। थर्ड-पार्टी संग्रहण से सीक्रेट्स को वॉल्यूम के रूप में
 इंजेक्ट करने के लिए भी तंत्र का उपयोग किया जा सकता है, जैसे
 [Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/)।
-यह pods को सीक्रेट्स तक सर्विस अकाउंट RBAC एक्सेस प्रदान करने की तुलना में
-अधिक प्राथमिकता के साथ किया जाना चाहिए। इससे सीक्रेट्स को pod में
+यह पॉड्स को सीक्रेट्स तक सर्विस अकाउंट RBAC एक्सेस प्रदान करने की तुलना में
+अधिक प्राथमिकता के साथ किया जाना चाहिए। इससे सीक्रेट्स को पॉड में
 एनवायरनमेंट वेरिएबल या फ़ाइलों के रूप में जोड़ा जा सकेगा। कृपया ध्यान दें कि फ़ाइलों पर
 अनुमति तंत्र के विपरीत, लॉग में क्रैश डंप और Linux में एनवायरनमेंट वेरिएबल की
 गैर-गोपनीय प्रकृति के कारण एनवायरनमेंट वेरिएबल विधि लीक होने के अधिक शिकार हो सकती है।
 
-सर्विस अकाउंट टोकन उन pods में माउंट नहीं किए जाने चाहिए जिन्हें उनकी आवश्यकता नहीं है। इसे सेट करके कॉन्फ़िगर किया जा सकता है
+सर्विस अकाउंट टोकन उन पॉड्स में माउंट नहीं किए जाने चाहिए जिन्हें उनकी आवश्यकता नहीं है। इसे सेट करके कॉन्फ़िगर किया जा सकता है
 [`automountServiceAccountToken`](/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
-को `false`, या तो पूरे namespace में लागू होने के लिए सर्विस अकाउंट के भीतर
-या विशेष रूप से एक pod के लिए। Kubernetes v1.22 और उससे ऊपर के लिए,
+को `false`, या तो पूरे नेमस्पेस में लागू होने के लिए सर्विस अकाउंट के भीतर
+या विशेष रूप से एक पॉड के लिए। Kubernetes v1.22 और उससे ऊपर के लिए,
 समय-सीमित सर्विस अकाउंट क्रेडेंशियल्स के लिए
 [Bound Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 का उपयोग करें।
@@ -322,8 +322,8 @@ Kubernetes Secrets के भीतर संग्रहीत किया ज
 ## एडमिशन कंट्रोलर्स (Admission Controllers)
 
 - [ ] एडमिशन कंट्रोलर्स का एक उपयुक्त चयन सक्षम है।
-- [ ] Pod Security Admission और/या एक
-  वेबहुक एडमिशन कंट्रोलर द्वारा pod सुरक्षा पॉलिसी लागू-अनिवार्य है।
+- [ ] पॉड Security Admission और/या एक
+  वेबहुक एडमिशन कंट्रोलर द्वारा पॉड सुरक्षा पॉलिसी अनिवार्य रूप से लागू की जाती है।
 - [ ] एडमिशन चेन प्लगइन्स और वेबहुक्स सुरक्षित रूप से कॉन्फ़िगर किए गए हैं।
 
 एडमिशन कंट्रोलर्स क्लस्टर की सुरक्षा में सुधार करने में मदद कर सकते हैं। हालाँकि,
@@ -355,18 +355,17 @@ Kubernetes Secrets के भीतर संग्रहीत किया ज
 
 [`MutatingAdmissionWebhook`](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 : वेबहुक्स के माध्यम से कस्टम कंट्रोलर्स के उपयोग की अनुमति देता है, ये कंट्रोलर्स उन अनुरोधों को
-संशोधित कर सकते हैं जिनकी उनकी समीक्षा होती है।
+संशोधित कर सकते हैं जिनकी ये कंट्रोलर्स समीक्षा करते हैं।
 
 [`PodSecurity`](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
-: Pod Security Policy का प्रतिस्थापन, तैनात किए गए Pods के security contexts को
-प्रतिबंधित करता है।
+: Pod Security Policy का प्रतिस्थापन, तैनात किए गए पॉड के सुरक्षा संदर्भों को प्रतिबंधित करता है।
 
 [`ResourceQuota`](/docs/reference/access-authn-authz/admission-controllers/#resourcequota)
 : संसाधनों के अति-उपयोग को रोकने के लिए संसाधन कोटा लागू करता है।
 
 [`ValidatingAdmissionWebhook`](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 : वेबहुक्स के माध्यम से कस्टम कंट्रोलर्स के उपयोग की अनुमति देता है, ये कंट्रोलर्स उन अनुरोधों को
-संशोधित नहीं करते जिनकी उनकी समीक्षा होती है।
+संशोधित नहीं करते जिनकी ये कंट्रोलर्स समीक्षा करते हैं।
 
 दूसरा समूह उन प्लगइन्स को शामिल करता है जो डिफ़ॉल्ट रूप से सक्षम नहीं हैं लेकिन सामान्य
 उपलब्धता (GA) स्थिति में हैं और आपकी सुरक्षा स्थिति को बेहतर बनाने के लिए अनुशंसित हैं:
@@ -377,10 +376,10 @@ Kubernetes Secrets के भीतर संग्रहीत किया ज
 के लिए एक शमन (mitigation) है।
 
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-: kubelet की अनुमतियों को केवल उन्हीं pods API संसाधनों को संशोधित करने तक सीमित करता है
-जिनके वे स्वामी हैं या उस node API संसाधन तक जो स्वयं का प्रतिनिधित्व करता है। यह kubelet को `node-restriction.kubernetes.io/`
+: क्यूबलेट की अनुमतियों को केवल उन्हीं pods API संसाधनों को संशोधित करने तक सीमित करता है
+जिनके वे स्वामी हैं या उस नोड API संसाधन तक जो स्वयं का प्रतिनिधित्व करता है। यह क्यूबलेट को `node-restriction.kubernetes.io/`
 एनोटेशन का उपयोग करने से भी रोकता है, जिसका उपयोग
-kubelet के क्रेडेंशियल्स तक पहुँच रखने वाला हमलावर नियंत्रित नोड पर pod
+क्यूबलेट के क्रेडेंशियल्स तक पहुँच रखने वाला हमलावर नियंत्रित नोड पर पॉड
 प्लेसमेंट को प्रभावित करने के लिए कर सकता है।
 
 तीसरा समूह उन प्लगइन्स को शामिल करता है जो डिफ़ॉल्ट रूप से सक्षम नहीं हैं लेकिन कुछ उपयोग के
@@ -400,22 +399,22 @@ alpha स्थिति में हैं लेकिन कुछ उपय
 : API सर्वर में नए Events जोड़ने की दर सीमित करता है।
 
 [`PodNodeSelector`](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-: namespaces और क्लस्टर-व्यापी स्तर पर नोड सेलेक्टर के नियंत्रण की अनुमति देता है।
+: नेमस्पेस और क्लस्टर-व्यापी स्तर पर नोड सेलेक्टर के नियंत्रण की अनुमति देता है।
 
 [`PodTolerationRestriction`](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-: एक namespace के भीतर pods के लिए अनुमत pod tolerations के नियंत्रण की अनुमति देता है। -->
+: एक नेमस्पेस के भीतर पॉड्स के लिए अनुमत पॉड tolerations के नियंत्रण की अनुमति देता है। -->
 
 ## आगे क्या
 
-- [Pod creation के माध्यम से विशेषाधिकार वृद्धि (Privilege escalation)](/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)
+- [पॉड creation के माध्यम से विशेषाधिकार वृद्धि (Privilege escalation)](/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)
   आपको एक विशिष्ट एक्सेस नियंत्रण जोखिम के बारे में चेतावनी देता है; देखें कि आप उस
   खतरे को कैसे प्रबंधित कर रहे हैं।
   - यदि आप Kubernetes RBAC का उपयोग करते हैं, तो प्राधिकरण पर अधिक
     जानकारी के लिए [RBAC अच्छी प्रथाएँ](/docs/concepts/security/rbac-good-practices/)
     पढ़ें।
 - क्लस्टर को अनजाने या दुर्भावनापूर्ण एक्सेस से बचाने की जानकारी के लिए
-  [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/)।
+  [क्लस्टर को सुरक्षित करना](/docs/tasks/administer-cluster/securing-a-cluster/)।
 - मल्टी-टेनेंसी (multi-tenancy) पर कॉन्फ़िगरेशन विकल्पों की सिफ़ारिशों और सर्वोत्तम प्रथाओं के लिए
-  [Cluster Multi-tenancy गाइड](/docs/concepts/security/multi-tenancy/)।
+  [क्लस्टर मल्टी-टेनेंसी गाइड](/docs/concepts/security/multi-tenancy/)।
 - Kubernetes क्लस्टर को हार्डन करने पर अतिरिक्त संसाधन के लिए ब्लॉग पोस्ट
   ["A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)।
