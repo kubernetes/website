@@ -92,7 +92,7 @@ v{{< skew currentVersionAddMinor 1 >}} 컨트롤 플레인과 통신할 수 있�
 ### Chocolatey, Scoop 또는 winget을 사용하여 윈도우에 설치 {#install-nonstandard-package-tools}
 
 1. 윈도우에 kubectl을 설치할 때 [Chocolatey](https://chocolatey.org)
-   패키지 관리자, [Scoop](https://scoop.sh) 명령줄 설치 도구 또는
+   패키지 관리자, [Scoop](https://scoop.sh) 커맨드라인 설치 도구 또는
    [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) 패키지 관리자를 사용할 수 있다.
 
    {{< tabs name="kubectl_win_install" >}}
