@@ -8,6 +8,7 @@ reviewers:
 
 approvers:
 - sig-docs-ar-owners
+- sig-docs-localization-owners
 
 labels:
 - language/ar
