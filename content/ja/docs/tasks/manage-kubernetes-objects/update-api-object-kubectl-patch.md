@@ -345,16 +345,17 @@ spec:
 ### retainKeys戦略を使用した戦略的マージパッチについての注意 {#notes-on-the-strategic-merge-patch-using-the-retainkeys-strategy}
 
 前の演習で行ったパッチは *retainKeys戦略を使用した戦略的マージパッチ* と呼ばれます。
-この方法では、以下の戦略を持つ新しいディレクティブ`$retainKeys`が導入されます:
+この方法では、新しいディレクティブ`$retainKeys`が導入されます。
+`$retainKeys`には、以下の戦略があります:
 
 - 文字列のリストが含まれています。
 - 保持する必要があるすべてのフィールドは、`$retainKeys`リストに存在していなければなりません。
 - 存在するフィールドは、ライブオブジェクトとマージされます。
 - 不足しているフィールドは、パッチ適用時にすべてクリアされます。
-- `$retainKeys`リスト内のすべてのフィールドは、パッチに存在するフィールドのスーパーセットであるか、同じでなければなりません。
+- `$retainKeys`リスト内のすべてのフィールドは、パッチに存在するフィールドのスーパーセットであるか、同一でなければなりません。
 
-`retainKeys`ストラテジーはすべてのオブジェクトで機能するわけではありません。
-Kubernetesソースコードのフィールドタグにある`patchStrategy`キーの値が`retainKeys`を含む場合にのみ機能します。
+`retainKeys`戦略はすべてのオブジェクトで機能するわけではありません。
+機能するのは、Kubernetesソースコードのフィールドタグにある`patchStrategy`キーの値に`retainKeys`が含まれている場合だけです。
 例えば、`DeploymentSpec`構造体の`Strategy`フィールドには`retainKeys`の`patchStrategy`があります:
 
 ```go
