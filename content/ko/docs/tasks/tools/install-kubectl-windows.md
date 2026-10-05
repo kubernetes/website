@@ -38,8 +38,8 @@ v{{< skew currentVersionAddMinor 1 >}} 컨트롤 플레인과 통신할 수 있�
      ```
 
    {{< note >}}
-   스크립트 등에 사용할 최신 안정 버전은 아래에서 확인한다.
-   [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
+   최신 안정 버전을 확인하려면(예: 스크립트에서 사용하는 경우)
+   [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt)를 참고한다.
    {{< /note >}}
 
 1. 바이너리를 검증한다(선택 사항).
