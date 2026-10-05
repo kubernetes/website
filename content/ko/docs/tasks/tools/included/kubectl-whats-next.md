@@ -8,7 +8,7 @@ _build:
   publishResources: false
 ---
 
-* 쿠버네티스 생태계에서 [kubectl](/docs/concepts/overview/kubectl/)의 역할을 알아본다.
+* [kubectl](/docs/concepts/overview/kubectl/)과 쿠버네티스 생태계에서 kubectl이 하는 역할을 알아본다.
 * [Minikube 설치](https://minikube.sigs.k8s.io/docs/start/)
 * 클러스터 생성에 관해 자세히 알아보려면 [시작하기 가이드](/docs/setup/)를 참고한다.
 * [애플리케이션을 실행하고 노출하는 방법을 알아본다.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
