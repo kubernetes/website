@@ -24,7 +24,7 @@ card:
 
 대부분의 작업은 [kubectl](/docs/reference/kubectl/)
 커맨드 라인 인터페이스 또는
-[kubeadm](/docs/reference/setup-tools/kubeadm/)과 같은 다른 커맨드 라인 도구를 통해 수행할 수 있으며, 이 도구들은 API를 사용한다.
+[kubeadm](/docs/reference/setup-tools/kubeadm/)과 같은 다른 커맨드라인 툴을 통해 수행할 수 있으며, 이 도구들은 API를 사용한다.
 그러나, REST 호출을 사용하여 API에 직접 접근할 수도 있다. 쿠버네티스는
 쿠버네티스 API를 사용하여 애플리케이션을 작성하려는 사용자를 위해
 [클라이언트 라이브러리](/docs/reference/using-api/client-libraries/)
@@ -303,10 +303,10 @@ API가 시스템 리소스 및 동작에 대한 명확하고 일관된 보기를
 [활성화 또는 비활성화](/docs/reference/using-api/#api-그룹-활성화-또는-비활성화)가
 가능한 [API 그룹](/docs/reference/using-api/#api-그룹)을 구현한다.
 
-API 리소스는 API 그룹, 리소스 유형, 네임스페이스
-(네임스페이스 리소스용) 및 이름으로 구분된다. API 서버는 API 버전 간의
+API 리소스는 API 그룹, 리소스 타입, 네임스페이스
+(네임스페이스에 속하는 리소스의 경우) 및 이름으로 구분된다. API 서버는 API 버전 간의
 변환을 투명하게 처리한다. 서로 다른 모든 버전은 실제로
-동일한 지속 데이터의 표현이다. API 서버는 여러 API 버전을 통해
+동일한 저장된 데이터의 표현이다. API 서버는 여러 API 버전을 통해
 동일한 기본 데이터를 제공할 수 있다.
 
 예를 들어, 동일한 리소스에 대해 `v1`과 `v1beta1`이라는 두 가지 API 버전이
@@ -350,8 +350,8 @@ API 버전 수준 정의에 대한 자세한 내용은
 
 쿠버네티스 API는 다음 두 가지 방법 중 하나로 확장할 수 있다.
 
-1. [커스텀 리소스](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
-   사용하면 API 서버가 선택한 리소스 API를 제공하는 방법을 선언적으로 정의할 수 있다.
+1. [사용자 정의 리소스](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
+   사용하면 API 서버가 사용자가 선택한 리소스 API를 제공하는 방법을 선언적으로 정의할 수 있다.
 1. [애그리게이션 레이어(aggregation layer)](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를
    구현하여 쿠버네티스 API를 확장할 수도 있다.
 
@@ -362,6 +362,6 @@ API 버전 수준 정의에 대한 자세한 내용은
 - [쿠버네티스 API 접근 제어하기](/docs/concepts/security/controlling-access/)는
   클러스터가 API 접근을 위한 인증 및 권한을 관리하는 방법을 설명한다.
 - [API 레퍼런스](/docs/reference/kubernetes-api/)를
-  읽고 API 엔드포인트, 리소스 유형 및 샘플에 대해 배우기.
+  읽고 API 엔드포인트, 리소스 타입 및 샘플에 대해 배우기.
 - [API 변경 사항](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)에서
   어떤 변경이 호환 가능한 변경에 해당하는지와 API를 변경하는 방법에 대해 알아본다.
