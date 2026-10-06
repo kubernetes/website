@@ -190,7 +190,7 @@ spec:
   - name: sidecar
     image: busybox:1.38
     command: ["sleep", "infinity"]
-    restartPolicy: Always
+    restartPolicy: Always # make this container a sidecar
     resources:
       requests:
         cpu: 100m
@@ -235,7 +235,7 @@ spec:
   - name: sidecar
     image: busybox:1.38
     command: ["sleep", "infinity"]
-    restartPolicy: Always
+    restartPolicy: Always # make this container a sidecar
     resources:
       requests:
         cpu: 100m
@@ -255,8 +255,8 @@ spec:
 * The effective CPU request of the Pod is the higher of the two values
   (200m and 150m), which is 200m.
 
-In this Pod, the sidecar container is listed before the init container again, but the
-app container requests more CPU:
+In this Pod, the sidecar container is again listed before the init container, but this
+time the app container requests more CPU:
 
 ```yaml
 apiVersion: v1
@@ -268,7 +268,7 @@ spec:
   - name: sidecar
     image: busybox:1.38
     command: ["sleep", "infinity"]
-    restartPolicy: Always
+    restartPolicy: Always # make this container a sidecar
     resources:
       requests:
         cpu: 100m
