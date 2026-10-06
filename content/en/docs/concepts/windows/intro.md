@@ -103,6 +103,7 @@ section refers to several key workload abstractions and how they map to Windows.
     * `spec.securityContext.runAsUser`
     * `spec.securityContext.runAsGroup`
     * `spec.securityContext.supplementalGroups`
+    * `spec.containers[*].hostCgroupNamespace`
     * `spec.containers[*].securityContext.seLinuxOptions`
     * `spec.containers[*].securityContext.seccompProfile`
     * `spec.containers[*].securityContext.capabilities`
