@@ -173,6 +173,32 @@ The default value is `1`. Setting this field to `0` will not keep any failed job
 For another way to clean up Jobs automatically, see
 [Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 
+Here is an example of a CronJob manifest that configures both history limits:
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+```
+
 ### Time zones
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
