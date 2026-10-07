@@ -278,6 +278,135 @@ latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUM
 Future, potential improvements to Kubernetes may improve Pod admission performance and the high
 latency that happens as the number of NUMA nodes increases.
 
+### `numa-allocation-strategy` {#policy-option-numa-allocation-strategy}
+
+The `numa-allocation-strategy` option is available as an alpha feature since Kubernetes 1.38.
+In Kubernetes {{< skew currentVersion >}}, this policy option is hidden by default; to use it you
+must enable both the `TopologyManagerPolicyOptions` and the `TopologyManagerPolicyAlphaOptions`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
+
+By default, the Topology Manager picks a NUMA node affinity based only on structural properties:
+how many NUMA nodes the affinity spans and, if you also set
+[`prefer-closest-numa-nodes`](#policy-option-prefer-closest-numa-nodes), how far apart those NUMA
+nodes are. Whenever several candidates are equivalent under those rules, the Topology Manager
+selects the one with the lowest NUMA node ID. It is not aware of how heavily each NUMA node is
+already allocated, so pods tend to accumulate on the lowest-numbered NUMA node until it is
+exhausted, even when equivalent capacity is free elsewhere.
+
+If you specify the `numa-allocation-strategy` policy option, each *Hint Provider* (the CPU Manager,
+the Memory Manager and the Device Manager) additionally reports a utilization score for every set
+of NUMA nodes it can satisfy, derived from how much of that set is already allocated. The Topology
+Manager combines those scores into a single score per candidate and uses it to make the final
+selection.
+
+You can set this option to one of the following values:
+
+* `none` (default): scores are ignored and NUMA node selection behaves exactly as it does without
+  this option.
+* `most-allocated`: prefer the NUMA nodes that are already the most heavily allocated. Use this to
+  consolidate (pack) workloads, so that whole NUMA nodes stay free for later pods that require
+  them, and so that unused NUMA nodes can enter deeper power-saving states.
+* `least-allocated`: prefer the NUMA nodes that are the least heavily allocated. Use this to spread
+  workloads evenly across NUMA nodes, which is valuable on processors that expose several NUMA
+  domains per socket (for example, with sub-NUMA clustering enabled), where concentrating pods on
+  one compute die leaves the others idle.
+
+For example, to spread pods across NUMA nodes:
+
+```yaml
+# This is a fragment of a kubelet configuration file
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+topologyManagerPolicy: "single-numa-node"
+topologyManagerScope: "pod"
+topologyManagerPolicyOptions:
+  numa-allocation-strategy: "least-allocated"
+```
+
+The score only acts as a tiebreak. The Topology Manager first compares candidates on whether they
+satisfy the topology constraint (preferred or not), then on the structural rules described above,
+and only consults the score when the remaining candidates are otherwise equivalent. Setting
+`numa-allocation-strategy` therefore does not change which pods are admitted or rejected, nor does
+it relax the alignment that your chosen Topology Manager policy guarantees; it only changes which
+of several equally valid NUMA nodes is picked.
+
+The score reflects *allocation* state (assigned exclusive CPUs, reserved memory, allocated devices)
+and not runtime utilization: a NUMA node whose CPUs are allocated but idle still counts as heavily
+allocated.
+
+{{< note >}}
+`numa-allocation-strategy` interacts with the
+[Topology Manager scope](#topology-manager-scopes). With `topologyManagerScope: "pod"`, the
+strategy is applied once for the whole pod and all of its containers share the resulting affinity.
+With `topologyManagerScope: "container"` (the default), it is applied once per container, against
+allocation state that already reflects the containers admitted before it. In that case,
+`least-allocated` makes containers of the same pod more likely to land on *different* NUMA nodes,
+and `most-allocated` makes them more likely to be co-located.
+
+If you need all containers of a pod to share a NUMA node, set `topologyManagerScope` to `pod`.
+Be aware that pod scope admits a pod only if all of its containers can achieve a *common*
+alignment, so some pods that are admitted under container scope today would be rejected.
+{{< /note >}}
+
+If you specify a value other than `none`, `most-allocated` or `least-allocated`, the kubelet fails
+to start and reports the valid values in the error message.
+
+### `numa-score-weights` {#policy-option-numa-score-weights}
+
+The `numa-score-weights` option is available as an alpha feature since Kubernetes 1.38.
+In Kubernetes {{< skew currentVersion >}}, this policy option is hidden by default; to use it you
+must enable both the `TopologyManagerPolicyOptions` and the `TopologyManagerPolicyAlphaOptions`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
+
+By default, every *Hint Provider* contributes equally to the utilization score that
+[`numa-allocation-strategy`](#policy-option-numa-allocation-strategy) uses, so the score is the
+plain average of the scores reported for CPU, memory and each requested device type. That is not
+always what you want: if GPUs are the resource you care about, CPU and memory pressure can outvote
+the GPU signal and send a GPU-heavy pod to the wrong NUMA node.
+
+The `numa-score-weights` policy option lets you weight resources relative to each other. Specify it
+as a comma-separated list of `resource=weight` pairs, where each weight is an integer in the range
+0 to 100:
+
+```yaml
+# This is a fragment of a kubelet configuration file
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+topologyManagerPolicy: "single-numa-node"
+topologyManagerScope: "pod"
+topologyManagerPolicyOptions:
+  numa-allocation-strategy: "most-allocated"
+  numa-score-weights: "nvidia.com/gpu=6,cpu=3,memory=1"
+```
+
+The Topology Manager then aggregates the per-resource scores as a weighted average. Only the ratios
+between the weights matter, so `"nvidia.com/gpu=6,cpu=3,memory=1"` and
+`"nvidia.com/gpu=60,cpu=30,memory=10"` behave identically.
+
+Keep the following in mind when you choose weights:
+
+* A resource that you do not name gets a weight of 1. Because 1 is also the smallest weight you can
+  explicitly assign other than 0, naming a resource raises its influence relative to everything
+  else and never lowers it. A device type that appears on the node later still contributes to the
+  score as soon as a pod requests it.
+* To exclude a resource from scoring entirely, give it an explicit weight of 0. For example,
+  `"cpu=0,memory=0"` on a node where pods request SR-IOV virtual functions leaves the device
+  plugin as the only contributor, so `least-allocated` steers pods to the NUMA node with the most
+  free virtual functions rather than the one that merely looks idle on CPU and memory.
+* If a pod requests none of the resources that still have a non-zero weight, there is no score to
+  compare and the Topology Manager falls back to its usual structural selection for that pod.
+
+{{< note >}}
+`numa-score-weights` only has an effect when `numa-allocation-strategy` is set to `most-allocated`
+or `least-allocated`. When `numa-allocation-strategy` is `none` or unset, scores are ignored
+entirely and the weights do nothing.
+{{< /note >}}
+
+Weights are validated when the kubelet parses its configuration. A malformed string, a non-integer
+weight, or a weight outside the range 0 to 100 prevents the kubelet from starting. Resource names
+are not validated against the resources present on the node, so naming a resource that no workload
+requests is accepted; that resource simply never contributes a score.
+
 ## Pod interactions with topology manager policies
 
 Consider the containers in the following Pod manifest:
