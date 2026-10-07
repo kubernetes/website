@@ -82,13 +82,18 @@ The workflow of using DRA to allocate devices involves the following types of us
 
 ## Limitations
 
-* The Kubernetes scheduler doesn't support
+* By default, the Kubernetes scheduler doesn't support
   [preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) for
-  DRA resources. This means that an existing Pod that's running on a node and is
-  using DRA resources can't be preempted by a higher-priority Pod that also needs
-  DRA resources. The high-priority Pod will remain in a pending state until the device
-  becomes available, which happens when the conflicting Pod terminates or is
-  manually deleted.
+  DRA resources. Without preemption enabled, an existing Pod that's running on a
+  node and using DRA resources can't be preempted by a higher-priority Pod that
+  also needs DRA resources; the higher-priority Pod remains pending until the
+  device becomes available (when the conflicting Pod terminates or is manually
+  deleted). Starting in Kubernetes v1.38, alpha support for DRA preemption is
+  available behind the
+  [`DRAPreemption`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPreemption)
+  feature gate on `kube-scheduler`. See
+  [DRA preemption](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#preemption)
+  for details and alpha limitations.
 
 ## {{% heading "whatsnext" %}}
 
