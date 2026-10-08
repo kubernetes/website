@@ -25,13 +25,13 @@ O controlador que gerencia esse finalizador detecta a atualização do objeto qu
 Um exemplo comum de finalizador é `kubernetes.io/pv-protection`, que impede a exclusão acidental de objetos `PersistentVolume`. Quando um objeto `PersistentVolume` está em uso por um Pod, o Kubernetes adiciona o finalizador `pv-protection`. Se você tentar excluir o `PersistentVolume`, ele entra no estado `Terminating`, mas o controlador não consegue excluí-lo porque o finalizador existe. Quando o Pod deixa de usar o `PersistentVolume`, o Kubernetes remove o finalizador `pv-protection`, e o controlador exclui o volume.
 
 {{<note>}}
-* Quando você exclui um objeto usando `DELETE`, o Kubernetes adiciona o registro de data e hora da exclusão desse objeto e imediatamente começa a restringir alterações no campo `.metadata.finalizers` do objeto, que agora está com a exclusão pendente. Você pode remover finalizadores existentes (excluindo uma entrada da lista `finalizers`), mas não pode adicionar um novo finalizador. Você também não pode modificar o campo `deletionTimestamp` de um objeto depois que ele é definido.
+* Quando você exclui um objeto usando `DELETE`, o Kubernetes adiciona o registro de data e hora da exclusão desse objeto e, em seguida, começa imediatamente a restringir alterações no campo `.metadata.finalizers` do objeto, que agora está com a exclusão pendente. Você pode remover finalizadores existentes (excluindo uma entrada da lista `finalizers`), mas não pode adicionar um novo finalizador. Você também não pode modificar o campo `deletionTimestamp` de um objeto depois que ele é definido.
 
 * Após a solicitação de exclusão, você não pode restaurar esse objeto. A única opção é excluí-lo e criar um novo objeto semelhante.
 {{</note>}}
 
 {{<note>}}
-Os nomes de finalizadores personalizados **devem** ser qualificados com um domínio público, como `example.com/finalizer-name`. O Kubernetes exige esse formato; o servidor de API rejeita operações de escrita em objetos quando a alteração usa nomes não qualificados para qualquer finalizador personalizado.
+Os nomes de finalizadores personalizados **devem** ser nomes de finalizadores qualificados publicamente, como `example.com/finalizer-name`. O Kubernetes exige esse formato; o servidor de API rejeita operações de escrita em objetos quando a alteração usa nomes não qualificados para qualquer finalizador personalizado.
 {{</note>}}
 
 ## Referências de proprietário, labels e finalizadores {#owners-labels-finalizers}
