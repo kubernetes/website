@@ -6,7 +6,7 @@ weight: 110
 
 To allow Kubernetes workloads to use swap, on a Linux node,
 you must disable the kubelet's default behavior of failing when swap is detected,
-and specify memory-swap behavior as `LimitedSwap`:
+and specify memory-swap behavior as `LimitedSwap` or `WorkloadControlledSwap`:
 
 The available choices for swap behavior are:
 
@@ -18,5 +18,11 @@ The available choices for swap behavior are:
 
 `LimitedSwap`
 : Kubernetes workloads can utilize swap memory. The amount of swap available to a Pod is determined automatically.
+
+`WorkloadControlledSwap`
+: Kubernetes workloads can utilize swap memory only up to the swap limit that they set in
+  `resources.limits.swap`. A workload that does not set a swap limit cannot use swap.
+  This behavior requires the `WorkloadControlledSwap`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 To learn more, read [swap memory management](/docs/concepts/cluster-administration/swap-memory-management/).

@@ -167,6 +167,8 @@ You can monitor the resize progress using the Pod's status conditions (`PodResiz
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
 
 * **Resource Types:** Only CPU and memory resources can be resized.
+  If the `WorkloadControlledSwap` feature gate is enabled, you can also resize
+  [swap limits](/docs/concepts/cluster-administration/swap-memory-management/#resize-swap-limits).
 * **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the kubelet will make a
 best-effort attempt to prevent oom-kills when decreasing memory limits, but doesn't provide any guarantees. 
 Before decreasing container memory limits, if memory usage exceeds the requested limit, the resize will be skipped
@@ -191,6 +193,8 @@ to a race condition where memory usage may spike right after the check is perfor
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
+  If the `WorkloadControlledSwap` feature gate is enabled, most of these resizes are allowed; see
+  [resize swap limits in place](/docs/concepts/cluster-administration/swap-memory-management/#resize-swap-limits).
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
 
 These restrictions might be relaxed in future Kubernetes versions.

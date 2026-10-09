@@ -56,6 +56,13 @@ The swap behaviors you can choose for Linux nodes are:
 `LimitedSwap`
 : Kubernetes workloads can utilize swap memory.
 
+`WorkloadControlledSwap`
+: Kubernetes workloads can utilize swap memory only up to the swap limit that they set in
+  `resources.limits.swap`. A workload that does not set a swap limit cannot use swap.
+  This behavior requires the `WorkloadControlledSwap`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  See [workload-controlled swap limits](#workload-controlled-swap-limits).
+
 {{< note >}}
 If you choose the NoSwap behavior, and you configure the kubelet to tolerate
 swap space (`failSwapOn: false`), then your workloads don't use any swap.
@@ -72,6 +79,173 @@ The kubelet uses the container runtime API, and directs the container runtime to
 apply specific configuration (for example, in the cgroup v2 case, `memory.swap.max`) in a manner that will
 enable the desired swap configuration for a container. For runtimes that use control groups, or cgroups,
 the container runtime is then responsible for writing these settings to the container-level cgroup.
+
+## Workload-controlled swap limits {#workload-controlled-swap-limits}
+
+{{< feature-state feature_gate_name="WorkloadControlledSwap" >}}
+
+You can set the maximum amount of swap that a container or a Pod is allowed to use.
+You set it as a limit for the `swap` resource, next to the limits for `cpu` and `memory`:
+
+- `resources.limits.swap` on a container, including an init container, limits that container.
+- `spec.resources.limits.swap` limits the whole Pod. This uses
+  [pod-level resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/).
+
+The swap limit is separate from the memory limit. For example, a container with a memory
+limit of 2Gi and a swap limit of 1Gi can use up to 2Gi of RAM and up to 1Gi of swap.
+
+To use swap limits, enable the `WorkloadControlledSwap`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the API server,
+and on the kubelet of every node where the limits should apply.
+
+### Configure a node for workload-controlled swap {#workload-controlled-swap-node}
+
+To make swap opt-in for every Pod on a node, set the swap behavior of that node to
+`WorkloadControlledSwap` in the kubelet configuration:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+failSwapOn: false
+featureGates:
+  WorkloadControlledSwap: true
+memorySwap:
+  swapBehavior: WorkloadControlledSwap
+```
+
+On this node, a container can use swap only if it has a swap limit, either its own or the Pod's.
+
+### Set a swap limit {#set-a-swap-limit}
+
+The container in this Pod can use up to 1Gi of swap:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swap-limit-demo
+spec:
+  containers:
+  - name: app
+    image: busybox:1.28
+    command: ["sleep", "3600"]
+    resources:
+      requests:
+        memory: 1Gi
+      limits:
+        memory: 2Gi
+        swap: 1Gi
+```
+
+The following rules apply to swap limits:
+
+- You can set `swap` only in `limits`. The API server rejects `requests.swap`.
+- A swap limit does not change the [QoS class](/docs/concepts/workloads/pods/pod-qos/) of the Pod.
+  A Pod in the Guaranteed QoS class can use swap up to its limit.
+- If both the Pod and a container set a swap limit, the limit of the container cannot be higher
+  than the limit of the Pod.
+- You cannot set a swap limit for a Windows Pod, or in the overhead of a Pod.
+- LimitRange and ResourceQuota do not support the `swap` resource.
+- The scheduler does not take swap limits into account. To run a Pod on a node that has swap,
+  use node labels or taints, as described in [swap-aware scheduling](#swap-aware-scheduling).
+- The sum of the swap limits of the Pods on a node can be larger than the swap capacity of the node.
+
+### How the kubelet determines the swap limit {#swap-limit-precedence}
+
+For each container, the kubelet uses the first of the following that is set:
+
+1. The swap limit of the container.
+1. The swap limit of the Pod. Containers that do not set their own swap limit share the limit of the Pod.
+1. The default of the swap behavior of the node.
+
+The outcome depends on the swap behavior of the node:
+
+| Swap limit of the container or Pod | `NoSwap` | `LimitedSwap` | `WorkloadControlledSwap` |
+| --- | --- | --- | --- |
+| Not set | No swap | The [calculated limit](#how-is-the-swap-limit-being-determined-with-limitedswap) | No swap |
+| Set to more than zero | No swap | Swap up to the limit that you set | Swap up to the limit that you set |
+| Set to `0` | No swap | No swap | No swap |
+
+If a Pod with a swap limit runs on a node that cannot enforce the limit (for example, a node with
+the `NoSwap` behavior or a node that uses cgroup v1), the Pod still starts and its containers run
+without swap. The kubelet records a `SwapLimitNotEnforced` warning event for the Pod.
+
+### Share a swap limit between the containers of a Pod {#pod-level-swap-limit}
+
+This Pod sets a swap limit of 200Mi for the whole Pod, and two of its containers
+set their own swap limit:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-swap-limit-demo
+spec:
+  resources:
+    limits:
+      memory: 512Mi
+      swap: 200Mi
+  containers:
+  - name: worker
+    image: busybox:1.28
+    command: ["sleep", "3600"]
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+        swap: 64Mi
+  - name: cache
+    image: busybox:1.28
+    command: ["sleep", "3600"]
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+        swap: "0"
+  - name: helper
+    image: busybox:1.28
+    command: ["sleep", "3600"]
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+```
+
+The `worker` container can use up to 64Mi of swap and the `cache` container cannot use swap.
+The `helper` container does not set a swap limit, so it can use up to the 200Mi of the Pod.
+Together, the containers cannot use more than 200Mi of swap.
+
+### Resize swap limits in place {#resize-swap-limits}
+
+You can change the swap limit of a running Pod through the `resize` subresource, in the same way as
+you [resize CPU and memory](/docs/tasks/configure-pod-container/resize-container-resources/).
+The kubelet applies the new limit without restarting the container. For example:
+
+```shell
+kubectl patch pod swap-limit-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"app", "resources":{"limits":{"swap":"2Gi"}}}]}}'
+```
+
+If you lower a swap limit below the amount of swap that is in use, the kubelet keeps the resize
+in progress and applies the new limit once the swap usage has dropped below it.
+
+With the feature gate enabled, you can also resize the memory request of a container that uses
+swap on a node with the `LimitedSwap` behavior. The kubelet recalculates the swap limit of that
+container. The kubelet still rejects two kinds of resize as infeasible:
+
+- a change to the pod-level memory request of a Pod that has no pod-level swap limit
+- a change that makes the memory request of a container equal to its memory limit,
+  when neither the container nor the Pod has a swap limit
+
+### Swap limits in the Pod status {#swap-limit-status}
+
+The Pod status reports the swap limits that the kubelet has applied:
+`status.containerStatuses[*].resources.limits.swap` for each container, and
+`status.resources.limits.swap` for the Pod. A swap limit that the kubelet has not applied,
+for example on a node with the `NoSwap` behavior, does not appear in the status.
 
 ## Observability for swap use
 
