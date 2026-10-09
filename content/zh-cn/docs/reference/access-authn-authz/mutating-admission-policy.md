@@ -165,12 +165,22 @@ a policy.
 Once the binding and policy are created, any resource request that matches the
 `spec.matchConditions` of a policy will trigger the set of mutations defined.
 
+Match conditions cannot use `namespaceObject` or `variables`. `namespaceObject` is not populated
+for match conditions and always evaluates to null, and `variables` cannot be referenced because
+match conditions are evaluated before the rest of the policy. To select requests based on namespace
+labels, use a `namespaceSelector` in the policy's `matchConstraints` or in the binding's
+`matchResources`.
+
 In the example above, creating a Pod will add the `mesh-proxy` initContainer mutation:
 -->
 要配置变更准入策略以便用于某个集群中，需要先创建绑定。
 只有存在 `spec.policyName` 字段值与某策略的 `spec.name` 相匹配的绑定时，该策略才会生效。
 
 一旦创建了绑定和策略，策略的 `spec.matchConditions` 相匹配的所有资源请求都会触发已定义的所有变更集合。
+
+匹配条件不能使用 `namespaceObject` 或 `variables`。对于匹配条件，`namespaceObject`
+不会被填充，其求值结果始终为 null；而 `variables` 无法被引用，因为匹配条件在策略的其余部分之前求值。
+要基于命名空间标签选择请求，请在策略的 `matchConstraints` 中或绑定的 `matchResources` 中使用 `namespaceSelector`。
 
 在上面的示例中，创建 Pod 将触发添加 `mesh-proxy` initContainer 这一变更：
 
