@@ -1260,8 +1260,8 @@ For detailed configuration steps, refer to
 
 {{< feature-state feature_gate_name="AtomicWriteVolumeUserFields" >}}
 
-Setting the `AtomicWriteVolumeUserFields` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enables file user ownership (UID) fields of `configMap`, `secret`, `downwardAPI` and `projected` volumes.
+For `configMap`, `secret`, `downwardAPI` and `projected` volumes, file user ownership (UID) can be configured
+using the `defaultUser` and `user` fields.
 
 When `defaultUser` is specified at the volume level, it sets the owner UID for all its data files at creation time.
 At the item level, the `user` field controls owner UID of an individual file and takes precedence over `defaultUser`.
