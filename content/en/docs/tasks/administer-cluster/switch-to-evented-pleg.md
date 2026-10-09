@@ -76,7 +76,7 @@ The polling based approach is referred to as _generic PLEG_.
 
    ```toml
    [crio.runtime]
-   enable_pod_events: true
+   enable_pod_events = true
    ```
    {{% /tab %}}
    {{< /tabs >}}
