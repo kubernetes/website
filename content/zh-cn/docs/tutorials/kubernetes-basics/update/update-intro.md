@@ -55,7 +55,7 @@ for those new Pods to start before removing the old Pods.
 用户希望应用程序始终可用，而开发人员则需要每天多次部署它们的新版本。
 在 Kubernetes 中，这些是通过滚动更新（Rolling Update）完成的。 
 **滚动更新**允许通过使用新的实例逐步更新 Pod 实例，实现零停机的 Deployment 更新。
-新的 Pod 将被调度到具有可用资源的节点上。
+新的 Pod 将被调度到具有可用资源的节点上，Kubernetes 会等待这些新 Pod 启动后再移除旧的 Pod。
 
 <!--
 In the previous module we scaled our application to run multiple instances. This
@@ -103,7 +103,7 @@ This ensures users continue to access the application during an update.
 During a rolling update, this behavior keeps the application available by routing traffic only to Pods that are serving requests.
 Rolling updates allow the following actions:
 -->
-在滚动更新期间，这种行为通过仅将流量路由到正在处理请求的 Pod 来保持应用的可用性。
+在滚动更新期间，这种行为通过仅将流量路由到能够处理请求的 Pod 来保持应用的可用性。
 滚动更新允许以下操作：
 
 <!--
