@@ -4,7 +4,6 @@ content_type: concept
 aliases: [/zh-cn/rbac/]
 weight: 33
 ---
-
 <!--
 reviewers:
 - erictune
@@ -40,8 +39,7 @@ To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-a
 with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
 -->
 要启用 RBAC，在启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时将
-`--authorization-config` 标志设置为包含 `RBAC` 授权者的文件；
-例如：
+`--authorization-config` 标志设置为包含 `RBAC` 授权者的文件；例如：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -58,8 +56,7 @@ the `--authorization-mode` flag set to a comma-separated list that includes `RBA
 for example:
 -->
 或者，启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时，
-将 `--authorization-mode` 标志设置为包含 `RBAC` 的逗号分隔列表；
-例如：
+将 `--authorization-mode` 标志设置为包含 `RBAC` 的逗号分隔列表；例如：
 
 <!--
 ```shell
@@ -223,8 +220,8 @@ The name of a RoleBinding or ClusterRoleBinding object must be a valid
 RoleBinding 所在的名字空间。
 如果你希望将某 ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
 
-RoleBinding 或 ClusterRoleBinding 对象的名称必须是合法的
-[路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+RoleBinding 或 ClusterRoleBinding
+对象的名称必须是合法的[路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### RoleBinding examples {#rolebinding-example}
@@ -238,46 +235,7 @@ This allows "jane" to read pods in the "default" namespace.
 下面的例子中的 RoleBinding 将 "pod-reader" Role 授予在 "default" 名字空间中的用户 "jane"。
 这样，用户 "jane" 就具有了读取 "default" 名字空间中所有 Pod 的权限。
 
-<!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "jane" to read pods in the "default" namespace.
-# You need to already have a Role named "pod-reader" in that namespace.
-kind: RoleBinding
-metadata:
-  name: read-pods
-  namespace: default
-subjects:
-# You can specify more than one "subject"
-- kind: User
-  name: jane # "name" is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  # "roleRef" specifies the binding to a Role / ClusterRole
-  kind: Role #this must be Role or ClusterRole
-  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
-  apiGroup: rbac.authorization.k8s.io
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# 此角色绑定允许 "jane" 读取 "default" 名字空间中的 Pod
-# 你需要在该名字空间中有一个名为 “pod-reader” 的 Role
-kind: RoleBinding
-metadata:
-  name: read-pods
-  namespace: default
-subjects:
-# 你可以指定不止一个“subject（主体）”
-- kind: User
-  name: jane # "name" 是区分大小写的
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  # "roleRef" 指定与某 Role 或 ClusterRole 的绑定关系
-  kind: Role        # 此字段必须是 Role 或 ClusterRole
-  name: pod-reader  # 此字段必须与你要绑定的 Role 或 ClusterRole 的名称匹配
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-role.yaml" %}}
 
 <!--
 A RoleBinding can also reference a ClusterRole to grant the permissions defined in that
@@ -297,47 +255,7 @@ RoleBinding 所在名字空间的资源。这种引用使得你可以跨整个�
 区分大小写）只能访问 "development" 名字空间中的 Secret 对象，因为 RoleBinding
 所在的名字空间（由其 metadata 决定）是 "development"。
 
-<!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "dave" to read secrets in the "development" namespace.
-# You need to already have a ClusterRole named "secret-reader".
-kind: RoleBinding
-metadata:
-  name: read-secrets
-  #
-  # The namespace of the RoleBinding determines where the permissions are granted.
-  # This only grants permissions within the "development" namespace.
-  namespace: development
-subjects:
-- kind: User
-  name: dave # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# 此角色绑定使得用户 "dave" 能够读取 "development" 名字空间中的 Secret
-# 你需要一个名为 "secret-reader" 的 ClusterRole
-kind: RoleBinding
-metadata:
-  name: read-secrets
-  # RoleBinding 的名字空间决定了访问权限的授予范围。
-  # 这里隐含授权仅在 "development" 名字空间内的访问权限。
-  namespace: development
-subjects:
-- kind: User
-  name: dave # 'name' 是区分大小写的
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-clusterrole.yaml" %}}
 
 <!--
 #### ClusterRoleBinding example
@@ -351,38 +269,7 @@ secrets in any namespace.
 要跨整个集群完成访问权限的授予，你可以使用一个 ClusterRoleBinding。
 下面的 ClusterRoleBinding 允许 "manager" 组内的所有用户访问任何名字空间中的 Secret。
 
-<!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
-kind: ClusterRoleBinding
-metadata:
-  name: read-secrets-global
-subjects:
-- kind: Group
-  name: manager # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# 此集群角色绑定允许 “manager” 组中的任何人访问任何名字空间中的 Secret 资源
-kind: ClusterRoleBinding
-metadata:
-  name: read-secrets-global
-subjects:
-- kind: Group
-  name: manager      # 'name' 是区分大小写的
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-clusterrolebinding.yaml" %}}
 
 <!--
 After you create a binding, you cannot change the Role or ClusterRole that it refers to.
@@ -1574,8 +1461,10 @@ Role for the <a href="https://github.com/kubernetes/heapster">Heapster</a> compo
 <td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
 -->
 <td>在 <b>kube-system</b> 名字空间中的 <b>kube-dns</b> 服务账户</td>
-<!-- td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td -->
-<td>为 <a href="/zh-cn/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> 组件定义的角色。</td>
+<!--
+<td>Role for the deprecated kube-dns component. (<a href="/docs/concepts/services-networking/dns-pod-service/">CoreDNS</a> does not use this role.)</td>
+-->
+<td>为已弃用的 kube-dns 组件定义的角色。（<a href="/zh-cn/docs/concepts/services-networking/dns-pod-service/">CoreDNS</a> 不使用此角色。）</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
@@ -2191,33 +2080,6 @@ In order from most secure to least secure, the approaches are:
      --clusterrole=view \
      --serviceaccount=my-namespace:default \
      --namespace=my-namespace
-   ```
-
-   <!--
-   Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
-   "default" service account in the `kube-system` namespace.
-   To allow those add-ons to run with super-user access, grant cluster-admin
-   permissions to the "default" service account in the `kube-system` namespace.
-   -->
-   
-   许多[插件组件](/zh-cn/docs/concepts/cluster-administration/addons/)在 `kube-system`
-   名字空间以 `default` 服务账户运行。
-   要允许这些插件组件以超级用户权限运行，需要将集群的 `cluster-admin` 权限授予
-   `kube-system` 名字空间中的 `default` 服务账户。
-
-   {{< caution >}}
-   <!--
-   Enabling this means the `kube-system` namespace contains Secrets
-   that grant super-user access to your cluster's API.
-   -->
-   
-   启用这一配置意味着在 `kube-system` 名字空间中包含以超级用户账号来访问集群 API 的 Secret。
-   {{< /caution >}}
-
-   ```shell
-   kubectl create clusterrolebinding add-on-cluster-admin \
-     --clusterrole=cluster-admin \
-     --serviceaccount=kube-system:default
    ```
 
 <!--
