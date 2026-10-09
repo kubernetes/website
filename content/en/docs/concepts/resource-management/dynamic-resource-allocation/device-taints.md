@@ -52,7 +52,7 @@ That delay starts at the time when a taint gets added to a device, which is reco
 
 Taints apply as described above also to ResourceClaims allocating "all" devices on a node.
 All devices must be untainted or all of their taints must be tolerated.
-Allocating a device with admin access (described [above](#admin-access))
+Allocating a device with admin access (described [above](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)) 
 is not exempt either. An admin using that mode must explicitly tolerate all taints
 to access tainted devices.
 
