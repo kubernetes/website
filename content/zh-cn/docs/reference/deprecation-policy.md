@@ -2,6 +2,8 @@
 title: Kubernetes 弃用策略
 content_type: concept
 weight: 40
+aliases:
+  - /zh-cn/docs/reference/using-api/deprecation-policy/
 ---
 <!--
 reviewers:
@@ -11,13 +13,15 @@ reviewers:
 title: Kubernetes Deprecation Policy
 content_type: concept
 weight: 40
+aliases:
+  - /docs/reference/using-api/deprecation-policy/
 -->
 
 <!-- overview -->
 <!--
 This document details the deprecation policy for various facets of the system.
 -->
-本文档详细解释系统中各个层面的弃用策略（Deprecation Policy）。
+本文档详细解释系统中各个层面的弃用策略。
 
 <!-- body -->
 <!--
@@ -46,7 +50,7 @@ into 3 main tracks, each of which has different policies for deprecation:
 
 由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，
 以反映人们对问题空间的认识的变化。Kubernetes API 实际上是一个 API 集合，
-其中每个成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
+其中每个成员称作“API 组”，并且每个 API 组都是独立管理版本的。
 [API 版本](/zh-cn/docs/reference/using-api/#api-versioning)会有三类，
 每类有不同的废弃策略：
 
@@ -60,8 +64,8 @@ into 3 main tracks, each of which has different policies for deprecation:
 | 示例     | 分类                             |
 |----------|----------------------------------|
 | v1       | 正式发布（Generally available，GA，稳定版本） |
-| v1beta1  | Beta （预发布）|
-| v1alpha1 | Alpha （试验性） |
+| v1beta1  | Beta（预发布）|
+| v1alpha1 | Alpha（试验性） |
 
 <!--
 A given release of Kubernetes can support any number of API groups and any
@@ -112,7 +116,7 @@ For historical reasons, there are 2 "monolithic" API groups - "core" (no
 group name) and "extensions". Resources will incrementally be moved from these
 legacy API groups into more domain-specific API groups.
 -->
-由于历史原因，Kubernetes 中存在两个“单体式（Monolithic）”API 组 -
+由于历史原因，Kubernetes 中存在两个“单体式” API 组 -
 “core”（无组名）和“extensions”。这两个遗留 API 组中的资源会被逐渐迁移到更为特定领域的 API 组中。
 {{< /note >}}
 
@@ -147,8 +151,8 @@ v1 对象完全相同。v2 中的表现形式可能与 v1 不同，但系统知�
 **规则 #3：给定类别的 API 版本不可被弃用以支持稳定性更差的 API 版本。**
 
 * 一个正式发布的（GA）API 版本可替换 Beta 或 Alpha API 版本。
-* Beta API 版本可以替换早期的 Beta 和 Alpha API 版本，但 **不可以** 替换正式的 API 版本。
-* Alpha API 版本可以替换早期的 Alpha API 版本，但 **不可以** 替换 Beta 或正式的 API 版本。
+* Beta API 版本可以替换早期的 Beta 和 Alpha API 版本，但**不可以**替换正式的 API 版本。
+* Alpha API 版本可以替换早期的 Alpha API 版本，但**不可以**替换 Beta 或正式的 API 版本。
 
 <!--
 **Rule #4a: API lifetime is determined by the API stability level**
@@ -226,10 +230,12 @@ API versions are supported in a series of subsequent releases.
 <table>
   <thead>
     <tr>
-      <!-- th>Release</th>
+      <!--
+      <th>Release</th>
       <th>API Versions</th>
       <th>Preferred/Storage Version</th>
-      <th>Notes</th -->
+      <th>Notes</th>
+      -->
       <th>发布版本</th>
       <th>API 版本</th>
       <th>优选/存储版本</th>
@@ -249,7 +255,9 @@ API versions are supported in a series of subsequent releases.
       <td>v1alpha2</td>
       <td>
         <ul>
-           <!-- li>v1alpha1 is removed. See release notes for required actions.</li -->
+           <!--
+           <li>v1alpha1 is removed. See release notes for required actions.</li>
+           -->
            <li>v1alpha1 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
@@ -260,115 +268,156 @@ API versions are supported in a series of subsequent releases.
       <td>v1beta1</td>
       <td>
         <ul>
-          <!-- li>v1alpha2 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v1alpha2 is removed. See release notes for required actions.</li>
+          -->
           <li>v1alpha2 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+3</td>
-      <!-- td>v1beta2, v1beta1 (deprecated)</td -->
+      <!--
+      <td>v1beta2, v1beta1 (deprecated)</td>
+      -->
       <td>v1beta2、v1beta1（已弃用）</td>
       <td>v1beta1</td>
       <td>
         <ul>
-          <!-- li>v1beta1 is deprecated. See release notes for required actions.</li -->
+          <!--
+          <li>v1beta1 is deprecated. See release notes for required actions.</li>
+          -->
           <li>v1beta1 被弃用。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+4</td>
-      <!-- td>v1beta2, v1beta1 (deprecated)</td -->
+      <!--
+      <td>v1beta2, v1beta1 (deprecated)</td>
+      -->
       <td>v1beta2、v1beta1（已弃用）</td>
       <td>v1beta2</td>
       <td></td>
     </tr>
     <tr>
       <td>X+5</td>
-      <!-- td>v1, v1beta1 (deprecated), v1beta2 (deprecated)</td -->
+      <!--
+      <td>v1, v1beta1 (deprecated), v1beta2 (deprecated)</td>
+      -->
       <td>v1、v1beta1（已弃用）、v1beta2（已弃用）</td>
       <td>v1beta2</td>
       <td>
         <ul>
-          <!-- li>v1beta2 is deprecated. See release notes for required actions.</li -->
+          <!--
+          <li>v1beta2 is deprecated. See release notes for required actions.</li>
+          -->
           <li>v1beta2 被弃用。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+6</td>
-      <!-- td>v1, v1beta2 (deprecated)</td -->
+      <!--
+      <td>v1, v1beta2 (deprecated)</td>
+      -->
       <td>v1、v1beta2（已弃用）</td>
       <td>v1</td>
       <td>
         <ul>
-          <!-- li>v1beta1 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v1beta1 is removed. See release notes for required actions.</li>
+          -->
           <li>v1beta1 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+7</td>
-      <!-- td>v1, v1beta2 (deprecated)</td -->
+      <!--
+      <td>v1, v1beta2 (deprecated)</td>
+      -->
       <td>v1、v1beta2（已弃用）</td>
       <td>v1</td>
       <td></td>
     </tr>
     <tr>
       <td>X+8</td>
+      <!--
+      <td>v2alpha1, v1</td>
+      -->
       <td>v2alpha1、v1</td>
       <td>v1</td>
       <td>
         <ul>
-          <!-- li>v1beta2 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v1beta2 is removed. See release notes for required actions.</li>
+          -->
           <li>v1beta2 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+9</td>
+      <!--
+      <td>v2alpha2, v1</td>
+      -->
       <td>v2alpha2、v1</td>
       <td>v1</td>
       <td>
         <ul>
-           <!-- li>v2alpha1 is removed. See release notes for required actions.</li -->
+           <!--
+           <li>v2alpha1 is removed. See release notes for required actions.</li>
+           -->
            <li>v2alpha1 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+10</td>
+      <!--
+      <td>v2beta1, v1</td>
+      -->
       <td>v2beta1、v1</td>
       <td>v1</td>
       <td>
         <ul>
-          <!-- li>v2alpha2 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v2alpha2 is removed. See release notes for required actions.</li>
+          -->
           <li>v2alpha2 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+11</td>
-      <!-- td>v2beta2, v2beta1 (deprecated), v1</td -->
+      <!--
+      <td>v2beta2, v2beta1 (deprecated), v1</td>
+      -->
       <td>v2beta2、v2beta1（已弃用）、v1</td>
       <td>v1</td>
       <td>
         <ul>
-          <!-- li>v2beta1 is deprecated. See release notes for required actions.</li -->
+          <!--
+          <li>v2beta1 is deprecated. See release notes for required actions.</li>
+          -->
           <li>v2beta1 被弃用。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+12</td>
-      <!-- td>v2, v2beta2 (deprecated), v2beta1 (deprecated), v1 (deprecated)</td -->
+      <!--
+      <td>v2, v2beta2 (deprecated), v2beta1 (deprecated), v1 (deprecated)</td>
+      -->
       <td>v2、v2beta2（已弃用）、v2beta1（已弃用）、v1（已弃用）</td>
       <td>v1</td>
       <td>
         <ul>
-          <!-- li>v2beta2 is deprecated. See release notes for required actions.</li>
-          <li>v1 is deprecated in favor of v2, but will not be removed</li -->
+          <!--
+          <li>v2beta2 is deprecated. See release notes for required actions.</li>
+          <li>v1 is deprecated in favor of v2, but will not be removed</li>
+          -->
           <li>v2beta2 已被弃用。查阅发布说明了解要采取的行动。</li>
           <li>v1 已被弃用，取而代之的是 v2，但不会被移除</li>
         </ul>
@@ -376,31 +425,41 @@ API versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+13</td>
-      <!-- td>v2, v2beta1 (deprecated), v2beta2 (deprecated), v1 (deprecated)</td -->
+      <!--
+      <td>v2, v2beta1 (deprecated), v2beta2 (deprecated), v1 (deprecated)</td>
+      -->
       <td>v2、v2beta1（已弃用）、v2beta2（已弃用）、v1（已弃用）</td>
       <td>v2</td>
       <td></td>
     </tr>
     <tr>
       <td>X+14</td>
-      <!-- td>v2, v2beta2 (deprecated), v1 (deprecated)</td -->
+      <!--
+      <td>v2, v2beta2 (deprecated), v1 (deprecated)</td>
+      -->
       <td>v2、v2beta2（已弃用）、v1（已弃用）</td>
       <td>v2</td>
       <td>
         <ul>
-          <!-- li>v2beta1 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v2beta1 is removed. See release notes for required actions.</li>
+          -->
           <li>v2beta1 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+15</td>
-      <!-- td>v2, v1 (deprecated)</td -->
+      <!--
+      <td>v2, v1 (deprecated)</td>
+      -->
       <td>v2、v1（已弃用）</td>
       <td>v2</td>
       <td>
         <ul>
-          <!-- li>v2beta2 is removed. See release notes for required actions.</li -->
+          <!--
+          <li>v2beta2 is removed. See release notes for required actions.</li>
+          -->
           <li>v2beta2 被移除。查阅发布说明了解要采取的行动。</li>
         </ul>
       </td>
@@ -453,7 +512,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
    （可供添加到度量值 `apiserver_request_total` 上），
    和一个 `removed_release` 标签，标明该 API 将消失的 Kubernetes 发布版本。
    下面的 Prometheus 查询会返回对 v1.22 中将移除的、已弃用的 API 的请求的信息：
-   
+
    ```promql
    apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
@@ -517,7 +576,7 @@ naturally sort into two main groups - user-facing and admin-facing programs,
 which vary slightly in their deprecation policies. Unless a flag is explicitly
 prefixed or documented as "alpha" or "beta", it is considered GA.
 -->
-## 弃用一个标志或 CLI 命令
+## 弃用一个标志或 CLI 命令  {#deprecating-a-flag-or-cli}
 
 Kubernetes 系统中包含若干不同的、相互协作的程序。
 有时，Kubernetes 可能会删除这些程序的某些标志或 CLI 命令（统称“命令行元素”）。
@@ -615,8 +674,7 @@ Kubernetes organization control, the following rules apply:
 **Rule #8: The feature of behavior must not be deprecated in favor of an alternative
 implementation that is less stable**
 
-For example, a generally available feature cannot be deprecated in favor of a Beta
-replacement.
+For example, a generally available feature cannot be deprecated in favor of a Beta replacement.
 The Kubernetes project does, however, encourage users to adopt and transitions to alternative
 implementations even before they reach the same maturity level. This is particularly important
 for exploring new use cases of a feature or getting an early feedback on the replacement.
