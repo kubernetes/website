@@ -758,7 +758,15 @@ Here is an example illustrating a few different uses for match conditions:
 {{% code_sample file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 <!--
-Match conditions have access to the same CEL variables as validation expressions.
+Match conditions have access to the same CEL variables as validation expressions, except for
+`namespaceObject` and `variables`:
+
+- `namespaceObject` is not populated for match conditions and always evaluates to null. To select
+  requests based on namespace labels, use a `namespaceSelector` in the policy's `matchConstraints`
+  or in the binding's `matchResources`. To check other namespace fields, use a validation
+  expression, where `namespaceObject` is available.
+- `variables` cannot be referenced from match conditions, because match conditions are evaluated
+  before the rest of the policy.
 
 In the event of an error evaluating a match condition the policy is not evaluated. Whether to reject
 the request is determined as follows:
@@ -768,7 +776,12 @@ the request is determined as follows:
    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
 -->
-这些匹配条件可以访问与验证表达式相同的 CEL 变量。
+除了 `namespaceObject` 和 `variables` 之外，匹配条件可以访问与验证表达式相同的 CEL 变量：
+
+- 对于匹配条件，`namespaceObject` 不会被填充，其求值结果始终为 null。
+  要基于命名空间标签选择请求，请在策略的 `matchConstraints` 中或绑定的 `matchResources`
+  中使用 `namespaceSelector`。要检查其他命名空间字段，请使用验证表达式，在验证表达式中可以使用 `namespaceObject`。
+- 匹配条件中无法引用 `variables`，因为匹配条件在策略的其余部分之前求值。
 
 在评估匹配条件时出现错误时，将不会评估策略。根据以下方式确定是否拒绝请求：
 

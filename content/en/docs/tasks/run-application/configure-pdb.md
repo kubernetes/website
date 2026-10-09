@@ -112,14 +112,12 @@ A `PodDisruptionBudget` has three fields:
 - `.spec.minAvailable` which is a description of the number of pods from that
   set that must still be available after the eviction, even in the absence
   of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-- `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
+- `.spec.maxUnavailable` which is a description
   of the number of pods from that set that can be unavailable after the eviction.
   It can be either an absolute number or a percentage.
 
 {{< note >}}
-The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
-PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, while
-for policy/v1 an empty selector matches every pod in the namespace.
+An empty selector (`{}`) matches every pod in the namespace.
 {{< /note >}}
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`.

@@ -32,7 +32,7 @@ content_type: concept
 | Ключ                                 | Описание           | Пример  | Тип |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | Имя приложения | `mysql` | string |
-| `app.kubernetes.io/instance`        | Уникальное имя экземпляра приложения | `wordpress-abcxzy` | string |
+| `app.kubernetes.io/instance`        | Уникальное имя экземпляра приложения | `wordpress-abcxyz` | string |
 | `app.kubernetes.io/version`         | Текущая версия приложения (например, семантическая версия, хеш коммита и т.д.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | Имя компонента в архитектуре | `database` | string |
 | `app.kubernetes.io/part-of`         | Имя основного приложения, частью которого является текущий объект | `wordpress` | string |
@@ -46,7 +46,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
@@ -57,7 +57,7 @@ metadata:
 
 Одно и то же приложение может быть установлено несколько раз в кластер Kubernetes, в ряде случаев — в одинаковое пространство имен. Например, WordPress может быть установлен более одного раза, тогда каждый из сайтов будет иметь собственный установленный экземпляр WordPress.
 
-Имя приложения и имя экземпляра хранятся по отдельности. Например, WordPress имеет ключ `app.kubernetes.io/name` со значением `wordpress`, при этом у него есть имя экземпляра, представленное ключом `app.kubernetes.io/instance` со значением `wordpress-abcxzy`. Такой механизм позволяет идентифицировать как приложение, так и экземпляры приложения. У каждого экземпляра приложения должно быть уникальное имя.
+Имя приложения и имя экземпляра хранятся по отдельности. Например, WordPress имеет ключ `app.kubernetes.io/name` со значением `wordpress`, при этом у него есть имя экземпляра, представленное ключом `app.kubernetes.io/instance` со значением `wordpress-abcxyz`. Такой механизм позволяет идентифицировать как приложение, так и экземпляры приложения. У каждого экземпляра приложения должно быть уникальное имя.
 
 ## Примеры
 
@@ -75,7 +75,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -87,7 +87,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -103,7 +103,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: server
@@ -120,7 +120,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: server
@@ -136,7 +136,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
@@ -152,7 +152,8 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
+    
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database

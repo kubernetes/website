@@ -513,7 +513,7 @@ enforce those constraints. LimitRanger can also be used to apply default resourc
 that don't specify any; currently, the default LimitRanger applies a 0.1 CPU requirement to all
 Pods in the `default` namespace.
 
-See the [LimitRange API reference](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+See the [LimitRange API reference](/docs/reference/kubernetes-api/core/limit-range-v1/)
 and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 for more details.
 
@@ -844,7 +844,7 @@ any of the constraints enumerated in the `ResourceQuota` object in a `Namespace`
 using `ResourceQuota` objects in your Kubernetes deployment, you MUST use this admission
 controller to enforce quota constraints.
 
-See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+See the [ResourceQuota API reference](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
 ### RuntimeClass {#runtimeclass}

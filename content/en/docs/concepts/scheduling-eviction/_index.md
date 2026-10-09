@@ -15,6 +15,7 @@ of terminating one or more Pods on Nodes.
 ## Scheduling
 
 * [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* [Running Multiple Schedulers](/docs/concepts/scheduling-eviction/running-multiple-schedulers/)
 * [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 * [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
