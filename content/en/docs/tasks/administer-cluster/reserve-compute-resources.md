@@ -143,7 +143,7 @@ replaces the CPU quantities specified by `kubeReserved` and `systemReserved`
 for the kubelet's resource reservation.
 
 This option is specifically designed for Telco/NFV use cases where uncontrolled
-interrupts/timers may impact the workload performance. you can use this option
+interrupts/timers may impact the workload performance. You can use this option
 to define the explicit cpuset for the system/kubernetes daemons as well as the
 interrupts/timers, so the rest CPUs on the system can be used exclusively for
 workloads, with less impact from uncontrolled interrupts/timers. To move the
