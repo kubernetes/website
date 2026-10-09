@@ -253,12 +253,12 @@ aliases:
     - MaxymVlasov
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - aojea
-    - BenTheElder
+    - elmiko
+    - janetkuo
     - katcosgrove
     - pacoxu
+    - Priyankasaggu11929
     - ritazh
-    - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
