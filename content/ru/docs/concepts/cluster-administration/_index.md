@@ -1,8 +1,5 @@
 ---
 title: Администрирование кластера
-reviewers:
-- davidopp
-- lavalamp
 weight: 100
 content_type: concept
 description: >

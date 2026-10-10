@@ -1,7 +1,7 @@
 ---
 title: kube-proxy
 id: kube-proxy
-full_link: /docs/reference/command-line-tools-reference/kube-proxy/
+full_link: /docs/concepts/overview/components/#kube-proxy
 short_description: >
   `kube-proxy` — сетевой прокси, работающий на каждом узле в кластере.
 

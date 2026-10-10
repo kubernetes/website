@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: Установка и настройка kubectl
 content_type: task
 weight: 10

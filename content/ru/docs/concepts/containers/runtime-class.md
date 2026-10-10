@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: RuntimeClass
 content_type: concept
 weight: 20
