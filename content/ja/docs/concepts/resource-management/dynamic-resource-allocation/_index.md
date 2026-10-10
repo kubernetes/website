@@ -9,7 +9,7 @@ no_list: true
 
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
-このセクションではKubernetesの _Dynamic Resource Allocation (DRA)_ について説明します。
+このセクションではKubernetesの _Dynamic Resource Allocation(DRA)_ について説明します。
 
 {{< glossary_definition prepend="DRAは、" term_id="dra" length="all" >}}
 
@@ -22,7 +22,7 @@ DRAによるリソースの割り当ては、PersistentVolumeClaimを使用し�
 DRAは、クラスター内のデバイスを分類、要求、利用するための柔軟な方法を提供します。
 DRAを使用することで、次のような利点が得られます:
 
-* **柔軟なデバイスフィルタリング**: Common Expression Language (CEL)を使用して、特定のデバイス属性に対するきめ細かなフィルタリングが行えます。
+* **柔軟なデバイスフィルタリング**: Common Expression Language(CEL)を使用して、特定のデバイス属性に対するきめ細かなフィルタリングが行えます。
 * **デバイス共有**: 対応するResourceClaimを参照することで、複数のコンテナやPodで同じリソースが共有できます。
 * **デバイス構成**: ベンダー固有のデバイス構成をResourceClaimに関連付けることで、現在のノード単位でのデバイス構成ではなく、ワークロードごとにデバイスを構成できます。
 * **デバイス分類の一元化**: デバイスドライバーとクラスター管理者は、さまざまなユースケース向けに最適化されたハードウェアカテゴリを、DeviceClassを使用してアプリケーション運用者に提供できます。
@@ -42,7 +42,7 @@ DRAを使用したデバイス割り当てのためのワークフローには�
 
   * ノードとリソースに関する情報をKubernetesに提供するResourceSliceを作成する。
   * クラスター内のリソース容量が変化した際に、ResourceSliceを更新する。
-  * クレームに従ってデバイスを構成し、Container Device Interface (CDI)を介してコンテナに接続する。
+  * クレームに従ってデバイスを構成し、Container Device Interface(CDI)を介してコンテナに接続する。
   * オプションとして、ワークロード運用者がデバイスを要求するために使用できるDeviceClassを作成する。
 
 * **クラスター管理者**: クラスターやノードの設定、デバイスの接続、ドライバーのインストールなどのタスクを担当します。
@@ -66,7 +66,7 @@ DRAを使用したデバイス割り当てのためのワークフローには�
 
 ## {{% heading "whatsnext" %}}
 
-- [クラスターのDRAをセットアップする](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
+- [クラスターにDRAをセットアップする](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
 - [DRAを使用してワークロードにデバイスを割り当てる](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 - [DRAデバイスメタデータにアクセスする](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/)
 - 設計に関する詳細は、KEPの[構造化パラメーターを使用したDynamic Resource Allocation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)を参照してください。

@@ -15,14 +15,14 @@ api_metadata:
 
 <!-- overview -->
 
-このページでは、Dynamic Resource Allocation (DRA)がデバイスを分類、要求、割り当てを行うために使用するKubernetes API kindについて説明します。
+このページでは、Dynamic Resource Allocation(DRA)がデバイスの分類、要求、割り当てに使用するKubernetes APIの種類について説明します。
 
 <!-- body -->
 
 ## DRAの用語 {#terminology}
 
-DRAは、コアとなる割り当て機能を提供するために、次のKubernetes API kindを使用します。
-これらのAPI kindはすべて、`resource.k8s.io/v1` {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}に含まれています。
+DRAは、コアとなる割り当て機能を提供するために、次の種類のKubernetes APIを使用します。
+これらのAPIはすべて、`resource.k8s.io/v1` {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}に含まれています。
 
 DeviceClass
 : 要求可能なデバイスのカテゴリと、クレーム内で特定のデバイス属性を選択する方法を定義します。
@@ -50,10 +50,10 @@ ResourceSlice
 
 DeviceClassを使用すると、クラスター管理者またはデバイスドライバーは、クラスター内のデバイスのカテゴリを定義できます。
 DeviceClassは運用者に対して、どのデバイスを要求できるか、およびそれらのデバイスをどのように要求できるかを示します。
-[common expression language (CEL)](https://cel.dev)を使用すると、特定の属性に基づいてデバイスを選択できます。
+[common expression language(CEL)](https://cel.dev)を使用すると、特定の属性に基づいてデバイスを選択できます。
 DeviceClassを参照するResourceClaimは、そのDeviceClass内の特定の構成を要求できます。
 
-DeviceClassを作成する方法については、[クラスターのDRAをセットアップする](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)を参照してください。
+DeviceClassを作成する方法については、[クラスターにDRAをセットアップする](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)を参照してください。
 
 ### ResourceClaimsとResourceClaimTemplates {#resourceclaims-templates}
 
@@ -61,7 +61,7 @@ ResourceClaimは、ワークロードが必要とするリソースを定義し�
 すべてのResourceClaimは、DeviceClassを参照して、そのDeviceClassからデバイスを選択する _requests_ を持ちます。
 ResourceClaimは、特定の要件を満たすデバイスをフィルタリングするための _selectors_ や、要求を満たすことができるデバイスを制限するための _constraints_ を使用することもできます。
 ResourceClaimは、ワークロード運用者が作成することも、ResourceClaimTemplateに基づいてKubernetesが生成することもできます。
-ResourceClaimTemplateは、KubernetesがPodに対するResourceClaimを自動生成するために使用できるテンプレートを定義します。
+ResourceClaimTemplateは、KubernetesがPodに対するResourceClaimを自動生成するために使用可能なテンプレートを定義します。
 
 #### ResourceClaimとResourceClaimTemplateのユースケース {#when-to-use-rc-rct}
 
@@ -71,14 +71,14 @@ ResourceClaimTemplateは、KubernetesがPodに対するResourceClaimを自動生
   作成したResourceClaimのライフサイクルは、自分で管理します。
 * **ResourceClaimTemplate**: Podごとに、それぞれ独立した同じ構成のデバイスへのアクセスを持たせたい場合に使用します。
   Kubernetesは、ResourceClaimTemplateの仕様に基づいてResourceClaimを生成します。
-  生成された各ResourceClaimのライフサイクルは、対応するPodのライフサイクルに関連づけられます。
+  生成された各ResourceClaimのライフサイクルは、対応するPodのライフサイクルに関連付けられます。
 * [**PodGroup ResourceClaimTemplate**](#workload-resource-claims): {{< glossary_tooltip text="PodGroup" term_id="podgroup" >}}ごとにそれぞれ独立した同じ構成のデバイスへのアクセスを持たせ、PodGroupのPod間でデバイスを共有したい場合に使用します。
   Kubernetesは、ResourceClaimTemplateの定義に基づいて、PodGroupごとに1つのResourceClaimを生成します。
-  生成された各ResourceClaimのライフサイクルは、対応するPodGroupのライフサイクルに関連づけられます。
+  生成された各ResourceClaimのライフサイクルは、対応するPodGroupのライフサイクルに関連付けられます。
   これを使用するには、[`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)の機能を有効にする必要があります。
 
-ワークロードを定義する時は、特定のデバイス属性や容量に基づいたフィルタリングのために{{< glossary_tooltip term_id="cel" text="Common Expression Language (CEL)" >}}が使用できます。
-フィルタリングに使用できるパラメーターは、デバイスやドライバーによって異なります。
+ワークロードを定義する時は、特定のデバイス属性や容量に基づいた絞り込みのために{{< glossary_tooltip term_id="cel" text="Common Expression Language (CEL)" >}}を使用できます。
+絞り込みに使用できるパラメーターは、デバイスやドライバーによって異なります。
 
 Podから特定のResourceClaimを直接参照する場合、ResourceClaimはあらかじめPodと同じNamespaceに存在している必要があります。
 ResourceClaimがNamespaceに存在していない場合、Podはスケジュールされません。
@@ -99,8 +99,8 @@ ResourceClaimまたはResourceClaimTemplate内のrequestsには、サブリク�
 以下の例では、ResourceClaimTemplateは、黒色の大きなサイズのデバイスを要求しています。
 それらの属性を持つデバイスが利用できない場合、Podはスケジュールされません。
 優先度付きリストの機能を使用すると、第二候補として、白色で小さなサイズのデバイス2台を要求するサブリクエストを指定できます。
-サイズが大きい黒色のデバイスが利用可能な場合は、そのデバイスが割り当てられます。
-利用できない場合でも、サイズが小さい白色のデバイスが2台利用できれば、Podは引き続き実行できます。
+黒色の大きなサイズのデバイスが利用可能な場合は、そのデバイスが割り当てられます。
+利用できない場合でも、白色で小さなサイズのデバイスを2台利用できれば、Podは引き続き実行できます。
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -292,7 +292,7 @@ DeviceClassは、これらの属性を使用してこのResourceSliceを選択�
 #### 名前付けと優先度 {#resourceslice-naming-and-prioritization}
 
 Kubernetesスケジューラーが割り当て対象を評価する順番は、ResourceSlice名およびリソースプール名の辞書順によって決まります。
-スケジューラーは先頭一致戦略を採用しており、クレームの要件を満たす最初の利用可能なデバイスを選択します。
+スケジューラーはファーストフィット戦略を採用しており、クレームの要件を満たす最初の利用可能なデバイスを選択します。
 
 このため、プールとResourceSliceに付ける名前によって、リソース割り当ての優先度に影響を与えることができます。
 なお、[バインディング条件](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions)を持たないプールは、名前に関係なく、バインディング条件を持つプールよりも常に先に評価されることに注意してください。
@@ -366,7 +366,7 @@ device.attributes["dra.example.com"].supported-models.includes("model-c")  # fal
 - **`strings`** - 文字列のリスト(各文字列は最大64文字)
 - **`versions`** - semver.org spec 2.0.0に準拠したセマンティックバージョン文字列のリスト(各文字列は最大64文字)
 
-デバイス毎に指定できる各属性値の個数(スカラーフィールドとすべてのリスト要素の合計)は、**48個**までに制限されています。
+デバイス毎に指定できる属性値の総数(スカラーフィールドとすべてのリスト要素の合計)は、**48個**までに制限されています。
 ResourceSlice内のいずれかのデバイスがこの機能やtaintなどのその他の高度な機能を使用する場合、ResourceSliceに含めることができるデバイスは最大**64個**に制限されます。
 
 以下は、リスト型の文字列属性を使用して、複数のサポートされるモデルを公開するデバイスの例です:
@@ -469,7 +469,7 @@ DeviceClassには、拡張リソース名を指定できます。
 同じ拡張リソースは、1つのクラスターノード上では、デバイスプラグインまたはDRAのいずれかによって提供できます。
 同じ拡張リソースは、あるノード上ではデバイスプラグインによって、同じクラスターの他のノード上ではDRAによって提供できます。
 
-以下の例では、DeviceClassは`example.com/gpu`というextendedResourceNameによって与えられています。
+以下の例では、DeviceClassにextendedResourceNameとして`example.com/gpu`が指定されています。
 Podが拡張リソース`example.com/gpu: 2`を要求すると、DeviceClassに一致するデバイスを2つ以上持つノードにスケジューリングされます。
 
 ```yaml
