@@ -1092,6 +1092,54 @@ Starting in v1.17, this label is deprecated in favor of
 [topology.kubernetes.io/zone](#topologykubernetesiozone).
 {{< /note >}}
 
+### pod.alpha.kubernetes.io/init-containers (deprecated) {#pod-alpha-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.alpha.kubernetes.io/init-container-statuses (deprecated) {#pod-alpha-kubernetes-io-init-container-statuses}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to report the
+status of a Pod's init containers.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+`initContainerStatuses` field of Pod `.status`.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.beta.kubernetes.io/init-containers (deprecated) {#pod-beta-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during the beta stage of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.beta.kubernetes.io/init-container-statuses (deprecated) {#pod-beta-kubernetes-io-init-container-statuses}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during the beta stage of init containers to report the
+status of a Pod's init containers.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+`initContainerStatuses` field of Pod `.status`.
+The API server drops this annotation from any Pod on which it is set.
+
 ### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
 
 Type: Annotation
