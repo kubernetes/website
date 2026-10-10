@@ -89,6 +89,8 @@ required. The MutatingAdmissionPolicy will only be active if a corresponding
 binding exists with the referenced `spec.policyName` matching the `spec.name` of
 a policy.
 
+{{% code_sample language=yaml file="mutatingadmissionpolicy/applyconfiguration-example-binding.yaml" %}}
+
 Once the binding and policy are created, any resource request that matches the
 `spec.matchConditions` of a policy will trigger the set of mutations defined.
 
@@ -245,8 +247,8 @@ via the REST API, to prevent circular dependencies:
 
 * [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/" >}})
 * [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/" >}})
-* MutatingAdmissionPolicies
-* MutatingAdmissionPolicyBindings
+* [MutatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/mutating-admission-policy-v1/" >}})
+* [MutatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/mutating-admission-policy-binding-v1/" >}})
 
 {{< note >}}
 When configured via
