@@ -127,18 +127,71 @@ how.nice.to.look=fairlyNice
 ```
 
 The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/`
-directory are represented in the `data` section of the ConfigMap.
+directory are represented in the `data` section of the ConfigMap, which you can see more clearly
+in YAML format.
+
+{{< tabs name="configmap-get" >}}
+{{% tab name="KYAML" %}}
+<br/>
+
+Use `kubectl` to fetch and display the ConfigMap:
+
+```shell
+kubectl get configmaps game-config -o kyaml
+```
+
+&nbsp;  
+The output is similar to this:
+
+```yaml
+---
+{
+  apiVersion: "v1",
+  kind: "ConfigMap",
+  metadata: {
+    creationTimestamp: "2026-02-18T18:52:05Z",
+    name: "game-config",
+    namespace: "default",
+    resourceVersion: "516",
+    uid: "b4952dc3-d670-11e5-8cd0-68f728db1985",
+  },
+  data: {
+    game.properties: "\
+       enemies=aliens\n\
+       lives=3\n\
+       enemies.cheat=true\n\
+       enemies.cheat.level=noGoodRotten\n\
+       secret.code.passphrase=UUDDLRLRBABAS\n\
+       secret.code.allowed=true\n\
+       secret.code.lives=30\n\
+      ",
+    ui.properties: "\
+       color.good=purple\n\
+       color.bad=yellow\n\
+       allow.textmode=true\n\
+       how.nice.to.look=fairlyNice\n\
+      ",
+  },
+}
+```
+{{% /tab %}}
+{{% tab name="YAML" %}}
+<br/>
+
+Use `kubectl` to fetch and display the ConfigMap:
 
 ```shell
 kubectl get configmaps game-config -o yaml
 ```
+
+&nbsp;  
 The output is similar to this:
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  creationTimestamp: 2022-02-18T18:52:05Z
+  creationTimestamp: 2026-02-18T18:52:05Z
   name: game-config
   namespace: default
   resourceVersion: "516"
@@ -158,6 +211,9 @@ data:
     allow.textmode=true
     how.nice.to.look=fairlyNice
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 #### Create ConfigMaps from files
 
