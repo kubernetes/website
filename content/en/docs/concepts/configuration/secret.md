@@ -193,7 +193,7 @@ Pods.
 
 In Kubernetes v1.22 and later, the recommended approach is to obtain a
 short-lived, automatically rotating ServiceAccount token by using the
-[`TokenRequest`](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+[`TokenRequest`](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 API instead. You can get these short-lived tokens using the following methods:
 
 * Call the `TokenRequest` API either directly or by using an API client like
