@@ -8,14 +8,129 @@
   }
 }
 
-// Hidden in dropdowns, visible when cloned into the mobile push menu
-.dropdown-menu .lang-pushmenu-only {
-  display: none;
-}
-
 .td-sidebar-link__page {
   &#m-docs-test {
     display: none;
+  }
+}
+
+nav.foldable-nav {
+  &#td-section-nav {
+    position: relative;
+
+    label {
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .td-sidebar-nav__section-toggle {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      padding-block: 0;
+      padding-inline-end: 0;
+      text-align: start;
+      width: 100%;
+
+      &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: .125rem;
+      }
+    }
+
+    .ul-1 > li,
+    .with-child,
+    .without-child {
+      padding-inline-start: 0;
+    }
+
+    .with-child ul {
+      margin-inline-start: .75rem;
+    }
+
+    .ul-1 .with-child,
+    .ul-1 .without-child {
+      margin-block: .18rem;
+    }
+
+    .ul-1 .with-child > label,
+    .ul-1 .with-child > .td-sidebar-nav__section-toggle,
+    .ul-1 .without-child > label {
+      align-items: center;
+      display: flex;
+      min-height: 2.5rem;
+      padding-inline-start: 2.75rem;
+      position: relative;
+    }
+
+    .ul-1 .with-child > label::before {
+      align-items: center;
+      background: transparent;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: inline-flex;
+      height: 2.25rem;
+      justify-content: center;
+      inset-inline-start: 0;
+      padding: 0;
+      top: .125rem;
+      transition:
+        background-color .15s ease,
+        border-color .15s ease,
+        color .15s ease,
+        transform .2s ease;
+      width: 2.25rem;
+    }
+
+    .ul-1 .with-child > .td-sidebar-nav__section-toggle > .td-sidebar-nav__section-toggle-icon {
+      align-items: center;
+      background: transparent;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: inline-flex;
+      height: 2.25rem;
+      justify-content: center;
+      inset-inline-start: 0;
+      position: absolute;
+      top: .125rem;
+      transition:
+        background-color .15s ease,
+        border-color .15s ease,
+        color .15s ease,
+        transform .2s ease;
+      width: 2.25rem;
+    }
+
+    .ul-1 .with-child > label:hover::before,
+    .ul-1 .with-child > label:focus-within::before {
+      border-color: $primary;
+      color: $primary;
+    }
+
+    .ul-1 .with-child > .td-sidebar-nav__section-toggle:hover > .td-sidebar-nav__section-toggle-icon,
+    .ul-1 .with-child > .td-sidebar-nav__section-toggle:focus-visible > .td-sidebar-nav__section-toggle-icon {
+      border-color: $primary;
+      color: $primary;
+    }
+
+    // Highlight and rotate the disclosure control when its section is expanded.
+    .ul-1 .with-child > input:checked ~ label::before {
+      background: rgba($primary, .1);
+      border-color: $primary;
+      color: $primary;
+      transform: rotate(90deg);
+    }
+
+    .ul-1 .with-child > .td-sidebar-nav__section-toggle[aria-expanded="true"] > .td-sidebar-nav__section-toggle-icon {
+      background: rgba($primary, .1);
+      border-color: $primary;
+      color: $primary;
+      transform: rotate(90deg);
+    }
   }
 }
 
