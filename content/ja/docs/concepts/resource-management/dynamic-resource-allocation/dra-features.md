@@ -22,14 +22,14 @@ DRAで表現されるデバイスは、必ずしも単一のマシンに接続�
 ResourceSlice APIでは、これは名前付きCounterSetのリストとして表現され、それぞれには名前付きのカウンターのセットが含まれます。
 カウンターは、DRAを通じて公開される論理デバイスによって使用される、物理デバイス上で利用可能なリソースを表します。
 
-論理デバイスは、ConsumesCounterのリストを指定できます。
+論理デバイスは、ConsumesCountersリストを指定できます。
 各エントリにはCounterSetへの参照と、それらが消費する量を示す名前付きのカウンターのセットが含まれます。
-そのため、デバイスを割り当て可能にするには、参照カウンターのセットは、そのデバイスによって参照されるカウンターに対して十分な量が存在している必要があります。
+そのため、デバイスを割り当て可能にするには、参照先のカウンターのセットは、そのデバイスによって参照されるカウンターに対して十分な量が存在している必要があります。
 
 CounterSetはデバイスとは別のResourceSliceで指定する必要があります。
 デバイスは、デバイスと同じリソースプール内で定義された任意のCounterSetからカウンターを消費できます。
 
-以下は、共有カウンターの8GiBのメモリから、それぞれ6GiBを消費するデバイスの例です。
+以下は、共有カウンターの8GiBのメモリから、それぞれ6GiBを消費する2つのデバイスの例です。
 このため、ある時点で割り当て可能なのはどちらか一方のデバイスだけです。
 スケジューラーがこの処理を行うため、ResourceClaim APIには影響せず、利用者から見ると透過的です。
 
@@ -280,7 +280,7 @@ status:
         shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
 ```
 
-この例では、複数の割り当て可能なデバイスが選択されています。
+この例では、複数割り当てが可能なデバイスが選択されています。
 ただし、要求された1Gの帯域幅以上を持つ任意の`resource.example.com`デバイスがあれば、要件を満たすことができました。
 複数割り当てができないデバイスが選択された場合、デバイス全体が割り当てられます。
 複数割り当てが可能なデバイスだけを使用するよう強制するには、CEL条件`device.allowMultipleAllocations == true`が使用できます。
@@ -320,7 +320,7 @@ Dynamic Resource Allocation (DRA)では、`kubelet`がノードローカルの�
 ### ドライバー設定 {#driver-configuration}
 
 ドライバーの作成者は、ResourceSliceの`.spec.skipNodeOperations`に`skipNodeOperations`フィールドを指定できます。
-このフィールドは、そのスライス内のすべてのデバイスをバイパスするノードローカルの操作を指定する、一意な文字列のリストです。
+このフィールドは、そのスライス内のすべてのデバイスがバイパスするノードローカルの操作を指定する、一意な文字列のリストです。
 
 有効な値は次の通りです:
 
@@ -381,9 +381,9 @@ ResourceClaim内で与えられたドライバーに対して割り当てられ�
 ドライバーのノード操作に関する要件がインプレースで更新された場合(例えば、ノード操作を必要とする設定からスキップする設定に変更した場合)、既存のクレームは引き続き以前の設定を使用します。
 廃止となったノードプラグインを待ち続けることで、終了中のPodが固まるといった問題を回避するために、クラスター管理者は、ノード操作に関する要件を変更したり、ノードローカルドライバーのDaemonSetを削除したりする前に、そのドライバーに対するアクティブなクレームが存在していないことを確認する必要があります。
 
-#### Node宣言の機能との統合 {#node-declared-features-integration}
+#### Node Declared Featuresとの統合 {#node-declared-features-integration}
 
-`kubelet`がDRA操作のスキップをサポートしていない(これは`kubelet`が存在しないノードプラグインを待機して失敗する原因となる)ノードにPodがスケジュールされるのを防ぐために、この機能は[ノード宣言](/docs/concepts/scheduling-eviction/node-declared-features/)の機能と統合されています。
+`kubelet`がDRA操作のスキップをサポートしていない(これは`kubelet`が存在しないノードプラグインを待機して失敗する原因となる)ノードにPodがスケジュールされるのを防ぐために、この機能は[Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)と統合されています。
 Podが`skipNodeOperations`を設定したResourceClaimを使用すると、Kubernetesのスケジューラーは、Podをスケジュールする前に、対象ノードの`.status.declaredFeatures`にて`DRAOptionalNodeOperations`の機能がサポートされているか確認します。
 
 オプションのノード操作は、`kube-apiserver`、`kube-scheduler`、および`kubelet`の[`DRAOptionalNodeOperations`](/docs/reference/command-line-tools-reference/feature-gates/#DRAOptionalNodeOperations)フィーチャーゲートによって制御されます。

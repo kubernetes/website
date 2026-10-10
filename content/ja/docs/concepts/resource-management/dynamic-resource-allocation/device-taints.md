@@ -42,12 +42,12 @@ tolerationは、特定の効果に限定したり、特定のキーと値の組�
 tolerationでは、値に関係なく特定のキーが存在することを確認したり、キーの特定の値をチェックすることができます。
 このマッチングについての詳細は、[ノードのtaintに関するコンセプト](/docs/concepts/scheduling-eviction/taint-and-toleration#concepts)を参照してください。
 
-特定の期間にわたってtaintを許可することで、退避を遅延させることができます。
+特定の期間にわたってtaintを許容することで、退避を遅延させることができます。
 この遅延は、デバイスにtaintが追加された時点から開始され、taintのフィールドに記録されます。
 
 上で説明した通り、taintはノード上の"すべて"のデバイスを割り当てるResourceClaimにも適用されます。
 すべてのデバイスにtaintがついていないか、すべてのtaintが許容されている必要があります。
-管理者アクセスを使用してデバイスを割り当てる場合([前述](#admin-access))も例外ではありません。
+管理者アクセスを使用してデバイスを割り当てる場合([前述](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access))も例外ではありません。
 このモードを使用する管理者がtaintされたデバイスにアクセスするためには、すべてのtaintを明示的に許容する必要があります。
 
 DeviceTaintRule API kindを使用して、次のようにデバイスにtaintを追加できます。
