@@ -212,6 +212,22 @@ includes some cached (file-backed) memory, because the host OS cannot always rec
 To learn more about how Kubernetes allocates and measures memory resources, see
 [meaning of memory](/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory).
 
+#### Container memory metrics
+
+The Metrics API reports memory as the working set. This value is useful for Kubernetes autoscaling and
+`kubectl top`, but it is not the same as every `container_memory_*` metric you may see from cAdvisor
+or Prometheus.
+
+For example, cAdvisor exposes metrics such as `container_memory_usage_bytes`,
+`container_memory_working_set_bytes`, `container_memory_rss`, `container_memory_cache`,
+`container_memory_mapped_file`, `container_memory_swap`, and `container_memory_max_usage_bytes`.
+These metrics describe different views of container memory, such as total usage, working set,
+resident memory, file cache, mapped files, swap, and maximum recorded usage. They should not be
+treated as synonyms.
+
+For detailed metric definitions, see the
+[cAdvisor Prometheus metrics documentation](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md).
+
 ## Metrics Server
 
 The metrics-server fetches resource metrics from the kubelets and exposes them in the Kubernetes
