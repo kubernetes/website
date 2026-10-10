@@ -23,20 +23,62 @@
 {{ if not ($.Scratch.Get "content") }}
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
-{{ $filename := printf ($.Scratch.Get "filename") | safeURL }}
-{{ $ghlink := printf "https://%s/%s%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) $filename | safeURL }}
+{{/* The dialects an example can be offered in besides the conventional YAML it
+     is written as, from params.codeSampleDialects in hugo.toml. Configuring one
+     and generating for it are separate: nothing here changes a page until a
+     generator has left renderings in content/<lang>/examples-<name>. */}}
+{{ $alternates := slice }}
+{{ range site.Params.codeSampleDialects }}
+{{/* Whether a rendering exists is the whole question here, so the shortcode and
+     the generator cannot disagree about which examples offer a choice. Deriving
+     the path from the manifest actually read keeps a localized page off a
+     rendering derived from a different translation. */}}
+{{ $altName := replaceRE "^(/content/[^/]+)/examples/" (printf "${1}/examples-%s/" .name) ($.Scratch.Get "filename") }}
+{{ if fileExists $altName }}
+{{ $altContent := readFile $altName }}
+{{/* A reader copies whichever tab is on screen, so every rendering has to
+     describe what the manifest describes, document for document. */}}
+{{/* The key is the path actually read, not the shortcode's argument, so that
+     two languages holding a manifest of the same name do not share one
+     temporary resource. */}}
+{{ $sourceObjects := partial "code-sample-objects.html" (dict "key" ($.Scratch.Get "filename") "content" ($.Scratch.Get "content")) }}
+{{ $altObjects := partial "code-sample-objects.html" (dict "key" (printf "%s-%s" ($.Scratch.Get "filename") .name) "content" $altContent) }}
+{{ if ne $sourceObjects $altObjects }}
+{{ errorf "%s and its %s rendering in %s describe different objects; regenerate with: make %s" ($.Scratch.Get "filename") .label $altName .name }}
+{{ end }}
+{{ $alternates = $alternates | append (merge . (dict "content" $altContent "path" $altName)) }}
+{{ end }}
+{{ end }}
+{{ $ghbase := printf "https://%s/%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) }}
+{{ $ghlink := printf "%s%s" $ghbase ($.Scratch.Get "filename") }}
 {{ with $.Scratch.Get "content" }}
-<div class="highlight code-sample">
-    <div class="copy-code-icon">
-    {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
-    {{ if $ghlink }}</a>{{ end }}
-    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" $file) -}}
-    {{- with resources.Get "images/copycode.svg" -}}
-    <img src="{{  .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $file | anchorize }}')" title="{{ $copyTitle }}"></img>
-    {{- end -}}
-    </div>
-    <div class="includecode" id="{{ $file | anchorize }}">
-       {{- highlight . $codelang $opts -}}
-    </div>
-</div>
+{{/* The ordinal keeps the ids apart when one page shows the same example twice:
+     without it both tabs would target the first pane. */}}
+{{ $anchor := printf "%s-%d" ($file | anchorize) $.Ordinal }}
+{{ $yamlPane := dict "file" $file "content" . "codelang" $codelang "options" $opts "ghlink" $ghlink "id" $anchor }}
+{{ if $alternates }}
+{{/* The tabs are the site's own, from layouts/partials/tabs.html, so a dialect
+     chosen here is remembered the way every other tab choice on the site is:
+     the persistence key is the dialect's name, so picking one picks it for every
+     other example and the choice survives to the next page. Without JavaScript
+     the first tab, conventional YAML, is the one shown. */}}
+{{ $tabs := slice (dict "label" "YAML" "persist" "yaml" "content" (partial "code-sample-pane.html" $yamlPane)) }}
+{{ range $alternates }}
+{{ $tabs = $tabs | append (dict "label" .label "persist" .name "content" (partial "code-sample-pane.html" (merge $yamlPane (dict
+     "content" .content
+     "codelang" (default $codelang .codelang)
+     "ghlink" (printf "%s%s" $ghbase .path)
+     "id" (printf "%s-%s" $anchor .name))))) }}
+{{ end }}
+{{/* tabindex "0", because the manifest inside scrolls sideways and a scrollable
+     region a keyboard cannot reach is a trap. */}}
+{{ partial "tabs.html" (dict
+     "id" $anchor
+     "ariaLabel" (T "code_sample_dialect_group")
+     "paneClass" ""
+     "tabindex" "0"
+     "tabs" $tabs) }}
+{{ else }}
+{{ partial "code-sample-pane.html" $yamlPane }}
+{{ end }}
 {{- end -}}
