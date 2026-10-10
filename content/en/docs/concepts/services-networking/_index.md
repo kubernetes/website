@@ -48,6 +48,9 @@ The Kubernetes network model is built out of several pieces:
 * The [Gateway](/docs/concepts/services-networking/gateway/) API
   (or its predecessor, [Ingress](/docs/concepts/services-networking/ingress/))
   allows you to make Services accessible to clients that are outside the cluster.
+  Gateway API is the recommended successor to the Ingress API: it supports the
+  same core use cases and adds role-oriented configuration, advanced traffic
+  routing, and other features that Ingress only provides through annotations.
 
   * A simpler, but less-configurable, mechanism for cluster
     ingress is available via the Service API's
