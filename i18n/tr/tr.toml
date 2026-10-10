@@ -1,0 +1,248 @@
+# i18n strings for the Turkish site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "Dikkat: "
+
+[cleanup_heading]
+other = "Temizleme"
+
+[community_events_calendar]
+other = "Etkinlik Takvimi"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter / X"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_warning]
+other = " dokümantasyonu artık güncellenmemektedir. Görüntülemekte olduğunuz sürüm arşivlenmiştir. En güncel sürüm için bkz. "
+
+[deprecation_file_warning]
+other = "Kullanımdan Kaldırıldı (Deprecated)"
+
+[docs_label_browse]
+other = "Belgeleri İnceleyin"
+
+[docs_label_contributors]
+other = "Katkıda Bulunanlar"
+
+[docs_label_i_am]
+other = "Ben bir..."
+
+[docs_label_users]
+other = "Kullanıcılar"
+
+[docs_version_current]
+other = "(bu dokümantasyon)"
+
+[docs_version_latest_heading]
+other = "En Son Sürüm"
+
+[docs_version_other_heading]
+other = "Önceki Sürümler"
+
+[feedback_heading]
+other = "Geri Bildirim"
+
+[feedback_no]
+other = "Hayır"
+
+[feedback_question]
+other = "Bu sayfa yararlı oldu mu?"
+
+[feedback_yes]
+other = "Evet"
+
+[footer_privacy_policy]
+other = "Gizlilik Politikası"
+
+[input_placeholder_email_address]
+other = "e-posta adresi"
+
+[latest_version]
+other = "en son sürüm."
+
+[layouts_blog_pager_prev]
+other = "<< Önceki"
+
+[layouts_blog_pager_next]
+other = "Sonraki >>"
+
+[layouts_case_studies_list_tell]
+other = "Kendi başarı hikayenizi paylaşın"
+
+[layouts_docs_glossary_aka]
+other = "Ayrıca şöyle bilinir"
+
+[layouts_docs_glossary_description]
+other = "Bu sözlük, Kubernetes genelinde kullanılan terminolojiyi standartlaştırmayı amaçlar. Kubernetes'e özgü teknik kavramların yanı sıra bağlam sağlayan genel terimleri de içerir."
+
+[layouts_docs_glossary_deselect_all]
+other = "Tüm seçimleri kaldır"
+
+[layouts_docs_glossary_click_details_after]
+other = "tıklayarak bu terimin anlamına ulaşabilirsiniz."
+
+[layouts_docs_glossary_click_details_before]
+other = "Simgeye"
+
+[layouts_docs_glossary_filter]
+other = "Terimleri etiketlerine göre filtreleyin"
+
+[layouts_docs_glossary_select_all]
+other = "Tümünü seç"
+
+[layouts_docs_partials_feedback_improvement]
+other = "iyileştirme önerisinde bulunabilirsiniz"
+
+[layouts_docs_partials_feedback_issue]
+other = "GitHub üzerinde bir sorun (issue) açarak "
+
+[layouts_docs_partials_feedback_or]
+other = "veya"
+
+[layouts_docs_partials_feedback_problem]
+other = "bir problem bildirebilirsiniz"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Geri bildiriminiz için teşekkürler. Kubernetes hakkında teknik bir sorunuz varsa topluluğumuza danışın:"
+
+[layouts_docs_search_fetching]
+other = "Sonuçlar yükleniyor..."
+
+[main_by]
+other = "tarafından"
+
+[main_cncf_project]
+other = """Kubernetes bir <a href="https://cncf.io/">CNCF</a> projesidir.</p>"""
+
+[main_community_explore]
+other = "Topluluğu Keşfedin"
+
+[main_contribute]
+other = "Katkıda Bulun"
+
+[main_copyright_notice]
+other = """Telif Hakkı &copy; Kubernetes bir LF Projects, LLC serisidir. Web sitesi kullanım koşulları, ticari marka ve diğer proje politikaları için bkz. <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
+
+[main_documentation_license]
+other = """Kubernetes Yazarları | Dokümantasyon <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> ile lisanslanmıştır"""
+
+[main_edit_this_page]
+other = "Bu Sayfayı Düzenle"
+
+[main_github_create_an_issue]
+other = "Sorun Bildir"
+
+[main_github_invite]
+other = "Kubernetes'e katkıda bulunmak ister misiniz?"
+
+[main_github_view_on]
+other = "GitHub'da Görüntüle"
+
+[main_kubernetes_features]
+other = "Kubernetes Özellikleri"
+
+[main_kubeweekly_baseline]
+other = "En son Kubernetes haberlerini almak ister misiniz? KubeWeekly bültenine kaydolun."
+
+[main_kubeweekly_past_link]
+other = "Geçmiş bülten sayılarını inceleyin"
+
+[main_kubeweekly_signup]
+other = "Abone Ol"
+
+[main_page_history]
+other = "Sayfa Geçmişi"
+
+[main_page_last_modified_on]
+other = "Son güncelleme tarihi"
+
+[main_read_about]
+other = "Hakkında bilgi edinin"
+
+[main_read_more]
+other = "Daha Fazlasını Oku"
+
+[nav_blog]
+other = "Blog"
+
+[nav_community]
+other = "Topluluk"
+
+[nav_docs]
+other = "Dokümantasyon"
+
+[nav_partners]
+other = "İş Ortakları"
+
+[nav_training]
+other = "Eğitim"
+
+[note]
+other = "Not:"
+
+[objectives_heading]
+other = "Hedefler"
+
+[post_create_child_page]
+other = "Alt sayfa oluştur"
+
+[post_create_issue]
+other = "Sorun bildir"
+
+[post_create_project_issue]
+other = "Dokümantasyon sorunu bildir"
+
+[post_edit_this_page]
+other = "Bu sayfayı düzenle"
+
+[prerequisites_heading]
+other = "Başlamadan Önce"
+
+[subscribe_button]
+other = "Abone Ol"
+
+[theme_locked_notice]
+other = "Bu sayfa için tema sabitlenmiştir"
+
+[ui_back_to_top]
+other = "Başa dön"
+
+[ui_read_more]
+other = "Daha Fazla Bilgi..."
+
+[ui_search]
+other = "Ara"
+
+[version_check_mustbe]
+other = "Kubernetes kurulumunuz şu sürümde olmalıdır: "
+
+[version_check_mustbeorlater]
+other = "Kubernetes kurulumunuz en az şu sürümde olmalıdır: "
+
+[version_check_tocheck]
+other = "Sürümü kontrol etmek için şu komutu çalıştırın: "
+
+[warning]
+other = "Uyarı:"
+
+[whatsnext_heading]
+other = "Sırada Ne Var?"
