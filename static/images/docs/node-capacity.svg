@@ -1,0 +1,27 @@
+<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <title>background</title>
+        <rect x="-1" y="-1" width="506.34798" height="349.82619" id="canvas_background" fill="#fff" opacity="0"/>
+        <g id="canvasGrid" display="none">
+            <rect opacity="0" id="svg_4" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
+        </g>
+    </g>
+    <g>
+        <title>Layer 1</title>
+        <rect fill="#326ce5" stroke="#000" stroke-width="1.5" x="126.27611" y="84.45079" width="336.49766" height="242.99831" id="svg_1"/>
+        <rect fill="#DDDDDD" stroke-width="0.5" x="127.2761" y="261.05662" width="95.3" height="66" id="svg_2" stroke="#000"/>
+        <rect fill="#BBBBBB" stroke-opacity="null" x="222.4421" y="261.28292" width="108.3" height="66" id="svg_3" stroke="#000"/>
+        <rect fill="#ffffff" stroke-width="0.5" stroke-opacity="null" x="330.77469" y="261.28292" width="131" height="66" id="svg_5" stroke="#000"/>
+        <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="126.25112" y="28.72775" id="svg_6" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(3.8729541301727295,0,0,0.698510413795276,-358.40104965794853,12.1371268265946) " stroke="#000"/>
+        <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="96.33037" y="92.52907" id="svg_9" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.6039765318373469,0,0,0.6213608286284256,43.920523540443796,7.5797796894100635) " stroke="#000">Node Capacity</text>
+        <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="146.65172" y="483.69046" id="svg_10" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.5187438936507338,0,0,0.5165904901211577,58.14778751529779,47.720737964149194) " stroke="#000">kube-reserved</text>
+        <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="333.31931" y="486.27149" id="svg_11" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.5187438936507338,0,0,0.5165904901211577,58.14778751529779,47.720737964149194) " stroke="#000">system-reserved</text>
+        <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="559.50522" y="487.562" id="svg_12" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.5187438936507338,0,0,0.5165904901211577,58.14778751529779,47.720737964149194) " stroke="#000">eviction-threshold</text>
+        <text fill="#ffffff" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="246.31519" y="182.62777" id="svg_14" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.8530217831379474,0,0,0.8530217831379474,32.26513711483058,11.272510077186126) " stroke="#000">allocatable</text>
+        <text fill="#ffffff" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="191.56677" y="217.51295" id="svg_15" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.6610298739213645,0,0,0.6148439389614191,97.43948566238379,61.05811172356589) " stroke="#000">(available for pods)</text>
+        <line fill="none" stroke="#000" stroke-width="null" stroke-opacity="null" fill-opacity="null" x1="221.6918" y1="348.02537" x2="222.35847" y2="348.02537" id="svg_19" transform="rotate(0.9628710746765137 222.02513122558057,348.0253906249988) "/>
+        <line stroke="#000" stroke-linecap="square" id="svg_8" y2="261.50152" x2="462.85834" y1="261.50152" x1="125.8955" fill-opacity="null" stroke-opacity="null" fill="none"/>
+        <line stroke="#000" stroke-linecap="square" id="svg_13" y2="328.33922" x2="331.2413" y1="261.98921" x1="331.2413" fill-opacity="null" stroke-opacity="null" fill="none"/>
+        <line stroke="#000" stroke-linecap="square" id="svg_17" y2="327.36391" x2="222.00652" y1="261.50155" x1="222.00652" fill-opacity="null" stroke-opacity="null" fill="none"/>
+    </g>
+</svg>

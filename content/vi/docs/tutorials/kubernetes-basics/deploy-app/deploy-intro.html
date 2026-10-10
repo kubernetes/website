@@ -1,0 +1,110 @@
+---
+title: Sử dụng kubectl để triển khai ứng dụng
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <h3>Mục tiêu</h3>
+                <ul>
+                    <li>Tìm hiểu về triển khai ứng dụng (Deployment).</li>
+                    <li>Triển khai ứng dụng đầu tiên của bạn trên Kubernetes với kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Kubernetes Deployments</h3>
+                <p>
+                Giả sử bạn đã có một Kubernetes cluster đang hoạt động, bạn có thể triển khai ứng dụng của bạn trên cluster này. Để thực hiện điều đó, bạn cần tạo một kịch bản triển khai (Deployment). Kịch bản này sẽ giúp Kubernetes có thể tạo và cập nhật các phiên bản chạy (instances) của ứng dụng của bạn. Sau khi một kịch bản triển khai được tạo ra trong Kubernetes, node Master sẽ lập lịch để khởi chạy ứng dụng của bạn trên các Node của cluster.
+                </p>
+
+                <p>Sau khi ứng dụng của bạn được khởi chạy trên các Node của cluster, Kubernetes sẽ tiếp tục theo dõi các chương trình đang chạy (instances) này. Nếu một Node đang chạy một instance của ứng dụng của bạn gặp trục trặc hoặc bị xóa khỏi cluster, Kubernetes sẽ thay thế instance đó bằng cách khởi chạy một instance mới trên một Node khác của cluster. <b>Đây là cơ chế tự phục hồi (self-healing) khi có lỗi xảy ra hoặc khi một Node nào đó cần được bảo trì.</b></p>
+
+                <p>Ở thời điểm trước Kubernetes, các ứng dụng thường được khởi chạy thông qua các bộ tool cài đặt (installation scripts), nhưng chúng hầu như không thể hỗ trợ việc phục hồi khi có lỗi xảy ra với một máy tính trong cluster. Bằng cách khởi chạy các instances của ứng dụng trên nhiều Node xuyên suốt cluster, Kubernetes về cơ bản đã cho thấy một cách tiếp cận rất khác biệt về việc quản lý các ứng dụng. </p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Tổng kết:</h3>
+                    <ul>
+                        <li>Deployments</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Một kịch bản triển khai (Deployment) là một tập hợp các thao tác làm nhiệm vụ khởi chạy ứng dụng của bạn và theo dõi cập nhật các instances của ứng dụng trên phạm vi toàn cluster
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Triển khai ứng dụng đầu tiên của bạn trên Kubernetes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Bạn có thể tạo ra và quản lý các kịch bản triển khai (Deployment) thông qua giao diện dòng lệnh của Kubernetes với <b>Kubectl</b>. Kubectl sử dụng Kubernetes API để tương tác với cluster. Ở bài hướng dẫn này, bạn sẽ tìm hiểu các câu lệnh cơ bản nhất của Kubectl cần thiết để triển khai ứng dụng của bạn trên một Kubernetes cluster.</p>
+
+                <p>Khi tạo một kịch bản triển khai (Deployment), bạn cần chỉ ra một tệp Container Image chứa ứng dụng của bạn và số lượng bản sao (replicas) của ứng dụng bạn muốn chạy. Bạn hoàn toàn có thể thay đổi các thông số này bằng cách cập nhật kịch bản triển khai sau thông qua Module <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> và <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> của tập hướng dẫn cách cập nhật các Deployments.</p>
+
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Các ứng dụng phải được đóng gói trong một định dạng Container được hỗ trợ bởi Kubernetes để có thể triển khai trên hệ thống này </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+              <p>
+                Về ứng dụng dầu tiên của bạn, nó sẽ là một ứng dụng Node.js được đóng gói trong một Docker container. (Nếu bạn chưa biết cách tạo một ứng dụng Node.js và đóng gói dưới dạng Container, vui lòng theo dõi hướng dẫn tại địa chỉ <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>).
+              <p>
+              
+               <p>Giờ bạn đã biết kịch bản triển khai (Deployment) là gì, hãy bắt đầu triển khai ứng dụng đầu tiên của bạn!</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Bắt đầu hướng dẫn tương tác <span class="btn__next">\u203a</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+Cette fonctionnalité est actuellement dans un état *beta*, c'est-à-dire :
+
+* Les noms de version contiennent: beta (par ex. v2beta3).
+* Le code est bien testé. L'activation de cette fonctionnalité est considérée comme sûre. Elle est activée par défaut.
+* La prise en charge de l'ensemble de la fonctionnalité ne sera pas supprimée, bien que des détails puissent changer.
+* Le schéma et/ou la sémantique des objets peuvent changer de manière incompatible dans une version bêta ou stable ultérieure. Lorsque cela se produira, nous vous fournirons des instructions pour migrer vers la prochaine version. Cela peut nécessiter la suppression, l'édition et la recréation d'objets API. Le processus de changement de version peut nécessiter une certaine réflexion. Cela peut aussi nécessiter une interruption de service pour les applications qui s'appuient sur cette fonctionnalité.
+* Recommandé uniquement pour les utilisations non critiques en raison du risque de changements incompatibles dans les versions ultérieures. Si vous avez plusieurs clusters qui peuvent être mis à niveau indépendamment, vous pouvez assouplir cette restriction.
+* Donnez votre avis sur cette fonctionnalité bêta ! Une fois qu'elle aura quitté la version bêta, ce sera probablement moins évident pour nous d'apporter d'autres changements.

@@ -1,0 +1,187 @@
+---
+title: 案例研究：Ygrene
+linkTitle: Ygrene
+case_study_styles: true
+cid: caseStudies
+logo: ygrene_featured_logo.png
+featured: true
+weight: 48
+quote: >
+  我们必须改变一些实践和代码，以及构建的方式，但我们能够在一个月左右的时间内将我们的主要系统安装到 Kubernetes 上，然后在两个月内投入生产。这对于金融公司来说是非常快的。
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ygrene/banner1.jpg
+heading_title_logo: /images/ygrene_logo.png
+subheading: >
+  Ygrene: 使用原生云为金融行业带来安全性和可扩展性
+case_study_details:
+  - 公司: Ygrene
+  - 地点: Petaluma， Calif
+  - 行业: 清洁能源融资
+---
+<!-- 
+title: Ygrene Case Study
+linkTitle: Ygrene
+case_study_styles: true
+cid: caseStudies
+logo: ygrene_featured_logo.png
+featured: true
+weight: 48
+quote: >
+  We had to change some practices and code, and the way things were built, but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ygrene/banner1.jpg
+heading_title_logo: /images/ygrene_logo.png
+subheading: >
+  Ygrene: Using Cloud Native to Bring Security and Scalability to the Finance Industry
+case_study_details:
+  - Company: Ygrene
+  - Location: Petaluma, Calif.
+  - Industry: Clean energy financing 
+-->
+
+<!--
+<h2>Challenges</h2>
+-->
+<h2>挑战</h2>
+
+<!-- 
+<p>A PACE (Property Assessed Clean Energy) financing company, Ygrene has funded more than $1 billion in loans since 2010. In order to approve and process those loans, "We have lots of data sources that are being aggregated, and we also have lots of systems that need to churn on that data," says Ygrene Development Manager Austin Adams. The company was utilizing massive servers, and "we just reached the limit of being able to scale them vertically. We had a really unstable system that became overwhelmed with requests just for doing background data processing in real time. The performance the users saw was very poor. We needed a solution that wouldn't require us to make huge refactors to the code base." As a finance company, Ygrene also needed to ensure that they were shipping their applications securely.</p> 
+-->
+<p>作为一家 PACE（清洁能源资产评估）融资公司，Ygrene 自 2010 年以来已经为超过 10 亿的贷款提供资金。为了批准和处理这些贷款，“我们有很多正在聚合的数据源，而且我们也有许多系统需要对这些数据进行改动，”Ygrene 开发经理 Austin Adams 说。该公司正在使用大量服务器，“我们刚刚达到能够垂直扩展它们的极限。我们有一个非常不稳定的系统，它变得不知所措，要求只是做后台数据处理的实时。用户看到的性能很差。我们需要一个解决方案，不需要我们对代码库进行大量重构。作为一家金融公司，Ygrene 还需要确保他们安全地传输应用程序。”</p>
+
+<!-- 
+<h2>Solution</h2>
+-->
+<h2>解决方案</h2>
+
+<!-- 
+<p>Moving from an Engine Yard platform and Amazon Elastic Beanstalk, the Ygrene team embraced cloud native technologies and practices: <a href="https://kubernetes.io/">Kubernetes</a> to help scale out vertically and distribute workloads, <a href="https://github.com/theupdateframework/notary">Notary</a> to put in build-time controls and get trust on the Docker images being used with third-party dependencies, and <a href="https://www.fluentd.org/">Fluentd</a> for "observing every part of our stack," all running on <a href="https://aws.amazon.com/ec2/spot/">Amazon EC2 Spot</a>.</p>
+-->
+<p>从 Engine Yard 和 Amazon Elastic Beanstalk 上迁移了应用后，Ygrene 团队采用云原生技术和实践：使用<a href="https://kubernetes.io/"> Kubernetes </a>来帮助垂直扩展和分配工作负载，使用<a href="https://github.com/theupdateframework/notary"> Notary </a>加入构建时间控制和获取使用第三方依赖的可信赖 Docker 镜像，使用<a href="https://www.fluentd.org/"> Fluentd </a>“掌握堆栈中的所有情况”，这些都运行在 <a href="https://aws.amazon.com/ec2/spot/"> Amazon EC2 Spot </a>上。</p>
+
+<!--
+<h2>Impact</h2>
+-->
+<h2>影响</h2>
+
+<!--
+<p>Before, deployments typically took three to four hours, and two or three months' worth of work would be deployed at low-traffic times every week or two weeks. Now, they take five minutes for Kubernetes, and an hour for the overall deploy with smoke testing. And "we're able to deploy three or four times a week, with just one week's or two days' worth of work," Adams says. "We're deploying during the work week, in the daytime and without any downtime. We had to ask for business approval to take the systems down, even in the middle of the night, because people could be doing loans. Now we can deploy, ship code, and migrate databases, all without taking the system down. The company gets new features without worrying that some business will be lost or delayed." Additionally, by using the kops project, Ygrene can now run its Kubernetes clusters with AWS EC2 Spot, at a tenth of the previous cost. These cloud native technologies have "changed the game for scalability, observability, and security—we're adding new data sources that are very secure," says Adams. "Without Kubernetes, Notary, and Fluentd, we couldn't tell our investors and team members that we knew what was going on."</p>
+-->
+<p>以前，部署通常需要三到四个小时，而且每周或每两周要把一些两三个月工作量的任务在系统占用低的时候进行部署。现在，他们用 5 分钟来配置 Kubernetes，然后用一个小时进行整体部署与烟雾测试。Adams 说：“我们每周可以部署三到四次，只需一周或两天的工作量。”“我们在工作周、白天的任意时间进行部署，甚至不需要停机。以前我们不得不请求企业批准，以关闭系统，因为即使在半夜，人们也可能正在访问服务。现在，我们可以部署、上传代码和迁移数据库，而无需关闭系统。公司获得新功能，而不必担心某些业务会丢失或延迟。”此外，通过使用 kops 项目，Ygrene 现在可以用以前成本的十分之一使用 AWS EC2 Spot 运行其 Kubernetes 集群。Adams 说，这些云原生技术“改变了可扩展性、可观察性和安全性（我们正在添加新的非常安全的数据源）的游戏。”“没有 Kubernetes、Notary 和 Fluent，我们就无法告诉投资者和团队成员，我们知道刚刚发生了什么事情。”</p>
+
+<!--
+{{< case-studies/quote author="Austin Adams, Development Manager, Ygrene Energy Fund" >}}
+"CNCF projects are helping Ygrene determine the security and observability standards for the entire PACE industry. We're an emerging finance industry, and without these projects, especially Kubernetes, we couldn't be the industry leader that we are today."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote author="Austin Adams, Ygrene 能源基金会开发经理" >}}
+“CNCF 项目正在帮助 Ygrene 确定整个 PACE 行业的安全性和可观察性标准。我们是一个新兴的金融企业，没有这些项目，尤其是 Kubernetes，我们不可能成为今天的行业领导者。”
+{{< /case-studies/quote >}}
+
+<!--
+{{< case-studies/lead >}}
+In less than a decade, <a href="https://ygrene.com/">Ygrene</a> has funded more than $1 billion in loans for renewable energy projects.
+{{< /case-studies/lead >}}
+-->
+{{< case-studies/lead >}}
+在不到十年的时间里，<a href="https://ygrene.com/"> Ygrene </a>就为可再生能源项目提供了超过 10 亿美元的贷款。
+{{< /case-studies/lead >}}
+
+<!--
+<p>A <a href="https://www.energy.gov/eere/slsc/property-assessed-clean-energy-programs">PACE</a> (Property Assessed Clean Energy) financing company, "We take the equity in a home or a commercial building, and use it to finance property improvements for anything that saves electricity, produces electricity, saves water, or reduces carbon emissions," says Development Manager Austin Adams.</p>
+-->
+<p><a href="https://www.energy.gov/eere/slsc/property-assessed-clean-energy-programs"> PACE </a>（清洁能源物业评估）融资公司开发经理 Austin Adams 表示：“我们抵押房屋或商业建筑，用贷款来为任何可以节约电力、生产电力、节约用水或减少碳排放的项目提供资金支持。”</p>
+
+<!--
+<p>In order to approve those loans, the company processes an enormous amount of underwriting data. "We have tons of different points that we have to validate about the property, about the company, or about the person," Adams says. "So we have lots of data sources that are being aggregated, and we also have lots of systems that need to churn on that data in real time."</p>
+-->
+<p>为了批准这些贷款，公司需要处理大量的承销数据。Adams 说：“我们必须要验证有关财产、公司或人员的问题，像这样的工作数以千计。因此，我们有很多正在聚合的数据源，并且我们也有大量系统需要实时对这些数据进行改动。”</p>
+
+<!--
+<p>By 2017, deployments and scalability had become pain points. The company was utilizing massive servers, and "we just reached the limit of being able to scale them vertically," he says. Migrating to AWS Elastic Beanstalk didn't solve the problem: "The Scala services needed a lot of data from the main Ruby on Rails services and from different vendors, so they were asking for information from our Ruby services at a rate that those services couldn't handle. We had lots of configuration misses with Elastic Beanstalk as well. It just came to a head, and we realized we had a really unstable system."</p>
+-->
+<p>到 2017 年，部署和可扩展性已成为痛点。该公司已经使用了大量服务器，“我们刚刚达到能够垂直扩展的极限，”他说。迁移到 AWS Elastic Beanstalk 并不能解决问题：“Scala 服务需要来自主 Ruby on Rails 服务和不同供应商提供的大量数据，因此他们要求从我们的 Ruby 服务以一种服务器无法承受的速率获取信息。在 Elastic Beanstalk 上我们也有许多配置与应用不匹配。这仅仅是一个开始，我们也意识到我们这个系统非常不稳定。”</p>
+
+<!--
+{{< case-studies/quote
+  image="/images/case-studies/ygrene/banner3.jpg"
+  author="Austin Adams, Development Manager, Ygrene Energy Fund"
+>}}
+"CNCF has been an amazing incubator for so many projects. Now we look at its webpage regularly to find out if there are any new, awesome, high-quality projects we can implement into our stack. It's actually become a hub for us for knowing what software we need to be looking at to make our systems more secure or more scalable."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote
+  image="/images/case-studies/ygrene/banner3.jpg"
+  author="Austin Adams, Ygrene 能源基金会开发经理"
+>}}
+“CNCF 是众多项目惊人的孵化器。现在，我们定期查看其网页，了解是否有任何新的、可敬的高质量项目可以应用到我们的系统中。它实际上已成为我们了解自身需要什么样的软件以使我们的系统更加安全和具有可伸缩性的信息中心。”
+{{< /case-studies/quote >}}
+
+<!--
+<p>Adams along with the rest of the team set out to find a solution that would be transformational, but "wouldn't require us to make huge refactors to the code base," he says. And as a finance company, Ygrene needed security as much as scalability. They found the answer by embracing cloud native technologies: Kubernetes to help scale out vertically and distribute workloads, Notary to achieve reliable security at every level, and Fluentd for observability. "Kubernetes was where the community was going, and we wanted to be future proof," says Adams.</p> -->
+<p>Adams 和其他团队一起着手寻找一种具有变革性的解决方案，但“不需要我们对代码库进行巨大的重构，”他说。作为一家金融公司，和可伸缩性一样，Ygrene 需要更好的安全性。他们通过采用云原生技术找到了答案：Kubernetes 帮助纵向扩展和分配工作负载，Notary 在各个级别实现可靠的安全性，Fluentd 来提供可观察性。Adams 说：“Kubernetes 是社区前进的方向，也是我们展望未来的证明。”</p>
+
+<!-- 
+<p>With Kubernetes, the team was able to quickly containerize the Ygrene application with Docker. "We had to change some practices and code, and the way things were built," Adams says, "but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company."</p>
+-->
+<p>有了 Kubernetes，该团队能够快速将 Ygrene 应用程序用 Docker 容器化。“我们必须改变一些实现和代码，以及系统的构建方式，” Adams 说，“但我们已经能够在一个月左右的时间内将主要系统引入 Kubernetes，然后在两个月内投入生产。对于一家金融公司来说，这已经非常快了。”</p>
+
+<!-- 
+<p>How? Cloud native has "changed the game for scalability, observability, and security—we're adding new data sources that are very secure," says Adams. "Without Kubernetes, Notary, and Fluentd, we couldn't tell our investors and team members that we knew what was going on."</p>
+-->
+<p>怎么样？Adams 说，这些云原生技术“改变了可扩展性、可观察性和安全性（我们正在添加新的非常安全的数据源）的游戏。”“没有 Kubernetes、Notary 和 Fluent，我们就无法告诉投资者和团队成员，我们知道刚刚发生了什么事情。”</p>
+
+<!-- 
+<p>Notary, in particular, "has been a godsend," says Adams. "We need to know that our attack surface on third-party dependencies is low, or at least managed. We use it as a trust system and we also use it as a separation, so production images are signed by Notary, but some development images we don't sign. That is to ensure that they can't get into the production cluster. We've been using it in the test cluster to feel more secure about our builds."</p>
+-->
+<p>Adams 说，尤其 Notary 简直就是“天赐之物”。“我们要清楚，我们针对第三方依赖项的攻击面较低，或者至少是托管的。因为我们使用 Notary 作为一个信任系统，我们也使用它作为区分，所以生产镜像由 Notary 签名，但一些开发镜像就不签署。这是为了确保未签名镜像无法进入生产集群。我们已经在测试集群中使用它，以使构建的应用更安全。”</p>
+
+<!-- 
+{{< case-studies/quote image="/images/case-studies/ygrene/banner4.jpg">}}
+"We had to change some practices and code, and the way things were built," Adams says, "but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote image="/images/case-studies/ygrene/banner4.jpg">}}
+“我们必须改变一些实现和代码，以及系统的构建方式，” Adams 说，“但我们已经能够在一个月左右的时间内将主要系统引入 Kubernetes，然后在两个月内投入生产。对于一家金融公司来说，这已经非常快了。”
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>By using the kops project, Ygrene was able to move from Elastic Beanstalk to running its Kubernetes clusters on AWS EC2 Spot, at a tenth of the previous cost. "In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups."</p>
+-->
+<p>通过使用 kops 项目，Ygrene 能够用以前成本的十分之一从 Elastic Beanstalk 迁移到 AWS EC2 Spot 上运行其 Kubernetes 集群。Adams 说：“以前为了扩展，我们需要增加实例大小，导致高成本产出低价值。现在，借助 Kubernetes 和 kops，我们能够在具有多个实例组的 Spot 上水平缩放。”</p>
+
+<!-- 
+<p>That also helped them mitigate the risk that comes with running in the public cloud. "We figured out, essentially, that if we're able to select instance classes using EC2 Spot that had an extremely low likelihood of interruption and zero history of interruption, and we're willing to pay a price high enough, that we could virtually get the same guarantee using Kubernetes because we have enough nodes," says Software Engineer Zach Arnold, who led the migration to Kubernetes. "Now that we've re-architected these pieces of the application to not live on the same server, we can push out to many different servers and have a more stable deployment."</p>
+-->
+<p>这也帮助他们降低了在公共云中运行所带来的风险。“我们发现，基本上，如果我们能够使用中断可能性极低、无中断历史的 EC2 Spot 选择实例类，并且我们愿意付出足够高的价格，我们几乎可以得到和使用 Kubernetes 相同的保证，因为我们有足够的节点，”软件工程师 Zach Arnold 说，他领导了向 Kubernetes 的迁移。“现在，我们已经重新架构了应用程序的这些部分，使之不再位于同一台服务器上，我们可以推送到许多不同的服务器，并实现更稳定的部署。”</p>
+
+<!-- 
+<p>As a result, the team can now ship code any time of day. "That was risky because it could bring down your whole loan management software with it," says Arnold. "But we now can deploy safely and securely during the day."</p>
+-->
+<p>因此，团队现在可以在一天中的任何时间传输代码。阿诺德说：“以前这样做是很危险的，因为它会拖慢整个贷款管理软件。”“但现在，我们可以在白天安全部署。”</p>
+
+<!-- 
+{{< case-studies/quote >}}
+"In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote >}}
+Adams 说：“以前为了扩展，我们需要增加实例大小，导致高成本产出低价值。现在，借助 Kubernetes 和 kops，我们能够在具有多个实例组的 Spot 上水平缩放。”
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>Before, deployments typically took three to four hours, and two or three months' worth of work would be deployed at low-traffic times every week or two weeks. Now, they take five minutes for Kubernetes, and an hour for an overall deploy with smoke testing. And "we're able to deploy three or four times a week, with just one week's or two days' worth of work," Adams says. "We're deploying during the work week, in the daytime and without any downtime. We had to ask for business approval to take the systems down for 30 minutes to an hour, even in the middle of the night, because people could be doing loans. Now we can deploy, ship code, and migrate databases, all without taking the system down. The company gets new features without worrying that some business will be lost or delayed."</p>
+-->
+<p>以前，部署通常需要三到四个小时，而且每周或每两周要把一些两三个月工作量的任务在系统占用低的时候进行部署。现在，他们用5分钟来配置 Kubernetes，然后用一个小时进行整体部署与烟雾测试。Adams 说：“我们每周可以部署三到四次，只需一周或两天的工作量。”“我们在工作周、白天的任意时间进行部署，甚至不需要停机。以前我们不得不请求企业批准，以关闭系统，因为即使在半夜，人们也可能正在访问服务。现在，我们可以部署、上传代码和迁移数据库，而无需关闭系统。公司增加新项目，而不必担心某些业务会丢失或延迟。”</p>
+
+<!-- 
+<p>Cloud native also affected how Ygrene's 50+ developers and contractors work. Adams and Arnold spent considerable time "teaching people to think distributed out of the box," says Arnold. "We ended up picking what we call the Four S's of Shipping: safely, securely, stably, and speedily." (For more on the security piece of it, see their <a href="https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/">article</a> on their "continuous hacking" strategy.) As for the engineers, says Adams, "they have been able to advance as their software has advanced. I think that at the end of the day, the developers feel better about what they're doing, and they also feel more connected to the modern software development community."</p>
+-->
+<p>云原生也影响了 Ygrene 的 50 多名开发人员和承包商的工作方式。Adams 和 Arnold 花了相当长的时间“教人们思考开箱即用的”，Arnold 说。“我们最终选择了称之为“航运四S”：安全、可靠、稳妥、快速。”（有关其安全部分的更多内容，请参阅他们关于"持续黑客攻击"策略的<a href="https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/">文章</a>。至于工程师，Adams 说，“他们已经能够跟上软件进步的步伐。我想一天结束时，开发人员会感觉更好，他们也会感觉与现代软件开发社区的联系更加紧密。”</p>
+
+<!-- 
+<p>Looking ahead, Adams is excited to explore more CNCF projects, including SPIFFE and SPIRE. "CNCF has been an amazing incubator for so many projects," he says. "Now we look at its webpage regularly to find out if there are any new, awesome, high-quality projects we can implement into our stack. It's actually become a hub for us for knowing what software we need to be looking at to make our systems more secure or more scalable."</p>
+-->
+<p>展望未来，Adams 很高兴能探索更多的 CNCF 项目，包括 SPIFFE 和 SPIRE。“CNCF 是众多项目惊人的孵化器。现在，我们定期查看其网页，了解是否有任何新的、可敬的高质量项目可以应用到我们的系统中。它实际上已成为我们了解自身需要什么样的软件以使我们的系统更加安全和具有可伸缩性的信息中心。”</p>

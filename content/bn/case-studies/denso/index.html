@@ -1,0 +1,82 @@
+---
+title: Denso Case Study
+linkTitle: Denso
+case_study_styles: true
+cid: caseStudies
+logo: denso_featured_logo.svg
+featured: true
+weight: 4
+quote: >
+  We got Kubernetes experts involved on our team, and it dramatically accelerated development speed.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/denso/banner2.jpg
+heading_title_text: Denso
+use_gradient_overlay: true
+subheading: >
+  How DENSO Is Fueling Development on the Vehicle Edge with Kubernetes
+case_study_details:
+  - Company: Denso
+  - Location: Japan
+  - Industry: Automotive, Edge
+---
+
+<h2>Challenge</h2>
+
+<p>DENSO Corporation is one of the biggest automotive components suppliers in the world. With the advent of connected cars, the company launched a Digital Innovation Department to expand into software, working on vehicle edge and vehicle cloud products. But there were several technical challenges to creating an integrated vehicle edge/cloud platform: "the amount of computing resources, the occasional lack of mobile signal, and an enormous number of distributed vehicles," says R&D Product Manager Seiichi Koizumi.</p>
+
+<h2>Solution</h2>
+
+<p>Koizumi's team realized that because mobility services evolve every day, they needed the flexibility of the cloud native ecosystem for their platform. After considering other orchestrators, DENSO went with Kubernetes for orchestration and added Prometheus, Fluentd, Envoy, Istio, and Helm to the platform. Today, DENSO is using a vehicle edge computer, a private Kubernetes cloud, and managed Kubernetes (GKE, EKS, AKS).</p>
+
+<h2>Impact</h2>
+
+<p>Critical layer features can take 2-3 years to implement in the traditional, waterfall model of development at DENSO. With the Kubernetes platform and agile methods, there's a 2-month development cycle for non-critical software. Now, ten new applications are released a year, and a new prototype is introduced every week. "By utilizing Kubernetes managed services, such as GKE/EKS/AKS, we can unify the environment and simplify our maintenance operation," says Koizumi.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/denso/banner1.png"
+  author="SEIICHI KOIZUMI, R&D PRODUCT MANAGER, DIGITAL INNOVATION DEPARTMENT AT DENSO"
+>}}
+"Another disruptive innovation is coming, so to survive in this situation, we need to change our culture."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Spun off from Toyota in 1949, DENSO Corporation is one of the top automotive suppliers in the world today, with consolidated net revenue of $48.3 billion.
+{{< /case-studies/lead >}}
+
+<p>The company's mission is "contributing to a better world by creating value together with a vision for the future"—and part of that vision in recent years has been development on the vehicle edge and vehicle cloud.</p>
+
+<p>With the advent of connected cars, DENSO established a Digital Innovation Department to expand its business beyond the critical layer of the engine, braking systems, and other automotive parts into the non-critical analytics and entertainment layer. Comparing connected cars to smartphones, R&D Product Manager Seiichi Koizumi says DENSO wants the ability to quickly and easily develop and install apps for the "blank slate" of the car, and iterate them based on the driver's preferences. Thus "we need a flexible application platform," he says.</p>
+
+<p>But working on vehicle edge and vehicle cloud products meant there were several technical challenges: "the amount of computing resources, the occasional lack of mobile signal, and an enormous number of distributed vehicles," says Koizumi. "We are tackling these challenges to create an integrated vehicle edge/cloud platform."</p>
+
+{{< case-studies/quote author="SEIICHI KOIZUMI, R&D PRODUCT MANAGER, DIGITAL INNOVATION DEPARTMENT AT DENSO" >}}
+"We got Kubernetes experts involved on our team, and it dramatically accelerated development speed."
+{{< /case-studies/quote >}}
+
+<p>Koizumi's team realized that because mobility services evolve every day, they needed the flexibility of the cloud native ecosystem for their platform. As they evaluated technologies, they were led by these criteria: Because their service-enabler business needed to support multiple cloud and on-premise environments, the solution needed to be cloud agnostic, with no vendor lock-in and open governance. It also had to support an edge-cloud integrated environment.</p>
+
+<p>After considering other orchestrators, DENSO went with Kubernetes for orchestration and added Prometheus, Fluentd, Envoy, Istio, and Helm to the platform. During implementation, the team used "design thinking to clarify use cases and their value proposition," says Koizumi. Next, an agile development team worked on a POC, then an MVP, in DevOps style. "Even in the development phase, we are keeping a channel to end users," he adds.</p>
+
+<p>One lesson learned during this process was the value of bringing in experts. "We tried to learn Kubernetes and cloud native technologies from scratch, but it took more time than expected," says Koizumi. "We got Kubernetes experts involved on our team, and it dramatically accelerated development speed."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/denso/banner4.jpg"
+  author="SEIICHI KOIZUMI, R&D PRODUCT MANAGER, DIGITAL INNOVATION DEPARTMENT AT DENSO"
+>}}
+"By utilizing Kubernetes managed services, such as GKE/EKS/AKS, we can unify the environment and simplify our maintenance operation."
+{{< /case-studies/quote >}}
+
+<p>Today, DENSO is using a vehicle edge computer, a private Kubernetes cloud, and managed Kubernetes on GKE, EKS, and AKS. "We are developing a vehicle edge/cloud integrated platform based on a microservice and service mesh architecture," says Koizumi. "We extend cloud into multiple vehicle edges and manage it as a unified platform."</p>
+
+<p>Cloud native has enabled DENSO to deliver applications via its new dash cam, which has a secure connection that collects data to the cloud. "It's like a smartphone," he says. "We are installing new applications and getting the data through the cloud, and we can keep updating new applications all through the dash cam."</p>
+
+<p>The unified cloud native platform, combined with agile development, has had a positive impact on productivity. Critical layer features—those involving engines or braking systems, for example—can take 2-3 years to implement at DENSO, because of the time needed to test safety, but also because of the traditional, waterfall model of development. With the Kubernetes platform and agile methods, there's a 2-month development cycle for non-critical software. Now, ten new applications are released a year, and with the department's scrum-style development, a new prototype is introduced every week.</p>
+
+<p>Application portability has also led to greater developer efficiency. "There's no need to care about differences in the multi-cloud platform anymore," says Koizumi. Now, "we are also trying to have the same portability between vehicle edge and cloud platform."</p>
+
+<p>Another improvement: Automotive Tier-1 suppliers like DENSO always have multiple Tier-2 suppliers. "To provide automotive-grade high-availability services, we tried to do the same thing on a multi-cloud platform," says Koizumi. Before Kubernetes, maintaining two different systems simultaneously was difficult. "By utilizing Kubernetes managed services, such as GKE/EKS/AKS, we can unify the environment and simplify our maintenance operation," he says.</p>
+
+<p>Cloud native has also profoundly changed the culture at DENSO. The Digital Innovation Department is known as "Noah's Ark," and it has grown from 2 members to 70—with plans to more than double in the next year. The way they operate is completely different from the traditional Japanese automotive culture. But just as the company embraced change brought by hybrid cars in the past decade, Koizumi says, they're doing it again now, as technology companies have moved into the connected car space. "Another disruptive innovation is coming," he says, "so to survive in this situation, we need to change our culture."</p>
+
+<p>Looking ahead, Koizumi and his team are expecting serverless and zero-trust security architecture to be important enhancements of Kubernetes. They are glad DENSO has come along for the ride. "Mobility service businesses require agility and flexibility," he says. "DENSO is trying to bring cloud native flexibility into the vehicle infrastructure."</p>

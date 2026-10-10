@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+spec:
+  containers:
+    - name: demo
+      image: alpine
+      command: ["sleep", "3600"]
+      env:
+        # 환경 변수 정의
+        - name: PLAYER_INITIAL_LIVES # 참고로 여기서는 컨피그맵의 키 이름과
+          # 대소문자가 다르다.
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo           # 이 값의 컨피그맵.
+              key: player_initial_lives # 가져올 키.
+        - name: UI_PROPERTIES_FILE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: ui_properties_file_name
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+    # 파드 레벨에서 볼륨을 설정한 다음, 해당 파드 내의 컨테이너에 마운트한다.
+    - name: config
+      configMap:
+        # 마운트하려는 컨피그맵의 이름을 제공한다.
+        name: game-demo
+        # 컨피그맵에서 파일로 생성할 키 배열
+        items:
+          - key: "game.properties"
+            path: "game.properties"
+          - key: "user-interface.properties"
+            path: "user-interface.properties"

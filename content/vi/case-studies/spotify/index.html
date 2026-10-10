@@ -1,0 +1,79 @@
+---
+title: Spotify Case Study
+linkTitle: Spotify
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/spotify/banner1.jpg
+heading_title_text: Spotify
+subheading: >
+  Spotify: An Early Adopter of Containers, Spotify Is Migrating from Homegrown Orchestration to Kubernetes
+case_study_details:
+  - Company: Spotify
+  - Location: Global
+  - Industry: Entertainment
+---
+
+<h2>Challenge</h2>
+
+<p>Launched in 2008, the audio-streaming platform has grown to over 200 million monthly active users across the world. "Our goal is to empower creators and enable a really immersive listening experience for all of the consumers that we have today—and hopefully the consumers we'll have in the future," says Jai Chakrabarti, Director of Engineering, Infrastructure and Operations. An early adopter of microservices and Docker, Spotify had containerized microservices running across its fleet of VMs with a homegrown container orchestration system called <a href="https://github.com/spotify/helios">Helios</a>. By late 2017, it became clear that "having a small team working on the features was just not as efficient as adopting something that was supported by a much bigger community," he says.</p>
+
+<h2>Solution</h2>
+
+<p>"We saw the amazing community that had grown up around Kubernetes, and we wanted to be part of that," says Chakrabarti. Kubernetes was more feature-rich than Helios. Plus, "we wanted to benefit from added velocity and reduced cost, and also align with the rest of the industry on best practices and tools." At the same time, the team wanted to contribute its expertise and influence in the flourishing Kubernetes community. The migration, which would happen in parallel with Helios running, could go smoothly because "Kubernetes fit very nicely as a complement and now as a replacement to Helios," says Chakrabarti.</p>
+
+<h2>Impact</h2>
+
+<p>The team spent much of 2018 addressing the core technology issues required for a migration, which started late that year and is a big focus for 2019. "A small percentage of our fleet has been migrated to Kubernetes, and some of the things that we've heard from our internal teams are that they have less of a need to focus on manual capacity provisioning and more time to focus on delivering features for Spotify," says Chakrabarti. The biggest service currently running on Kubernetes takes about 10 million requests per second as an aggregate service and benefits greatly from autoscaling, says Site Reliability Engineer James Wen. Plus, he adds, "Before, teams would have to wait for an hour to create a new service and get an operational host to run it in production, but with Kubernetes, they can do that on the order of seconds and minutes." In addition, with Kubernetes's bin-packing and multi-tenancy capabilities, CPU utilization has improved on average two- to threefold.</p>
+
+{{< case-studies/quote author="Jai Chakrabarti, Director of Engineering, Infrastructure and Operations, Spotify" >}}
+"We saw the amazing community that's grown up around Kubernetes, and we wanted to be part of that. We wanted to benefit from added velocity and reduced cost, and also align with the rest of the industry on best practices and tools."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+"Our goal is to empower creators and enable a really immersive listening experience for all of the consumers that we have today—and hopefully the consumers we'll have in the future," says Jai Chakrabarti, Director of Engineering, Infrastructure and Operations at Spotify. Since the audio-streaming platform launched in 2008, it has already grown to over 200 million monthly active users around the world, and for Chakrabarti's team, the goal is solidifying Spotify's infrastructure to support all those future consumers too.
+{{< /case-studies/lead >}}
+
+<p>An early adopter of microservices and Docker, Spotify had containerized microservices running across its fleet of VMs since 2014. The company used an open source, homegrown container orchestration system called Helios, and in 2016-17 completed a migration from on premise data centers to Google Cloud. Underpinning these decisions, "We have a culture around autonomous teams, over 200 autonomous engineering squads who are working on different pieces of the pie, and they need to be able to iterate quickly," Chakrabarti says. "So for us to have developer velocity tools that allow squads to move quickly is really important."</p>
+
+<p>But by late 2017, it became clear that "having a small team working on the <a href="https://github.com/spotify/helios">Helios</a> features was just not as efficient as adopting something that was supported by a much bigger community," says Chakrabarti. "We saw the amazing community that had grown up around Kubernetes, and we wanted to be part of that. We wanted to benefit from added velocity and reduced cost, and also align with the rest of the industry on best practices and tools." At the same time, the team wanted to contribute its expertise and influence in the flourishing Kubernetes community.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/spotify/banner3.jpg"
+  author="Dave Zolotusky, Software Engineer, Infrastructure and Operations, Spotify"
+>}}
+"The community has been extremely helpful in getting us to work through all the technology much faster and much easier. And it's helped us validate all the things we're doing."
+{{< /case-studies/quote >}}
+
+<p>Another plus: "Kubernetes fit very nicely as a complement and now as a replacement to Helios, so we could have it running alongside Helios to mitigate the risks," says Chakrabarti. "During the migration, the services run on both, so we're not having to put all of our eggs in one basket until we can validate Kubernetes under a variety of load circumstances and stress circumstances."</p>
+
+<p>The team spent much of 2018 addressing the core technology issues required for the migration. "We were able to use a lot of the Kubernetes APIs and extensibility features of Kubernetes to support and interface with our legacy infrastructure, so the integration was straightforward and easy," says Site Reliability Engineer James Wen.</p>
+
+<p>Migration started late that year and has accelerated in 2019. "Our focus is really on stateless services, and once we address our last remaining technology blocker, that's where we hope that the uptick will come from," says Chakrabarti. "For stateful services there's more work that we need to do."</p>
+
+<p>A small percentage of Spotify's fleet, containing over 150 services, has been migrated to Kubernetes so far. "We've heard from our customers that they have less of a need to focus on manual capacity provisioning and more time to focus on delivering features for Spotify," says Chakrabarti. The biggest service currently running on Kubernetes takes over 10 million requests per second as an aggregate service and benefits greatly from autoscaling, says Wen. Plus, Wen adds, "Before, teams would have to wait for an hour to create a new service and get an operational host to run it in production, but with Kubernetes, they can do that on the order of seconds and minutes." In addition, with Kubernetes's bin-packing and multi-tenancy capabilities, CPU utilization has improved on average two- to threefold.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/spotify/banner4.jpg"
+  author="James Wen, Site Reliability Engineer, Spotify"
+>}}
+"We were able to use a lot of the Kubernetes APIs and extensibility features to support and interface with our legacy infrastructure, so the integration was straightforward and easy."
+{{< /case-studies/quote >}}
+
+<p>Chakrabarti points out that for all four of the top-level metrics that Spotify looks at—lead time, deployment frequency, time to resolution, and operational load—"there is impact that Kubernetes is having."</p>
+
+<p>One success story that's come out of the early days of Kubernetes is a tool called Slingshot that a Spotify team built on Kubernetes. "With a pull request, it creates a temporary staging environment that self destructs after 24 hours," says Chakrabarti. "It's all facilitated by Kubernetes, so that's kind of an exciting example of how, once the technology is out there and ready to use, people start to build on top of it and craft their own solutions, even beyond what we might have envisioned as the initial purpose of it."</p>
+
+<p>Spotify has also started to use <a href="https://grpc.io/">gRPC</a> and <a href="https://www.envoyproxy.io/">Envoy</a>, replacing existing homegrown solutions, just as it had with Kubernetes. "We created things because of the scale we were at, and there was no other solution existing," says Dave Zolotusky, Software Engineer, Infrastructure and Operations. "But then the community kind of caught up and surpassed us, even for tools that work at that scale."</p>
+
+{{< case-studies/quote author="James Wen, Site Reliability Engineer, Spotify" >}}
+"It's been surprisingly easy to get in touch with anybody we wanted to, to get expertise on any of the things we're working with. And it's helped us validate all the things we're doing."
+{{< /case-studies/quote >}}
+
+<p>Both of those technologies are in early stages of adoption, but already "we have reason to believe that gRPC will have a more drastic impact during early development by helping with a lot of issues like schema management, API design, weird backward compatibility issues, things like that," says Zolotusky. "So we're leaning heavily on gRPC to help us in that space."</p>
+
+<p>As the team continues to fill out Spotify's cloud native stack—tracing is up next—it is using the CNCF landscape as a helpful guide. "We look at things we need to solve, and if there are a bunch of projects, we evaluate them equivalently, but there is definitely value to the project being a CNCF project," says Zolotusky.</p>
+
+<p>Spotify's experiences so far with Kubernetes bears this out. "The community has been extremely helpful in getting us to work through all the technology much faster and much easier," Zolotusky says. "It's been surprisingly easy to get in touch with anybody we wanted to, to get expertise on any of the things we're working with. And it's helped us validate all the things we're doing."</p>

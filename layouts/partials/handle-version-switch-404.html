@@ -1,0 +1,11 @@
+{{/*
+If a 404 occurs and the referrer is a different version of the Kubernetes documentation,
+don't show the regular 404 error page, but instead redirect to the site root
+*/}}
+<script type="text/javascript">
+  var sameBaseUrlRegExp = new RegExp("^" + location.protocol + "//" + location.host.replace(".", "\\.") + "/.*", "i");
+  var kubernetesDocumentationUrlRegExp = new RegExp("^https?://(.+\\.)?kubernetes.io/.*", "i");
+  if (!sameBaseUrlRegExp.test(document.referrer) && kubernetesDocumentationUrlRegExp.test(document.referrer)) {
+    location.replace("/");
+  }
+</script>

@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-backoff-limit-per-index-failindex
+spec:
+  completions: 4
+  parallelism: 2
+  completionMode: Indexed
+  backoffLimitPerIndex: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: main
+        image: docker.io/library/python:3
+        command:
+          # The script:
+          # - fails the Pod with index 0 with exit code 1, which results in one retry;
+          # - fails the Pod with index 1 with exit code 42 which results
+          #   in failing the index without retry.
+          # - succeeds Pods with any other index.
+          - python3
+          - -c
+          - |
+            import os, sys
+            index = int(os.environ.get("JOB_COMPLETION_INDEX"))
+            if index == 0:
+              sys.exit(1)
+            elif index == 1:
+              sys.exit(42)
+            else:
+              sys.exit(0)
+  backoffLimit: 6
+  podFailurePolicy:
+    rules:
+    - action: FailIndex
+      onExitCodes:
+        containerName: main
+        operator: In
+        values: [42]

@@ -1,0 +1,143 @@
+---
+title: Melihat Pod dan Node
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Tujuan</h3>
+                <ul>
+                    <li>Belajar tentang Pod Kubernetes.</li>
+                    <li>Belajar tentang Node Kubernetes.</li>
+                    <li>Mengatasi masalah pada aplikasi-aplikasi yang digelar.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Pod Kubernetes</h2>
+                <p>Ketika kamu membuat sebuah Deployment pada Modul <a href="/id/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes membuatkan sebuah <b>Pod</b> untuk menempatkan instans aplikasimu. Pod merupakan sebuah abstraksi Kubernetes yang merepresentasikan sebuah grup yang terdiri dari satu atau lebih kontainer (seperti Docker), dan beberapa sumber daya bersama untuk kontainer-kontainer itu. Sumber daya tersebut termasuk:</p>
+                <ul>
+                    <li>Penyimpanan bersama, disebut Volume</li>
+                    <li>Jaringan, sebagai satu alamat IP klaster unik</li>
+                    <li>Informasi tentang bagaimana mejalankan tiap kontainer, seperti versi <i>image</i> atau porta spesifik yang digunakan oleh kontainer</li>
+                </ul>
+                <p>Pod memodelkan sebuah "logical host" spesifik aplikasi dan dapat berisi beberapa kontainer aplikasi berbeda yang relatif terkait erat. Contohnya, sebuah Pod mungkin terdiri atas kontainer aplikasi Node.js dan juga kontainer berbeda yang bertugas menyediakan data untuk dipublikasikan ke server web Node.js. Kontainer-kontainer dalam sebuah Pod berbagi satu alamat IP dan ruang porta, selalu terletak bersama dan terjadwal bersama, dan berjalankan dalam satu konteks bersama (<i>shared context</i>) pada Node yang sama.</p>
+
+            <p>Pod merupakan unit terkecil dalam platform Kubernetes. Ketika kita membuat sebuat Deployment, Deployment tersebut membuat Pod dengan kontainer-kontainer di dalamnya (bukannya dengan membuat kontainer secara langsung). Tiap Pod terikat langsung dengan Node di mana dia dijadwalkan dan tetap di sana sampai diterminasi (berdasarkan <i>restart policy</i>) atau penghapusan. Jika terjadi kegagalan pada sebuah Node, Pod indentik akan dijadwalkan di Node lain dalam klaster.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Ringkasan:</h3>
+                    <ul>
+                        <li>Pod</li>
+                        <li>Node</li>
+                        <li>Perintah utama kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Pod merupakan sebuah grup yang terdiri dari satu atau lebih kontainer aplikasi (seperti Docker) dan berisi penyimpanan bersama (<i>volume</i>), alamat IP dan informasi tentang bagaimana menjalankan mereka.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Ikhtisar Pod</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Node</h2>
+                <p>Sebuah Pod selalu berjalan dalam sebuah <b>Node</b>. Node merupakan sebuah mesin pekerja (<i>worker</i>) di Kubernetes dan mungkin merupakan mesin virtual ataupun fisik, tergantung dari klaster. Tiap Node dikelola oleh control plane. Satu Node dapat memiliki beberapa Pod, dan control plane Kubernetes yang otomatis menangani penjadwalan pod seluruh Node-Node dalam klaster. Penjadwalan otomatis oleh control plane memperhitungkan tersedianya sumber daya tiap Node.</p>
+
+                <p>Tiap Node Kubernetes menjalankan setidaknya:</p>
+                <ul>
+                    <li>Kubelet, satu proses yang bertanggung jawab untuk berkomunikasi antara control plane Kubernetes dan Node; ini juga mengelola Pod-Pod dan kontainer-kontainer yang berjalan di sebuah mesin.</li>
+                    <li>Satu <i>container runtime</i>, seperti Docker, bertanggung jawab untuk menarik <i>image</i> kontainer dari register, membuka kontainer, dan menjalankan aplikasi.</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Kontainer seharusnya hanya dijadwalkan bersama di satu Pod jika terkait erat dan membutuhkan sumber daya bersama seperti diska. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Ikhtisar Node</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Mengatasi masalah dengan kubectl</h2>
+                <p>Dalam Modul <a href="/id/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, kamu menggunakan antarmuka baris perintah kubectl. Kamu akan lanjut menggunakannya pada modul 3 untuk mendapatkan informasi tentang aplikasi-aplikasi yang digelar dan lingkungannya. Operasi yang paling umum dapat dilakukan dengan perintah kubectl berikut:</p>
+                <ul>
+                    <li><b>kubectl get</b> - melihat daftar sumber daya</li>
+                    <li><b>kubectl describe</b> - menampilkan detil informasi tentang suatu sumber daya</li>
+                    <li><b>kubectl logs</b> - mencetak log-log dari satu kontainer dalam sebuah Pod</li>
+                    <li><b>kubectl exec</b> - eksekusi sebuah perintah pada satu kontainer dalam sebuah Pod</li>
+                </ul>
+
+                <p>Kamu dapat menggunakan perintah ini kapan aplikasi-aplikasi digelar, apa status mereka saat ini, di mana mereka berjalan, dan apa konfigurasi mereka.</p>
+
+                <p>Sekarang karena kita lebih mengetahui tentang klaster kita dan baris perintahnya, mari kita menjelajah aplikasi kita.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Node merupakan mesin pekerja di Kubernetes dan bisa berupa VM ataupun mesin fisik, tergantung pada klaster. Beberapa Pod dapat berjalan dalam satu Node. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/id/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Mulai Tutorial Interaktif <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

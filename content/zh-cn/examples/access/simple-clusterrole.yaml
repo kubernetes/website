@@ -1,0 +1,10 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  # "namespace" 被忽略，因为 ClusterRoles 不受名字空间限制
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  # 在 HTTP 层面，用来访问 Secret 资源的名称为 "secrets"
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]

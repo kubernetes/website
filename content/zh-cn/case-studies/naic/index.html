@@ -1,0 +1,87 @@
+---
+title: NAIC Case Study
+linkTitle: NAIC
+case_study_styles: true
+cid: caseStudies
+logo: naic_featured_logo.png
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/naic/banner1.jpg
+heading_title_logo: /images/naic_logo.png
+subheading: >
+  A Culture and Technology Transition Enabled by Kubernetes
+case_study_details:
+  - Company: NAIC
+  - Location: Washington, DC
+  - Industry: Regulatory
+---
+
+<h2>Challenge</h2>
+
+<p>The <a href="http://www.naic.org/">National Association of Insurance Commissioners (NAIC)</a>, the U.S. standard-setting and regulatory support organization, was looking for a way to deliver new services faster to provide more value for members and staff. It also needed greater agility to improve productivity internally.</p>
+
+<h2>Solution</h2>
+
+<p>Beginning in 2016, they started using <a href="https://www.cncf.io/">Cloud Native Computing Foundation (CNCF)</a> tools such as <a href="https://prometheus.io/">Prometheus</a>. NAIC began hosting internal systems and development systems on <a href="https://kubernetes.io/">Kubernetes</a> at the beginning of 2018, as part of a broad move toward the public cloud. "Our culture and technology transition is a strategy embraced by our top leaders," says Dan Barker, Chief Enterprise Architect. "It has already proven successful by allowing us to accelerate our value pipeline by more than double while decreasing our costs by more than half. We are also seeing customer satisfaction increase as we add more and more applications to these new technologies."</p>
+
+<h2>Impact</h2>
+
+<p>Leveraging Kubernetes, "our development teams can create rapid prototypes far faster than they used to," Barker said. Applications running on Kubernetes are more resilient than those running in other environments. The deployment of open source solutions is helping influence company culture, as NAIC becomes a more open and transparent organization.</p>
+
+<p>"We completed a small prototype in two days that would have previously taken at least a month," Barker says. Resiliency is currently measured in how much downtime systems have. "They've basically had none, and the occasional issue is remedied in minutes," he says.</p>
+
+{{< case-studies/quote author="Dan Barker, Chief Enterprise Architect, NAIC" >}}
+"Our culture and technology transition is a strategy embraced by our top leaders. It has already proven successful by allowing us to accelerate our value pipeline by more than double while decreasing our costs by more than half. We are also seeing customer satisfaction increase as we add more and more applications to these new technologies."
+{{< /case-studies/quote >}}
+
+<p>NAIC—which was created and overseen by the chief insurance regulators from the 50 states, the District of Columbia and five U.S. territories—provides a means through which state insurance regulators establish standards and best practices, conduct peer reviews, and coordinate their regulatory oversight. Their staff supports these efforts and represents the collective views of regulators in the United States and internationally. NAIC members, together with the organization's central resources, form the national system of state-based insurance regulation in the United States.</p>
+
+<p>The organization has been using the cloud for years, and wanted to find more ways to quickly deliver new services that provide more value for members and staff. They looked to Kubernetes for a solution. Within NAIC, several groups are leveraging Kubernetes, one being the Platform Engineering Team. "The team building out these tools are not only deploying and operating Kubernetes, but they're also using them," Barker says. "In fact, we're using GitLab to deploy Kubernetes with a pipeline using <a href="https://github.com/kubernetes/kops">kops</a>. This team was created from developers, operators, and quality engineers from across the company, so their jobs have changed quite a bit."</p>
+
+<p>In addition, NAIC is onboarding teams to the new platform, and those teams have seen a lot of change in how they work and what they can do. "They now have more power in creating their own infrastructure and deploying their own applications," Barker says. They also use pipelines to facilitate their currently manual processes. NAIC has consumers who are using GitLab heavily, and they're starting to use Kubernetes to deploy simple applications that help their internal processes.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/naic/banner3.jpg"
+  author="Dan Barker, Chief Enterprise Architect, NAIC"
+>}}
+"In our experience, vendor lock-in and tooling that is highly specific results in less resilient technology with fewer minds working to solve problems and grow the community."
+{{< /case-studies/quote >}}
+
+<p>"We needed greater agility to enable our own productivity internally," he says. "We decided it was right for us to move everything to the public cloud [Amazon Web Services] to help with that process and be able to access many of the native tools that allows us to move faster by not needing to build everything."
+The NAIC also wanted to be cloud-agnostic, "and Kubernetes helps with this for our compute layer," Barker says. "Compute is pretty standard across the clouds, and now we can take advantage of any of them while getting all of the other features Kubernetes offers."</p>
+
+<p>The NAIC currently hosts internal systems and development systems on Kubernetes, and has already seen how impactful it can be. "Our development teams can create rapid prototypes in minutes instead of weeks," Barker says. "This recently happened with an internal tool that had no measurable wait time on the infrastructure. It was solely development bound. There is now a central shared resource that lives in AWS, which means it can grow as needed."</p>
+
+<p>The native integrations into Kubernetes at NAIC has made it easy to write code and have it running in minutes instead of weeks. Applications running on Kubernetes have also proven to be more resilient than those running in other environments. "We even have teams using this to create more internal tools to help with communication or automating some of their current tasks," Barker says.</p>
+
+<p>"We knew that Kubernetes had become the de facto standard for container orchestration," he says. "Two major factors for selecting this were the three major cloud vendors hosting their own versions and having it hosted in a neutral party as fully open source."</p>
+
+<p>As for other CNCF projects, NAIC is using Prometheus on a small scale and hopes to continue using it moving forward because of the seamless integration with Kubernetes. The Association also is considering <a href="https://grpc.io/">gRPC</a> as its internal communications standard, <a href="https://www.envoyproxy.io/">Envoy</a> in conjunction with Istio for service mesh, <a href="http://opentracing.io/">OpenTracing</a> and <a href="https://www.jaegertracing.io">Jaeger</a> for tracing aggregation, and <a href="https://www.fluentd.org/">Fluentd</a> with its Elasticsearch cluster.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/naic/banner4.jpg"
+  author="Dan Barker, Chief Enterprise Architect, NAIC"
+>}}
+"We knew that Kubernetes had become the de facto standard for container orchestration. Two major factors for selecting this were the three major cloud vendors hosting their own versions and having it hosted in a neutral party as fully open source."
+{{< /case-studies/quote >}}
+
+<p>The open governance and broad industry participation in CNCF provided a comfort level with the technology, Barker says. "We also see it as helping to influence our own company culture," he says. "We're moving to be a more open and transparent company, and we are encouraging our staff to get involved with the different working groups and codebases. We recently became CNCF members to help further our commitment to community contribution and transparency."</p>
+
+<p>Factors such as vendor-neutrality and cross-industry investment were important in the selection. "In our experience, vendor lock-in and tooling that is highly specific results in less resilient technology with fewer minds working to solve problems and grow the community," Barker says.</p>
+
+<p>NAIC is a largely Oracle shop, Barker says, and has been running mostly Java on JBoss. "However, we have years of history with other applications," he says. "Some of these have been migrated by completely rewriting the application, while others are just being modified slightly to fit into this new paradigm."</p>
+
+<p>Running on AWS cloud, the Association has not specifically taken a microservices approach. "We are moving to microservices where practical, but we haven't found that it's a necessity to operate them within Kubernetes," Barker says.</p>
+
+<p>All of its databases are currently running within public cloud services, but they have explored eventually running those in Kubernetes, as it makes sense. "We're doing this to get more reuse from common components and to limit our failure domains to something more manageable and observable," Barker says.</p>
+
+{{< case-studies/quote author="Dan Barker, Chief Enterprise Architect, NAIC" >}}
+"We have been able to move much faster at lower cost than we were able to in the past," Barker says. "We were able to complete one of our projects in a year, when the previous version took over two years. And the new project cost $500,000 while the original required $3 million, and with fewer defects. We are also able to push out new features much faster."
+{{< /case-studies/quote >}}
+
+<p>NAIC has seen a significant business impact from its efforts. "We have been able to move much faster at lower cost than we were able to in the past," Barker says. "We were able to complete one of our projects in a year, when the previous version took over two years. And the new project cost $500,000 while the original required $3 million, and with fewer defects. We are also able to push out new features much faster."</p>
+
+<p>He says the organization is moving toward continuous deployment "because the business case makes sense. The research is becoming very hard to argue with. We want to reduce our batch sizes and optimize on delivering value to customers and not feature count. This is requiring a larger cultural shift than just a technology shift."</p>
+
+<p>NAIC is "becoming more open and transparent, as well as more resilient to failure," Barker says. "Even our customers are wanting more and more of this and trying to figure out how they can work with us to accomplish our mutual goals faster. Members of the insurance industry have reached out so that we can better learn together and grow as an industry."</p>

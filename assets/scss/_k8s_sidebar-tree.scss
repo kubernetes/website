@@ -1,0 +1,39 @@
+.td-sidebar-nav {
+  .td-sidebar-link.tree-root {
+    display: none;
+  }
+
+  #navbarDropdownMenuLink {
+    display: none;
+  }
+}
+
+// Hidden in dropdowns, visible when cloned into the mobile push menu
+.dropdown-menu .lang-pushmenu-only {
+  display: none;
+}
+
+.td-sidebar-link__page {
+  &#m-docs-test {
+    display: none;
+  }
+}
+
+aside.td-sidebar-toc {
+  nav#TableOfContents {
+    &>ul {
+      & > li:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  a#print {
+    margin-top: 0.5rem;
+  }
+
+  a:focus,
+  a:hover {
+    text-decoration: underline;
+  }
+}

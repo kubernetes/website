@@ -1,0 +1,9 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is where we manage the categories for glossary entries.
+
+reviewers:
+- sig-docs-en-reviews
+
+approvers:
+- sig-docs-website-owners

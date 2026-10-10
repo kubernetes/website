@@ -1,0 +1,4 @@
+La funcionalidad es *estable*:
+
+* La versión es vX, donde X es un entero.
+* La versión estable de las funcionalidades estarán disponibles en el software distribuido por muchas versiones posteriores.

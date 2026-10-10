@@ -1,0 +1,109 @@
+---
+title: Menggunakan kubectl untuk membuat Deployment
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <h3>Tujuan</h3>
+                <ul>
+                    <li>Belajar tentang menyebarkan (<i>deploy</i>) aplikasi.</li>
+                    <li>Menyebarkan aplikasi pertama kamu di Kubernetes dengan kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3><i>Deployment</i> Kubernetes</h3>
+                <p>
+                Ketika klaster Kubernetes kamu sudah berjalan, kamu dapat menyebarkan aplikasi terkontainerisasi di atasnya.
+                Untuk melakukannya, kamu perlu membuat konfigurasi <b>Deployment</b>. Deployment menginstruksikan Kubernetes
+                tentang bagaimana cara membuat dan memperbarui <i>instance</i> aplikasi kamu. Ketika kamu selesai membuat Deployment, Kubernetes <i>control plane</i>
+                melakukan penjadwalan <i>instance</i> aplikasi yang terlibat dalam Deployment untuk berjalan di Node individu pada klaster.
+                </p>
+
+                <p>Setelah <i>instance</i> aplikasi telah dibuat, Kubernetes Deployment Controller akan melakukan monitoring <i>instance</i> tersebut secara kontinu. Jika <i>instance</i> pada hos Node mati atau terhapus, Deployment Controller akan mengganti <i>instance</i> tersebut dengan <i>instance</i> Node lain dalam klaster. <b>Ia menyediakan mekanisme penyembuhan diri (<i>self-healing</i>) untuk mengatasi kegagalan mesin atau pemeliharaan (<i>maintenance</i>)</b></p>
+
+                <p>Pada masa pra-orkestrasi, instalasi <i>script</i> sering digunakan untuk memulai aplikasi, namun cara ini tidak memberikan mekanisme pemulihan ketika terjadi kegagalan mesin. Dengan kemampuan membuat <i>instance</i> aplikasi dan menjaganya tetap berjalan pada Node, Deployment Kubernetes menyediakan manajemen aplikasi dengan pendekatan fundamental yang berbeda. </p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Ringkasan:</h3>
+                    <ul>
+                        <li>Deployment</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Sebuah Deployment bertanggung jawab untuk membuat dan memperbarui instance dari aplikasi kamu
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Menyebarkan aplikasi pertama kamu dalam Kubernetes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Kamu dapat membuat dan mengatur Deployment dengan menggunakan antar muka baris perintah (CLI) Kubernetes, <b>Kubectl</b>. Kubectl menggunakan Kubernetes API untuk berinteraksi dengan klaster. Pada modul ini, kamu akan belajar perintah-perintah yang sering digunakan Kubectl untuk membuat Deployment untuk menjalankan aplikasi kamu pada klaster Kubernetes.</p>
+
+                <p>Ketika kamu membuat Deployment, kamu perlu mendefinisikan Container <i>image</i> untuk aplikasi kamu dan jumlah replika yang kamu inginkan. Kamu dapat mengganti informasi tersebut nanti dengan melakukan pembaharuan Deployment kamu; Modul <a href="docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> dan <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> pada <i>bootcamp</i> ini mendiskusikan bagaimana cara melakukan perluasan (<i>scale</i>) dan pembaruan Deployment kamu.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Aplikasi perlu dikemas menjadi satu dengan format Container yang didukung supaya tersebar pada Kubernetes</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                Pada Deployment pertama kamu, kamu akan menggunakan aplikasi Node.js yang terkemas dalam Container Docker. (Jika kamu belum pernah mencoba membuat aplikasi Node.js dan menyebarkannya dengan Container, kamu dapat melakukannya dengan mengikuti instruksi pada <a href="/id/docs/tutorials/hello-minikube/">tutorial Hello Minikube</a>).
+                </p>
+                <p>Sekarang kamu tahu apa itu Deployment, mari kita ke tutorial <i>online</i> dan menyebarkan aplikasi pertama kita!</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/id/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Mulai Tutorial Interaktif <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

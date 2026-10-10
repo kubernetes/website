@@ -1,0 +1,22 @@
+<!--This feature is currently in a *beta* state, meaning:
+-->
+Наразі цей компонент у статусі *beta*, що означає:
+
+<!--* The version names contain beta (e.g. v2beta3).
+-->
+* Назва версії містить слово beta (наприклад, v2beta3).
+<!--* Code is well tested. Enabling the feature is considered safe. Enabled by default.
+-->
+* Код добре відтестований. Увімкнення цього компонента не загрожує роботі системи. Компонент увімкнутий за умовчанням.
+<!--* Support for the overall feature will not be dropped, though details may change.
+-->
+* Загальна підтримка цього компонента триватиме, однак деталі можуть змінитися.
+<!--* The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release. When this happens, we will provide instructions for migrating to the next version. This may require deleting, editing, and re-creating API objects. The editing process may require some thought. This may require downtime for applications that rely on the feature.
+-->
+* У наступній beta- чи стабільній версії схема та/або семантика об'єктів може змінитися і стати несумісною. У такому випадку ми надамо інструкції для міграції на наступну версію. Це може призвести до видалення, редагування і перестворення об'єктів API. У процесі редагування вам, можливо, знадобиться продумати зміни в об'єкті. Це може призвести до недоступності застосунків, для роботи яких цей компонент є істотно важливим.
+<!--* Recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters that can be upgraded independently, you may be able to relax this restriction.
+-->
+* Використання компонента рекомендоване лише у некритичних для безперебійної діяльності випадках через ризик несумісних змін у подальших релізах. Це обмеження може бути пом'якшене у випадку декількох кластерів, які можна оновлювати окремо.
+<!--* **Please do try our beta features and give feedback on them! After they exit beta, it may not be practical for us to make more changes.**
+-->
+* **Будь ласка, спробуйте beta-версії наших компонентів і поділіться з нами своєю думкою! Після того, як компонент вийде зі статусу beta, нам буде важче змінити його.**
