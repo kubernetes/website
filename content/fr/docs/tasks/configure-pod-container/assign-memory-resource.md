@@ -18,7 +18,7 @@ Cette page montre comment assigner une mémoire *request* et une mémoire *limit
 Chaque nœud de votre cluster doit avoir au moins 300 MiB de mémoire.
 
 Pour quelques étapes de cette page, vous devez lancer
-[metrics-server] (https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
 dans votre cluster. Si vous avez déjà metrics-server vous pouvez sauter ces étapes.
 
 Si vous utilisez Minikube, exécutez la commande suivante pour activer metrics-server :
