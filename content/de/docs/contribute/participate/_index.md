@@ -1,94 +1,90 @@
 ---
-title: Bei SIG Docs mitmachen
+title: An SIG Docs teilnehmen
 content_type: concept
 weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
 
-Die SIG Docs ist eine der [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (Fachspezifischen Interessengruppen) innerhalb des Kubernetes-Projekts, die sich auf das Schreiben, Aktualisieren und Pflegen der Dokumentation für Kubernetes als Ganzes konzentriert. Weitere Informationen über die SIG findest du unter SIG Docs im [GitHub Repository der Community](https://github.com/kubernetes/community/tree/master/sig-docs).
+SIG Docs ist eine der
+[Sonderinteressengruppen](https://github.com/kubernetes/community/blob/main/sig-list.md)
+im Kubernetes-Projekt, die sich auf das Schreiben, Aktualisieren und Pflegen
+der Kubernetes-Dokumentation insgesamt konzentriert. Weitere Informationen zur SIG findest du unter
+[SIG Docs im Community-GitHub-Repository](https://github.com/kubernetes/community/tree/main/sig-docs).
 
-SIG Docs begrüßt Inhalte und Bewertungen von allen Mitwirkenden. Jeder kann einen
-Pull Request (PR) eröffnen, und jeder ist willkommen, Fragen zum Inhalt zu stellen oder Kommentare
-zu laufenden Pull Requests abzugeben.
+SIG Docs begrüßt Inhalte und Reviews von allen Mitwirkenden. Jeder kann einen
+Pull Request (PR) öffnen, und jeder kann Issues zu Inhalten einreichen oder
+Kommentare zu laufenden Pull Requests hinterlassen.
 
-Du kannst dich ausserdem als [Member](/de/docs/contribute/participate/roles-and-responsibilities/#member),
-[Reviewer](/de/docs/contribute/participate/roles-and-responsibilities/#reviewer), oder
-[Approver](/de/docs/contribute/participate/roles-and-responsibilities/#approver) beteiligen.
-Diese Rollen erfordern einen erweiterten Zugriff und bringen bestimmte Verantwortlichkeiten zur Genehmigung und Bestätigung von Änderungen mit sich.
-Unter [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md) findest du weitere Informationen darüber, wie die Mitgliedschaft in der Kubernetes-Community funktioniert.
-
-Der Rest dieses Dokuments umreißt einige spezielle Vorgehensweisen dieser Rollen innerhalb von SIG Docs, die für die Pflege eines der öffentlichsten Aushängeschilder von Kubernetes verantwortlich ist - die Kubernetes-Website und die Dokumentation.
+Du kannst auch [Mitglied](/docs/contribute/participate/roles-and-responsibilities/#members),
+[Reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers) oder
+[Approver](/docs/contribute/participate/roles-and-responsibilities/#approvers) werden.
+Diese Rollen erfordern erweiterten Zugriff und bestimmte Verantwortlichkeiten für
+das Genehmigen und Zusammenführen von Änderungen. Weitere Informationen zur Mitgliedschaft
+in der Kubernetes-Community findest du unter
+[community-membership](https://github.com/kubernetes/community/blob/main/community-membership.md).
 
 <!-- body -->
-## SIG Docs Vorstand
 
-Jede SIG, auch die SIG Docs, wählt ein oder mehrere SIG-Mitglieder, die als
-Vorstand fungieren. Sie sind die Kontaktstellen zwischen der SIG Docs und anderen Teilen der
-der Kubernetes-Organisation. Sie benötigen umfassende Kenntnisse über die Struktur
-des Kubernetes-Projekts als Ganzes und wie SIG Docs darin arbeitet. Hier findest alle weiteren Informationen zu den aktuellen Vorsitzenden und der [Leitung](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+## SIG Docs Vorsitzende
 
-## SIG Docs-Teams und Automatisierung
+Jede SIG, einschließlich SIG Docs, wählt ein oder mehrere SIG-Mitglieder als Vorsitzende.
+Diese sind Ansprechpersonen zwischen SIG Docs und anderen Teilen der Kubernetes-Organisation.
+Sie benötigen umfangreiche Kenntnisse über die Struktur des Kubernetes-Projekts insgesamt
+und wie SIG Docs darin funktioniert. Die aktuelle Liste der Vorsitzenden findest du unter
+[Leadership](https://github.com/kubernetes/community/tree/main/sig-docs#leadership).
+
+## SIG Docs Teams und Automatisierung
 
 Die Automatisierung in SIG Docs stützt sich auf zwei verschiedene Mechanismen:
 GitHub-Teams und OWNERS-Dateien.
 
-### GitHub Teams
+### GitHub-Teams
 
-Es gibt zwei Kategorien von SIG Docs [Teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) auf GitHub:
+Auf GitHub gibt es zwei Kategorien von SIG Docs
+[Teams](https://github.com/orgs/kubernetes/teams?query=sig-docs):
 
-- `@sig-docs-{language}-owners` sind Genehmiger und Verantwortliche
+- `@sig-docs-{language}-owners` sind Approver und Leads
 - `@sig-docs-{language}-reviews` sind Reviewer
 
-Jede Gruppe kann in GitHub-Kommentaren mit ihrem `@name` referenziert werden, um mit allen Mitgliedern dieser Gruppe zu kommunizieren.
+Jedes Team kann in GitHub-Kommentaren mit seinem `@name` referenziert werden,
+um mit allen Mitgliedern der Gruppe zu kommunizieren.
 
-Manchmal überschneiden sich Prow- und GitHub-Teams, ohne eine genaue Übereinstimmung. Für die Zuordnung von Issues, Pull-Requests und zur Unterstützung von PR-Genehmigungen verwendet die
-Automatisierung die Informationen aus den `OWNERS`-Dateien.
+### OWNERS-Dateien und Frontmatter
 
-### OWNERS Dateien und Front-Matter
+Das Kubernetes-Projekt verwendet ein Automatisierungswerkzeug namens prow für
+die Automatisierung im Zusammenhang mit GitHub-Issues und Pull Requests. Das
+[Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet
+zwei [prow-Plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
+blunderbuss und approve.
 
-Das Kubernetes-Projekt verwendet ein Automatisierungstool namens prow für die Automatisierung im Zusammenhang mit GitHub-Issues und Pull-Requests. 
-Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
+Diese Plugins nutzen die
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)- und
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)-Dateien
+im Hauptverzeichnis des `kubernetes/website`-Repositories.
 
-- blunderbuss
-- approve
+## Wie das Zusammenführen funktioniert
 
-Diese beiden Plugins nutzen die
-[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) und
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-Dateien auf der obersten Ebene des GitHub-Repositorys `kubernetes/website`, um zu steuern
-wie prow innerhalb des Repositorys arbeitet.
+Wenn ein Pull Request in den Branch zusammengeführt wird, der zum Veröffentlichen
+von Inhalten verwendet wird, werden diese Inhalte auf https://kubernetes.io veröffentlicht.
+Um die Qualität unserer veröffentlichten Inhalte sicherzustellen, beschränken wir
+das Zusammenführen von Pull Requests auf SIG Docs Approver.
 
-Eine OWNERS-Datei enthält eine Liste von Personen, die SIG Docs-Reviewer und
-Genehmiger sind. OWNERS-Dateien können auch in Unterverzeichnissen existieren und bestimmen, wer
-Dateien in diesem Unterverzeichnis und seinen Unterverzeichnissen als Gutachter oder
-Genehmiger bestätigen darf. Weitere Informationen über OWNERS-Dateien im Allgemeinen findest du unter
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
-
-Außerdem kann eine einzelne Markdown-Datei in ihrem Front-Matter (Vorspann) Reviewer und Genehmiger auflisten.
-Entweder durch Auflistung einzelner GitHub-Benutzernamen oder GitHub-Gruppen.
-
-Die Kombination aus OWNERS-Dateien und Front-Matter in Markdown-Dateien bestimmt, welche Empfehlungen PR-Eigentümer von automatisierten Systemen erhalten, und wen sie um eine technische und redaktionelle Überprüfung ihres PRs bitten sollen.
-## So funktioniert das Zusammenführen
-
-Wenn ein Pull Request mit der Branch (Ast) zusammengeführt wird, in dem der Inhalt bereitgestellt werden soll, wird dieser Inhalt auf https://kubernetes.io veröffentlicht. Um sicherzustellen, dass die Qualität der veröffentlichten Inhalte hoch ist, beschränken wir das Zusammenführen von Pull Requests auf
-SIG Docs Freigabeberechtigte. So funktioniert es:
-
-- Wenn eine Pull-Anfrage sowohl das `lgtm`- als auch das `approve`-Label hat, kein `hold`-Label hat, 
-  und alle Tests bestanden sind, wird der Pull Request automatisch  zusammengeführt.
-- Jedes Kubernetes-Mitglied kann das `lgtm`-Label hinzufügen, indem es einen `/lgtm`-Kommentar hinzufügt.
-- Mitglieder der Kubernetes-Organisation und SIG Docs-Genehmiger können kommentieren, um das automatische Zusammenführen eines Pull Requests zu verhindern (durch Hinzufügen eines `/hold`-Kommentars
-  kann ein vorheriger `/lgtm`-Kommentar zurückgehalten werden).
-- Nur SIG Docs-Genehmiger können einen Pull Request zusammenführen indem sie einen `/approve` Kommentar hinzufügen. 
-  Einige Genehmiger übernehmen auch weitere spezielle Rollen, wie zum Beispiel [PR Wrangler](/docs/contribute/participate/pr-wranglers/) oder [SIG Docs Vorsitzende](#sig-docs-chairperson).
+- Wenn ein PR sowohl das `lgtm`- als auch das `approve`-Label hat, keine `hold`-Labels
+  vorhanden sind und alle Tests bestehen, wird der PR automatisch zusammengeführt.
+- Kubernetes-Organisationsmitglieder und SIG Docs Approver können Kommentare hinzufügen,
+  um das automatische Zusammenführen zu verhindern.
+- Jedes Kubernetes-Mitglied kann das `lgtm`-Label hinzufügen.
+- Nur SIG Docs Approver können einen PR durch einen `/approve`-Kommentar zusammenführen.
 
 ## {{% heading "whatsnext" %}}
 
-Weitere Informationen über die Mitarbeit an der Kubernetes-Dokumentation findest du unter:
+Weitere Informationen zur Teilnahme an SIG Docs:
 
-- [Neue Inhalte beisteuern](/docs/contribute/new-content/overview/)
-- [Inhalte überprüfen](/docs/contribute/review/reviewing-prs)
-- [Styleguide für die Dokumentation](/docs/contribute/style/)
+- [Rollen und Verantwortlichkeiten](/docs/contribute/participate/roles-and-responsibilities/)
+- [Issue Wrangler](/docs/contribute/participate/issue-wrangler/)
+- [PR Wrangler](/docs/contribute/participate/pr-wranglers/)
