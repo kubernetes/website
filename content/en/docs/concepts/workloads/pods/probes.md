@@ -250,6 +250,11 @@ spec:
 `periodSeconds`
 : How often (in seconds) to perform the probe. Default to 10 seconds. The minimum value is 1. While a container is not Ready, the readiness probe may be executed at times other than the configured `periodSeconds` interval. This is to make the Pod ready faster.
 
+  When the kubelet starts (or restarts), each probe worker waits a random delay
+  of up to one `periodSeconds` before the first probe run. That stagger avoids
+  thundering-herd probe traffic right after kubelet comes up. It is separate
+  from `initialDelaySeconds`, which always applies after the container starts.
+
 `timeoutSeconds`
 : Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1.
 
