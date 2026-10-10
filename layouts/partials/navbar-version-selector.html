@@ -1,0 +1,15 @@
+<div class="dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{ T "version_menu" }}
+  </a>
+  <ul class="dropdown-menu">
+    {{ $path := "" -}}
+    {{ if .Site.Params.version_menu_pagelinks -}}
+      {{ $path = .Page.RelPermalink -}}
+    {{ end -}}
+	<li><a class="dropdown-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a></li>
+    {{ range .Site.Params.versions -}}
+    <li><a class="dropdown-item" href="{{ .url }}{{ $path }}">{{ .version }}</a></li>
+    {{ end -}}
+  </ul>
+</div>

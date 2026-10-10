@@ -1,0 +1,68 @@
+apiVersion: audit.k8s.io/v1 # 필수사항임.
+kind: Policy
+# Request Received 단계의 모든 요청에 대해 감사 이벤트를 생성하지 않음.
+omitStages:
+  - "RequestReceived"
+rules:
+  # RequestResponse 수준에서 파드 변경 사항 기록
+  - level: RequestResponse
+    resources:
+    - group: ""
+      # 리소스 "파드" 가 RBAC 정책과 부합하는 파드의 하위 리소스에 대한
+      # 요청과 일치하지 않음.
+      resources: ["pods"]
+  # 메타데이터 수준에서 "pods/log", "pods/status"를 기록함.
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["pods/log", "pods/status"]
+
+  # "controller-leader" 라는 컨피그맵에 요청을 기록하지 않음."
+  - level: None
+    resources:
+    - group: ""
+      resources: ["configmaps"]
+      resourceNames: ["controller-leader"]
+
+  # 엔드포인트 또는 서비스의 "system:kube-proxy"에 의한 감시 요청 기록하지 않음.
+  - level: None
+    users: ["system:kube-proxy"]
+    verbs: ["watch"]
+    resources:
+    - group: "" # 핵심 API 그룹
+      resources: ["endpoints", "services"]
+
+  # 인증된 요청을 특정 리소스가 아닌 URL 경로에 기록하지 않음.
+  - level: None
+    userGroups: ["system:authenticated"]
+    nonResourceURLs:
+    - "/api*" # 와일드카드 매칭(wildcard matching).
+    - "/version"
+
+  # kube-system에 컨피그맵 변경 사항의 요청 본문을 기록함.
+  - level: Request
+    resources:
+    - group: "" # 핵심 API 그룹
+      resources: ["configmaps"]
+    # 이 정책은 "kube-system" 네임스페이스의 리소스에만 적용됨.
+    # 빈 문자열 "" 은 네임스페이스가 없는 리소스를 선택하는데 사용할 수 있음.
+    namespaces: ["kube-system"]
+
+  # 메타데이터 수준에서 다른 모든 네임스페이스의 컨피그맵과 시크릿 변경 사항을 기록함.
+  - level: Metadata
+    resources:
+    - group: "" # 핵심 API 그룹
+      resources: ["secrets", "configmaps"]
+
+  # 요청 수준에서 코어 및 확장에 있는 다른 모든 리소스를 기록함.
+  - level: Request
+    resources:
+    - group: "" # 핵심 API 그룹
+    - group: "extensions" # 그룹의 버전을 기재하면 안 된다.
+
+  # 메타데이터 수준에서 다른 모든 요청을 기록하기 위한 모든 수집 정책.
+  - level: Metadata
+    # 이 정책에 해당하는 감시자와 같은 장기 실행 요청은
+    # RequestReceived에서 감사 이벤트를 생성하지 않음.
+    omitStages:
+      - "RequestReceived"

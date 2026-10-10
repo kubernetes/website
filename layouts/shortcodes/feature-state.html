@@ -1,0 +1,56 @@
+{{ $valid_states := "alpha, beta, deprecated, stable" }}
+{{ $state := .Get "state" }}
+{{ $for_k8s_version := .Get "for_k8s_version" | default (.Page.Param "version") }}
+{{ $is_valid := strings.Contains $valid_states $state }}
+{{ $feature_gate_name := .Get "feature_gate_name" }}
+
+{{ if not $feature_gate_name }}
+  {{ if not $is_valid }}
+    {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
+  {{- else -}}
+    {{- /* Display feature state notice */ -}}
+    <div class="feature-state-notice feature-{{ $state }}">
+      <span class="feature-state-name">{{ T "feature_state" }}</span>
+      <code>{{ T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
+    </div>
+  {{ end }}
+{{ else }}
+  <!-- When 'feature_gate_name' is specified, extract status of the feature gate -->
+
+  {{- $featureGateDescriptionFilesPath := "/docs/reference/command-line-tools-reference/feature-gates" -}}
+
+  {{- with index (where .Site.Sites "Language.Lang" "eq" "en") 0 -}}
+    {{- with .GetPage $featureGateDescriptionFilesPath -}}
+
+      {{- $sortedFeatureGates := sort (.Resources.ByType "page") -}}
+      {{- $featureGateFound := false -}}
+
+      {{- range $featureGateFile := $sortedFeatureGates -}}
+        {{- $featureGateNameFromFile := $featureGateFile.Params.Title -}}
+
+        {{- if eq $featureGateNameFromFile $feature_gate_name -}}
+          {{- $currentStage := index $featureGateFile.Params.stages (sub (len $featureGateFile.Params.stages) 1) -}}
+          {{- with $currentStage -}}
+
+            <div class="feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
+              <span class="feature-state-name">{{ T "feature_state" }}</span> 
+              <code>{{ T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+              {{- if eq .defaultValue true -}}
+                {{ T "feature_gate_enabled" }}
+              {{- else -}}
+                {{ T "feature_gate_disabled" }}
+              {{- end -}}
+            </div>
+
+            {{- $featureGateFound = true -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- if not $featureGateFound -}}
+        {{- errorf "Invalid feature gate: '%s' is not recognized or lacks a matching description file in '%s'" $feature_gate_name (print "en" $featureGateDescriptionFilesPath) -}}
+      {{- end -}}
+
+    {{- end -}}
+  {{- end -}}
+{{ end }}

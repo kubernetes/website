@@ -1,0 +1,76 @@
+---
+title: NetEase Case Study
+linkTitle: NetEase
+case_study_styles: true
+cid: caseStudies
+logo: netease_featured_logo.png
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/netease/banner1.jpg
+heading_title_logo: /images/netease_logo.png
+subheading: >
+  How NetEase Leverages Kubernetes to Support Internet Business Worldwide
+case_study_details:
+  - Company: NetEase
+  - Location: Hangzhou, China
+  - Industry: Internet technology
+---
+
+<h2>Challenge</h2>
+
+<p>Its gaming business is one of the largest in the world, but that's not all that <a href="https://netease-na.com/">NetEase</a> provides to Chinese consumers. The company also operates e-commerce, advertising, music streaming, online education, and email platforms; the last of which serves almost a billion users with free email services through sites like <a href="https://www.163.com/">163.com</a>. In 2015, the NetEase Cloud team providing the infrastructure for all of these systems realized that their R&D process was slowing down developers. "Our users needed to prepare all of the infrastructure by themselves," says Feng Changjian, Architect for NetEase Cloud and Container Service. "We were eager to provide the infrastructure and tools for our users automatically via serverless container service."</p>
+
+<h2>Solution</h2>
+
+<p>After considering building its own orchestration solution, NetEase decided to base its private cloud platform on <a href="https://kubernetes.io/">Kubernetes</a>. The fact that the technology came out of Google gave the team confidence that it could keep up with NetEase's scale. "After our 2-to-3-month evaluation, we believed it could satisfy our needs," says Feng. The team started working with Kubernetes in 2015, before it was even 1.0. Today, the NetEase internal cloud platform—which also leverages the CNCF projects <a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://goharbor.io/">Harbor</a>, <a href="https://grpc.io/">gRPC</a>, and <a href="https://helm.sh/">Helm</a>—runs 10,000 nodes in a production cluster and can support up to 30,000 nodes in a cluster. Based on its learnings from its internal platform, the company introduced a Kubernetes-based cloud and microservices-oriented PaaS product, <a href="https://landscape.cncf.io/?group=projects-and-products&view-mode=card&item=platform--certified-kubernetes-distribution--netease-qingzhou-microservice#runtime--container-runtime">NetEase Qingzhou Microservice</a>, to outside customers.</p>
+
+<h2>Impact</h2>
+
+<p>The NetEase team reports that Kubernetes has increased R&D efficiency by more than 100%. Deployment efficiency has improved by 280%. "In the past, if we wanted to do upgrades, we needed to work with other teams, even in other departments," says Feng. "We needed special staff to prepare everything, so it took about half an hour. Now we can do it in only 5 minutes." The new platform also allows for mixed deployments using GPU and CPU resources. "Before, if we put all the resources toward the GPU, we won't have spare resources for the CPU. But now we have improvements thanks to the mixed deployments," he says. Those improvements have also brought an increase in resource utilization.</p>
+
+{{< case-studies/quote author="Zeng Yuxing, Architect, NetEase" >}}
+"The system can support 30,000 nodes in a single cluster. In production, we have gotten the data of 10,000 nodes in a single cluster. The whole internal system is using this system for development, test, and production."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Its gaming business is the <a href="https://newzoo.com/insights/rankings/top-25-companies-game-revenues/">fifth-largest</a> in the world, but that's not all that <a href="https://netease-na.com/">NetEase</a> provides consumers.
+{{< /case-studies/lead >}}
+
+<p>The company also operates e-commerce, advertising, music streaming, online education, and email platforms in China; the last of which serves almost a billion users with free email services through popular sites like <a href="https://www.163.com/">163.com</a> and <a href="https://www.126.com/">126.com</a>. With that kind of scale, the NetEase Cloud team providing the infrastructure for all of these systems realized in 2015 that their R&D process was making it hard for developers to keep up with demand. "Our users needed to prepare all of the infrastructure by themselves," says Feng Changjian, Architect for NetEase Cloud and Container Service. "We were eager to provide the infrastructure and tools for our users automatically via serverless container service."</p>
+
+<p>After considering building its own orchestration solution, NetEase decided to base its private cloud platform on <a href="https://kubernetes.io/">Kubernetes</a>. The fact that the technology came out of Google gave the team confidence that it could keep up with NetEase's scale. "After our 2-to-3-month evaluation, we believed it could satisfy our needs," says Feng.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/netease/banner3.jpg"
+  author="Feng Changjian, Architect for NetEase Cloud and Container Service, NetEase"
+>}}
+"We leveraged the programmability of Kubernetes so that we can build a platform to satisfy the needs of our internal customers for upgrades and deployment."
+{{< /case-studies/quote >}}
+
+<p>The team started adopting Kubernetes in 2015, before it was even 1.0, because it was relatively easy to use and enabled DevOps at the company. "We abandoned some of the concepts of Kubernetes; we only wanted to use the standardized framework," says Feng. "We leveraged the programmability of Kubernetes so that we can build a platform to satisfy the needs of our internal customers for upgrades and deployment."</p>
+
+<p>The team first focused on building the container platform to manage resources better, and then turned their attention to improving its support of microservices by adding internal systems such as monitoring. That has meant integrating the CNCF projects <a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://goharbor.io/">Harbor</a>, <a href="https://grpc.io/">gRPC</a>, and <a href="https://helm.sh/">Helm</a>. "We are trying to provide a simplified and standardized process, so our users and customers can leverage our best practices," says Feng.</p>
+
+<p>And the team is continuing to make improvements. For example, the e-commerce part of the business needs to leverage mixed deployments, which in the past required using two separate platforms: the infrastructure-as-a-service platform and the Kubernetes platform. More recently, NetEase has created a cross-platform application that enables using both with one-command deployment.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/netease/banner4.jpg"
+  author="Li Lanqing, Kubernetes Developer, NetEase"
+>}}
+"As long as a company has a mature team and enough developers, I think Kubernetes is a very good technology that can help them."
+{{< /case-studies/quote >}}
+
+<p>Today, the NetEase internal cloud platform "can support 30,000 nodes in a single cluster," says Architect Zeng Yuxing. "In production, we have gotten the data of 10,000 nodes in a single cluster. The whole internal system is using this system for development, test, and production."</p>
+
+<p>The NetEase team reports that Kubernetes has increased R&D efficiency by more than 100%. Deployment efficiency has improved by 280%. "In the past, if we wanted to do upgrades, we needed to work with other teams, even in other departments," says Feng. "We needed special staff to prepare everything, so it took about half an hour. Now we can do it in only 5 minutes." The new platform also allows for mixed deployments using GPU and CPU resources. "Before, if we put all the resources toward the GPU, we won't have spare resources for the CPU. But now we have improvements thanks to the mixed deployments." Those improvements have also brought an increase in resource utilization.</p>
+
+{{< case-studies/quote author="Li Lanqing, Kubernetes Developer, NetEase">}}
+"By engaging with this community, we can gain some experience from it and we can also benefit from it. We can see what are the concerns and the challenges faced by the community, so we can get involved."
+{{< /case-studies/quote >}}
+
+<p>Based on the results and learnings from using its internal platform, the company introduced a Kubernetes-based cloud and microservices-oriented PaaS product, <a href="https://landscape.cncf.io/?group=projects-and-products&view-mode=card&item=platform--certified-kubernetes-distribution--netease-qingzhou-microservice#runtime--container-runtime">NetEase Qingzhou Microservice</a>, to outside customers. "The idea is that we can find the problems encountered by our game and e-commerce and cloud music providers, so we can integrate their experiences and provide a platform to satisfy the needs of our users," says Zeng.</p>
+
+<p>With or without the use of the NetEase product, the team encourages other companies to try Kubernetes. "As long as a company has a mature team and enough developers, I think Kubernetes is a very good technology that can help them," says Kubernetes developer Li Lanqing.</p>
+
+<p>As an end user as well as a vendor, NetEase has become more involved in the community, learning from other companies and sharing what they've done. The team has been contributing to the Harbor and Envoy projects, providing feedback as the technologies are being tested at NetEase scale. "We are a team focusing on addressing the challenges of microservices architecture," says Feng. "By engaging with this community, we can gain some experience from it and we can also benefit from it. We can see what are the concerns and the challenges faced by the community, so we can get involved."</p>

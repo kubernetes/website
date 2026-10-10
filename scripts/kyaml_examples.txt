@@ -1,0 +1,11 @@
+# The example manifests offered in both dialects, read by scripts/kyaml.sh.
+# Paths are relative to content/<lang>/examples. See scripts/README.md.
+#
+# One manifest per API kind a reader meets early.
+
+pods/simple-pod.yaml                 # docs/concepts/workloads/pods/
+controllers/nginx-deployment.yaml    # docs/concepts/workloads/controllers/deployment.md
+application/web/web.yaml             # docs/tutorials/stateful-application/basic-stateful-set.md
+controllers/daemonset.yaml           # docs/concepts/workloads/controllers/daemonset.md
+service/simple-service.yaml          # docs/concepts/services-networking/service.md
+configmap/configmap-multikeys.yaml   # docs/tasks/configure-pod-container/configure-pod-configmap.md

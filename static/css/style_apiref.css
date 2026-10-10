@@ -1,0 +1,322 @@
+/*
+Kubernetes colors (assets/scss/_skin.scss)
+
+$blue: #326ce5;
+$light-grey: #f7f7f7;
+$dark-grey: #303030;
+$medium-grey: #4c4c4c;
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i&display=swap");
+
+body {
+  font-family: "open sans", -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, "helvetica neue", Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
+}
+
+body > #wrapper {
+  padding-bottom: 2rem;
+}
+
+a {
+  color: #326ce5;
+}
+
+a:hover {
+  color: #0f306e;
+  text-decoration: none;
+}
+
+.toc-item {
+  padding-top: 1.2rem;
+}
+
+h1 {
+  border-bottom: 3px solid #303030;
+}
+
+h2 {
+  border-bottom: 2px solid #303030;
+}
+
+h3.toc-item {
+  border-bottom: 1px solid #303030;
+}
+
+h1, h2, h3, h4 {
+  margin-bottom: 1rem;
+}
+
+code {
+  color: #b44;
+  word-wrap: break-word;
+}
+
+.alert > ul:last-child {
+  margin-bottom: 0;
+}
+
+#page-content-wrapper {
+  padding-top: 2rem;
+}
+
+.body-content table {
+  margin-bottom: 1em;
+  overflow: auto;
+}
+
+.body-content table th, .body-content table td {
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.body-content table th {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: bottom;
+}
+
+.body-content table td {
+  padding: 10px;
+}
+
+.body-content table tr:last-child {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.body-content table tr:nth-child(odd) > td {
+  background-color: rgba(0,0,0,5%);
+}
+
+.body-content dt {
+  font-weight: bold;
+}
+
+.body-content dd {
+  margin-left: 15px;
+}
+
+#sidebar-wrapper {
+  display: block;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(51, 113, 227, 3%);
+  border-right: 1px solid #dee2e6;
+  overflow-x: scroll;
+  padding-top: .5rem;
+}
+
+#navigation {
+  padding-left: 0;
+}
+
+#navigation a {
+  color: #222;
+  white-space: pre;
+  line-height: 1.5rem;
+
+  /* room to make the .selected style look better */
+  padding: 0 .2rem;
+}
+
+#navigation a:hover {
+  color: #326ce5;
+  text-decoration: none;
+}
+
+#navigation li {
+  list-style-type: none;
+}
+
+/* make group and version less prominent */
+#navigation .gvk .v,
+#navigation .gvk .g {
+  font-size: 90%;
+  opacity: 0.6;
+}
+
+/* reduce indentation for other levels a bit */
+#navigation ul {
+  padding-left: 0.7rem;
+}
+
+#navigation .level-1,
+#navigation .level-2 {
+  padding-top: .5rem;
+}
+
+/* mark the first TOC layer */
+#navigation .level-1 > a {
+  font-weight: 700;
+}
+
+/* at the opposite end, make links thinner */
+#navigation .level-4 > a {
+  font-weight: 300;
+}
+
+/* hide operations by default, reveal them via JS */
+#navigation li.level-2 ul {
+  display: none;
+}
+
+/* always hide definitions for brevity sake */
+#navigation #definitions-nav {
+  display: none !important;
+}
+
+/* highlight selected nodes */
+#sidebar-wrapper a.selected {
+  font-weight: 700;
+  color: #dee2e6;
+  border: 1px solid rgb(161, 160, 158);
+  background-color: rgb(51, 113, 227);
+  border-radius: .4rem;
+}
+
+.samples-container > div {
+  padding-top: 1rem;
+}
+
+.samples-container .panel-heading {
+  font-style: italic;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid rgba(0,0,0,.125);
+  tab-size: 4;
+  padding: .9rem;
+}
+
+/* button for toggling light/dark mode */
+.btn.switch-theme {
+  /* button is only useful with JavaScript enabled, so the button is hidden by default */
+  display: none;
+}
+
+/* handle dark mode theming */
+@media (prefers-color-scheme: dark) {
+	body.theme-auto {
+    background: #343a40;
+    color: #f7f7f7;
+  }
+
+  body.theme-auto a {
+    color: #6c9ffd;
+  }
+
+  body.theme-auto a:hover {
+    color: #6c9ffd;
+    text-decoration: underline;
+  }
+
+  body.theme-auto a.btn {
+    color: #f7f7f7;
+    text-decoration: none;
+  }
+
+  body.theme-auto h1,
+  body.theme-auto h2,
+  body.theme-auto h3.toc-item {
+    border-color: #f7f7f7;
+  }
+
+  body.theme-auto code {
+    color: #c97300;
+  }
+
+  body.theme-auto .body-content table tr:nth-child(odd) > td {
+    background-color: rgba(0,0,0,15%);
+  }
+
+  body.theme-auto #sidebar-wrapper {
+    background-color: #25292e;
+    border-color: #2b2b2b;
+  }
+
+  body.theme-auto #navigation a,
+  body.theme-auto #navigation a.selected:hover {
+    color: #f7f7f7;
+  }
+
+  body.theme-auto #navigation a.selected {
+    border-color: #2b2b2b;
+  }
+
+  body.theme-auto #navigation a:hover {
+    color: #326ce5;
+  }
+
+  body.theme-auto pre {
+    background-color: #25292e;
+    border-color: rgba(0,0,0,.125);
+  }
+
+  body.theme-auto .alert a {
+    color: #326ce5;
+  }
+}
+
+/* same rules (except theme-auto becomes theme-dark), but for enforced dark mode */
+body.theme-dark {
+  background: #343a40;
+  color: #f7f7f7;
+}
+
+body.theme-dark a {
+  color: #6c9ffd;
+}
+
+body.theme-dark a:hover {
+  color: #6c9ffd;
+  text-decoration: underline;
+}
+
+body.theme-dark a.btn {
+  color: #f7f7f7;
+  text-decoration: none;
+}
+
+body.theme-dark h1,
+body.theme-dark h2,
+body.theme-dark h3.toc-item {
+  border-color: #f7f7f7;
+}
+
+body.theme-dark code {
+  color: #c97300;
+}
+
+body.theme-dark .body-content table tr:nth-child(odd) > td {
+  background-color: rgba(0,0,0,15%);
+}
+
+body.theme-dark #sidebar-wrapper {
+  background-color: #25292e;
+  border-color: #2b2b2b;
+}
+
+body.theme-dark #navigation a,
+body.theme-dark #navigation a.selected:hover {
+  color: #f7f7f7;
+}
+
+body.theme-dark #navigation a.selected {
+  border-color: #2b2b2b;
+}
+
+body.theme-dark #navigation a:hover {
+  color: #326ce5;
+}
+
+body.theme-dark pre {
+  background-color: #25292e;
+  border-color: rgba(0,0,0,.125);
+}
+
+body.theme-dark .alert a {
+  color: #326ce5;
+}

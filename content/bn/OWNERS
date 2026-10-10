@@ -1,0 +1,14 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Bengali.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-bn-reviews
+
+approvers:
+- sig-docs-bn-owners
+
+labels:
+- area/localization
+- language/bn

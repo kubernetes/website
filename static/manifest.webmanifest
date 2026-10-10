@@ -1,0 +1,22 @@
+{
+  "short_name": "Kubernetes",
+  "name": "Kubernetes",
+  "description": "An open-source system for automating deployment, scaling, and management of containerized applications",
+  "icons": [
+    {
+      "src": "/images/kubernetes-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/kubernetes-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#326ce5",
+  "display": "browser",
+  "scope": "/",
+  "theme_color": "#326ce5"
+}

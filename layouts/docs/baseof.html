@@ -1,0 +1,51 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
+    <header>
+      {{ partial "navbar.html" . }}
+      {{ partial "announcement.html" . }}
+      {{ block "hero" . }}
+      {{ end }}
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            {{ partial "sidebar.html" . }}
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
+            {{ partial "docs/api-reference-links" . }}
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
+            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+            {{ block "deprecation_warning" . }}
+              {{ partial "version-banner.html" . }}
+            {{ end }}
+            {{ block "outdated_content" . }}
+              {{ partial "docs/outdated_content.html" . }}
+            {{ end }}
+            {{ block "main" . }}{{ end }}
+            {{- if .HasShortcode "thirdparty-content" -}}
+            {{ block "thirdparty-disclaimer" . }}
+              {{ partial "docs/thirdparty-disclaimer.html" . }}
+            {{- end -}}
+            {{- end -}}
+            {{- if (.Param "auto_generated") -}}
+            {{ block "auto-generated-pageinfo" . }}
+              {{ partial "docs/auto-generated-pageinfo.html" . }}
+            {{- end -}}
+            {{- end -}}
+          </main>
+        </div>
+      </div>
+    </div>
+    {{ partial "footer.html" . }}
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

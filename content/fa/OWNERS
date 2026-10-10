@@ -1,0 +1,17 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Farsi (Persian).
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+# Until the Persian localization reviewers/approvers are onboarded,
+# sig-docs-localization leads will review and approve PRs to help the team.
+# Once the team is onboarded, this OWNERS file will be updated.
+reviewers:
+- sig-docs-localization-reviewers
+
+approvers:
+- sig-docs-localization-owners
+
+labels:
+- area/localization
+- language/fa
