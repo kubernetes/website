@@ -146,7 +146,7 @@ The following scheduler metrics are high level metrics aggregating performance
 across all Pods scheduled, not just those using DRA. It is important to note
 that the end-to-end metrics are ultimately influenced by the
 `kube-controller-manager`'s performance in creating ResourceClaims from
-ResourceClainTemplates in deployments that heavily use ResourceClainTemplates.
+ResourceClaimTemplates in deployments that heavily use ResourceClaimTemplates.
 
 * Scheduler End-to-End Duration: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by
