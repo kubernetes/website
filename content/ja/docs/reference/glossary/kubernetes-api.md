@@ -10,7 +10,7 @@ tags:
 - fundamental
 - architecture
 ---
- RESTfulインターフェースを通してKubernetesの機能を提供し、クラスターの状態を保存するアプリケーションです。
+ ユーザー、クラスターコンポーネント、および外部コンポーネントが相互に通信し、Kubernetesオブジェクトの状態を照会または操作できるようにするHTTP APIです。
 
 <!--more--> 
 
