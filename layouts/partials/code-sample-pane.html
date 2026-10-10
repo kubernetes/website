@@ -1,0 +1,24 @@
+{{- /*
+Renders one example manifest.
+
+Expects a dict with:
+  file      the path passed to the code_sample shortcode, e.g. "pods/simple-pod.yaml"
+  content   the file contents to highlight
+  codelang  highlight language
+  options   highlight options
+  ghlink    raw-file link on GitHub, may be empty
+  id        DOM id for the copy-to-clipboard helper, unique per pane
+*/ -}}
+<div class="highlight code-sample">
+    <div class="copy-code-icon">
+    {{ with .ghlink }}<a href="{{ . | safeURL }}" download="{{ $.file }}">{{ end }}<code>{{ .file }}</code>
+    {{ if .ghlink }}</a>{{ end }}
+    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" .file) -}}
+    {{- with resources.Get "images/copycode.svg" -}}
+    <img src="{{ .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $.id }}')" title="{{ $copyTitle }}"></img>
+    {{- end -}}
+    </div>
+    <div class="includecode" id="{{ .id }}">
+       {{- highlight .content .codelang .options -}}
+    </div>
+</div>

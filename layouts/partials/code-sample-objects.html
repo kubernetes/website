@@ -1,0 +1,32 @@
+{{- /*
+Returns the objects a manifest describes, as JSON, one entry per document in it.
+Comparing that instead of the text is how two renderings of one manifest are
+checked against each other: a dialect changes the spelling, so only the decoded
+objects are comparable.
+
+Expects a dict with:
+  key       a name unique to this manifest and dialect, for the temporary
+            resource; derive it from the path actually read, so that two
+            languages holding the same manifest name do not share one resource
+  content   the manifest text
+
+Each document goes through a .yaml-named resource because transform.Unmarshal
+guesses a bare string's format and KYAML's leading brace reads as JSON; jsonify
+then orders the keys, leaving only meaning to compare.
+*/ -}}
+{{- $key := .key | anchorize -}}
+{{- $docs := slice -}}
+{{- /* Both of YAML's document markers, with a trailing comment allowed on
+       either: "---" starts the next document and "..." ends the current one,
+       so for splitting they amount to the same thing. A leading newline so a
+       marker on the first line splits like any other. Manifests holding a
+       block scalar are not rendered at all (see scripts/kyaml.sh), so no
+       marker line here is inside a string. */ -}}
+{{- $normalized := replaceRE `(?m)^(---|\.\.\.)[ \t]*(#.*)?$` "---" .content -}}
+{{- range $i, $doc := split (printf "\n%s" $normalized) "\n---\n" -}}
+{{- with trim $doc " \t\n" -}}
+{{- $resource := resources.FromString (printf "dialect-check/%s-%d.yaml" $key $i) . -}}
+{{- $docs = $docs | append ($resource | transform.Unmarshal | jsonify) -}}
+{{- end -}}
+{{- end -}}
+{{- return (jsonify $docs) -}}
