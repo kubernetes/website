@@ -1,0 +1,17 @@
+---
+title: StorageCapacityScoring
+content_type: feature_gate
+build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.33"
+    toVersion: "1.36"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.37"
+---
+У версії 1.32 для підтримки сховищ зі статичним резервуванням використовувалася функціональна можливість `VolumeCapacityPriority`. Починаючи з версії 1.33, нова функціональна можливість `StorageCapacityScoring` замінює стару функціональну можливість `VolumeCapacityPriority` з додатковою підтримкою сховищ з динамічним резервуванням. Коли `StorageCapacityScoring` увімкнено, втулок VolumeBinding у kube-scheduler розширено, щоб оцінювати вузли на основі місткості сховища на кожному з них. Ця функція застосовується до томів CSI, які підтримують [Обсяг сховища](/docs/concepts/storage/storage-capacity/), включно з локальним сховищем, яке підтримується драйвером CSI.

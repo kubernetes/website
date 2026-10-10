@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner # вказує на те, що цей StorageClass не підтримує автоматичне виділення ресурсів
+volumeBindingMode: WaitForFirstConsumer
