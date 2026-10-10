@@ -81,7 +81,7 @@ status:
     shareID: 8e7acdf9-0290-4ecd-a801-a654b021d2b7
 ```
 
-デバイスが割り当てられていない場合、そのデバイスを持つResourceClaimの`status.devices`フィールドを更新するドライバーからのリクエストは拒否されます。
+デバイスが割り当てられていない場合、そのデバイスの情報でResourceClaimの`status.devices`フィールドを更新しようとするドライバーからのリクエストは拒否されます。
 デバイスが(`status.allocation.devices`から削除されて)割り当て解除されると、対応する`status.devices`のエントリも自動的に削除されます。
 
 `status.devices`フィールドの詳細については、{{< api-reference page="resource/resource-claim-v1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} APIリファレンスを参照してください。
@@ -134,7 +134,7 @@ ResourcePoolStatusRequest APIを使用すると、リソースプール内のデ
      driver: example.com/gpu
      # オプション: 特定のプールに限定する
      # poolName: my-pool
-     # オプション: 返されるプール数の上限 (既定値: 100, 最大値: 1000)
+     # オプション: 返されるプール数の上限(既定値: 100、最大値: 1000)
      # limit: 10
    ```
 
@@ -203,7 +203,7 @@ GPUなどの単体の物理デバイスは、同じ共有カウンターから�
 [リスト型属性](/docs/reference/command-line-tools-reference/feature-gates/#DRAListTypeAttributes)について特別な扱いはありません。
 文字列型ではない属性は、単にパーティションタイプ属性として有効なものではありません。
 
-このビューを生成するために、ドライバーはパーティション可能な各デバイスに対して、そのパーティションタイプを値に持つ文字列型の属性のラベルを付与し、その属性をResourceSliceの`partitionTypeAttribute`フィールドで指定します:
+このビューを生成するために、ドライバーはパーティション可能な各デバイスに対して、そのパーティションタイプを値に持つ文字列型の属性を付与し、その属性をResourceSliceの`partitionTypeAttribute`フィールドで指定します:
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -329,8 +329,7 @@ Goのコンシューマーは、[`ReadResourceClaimMetadata`](https://pkg.go.dev
 
 ### メタデータスキーマ {#device-metadata-schema}
 
-メタデータファイルの各オブジェクトは[`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1beta1#DeviceMetadata)
-API (`metadata.resource.k8s.io/v1beta1`)に準拠します。
+メタデータファイルの各オブジェクトは[`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1beta1#DeviceMetadata) API(`metadata.resource.k8s.io/v1beta1`)に準拠します。
 
 スキーマには、次のものが含まれます:
 
