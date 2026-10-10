@@ -13,7 +13,9 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.35"
 
+removed: true
 ---
 Enables the `allocatedResources` field in the container status.
 This feature requires the `InPlacePodVerticalScaling` gate be enabled as well.
