@@ -14,7 +14,7 @@ weight: 20
 장치 플러그인 프레임워크를 제공한다.
 
 공급 업체는 쿠버네티스 자체의 코드를 커스터마이징하는 대신, 수동 또는
-{{< glossary_tooltip text="데몬셋" term_id="daemonset" >}}으로 배포하는 장치 플러그인을 구현할 수 있다.
+{{< glossary_tooltip text="데몬셋(DaemonSet)" term_id="daemonset" >}}으로 배포하는 장치 플러그인을 구현할 수 있다.
 대상이 되는 장치에는 GPU, 고성능 NIC, FPGA, InfiniBand 어댑터
 및 공급 업체별 초기화 및 설정이 필요할 수 있는 기타 유사한 컴퓨팅 리소스가
 포함된다.
@@ -52,8 +52,8 @@ service Registration {
 있다([`container`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) 참조).
 확장 리소스를 요청하는 것은 다른 리소스의 요청 및 제한을 관리하는 것과 비슷하지만,
 다음과 같은 차이점이 존재한다.
-* 확장된 리소스는 정수(integer) 형태만 지원되며 오버커밋(overcommit) 될 수 없다.
-* 컨테이너간에 장치를 공유할 수 없다.
+* 확장된 리소스는 정수(integer) 형태만 지원되며 오버커밋(overcommit)될 수 없다.
+* 컨테이너 간에 장치를 공유할 수 없다.
 
 ### 예제 {#example-pod}
 
@@ -110,13 +110,13 @@ spec:
          rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
 
          // GetPreferredAllocation은 사용 가능한 장치 목록에서 할당할
-         // 기본 장치 집합을 반환한다. 그 결과로 반환된 선호하는 할당은
+         // 선호 장치 집합을 반환한다. 그 결과로 반환된 선호하는 할당은
          // devicemanager가 궁극적으로 수행하는 할당이 되는 것을 보장하지
          // 않는다. 가능한 경우 devicemanager가 정보에 입각한 할당 결정을
          // 내릴 수 있도록 설계되었다.
          rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-         // PreStartContainer는 등록 단계에서 장치 플러그인에 의해 표시되면 각 컨테이너가
+         // PreStartContainer는 장치 플러그인이 등록 단계에서 지정한 경우 각 컨테이너가
          // 시작되기 전에 호출된다. 장치 플러그인은 장치를 컨테이너에서 사용할 수 있도록 하기 전에
          // 장치 재설정과 같은 장치별 작업을 실행할 수 있다.
          rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
@@ -125,9 +125,9 @@ spec:
 
    {{< note >}}
    플러그인이 `GetPreferredAllocation()` 또는 `PreStartContainer()`에 대한
-   유용한 구현을 반드시 제공해야 하는 것은 아니다. 이러한 호출을 사용할 수
-   있는지를 나타내는 플래그가 있다면, `GetDevicePluginOptions()` 호출에 의해
-   다시 전송된 `DevicePluginOptions` 메시지에 설정되어야 한다. `kubelet`은
+   유용한 구현을 반드시 제공해야 하는 것은 아니다. 이러한 호출의 사용 가능 여부를
+   나타내는 플래그가 있다면, `GetDevicePluginOptions()` 호출의 응답으로 반환되는
+   `DevicePluginOptions` 메시지에 설정해야 한다. `kubelet`은
    항상 `GetDevicePluginOptions()`를 호출하여 사용할 수 있는
    선택적 함수를 확인한 후에 직접 호출한다.
    {{< /note >}}
@@ -140,9 +140,9 @@ spec:
    kubelet에 자신을 등록하기 전에 반드시 gRPC 서비스를 제공하기 시작해야 한다.
    {{< /note >}}
 
-1. 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그 동안 플러그인은 장치 상태를
+1. 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그동안 플러그인은 장치 상태를
    모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
-   또한 gRPC 요청 `Allocate`를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
+   또한 gRPC 요청 `Allocate`를 담당한다. `Allocate`하는 동안, 장치 플러그인은
    GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
    작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
    `AllocateResponse`를 반환한다. kubelet은 이 정보를
@@ -182,21 +182,21 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 리소스의 용량(capacity) 개수는 변경되지 않는다.
 
 실패한 장치에 할당되었던 파드는 계속해서 이 장치에 할당된다.
-해당 장치에 의존하는 코드는 일반적으로 실패하기 시작하며,
-파드의 `restartPolicy`가 `Always`가 아니라면
-파드가 실패(Failed) 단계로 진입하거나
-크래시 루프(crash loop)에 빠질 수 있다.
+해당 장치에 의존하는 코드는 일반적으로 실패하기 시작하며, 파드의
+`restartPolicy`가 `Always`가 아니면 파드는 실패(Failed) 단계에
+진입하고, 그렇지 않으면 크래시 루프(crash loop)에 빠질 수 있다.
 
-쿠버네티스 v1.31 이전에는, 파드가 실패한 장치와 연관되어 있는지 여부를 알 수 있는 방법은
-[PodResources API](#장치-플러그인-리소스-모니터링)를 사용하는 것이었다.
+쿠버네티스 v1.31 이전에는 파드가 실패한 장치와 연관됐는지 확인하려면
+[PodResources API](#장치-플러그인-리소스-모니터링)를 사용해야 했다.
 
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
-`ResourceHealthStatus` 기능 게이트가 활성화되어 있으면(v1.36부터 베타이며 기본 활성화),
-각 파드의 `.status` 내 컨테이너 상태에 `allocatedResourcesStatus` 필드가 추가된다.
-`allocatedResourcesStatus` 필드는 컨테이너에 할당된 각 장치에 대한 헬스 정보를 보고한다.
-각 리소스 헬스 항목은 헬스 상태에 대한 추가적인 사람이 읽을 수 있는 컨텍스트(예: 오류
-세부 정보 또는 실패 원인)를 담은 선택적 `message` 필드를 포함할 수 있다.
+`ResourceHealthStatus` 기능 게이트가 활성화되면(v1.36부터 베타이며 기본 활성화),
+각 파드의 `.status` 내 컨테이너 상태에 `allocatedResourcesStatus` 필드가
+추가된다. `allocatedResourcesStatus` 필드는 컨테이너에 할당된 각 장치의
+헬스 정보를 보고한다.
+각 리소스 헬스 항목에는 헬스 상태에 관한 사람이 읽을 수 있는 추가 컨텍스트(예:
+오류 세부 정보 또는 실패 원인)를 담은 선택적 `message` 필드가 포함될 수 있다.
 
 실패한 파드의 경우, 또는 결함이 의심되는 경우, 이 상태를 사용하여
 파드 동작이 장치 실패와 관련이 있는지 이해할 수 있다. 예를 들어, 가속기가
@@ -220,11 +220,11 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 ## API 호환성
 
 과거에는 장치 플러그인의 API 버전을 반드시 kubelet의 버전과 정확하게 일치시켜야 했다.
-해당 기능이 v1.12의 베타 버전으로 올라오면서 이는 필수 요구사항이 아니게 되었다.
-해당 기능이 베타 버전이 된 이후로 API는 버전화되었고 그동안 변하지 않았다.
-그러므로 kubelet 업그레이드를 원활하게 진행할 수 있을 것이지만,
-안정화되기 전까지는 향후 API가 변할 수도 있으므로 업그레이드를 했을 때
-절대로 문제가 없을 것이라고는 보장할 수는 없다.
+이 기능이 v1.12에서 베타로 승격된 이후에는 더 이상 엄격한 요구사항이 아니다.
+API는 버전이 관리되며 베타 승격 이후 변경 없이 유지되어
+kubelet 업그레이드를 원활하게 수행할 수 있다.
+다만 안정화 전에는 API가 변경될 수 있으므로, 업그레이드가
+호환성을 깨뜨리지 않는다고 보장할 수는 없다.
 
 {{< note >}}
 쿠버네티스의 장치 관리자 컴포넌트는 안정화된(GA) 기능이지만 *장치 플러그인 API*는 안정화되지 않았다.
@@ -248,7 +248,7 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 
 장치 플러그인에서 제공하는 리소스를 모니터링하려면, 모니터링 에이전트가
 노드에서 사용 중인 장치 셋을 검색하고 메트릭과 연관될 컨테이너를 설명하는
-메타데이터를 얻을 수 있어야 한다. 장치 모니터링 에이전트에 의해 노출된
+메타데이터를 얻을 수 있어야 한다. 장치 모니터링 에이전트가 노출시키는
 [프로메테우스](https://prometheus.io/) 지표는
 [쿠버네티스 Instrumentation 가이드라인](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/metric-instrumentation.md)을 따라
 `pod`, `namespace` 및 `container` 프로메테우스 레이블을 사용하여 컨테이너를 식별해야 한다.
@@ -269,11 +269,11 @@ service PodResourcesLister {
 ### `List` gRPC 엔드포인트 {#grpc-endpoint-list}
 
 `List` 엔드포인트는 실행 중인 파드의 리소스에 대한 정보를 제공하며,
-독점적으로 할당된 CPU의 ID, 장치 플러그인에 의해 보고된 장치 ID,
+독점적으로 할당된 CPU의 ID, 장치 플러그인이 보고한 장치 ID,
 이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보를 함께 제공한다. 또한, NUMA 기반 머신의 경우,
-컨테이너를 위해 예약된 메모리와 hugepage에 대한 정보를 포함한다.
+컨테이너를 위해 예약된 메모리와 huge page에 대한 정보를 포함한다.
 
-쿠버네티스 v1.27부터, `List` 엔드포인트는 `DynamicResourceAllocation` API에 의해
+쿠버네티스 v1.27부터, `List` 엔드포인트는 `DynamicResourceAllocation` API가
 `ResourceClaims`에 할당된, 실행 중인 파드의 리소스에 대한 정보를 제공할 수 있다.
 쿠버네티스 v1.34부터, 이 기능은 기본적으로 활성화된다.
 
@@ -300,7 +300,7 @@ message ContainerResources {
     repeated DynamicResource dynamic_resources = 5;
 }
 
-// ContainerMemory는 컨테이너에 할당된 메모리와 hugepage에 대한 정보를 포함한다.
+// ContainerMemory는 컨테이너에 할당된 메모리와 huge page에 대한 정보를 포함한다.
 message ContainerMemory {
     string memory_type = 1;
     uint64 size = 2;
@@ -324,7 +324,7 @@ message ContainerDevices {
     TopologyInfo topology = 3;
 }
 
-// DynamicResource는 동적 리소스 할당에 의해 컨테이너에 할당된 장치에 대한 정보를 포함한다.
+// DynamicResource는 동적 리소스 할당을 통해 컨테이너에 할당된 장치에 대한 정보를 포함한다.
 message DynamicResource {
     string class_name = 1;
     string claim_name = 2;
@@ -348,8 +348,8 @@ message CDIDevice {
 ```
 {{< note >}}
 `List` 엔드포인트의 `ContainerResources` 내부에 있는 cpu_ids는 특정 컨테이너에 할당된
-독점 CPU들에 해당한다. 만약 공유 풀(shared pool)에 있는 CPU들을 확인(evaluate)하는 것이 목적이라면, 해당 `List`
-엔드포인트는 다음에 설명된 것과 같이, `GetAllocatableResources` 엔드포인트와 함께 사용되어야
+전용 CPU에 해당한다. 공유 풀(shared pool)에 속한 CPU를 확인하려면 `List`
+엔드포인트를 아래 설명과 같이 `GetAllocatableResources` 엔드포인트와 함께 사용해야
 한다.
 1. `GetAllocatableResources`를 호출하여 할당 가능한 모든 CPU 목록을 조회
 2. 시스템의 모든 `ContainerResources`에서 `GetCpuIds`를 호출
@@ -364,15 +364,15 @@ GetAllocatableResources는 워커 노드에서 처음 사용할 수 있는 리�
 kubelet이 APIServer로 내보내는 것보다 더 많은 정보를 제공한다.
 
 {{< note >}}
-`GetAllocatableResources`는 [할당 가능(allocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) 리소스를 확인(evaluate)하기 위해서만
-사용해야 한다. 만약 목적이 free/unallocated 리소스를 확인하기 위한 것이라면
-List() 엔드포인트와 함께 사용되어야 한다. `GetAllocatableResources`로 얻은 결과는 kubelet에
-노출된 기본 리소스가 변경되지 않는 한 동일하게 유지된다. 이러한 변경은 드물지만, 발생하게 된다면
-(예를 들면: hotplug/hotunplug, 장치 상태 변경) 클라이언트가 `GetAllocatableResources` 엔드포인트를
-호출할 것으로 가정한다.
+`GetAllocatableResources`는 [할당 가능(allocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) 리소스를 확인할 때만
+사용해야 한다. 사용 중이지 않거나 할당되지 않은 리소스를 확인하려면
+List() 엔드포인트와 함께 사용해야 한다. `GetAllocatableResources`의 결과는
+kubelet이 인식하는 기반 리소스가 변경되지 않는 한 동일하다. 이러한 변경은 드물지만,
+변경되면(예: hotplug/hotunplug, 장치 상태 변경) 클라이언트는 `GetAllocatableResources` 엔드포인트를
+호출해야 한다.
 
 그러나 CPU 및/또는 메모리가 갱신된 경우 `GetAllocatableResources` 엔드포인트를 호출하는 것만으로는
-충분하지 않으며, kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능(allocatable) 리소스를 반영해야 한다.
+충분하지 않으며, kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능 리소스를 반영해야 한다.
 {{< /note >}}
 
 ```gRPC
@@ -385,7 +385,7 @@ message AllocatableResourcesResponse {
 ```
 
 `ContainerDevices`는 장치가 어떤 NUMA 셀과 연관되는지를 선언하는 토폴로지 정보를 노출한다.
-NUMA 셀은 불분명한(opaque) 정수 ID를 사용하여 식별되며, 이 값은
+NUMA 셀은 불투명한(opaque) 정수 ID를 사용하여 식별되며, 이 값은
 [kubelet에 등록할 때](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#토폴로지-관리자로-장치-플러그인-통합)
 장치 플러그인이 보고하는 것과 일치한다.
 
@@ -410,11 +410,11 @@ kubelet 재시작 후에도 컨테이너가 이 소켓에 다시 연결할 수 �
 일반적인 리눅스 노드에서는, `/var/lib/kubelet/pod-resources/kubelet.sock` 대신
 `/var/lib/kubelet/pod-resources/`를 마운트한다는 의미이다.
 
-컨테이너 마운트는 마운트된 대상에 따라 소켓이나 디렉터리를 참조하는 inode에 의해
-관리된다. kubelet이 재시작되면, 소켓은 삭제되고 새로운 소켓이 생성되며,
+컨테이너 마운트는 마운트된 대상에 따라 소켓이나 디렉터리의 inode를
+참조한다. kubelet이 재시작되면, 소켓은 삭제되고 새로운 소켓이 생성되며,
 디렉터리는 그대로 유지된다.
-따라서 소켓의 원래 inode는 사용할 수 없게 된다.
-디렉터리에 대한 inode는 계속 동작한다.
+따라서 소켓의 기존 inode 참조는 사용할 수 없게 되지만,
+디렉터리의 inode 참조는 계속 유효하다.
 
 {{< /note >}}
 
@@ -434,7 +434,7 @@ message GetPodResourcesRequest {
 }
 ```
 
-`Get` 엔드포인트는 동적 리소스 할당 API에 의해 할당된 동적 리소스와 관련된
+`Get` 엔드포인트는 동적 리소스 할당 API가 할당한 동적 리소스와 관련된
 파드 정보를 제공할 수 있다.
 쿠버네티스 v1.34부터, 이 기능은 기본적으로 활성화된다.
 
@@ -442,7 +442,7 @@ message GetPodResourcesRequest {
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
-토폴로지 관리자는 kubelet 컴포넌트로, 리소스를 토폴로지 정렬 방식으로 조정할 수 있다.
+토폴로지 관리자는 리소스를 토폴로지에 맞춰 조정할 수 있게 하는 kubelet 컴포넌트이다.
 이를 위해, 장치 플러그인 API가
 `TopologyInfo` 구조체를 포함하도록 확장되었다.
 
@@ -458,13 +458,13 @@ message NUMANode {
 
 토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께
 장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다.
-그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고
+그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 연계해
 리소스 할당 결정을 내린다.
 
 `TopologyInfo`는 `nodes` 필드에 `nil` 또는 NUMA 노드 목록을 설정하는 것을 지원한다.
 이를 통해 장치 플러그인은 여러 NUMA 노드에 걸친 장치를 알릴 수 있다.
 
-특정 장치에 대해 `TopologyInfo`를 `nil`로 설정하거나 비어있는 NUMA 노드 목록을 제공하는 것은
+특정 장치에 대해 `TopologyInfo`를 `nil`로 설정하거나 비어 있는 NUMA 노드 목록을 제공하는 것은
 장치 플러그인이 해당 장치에 대한 NUMA 선호도(affinity)를 가지지 않음을 나타낸다.
 
 장치 플러그인으로 장치에 대해 채워진 `TopologyInfo` 구조체의 예는 다음과 같다.
@@ -505,4 +505,4 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * [토폴로지 관리자](/docs/tasks/administer-cluster/topology-manager/)에 대해 알아보기
 * 쿠버네티스에서 [TLS 인그레스에 하드웨어 가속](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   사용에 대해 읽기
-* [DRA를 통한 확장 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)에 대해 읽기
+* [DRA를 통한 확장 리소스 할당](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)에 대해 읽기
