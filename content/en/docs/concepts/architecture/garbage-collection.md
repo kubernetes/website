@@ -57,8 +57,7 @@ You can check for that kind of Event by running
 
 ## Cascading deletion {#cascading-deletion}
 
-Kubernetes checks for and deletes objects that no longer have owner
-references, like the pods left behind when you delete a ReplicaSet. When you
+When you
 delete an object, you can control whether Kubernetes deletes the object's
 dependents automatically, in a process called *cascading deletion*. There are
 two types of cascading deletion, as follows:
@@ -66,8 +65,10 @@ two types of cascading deletion, as follows:
 * Foreground cascading deletion
 * Background cascading deletion
 
-You can also control how and when garbage collection deletes resources that have
-owner references using Kubernetes {{<glossary_tooltip text="finalizers" term_id="finalizer">}}.
+In Kubernetes, cascading deletion is determined exclusively by the ownerReferences field in an object's metadata.
+
+Without ownerReferences, the Kubernetes built-in Garbage Collector has no way of knowing a parent-child relationship exists between resources. You can also control how and when garbage collection deletes resources that have
+owner references using Kubernetes {{<glossary_tooltip text="finalizers" term_id="finalizer">}}. 
 
 ### Foreground cascading deletion {#foreground-deletion}
 
@@ -87,6 +88,7 @@ deletes dependents it knows about. After deleting all the dependent objects it k
 the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
+The `blockOwnerDeletion` flag allows you to pick which dependents are critical (blocking parent removal) and which dependents are non-critical (erased in parallel without blocking parent removal) during a Foreground cascading deletion.
 During foreground cascading deletion, the only dependents that block owner
 deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
 and are in the garbage collection controller cache. The garbage collection controller
@@ -103,6 +105,8 @@ cleans up the dependent objects in the background.
 If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
 By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
+
+The `blockOwnerDeletion` flag is ignored during a Background cascading deletion. The owner is deleted first immediately from the etcd/API server, and dependents are deleted asynchronously after that.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
 to learn more.
