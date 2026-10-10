@@ -123,7 +123,7 @@
   </table>
   {{ end }}
 
-  <h2>{{ T "release_links" }}</h2>
+  <h2 id="related-links">{{ T "release_links" }}</h2>
   <ul>
     {{ if .Params.status | in (slice "supported" "maintenance") }}
     <li>
@@ -141,6 +141,11 @@
         }}
       </a>
       {{ end }}
+    </li>
+    <li>
+      <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-{{ .Params.minorVersion }}.md#downloads-for-v{{ replace .Params.latestPatchVersion "." "" }}">
+        {{ T "release_archives" }} ({{ .Params.latestPatchVersion }})
+      </a>
     </li>
     {{ end }}
     <li>
