@@ -8,7 +8,7 @@ card:
   name: concepts
   weight: 10
   anchors:
-  - anchor: "#pourquoi-vous-avez-besoin-de-kubernetes-et-ce-quil-peut-faire"
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
     title: Pourquoi Kubernetes ?
 no_list: true
 ---
@@ -21,7 +21,7 @@ Cette page est une vue d'ensemble de Kubernetes.
 
 Le nom Kubernetes provient du grec, signifiant timonier ou pilote. K8s comme abréviation résulte du comptage des huit lettres entre le "K" et le "s". Google a open-sourcé le projet Kubernetes en 2014. Kubernetes combine [plus de 15 ans d'expérience de Google](/blog/2015/04/borg-predecessor-to-kubernetes/) dans l'exécution de charges de travail en production à grande échelle avec les meilleures idées et pratiques de la communauté.
 
-## Pourquoi vous avez besoin de Kubernetes et ce qu'il peut faire {#pourquoi-vous-avez-besoin-de-kubernetes-et-ce-quil-peut-faire}
+## Pourquoi vous avez besoin de Kubernetes et ce qu'il peut faire {#why-you-need-kubernetes-and-what-can-it-do}
 
 Les conteneurs sont un bon moyen de regrouper et d'exécuter vos applications. Dans un environnement de production, vous devez gérer les conteneurs qui exécutent les applications et vous assurer qu'il n'y a pas de temps d'arrêt. Par exemple, si un conteneur tombe en panne, un autre conteneur doit démarrer. Ne serait-il pas plus facile si ce comportement était géré par un système ?
 
@@ -64,7 +64,7 @@ Kubernetes :
 * Ne fournit ni n'adopte de systèmes complets de configuration, de maintenance, de gestion ou d'auto-guérison des machines.
 * De plus, Kubernetes n'est pas un simple système d'orchestration. En fait, il élimine le besoin d'orchestration. La définition technique de l'orchestration est l'exécution d'un workflow défini : d'abord faire A, puis B, puis C. En revanche, Kubernetes comprend un ensemble de processus de contrôle indépendants et composables qui conduisent continuellement l'état actuel vers l'état souhaité fourni. Peu importe comment vous passez de A à C. Le contrôle centralisé n'est pas non plus requis. Cela se traduit par un système plus facile à utiliser et plus puissant, robuste, résilient et extensible.
 
-## Contexte historique de Kubernetes {#retour-dans-le-temps}
+## Contexte historique de Kubernetes {#going-back-in-time}
 
 Jetons un coup d'œil à pourquoi Kubernetes est si utile en remontant dans le temps.
 
