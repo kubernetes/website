@@ -88,7 +88,7 @@ by deploying Kubernetes [Node Feature Discovery](https://github.com/kubernetes-s
 NFD detects the hardware features that are available on each node in a Kubernetes cluster.
 Typically, NFD is configured to advertise those features as node labels, but NFD can also add extended resources, annotations, and node taints.
 NFD is compatible with all [supported versions](/releases/version-skew-policy/#supported-versions) of Kubernetes.
-By default NFD create the [feature labels](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html) for the detected features.
+By default, NFD creates the [feature labels](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html) for the detected features.
 Administrators can leverage NFD to also taint nodes with specific features, so that only pods that request those features can be scheduled on those nodes.
 
 You also need a plugin for NFD that adds appropriate labels to your nodes; these might be generic
@@ -113,6 +113,7 @@ spec:
             operator: Gt # (greater than)
             values: ["40535"]
           - key: "feature.node.kubernetes.io/pci-10.present" # NFD Feature label
+            operator: In
             values: ["true"] # (optional) only schedule on nodes with PCI device 10
   containers:
     - name: example-vector-add
