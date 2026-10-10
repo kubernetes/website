@@ -5,6 +5,7 @@
 | `find_pr.py`            | Find what GitHub pull requests touch a given file.                                                                                    |
 | `upstream_changes.py`   | Find what changes occurred between two versions.                                                                                      |
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
+| `kyaml.sh`              | This script renders a few of a language's example manifests a second time, as KYAML, so their pages can carry both dialects.          |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `fetch_kubecon_events.py` | This script fetches upcoming KubeCon events from the Linux Foundation calendar and writes `data/events/kubecon.yaml`.               |
@@ -71,6 +72,43 @@ To install the dependencies:
 To run the examples:
 
     $ ./scripts/test_examples.sh run
+
+## kyaml.sh
+
+This script renders selected example manifests a second time as
+[KYAML](https://kubernetes.io/docs/reference/encodings/kyaml/), so the
+`code_sample` shortcode can show them in either dialect.
+
+- **Source of truth.** The YAML under `content/<lang>/examples` stays canonical:
+  it is what `https://k8s.io/examples/...` serves to `kubectl apply -f`.
+- **Output.** `content/<lang>/examples-kyaml`. Hugo does not publish it. Do not
+  edit it by hand.
+- **Which manifests.** The ones listed in `scripts/kyaml_examples.txt`. To add
+  one, add a line there and run `make kyaml`. No page needs to change: the
+  shortcode shows tabs whenever a rendering exists, and a single pane otherwise.
+- **Which dialects.** `[[params.codeSampleDialects]]` in `hugo.toml`. A new
+  dialect needs an entry there and a generator that writes to
+  `content/<lang>/examples-<name>`.
+
+Generate (`make kyaml`) and check (`make verify-kyaml`):
+
+    $ ./scripts/kyaml.sh generate [<lang>]
+    $ ./scripts/kyaml.sh verify
+
+`verify` fails if a listed manifest is missing or the generated tree is stale.
+Separately, the shortcode fails the site build if a rendering no longer matches
+its source, so the deploy preview catches formatter regressions.
+
+Limits:
+
+- English only. Other localizations opt in with `generate <lang>`.
+- Fenced ` ```yaml ` blocks inside pages are out of scope.
+- Manifests with block scalars (`|` or `>`) are skipped, with a note on stderr,
+  because KYAML is flow style.
+- Multi-document manifests are supported.
+
+The KYAML lives in a separate tree, not as `.kyaml` files beside the YAML, so
+each manifest keeps a single published URL.
 
 ## check-headers-file.sh
 
