@@ -118,7 +118,7 @@ ServiceSpec describes the attributes that a user creates on a service.
     </tr>
     <tr>
       <td><code>loadBalancerSourceRanges</code><br/><em>string array</em></td>
-      <td>If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/</td>
+      <td>If specified and supported by the platform, traffic going through the cloud-provider load balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/</td>
     </tr>
     <tr>
       <td><code>ports</code><br/><em><a href="{{< ref "#ServicePort" >}}">ServicePort array</a></em><br/><em>patch strategy: merge on key <code>port</code></em></td>
