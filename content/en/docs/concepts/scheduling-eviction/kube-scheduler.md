@@ -75,11 +75,12 @@ Finally, kube-scheduler assigns the Pod to the Node with the highest ranking.
 If there is more than one node with equal scores, kube-scheduler selects
 one of these at random.
 
-There are two supported ways to configure the filtering and scoring behavior
-of the scheduler:
+You can configure the filtering and scoring behavior of the scheduler using
+[Scheduling Profiles](/docs/reference/scheduling/config/#profiles). Scheduling Profiles allow you to configure Plugins that implement different scheduling stages, including: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You can also configure the kube-scheduler to run different profiles.
 
-1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to configure _Predicates_ for filtering and _Priorities_ for scoring.
-1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you to configure Plugins that implement different scheduling stages, including: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You can also configure the kube-scheduler to run different profiles.
+{{< note >}}
+Before Kubernetes v1.23, [Scheduling Policies](/docs/reference/scheduling/policies) were used to configure _Predicates_ for filtering and _Priorities_ for scoring. Scheduling Policies are deprecated and are no longer supported since v1.23.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
