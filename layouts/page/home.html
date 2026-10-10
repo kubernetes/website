@@ -1,3 +1,29 @@
+{{ define "hero" }}
+<section class="home-hero">
+    <div class="home-hero__grid">
+        <div class="home-hero__copy">
+            <picture>
+                <img class="home-hero__logo" src="{{ "images/kubernetes-horizontal-white-text.svg" | relURL }}" alt="Kubernetes">
+            </picture>
+            <h1>{{ T "home_hero_title" }}</h1>
+            <div class="home-hero__side">
+                <p class="home-hero__intro">{{ T "home_hero_intro" }}</p>
+            </div>
+            <div class="home-hero__actions">
+                <a class="home-hero__button home-hero__button--primary" href="{{ "/docs/setup/" | relURL }}">{{ T "home_hero_get_started" }} <span aria-hidden="true">&#8594;</span></a>
+                <a class="home-hero__button" href="{{ "/docs/home/" | relURL }}">{{ T "home_hero_read_docs" }} <span aria-hidden="true">&#8594;</span></a>
+                <a class="home-hero__text-link" href="{{ "/community/" | relURL }}">{{ T "home_hero_get_involved" }}</a>
+            </div>
+        </div>
+        <div class="home-hero__art" aria-hidden="true">
+            <div class="home-hero__orbit home-hero__orbit--one"></div>
+            <div class="home-hero__orbit home-hero__orbit--two"></div>
+            <img src="{{ "images/kubernetes-icon-color.svg" | relURL }}" alt="">
+        </div>
+    </div>
+</section>
+{{ end }}
+
 {{ define "main" }}
 <section class="row search-bar td-box position-relative td-box--height-auto">
 	<div class="col-12">
