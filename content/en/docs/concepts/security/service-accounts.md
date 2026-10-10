@@ -88,7 +88,7 @@ the following scenarios:
 * Your Pods need to communicate with an external service. For example, a
   workload Pod requires an identity for a commercially available cloud API,
   and the commercial provider allows configuring a suitable trust relationship.
-* [Authenticating to a private image registry using an `imagePullSecret`](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
+* [Providing `imagePullSecrets` for Pods that pull images from private registries](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * An external service needs to communicate with the Kubernetes API server. For
   example, authenticating to the cluster as part of a CI/CD pipeline.
 * You use third-party security software in your cluster that relies on the
