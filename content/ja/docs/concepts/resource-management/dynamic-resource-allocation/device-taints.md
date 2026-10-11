@@ -47,7 +47,7 @@ tolerationでは、値に関係なく特定のキーが存在することを確�
 
 上で説明した通り、taintはノード上の"すべて"のデバイスを割り当てるResourceClaimにも適用されます。
 すべてのデバイスにtaintがついていないか、すべてのtaintが許容されている必要があります。
-管理者アクセスを使用してデバイスを割り当てる場合([前述](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access))も例外ではありません。
+[管理者アクセス](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)を使用してデバイスを割り当てる場合も例外ではありません。
 このモードを使用する管理者がtaintされたデバイスにアクセスするためには、すべてのtaintを明示的に許容する必要があります。
 
 DeviceTaintRule API kindを使用して、次のようにデバイスにtaintを追加できます。
