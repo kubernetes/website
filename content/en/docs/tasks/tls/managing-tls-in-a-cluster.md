@@ -50,11 +50,10 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
 
 {{< note >}}
-Even though the root CA certificate may be included in the filesystem (in the
-ConfigMap `kube-root-ca.crt`),
-you should not use that certificate authority for any purpose other than to verify internal
-Kubernetes endpoints. An example of an internal Kubernetes endpoint is the
-Service named `kubernetes` in the default namespace.
+Even though the ConfigMap `kube-root-ca.crt` makes the cluster trust anchor
+available in pod filesystems, you should not use it for any purpose other than
+to verify internal Kubernetes endpoints. An example of an internal Kubernetes
+endpoint is the Service named `kubernetes` in the default namespace.
 
 If you want to use a custom certificate authority for your workloads, you should generate
 that CA separately, and distribute its CA certificate using a 
