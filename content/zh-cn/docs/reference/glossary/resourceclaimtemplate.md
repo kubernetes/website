@@ -1,7 +1,7 @@
 ---
 title: ResourceClaimTemplate
 id: resourceclaimtemplate
-full_link: /zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
+full_link: /zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#resourceclaims-templates
 short_description: >
   定义一个模板，Kubernetes 据此创建 ResourceClaim。
   此模板用于为每个 Pod 或 PodGroup 提供对一些独立、相似的资源的访问权限。
@@ -12,7 +12,7 @@ tags:
 <!--
 title: ResourceClaimTemplate
 id: resourceclaimtemplate
-full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
+full_link: /docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#resourceclaims-templates
 short_description: >
   Defines a template for Kubernetes to create ResourceClaims. Used to provide
   per-Pod or per-PodGroup access to separate, similar resources.
@@ -25,12 +25,12 @@ tags:
 Defines a template that Kubernetes uses to create
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}.
 ResourceClaimTemplates are used in
-[dynamic resource allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+[dynamic resource allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)
 to provide _per-{{< glossary_tooltip text="PodGroup" term_id="podgroup" >}} access to separate, similar resources_.
 -->
 定义一个模板，Kubernetes 可据此创建
 {{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}}。ResourceClaimTemplate
-用于在[动态资源分配（DRA）](/zh/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)中为每个
+用于在[动态资源分配（DRA）](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/)中为每个
 {{< glossary_tooltip text="PodGroup" term_id="podgroup" >}} 提供对一些独立、相似的资源的访问权限。
 
 <!--more-->

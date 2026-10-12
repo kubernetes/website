@@ -11,7 +11,7 @@ description: >-
 
 This page shows how to set a quota for the total number of Pods that can run
 in a {{< glossary_tooltip text="Namespace" term_id="namespace" >}}. You specify quotas in a
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 object.
 
 

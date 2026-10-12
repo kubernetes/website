@@ -395,11 +395,18 @@ labels on that namespace. In clusters where Pod Security Admission is used, this
 for a more permissive policy than intended by the administrators.
 For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
 access to services that an administrator did not intend to allow.
+For clusters using Dynamic Resource Allocation, labeling a namespace with
+`resource.kubernetes.io/admin-access: "true"` allows any user who can create ResourceClaims in that namespace
+to request admin access to devices already allocated to any other claim in any namespace.
 -->
 ### 命名空间修改 {#namespace-modification}
 可以对命名空间对象执行 **patch** 操作的用户（通过命名空间内的 RoleBinding 关联到具有该权限的 Role），
 可以修改该命名空间的标签。在使用 Pod 安全准入的集群中，这可能允许用户将命名空间配置为比管理员预期更宽松的策略。
 对于使用 NetworkPolicy 的集群，用户所设置的标签可能间接导致对某些本不应被允许访问的服务的访问权限被开放。
+对于使用动态资源分配（DRA）的集群，如果为某个命名空间添加标签
+`resource.kubernetes.io/admin-access: "true"`，那么在该命名空间内有权创建
+ResourceClaim 的任何用户，均可请求获取对设备的管理访问权限 ——
+即使这些设备已被分配给任意命名空间中的其他 ResourceClaim。
 
 <!--
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}

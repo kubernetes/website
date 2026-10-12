@@ -52,7 +52,7 @@ That delay starts at the time when a taint gets added to a device, which is reco
 
 Taints apply as described above also to ResourceClaims allocating "all" devices on a node.
 All devices must be untainted or all of their taints must be tolerated.
-Allocating a device with admin access (described [above](#admin-access))
+Allocating a device with [admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 is not exempt either. An admin using that mode must explicitly tolerate all taints
 to access tainted devices.
 
@@ -90,7 +90,7 @@ To support tainting a specific hardware instance, CEL selectors can be used in a
 to match a vendor-specific unique ID attribute, if the driver supports one for its hardware.
 
 The taint applies as long as the DeviceTaintRule exists.
-It can be modified and and removed at any time.
+It can be modified and removed at any time.
 Here is one example of a DeviceTaintRule for a fictional DRA driver:
 
 ```yaml

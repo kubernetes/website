@@ -436,9 +436,14 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
       padding-left:  0.5rem;
       padding-right: 0.5rem;
     }
+    // The play arrow is already placed direction-aware (before the text
+    // for LTR, after it for RTL), so exclude these rules from the rtlcss
+    // flip pass to keep the content placement as written.
+    /*rtl:ignore*/
     button:dir(ltr)::before {
       content: "▶︎ ";
     }
+    /*rtl:ignore*/
     button:dir(rtl)::after {
       content: " ▶︎";
     }

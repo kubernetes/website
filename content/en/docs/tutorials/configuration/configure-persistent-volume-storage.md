@@ -277,7 +277,7 @@ Move index.html into the directory:
 
 ```shell
 # Move index.html from its current location to the html sub-directory
-sudo mv /mnt/data/index.html html
+sudo mv /mnt/data/index.html /mnt/data/html/index.html
 ```
 
 ### Create a new nginx.conf file
@@ -402,6 +402,7 @@ In the shell on your Node, remove the file and directory that you created:
 # as the superuser
 sudo rm /mnt/data/html/index.html
 sudo rm /mnt/data/nginx.conf
+sudo rmdir /mnt/data/html
 sudo rmdir /mnt/data
 ```
 

@@ -50,7 +50,7 @@ Subject 包含对角色绑定所适用的对象或用户身份的引用。
       <td><code>apiGroup</code><br/><em>string</em></td>
       <td>
       <!--
-      APIGroup holds the API group of the referenced subject.
+      apiGroup holds the API group of the referenced subject.
       Defaults to "" for ServiceAccount subjects.
       Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
       -->
@@ -64,7 +64,7 @@ Subject 包含对角色绑定所适用的对象或用户身份的引用。
       <td><code>kind</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>
       <!--
-      Kind of object being referenced.
+      kind of object being referenced.
       Values defined by this API group are "User", "Group", and "ServiceAccount".
       If the Authorizer does not recognized the kind value,
       the Authorizer should report an error.
@@ -78,7 +78,7 @@ Subject 包含对角色绑定所适用的对象或用户身份的引用。
       <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>
       <!--
-      Name of the object being referenced.
+      name of the object being referenced.
       -->
       所引用对象的名称。
       </td>

@@ -553,11 +553,37 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>cidr('192.168.0.0/16')</tt> // returns an IPv4 address with a CIDR mask
-<tt>cidr('::1/128')</tt> // returns an IPv6 address with a CIDR mask
-<tt>cidr('192.168.0.0/33')</tt> // error
-<tt>cidr('::1/129')</tt> // error
-<tt>cidr('192.168.0.1/16')</tt> // error, because there are non-0 bits after the prefix
+<table>
+<caption>Examples of CEL expressions using the cidr function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>cidr('192.168.0.0/16')</tt></td>
+  <td>Returns an IPv4 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/128')</tt></td>
+  <td>Returns an IPv6 address with a CIDR mask.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.0/33')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('::1/129')</tt></td>
+  <td>Error, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+<tr>
+  <td><tt>cidr('192.168.0.1/16')</tt></td>
+  <td>Error, because there are non-0 bits after the prefix.</td>
+</tr>
+</tbody>
+</table>
 
 #### `isCIDR`
 
@@ -570,10 +596,33 @@ IPv4-mapped IPv6 addresses (e.g. `::ffff:1.2.3.4/24`) are not allowed.
 
 Examples:
 
-<tt>isCIDR('192.168.0.0/16')</tt> // returns true
-<tt>isCIDR('::1/128')</tt> // returns true
-<tt>isCIDR('192.168.0.0/33')</tt> // returns false
-<tt>isCIDR('::1/129')</tt> // returns false
+<table>
+<caption>Examples of CEL expressions using the isCIDR function</caption>
+<thead>
+<tr>
+  <th>CEL Expression</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/16')</tt></td>
+  <td>Returns true for a valid IPv4 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/128')</tt></td>
+  <td>Returns true for a valid IPv6 CIDR.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('192.168.0.0/33')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv4 address size.</td>
+</tr>
+<tr>
+  <td><tt>isCIDR('::1/129')</tt></td>
+  <td>Returns false, because the prefix length exceeds the IPv6 address size.</td>
+</tr>
+</tbody>
+</table>
 
 #### `containsIP` / `containsCIDR` / `ip` / `masked` / `prefixLength`
 

@@ -144,7 +144,7 @@ device plugin or DRA provides it. The same resource name can even be provided by
 device plugin on some Nodes and by DRA on others.
 
 For the DeviceClass setup and examples, see
-[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource).
+[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource).
 
 ## {{% heading "whatsnext" %}}
 

@@ -3,7 +3,6 @@ title: 节点参考信息
 weight: 80
 no_list: true
 ---
-
 <!-- 
 title: Node Reference Information
 weight: 80
@@ -16,9 +15,7 @@ This section contains the following reference topics about nodes:
 * the kubelet's [sync loop](/docs/reference/node/kubelet-sync-loop/)
 
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
-
-* the kubelet's [Pod Info gRPC API](/docs/reference/node/kubelet-pod-info-grpc-api/)
-
+* the kubelet's [Pods API](/docs/reference/node/kubelet-pods-api/)
 * a list of [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 
 * [Kubelet Device Manager API Versions](/docs/reference/node/device-plugin-api-versions)
@@ -39,7 +36,7 @@ This section contains the following reference topics about nodes:
 
 * kubelet 的[同步循环](/zh-cn/docs/reference/node/kubelet-sync-loop/)
 * kubelet 的 [Checkpoint API](/zh-cn/docs/reference/node/kubelet-checkpoint-api/)
-* kubelet 的 [Pod 信息 gRPC API](/zh-cn/docs/reference/node/kubelet-pod-info-grpc-api/)
+* kubelet 的 [Pods API](/zh-cn/docs/reference/node/kubelet-pods-api/)
 * 一系列[关于 dockershim 移除和使用兼容 CRI 运行时的文章](/zh-cn/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 * [kubelet 设备管理器 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions)
 * [由 kubelet 填充的节点标签](/zh-cn/docs/reference/node/node-labels)

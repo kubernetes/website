@@ -54,16 +54,15 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [FortiADC Ingress Controller](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview) support the Kubernetes Ingress resources and allows you to manage FortiADC objects from Kubernetes
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io),
   which offers API gateway functionality.
-* [HAProxy Ingress](https://haproxy-ingress.github.io/) is an ingress controller for
-  [HAProxy](https://www.haproxy.org/#desc).
 * [Higress](https://github.com/alibaba/higress) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 * The [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)
-  is also an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
+  is an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
   is an [Istio](https://istio.io/) based ingress controller.
 * The [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)
   is an ingress controller driving [Kong Gateway](https://konghq.com/kong/).
 * [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
+* [N42 Gateway](https://n42-gateway.github.io/) is an Ingress and Gateway API controller for [HAProxy](https://www.haproxy.org/#desc).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
 * The [ngrok-operator](https://github.com/ngrok/ngrok-operator) is a controller for [ngrok](https://ngrok.com/) that supports both Ingress and Gateway API for adding secure public access to your K8s Services.

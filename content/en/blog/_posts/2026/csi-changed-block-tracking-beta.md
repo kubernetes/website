@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes Changed Block Tracking API - Beta Differences'
-draft: true
+date: 2026-09-14T10:30:00-08:00
 slug: csi-changed-block-tracking-beta
 author: >
    [Prasad Ghangal](https://github.com/PrasadG193) (Veeam Kasten)

@@ -505,4 +505,4 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 * Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   with Kubernetes
-* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)

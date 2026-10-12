@@ -151,7 +151,7 @@ you can define a quota as follows:
 
 * `examplegpu.deviceclass.resource.k8s.io/devices: 4`
 
-When [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+When [Extended Resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)
 is enabled, the same device class named `examplegpu` can be requested via extended resource either explicitly
 when the device class's ExtendedResourceName field is given, say, `example.com/gpu`, then you can define a quota as follows:
 
@@ -790,7 +790,7 @@ Read [Limit Storage Consumption](/docs/tasks/administer-cluster/limit-storage-co
 ## {{% heading "whatsnext" %}}
 
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 - Learn about [LimitRanges](/docs/concepts/policy/limit-range/)
 - You can read the historical [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
   for more information.

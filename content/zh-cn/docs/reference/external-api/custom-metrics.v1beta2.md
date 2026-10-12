@@ -85,13 +85,15 @@ Defaults to everything.</p>
     
   
 <tr><td><code>describedObject</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectreference-v1-core"><code>core/v1.ObjectReference</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectreference-v1-core"><code>core/v1.ObjectReference</code></a>
 </td>
 <td>
-   <!--
-   <p>a reference to the described object</p>
-   -->
-   <p>指向描述对象的引用。</p>
+<p>
+<!--
+a reference to the described object
+-->
+指向描述对象的引用。
+</p>
 </td>
 </tr>
 <tr><td><code>metric</code> <B><!--[Required]-->[必需]</B><br/>
@@ -101,37 +103,43 @@ Defaults to everything.</p>
    <span class="text-muted"><!--No description provided.-->无描述。</span></td>
 </tr>
 <tr><td><code>timestamp</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
-   <!--
-   <p>indicates the time at which the metrics were produced</p>
-   -->
-   <p>标明度量值生成的时间。</p>
+<p>
+<!--
+indicates the time at which the metrics were produced
+-->
+标明度量值生成的时间。
+</p>
 </td>
 </tr>
 <tr><td><code>windowSeconds</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int64</code>
 </td>
 <td>
-   <!--
-   <p>indicates the window ([Timestamp-Window, Timestamp]) from
+<p>
+<!--
+indicates the window ([Timestamp-Window, Timestamp]) from
 which these metrics were calculated, when returning rate
 metrics calculated from cumulative metrics (or zero for
-non-calculated instantaneous metrics).</p>
-   -->
-   <p>当返回根据累积度量计算的速率度量值时，此字段标明计算这些度量值的时间窗口
-   （[Timestamp-Window, Timestamp]）（或对于非计算的瞬时度量值为零）。</p>
+non-calculated instantaneous metrics).
+-->
+当返回根据累积度量计算的速率度量值时，此字段标明计算这些度量值的时间窗口
+（[Timestamp-Window, Timestamp]）（或对于非计算的瞬时度量值为零）。
+</p>
 </td>
 </tr>
 <tr><td><code>value</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity"><code>k8s.io/apimachinery/pkg/api/resource.Quantity</code></a>
 </td>
 <td>
-   <!--
-   <p>the value of the metric for this</p>
-   -->
-   <p>度量值。</p>
+<p>
+<!--
+<p>the value of the metric for this</p>
+-->
+度量值。
+</p>
 </td>
 </tr>
 </tbody>
@@ -139,10 +147,12 @@ non-calculated instantaneous metrics).</p>
 
 ## `MetricValueList`     {#custom-metrics-k8s-io-v1beta2-MetricValueList}
 
+<p>
 <!--
-<p>MetricValueList is a list of values for a given metric for some set of objects</p>
+MetricValueList is a list of values for a given metric for some set of objects
 -->
-<p>MetricValueList 是某个给定指标的某些对象集的数值列表。</p>
+MetricValueList 是某个给定指标的某些对象集的数值列表。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -151,9 +161,9 @@ non-calculated instantaneous metrics).</p>
 <tr><td><code>apiVersion</code><br/>string</td><td><code>custom.metrics.k8s.io/v1beta2</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>MetricValueList</code></td></tr>
     
-  
+
 <tr><td><code>metadata</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->无描述。</span></td>
@@ -162,10 +172,12 @@ non-calculated instantaneous metrics).</p>
 <a href="#custom-metrics-k8s-io-v1beta2-MetricValue"><code>[]MetricValue</code></a>
 </td>
 <td>
-   <!--
-   <p>the value of the metric across the described objects</p>
-   -->
-   <p>所描述对象的度量值。</p>
+<p>
+<!--
+the value of the metric across the described objects
+-->
+所描述对象的度量值。
+</p>
 </td>
 </tr>
 </tbody>
@@ -180,10 +192,12 @@ non-calculated instantaneous metrics).</p>
 
 - [MetricValue](#custom-metrics-k8s-io-v1beta2-MetricValue)
 
+<p>
 <!--
-<p>MetricIdentifier identifies a metric by name and, optionally, selector</p>
+MetricIdentifier identifies a metric by name and, optionally, selector
 -->
-<p>MetricIdentifier 按名称和可选的选择算符来标识指标。</p>
+MetricIdentifier 按名称和可选的选择算符来标识指标。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -193,24 +207,28 @@ non-calculated instantaneous metrics).</p>
 <code>string</code>
 </td>
 <td>
-   <!--
-   <p>name is the name of the given metric</p>
-   -->
-   <p>name 是给定指标的名称。</p>
+<p>
+<!--
+name is the name of the given metric
+-->
+name 是给定指标的名称。
+</p>
 </td>
 </tr>
 <tr><td><code>selector</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#labelselector-v1-meta"><code>meta/v1.LabelSelector</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#labelselector-v1-meta"><code>meta/v1.LabelSelector</code></a>
 </td>
 <td>
-   <!--
-   <p>selector represents the label selector that could be used to select
+<p>
+<!--
+selector represents the label selector that could be used to select
 this metric, and will generally just be the selector passed in to
 the query used to fetch this metric.
-When left blank, only the metric's Name will be used to gather metrics.</p>
-   -->
-   <p>selector 表示可用于选择此指标的标签选择算符，通常就是传递给查询用于获取此指标的选择算符。
-当留空时，仅使用指标的 Name 来采集指标。</p>
+When left blank, only the metric's Name will be used to gather metrics.
+-->
+selector 表示可用于选择此指标的标签选择算符，通常就是传递给查询用于获取此指标的选择算符。
+当留空时，仅使用指标的 Name 来采集指标。
+</p>
 </td>
 </tr>
 </tbody>

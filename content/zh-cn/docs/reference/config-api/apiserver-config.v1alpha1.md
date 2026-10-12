@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 配置 (v1alpha1)
+title: kube-apiserver 配置（v1alpha1）
 content_type: tool-reference
 package: apiserver.k8s.io/v1alpha1
 ---
@@ -130,7 +130,6 @@ AuthenticationConfiguration 为身份认证提供版本化的配置。
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthenticationConfiguration</code></td></tr>
 
-
 <tr><td><code>jwt</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-JWTAuthenticator"><code>[]JWTAuthenticator</code></a>
 </td>
@@ -200,17 +199,17 @@ The minimum valid JWT payload must contain the following claims:
 <a href="#apiserver-k8s-io-v1alpha1-AuthorizerConfiguration"><code>[]AuthorizerConfiguration</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Authorizers is an ordered list of authorizers to
+<p>
+<!--
+Authorizers is an ordered list of authorizers to
 authorize requests against.
 This is similar to the --authorization-modes kube-apiserver flag
 Must be at least one.
-   -->
-   <code>authorizers</code> 是一个有序的鉴权器列表，用于对请求进行鉴权。
-   这类似于 kube-apiserver <code>--authorization-modes</code> 标志。
-   此列表不能为空。
-   </p>
+-->
+<code>authorizers</code> 是一个有序的鉴权器列表，用于对请求进行鉴权。
+这类似于 kube-apiserver <code>--authorization-modes</code> 标志。
+此列表不能为空。
+</p>
 </td>
 </tr>
 </tbody>
@@ -236,12 +235,12 @@ EgressSelectorConfiguration 为 Egress 选择算符客户端提供版本化的�
 <a href="#apiserver-k8s-io-v1alpha1-EgressSelection"><code>[]EgressSelection</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   connectionServices contains a list of egress selection client configurations
-   -->
-   <code>connectionServices</code> 包含一组 Egress 选择算符客户端配置选项。
-   </p>
+<p>
+<!--
+connectionServices contains a list of egress selection client configurations
+-->
+<code>connectionServices</code> 包含一组 Egress 选择算符客户端配置选项。
+</p>
 </td>
 </tr>
 </tbody>
@@ -267,16 +266,12 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
 <td>
+<p>
 <!--
-(Members of <code>TracingConfiguration</code> are embedded into this type.)
+Embed the component config tracing configuration struct
 -->
-（<code>TracingConfiguration</code> 的成员嵌入到这种类型中。）
-   <p>
-   <!--
-   Embed the component config tracing configuration struct
-   -->
-   嵌入组件配置中的跟踪配置结构体。
-   </p>
+嵌入组件配置中的跟踪配置结构体。
+</p>
 </td>
 </tr>
 </tbody>
@@ -306,39 +301,39 @@ AdmissionPluginConfiguration 为某个插件提供配置信息。
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Name is the name of the admission controller.
-   It must match the registered admission plugin name.
-   -->
-   <code>name</code> 是准入控制器的名称。此名称必须与所注册的准入插件名称匹配。
-   </p>
+<p>
+<!--
+Name is the name of the admission controller.
+It must match the registered admission plugin name.
+-->
+<code>name</code> 是准入控制器的名称。此名称必须与所注册的准入插件名称匹配。
+</p>
 </td>
 </tr>
 <tr><td><code>path</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Path is the path to a configuration file that contains the plugin's configuration
-   -->
-   <code>path</code> 为指向包含插件配置数据的配置文件的路径。
-   </p>
+<p>
+<!--
+Path is the path to a configuration file that contains the plugin's configuration
+-->
+<code>path</code> 为指向包含插件配置数据的配置文件的路径。
+</p>
 </td>
 </tr>
 <tr><td><code>configuration</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Configuration is an embedded configuration object to be used as the plugin's
-   configuration. If present, it will be used instead of the path to the configuration file.
-   -->
-   <code>configuration</code> 是一个嵌入的配置对象，用作插件的配置数据来源。
-   如果设置了此字段，则使用此字段而不是指向配置文件的路径。
-   </p>
+<p>
+<!--
+Configuration is an embedded configuration object to be used as the plugin's
+configuration. If present, it will be used instead of the path to the configuration file.
+-->
+<code>configuration</code> 是一个嵌入的配置对象，用作插件的配置数据来源。
+如果设置了此字段，则使用此字段而不是指向配置文件的路径。
+</p>
 </td>
 </tr>
 </tbody>
@@ -369,12 +364,12 @@ AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Path for which anonymous auth is enabled.
-   -->
-   启用匿名身份认证的路径。
-   </p>
+<p>
+<!--
+Path for which anonymous auth is enabled.
+-->
+启用匿名身份认证的路径。
+</p>
 </td>
 </tr>
 </tbody>
@@ -393,7 +388,8 @@ AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 <!--
 AnonymousAuthConfig provides the configuration for the anonymous authenticator.
 -->
-AnonymousAuthConfig 为匿名身份认证器提供配置信息。</p>
+AnonymousAuthConfig 为匿名身份认证器提供配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>

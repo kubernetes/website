@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 配置 (v1beta1)
+title: kube-apiserver 配置（v1beta1）
 content_type: tool-reference
 package: apiserver.k8s.io/v1beta1
 ---
@@ -237,10 +237,6 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
 <td>
-<!--
-(Members of <code>TracingConfiguration</code> are embedded into this type.)
--->
-（<code>TracingConfiguration</code> 的成员嵌入到这种类型中。）
    <p>
    <!-- 
    Embed the component config tracing configuration struct 
@@ -1408,12 +1404,12 @@ TCPTransport 提供使用 TCP 连接 konnectivity 服务器时需要的信息。
 <a href="#apiserver-k8s-io-v1beta1-TLSConfig"><code>TLSConfig</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   TLSConfig is the config needed to use TLS when connecting to konnectivity server
-   -->
-   tlsConfig 是使用 TLS 来连接 konnectivity 服务器时需要的信息。
-   </p>
+<p>
+<!--
+TLSConfig is the config needed to use TLS when connecting to konnectivity server
+-->
+tlsConfig 是使用 TLS 来连接 konnectivity 服务器时需要的信息。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1618,14 +1614,14 @@ UserValidationRule 为单个用户信息验证规则提供配置信息。
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   expression represents the expression which will be evaluated by CEL.
+<p>
+<!--
+expression represents the expression which will be evaluated by CEL.
 Must return true for the validation to pass.
-   -->
-   expression 表示将由 CEL 求值的表达式。
-   验证通过时必须返回 true。
-   </p>
+-->
+expression 表示将由 CEL 求值的表达式。
+验证通过时必须返回 true。
+</p>
 <!--
 <p>CEL expressions have access to the contents of UserInfo, organized into CEL variable:</p>
 <ul>
@@ -1648,14 +1644,14 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   message customizes the returned error message when rule returns false.
-   message is a literal string.
-   -->
-   message 自定义当规则返回 false 时的错误消息。
-   message 是一个字符串文字。
-   </p>
+<p>
+<!--
+message customizes the returned error message when rule returns false.
+message is a literal string.
+-->
+message 自定义当规则返回 false 时的错误消息。
+message 是一个字符串文字。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1747,16 +1743,16 @@ Default: true
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   Timeout for the webhook request
+<p>
+<!--
+Timeout for the webhook request
 Maximum allowed value is 30s.
 Required, no default value.
-   -->
-   Webhook 请求超时时间。
-   允许的最大时间为 30 秒。
-   必需，没有默认值。
-   </p>
+-->
+Webhook 请求超时时间。
+允许的最大时间为 30 秒。
+必需，没有默认值。
+</p>
 </td>
 </tr>
 <tr><td><code>subjectAccessReviewVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1798,16 +1794,16 @@ Required, no default value
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Controls the authorization decision when a webhook request fails to
+<p>
+<!--
+Controls the authorization decision when a webhook request fails to
 complete or returns a malformed response or errors evaluating
 matchConditions.
 Valid values:
-   -->
-   控制当 Webhook 请求无法完成或返回格式错误的响应或计算 matchConditions 出现错误时的鉴权决定。
-   有效值：
-   </p>
+-->
+控制当 Webhook 请求无法完成或返回格式错误的响应或计算 matchConditions 出现错误时的鉴权决定。
+有效值：
+</p>
 <ul>
 <!--
 <li>NoOpinion: continue to subsequent authorizers to see if one of
@@ -1825,12 +1821,12 @@ Required, with no default.</li>
 <a href="#apiserver-k8s-io-v1beta1-WebhookConnectionInfo"><code>WebhookConnectionInfo</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   ConnectionInfo defines how we talk to the webhook
-   -->
-   ConnectionInfo 定义 Webhook 如何与服务器通信。
-   </p>
+<p>
+<!--
+ConnectionInfo defines how we talk to the webhook
+-->
+ConnectionInfo 定义 Webhook 如何与服务器通信。
+</p>
 </td>
 </tr>
 <tr><td><code>matchConditions</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1908,14 +1904,14 @@ allowed for kube-apiserver.</li>
 <code>string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Path to KubeConfigFile for connection info
+<p>
+<!--
+Path to KubeConfigFile for connection info
 Required, if connectionInfo.Type is KubeConfig
-   -->
-   包含连接信息的 KubeConfig 文件的路径。
-   如果 connectionInfo.type 是 KubeConfig，则为必需项。
-   </p>
+-->
+包含连接信息的 KubeConfig 文件的路径。
+如果 connectionInfo.type 是 KubeConfig，则为必需项。
+</p>
 </td>
 </tr>
 </tbody>

@@ -1,7 +1,7 @@
 ---
 title: DeviceClass
 id: deviceclass
-full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
+full_link: /docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#deviceclass
 short_description: >
   A category of devices in the cluster. Users can claim specific
   devices in a DeviceClass.
@@ -19,4 +19,4 @@ that can be claimed and used in workloads. Devices are claimed by creating
 that filter for specific device parameters in a DeviceClass.
 
 For more information, see
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass)
+[Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#deviceclass)

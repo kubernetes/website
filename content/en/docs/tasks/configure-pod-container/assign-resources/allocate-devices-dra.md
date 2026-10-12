@@ -15,7 +15,7 @@ with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For more information, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 <!-- body -->
 
@@ -197,4 +197,4 @@ steps:
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)

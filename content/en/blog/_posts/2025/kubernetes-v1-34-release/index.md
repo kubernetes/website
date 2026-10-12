@@ -49,8 +49,8 @@ Kubernetes v1.34 is packed with new features and improvements. Here are a few se
 
 ### Stable: The core of DRA is GA
 
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) 
-enables more powerful ways to select, allocate, share, and configure 
+[Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) (DRA)
+enables more powerful ways to select, allocate, share, and configure
 GPUs, TPUs, NICs and other devices.
 
 Since the v1.30 release, DRA has been based around claiming devices using 

@@ -13,18 +13,19 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.36"
+    toVersion: "1.36"
+  - stage: deprecated
+    defaultValue: false
+    locked: true
+    fromVersion: "1.37"
 ---
-Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/).
+Deprecated: replaced by the
+[`DeclarativeValidationBeta` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DeclarativeValidationBeta).
 
-When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)
-feature gate, declarative validation errors are returned directly to the caller,
-replacing hand-written validation errors for rules that have declarative implementations.
-When disabled (and `DeclarativeValidation` is enabled), hand-written validation errors are always returned,
-effectively putting declarative validation in a __mismatch validation mode__
-that monitors but does not affect API responses.
-This __mismatch validation mode__  allows for the monitoring of the `declarative_validation_mismatch_total`
-and `declarative_validation_panic_total` metrics which are implementation details for a safer rollout,
-average user shouldn't need to interact with it directly.
+Before Kubernetes v1.36, this gate made declarative validation errors authoritative,
+replacing the hand-written errors for rules that had a declarative implementation.
+
+The API server no longer honors this gate. Use `DeclarativeValidationBeta` instead to
+control whether `+k8s:beta` rules are enforced.
+
 This feature gate only operates on the `kube-apiserver` component.
-Note: Although declarative validation aims for functional equivalence with hand-written validation,
-the exact description of error messages may differ between the two approaches.

@@ -194,6 +194,62 @@ YAML 中的注释提供了更多背景信息。
 {{< tabs name="CustomResourceDefinition_versioning_example_1" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 
+<!--
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  # name must match the spec fields below, and be in the form: <plural>.<group>
+  name: crontabs.example.com
+spec:
+  # group name to use for REST API: /apis/<group>/<version>
+  group: example.com
+  # list of versions supported by this CustomResourceDefinition
+  versions:
+  - name: v1beta1
+    # Each version can be enabled/disabled by Served flag.
+    served: true
+    # One and only one version must be marked as the storage version.
+    storage: true
+    # A schema is required
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          host:
+            type: string
+          port:
+            type: string
+  - name: v1
+    served: true
+    storage: false
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          host:
+            type: string
+          port:
+            type: string
+  # The conversion section is introduced in Kubernetes 1.13+ with a default value of
+  # None conversion (strategy sub-field set to None).
+  conversion:
+    # None conversion assumes the same schema for all versions and only sets the apiVersion
+    # field of custom resources to the proper value
+    strategy: None
+  # either Namespaced or Cluster
+  scope: Namespaced
+  names:
+    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
+    plural: crontabs
+    # singular name to be used as an alias on the CLI and for display
+    singular: crontab
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    kind: CronTab
+    # shortNames allow shorter string to match your resource on the CLI
+    shortNames:
+    - ct
+-->
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -503,8 +559,9 @@ An older API version cannot be dropped from a CustomResourceDefinition manifest 
 -->
 ### 版本删除   {#version-removal}
 
-在为所有提供旧版本自定义资源的集群将现有存储数据迁移到新 API 版本，并且从 CustomResourceDefinition 的
-`status.storedVersions` 中删除旧版本之前，无法从 CustomResourceDefinition 清单文件中删除旧 API 版本。
+在为所有提供旧版本自定义资源的集群将现有存储数据迁移到新 API 版本，
+并且从 CustomResourceDefinition 的 `status.storedVersions`
+中删除旧版本之前，无法从 CustomResourceDefinition 清单文件中删除旧 API 版本。
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -1641,16 +1698,43 @@ procedure.
 弃用版本并删除其支持时，请选择存储升级过程。
 
 <!--
-*Option 1:* Use the Storage Version Migrator
+*Option 1:* Use Storage Version Migrator
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1. Run [Storage Version Migrator](/docs/tasks/manage-kubernetes-objects/storage-version-migration/) for the custom resource.
+
+   For example, you can include a `StorageVersionMigration` resource in the same manifest as your updated `CustomResourceDefinition`:
 -->
-
 **选项 1：** 使用存储版本迁移程序（Storage Version Migrator）
 
-1. 运行[存储版本迁移程序](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. 从 CustomResourceDefinition 的 `status.storedVersions` 字段中去掉老的版本。
+1. 为自定义资源运行[存储版本迁移程序](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+
+   例如，你可以在与更新的 `CustomResourceDefinition` 相同的清单中包含
+   `StorageVersionMigration` 资源：
+
+   ```yaml
+   apiVersion: apiextensions.k8s.io/v1
+   kind: CustomResourceDefinition
+   metadata:
+     name: crontabs.example.com
+   spec:
+     group: example.com
+     ...
+   ---
+   apiVersion: storagemigration.k8s.io/v1
+   kind: StorageVersionMigration
+   metadata:
+     name: crontabs-migration
+   spec:
+     resource:
+       group: example.com
+       resource: crontabs
+   ```
+
+<!--
+2. Once the migration succeeds, the old version will be removed from the CustomResourceDefinition `status.storedVersions` field.
+-->
+2. 迁移成功后，旧版本将从 CustomResourceDefinition 的 `status.storedVersions`
+   字段中移除。
 
 <!--
 *Option 2:* Manually upgrade the existing objects to a new stored version

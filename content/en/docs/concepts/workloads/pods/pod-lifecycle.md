@@ -698,7 +698,7 @@ to have any required storage volumes mounted. Once these phases are complete,
 the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
 runtime sandbox and configure networking for the Pod. If the Pod uses
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+[Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/),
 those resources are also allocated during this phase.
 The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
 
@@ -1064,7 +1064,7 @@ stopped the kubelet and then later started it).
 When the kubelet restarts, the container statuses are managed differently based on the feature gate setting:
 
 * By default, the kubelet does not change container statuses after a restart.
-  Containers that were in set to `ready: true` state remain remain ready.
+  Containers that were in set to `ready: true` state remain ready.
 
   If you stop the kubelet long enough for it to fail a series of
   [node heartbeat](/docs/concepts/architecture/leases/#node-heart-beats) checks,

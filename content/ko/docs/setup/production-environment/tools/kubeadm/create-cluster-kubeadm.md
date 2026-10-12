@@ -12,7 +12,7 @@ weight: 30
 `kubeadm`을 사용하면, 모범 사례를 준수하는 최소 작동 가능한 쿠버네티스 클러스터를 생성할 수 있다.
 실제로 `kubeadm`을 사용하여 
 [쿠버네티스 적합성 테스트](/blog/2017/10/software-conformance-certification/)를 통과하는 클러스터를 구성할 수 있다.
-`kubeadm`은 [부트스트랩 토큰](/ko/docs/reference/access-authn-authz/bootstrap-tokens/) 및 
+`kubeadm`은 [부트스트랩 토큰](/docs/reference/access-authn-authz/bootstrap-tokens/) 및 
 클러스터 업그레이드와 같은 다른 클러스터 수명 주기 기능도 지원한다.
 
 `kubeadm` 도구는 다음과 같은 경우에 적합하다.
@@ -40,8 +40,8 @@ weight: 30
 또한 새 클러스터에서 사용하려는 쿠버네티스 버전을 배포할 수 
 있는 `kubeadm` 버전을 사용해야 한다.
 
-[쿠버네티스 버전 및 버전 차이 지원 정책](/docs/setup/release/version-skew-policy/#supported-versions)
-이 쿠버네티스 전체와 마찬가지로 `kubeadm`에도 적용된다.
+[쿠버네티스 버전 및 버전 차이 지원 정책](/docs/setup/release/version-skew-policy/#supported-versions)이
+쿠버네티스 전체와 마찬가지로 `kubeadm`에도 적용된다.
 해당 정책을 확인하여 지원되는 쿠버네티스 및 `kubeadm` 버전을 
 알아보자. 이 페이지는 쿠버네티스 {{< param "version" >}}용으로 작성되었다.
 
@@ -65,15 +65,15 @@ weight: 30
 
 ### 호스트 준비
 
-#### 구성 요소 설치
+#### 컴포넌트 설치
 
 모든 호스트에 {{< glossary_tooltip term_id="container-runtime" text="컨테이너 런타임" >}}과 
 kubeadm을 설치한다. 자세한 지침과 기타 전제 조건은 
-[kubeadm 설치하기](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)를 참조한다.
+[kubeadm 설치하기](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)를 참조한다.
 
 {{< note >}}
 이미 kubeadm을 설치한 경우, kubeadm 업그레이드 방법은 
-[리눅스 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) 
+[리눅스 노드 업그레이드](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) 
 문서의 처음 두 단계를 참조한다.
 
 업그레이드할 때 kubelet은 kubeadm이 수행할 작업을 알려줄 때까지 크래시루프(crashloop)에서 
@@ -83,9 +83,9 @@ kubeadm을 설치한다. 자세한 지침과 기타 전제 조건은
 
 #### 네트워크 설정
 
-kubeadm은 다른 쿠버네티스 구성 요소와 마찬가지로 호스트의 
+kubeadm은 다른 쿠버네티스 컴포넌트와 마찬가지로 호스트의
 기본 게이트웨이와 연결된 네트워크 인터페이스에서 사용 가능한 IP를 찾으려고 시도한다. 그런 다음 
-이 IP는 구성 요소가 수행하는 광고 및/또는 수신에 사용된다.
+이 IP는 컴포넌트가 수행하는 광고 및/또는 수신에 사용된다.
 
 리눅스 호스트에서 이 IP가 무엇인지 확인하려면 다음을 사용할 수 있다.
 
@@ -94,19 +94,19 @@ ip route show # "default via"로 시작하는 줄을 찾는다
 ```
 
 {{< note >}}
-호스트에 둘 이상의 기본 게이트웨이가 있는 경우, 쿠버네티스 구성 요소는 
+호스트에 둘 이상의 기본 게이트웨이가 있는 경우, 쿠버네티스 컴포넌트는 
 적합한 글로벌 유니캐스트 IP 주소를 가진 첫 번째 게이트웨이를 사용하려고 시도한다. 
 이러한 선택을 할 때 게이트웨이의 정확한 순서는 
 운영 체제와 커널 버전에 따라 다를 수 있다.
 {{< /note >}}
 
-쿠버네티스 구성 요소는 사용자 정의 네트워크 인터페이스를 옵션으로 허용하지 않으므로, 
-이러한 사용자 정의 구성이 필요한 모든 구성 요소 인스턴스에 사용자 정의 IP 주소를 
+쿠버네티스 컴포넌트는 사용자 정의 네트워크 인터페이스를 옵션으로 허용하지 않으므로,
+이러한 사용자 정의 구성이 필요한 모든 컴포넌트 인스턴스에 사용자 정의 IP 주소를
 플래그로 전달해야 한다.
 
 {{< note >}}
 호스트에 기본 게이트웨이가 없고 사용자 정의 IP 주소가 
-쿠버네티스 구성 요소에 전달되지 않으면, 구성 요소가 오류와 함께 종료될 수 있다.
+쿠버네티스 컴포넌트에 전달되지 않으면, 컴포넌트가 오류와 함께 종료될 수 있다.
 {{< /note >}}
 
 `init`과 `join` 모두로 생성된 컨트롤 플레인 노드에 대한 API 서버 광고(advertise) 주소를 
@@ -115,22 +115,22 @@ ip route show # "default via"로 시작하는 줄을 찾는다
 `InitConfiguration.localAPIEndpoint` 및 `JoinConfiguration.controlPlane.localAPIEndpoint`로 설정하는 것이다.
 
 모든 노드의 kubelet의 경우, kubeadm 
-구성 파일(`InitConfiguration` 또는 `JoinConfiguration`)내의 
+구성 파일(`InitConfiguration` 또는 `JoinConfiguration`) 내의 
 `.nodeRegistration.kubeletExtraArgs`에서 `--node-ip` 옵션을 전달할 수 있다.
 
 듀얼 스택의 경우
 [kubeadm을 사용한 듀얼 스택 지원](/docs/setup/production-environment/tools/kubeadm/dual-stack-support)을 참조한다.
 
-컨트롤 플레인 구성 요소에 할당하는 IP 주소는 X.509 인증서의 주체 
+컨트롤 플레인 컴포넌트에 할당하는 IP 주소는 X.509 인증서의 주체 
 대체 이름 필드의 일부가 된다. 이러한 IP 주소를 변경하려면 
-새 인증서에 서명하고 영향을 받는 구성 요소를 재시작하여 인증서 파일의 변경 
+새 인증서에 서명하고 영향을 받는 컴포넌트를 재시작하여 인증서 파일의 변경 
 사항이 반영되도록 해야 한다. 이 주제에 대한 자세한 내용은 
-[수동 인증서 갱신](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)을 
+[수동 인증서 갱신](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)을 
 참조한다.
 
 {{< warning >}}
-쿠버네티스 프로젝트는 이 접근 방식(사용자 정의 IP 주소로 모든 구성 요소 인스턴스를 구성)을 
-권장하지 않는다. 대신 쿠버네티스 관리자는 기본 게이트웨이 IP가 쿠버네티스 구성 요소가 자동 감지하고 
+쿠버네티스 프로젝트는 이 접근 방식(사용자 정의 IP 주소로 모든 컴포넌트 인스턴스를 구성)을 
+권장하지 않는다. 대신 쿠버네티스 메인테이너는 기본 게이트웨이 IP가 쿠버네티스 컴포넌트가 자동 감지하고 
 사용하는 IP가 되도록 호스트 네트워크를 설정하는 것을 권장한다. 
 리눅스 노드에서는 `ip route`와 같은 명령을 사용하여 네트워킹을 구성할 수 있으며, 운영 
 체제에서 더 높은 수준의 네트워크 관리 도구를 제공할 수도 있다. 노드의 기본 게이트웨이가 
@@ -140,7 +140,7 @@ ip route show # "default via"로 시작하는 줄을 찾는다
 
 ### 필요한 컨테이너 이미지 준비
 
-이 단계는 선택 사항이며, 노드에서 인터넷 연결 없이 클러스터를 생성할 때 `kubeadm init` 및 `kubeadm join`이 
+이 단계는 선택 사항이며 `kubeadm init` 및 `kubeadm join`이
 `registry.k8s.io`에 호스팅된 기본 컨테이너 이미지를 다운로드하지 않도록 하려는 경우에만 적용된다. 
 
 kubeadm에는 인터넷 연결 없이 클러스터를 생성할 때 필요한 이미지를 
@@ -148,7 +148,7 @@ kubeadm에는 인터넷 연결 없이 클러스터를 생성할 때 필요한 �
 자세한 내용은 [인터넷 연결 없이 kubeadm 실행](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)을 
 참조한다.
 
-kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지 저장소를 사용할 수 있다. 자세한 내용은 
+kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지 리포지터리를 사용할 수 있다. 자세한 내용은 
 [사용자 정의 이미지 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)을 
 참조한다.
 
@@ -157,21 +157,21 @@ kubeadm을 사용하면 필요한 이미지에 대해 사용자 정의 이미지
 컨트롤 플레인 노드는 {{< glossary_tooltip term_id="etcd" >}} 
 (클러스터 데이터베이스) 및 
 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}
-({{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 명령줄 도구가 통신하는)를 
-포함한 컨트롤 플레인 구성 요소가 실행되는 머신이다.
+({{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 커맨드라인 툴이 통신하는)를 
+포함한 컨트롤 플레인 컴포넌트가 실행되는 머신이다.
 
 1. (권장) 이 단일 컨트롤 플레인 `kubeadm` 클러스터를 
-  [고가용성](/docs/setup/production-environment/tools/kubeadm/high-availability/)으로 
-  업그레이드할 계획이 있다면, 모든 컨트롤 플레인 노드에 대한 공유 엔드포인트를 설정하기 위해 `--control-plane-endpoint`를 지정해야 한다. 
-  이러한 엔드포인트는 로드 밸런서의 DNS 이름 또는 IP 주소일 수 있다.
+   [고가용성](/docs/setup/production-environment/tools/kubeadm/high-availability/)으로 
+   업그레이드할 계획이 있다면, 모든 컨트롤 플레인 노드에 대한 공유 엔드포인트를 설정하기 위해 `--control-plane-endpoint`를 지정해야 한다. 
+   이러한 엔드포인트는 로드 밸런서의 DNS 이름 또는 IP 주소일 수 있다.
 1. 파드 네트워크 애드온(add-on)을 선택하고, 
-  `kubeadm init`에 전달해야 하는 인수가 있는지 확인한다. 선택한 
-  서드파티 공급자에 따라 `--pod-network-cidr`을 
-  공급자별 값으로 설정해야 할 수 있다. [파드 네트워크 애드온 설치](#pod-network)를 참조한다.
+   `kubeadm init`에 전달해야 하는 인수가 있는지 확인한다. 선택한 
+   서드파티 공급자에 따라 `--pod-network-cidr`을 
+   공급자별 값으로 설정해야 할 수 있다. [파드 네트워크 애드온 설치](#pod-network)를 참조한다.
 1. (선택 사항) `kubeadm`은 잘 알려진 엔드포인트 목록을 사용하여 컨테이너 런타임을 
-  감지하려고 시도한다. 다른 컨테이너 런타임을 사용하거나 프로비저닝된 
-  노드에 둘 이상이 설치된 경우 `kubeadm`에 `--cri-socket` 인수를 지정한다. 
-  [런타임 설치](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)를 참조한다.
+   감지하려고 시도한다. 다른 컨테이너 런타임을 사용하거나 프로비저닝된 
+   노드에 둘 이상이 설치된 경우 `kubeadm`에 `--cri-socket` 인수를 지정한다. 
+   [런타임 설치](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)를 참조한다.
 
 컨트롤 플레인 노드를 초기화하려면 다음을 실행한다.
 
@@ -204,26 +204,26 @@ kubeadm에서 지원하지 않는다.
 
 ### 추가 정보
 
-`kubeadm init` 인수에 대한 자세한 내용은 [kubeadm 참조 가이드](/ko/docs/reference/setup-tools/kubeadm/)를 참조한다.
+`kubeadm init` 인수에 대한 자세한 내용은 [kubeadm 참조 가이드](/docs/reference/setup-tools/kubeadm/)를 참조한다.
 
 구성 파일로 `kubeadm init`을 구성하려면 
 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)을 참조한다.
 
-컨트롤 플레인 구성 요소 및 etcd 서버에 대한 활성(liveness) 프로브에 선택적 IPv6 할당을 
-포함하여 컨트롤 플레인 구성 요소를 사용자 정의하려면 
-[사용자 정의 인수](/ko/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)에 문서화된 대로 각 구성 요소에 추가 인수를 제공한다.
+컨트롤 플레인 컴포넌트 및 etcd 서버에 대한 활성 프로브(liveness probe)에 선택적 IPv6 할당을 
+포함하여 컨트롤 플레인 컴포넌트를 사용자 정의하려면 
+[사용자 정의 인수](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)에 문서화된 대로 각 컴포넌트에 추가 인수를 제공한다.
 
 이미 생성된 클러스터를 재구성하려면
 [kubeadm 클러스터 재구성](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)을 참조한다.
 
 `kubeadm init`을 다시 실행하려면 먼저 [클러스터를 해체](#tear-down)해야 한다.
 
-클러스터에 다른 아키텍처의 노드를 추가(join)하는 경우, 배포된 데몬셋이 
+클러스터에 다른 아키텍처의 노드를 추가(join)하는 경우, 배포된 데몬셋(DaemonSet)이 
 이 아키텍처에 대한 컨테이너 이미지를 지원하는지 확인한다.
 
 `kubeadm init`은 먼저 머신이 쿠버네티스를 실행할 준비가 되었는지 확인하기 위해 일련의 
 사전 검사를 실행한다. 이러한 사전 검사는 경고를 표시하고 오류가 발생하면 종료된다. 그런 다음 `kubeadm init`은 
-클러스터 컨트롤 플레인 구성 요소를 다운로드하고 설치한다. 이 작업은 몇 분 정도 걸릴 수 있다. 
+클러스터 컨트롤 플레인 컴포넌트를 다운로드하고 설치한다. 이 작업은 몇 분 정도 걸릴 수 있다. 
 완료되면 다음이 표시된다.
 
 ```none
@@ -263,17 +263,17 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 {{< warning >}}
 `kubeadm init`이 생성하는 kubeconfig 파일 `admin.conf`에는 
 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin` 인증서가 포함되어 있다. `kubeadm:cluster-admins` 그룹은 
-내장 `cluster-admin` ClusterRole에 바인딩된다.
+내장 `cluster-admin` 클러스터롤(ClusterRole)에 바인딩된다.
 `admin.conf` 파일을 누구와도 공유하지 않는다.
 
 `kubeadm init`은 `Subject: O = system:masters, CN = kubernetes-super-admin` 인증서가 
 포함된 또 다른 kubeconfig 파일 `super-admin.conf`를 생성한다. 
-`system:masters`는 권한 부여 계층(예: RBAC)을 우회하는 긴급 수퍼 사용자 그룹이다. 
+`system:masters`는 권한 부여 계층(예: RBAC)을 우회하는 긴급 슈퍼 사용자 그룹이다. 
 `super-admin.conf` 파일을 누구와도 공유하지 않는다. 파일을 안전한 위치로 이동하는 것을 권장한다.
 
 추가 사용자를 위한 kubeconfig 파일을 생성하기 위해 
 `kubeadm kubeconfig user`를 사용하는 방법은 
-[추가 사용자를 위한 kubeconfig 파일 생성](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)을 참조한다.
+[추가 사용자를 위한 kubeconfig 파일 생성](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)을 참조한다.
 {{< /warning >}}
 
 `kubeadm init`이 출력하는 `kubeadm join` 명령을 기록해 둔다. 
@@ -305,7 +305,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
   `--pod-network-cidr`과 함께 사용하고 네트워크 플러그인의 YAML에서 대체해야 한다.)
 
 - 기본적으로 `kubeadm`은 
-  [RBAC](/docs/reference/access-authn-authz/rbac/)(역할 기반 액세스 
+  [RBAC](/docs/reference/access-authn-authz/rbac/)(역할 기반 접근
   제어) 사용을 설정하고 시행한다. 
   파드 네트워크 플러그인이 RBAC를 지원하는지, 그리고 배포에 사용하는 매니페스트도 
   지원하는지 확인한다.
@@ -323,14 +323,14 @@ CNI 플러그인과 관련된 문제를 발견하면 kubeadm 또는 쿠버네티
 트래커가 아닌 해당 이슈 트래커에 티켓을 기록해야 한다. 
 {{< /note >}}
 
-여러 외부 프로젝트가 CNI를 사용하여 쿠버네티스 파드 네트워크를 제공하며, 그 중 일부는 
-[네트워크 정책](/ko/docs/concepts/services-networking/network-policies/)도 지원한다.
+여러 외부 프로젝트가 CNI를 사용하여 쿠버네티스 파드 네트워크를 제공하며, 그중 일부는 
+[네트워크 정책](/docs/concepts/services-networking/network-policies/)도 지원한다.
 
-[쿠버네티스 네트워킹 모델](/ko/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)을 
+[쿠버네티스 네트워킹 모델](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)을 
 구현하는 애드온 목록을 참조한다.
 
 쿠버네티스에서 지원하는 네트워킹 애드온의 전체 목록은 아니지만 
-[애드온 설치](/ko/docs/concepts/cluster-administration/addons/#networking-and-network-policy) 페이지를 참조한다. 
+[애드온 설치](/docs/concepts/cluster-administration/addons/#networking-and-network-policy) 페이지를 참조한다. 
 컨트롤 플레인 노드 또는 kubeconfig 자격 증명이 있는 노드에서 
 다음 명령으로 파드 네트워크 애드온을 설치할 수 있다.
 
@@ -339,8 +339,8 @@ kubectl apply -f <add-on.yaml>
 ```
 
 {{< note >}}
-몇 가지 CNI 플러그인만 Windows를 지원한다. 자세한 내용과 설정 지침은 
-[Windows 워커 노드 추가](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-config)에서 확인할 수 있다.
+몇 가지 CNI 플러그인만 윈도우를 지원한다. 자세한 내용과 설정 지침은 
+[윈도우 워커 노드 추가](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-config)에서 확인할 수 있다.
 {{< /note >}}
 
 클러스터당 하나의 파드 네트워크만 설치할 수 있다.
@@ -357,10 +357,19 @@ CoreDNS 파드가 실행 중이면 노드 추가를 계속할 수 있다.
 
 기본적으로 kubeadm은 노드 등록 시 kubelet이 자체 적용할 수 있는 레이블을 제한하는 
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) 어드미션 컨트롤러를 활성화한다. 
-어드미션 컨트롤러 문서에서는 kubelet `--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
-`node-role.kubernetes.io/control-plane` 레이블은 이러한 제한된 레이블이며 kubeadm은 
-노드가 생성된 후 권한 있는 클라이언트를 사용하여 수동으로 적용한다. 수동으로 수행하려면 `kubectl label`을 사용하고 
-kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하는지 확인한다.
+어드미션 컨트롤러 문서에서는 kubelet
+`--node-labels` 옵션과 함께 사용할 수 있는 레이블을 다룬다. 
+
+{{< caution >}}
+`NodeRestriction` 어드미션 컨트롤러 때문에, 초기화 과정에서 kubelet
+`--node-labels` 플래그를 사용하여 제한된 레이블(`node-role.kubernetes.io/*` 등)을 적용할 **수 없다**.
+
+이 kubelet 플래그로 제한된 레이블을 추가하려고 하면 노드가 API 서버에
+등록되지 못한다.
+{{< /caution >}}
+
+이러한 레이블을 수동으로 적용하려면 노드가 클러스터에 참여한 후 `kubectl label`을 사용해야 한다.
+kubeadm이 관리하는 `/etc/kubernetes/admin.conf`와 같은 권한 있는 kubeconfig를 사용하고 있는지 확인한다.
 
 ### 컨트롤 플레인 노드 격리
 
@@ -384,7 +393,7 @@ node "test-01" untainted
 스케줄러가 모든 곳에 파드를 스케줄할 수 있게 된다.
 
 또한 다음 명령을 실행하여 컨트롤 플레인 노드에서 
-[`node.kubernetes.io/exclude-from-external-load-balancers`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) 레이블을 
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) 레이블을 
 제거할 수 있다. 이 레이블은 해당 노드를 백엔드 서버 목록에서 제외한다. 
 
 ```bash
@@ -400,13 +409,13 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 
 워커 노드는 워크로드가 실행되는 곳이다.
 
-다음 페이지에서는 `kubeadm join` 명령을 사용하여 클러스터에 리눅스 및 Windows 
+다음 페이지에서는 `kubeadm join` 명령을 사용하여 클러스터에 리눅스 및 윈도우 
 워커 노드를 추가하는 방법을 보여준다.
 
 * [리눅스 워커 노드 추가](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
-* [Windows 워커 노드 추가](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* [윈도우 워커 노드 추가](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 
-### (선택 사항) 컨트롤 플레인 노드가 아닌 머신에서 클러스터 제어 
+### (선택 사항) 컨트롤 플레인 노드가 아닌 머신에서 클러스터 제어
 
 다른 컴퓨터(예: 노트북)의 kubectl이 클러스터와 통신하도록 
 하려면 다음과 같이 컨트롤 플레인 노드에서 관리자 kubeconfig 파일을 
@@ -418,11 +427,11 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-위의 예시는 루트에 대해 SSH 액세스가 활성화되어 있다고 가정한다. 그렇지 않은 경우 
-`admin.conf` 파일을 다른 사용자가 액세스할 수 있도록 복사하고 대신 해당 사용자를 
+위의 예시는 루트에 대해 SSH 접근이 활성화되어 있다고 가정한다. 그렇지 않은 경우 
+`admin.conf` 파일을 다른 사용자가 접근할 수 있도록 복사하고 대신 해당 사용자를 
 사용하여 `scp`할 수 있다.
 
-`admin.conf` 파일은 사용자에게 클러스터에 대한 _수퍼유저(superuser)_ 권한을 부여한다. 
+`admin.conf` 파일은 사용자에게 클러스터에 대한 _슈퍼유저(superuser)_ 권한을 부여한다. 
 이 파일은 드물게 사용해야 한다. 일반 사용자의 경우 권한을 부여할 
 고유한 자격 증명을 생성하는 것이 좋다. 
 `kubeadm kubeconfig user --client-name <CN>` 명령으로 이 작업을 수행할 수 있다. 
@@ -441,7 +450,7 @@ scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
 
-이제 `http://localhost:8001/api/v1`에서 로컬로 API 서버에 액세스할 수 있다.
+이제 `http://localhost:8001/api/v1`에서 로컬로 API 서버에 접근할 수 있다.
 
 ## 정리 {#tear-down}
 
@@ -501,12 +510,12 @@ kubectl delete node <node name>
 
 ## 버전 차이 정책 {#version-skew-policy}
 
-kubeadm이 관리하는 일부 구성 요소에 대해 버전 차이를 허용하지만, kubeadm 버전을 
-컨트롤 플레인 구성 요소, kube-proxy 및 kubelet의 버전과 일치시키는 것이 좋다.
+kubeadm이 관리하는 일부 컴포넌트에 대해 버전 차이를 허용하지만, kubeadm 버전을 
+컨트롤 플레인 컴포넌트, kube-proxy 및 kubelet의 버전과 일치시키는 것이 좋다.
 
 ### kubeadm과 쿠버네티스 버전 간의 차이
 
-kubeadm은 kubeadm과 동일한 버전 또는 한 버전 이전의 쿠버네티스 구성 요소와 
+kubeadm은 kubeadm과 동일한 버전 또는 한 버전 이전의 쿠버네티스 컴포넌트와 
 함께 사용할 수 있다. 쿠버네티스 버전은 `kubeadm init`의 
 `--kubernetes-version` 플래그 또는 `--config` 사용 시 
 [`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/) 
@@ -554,8 +563,8 @@ kubeadm 명령이 kubeadm이 관리하는 기존 노드 또는 전체 클러스�
 * 노드 업그레이드에 사용되는 kubeadm 버전은 {{< skew currentVersionAddMinor -1 >}}
   또는 {{< skew currentVersion >}}이어야 한다
 
-다른 쿠버네티스 구성 요소 간의 버전 차이에 대해 자세히 알아보려면 
-[버전 차이 정책](/ko/releases/version-skew-policy/)을 참조한다.
+다른 쿠버네티스 컴포넌트 간의 버전 차이에 대해 자세히 알아보려면 
+[버전 차이 정책](/releases/version-skew-policy/)을 참조한다.
 
 ## 제한사항 {#limitations}
 
@@ -572,7 +581,7 @@ kubeadm 명령이 kubeadm이 관리하는 기존 노드 또는 전체 클러스�
 
 * 여러 컨트롤 플레인 노드를 사용한다. 
   [고가용성](/docs/setup/production-environment/tools/kubeadm/high-availability/)을 제공하는 클러스터 
-  토폴로지를 선택하려면 [고가용성 토폴로지 옵션](/ko/docs/setup/production-environment/tools/kubeadm/ha-topology/)을 읽을 수 있다.
+  토폴로지를 선택하려면 [고가용성 토폴로지 옵션](/docs/setup/production-environment/tools/kubeadm/ha-topology/)을 읽을 수 있다.
 
 ### 플랫폼 호환성 {#multi-platform}
 
@@ -596,17 +605,17 @@ kubeadm에 문제가 발생하면
 
 * [Sonobuoy](https://github.com/heptio/sonobuoy)로 클러스터가 제대로 실행되고 있는지 확인
 * <a id="lifecycle" />`kubeadm`을 사용한 클러스터 업그레이드에 대한 자세한 내용은
-  [kubeadm 클러스터 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)를 참조한다.
-* [kubeadm 참조 문서](/ko/docs/reference/setup-tools/kubeadm/)에서 고급 `kubeadm` 사용법에 대해 알아보기
-* 쿠버네티스 [개념](/ko/docs/concepts/) 및 [`kubectl`](/ko/docs/reference/kubectl/)에 대해 자세히 알아보기
-* 파드 네트워크 애드온의 더 큰 목록은 [클러스터 네트워킹](/ko/docs/concepts/cluster-administration/networking/) 
+  [kubeadm 클러스터 업그레이드](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)를 참조한다.
+* [kubeadm 참조 문서](/docs/reference/setup-tools/kubeadm/)에서 고급 `kubeadm` 사용법에 대해 알아보기
+* 쿠버네티스 [개념](/docs/concepts/) 및 [`kubectl`](/docs/reference/kubectl/)에 대해 자세히 알아보기
+* 파드 네트워크 애드온의 더 큰 목록은 [클러스터 네트워킹](/docs/concepts/cluster-administration/networking/) 
   페이지를 참조한다.
 * <a id="other-addons" />로깅, 모니터링, 네트워크 정책, 시각화 및 쿠버네티스 클러스터 제어를 위한 
   도구를 포함한 다른 애드온을 탐색하려면 
-  [애드온 목록](/ko/docs/concepts/cluster-administration/addons/)을 참조한다.
+  [애드온 목록](/docs/concepts/cluster-administration/addons/)을 참조한다.
 * 클러스터 이벤트 및 파드에서 실행되는 애플리케이션의 로그를 
   클러스터가 처리하는 방법을 구성한다. 
-  관련 사항에 대한 개요는 [로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/)를 
+  관련 사항에 대한 개요는 [로깅 아키텍처](/docs/concepts/cluster-administration/logging/)를 
   참조한다.
 
 ### 피드백 {#feedback}
@@ -616,6 +625,6 @@ kubeadm에 문제가 발생하면
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) 슬랙 채널을 방문한다
 * 일반 SIG 클러스터 수명 주기 개발 슬랙 채널: 
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG 클러스터 수명 주기 [SIG 정보](https://github.com/kubernetes/community/tree/main/sig-cluster-lifecycle#readme)
 * SIG 클러스터 수명 주기 메일링 리스트: 
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)

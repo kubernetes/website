@@ -74,7 +74,7 @@ Every Kubernetes Node runs at least:
 * Kubelet, a process responsible for communication between the Kubernetes control
 plane and the Node; it manages the Pods and the containers running on a machine.
 
-* A container runtime (like Docker) responsible for pulling the container image
+* A container runtime (like containerd) responsible for pulling the container image
 from a registry, unpacking the container, and running the application.
 
 ### Nodes overview

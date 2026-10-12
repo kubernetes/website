@@ -13,7 +13,7 @@ tags:
 {{< glossary_tooltip text="devices" term_id="device" >}}, that are attached to
 nodes. Drivers create and manage ResourceSlices in the cluster. ResourceSlices
 are used for
-[dynamic resource allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[dynamic resource allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 <!--more-->
 

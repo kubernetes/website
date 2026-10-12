@@ -25,7 +25,7 @@ excited about in this cycle!
 
 ### Structured parameters for dynamic resource allocation ([KEP-4381](https://kep.k8s.io/4381))
 
-[Dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) was
+[Dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) was
 added to Kubernetes as an alpha feature in v1.26. It defines an alternative to the traditional
 device-plugin API for requesting access to third-party resources. By design, dynamic resource
 allocation uses parameters for resources that are completely opaque to core Kubernetes. This

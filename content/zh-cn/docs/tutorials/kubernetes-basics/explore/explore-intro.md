@@ -132,14 +132,14 @@ Every Kubernetes Node runs at least:
 * Kubelet, a process responsible for communication between the Kubernetes control
 plane and the Node; it manages the Pods and the containers running on a machine.
 
-* A container runtime (like Docker) responsible for pulling the container image
+* A container runtime (like containerd) responsible for pulling the container image
 from a registry, unpacking the container, and running the application.
 -->
 每个 Kubernetes 节点至少运行：
 
 * kubelet，负责 Kubernetes 控制面和节点之间通信的进程；它管理机器上运行的 Pod 和容器。
 
-* 容器运行时（如 Docker）负责从镜像仓库中拉取容器镜像、解压缩容器以及运行应用。
+* 容器运行时（如 containerd）负责从镜像仓库中拉取容器镜像、解压缩容器以及运行应用。
 
 <!--
 ### Nodes overview

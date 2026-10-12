@@ -63,10 +63,10 @@ kubectl describe -f pod.json
 
 # Describe all pods
 kubectl describe pods
-  
+
 # Describe pods by label name=myLabel
 kubectl describe pods -l name=myLabel
-  
+
 # Describe all pods managed by the 'frontend' replication controller
 # (rc-created pods get the name of the rc as a prefix in the pod name)
 kubectl describe pods frontend
@@ -75,19 +75,19 @@ kubectl describe pods frontend
 ```shell
 # 描述一个节点
 kubectl describe nodes kubernetes-node-emt8.c.myproject.internal
-  
+
 # 描述一个 Pod
 kubectl describe pods/nginx
-  
+
 # 描述在 "pod.json" 中通过类别和名称标识的 Pod
 kubectl describe -f pod.json
-  
+
 # 描述所有 Pod
 kubectl describe pods
-  
+
 # 描述带标签 name=myLabel 的 Pod
 kubectl describe pods -l name=myLabel
-  
+
 # 描述由 “frontend” 副本控制器管理的所有 Pod
 # （副本控制器所创建的 Pod 在 Pod 名称中带有此副本控制器的名称作为前缀）
 kubectl describe pods frontend
@@ -173,7 +173,7 @@ describe 操作的帮助命令。
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
-处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
+处理 kustomization 目录。此标志不能与 <code>-f</code> 或 <code>-R</code> 一起使用。
 </p>
 </td>
 </tr>
@@ -188,7 +188,7 @@ Process the kustomization directory. This flag can't be used together with -f or
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
-递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
+递归处理在 <code>-f</code>、<code>--filename</code> 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
 </p>
 </td>
 </tr>
@@ -444,7 +444,7 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
 用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
-特性门控或关闭 KUBERC=off 特性来禁用此功能。
+特性门控或关闭 <code>KUBERC=off</code> 特性来禁用此功能。
 </p>
 </td>
 </tr>
@@ -525,6 +525,20 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
@@ -559,7 +573,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
@@ -573,7 +588,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 database name
@@ -587,7 +603,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 database host:port
@@ -601,7 +618,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 database password
@@ -615,117 +633,135 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td styletd style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Username for basic authentication to the API server
 -->
 向 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
