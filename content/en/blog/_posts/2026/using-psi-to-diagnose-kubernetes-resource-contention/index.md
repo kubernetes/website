@@ -16,9 +16,9 @@ because runnable threads are queued behind a busy core. Utilization says the
 resource is busy. It says nothing about who is stuck in line.
 
 Linux Pressure Stall Information (PSI) measures the time workloads spend stalled
-waiting for CPU, memory, or I/O. As of Kubernetes v1.36 these metrics are stable
-and exposed at node, pod, and container scope. In this post we build a local
-cluster, manufacture real CPU contention (several workloads fighting over too few
+waiting for CPU, memory, or I/O. As of Kubernetes v1.36 these metrics are
+[stable](/blog/2026/05/12/kubernetes-v1-36-psi-metrics-ga/) and exposed at node,
+pod, and container scope. In this post we build a local cluster, manufacture real CPU contention (several workloads fighting over too few
 cores), and watch PSI respond. Then we apply the same technique to production.
 
 One thing up front: PSI does not replace utilization, and there is no universal
@@ -79,7 +79,8 @@ watch node and pod PSI climb, then scale back and watch it fall.
 
 The important design choice is what we *don't* do: **no per-pod CPU limits.**
 
-This is deliberately different from the CPU example in the upstream PSI docs, which
+This is deliberately different from the CPU example in the
+[Kubernetes PSI documentation](/docs/reference/instrumentation/understand-psi-metrics/), which
 caps a container at `500m`. That version is a fine way to see PSI move, but the
 pressure comes from cgroup quota throttling, where the container waits on its own
 limit. Here we want the other, more production-like case: independent workloads
@@ -89,6 +90,9 @@ oversubscribe it, and leave the pods unconstrained.
 ### Prerequisites
 
 Docker Desktop, kind, kubectl, and jq.
+
+I'm using Homebrew to install the tools on macOS. If you don't have it installed,
+follow the instructions at [brew.sh](https://brew.sh/) first.
 
 ```shell
 brew install kind kubectl jq
@@ -104,6 +108,8 @@ kind create cluster \
   --name psi-demo \
   --image kindest/node:v1.36.1
 ```
+
+I used Kubernetes v1.36.1 because PSI metrics are stable from v1.36.
 
 Confirm cgroup v2:
 
@@ -374,9 +380,3 @@ docker update --cpuset-cpus="" psi-demo-control-plane
 # Or tear it all down:
 kind delete cluster --name psi-demo
 ```
-
-## Further reading
-
-- [Understand Pressure Stall Information (PSI) Metrics](https://kubernetes.io/docs/reference/instrumentation/understand-psi-metrics/)
-- [Kubernetes v1.36: PSI Metrics for Kubernetes Graduates to GA](https://kubernetes.io/blog/2026/05/12/kubernetes-v1-36-psi-metrics-ga/)
-- [Node metrics data](https://kubernetes.io/docs/reference/instrumentation/node-metrics/)
