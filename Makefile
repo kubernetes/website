@@ -149,20 +149,23 @@ api-reference: clean-api-reference ## Build the API reference pages. go needed
 		go run cmd/main.go kwebsite --config-dir ../../api-ref-assets/config/ --file ../../api-ref-assets/api/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates ../../api-ref-assets/templates
 
 prepare-ci-test: ## Install CI deps (Node + Hugo) for running the production build in Prow.
+	@test -n "$$PROW_JOB_ID" || { echo "prepare-ci-test installs into /usr/local; run it only in Prow" 1>&2; exit 1; }
 	apt-get update -qq
 	apt-get install -y --no-install-recommends -qq curl git ca-certificates xz-utils
 	rm -rf /var/lib/apt/lists/*
-	curl -fsSL --retry 3 --retry-delay 5 \
-	  "https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-x64.tar.xz" \
-	  | tar -xJ -C /usr/local --strip-components=1 \
+	cd /tmp && \
+	  curl -fsSLO --retry 3 --retry-delay 5 "https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-x64.tar.xz" && \
+	  curl -fsSL --retry 3 --retry-delay 5 "https://nodejs.org/dist/v$(NODE_VERSION)/SHASUMS256.txt" \
+	    | grep " node-v$(NODE_VERSION)-linux-x64.tar.xz$$" | sha256sum -c - && \
+	  tar -xJf node-v$(NODE_VERSION)-linux-x64.tar.xz -C /usr/local --strip-components=1 \
 	    --exclude='*/CHANGELOG.md' --exclude='*/LICENSE' --exclude='*/README.md'
-	curl -fsSL --retry 3 --retry-delay 5 \
-	  "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz" \
-	  | tar -xz -C /usr/local/bin hugo
+	cd /tmp && \
+	  curl -fsSLO --retry 3 --retry-delay 5 "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz" && \
+	  curl -fsSL --retry 3 --retry-delay 5 "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_checksums.txt" \
+	    | grep " hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz$$" | sha256sum -c - && \
+	  tar -xzf hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz -C /usr/local/bin hugo
 
 run-ci-test-production: module-init ## Run the production build used by CI.
 	npm ci
-	HUGO_BASEURL=https://kubernetes.io/ HUGO_ENV=production HUGO_ENABLEGITINFO=true \
-	  hugo --buildFuture --cleanDestinationDir --minify --environment production
-	HUGO_ENV=production $(MAKE) check-headers-file
+	HUGO_BASEURL=https://kubernetes.io/ HUGO_ENV=production HUGO_ENABLEGITINFO=true $(MAKE) production-build
 	npx -y pagefind --site public
