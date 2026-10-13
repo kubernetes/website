@@ -93,7 +93,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
 
 초기 클러스터 대시보드에 접근하면, 환영 페이지를 볼 수 있다.
 이 페이지는 첫 애플리케이션을 배포하는 버튼이 있을 뿐만 아니라, 이 문서의 링크를 포함하고 있다.
-또한, 대시보드가 있는 클러스터에서 기본적으로 `kube-system`
+또한, 클러스터의 `kube-system`
 [네임스페이스](/docs/tasks/administer-cluster/namespaces/)에서 기본적으로 동작 중인 시스템 애플리케이션(예를 들면 대시보드 자신)을 볼 수 있다.
 
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
