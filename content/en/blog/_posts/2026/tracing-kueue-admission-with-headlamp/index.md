@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: "Why Is My Kubernetes Job Still Pending? Tracing Kueue Admission with Headlamp"
-draft: true
+date: 2026-10-14T10:35:00-08:00
+canonicalUrl: https://headlamp.dev/blog/2026/10/12/tracing-kueue-admission-with-headlamp
 slug: tracing-kueue-admission-with-headlamp
 author: >
   [Utkarsh Raj](https://github.com/utkarshrajpandey0001) (LFX Mentee, CNCF),
