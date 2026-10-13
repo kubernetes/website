@@ -9,7 +9,7 @@ author: >
   [Kevin Hannon](https://github.com/kannon92) (Red Hat)
 ---
 
-You submit a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) and
+You submit a [Kubernetes Job](/docs/concepts/workloads/controllers/job/) and
 wait for its Pods to appear. A minute passes. Then another. The Job is still suspended, there are no
 application logs, and there may not even be a Pod to inspect.
 
@@ -51,7 +51,7 @@ of Headlamp. If it is admitted but its Pods are still `Pending`, move to Headlam
 Pod views and inspect scheduler events.
 
 {{< figure
-  src="kueue-admission-architecture.png"
+  src="kueue-admission-architecture.svg"
   alt="A Kubernetes Job becomes a Kueue Workload. Kueue evaluates its LocalQueue, ClusterQueue, ResourceFlavor, and optional Cohort before resuming the Job. Headlamp reads these resources through the Kubernetes API."
   caption="Kueue admission architecture"
 >}}
@@ -61,7 +61,7 @@ Pod views and inspect scheduler events.
 The quickest investigation starts with the Workload, not with a shell.
 
 {{< figure
-  src="headlamp-kueue-troubleshooting-flow.png"
+  src="headlamp-kueue-troubleshooting-flow.svg"
   alt="A Headlamp troubleshooting flow that starts with Kueue Workloads, checks admission conditions, follows LocalQueue and ClusterQueue links when admission is blocked, and switches to Job and Pod views after admission."
   caption="Tracing a pending Job through Headlamp"
 >}}
@@ -247,8 +247,8 @@ Kueue has completed its part of the decision. Continue in Headlamp's standard Ku
 1. Select a `Pending` Pod and read its **Events** section.
 
 At this stage, look for scheduler concerns such as insufficient node capacity,
-[node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/),
-[taints and tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/),
+[node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/),
+[taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/),
 topology constraints, persistent-volume binding, or image-pull failures.
 
 This handoff is the most useful troubleshooting rule in the article:
@@ -350,50 +350,3 @@ or share feedback in the [release issue](https://github.com/headlamp-k8s/plugins
 If a pending Workload is still difficult to explain after following the Headlamp path, that is
 exactly the kind of feedback that can improve the plugin.
 
-## Further reading
-
-### Headlamp and the plugin
-
-- [Headlamp documentation](https://headlamp.dev/docs/latest/)
-
-- [Install Headlamp](https://headlamp.dev/docs/latest/installation/)
-
-- [Install Headlamp Desktop plugins](https://headlamp.dev/docs/latest/installation/desktop/plugins-install-desktop/)
-
-- [Kueue plugin source and README](https://github.com/headlamp-k8s/plugins/tree/main/kueue)
-
-- [Kueue plugin `0.1.0-alpha` documentation](https://github.com/headlamp-k8s/plugins/tree/main/kueue/0.1.0-alpha)
-
-- [Kueue `0.1.0-alpha` release issue and demo](https://github.com/headlamp-k8s/plugins/issues/1251)
-
-### Kueue
-
-- [Kueue overview](https://kueue.sigs.k8s.io/docs/overview/)
-
-- [Troubleshoot pending Jobs](https://kueue.sigs.k8s.io/docs/tasks/troubleshooting/troubleshooting_jobs/)
-
-- [Workloads](https://kueue.sigs.k8s.io/docs/concepts/workload/)
-
-- [LocalQueues](https://kueue.sigs.k8s.io/docs/concepts/local_queue/)
-
-- [ClusterQueues](https://kueue.sigs.k8s.io/docs/concepts/cluster_queue/)
-
-- [ResourceFlavors](https://kueue.sigs.k8s.io/docs/concepts/resource_flavor/)
-
-- [Cohorts](https://kueue.sigs.k8s.io/docs/concepts/cohort/)
-
-- [`kubectl`-kueue and `kueuectl` reference](https://kueue.sigs.k8s.io/docs/reference/kubectl-kueue/)
-
-### Kubernetes
-
-- [Kubernetes Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/)
-
-- [Kubernetes Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
-
-- [Kubernetes scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/)
-
-- [Resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
-
-- [Assigning Pods to nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
-
-- [Taints and tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
