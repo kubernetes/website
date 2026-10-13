@@ -15,6 +15,7 @@ This co-location allows them to collaborate closely while maintaining separation
 This page covers:
 
 - Init containers
+- App containers
 - Ephemeral containers
 - Intra-pod communication mechanisms (localhost, shared volumes)
 - Resource sharing and container coordination
@@ -230,11 +231,21 @@ For example, a sidecar can write a status file to a shared volume that the app c
 
 ### Init containers
 
-An init container runs to completion before a Pod's application containers start.
+An init container runs to completion before a Pod's
+{{< glossary_tooltip text="app containers" term_id="app-container" >}} or
+[sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) start.
 It performs setup tasks such as preparing files, initializing state, or waiting for external services.
 For details, see the [Init Containers concept page](/docs/concepts/workloads/pods/init-containers/).
 
-## Understanding ephemeral containers
+### App containers
+
+App containers are the containers that run a Pod's main workload, such as a web server or a background worker.
+A Pod can run a single app container, or multiple app containers that are tightly coupled and
+need to share resources, for example a web server container paired with a
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}} that keeps its content up to date.
+For details, see [Pods with multiple containers](/docs/concepts/workloads/pods/#how-pods-manage-multiple-containers).
+
+### Ephemeral containers
 
 Pods often contain a primary application container and auxiliary containers that provide supporting functions such as logging, proxying, or adapting data.
 Auxiliary containers run alongside or before the app container and use the Pod's shared namespaces and volumes to cooperate while keeping responsibilities separate.
