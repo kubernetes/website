@@ -82,6 +82,42 @@ To configure the limit, you can specify the command line parameter `--pod-max-pi
 to the kubelet, or set `PodPidsLimit` in the kubelet
 [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 
+## Per-pod PID limits
+
+{{< feature-state feature_gate_name="PerPodPIDLimit" >}}
+
+In addition to node-level PID limits configured via kubelet, you can set PID limits at the pod level
+using `spec.resources.limits.pids`. This allows individual pods to declare their own PID limit,
+providing finer-grained control over process creation within pods.
+
+{{< note >}}
+Per-pod PID limits require the
+[`PerPodPIDLimit`](/docs/reference/command-line-tools-reference/feature-gates/),
+[`PodLevelResources`](/docs/reference/command-line-tools-reference/feature-gates/), and
+[`PodLevelResourcesFixKubeletQOSClass`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gates to be enabled, and the node must be running with
+[cgroupsv2](/docs/concepts/architecture/cgroups/).
+Nodes running cgroupsv1 will reject Pods that specify a PID limit.
+{{< /note >}}
+
+When a pod specifies `limits.pids`, the kubelet enforces the effective limit as:
+```
+min(node podPidsLimit, pod pids limit)
+```
+
+If the pod's requested limit exceeds the node's `podPidsLimit`, a `PIDLimitCapped` warning event
+is emitted and the node's limit is applied instead.
+
+### Constraints
+
+- PIDs is a **limit-only** resource: you cannot specify `requests.pids`.
+- PIDs do not affect pod QoS class or scheduling decisions.
+- Valid range: 128 to 16384 PIDs per pod.
+- Per-pod PID limits are rejected in LimitRange to avoid breaking normal workloads.
+
+See [Assign a PID limit to a pod](/docs/tasks/configure-pod-container/assign-pod-pid-limit/)
+for step-by-step instructions on using per-pod PID limits.
+
 ## PID based eviction
 
 You can configure kubelet to start terminating a Pod when it is misbehaving and consuming abnormal amount of resources.
