@@ -155,11 +155,10 @@ describes how you can configure this as a cluster administrator.
 
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client),
-[Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client), and
-[Haskell](#haskell-client). There are other client libraries that are provided and maintained by
-their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/)
-for accessing the API from other languages and how they authenticate.
+Officially supported client libraries include [Go](#go-client), [Python](#python-client),
+[Java](#java-client), [C# (.NET)](#c-net-client), and others.
+See [client libraries](/docs/reference/using-api/client-libraries/) for the full list
+of officially supported and community-maintained libraries, and how they authenticate.
 
 #### Go client
 
@@ -293,16 +292,16 @@ public class KubeConfigFileClientExample {
 }
 ```
 
-#### dotnet client
+#### C# (.NET) client {#c-net-client}
 
-To use [dotnet client](https://github.com/kubernetes-client/csharp),
-run the following command: `dotnet add package KubernetesClient --version 1.6.1`.
-See [dotnet Client Library page](https://github.com/kubernetes-client/csharp)
+To use the [C# (.NET) client](https://github.com/kubernetes-client/csharp),
+run the following command: `dotnet add package KubernetesClient`.
+See the [C# (.NET) Client Library page](https://github.com/kubernetes-client/csharp)
 for more installation options. See
 [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)
 to see which versions are supported.
 
-The dotnet client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+The C# (.NET) client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this
 [example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs):
 

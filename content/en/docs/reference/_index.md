@@ -28,15 +28,10 @@ This section of the Kubernetes documentation contains references.
 ## Officially supported client libraries
 
 To call the Kubernetes API from a programming language, you can use
-[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
-client libraries:
-
-- [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
-- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
-- [Kubernetes Java client library](https://github.com/kubernetes-client/java)
-- [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
-- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
-- [Kubernetes Haskell client library](https://github.com/kubernetes-client/haskell)
+[client libraries](/docs/reference/using-api/client-libraries/).
+Officially supported client libraries include Go, Python, Java, JavaScript,
+and others. See the [client libraries](/docs/reference/using-api/client-libraries/)
+page for the full list.
 
 ## CLI
 
