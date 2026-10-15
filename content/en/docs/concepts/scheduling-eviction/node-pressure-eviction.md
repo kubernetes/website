@@ -264,8 +264,11 @@ provided custom values will be ignored.
 
 ## Eviction monitoring interval
 
-The kubelet evaluates eviction thresholds based on its configured `housekeeping-interval`,
-which defaults to `10s`.
+The kubelet evaluates node-pressure eviction thresholds on a hardcoded 10-second interval.
+
+However, the eviction manager relies on node resource metrics (memory, disk, PIDs) gathered by the kubelet's internal cAdvisor. The frequency at which these metrics are refreshed is controlled by the kubelet's `housekeeping-interval` configuration flag, which defaults to `10s`.
+
+{{< note >}}  Changing the housekeeping-interval does not alter the 10-second eviction evaluation loop. If you increase the housekeeping-interval (e.g., to 30s), the eviction manager will still evaluate thresholds every 10 seconds, but it will be acting on delayed metrics. This desynchronization can significantly delay the kubelet's ability to detect resource pressure and prevent out-of-memory (OOM) conditions. {{< /note >}}
 
 ## Node conditions {#node-conditions}
 
