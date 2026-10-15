@@ -19,4 +19,4 @@ spec:
   volumes:
     - name: config
       persistentVolumeClaim:
-        claimName: task-pv-storage
+        claimName: task-pv-claim
