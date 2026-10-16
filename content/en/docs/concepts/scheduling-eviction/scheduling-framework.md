@@ -82,6 +82,27 @@ When the QueueingHint finds that the event might make the Pod schedulable,
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 
+### PreQueueingHint
+
+{{< feature-state feature_gate_name="SchedulerPreQueueingHints" >}}
+
+PreQueueingHint is an optional callback that a plugin registers together with a QueueingHint
+to narrow down which Pods the scheduler checks when an event happens.
+It's executed once per event, before any QueueingHint, and returns either the set of Pods
+that the event might make schedulable, or a signal that all Pods must be checked.
+The scheduler then runs that plugin's QueueingHint only for the returned Pods.
+Without a PreQueueingHint, the scheduler runs the QueueingHint for every Pod that the plugin rejected,
+which can be expensive when an event is relevant to only a few of many unschedulable Pods.
+
+Narrowing applies per plugin: the QueueingHint of a plugin that doesn't register a PreQueueingHint
+still runs for every Pod that plugin rejected.
+If a PreQueueingHint returns an error, the scheduler checks all Pods for that plugin.
+
+For example, the `DynamicResources` plugin uses a PreQueueingHint for ResourceClaim events.
+It returns only the Pods that reference the changed ResourceClaim,
+except when a claim is deallocated or an allocated claim is deleted:
+freeing devices can make any waiting Pod schedulable, so all Pods are checked.
+
 ### QueueSort {#queue-sort}
 
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
