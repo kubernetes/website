@@ -515,7 +515,7 @@ When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaul
 to 2147483647 (MaxInt32).
 
 Failed Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+exponential back-off delay (10s, 20s, 40s ...) capped at ten minutes.
 
 The number of retries is calculated in two ways:
 

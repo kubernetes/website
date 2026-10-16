@@ -4,7 +4,9 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1beta1"
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "PodCertificateRequest"
+- apiVersion: "certificates.k8s.io/v1"
   kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
@@ -20,7 +22,9 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1"
   kind: "CertificateSigningRequest"
   override_link_text: "CSR v1"
-- apiVersion: "certificates.k8s.io/v1beta1"
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "PodCertificateRequest"
+- apiVersion: "certificates.k8s.io/v1"
   kind: "ClusterTrustBundle" 
 content_type: concept
 weight: 60
@@ -28,21 +32,19 @@ weight: 60
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-
 <!--
 Kubernetes certificate and trust bundle APIs enable automation of
 [X.509](https://www.itu.int/rec/T-REC-X.509) credential provisioning by providing
 a programmatic interface for clients of the Kubernetes API to request and obtain
 X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}} from a Certificate Authority (CA).
 
-There is also experimental (alpha) support for distributing [trust bundles](#cluster-trust-bundles).
+There is also support for distributing [trust bundles](#cluster-trust-bundles).
 -->
 Kubernetes 证书和信任包（trust bundle）API 可以通过为 Kubernetes API 的客户端提供编程接口，
 实现 [X.509](https://www.itu.int/rec/T-REC-X.509) 凭据的自动化制备，
 从而请求并获取证书颁发机构（CA）发布的 X.509 {{< glossary_tooltip term_id="certificate" text="证书" >}}。
 
-此外，Kubernetes 还对分发[信任包](#cluster-trust-bundles)提供了实验性（Alpha）支持。
+此外，Kubernetes 还支持分发[信任包](#cluster-trust-bundles)。
 
 <!-- body -->
 
@@ -161,12 +163,14 @@ For example:
 授权创建 CertificateSigningRequest 和检索 CertificateSigningRequest：
 
 * verbs（动词）：`create`、`get`、`list`、`watch`，
+
   group（组）：`certificates.k8s.io`，
+  
   resource（资源）：`certificatesigningrequests`
 
 例如：
 
-{{< code_sample file="access/certificate-signing-request/clusterrole-create.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-create.yaml" %}}
 
 <!--
 To allow approving a CertificateSigningRequest:
@@ -180,19 +184,28 @@ For example:
 授权批准 CertificateSigningRequest：
 
 * verbs（动词）：`get`、`list`、`watch`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`certificatesigningrequests`
+
 * verbs（动词）：`update`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`certificatesigningrequests/approval`
+
 * verbs（动词）：`approve`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`signers`，
+
   resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
 例如：
 
-{{< code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
 
 <!--
 To allow signing a CertificateSigningRequest:
@@ -204,17 +217,26 @@ To allow signing a CertificateSigningRequest:
 授权签名 CertificateSigningRequest：
 
 * verbs（动词）：`get`、`list`、`watch`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`certificatesigningrequests`
+
 * verbs（动词）：`update`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`certificatesigningrequests/status`
+
 * verbs（动词）：`sign`，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`signers`，
+
   resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
-{{< code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
 
 <!--
 ## Signers
@@ -481,7 +503,7 @@ kube-controller-manager 为除 `kubernetes.io/kube-apiserver-serving` 外的每�
 属于 `kubernetes.io/kube-apiserver-serving` 签名者信任域的证书的签名完全由集群管理员控制。
 
 <!--
-Any trust outside of those described above are strictly
+Any trust outside of the above described cases is strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only
@@ -492,6 +514,23 @@ guaranteed to verify a connection to the API server using the default service (`
 但这个做法并不标准。
 这些用途都没有以任何方式涉及到 ServiceAccount 中的 Secrets `.data[ca.crt]`。
 此 CA 证书包只保证使用默认的服务（`kubernetes.default.svc`）来验证到 API 服务器的连接。
+
+<!--
+### Custom signers
+
+You can also introduce your own custom signer, which should have a similar prefixed name but using your
+own domain name. For example, if you represent an open source project that uses the domain `open-fictional.example`
+then you might use `issuer.open-fictional.example/service-mesh` as a signer name.
+
+A custom signer uses the Kubernetes API to issue a certificate. See [API-based signers](#signer-api).
+-->
+### 自定义签名者 {#custom-signers}
+
+你也可以引入自己的自定义签名者，其名称应带有类似的前缀，但使用你自己的域名。
+例如，如果你代表一个使用 `open-fictional.example` 域名的开源项目，
+那么你可以使用 `issuer.open-fictional.example/service-mesh` 作为签名者名称。
+
+自定义签名者使用 Kubernetes API 来颁发证书。请参阅[基于 API 的签名者](#signer-api)。
 
 <!--
 ## Signing
@@ -679,9 +718,9 @@ you like. If you want to add a note for human consumption, use the
 如果你想添加一个供人类使用的注释，那就用 `status.conditions.message` 字段。
 
 <!--
-### API-based signers {#signer-api}
+## API-based signers {#signer-api}
 
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
+Users of the REST API can sign CSRs by submitting an **update** request to the `status`
 subresource of the CSR to be signed.
 
 As part of this request, the `status.certificate` field should be set to contain the
@@ -693,9 +732,9 @@ as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#secti
 
 Example certificate content:
 -->
-### 基于 API 的签名者   {#signer-api}
+## 基于 API 的签名者   {#signer-api}
 
-REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交更新请求来对 CSR 进行签名。
+REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交**更新**请求来对 CSR 进行签名。
 
 作为这个请求的一部分，`status.certificate` 字段应设置为已签名的证书。
 此字段可包含一个或多个 PEM 编码的证书。
@@ -759,19 +798,6 @@ status:
 
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
-{{< note >}}
-<!--
-In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
-Certificates using the `PodCertificateRequest` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
-kube-apiserver flag.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，你必须使用 `PodCertificateRequest`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和 
-`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true` kube-apiserver
-标志来启用对 Pod 证书的支持。
-{{< /note >}}
 
 <!--
 PodCertificateRequests are API objects tailored to provisioning certificates to
@@ -837,7 +863,7 @@ PodCertificateRequest 包含以下 `spec` 字段：
   they do not recognize.
 -->
 * `unverifiedUserAnnotations`：此映射允许用户向签名器实现传递附加信息。
-  它直接复制自 [podCertificate 投影卷源](/docs/concepts/storage/projected-volumes#podcertificate)的
+  它直接复制自 [podCertificate 投影卷源](/zh-cn/docs/concepts/storage/projected-volumes#podcertificate)的
   `userAnnotations` 字段。
   条目将接受与对象元数据注释相同的验证，但所有键都必须带有域名前缀。
   值本身没有限制，但整个字段的大小有限制。
@@ -886,17 +912,23 @@ the signer name:
 类型以及签名者的适当权限：
 
 * verbs（动词）：**update**，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`podcertificaterequests/status`
+
 * verbs（动词）：**sign**，
+
   group（组）：`certificates.k8s.io`，
+
   resource（资源）：`signers`，
+
   resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
 <!--
 The signing controller is free to consider other information beyond what's
 contained in the request, but it can rely on the information in the request to
-be accurate. For example, the signing controller might load the Pod and read
+be accurate.  For example, the signing controller might load the Pod and read
 annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.
 -->
 签名控制器可以考察除请求中包含的信息之外的其他信息，但它可以相信请求中的信息是准确的。
@@ -964,19 +996,6 @@ this 15-minute limit.
 
 {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
-{{< note >}}
-<!--
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-_and_ the `certificates.k8s.io/v1alpha1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
-this API.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，如果想要使用此 API，
-必须同时启用 `ClusterTrustBundle`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)**以及**
-`certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
-{{< /note >}}
 
 <!--
 A ClusterTrustBundles is a cluster-scoped object for distributing X.509 trust
@@ -1051,7 +1070,7 @@ Signer-linked ClusterTrustBundles are associated with a _signer name_, like this
 签名者关联的 ClusterTrustBundle 与**签名者名称**关联，例如：
 
 ```yaml
-apiVersion: certificates.k8s.io/v1alpha1
+apiVersion: certificates.k8s.io/v1
 kind: ClusterTrustBundle
 metadata:
   name: example.com:mysigner:foo
@@ -1075,7 +1094,7 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
   their `spec.signerName` field. Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended. This is followed by an arbitrary name.  For
+  and a final colon is appended. This is followed by an arbitrary name. For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 -->
@@ -1109,7 +1128,7 @@ Signer-unlinked ClusterTrustBundles have an empty `spec.signerName` field, like 
 
 <!--
 ```yaml
-apiVersion: certificates.k8s.io/v1alpha1
+apiVersion: certificates.k8s.io/v1
 kind: ClusterTrustBundle
 metadata:
   name: foo
@@ -1119,7 +1138,7 @@ spec:
 ```
 -->
 ```yaml
-apiVersion: certificates.k8s.io/v1alpha1
+apiVersion: certificates.k8s.io/v1
 kind: ClusterTrustBundle
 metadata:
   name: foo
