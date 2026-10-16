@@ -136,7 +136,7 @@ how to [authenticate API servers](#authenticate-apiservers).
 字段为[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
 默认为 `NoClientCert` 。这意味着 Webhook 服务器不会验证客户端的身份，认为其是 API 服务器。
 如果你需要双向 TLS 或其他方式来验证客户端，
-请参阅如何[对 API 服务器进行身份认证](#authenticate-apiservers)。
+请参阅如何[对 API 服务器进行身份验证](#authenticate-apiservers)。
 
 <!--
 ### Deploy the admission webhook service
@@ -263,7 +263,7 @@ to honor the new configuration.
 <!--
 ### Authenticate API servers   {#authenticate-apiservers}
 -->
-### 对 API 服务器进行身份认证 {#authenticate-apiservers}
+### 对 API 服务器进行身份验证 {#authenticate-apiservers}
 
 <!--
 If your admission webhooks require authentication, you can configure the
@@ -415,6 +415,204 @@ users:
 Of course you need to set up the webhook server to handle these authentication requests.
 -->
 当然，你需要设置 Webhook 服务器来处理这些身份验证请求。
+
+<!--
+### Authenticating to admission webhooks {#authenticating-to-admission-webhooks}
+-->
+### 向准入 Webhook 进行身份验证 {#authenticating-to-admission-webhooks}
+
+{{< feature-state feature_gate_name="APIServerWebhookAuthenticationToken" >}}
+
+<!--
+As an alternative to the manual credential management described in
+[Authenticate API servers](#authenticate-apiservers), the `kube-apiserver` can
+issue short-lived, scoped ServiceAccount tokens for authenticating to admission
+webhooks. This mechanism uses the
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API to issue tokens that are bound to a specific webhook configuration and
+scoped to particular API groups.
+-->
+作为[对 API 服务器进行身份验证](#authenticate-apiservers)中所述手工凭据管理方式的替代方案，
+`kube-apiserver` 可以签发短期的、限定作用域的 ServiceAccount 令牌，
+用于向准入 Webhook 进行身份验证。此机制使用
+[TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API 签发绑定到特定 Webhook 配置、且作用域限定为特定 API 组的令牌。
+
+{{< note >}}
+<!--
+This mechanism implements token issuance. Automatic token acquisition and
+presentation by the `kube-apiserver` and aggregated API servers when calling
+webhooks, along with a webhook-side token verification library, are not part of
+this mechanism.
+-->
+此机制实现的是令牌签发。`kube-apiserver` 和聚合 API 服务器在调用 Webhook
+时自动获取并出示令牌，以及 Webhook 侧的令牌验证库，都不属于此机制的范围。
+{{< /note >}}
+
+<!--
+#### How it works
+-->
+#### 工作原理 {#how-it-works}
+
+<!--
+The TokenRequest API is extended to support issuing tokens bound to
+ValidatingWebhookConfiguration or MutatingWebhookConfiguration objects.
+These tokens include attestation claims that specify which API groups the token
+authorizes its bearer to query the webhook about. The token becomes invalid if
+the referenced webhook configuration is deleted.
+-->
+TokenRequest API 经过扩展，支持签发绑定到 ValidatingWebhookConfiguration
+或 MutatingWebhookConfiguration 对象的令牌。
+这些令牌包含证明声明，指明该令牌鉴权其持有者可针对哪些 API 组查询 Webhook。
+如果所引用的 Webhook 配置被删除，令牌将失效。
+
+<!--
+To request a webhook authentication token, a TokenRequest must include:
+-->
+要请求 Webhook 身份验证令牌，TokenRequest 必须包含以下内容：
+
+<!--
+1. **A `.spec.boundObjectRef` field** referencing either a ValidatingWebhookConfiguration or
+   a MutatingWebhookConfiguration. The referenced webhook configuration must
+   exist and must not be marked for deletion.
+
+1. **A `.spec.attestations` field** with exactly one entry: the key
+   `admissionReviewAPIGroups` with a single-element string array value specifying
+   the API group this token covers. The value `"*"` means all API groups.
+   The specified API group must match a rule in the referenced webhook
+   configuration.
+-->
+1. **一个 `.spec.boundObjectRef` 字段**，引用 ValidatingWebhookConfiguration
+   或 MutatingWebhookConfiguration。所引用的 Webhook 配置必须存在，
+   且不得被标记为待删除。
+
+2. **一个 `.spec.attestations` 字段**，且恰好包含一个条目：键
+   `admissionReviewAPIGroups`，其值为单元素字符串数组，指定此令牌覆盖的
+   API 组。值 `"*"` 表示所有 API 组。
+   所指定的 API 组必须与所引用的 Webhook 配置中的某条规则匹配。
+
+<!--
+1. **A `.spec.audiences` field** with exactly one element that matches the webhook's
+   endpoint:
+   - For URL-configured webhooks: the audience must be an exact match of the
+     URL.
+   - For service-configured webhooks: the audience must match the pattern
+     `https://<name>.<namespace>.svc:<port>[<path>]`, where `<port>` defaults
+     to `443` and `<path>` defaults to `/` if not specified in the webhook
+     configuration.
+-->
+3. **一个 `.spec.audiences` 字段**，且恰好包含一个元素，与 Webhook 的端点匹配：
+   - 对于通过 URL 配置的 Webhook：受众必须与 URL 完全一致。
+   - 对于通过 Service 配置的 Webhook：受众必须匹配模式
+     `https://<name>.<namespace>.svc:<port>[<path>]`，其中 `<port>` 默认为
+     `443`；若 Webhook 配置中未指定，`<path>` 默认为 `/`。
+
+<!--
+1. **A `.spec.expirationSeconds`** value. The maximum allowed expiration for
+   webhook-bound tokens is 600 seconds (10 minutes).
+-->
+4. **一个 `.spec.expirationSeconds`** 值。绑定到 Webhook 的令牌，
+   其允许的最长过期时间为 600 秒（10 分钟）。
+
+<!--
+#### Authorization requirements
+-->
+#### 鉴权要求 {#authorization-requirements}
+
+<!--
+Two levels of authorization are checked when issuing a webhook authentication
+token:
+-->
+签发 Webhook 身份验证令牌时，要检查两个层级的鉴权：
+
+<!--
+1. The requester must have `create` permission on `serviceaccounts/token` for
+   the target service account (the standard TokenRequest authorization).
+
+1. The service account named in the TokenRequest must have `attest` permission
+   on the `admissionReviewAPIGroups` resource in the `authentication.k8s.io`
+   API group, with a `resourceName` that matches the API group specified in
+   the attestation (or `"*"` for all API groups).
+-->
+1. 请求者必须对目标 ServiceAccount 的 `serviceaccounts/token` 具有 `create`
+   权限（标准的 TokenRequest 鉴权）。
+
+1. TokenRequest 中指定的 ServiceAccount 必须对 `authentication.k8s.io`
+   API 组中的 `admissionReviewAPIGroups` 资源具有 `attest` 权限，
+   且其 `resourceName` 与证明中指定的 API 组匹配（或为 `"*"`，表示所有 API 组）。
+
+<!--
+The following example RBAC configuration allows a service account to request
+webhook authentication tokens scoped to the `mygroup.example.com` API group:
+-->
+以下示例 RBAC 配置允许某个 ServiceAccount 请求作用域限定为
+`mygroup.example.com` API 组的 Webhook 身份验证令牌：
+
+{{% code_sample language="yaml" file="access/extensible-admission-controllers/webhook-auth-attest-clusterrole.yaml" %}}
+
+<!--
+#### Token claims and verification via TokenReview
+-->
+#### 令牌声明及通过 TokenReview 进行的验证 {#token-claims-and-verification-via-tokenreview}
+
+<!--
+When a webhook authentication token is verified through
+[TokenReview](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/),
+the following additional keys are populated in the `.status.user.extra` field of
+the response:
+-->
+当通过 [TokenReview](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-review-v1/)
+验证 Webhook 身份验证令牌时，响应的 `.status.user.extra` 字段中会额外填充以下键：
+
+<!--
+For tokens bound to a ValidatingWebhookConfiguration:
+- `authentication.kubernetes.io/validatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/validatingwebhookconfiguration-uid`
+
+For tokens bound to a MutatingWebhookConfiguration:
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-uid`
+-->
+对于绑定到 ValidatingWebhookConfiguration 的令牌：
+
+- `authentication.kubernetes.io/validatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/validatingwebhookconfiguration-uid`
+
+对于绑定到 MutatingWebhookConfiguration 的令牌：
+
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-name`
+- `authentication.kubernetes.io/mutatingwebhookconfiguration-uid`
+
+<!--
+For all webhook authentication tokens:
+- `attestation.authentication.kubernetes.io/admissionReviewAPIGroups` --
+  the API group the token is authorized for.
+-->
+对于所有 Webhook 身份验证令牌：
+
+- `attestation.authentication.kubernetes.io/admissionReviewAPIGroups` ——
+  此令牌被鉴权访问的 API 组。
+
+<!--
+The underlying JWT includes these claims in the `kubernetes.io` private claims
+namespace. For example, a token bound to a MutatingWebhookConfiguration:
+-->
+底层 JWT 在 `kubernetes.io` 私有声明命名空间中包含这些声明。
+例如，一个绑定到 MutatingWebhookConfiguration 的令牌：
+
+```json
+{
+  "kubernetes.io": {
+    "mutatingwebhookconfiguration": {
+      "name": "my-webhook",
+      "uid": "44e818f2-2ad0-4432-9816-3a649ca9945c"
+    },
+    "attestations": {
+      "admissionReviewAPIGroups": ["mygroup.example.com"]
+    }
+  }
+}
+```
 
 <!--
 ## Webhook request and response
@@ -1021,6 +1219,75 @@ webhooks:
 ```
 
 <!--
+### Excluded virtual resources {#excluded-virtual-resources}
+-->
+### 被排除的虚拟资源 {#excluded-virtual-resources}
+
+{{< feature-state feature_gate_name="ExcludeAdmissionWebhookVirtualResources" >}}
+
+<!--
+Admission webhooks are not called for the following non-persisted (virtual)
+authentication and authorization resources, even if a webhook's `rules` match
+them:
+-->
+对于以下非持久化的（虚拟）身份验证和鉴权资源，
+即使某个 Webhook 的 `rules` 与这些资源匹配，也不会调用准入 Webhook：
+
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+* [SelfSubjectRulesReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-rules-review-v1/" >}})
+* [SubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/" >}})
+
+<!--
+A webhook intercepting these resources can lock a cluster out of its own
+authentication and authorization path: for example, a failing webhook that
+matches `subjectaccessreviews` can block the authorization checks that the
+cluster itself depends on. Excluding them brings admission webhooks into line
+with [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
+and [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/),
+which have always excluded these resources.
+-->
+拦截这些资源的 Webhook 可能使集群被锁在自己的身份验证与鉴权链路之外：
+例如，一个匹配 `subjectaccessreviews` 但发生故障的 Webhook
+可能阻断集群自身所依赖的鉴权检查。排除这些资源使准入 Webhook 的行为与
+[ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+和 [MutatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/mutating-admission-policy/)
+保持一致，后者一直排除这些资源。
+
+<!--
+If you create or update a webhook configuration with a rule that explicitly
+names one of these resources, the API server returns a warning telling you that
+the rule has no effect. The API server also logs the name of any existing
+webhook configuration with such a rule when it loads that configuration, so
+you can audit your cluster before upgrading. Rules that match these resources
+only through a wildcard (`"*"`) in `apiGroups` or `resources` are not flagged,
+because their intent is ambiguous.
+-->
+如果你创建或更新 Webhook 配置时所含的规则显式指定了这些资源之一，
+API 服务器会返回警告，告知你该规则不会生效。
+API 服务器在加载任何现有 Webhook 配置时，也会记录带有此类规则的配置名称，
+因此你可以在升级前审计自己的集群。
+仅通过 `apiGroups` 或 `resources` 中的通配符（`"*"`）匹配这些资源的规则不会被标记，
+因为这类规则的意图不明确。
+
+<!--
+Webhook interception of these virtual resources is deprecated as of Kubernetes
+v1.37. As a temporary measure, you can set the
+`ExcludeAdmissionWebhookVirtualResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ExcludeAdmissionWebhookVirtualResources)
+to `false` to restore the previous behavior. The feature gate is planned to be
+locked to enabled when this feature graduates to stable, after which admission
+webhooks can no longer intercept these resources.
+-->
+自 Kubernetes v1.37 起，Webhook 拦截这些虚拟资源的做法已被弃用。
+作为一种临时的应对措施，你可以将 `ExcludeAdmissionWebhookVirtualResources`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ExcludeAdmissionWebhookVirtualResources)设为
+`false`，以恢复之前的行为。当此特性进阶到稳定版时，
+该特性门控计划锁定为启用状态，此后准入 Webhook 将无法再拦截这些资源。
+
+<!--
 ### Matching requests: objectSelector
 -->
 ### 匹配请求：objectSelector {#matching-requests-objectselector}
@@ -1363,7 +1630,7 @@ webhooks:
         expression: 'request.resource.group != "rbac.authorization.k8s.io"'
 
   # 这个示例演示了如何使用 “authorizer”。
-  # 授权检查比简单的表达式更复杂，因此在这个示例中，使用第二个 Webhook 来针对 RBAC 请求进行处理。
+  # 鉴权检查比简单的表达式更复杂，因此在这个示例中，使用第二个 Webhook 来针对 RBAC 请求进行处理。
   # 两个 Webhook 都可以由同一个端点提供服务。
   - name: rbac.my-webhook.example.com
     matchPolicy: Equivalent
@@ -1382,7 +1649,7 @@ webhooks:
     # 你可以为每个 Webhook 配置最多 64 个 matchConditions
     matchConditions:
       - name: 'breakglass'
-        # 跳过由授权给 “breakglass” 的用户在这个 Webhook 上发起的请求。
+        # 跳过由鉴权给 “breakglass” 的用户在这个 Webhook 上发起的请求。
         # “breakglass” API 不需要在这个检查之外存在。
         expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
 ```
@@ -1415,10 +1682,10 @@ Match conditions have access to the following CEL variables:
   该对象版本可能根据 [matchPolicy](#matching-requests-matchpolicy) 进行转换。
 - `oldObject` - 现有对象。对于 CREATE 请求，该值为 null。
 - `request` - [AdmissionReview](#request) 的请求部分，不包括 object 和 oldObject。
-- `authorizer` - 一个 CEL 鉴权组件。可用于对请求的主体（经过身份认证的用户）执行鉴权检查。
+- `authorizer` - 一个 CEL 鉴权组件。可用于对请求的主体（经过身份验证的用户）执行鉴权检查。
   更多详细信息，请参阅 Kubernetes CEL 库文档中的
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
-- `authorizer.requestResource` - 对配置的请求资源（组、资源、（子资源）、名字空间、名称）进行授权检查的快捷方式。
+- `authorizer.requestResource` - 对配置的请求资源（组、资源、（子资源）、名字空间、名称）进行鉴权检查的快捷方式。
 
 <!--
 For more information on CEL expressions, refer to the
