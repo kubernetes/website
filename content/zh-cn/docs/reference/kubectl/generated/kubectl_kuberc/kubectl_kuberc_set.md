@@ -27,13 +27,13 @@ Set values in the kuberc configuration file.
 -->
 设置 kuberc 配置文件中的值。
 
-使用 --section 指定是设置默认值还是别名。
+使用 `--section` 指定是设置默认值还是别名。
 
-对于默认值：为 kubectl 命令设置默认标志值。--command 标志应仅指定命令
+对于默认值：为 kubectl 命令设置默认标志值。`--command` 标志应仅指定命令
 （例如 "get"、"create"、"set env"），不指定资源。
 
 对于别名：创建命令别名，可选择设置默认标志值和参数。
-使用 --prependarg 和 --appendarg 来包含资源或其他参数。
+使用 `--prependarg` 和 `--appendarg` 来包含资源或其他参数。
 
 ```shell
 kubectl kuberc set --section (defaults|aliases) --command COMMAND
@@ -42,29 +42,42 @@ kubectl kuberc set --section (defaults|aliases) --command COMMAND
 ## {{% heading "examples" %}}
 
 <!--
-# Set default output format for 'get' command
-# Set default output format for a subcommand
-# Create an alias 'getn' for 'get' command with prepended 'nodes' resource
-# Create an alias 'runx' for 'run' command with appended arguments
-# Overwrite an existing default
-# Set the credential plugin policy and allowlist
+```
+  # Set default output format for 'get' command
+  kubectl kuberc set --section defaults --command get --option output=wide
+  
+  # Set default output format for a subcommand
+  kubectl kuberc set --section defaults --command "set env" --option output=yaml
+  
+  # Create an alias 'getn' for 'get' command with prepended 'nodes' resource
+  kubectl kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
+  
+  # Create an alias 'runx' for 'run' command with appended arguments
+  kubectl kuberc set --section aliases --name runx --command run --option image=nginx --appendarg "--" --appendarg custom-arg1
+  
+  # Overwrite an existing default
+  kubectl kuberc set --section defaults --command get --option output=json --overwrite
+  
+  # Set the credential plugin policy and allowlist
+  kubectl kuberc set --section credentialplugin --policy Allowlist --allowlist-entry command=cloud-credential-helper
+```
 -->
 ```shell
 # 为 'get' 命令设置默认输出格式
 kubectl kuberc set --section defaults --command get --option output=wide
-  
+
 # 为子命令设置默认输出格式
 kubectl kuberc set --section defaults --command "set env" --option output=yaml
-  
+
 # 为 'get' 命令创建别名 'getn'，并前置 'nodes' 资源
 kubectl kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
-  
+
 # 为 'run' 命令创建别名 'runx'，并附加参数
 kubectl kuberc set --section aliases --name runx --command run --option image=nginx --appendarg "--" --appendarg custom-arg1
-  
+
 # 覆盖现有默认值
 kubectl kuberc set --section defaults --command get --option output=json --overwrite
-  
+
 # 设置凭据插件策略和准许列表
 kubectl kuberc set --section credentialplugin --policy Allowlist --allowlist-entry command=cloud-credential-helper
 ```
@@ -87,7 +100,7 @@ kubectl kuberc set --section credentialplugin --policy Allowlist --allowlist-ent
 <!--
 Allowlist entry the form field=value (can be specified multiple times)
 -->
-准许列表条目，格式为 field=value（可以多次指定）。
+准许列表条目，格式为 <code>field=value</code>（可以多次指定）。
 </p>
 </td>
 </tr>
@@ -158,7 +171,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Alias name (required for --section=aliases)
 -->
-别名名称（--section=aliases 时必需）。
+别名名称（<code>--section=aliases</code> 时必需）。
 </p>
 </td>
 </tr>
@@ -172,7 +185,7 @@ Alias name (required for --section=aliases)
 <!--
 Flag option in the form flag=value (can be specified multiple times)
 -->
-标志选项，格式为 flag=value（可以多次指定）。
+标志选项，格式为 <code>flag=value</code>（可以多次指定）。
 </p>
 </td>
 </tr>
@@ -302,7 +315,7 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -498,6 +511,20 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
 </tr>
 <tr>
@@ -558,11 +585,12 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database host:port
 -->
-数据库 host:port。
+数据库 <code>host:port</code> 。
 </p>
 </td>
 </tr>
@@ -571,7 +599,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database password
 -->
@@ -584,7 +613,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 use secure connection with database
 -->
@@ -597,7 +627,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 table name
 -->
@@ -610,7 +641,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database username
 -->
@@ -623,7 +655,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -636,7 +669,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Bearer token for authentication to the API server
 -->
@@ -649,7 +683,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 The name of the kubeconfig user to use
 -->
@@ -662,7 +697,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Username for basic authentication to the API server
 -->
@@ -675,11 +711,12 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+--version, --version=raw 打印版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
 </p>
 </td>
 </tr>
@@ -688,7 +725,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
