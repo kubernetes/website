@@ -46,6 +46,9 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
+* `cgroupOptions`: Controls whether a container can create and manage cgroups
+  within its own cgroup subtree.
+
 The above bullets are not a complete set of security context settings -- please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
@@ -829,6 +832,114 @@ spec to be `false`. In other words: a container that wishes to have an Unmasked
 [user namespace](/docs/concepts/workloads/pods/user-namespaces/).
 Kubernetes v1.12 to v1.29 did not enforce that requirement.
 {{< /note >}}
+
+## Configure cgroup options for a Container {#cgroupoptions}
+
+{{< feature-state feature_gate_name="CgroupOptions" >}}
+
+By default, a container sees the cgroup filesystem at `/sys/fs/cgroup` as
+read-only. A container with a writable cgroup filesystem can run nested
+containers, or divide its own resources between the processes it runs.
+
+The `cgroupOptions` field in a container's `securityContext` controls how the
+container runtime mounts the cgroup filesystem for that container. Its
+`mountMode` field takes one of these values:
+
+* `ReadWrite`: the container can create and manage cgroups within its own cgroup
+  subtree. The resource limits Kubernetes sets on the container still apply.
+* `ReadOnly`: the cgroup filesystem is read-only, regardless of the container
+  runtime's default.
+* Unset: the container runtime uses its default mount mode.
+
+Here is a configuration file for a Pod with one container that sets
+`mountMode: ReadWrite`:
+
+{{% code_sample file="pods/security/security-context-7.yaml" %}}
+
+### Node requirements {#cgroupoptions-node-requirements}
+
+A container can set `mountMode` to `ReadOnly` or `ReadWrite` only on a node that
+meets all of the following requirements:
+
+* The `CgroupOptions` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled on the kube-apiserver and the kubelet.
+* The node runs Linux with [cgroup v2](/docs/concepts/architecture/cgroups/), and
+  `/sys/fs/cgroup` is mounted with the `nsdelegate` option.
+* The kubelet manages a cgroup for each Pod (the `cgroupsPerQOS` setting in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/),
+  which is enabled by default).
+* The {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  supports the cgroup mount mode.
+
+A kubelet on a node that meets these requirements reports `CgroupOptions` in the
+node's `.status.declaredFeatures`. See
+[Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/).
+The scheduler places a Pod that sets `mountMode` only on a node that declares
+the feature. If no node declares it, the Pod stays `Pending`. If such a Pod is
+bound directly to a node that does not declare the feature, the kubelet rejects
+it with the reason `PodFeatureUnsupported`.
+
+When the kubelet creates a container with `mountMode: ReadWrite`, it checks that
+the node runs cgroup v2 with `nsdelegate` and that it manages a cgroup for the
+Pod. If a check fails, the container stays `Waiting` with the reason
+`CreateContainerConfigError` and a message that names the failed check.
+
+### Limits on the cgroups a Pod creates {#cgroupoptions-limits}
+
+When a Pod has a container with `mountMode: ReadWrite`, the kubelet limits the
+cgroups below the Pod's cgroup, including the cgroups of the Pod's containers,
+to 250 in total and 50 levels of nesting. Creating a cgroup beyond these limits
+fails.
+
+### Restrictions {#cgroupoptions-restrictions}
+
+* The API server rejects `cgroupOptions` when `spec.os.name` is `windows`.
+* A container with `privileged: true` cannot set `mountMode: ReadOnly`. A
+  privileged container's cgroup filesystem is always writable.
+* Ephemeral containers cannot set `cgroupOptions`.
+* Like other fields of a container's `securityContext`, `cgroupOptions` cannot
+  be changed after the Pod is created.
+* The [Restricted](/docs/concepts/security/pod-security-standards/#restricted)
+  Pod Security Standard forbids `mountMode: ReadWrite`.
+
+### Verify the cgroup mount mode {#cgroupoptions-verify}
+
+Create the Pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-7.yaml
+```
+
+Verify that the Pod's Container is running:
+
+```shell
+kubectl get pod security-context-demo-7
+```
+
+Get a shell into the running Container:
+
+```shell
+kubectl exec -it security-context-demo-7 -- sh
+```
+
+In your shell, check how the cgroup filesystem is mounted:
+
+```shell
+mount | grep '^cgroup2'
+```
+
+The output shows `/sys/fs/cgroup` mounted with the `rw` option:
+
+```none
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+```
+
+Create and remove a cgroup to confirm that the container can manage its
+subtree:
+
+```shell
+mkdir /sys/fs/cgroup/test && rmdir /sys/fs/cgroup/test
+```
 
 ## Discussion
 
