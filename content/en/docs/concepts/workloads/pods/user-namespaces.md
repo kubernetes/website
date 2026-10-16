@@ -294,7 +294,7 @@ allowed to set any of:
  * `hostIPC: true`
  * `hostPID: true`
 
-No container can use `volumeDevices` (raw block volumes, like /dev/sda) either.
+No container can use `volumeDevices` (raw block volumes, like /dev/sda) or `hostCgroupNamespace` either.
 This includes all the container arrays in the pod spec:
  * `containers`
  * `initContainers`
