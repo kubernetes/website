@@ -106,8 +106,7 @@ to observe contention between workloads sharing limited CPU capacity.
 ### Prerequisites
 
 I ran this experiment on an Apple Silicon Mac using Colima, an open-source
-alternative to Docker Desktop. Colima provides the Linux VM needed to run the
-kind cluster.
+tool that runs a Linux VM with Docker Engine on macOS.
 
 For my setup, I allocated 4 vCPUs, 8 GiB of memory, and 40 GiB of disk space
 to Colima. These are the resources I used, not minimum requirements.
@@ -125,8 +124,8 @@ Start Colima with the Docker runtime:
 colima start --profile psi-demo --runtime docker --cpu 4 --memory 8 --disk 40
 ```
 
-Colima runs its Linux VM in the background after startup completes. Select its
-Docker context so that kind uses Colima instead of Docker Desktop:
+Once Colima starts, its Linux VM continues running in the background. Select
+the Colima Docker context so that kind uses the Docker Engine running inside the VM:
 
 ```shell
 docker context use colima-psi-demo
