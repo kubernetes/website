@@ -72,9 +72,12 @@ Los Release Managers son responsables de:
     parche no intencionado
 - Guiar y asesorar al grupo de [Release Manager Associates](#release-manager-associates)
 - Desarrollar activamente características y mantener el código en `k/release`
-- Apoyar a los Release Manager Associates y colaboradores mediante la participación activa en el programa de acompañamiento (*Buddy program*)
-  - Realizar revisiones mensuales con los Associates, delegar tareas, facultarlos para generar lanzamientos y actuar como mentor
-  - Estar disponible para apoyar a los Associates en la incorporación de nuevos colaboradores, por ejemplo, respondiendo preguntas y sugiriendo tareas adecuadas para realizar
+- Apoyar a los Release Manager Associates y colaboradores mediante la
+  participación activa en el programa de acompañamiento (*Buddy program*)
+  - Realizar revisiones mensuales con los Associates, delegar tareas, facultarlos para generar
+    lanzamientos y actuar como mentor
+  - Estar disponible para apoyar a los Associates en la incorporación de nuevos colaboradores, por ejemplo,
+    respondiendo preguntas y sugiriendo tareas adecuadas para realizar
 
 Este equipo trabaja en ocasiones en estrecha colaboración con el [Security Response Committee][src] y, por lo tanto, debe cumplir con las directrices establecidas en el [Proceso de Lanzamiento de Seguridad][security-release-process].
 
