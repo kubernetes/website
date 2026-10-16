@@ -133,6 +133,27 @@ for more details.
 `resource: requests.ephemeral-storage`
 : A container's ephemeral-storage request
 
+`resource: assigned.cpuset`
+: A container’s CPU desired assignments
+
+{{< note >}}
+{{< feature-state for_k8s_version="v1.37" feature_gate_name="DownwardAPIAssignedResources" state="alpha" >}}
+`resource: assigned.cpuset`
+: A container's CPU **desired** assignments (Linux cpuset format, e.g., `0-3,7,12-15`).
+  Returns empty string when no exclusive CPUs are assigned.
+  Available since Kubernetes 1.37.
+  When combined with [scale-delay-time](/docs/tasks/administer-cluster/cpu-management-policies/#cpu-policy-static-options),
+  this field allows workloads to prepare for CPU removal.
+
+  This field is controlled by the `DownwardAPIAssignedResources` feature gate:
+  - When the feature gate is **disabled**, the `assigned.cpuset` field in pod specs is silently ignored and discarded during validation.
+  - When the feature gate is **enabled**, the `assigned.cpuset` field is validated and accepted in pod specs.
+
+  To avoid errors during Kubernetes upgrades, this feature gate is disabled by default.
+  Enable this feature gate only after all kubelets in the cluster are upgraded to v1.37 or later.
+  Otherwise, Pod creation will fail because kubelets earlier than v1.37 do not recognize the `assigned.cpuset` field.
+{{< /note >}}
+
 #### Fallback information for resource limits
 
 If CPU and memory limits are not specified for a container, and you use the
