@@ -4,6 +4,8 @@ content_type: concept
 weight: 10
 ---
 
+<!-- placeholder for Topology-Aware Beta -->
+
 <!-- overview -->
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
 
