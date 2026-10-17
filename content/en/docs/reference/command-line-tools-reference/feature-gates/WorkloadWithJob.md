@@ -9,11 +9,16 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.38"
 ---
 
 Enables the Job controller to compile a Job's `.spec.scheduling` configuration into
 [Workload](/docs/concepts/workloads/workload-api/) and [PodGroup](/docs/concepts/workloads/podgroup-api/) 
 objects before it creates any Pods.
-When `.spec.scheduling` is omitted, the Job defaults to the `Basic` scheduling policy. See
+When `.spec.scheduling` is omitted on a standalone Job (one with no controller
+`ownerReference`), the Job defaults to the `Basic` scheduling policy. See
 [Integrate with Workload APIs](/docs/concepts/workloads/controllers/job#integrate-with-workload-apis)
 for details.
