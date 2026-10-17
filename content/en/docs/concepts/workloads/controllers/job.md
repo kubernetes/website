@@ -370,8 +370,8 @@ spec:
     schedulingPolicy:
       gang: {}                # minCount omitted -> defaults to parallelism (8)
     schedulingConstraints:
-      key:
-      - level: topology.kubernetes.io/zone
+      topology:
+      - key: topology.kubernetes.io/zone
     disruptionMode:
       all: {}                 # the entire group is disrupted together
   template:
