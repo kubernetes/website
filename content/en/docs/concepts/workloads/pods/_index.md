@@ -361,19 +361,28 @@ granular control over what a Pod or individual containers can do. See [Advanced 
 For basic security configuration, you should meet the Baseline Pod security standard and run containers as non-root. You can set simple security contexts:
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: security-context-demo
-spec:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000
-  containers:
-  - name: sec-ctx-demo
-    image: busybox
-    command: ["sh", "-c", "sleep 1h"]
+---
+{
+  apiVersion: "v1",
+  kind: "Pod",
+  metadata: {
+    name: "security-context-demo",
+  },
+  spec: {
+    securityContext: {
+      runAsUser: 1000,
+      runAsGroup: 3000,
+      fsGroup: 2000,
+    },
+    containers: [{
+      name: "sec-ctx-demo",
+      image: "busybox",
+      command: [
+        "sh", "-c", "sleep 1h",
+      ],
+    }],
+  },
+}
 ```
 
 For advanced security context configuration including capabilities, seccomp profiles, and detailed security options, see the [security concepts](/docs/concepts/security/) section.

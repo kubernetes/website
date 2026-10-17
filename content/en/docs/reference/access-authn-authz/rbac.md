@@ -232,15 +232,27 @@ all current and future resources in the `example.com` API group.
 This is similar to the built-in `cluster-admin` role.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: example.com-superuser # DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
-rules:
-- apiGroups: ["example.com"]
-  resources: ["*"]
-  verbs: ["*"]
+---
+# DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
+{
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  kind: "Role",
+  metadata: {
+    namespace: "default",
+    name: "example.com-superuser",
+  },
+  rules: [{
+    apiGroups: [
+      "example.com",
+    ],
+    resources: [
+      "*",
+    ],
+    verbs: [
+      "*",
+    ],
+  }],
+}
 ```
 
 {{< caution >}}
@@ -296,21 +308,45 @@ Here is an example that adds rules to the "monitoring" ClusterRole, by creating 
 ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: monitoring-endpointslices
-  labels:
-    rbac.example.com/aggregate-to-monitoring: "true"
-# When you create the "monitoring-endpointslices" ClusterRole,
-# the rules below will be added to the "monitoring" ClusterRole.
-rules:
-- apiGroups: [""]
-  resources: ["services", "pods"]
-  verbs: ["get", "list", "watch"]
-- apiGroups: ["discovery.k8s.io"]
-  resources: ["endpointslices"]
-  verbs: ["get", "list", "watch"]
+---
+{
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  kind: "ClusterRole",
+  metadata: {
+    name: "monitoring-endpointslices",
+    labels: {
+      rbac.example.com/aggregate-to-monitoring: "true",
+    },
+  },
+  # When you create the "monitoring-endpointslices" ClusterRole,
+  # the rules below will be added to the "monitoring" ClusterRole.
+  rules: [{
+    apiGroups: [
+      "",
+    ],
+    resources: [
+      "services",
+      "pods",
+    ],
+    verbs: [
+      "get",
+      "list",
+      "watch",
+    ],
+  }, {
+    apiGroups: [
+      "discovery.k8s.io",
+    ],
+    resources: [
+      "endpointslices",
+    ],
+    verbs: [
+      "get",
+      "list",
+      "watch",
+    ],
+  }],
+}
 ```
 
 The [default user-facing roles](#default-roles-and-role-bindings) use ClusterRole aggregation. This lets you,
@@ -323,30 +359,61 @@ named CronTab, whereas the "view" role can perform only read actions on CronTab 
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: aggregate-cron-tabs-edit
-  labels:
-    # Add these permissions to the "admin" and "edit" default roles.
-    rbac.authorization.k8s.io/aggregate-to-admin: "true"
-    rbac.authorization.k8s.io/aggregate-to-edit: "true"
-rules:
-- apiGroups: ["stable.example.com"]
-  resources: ["crontabs"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: aggregate-cron-tabs-view
-  labels:
-    # Add these permissions to the "view" default role.
-    rbac.authorization.k8s.io/aggregate-to-view: "true"
-rules:
-- apiGroups: ["stable.example.com"]
-  resources: ["crontabs"]
-  verbs: ["get", "list", "watch"]
+{
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  kind: "ClusterRole",
+  metadata: {
+    name: "aggregate-cron-tabs-edit",
+    labels: {
+      # Add these permissions to the "admin" and "edit" default roles.
+      rbac.authorization.k8s.io/aggregate-to-admin: "true",
+      rbac.authorization.k8s.io/aggregate-to-edit: "true",
+    },
+  },
+  rules: [{
+    apiGroups: [
+      "stable.example.com",
+    ],
+    resources: [
+      "crontabs",
+    ],
+    verbs: [
+      "get",
+      "list",
+      "watch",
+      "create",
+      "update",
+      "patch",
+      "delete",
+    ],
+  }],
+
+---
+{
+  kind: "ClusterRole",
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  metadata: {
+    name: "aggregate-cron-tabs-view",
+    labels: {
+      # Add these permissions to the "view" default role.
+      rbac.authorization.k8s.io/aggregate-to-view: "true",
+    },
+  },
+  rules: [{
+    apiGroups: [
+      "stable.example.com",
+    ],
+    resources: [
+      "crontabs",
+    ],
+    verbs: [
+      "get",
+      "list",
+      "watch",
+    ],
+  }],
+}
 ```
 
 #### Role examples
@@ -885,33 +952,61 @@ to a role that grants that permission. To allow a user to create/update role bin
 For example, this ClusterRole and RoleBinding would allow `user-1` to grant other users the `admin`, `edit`, and `view` roles in the namespace `user-1-namespace`:
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: role-grantor
-rules:
-- apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["rolebindings"]
-  verbs: ["create"]
-- apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["clusterroles"]
-  verbs: ["bind"]
-  # omit resourceNames to allow binding any ClusterRole
-  resourceNames: ["admin","edit","view"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: role-grantor-binding
-  namespace: user-1-namespace
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: role-grantor
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: User
-  name: user-1
+{
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  kind: "ClusterRole",
+  metadata: {
+    name: "role-grantor",
+  },
+  rules: [{
+    apiGroups: [
+      "rbac.authorization.k8s.io",
+    ],
+    resources: [
+      "rolebindings",
+    ],
+    verbs: [
+      "create",
+    ],
+  }, {
+    apiGroups: [
+      "rbac.authorization.k8s.io",
+    ],
+    resources: [
+      "clusterroles",
+    ],
+    verbs: [
+      "bind",
+    ],
+    # omit resourceNames to allow binding any ClusterRole
+    resourceNames: [
+      "admin",
+      "edit",
+      "view",
+    ],
+  }],
+}
+
+---
+{
+  apiVersion: "rbac.authorization.k8s.io/v1",
+  kind: "RoleBinding",
+  metadata: {
+    name: "role-grantor-binding",
+    namespace: "user-1-namespace",
+  },
+  roleRef: {
+    apiGroup: "rbac.authorization.k8s.io",
+    kind: "ClusterRole",
+    name: "role-grantor",
+  },
+  subjects: [{
+    apiGroup: "rbac.authorization.k8s.io",
+    kind: "User",
+    name: "user-1",
+  }],
+}
 ```
 
 When bootstrapping the first roles and role bindings, it is necessary for the initial user to grant permissions they do not yet have.
