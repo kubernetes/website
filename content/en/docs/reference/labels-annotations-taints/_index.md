@@ -1218,6 +1218,61 @@ Used on: Namespace
 The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
 uses this annotation key to assign node selectors to pods in namespaces.
 
+### scheduling.k8s.io/workload-name {#scheduling-k8s-io-workload-name}
+
+Type: Annotation
+
+Example: `scheduling.k8s.io/workload-name: "trainer-workload"`
+
+Used on: Job, Deployment, ReplicaSet
+
+A parent controller sets this annotation on an object it creates for a lower-level controller.
+The value is the name of a [Workload](/docs/concepts/workloads/workload-api/) in the same
+namespace that holds the template the lower-level controller uses. When this annotation is
+set, `scheduling.k8s.io/group-template-name` must also be set, and both values must be
+non-empty. The object must not also set `spec.scheduling`. The annotation cannot change after
+the object is created.
+
+See [Delegating PodGroup creation to a lower-level controller](/docs/concepts/workloads/workload-api/workloadbuilder/#delegating-podgroup-creation-to-a-lower-level-controller)
+for more details.
+
+### scheduling.k8s.io/group-template-name {#scheduling-k8s-io-group-template-name}
+
+Type: Annotation
+
+Example: `scheduling.k8s.io/group-template-name: "trainer-pgt-0"`
+
+Used on: Job, Deployment, ReplicaSet
+
+A parent controller sets this annotation on an object it creates for a lower-level controller.
+The value is the name of a `PodGroupTemplate` or `CompositePodGroupTemplate` inside the
+Workload named by `scheduling.k8s.io/workload-name`. The lower-level controller creates its
+PodGroups or CompositePodGroups from that template. When this annotation is set,
+`scheduling.k8s.io/workload-name` must also be set, and both values must be non-empty. The
+object must not also set `spec.scheduling`. The annotation cannot change after the object is
+created.
+
+See [Delegating PodGroup creation to a lower-level controller](/docs/concepts/workloads/workload-api/workloadbuilder/#delegating-podgroup-creation-to-a-lower-level-controller)
+for more details.
+
+### scheduling.k8s.io/parent-compositepodgroup {#scheduling-k8s-io-parent-compositepodgroup}
+
+Type: Annotation
+
+Example: `scheduling.k8s.io/parent-compositepodgroup: "trainer-cpg"`
+
+Used on: Job
+
+A parent controller sets this annotation when it creates a
+[CompositePodGroup](/docs/concepts/workloads/compositepodgroup-api/) and leaves child
+PodGroup or CompositePodGroup creation to a lower-level controller. The value is the name
+of that parent CompositePodGroup, and the lower-level controller sets it as
+`spec.parentCompositePodGroupName` on the objects it creates. On a Job, the annotation
+cannot change after the Job is created.
+
+See [Delegating PodGroup creation to a lower-level controller](/docs/concepts/workloads/workload-api/workloadbuilder/#delegating-podgroup-creation-to-a-lower-level-controller)
+for more details.
+
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
 
 Type: Label
