@@ -60,7 +60,7 @@ and initiates the PodGroup scheduling cycle as follows:
      (e.g., failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
      
      The scheduler attempts to make a PodGroup schedulable by running the `PodGroupPostFilter` extension point.
-     The `DefaultPreemption` plugin's `PodGroupPostFilter` extenion point runs
+     The `DefaultPreemption` plugin's `PodGroupPostFilter` extension point runs
      [workload aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
      If any plugin implementing `PodGroupPostFilter`extension point returns `Success`, no more
      plugins for `PodGroupPostFilter` extension point are run.
