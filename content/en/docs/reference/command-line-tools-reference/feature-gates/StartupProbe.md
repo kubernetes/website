@@ -23,5 +23,5 @@ stages:
 
 removed: true
 ---
-Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)
+Enable the [startup](/docs/concepts/workloads/pods/probes/#when-should-you-use-a-startup-probe)
 probe in the kubelet.
