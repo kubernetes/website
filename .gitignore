@@ -41,3 +41,10 @@ nohup.out
 
 # Local Netlify folder
 .netlify
+
+# Build artifacts
+build/
+
+# Python cache artifacts
+**/__pycache__/
+*.py[cod]
