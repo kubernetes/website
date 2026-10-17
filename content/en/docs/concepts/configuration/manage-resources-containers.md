@@ -45,6 +45,17 @@ its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
 container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
 Containers may not use more CPU than is specified in their `cpu` limit.
 
+A `cpu` limit restricts CPU time; it does not change how many CPUs the container
+can see. With the default `none` CPU manager policy, a container with a `cpu`
+limit of 2 on a node with 20 CPUs still sees 20 CPUs (for example,
+`getconf _NPROCESSORS_ONLN` reports 20). An application that sizes a thread
+pool from the visible CPU count can start more busy threads than the limit
+allows, and the kernel then throttles the container for most of each
+scheduling period. Set the application's thread count to match the limit, or
+use the
+[`static` CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration),
+which gives containers in Guaranteed Pods with integer CPU requests exclusive CPUs.
+
 `memory` limits are enforced by the kernel with out of memory (OOM) kills. When
 a container uses more than its `memory` limit, the kernel may terminate it. However,
 terminations only happen when the kernel detects memory pressure. Thus, a
