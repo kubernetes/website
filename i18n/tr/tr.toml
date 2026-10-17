@@ -1,0 +1,759 @@
+# i18n strings for the Turkish site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "API referansı"
+
+[auto_generated_edit_notice]
+other = "(otomatik olarak oluşturulan sayfa)"
+
+[auto_generated_pageinfo]
+other = """<p>Bu sayfa otomatik olarak oluşturulmuştur.</p><p>Bu sayfayla ilgili bir sorun bildirmeyi planlıyorsanız, sorun açıklamanızda sayfanın otomatik oluşturulduğunu belirtin. Düzeltmenin Kubernetes projesinin başka bir yerinde yapılması gerekebilir.</p>"""
+
+[banner_acknowledgement]
+other = "Bu bildirimi gizle"
+
+[blog_post_show_more]
+other = "Daha Fazla Gönderi Göster..."
+
+[browser_clipboard_support_warning]
+other = "Üzgünüz, tarayıcınız bu örneği panonuza kopyalamayı desteklemiyor."
+
+[case_study_prefix]
+other = "Vaka çalışması:"
+
+[caution]
+other = "Dikkat:"
+
+[cleanup_heading]
+other = "Temizleme"
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP lisansı:"
+
+[community_advice_guidelines]
+other = "Ayrıca {{ .link }} hakkında okuyabilirsiniz."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Bizi takip edin"
+
+[community_bluesky_link]
+other = "Bluesky'da görüntüle"
+
+[community_bluesky_loading]
+other = "Bluesky'dan en son haberler yükleniyor..."
+
+[community_calendar_name]
+other = "Etkinlik Takvimi"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "Katkıda bulunan sitesi"
+
+# Also cover [community_develop] if localizing this site
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "X (eski adıyla Twitter)"
+
+# Also cover [community_using] if localizing this site
+
+[community_x_name]
+other = "X (eski adıyla Twitter)"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "ve"
+
+[copy_sample_to_clipboard]
+other = "{{ .filename }} dosyasını panoya kopyala"
+
+[cve_id]
+other = "CVE Kimliği"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL'si"
+
+[cve_summary]
+other = "Sorun Özeti"
+
+[cve_table]
+other = "Resmi Kubernetes CVE Listesi"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(son güncelleme: %s)"
+
+[deprecation_title]
+other = "Kubernetes sürümü için dokümantasyona bakıyorsunuz:"
+
+[deprecation_warning]
+other = " dokümantasyonu artık aktif olarak bakım görmüyor. Şu anda görüntülediğiniz sürüm statik bir anlık görüntüdür. Güncel bilgiler için şu adrese bakın: "
+
+[deprecation_file_warning]
+other = "Kullanımdan kaldırıldı"
+
+[outdated_content_title]
+other = "Bu dokümandaki bilgiler güncel olmayabilir"
+
+[outdated_content_message]
+other = "Bu dokümanın güncelleme tarihi orijinalinden daha eski, bu nedenle içerdiği bilgiler güncel olmayabilir. İngilizce okuyabiliyorsanız, en güncel bilgiler için İngilizce sürüme bakın: "
+
+[dockershim_message]
+other = """Dockershim, 1.24 sürümünden itibaren Kubernetes projesinden kaldırılmıştır. Daha fazla bilgi için <a href="/dockershim">Dockershim Kaldırma SSS</a> sayfasını okuyun."""
+
+[docs_label_browse]
+other = "Dokümanlara Göz At"
+
+[docs_label_contributors]
+other = "Katkıda Bulunanlar"
+
+[docs_label_i_am]
+other = "BEN..."
+
+[docs_label_users]
+other = "Kullanıcılar"
+
+[docs_page_versions]
+other = "Bu %s, Kubernetes %s içindir. Farklı bir Kubernetes sürümü kullanmak istiyorsanız, lütfen bunun yerine aşağıdaki sayfalara bakın:"
+
+[docs_version_current]
+other = "(bu dokümantasyon)"
+
+[docs_version_latest_heading]
+other = "En son sürüm"
+
+[docs_version_other_heading]
+other = "Eski sürümler"
+
+[docs_version_release_information]
+other = "sürüm bilgileri"
+
+[end_of_life]
+other = "Yaşam Sonu:"
+
+[envvars_heading]
+other = "Ortam değişkenleri"
+
+[error_404_were_you_looking_for]
+other = "Aradığınız şu muydu:"
+
+[error_copy_to_clipboard]
+other = "Hata"
+
+[examples_heading]
+other = "Örnekler"
+
+[feature_gate_enabled]
+other = "(varsayılan olarak etkin)"
+
+[feature_gate_disabled]
+other = "(varsayılan olarak devre dışı)"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Kullanımdan kaldırıldı"
+
+[feature_gate_table_header_default]
+other = "Varsayılan"
+
+[feature_gate_table_header_feature]
+other = "Özellik"
+
+[feature_gate_table_header_from]
+other = "Başlangıç"
+
+[feature_gate_table_header_since]
+other = "Bu sürümden itibaren"
+
+[feature_gate_table_header_stage]
+other = "Aşama"
+
+[feature_gate_table_header_to]
+other = "Bitiş"
+
+[feature_gate_table_header_until]
+other = "Bu sürüme kadar"
+
+[feature_state]
+other = "ÖZELLİK DURUMU:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Özellik Geçidi:"
+
+[feedback_heading]
+other = "Geri bildirim"
+
+[feedback_no]
+other = "Hayır"
+
+[feedback_question]
+other = "Bu sayfa yardımcı oldu mu?"
+
+[feedback_yes]
+other = "Evet"
+
+[final_patch_release]
+other = "Son Yama Sürümü"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "e-posta adresi"
+
+[javascript_required]
+other = "Bu içeriği görüntülemek için JavaScript [etkinleştirilmiş](https://www.enable-javascript.com/) olmalıdır"
+
+[katacoda_message]
+other = """<h4>Etkileşimli eğitimlerin kapatılması</h4>
+<p>Daha önce bu web sitesinde bulunan etkileşimli eğitimler kapatılmıştır.</p>
+<p>Kubernetes, insanların Kubernetes'i öğrenmedeki ilk adımlarını atmalarına yardımcı olduğu uzun yıllar için O'Reilly ve Katacoda'ya minnettardır.</p>
+<p>Kapatma, O'Reilly Media'nın 2019'da Katacoda'yı
+<a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">satın almasının</a>
+ardından gerçekleşti.</p>
+<hr />
+<p>Eğitimler, <b>31 Mart 2023</b>'ten sonra çalışmayı durdurmuştur. Bu bildirimi görüyorsunuz çünkü bu sayfa henüz kapatma sonrasında güncellenmemiştir.</p>"""
+
+[kubectl_ref_collapse_all]
+other = "Tümünü daralt"
+
+[kubectl_ref_expand_all]
+other = "Tümünü genişlet"
+
+[kubectl_ref_search_placeholder]
+other = "Komutlarda veya açıklamalarda ara (örn. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "Tam referansı görüntüle"
+
+[kubernetes]
+other = "Kubernetes"
+
+[latest_release]
+other = "En Son Sürüm:"
+
+[latest_version]
+other = "en son sürüm."
+
+[layouts_blog_pager_next]
+other = "Sonraki >>"
+
+[layouts_blog_pager_prev]
+other = "<< Önceki"
+
+[layouts_case_studies_list_tell]
+other = "Hikayenizi paylaşın"
+
+[layouts_docs_glossary_aka]
+other = "Diğer adıyla"
+
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes'in iç bileşenleri."
+
+[layout_docs_glossary_architecture_name]
+other = "Mimari"
+
+[layouts_docs_glossary_click_details_after]
+other = "göstergelere tıklayarak belirli bir terim için daha uzun bir açıklama görebilirsiniz."
+
+[layouts_docs_glossary_click_details_before]
+other = "Aşağıdaki"
+
+[layout_docs_glossary_community_description]
+other = "Kubernetes açık kaynak geliştirme ile ilgili."
+
+[layout_docs_glossary_community_name]
+other = "Topluluk"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes'in varsayılan olarak desteklediği bir kaynak türü."
+
+[layout_docs_glossary_core-object_name]
+other = "Çekirdek Nesne"
+
+[layouts_docs_glossary_description]
+other = "Bu sözlük, Kubernetes terminolojisinin kapsamlı ve standartlaştırılmış bir listesi olarak tasarlanmıştır. Kubernetes'e özgü teknik terimlerin yanı sıra faydalı bağlam sağlayan daha genel terimleri de içerir."
+
+[layouts_docs_glossary_deselect_all]
+other = "Tüm seçimleri kaldır"
+
+[layout_docs_glossary_extension_description]
+other = "Kubernetes'in desteklenen özelleştirmeleri."
+
+[layout_docs_glossary_extension_name]
+other = "Uzantı"
+
+[layouts_docs_glossary_filter]
+other = "Terimleri etiketlerine göre filtrele"
+
+[layout_docs_glossary_fundamental_description]
+other = "İlk kez Kubernetes kullanan biri için uygun."
+
+[layout_docs_glossary_fundamental_name]
+other = "Temel"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes bileşenlerinin birbirleriyle (ve küme dışındaki programlarla) nasıl iletişim kurduğu."
+
+[layout_docs_glossary_networking_name]
+other = "Ağ İletişimi"
+
+[layout_docs_glossary_operation_description]
+other = "Kubernetes'i başlatma ve sürdürme."
+
+[layout_docs_glossary_operation_name]
+other = "Operasyon"
+
+[layout_docs_glossary_security_description]
+other = "Kubernetes uygulamalarını güvende ve emniyette tutma."
+
+[layout_docs_glossary_security_name]
+other = "Güvenlik"
+
+[layouts_docs_glossary_select_all]
+other = "Tümünü seç"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes uygulamalarının kalıcı verileri nasıl ele aldığı."
+
+[layout_docs_glossary_storage_name]
+other = "Depolama"
+
+[layout_docs_glossary_tool_description]
+other = "Kubernetes'in kullanımını kolaylaştıran veya iyileştiren yazılımlar."
+
+[layout_docs_glossary_tool_name]
+other = "Araç"
+
+[layout_docs_glossary_user-type_description]
+other = "Yaygın bir Kubernetes kullanıcı türünü temsil eder."
+
+[layout_docs_glossary_user-type_name]
+other = "Kullanıcı Türü"
+
+[layout_docs_glossary_workload_description]
+other = "Kubernetes üzerinde çalışan uygulamalar."
+
+[layout_docs_glossary_workload_name]
+other = "İş Yükü"
+
+[layouts_docs_partials_feedback_improvement]
+other = "iyileştirme öner"
+
+[layouts_docs_partials_feedback_issue]
+other = """[GitHub Deposunda](https://www.github.com/kubernetes/website/) bir konu açmak için """
+
+[layouts_docs_partials_feedback_or]
+other = "veya"
+
+[layouts_docs_partials_feedback_problem]
+other = "bir sorun bildir"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Geri bildiriminiz için teşekkürler. Kubernetes'i nasıl kullanacağınıza dair belirli, yanıtlanabilir bir sorunuz varsa şu adrese sorun:"
+
+[layouts_docs_search_fetching]
+other = "Sonuçlar getiriliyor..."
+
+[legacy_repos_message]
+other = """Eski paket depoları (`apt.kubernetes.io` ve `yum.kubernetes.io`)
+[13 Eylül 2023 itibarıyla kullanımdan kaldırılmış ve dondurulmuştur](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**13 Eylül 2023'ten sonra yayınlanan Kubernetes sürümlerini yüklemek için [`pkgs.k8s.io` adresinde barındırılan yeni paket depolarının](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+kullanılması şiddetle tavsiye edilir ve zorunludur.**
+Kullanımdan kaldırılan eski depolar ve içerikleri, gelecekte herhangi bir zamanda ve önceden uyarı yapılmadan kaldırılabilir.
+Yeni paket depoları, v1.24.0 ve sonrası Kubernetes sürümleri için indirmeler sağlar."""
+
+[main_by]
+other = "tarafından"
+
+[main_cncf_project]
+other = """Biz mezun olmuş bir <a href="https://cncf.io/">CNCF</a> projesiyiz</p>"""
+
+[main_community_explore]
+other = "Topluluğu keşfet"
+
+[main_contribute]
+other = "Katkıda Bulun"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Tüm hakları saklıdır. Linux Foundation, tescilli ticari markalara sahiptir ve ticari marka kullanır. Linux Foundation ticari markalarının listesi için lütfen <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Ticari Marka Kullanımı sayfamıza</a> bakın"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Dokümantasyon <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> lisansı altında dağıtılır"""
+
+[main_github_invite]
+other = "Çekirdek Kubernetes kod tabanını kurcalamakla ilgileniyor musunuz?"
+
+[main_github_view_on]
+other = "GitHub'da Görüntüle"
+
+[main_kubernetes_features]
+other = "Kubernetes Özellikleri"
+
+[main_kubeweekly_baseline]
+other = "En son Kubernetes haberlerini almak ister misiniz? KubeWeekly'ye abone olun."
+
+[main_kubeweekly_past_link]
+other = "Önceki bültenleri görüntüle"
+
+[main_kubeweekly_signup]
+other = "Abone Ol"
+
+[main_page_history]
+other ="Sayfa Geçmişi"
+
+[main_page_last_modified_on]
+other = "Sayfa son güncellenme tarihi"
+
+[main_read_about]
+other = "Hakkında okuyun"
+
+[main_read_more]
+other = "Daha fazla oku"
+
+[monthly_patch_release]
+other = "Aylık Yama Sürümü"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "geçerli değil"
+
+[note]
+other = "Not:"
+
+[objectives_heading]
+other = "Hedefler"
+
+[options_heading]
+other = "Seçenekler"
+
+[outdated_blog__message]
+other = "Bu makale bir yıldan daha eski. Eski makaleler güncel olmayan içerik barındırabilir. Sayfadaki bilgilerin yayınlanmasından bu yana hatalı hale gelmediğinden emin olun."
+
+[page_deprecated]
+other = "(güncel olmayan sayfa)"
+
+[page_not_available_in_language]
+other = "Bu sayfa {{ .Language }} dilinde mevcut değil"
+
+[parentoptions_heading]
+other = "Üst Seçenekler Devralındı"
+
+[patch_release]
+other = "Yama Sürümü"
+
+[post_create_issue]
+other = "Bir konu oluştur"
+
+[prerequisites_heading]
+other = "Başlamadan önce"
+
+[previous_patches]
+other = "Yama Sürümleri:"
+
+[release_actively_supported]
+other = "Aktif Olarak Destekleniyor"
+
+[release_announcement_blog]
+other = "Sürüm Duyurusu Blogu"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """Kubernetes bileşenlerini (ve sağlama toplamlarını) indirme bağlantılarını [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) dosyalarında bulabilirsiniz.
+Alternatif olarak, sürüm ve mimariye göre filtrelemek için [downloadkubernetes.com](https://www.downloadkubernetes.com/) sitesini kullanın."""
+
+[release_binary_arch]
+other  = "Mimari"
+
+[release_binary_arch_option]
+other = "Mimariler"
+
+[release_binary_copy_link]
+other = "Bağlantıyı Kopyala"
+
+[release_binary_copy_link_certifcate]
+other = "sertifika"
+
+[release_binary_copy_link_checksum]
+other = "sağlama toplamı"
+
+[release_binary_copy_link_signature]
+other = "imza"
+
+[release_binary_copy_link_tooltip]
+other = "panoya kopyala"
+
+[release_binary_download]
+other  = "İkili Dosyayı İndir"
+
+[release_binary_download_tooltip]
+other = "ikili dosyayı indir"
+
+[release_binary_options]
+other  = "İndirme Seçenekleri"
+
+[release_binary_os]
+other = "İşletim Sistemi"
+
+[release_binary_os_option]
+other = "İşletim Sistemleri"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Kubernetes bileşen ikili dosyalarını indirin"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """<current-version> Kubernetes bileşenlerini (ve sağlama toplamlarını) indirme bağlantılarını aşağıda bulabilirsiniz.
+Eski desteklenen sürümlerin indirmelerine erişmek için, [eski sürümler](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) için ilgili dokümantasyon
+bağlantısını ziyaret edin veya [downloadkubernetes.com](https://www.downloadkubernetes.com/) sitesini kullanın."""
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """<current-version> Kubernetes bileşenlerinin (ve sağlama toplamlarının) daha eski yama sürümlerini indirmek için,
+lütfen [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) dosyasına bakın."""
+
+[release_binary_version]
+other  = "Sürüm"
+
+[release_binary_version_option]
+other = "En Son Sürüm"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(yayınlanma tarihi: "
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
+[release_date_format]
+# example: other = ":date_medium"
+other = "02.01.2006"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "January 2006"
+
+[release_details]
+other = "Sürüm ayrıntılarını görüntüle"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick Son Tarihi"
+
+[release_download_page]
+other = "Kubernetes {{ .minor_version }} İndir"
+
+[release_end_of_life]
+other = "Yaşam Sonu"
+
+[release_end_of_life_date]
+other = "Yaşam Sonu Tarihi"
+
+[release_end_of_life_details_past]
+other = """Bu sürüm {{ .release_eol_date }} tarihinde Yaşam Sonuna ulaştı.
+Kubernetes {{ .minor_version }} artık güvenlik güncellemeleri veya hata düzeltmeleri almıyor. [Desteklenen bir sürüme](/releases/) yükseltin."""
+
+[release_github_tag]
+other = "GitHub Etiketi"
+
+[release_latest_patch]
+other = "En son yama sürümü"
+
+[release_links]
+other = "İlgili Bağlantılar"
+
+[release_maintenance_details_past]
+other = "Bu sürüm {{ .maintenance_mode_start_date }} tarihinde bakım moduna girdi. Yalnızca kritik güvenlik düzeltmeleri kabul edilir. Kubernetes {{ .minor_version }} için Yaşam Sonu tarihi {{ .release_eol_date }}. Lütfen [daha yeni bir sürüme](/releases/) yükseltmeyi planlayın."
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }}, {{ .maintenance_mode_start_date }} tarihinde bakım moduna girer; Kubernetes {{ .minor_version }} için Yaşam Sonu tarihi {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }}, {{ .maintenance_mode_start_date }} tarihinde bakım moduna girdi**.
+
+Kubernetes {{ .minor_version }} için Yaşam Sonu tarihi {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Bakım Modu"
+
+[release_maintenance_mode_start_date]
+other = "Bakım Modu Başlangıç Tarihi"
+
+[release_released_on]
+other = "{{ .date }} tarihinde yayınlandı"
+
+[release_full_details_initial_text]
+other = "Tam"
+
+[release_information_navbar]
+other = "Sürüm Bilgileri"
+
+[release_minor_version]
+other = "Minör Sürüm"
+
+[release_patch_releases_heading]
+one = "Yama Sürümü"
+other = "Yama Sürümleri"
+
+[release_upcoming_patch_heading]
+other = "Yaklaşan Yama"
+
+[release_info_next_patch]
+other = "Sonraki yama sürümü **%s**."
+
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
+[release_info_eol]
+# Set this to "" if your localization implements the new strings.
+other = ""
+
+[release_note]
+other = "Not"
+
+[release_schedule]
+other = "Takvim"
+
+[release_series_page_intro]
+other = "Bu sayfa, Kubernetes {{ .minor_version }} sürüm serisine genel bir bakış sunar."
+
+[release_status]
+other = "Sürüm Durumu"
+
+[release_target_date]
+other = "Hedef Tarih"
+
+[release_changelog]
+other = "Değişiklik Günlüğü"
+
+[seealso_heading]
+other = "Ayrıca Bakınız"
+
+[sidebar_toggle_nav]
+other = "Bölüm gezinmesini aç/kapat"
+
+[subscribe_button]
+other = "Abone Ol"
+
+[success_copy_to_clipboard]
+other = "Başarılı"
+
+[synopsis_heading]
+other = "Özet"
+
+[thirdparty_message]
+other = """Bu bölüm, Kubernetes tarafından gereken işlevselliği sağlayan üçüncü taraf projelere bağlantı verir. Kubernetes proje yazarları, alfabetik olarak listelenen bu projelerden sorumlu değildir. Bu listeye bir proje eklemek için, bir değişiklik göndermeden önce <a href="/docs/contribute/style/content-guide/#third-party-content">içerik kılavuzunu</a> okuyun. <a href="#third-party-content-disclaimer">Daha fazla bilgi.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Üçüncü taraf içerik tavsiyesi"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; Bu öğe, Kubernetes'in kendisinin bir parçası olmayan bir üçüncü taraf projeye veya ürüne bağlantı verir. <a class="alert-more-info" href="#third-party-content-disclaimer">Daha fazla bilgi</a>"""
+[thirdparty_message_disclaimer]
+other = """<p>Bu sayfadaki öğeler, Kubernetes tarafından gereken işlevselliği sağlayan üçüncü taraf ürünlerine veya projelerine atıfta bulunur. Kubernetes proje yazarları bu üçüncü taraf ürün veya projelerinden sorumlu değildir. Daha fazla ayrıntı için <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF web sitesi yönergelerine</a> bakın.</p><p>Ekstra bir üçüncü taraf bağlantısı ekleyen bir değişiklik önermeden önce <a href="/docs/contribute/style/content-guide/#third-party-content">içerik kılavuzunu</a> okumalısınız.</p>"""
+
+[thirdparty_message_vendor]
+other = """Bu sayfadaki öğeler, Kubernetes'in dışındaki sağlayıcılara atıfta bulunur. Kubernetes proje yazarları bu üçüncü taraf ürün veya projelerinden sorumlu değildir. Bu listeye bir sağlayıcı, ürün veya proje eklemek için, bir değişiklik göndermeden önce <a href="/docs/contribute/style/content-guide/#third-party-content">içerik kılavuzunu</a> okuyun. <a href="#third-party-content-disclaimer">Daha fazla bilgi.</a>"""
+
+[toast_failure_copycode]
+other="Panoya kopyalama başarısız oldu: "
+
+[toast_success_copycode]
+other = "Panoya kopyalandı: "
+
+[translated_by]
+other = "Çeviren"
+
+[ui_search]
+other = "Bu sitede ara"
+
+[version_check_mustbe]
+other = "Kubernetes sunucunuz şu sürümde olmalıdır "
+
+[version_check_mustbeorlater]
+other = "Kubernetes sunucunuz şu sürümde veya daha yeni olmalıdır "
+
+[version_check_tocheck]
+other = "Sürümü kontrol etmek için şunu girin "
+
+[version_menu]
+other = "Sürümler"
+
+[warning]
+other = "Uyarı:"
+
+[warning_copy_to_clipboard]
+other = "Uyarı"
+
+[whatsnext_heading]
+other = "Sıradaki"
