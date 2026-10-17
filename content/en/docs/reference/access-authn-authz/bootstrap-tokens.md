@@ -1,7 +1,7 @@
 ---
 reviewers:
 - jbeda
-title: Authenticating with Bootstrap Tokens
+title: Authentication with Bootstrap Tokens
 content_type: concept
 weight: 20
 ---
