@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: adapter-pattern-example
+spec:
+  initContainers:
+  - name: adapter
+    image: registry.k8s.io/busybox:1.27.2
+    restartPolicy: Always
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/app
+    command: ["sh", "-c", 'touch /var/log/app/raw.log; tail -F /var/log/app/raw.log | while read line; do echo "adapted: $line"; done']
+  containers:
+  - name: main-app
+    image: registry.k8s.io/busybox:1.27.2
+    command: ["sh", "-c", 'while true; do echo "$(date) raw event" >> /var/log/app/raw.log; sleep 2; done']
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/app
+  volumes:
+  - name: shared-logs
+    emptyDir: {}

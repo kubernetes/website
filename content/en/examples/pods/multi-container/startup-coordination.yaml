@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: startup-coordination-example
+spec:
+  initContainers:
+  - name: config-sidecar
+    image: registry.k8s.io/busybox:1.27.2
+    restartPolicy: Always
+    command: ["sh", "-c", 'echo "greeting=hello" > /config/app.conf; while true; do sleep 3600; done']
+    startupProbe:
+      exec:
+        command: ["test", "-f", "/config/app.conf"]
+      periodSeconds: 2
+    volumeMounts:
+    - name: config
+      mountPath: /config
+  containers:
+  - name: main-app
+    image: registry.k8s.io/busybox:1.27.2
+    command: ["sh", "-c", 'cat /config/app.conf; while true; do sleep 3600; done']
+    volumeMounts:
+    - name: config
+      mountPath: /config
+  volumes:
+  - name: config
+    emptyDir: {}
