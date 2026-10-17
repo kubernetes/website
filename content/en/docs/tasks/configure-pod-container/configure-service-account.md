@@ -422,7 +422,7 @@ token. The token will also become invalid against the API when either the Pod
 or the ServiceAccount is deleted.
 
 You can configure this behavior for the `spec` of a Pod using a
-[projected volume](/docs/concepts/storage/volumes/#projected) type called
+[projected volume](/docs/reference/storage/volume-types/#projected) type called
 `ServiceAccountToken`.
 
 The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).

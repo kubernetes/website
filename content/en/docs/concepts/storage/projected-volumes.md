@@ -20,9 +20,9 @@ A `projected` volume maps several existing volume sources into the same director
 
 Currently, the following types of volume sources can be projected:
 
-* [`secret`](/docs/concepts/storage/volumes/#secret)
-* [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
-* [`configMap`](/docs/concepts/storage/volumes/#configmap)
+* [`secret`](/docs/reference/storage/volume-types/#secret)
+* [`downwardAPI`](/docs/reference/storage/volume-types/#downwardapi)
+* [`configMap`](/docs/reference/storage/volume-types/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
 * [`podCertificate`](#podcertificate)
