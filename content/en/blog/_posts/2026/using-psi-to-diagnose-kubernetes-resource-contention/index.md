@@ -11,14 +11,14 @@ Working on latency-sensitive AI inference services, I've spent a lot of time
 looking at request latency, resource utilization, and application-level metrics
 to understand how workloads behave under load.
 
-One question I've been interested in is whether CPU utilization alone gives us
+One question I've been interested in is whether CPU utilization alone gives
 enough information when investigating performance issues. A CPU can be busy, but
-that doesn't tell us how long runnable tasks are waiting to get CPU time. I
+that doesn't show how long runnable tasks are waiting to get CPU time. I
 wanted to understand whether there was a way to observe that waiting directly.
 
 That's what drew me to Linux Pressure Stall Information (PSI). PSI measures
 resource pressure by tracking time when tasks are stalled waiting for CPU,
-memory, or I/O. It gives us another signal to examine alongside utilization
+memory, or I/O. It provides another signal to examine alongside utilization
 and application metrics. These metrics are
 [stable from Kubernetes v1.36](/blog/2026/05/12/kubernetes-v1-36-psi-metrics-ga/).
 
@@ -62,8 +62,8 @@ some avg10=0.00 avg60=0.00 avg300=0.00 total=<microseconds>
 full avg10=0.00 avg60=0.00 avg300=0.00 total=<microseconds>
 ```
 
-There are two things to look at here. `some` tells us how much time at least one
-task was stalled waiting for a resource. `full` tells us how much time all
+There are two things to look at here. `some` shows how much time at least one
+task was stalled waiting for a resource. `full` shows how much time all
 non-idle tasks in the measured scope were stalled at the same time.
 
 The `avg10`, `avg60`, and `avg300` values show pressure averaged over the last
@@ -79,7 +79,7 @@ Kubernetes makes these metrics available through the kubelet Summary API at
 node, pod, and container scope. You can also inspect PSI-related counters
 through the kubelet's `/metrics/cadvisor` endpoint.
 
-This lets us start by checking whether a node is experiencing pressure and then
+You can start by checking whether a node is experiencing pressure and then
 look at individual pods or containers to see which workloads are affected.
 
 ## Hands-on: manufacturing real CPU contention
@@ -92,7 +92,7 @@ restricted the Kubernetes node to two CPUs and ran a CPU-intensive workload
 with two workers per pod.
 
 I started by measuring CPU pressure without the workload, then deployed one
-pod. After that, I scaled to three pods, giving us roughly six CPU-intensive
+pod. After that, I scaled to three pods, giving roughly six CPU-intensive
 workers competing for two CPUs. Finally, I scaled back to one pod to see how
 quickly the pressure dropped.
 
