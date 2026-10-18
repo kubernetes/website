@@ -66,6 +66,22 @@ System services such as the container runtime and the kubelet itself can continu
 these exclusive CPUs.  The exclusivity only extends to other pods.
 {{< /note >}}
 
+A CFS quota limits CPU time; it does not limit which CPUs a container can run on.
+Kubernetes does not define how many CPUs a container can see, and a node
+implementation might show a container only as many CPUs as it requests.
+On Linux nodes that use the `none` policy with common container runtimes, such
+as containerd or CRI-O, a container can typically run on every CPU on the node.
+For example, on a node with 20 CPUs, a container with a `cpu` limit of 2 has a
+CPU affinity mask that covers all 20 CPUs, so `sched_getaffinity()` returns a set of
+20 CPUs. A workload that sizes a thread pool from that
+count can start more busy threads than its limit allows, and then spends part
+of each CFS period throttled. To avoid this, size the thread pool from the
+container's CPU limit (for example, expose `limits.cpu` to the container
+through the [downward API](/docs/concepts/workloads/pods/downward-api/)), or
+use the `static` policy, which restricts each container that has an integer CPU
+request, in a Pod in the `Guaranteed`
+[QoS class](/docs/concepts/workloads/pods/pod-qos/), to its exclusive CPUs.
+
 CPU Manager doesn't support offlining and onlining of CPUs at runtime.
 
 #### Static policy
