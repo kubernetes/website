@@ -30,6 +30,11 @@ en el archivo de configuración. Para definir argumentos para el comando, incluy
 el campo `args` en el archivo de configuración. El comando y los argumentos que
 definas no pueden ser cambiados después de que el Pod haya sido creado.
 
+El comando y los argumentos que definas en el archivo de configuración
+sobrescriben el comando y los argumentos predeterminados que proporciona la imagen del contenedor.
+Si defines `args`, pero no defines un `command`, se usa el comando por defecto
+con tus nuevos argumentos.
+
 {{< note >}}
 El campo `command` corresponde a `ENTRYPOINT`, y el campo `args` corresponde a `CMD` en algunos runtimes de contenedores.
 {{< /note >}}
