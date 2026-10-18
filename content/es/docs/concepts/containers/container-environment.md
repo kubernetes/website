@@ -31,7 +31,7 @@ Está disponible a través del comando `hostname` o de la
 llamada a la función [`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html)
 en libc.
 
-El nombre y el espacio de nombres del Pod están disponibles como variables de entorno a través de la
+El nombre del Pod y su namespace están disponibles como variables de entorno a través de la
 [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
 Las variables de entorno definidas por el usuario en la definición del Pod también están disponibles para el contenedor,
@@ -40,9 +40,9 @@ al igual que cualquier variable de entorno especificada estáticamente en la ima
 ### Información del clúster
 
 Una lista de todos los servicios que estaban en ejecución cuando se creó un contenedor está disponible para dicho contenedor como variables de entorno.
-Esta lista se limita a los servicios dentro del mismo espacio de nombres que el Pod del nuevo contenedor y a los servicios del plano de control de Kubernetes.
+Esta lista se limita a los servicios dentro del mismo namespace, tanto del contendor del Pod como los servicios del plano de control de Kubernetes.
 
-Para un servicio llamado *foo* que expone un conjunto de Pods, cada uno ejecutando un contenedor llamado *bar*,
+Para un Service llamado *foo* que expone un conjunto de Pods, cada uno ejecutando un contenedor llamado *bar*,
 se definen las siguientes variables:
 
 ```shell
