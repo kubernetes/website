@@ -94,7 +94,8 @@ requerido para que se expanda en el campo `command` o `args`.
 ## Ejecuta un comando en una shell
 
 En algunos casos, necesitas que tu comando se ejecute en una shell. Por ejemplo, tu
-comando podría consistir en varios comandos encadenados mediante tuberías, o podría ser un script de shell. Para ejecutar un comando en una shell, envuélvelo así:
+comando podría consistir en varios comandos encadenados mediante tuberías, o podría ser un script de shell.
+Para ejecutar un comando en una shell, envuélvelo así:
 
 ```shell
 command: ["/bin/sh"]
