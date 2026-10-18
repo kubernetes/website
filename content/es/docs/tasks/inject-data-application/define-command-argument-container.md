@@ -66,7 +66,8 @@ del Pod:
    kubectl logs command-demo
    ```
 
-   La salida muestra los valores de las variables de entorno HOSTNAME y KUBERNETES_PORT:
+   La salida muestra los valores de las variables de entorno
+   HOSTNAME y KUBERNETES_PORT:
 
    ```
    command-demo
