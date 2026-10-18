@@ -51,7 +51,8 @@ para el Pod define un comando y dos argumentos:
    kubectl get pods
    ```
 
-   La salida muestra que el contenedor que se ejecuta en el Pod command-demo se ha completado.
+   La salida muestra que el contenedor que se ejecuta en el Pod command-demo se ha
+   completado.
 
 1. Para ver la salida del comando ejecutado en el contenedor, examina los logs del Pod:
 
