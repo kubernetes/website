@@ -75,7 +75,6 @@ del Pod:
 
 ## Usa variables de entorno para definir argumentos
 
-
 En el ejemplo anterior, definiste los argumentos proporcionando directamente
 cadenas. Como alternativa a proporcionar directamente cadenas,
 puedes definir argumentos utilizando variables de entorno:
