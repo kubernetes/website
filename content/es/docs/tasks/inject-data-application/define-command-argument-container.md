@@ -81,8 +81,7 @@ command: ["/bin/echo"]
 args: ["$(MESSAGE)"]
 ```
 
-Esto significa que puedes definir un argumento para un Pod utilizando cualquiera de las técnicas disponibles para definir variables de entorno,
-incluyendo
+Esto significa que puedes definir un argumento para un Pod utilizando cualquiera de las técnicas disponibles para definir variables de entorno, incluyendo
 [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 y
 [Secrets](/docs/concepts/configuration/secret/).
