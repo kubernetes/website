@@ -69,7 +69,9 @@ para el Pod define un comando y dos argumentos:
 ## Usa variables de entorno para definir argumentos
 
 
-En el ejemplo anterior, definiste los argumentos proporcionando directamente cadenas. Como alternativa a proporcionar directamente cadenas, puedes definir argumentos utilizando variables de entorno:
+En el ejemplo anterior, definiste los argumentos proporcionando directamente
+cadenas. Como alternativa a proporcionar directamente cadenas,
+puedes definir argumentos utilizando variables de entorno:
 
 ```yaml
 env:
