@@ -39,7 +39,7 @@ con tus nuevos argumentos.
 El campo `command` corresponde a `ENTRYPOINT`, y el campo `args` corresponde a `CMD` en algunos runtimes de contenedores.
 {{< /note >}}
 
-En el siguiente ejercicio, creas un Pod que ejecuta un contenedor. El archivo de configuración
+En este ejercicio, crearás un Pod que ejecuta un contenedor. El archivo de configuración
 para el Pod define un comando y dos argumentos:
 
 {{% code_sample file="pods/commands.yaml" %}}
