@@ -6,7 +6,8 @@ weight: 10
 
 <!-- overview -->
 
-Esta página muestra cómo definir comandos y argumentos cuando ejecutas un contenedor en un {{< glossary_tooltip term_id="pod" >}}.
+Esta página muestra cómo definir comandos y argumentos cuando ejecutas un contenedor
+en un {{< glossary_tooltip term_id="pod" >}}.
 
 
 
