@@ -23,7 +23,11 @@ Esta página muestra cómo definir comandos y argumentos cuando ejecutas un cont
 
 ## Define un comando y argumentos cuando creas un Pod
 
-Cuando creas un Pod, puedes definir un comando y/o argumentos para los contenedores que se ejecutan en el Pod. Para definir un comando, incluye el campo `command` en el archivo de configuración. Para definir argumentos para el comando, incluye el campo `args` en el archivo de configuración. El comando y los argumentos que definas no pueden ser cambiados después de que el Pod haya sido creado.
+Cuando creas un Pod, puedes definir un comando y/o argumentos para los
+contenedores que se ejecutan en el Pod. Para definir un comando, incluye el campo `command`
+en el archivo de configuración. Para definir argumentos para el comando, incluye
+el campo `args` en el archivo de configuración. El comando y los argumentos que
+definas no pueden ser cambiados después de que el Pod haya sido creado.
 
 {{< note >}}
 El campo `command` corresponde a `ENTRYPOINT`, y el campo `args` corresponde a `CMD` en algunos runtimes de contenedores.
