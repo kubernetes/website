@@ -40,7 +40,7 @@ al igual que cualquier variable de entorno especificada estáticamente en la ima
 ### Información del clúster
 
 Una lista de todos los servicios que estaban en ejecución cuando se creó un contenedor está disponible para dicho contenedor como variables de entorno.
-Esta lista se limita a los servicios dentro del mismo namespace, tanto del contendor del Pod como los servicios del plano de control de Kubernetes.
+Esta lista se limita a los servicios dentro del mismo namespace, tanto del contenedor del Pod como los servicios del plano de control de Kubernetes.
 
 Para un Service llamado *foo* que expone un conjunto de Pods, cada uno ejecutando un contenedor llamado *bar*,
 se definen las siguientes variables:
