@@ -15,10 +15,10 @@ math: true
 <!-- overview -->
 
 쿠버네티스에서 _VerticalPodAutoscaler_ 는 워크로드 관리 {{< glossary_tooltip text="리소스" term_id="api-resource" >}}
-({{< glossary_tooltip text="	디플로이먼트(Deployment)" term_id="deployment" >}}나
+({{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}}나
 {{< glossary_tooltip text="스테이트풀셋(StatefulSet)" term_id="statefulset" >}}과 같은)를 자동으로 갱신하여, 인프라스트럭처
 {{< glossary_tooltip text="리소스" term_id="infrastructure-resource" >}}
-[요청 및 제한](/docs/concepts/configuration/manage-resources-containers/#요청 및 제한)을 실제 사용량에 맞추는 것을 목표로 한다.
+[요청 및 제한](/docs/concepts/configuration/manage-resources-containers/#요청-및-제한)을 실제 사용량에 맞추는 것을 목표로 한다.
 
 수직 스케일링이란 리소스 수요가 증가했을 때, 워크로드를 위해 이미 실행 중인
 {{< glossary_tooltip text="파드" term_id="pod" >}}에 더 많은 리소스(예: 메모리 또는 CPU)를 할당하는
@@ -43,7 +43,7 @@ VerticalPodAutoscaler는 쿠버네티스 API 리소스와
 
 VerticalPodAutoscaler는 쿠버네티스에서 {{< glossary_tooltip text="사용자 정의 리소스" term_id="customresourcedefinition" >}}(CRD)로 정의된다. 핵심 쿠버네티스 API의 일부인 HorizontalPodAutoscaler와 달리, VPA는 클러스터에 별도로 설치해야 한다.
 
-현재 안정된 API 버전은 `autoscaling.k8s.io/v1`이다. VPA 설치 및 API에 대한 자세한 내용은 [VPA GitHub 저장소](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)에서 확인할 수 있다.
+현재 안정된 API 버전은 `autoscaling.k8s.io/v1`이다. VPA 설치 및 API에 대한 자세한 내용은 [VPA GitHub 리포지토리](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)에서 확인할 수 있다.
 
 ## VerticalPodAutoscaler는 어떻게 동작하는가?
 
@@ -59,7 +59,7 @@ VerticalPodAutoscaler는 쿠버네티스에서 {{< glossary_tooltip text="사용
 쿠버네티스는 간헐적으로 실행되는(지속적인 프로세스가 아닌) 여러 협력 컴포넌트를 통해 수직 파드 오토스케일링을 구현한다. VPA는 세 가지 주요 컴포넌트로 구성된다.
 
 * 리소스 사용량을 분석하고 권장 사항을 제공하는 _recommender_.
-* 파드를 축출하거나 즉시 수정하여 파드 리소스 요청하는 _updater_.
+* 파드를 축출하거나 즉시 수정하여 파드 리소스 요청을 갱신하는 _updater_.
 * 그리고 신규 또는 재생성된 파드에 리소스 권장 사항을 적용하는 VPA _admission controller_ 웹훅.
 
 각 주기마다 한 번씩, Recommender는 각 VerticalPodAutoscaler 정의가 대상으로 하는 파드의 리소스 사용률을 조회한다. Recommender는 `targetRef`로 정의된 대상 리소스를 찾은 다음, 해당 대상 리소스의 `.spec.selector` 레이블을 기준으로 파드를 선택하고, 리소스 메트릭 API에서 메트릭을 가져와 실제 CPU와 메모리 소비량을 분석한다.
@@ -182,10 +182,10 @@ spec:
 경우에도 `InPlace` 모드는 항상 대기하고 재시도한다 — 업데이트가 얼마나 오래 보류되든 파드를 축출하지
 않는다.
 
-### Auto(지원 중단) {#updateMode-Auto}
+### Auto(사용 중단) {#updateMode-Auto}
 
 {{< note >}}
-`Auto` 업데이트 모드는 **VPA 버전 1.4.0부터 지원이 중단되었다**. 축출 기반 업데이트에는 `Recreate`를,
+`Auto` 업데이트 모드는 **VPA 버전 1.4.0부터 사용이 중단되었다**. 축출 기반 업데이트에는 `Recreate`를,
 축출로 대체되는 즉시 업데이트에는 `InPlaceOrRecreate`를 사용한다.
 {{< /note >}}
 
@@ -246,13 +246,13 @@ RequestsAndLimits
 RequestsOnly
 : VPA는 요청만 설정하고 제한은 그대로 둔다. 제한은 그대로 적용되며, 사용량이 제한을 초과하면 여전히 스로틀링이나 메모리 부족(OOM) 강제 종료가 발생할 수 있다.
 
-이 두 개념에 대해 더 알아보려면 [요청 및 제한](/docs/concepts/configuration/manage-resources-containers/#요청 및 제한)을 참고한다.
+이 두 개념에 대해 더 알아보려면 [요청 및 제한](/docs/concepts/configuration/manage-resources-containers/#요청-및-제한)을 참고한다.
 
-## LimitRange 리소스
+## 리밋레인지(LimitRange) 리소스
 
-admission controller와 updater VPA 컴포넌트는 [리밋 레인지(LimitRange)](/docs/concepts/policy/limit-range/)에 정의된 제약 조건을 준수하도록 권장 사항을 후처리한다. 쿠버네티스 클러스터에서는 `type`이 Pod와 Container인 LimitRange 리소스를 확인한다.
+admission controller와 updater VPA 컴포넌트는 [리밋레인지(LimitRange)](/docs/concepts/policy/limit-range/)에 정의된 제약 조건을 준수하도록 권장 사항을 후처리한다. 쿠버네티스 클러스터에서는 `type`이 Pod와 Container인 리밋레인지 리소스를 확인한다.
 
-예를 들어 컨테이너 리밋 레인지 리소스의 `max` 필드를 초과하면, 두 VPA 컴포넌트는 제한을 `max` 필드에 정의된 값으로 낮추고, 파드 스펙의 요청 대 제한 비율을 유지하기 위해 요청도 비례하여 줄인다.
+예를 들어 컨테이너 리밋레인지 리소스의 `max` 필드를 초과하면, 두 VPA 컴포넌트는 제한을 `max` 필드에 정의된 값으로 낮추고, 파드 스펙의 요청 대 제한 비율을 유지하기 위해 요청도 비례하여 줄인다.
 
 ## {{% heading "whatsnext" %}}
 
