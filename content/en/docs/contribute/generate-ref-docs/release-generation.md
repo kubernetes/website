@@ -90,9 +90,8 @@ into every later release, so keep the file lean.
 ## Fetch the OpenAPI specification
 
 The API reference generator reads `gen-apidocs/config/<version>/swagger.json`.
-The specification that `kubernetes/kubernetes` commits is built with the
-`OpenAPIEnums` feature gate turned off, so it omits the allowed values of
-enumerated fields, and a reference built from it omits them too.
+The specification that `kubernetes/kubernetes` commits omits the allowed values
+of enumerated fields, so a reference built from it omits them too.
 It's better to generate a reference that does list allowed values, so you
 take some additional steps to make that happen.
 
@@ -109,10 +108,10 @@ make updateapispec-enums-from-source
 ```
 
 The target shallow-clones `kubernetes/kubernetes` at tag `v$K8S_RELEASE` into a
-temporary directory, turns on `OpenAPIEnums=true` in that checkout only, runs the
-upstream `hack/update-openapi-spec.sh`, copies the resulting specification into
-the versioned configuration directory, checks that it contains enum values, and
-removes the checkout. Beyond the tools in the prerequisites, it needs:
+temporary directory, runs the upstream `hack/update-openapi-spec.sh` there with
+enum values kept, copies the resulting specification into the versioned
+configuration directory, checks that it contains enum values, and removes the
+checkout. Beyond the tools in the prerequisites, it needs:
 
 * `jq`, `curl`, and `openssl` on your `PATH`
 * network access, to clone the tag and to download Go modules and etcd
@@ -129,31 +128,55 @@ To keep the temporary checkout and the generation log for troubleshooting:
 KEEP_TMP=1 make updateapispec-enums-from-source
 ```
 
-### Option 2: Copy the committed specification from a local clone
+### Option 2: Generate the specification in a local clone
 
-This option needs a local `kubernetes/kubernetes` clone, and it copies the
-specification much faster.
+Use this option when you already have a `kubernetes/kubernetes` clone and do
+not want a second one. You skip cloning, but still run the same generator as
+Option 1, and it modifies your clone.
 
-{{< note >}}
-The specification committed in `kubernetes/kubernetes` is generated with
-`OpenAPIEnums=false`. In your `kubernetes/kubernetes` clone, set
-`OpenAPIEnums=true` in `hack/update-openapi-spec.sh` before you regenerate the
-specification. Without it, the specification carries no enum values, and the
-published API reference omits the possible values of every enumerated field.
-{{< /note >}}
-
-In your `kubernetes/kubernetes` clone, run `hack/update-openapi-spec.sh` and
-commit the regenerated `api/openapi-spec/swagger.json` at tag `v$K8S_RELEASE`.
-Then copy it into `reference-docs`:
+Commit or stash any existing changes in your clone before continuing.
+Replace the path below with your local clone path, then check out the release
+tag:
 
 ```shell
-export K8S_ROOT=<your-path-to>/kubernetes
-cd <rdocs-base>
-make updateapispec
+export K8S_ROOT="<your-path-to>/kubernetes"
+cd "$K8S_ROOT"
+git checkout "v$K8S_RELEASE"
 ```
 
-The target reads the file as it is committed at that tag, not the file in your
-working tree. This is the only step on this page that reads `K8S_ROOT`.
+Then run `hack/update-openapi-spec.sh` with `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`
+to regenerate `api/openapi-spec/swagger.json`. This requires the tools and free
+ports described in Option 1:
+
+```shell
+KUBE_OPENAPI_SPEC_KEEP_ENUMS=true hack/update-openapi-spec.sh
+```
+
+{{< note >}}
+Without `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`, the specification carries no enum
+values, and the published API reference omits the possible values of every
+enumerated field.
+{{< /note >}}
+
+Copy the regenerated specification from your clone's working tree into the
+versioned configuration directory created earlier. Replace `<rdocs-base>`
+with the path to your `reference-docs` clone:
+
+```shell
+cd "<rdocs-base>"
+cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
+  gen-apidocs/config/v{{< skew currentVersionAddMinor 1 "_" >}}/swagger.json
+```
+
+After copying, restore the regenerated files in your clone. The script rewrote
+`swagger.json` and the OpenAPI v3 files under `api/openapi-spec/` with enum
+values kept, so they no longer match what `kubernetes/kubernetes` commits. You
+only need the copy you just made, and restoring the files leaves your clone
+clean, so you can switch back to your own branch:
+
+```shell
+git -C "$K8S_ROOT" checkout -- api/openapi-spec
+```
 
 ### Check the specification
 
@@ -492,7 +515,8 @@ Regenerated the kubectl reference for v{{< skew currentVersionAddMinor 1 >}}.0.
 
 For the two API reference sets, add how you produced the OpenAPI specification,
 because the generated output does not show it: `generated from source with
-OpenAPIEnums=true`, or copied from a clone.
+make updateapispec-enums-from-source`, or `generated in a local clone with
+KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`.
 
 {{< caution >}}
 Do not hand-edit generated pages. The next release overwrites the edit. Fix the

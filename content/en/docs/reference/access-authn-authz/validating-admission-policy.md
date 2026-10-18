@@ -400,7 +400,15 @@ Here is an example illustrating a few different uses for match conditions:
 
 {{% code_sample file="access/validating-admission-policy-match-conditions.yaml" %}}
 
-Match conditions have access to the same CEL variables as validation expressions.
+Match conditions have access to the same CEL variables as validation expressions, except for
+`namespaceObject` and `variables`:
+
+- `namespaceObject` is not populated for match conditions and always evaluates to null. To select
+  requests based on namespace labels, use a `namespaceSelector` in the policy's `matchConstraints`
+  or in the binding's `matchResources`. To check other namespace fields, use a validation
+  expression, where `namespaceObject` is available.
+- `variables` cannot be referenced from match conditions, because match conditions are evaluated
+  before the rest of the policy.
 
 In the event of an error evaluating a match condition the policy is not evaluated. Whether to reject
 the request is determined as follows:

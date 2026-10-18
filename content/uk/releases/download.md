@@ -46,10 +46,6 @@ kubectl можна встановити на різних платформах L
 
 Для Kubernetes {{< param "version" >}}, контейнерні образи підписуються за допомогою [sigstore](https://sigstore.dev) підписів:
 
-{{< note >}}
-Підписи контейнерних образів sigstore наразі не збігаються між різними географічними положеннями. Додаткова інформація про цю проблему доступна у відповідному [GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
-{{< /note >}}
-
 Проєкт Kubernetes публікує список підписаних контейнерних образів Kubernetes у форматі [SPDX 2.3](https://spdx.dev/specifications/). Ви можете отримати цей список за допомогою:
 
 ```shell

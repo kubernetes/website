@@ -2,7 +2,6 @@
 title: "Borg: предшественник Kubernetes"
 date: 2015-04-23
 slug: borg-predecessor-to-kubernetes
-url: /:section/:year/:month/:slug/
 ---
 Google уже больше десяти лет запускает контейнеризованные рабочие нагрузки в production. Сервисные задания, такие как веб-фронтенды и серверы с состоянием, инфраструктурные системы вроде [Bigtable](http://research.google.com/archive/bigtable.html) и [Spanner](http://research.google.com/archive/spanner.html), фреймворки пакетной обработки вроде [MapReduce](http://research.google.com/archive/mapreduce.html) и [MillWheel](http://research.google.com/pubs/pub41378.html) — почти всё в Google работает в контейнерах. Сегодня мы впервые рассказали о Borg, давно обсуждавшейся внутренней системе Google для управления кластерами, ориентированной на контейнеры, и опубликовали подробности на академической конференции по компьютерным системам [Eurosys](http://eurosys2015.labri.fr/). Статью можно найти [здесь](https://research.google.com/pubs/pub43438.html).
 

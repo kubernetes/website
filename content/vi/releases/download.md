@@ -45,12 +45,6 @@ Tất cả các container image đều có sẵn cho các kiến trúc (hardware
 
 Tất cả các container image của Kubernetes được ký (sign) sử dụng chữ ký [sigstore](https://sigstore.dev)
 
-{{< note >}}
-Chữ ký sigstore cho các container image hiện tại không ăn khớp giữa các vị trí địa lý.
-Tìm hiểu thêm về vấn đề này tại 
-[GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
-{{< /note >}}
-
 Kubernetes công khai danh sách các container images đã được ký xác nhận theo [SPDX 2.3](https://spdx.dev/specifications/). Bạn có thể lấy thông tin về danh sách bằng cách:
 
 ```shell

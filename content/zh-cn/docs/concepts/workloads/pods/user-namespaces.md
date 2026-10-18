@@ -226,7 +226,7 @@ isolate the users in the container from the users in the node.
 <!--
 This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
-therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
+therefore tools like `apt`, `dnf`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you
 check which user the container process is running by executing `ps aux` from
 the host. The user `ps` shows is not the same as the user you see if you
@@ -237,7 +237,7 @@ to escape to the host. Given that the container is running as a non-privileged
 user on the host, it is limited what it can do to the host.
 -->
 这意味着容器可以以 Root 身份运行，并将该身份映射到主机上的一个非 Root 用户。
-在容器内，进程会认为它是以 Root 身份运行的（因此像 `apt`、`yum` 等工具可以正常工作），
+在容器内，进程会认为它是以 Root 身份运行的（因此像 `apt`、`dnf` 等工具可以正常工作），
 而实际上该进程在主机上没有权限。
 你可以验证这一点，例如，如果你从主机上执行 `ps aux` 来检查容器进程是以哪个用户运行的。
 `ps` 显示的用户与你在容器内执行 `id` 命令时看到的用户是不一样的。
@@ -314,6 +314,7 @@ configure a custom range, the node needs to have:
  * A user `kubelet` in the system (you cannot use any other username here)
  * The binary `getsubids` installed (part of [shadow-utils][shadow-utils]) and
    in the `PATH` for the kubelet binary.
+ * The binary `getent` installed and in the `PATH` for the kubelet binary.
  * A configuration of subordinate UIDs/GIDs for the `kubelet` user (see
    [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) and
    [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)).
@@ -323,6 +324,7 @@ kubelet 可以对 Pod 的用户 ID 和组 ID 使用自定义范围。要配置�
 * 系统中的用户 `kubelet`（此处不能使用任何其他用户名）。
 * 已安装二进制文件 `getsubids`（[shadow-utils][shadow-utils] 的一部分）并位于
   kubelet 二进制文件的 `PATH` 中。
+* 已安装二进制文件 `getent`，并位于 kubelet 二进制文件的 `PATH` 中。
 * `kubelet` 用户的从属 UID/GID 配置
   （请参阅 [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) 和
   [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)）

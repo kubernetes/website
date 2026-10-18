@@ -171,14 +171,35 @@ div.api-reference-header-note.empty {
     font-style: initial;
   }
 }
+// The RTL stylesheet is generated from this stylesheet by flipping it
+// with rtlcss. These border sides are already written direction-aware
+// (left for LTR locales, right for RTL locales), so the flip pass would
+// swap each one onto the wrong side. Exclude them so they survive as
+// written.
+/*rtl:ignore*/
 .alert:dir(ltr) {
   // color the left border (left-to-right locales)
   border-width: 0 0 0 4px;
 }
 
+/*rtl:ignore*/
 .alert:dir(rtl) {
   // color the right border (right-to-left locales)
   border-width: 0 4px 0 0;
+}
+
+// Keep code blocks and inline code left-to-right (LTR) on RTL pages
+// only. Code syntax, indentation, and punctuation are not localized
+// and rely on LTR rendering.
+//
+// The RTL stylesheet is generated from this one by flipping it, which
+// would turn direction: ltr back into rtl and undo the rule. Exclude it
+// from that pass so the value survives into the RTL build.
+/*rtl:ignore*/
+pre:dir(rtl),
+code:dir(rtl) {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .glossary-tooltip {

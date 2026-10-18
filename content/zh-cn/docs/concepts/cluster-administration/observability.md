@@ -5,6 +5,11 @@ weight: 55
 content_type: concept
 description: >
   理解如何通过收集 **指标（metrics）**、**日志（logs）** 和 **链路（traces）** 来获得对 Kubernetes 集群的端到端可观测性。
+api_metadata:
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "NodeMetrics"
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "PodMetrics"
 no_list: true
 card:
   name: setup
@@ -24,6 +29,11 @@ weight: 55
 content_type: concept
 description: >
   Understand how to gain end-to-end visibility of a Kubernetes cluster through the collection of metrics, logs, and traces.
+api_metadata:
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "NodeMetrics"
+- apiVersion: "metrics.k8s.io/v1"
+  kind: "PodMetrics"
 no_list: true
 card:
   name: setup
@@ -38,6 +48,7 @@ card:
 -->
 
 <!-- overview -->
+
 <!--
 In Kubernetes, observability is the process of collecting and analyzing metrics, logs, and traces—often referred to as the three pillars of observability—in order to obtain a better understanding of the internal state, performance, and health of the cluster.
 -->
@@ -64,11 +75,13 @@ flowchart LR
     M --> S[(存储和分析)]
     L --> S
     T --> S
-    S --> O[操作员和自动化组件]
+    S --> O[Operator 和自动化组件]
 {{< /mermaid >}}
 
-
-*图 1. 集群组件发出的大致信号及其消费者。*
+<!--
+*Figure 1. High-level signals emitted by cluster components and their consumers.*
+-->
+**图 1. 集群组件发出的大致信号及其消费者。**
 
 <!-- body -->
 
@@ -79,12 +92,6 @@ flowchart LR
 
 <!--
 Kubernetes components emit metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/) from their `/metrics` endpoints, including:
-
-- kube-controller-manager
-- kube-proxy
-- kube-apiserver
-- kube-scheduler
-- kubelet
 -->
 Kubernetes 组件在其 `/metrics` 端点以 [Prometheus 格式](https://prometheus.io/docs/instrumenting/exposition_formats/)
 发出指标；这些组件包括：
@@ -131,10 +138,9 @@ flowchart LR
 
 For multi-cluster or multi-cloud visibility, distributed time series databases (for example Thanos or Cortex) can complement Prometheus.
 -->
-*图 2. 典型 Kubernetes 指标流水线的组件。*
+**图 2. 典型 Kubernetes 指标流水线的组件。**
 
-对于多集群或多云可观测性，分布式时序数据库（例如 Thanos 或 Cortex）
-可以补充 Prometheus。
+对于多集群或多云可观测性，分布式时序数据库（例如 Thanos 或 Cortex）可以补充 Prometheus。
 
 <!--
 See [Common observability tools - metrics tools](#metrics-tools) for metrics scrapers and time series databases.
@@ -142,20 +148,63 @@ See [Common observability tools - metrics tools](#metrics-tools) for metrics scr
 有关指标抓取器和时间序列数据库的信息，
 请参阅[常见可观测性工具 - 指标工具](#metrics-tools)。
 
+### Metrics API {#metrics-api}
+
+{{< feature-state for_k8s_version="v1.37" state="stable" >}}
+
 <!--
+The Kubernetes Metrics API provides CPU and memory resource usage for nodes and Pods. The
+`kubectl top` command and components such as the
+[HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+and [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+use this API.
+
+`kubectl top` supports both `metrics.k8s.io/v1` and `metrics.k8s.io/v1beta1`. It prefers `v1`
+when that version is available and falls back to `v1beta1`. In Kubernetes v1.37, the
+HorizontalPodAutoscaler controller supports only `metrics.k8s.io/v1beta1`; support for
+`metrics.k8s.io/v1` is planned but is not available yet.
+-->
+Kubernetes Metrics API 提供节点和 Pod 的 CPU 与内存资源使用情况。
+`kubectl top` 命令以及
+[HorizontalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
+和 [VerticalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+等组件都使用此 API。
+
+`kubectl top` 同时支持 `metrics.k8s.io/v1` 和 `metrics.k8s.io/v1beta1`；
+当 `v1` 版本可用时优先使用 `v1`，否则回退到 `v1beta1`。
+在 Kubernetes v1.37 中，HorizontalPodAutoscaler 控制器仅支持 `metrics.k8s.io/v1beta1`；
+对 `metrics.k8s.io/v1` 的支持已列入计划，但目前尚不可用。
+
+<!--
+Unlike the component metrics endpoints described earlier, the Metrics API is served through the
+Kubernetes [API aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+Your cluster must run [Metrics Server](https://github.com/kubernetes-sigs/metrics-server) or another
+implementation that provides the API. The Metrics API intentionally provides only the resource
+metrics needed for autoscaling and basic inspection; it is not a replacement for a full monitoring
+pipeline.
+
+To learn about the API, its implementations, and the data flow from kubelets to its clients, see the
+[resource metrics pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/).
+-->
+与前面介绍的各组件指标端点不同，Metrics API 是通过 Kubernetes
+[API 聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)提供的。
+你的集群必须运行 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+或其他提供此 API 的实现。Metrics API 有意只提供自动扩缩容和基本查看所需的资源指标，
+它并不是完整监控流水线的替代品。
+
+要了解此 API、其实现以及从 kubelet 到其客户端的数据流，
+请参阅[资源指标管道](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)。
+
 #### {{% heading "seealso" %}}
 
+<!--
 - [System metrics for Kubernetes components](/docs/concepts/cluster-administration/system-metrics/)
 - [Resource usage monitoring with metrics-server](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - [kube-state-metrics concept](/docs/concepts/cluster-administration/kube-state-metrics/)
-- [Resource metrics pipeline overview](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 -->
-#### {{% heading "seealso" %}}
-
 - [Kubernetes 组件的系统指标](/zh-cn/docs/concepts/cluster-administration/system-metrics/)
 - [使用 metrics-server 监控资源使用情况](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - [kube-state-metrics 概念](/zh-cn/docs/concepts/cluster-administration/kube-state-metrics/)
-- [资源指标流水线概述](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 
 <!--
 ## Logs
@@ -180,7 +229,7 @@ kubelet 通过 `kubectl logs` 使这些日志可被访问。
 -->
 ![节点级日志记录](/images/docs/user-guide/logging/logging-node-level.png)
 
-*图 3a. 节点级日志记录架构。*
+**图 3a. 节点级日志记录架构。**
 
 <!--
 System component logs capture events from the cluster and are often useful for debugging and troubleshooting. These components are classified in two different ways: those that run in a container and those that do not. For example, the `kube-scheduler` and `kube-proxy` usually run in containers, whereas the `kubelet` and the container runtime run directly on the host.
@@ -232,11 +281,12 @@ flowchart LR
     L --> Q[仪表板、告警、SIEM]
 {{< /mermaid >}}
 
-
-*图 3. 典型 Kubernetes 日志流水线的组件。*
 <!--
 *Figure 3. Components of a typical Kubernetes logs pipeline.*
+-->
+**图 3. 典型 Kubernetes 日志流水线的组件。**
 
+<!--
 See [Common observability tools - logging tools](#logging-tools) for logging agents and central log stores.
 
 #### {{% heading "seealso" %}}
@@ -298,11 +348,12 @@ flowchart LR
     TS --> V[可视化和分析]
 {{< /mermaid >}}
 
-
-*图 4. 典型 Kubernetes 链路流水线的组件。*
 <!--
 *Figure 4. Components of a typical Kubernetes traces pipeline.*
+-->
+**图 4. 典型 Kubernetes 链路流水线的组件。**
 
+<!--
 See [Common observability tools - tracing tools](#tracing-tools) for tracing collectors and backends.
 
 #### {{% heading "seealso" %}}
@@ -321,17 +372,16 @@ See [Common observability tools - tracing tools](#tracing-tools) for tracing col
 
 <!--
 ## Common observability tools
-
-{{% thirdparty-content %}}
-
-Note: This section links to third-party projects that provide observability capabilities required by Kubernetes.
-The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a
-project to this list, read the [content guide](/docs/contribute/style/content-guide/) before submitting a change.
 -->
 ## 常见可观测性工具 {#common-observability-tools}
 
 {{% thirdparty-content %}}
 
+<!--
+Note: This section links to third-party projects that provide observability capabilities required by Kubernetes.
+The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a
+project to this list, read the [content guide](/docs/contribute/style/content-guide/) before submitting a change.
+-->
 注意：本节包含指向提供 Kubernetes 所需可观测性能力的第三方项目的链接。
 Kubernetes 项目作者不对这些项目负责，这些项目按字母顺序列出。
 要将项目添加到此列表，请在提交更改之前阅读[内容指南](/zh-cn/docs/contribute/style/content-guide/)。
@@ -384,17 +434,15 @@ Kubernetes 项目作者不对这些项目负责，这些项目按字母顺序列
 - [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) 接收、处理和导出包括链路在内的遥测数据。
 - [Zipkin](https://zipkin.io/) 提供分布式链路收集和可视化。
 
-<!--
 ## {{% heading "whatsnext" %}}
 
+<!--
 - Learn how to [collect resource usage metrics with metrics-server](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - Explore [logging tasks and tutorials](/docs/tasks/debug/logging/)
 - Follow the [monitoring and tracing task guides](/docs/tasks/debug/monitoring/)
 - Review the [system metrics guide](/docs/concepts/cluster-administration/system-metrics/) for component endpoints and stability
 - Review the [common observability tools](#common-observability-tools) section for vetted third-party options
 -->
-## {{% heading "whatsnext" %}}
-
 - 了解如何[使用 metrics-server 收集资源使用指标](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 - 探索[日志记录任务和教程](/zh-cn/docs/tasks/debug/logging/)
 - 阅读[监控和链路任务指南](/zh-cn/docs/tasks/debug/monitoring/)

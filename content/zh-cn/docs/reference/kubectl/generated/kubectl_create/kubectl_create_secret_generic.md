@@ -97,7 +97,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -110,7 +111,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Append a hash of the secret to its name.
 -->
 将 Secret 的哈希值追加到它的名称上。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -124,7 +126,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -137,7 +140,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -150,7 +154,8 @@ Name of the manager used to track field ownership.
 Specify the path to a file to read lines of key=val pairs to create a secret.
 -->
 指定文件路径以读取 key=val 对的行来创建一个 Secret。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -165,7 +170,8 @@ Key files can be specified using their file path, in which case a default name w
 键可以通过其文件路径被指定，这种情况将为它们分配一个默认名称；
 键也可以选择通过某个名称和文件路径被指定，这种情况将使用给定的名称。
 指定一个目录将遍历目录中所有已命名的且是有效 Secret 键的文件。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -178,7 +184,8 @@ Key files can be specified using their file path, in which case a default name w
 Specify a key and literal value to insert in secret (i.e. mykey=somevalue)
 -->
 指定键和文字值以插入到 Secret 中（例如 mykey=somevalue）。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -191,7 +198,8 @@ Specify a key and literal value to insert in secret (i.e. mykey=somevalue)
 help for generic
 -->
 generic 操作的帮助命令。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -205,7 +213,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -219,7 +228,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 此标志在你希望后续对该对象执行 kubectl apply 时很有用。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -232,7 +242,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -246,7 +257,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -259,7 +271,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 The type of secret to create
 -->
 要创建的 Secret 的类别。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -540,7 +553,22 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>  
+</td>  
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -554,7 +582,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -567,7 +596,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -580,7 +610,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -593,7 +624,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -606,7 +638,8 @@ database name
 database host:port
 -->
 数据库 host:port
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -619,7 +652,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -632,7 +666,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -645,7 +680,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -658,7 +694,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -671,7 +708,8 @@ database username
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -684,7 +722,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份认证的持有者令牌。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -697,7 +736,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -710,7 +750,8 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 向 API 服务器进行基本身份认证时所用的用户名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -723,7 +764,8 @@ Username for basic authentication to the API server
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -736,7 +778,8 @@ Username for basic authentication to the API server
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 </tbody>
