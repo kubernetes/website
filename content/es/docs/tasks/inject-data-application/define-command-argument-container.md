@@ -111,6 +111,6 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 ## {{% heading "whatsnext" %}}
 
 
-* Aprende más sobre [Configurar pods y contenedores](/docs/tasks/).
+* Aprende más sobre [Configurar Pods y contenedores](/docs/tasks/).
 * Aprende más sobre [Ejecutar comandos en un contenedor](/docs/tasks/debug/debug-application/get-shell-running-container/).
 * Ver [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
