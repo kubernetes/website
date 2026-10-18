@@ -34,7 +34,8 @@ definas no pueden ser cambiados después de que el Pod haya sido creado.
 El campo `command` corresponde a `ENTRYPOINT`, y el campo `args` corresponde a `CMD` en algunos runtimes de contenedores.
 {{< /note >}}
 
-En el siguiente ejercicio, creas un Pod que ejecuta un contenedor. El archivo de configuración para el Pod define un comando y dos argumentos:
+En el siguiente ejercicio, creas un Pod que ejecuta un contenedor. El archivo de configuración
+para el Pod define un comando y dos argumentos:
 
 {{% code_sample file="pods/commands.yaml" %}}
 
