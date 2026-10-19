@@ -167,9 +167,8 @@ into every later release, so keep the file lean.
 ## Fetch the OpenAPI specification
 
 The API reference generator reads `gen-apidocs/config/<version>/swagger.json`.
-The specification that `kubernetes/kubernetes` commits is built with the
-`OpenAPIEnums` feature gate turned off, so it omits the allowed values of
-enumerated fields, and a reference built from it omits them too.
+The specification that `kubernetes/kubernetes` commits omits the allowed values
+of enumerated fields, so a reference built from it omits them too.
 It's better to generate a reference that does list allowed values, so you
 take some additional steps to make that happen.
 
@@ -178,10 +177,9 @@ Choose one of the following two options.
 ## 获取 OpenAPI 规约 {#fetch-the-openapi-specification}
 
 API 参考文档生成器会读取 `gen-apidocs/config/<version>/swagger.json`。
-`kubernetes/kubernetes` 所提交的这份规约是在关闭 `OpenAPIEnums`
-特性门控的情况下构建的，因此它省略了枚举字段的允许取值，
-基于它构建的参考文档也会省略这些取值。更好的做法是生成一份确实列出了允许取值的参考文档，
-为此你需要额外执行一些步骤。
+`kubernetes/kubernetes` 所提交的这份规约省略了枚举字段的允许取值，
+基于它构建的参考文档也会省略这些取值。
+更好的做法是生成一份确实列出了允许取值的参考文档，为此你需要额外执行一些步骤。
 
 从下面两个选项中选一个。
 
@@ -203,17 +201,17 @@ make updateapispec-enums-from-source
 
 <!--
 The target shallow-clones `kubernetes/kubernetes` at tag `v$K8S_RELEASE` into a
-temporary directory, turns on `OpenAPIEnums=true` in that checkout only, runs the
-upstream `hack/update-openapi-spec.sh`, copies the resulting specification into
-the versioned configuration directory, checks that it contains enum values, and
-removes the checkout. Beyond the tools in the prerequisites, it needs:
+temporary directory, runs the upstream `hack/update-openapi-spec.sh` there with
+enum values kept, copies the resulting specification into the versioned
+configuration directory, checks that it contains enum values, and removes the
+checkout. Beyond the tools in the prerequisites, it needs:
 
 * `jq`, `curl`, and `openssl` on your `PATH`
 * network access, to clone the tag and to download Go modules and etcd
 * free TCP ports 2379 and 8050
 -->
 该目标会将 `kubernetes/kubernetes` 在标签 `v$K8S_RELEASE` 处浅克隆到一个临时目录，
-在这个检出中单独打开 `OpenAPIEnums=true`，运行上游的 `hack/update-openapi-spec.sh`，
+在该目录中保留枚举值运行上游的 `hack/update-openapi-spec.sh`，
 将生成的规约复制到带版本号的配置目录，检查其中是否包含枚举值，然后删除该检出。
 除前提条件中列出的工具外，它还需要：
 
@@ -266,35 +264,27 @@ git checkout "v$K8S_RELEASE"
 ```
 
 <!--
-Then set `OpenAPIEnums=true` in `hack/update-openapi-spec.sh` and run it to
-regenerate `api/openapi-spec/swagger.json`. This requires the tools and free
+Then run `hack/update-openapi-spec.sh` with `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`
+to regenerate `api/openapi-spec/swagger.json`. This requires the tools and free
 ports described in Option 1:
 -->
-然后在 `hack/update-openapi-spec.sh` 中设置 `OpenAPIEnums=true` 并运行它，
+然后以 `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true` 运行 `hack/update-openapi-spec.sh`，
 以重新生成 `api/openapi-spec/swagger.json`。
 这需要选项 1 中描述的工具和空闲端口：
 
 ```shell
-hack/update-openapi-spec.sh
+KUBE_OPENAPI_SPEC_KEEP_ENUMS=true hack/update-openapi-spec.sh
 ```
 
 {{< note >}}
 <!--
-Without `OpenAPIEnums=true`, the specification carries no enum values, and the
-published API reference omits the possible values of every enumerated field.
+Without `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`, the specification carries no enum
+values, and the published API reference omits the possible values of every
+enumerated field.
 -->
-如果不设置 `OpenAPIEnums=true`，规约中不会包含枚举值，
+如果不设置 `KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`，规约中不会包含枚举值，
 已发布的 API 参考文档也会省略每个枚举字段的可能取值。
 {{< /note >}}
-
-<!--
-After generation, restore the script:
--->
-生成完成后，恢复该脚本：
-
-```shell
-git checkout -- hack/update-openapi-spec.sh
-```
 
 <!--
 Copy the regenerated specification from your clone's working tree into the
@@ -308,6 +298,23 @@ with the path to your `reference-docs` clone:
 cd "<rdocs-base>"
 cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
   gen-apidocs/config/v{{< skew currentVersionAddMinor 1 "_" >}}/swagger.json
+```
+
+<!--
+After copying, restore the regenerated files in your clone. The script rewrote
+`swagger.json` and the OpenAPI v3 files under `api/openapi-spec/` with enum
+values kept, so they no longer match what `kubernetes/kubernetes` commits. You
+only need the copy you just made, and restoring the files leaves your clone
+clean, so you can switch back to your own branch:
+-->
+复制完成后，恢复你克隆中被重新生成的文件。该脚本在保留枚举值的情况下重写了
+`swagger.json` 以及 `api/openapi-spec/` 下的 OpenAPI v3 文件，
+因此它们不再与 `kubernetes/kubernetes` 所提交的内容一致。
+你只需要刚刚复制的那份；恢复这些文件会让你的克隆保持干净，
+这样你就可以切回自己的分支：
+
+```shell
+git -C "$K8S_ROOT" checkout -- api/openapi-spec
 ```
 
 <!--
@@ -906,11 +913,13 @@ Regenerated the kubectl reference for v{{< skew currentVersionAddMinor 1 >}}.0.
 <!--
 For the two API reference sets, add how you produced the OpenAPI specification,
 because the generated output does not show it: `generated from source with
-OpenAPIEnums=true`, or copied from a clone.
+make updateapispec-enums-from-source`, or `generated in a local clone with
+KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`.
 -->
 对于那两套 API 参考文档，还要补充你是如何生成 OpenAPI 规约的，
-因为生成的输出中不会体现这一点：`generated from source with OpenAPIEnums=true`，
-或者从某个克隆中复制而来。
+因为生成的输出中不会体现这一点：
+`generated from source with make updateapispec-enums-from-source`，
+或者 `generated in a local clone with KUBE_OPENAPI_SPEC_KEEP_ENUMS=true`。
 
 {{< caution >}}
 <!--
@@ -940,4 +949,5 @@ or in the generator instead.
 * [为 kubectl 命令生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubectl/)
 * [为指标生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/metrics-reference/)
 * [为上游 Kubernetes 代码库做出贡献](/zh-cn/docs/contribute/generate-ref-docs/contribute-upstream/)
-* `kubernetes/sig-release` 中的 [Docs 角色手册](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
+* `kubernetes/sig-release` 中的
+  [Docs 角色手册](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
