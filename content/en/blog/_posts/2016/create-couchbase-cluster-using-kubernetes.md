@@ -9,7 +9,7 @@ author: >
 
 [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source, distributed NoSQL document-oriented database. It exposes a fast key-value store with managed cache for submillisecond data operations, purpose-built indexers for fast queries and a query engine for executing SQL queries. For mobile and Internet of Things (IoT) environments, [Couchbase Lite](http://developer.couchbase.com/mobile) runs native on-device and manages sync to Couchbase Server.  
 
-Couchbase Server 4.5 was [recently announced](http://blog.couchbase.com/2016/june/announcing-couchbase-server-4.5), bringing [many new features](http://developer.couchbase.com/documentation/server/4.5/introduction/whats-new.html), including [production certified support for Docker](http://www.couchbase.com/press-releases/couchbase-announces-support-for-docker-containers). Couchbase is supported on a wide variety of orchestration frameworks for Docker containers, such as Kubernetes, Docker Swarm and Mesos, for full details visit [this page](http://couchbase.com/containers).    
+Couchbase Server 4.5 was [recently announced](http://blog.couchbase.com/2016/june/announcing-couchbase-server-4.5), bringing [many new features](https://docs.couchbase.com/server/current/introduction/whats-new.html), including [production certified support for Docker](http://www.couchbase.com/press-releases/couchbase-announces-support-for-docker-containers). Couchbase is supported on a wide variety of orchestration frameworks for Docker containers, such as Kubernetes, Docker Swarm and Mesos, for full details visit [this page](http://couchbase.com/containers).    
 
 This blog post will explain how to create a Couchbase cluster using Kubernetes. This setup is tested using Kubernetes 1.3.3, Amazon Web Services, and Couchbase 4.5 Enterprise Edition.  
 
@@ -37,7 +37,7 @@ In order to automate using Kubernetes, the cluster creation is split into a “m
 
 
 
-The master RC has only one replica and is also published as a Service. This provides a single reference point to start the cluster creation. By default services are visible only from inside the cluster. This service is also exposed as a load balancer. This allows the [Couchbase Web Console](http://developer.couchbase.com/documentation/server/current/admin/ui-intro.html) to be accessible from outside the cluster.
+The master RC has only one replica and is also published as a Service. This provides a single reference point to start the cluster creation. By default services are visible only from inside the cluster. This service is also exposed as a load balancer. This allows the [Couchbase Web Console](https://docs.couchbase.com/server/current/admin/ui-intro.html) to be accessible from outside the cluster.
 
 
 
@@ -101,7 +101,7 @@ spec:
 
 
 
-This configuration file creates a couchbase-master-rc Replication Controller. This RC has one replica of the pod created using the arungupta/couchbase:k8s image. This image is created using the Dockerfile [here](http://github.com/arun-gupta/couchbase-kubernetes/blob/master/cluster/Dockerfile). This Dockerfile uses a [configuration script](https://github.com/arun-gupta/couchbase-kubernetes/blob/master/cluster/configure-node.sh) to configure the base Couchbase Docker image. First, it uses [Couchbase REST API](http://developer.couchbase.com/documentation/server/current/rest-api/rest-endpoints-all.html) to setup memory quota, setup index, data and query services, security credentials, and loads a sample data bucket. Then, it invokes the appropriate [Couchbase CLI](http://developer.couchbase.com/documentation/server/current/cli/cbcli-intro.html) commands to add the Couchbase node to the cluster or add the node and rebalance the cluster. This is based upon three environment variables:
+This configuration file creates a couchbase-master-rc Replication Controller. This RC has one replica of the pod created using the arungupta/couchbase:k8s image. This image is created using the Dockerfile [here](http://github.com/arun-gupta/couchbase-kubernetes/blob/master/cluster/Dockerfile). This Dockerfile uses a [configuration script](https://github.com/arun-gupta/couchbase-kubernetes/blob/master/cluster/configure-node.sh) to configure the base Couchbase Docker image. First, it uses [Couchbase REST API](https://docs.couchbase.com/server/current/rest-api/rest-endpoints-all.html) to setup memory quota, setup index, data and query services, security credentials, and loads a sample data bucket. Then, it invokes the appropriate [Couchbase CLI](https://docs.couchbase.com/server/current/cli/cbcli-intro.html) commands to add the Couchbase node to the cluster or add the node and rebalance the cluster. This is based upon three environment variables:
 
 - TYPE: Defines whether the joining pod is worker or master
 - AUTO\_REBALANCE: Defines whether the cluster needs to be rebalanced
@@ -402,9 +402,9 @@ Once all the nodes are rebalanced, Couchbase cluster is ready to serve your requ
 
 
 
-In addition to creating a cluster, Couchbase Server supports a range of [high availability and disaster recovery](http://developer.couchbase.com/documentation/server/current/ha-dr/ha-dr-intro.html) (HA/DR) strategies. Most HA/DR strategies rely on a multi-pronged approach of maximizing availability, increasing redundancy within and across data centers, and performing regular backups.  
+In addition to creating a cluster, Couchbase Server supports a range of [high availability and disaster recovery](https://docs.couchbase.com/server/current/ha-dr/ha-dr-intro.html) (HA/DR) strategies. Most HA/DR strategies rely on a multi-pronged approach of maximizing availability, increasing redundancy within and across data centers, and performing regular backups.  
 
-Now that your Couchbase cluster is ready, you can run your first [sample application](http://developer.couchbase.com/documentation/server/current/travel-app/index.html).  
+Now that your Couchbase cluster is ready, you can run your first [sample application](https://docs.couchbase.com/server/current/travel-app/index.html).  
 
 For further information check out the Couchbase [Developer Portal](http://developer.couchbase.com/server) and [Forums](https://forums.couchbase.com/), or see questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/couchbase).  
 
