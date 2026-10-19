@@ -114,7 +114,7 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 
-* Aprende más sobre [variables de entorno de contenedores](/docs/concepts/containers/container-environment-variables/).
+* Aprende más sobre el [entorno del contenedor](/docs/concepts/containers/container-environment/).
 * Practica
   [adjuntando controladores a los eventos de lifecycle de los contenedores](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
