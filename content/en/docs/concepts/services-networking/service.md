@@ -1004,7 +1004,7 @@ You can find more information about `ExternalName` resolution in
 
 ## Virtual IP addressing mechanism
 
-Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/) explains the
+[Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/) explains the
 mechanism Kubernetes provides to expose a Service with a virtual IP address.
 
 ### Traffic policies
