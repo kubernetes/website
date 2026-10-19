@@ -12,7 +12,11 @@ stages:
     toVersion: "1.32"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.33"  
-
+    fromVersion: "1.33"
+    toVersion: "1.37"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 This gate is used to restrict the audience for which the kubelet can request a service account token for. 
