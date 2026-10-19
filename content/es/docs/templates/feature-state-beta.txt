@@ -1,0 +1,9 @@
+La funcionalidad está actualmente en *beta*:
+
+* El nombre de la versión contiene beta (por ejemplo, v2beta3)
+* El código está bien testeado y la funcionalidad se puede habilitar de forma segura. Se encuentra habilitada por defecto.
+* Se mantendrá el soporte sobre esta nueva funcionalidad, aunque algunos detalles pueden cambiar.
+* El esquema o la semántica de los objetos puede cambiar rompiendo la compatibilidad en futuras versiones. Cuando esto ocurre, se proporcionarán instrucciones para migrar a la siguiente versión. La migración puede implicar el borrado, edición o recreación de algunos objetos de la API. Este proceso puede conllevar la necesidad de planificar el cambio para aplicarlo de forma controlada y puede suponer una afectación del servicio en aplicaciones que utilicen la nueva funcionalidad.
+* Recomendado para usos que no sean críticos dado el riesgo de incompatibilidad con futuras versiones. Si tienes más de un clúster que puedas actualizar de forma independiente, se podría llegar a aplicar el proceso de migración sin que haya una pérdida de servicio.
+
+* **Por favor, prueba las funcionalidades en beta y reporta tu experiencia! Una vez salen de Beta, es posible que sea más difícil cambiar el comportamiento de la funcionalidad. **

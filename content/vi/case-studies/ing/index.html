@@ -1,0 +1,78 @@
+---
+title: ING Case Study
+linkTitle: ING
+case_study_styles: true
+cid: caseStudies
+weight: 50
+featured: true
+quote: >
+  The big cloud native promise to our business is the ability to go from idea to production within 48 hours. We are some years away from this, but that's quite feasible to us.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ing/banner1.jpg
+heading_title_logo: /images/ing_logo.png
+subheading: >
+  Driving Banking Innovation with Cloud Native
+case_study_details:
+  - Company: ING
+  - Location: Amsterdam, Netherlands
+  - Industry: Finance
+---
+
+<h2>Challenge</h2>
+
+<p>After undergoing an agile transformation, <a href="https://www.ing.com/">ING</a> realized it needed a standardized platform to support the work their developers were doing. "Our DevOps teams got empowered to be autonomous," says Infrastructure Architect Thijs Ebbers. "It has benefits; you get all kinds of ideas. But a lot of teams are going to devise the same wheel. Teams started tinkering with <a href="https://www.docker.com/">Docker</a>, Docker Swarm, <a href="https://kubernetes.io/">Kubernetes</a>, <a href="https://mesosphere.com/">Mesos</a>. Well, it's not really useful for a company to have one hundred wheels, instead of one good wheel.</p>
+
+<h2>Solution</h2>
+
+<p>Using Kubernetes for container orchestration and Docker for containerization, the ING team began building an internal public cloud for its CI/CD pipeline and green-field applications. The pipeline, which has been built on Mesos Marathon, will be migrated onto Kubernetes. The bank-account management app <a href="https://www.yolt.com/">Yolt</a> in the U.K. (and soon France and Italy) market already is live hosted on a Kubernetes framework. At least two greenfield projects currently on the Kubernetes framework will be going into production later this year. By the end of 2018, the company plans to have converted a number of APIs used in the banking customer experience to cloud native APIs and host these on the Kubernetes-based platform.</p>
+
+<h2>Impact</h2>
+
+<p>"Cloud native technologies are helping our speed, from getting an application to test to acceptance to production," says Infrastructure Architect Onno Van der Voort. "If you walk around ING now, you see all these DevOps teams, doing stand-ups, demoing. They try to get new functionality out there really fast. We held a hackathon for one of our existing components and basically converted it to cloud native within 2.5 days, though of course the tail takes more time before code is fully production ready."</p>
+
+{{< case-studies/quote author="Thijs Ebbers, Infrastructure Architect, ING">}}
+"The big cloud native promise to our business is the ability to go from idea to production within 48 hours. We are some years away from this, but that's quite feasible to us."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+ING has long embraced innovation in banking, launching the internet-based ING Direct in 1997.
+{{< /case-studies/lead >}}
+
+<p>In that same spirit, the company underwent an agile transformation a few years ago. "Our DevOps teams got empowered to be autonomous," says Infrastructure Architect Thijs Ebbers. "It has benefits; you get all kinds of ideas. But a lot of teams are going to devise the same wheel. Teams started tinkering with Docker, Docker Swarm, Kubernetes, Mesos. Well, it's not really useful for a company to have one hundred wheels, instead of one good wheel."</p>
+
+<p>Looking to standardize the deployment process within the company's strict security guidelines, the team looked at several solutions and found that in the past year, "Kubernetes won the container management framework wars," says Ebbers. "We decided to standardize ING on a Kubernetes framework." Everything is run on premise due to banking regulations, he adds, but "we will be building an internal public cloud. We are trying to get on par with what public clouds are doing. That's one of the reasons we got Kubernetes."</p>
+
+<p>They also embraced Docker to address a major pain point in ING's CI/CD pipeline. Before containerization, "Every development team had to order a VM, and it was quite a heavy delivery model for them," says Infrastructure Architect Onno Van der Voort. "Another use case for containerization is when the application travels through the pipeline, they fire up Docker containers to do test work against the applications and after they've done the work, the containers get killed again."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ing/banner3.jpg"
+  author="Thijs Ebbers, Infrastructure Architect, ING"
+>}}
+"We decided to standardize ING on a Kubernetes framework." Everything is run on premise due to banking regulations, he adds, but "we will be building an internal public cloud. We are trying to get on par with what public clouds are doing. That's one of the reasons we got Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>Because of industry regulations, applications are only allowed to go through the pipeline, where compliance is enforced, rather than be deployed directly into a container. "We have to run the complete platform of services we need, many routing from different places," says Van der Voort. "We need this Kubernetes framework for deploying the containers, with all those components, monitoring, logging. It's complex." For that reason, ING has chosen to start on the <a href="https://www.openshift.org/">OpenShift Origin</a> Kubernetes distribution.</p>
+
+<p>Already, "cloud native technologies are helping our speed, from getting an application to test to acceptance to production," says Van der Voort. "If you walk around ING now, you see all these DevOps teams, doing stand-ups, demoing. They try to get new functionality out there really fast. We held a hackathon for one of our existing components and basically converted it to cloud native within 2.5 days, though of course the tail takes more time before code is fully production ready."</p>
+
+<p>The pipeline, which has been built on Mesos Marathon, will be migrated onto Kubernetes. Some legacy applications are also being rewritten as cloud native in order to run on the framework. At least two smaller greenfield projects built on Kubernetes will go into production this year. By the end of 2018, the company plans to have converted a number of APIs used in the banking customer experience to cloud native APIs and host these on the Kubernetes-based platform.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ing/banner4.jpg"
+  author="Onno Van der Voort,  Infrastructure Architect, ING"
+>}}
+"We have to run the complete platform of services we need, many routing from different places. We need this Kubernetes framework for deploying the containers, with all those components, monitoring, logging. It's complex."
+{{< /case-studies/quote >}}
+
+<p>The team, however, doesn't see the bank's back-end systems going onto the Kubernetes platform. "Our philosophy is it only makes sense to move things to cloud if they are cloud native," says Van der Voort. "If you have traditional architecture, build traditional patterns, it doesn't hold any value to go to the cloud." Adds Cloud Platform Architect Alfonso Fernandez-Barandiaran: "ING has a strategy about where we will go, in order to improve our agility. So it's not about how cool this technology is, it's about finding the right technology and the right approach."</p>
+
+<p>The Kubernetes framework will be hosting some greenfield projects that are high priority for ING: applications the company is developing in response to <a href="https://ec.europa.eu/info/law/payment-services-psd-2-directive-eu-2015-2366_en">PSD2</a>, the European Commission directive requiring more innovative online and mobile payments that went into effect at the beginning of 2018. For example, a bank-account management app called <a href="https://www.yolt.com/">Yolt</a>, serving the U.K. market (and soon France and Italy), was built on a Kubernetes platform and has gone into production. ING is also developing blockchain-enabled applications that will live on the Kubernetes platform. "We've been contacted by a lot of development teams that have ideas with what they want to do with containers," says Ebbers.</p>
+
+{{< case-studies/quote author="Alfonso Fernandez-Barandiaran, Cloud Platform Architect, ING" >}}
+Even with the particular requirements that come in banking, ING has managed to take a lead in technology and innovation. "Every time we have constraints, we look for maybe a better way that we can use this technology."
+{{< /case-studies/quote >}}
+
+<p>Even with the particular requirements that come in banking, ING has managed to take a lead in technology and innovation. "Every time we have constraints, we look for maybe a better way that we can use this technology," says Fernandez-Barandiaran.</p>
+
+<p>The results, after all, are worth the effort. "The big cloud native promise to our business is the ability to go from idea to production within 48 hours," says Ebbers. "That would require all these projects to be mature. We are some years away from this, but that's quite feasible to us."</p>

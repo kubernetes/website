@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+spec:
+  parallelism: 10
+  completions: 10
+  completionMode: Indexed # Required for the success policy
+  successPolicy:
+    rules:
+      - succeededIndexes: 0,2-3
+        succeededCount: 1
+  template:
+    spec:
+      containers:
+      - name: main
+        image: python
+        command:          # Provided that at least one of the Pods with 0, 2, and 3 indexes has succeeded,
+                          # the overall Job is a success.
+          - python3
+          - -c
+          - |
+            import os, sys
+            if os.environ.get("JOB_COMPLETION_INDEX") == "2":
+              sys.exit(0)
+            else:
+              sys.exit(1)

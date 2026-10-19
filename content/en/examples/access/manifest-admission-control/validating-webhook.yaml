@@ -1,0 +1,21 @@
+# This is an example ValidatingWebhookConfiguration that calls an external
+# URL-based webhook endpoint to validate pod creation and updates.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "example-security-webhook.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Validate pod creation and updates via external webhook"
+webhooks:
+- name: "security.platform.example.com"
+  clientConfig:
+    url: "https://security-webhook.platform.example.com:443/validate"
+    caBundle: "<base64-encoded-CA-bundle>"
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["CREATE", "UPDATE"]
+    resources: ["pods"]
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Fail

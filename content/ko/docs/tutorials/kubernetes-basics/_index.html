@@ -1,0 +1,115 @@
+---
+title: 쿠버네티스 기초 학습
+linkTitle: 쿠버네티스 기초 학습
+no_list: true
+weight: 10
+card:
+  name: tutorials
+  weight: 20
+  title: 쿠버네티스 기초 학습
+---
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<body>
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>쿠버네티스 기초</h2>
+        <p>이 튜토리얼에서는 쿠버네티스 클러스터 오케스트레이션 시스템의 기초를 익힐 수 있는 가이드를 제공한다. 각각의 모듈에는 쿠버네티스의 주요 기능과 개념에 대한 배경 지식이 담겨 있으며 대화형 온라인 튜토리얼도 포함되어 있다. 대화형 튜토리얼에서 간단한 클러스터와 그 클러스터 상의 컨테이너화 된 애플리케이션을 직접 관리해볼 수 있다.</p>
+        <p>대화형 튜토리얼을 사용해서 다음의 내용을 배울 수 있다.</p>
+        <ul>
+        <li>컨테이너화된 애플리케이션을 클러스터에 배포하기.</li>
+        <li>디플로이먼트를 스케일링하기.</li>
+        <li>컨테이너화된 애플리케이션을 새로운 소프트웨어 버전으로 업데이트하기.</li>
+        <li>컨테이너화된 애플리케이션을 디버그하기.</li>
+        </ul>
+        <p>이 튜토리얼에서는 Katacoda를 사용해서 독자의 웹브라우저에서 Minikube가 동작하는 가상 터미널을 구동시킨다. Minikube는 로컬에 설치할 수 있는 작은 규모의 쿠버네티스로써 어디에서든 작동된다. 어떤 소프트웨어도 설치할 필요가 없고, 아무 것도 설정할 필요가 없다. 왜냐하면 대화형 튜토리얼이 웹브라우저 자체에서 바로 동작하기 때문이다.</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>쿠버네티스가 어떤 도움이 될까?</h2>
+        <p>오늘날의 웹서비스에 대해서, 사용자는 애플리케이션이 24/7 가용하기를 바라고, 개발자는 하루에도 몇 번이고 새로운 버전의 애플리케이션을 배포하기를 바란다. 컨테이너화를 통해 소프트웨어를 패키지하면 애플리케이션을 다운타임 없이 릴리스 및 업데이트할 수 있게 되어서 이런 목표를 달성하는데 도움이 된다. 쿠버네티스는 이렇게 컨테이너화된 애플리케이션을 원하는 곳 어디에든 또 언제든 구동시킬 수 있다는 확신을 갖는데 도움을 주며, 그 애플리케이션이 작동하는데 필요한 자원과 도구를 찾는 것을 도와준다. 쿠버네티스는 구글의 컨테이너 오케스트레이션 부문의 축적된 경험으로 설계되고 커뮤니티로부터 도출된 최고의 아이디어가 결합된 운영 수준의 오픈 소스 플랫폼이다.</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div id="basics-modules" class="content__modules">
+      <h2>쿠버네티스 기초 모듈</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. 쿠버네티스 클러스터 생성하기</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>2. 애플리케이션 배포하기</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. 앱 조사하기</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/expose/expose-intro/"><h5>4. 앱 외부로 노출하기</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/scale/scale-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/scale/scale-intro/"><h5>5. 애플리케이션 스케일링하기</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ko/docs/tutorials/kubernetes-basics/update/update-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ko/docs/tutorials/kubernetes-basics/update/update-intro/"><h5>6. 앱 업데이트하기</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

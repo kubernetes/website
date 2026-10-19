@@ -1,0 +1,3 @@
+[submodule "api-ref-generator"]
+	path = api-ref-generator
+	url = https://github.com/kubernetes-sigs/reference-docs

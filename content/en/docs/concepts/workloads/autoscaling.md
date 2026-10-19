@@ -1,0 +1,128 @@
+---
+title: Autoscaling Workloads
+description: >-
+  With autoscaling, you can automatically update your workloads in one way or another. This allows your cluster to react to changes in resource demand more elastically and efficiently.
+content_type: concept
+weight: 50
+---
+
+<!-- overview -->
+
+In Kubernetes, you can _scale_ a workload depending on the current demand of resources.
+This allows your cluster to react to changes in resource demand more elastically and efficiently.
+
+When you scale a workload, you can either increase or decrease the number of replicas managed by
+the workload, or adjust the resources available to the replicas in-place.
+
+The first approach is referred to as _horizontal scaling_, while the second is referred to as
+_vertical scaling_.
+
+There are manual and automatic ways to scale your workloads, depending on your use case.
+
+<!-- body -->
+
+## Scaling workloads manually
+
+Kubernetes supports _manual scaling_ of workloads. Horizontal scaling can be done
+using the `kubectl` CLI.
+For vertical scaling, you need to _patch_ the resource definition of your workload.
+
+See below for examples of both strategies.
+
+- **Horizontal scaling**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **Vertical scaling**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
+
+## Scaling workloads automatically
+
+Kubernetes also supports _automatic scaling_ of workloads, which is the focus of this page.
+
+The concept of _Autoscaling_ in Kubernetes refers to the ability to automatically update an
+object that manages a set of Pods (for example a
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}).
+
+### Scaling workloads horizontally
+
+In Kubernetes, you can automatically scale a workload horizontally using a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (HPA).
+
+It is implemented as a Kubernetes API resource and a {{< glossary_tooltip text="controller" term_id="controller" >}}
+and periodically adjusts the number of {{< glossary_tooltip text="replicas" term_id="replica" >}}
+in a workload to match observed resource utilization such as CPU or memory usage.
+
+There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
+
+### Scaling workloads vertically
+
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
+
+You can automatically scale a workload vertically using a [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) (VPA).
+Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a an add-on that you or a cluster administrator may need to deploy before you can use it.
+
+Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
+(CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
+
+{{< note >}}
+You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+installed to your cluster for the VPA to work.
+{{< /note >}}
+
+#### In-place pod vertical scaling
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+As of Kubernetes {{< skew currentVersion >}}, VPA does not support resizing pods in-place,
+but this integration is being worked on.
+For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+### Autoscaling based on cluster size
+
+For workloads that need to be scaled based on the size of the cluster (for example
+`cluster-dns` or other system components), you can use the
+[_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
+Just like the VPA, it is not part of the Kubernetes core, but hosted as its
+own project on GitHub.
+
+The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
+and cores and scales the number of replicas of the target workload accordingly.
+
+If the number of replicas should stay the same, you can scale your workloads vertically according to the cluster size using
+the [_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler).
+The project is **currently in beta** and can be found on GitHub.
+
+While the Cluster Proportional Autoscaler scales the number of replicas of a workload,
+the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
+(for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
+
+### Event driven Autoscaling
+
+It is also possible to scale workloads based on events, for example using the
+[_Kubernetes Event Driven Autoscaler_ (**KEDA**)](https://keda.sh/).
+
+KEDA is a CNCF-graduated project enabling you to scale your workloads based on the number
+of events to be processed, for example the amount of messages in a queue. There exists
+a wide range of adapters for different event sources to choose from.
+
+### Autoscaling based on schedules
+
+Another strategy for scaling your workloads is to **schedule** the scaling operations, for example in order to
+reduce resource consumption during off-peak hours.
+
+Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/).
+The `Cron` scaler allows you to define schedules (and time zones) for scaling your workloads in or out.
+
+## Scaling cluster infrastructure
+
+If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
+
+Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
+Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
+for more information.
+
+## {{% heading "whatsnext" %}}
+
+- Learn more about scaling horizontally
+  - [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/)
+  - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
+- [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- Learn about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)

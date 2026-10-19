@@ -1,0 +1,85 @@
+{{ range $releaseInfo := .Site.Data.releases.schedule.schedules }}
+{{- $version := printf "%s" $releaseInfo.release -}}
+{{- $dataIdVersion := replace ( printf "%s" $releaseInfo.release ) "." "-" | anchorize -}}
+
+<h3 id="{{ $dataIdVersion }}">{{ $version }}</h3>
+<p>
+    {{- if gt (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate) (time.Format "2006-01-02" now) -}}
+    {{ printf (T "release_info_next_patch") $releaseInfo.next.release | markdownify }}
+    {{- end -}}
+</p>
+<p>
+    {{ $releaseInfo.next.note | markdownify }}
+</p>
+<p>
+  {{- $maintenance_mode_start_date :=
+      ( printf "<time datetime=%s title=\"%s\">%s</time>"
+        (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate)
+        (time.Format ":date_full" $releaseInfo.maintenanceModeStartDate)
+        (time.Format ":date_medium" $releaseInfo.maintenanceModeStartDate)
+      ) | safeHTML -}}
+  {{- $release_eol_date :=
+      ( printf "<time datetime=%s title=\"%s\">%s</time>"
+        (time.Format "2006-01-02" $releaseInfo.endOfLifeDate)
+        (time.Format ":date_full" $releaseInfo.endOfLifeDate)
+        (time.Format ":date_medium" $releaseInfo.endOfLifeDate)
+      ) | safeHTML -}}
+  {{- if eq (T "release_info_eol") "" -}}
+    {{- if gt (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate) (time.Format "2006-01-02" now) -}}
+      {{- T "release_maintenance_and_end_of_life_details_current" (dict "minor_version" $version "maintenance_mode_start_date" $maintenance_mode_start_date "release_eol_date" $release_eol_date ) | markdownify -}}
+    {{- else -}}
+      {{- T "release_maintenance_and_end_of_life_details_past" (dict "minor_version" $version "maintenance_mode_start_date" $maintenance_mode_start_date "release_eol_date" $release_eol_date ) | markdownify -}}
+    {{- end -}}
+  {{- else -}}
+    <!-- use legacy localization approach -->
+    {{- printf (T "release_info_eol")
+        $version
+        $maintenance_mode_start_date
+        $release_eol_date
+      | markdownify -}}
+      {{- end -}}
+      </date>
+</p>
+{{ if $releaseInfo.previousPatches }}
+<div>
+    <table class="release-maintained-version table table-striped col-md-8">
+        <thead class="thead">
+            <tr>
+                <th class="col-md-2">{{ T "patch_release" }}</th>
+                <th class="col-md-2">{{ T "release_cherry_pick_deadline" }}</th>
+                <th class="col-md-2">{{ T "release_target_date" }}</th>
+                <th class="col-md-4">{{ T "release_note" }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $patchReleaseInfo := $releaseInfo.previousPatches }}
+            <tr>
+                <td>
+                    {{ $patchReleaseInfo.release }}
+                </td>
+                {{- with $patchReleaseInfo.cherryPickDeadline -}}
+                <td>
+                  <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" . }}>{{ time.Format ( T "release_date_format" ) . }}</time>
+                </td>
+                {{- else -}}
+                  <td class="value-not-applicable">-</td>
+                {{- end -}}
+                {{- with $patchReleaseInfo.targetDate -}}
+                <td>
+                    <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" .}}>{{ time.Format ( T "release_date_format") . }}</time>
+                    </time>
+                </td>
+                {{- else -}}
+                  <td class="value-not-applicable">-</td>
+                {{- end -}}
+                </td>
+                <td lang="en-US">
+                    {{ $patchReleaseInfo.note | markdownify }}
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+{{ end }}

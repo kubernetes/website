@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg2" inkscape:export-filename="/usr/local/google/home/thockin/src/kubernetes/docs/services_overview.png" inkscape:export-xdpi="76.910004" inkscape:export-ydpi="76.910004" inkscape:version="0.48.3.1 r9886" sodipodi:docname="services_detail.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 700.7 541.4"
+	 style="enable-background:new 0 0 700.7 541.4;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#000000;stroke-width:2.8222;}
+	.st1{stroke:#000000;stroke-width:2.8222;stroke-linecap:round;}
+	.st2{fill:none;stroke:#000000;stroke-width:3;}
+	.st3{fill:none;stroke:#000000;stroke-width:2.5757;}
+	.st4{stroke:#000000;stroke-width:2.5757;stroke-linecap:round;}
+	.st5{fill:none;stroke:#000000;stroke-width:3.2734;}
+	.st6{stroke:#000000;stroke-width:3.2734;stroke-linecap:round;}
+	.st7{fill:#85BFF1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st8{font-family:'ArialMT';}
+	.st9{font-size:29.9318px;}
+	.st10{font-size:22.4488px;}
+	.st11{fill:#F1CB85;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st12{fill:#EDEDED;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st13{font-size:20.5781px;}
+	.st14{fill:#B9F185;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st15{fill:#EDC1F8;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" id="base" inkscape:current-layer="layer1" inkscape:cx="436.19361" inkscape:cy="503.28586" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="848" inkscape:window-maximized="0" inkscape:window-width="1228" inkscape:window-x="364" inkscape:window-y="24" inkscape:zoom="0.99604166" pagecolor="#ffffff" showgrid="false">
+	</sodipodi:namedview>
+<g id="layer1" inkscape:groupmode="layer" inkscape:label="Layer 1">
+	<g id="g4178-3-98" transform="matrix(1,0,0,-1.1300076,-23.256225,1365.3668)">
+		<path id="path4174-3-7" inkscape:connector-curvature="0" class="st0" d="M344.3,995.1c0-66.7,0-66.7,0-66.7"/>
+		
+			<path id="path4176-9-8" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st1" d="
+			M336.5,937.1l8.1-14l8.1,14H336.5z"/>
+	</g>
+	<g id="g4324">
+		<path id="path4174-3-2" inkscape:connector-curvature="0" class="st2" d="M345.9,229.9c-95.4-106.4-95.4-106.4-95.4-106.4"/>
+		
+			<path id="path4176-9-9" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st1" d="
+			M243.9,129.9l-4.5-17.2l16.6,6.4L243.9,129.9z"/>
+	</g>
+	<g id="g4324-8" transform="matrix(-1,0,0,1,718.68427,0.32076964)">
+		<path id="path4174-3-2-7" inkscape:connector-curvature="0" class="st2" d="M337.4,229.8C242,123.4,242,123.4,242,123.4"/>
+		
+			<path id="path4176-9-9-3" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st1" d="
+			M235.5,129.9l-4.5-17.2l16.6,6.4L235.5,129.9z"/>
+	</g>
+	<g id="g4178-3-9" transform="matrix(1,0,0,1.3566066,10.430689,-549.99231)">
+		<path id="path4174-3-8" inkscape:connector-curvature="0" class="st3" d="M342.1,561.9c0-66.7,0-66.7,0-66.7"/>
+		
+			<path id="path4176-9-5" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st4" d="
+			M334.3,503.9l8.1-14l8.1,14H334.3z"/>
+	</g>
+	<g id="g4178" transform="matrix(1,0,0,0.83995083,5.8686441,145.11325)">
+		<path id="path4174" inkscape:connector-curvature="0" class="st5" d="M342.4,417.8c0-66.7,0-66.7,0-66.7"/>
+		
+			<path id="path4176" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st6" d="
+			M334.6,359.8l8.1-14l8.1,14H334.6z"/>
+	</g>
+	<g id="g3937" transform="translate(-27.782873,191.54649)">
+		<g id="g3868" transform="translate(0,6.5250001e-6)">
+			<rect id="rect2985" x="57.3" y="-190.5" class="st7" width="209.8" height="110.9"/>
+			<g id="g3861">
+				<text transform="matrix(1 0 0 1 63.6257 -161.599)" class="st8 st9">Backend Pod 1</text>
+				<text transform="matrix(1 0 0 1 64.03 -125.0369)" class="st8 st10">labels: app=MyApp</text>
+				<text transform="matrix(1 0 0 1 64.03 -96.9759)" class="st8 st10">port: 9376</text>
+			</g>
+		</g>
+		<g id="g3868-7" transform="translate(246.07142,6.5250001e-6)">
+			<rect id="rect2985-1" x="41.4" y="-190.5" class="st7" width="209.8" height="110.9"/>
+			<g id="g3861-9">
+				<text transform="matrix(1 0 0 1 47.7218 -161.599)" class="st8 st9">Backend Pod 2</text>
+				<text transform="matrix(1 0 0 1 48.1256 -125.0369)" class="st8 st10">labels: app=MyApp</text>
+				<text transform="matrix(1 0 0 1 48.1256 -96.9759)" class="st8 st10">port: 9376</text>
+			</g>
+		</g>
+		<g id="g3868-3" transform="translate(492.14285,6.5250001e-6)">
+			<rect id="rect2985-2" x="25.5" y="-190.5" class="st7" width="209.8" height="110.9"/>
+			<g id="g3861-3">
+				<text transform="matrix(1 0 0 1 31.8173 -161.599)" class="st8 st9">Backend Pod 3</text>
+				<text transform="matrix(1 0 0 1 32.2216 -125.0369)" class="st8 st10">labels: app=MyApp</text>
+				<text transform="matrix(1 0 0 1 32.2216 -96.9759)" class="st8 st10">port: 9376</text>
+			</g>
+		</g>
+	</g>
+	<g id="g4178-3-4" transform="matrix(-0.5569815,0.8305249,-0.93849945,-0.62939332,1043.1434,624.89979)">
+		<path id="path4174-3-9" inkscape:connector-curvature="0" class="st0" d="M108.7,874.1c0-66.7,0-66.7,0-66.7"/>
+		
+			<path id="path4176-9-1" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st1" d="
+			M100.9,816.1l8.1-14l8.1,14H100.9z"/>
+	</g>
+	<g id="g4178-3" transform="matrix(1,0,0,1.1300076,19.868644,-230.41621)">
+		<path id="path4174-3" inkscape:connector-curvature="0" class="st0" d="M341.5,514.1c0-66.7,0-66.7,0-66.7"/>
+		
+			<path id="path4176-9" inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-y="-2.5" sodipodi:arg1="2.6179939" sodipodi:arg2="3.6651914" sodipodi:cx="308.85715" sodipodi:cy="753.79077" sodipodi:r1="10" sodipodi:r2="5" sodipodi:sides="3" sodipodi:type="star" class="st1" d="
+			M333.7,456.1l8.1-14l8.1,14H333.7z"/>
+	</g>
+	<g id="g4090" transform="translate(9.4642913,66)">
+		<rect id="rect2985-4" x="234.3" y="419.6" class="st11" width="209.8" height="54.8"/>
+		<g id="g3861-6" transform="translate(249.2817,652.74516)">
+			<text transform="matrix(1 0 0 1 45.1066 -195.6731)" class="st8 st9">Client</text>
+		</g>
+	</g>
+	<g id="g4114" transform="translate(24.285715,159.42857)">
+		<path id="path4096" inkscape:connector-curvature="0" class="st12" d="M290.5,164.8c-22.1,0-40.1,10.8-40.1,24.1
+			c0,1.6,0.3,3.1,0.8,4.6c-5.4-1.5-11.3-2.3-17.5-2.3c-26.2,0-47.4,14.9-47.4,33.3s21.2,33.3,47.4,33.3c9.1,0,17.6-1.8,24.8-4.9
+			c10,12.4,32.8,21,59.4,21c21.6,0,40.8-5.7,52.6-14.5c11.4,6.1,27.9,9.9,46.3,9.9c34.3,0,62.1-13.4,62.1-29.8
+			c0-16.5-27.8-29.9-62.1-29.9c-0.6,0-1.2,0-1.7,0c0.7-1.7,1.1-3.4,1.1-5.2c0-14.9-25.1-27-56.1-27c-11.5,0-22.2,1.7-31.1,4.5
+			C323.8,172.1,308.6,164.8,290.5,164.8L290.5,164.8z"/>
+		<text transform="matrix(1 0 0 1 278.8394 228.9413)" class="st8 st13">iptables</text>
+	</g>
+	<g id="g4168" transform="translate(167.67856,-111.42858)">
+		<rect id="rect2985-4-0" x="64" y="322.9" class="st14" width="233.8" height="54.8"/>
+		<g id="g3861-6-2" transform="translate(58.491433,534.63087)">
+			<text transform="matrix(1 0 0 1 47.2124 -176.5711)" class="st8 st9">kube-proxy</text>
+		</g>
+	</g>
+	<g id="g4168-5" transform="translate(-102.23193,-119.15421)">
+		<g id="g4238" transform="translate(22.087429,-86.34177)">
+			<rect id="rect2985-4-0-6" x="81.1" y="328.9" class="st15" width="179.4" height="54.8"/>
+			<g id="g3861-6-2-6" transform="translate(39.107429,534.26287)">
+				<text transform="matrix(1 0 0 1 64.4825 -170.4678)" class="st8 st9">apiserver</text>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 358.6412 468.4314)" class="st8 st13">3) connect to 10.0.0.1:1234</text>
+	<text transform="matrix(1 0 0 1 384.6285 291.6892)" class="st8 st13">4) redirect to (random)</text>
+	<text transform="matrix(1 0 0 1 384.6285 317.4119)" class="st8 st13">proxy port</text>
+	<text transform="matrix(1 0 0 1 16.7398 210.9715)" class="st8 st13">1) watch Services </text>
+	<text transform="matrix(1 0 0 1 16.7398 236.6941)" class="st8 st13">and Endpoints</text>
+	<text transform="matrix(1 0 0 1 77.585 286.0467)" class="st8 st13">2) open proxy port </text>
+	<text transform="matrix(1 0 0 1 77.585 311.7693)" class="st8 st13">and set portal rules</text>
+	<text transform="matrix(1 0 0 1 449.0054 178.3894)" class="st8 st13">5) proxy to a backend</text>
+</g>
+</svg>

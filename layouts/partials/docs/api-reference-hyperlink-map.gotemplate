@@ -1,0 +1,29 @@
+{{- $base := . -}}
+{{- $sectionsForBase := $base.Sections -}}
+
+
+{{- $regularPagesWithApiReferenceLinks := where $base.RegularPages "Params.api_metadata" "ne" nil -}}
+
+{{- $sectionsWithApiReferenceFrontMatter := slice -}}
+{{- range $sectionsForBase.ByWeight -}}
+   {{- if and .IsSection (.Page.Params.api_metadata) -}}
+     {{- $sectionsWithApiReferenceFrontMatter = $sectionsWithApiReferenceFrontMatter | collections.Append . -}}
+   {{- end -}}
+{{- end -}}
+
+{{- $childPagesWithApiReferenceFrontMatter := slice -}}
+{{- $specificMatchedChildren := slice -}}
+{{- range $sectionsForBase.ByWeight -}}
+  {{ $specificMatchedChildren = partial "docs/api-reference-hyperlink-map.gotemplate" .Page }}
+  {{ $childPagesWithApiReferenceFrontMatter = $childPagesWithApiReferenceFrontMatter | collections.Append $specificMatchedChildren }}
+{{- end -}}
+
+
+{{- $pagesWithApiReferenceFrontMatter := slice -}}
+{{- range $sectionsWithApiReferenceFrontMatter -}}
+  {{- $pagesWithApiReferenceFrontMatter = $pagesWithApiReferenceFrontMatter | collections.Append .Page -}}
+{{- end -}}
+{{- $pagesWithApiReferenceFrontMatter = $pagesWithApiReferenceFrontMatter | collections.Append $childPagesWithApiReferenceFrontMatter -}}
+{{- $pagesWithApiReferenceFrontMatter = $pagesWithApiReferenceFrontMatter | collections.Append $regularPagesWithApiReferenceLinks -}}
+
+{{- return $pagesWithApiReferenceFrontMatter -}}

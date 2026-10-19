@@ -1,0 +1,7 @@
+<div class="col-md-8">
+    <div id="{{ .Get "id" | default "myCarousel" }}" class="carousel" data-ride="carousel" data-interval="{{ .Get "interval" | default "3000" }}">
+        <div class="carousel-inner" role="listbox">
+            {{ .Inner }}
+        </div>
+    </div>
+</div>

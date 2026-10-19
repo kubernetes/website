@@ -1,0 +1,17 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Polish.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+filters:
+  "\\.toml$":
+
+    reviewers:
+    - sig-docs-pl-reviews
+
+    approvers:
+    - sig-docs-pl-owners
+
+    labels:
+    - area/localization
+    - language/pl
