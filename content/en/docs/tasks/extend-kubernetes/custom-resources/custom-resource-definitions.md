@@ -99,7 +99,7 @@ CustomResourceDefinition object you created above.
 It might take a few seconds for the endpoint to be created.
 Once the `Established` condition of your CustomResourceDefinition
 becomes true and this is observed by the handling code, the endpoint serving starts.
-Watching the [discovery information of the API server](../../../../concepts/overview/kubernetes-api/#discovery-api) for your
+Watching the [discovery information of the API server](/docs/concepts/overview/kubernetes-api/#discovery-api) for your
 resource to show up is the reliable way to determine if it is ready for use.
 
 ## Create custom objects
