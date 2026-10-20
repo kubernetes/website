@@ -177,6 +177,10 @@ data.
 When you use `kubectl` to query a Pod with a container that is `Waiting`, you also see
 a Reason field to summarize why the container is in that state.
 
+If you add a container to a running Pod using
+[dynamic containers](/docs/concepts/workloads/pods/dynamic-containers/), the container is
+`Waiting` with the reason `Unallocated` until the kubelet allocates it.
+
 ### `Running` {#container-state-running}
 
 The `Running` status indicates that a container is executing without issues. If there

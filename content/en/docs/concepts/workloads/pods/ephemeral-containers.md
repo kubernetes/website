@@ -52,6 +52,9 @@ possible to add an ephemeral container using `kubectl edit`.
 Like regular containers, you may not change or remove an ephemeral container
 after you have added it to a Pod.
 
+To add or remove app containers in a running Pod, see
+[Dynamic Containers](/docs/concepts/workloads/pods/dynamic-containers/).
+
 {{< note >}}
 Ephemeral containers are not supported by [static pods](/docs/tasks/configure-pod-container/static-pod/).
 {{< /note >}}

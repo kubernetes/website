@@ -264,6 +264,9 @@ The above update rules apply to regular pod updates, but other pod fields can be
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to be added to a Pod.
   See [Ephemeral Containers](/docs/concepts/workloads/pods/ephemeral-containers/) for more details.
+- **Dynamic:** The `dynamic` subresource allows app containers (`spec.containers`) to be added
+  to or removed from a running Pod, in addition to the changes allowed by a Pod update and by `resize`.
+  See [Dynamic Containers](/docs/concepts/workloads/pods/dynamic-containers/) for more details.
 - **Status:** The `status` subresource allows the pod status to be updated.
   This is typically only used by the Kubelet and other system controllers.
 - **Binding:** The `binding` subresource allows setting the pod's `spec.nodeName` via a `Binding` request.
