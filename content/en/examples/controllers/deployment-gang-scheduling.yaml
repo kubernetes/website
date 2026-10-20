@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-server
+  annotations:
+    kubernetes.io/description: "Inference service with gang-scheduled replicas in a single zone."
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  scheduling:
+    schedulingPolicy:
+      gang: {}                # minCount omitted → defaults to replica count (3)
+    schedulingConstraints:
+      topology:
+      - key: topology.kubernetes.io/zone
+    disruptionMode:
+      all: {}                 # the entire group is disrupted together
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: inference-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: inference-server
+    spec:
+      containers:
+      - name: server
+        image: inference-server:v1
+        resources:
+          limits:
+            example.com/gpu: 1
