@@ -173,7 +173,7 @@ And we get a response from the server. The Service is exposed.
 
 ### Step 2: Using labels
 
-The Deployment created automatically a label for our Pod. With the `describe deployment`
+The Deployment automatically created a label for our Pod. With the `describe deployment`
 subcommand you can see the name (the _key_) of that label:
 
 ```shell
