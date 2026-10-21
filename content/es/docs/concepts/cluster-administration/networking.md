@@ -77,9 +77,7 @@ hay una lista, no exhaustiva, de complementos de red compatibles con Kubernetes.
 
 ## {{% heading "whatsnext" %}}
 
-El diseño inicial del modelo de red y sus motivos se describen con más detalle
-en el [documento de diseño de redes](https://git.k8s.io/design-proposals-archive/network/networking.md).
-Para los planes futuros y el trabajo en curso que busca mejorar las redes de
-Kubernetes, consulta los
-[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network)
-de SIG-Network.
+El diseño inicial del modelo de red y sus motivos se describen con más detalle en el
+[documento de diseño de redes](https://git.k8s.io/design-proposals-archive/network/networking.md).
+Para planes futuros y algunas iniciativas en curso destinadas a mejorar las redes de Kubernetes, consulta los
+[KEPs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network) de SIG-Network.
