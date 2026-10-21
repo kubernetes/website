@@ -37,9 +37,8 @@ Para conocer el modelo de red de Kubernetes, consulta [esta página](/docs/conce
 
 ## Rangos de direcciones IP de Kubernetes
 
-Los clústeres de Kubernetes tienen que asignar direcciones IP que no se solapen
-a los Pods, los Services y los nodos, a partir de un rango de direcciones
-disponibles configurado en estos componentes:
+Los clústeres de Kubernetes tienen que asignar direcciones IP que no se solapen a los Pods, los Services y los nodos,
+a partir de un rango de direcciones disponibles configurado en estos componentes:
 
 - El plugin de red se configura para asignar direcciones IP a los Pods.
 - El kube-apiserver se configura para asignar direcciones IP a los Services.
