@@ -58,12 +58,10 @@ Según las familias de IP configuradas, un clúster de Kubernetes puede clasific
   - El kubelet o el cloud-controller-manager se configura para asignar direcciones IPv4 e IPv6.
   - Todos los componentes deben coincidir en la familia IP primaria configurada.
 
-Los clústeres de Kubernetes solo tienen en cuenta las familias de IP que
-aparecen en los objetos Pods, Services y Nodes, con independencia de las demás IP
-del objeto representado. Por ejemplo, un servidor o un Pod puede tener varias
-direcciones IP en sus interfaces, pero al implementar el modelo de red de
-Kubernetes y al definir el tipo de clúster solo cuentan las direcciones de
-`node.status.addresses` o `pod.status.ips`.
+Los clústeres de Kubernetes solo tienen en cuenta las familias de direcciones IP presentes en los objetos Pods, Services y Nodes,
+independientemente de las direcciones IP que tengan asignadas los objetos representados. Por ejemplo, un servidor o un pod puede tener varias
+direcciones IP asignadas a sus interfaces, pero solo se tienen en cuenta las direcciones IP de `node.status.addresses` o `pod.status.ips`
+al implementar el modelo de red de Kubernetes y definir el tipo de clúster.
 
 ## Cómo se implementa el modelo de red de Kubernetes
 
