@@ -65,13 +65,12 @@ al implementar el modelo de red de Kubernetes y definir el tipo de clúster.
 
 ## Cómo se implementa el modelo de red de Kubernetes
 
-En cada nodo, el modelo de red lo implementa el motor de ejecución de contenedores.
-Los motores de ejecución más habituales usan plugins de la
-[Container Network Interface](https://github.com/containernetworking/cni) (CNI)
-para gestionar la red y la seguridad. Hay muchos plugins CNI, de distintos
-proveedores. Algunos solo añaden y quitan interfaces de red. Otros ofrecen
-soluciones más elaboradas, como la integración con otros orquestadores, el uso
-de varios plugins CNI a la vez o funciones avanzadas de IPAM.
+EL modelo de red es implementado por el motor de ejecución de contenedores en cada nodo. Los motores de ejecución más habituales
+usan plugins de la [Container Network Interface](https://github.com/containernetworking/cni) (CNI)
+para gestionar las capacidades de red y seguridad. Hay muchos plugins CNI, de
+distintos proveedores. Algunos de ellos solo añaden capacidades basicas de agregar o quitar
+interfaces de red, mientras que otros ofrecen soluciones más elaboradas, como la integración con otros
+sistemas de orquestacion de contenedores, utilizando varios plugins CNI, funciones avanzadas de IPAM, etc.
 
 En [esta página](/docs/concepts/cluster-administration/addons/#redes-y-política-de-redes)
 hay una lista, no exhaustiva, de complementos de red compatibles con Kubernetes.
