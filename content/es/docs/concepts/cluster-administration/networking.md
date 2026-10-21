@@ -44,7 +44,7 @@ a partir de un rango de direcciones disponibles configurado en estos componentes
 - El kube-apiserver se configura para asignar direcciones IP a los Services.
 - El kubelet o el cloud-controller-manager se configura para asignar direcciones IP a los nodos.
 
-{{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="Figura que ilustra los distintos rangos de red en un clúster de Kubernetes" class="diagram-medium" >}}
+{{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="Una figura que ilustra los distintos rangos de red en un clúster de Kubernetes" class="diagram-medium" >}}
 
 ## Tipos de red del clúster {#cluster-network-ipfamilies}
 
