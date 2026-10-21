@@ -45,7 +45,9 @@ There are several different proxies you may encounter when using Kubernetes:
 
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
-    - acts as load balancer if there are several apiservers.
+    - acts as load balancer if there are several apiservers
+    - can optionally consume ORCA endpoint load metrics reported by `kube-apiserver` for
+      [weighted load balancing](/docs/concepts/cluster-administration/weighted-load-balancing/).
 
 1.  Cloud Load Balancers on external services:
 
