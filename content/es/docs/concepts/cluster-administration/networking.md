@@ -10,7 +10,9 @@ weight: 50
 
 Las redes son una parte central de Kubernetes, pero puede resultar difícil
 entender con exactitud cómo se espera que funcionen. Hay 4 problemas de red
-distintos que resolver:
+<!-- overview -->
+Las redes son una parte central de Kubernetes, pero puede resultar difícil
+entender con exactitud como se espera que funcionen. Hay 4 problemas de red
 
 1. Comunicaciones muy acopladas entre contenedores: esto lo resuelven los
    {{< glossary_tooltip text="Pods" term_id="pod" >}} y las comunicaciones por `localhost`.
