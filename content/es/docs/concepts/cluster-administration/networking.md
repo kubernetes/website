@@ -25,8 +25,7 @@ entender con exactitud como se espera que funcionen. Hay 4 problemas de red
 Kubernetes trata de compartir máquinas entre aplicaciones. Por lo general,
 compartir una máquina exige que dos aplicaciones no intenten usar
 los mismos puertos. Coordinar los puertos entre varios desarrolladores es muy
-difícil a escala y expone a los usuarios a problemas del clúster que quedan
-fuera de su control.
+difícil a escala y expone a los usuarios a problemas del clúster que quedan fuera de su control.
 
 La asignación dinámica de puertos complica mucho el sistema: cada aplicación
 tiene que tomar los puertos como flags, los servidores de API tienen que saber
