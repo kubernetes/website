@@ -226,7 +226,7 @@ If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob
 {{< /caution >}}
 
 
-For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the Job and logs the error.
+For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, the controller records a TooManyMissedTimes warning event and still starts a Job for the most recent missed schedule.
 
 ```
 too many missed start times. Set or decrease .spec.startingDeadlineSeconds or check clock skew
