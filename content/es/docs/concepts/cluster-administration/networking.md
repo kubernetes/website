@@ -63,7 +63,7 @@ independientemente de las direcciones IP que tengan asignadas los objetos repres
 direcciones IP asignadas a sus interfaces, pero solo se tienen en cuenta las direcciones IP de `node.status.addresses` o `pod.status.ips`
 al implementar el modelo de red de Kubernetes y definir el tipo de clúster.
 
-## Cómo se implementa el modelo de red de Kubernetes
+## ¿Cómo se implementa el modelo de red de Kubernetes?
 
 EL modelo de red es implementado por el motor de ejecución de contenedores en cada nodo. Los motores de ejecución más habituales
 usan plugins de la [Container Network Interface](https://github.com/containernetworking/cni) (CNI)
