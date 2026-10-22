@@ -561,9 +561,10 @@ deserializing the full event stream, even when they only need a subset of object
 Sharded list and watch allows horizontally scaled controllers to split the workload
 so that each replica only receives the events it is responsible for.
 
-Kubernetes {{< skew currentVersion >}} introduces an alpha feature that allows clients
+Kubernetes {{< skew currentVersion >}} includes a beta feature that allows clients
 to request a **filtered shard** of objects from the API server, using hash-based
-partitioning on metadata fields. To use this feature, enable the `ShardedListAndWatch`
+partitioning on metadata fields. This feature is enabled by default via the
+`ShardedListAndWatch`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the
 API server. When enabled, the API server filters both list responses and watch event
 streams server-side, delivering only the objects and events whose hashed metadata value
@@ -599,51 +600,57 @@ API server replicas.
 
 You can combine multiple ranges with `||` (logical OR) to cover non-contiguous parts of
 the hash space. All ranges in a single expression must use the same field path.
+Invalid `shardSelector` expressions are rejected with `400 Bad Request`.
 
 ### Using sharded list and watch in controllers {#sharded-list-and-watch-controllers}
 
 Controllers typically use [informers](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)
-to list and watch resources. To shard the workload across replicas, each replica
-injects the `ShardSelector` field into the `ListOptions` used by its informers.
+to list and watch resources. In Go, `k8s.io/apimachinery/pkg/sharding` and
+`k8s.io/client-go` provide built-in helpers to construct shard selectors and configure
+sharded informers with automatic client-side fallback.
 
-The standard way to do this is with `WithTweakListOptions` when constructing a
-shared informer factory. The tweak function runs before every list and watch call
-the informer makes, so the shard selector is applied consistently:
+Use `sharding.NewShardRangeSelector` to partition the 64-bit hash space across
+`totalShards` replicas, and pass `WithShardSelector` when constructing a shared informer
+factory:
 
 ```go
 import (
-    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/apimachinery/pkg/sharding"
     "k8s.io/client-go/informers"
 )
 
-// shardSelector is determined by the replica's identity (e.g. from a
-// StatefulSet ordinal or lease-based assignment). Each replica claims a
-// non-overlapping range of the hash space.
-shardSelector := "shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
+// shardIndex in [0, totalShards) is determined by the replica's identity
+// (for example, from a StatefulSet ordinal or lease-based assignment).
+selector, err := sharding.NewShardRangeSelector("object.metadata.uid", shardIndex, totalShards)
+if err != nil {
+    // handle error
+}
 
 factory := informers.NewSharedInformerFactoryWithOptions(client, resyncPeriod,
-    informers.WithTweakListOptions(func(opts *metav1.ListOptions) {
-        opts.ShardSelector = shardSelector
-    }),
+    informers.WithShardSelector(selector),
 )
 ```
 
-With this configuration, every informer created from the factory only lists and
-watches objects whose hashed UID falls within the assigned range. Each replica
-receives a disjoint subset of the full collection, reducing per-replica network
-traffic and memory usage.
+`WithShardSelector` is also available on `metadatainformer.NewSharedInformerFactoryWithOptions`
+and `dynamicinformer.NewDynamicSharedInformerFactoryWithOptions` (covering typed lists,
+`PartialObjectMetadataList`, and `UnstructuredList`), and individual informers can call
+`SetShardSelector` before starting. Controllers constructing custom reflectors or
+informers directly can wrap any `cache.ListerWatcher` with
+`cache.NewShardedListWatch(lw, selector)`.
 
-For a 2-replica deployment, the selectors would be:
+For a 2-replica deployment (`totalShards = 2`), `NewShardRangeSelector` produces the
+following wire-format expressions:
 
 ```go
-// Replica 0: lower half of the hash space
+// shardIndex 0: lower half of the hash space
 "shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
 
-// Replica 1: upper half of the hash space
+// shardIndex 1: upper half of the hash space
 "shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')"
 ```
 
-A single replica can also handle non-contiguous ranges using `||`:
+A single replica can also construct non-contiguous ranges with `sharding.NewSelector`,
+which joins multiple `ShardRangeRequirement` entries using `||`:
 
 ```go
 "shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000') || " +
@@ -679,14 +686,21 @@ of the resource type.
 
 ### Detecting server support
 
-If the API server does not support sharded list and watch (because the feature gate is
-not enabled, or the server is an older version), the `ShardSelector` field is ignored
-and the server returns the full, unfiltered result set. Clients can detect this by
-checking for the presence of `shardInfo` in the list response metadata. If `shardInfo`
-is absent, the server did not honor the shard selector and the client received the
-complete, unfiltered collection. In this case, the client should be prepared to handle
-the full result set, for example by applying client-side filtering to discard objects
-outside its assigned shard range.
+If the API server does not support sharded list and watch (because the
+`ShardedListAndWatch` feature gate is disabled, or the server is an older version), the
+`ShardSelector` field is ignored and the server returns the full, unfiltered result set.
+Clients can detect this by checking for the presence of `shardInfo` in the list response
+metadata. If `shardInfo` is absent, the server did not honor the shard selector and the
+client received the complete, unfiltered collection.
+
+When using `cache.NewShardedListWatch` (including informers configured via
+`WithShardSelector` or `SetShardSelector`), `client-go` handles this fallback
+automatically: if `ListMeta.ShardInfo` is absent on a list response, it filters the
+returned items client-side with `selector.Matches`, and it wraps watch streams with
+`watch.Filter` so out-of-shard object events are discarded before reaching the local
+cache (while passing `Bookmark` and `Error` events through). Custom clients that do not
+use `client-go` informers should perform equivalent client-side filtering when
+`shardInfo` is absent.
 
 ## Response compression
 
