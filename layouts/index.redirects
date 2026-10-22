@@ -4,10 +4,17 @@
 should write the shared `_redirects` file. */}}
 {{- if eq $site.Language.Lang $defaultLang -}}
 {{- $latest := or $site.Params.latest (errorf "missing .Site.Params.latest") -}}
-{{- $baseRedirectsText := readFile "static/_redirects.base" -}}
+{{/* content/en/_redirects.base holds the default-language redirects */}}
+{{- $baseRedirectsText := readFile "content/en/_redirects.base" -}}
 {{- $languages := dict -}}
 {{- range $language := $site.Languages -}}
   {{- $languages = merge $languages (dict $language.Lang true) -}}
+  {{- if ne $language.Lang $defaultLang -}}
+    {{- $langRedirectsFile := printf "content/%s/_redirects.base" $language.Lang -}}
+    {{- if os.FileExists $langRedirectsFile -}}
+      {{- $baseRedirectsText = printf "%s\n\n%s" $baseRedirectsText (readFile $langRedirectsFile) -}}
+    {{- end -}}
+  {{- end -}}
 {{- end -}}
 {{- $pagePermalinks := dict -}}
 {{- $aliasOwners := dict -}}
