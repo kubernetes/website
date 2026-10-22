@@ -84,6 +84,9 @@ again. When the gate picks up such a global mount, kubelet logs, at verbosity 2:
 "Global mount with no pod directory is marked uncertain and added into the actual state" volumeName="kubernetes.io/csi/<driver>^<volume handle>" deviceMountPath="/var/lib/kubelet/plugins/kubernetes.io/csi/<driver>/<hash>/globalmount"
 ```
 
+The driver then gets `NodeUnstageVolume`, and the `VolumeAttachment` goes away only after it
+succeeds. With the gate off, the volume is detached while it is still staged.
+
 The steps, with a mock CSI driver that delays `NodeUnstageVolume`, are in the
 [KEP test plan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/6058-csi-global-mount-fallback#e2e-tests).
 
