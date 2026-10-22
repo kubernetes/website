@@ -11,42 +11,82 @@ After a kubelet restart or a node reboot, kubelet can report a CSI volume as unu
 still staged on the node. The attach/detach controller then attaches it to another node, and two
 nodes write to the same device.
 
-Kubernetes v1.38 adds the `CSIGlobalMountReconstruction` feature gate (alpha, off by default).
-With it, kubelet finds these volumes on its own and unstages them.
-
-<!-- TODO(@cniackz): content by feature owner. -->
+Kubernetes v1.38 adds the `CSIGlobalMountReconstruction` feature gate, alpha and off by default.
+With it on, kubelet finds these volumes when it starts and unstages them.
 
 ## How a volume gets lost
 
-A drain finishes once every pod has finished `NodeUnpublishVolume`. If the node reboots before
-`NodeUnstageVolume` finishes, the global mount stays, and no pod directory names it.
+Kubelet lets a pod go once `NodeUnpublishVolume` succeeds. It does not wait for
+`NodeUnstageVolume`. A drain only waits for pods, so the drain can finish and the node can reboot
+with the unstage still in flight.
 
-<!-- TODO: the second route, an unreadable pod-local vol_data.json (#101791). Issues #121937 and #101791. -->
+What is left is a global mount under `/var/lib/kubelet/plugins/kubernetes.io/csi/` and its
+`vol_data.json`, with no pod directory that names the volume. After a restart, kubelet rebuilds
+its view of mounted volumes from `/var/lib/kubelet/pods` only, so it never sees this mount. The
+volume drops out of `node.status.volumesInUse`, and the attach/detach controller is free to move
+it. This is [#121937](https://github.com/kubernetes/kubernetes/issues/121937).
+
+The same orphan shows up with the pod directory still there, when the pod's own `vol_data.json`
+cannot be read: a full disk at write time, a write cut short by a shutdown, or a directory cleaned
+up by hand. That is [#101791](https://github.com/kubernetes/kubernetes/issues/101791), open since
+2021. Until now the documented fix for both was manual cleanup.
 
 ## What changes in v1.38
 
-Reconstruction no longer starts only from `/var/lib/kubelet/pods`. It also walks the CSI plugin
-directory on the node (`/var/lib/kubelet/plugins/kubernetes.io/csi/`), and sends each global mount
-it finds down the normal unmount path.
+With the gate on, kubelet asks each volume plugin which volumes it still has staged, and the CSI
+plugin answers from its own directory. Kubelet records each one it does not already track as
+uncertain, and reports it in `volumesInUse` while the node still has it attached, the same way it
+treats a volume rebuilt from a pod directory. If a pod still wants the volume, kubelet verifies it. If no pod wants it, kubelet calls
+`NodeUnstageVolume`, and removes the directory only after that succeeds.
 
-<!-- TODO: what kubelet reports in node.status.volumesInUse, and that no CSI driver change is needed. -->
+When the pod-local `vol_data.json` is unreadable, kubelet reads the copy kept beside the global
+mount. It finds that copy through the bind mount the pod already holds.
+
+To make that copy enough on its own, `MountDevice` now also writes `specVolID` and
+`volumeLifecycleMode` to it, whether the gate is on or not. A volume staged by an older kubelet
+lacks those fields and is still recovered.
+
+CSI drivers need no change.
 
 ## What alpha does not cover
 
-If both copies of `vol_data.json` are lost, nothing on disk names the volume, and it still needs
-manual cleanup.
+If both copies of `vol_data.json` are lost, nothing on the node names the volume, and it still
+needs manual cleanup.
 
-<!-- TODO: in-tree FibreChannel and iSCSI, and the reboot limit of the pod-local fallback. -->
+The pod-local fallback needs the bind mount, so it works after a kubelet restart but not after a
+reboot. After a reboot such a volume is still found by the listing and unstaged, but kubelet does not call
+`NodeUnpublishVolume` for it first.
+
+In-tree FibreChannel and iSCSI are not covered. They can join later by implementing the same
+plugin call, with no change to the volume manager.
 
 ## Try it
 
-Enable `CSIGlobalMountReconstruction` on the kubelet.
+The gate is read by the kubelet. On a kind cluster with a v1.38 node image:
 
-<!-- TODO: a reproduction on kind, with the commands and their output. -->
+```yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  CSIGlobalMountReconstruction: true
+```
+
+To see it, run a pod with a volume from a CSI driver that stages volumes. Stop kubelet on the
+node, force delete the pod, remove its directory under `/var/lib/kubelet/pods`, and start kubelet
+again. With `--v=2`, kubelet logs:
+
+```
+"Global mount with no pod directory is marked uncertain and added into the actual state"
+```
+
+The driver then gets `NodeUnstageVolume`, and the `VolumeAttachment` goes away only after that.
+With the gate off, the volume is detached while it is still staged.
 
 ## Getting involved
 
-This work belongs to SIG Storage, with SIG Node. The design is in
-[KEP-6058](https://github.com/kubernetes/enhancements/issues/6058).
-
-<!-- TODO: SIG Storage meeting and Slack channel links. -->
+This work is owned by [SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage),
+with SIG Node. The design is [KEP-6058](https://github.com/kubernetes/enhancements/issues/6058),
+and the code is [#138454](https://github.com/kubernetes/kubernetes/pull/138454). The scan builds on
+the approach Shivam Wayal explored in [#136771](https://github.com/kubernetes/kubernetes/pull/136771).
+Feedback is welcome in `#sig-storage` on the [Kubernetes Slack](https://slack.k8s.io/) or at a SIG
+Storage meeting.
