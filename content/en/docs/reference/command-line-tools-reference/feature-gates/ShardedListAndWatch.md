@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Enable support for the `shardSelector` parameter on **list** and **watch** requests,
 allowing clients to receive a filtered subset of objects based on hash ranges of
