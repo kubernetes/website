@@ -135,7 +135,7 @@ field.
 ### Port definitions {#field-spec-ports}
 
 Port definitions in Pods have names, and you can reference these names in the
-`targetPort` attribute of a Service. For example, we can bind the `targetPort`
+`targetPort` attribute of a Service. For example, you can bind the `targetPort`
 of the Service to the Pod port in the following way:
 
 ```yaml
