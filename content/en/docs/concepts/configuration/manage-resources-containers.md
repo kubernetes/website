@@ -354,7 +354,7 @@ directly or from your monitoring tools.
 {{< note >}}
 {{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
 
-When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically adjust the `sizeLimit` of a memory-backed (`medium: Memory`) `emptyDir` volume on a running Pod without requiring Pod recreation or container restarts. For step-by-step instructions, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, you can dynamically add, modify, or remove the `sizeLimit` of a memory-backed (`medium: Memory`) `emptyDir` volume on a running Pod via the Pod `/resize` subresource without requiring Pod recreation or container restarts. When enabled, pod-level `emptyDir` size-limit eviction is also bypassed for memory-backed `emptyDir` volumes because the kernel enforces `tmpfs` capacity limits directly via `ENOSPC`. For step-by-step instructions, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/#resizing-memory-backed-emptydir-volumes).
 {{< /note >}}
 
 {{< caution >}}
