@@ -602,7 +602,7 @@ a longer maximum backoff than other nodes in the cluster.
 
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed. The kubelet manages the following
+through which the Pod has or has not passed. Kubernetes manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
@@ -617,6 +617,7 @@ PodConditions:
 * `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 * `PodResizeInProgress`: the pod is in the process of resizing. See
   [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `SchedulerEvaluationCompleted`: the scheduler has completed feasibility evaluation (and any required preemption) for a deferred in-place pod resize. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 
 Field name           | Description
 :--------------------|:-----------

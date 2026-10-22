@@ -45,7 +45,7 @@ Kubernetes manages the following Pod conditions:
 `PodScheduled`, `PodReadyToStartContainers`, `Initialized`, `ContainersReady`, `Ready`.
 
 [Other conditions](#other-pod-conditions): set in response to specific operations or events:
-`DisruptionTarget`, `PodResizePending`, `PodResizeInProgress`.
+`DisruptionTarget`, `PodResizePending`, `PodResizeInProgress`, `SchedulerEvaluationCompleted`.
 
 In addition to the built-in conditions above, you can define custom conditions
 using [Pod readiness gates](#enhanced-pod-readiness).
@@ -141,7 +141,7 @@ The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
 
 `PreemptionByScheduler`
-: Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+: Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a higher-priority Pod (either a newly scheduled Pod or an in-place Pod resize). For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
 `DeletionByTaintManager`
 : Pod is due to be deleted by Taint Manager (which is part of the node lifecycle controller within `kube-controller-manager`) due to a `NoExecute` taint that the Pod does not tolerate; see {{<glossary_tooltip term_id="taint" text="taint">}}-based evictions.
@@ -178,14 +178,15 @@ When using a Job (or CronJob), you may want to use these Pod disruption conditio
 
 For more details, see [Disruptions](/docs/concepts/workloads/pods/disruptions/).
 
-### PodResizePending and PodResizeInProgress {#pod-resize-conditions}
+### PodResizePending, PodResizeInProgress, and SchedulerEvaluationCompleted {#pod-resize-conditions}
 
-The kubelet updates the Pod's status conditions to indicate the state of a resize request:
+Kubernetes updates the Pod's status conditions to indicate the state of an in-place resize request:
 
 - `type: PodResizePending`: The kubelet cannot immediately grant the request. The `message` field provides an explanation of why.
   - `reason: Infeasible`: The requested resize is impossible on the current node (for example, requesting more resources than the node has).
   - `reason: Deferred`: The requested resize is currently not possible, but might become feasible later (for example if another pod is removed). The kubelet will retry the resize.
 - `type: PodResizeInProgress`: The kubelet has accepted the resize and allocated resources, but the changes are still being applied. This is usually brief but might take longer depending on the resource type and runtime behavior. Any errors during actuation are reported in the `message` field (along with `reason: Error`).
+- `type: SchedulerEvaluationCompleted` (`reason: DeferredPodResize`): When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled, `kube-scheduler` sets this condition to `True` once it has completed feasibility evaluation (and any required preemption) for a `Deferred` resize. The kubelet removes this condition once the resize completes, is reverted, or is re-evaluated as still deferred due to insufficient node capacity.
 
 If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize, for example when another pod is removed or scaled down.
 
