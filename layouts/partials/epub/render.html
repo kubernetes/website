@@ -1,0 +1,21 @@
+{{ define "epub-recurse-content" }}
+  {{ $s := .section }}
+  {{ $psid := .psid }}
+  {{ $pages := (union $s.Pages $s.Sections).ByWeight }}
+  {{ $subSection := 1 }}
+
+  {{ $pages = where (where $pages ".Params.no_print" "!=" true) ".Params.toc_hide" "!=" true }}
+  {{ range $pages }}
+    {{ $sid := printf "%s%d" $psid $subSection }}
+    {{ $subSection = add $subSection 1 }}
+    {{ partial "epub/content.html" (dict "Page" . "PageNum" $sid) }}
+
+    {{ if .IsSection }}
+      {{ template "epub-recurse-content" (dict "section" . "psid" (printf "%s." $sid)) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ .Content }}
+
+{{ template "epub-recurse-content" (dict "section" .CurrentSection "psid" "") }}
