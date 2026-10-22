@@ -703,6 +703,53 @@ matching the rule with the `FailJob` action, then the Job controller triggers
 the Job termination process by adding the `FailureTarget` condition.
 For more details, see [Job termination and cleanup](#job-termination-and-cleanup).
 
+#### Naming Pod failure policy rules {#pod-failure-policy-rule-names}
+
+{{< feature-state feature_gate_name="PodFailurePolicyName" >}}
+
+To identify which `FailJob` rule caused a Job to fail without looking up rule
+indexes in the Job spec, you can set an optional `name` on rules under
+`.spec.podFailurePolicy.rules` (including in a CronJob's `.spec.jobTemplate.spec`).
+
+```yaml
+podFailurePolicy:
+  rules:
+  - name: exit-code-42
+    action: FailJob
+    onExitCodes:
+      containerName: main
+      operator: In
+      values: [42]
+```
+
+Enable the `PodFailurePolicyName` feature gate on both `kube-apiserver` (to
+persist rule names) and `kube-controller-manager` (to include them in failure
+messages).
+
+Rule names follow these semantics:
+
+- Each `name` must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names)
+  and must be unique among the rules in `.spec.podFailurePolicy.rules`.
+- Because `.spec.podFailurePolicy` is immutable on a Job, rule names are set at
+  Job creation time.
+- You can set `name` on a rule with any `action`, but the Job controller only
+  surfaces the name when a rule with `action: FailJob` matches a failed Pod
+  (via `onExitCodes` or `onPodConditions`). Rules with `Ignore`, `Count`, or
+  `FailIndex` actions do not emit a Job failure message.
+- When a named `FailJob` rule fails a Job, the Job controller keeps the rule's
+  zero-based index in the `FailureTarget` condition message and appends the rule
+  name in parentheses, for example:
+  `Container main for pod default/example-abcde failed with exit code 42 matching FailJob rule at index 0 (exit-code-42)`.
+  The `Failed` condition copies the same `reason` and `message`, and the Job
+  controller emits the same message in the corresponding `Warning` event.
+- The condition `reason` remains `PodFailurePolicy`, and Job failure metrics are
+  unchanged. Treat the condition `message` as diagnostic text for humans, not as
+  a programmatic interface for controllers.
+- If the `PodFailurePolicyName` feature gate is disabled on `kube-apiserver`,
+  the `name` field is silently ignored on new Jobs. Existing stored rule names
+  are preserved on updates, and if the gate is disabled on
+  `kube-controller-manager`, failure messages omit the rule name.
+
 ## Success policy {#success-policy}
 
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
