@@ -69,18 +69,23 @@ kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 featureGates:
   CSIGlobalMountReconstruction: true
+kubeadmConfigPatches:
+- |
+  kind: KubeletConfiguration
+  logging:
+    verbosity: 2
 ```
 
-To see it, run a pod with a volume from a CSI driver that stages volumes. Stop kubelet on the
-node, force delete the pod, remove its directory under `/var/lib/kubelet/pods`, and start kubelet
-again. With `--v=2`, kubelet logs:
+The scenario to recover is a drain that interrupts unstaging: the pod is deleted, kubelet stops
+after `NodeUnpublishVolume` succeeds and before `NodeUnstageVolume` finishes, and kubelet starts
+again. When the gate picks up such a global mount, kubelet logs, at verbosity 2:
 
 ```
-"Global mount with no pod directory is marked uncertain and added into the actual state"
+"Global mount with no pod directory is marked uncertain and added into the actual state" volumeName="kubernetes.io/csi/<driver>^<volume handle>" deviceMountPath="/var/lib/kubelet/plugins/kubernetes.io/csi/<driver>/<hash>/globalmount"
 ```
 
-The driver then gets `NodeUnstageVolume`, and the `VolumeAttachment` goes away only after that.
-With the gate off, the volume is detached while it is still staged.
+The steps, with a mock CSI driver that delays `NodeUnstageVolume`, are in the
+[KEP test plan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/6058-csi-global-mount-fallback#e2e-tests).
 
 ## Getting involved
 
