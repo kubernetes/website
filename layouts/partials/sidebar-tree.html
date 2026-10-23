@@ -1,4 +1,6 @@
 {{/* We cache this partial for bigger sites and set the active class client side. */}}
+{{/* Docsy 0.13+ passes a dict {context, cacheSidebar, sidebarRoot, sidebarRootID}; unwrap to page context. */}}
+{{ with .context }}
 {{ $sidebarCacheLimit := cond (isset .Site.Params.ui "sidebar_cache_limit") .Site.Params.ui.sidebar_cache_limit 2000 -}}
 {{ $shouldDelayActive := ge (len .Site.Pages) $sidebarCacheLimit -}}
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
@@ -34,6 +36,7 @@
     </ul>
   </nav>
 </div>
+{{ end }}
 {{ define "section-tree-nav-section" -}}
 {{ $s := .section -}}
 {{ $p := .page -}}
