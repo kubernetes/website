@@ -317,6 +317,8 @@ or completed for the same index will be deleted by the Job controller once they 
 
 {{< feature-state feature_gate_name="WorkloadWithJob" >}}
 
+TODO: update to beta
+
 When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) 
 feature gate is enabled, the Job controller compiles a Job's `.spec.scheduling`
 configuration into [Workload](/docs/concepts/workloads/workload-api/) and 
