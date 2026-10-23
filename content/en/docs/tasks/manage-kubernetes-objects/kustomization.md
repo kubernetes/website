@@ -536,6 +536,9 @@ Patches can be used to apply different customizations to resources. Kustomize su
 mechanisms through `StrategicMerge` and `Json6902` using the `patches` field. `patches` may be a file or
 an inline string, targeting a single or multiple resources.
 
+For a walkthrough of adding, updating, and deleting items in a list with strategic merge patches, see
+[Customize Kubernetes Objects with Strategic Merge Patches](/docs/tasks/manage-kubernetes-objects/kustomize-strategic-merge-patches/).
+
 The `patches` field contains a list of patches applied in the order they are specified. The patch target
 selects resources by `group`, `version`, `kind`, `name`, `namespace`, `labelSelector` and `annotationSelector`.
 
