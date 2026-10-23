@@ -51,9 +51,9 @@ _Standard Channel_ (GA)-তে গ্র্যাজুয়েট হচ্ছ
 ব্যবহার করতে দেয়। গেটওয়ে API v1.1-এ, রুটগুলিতে (যেমন HTTPRoute) এখন 'parentRef' হিসাবে
 একটি সার্ভিস থাকতে পারে, নির্দিষ্ট সার্ভিসগুলিতে ট্র্যাফিক কীভাবে আচরণ করে তা নিয়ন্ত্রণ করতে।
 আরও তথ্যের জন্য,
-[গেটওয়ে API সার্ভিস মেশ ডকুমেন্টেশন] (https://gateway-api.sigs.k8s.io/mesh/)
+[গেটওয়ে API সার্ভিস মেশ ডকুমেন্টেশন](https://gateway-api.sigs.k8s.io/mesh/)
 পড়ুন বা 
-[গেটওয়ে API বাস্তবায়নের তালিকা] (https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status) দেখুন।
+[গেটওয়ে API বাস্তবায়নের তালিকা](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status) দেখুন।
 
 উদাহরণস্বরূপ, কেউ একটি HTTPRoute দিয়ে একটি অ্যাপ্লিকেশনের কল গ্রাফের গভীরে
 একটি ওয়ার্কলোডের একটি canary স্থাপনার কাজ করতে পারে:
