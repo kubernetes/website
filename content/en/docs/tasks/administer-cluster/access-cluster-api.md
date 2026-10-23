@@ -156,8 +156,9 @@ describes how you can configure this as a cluster administrator.
 ### Programmatic access to the API
 
 Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client),
-[Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client), and
-[Haskell](#haskell-client). There are other client libraries that are provided and maintained by
+[Java](#java-client), [C# / .NET](#dotnet-client), [JavaScript](#javascript-client), [Haskell](#haskell-client),
+[C, Perl, and Ruby](/docs/reference/using-api/client-libraries/#officially-supported-kubernetes-client-libraries).
+There are other client libraries that are provided and maintained by
 their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/)
 for accessing the API from other languages and how they authenticate.
 
@@ -295,9 +296,9 @@ public class KubeConfigFileClientExample {
 
 #### dotnet client
 
-To use [dotnet client](https://github.com/kubernetes-client/csharp),
-run the following command: `dotnet add package KubernetesClient --version 1.6.1`.
-See [dotnet Client Library page](https://github.com/kubernetes-client/csharp)
+To use [C# / .NET client](https://github.com/kubernetes-client/csharp),
+run the following command: `dotnet add package KubernetesClient`.
+See [C# / .NET Client Library page](https://github.com/kubernetes-client/csharp)
 for more installation options. See
 [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)
 to see which versions are supported.
