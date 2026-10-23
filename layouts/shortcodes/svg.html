@@ -1,0 +1,93 @@
+{{- /* Inline SVG shortcode
+  Usage:
+    {{< svg "path/to/image.svg" >}} — simple inline SVG
+    {{< svg "path/to/image.svg" "diagram-medium" >}} — wrapped in <figure class="…">
+    {{< svg src="path/to/image.svg" class="diagram-medium" >}} — same, named params
+    {{< svg src="path/to/image.svg" style="border:1px solid red" >}} — with custom style
+
+  Params:
+    src (positional 0)  — path to SVG file
+    class (positional 1) — optional class added to wrapping <figure>
+    style (positional 2) — optional inline styles appended after responsive sizing
+
+  Lookup order: page resource → content/{lang}/ → all content/{other lang}/ → static/
+  Strips ?v=... cache busters; injects responsive sizing; strips color-scheme
+  for dark theme compatibility.
+*/ -}}
+
+{{- $srcParam := or (.Get 0) (.Get "src") -}}
+{{- $classParam := or (.Get 1) (.Get "class") -}}
+{{- $styleParam := or (.Get 2) (.Get "style") -}}
+{{- $cleanSrc := index (split $srcParam "?") 0 -}}
+{{- $resource := (.Page.Resources.GetMatch (printf "**%s*" $cleanSrc)) -}}
+{{- $svgContent := "" -}}
+
+{{- /* SVG inline embedding: strip ?v=..., find file, read content */ -}}
+{{- if strings.HasSuffix $cleanSrc ".svg" -}}
+  {{- if $resource -}}
+    {{- with $resource.Content -}}
+      {{- $svgContent = . -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $trimmedSrc := strings.TrimPrefix "/" $cleanSrc -}}
+    {{- $pageLang := $.Page.Language.Lang -}}
+    {{- /* Try current language content directory */ -}}
+    {{- $contentPath := printf "content/%s/%s" $pageLang $trimmedSrc -}}
+    {{- if fileExists $contentPath -}}
+      {{- $svgContent = readFile $contentPath -}}
+    {{- else -}}
+      {{- /* Fallback: try all configured site languages */ -}}
+      {{- range $.Site.Languages -}}
+        {{- if and (not $svgContent) (ne .Lang $pageLang) -}}
+          {{- $altPath := printf "content/%s/%s" .Lang $trimmedSrc -}}
+          {{- if fileExists $altPath -}}
+            {{- $svgContent = readFile $altPath -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- /* Fallback: try static/ */ -}}
+      {{- if not $svgContent -}}
+        {{- $staticPath := printf "static/%s" $trimmedSrc -}}
+        {{- if fileExists $staticPath -}}
+          {{- $svgContent = readFile $staticPath -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Build full style: responsive base + optional user styles */ -}}
+{{- $responsiveStyle := "max-width:100%" -}}
+{{- $fullStyle := $responsiveStyle -}}
+{{- if $styleParam -}}
+  {{- $fullStyle = printf "%s;%s" $responsiveStyle $styleParam -}}
+{{- end -}}
+
+{{- /* Inject style into <svg> tag */ -}}
+{{- $styleAttr := "" -}}
+{{- if $svgContent -}}
+  {{- if strings.Contains $svgContent "style=\"" -}}
+    {{- $svgContent = replace $svgContent "style=\"" (printf "style=\"%s;" $fullStyle) 1 -}}
+  {{- else -}}
+    {{- $styleAttr = printf " style=\"%s\"" $fullStyle -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Inject style attribute into <svg tag */ -}}
+{{- if $styleAttr -}}
+  {{- $svgContent = replace $svgContent "<svg " (printf "<svg%s " $styleAttr) 1 -}}
+{{- end -}}
+
+{{- /* Strip explicit color-scheme so inline SVGs inherit the page's data-bs-theme
+       (fixes light-dark() not respecting class-based dark mode toggle) */ -}}
+{{- if $svgContent -}}
+  {{- $svgContent = replace $svgContent "color-scheme: light dark;" "" -}}
+{{- end -}}
+
+{{- if $classParam -}}
+<figure class="{{ $classParam }}">
+  {{- $svgContent | safeHTML -}}
+</figure>
+{{- else -}}
+  {{- $svgContent | safeHTML -}}
+{{- end -}}
