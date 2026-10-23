@@ -97,9 +97,10 @@ The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
 It might take a few seconds for the endpoint to be created.
-You can watch the `Established` condition of your CustomResourceDefinition
-to be true or watch the discovery information of the API server for your
-resource to show up.
+Once the `Established` condition of your CustomResourceDefinition
+becomes true and this is observed by the handling code, the endpoint serving starts.
+Watching the [discovery information of the API server](/docs/concepts/overview/kubernetes-api/#discovery-api) for your
+resource to show up is the reliable way to determine if it is ready for use.
 
 ## Create custom objects
 
