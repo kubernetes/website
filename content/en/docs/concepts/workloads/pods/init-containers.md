@@ -72,7 +72,7 @@ Init containers run to completion sequentially, and the main container does not 
 until all the init containers have successfully completed.
 
 init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
-`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/probes/#types-of-probe) to control their lifecycle.
 
 Init containers share the same resources (CPU, memory, network) with the main application
 containers but do not interact directly with them. They can, however, use shared volumes
@@ -369,5 +369,5 @@ Learn more about the following:
 * [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * [Debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/).
 * Overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/).
-* [Types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* [Types of probes](/docs/concepts/workloads/pods/probes/#types-of-probe): liveness, readiness, startup probe.
 * [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers).
