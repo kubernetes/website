@@ -39,15 +39,12 @@ replace them with the values for your cluster.
 | :--- | :--- | :--- |
 | API server address | `https://api.example.com:6443` | Your administrator or the cluster provider's connection instructions. |
 | Trusted certificate authority (CA) certificate | A PEM file named `ca.crt` | Ask your administrator for the file. A provider-generated kubeconfig already records the required CA file or data. Omit a separate CA file if the server certificate is trusted by your operating system. |
-| Authentication method | A credential plugin such as `example-credential-plugin`, or a signed client certificate | Your provider's login instructions or your administrator's certificate enrollment process. |
+| Authentication method | A credential plugin such as `example-credential-plugin`, a signed client certificate, or a bearer token | Your provider's login instructions or your administrator's credential enrollment process. |
 | Namespace and permissions | Namespace `default`, with permission to list Pods | Your administrator or the provider's access policy. |
 
 {{< /table >}}
 
-For managed clusters, follow the provider's kubeconfig instructions, such as
-[Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html),
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl),
-or [Azure Kubernetes Service](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli#connect-to-the-cluster).
+For clusters managed on your behalf by a provider, follow the provider's kubeconfig instructions.
 These instructions also explain any required login tools.
 
 For kubeadm clusters, administrators can refer to
@@ -106,9 +103,8 @@ to any credential plugin. For certificate authentication, use a locally generate
 private key; see the [client certificate workflow](#configure-credentials).
 
 1. Save the kubeconfig as `cluster-config` in your working directory. If it
-    already exists, choose another name and use it below. Preserve referenced
-    certificate and key paths; relative paths are resolved from the kubeconfig
-    file's directory.
+    already exists, choose another name and use it below. Use absolute paths
+    for any referenced files or credential plugin executables.
 
 1. List the contexts in the supplied file:
 
@@ -130,7 +126,8 @@ Continue with [Verify access to the cluster](#verify-access-to-the-cluster).
 Start in a directory without a `cluster-config` file. These commands create it
 without changing your existing kubeconfig. Replace the server URL, certificate
 paths, and namespace with your cluster's values. You can keep the local names
-`my-cluster`, `my-user`, and `my-context` as shown.
+`my-cluster`, `my-user`, and `my-context` if they are not already used in your
+existing kubeconfig files.
 
 ### Configure the cluster
 
@@ -139,20 +136,19 @@ API server address using
 [`kubectl config set-cluster`](/docs/reference/kubectl/generated/kubectl_config/kubectl_config_set-cluster/):
 
 ```shell
-kubectl --kubeconfig=cluster-config config set-cluster my-cluster --server=https://api.example.com:6443 --certificate-authority=ca.crt --embed-certs=true
+kubectl --kubeconfig=cluster-config config set-cluster my-cluster --server=https://api.example.com:6443 --certificate-authority=ca.crt
 ```
 
-`--embed-certs=true` stores the certificate in the kubeconfig. If the server's
-certificate is trusted by your operating system, omit `--certificate-authority`
-and `--embed-certs`.
+This records a reference to `ca.crt`, relative to the kubeconfig file's
+directory. If the server's certificate is trusted by your operating system,
+omit `--certificate-authority`.
 
 ### Configure credentials
 
 Use
 [`kubectl config set-credentials`](/docs/reference/kubectl/generated/kubectl_config/kubectl_config_set-credentials/)
 to create an entry named `my-user` under `users` in `cluster-config`. This entry
-tells kubectl which credential plugin or certificate and key to use. Choose one
-of the following authentication methods.
+tells kubectl which credential plugin, certificate and key, or token to use. Choose one of the following authentication methods.
 
 {{< tabs name="single-cluster-authentication" >}}
 {{% tab name="Credential plugin" %}}
@@ -206,6 +202,22 @@ the `openssl` command-line tool.
     Protect that file as you would the private key.
 
 {{% /tab %}}
+{{% tab name="Long-lived bearer token" %}}
+
+Use this method if your administrator or provider supplies a long-lived bearer
+token for your identity that the cluster accepts.
+
+Replace `YOUR_TOKEN` with that token:
+
+```shell
+kubectl --kubeconfig=cluster-config config set-credentials my-user --token=YOUR_TOKEN
+```
+
+The token is stored in `cluster-config`. Anyone who obtains it can authenticate
+as that identity until the token expires or is revoked. Keep the file private
+and follow your administrator's instructions for replacing the token.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Configure and select a context
@@ -233,7 +245,7 @@ A context saves the cluster, credential entry, and namespace to use together.
 1. Inspect the configuration:
 
     ```shell
-    kubectl --kubeconfig=cluster-config config view --minify
+    kubectl --kubeconfig=cluster-config config view
     ```
 
     For the credential-plugin example, the output is similar to:
@@ -242,7 +254,7 @@ A context saves the cluster, credential entry, and namespace to use together.
     apiVersion: v1
     clusters:
     - cluster:
-        certificate-authority-data: DATA+OMITTED
+        certificate-authority: ca.crt
         server: https://api.example.com:6443
       name: my-cluster
     contexts:
@@ -265,9 +277,13 @@ A context saves the cluster, credential entry, and namespace to use together.
           provideClusterInfo: false
     ```
 
-    `DATA+OMITTED` is redacted output; the saved file contains the actual CA
-    certificate. Certificate authentication shows certificate and key fields
-    instead of `exec`.
+    Certificate authentication shows certificate and key fields instead of
+    `exec`; bearer token authentication uses a `token` field.
+
+{{< note >}}
+Add `--minify` to `kubectl config view` to show only the configuration associated
+with the current context.
+{{< /note >}}
 
 ## Verify access to the cluster
 
@@ -298,127 +314,107 @@ Use your assigned namespace in place of `default`.
 
     `No resources found` is normal if the namespace has no Pods.
 
-## Use the file with the KUBECONFIG environment variable
+## Save the kubeconfig in the default location
 
-`KUBECONFIG` is an environment variable containing paths to kubeconfig files.
-When you omit `--kubeconfig`, kubectl merges the files in this list. Paths are
-separated by `:` on Linux and macOS, or `;` on Windows. An explicit
-`--kubeconfig=cluster-config` selects only that file instead.
+After following any of the setup options above, save `cluster-config` as your
+default kubeconfig: `$HOME/.kube/config` on Linux and macOS, or
+`$env:USERPROFILE\.kube\config` on Windows. Kubectl reads this file automatically
+when `KUBECONFIG` env variable is unset or empty and you do not specify `--kubeconfig`.
+You do not need to set `KUBECONFIG` to use the default file.
 
-For this terminal session, append `cluster-config` to any existing list. This
-changes which files kubectl reads; it does not copy their contents into another
-file. Earlier files take precedence for duplicate cluster, user, and context
-names. If names conflict, continue using `--kubeconfig=cluster-config` for
-isolated access. See [Merging kubeconfig files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/#merging-kubeconfig-files).
+If your kubeconfig uses `certificate-authority: ca.crt`, change that value to
+the CA file's absolute path before copying the kubeconfig.
 
-1. From the directory containing `cluster-config`, save the current setting and
-    append the file's absolute path:
+If the default file does not exist, copy `cluster-config` from your working
+directory:
 
-   {{< tabs name="single-cluster-kubeconfig-path" >}}
-   {{% tab name="Linux and macOS" %}}
-
-   ```shell
-   export KUBECONFIG_SAVED="$KUBECONFIG"
-   export KUBECONFIG="${KUBECONFIG}:$PWD/cluster-config"
-   ```
-
-   {{% /tab %}}
-   {{% tab name="Windows" %}}
-
-   ```powershell
-   $env:KUBECONFIG_SAVED = $env:KUBECONFIG
-   $env:KUBECONFIG = "$env:KUBECONFIG;$PWD\cluster-config"
-   ```
-
-   {{% /tab %}}
-   {{< /tabs >}}
-
-1. List the available contexts, then name your context when making a request.
-    Replace `CONTEXT_NAME` with `my-context` for the manual example or `minikube`
-    for the Minikube example. For a supplied file, use the context selected
-    earlier. Replace `default` with your assigned namespace:
-
-    ```shell
-    kubectl config get-contexts
-    kubectl --context=CONTEXT_NAME get pods --namespace=default
-    ```
-
-    An earlier file's current context can remain selected. `--context` selects
-    the intended context for this command without changing a stored context.
-
-1. When finished, restore the previous setting in the same terminal:
-
-   {{< tabs name="single-cluster-kubeconfig-reset" >}}
-   {{% tab name="Linux and macOS" %}}
-
-   ```shell
-   export KUBECONFIG="$KUBECONFIG_SAVED"
-   ```
-
-   {{% /tab %}}
-   {{% tab name="Windows" %}}
-
-   ```powershell
-   $env:KUBECONFIG = $env:KUBECONFIG_SAVED
-   ```
-
-   {{% /tab %}}
-   {{< /tabs >}}
-
-Without `--kubeconfig` or `KUBECONFIG`, kubectl uses
-`$HOME/.kube/config` on Linux and macOS, or `$env:USERPROFILE\.kube\config` on
-Windows. If `KUBECONFIG` was unset or empty, the commands above select only
-`cluster-config`; the default file is not automatically included. To include
-other files, follow
-[Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-and add their paths to the list. Preserve relative certificate and key paths
-when moving a file.
-
-Restrict access to kubeconfig files that contain credentials. On Linux and
-macOS, use `chmod 600 cluster-config`. On Windows, use the file's security
-settings to restrict access to your account and trusted administrators.
-
-## Use an impersonated identity
-
-Optionally, use impersonation if your administrator has granted permission and
-provided the identity to use. For one request, replace `approved-user` below:
+{{< tabs name="single-cluster-default-save" >}}
+{{% tab name="Linux and macOS" %}}
 
 ```shell
-kubectl --kubeconfig=cluster-config --as=approved-user auth whoami
+mkdir -p "$HOME/.kube"
+cp cluster-config "$HOME/.kube/config"
+chmod 600 "$HOME/.kube/config"
 ```
 
-For persistent impersonation, edit the user entry selected by your context in
-`cluster-config`. Keep its credentials and any plugin arguments or environment
-settings. The `users` section for the credential-plugin example becomes:
+{{% /tab %}}
+{{% tab name="Windows" %}}
 
-```yaml
-users:
-- name: my-user
-  user:
-    as: approved-user
-    as-groups:
-    - approved-group
-    exec:
-      apiVersion: client.authentication.k8s.io/v1
-      command: example-credential-plugin
-      interactiveMode: IfAvailable
+```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.kube" -Force | Out-Null
+Copy-Item cluster-config "$env:USERPROFILE\.kube\config"
 ```
 
-Replace `approved-group` with a group your administrator permits you to
-impersonate, or omit `as-groups` if none is required. For certificate
-authentication, keep your existing certificate and key fields instead of adding
-`exec`. Leave the cluster and context sections unchanged. See
-[User Impersonation](/docs/reference/access-authn-authz/user-impersonation/)
-and the [kubeconfig AuthInfo reference](/docs/reference/config-api/kubeconfig.v1/#AuthInfo).
+{{% /tab %}}
+{{< /tabs >}}
+
+## Use additional kubeconfig files (optional)
+
+If you prefer to keep configurations in separate files, use `KUBECONFIG` to
+select the files kubectl reads. This is optional; your saved default kubeconfig
+works without it. Paths in `KUBECONFIG` are separated by `:` on Linux and macOS,
+or `;` on Windows. An explicit `--kubeconfig` flag selects only that file instead.
+
+The following examples save the current setting, append the default file and
+`cluster-config`, and make a request. Run them
+from the directory containing `cluster-config`. Replace `CONTEXT_NAME` with
+`my-context` for the manual example, `minikube` for the Minikube example, or the
+context selected in your supplied file. Replace `default` with your assigned
+namespace:
+
+{{< tabs name="single-cluster-optional-kubeconfig" >}}
+{{% tab name="Linux and macOS" %}}
+
+```shell
+export KUBECONFIG_SAVED="$KUBECONFIG"
+export KUBECONFIG="${KUBECONFIG}:$HOME/.kube/config:$PWD/cluster-config"
+kubectl --context=CONTEXT_NAME get pods --namespace=default
+```
+
+{{% /tab %}}
+{{% tab name="Windows" %}}
+
+```powershell
+$env:KUBECONFIG_SAVED = $env:KUBECONFIG
+$env:KUBECONFIG = "$env:KUBECONFIG;$env:USERPROFILE\.kube\config;$PWD\cluster-config"
+kubectl --context=CONTEXT_NAME get pods --namespace=default
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Earlier files take precedence for duplicate entries. For more information, see
+[Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+
+If you followed the optional section above, run the following in the same
+terminal to restore your previous `KUBECONFIG` setting:
+
+{{< tabs name="single-cluster-kubeconfig-cleanup" >}}
+{{% tab name="Linux and macOS" %}}
+
+```shell
+export KUBECONFIG="$KUBECONFIG_SAVED"
+```
+
+{{% /tab %}}
+{{% tab name="Windows" %}}
+
+```powershell
+$env:KUBECONFIG = $env:KUBECONFIG_SAVED
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!-- discussion -->
 
 ## Troubleshoot access
 
-* Connection refusal or timeout: check the server URL, network, and VPN.
-* Certificate verification error: confirm the server URL and CA certificate.
-* Authentication failure: check credential validity and plugin installation or login.
-* `Forbidden`: check the selected identity, namespace, and assigned permissions.
+If a command fails, see
+[Troubleshooting kubectl](/docs/tasks/debug/)
+for help with kubeconfig settings, connectivity, authentication, and TLS errors.
+
+## Other uses of kubeconfig
 
 Components such as the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and
@@ -426,7 +422,9 @@ Components such as the
 kubeconfig files. Follow their documentation for the required identity and
 file settings.
 
-## Customize kubectl preferences
+## {{% heading "whatsnext" %}}
+
+### Customize kubectl preferences
 
 Your kubeconfig provides cluster connection and authentication settings.
 A separate, optional `kuberc` file configures kubectl defaults and aliases;
@@ -434,13 +432,14 @@ you still use kubeconfig for cluster access.
 
 If authentication uses an exec credential plugin, kuberc's
 [credential plugin policy](/docs/reference/kubectl/kuberc/#credential-plugin-policy)
-can control whether that plugin may run.
+can control whether that plugin may run. This helps protect you against
+malicious kubeconfig files.
 
 See
 [Kubectl user preferences (kuberc)](/docs/reference/kubectl/kuberc/)
 for instructions on writing a separate `kuberc` file.
 
-## {{% heading "whatsnext" %}}
+### Additional reading
 
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
