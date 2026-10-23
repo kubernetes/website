@@ -22,6 +22,8 @@ This section contains the following reference topics about nodes:
 
 * [Linux Node Swap Behaviors](/docs/reference/node/swap-behavior/)
 
+* [cgroups Management on Linux Nodes](/docs/reference/node/cgroups-management/)
+
 * [Seccomp information](/docs/reference/node/seccomp/)
 
 * [What happens after a node restart](/docs/reference/node/what-happens-on-restart/)
