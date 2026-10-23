@@ -1,9 +1,5 @@
 ---
 title: Шпаргалка по kubectl
-reviewers:
-- erictune
-- krousey
-- clove
 content_type: concept
 card:
   name: reference
