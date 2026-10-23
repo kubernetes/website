@@ -65,5 +65,5 @@ The following broad classes of Kubernetes volume plugins are supported on Window
 
 The following in-tree plugins support persistent storage on Windows nodes:
 
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
+* [`azureFile`](/docs/reference/storage/volume-types/#azurefile)
+* [`vsphereVolume`](/docs/reference/storage/volume-types/#vspherevolume)

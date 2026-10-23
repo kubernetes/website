@@ -10,7 +10,7 @@ locally-attached writeable devices or, sometimes, by RAM.
 
 Pods use ephemeral local storage for scratch space, caching, and for logs.
 The kubelet can provide scratch space to Pods using local ephemeral storage to
-mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
+mount [`emptyDir`](/docs/reference/storage/volume-types/#emptydir)
  {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 
 The kubelet also uses this kind of storage to hold

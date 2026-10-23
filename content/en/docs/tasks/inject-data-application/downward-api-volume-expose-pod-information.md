@@ -7,7 +7,7 @@ weight: 40
 <!-- overview -->
 
 This page shows how a Pod can use a
-[`downwardAPI` volume](/docs/concepts/storage/volumes/#downwardapi),
+[`downwardAPI` volume](/docs/reference/storage/volume-types/#downwardapi),
 to expose information about itself to containers running in the Pod.
 A `downwardAPI` volume can expose Pod fields and container fields.
 
@@ -158,7 +158,7 @@ just one container:
 {{% code_sample file="pods/inject/dapi-volume-resources.yaml" %}}
 
 In the manifest, you can see that the Pod has a
-[`downwardAPI` volume](/docs/concepts/storage/volumes/#downwardapi),
+[`downwardAPI` volume](/docs/reference/storage/volume-types/#downwardapi),
 and that the single container in that Pod mounts the volume at `/etc/podinfo`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array
