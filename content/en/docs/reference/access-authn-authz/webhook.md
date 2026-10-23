@@ -308,7 +308,7 @@ file), and at least one returns a conditional decision, the combined response us
         "type": "Union",
         "union": [
           {
-            "authorizerName": "privileged-check.example.com",
+            "authorizerName": "privileged-check.authorizer.kubernetes.io",
             "decision": {
               "type": "NoOpinion",
               "noOpinion": {
@@ -317,7 +317,7 @@ file), and at least one returns a conditional decision, the combined response us
             }
           },
           {
-            "authorizerName": "allow.example.com",
+            "authorizerName": "allow.example.authorizer.kubernetes.io",
             "decision": {
               "type": "ConditionsMap",
               "conditionsMap": {
@@ -333,7 +333,7 @@ file), and at least one returns a conditional decision, the combined response us
             }
           },
           {
-            "authorizerName": "rbac.example.com",
+            "authorizerName": "rbac.authorizer.kubernetes.io",
             "decision": {
               "type": "NoOpinion",
               "noOpinion": {

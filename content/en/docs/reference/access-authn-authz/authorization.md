@@ -1250,12 +1250,12 @@ status:
   conditionalDecision:
     type: Union
     union:
-    - authorizerName: privileged-check.example.com
+    - authorizerName: privileged-check.authorizer.kubernetes.io
       decision:
         type: NoOpinion
         noOpinion:
           reason: "not a privileged user"
-    - authorizerName: allow.example.com
+    - authorizerName: allow.authorizer.kubernetes.io
       decision:
         type: ConditionsMap
         conditionsMap:
@@ -1264,7 +1264,7 @@ status:
             condition: object.metadata.name.startsWith('safe-')
             type: authorizer.kubernetes.io/cel
             description: "only allow configmaps with safe- prefix"
-    - authorizerName: rbac.example.com
+    - authorizerName: rbac.authorizer.kubernetes.io
       decision:
         type: NoOpinion
         noOpinion:
