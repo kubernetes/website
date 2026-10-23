@@ -206,7 +206,7 @@ Versions of Kubernetes before v1.22 automatically created long term credentials 
 accessing the Kubernetes API. This older mechanism was based on creating token Secrets
 that could then be mounted into running Pods. In more recent versions, including
 Kubernetes v{{< skew currentVersion >}}, API credentials are obtained directly by using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API,
+[TokenRequest](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume) API,
 and are mounted into Pods using a
 [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
 The tokens obtained using this method have bounded lifetimes, and are automatically
@@ -214,7 +214,7 @@ invalidated when the Pod they are mounted into is deleted.
 
 You can still manually create a service account token Secret; for example,
 if you need a token that never expires. However, using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+[TokenRequest](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 subresource to obtain a token to access the API is recommended instead.
 {{< /note >}}
 
@@ -285,7 +285,7 @@ If you view the ServiceAccount using:
 ` kubectl get serviceaccount build-robot -o yaml`
 
 You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
-[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+[`.secrets`](/docs/reference/kubernetes-api/core/service-account-v1/) field
 because that field is only populated with auto-generated Secrets.
 {{< /note >}}
 
