@@ -1,0 +1,5 @@
+{{/*
+  Keep this predicate aligned with the docs and blog HTML base templates,
+  which render #k8s-mobile-page-nav.
+*/}}
+{{- return (or (eq .Type "docs") (eq .Type "blog")) -}}
