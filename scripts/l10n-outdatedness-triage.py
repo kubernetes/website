@@ -384,7 +384,7 @@ def parse_markdown(path: str, locale: str = "") -> ParsedFile:
         h2=h2, h3=h3, code_blocks=code_blocks,
         anchors=anchors,
         versions=frozenset(
-            (int(major), int(minor)) for major, minor in _VERSION_RE.findall(text)
+            (int(major), int(minor)) for major, minor in _VERSION_RE.findall(_STRIP_CMNT.sub("", text))
         ),
         body_words=_count_body_words(text),
         feature_state_tokens=_extract_feature_state_tokens(text),
