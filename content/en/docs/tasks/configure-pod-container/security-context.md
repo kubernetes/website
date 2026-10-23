@@ -14,7 +14,7 @@ A security context defines privilege and access control settings for
 a Pod or Container. Security context settings include, but are not limited to:
 
 * Discretionary Access Control: Permission to access an object, like a file, is based on
-  [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
+  [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/title/Users_and_groups).                                    
 
 * [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux):
   Objects are assigned security labels.
