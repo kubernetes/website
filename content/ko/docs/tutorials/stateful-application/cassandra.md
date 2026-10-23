@@ -265,7 +265,7 @@ kubectl apply -f cassandra-statefulset.yaml
 ## 카산드라 컨테이너 환경 변수
 
 이 튜토리얼의 *파드* 는 구글의 [컨테이너 레지스트리](https://cloud.google.com/container-registry/docs/)에
-[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 이미지를 이용한다.
+[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile) 이미지를 이용한다.
 이 도커 이미지는 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)에
 기반하였고 OpenJDK 8을 포함한다.
 
@@ -284,7 +284,7 @@ kubectl apply -f cassandra-statefulset.yaml
 
 
 * 어떻게 [스테이트풀셋 스케일](/ko/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
-* [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
-* 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
+* [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
+* 커스텀 [시드 제공자 설정](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)를 살펴본다.
 
 
