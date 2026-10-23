@@ -6,18 +6,15 @@ weight: 50
 
 <!-- overview -->
 
-This page shows how to update the Kubernetes API reference documentation.
+This page explains how you can generate an updated version of the Kubernetes API
+reference documentation. It is aimed at people who are contributing to Kubernetes.
 
-The Kubernetes API reference documentation is built from the
-[Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
-using the [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) generation code.
+The [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+`gen-apidocs` generator builds the API reference from the
+[Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json).
 
-If you find bugs in the generated documentation, you need to
+If you find bugs in the generated content, you most likely need to
 [fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
-
-If you need only to regenerate the reference documentation from the
-[OpenAPI](https://github.com/OAI/OpenAPI-Specification)
-spec, continue reading this page.
 
 ## {{% heading "prerequisites" %}}
 
@@ -27,160 +24,99 @@ spec, continue reading this page.
 
 ## Set up the local repositories
 
-Create a local workspace and set your `GOPATH`:
+You need local clones of `kubernetes/website` and `kubernetes-sigs/reference-docs`.
+You do not need a local `kubernetes/kubernetes` checkout — the spec-preparation
+step fetches it for you.
+
+If you have not already forked and cloned `kubernetes/website`, see
+[Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
+Clone `reference-docs`:
 
 ```shell
-mkdir -p $HOME/<workspace>
-
-export GOPATH=$HOME/<workspace>
+git clone https://github.com/kubernetes-sigs/reference-docs
 ```
 
-Get a local clone of the following repositories:
+The remaining steps refer to your `kubernetes/website` clone as `<web-base>` and
+your `reference-docs` clone as `<rdocs-base>`.
+
+## Set build variables
+
+Set these in your shell. They apply to every `make` command in the steps that
+follow, whichever directory you run it from.
 
 ```shell
-git clone github.com/kubernetes-sigs/reference-docs
-```
-Move into the `gen-apidocs` directory of the `reference-docs` repository and install the required Go packages:
-```shell
-go get -u github.com/go-openapi/loads
-go get -u github.com/go-openapi/spec
+export K8S_WEBROOT=/path/to/your/website   # your website clone (<web-base>)
+export K8S_RELEASE=1.36.0                  # the release you want to build
 ```
 
-If you don't already have the kubernetes/website repository, get it now:
+## Prepare the OpenAPI spec
 
-```shell
-git clone https://github.com/<your-username>/website 
-```
+The `swagger.json` checked into `kubernetes/kubernetes` is missing many enum
+values that the reference needs. The `updateapispec-enums-from-source` target
+regenerates an enum-complete spec: it shallow-clones the release tag into a
+temporary directory, enables enum generation, verifies the result, and removes
+the checkout — so you never maintain a local `kubernetes/kubernetes` clone.
 
-Get a clone of the kubernetes/kubernetes repository:
-
-```shell
-git clone https://github.com/kubernetes/kubernetes 
-```
-
-* The base directory of your clone of the
-  [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-  `<your-path-to>/kubernetes/kubernetes.`
-  The remaining steps refer to your base directory as `<k8s-base>`.
-
-* The base directory of your clone of the
-  [kubernetes/website](https://github.com/kubernetes/website) repository is
-  `<your-path-to>/website`.
-  The remaining steps refer to your base directory as `<web-base>`.
-
-* The base directory of your clone of the
-  [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  repository is `<your-path-to>/reference-docs`.
-  The remaining steps refer to your base directory as `<rdocs-base>`.
-
-## Generate the API reference docs
-
-This section shows how to generate the
-[published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
-
-### Set build variables
-
-* Set `K8S_ROOT` to `<k8s-base>`.
-* Set `K8S_WEBROOT` to `<web-base>`.
-* Set `K8S_RELEASE` to the version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes 1.17.0, set `K8S_RELEASE` to 1.17.0.
-
-For example:
-
-```shell
-export K8S_WEBROOT=<your-path-to>/website
-export K8S_ROOT=<your-path-to>/kubernetes
-export K8S_RELEASE=1.17.0
-```
-
-### Create versioned directory and fetch Open API spec
-
-The `updateapispec` build target creates the versioned build directory.
-After the directory is created, the Open API spec is fetched from the
-`<k8s-base>` repository. These steps ensure that the version
-of the configuration files and Kubernetes Open API spec match the release version.
-The versioned directory name follows the pattern of `v<major>_<minor>`.
-
-In the `<rdocs-base>` directory, run the following build target:
+From `<rdocs-base>` (your `reference-docs` clone):
 
 ```shell
 cd <rdocs-base>
-make updateapispec
+make updateapispec-enums-from-source
 ```
 
-### Build the API reference docs
+{{< note >}}
+This step needs network access and the OpenAPI build prerequisites that
+`kubernetes/kubernetes` uses (for example, `etcd`). Set `KEEP_TMP=1` to keep the
+temporary checkout for debugging.
+{{< /note >}}
 
-The `copyapi` target builds the API reference and
-copies the generated files to directories in `<web-base>`.
-Run the following command in `<rdocs-base>`:
+## Build and publish the reference
+
+`gen-apidocs` auto-detects API groups and versions from `swagger.json`, so there
+is no per-release `config.yaml` to edit. From `<rdocs-base>`, build the backend
+you need and copy it into `<web-base>`:
 
 ```shell
 cd <rdocs-base>
-make copyapi
+make copyapimd    # Hugo-native Markdown -> <web-base>/content/en/docs/reference/kubernetes-api/
+make copyapi      # single-page HTML     -> <web-base>/static/docs/reference/generated/kubernetes-api/<version>/
 ```
 
-Verify that these two files have been generated:
+The first `make` run downloads the Go module dependencies, which can take a few
+minutes.
 
-```shell
-[ -e "<rdocs-base>/gen-apidocs/build/index.html" ] && echo "index.html built" || echo "no index.html"
-[ -e "<rdocs-base>/gen-apidocs/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
-```
+`gen-apidocs` produces both backends. The older `gen-resourcesdocs` generator,
+which once produced the Markdown reference, is deprecated. However, you may
+see pages that mention `gen-resourcesdocs` because those guides are not yet
+updated.
 
-Go to the base of your local `<web-base>`, and
-view which files have been modified:
+Check what changed in your website clone:
 
 ```shell
 cd <web-base>
 git status
 ```
 
-The output is similar to:
+## Test the API reference locally
 
-```
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/bootstrap.min.css
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/font-awesome.min.css
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/stylesheet.css
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/FontAwesome.otf
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.eot
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.svg
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.ttf
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff2
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/jquery.scrollTo.min.js
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navData.js
-static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
-```
-
-## API reference location and versioning
-
-The generated API reference files (HTML version) are copied to `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`. This directory contains the standalone HTML API documentation. 
-
-{{< note >}}
-The Markdown version of the API reference located at `<web-base>/content/en/docs/reference/kubernetes-api/`
-is generated separately using the [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs) generator.
-{{< /note >}}
-
-## Locally test the API reference
-
-Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
+Preview your changes:
 
 ```shell
 cd <web-base>
-git submodule update --init --recursive --depth 1 # if not already done
+git submodule update --init --recursive --depth 1   # if not already done
 make container-serve
 ```
 
+Using a web browser, open the local preview of the Kubernetes website, and check the pages you updated.
+Hugo serves that local preview at http://localhost:1313/
+so the page to check is: http://localhost:1313/docs/reference/kubernetes-api/
+
 ## Commit the changes
 
-In `<web-base>`, run `git add` and `git commit` to commit the change.
-
-Submit your changes as a
-[pull request](/docs/contribute/new-content/open-a-pr/) to the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
-Monitor your pull request, and respond to reviewer comments as needed. Continue
-to monitor your pull request until it has been merged.
+In `<web-base>`, run `git add` and `git commit`, then open a
+[pull request](/docs/contribute/new-content/open-a-pr/) to
+[kubernetes/website](https://github.com/kubernetes/website). Monitor the pull
+request and respond to review comments until it is merged.
 
 ## {{% heading "whatsnext" %}}
 
