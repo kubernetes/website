@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="570" viewBox="0 0 960 570" role="img" aria-labelledby="title desc">
+<title id="title">Node CPU pressure across four experiment stages</title>
+<desc id="desc">Bar chart of kubelet node CPU PSI some avg10. Baseline 3.37 percent, one pod 27.30 percent, three pods 68.93 percent, recovery 24.29 percent.</desc>
+<rect width="960" height="570" fill="#ffffff"/>
+<text x="82" y="57" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" fill="#172b4d">CPU pressure rises with contention and falls after recovery</text>
+<text x="82" y="88" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#52657b">Kubelet node CPU PSI · some.avg10 (%) · Colima / kind experiment</text>
+<g stroke="#e3e9ef" stroke-width="1">
+<line x1="110" y1="444" x2="895" y2="444"/><line x1="110" y1="358" x2="895" y2="358"/><line x1="110" y1="272" x2="895" y2="272"/><line x1="110" y1="186" x2="895" y2="186"/><line x1="110" y1="100" x2="895" y2="100"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#52657b" text-anchor="end"><text x="98" y="449">0</text><text x="98" y="363">20</text><text x="98" y="277">40</text><text x="98" y="191">60</text><text x="98" y="105">80</text></g>
+<text x="28" y="275" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#52657b" transform="rotate(-90 28 275)" text-anchor="middle">CPU PSI some.avg10 (%)</text>
+<g fill="#2472b2">
+<rect x="155" y="429.51" width="126" height="14.49" rx="3"/>
+<rect x="346" y="326.61" width="126" height="117.39" rx="3"/>
+<rect x="537" y="147.60" width="126" height="296.40" rx="3"/>
+<rect x="728" y="339.55" width="126" height="104.45" rx="3"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" fill="#172b4d" text-anchor="middle"><text x="218" y="416">3.37%</text><text x="409" y="313">27.30%</text><text x="600" y="134">68.93%</text><text x="791" y="326">24.29%</text></g>
+<g font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#172b4d" text-anchor="middle"><text x="218" y="473">Baseline</text><text x="409" y="473">One pod</text><text x="600" y="473">Three pods</text><text x="791" y="473">Recovery</text></g>
+<text x="110" y="530" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#52657b">Measured values: final sample from each stage. Recovery retains one CPU-intensive pod.</text>
+</svg>
