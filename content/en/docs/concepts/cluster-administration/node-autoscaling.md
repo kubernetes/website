@@ -151,7 +151,7 @@ graph TD
 
 ### Autoscaler implementations
 
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+[Cluster Autoscaler](https://github.com/kubernetes-sigs/cluster-autoscaler)
 and [Karpenter](https://github.com/kubernetes-sigs/karpenter) are the two Node autoscalers currently
 sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling).
 
@@ -176,9 +176,9 @@ resizing the underlying cloud provider resource group.
 
 Additional context:
 
-* [Documentation overview](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
-* [Cloud provider integrations](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
-* [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+* [Documentation overview](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md)
+* [Cloud provider integrations](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md#faqdocumentation)
+* [Cluster Autoscaler FAQ](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/FAQ.md)
 * [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
