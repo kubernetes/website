@@ -7,459 +7,299 @@ author: >
   [Nitin Ware](https://github.com/nitinware)
 ---
 
-Working on latency-sensitive AI inference services, I've spent a lot of time
-looking at request latency, resource utilization, and application-level metrics
-to understand how workloads behave under load.
+I work on latency-sensitive AI inference services, where understanding why
+requests slow down matters. CPU utilization is one of the first things I check
+when investigating performance issues. But it doesn't tell me whether workloads
+are waiting for CPU time.
 
-One question I've been interested in is whether CPU utilization alone gives
-enough information when investigating performance issues. A CPU can be busy, but
-that doesn't show how long runnable tasks are waiting to get CPU time. I
-wanted to understand whether there was a way to observe that waiting directly.
+That distinction made me interested in Linux Pressure Stall Information (PSI).
+A node can be fully utilized with two tasks running on two CPUs, or with six
+tasks competing for those same CPUs. CPU utilization looks similar in both
+cases, but the amount of waiting can be very different.
 
-That's what drew me to Linux Pressure Stall Information (PSI). PSI measures
-resource pressure by tracking time when tasks are stalled waiting for CPU,
-memory, or I/O. It provides another signal to examine alongside utilization
-and application metrics. These metrics are
+PSI measures that waiting. Kubernetes exposes PSI through the kubelet, and the
+metrics are
 [stable from Kubernetes v1.36](/blog/2026/05/12/kubernetes-v1-36-psi-metrics-ga/).
 
-To explore this, I set up a small Kubernetes cluster and deliberately created
-CPU contention. I started with one pod, scaled to three pods competing for two
-CPUs, and then scaled back to observe how PSI responded.
+I wanted to see the difference for myself, so I ran the same workload in two
+configurations on a Kubernetes node restricted to two CPUs. In both runs,
+`kubectl top` showed the node using 2001m of CPU, meaning both CPUs were fully
+busy. But CPU pressure was 0.33% in the first run and 99.63% in the second.
 
-Here's what I found.
+## What CPU pressure means
 
-## Utilization and pressure answer different questions
+CPU PSI measures how much of the time at least one task was ready to run but
+waiting for CPU. This is reported as `some`. An `avg10` of 25% means that, over
+roughly the last 10 seconds, at least one task was waiting about a quarter of
+the time.
 
-When checking CPU usage in Kubernetes, I usually start with `kubectl top`:
+The kernel reports `some` as averages over the last 10, 60, and 300 seconds
+(`avg10`, `avg60`, `avg300`). I use `avg10`, because it reacts quickly when the
+workload changes. PSI also reports `full`, the share of time when all tasks
+were waiting at once; I don't use it here.
+
+The kubelet Summary API shows CPU usage and PSI together, for the node and for
+each pod and container:
 
 ```shell
-kubectl top nodes
-kubectl top pods
+kubectl get --raw "/api/v1/nodes/<node-name>/proxy/stats/summary" \
+  | jq '{cores: (.node.cpu.usageNanoCores / 1e9), psi: .node.cpu.psi}'
 ```
 
-These commands show how much CPU and memory the nodes and pods are using.
-That's useful, but it doesn't tell me whether runnable tasks are waiting for
-CPU time.
+Per-pod values are under `.pods[].cpu.psi`. If you use Prometheus, the
+kubelet's `/metrics/cadvisor` endpoint has the same signal per container, as
+`container_pressure_cpu_waiting_seconds_total`.
 
-For example, a node running at high CPU utilization isn't necessarily
-experiencing a performance problem. But if several workloads are competing for
-the same CPUs, some tasks may spend time waiting in the runqueue. CPU
-utilization alone doesn't show how much waiting is happening.
+## Same utilization, different pressure
 
-That's where PSI adds useful information. CPU utilization tells me how much CPU
-time is being consumed, while CPU PSI tells me how much time runnable tasks are
-stalled waiting for CPU. Looking at both helps me understand whether resource
-contention might be contributing to a performance issue.
+For the test, I used a kind cluster on a machine with four CPUs. I gave the
+worker node two of them and put the control plane on the other two, so the
+control plane didn't compete with the test workload. The workload is a small
+pod that runs busy loops. Each loop keeps one CPU fully busy whenever it gets
+one. The [appendix](#appendix-reproducing-the-runs) has the full setup.
 
-## How PSI looks in Kubernetes
+In each run, I waited 60 seconds for things to settle, then read the node's CPU
+pressure 12 times, 10 seconds apart. The numbers below are the average of those
+12 readings.
 
-Linux exposes PSI metrics for CPU, memory, and I/O through files under
-`/proc/pressure/`. Each file contains readings that look like this:
+**Run A: one pod, two loops.** Two loops on two CPUs, so each loop has a CPU to
+itself.
+
+```console
+$ kubectl top nodes
+NAME                     CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)
+psi-demo-control-plane   53m          1%       593Mi           7%
+psi-demo-worker          2001m        50%      166Mi           2%
+```
+
+The worker is using 2001m, so both of its CPUs are fully busy. CPU pressure was
+**0.33%**. The loops almost never had to wait.
+
+**Run B: three pods, six loops.** Six loops now compete for the same two CPUs.
+Only two can run at once, so the others have to wait.
+
+```console
+$ kubectl top nodes
+NAME                     CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)
+psi-demo-control-plane   43m          1%       602Mi           7%
+psi-demo-worker          2001m        50%      183Mi           2%
+```
+
+CPU usage is unchanged at 2001m. But CPU pressure was **99.63%**: almost all
+the time, some loop was waiting for a CPU.
+
+Both runs show `CPU(%)` as 50% because Kubernetes counts all four of the
+machine's CPUs as the node's capacity; it doesn't know about the two-CPU
+restriction.
+
+{{< figure src="psi-utilization-vs-pressure.svg" caption="Runs A and B use the same 2 cores on the worker node, but CPU pressure goes from under 1% to 99.6%. Run C uses a quarter of the node and still shows 75.2% pressure." alt="Two bar charts. Left, CPU used in cores: run A 2.00, run B 2.00, run C 0.51, against a node capacity of 2 CPUs. Right, CPU pressure some avg10: run A under 1%, run B 99.6%, run C 75.2%." >}}
+
+Looking at CPU usage for the individual pods showed another part of the
+problem:
+
+```console
+$ kubectl top pods
+NAME                        CPU(cores)   MEMORY(bytes)
+spinners-849c6d64c8-g2s9x   616m         0Mi
+spinners-849c6d64c8-ggtqh   667m         0Mi
+spinners-849c6d64c8-q9bvj   708m         0Mi
+```
+
+In run A, the one pod used 1991m. In run B, each pod uses only 616m to 708m,
+even though each still runs two busy loops. The lower numbers don't mean the
+pods need less CPU. They're sharing two CPUs. Nothing in `kubectl top` shows the
+waiting, but pod-level PSI does: the three pods' CPU pressure was 69%, 99.73%,
+and 99.79% in the last reading.
+
+## Low utilization, high pressure
+
+I also tested what happens when a workload has a CPU limit and the node has
+spare capacity. For **run C**, I went back to one pod with two loops and set its
+CPU limit to 500m.
+
+```console
+$ kubectl top nodes
+NAME                     CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)
+psi-demo-control-plane   55m          1%       608Mi           7%
+psi-demo-worker          517m         12%      168Mi           2%
+```
+
+The worker used about 0.51 of its two CPUs, leaving three quarters idle;
+`kubectl top` shows 12% because Kubernetes counts four CPUs of capacity. Even
+so, the node's `some.avg10` averaged **75.23%**. The 500m limit capped the pod's
+CPU usage even though the worker had spare capacity. The two loops used up
+their CPU quota and were throttled. The container's throttling counter shows
+it was throttled in 1905 CFS periods since it started:
 
 ```text
-# Illustrative format, not a live reading
-some avg10=0.00 avg60=0.00 avg300=0.00 total=<microseconds>
-full avg10=0.00 avg60=0.00 avg300=0.00 total=<microseconds>
+container_cpu_cfs_throttled_periods_total{container="spin",...}  1905
 ```
 
-There are two things to look at here. `some` shows how much time at least one
-task was stalled waiting for a resource. `full` shows how much time all
-non-idle tasks in the measured scope were stalled at the same time.
+The [PSI documentation](/docs/reference/instrumentation/understand-psi-metrics/)
+uses a CPU-limited pod as its example. Here, the throttling counter points to
+the pod's limit rather than competition with other workloads, so adding node
+capacity wouldn't reduce this pressure while the pod's CPU limit stays at 500m.
 
-The `avg10`, `avg60`, and `avg300` values show pressure averaged over the last
-10, 60, and 300 seconds. I find `avg10` particularly useful when experimenting
-with workloads because it responds faster to changes. The `total` counter
-records cumulative stall time in microseconds.
+## Using PSI during an investigation
 
-One detail worth knowing: CPU `full` is reported as zero in the system-wide
-`/proc/pressure/cpu` file. CPU `full` can still be meaningful for individual
-cgroups, so it's important to know which scope you're looking at.
+The three runs show why I'd look at CPU pressure alongside utilization when
+investigating a performance problem:
 
-Kubernetes makes these metrics available through the kubelet Summary API at
-node, pod, and container scope. You can also inspect PSI-related counters
-through the kubelet's `/metrics/cadvisor` endpoint.
+- High utilization, low pressure (run A): the CPUs are busy, but the work fits.
+  Utilization alone isn't a problem.
+- High utilization, high pressure (run B): there's more runnable work than CPU.
+  Look at what else is scheduled on the node, at CPU requests, and at placement.
+- Pressure on a pod with spare CPU on the node (run C): the pod is probably
+  held back by its own CPU limit. Check the throttling counters.
 
-You can start by checking whether a node is experiencing pressure and then
-look at individual pods or containers to see which workloads are affected.
+I wouldn't pick a universal PSI threshold. A level that's normal for a batch
+job could be a problem for a latency-sensitive API, so I'd compare pressure
+against the workload's own baseline and check whether it rose with latency or
+queue depth.
 
-## Hands-on: manufacturing real CPU contention
+For the inference services I work on, latency can increase for different
+reasons: more processing within the service, waiting for CPU, or a slow call to
+another service.
 
-I wanted to see how PSI behaves when several workloads compete for the same
-CPUs, rather than when a container hits its configured CPU limit.
+These experiments helped me understand what PSI adds. If I saw latency
+increasing without a clear explanation from CPU utilization, I'd check
+pod-level CPU pressure to see whether contention or throttling might be
+contributing. I'd compare that with application metrics and traces before
+drawing a conclusion.
 
-For this experiment, I used kind on a Colima Linux VM running on my Mac. I
-restricted the Kubernetes node to two CPUs and ran a CPU-intensive workload
-with two workers per pod.
+## Appendix: reproducing the runs
 
-I started by measuring CPU pressure without the workload, then deployed one
-pod. After that, I scaled to three pods, giving roughly six CPU-intensive
-workers competing for two CPUs. Finally, I scaled back to one pod to see how
-quickly the pressure dropped.
+I ran this on kind v0.33.0 with Kubernetes v1.36.1, the release in which PSI
+metrics became stable.
 
-I deliberately left the pods without CPU limits. The
-[Kubernetes PSI documentation](/docs/reference/instrumentation/understand-psi-metrics/)
-already demonstrates pressure caused by CPU quota throttling. Here, I wanted
-to observe contention between workloads sharing limited CPU capacity.
-
-{{< figure src="psi-demo-architecture.svg" caption="Architecture of the demo: a kind node pinned to two CPUs runs three pods of two CPU-bound workers each, so demand of roughly six runnable workers meets a capacity of two CPUs, producing runqueue contention and rising CPU PSI." alt="A macOS host runs a Colima Linux VM containing a kind node pinned to two CPUs. Three pods each run two CPU-bound workers, so about six runnable workers compete for two CPUs, producing runqueue contention and rising CPU PSI." >}}
-
-### Prerequisites
-
-I ran this experiment on an Apple Silicon Mac using Colima, an open-source
-tool that runs a Linux VM with Docker Engine on macOS.
-
-For my setup, I allocated 4 vCPUs, 8 GiB of memory, and 40 GiB of disk space
-to Colima. These are the resources I used, not minimum requirements.
-
-The installation commands use Homebrew on macOS. If you don't have it
-installed, follow the instructions at [brew.sh](https://brew.sh/) first.
+**Requirements:** a Linux host with cgroup v2, a kernel with PSI enabled,
+Docker, kind, kubectl, and jq, with at least 4 CPUs. Check cgroup v2 and PSI on
+the host:
 
 ```shell
-brew install colima docker kind kubectl jq
+stat -fc %T /sys/fs/cgroup     # expect: cgroup2fs
+cat /proc/pressure/cpu         # expect: some and full lines
 ```
 
-Start Colima with the Docker runtime:
+On macOS, I used [Colima](https://github.com/abiosoft/colima), an open source
+tool that runs Docker Engine in a Linux VM (installable with Homebrew):
+`colima start --profile psi-demo --runtime docker --cpu 4 --memory 8`, then run
+the two checks inside the VM with `colima ssh --profile psi-demo -- <command>`.
+
+**Create a two-node cluster** with this `kind-config.yaml`:
+
+```yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+```
 
 ```shell
-colima start --profile psi-demo --runtime docker --cpu 4 --memory 8 --disk 40
+kind create cluster --name psi-demo --image kindest/node:v1.36.1 \
+  --config kind-config.yaml --wait 180s
 ```
 
-Once Colima starts, its Linux VM continues running in the background. Select
-the Colima Docker context so that kind uses the Docker Engine running inside the VM:
-
-```shell
-docker context use colima-psi-demo
-docker context show
-# colima-psi-demo
-```
-
-Before creating the cluster, check that the Linux VM uses cgroup v2 and
-exposes PSI:
-
-```shell
-colima ssh --profile psi-demo -- uname -r
-colima ssh --profile psi-demo -- stat -fc %T /sys/fs/cgroup
-colima ssh --profile psi-demo -- cat /proc/pressure/cpu
-```
-
-My VM reported Linux `6.8.0-117-generic`, `cgroup2fs`, and CPU PSI `some` and
-`full` lines. If these checks fail, investigate the VM before proceeding.
-
-### Create the cluster and confirm PSI is available
-
-```shell
-kind create cluster \
-  --name psi-demo \
-  --image kindest/node:v1.36.1 \
-  --wait 120s
-```
-
-I used Kubernetes v1.36.1, which includes PSI metrics that graduated to GA
-in v1.36.
-
-Confirm cgroup v2:
-
-```shell
-docker exec psi-demo-control-plane stat -fc %T /sys/fs/cgroup
-# cgroup2fs
-```
-
-Confirm the kernel exposes PSI:
-
-```shell
-docker exec psi-demo-control-plane cat /proc/pressure/cpu
-```
-
-You should see `some` and `full` lines with `avg10`, `avg60`, `avg300`, and
-`total`. If `/proc/pressure` is missing, the node kernel was not built with PSI
-and the rest of the demo will not work.
-
-### Make CPU scarce at the node level
-
-The Colima VM has four vCPUs, but I wanted the workloads to compete for just
-two. To do that, I restricted the kind node to CPUs `0` and `1`:
+**Pin the nodes to separate CPUs.** Each kind node is a Docker container, so
+Docker can restrict which CPUs it runs on:
 
 ```shell
 docker update --cpuset-cpus="0,1" psi-demo-control-plane
-
-docker inspect psi-demo-control-plane --format '{{.HostConfig.CpusetCpus}}'
-# 0,1
-
-docker exec psi-demo-control-plane grep Cpus_allowed_list /proc/self/status
-# Cpus_allowed_list: 0-1
-
-docker exec psi-demo-control-plane nproc
-# 2
+docker update --cpuset-cpus="2,3" psi-demo-worker
+docker exec psi-demo-worker nproc     # expect: 2
 ```
 
-This restricts where the node's workloads can run without applying CPU quotas
-to individual pods. I wanted to observe workloads competing for CPU time, not
-waiting because they reached a configured CPU limit.
+Because the kind worker is a container, its node-level PSI comes from that
+container's cgroup rather than from the host's `/proc/pressure/cpu`. That's why
+node-level CPU `full` can be nonzero here; the system-wide CPU `full` line in
+`/proc/pressure/cpu` is always zero.
 
-### Baseline the node
-
-Before starting the stress workload, I checked node CPU pressure through the
-kubelet Summary API:
+**Install metrics-server** for `kubectl top`. The `--kubelet-insecure-tls`
+flag is needed because kind's kubelet serving certificates are self-signed;
+don't use it outside a local test cluster.
 
 ```shell
-NODE=$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
-kubectl get --raw "/api/v1/nodes/$NODE/proxy/stats/summary" | jq '.node.cpu.psi'
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.8.0/components.yaml
+kubectl -n kube-system patch deployment metrics-server --type=json \
+  -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+kubectl -n kube-system rollout status deployment/metrics-server
 ```
 
-After letting the cluster settle for about 60 seconds, I captured the
-baseline. The control plane and other system components were already running,
-so I didn't expect pressure to be exactly zero.
-
-Baseline node PSI:
-
-```json
-{
-  "full": { "total": 24295834, "avg10": 0.57, "avg60": 0.83, "avg300": 0.82 },
-  "some": { "total": 41013378, "avg10": 3.37, "avg60": 3.37, "avg300": 2.03 }
-}
-```
-
-The node's CPU `some.avg10` was **3.37%** before I deployed any stress pods.
-I'll use this reading as the starting point for the workload comparisons.
-
-### Add one workload, with no CPU limit
-
-I started with a single pod running two CPU-intensive workers. Since the kind
-node is restricted to two CPUs, I expected the workers to keep those CPUs busy.
-
-I saved this Deployment as `cpu-contenders.yaml`:
+**The workload**, `spinners.yaml`. Each pod starts `WORKERS` busy loops on the
+worker node:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cpu-contenders
+  name: spinners
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cpu-contenders
+      app: spinners
   template:
     metadata:
       labels:
-        app: cpu-contenders
+        app: spinners
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: psi-demo-worker
       containers:
-      - name: stress
-        image: registry.k8s.io/e2e-test-images/agnhost:2.47
-        args: ["stress", "--cpus", "2"]
+      - name: spin
+        image: busybox:1.36
+        env:
+        - name: WORKERS
+          value: "2"
+        command: ["sh", "-c", "for i in $(seq $WORKERS); do (while :; do :; done) & done; wait"]
 ```
+
+**Run the three cases.** After each change, wait for the rollout to finish,
+then about 60 seconds more, before reading `kubectl top` and the Summary API
+command from earlier, using `psi-demo-worker` as the node name.
 
 ```shell
-kubectl apply -f cpu-contenders.yaml
-kubectl rollout status deployment/cpu-contenders
+# Run A: 2 loops on 2 CPUs
+kubectl apply -f spinners.yaml
+kubectl rollout status deployment/spinners
+
+# Run B: 6 loops on 2 CPUs
+kubectl scale deployment spinners --replicas=3
+kubectl rollout status deployment/spinners
+
+# Run C: 2 loops with a 500m limit. Scale to zero and wait 5 minutes first,
+# so avg10 and avg60 are back near zero after run B.
+kubectl scale deployment spinners --replicas=0
+sleep 300
+kubectl set resources deployment spinners --limits=cpu=500m
+kubectl scale deployment spinners --replicas=1
+kubectl rollout status deployment/spinners
 ```
 
-I also checked that the pod had no CPU limit:
+To get the averaged pressure for a run:
 
 ```shell
-kubectl get pods -l app=cpu-contenders \
-  -o jsonpath='{range .items[*]}{.metadata.name}{" cpu-limit="}{.spec.containers[0].resources.limits.cpu}{"\n"}{end}'
+for i in $(seq 12); do
+  kubectl get --raw /api/v1/nodes/psi-demo-worker/proxy/stats/summary \
+    | jq '.node.cpu.psi.some.avg10'
+  sleep 10
+done | jq -s 'add / length'
 ```
 
-Expected output from this run (the pod suffix will vary):
+This prints the mean of 12 `some.avg10` readings taken about 10 seconds apart,
+the method used for the results above.
 
-```text
-cpu-contenders-86cf68d888-ct765 cpu-limit=
-```
-
-After the workload had been running, I checked the node's CPU PSI again.
-The `some.avg10` reading was **27.30%**, compared with **3.37%** at baseline.
-
-That was already a noticeable increase with just one pod. The stress workers
-weren't the only processes using CPU; the Kubernetes control plane and other
-system components were sharing those same two CPUs. The pod's own
-`some.avg10` was **24.72%**.
-
-### Watch pressure live
-
-In a second terminal:
+For run C, read the throttling counters with:
 
 ```shell
-NODE=$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
-while true; do
-  clear; date
-  kubectl get --raw "/api/v1/nodes/$NODE/proxy/stats/summary" \
-    | jq '{some_avg10: .node.cpu.psi.some.avg10,
-           some_avg60: .node.cpu.psi.some.avg60,
-           full_avg10: .node.cpu.psi.full.avg10}'
-  sleep 2
-done
+kubectl get --raw /api/v1/nodes/psi-demo-worker/proxy/metrics/cadvisor \
+  | grep -E 'container_cpu_cfs_throttled_(periods|seconds)_total' | grep 'container="spin"'
 ```
 
-### Create the contention
-
-Back in the first terminal, I increased the Deployment from one pod to three.
-Each pod runs two CPU-intensive workers, so roughly six workers were now
-competing for the same two CPUs:
+**Clean up:**
 
 ```shell
-kubectl scale deployment cpu-contenders --replicas=3
-kubectl rollout status deployment/cpu-contenders
-```
-
-I watched `some.avg10` rise first, while `avg60` followed more slowly. I also
-compared the kubelet Summary API with raw Linux PSI. They report different
-scopes, so I compared their CPU `some` trends rather than treating their values
-as interchangeable:
-
-```shell
-docker exec psi-demo-control-plane cat /proc/pressure/cpu
-```
-
-The captured kubelet Summary API sample during three-pod contention
-reported these values:
-
-```json
-{
-  "some_avg10": 68.93,
-  "some_avg60": 55.27,
-  "full_avg10": 0
-}
-```
-
-The node's `some.avg10` climbed from **27.30%** with one pod to **68.93%**
-with three, without changing CPU allocation or adding pod CPU limits.
-
-The kubelet node `full.avg10` was `0` in this sample, while per-pod `full`
-values were nonzero. System-wide CPU `full` in `/proc/pressure/cpu` is
-reported as zero for compatibility; it cannot validate cgroup-scoped CPU
-`full` measurements.
-
-### Find out which pods are waiting
-
-```shell
-kubectl get --raw "/api/v1/nodes/$NODE/proxy/stats/summary" | jq -r '
-  .pods[]
-  | select(.podRef.name | startswith("cpu-contenders"))
-  | "\(.podRef.name)  \(.cpu.psi.some.avg10)"'
-```
-
-For the three pods in this run, the `some.avg10` readings were:
-
-```text
-cpu-contenders-86cf68d888-4fxvt  43.5
-cpu-contenders-86cf68d888-ct765  62.12
-cpu-contenders-86cf68d888-wwmgs  58.68
-```
-
-The same signal is available as a Prometheus counter, per container:
-
-```shell
-kubectl get --raw "/api/v1/nodes/$NODE/proxy/metrics/cadvisor" \
-  | grep container_pressure_cpu_waiting_seconds_total | grep cpu-contenders
-```
-
-`container_pressure_cpu_waiting_seconds_total` is a cumulative counter; the
-rate of increase, not the raw value, tracks contention over time. For the
-`ct765` stress container, the counter increased from `109.253952` to
-`128.250746` seconds over `30.803` seconds:
-
-```text
-(128.250746 - 109.253952) / 30.803 = 0.617
-```
-
-That is about 61.7% of the measured interval, compared with the pod's
-`some.avg10` of 62.12%. These use different observation windows, so they are
-not expected to be identical.
-
-### Relieve it and watch it decay
-
-```shell
-kubectl scale deployment cpu-contenders --replicas=1
-```
-
-I wanted to see how quickly PSI would reflect the reduced contention. About
-15 seconds into recovery, the shorter `avg10` window had already dropped near
-the earlier one-pod level, while the longer averages still included more of the
-three-pod contention period.
-
-Node PSI about 15 seconds into recovery:
-
-```json
-{
-  "full": {
-    "total": 47584317,
-    "avg10": 3.62,
-    "avg60": 1.31,
-    "avg300": 0.83
-  },
-  "some": {
-    "total": 483065990,
-    "avg10": 28.07,
-    "avg60": 53.44,
-    "avg300": 55.34
-  }
-}
-```
-
-The `some.avg10` value was **28.07%**, close to the earlier one-pod reading
-of **27.30%**. But `avg60` and `avg300` remained elevated. By the later
-recovery measurement, `avg10` had fallen further to **24.29%**.
-
-The shorter and longer averages captured different parts of the recovery.
-Pressure didn't return to the idle baseline: one CPU-intensive pod was still
-running.
-
-### What the run showed
-
-Here's how node CPU pressure changed as I added and removed workloads. The
-values are the final `some.avg10` sample for each stage; your numbers will
-differ:
-
-| Stage       | Pods (workers) | Node CPU some.avg10 | What happened                              |
-|-------------|----------------|---------------------|--------------------------------------------|
-| Baseline    | 0              | 3.37                | idle floor, control plane only             |
-| One pod     | 1 (2)          | 27.30               | workers share two CPUs with the control plane |
-| Contention  | 3 (~6)         | 68.93               | tasks queue for CPU                        |
-| Recovery    | 1 (2)          | 24.29               | eases back to the one-pod level            |
-
-{{< figure src="psi-four-stage-results.svg" caption="Node CPU PSI some.avg10 during the Colima run: baseline 3.37%, one pod 27.30%, three pods 68.93%, and recovery 24.29%. Recovery leaves one CPU-bound pod running." alt="Bar chart showing node CPU PSI some avg10 rising from 3.37% at baseline to 27.30% with one pod and 68.93% with three pods, then falling to 24.29% after scaling back to one pod." >}}
-
-The biggest change came when I scaled from one pod to three. CPU pressure
-rose from 27.30% to 68.93%, even though the available CPU capacity hadn't
-changed. After scaling back to one pod, it fell to 24.29%.
-
-## Reading PSI in production
-
-In production, I'd start with the symptom: request latency, throughput, errors,
-or queue depth. I'd compare the timing of that change with CPU utilization and
-PSI, rather than treating any one metric as a diagnosis. A pressure level that
-is normal for a batch workload might be a concern for a latency-sensitive API,
-so the workload's own baseline matters more than a universal threshold.
-
-Scope helps narrow the investigation. If one container shows pressure while
-node pressure stays low, I'd check that container's workload and resource
-configuration. If several pods and the node show pressure together, I'd look
-at shared CPU capacity, placement, and competing workloads. Those are clues
-about where tasks are waiting, not proof of what's causing an application
-slowdown.
-
-This is relevant to the latency-sensitive inference systems I work on. An
-inference request may involve preprocessing and calls to a model or other
-services. When latency increases, I'd first check request metrics and traces
-to see where time is being spent. If the delay appears to be within the
-service, CPU PSI could help test whether runnable work is waiting for CPU;
-if the time is in a downstream call, I'd investigate that dependency instead.
-
-After changing capacity, placement, or concurrency, I'd check whether both
-pressure and the application symptom improved. The Colima experiment made the
-reason for that comparison concrete: adding competing pods raised measured
-CPU waiting, and removing them brought it back toward the one-pod level.
-
-## Clean up
-
-```shell
-kubectl delete deployment cpu-contenders
-# Remove the CPU-set restriction if you are keeping the cluster:
-docker update --cpuset-cpus="" psi-demo-control-plane
-# Or tear it all down:
 kind delete cluster --name psi-demo
-# Optional: stop the Colima VM
-colima stop --profile psi-demo
+colima stop --profile psi-demo     # macOS only
 ```
