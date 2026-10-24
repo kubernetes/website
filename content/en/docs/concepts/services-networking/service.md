@@ -264,13 +264,13 @@ For an EndpointSlice that you create yourself, or in your own code,
 you should also pick a value to use for the label
 [`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by).
 If you create your own controller code to manage EndpointSlices, consider using a
-value similar to `"my-domain.example/name-of-controller"`. If you are using a third
+value similar to `my-domain.example/name-of-controller`. If you are using a third
 party tool, use the name of the tool in all-lowercase and change spaces and other
 punctuation to dashes (`-`).
 If people are directly using a tool such as `kubectl` to manage EndpointSlices,
-use a name that describes this manual management, such as `"staff"` or
-`"cluster-admins"`. You should
-avoid using the reserved value `"controller"`, which identifies EndpointSlices
+use a name that describes this manual management, such as _staff_ or
+_cluster-admins_. You should
+avoid using the reserved value _controller_, which identifies EndpointSlices
 managed by Kubernetes' own control plane.
 
 #### Accessing a Service without a selector {#service-no-selector-access}
