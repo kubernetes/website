@@ -17,7 +17,7 @@ Esta seção apresenta a _alocação dinâmica de recursos (DRA)_ no Kubernetes.
 
 Alocar recursos com DRA oferece uma experiência semelhante ao
 [provisionamento dinâmico de volumes](/docs/concepts/storage/dynamic-provisioning/),
-no qual você utiliza PersistentVolumeClaims para _requisitar_ capacidade de armazenamento a partir de classes de armazenamento,
+no qual você utiliza PersistentVolumeClaims para requisitar capacidade de armazenamento a partir de classes de armazenamento,
 e solicita a capacidade requisitada para uso nos seus Pods.
 
 <!-- body -->
