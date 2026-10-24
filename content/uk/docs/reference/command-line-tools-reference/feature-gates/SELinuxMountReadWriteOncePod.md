@@ -1,12 +1,12 @@
 ---
 title: SELinuxMountReadWriteOncePod
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.25"
     toVersion: "1.26"
@@ -17,5 +17,9 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.28"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Прискорює запуск контейнера, дозволяючи kubelet монтувати томи для Pod безпосередньо з правильною міткою SELinux замість того, щоб рекурсивно змінювати кожен файл на томах. Початкова реалізація була зосереджена на томах ReadWriteOncePod.
