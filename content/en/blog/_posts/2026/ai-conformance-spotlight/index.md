@@ -2,11 +2,10 @@
 layout: blog
 title: "From Working Group to SIG Architecture: spotlight on AI Conformance"
 slug: sig-arch-ai-conformance-2026
-# Note: use the correct canonicalUrl when publishing the article
-# canonicalUrl: to be added with the data PR
-# date: idem
-draft: true
-
+draft: false
+date: 2026-10-29T05:00:00-00:00
+canonicalUrl: https://www.kubernetes.dev/blog/2026/10/29/sig-arch-ai-conformance-2026
+draft: false
 author: >-
 
   Frederico Muñoz (SAS Institute),
