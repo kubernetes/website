@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating container-level scope where one container gets exclusive resources and others run in the node's shared pool."
+spec:
+  # 在 Pod 级别，该 Pod 的 CPU request 等于 limits，内存 request 也等于内存 limits。
+  # infrastructure-sidecar 容器在容器级别满足 Guaranteed QoS 类的要求，而各 worker
+  # 容器未指定任何资源 request。在 container 范围下，kubelet 会逐个评估容器以进行独占分配。
+  # 这意味着 infrastructure-sidecar 获得独占的 2 个 CPU 切片，
+  # 而 worker 容器在节点的常规共享池中运行，同时所有容器的总量仍受 Pod 级限额约束。
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: infrastructure-sidecar
+    # 注意：这是仅用于演示的占位镜像，并不是真正的基础设施助手。
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
+  containers:
+  - name: worker-1
+    # 注意：这是仅用于演示的占位镜像。
+    image: registry.k8s.io/pause:3.9
+  - name: worker-2
+    # 注意：这是仅用于演示的占位镜像。
+    image: registry.k8s.io/pause:3.9

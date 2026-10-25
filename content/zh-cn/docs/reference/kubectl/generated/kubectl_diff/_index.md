@@ -85,7 +85,8 @@ cat service.yaml | kubectl diff -f -
 <td colspan="2">--concurrency int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Number of objects to process in parallel when diffing against the live version. Larger number = faster, but more memory, I/O and CPU over that shorter period of time.
@@ -100,7 +101,8 @@ Number of objects to process in parallel when diffing against the live version. 
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-client-side-apply"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Name of the manager used to track field ownership.
@@ -114,7 +116,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Filename, directory, or URL to files contains the configuration to diff
@@ -128,7 +131,8 @@ Filename, directory, or URL to files contains the configuration to diff
 <td colspan="2">--force-conflicts</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, server-side apply will force the changes against conflicts.
@@ -142,7 +146,8 @@ If true, server-side apply will force the changes against conflicts.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 help for diff
@@ -156,7 +161,8 @@ diff 操作的帮助命令。
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
@@ -170,7 +176,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 <td colspan="2">--prune</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Include resources that would be deleted by pruning. Can be used with -l and default shows all resources would be pruned
@@ -184,7 +191,8 @@ Include resources that would be deleted by pruning. Can be used with -l and defa
 <td colspan="2">--prune-allowlist strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Overwrite the default allowlist with &lt;group/version/kind&gt; for --prune
@@ -198,7 +206,8 @@ Overwrite the default allowlist with &lt;group/version/kind&gt; for --prune
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
@@ -212,7 +221,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
@@ -228,7 +238,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <td colspan="2">--server-side</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, apply runs in the server instead of the client.
@@ -242,7 +253,8 @@ If true, apply runs in the server instead of the client.
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, include managed fields in the diff.
@@ -256,12 +268,13 @@ If true, include managed fields in the diff.
 <td colspan="2">--show-secrets</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, do not mask secret values in the diff.
 -->
-如果为 true ，则不要在 diff 中屏蔽 Secret 值。
+如果为 true，则不要在 diff 中屏蔽 Secret 值。
 </p>
 </td>
 </tr>
@@ -282,7 +295,8 @@ If true, do not mask secret values in the diff.
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
@@ -296,7 +310,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
@@ -310,20 +325,23 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--  
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
@@ -343,7 +361,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -420,7 +439,8 @@ The name of the kubeconfig context to use
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, opt-out of response compression for all requests to the server
@@ -434,7 +454,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
@@ -448,7 +469,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
@@ -462,7 +484,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <td colspan="2">--kuberc string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
@@ -477,7 +500,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Require server version to match client version
@@ -544,6 +568,20 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
@@ -590,7 +628,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 database name
@@ -604,7 +643,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 database host:port
@@ -618,7 +658,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 database password
@@ -632,7 +673,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 use secure connection with database

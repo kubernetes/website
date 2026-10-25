@@ -161,6 +161,21 @@ DaemonSet 控制器（作为控制平面的一部分）会立即用新的等效 
 DaemonSet 控制器还会创建忽略不可调度污点的 Pod，这种污点允许在你正在清空的节点上启动新的 Pod。
 
 <!--
+DaemonSet Pods are typically node-local services such as networking, storage, or
+log collection that need to remain on the node for as long as the node itself is
+running. Because the DaemonSet controller pins each Pod to a specific node and
+ignores the unschedulable taint, evicting these Pods would only cause them to be
+recreated on the same node. `--ignore-daemonsets` skips them so that drain can
+complete; the Pods continue to run while you perform maintenance and are removed
+when the node is removed from the cluster.
+-->
+DaemonSet Pod 通常用于运行节点本地服务，例如网络、存储或日志收集服务。
+这些服务需要在节点运行期间始终驻留在该节点上。由于 DaemonSet 控制器会将每个 Pod 固定到特定节点，
+并忽略节点上的不可调度污点，因此，即使驱逐这些 Pod，它们也只会在同一节点上被重新创建。
+`--ignore-daemonsets` 参数用于在执行节点排空操作时跳过这些 Pod，以确保排空操作能够完成。
+在节点维护期间，这些 Pod 会继续运行；当节点从集群中移除时，这些 Pod 也会随之被删除。
+
+<!--
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
 If you leave the node in the cluster during the maintenance operation, you need to run
