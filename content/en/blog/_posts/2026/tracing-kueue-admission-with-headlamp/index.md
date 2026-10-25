@@ -52,7 +52,7 @@ of Headlamp. If it is admitted but its Pods are still `Pending`, move to Headlam
 Pod views and inspect scheduler events.
 
 {{< figure
-  src="kueue-admission-architecture.svg"
+  src="kueue-admission-architecture.png"
   alt="A Kubernetes Job becomes a Kueue Workload. Kueue evaluates its LocalQueue, ClusterQueue, ResourceFlavor, and optional Cohort before resuming the Job. Headlamp reads these resources through the Kubernetes API."
   caption="Kueue admission architecture"
 >}}
@@ -62,7 +62,7 @@ Pod views and inspect scheduler events.
 The quickest investigation starts with the Workload, not with a shell.
 
 {{< figure
-  src="headlamp-kueue-troubleshooting-flow.svg"
+  src="headlamp-kueue-troubleshooting-flow.png"
   alt="A Headlamp troubleshooting flow that starts with Kueue Workloads, checks admission conditions, follows LocalQueue and ClusterQueue links when admission is blocked, and switches to Job and Pod views after admission."
   caption="Tracing a pending Job through Headlamp"
 >}}
