@@ -15,36 +15,39 @@
 # limitations under the License.
 ##########
 
-# cd to the root path
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
-CONTENT_DIR="content/ja"
-cd "${ROOT}/${CONTENT_DIR}"
+# Usage: verify-spelling.sh [DIRECTORY|FILE]...
+# If no argument is given, the current directory is checked.
 
-TARGET_WORDS=""               # invalid:valid
-TARGET_WORDS="${TARGET_WORDS} コンテナー:コンテナ"
-TARGET_WORDS="${TARGET_WORDS} アーキテクチャー:アーキテクチャ"
-TARGET_WORDS="${TARGET_WORDS} コントローラ[^ー]:コントローラー"
-TARGET_WORDS="${TARGET_WORDS} オペレータ[^ー]:オペレーター"
-TARGET_WORDS="${TARGET_WORDS} パラメータ[^ー]:パラメーター"
-TARGET_WORDS="${TARGET_WORDS} レイヤ[^ー]:レイヤー"
-TARGET_WORDS="${TARGET_WORDS} クラスタ[^ーリ]:クラスター" # 例外的にクラスタリングはクラスターリングにしない
-TARGET_WORDS="${TARGET_WORDS} バイナリー:バイナリ"
+TARGET_WORDS=(
+	# incorrect_word_with_regex:correct_word
+	"コンテナー:コンテナ"
+	"アーキテクチャー:アーキテクチャ"
+	"コントローラ[^ー]:コントローラー"
+	"オペレータ[^ー]:オペレーター"
+	"パラメータ[^ー]:パラメーター"
+	"レイヤ[^ー]:レイヤー"
+	"クラスタ[^ーリ]:クラスター" # クラスタリングは除外
+	"バイナリー:バイナリ"
+)
 
-INVALID_CONTAINED=""
+if [ $# -eq 0 ]; then
+	set -- .
+fi
 
-for word_set in $(echo ${TARGET_WORDS})
+EXIT_CODE=0
+
+for word_pair in "${TARGET_WORDS[@]}"
 do
-	invalid=$(echo ${word_set} | awk -F: '{print $1}')
-	valid=$(echo ${word_set} | awk -F: '{print $2}')
-	grep -E "${invalid}" * -R
+	incorrect_word_with_regex="${word_pair%%:*}"
+	correct_word="${word_pair#*:}"
+	incorrect_word="${incorrect_word_with_regex%%\[*}"
+	grep -EHRn "${incorrect_word_with_regex}|${incorrect_word}$" "$@"
 	if [ $? -eq 0 ]; then
-		echo "Invalid word ${invalid} is contained under ${CONTENT_DIR}."
-		echo "Please replace ${invalid} with ${valid}."
+		echo "Incorrect word ${incorrect_word} is contained."
+		echo "Please replace ${incorrect_word} with ${correct_word}."
 		echo
-		INVALID_CONTAINED="TRUE"
+		EXIT_CODE=1
 	fi
 done
 
-if [ "${INVALID_CONTAINED}" != "" ]; then
-	exit 1
-fi
+exit "${EXIT_CODE}"
