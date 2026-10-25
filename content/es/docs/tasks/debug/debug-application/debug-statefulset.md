@@ -1,4 +1,12 @@
 ---
+reviewers:
+- bprashanth
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
+- smarterclayton
 title: Depurar un StatefulSet
 content_type: task
 weight: 30
