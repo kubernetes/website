@@ -97,8 +97,7 @@ Las variables de entorno que defines en la configuración de un Pod debajo de
 `.spec.containers[*].env[*]` pueden ser utilizadas en otras partes de la configuración, por
 ejemplo en comandos y argumentos que configuras para los contenedores del Pod.
 En el ejemplo de configuración debajo, las variables de entorno `GREETING`, `HONORIFIC`, y
-`NAME` se configuran como `Warm greetings to`, `The Most
-Honorable`, y `Kubernetes`, respectivamente. La variable de entorno
+`NAME` se configuran como `Cálidos saludos`, `al más honorable`, y `Kubernetes`, respectivamente. La variable de entorno
 `MESSAGE` combina todas estas variables de entorno y luego las utiliza
 como un argumento de CLI para el contenedor `env-print-demo`.
 
@@ -115,9 +114,9 @@ spec:
     image: bash
     env:
     - name: GREETING
-      value: "Warm greetings to"
+      value: "Cálidos saludos"
     - name: HONORIFIC
-      value: "The Most Honorable"
+      value: "al más honorable"
     - name: NAME
       value: "Kubernetes"
     - name: MESSAGE
@@ -126,7 +125,7 @@ spec:
     args: ["$(MESSAGE)"]
 ```
 
-Al crearse, el comando `echo Warm greetings to The Most Honorable Kubernetes` se ejecuta en el contenedor.
+Al crearse, el comando `echo Cálidos saludos al más honorable Kubernetes` se ejecuta en el contenedor.
 
 ## {{% heading "whatsnext" %}}
 
