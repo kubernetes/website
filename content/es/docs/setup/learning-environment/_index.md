@@ -22,7 +22,7 @@ Ejecutar Kubernetes localmente te brinda un entorno seguro para aprender y exper
 
 ### kind
 
-[kind](https://kind.sigs.k8s.io/) (Kubernetes EN Docker) ejecuta clústeres de Kubernetes utilizando contenedores de Docker como nodos. Es liviano y diseñado específicamente para probar el propio Kubernetes, pero funciona genial para aprender también.
+[kind](https://kind.sigs.k8s.io/) (Kubernetes IN Docker) ejecuta clústeres de Kubernetes utilizando contenedores de Docker como nodos. Es liviano y diseñado específicamente para probar el propio Kubernetes, pero funciona genial para aprender también.
 
 Para empezar con kind, mira [Inicio rápido de kind](https://kind.sigs.k8s.io/docs/user/quick-start/).
 
