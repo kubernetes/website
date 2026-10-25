@@ -162,8 +162,10 @@ var kub = (function () {
             var hamburger = document.getElementById('hamburger');
             if (hamburger) {
                 var isOpen = html.hasClass('open-nav');
-                var text = isOpen ? (hamburger.getAttribute('data-nav-close-text') || 'Close navigation menu') : (hamburger.getAttribute('data-nav-open-text') || 'Open navigation menu');
-                hamburger.setAttribute('aria-label', text);
+                var text = isOpen ? hamburger.getAttribute('data-nav-close-text') : hamburger.getAttribute('data-nav-open-text');
+                if (text) {
+                    hamburger.setAttribute('aria-label', text);
+                }
                 hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             }
         }
@@ -456,10 +458,12 @@ var pushmenu = (function(){
         sled.appendChild(content);
 
         var hamburger = document.getElementById('hamburger');
-        var closeText = (hamburger && hamburger.getAttribute('data-nav-close-text')) || 'Close navigation menu';
+        var closeText = hamburger ? hamburger.getAttribute('data-nav-close-text') : null;
 
         var closeButton = newDOMElement('button', 'btn fa fa-times');
-        closeButton.setAttribute('aria-label', closeText);
+        if (closeText) {
+            closeButton.setAttribute('aria-label', closeText);
+        }
         closeButton.onclick = closeMe;
 
         sled.appendChild(closeButton);
@@ -482,8 +486,10 @@ var pushmenu = (function(){
             $(el).removeClass('on');
             var hamburger = document.getElementById('hamburger');
             if (hamburger) {
-                var openText = hamburger.getAttribute('data-nav-open-text') || 'Open navigation menu';
-                hamburger.setAttribute('aria-label', openText);
+                var openText = hamburger.getAttribute('data-nav-open-text');
+                if (openText) {
+                    hamburger.setAttribute('aria-label', openText);
+                }
                 hamburger.setAttribute('aria-expanded', 'false');
             }
             setTimeout(function(){
@@ -499,8 +505,10 @@ var pushmenu = (function(){
 
             var hamburger = document.getElementById('hamburger');
             if (hamburger) {
-                var closeText = hamburger.getAttribute('data-nav-close-text') || 'Close navigation menu';
-                hamburger.setAttribute('aria-label', closeText);
+                var closeText = hamburger.getAttribute('data-nav-close-text');
+                if (closeText) {
+                    hamburger.setAttribute('aria-label', closeText);
+                }
                 hamburger.setAttribute('aria-expanded', 'true');
             }
 
