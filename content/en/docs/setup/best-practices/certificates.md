@@ -116,13 +116,16 @@ Required certificates:
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client           |                                                     |
 | kube-apiserver-etcd-client    | etcd-ca                   |                | client           |                                                     |
 | kube-apiserver                | kubernetes-ca             |                | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`[^1]     |
-| kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
+| kube-apiserver-kubelet-client | kubernetes-ca             |                | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 
 {{< note >}}
-Instead of using the super-user group `system:masters` for `kube-apiserver-kubelet-client`
-a less privileged group can be used. kubeadm uses the `kubeadm:cluster-admins` group for
-that purpose.
+kubeadm does not set an organization (`O`) in the `kube-apiserver-kubelet-client`
+certificate (Kubernetes v1.37 and later, and the patch releases v1.36.1, v1.35.5, v1.34.8
+and v1.33.12). Instead it binds the user `kube-apiserver-kubelet-client` to the ClusterRole
+`system:kubelet-api-admin` with the ClusterRoleBinding `kubeadm:apiserver-kubelet-client`.
+Earlier releases used the group `kubeadm:cluster-admins` (v1.29 to v1.36.0) and, before
+that, the super-user group `system:masters`.
 {{< /note >}}
 
 [^1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
