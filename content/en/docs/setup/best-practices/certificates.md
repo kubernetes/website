@@ -109,22 +109,15 @@ If you don't wish to copy the CA private keys to your cluster, you can generate 
 
 Required certificates:
 
-| Default CN                    | Parent CA                 | O (in Subject) | kind             | hosts (SAN)                                         |
-|-------------------------------|---------------------------|----------------|------------------|-----------------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-peer                | etcd-ca                   |                | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-healthcheck-client  | etcd-ca                   |                | client           |                                                     |
-| kube-apiserver-etcd-client    | etcd-ca                   |                | client           |                                                     |
-| kube-apiserver                | kubernetes-ca             |                | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`[^1]     |
-| kube-apiserver-kubelet-client | kubernetes-ca             |                | client           |                                                     |
-| front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
-
-{{< note >}}
-Since v1.37 (and v1.36.1, v1.35.5, v1.34.8, v1.33.12) kubeadm sets no `O` in this
-certificate. The user `kube-apiserver-kubelet-client` is bound to the ClusterRole
-`system:kubelet-api-admin` by the ClusterRoleBinding `kubeadm:apiserver-kubelet-client`.
-Before that the group was `kubeadm:cluster-admins` (v1.29 to v1.36.0) or `system:masters`.
-{{< /note >}}
+| Default CN                    | Parent CA                 | kind             | hosts (SAN)                                         |
+|-------------------------------|---------------------------|------------------|-----------------------------------------------------|
+| kube-etcd                     | etcd-ca                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd-peer                | etcd-ca                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd-healthcheck-client  | etcd-ca                   | client           |                                                     |
+| kube-apiserver-etcd-client    | etcd-ca                   | client           |                                                     |
+| kube-apiserver                | kubernetes-ca             | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`[^1]     |
+| kube-apiserver-kubelet-client | kubernetes-ca             | client           |                                                     |
+| front-proxy-client            | kubernetes-front-proxy-ca | client           |                                                     |
 
 [^1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
