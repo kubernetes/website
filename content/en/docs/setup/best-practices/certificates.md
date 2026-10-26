@@ -120,12 +120,10 @@ Required certificates:
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 
 {{< note >}}
-kubeadm does not set an organization (`O`) in the `kube-apiserver-kubelet-client`
-certificate (Kubernetes v1.37 and later, and the patch releases v1.36.1, v1.35.5, v1.34.8
-and v1.33.12). Instead it binds the user `kube-apiserver-kubelet-client` to the ClusterRole
-`system:kubelet-api-admin` with the ClusterRoleBinding `kubeadm:apiserver-kubelet-client`.
-Earlier releases used the group `kubeadm:cluster-admins` (v1.29 to v1.36.0) and, before
-that, the super-user group `system:masters`.
+Since v1.37 (and v1.36.1, v1.35.5, v1.34.8, v1.33.12) kubeadm sets no `O` in this
+certificate. The user `kube-apiserver-kubelet-client` is bound to the ClusterRole
+`system:kubelet-api-admin` by the ClusterRoleBinding `kubeadm:apiserver-kubelet-client`.
+Before that the group was `kubeadm:cluster-admins` (v1.29 to v1.36.0) or `system:masters`.
 {{< /note >}}
 
 [^1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
