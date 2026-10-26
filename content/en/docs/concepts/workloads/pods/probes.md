@@ -221,6 +221,7 @@ spec:
   containers:
   - name: app
     image: registry.k8s.io/e2e-test-images/agnhost:2.40
+    args: ["netexec", "--http-port=8080"]
     ports:
     - containerPort: 8080
     startupProbe:
@@ -239,7 +240,7 @@ spec:
       failureThreshold: 3
     readinessProbe:
       httpGet:
-        path: /ready
+        path: /readyz
         port: 8080
       periodSeconds: 5
 ```
