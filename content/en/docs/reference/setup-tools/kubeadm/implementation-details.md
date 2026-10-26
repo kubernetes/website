@@ -172,9 +172,6 @@ Kubeadm generates certificate and private key pairs for different purposes:
 - A client certificate for the API server to connect to the kubelets securely, generated using
   `ca.crt` as the CA and saved into `apiserver-kubelet-client.crt` file with its private key
   `apiserver-kubelet-client.key`.
-  This certificate should have the Common Name (CN) `kube-apiserver-kubelet-client` and no
-  organization; access to the kubelet API is granted to this user by the ClusterRoleBinding
-  `kubeadm:apiserver-kubelet-client` (see below)
 
 - A private key for signing ServiceAccount Tokens saved into `sa.key` file along with its public key `sa.pub`
 
@@ -504,15 +501,6 @@ for nodes will get its CSR request automatically approved by the csrapprover con
 This is implemented by creating ClusterRoleBinding named
 `kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
-
-#### Allow the API server to access the kubelet API
-
-Kubeadm ensures that the API server can access the kubelet API using its client certificate
-`apiserver-kubelet-client.crt`.
-
-This is implemented by creating a ClusterRoleBinding named `kubeadm:apiserver-kubelet-client`
-between the user `kube-apiserver-kubelet-client` and the default RBAC role
-`system:kubelet-api-admin`.
 
 #### Create the public cluster-info ConfigMap
 
