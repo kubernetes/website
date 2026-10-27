@@ -213,7 +213,7 @@ the kubelet uses the lesser of the two grace periods. If you do not specify a
 maximum allowed grace period, the kubelet kills evicted pods immediately without
 graceful termination.
 
-You can use the following `KubeletConfiguration` API fields:
+You can use the following kubelet configuration file settings:
 
 - `evictionSoft`: A set of eviction thresholds like `memory.available<1.5Gi`
   that can trigger pod eviction if held over the specified grace period.
