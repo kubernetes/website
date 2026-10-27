@@ -27,7 +27,7 @@ Automáticamente reemplaza contenedores fallidos, reprograma cargas de trabajo c
   
 - **Recuperación de almacenamiento persistente:** Si un nodo está ejecutando un Pod con un PersistentVolume (PV) adjunto, y el nodo falla, Kubernetes puede volver a adjuntar el volumen a un nuevo Pod en un nodo diferente.
 
-- **Balanceo de carga para Services:** Si un Pod detrás de un [Service](/docs/concepts/services-networking/service/) falla, Kubernetes automáticamente lo elimina de los endpoints del Service para enrutar el tráfico únicamente a Pods saludables.
+- **Balanceo de carga para los Services:** Si un Pod detrás de un [Service](/docs/concepts/services-networking/service/) falla, Kubernetes automáticamente lo elimina de los endpoints del Service para enrutar el tráfico únicamente a Pods saludables.
 
 Estos son algunos de los componentes clave que proporcionan autorreparación a Kubernetes:
 
