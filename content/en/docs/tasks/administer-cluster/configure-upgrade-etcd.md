@@ -446,13 +446,16 @@ either be a snapshot file from a previous backup operation, or from a remaining
    etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
    ```
 
-   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
-   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
-   first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
-   then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
-
 {{% /tab %}}
 {{< /tabs >}}
+
+If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster.
+Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
+first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
+then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
+On a cluster that kubeadm manages, also set `etcd.local.dataDir` to `<data-dir-location>` in the `kubeadm-config` ConfigMap
+([Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure/#updating-the-clusterconfiguration)).
+If it still names the old directory, the next `kubeadm upgrade` writes an etcd manifest for that directory.
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
