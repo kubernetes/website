@@ -10,7 +10,8 @@
 # instead -- see the files alongside this one / under their own directory.
 #
 # How to add redirects:
-# - For STATIC redirects (fixed paths) to default-language pages: add
+# - For English localization redirects: add them to THIS FILE.
+# - For redirects that don't relate to a specific language: also add
 #   them to THIS FILE.
 # - For a specific localization's redirects: edit that localization's
 #   own redirects file instead.
@@ -427,6 +428,7 @@
 /docs/concepts/cluster-administration/manage-deployment/ /docs/concepts/workloads/management/ 301
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
 
+# Redirect legacy short names for localizations that have moved
 /pt/*         /pt-br/:splat  302!
 /zh/*         /zh-cn/:splat  302!
 
