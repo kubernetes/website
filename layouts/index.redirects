@@ -4,15 +4,24 @@
 should write the shared `_redirects` file. */}}
 {{- if eq $site.Language.Lang $defaultLang -}}
 {{- $latest := or $site.Params.latest (errorf "missing .Site.Params.latest") -}}
-{{/* content/en/_redirects.base holds the default-language redirects */}}
-{{- $baseRedirectsText := readFile "content/en/_redirects.base" -}}
+{{/* content/<defaultLang>/_redirects.base holds the default-language
+redirects plus legacy entries with no current owning localization. */}}
+{{- $baseRedirectsText := readFile (printf "content/%s/_redirects.base" $defaultLang) -}}
 {{- $languages := dict -}}
 {{- range $language := $site.Languages -}}
   {{- $languages = merge $languages (dict $language.Lang true) -}}
   {{- if ne $language.Lang $defaultLang -}}
     {{- $langRedirectsFile := printf "content/%s/_redirects.base" $language.Lang -}}
     {{- if os.FileExists $langRedirectsFile -}}
-      {{- $baseRedirectsText = printf "%s\n\n%s" $baseRedirectsText (readFile $langRedirectsFile) -}}
+      {{- $langRedirectsText := readFile $langRedirectsFile -}}
+      {{- $langPrefix := printf "/%s/" $language.Lang -}}
+      {{- range $lineNum, $line := split $langRedirectsText "\n" -}}
+        {{- $trimmed := trim $line " \t\r" -}}
+        {{- if and (ne $trimmed "") (not (hasPrefix $trimmed "#")) (not (hasPrefix $trimmed $langPrefix)) -}}
+          {{- errorf "%s line %d: redirect source %q does not start with %q -- a localization's _redirects.base may only declare redirects for its own locale" $langRedirectsFile (add $lineNum 1) $trimmed $langPrefix -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $baseRedirectsText = printf "%s\n\n%s" $baseRedirectsText $langRedirectsText -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -96,7 +105,6 @@ should write the shared `_redirects` file. */}}
 /docs/reference/generated/kubernetes-api/latest/*   /docs/reference/generated/kubernetes-api/{{ $latest }}/:splat 307
 {{ end }}
 
-# Include redirects declared in static/_redirects.base
 {{ $baseRedirectsText }}
 
 {{ if gt (len $aliasRedirects) 0 }}
