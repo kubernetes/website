@@ -123,6 +123,11 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 
   # Deny all file writes.
   deny /** w,
+
+  # Allow receiving signals so that the container runtime can stop the
+  # container even when the runtime itself runs confined (runc and crun can
+  # run under their own AppArmor profile starting with AppArmor 4.0).
+  signal (receive),
 }
 ```
 
@@ -144,6 +149,11 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 
   # Deny all file writes.
   deny /** w,
+
+  # Allow receiving signals so that the container runtime can stop the
+  # container even when the runtime itself runs confined (runc and crun can
+  # run under their own AppArmor profile starting with AppArmor 4.0).
+  signal (receive),
 }
 EOF'
 done
