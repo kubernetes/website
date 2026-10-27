@@ -22,7 +22,7 @@ Node-pressure eviction is not the same as
 The kubelet does not respect your configured {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}
 or the pod's
 `terminationGracePeriodSeconds`. If you use [soft eviction thresholds](#soft-eviction-thresholds),
-the kubelet respects your configured `eviction-max-pod-grace-period`. If you use
+the kubelet respects your configured `evictionMaxPodGracePeriod`. If you use
 [hard eviction thresholds](#hard-eviction-thresholds), the kubelet uses a `0s` grace period (immediate shutdown) for termination.
 
 ## Self healing behavior
@@ -213,13 +213,13 @@ the kubelet uses the lesser of the two grace periods. If you do not specify a
 maximum allowed grace period, the kubelet kills evicted pods immediately without
 graceful termination.
 
-You can use the following flags to configure soft eviction thresholds:
+You can use the following `KubeletConfiguration` API fields:
 
-- `eviction-soft`: A set of eviction thresholds like `memory.available<1.5Gi`
+- `evictionSoft`: A set of eviction thresholds like `memory.available<1.5Gi`
   that can trigger pod eviction if held over the specified grace period.
-- `eviction-soft-grace-period`: A set of eviction grace periods like `memory.available=1m30s`
+- `evictionSoftGracePeriod`: A set of eviction grace periods like `memory.available=1m30s`
   that define how long a soft eviction threshold must hold before triggering a Pod eviction.
-- `eviction-max-pod-grace-period`: The maximum allowed grace period (in seconds)
+- `evictionMaxPodGracePeriod`: The maximum allowed grace period (in seconds)
   to use when terminating pods in response to a soft eviction threshold being met.
 
 #### Hard eviction thresholds {#hard-eviction-thresholds}
@@ -228,7 +228,7 @@ A hard eviction threshold has no grace period. When a hard eviction threshold is
 met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
-You can use the `eviction-hard` flag to configure a set of hard eviction
+You can use the `evictionHard` flag to configure a set of hard eviction
 thresholds like `memory.available<1Gi`.
 
 The kubelet has the following default hard eviction thresholds:
@@ -285,7 +285,7 @@ The control plane also [maps](/docs/concepts/scheduling-eviction/taint-and-toler
 these node conditions to taints.
 
 The kubelet updates the node conditions based on the configured
-`--node-status-update-frequency`, which defaults to `10s`.
+`nodeStatusUpdateFrequency`, which defaults to `10s`.
 
 ### Node condition oscillation
 
@@ -366,7 +366,7 @@ so the above scenario will not apply if the node is, for example, under `DiskPre
 all the containers and they are equal. These pods will never be evicted because
 of another pod's resource consumption. If a system daemon (such as `kubelet`
 and `journald`) is consuming more resources than were reserved via
-`system-reserved` or `kube-reserved` allocations, and the node only has
+`systemReserved` or `kubeReserved` allocations, and the node only has
 `Guaranteed` or `Burstable` pods using less resources than requests left on it,
 then the kubelet must choose to evict one of these pods to preserve node stability
 and to limit the impact of resource starvation on other pods. In this case, it
@@ -418,8 +418,7 @@ In some cases, pod eviction only reclaims a small amount of the starved resource
 This can lead to the kubelet repeatedly hitting the configured eviction thresholds
 and triggering multiple evictions.
 
-You can use the `--eviction-minimum-reclaim` flag or a [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-to configure a minimum reclaim amount for each resource. When the kubelet notices
+You can use the `evictionMinimumReclaim` field in a [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/) to configure a minimum reclaim amount for each resource. When the kubelet notices
 that a resource is starved, it continues to reclaim that resource until it
 reclaims the quantity you specify.
 
@@ -447,7 +446,7 @@ Similarly, the kubelet tries to reclaim the `imagefs` resource until the `imagef
 value reaches `102Gi`, representing 102 GiB of available container image storage. If the amount
 of storage that the kubelet could reclaim is less than 2GiB, the kubelet doesn't reclaim anything.
 
-The default `eviction-minimum-reclaim` is `0` for all resources.
+The default `evictionMinimumReclaim` is `0` for all resources.
 
 ## Node out of memory behavior
 
@@ -495,14 +494,18 @@ Consider the following scenario:
 - Operator wants to reserve 10% of memory capacity for system daemons (kernel, `kubelet`, etc.)
 - Operator wants to evict Pods at 95% memory utilization to reduce incidence of system OOM.
 
-For this to work, the kubelet is launched as follows:
+For this to work, the kubelet configuration file is populated as follows:
 
-```none
---eviction-hard=memory.available<500Mi
---system-reserved=memory=1.5Gi
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+evictionHard:
+  memory.available: "500Mi"
+systemReserved:
+  memory: "1.5Gi"
 ```
 
-In this configuration, the `--system-reserved` flag reserves 1.5GiB of memory
+In this configuration, the `systemReserved` reserves 1.5GiB of memory
 for the system, which is `10% of the total memory + the eviction threshold amount`.
 
 The node can reach the eviction threshold if a pod is using more than its request,
@@ -528,13 +531,13 @@ regular interval. If memory usage increases within that window rapidly, the
 kubelet may not observe `MemoryPressure` fast enough, and the OOM killer
 will still be invoked.
 
-You can use the `--kernel-memcg-notification` flag to enable the `memcg`
+You can use the `kernelMemcgNotification` configuration field to enable the `memcg`
 notification API on the kubelet to get notified immediately when a threshold
 is crossed.
 
 If you are not trying to achieve extreme utilization, but a sensible measure of
-overcommit, a viable workaround for this issue is to use the `--kube-reserved`
-and `--system-reserved` flags to allocate memory for the system.
+overcommit, a viable workaround for this issue is to use the `kubeReserved`
+and `systemReserved` configuration fields to allocate memory for the system.
 
 ### active_file memory is not considered as available memory
 
