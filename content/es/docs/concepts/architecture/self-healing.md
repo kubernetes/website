@@ -47,6 +47,6 @@ Estos son algunos de los componentes clave que proporcionan autorreparación a K
 
 - Lee más sobre [Pods](/docs/concepts/workloads/pods/)
 - Aprende sobre [Controladores de Kubernetes](/docs/concepts/architecture/controller/)
-- Explora [Volúmenes persistentes](/docs/concepts/storage/persistent-volumes/)
+- Explora [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 - Lee sobre el [escalado automático de nodos](/docs/concepts/cluster-administration/node-autoscaling/). El escalado automático de nodos
   también proporciona reparación automática si los nodos de tu clúster fallan.
