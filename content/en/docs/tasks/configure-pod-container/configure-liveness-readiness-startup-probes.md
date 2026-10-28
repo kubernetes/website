@@ -269,8 +269,10 @@ By default the `kubelet` connects to gRPC health endpoints over plaintext. If
 your application serves gRPC only over TLS, you can add the `mode` field to the
 `grpc` field in the probe specification and specify a value of `TLS`. This
 requires the `GRPCContainerProbeTLS`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-be enabled on both the `kube-apiserver` and the `kubelet`.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled on both the `kube-apiserver` and the `kubelet`. The feature
+gate is enabled by default from v1.38. A `kubelet` older than v1.38 ignores
+`mode: TLS` by default and probes over plaintext.
 
 {{% code_sample file="pods/probe/grpc-tls-liveness.yaml" %}}
 
@@ -279,7 +281,13 @@ When `mode` is set to `TLS`, the `kubelet` connects over TLS with
 the behavior of HTTPS probes. Certificate verification is not supported.
 
 If the feature gate is disabled, the `kube-apiserver` removes the `mode`
-field from new or updated Pods.
+field from new Pods and Pod templates. It keeps the field on existing objects
+that already use it.
+
+If you disable the feature gate on a `kubelet` and restart it, the `kubelet`
+probes running Pods that have `mode: TLS` over plaintext. You do not need to
+recreate these Pods for this change. If the gRPC endpoint of a Pod serves only
+TLS, the probes of that Pod fail.
 
 ## Use a named port
 
