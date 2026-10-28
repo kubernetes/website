@@ -330,7 +330,7 @@ have additional fields that can be set on `httpGet`:
 * `protocol`: Protocol to use for the probe request. Defaults to `HTTP1`.
   Set to `HTTP2` to probe over HTTP/2 cleartext (h2c). Requires the
   `H2CContainerProbe` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  to be enabled.
+  (enabled by default as of v1.38) to be enabled.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified port and
 path to perform the check. The kubelet sends the probe to the Pod's IP address,
