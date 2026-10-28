@@ -60,12 +60,12 @@ and initiates the PodGroup scheduling cycle as follows:
      (e.g., failing to meet the `minCount` constraint), the entire PodGroup is considered unschedulable.
      
      The scheduler attempts to make a PodGroup schedulable by running the `PodGroupPostFilter` extension point.
-     The `DefaultPreemption` plugin's `PodGroupPostFilter` extenion point runs
+     The `DefaultPreemption` plugin's `PodGroupPostFilter` extension point runs
      [workload aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).
-     If any plugin implementing `PodGroupPostFilter`extension point returns `Success`, no more
+     If any plugin implementing `PodGroupPostFilter` extension point returns `Success`, no more
      plugins for `PodGroupPostFilter` extension point are run.
      
-     Even when `PodGroupPostFilter` plugin returns a `Success`, no Pods are bound, but instead,
+     Even when the `PodGroupPostFilter` plugin returns `Success`, no Pods are bound; instead,
      all are returned to the scheduling queue, hoping that the actions taken by `PodGroupPostFilter`
      make a PodGroup schedulable in the next scheduling cycle. Standard scheduling backoff logic applies,
      allowing the PodGroup to be retried later.
@@ -82,7 +82,7 @@ It iterates over the Pods and performs the following for each:
 
    * If the Pod fits, it is temporarily assumed and reserved on the selected node until the end of the scheduling algorithm.
    * If the Pod cannot fit, the scheduler does not run the `PostFilter` extension point.
-     Instead it relies on `PodGroupPostFilter` extension point executed for the whole PodGroup.
+     Instead, it relies on the `PodGroupPostFilter` extension point executed for the whole PodGroup.
 
 2. Checks whether the schedulable Pods meet the group's scheduling criteria
    (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.
@@ -92,7 +92,7 @@ It iterates over the Pods and performs the following for each:
 ## Placement scheduling algorithm
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
 
-Placement scheduling algorithm is an alternative PodGroup scheduling algorithm, which uses
+The placement scheduling algorithm is an alternative PodGroup scheduling algorithm, which uses
 [scheduling plugins](/docs/reference/scheduling/config/#scheduling-plugins) to find the optimal
 placement for the considered PodGroup. Users can accommodate the algorithm to their specific needs
 by using and configuring plugins.
@@ -105,18 +105,18 @@ Generates candidate *placements* (subsets of nodes, that are theoretically feasi
 assignment), for example based on the PodGroup's scheduling constraints (which can be defined
 in the PodGroup object).
 
-This phase executes as extension point: `PlacementGeneratePlugin`.
+This phase executes at the `PlacementGeneratePlugin` extension point.
 
 ### Phase 2: Pod-level filtering and feasibility check
 
 Validates each proposed placement, by running a default PodGroup scheduling algorithm, to see if
 the required number of Pods from the PodGroup can fit. If they can, the placement is marked as feasible.
 
-### Phase 3:  Placement scoring and selection
+### Phase 3: Placement scoring and selection
 
 Scores all feasible placements to select the optimal domain for the PodGroup.
 
-This phase executes as extension point: `PlacementScorePlugin`.
+This phase executes at the `PlacementScorePlugin` extension point.
 
 ### Limitations
 
@@ -158,7 +158,7 @@ After observing a root `CompositePodGroup`, the scheduler places it in the sched
 as there is at least one pending Pod that belongs to that root's group hierarchy.
 
 Once the root `CompositePodGroup` satisfies the
-[hierarchical quorum](/docs/concepts/scheduling-eviction/gang-scheduling/#Hierarchical-quorum), it
+[hierarchical quorum](/docs/concepts/scheduling-eviction/gang-scheduling/#hierarchical-quorum), it
 enters the active scheduling queue from which it can be popped by the scheduling cycle. The flow of
 the scheduling cycle for `CompositePodGroups` is as follows:
 
@@ -263,14 +263,14 @@ kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
-CompositePodGroup API exposes the `status.conditions` field as well.
+The CompositePodGroup API exposes the `status.conditions` field as well.
 
-In v1.37, the scheduler does not populate this field, however.
+However, in v1.37, the scheduler does not populate this field.
 
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
 * Read about the [CompositePodGroup API](/docs/concepts/workloads/compositepodgroup-api/) and its [lifecycle](/docs/concepts/workloads/compositepodgroup-api/lifecycle/).
 * Learn about [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/).
-* See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* See how to [specify a scheduling group](/docs/concepts/workloads/pods/scheduling-group/) in a Pod.
 * Read about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
