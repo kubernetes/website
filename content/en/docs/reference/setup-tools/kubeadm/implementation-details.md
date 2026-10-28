@@ -172,7 +172,6 @@ Kubeadm generates certificate and private key pairs for different purposes:
 - A client certificate for the API server to connect to the kubelets securely, generated using
   `ca.crt` as the CA and saved into `apiserver-kubelet-client.crt` file with its private key
   `apiserver-kubelet-client.key`.
-  This certificate should be in the `system:masters` organization
 
 - A private key for signing ServiceAccount Tokens saved into `sa.key` file along with its public key `sa.pub`
 
