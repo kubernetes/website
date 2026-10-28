@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.37: New Labels for the Route Sync Metric in the Cloud Controller Manager"
+title: "Improved Route Synchronization Metrics in the Cloud Controller Manager"
 draft: true
 slug: ccm-metric-route-sync-total-labels
 author: >
@@ -9,7 +9,7 @@ author: >
 Kubernetes v1.37 extends the existing alpha counter metric `route_controller_route_sync_total`
 in the route controller of the Cloud Controller Manager (CCM) library at
 [`k8s.io/cloud-provider`](https://github.com/kubernetes/cloud-provider).
-The v1.37 release added two new labels,
+The v1.37 release added two new metric labels,
 `trigger` and `outcome`. Together they let operators see what caused a route reconcile and
 whether it actually changed anything.
 
@@ -34,8 +34,8 @@ reconciles in response to node events.
 ## Monitor route corrections
 
 These labels were added to help operators validate the
-`CloudControllerManagerWatchBasedRoutesReconciliation` feature gate introduced in
-[Kubernetes v1.35](/blog/2025/12/30/kubernetes-v1-35-watch-based-route-reconciliation-in-ccm/).
+`CloudControllerManagerWatchBasedRoutesReconciliation` feature gate introduced in
+Kubernetes v1.35; see [Kubernetes v1.35: Watch Based Route Reconciliation in the Cloud Controller Manager](/blog/2025/12/30/kubernetes-v1-35-watch-based-route-reconciliation-in-ccm/).
 With the feature gate enabled, the  route controller uses a **watch** and reconciles on
 detecting a change, rather than only reconciling at fixed intervals. The new approach
 reduces unnecessary API calls
@@ -61,7 +61,7 @@ route may have been manually deleted by a user.
 
 If you have feedback, feel free to reach out through any of the following channels:
 - The [#sig-cloud-provider](https://kubernetes.slack.com/messages/sig-cloud-provider) channel on [Kubernetes Slack](https://slack.k8s.io/)
-- The [SIG Cloud Provider community page](https://github.com/kubernetes/community/tree/05223ecbd2d6f960edb40684dc83d053d49f8b68/sig-cloud-provider) for other communication channels
+- The [SIG Cloud Provider community page](https://www.kubernetes.dev/community/community-groups/sigs/cloud-provider/) lists other communication channels
 
 ## How can I learn more?
 
