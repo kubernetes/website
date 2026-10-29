@@ -265,7 +265,7 @@ graph TD
 <!--
 ### Autoscaler implementations
 
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+[Cluster Autoscaler](https://github.com/kubernetes-sigs/cluster-autoscaler)
 and [Karpenter](https://github.com/kubernetes-sigs/karpenter) are the two Node autoscalers currently
 sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling).
 
@@ -275,7 +275,7 @@ Nodes that are no longer optimally utilized.
 -->
 ### Autoscaler 实现
 
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+[Cluster Autoscaler](https://github.com/kubernetes-sigs/cluster-autoscaler)
 和 [Karpenter](https://github.com/kubernetes-sigs/karpenter)
 是目前由 [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling)
 维护的两个 Node Autoscaler。
@@ -315,16 +315,16 @@ Node 组通常映射为某种云驱动资源组（最常见的是虚拟机组）
 <!--
 Additional context:
 
-* [Documentation overview](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
-* [Cloud provider integrations](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
-* [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+* [Documentation overview](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md)
+* [Cloud provider integrations](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md#faqdocumentation)
+* [Cluster Autoscaler FAQ](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/FAQ.md)
 * [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 -->
 更多信息：
 
-* [文档概述](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
-* [云驱动集成](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
-* [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+* [文档概述](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md)
+* [云驱动集成](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md#faqdocumentation)
+* [Cluster Autoscaler FAQ](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/FAQ.md)
 * [联系方式](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
