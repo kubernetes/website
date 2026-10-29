@@ -5,7 +5,6 @@ weight: 240
 ---
 
 Kubernetesは[Podセキュリティスタンダード](/docs/concepts/security/pod-security-standards)を強制できる、ビルトインの[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)を提供しています。
-
 アドミッションコントローラーを設定して、クラスター全体のデフォルトと[例外](/docs/concepts/security/pod-security-admission/#exemptions)を設定できます。
 
 ## {{% heading "prerequisites" %}}
@@ -31,18 +30,18 @@ kind: AdmissionConfiguration
 plugins:
 - name: PodSecurity
   configuration:
-    apiVersion: pod-security.admission.config.k8s.io/v1 # see compatibility note
+    apiVersion: pod-security.admission.config.k8s.io/v1 # 互換性に関する備考を参照
     kind: PodSecurityConfiguration
-    # Defaults applied when a mode label is not set.
+    # モードラベルが設定されていない場合に適用されるデフォルト値。
     #
-    # Level label values must be one of:
-    # - "privileged" (default)
+    # レベルラベルの値は次のいずれかでなければならない:
+    # - "privileged"(デフォルト)
     # - "baseline"
     # - "restricted"
     #
-    # Version label values must be one of:
-    # - "latest" (default) 
-    # - specific version like "v{{< skew currentVersion >}}"
+    # バージョンラベルの値は次のいずれかでなければならない:
+    # - "latest"(デフォルト) 
+    # - "v{{< skew currentVersion >}}"のような特定のバージョン
     defaults:
       enforce: "privileged"
       enforce-version: "latest"
@@ -51,11 +50,11 @@ plugins:
       warn: "privileged"
       warn-version: "latest"
     exemptions:
-      # Array of authenticated usernames to exempt.
+      # 適用除外とする認証済みユーザー名の配列。
       usernames: []
-      # Array of runtime class names to exempt.
+      # 適用除外とするランタイムクラス名の配列。
       runtimeClasses: []
-      # Array of namespaces to exempt.
+      # 適用除外とする名前空間の配列。
       namespaces: []
 ```
 
