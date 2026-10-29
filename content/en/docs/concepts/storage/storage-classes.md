@@ -260,7 +260,7 @@ To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](h
 - `fileSystemId`: The file system under which the access point is created.
 - `directoryPerms`: The directory permissions of the root directory created by the access point.
 
-For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/dynamic_provisioning/README.md) documentation.
+For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/efs/dynamic_provisioning/README.md) documentation.
 
 
 ### NFS
