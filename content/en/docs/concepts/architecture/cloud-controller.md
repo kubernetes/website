@@ -58,9 +58,12 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 Some cloud provider implementations split this into a node controller and a separate node
 lifecycle controller.
 
-#### Reconcile additional node labels {#reconcile-additional-node-labels}
+#### Additional node label reconciliation {#reconcile-additional-node-labels}
 
 {{< feature-state feature_gate_name="CloudNodeAdditionalLabelsReconciliation" >}}
+
+This section describes the shared node controller provided by the Kubernetes
+`k8s.io/cloud-provider` library.
 
 Cloud providers can return additional node labels through
 `InstanceMetadata.AdditionalLabels`. By default, the cloud node controller

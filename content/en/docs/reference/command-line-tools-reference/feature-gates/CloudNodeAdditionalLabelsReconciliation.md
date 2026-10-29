@@ -11,8 +11,10 @@ stages:
     fromVersion: "1.38"
 ---
 
-Enables periodic reconciliation of additional node labels returned by cloud
-providers through `InstanceMetadata.AdditionalLabels` in the cloud-controller-manager.
+Enables periodic reconciliation of provider-supplied additional node labels
+in cloud controller managers that use the shared node controller from the
+Kubernetes `k8s.io/cloud-provider` library. Providers supply these labels
+through `InstanceMetadata.AdditionalLabels`.
 
 For details, see
-[Reconcile additional node labels](/docs/concepts/architecture/cloud-controller/#reconcile-additional-node-labels).
+[Additional node label reconciliation](/docs/concepts/architecture/cloud-controller/#reconcile-additional-node-labels).
