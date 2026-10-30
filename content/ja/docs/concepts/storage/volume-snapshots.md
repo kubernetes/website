@@ -145,7 +145,7 @@ spec:
 
 クラスターにインストールされている`VolumeSnapshots`APIが`sourceVolumeMode`フィールドをサポートしている場合、APIには、権限のないユーザーがボリュームのモードを変換するのを防ぐ機能があります。
 
-クラスターにこの機能の機能があるかどうかを確認するには、次のコマンドを実行します。
+クラスターにこの機能があるかどうかを確認するには、次のコマンドを実行します。
 
 ```yaml
 $ kubectl get crd volumesnapshotcontent -o yaml
