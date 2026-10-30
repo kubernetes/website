@@ -790,7 +790,7 @@ status:
       allowConditions:
       - id: storage-class-dev-only
         condition: "object.spec.storageClassName == 'dev'"
-        type: authorizer.kubernetes.io/cel
+        type: k8s.io/authorization-cel
         description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
 ```
 
@@ -821,7 +821,7 @@ request:
       allowConditions:
         - id: storage-class-dev-only
           condition: "object.spec.storageClassName == 'dev'"
-          type: authorizer.kubernetes.io/cel
+          type: k8s.io/authorization-cel
           description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
   admissionRequest:
     requestKind:
@@ -921,18 +921,18 @@ If Alice had instead tried to create a PersistentVolume with
 #### Built-in CEL evaluation
 
 In the examples above, the conditions use CEL (Common Expression Language) expressions like
-`object.spec.storageClassName == 'dev'`, indicated by `type: authorizer.kubernetes.io/cel`
+`object.spec.storageClassName == 'dev'`, indicated by `type: k8s.io/authorization-cel`
 (the type field may be omitted for CEL expressions).
 
 Currently, the API server evaluates conditions by sending an `AuthorizationConditionsReview`
 back to the webhook regardless of the condition `type`. In the future, conditions using the
-built-in `authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server's
+built-in `k8s.io/authorization-cel` type may be evaluated in-process by the API server's
 built-in CEL evaluator, avoiding the callback and improving performance while maintaining the
 same security guarantees. Custom condition types (for example, `type: example.com/custom-policy`)
 would always require the callback, since only the webhook knows how to evaluate them.
 
 Because of this, a webhook authorizer must be able to evaluate any condition it authors —
-including `authorizer.kubernetes.io/cel` conditions — via the `AuthorizationConditionsReview` API.
+including `k8s.io/authorization-cel` conditions — via the `AuthorizationConditionsReview` API.
 
 ### Condition evaluation
 
@@ -999,10 +999,10 @@ conditionsMap:
   allowConditions:
   - id: allow-create-pods
     condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.containers.size() <= 5"
-    type: authorizer.kubernetes.io/cel
+    type: k8s.io/authorization-cel
   - id: allow-create-deployments
     condition: "namespace.metadata.labels['team'] == 'platform' && object.spec.replicas <= 10"
-    type: authorizer.kubernetes.io/cel
+    type: k8s.io/authorization-cel
 ```
 
 Using NoOpinion, you can factor out the common precondition:
@@ -1012,14 +1012,14 @@ conditionsMap:
   noOpinionConditions:
   - id: team-precondition
     condition: "namespace.metadata.labels['team'] != 'platform'"
-    type: authorizer.kubernetes.io/cel
+    type: k8s.io/authorization-cel
   allowConditions:
   - id: allow-create-pods
     condition: "object.spec.containers.size() <= 5"
-    type: authorizer.kubernetes.io/cel
+    type: k8s.io/authorization-cel
   - id: allow-create-deployments
     condition: "object.spec.replicas <= 10"
-    type: authorizer.kubernetes.io/cel
+    type: k8s.io/authorization-cel
 ```
 
 When `namespace.metadata.labels['team'] != 'platform'`, the NoOpinion condition
@@ -1202,7 +1202,7 @@ status:
       allowConditions:
       - id: storage-class-restriction
         condition: object.spec.storageClassName == "dev"
-        type: authorizer.kubernetes.io/cel
+        type: k8s.io/authorization-cel
         description: "User can only create PersistentVolumes with storageClassName 'dev'"
 {{< /highlight >}}
 
@@ -1262,7 +1262,7 @@ status:
           allowConditions:
           - id: allow-safe-prefix
             condition: object.metadata.name.startsWith('safe-')
-            type: authorizer.kubernetes.io/cel
+            type: k8s.io/authorization-cel
             description: "only allow configmaps with safe- prefix"
     - authorizerName: rbac.authorizer.kubernetes.io
       decision:

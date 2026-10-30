@@ -271,13 +271,13 @@ Each condition has:
 - `id`: A unique identifier for the condition within the authorizer's scope (validated as a Kubernetes label key)
 - `condition`: The condition expression to evaluate. Optional if the `id` alone is enough for the authorizer to know how to evaluate the condition.
 - `type`: Describes the type/format/language of the condition (formatted as a Kubernetes label key). Optional. Common types include:
-  - `authorizer.kubernetes.io/cel`: Common Expression Language (CEL) expressions
+  - `k8s.io/authorization-cel`: Common Expression Language (CEL) expressions
   - Custom types defined by the authorizer (e.g., `mycompany.com/policy-engine`)
 - `description`: Optional human-readable description shown as an error message or for debugging
 
 The example above omits `type`, which is valid because `type` is optional: when it is
 absent, the authorizer is responsible for knowing how to evaluate the condition. Setting
-`type` explicitly (for example, `authorizer.kubernetes.io/cel`) is recommended when you
+`type` explicitly (for example, `k8s.io/authorization-cel`) is recommended when you
 want to declare the condition language, as shown in the
 [`AuthorizationConditionsReview` request](#authorization-conditions-review) example below.
 
@@ -325,7 +325,7 @@ file), and at least one returns a conditional decision, the combined response us
                   {
                     "id": "allow-safe-prefix",
                     "condition": "object.metadata.name.startsWith('safe-')",
-                    "type": "authorizer.kubernetes.io/cel",
+                    "type": "k8s.io/authorization-cel",
                     "description": "only allow configmaps with safe- prefix"
                   }
                 ]
@@ -433,7 +433,7 @@ When a webhook authorizer returns conditional responses, Kubernetes needs to eva
 those conditions during the admission phase. Currently, the API server evaluates
 conditions by calling back to the webhook via the `AuthorizationConditionsReview` API,
 regardless of the condition `type`. In the future, conditions using the built-in
-`authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server,
+`k8s.io/authorization-cel` type may be evaluated in-process by the API server,
 while custom condition types would still require a callback to the webhook.
 
 Webhooks that support conditional authorization must implement the
@@ -461,7 +461,7 @@ The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
           {
             "id": "storage-class-restriction",
             "condition": "object.spec.storageClassName == 'dev'",
-            "type": "authorizer.kubernetes.io/cel",
+            "type": "k8s.io/authorization-cel",
             "description": "User can only create PVs with storageClassName 'dev'"
           }
         ]
