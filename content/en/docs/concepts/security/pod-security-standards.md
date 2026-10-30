@@ -81,6 +81,9 @@ fail validation.
 					<li><code>spec.hostNetwork</code></li>
 					<li><code>spec.hostPID</code></li>
 					<li><code>spec.hostIPC</code></li>
+					<li><code>spec.containers[*].hostCgroupNamespace</code></li>
+					<li><code>spec.initContainers[*].hostCgroupNamespace</code></li>
+					<li><code>spec.ephemeralContainers[*].hostCgroupNamespace</code></li>
 				</ul>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
