@@ -143,8 +143,8 @@ control-C and won't show any output while it's running.
 ```shell
 kubectl proxy
 ```
-We now have a connection between our host (the terminal) and the Kubernetes cluster.
-The proxy enables direct access to the API from these terminals.
+The proxy connects your host to the Kubernetes cluster. It keeps running in the
+second terminal, so run the commands below in your original terminal.
 
 You can see all those APIs hosted through the proxy endpoint. For example, we can
 query the version directly through the API using the `curl` command:
