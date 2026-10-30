@@ -58,6 +58,56 @@ longer active, the writer sets the condition to `False` or removes it.
 Kubernetes does not define exclusive writer ownership, locking, or handoff
 between actors. Writers should coordinate ownership outside this API.
 
+#### Reporting drain conditions with kubectl
+
+{{< feature-state state="alpha" for_k8s_version="1.38" >}}
+
+In Kubernetes v1.38, `kubectl drain` can report drain progress through the
+`DrainInProgress` and `Drained` conditions. This reporting is disabled by
+default. To enable it for a drain, set the
+`KUBECTL_DRAIN_NODE_CONDITIONS` environment variable to `true`:
+
+```shell
+KUBECTL_DRAIN_NODE_CONDITIONS=true kubectl drain <node-name>
+```
+
+With reporting enabled, kubectl updates both conditions together:
+
+{{< table caption = "Node lifecycle condition updates made by kubectl." >}}
+| Event | `DrainInProgress` | `Drained` | Reason |
+| --- | --- | --- | --- |
+| Kubectl starts processing the Node | `True` | `False` | `KubectlDrainStarted` |
+| The selected drain criteria are met | `False` | `True` | `KubectlDrainCompleted` |
+| Drain fails or times out | `False` | `False` | `KubectlDrainFailed` |
+| Kubectl handles an interrupt | `False` | `False` | `KubectlDrainInterrupted` |
+| Kubectl uncordons the Node | `False` | `False` | `KubectlUncordoned` |
+{{< /table >}}
+
+`Drained=True` means that the criteria selected by that kubectl invocation were
+met. It does not necessarily mean that the Node has no Pods, that another drain
+implementation would select the same Pods, or that the Node is ready for
+termination.
+
+To clear the drain observations when returning the Node to service, also enable
+reporting for `kubectl uncordon`:
+
+```shell
+KUBECTL_DRAIN_NODE_CONDITIONS=true kubectl uncordon <node-name>
+```
+
+Reporting requires `patch` permission on the `nodes/status` subresource. This
+permission is separate from permission to cordon a Node by updating the main
+`nodes` resource. If kubectl cannot update the conditions, it prints a warning;
+the reporting failure does not change the result of the drain operation.
+
+With `--dry-run=client`, kubectl does not update the conditions. With
+`--dry-run=server`, kubectl sends the condition update as a server dry-run
+request without persisting it.
+
+If kubectl exits unexpectedly, `DrainInProgress=True` can become stale. An
+authorized administrator can inspect the condition timestamps and then correct
+or clear the condition.
+
 {{< note >}}
 Core workload controllers do not change their behavior based on lifecycle
 conditions. Setting a lifecycle condition does not affect core behavior of the
