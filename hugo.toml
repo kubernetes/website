@@ -674,7 +674,7 @@ target = "i18n"
       lang = 'es'
   [segments.tr]
     [[segments.tr.includes]]
-        lang = 'tr'
+      lang = 'tr'
   [segments.uk]
     [[segments.uk.includes]]
       lang = 'uk'
