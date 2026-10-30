@@ -502,6 +502,15 @@ This is implemented by creating ClusterRoleBinding named
 `kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
 
+#### Allow the API server to access the kubelet API
+
+Kubeadm ensures that the API server can access the kubelet API using its client certificate
+`apiserver-kubelet-client.crt`.
+
+This is implemented by creating a ClusterRoleBinding named `kubeadm:apiserver-kubelet-client`
+between the user `kube-apiserver-kubelet-client` and the default RBAC role
+`system:kubelet-api-admin`.
+
 #### Create the public cluster-info ConfigMap
 
 This phase creates the `cluster-info` ConfigMap in the `kube-public` namespace.
