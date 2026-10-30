@@ -9,6 +9,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 When ExtendWebSocketsToKubelet is enabled and a kubelet node advertises support,
 exec/attach/portforward streams are proxied directly to the kubelet rather than
