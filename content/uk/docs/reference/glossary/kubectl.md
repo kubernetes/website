@@ -12,7 +12,7 @@ tags:
 - fundamental
 ---
 
-Інструмент командного рядка для взаємодії з {{< glossary_tooltip text="керівним вузлом" term_id="control-plane" >}} (control-plane node) кластера Kubernetes за допомогою API Kubernetes.
+Інструмент командного рядка для взаємодії з {{< glossary_tooltip text="панеллю управління" term_id="control-plane" >}} кластера Kubernetes за допомогою API Kubernetes.
 
 <!--more-->
 
