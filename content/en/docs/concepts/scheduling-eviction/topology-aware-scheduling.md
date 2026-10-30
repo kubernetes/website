@@ -77,18 +77,18 @@ profiles:
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
 feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, the Topology-Aware Scheduling plugins extend their support to multi-level
-`CompositePodGroup` hierarchies. These plugins are called for `CompositePodGroups` during
+CompositePodGroup hierarchies. These plugins are called for CompositePodGroups during
 [hierarchical scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling).
 
 ### Candidate placement generation
 
-For workloads defined with a `CompositePodGroup` hierarchy, the `TopologyPlacement` plugin generates
+For workloads defined with a CompositePodGroup hierarchy, the `TopologyPlacement` plugin generates
 candidate placements top-down across the group hierarchy by successive subdivision:
 
-* For a root `CompositePodGroup`, `TopologyPlacement` generates candidate placements across all
+* For a root CompositePodGroup, `TopologyPlacement` generates candidate placements across all
   available cluster nodes by grouping nodes based on the distinct values of the requested topology
   `key`.
-* For a child `CompositePodGroup` or leaf `PodGroup`, `TopologyPlacement` generates candidate
+* For a child CompositePodGroup or leaf PodGroup, `TopologyPlacement` generates candidate
   placements confined in the placement assumed by the parent group. It subdivides the set of nodes
   from the parent group's placement by grouping those nodes based on the child group's requested
   topology `key`.
@@ -99,20 +99,20 @@ candidate placement equivalent to the parent placement.
 
 Similarly, if the root group does not specify any topology constraint, the plugin generates a single
 candidate placement corresponding to all available nodes in the cluster. This is also true for
-single-level workloads using the `PodGroup` API where no topology constraint is specified.
+single-level workloads using the PodGroup API where no topology constraint is specified.
 {{< /note >}}
 
 ### Placement scoring
 
-When scoring a candidate placement for a `CompositePodGroup`, the scoring plugins apply similar
-logic to the single-level `PodGroup` case:
+When scoring a candidate placement for a CompositePodGroup, the scoring plugins apply similar
+logic to the single-level PodGroup case:
 
 * `PodGroupPodsCount`: Scores candidate placements based on the total number of Pods (both
-  already scheduled and newly assumed) across all descendant leaf `PodGroups` of that
-  `CompositePodGroup`. Candidate placements capable of accommodating a higher total number of Pods
+  already scheduled and newly assumed) across all descendant leaf PodGroups of that
+  CompositePodGroup. Candidate placements capable of accommodating a higher total number of Pods
   across the subhierarchy receive higher scores.
 * `NodeResourcesFit`: Aggregates the resource requests of all proposed Pods across all descendant
-  `PodGroups` of that `CompositePodGroup` and evaluates resource utilization across all nodes within
+  PodGroups of that CompositePodGroup and evaluates resource utilization across all nodes within
   the candidate placement's domain.
 
 ## {{% heading "whatsnext" %}}
