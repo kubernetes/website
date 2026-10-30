@@ -1,16 +1,14 @@
 ---
-# title: Data Plane
 title: Площина даних
 id: data-plane
 full_link:
-# short_description: >
-#   The layer that provides capacity such as CPU, memory, network, and storage so that the containers can run and connect to a network.
 short_description: >
-  Шар, який надає контейнерам ресурси, такі як ЦПУ, пам'ять, мережа і сховище даних для того, щоб контейнери могли працювати і підключатися до мережі.
+  Шар, який надає контейнерам ресурси, такі як ЦП, памʼять, мережа і сховище даних для того, щоб контейнери могли працювати та підʼєднуватись до мережі.
 
 aka:
+- Data Plane
 tags:
 - fundamental
 ---
-<!-- The layer that provides capacity such as CPU, memory, network, and storage so that the containers can run and connect to a network. -->
-Шар, який надає контейнерам ресурси, такі як ЦПУ, пам'ять, мережа і сховище даних для того, щоб контейнери могли працювати і підключатися до мережі.
+
+Шар, який надає контейнерам ресурси, такі як ЦП, памʼять, мережа і сховище даних для того, щоб контейнери могли працювати та підʼєднуватись до мережі.
