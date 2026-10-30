@@ -228,6 +228,19 @@ By default, the node controller checks the state of each node every 5 seconds.
 This period can be configured using the `--node-monitor-period` flag on the
 `kube-controller-manager` component.
 
+### External node liveness detection
+
+{{< feature-state feature_gate_name="ExternalNodeLivenessDetection" >}}
+
+<!-- TODO(KEP-6371): placeholder; to be completed before the v1.38 docs deadline. -->
+
+You can replace the node controller's built-in liveness detection with a
+component of your own. Set `--node-liveness-source=external` on the
+`kube-controller-manager`, then set `enableNodeLease: false` in the
+kubelet configuration file to stop Lease heartbeats. The external component
+marks a failed node by setting its `Ready` condition to `Unknown`. The node
+controller still handles taints and eviction.
+
 ### Rate limits on eviction
 
 In most cases, the node controller limits the eviction rate to
