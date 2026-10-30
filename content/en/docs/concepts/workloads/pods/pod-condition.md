@@ -45,7 +45,7 @@ Kubernetes manages the following Pod conditions:
 `PodScheduled`, `PodReadyToStartContainers`, `Initialized`, `ContainersReady`, `Ready`.
 
 [Other conditions](#other-pod-conditions): set in response to specific operations or events:
-`DisruptionTarget`, `PodResizePending`, `PodResizeInProgress`.
+`DisruptionTarget`, `PodResizePending`, `PodResizeInProgress`, `InsecureImplicitUserID`, `InsecureImplicitGroupID`.
 
 In addition to the built-in conditions above, you can define custom conditions
 using [Pod readiness gates](#enhanced-pod-readiness).
@@ -190,6 +190,43 @@ The kubelet updates the Pod's status conditions to indicate the state of a resiz
 If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize, for example when another pod is removed or scaled down.
 
 For more details on Pod resize, see [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+### InsecureImplicitUserID and InsecureImplicitGroupID {#insecure-implicit-user-and-group-id}
+
+{{< feature-state feature_gate_name="PodImplicitRootWarnings" >}}
+
+The kubelet sets `InsecureImplicitUserID` and `InsecureImplicitGroupID` on a
+Pod to flag that one or more of its containers are observed running as root
+(UID/GID `0`) without the Pod or container spec explicitly requesting it via
+`runAsUser`/`runAsGroup` (or, for GID, via `fsGroup`/`supplementalGroups`).
+This is purely observational: it never blocks, denies, or changes how a Pod
+is admitted or run.
+
+- `True`: a container is observed running as UID/GID `0` without an explicit
+  request for it.
+- `False`: the {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  has reported the container's UID/GID, and it is confirmed not to be
+  implicitly running as root.
+- `Unknown`: the runtime hasn't yet reported
+  `status.containerStatuses[].user.linux` for the container; this resolves
+  to `True` or `False` once the data is available.
+
+`InsecureImplicitGroupID` also becomes `True` if GID `0` is implicitly present in a
+container's supplemental groups, which can happen when
+[`supplementalGroupsPolicy: Merge`](/docs/tasks/configure-pod-container/security-context/#supplementalgroupspolicy)
+(the default) merges group memberships from the container image.
+
+When `True`, the condition's `message` names the affected container(s), and
+the kubelet also emits a throttled `Warning` Event with reason
+`ImplicitlyInsecureUserID`, `ImplicitlyInsecureGroupID`, or (if both IDs are
+affected) `ImplicitlyInsecureUserAndGroupID`. A `kubelet_insecure_pods` gauge
+metric, labeled by `declaration` (`implicit` or `explicit`) and `id_type`
+(`uid`, `gid`, or `supplementalgroups`), tracks these Pods cluster-wide.
+
+For Pods with `spec.hostUsers: false` (see
+[user namespaces](/docs/concepts/workloads/pods/user-namespaces/)), container
+UID/GID `0` maps to an unprivileged host UID/GID, so these conditions are not
+evaluated.
 
 ## Enhanced Pod readiness
 
