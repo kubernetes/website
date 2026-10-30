@@ -11,6 +11,8 @@ weight: 40
 <!-- overview -->
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
+TODO: update to beta
+
 Workload-aware Scheduling defines a set of reusable API *building blocks* under the
 `scheduling.k8s.io` {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 Controller authors embed these primitives into their own APIs so that users express
