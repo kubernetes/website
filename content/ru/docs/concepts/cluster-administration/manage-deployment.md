@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Управление ресурсами
 content_type: concept
 weight: 40

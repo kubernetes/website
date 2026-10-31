@@ -1,7 +1,4 @@
 ---
-reviewers:
-- caesarxuchao
-- dchen1107
 title: Узлы
 content_template: concept
 weight: 10
