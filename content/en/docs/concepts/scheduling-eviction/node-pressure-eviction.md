@@ -264,8 +264,15 @@ provided custom values will be ignored.
 
 ## Eviction monitoring interval
 
-The kubelet evaluates eviction thresholds based on its configured `housekeeping-interval`,
-which defaults to `10s`.
+The `kubelet` evaluates node-pressure eviction thresholds on a hard-coded 10-second interval, using resource metrics (such as memory, disk, and PIDs) gathered by the embedded [cAdvisor](https://github.com/google/cadvisor) engine.
+
+You configure cAdvisor's metric refresh frequency using the `--housekeeping-interval` command-line flag (default `10s`).
+
+{{< note >}}
+Starting in Kubernetes v1.37, `--housekeeping-interval` is the only cAdvisor specific flag kept by the `kubelet`.
+
+To prevent CPU spikes, cAdvisor adds small random delays (dynamic jitter) to metric collection and slows down polling for idle containers to a hard-coded 15-second maximum.
+{{< /note >}}
 
 ## Node conditions {#node-conditions}
 
