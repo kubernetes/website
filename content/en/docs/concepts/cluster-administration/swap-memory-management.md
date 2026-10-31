@@ -208,7 +208,7 @@ priority to system critical daemons. See the relevant section in the
 ### Memory-backed volumes
 
 On Linux nodes, memory-backed volumes (such as [`secret`](/docs/concepts/configuration/secret/)
-volume mounts, or [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) with `medium: Memory`)
+volume mounts, or [`emptyDir`](/docs/reference/storage/volume-types/#emptydir) with `medium: Memory`)
 are implemented with a `tmpfs` filesystem.
 The contents of such volumes should remain in memory at all times, hence should
 not be swapped to disk.

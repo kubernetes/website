@@ -396,9 +396,9 @@ securityContext:
 
 {{< note >}}
 This field has no effect on ephemeral volume types such as
-[`secret`](/docs/concepts/storage/volumes/#secret),
-[`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
+[`secret`](/docs/reference/storage/volume-types/#secret),
+[`configMap`](/docs/reference/storage/volume-types/#configmap),
+and [`emptyDir`](/docs/reference/storage/volume-types/#emptydir).
 {{< /note >}}
 
 ## Delegating volume permission and ownership change to CSI driver
