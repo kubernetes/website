@@ -67,4 +67,4 @@ compatibility.
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)
+- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/master/pkg/apis/runtime/v1/api.proto)
