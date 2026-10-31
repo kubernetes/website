@@ -106,6 +106,52 @@ kubectl uncordon <node name>
 ```
 afterwards to tell Kubernetes that it can resume scheduling new pods onto the node.
 
+### Removing DaemonSet Pods from a node {#remove-daemonset-pods}
+
+Some maintenance tasks, such as upgrading the kubelet to a new minor version, require
+that _all_ Pods are removed from the node first, including Pods managed by a DaemonSet.
+See [version skew policy](/releases/version-skew-policy/#kubelet) for details.
+Because `kubectl drain --ignore-daemonsets` leaves DaemonSet Pods running, you need to
+stop the DaemonSet controller from scheduling Pods onto that node before you remove them.
+
+One way to do this is to label the node and give each affected DaemonSet a
+[node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
+rule that excludes nodes with that label:
+
+1. Label the node that you are draining:
+
+   ```shell
+   kubectl label node <node name> example.com/maintenance=true
+   ```
+
+1. Make sure that the Pod template of each DaemonSet that you want to remove from the node
+   has a required node affinity rule such as:
+
+   ```yaml
+   affinity:
+     nodeAffinity:
+       requiredDuringSchedulingIgnoredDuringExecution:
+         nodeSelectorTerms:
+         - matchExpressions:
+           - key: example.com/maintenance
+             operator: DoesNotExist
+   ```
+
+   When the node no longer matches the DaemonSet's node affinity, the DaemonSet controller
+   deletes the DaemonSet Pod from that node and does not create a replacement.
+   Changing the Pod template triggers a rollout of the DaemonSet, so you might prefer to
+   add this rule ahead of time, before you need to do maintenance.
+
+1. Once maintenance is complete, remove the label so that the DaemonSet controller
+   creates the DaemonSet Pods on the node again:
+
+   ```shell
+   kubectl label node <node name> example.com/maintenance-
+   ```
+
+Some DaemonSet Pods provide services, such as networking or storage, that other Pods
+on the node depend on. Drain your other workloads before you remove those DaemonSet Pods.
+
 ## Draining multiple nodes in parallel
 
 The `kubectl drain` command should only be issued to a single node at a
