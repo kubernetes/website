@@ -130,7 +130,7 @@ En utilisant [Azure Container Registry](https://azure.microsoft.com/en-us/servic
 vous pouvez vous authentifier en utilisant soit un utilisateur admin soit un service principal.
 Dans les deux cas, l'authentification est faite via l'authentification standard de Docker. Ces instructions assument l'outil en ligne de commande [azure-cli](https://github.com/azure/azure-cli).
 
-Vous devez d'abord créer un registre et générer des certificats, la documentation complète pour cela peut être touvée dans la [documentation de Azure container registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
+Vous devez d'abord créer un registre et générer des certificats, la documentation complète pour cela peut être trouvée dans la [documentation de Azure container registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
 
 Une fois votre registre de conteneurs créé, vous utiliserez les certificats suivants pour vous connecter :
 
