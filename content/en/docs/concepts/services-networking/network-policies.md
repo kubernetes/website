@@ -325,23 +325,38 @@ kubectl label namespace backend namespace=backend
 Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
 
 ```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: egress-namespaces
-spec:
-  podSelector:
-    matchLabels:
-      app: myapp
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - namespaceSelector:
-        matchExpressions:
-        - key: namespace
-          operator: In
-          values: ["frontend", "backend"]
+---
+{
+  apiVersion: "networking.k8s.io/v1",
+  kind: "NetworkPolicy",
+  metadata: {
+    name: "egress-namespaces",
+  },
+  spec: {
+    podSelector: {
+      matchLabels: {
+        app: "myapp",
+      },
+    },
+    policyTypes: [
+      "Egress",
+    ],
+    egress: [{
+      to: [{
+        namespaceSelector: {
+          matchExpressions: [{
+            key: "namespace",
+            operator: "In",
+            values: [
+              "frontend",
+              "backend",
+            ],
+          }],
+        },
+      }],
+    }],
+  },
+}
 ```
 
 {{< note >}}

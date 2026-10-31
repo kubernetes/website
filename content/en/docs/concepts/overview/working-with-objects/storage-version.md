@@ -69,49 +69,75 @@ for more detailed information on the API setup and versioning.
 For example see this CustomResourceDefinition for _crontabs_:
 
 ```yaml
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  name: crontabs.example.com
-spec:
-  group: example.com
-  # list of versions supported by this CustomResourceDefinition
-  versions:
-  - name: v1beta1
-    # Each version can be enabled/disabled by Served flag.
-    served: true
-    # One and only one version must be marked as the storage version.
-    storage: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
-  - name: v1
-    served: true
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          host:
-            type: string
-          port:
-            type: string
-          time:
-            type: string
-  conversion:
-    strategy: None
-  scope: Namespaced
-  names:
-    plural: crontabs
-    singular: crontab
-    kind: CronTab
-    shortNames:
-    - ct
+---
+{
+  apiVersion: "apiextensions.k8s.io/v1",
+  kind: "CustomResourceDefinition",
+  metadata: {
+    name: "crontabs.example.com",
+  },
+  spec: {
+    group: "example.com",
+
+    # list of versions supported by this CustomResourceDefinition
+    versions: [{
+      name: "v1beta1",
+
+      # Each version can be enabled/disabled by Served flag.
+      served: true,
+
+      # One and only one version must be marked as the storage version.
+      storage: true,
+
+      schema: {
+        openAPIV3Schema: {
+          type: "object",
+          properties: {
+            host: {
+              type: "string",
+            },
+            port: {
+              type: "string",
+            },
+          },
+        },
+      },
+    },
+    {
+      name: "v1",
+
+      served: true,
+      storage: false,
+      schema: {
+        openAPIV3Schema: {
+          type: "object",
+          properties: {
+            host: {
+              type: "string",
+            },
+            port: {
+              type: "string",
+            },
+            time: {
+              type: "string",
+            },
+          },
+        },
+      },
+    }],
+    # when a real CustomResourceDefinition has multiple version for the API type
+    # the CustomResourceDefinition also defines a conversion strategy
+    scope: "Namespaced",
+    names: {
+      plural: "crontabs",
+      singular: "crontab",
+      kind: "CronTab",
+      shortNames: [
+        "ct",
+      ],
+    },
+  },
+}
 ```
 
 The `v1beta1` API definition is used as the storage version, meaning that any
