@@ -405,6 +405,8 @@ allowVolumeExpansion: true
 To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying PersistentVolume. A
 new PersistentVolume is never created to satisfy the claim. Instead, an existing volume is resized.
+See [Expand a PersistentVolumeClaim](/docs/tasks/administer-cluster/expand-persistent-volume-claim/)
+for a task that walks through this process.
 
 {{< warning >}}
 Directly editing the size of a PersistentVolume can prevent an automatic resize of that volume.
@@ -1022,6 +1024,9 @@ applicable:
 * FC (Fibre Channel)
 * iSCSI
 * Local volume
+
+For expansion considerations, see
+[Expand a PersistentVolumeClaim](/docs/tasks/administer-cluster/expand-persistent-volume-claim/#expanding-a-raw-block-volume).
 
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
 
