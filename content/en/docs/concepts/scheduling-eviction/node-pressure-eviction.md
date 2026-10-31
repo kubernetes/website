@@ -228,7 +228,7 @@ A hard eviction threshold has no grace period. When a hard eviction threshold is
 met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
-You can use the `evictionHard` flag to configure a set of hard eviction
+You can use the `evictionHard` field to configure a set of hard eviction
 thresholds like `memory.available<1Gi`.
 
 The kubelet has the following default hard eviction thresholds:
