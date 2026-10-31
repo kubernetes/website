@@ -157,6 +157,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 * `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
 * `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
+* `scale-delay-time` (alpha, hidden by default) (1.37 or higher)
 
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
@@ -181,6 +182,15 @@ The `prefer-align-cpus-by-uncorecache` option can be enabled by adding the
 `prefer-align-cpus-by-uncorecache` to the `CPUManager` policy options. If 
 incompatible options are used, the kubelet will fail to start with the error 
 explained in the logs.
+
+The `scale-delay-time` option can be enabled by adding `scale-delay-time=<duration>`
+to the `CPUManager` policy options, where `<duration>` is a value between `0s` and `10s`
+(e.g., `5s` or `500ms`). This option ensures a minimum delay before applying updated
+cpuset assignments when a container with exclusive CPUs scales down. This option requires the
+`InPlacePodVerticalScalingExclusiveCPUs` feature gate to be enabled. 
+When combined with the exposure of assigned CPUs via [Downward API](/docs/concepts/workloads/pods/downward-api/)
+field `assigned.cpuset`, workloads can get desired assigned CPUs in advance,
+which allows latency-sensitive workloads to prepare for CPU removal.
 
 For mode detail about the behavior of the individual options you can configure, please refer to the
 [Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
