@@ -1,0 +1,68 @@
+apiVersion: audit.k8s.io/v1 # Це обовʼязково.
+kind: Policy
+# Не генерувати події аудиту для всіх запитів на етапі RequestReceived.
+omitStages:
+  - "RequestReceived"
+rules:
+  # Логувати зміни у вузлах на рівні RequestResponse
+  - level: RequestResponse
+    resources:
+    - group: ""
+      # Ресурс "pods" не відповідає запитам на будь-який підресурс вузлів,
+      # що відповідає політиці RBAC.
+      resources: ["pods"]
+  # Логувати "pods/log", "pods/status" на рівні Metadata
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["pods/log", "pods/status"]
+
+  # Не логувати запити на configmap під назвою "controller-leader"
+  - level: None
+    resources:
+    - group: ""
+      resources: ["configmaps"]
+      resourceNames: ["controller-leader"]
+
+  # Не логувати watch-запити "system:kube-proxy" на endpoints або services
+  - level: None
+    users: ["system:kube-proxy"]
+    verbs: ["watch"]
+    resources:
+    - group: "" # Основна група API
+      resources: ["endpoints", "services"]
+
+  # Не логувати автентифіковані запити до певних URL-шляхів, що не є ресурсами.
+  - level: None
+    userGroups: ["system:authenticated"]
+    nonResourceURLs:
+    - "/api*" # Зіставлення з шаблоном.
+    - "/version"
+
+  # Логувати тіло запиту на зміни configmap у kube-system.
+  - level: Request
+    resources:
+    - group: "" # Основна група API
+      resources: ["configmaps"]
+    # Це правило застосовується тільки до ресурсів в просторі імен "kube-system".
+    # Порожній рядок "" можна використовувати для вибору ресурсів без простору імен.
+    namespaces: ["kube-system"]
+
+  # Логувати зміни configmap і secret у всіх інших просторах імен на рівні Metadata.
+  - level: Metadata
+    resources:
+    - group: "" # Основна група API
+      resources: ["secrets", "configmaps"]
+
+  # Логувати всі інші ресурси в основній і розширюваній групах на рівні Request.
+  - level: Request
+    resources:
+    - group: "" # Основна група API
+    - group: "extensions" # Версія групи НЕ повинна включатися.
+
+  # Загальне правило для логування всіх інших запитів на рівні Metadata.
+  - level: Metadata
+    # Довгострокові запити, такі як watches, які підпадають під це правило,
+    # не генерують подію аудиту на етапі RequestReceived.
+    omitStages:
+      - "RequestReceived"
