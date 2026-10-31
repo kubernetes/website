@@ -335,7 +335,7 @@ Il y a plusieurs solutions pour configurer des registres privés. Voici quelques
    - Utilisez des images publiques dans le Hub Docker.
      - Pas de configuration requise.
      - Dans GCE/Google Kubernetes Engine, un miroir local est automatiquement utilisé pour améliorer la vitesse et la disponibilité.
-1. Cluster exécutant quelques images propriétaires qui doivent être protégées de l'extérieur de l'entreprise, mais visibles pour tous les utilisteurs du cluster.
+1. Cluster exécutant quelques images propriétaires qui doivent être protégées de l'extérieur de l'entreprise, mais visibles pour tous les utilisateurs du cluster.
    - Utilisez un [registre Docker](https://docs.docker.com/registry/) hébergé privé.
      - Il peut être hébergé sur le [Hub Docker](https://hub.docker.com/signup), ou ailleurs.
      - Configurez manuellement .docker/config.json sur caque nœud comme décrit ci-dessus.
