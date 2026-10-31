@@ -26,7 +26,7 @@ other = "Kullanımdan kaldırıldı"
 other = "Bu dokümandaki bilgiler güncel olmayabilir"
 
 [outdated_content_message]
-other = "Bu dokümanın güncellenme tarihi aslından eski, bu nedenle içerdiği bilgiler güncel olmayabilir. İngilizce okuyabiliyorsanız en güncel bilgi için İngilizce sürüme bakın: "
+other = "Bu dokümanın güncellenme tarihi orijinalinden daha eski, bu nedenle içerdiği bilgiler güncel olmayabilir. İngilizce okuyabiliyorsanız en güncel bilgi için İngilizce sürüme bakın: "
 
 [docs_label_browse]
 other = "Dokümanlara göz at"
