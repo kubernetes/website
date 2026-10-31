@@ -45,6 +45,10 @@ its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
 container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
 Containers may not use more CPU than is specified in their `cpu` limit.
 
+A `cpu` limit restricts CPU time. It does not necessarily restrict which CPUs
+the container can run on, or how many CPUs the container sees; see
+[Policies for assigning CPUs to Pods](/docs/concepts/resource-management/resource-managers/#policies-for-assigning-cpus-to-pods).
+
 `memory` limits are enforced by the kernel with out of memory (OOM) kills. When
 a container uses more than its `memory` limit, the kernel may terminate it. However,
 terminations only happen when the kernel detects memory pressure. Thus, a
