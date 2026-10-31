@@ -1,0 +1,156 @@
+# i18n strings for the Turkish localization.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "Dikkat:"
+
+[cleanup_heading]
+other = "Temizlik"
+
+[deprecation_title]
+other = "Şu Kubernetes sürümünün dokümanını görüntülüyorsunuz:"
+
+[deprecation_warning]
+other = " dokümanı artık aktif olarak güncellenmiyor. Görüntülediğiniz sürüm sabit bir kopyadır. Güncel bilgi için bakınız: "
+
+[deprecation_file_warning]
+other = "Kullanımdan kaldırıldı"
+
+[outdated_content_title]
+other = "Bu dokümandaki bilgiler güncel olmayabilir"
+
+[outdated_content_message]
+other = "Bu dokümanın güncellenme tarihi orijinalinden daha eski, bu nedenle içerdiği bilgiler güncel olmayabilir. İngilizce okuyabiliyorsanız en güncel bilgi için İngilizce sürüme bakın: "
+
+[docs_label_browse]
+other = "Dokümanlara göz at"
+
+[docs_label_contributors]
+other = "Katkıcılar"
+
+[docs_label_i_am]
+other = "BEN..."
+
+[docs_label_users]
+other = "Kullanıcılar"
+
+[docs_version_current]
+other = "(bu doküman)"
+
+[docs_version_latest_heading]
+other = "En son sürüm"
+
+[docs_version_other_heading]
+other = "Eski sürümler"
+
+[docs_version_release_information]
+other = "sürüm bilgisi"
+
+[feedback_heading]
+other = "Geri bildirim"
+
+[feedback_no]
+other = "Hayır"
+
+[feedback_question]
+other = "Bu sayfa yardımcı oldu mu?"
+
+[feedback_yes]
+other = "Evet"
+
+[layouts_blog_pager_next]
+other = "Sonraki >>"
+
+[layouts_blog_pager_prev]
+other = "<< Önceki"
+
+[layouts_docs_glossary_aka]
+other = "Şu adla da bilinir"
+
+[layouts_docs_glossary_click_details_after]
+other = "işaretlerine tıklayın."
+
+[layouts_docs_glossary_click_details_before]
+other = "Herhangi bir terimin ayrıntılı açıklaması için aşağıdaki"
+
+[layouts_docs_glossary_description]
+other = "Bu sözlük, Kubernetes terminolojisinin kapsamlı ve standart bir listesi olmayı amaçlar. Kubernetes'e özgü teknik terimlerin yanı sıra bağlamı anlamaya yardımcı olan genel terimleri de içerir."
+
+[layouts_docs_glossary_deselect_all]
+other = "Tüm seçimi kaldır"
+
+[layouts_docs_glossary_filter]
+other = "Terimleri etiketlerine göre filtrele"
+
+[layouts_docs_glossary_select_all]
+other = "Tümünü seç"
+
+[layouts_docs_partials_feedback_improvement]
+other = "iyileştirme önerin"
+
+[layouts_docs_partials_feedback_issue]
+other = """[GitHub deposunda](https://www.github.com/kubernetes/website/) bir issue açarak """
+
+[layouts_docs_partials_feedback_or]
+other = "veya"
+
+[layouts_docs_partials_feedback_problem]
+other = "sorun bildirin"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Geri bildiriminiz için teşekkürler. Kubernetes'in nasıl kullanılacağına dair belirli ve yanıtlanabilir bir sorunuz varsa şurada sorun:"
+
+[layouts_docs_search_fetching]
+other = "Sonuçlar getiriliyor..."
+
+[main_by]
+other = "yazan"
+
+[main_community_explore]
+other = "Topluluğu keşfet"
+
+[main_contribute]
+other = "Katkıda bulun"
+
+[main_github_view_on]
+other = "GitHub'da görüntüle"
+
+[main_kubernetes_features]
+other = "Kubernetes Özellikleri"
+
+[main_page_history]
+other ="Sayfa Geçmişi"
+
+[main_page_last_modified_on]
+other = "Sayfanın son değiştirilme tarihi"
+
+[main_read_about]
+other = "Hakkında oku"
+
+[main_read_more]
+other = "Devamını oku"
+
+[note]
+other = "Not:"
+
+[outdated_blog__message]
+other = "Bu yazı bir yıldan eski. Eski yazılar güncelliğini yitirmiş içerik barındırabilir. Sayfadaki bilgilerin yayımlandığından bu yana geçerliliğini koruduğunu doğrulayın."
+
+[ui_search]
+other = "Bu sitede ara"
+
+[version_check_mustbe]
+other = "Kubernetes sunucunuz şu sürümde olmalı: "
+
+[version_check_mustbeorlater]
+other = "Kubernetes sunucunuz en az şu sürümde olmalı: "
+
+[version_check_tocheck]
+other = "Sürümü kontrol etmek için şunu çalıştırın: "
+
+[version_menu]
+other = "Sürümler"
+
+[warning]
+other = "Uyarı:"
+

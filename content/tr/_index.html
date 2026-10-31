@@ -1,0 +1,68 @@
+---
+title: "Production Seviyesinde Container Orchestration"
+abstract: "Otomatik container deployment'ı, ölçeklendirmesi ve yönetimi"
+cid: home
+layout: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes](/docs/concepts/overview/), kısaca K8s, container tabanlı uygulamaların deployment'ını, ölçeklendirmesini ve yönetimini otomatikleştiren açık kaynaklı bir sistemdir.
+
+Bir uygulamayı oluşturan container'ları, yönetimi ve keşfi kolaylaştırmak için mantıksal birimler halinde gruplar. Kubernetes, [Google'da production workload'larını çalıştırmaktan gelen 15 yıllık deneyimin](https://queue.acm.org/detail.cfm?id=2898444) üzerine, topluluğun en iyi fikir ve uygulamalarıyla birlikte inşa edilmiştir.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Küresel Ölçek {#planet-scale}
+
+Google'ın haftada milyarlarca container çalıştırmasını sağlayan ilkelerle tasarlanan Kubernetes, operasyon ekibinizi büyütmeden ölçeklenebilir.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Sınır Tanımayan Esneklik {#never-outgrow}
+
+İster yerelde test edin ister uluslararası bir şirketin altyapısını yönetin, Kubernetes sizinle birlikte büyür. İhtiyacınız ne kadar karmaşıklaşırsa karmaşıklaşsın uygulamalarınızı aynı tutarlılıkla sunmanızı sağlar.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s'i Her Yerde Çalıştırın {#run-k8s-anywhere}
+
+Kubernetes açık kaynaklıdır; şirket içi, hibrit ya da genel bulut altyapısından yararlanma özgürlüğü verir ve workload'larınızı sizin için önemli olan yere zahmetsizce taşımanızı sağlar.
+
+Kubernetes'i indirmek için [indirme](/releases/download/) bölümüne gidin.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>Cloud Native'e Sıfırdan Başlangıç Rehberi</h2>
+    <p class="presenter-byline">Kyle Penfound (Dagger) ve Cortney Nickerson (Kubeshop) tarafından sunuldu</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Videoyu izle</button>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Yaklaşan KubeCon + CloudNativeCon etkinliklerine katılın</h2>
+<!--
+  {{< kubecon-events >}} renders event listings from data/events/kubecon.yaml.
+  Note for localization:
+  - Region names support i18n via kubecon_region_* keys.
+  - City names remain in English.
+  - Dates are stored in ISO 8601 and formatted by Hugo's time.Format.
+  - Localized pages may replace this shortcode with a static, fully localized version if needed.
+  - If a static version is used, keeping event information up to date becomes the responsibility of the localization team.
+-->
+{{< kubecon-events >}}
+
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
