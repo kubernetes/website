@@ -130,7 +130,7 @@ En utilisant [Azure Container Registry](https://azure.microsoft.com/en-us/servic
 vous pouvez vous authentifier en utilisant soit un utilisateur admin soit un service principal.
 Dans les deux cas, l'authentification est faite via l'authentification standard de Docker. Ces instructions assument l'outil en ligne de commande [azure-cli](https://github.com/azure/azure-cli).
 
-Vous devez d'abord créer un registre et générer des certificats, la documentation complète pour cela peut être touvée dans la [documentation de Azure container registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
+Vous devez d'abord créer un registre et générer des certificats, la documentation complète pour cela peut être trouvée dans la [documentation de Azure container registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
 
 Une fois votre registre de conteneurs créé, vous utiliserez les certificats suivants pour vous connecter :
 
@@ -170,7 +170,7 @@ Kubernetes prend pour l'instant en charge uniquement les sections `auths` et `Ht
 {{< /note >}}
 
 
-Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, kubelet l'utilise comme fournisseur de clés lorsque les images sont récupérées.
+Docker stocke les clés pour les registres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, kubelet l'utilise comme fournisseur de clés lorsque les images sont récupérées.
 
 *   `{--root-dir:-/var/lib/kubelet}/config.json`
 *   `{cwd of kubelet}/config.json`
@@ -335,7 +335,7 @@ Il y a plusieurs solutions pour configurer des registres privés. Voici quelques
    - Utilisez des images publiques dans le Hub Docker.
      - Pas de configuration requise.
      - Dans GCE/Google Kubernetes Engine, un miroir local est automatiquement utilisé pour améliorer la vitesse et la disponibilité.
-1. Cluster exécutant quelques images propriétaires qui doivent être protégées de l'extérieur de l'entreprise, mais visibles pour tous les utilisteurs du cluster.
+1. Cluster exécutant quelques images propriétaires qui doivent être protégées de l'extérieur de l'entreprise, mais visibles pour tous les utilisateurs du cluster.
    - Utilisez un [registre Docker](https://docs.docker.com/registry/) hébergé privé.
      - Il peut être hébergé sur le [Hub Docker](https://hub.docker.com/signup), ou ailleurs.
      - Configurez manuellement .docker/config.json sur caque nœud comme décrit ci-dessus.
