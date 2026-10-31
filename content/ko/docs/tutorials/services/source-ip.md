@@ -9,7 +9,7 @@ weight: 40
 
 쿠버네티스 클러스터에서 실행 중인 애플리케이션은 서비스 추상화를 통해서
 서로를, 그리고 외부 세계를 찾고 통신한다. 이 문서는
-다른 종류의 서비스로 전송된 패킷의 소스 IP에 어떤 일이 벌어지는지와
+여러 타입의 서비스로 전송된 패킷의 소스 IP에 어떤 일이 벌어지는지와
 이 동작을 필요에 따라 어떻게 전환할 수 있는지 설명한다.
 
 
@@ -38,7 +38,7 @@ weight: 40
 [VIP](/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
 : 쿠버네티스의 모든 {{< glossary_tooltip text="서비스" term_id="service" >}}에 할당되어 있는 것과 같은, 가상 IP 주소.
 
-[Kube-proxy](/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
+[kube-proxy](/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
 : 모든 노드에서 서비스 VIP 관리를 조율하는 네트워크 데몬.
 
 ### 전제 조건
@@ -48,9 +48,9 @@ weight: 40
 이 예시는 HTTP 헤더로 수신한 요청의 소스 IP 주소를 회신하는
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 다음 명령어에서 다루는 이미지는 AMD64 아키텍처에서만 실행된다.
-{{< /note >}}
+{{< /alert >}}
 
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
@@ -64,8 +64,8 @@ deployment.apps/source-ip-app created
 ## {{% heading "objectives" %}}
 
 
-* 간단한 애플리케이션을 다양한 서비스 종류로 노출하기
-* 각 서비스 유형에 따른 소스 IP NAT 의 동작 이해하기
+* 간단한 애플리케이션을 다양한 서비스 타입으로 노출하기
+* 각 서비스 타입에 따른 소스 IP NAT의 동작 이해하기
 * 소스 IP 주소 보존에 관한 절충 사항 이해
 
 
@@ -75,10 +75,10 @@ deployment.apps/source-ip-app created
 
 ## `Type=ClusterIP` 인 서비스에서 소스 IP
 
-[iptables 모드](/docs/concepts/services-networking/service/#proxy-mode-iptables)
+[iptables 모드](/docs/reference/networking/virtual-ips/#proxy-mode-iptables)
 (기본값)에서 kube-proxy를 운영하는 경우 클러스터 내에서
 클러스터IP로 패킷을 보내면
-소스 NAT를 통과하지 않는다. kube-proxy가 실행중인 노드에서
+소스 NAT를 통과하지 않는다. kube-proxy가 실행 중인 노드에서
 `http://localhost:10249/proxyMode` 를 입력해서 kube-proxy 모드를 조회할 수 있다.
 
 ```console
@@ -95,7 +95,7 @@ kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 한 노드의 프록시 모드를 확인한다. (kube-proxy는 포트 10249에서 수신대기한다.)
 ```shell
 # 질의 할 노드의 쉘에서 이것을 실행한다.
-curl localhost:10249/proxyMode
+curl http://localhost:10249/proxyMode
 ```
 출력은 다음과 같다.
 ```
@@ -114,7 +114,7 @@ service/clusterip exposed
 ```shell
 kubectl get svc clusterip
 ```
-출력은 다음과 같다.
+출력은 다음과 유사하다.
 ```
 NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
@@ -125,7 +125,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```shell
 kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
-출력은 다음과 같다.
+출력은 다음과 유사하다.
 ```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
@@ -204,13 +204,14 @@ client_address=10.240.0.3
 * 클라이언트는 `node2:nodePort`로 패킷을 보낸다.
 * `node2`는 소스 IP 주소(SNAT)를 패킷 상에서 자신의 IP 주소로 교체한다.
 * `node2`는 대상 IP를 패킷 상에서 파드의 IP로 교체한다.
-* 패킷은 node 1로 라우팅 된 다음 엔드포인트로 라우팅 된다.
+* 패킷은 node 1로, 그다음 엔드포인트로 라우팅된다.
 * 파드의 응답은 node2로 다시 라우팅된다.
 * 파드의 응답은 클라이언트로 다시 전송된다.
 
 이를 그림으로 표현하면 다음과 같다.
 
-{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="그림. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="소스 IP NodePort 그림 01" class="diagram-large" caption="그림. SNAT를 사용하는 Type=NodePort 소스 IP" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
+
 
 이를 피하기 위해 쿠버네티스는
 [클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
@@ -239,7 +240,7 @@ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i cli
 ```
 출력은 다음과 유사하다.
 ```
-client_address=104.132.1.79
+client_address=198.51.100.79
 ```
 
 엔드포인트 파드가 실행 중인 노드에서 *올바른* 클라이언트 IP 주소인
@@ -247,22 +248,21 @@ client_address=104.132.1.79
 
 어떻게 이렇게 되었는가:
 
-* 클라이언트는 패킷을 엔드포인트가 없는 `node2:nodePort` 보낸다.
+* 클라이언트는 패킷을 엔드포인트가 없는 `node2:nodePort`로 보낸다.
 * 패킷은 버려진다.
-* 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
+* 클라이언트는 패킷을 엔드포인트가 *있는* `node1:nodePort`로 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
 
-이를 시각적으로 표현하면 다음과 같다.
-
-{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="source IP nodeport figure 02" class="diagram-large" caption="그림. Source IP Type=NodePort preserves client source IP address" link="" >}}
+이를 그림으로 표현하면 다음과 같다.
 
 
+{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="소스 IP NodePort 그림 02" class="diagram-large" caption="그림. 소스 IP Type=NodePort는 클라이언트 소스 IP 주소를 보존한다" link="" >}}
 
 ## `Type=LoadBalancer` 인 서비스에서 소스 IP
 
 [`Type=LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer)인
 서비스로 보낸 패킷은 소스 NAT를 기본으로 하는데, `Ready` 상태로
-모든 스케줄된 모든 쿠버네티스 노드는
+스케줄 가능한 모든 쿠버네티스 노드는
 로드 밸런싱 트래픽에 적합하다. 따라서 엔드포인트가 없는 노드에
 패킷이 도착하면 시스템은 엔드포인트를 *포함한* 노드에 프록시를
 수행하고 패킷 상에서 노드의 IP 주소로 소스 IP 주소를 변경한다
@@ -300,14 +300,14 @@ client_address=10.240.0.5
 ...
 ```
 
-그러나 구글 클라우드 엔진/GCE 에서 실행 중이라면 동일한 `service.spec.externalTrafficPolicy` 필드를 `Local`로 설정하면
+그러나 구글 쿠버네티스 엔진(Google Kubernetes Engine)/GCE에서 실행 중이라면, 동일한 `service.spec.externalTrafficPolicy` 필드를 `Local`로 설정할 때
 서비스 엔드포인트가 *없는* 노드는 고의로 헬스 체크에 실패하여
 강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
 이를 그림으로 표현하면 다음과 같다.
 
-![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
+![externalTrafficPolicy를 적용한 소스 IP](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 이것은 어노테이션을 설정하여 테스트할 수 있다.
 
@@ -357,9 +357,9 @@ No Service Endpoints Found
 ```
 
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에서
-실행중인 컨트롤러는 클라우드 로드 밸런서를 할당한다. 또한 같은 컨트롤러는
-각 노드에서 포트/경로(port/path)를 가르키는 HTTP 상태 확인도 할당한다.
-엔드포인트가 없는 2개의 노드가 상태 확인에 실패할
+실행 중인 컨트롤러는 클라우드 로드밸런서 할당을 담당한다. 또한 같은 컨트롤러는
+각 노드의 이 포트/경로를 가리키는 HTTP 헬스 체크도 할당한다.
+엔드포인트가 없는 2개의 노드가 헬스 체크에 실패할
 때까지 약 10초간 대기한 다음,
 `curl` 을 사용해서 로드밸런서의 IPv4 주소를 쿼리한다.
 
@@ -377,8 +377,8 @@ client_address=198.51.100.79
 
 일부 클라우드 공급자만 `Type=LoadBalancer` 를 사용하는
 서비스를 통해 소스 IP 보존을 지원한다.
-실행 중인 클라우드 공급자에서 몇 가지 다른 방법으로
-로드밸런서를 요청한다.
+실행 중인 클라우드 공급자는 몇 가지 다른 방법으로
+로드밸런서 요청을 처리할 수 있다.
 
 1. 클라이언트 연결을 종료하고 새 연결을 여는 프록시를 이용한다.
 이 경우 소스 IP 주소는 클라이언트 IP 주소가 아니고
@@ -394,7 +394,7 @@ HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 헤더 또는
 [프록시 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)과
 같은 로드밸런서와 백엔드 간에 합의된 프로토콜을 사용해야 한다.
-두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
+두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드에 저장된 포트를 가리키는
 HTTP 헬스 체크를 생성하여
 위에서 설명한 기능을 활용할 수 있다.
 
