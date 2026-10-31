@@ -40,6 +40,11 @@ For more information, see the Kubernetes [patch releases](/releases/patch-releas
 
 ## Supported version skew
 
+The rules below are about **minor** versions (`x.y`). They do not
+constrain **patch** versions (`x.y.z`). Two instances of the same
+component on {{< skew currentVersion >}} may run different patches.
+Matching patches is still a good idea so you pick up the same fixes.
+
 ### kube-apiserver
 
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/),
