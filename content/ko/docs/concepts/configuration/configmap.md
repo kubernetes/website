@@ -189,7 +189,7 @@ spec:
 kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최신 상태인지 확인한다.
 그러나, kubelet은 로컬 캐시를 사용해서 컨피그맵의 현재 값을 가져온다.
 캐시 유형은 [KubeletConfiguration 구조체](/docs/reference/config-api/kubelet-config.v1beta1/)의
-`ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
+`configMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
 컨피그맵은 watch(기본값), ttl 기반 또는 API 서버로 직접
 모든 요청을 리디렉션할 수 있다.
 따라서 컨피그맵이 업데이트되는 순간부터 새 키가 파드에 업데이트되는 순간까지의
@@ -216,8 +216,6 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 - immutable로 표시된 컨피그맵에 대한 감시를 중단하여, kube-apiserver의 부하를 크게 줄임으로써
   클러스터의 성능을 향상시킴
 
-이 기능은 `ImmutableEphemeralVolumes`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에 의해 제어된다.
 `immutable` 필드를 `true` 로 설정하여 변경할 수 없는 컨피그맵을 생성할 수 있다.
 다음은 예시이다.
 
