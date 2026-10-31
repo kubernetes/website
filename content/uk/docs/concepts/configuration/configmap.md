@@ -100,8 +100,8 @@ ConfigMap можуть бути змонтовані як томи даних. C
 
 1. Створіть ConfigMap або використовуйте наявний. Декілька Podʼів можуть посилатися на один ConfigMap.
 2. Змініть ваше визначення Podʼа, щоб додати том в `.spec.volumes[]`. Дайте тому будь-яку назву та встановіть поле `.spec.volumes[].configMap.name` для посилання на ваш обʼєкт ConfigMap.
-3. Додайте `.spec.containers[].volumeMounts[]` до кожного контейнера, який потребує ConfigMap. Вкажіть `.spec.containers[].volumeMounts[].readOnly = true` та задайте в `.spec.containers[].volumeMounts[].mountPath` назву невикористаного каталогу, де ви хочете, щоб зʼявився ConfigMap.
-4. Змініть ваш образ або командний рядок так, щоб програма шукала файли у цьому каталозі. Кожен ключ у мапі `data` ConfigMap стає імʼям файлу в `mountPath`.
+3. Додайте `.spec.containers[].volumeMounts[]` до кожного контейнера, який потребує ConfigMap. Вкажіть `.spec.containers[].volumeMounts[].readOnly = true` та задайте в `.spec.containers[].volumeMounts[].mountPath` назву невикористаної теки, де ви хочете, щоб зʼявився ConfigMap.
+4. Змініть ваш образ або командний рядок так, щоб програма шукала файли у цій теці. Кожен ключ у мапі `data` ConfigMap стає імʼям файлу в `mountPath`.
 
 Ось приклад Podʼа, який монтує ConfigMap в том:
 
