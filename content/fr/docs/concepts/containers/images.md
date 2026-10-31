@@ -170,7 +170,7 @@ Kubernetes prend pour l'instant en charge uniquement les sections `auths` et `Ht
 {{< /note >}}
 
 
-Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, kubelet l'utilise comme fournisseur de clés lorsque les images sont récupérées.
+Docker stocke les clés pour les registres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, kubelet l'utilise comme fournisseur de clés lorsque les images sont récupérées.
 
 *   `{--root-dir:-/var/lib/kubelet}/config.json`
 *   `{cwd of kubelet}/config.json`
