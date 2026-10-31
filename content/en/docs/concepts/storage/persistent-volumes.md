@@ -180,7 +180,8 @@ Events:            <none>
 When a user is done with their volume, they can delete the PVC objects from the
 API that allows reclamation of the resource. The reclaim policy for a PersistentVolume
 tells the cluster what to do with the volume after it has been released of its claim.
-Currently, volumes can either be Retained, Recycled, or Deleted.
+Currently, volumes can either be Retained or Deleted. The `Recycle` reclaim
+policy is deprecated; see [Recycle](#recycle) for details.
 
 #### Retain
 
@@ -565,7 +566,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: slow
   mountOptions:
     - hard
@@ -703,7 +704,7 @@ it will become fully deprecated in a future Kubernetes release.
 Current reclaim policies are:
 
 * Retain -- manual reclamation
-* Recycle -- basic scrub (`rm -rf /thevolume/*`)
+* Recycle -- basic scrub (`rm -rf /thevolume/*`); deprecated
 * Delete -- delete the volume
 
 For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
