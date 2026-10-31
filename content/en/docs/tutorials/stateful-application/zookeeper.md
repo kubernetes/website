@@ -383,7 +383,7 @@ Use the command below to get the value you entered during the [sanity test](#san
 from the `zk-2` Pod.
 
 ```shell
-kubectl exec zk-2 zkCli.sh get /hello
+kubectl exec zk-2 -- zkCli.sh get /hello
 ```
 
 Even though you terminated and recreated all of the Pods in the `zk` StatefulSet, the ensemble still serves the original value.
@@ -505,7 +505,7 @@ it uses a time and size based rolling file appender for its logging configuratio
 Use the command below to get the logging configuration from one of Pods in the `zk` `StatefulSet`.
 
 ```shell
-kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
+kubectl exec zk-0 -- cat /usr/etc/zookeeper/log4j.properties
 ```
 
 The logging configuration below will cause the ZooKeeper process to write all
@@ -1048,7 +1048,7 @@ You cannot drain the third node because evicting `zk-2` would violate `zk-budget
 Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 
 ```shell
-kubectl exec zk-0 zkCli.sh get /hello
+kubectl exec zk-0 -- zkCli.sh get /hello
 ```
 
 The service is still available because its `PodDisruptionBudget` is respected.
