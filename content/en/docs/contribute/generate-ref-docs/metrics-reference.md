@@ -1,7 +1,7 @@
 ---
 title: Generating Reference Documentation for Metrics
 content_type: task
-weight: 100
+weight: 60
 ---
 
 <!-- overview -->
