@@ -524,8 +524,21 @@ languagedirection = "ltr"
 
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
-description = "Giải pháp điều phối container trong môi trường production"
+description = "Giải pháp điều phối container dalam môi trường production"
 language_alternatives = ["en"]
+
+[languages.tr]
+title = "Kubernetes"
+languageName = "Türkçe (Turkish)"
+contentDir = "content/tr"
+weight = 18
+languagedirection = "ltr"
+
+[languages.tr.params]
+languageNameLatinScript = "Turkce"
+description = "Üretim Seviyesinde Konteyner Yönetimi ve Orkestrasyonu"
+language_alternatives = ["en"]
+
 
 # Use npm-installed copies of Docsy's Hugo Module deps so Hugo skips `go get`
 # at build time. The `go get` walks go.mod's `replace ../kubernetes` and fails
@@ -605,6 +618,14 @@ target = "i18n"
 source = "i18n/zh-cn"
 target = "i18n"
 
+[[module.mounts]]
+source = "i18n/tr"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/tr"
+target = "i18n"
+
 [segments]
   [segments.all]
     [[segments.all.includes]]
@@ -660,3 +681,9 @@ target = "i18n"
   [segments.vi]
     [[segments.vi.includes]]
       lang = 'vi'
+  [segments.tr]
+    [[segments.tr.includes]]
+      lang = 'tr'
+  [segments.tr]
+    [[segments.tr.includes]]
+      lang = 'tr'
