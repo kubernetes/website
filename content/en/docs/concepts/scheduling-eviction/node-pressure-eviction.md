@@ -264,8 +264,7 @@ provided custom values will be ignored.
 
 ## Eviction monitoring interval
 
-The kubelet evaluates eviction thresholds based on its configured `housekeeping-interval`,
-which defaults to `10s`.
+The kubelet evaluates eviction thresholds at a hardcoded interval of `10s`.
 
 ## Node conditions {#node-conditions}
 
