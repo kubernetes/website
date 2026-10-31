@@ -18,21 +18,19 @@ To run node conformance test, a node must satisfy the same prerequisites as a
 standard Kubernetes node. At a minimum, the node should have the following
 daemons installed:
 
-* CRI-compatible container runtimes such as Docker, containerd and CRI-O
+* A CRI-compatible container runtime such as containerd or CRI-O
 * kubelet
 
 ## Running Node Conformance Test
 
 To run the node conformance test, perform the following steps:
 
-1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
-   `--kubeconfig=/var/lib/kubelet/config.yaml`.
-    Because the test framework starts a local control plane to test the kubelet,
-    use `http://localhost:8080` as the URL of the API server.
-    There are some other kubelet command line parameters you may want to use:
-  
-   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
-     remove the flag to run the test.
+1. Find the kubeconfig file used by the kubelet by checking its startup command
+   or systemd unit for the path supplied with the `--kubeconfig` flag. This is
+   different from the kubelet configuration file specified with `--config`.
+   The kubeconfig path depends on how the kubelet was installed. Configure the
+   `server` field in that kubeconfig to use `https://127.0.0.1:6443`, the
+   address of the embedded API server started by the test framework.
 
 1. Run the node conformance test with command:
 
