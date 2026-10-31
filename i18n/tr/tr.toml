@@ -1,18 +1,12 @@
 # i18n strings for the Turkish localization.
 # NOTE: Please keep the entries in alphabetical order when editing
 
-# For "and", see [conjunction_1]
-
 [caution]
 other = "Dikkat:"
 
 [cleanup_heading]
 other = "Temizlik"
 
-# Localization note (no need to translate this note)
-# This is always followed by Chinese text, as required by the Kubernetes
-# project's ICP license, issued by the government of the People's Republic
-# of China.
 [deprecation_title]
 other = "Şu Kubernetes sürümünün dokümanını görüntülüyorsunuz:"
 
@@ -94,11 +88,17 @@ other = "Tümünü seç"
 [layouts_docs_partials_feedback_improvement]
 other = "iyileştirme önerin"
 
+[layouts_docs_partials_feedback_issue]
+other = """[GitHub deposunda](https://www.github.com/kubernetes/website/) bir issue açarak """
+
 [layouts_docs_partials_feedback_or]
 other = "veya"
 
 [layouts_docs_partials_feedback_problem]
 other = "sorun bildirin"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Geri bildiriminiz için teşekkürler. Kubernetes'in nasıl kullanılacağına dair belirli ve yanıtlanabilir bir sorunuz varsa şurada sorun:"
 
 [layouts_docs_search_fetching]
 other = "Sonuçlar getiriliyor..."
