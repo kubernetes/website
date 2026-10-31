@@ -1,0 +1,8 @@
+# The example manifests offered in both dialects, read by scripts/kyaml.sh.
+# Paths are relative to content/<lang>/examples. See scripts/README.md.
+#
+# One manifest per API kind a reader meets early.
+
+pods/simple-pod.yaml
+controllers/nginx-deployment.yaml
+service/simple-service.yaml
