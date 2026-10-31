@@ -782,7 +782,7 @@ by `name`.
 
 #### Merge a list of primitive elements
 
-As of Kubernetes 1.5, merging lists of primitive elements is not supported.
+Merging lists of primitive elements is not supported.
 
 {{< note >}}
 Which of the above strategies is chosen for a given field is controlled by
@@ -984,7 +984,7 @@ the live configuration that do not go through `kubectl apply`.
 
 ### Changing the owner from a configuration file to a direct imperative writer
 
-As of Kubernetes 1.5, changing ownership of a field from a configuration file to
+Changing ownership of a field from a configuration file to
 an imperative writer requires manual steps:
 
 - Remove the field from the configuration file.
