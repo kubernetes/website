@@ -226,7 +226,7 @@ SIG Docs souhaite la bienvenue aux [contributions et corrections upstream](/docs
 ## {{% heading "whatsnext" %}}
 
 
-Une fois qu'une traduction répond aux exigences de logistique et à une couverture admissible, le SIG docs se chargera des taches suivantes:
+Une fois qu'une traduction répond aux exigences de logistique et à une couverture admissible, le SIG docs se chargera des tâches suivantes:
 
 - Activer la sélection de la langue sur le site Web
 - Publier la disponibilité de la traduction via les canaux de la [Cloud Native Computing Foundation](https://www.cncf.io/), y compris sur le blog de [Kubernetes](https://kubernetes.io/blog/).

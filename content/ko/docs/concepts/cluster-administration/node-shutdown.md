@@ -188,7 +188,7 @@ kubelet은 해당 범위에 해당되는 파드를 위해 기다려 주지 않�
 
 전달한 명령이 kubelet에서 사용하는 금지 잠금 메커니즘(inhibitor locks mechanism)을 트리거하지 않거나, 
 또는 사용자 오류(예: ShutdownGracePeriod 및 ShutdownGracePeriodCriticalPods가 제대로 설정되지 않음)로 인해 
-kubelet의 노드 셧다운 관리자(Node Shutdown Mananger)가 
+kubelet의 노드 셧다운 관리자(Node Shutdown Manager)가
 노드 셧다운 액션을 감지하지 못할 수 있다. 
 자세한 내용은 위의 [그레이스풀 노드 셧다운](#graceful-node-shutdown) 섹션을 참조한다.
 
@@ -250,10 +250,10 @@ Windows 그레이스풀 노드 셧다운 기능은 kubelet이 Windows 서비스�
 이 경우 [서비스 제어 핸들러](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
 가 등록되어, 지정된 시간 동안 사전 종료(Preshutdown) 이벤트를 지연시킬 수 있다.
 
-Windows 그레이스풀 노드 셧다운는 1.32에서 알파 기능으로 도입된 `WindowsGracefulNodeShutdown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+Windows 그레이스풀 노드 셧다운은 1.32에서 알파 기능으로 도입된 `WindowsGracefulNodeShutdown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
 로 제어된다.
 
-Windows 그레이스풀 노드 셧다운는 취소할 수 없다.
+Windows 그레이스풀 노드 셧다운은 취소할 수 없다.
 
 만약 kubelet이 Windows 서비스로 실행되지 않는다면, [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
  이벤트를 설정하고 모니터링할 수 없으며, 노드는 위에서 언급한 [논 그레이스풀 셧다운](#non-graceful-node-shutdown)
