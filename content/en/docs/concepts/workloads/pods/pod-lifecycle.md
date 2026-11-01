@@ -484,7 +484,7 @@ spec:
 
 Restart rules can be used for many more advanced lifecycle management scenarios. Note, restart rules
 are affected by the same inconsistencies as the regular restart policy. The kubelet restarts, container
-runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
+runtime garbage collection, intermittent connectivity issues with the control plane may cause the state
 loss and containers may be re-run even when you expect a container not to be restarted.
 
 #### Restart All Containers {#restart-all-containers}
