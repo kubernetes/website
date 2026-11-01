@@ -45,7 +45,7 @@ card:
 ## क्लस्टर का प्रबंधन
 
 - जानें कि [नोड्स का प्रबंधन (manage nodes)](/hi/docs/concepts/architecture/nodes/) कैसे करें।
-  - [नोड ऑटोस्केलिंग (Node autoscaling)](/hi/docs/concepts/cluster-administration/node-autoscaling/) के बारे में पढ़ें।
+  - [नोड ऑटोस्केलिंग](/hi/docs/concepts/cluster-administration/node-autoscaling/) के बारे में पढ़ें।
 
 - साझा क्लस्टर्स के लिए [रिसोर्स कोटा](/hi/docs/concepts/policy/resource-quotas/) को सेटअप और प्रबंधित करना सीखें।
 
