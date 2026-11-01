@@ -6,7 +6,7 @@ reviewers:
 weight: 100
 content_type: concept
 description: >
-  कुबेरनेट्स क्लस्टर (Kubernetes cluster) को बनाने या उसका प्रशासन करने से संबंधित निम्न-स्तरीय विवरण।
+  कुबेरनेट्स क्लस्टर को बनाने या उसका प्रशासन करने से संबंधित निम्न-स्तरीय विवरण।
 no_list: true
 card:
   name: setup
