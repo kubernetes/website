@@ -89,7 +89,7 @@ nodes, and/or deploy many workloads that heavily utilize DRA defined resource
 claims, the cluster administrator should configure the relevant components to
 anticipate the increased load. 
 
-The effects of mistuned components can have direct or snowballing affects
+The effects of mistuned components can have direct or snowballing effects
 causing different symptoms during the Pod lifecycle. If the `kube-scheduler`
 component's QPS and burst configurations are too low, the scheduler might
 quickly identify a suitable node for a Pod but take longer to bind the Pod to
