@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+# Це звʼязування кластерної ролі дозволяє будь-якому користувачу з групи "manager" читати Secretʼи в будь-якому просторі імен.
+kind: ClusterRoleBinding
+metadata:
+  name: read-secrets-global
+subjects:
+- kind: Group
+  name: manager # Name чутливе до регістру
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io

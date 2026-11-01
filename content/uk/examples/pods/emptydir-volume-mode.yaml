@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emptydir-mode-demo
+spec:
+  containers:
+  - image: registry.k8s.io/busybox
+    name: test-container
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - mountPath: /tmp
+      name: tmp-volume
+  volumes:
+  - name: tmp-volume
+    emptyDir:
+      mode: 01777
