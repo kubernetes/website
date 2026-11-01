@@ -114,18 +114,12 @@ See [version skew policy](/releases/version-skew-policy/#kubelet) for details.
 Because `kubectl drain --ignore-daemonsets` leaves DaemonSet Pods running, you need to
 stop the DaemonSet controller from scheduling Pods onto that node before you remove them.
 
-One way to do this is to label the node and give each affected DaemonSet a
-[node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
-rule that excludes nodes with that label:
+To remove DaemonSet Pods from a node:
 
-1. Label the node that you are draining:
-
-   ```shell
-   kubectl label node <node name> example.com/maintenance=true
-   ```
-
-1. Make sure that the Pod template of each DaemonSet that you want to remove from the node
-   has a required node affinity rule such as:
+1. Update each DaemonSet that you want to remove from the node so that it does not run
+   on nodes that are under maintenance. For example, give the Pod template a required
+   [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
+   rule that excludes nodes with a maintenance label:
 
    ```yaml
    affinity:
@@ -137,16 +131,40 @@ rule that excludes nodes with that label:
              operator: DoesNotExist
    ```
 
-   When the node no longer matches the DaemonSet's node affinity, the DaemonSet controller
-   deletes the DaemonSet Pod from that node and does not create a replacement.
    Changing the Pod template triggers a rollout of the DaemonSet, so you might prefer to
    add this rule ahead of time, before you need to do maintenance.
 
-1. Once maintenance is complete, remove the label so that the DaemonSet controller
+   If you plan to taint the node instead (see the next step), the DaemonSet does not need
+   a node affinity rule: it only needs to _not_ tolerate that taint.
+   See [taints and tolerations](/docs/concepts/workloads/controllers/daemonset/#taints-and-tolerations)
+   for the tolerations that DaemonSet Pods get automatically.
+
+1. Set the label and / or taint on the node that you are draining.
+
+   To use the node affinity rule from the previous step, label the node:
+
+   ```shell
+   kubectl label node <node name> example.com/maintenance=true
+   ```
+
+   When the node no longer matches the DaemonSet's node affinity, the DaemonSet controller
+   deletes the DaemonSet Pod from that node and does not create a replacement.
+
+   Alternatively, taint the node with the `NoExecute` effect:
+
+   ```shell
+   kubectl taint node <node name> example.com/maintenance=true:NoExecute
+   ```
+
+   Pods that do not tolerate the taint, including DaemonSet Pods, are evicted from the
+   node, and the DaemonSet controller does not create replacements there.
+
+1. Once maintenance is complete, remove the label or taint so that the DaemonSet controller
    creates the DaemonSet Pods on the node again:
 
    ```shell
    kubectl label node <node name> example.com/maintenance-
+   kubectl taint node <node name> example.com/maintenance=true:NoExecute-
    ```
 
 Some DaemonSet Pods provide services, such as networking or storage, that other Pods
