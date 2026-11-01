@@ -28,7 +28,7 @@ card:
 실행되도록 보장하는 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}}를
 구성한다.
 
-쿠버네티스는 여러 내장 워크로드 리소스를 제공한다.
+쿠버네티스는 다음과 같이 여러 내장 워크로드 리소스를 제공한다.
 
 * [디플로이먼트(Deployment)](/docs/concepts/workloads/controllers/deployment/)와 [레플리카셋(ReplicaSet)](/docs/concepts/workloads/controllers/replicaset/)은
   레거시 리소스인
