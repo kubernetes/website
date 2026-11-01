@@ -130,7 +130,7 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 
 ## 시크릿 타입 {#secret-types}
 
-시크릿을 생성할 때, [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+시크릿을 생성할 때, [`Secret`](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
 리소스의 `type` 필드를 사용하거나, (활용 가능하다면) `kubectl` 의
 유사한 특정 커맨드라인 플래그를 사용하여 시크릿의 타입을 명시할 수 있다.
 시크릿 타입은 여러 종류의 기밀 데이터를 프로그래밍 방식으로 용이하게 처리하기 위해 사용된다.
@@ -143,8 +143,8 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 |--------------|-------|
 | `Opaque`     |  임의의 사용자 정의 데이터 |
 | `kubernetes.io/service-account-token` | 서비스어카운트 토큰 |
-| `kubernetes.io/dockercfg` | 직렬화 된(serialized) `~/.dockercfg` 파일 |
-| `kubernetes.io/dockerconfigjson` | 직렬화 된 `~/.docker/config.json` 파일 |
+| `kubernetes.io/dockercfg` | 직렬화된(serialized) `~/.dockercfg` 파일 |
+| `kubernetes.io/dockerconfigjson` | 직렬화된 `~/.docker/config.json` 파일 |
 | `kubernetes.io/basic-auth` | 기본 인증을 위한 자격 증명(credential) |
 | `kubernetes.io/ssh-auth` | SSH를 위한 자격 증명 |
 | `kubernetes.io/tls` | TLS 클라이언트나 서버를 위한 데이터 |
@@ -242,7 +242,7 @@ API를 사용하여 수명이 짧고 자동으로 갱신되는 서비스어카�
 컨테이너 이미지 레지스트리에 접근하기 위한 자격 증명을 저장하는 시크릿을 생성하는 경우, 
 다음 `type` 값 중 하나를 해당 시크릿에 사용해야 한다.
 
-- `kubernetes.io/dockercfg`: 도커 커맨드라인 구성하기 위한 레거시
+- `kubernetes.io/dockercfg`: 도커 커맨드라인을 구성하기 위한 레거시
   형식인 직렬화된 `~/.dockercfg`를 저장한다. 시크릿의 `data` 필드는
   base64로 인코딩된 `~/.dockercfg` 파일의 내용을 값으로 갖는
   `.dockercfg` 키를 포함한다.
@@ -400,7 +400,7 @@ kubectl create secret tls my-tls-secret \
 
 ### 부트스트랩 토큰 시크릿
 
-`bootstrap.kubernetes.io/token` 시크릿 타입은 노드 부트스트랩 과정 에서 사용되는
+`bootstrap.kubernetes.io/token` 시크릿 타입은 노드 부트스트랩 과정에서 사용되는
 토큰을 위한 것이다. 이것은 잘 알려진 컨피그맵에 서명하는 데 사용되는
 토큰을 저장한다.
 
@@ -408,7 +408,7 @@ kubectl create secret tls my-tls-secret \
 `<token-id>` 가 해당 토큰 ID의 6개 문자의 문자열으로 구성된 `bootstrap-token-<token-id>` 형태로
 이름이 지정된다.
 
-쿠버네티스 매니페스트로서, 부트스트렙 토큰 시크릿은 다음과 유사할
+쿠버네티스 매니페스트로서, 부트스트랩 토큰 시크릿은 다음과 유사할
 것이다.
 
 {{% code_sample language="yaml" file="secret/bootstrap-token-secret-base64.yaml" %}}
@@ -457,7 +457,7 @@ kubectl create secret tls my-tls-secret \
 임의의 문자열을 값으로 받는 `stringData` 필드를 대신 사용할 수 있다.
 
 `data` 및 `stringData`의 키는 영숫자 문자,
-`-`, `_`, 또는 `.` 으로 구성되어야 한다. `stringData` 필드의 모든 키-값 쌍은 의도적으로
+`-`, `_`, 또는 `.` 으로 구성되어야 한다. `stringData` 필드의 모든 키-값 쌍은 내부적으로
 `data` 필드로 합쳐진다. 만약 키가 `data` 와 `stringData` 필드 모두에 정의되어
 있으면, `stringData` 필드에 지정된 값이
 우선적으로 사용된다.
@@ -483,7 +483,7 @@ kubectl create secret tls my-tls-secret \
 
 시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
 존재하는 `Secret` 오브젝트에 대한 수정은 해당 데이터를 사용하는 파드들에 자동으로 전파된다.
-자세한 정보는 [마운트된 시크릿의 자동 업데이트](#마운트된-시크릿의-자동-업데이트)를 참고하라.
+자세한 정보는 [파드에서 시크릿을 파일처럼 사용하기](#using-secrets-as-files-from-a-pod)를 참고하라.
 
 ### 시크릿 사용하기
 
@@ -511,10 +511,10 @@ _선택 사항_ 으로 표시할 수 있다. 선택 사항 시크릿이
 
 {{% code_sample language="yaml" file="secret/optional-secret.yaml" %}}
 
-기본적으로 시크릿은 필수이다. 모든 필수 시크릿이 사용 가능해지기 전에는
+기본적으로 시크릿은 필수이다. 모든 선택 사항이 아닌 시크릿이 사용 가능해지기 전에는
 파드의 어떤 컨테이너도 시작되지 않는다.
 
-파드가 시크릿의 특정 필수 키를 참조하고 해당 시크릿이 존재하지만 지정한 키가 존재하지 않는 경우
+파드가 선택 사항이 아닌 시크릿의 특정 키를 참조하고, 해당 시크릿은 존재하지은 지정한 키가 없는 경우
 파드는 시작 과정에서 실패한다.
 
 ### 파드에서 시크릿을 파일처럼 사용하기 {#using-secrets-as-files-from-a-pod}
@@ -561,7 +561,7 @@ kubelet이 캐시된 값의 변경을 감지하는 방식을 구성할 수도 �
   시크릿 키마다 `env[].valueFrom.secretKeyRef` 필드를 사용하는
   환경 변수를 추가한다.
 1. 프로그램이 지정된 환경 변수에서 값을 찾도록 
-   이미지 및/또는 커맨드 라인을 수정한다.
+   이미지 및/또는 커맨드라인을 수정한다.
 
 자세한 지시 사항은 
 [시크릿 데이터를 사용하여 컨테이너 환경 변수 정의](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data)를 참고한다.
@@ -583,26 +583,26 @@ kubelet이 캐시된 값의 변경을 감지하는 방식을 구성할 수도 �
 `imagePullSecrets` 필드는 동일한 네임스페이스의 시크릿에 대한 참조 목록이다.
 `imagePullSecrets` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리 비밀번호가 포함된 시크릿을 kubelet에 전달할 수 있다. 
 kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
+`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를
+참고한다.
 
 ##### imagePullSecret 수동으로 지정하기
 
 [컨테이너 이미지](/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 문서에서 
-`imagePullSecrets`를 지정하는 방법을 배울 수 있다.
+`imagePullSecrets`를 지정하는 방법을
+배울 수 있다.
 
 ##### imagePullSecrets가 자동으로 연결되도록 준비하기
 
-수동으로 `imagePullSecrets` 를 생성하고, 
-서비스어카운트에서 이들을 참조할 수 있다. 
-해당 서비스어카운트로 생성되거나 기본적인 서비스어카운트로 생성된 모든 파드는 
+수동으로 `imagePullSecrets` 를 생성하고, 서비스어카운트에서 이들을 참조할 수 있다. 
+해당 서비스어카운트를 사용하여 생성되거나 해당 서비스어카운트가 기본적으로 적용되어 생성된 모든 파드는 
 파드의 `imagePullSecrets` 필드를 가져오고 서비스어카운트의 필드로 설정한다. 
 해당 프로세스에 대한 자세한 설명은 
 [서비스어카운트에 ImagePullSecrets 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 참고한다.
 
 ### 스태틱 파드에서의 시크릿 사용 {#restriction-static-pod}
 
-{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}에서는 
-컨피그맵이나 시크릿을 사용할 수 없다.
+{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}에서는 컨피그맵이나 시크릿을 사용할 수 없다.
 
 ## 불변(immutable) 시크릿 {#secret-immutable}
 
@@ -611,7 +611,7 @@ kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미
 쿠버네티스에서 특정 시크릿(및 컨피그맵)을 _불변_ 으로 표시할 수 있다.
 기존 시크릿 데이터의 변경을 금지시키면 다음과 같은 이점을 가진다.
 
-- 잘못된(또는 원치 않은) 업데이트를 차단하여 애플리케이션 중단을 방지
+- 잘못된(또는 원치 않은) 업데이트를 차단하여 애플리케이션 중단을 방지할 수 있다.
 - (수만 개 이상의 시크릿-파드 마운트와 같이 시크릿을 대규모로 사용하는 클러스터의 경우,) 
   불변 시크릿으로 전환하면 kube-apiserver의 부하를 크게 줄여 클러스터의 성능을 향상시킬 수 있다. 
   kubelet은 불변으로 지정된 시크릿에 대해서는 
@@ -644,8 +644,8 @@ immutable: true
 쿠버네티스는 시크릿 오브젝트에 대해 약간의 추가적인 보호 조치를 적용한다.
 
 시크릿은 종종 다양한 중요도에 걸친 값을 보유하며, 이 중 많은 부분이
-쿠버네티스(예: 서비스어카운트 토큰)와 외부 시스템으로 단계적으로
-확대될 수 있다. 개별 앱이 상호 작용할 것으로 예상되는 시크릿의 힘에 대해 추론할 수 있더라도
+쿠버네티스(예: 서비스어카운트 토큰)와 외부 시스템에서
+권한 상승으로 이어질 수 있다. 개별 앱이 상호 작용할 것으로 예상되서 시크릿의 힘에 대해 추론할 수 있더라도
 동일한 네임스페이스 내의 다른 앱이 이러한 가정을
 무효화할 수 있다.
 
