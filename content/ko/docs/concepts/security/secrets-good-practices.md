@@ -62,6 +62,9 @@ term_id="secret" length="all">}}
 *  한 사용자가 여러 비밀을 동시에 읽는 것과 같은 특정 이벤트에 대해
    경고하는 감사 규칙 구현
 
+#### 시크릿 접근 제한
+마운트된 시크릿에 대한 접근을 격리하기 위해 별도의 네임스페이스를 사용한다.
+
 ### etcd 관리 정책 개선
 
 더 이상 사용하지 않는다면 `etcd`에서 사용하는 내구성 스토리지를
@@ -83,6 +86,11 @@ kubelet이 외부 스토어에서 시크릿을 검색하고
 
 지원되는 제공자 목록은 다음을 참고한다.
 [시크릿 스토어 CSI 드라이버 제공자](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
+
+## 스왑 메모리 사용 모범 사례
+
+리눅스 노드에서 스왑 메모리를 설정할 때의 모범 사례는
+[스왑 메모리 관리](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster)를 참고한다.
 
 ## 개발자
 

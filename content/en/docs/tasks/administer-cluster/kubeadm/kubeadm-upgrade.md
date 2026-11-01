@@ -353,12 +353,12 @@ these backup files will need to be cleared manually.
 - Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
-- Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
+- Renews kubeadm-managed certificates used by control plane components as those components are upgraded, using the local CA certificate and key. Certificate renewal is enabled by default; use `--certificate-renewal=false` to disable it.
 
 `kubeadm upgrade node` does the following on additional control plane nodes:
 
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
-- Optionally backups the kube-apiserver certificate.
+- Renews kubeadm-managed certificates used by control plane components as those components are upgraded, using the local CA certificate and key. Certificate renewal is enabled by default; use `--certificate-renewal=false` to disable it.
 - Upgrades the static Pod manifests for the control plane components.
 - Upgrades the kubelet configuration for this node.
 

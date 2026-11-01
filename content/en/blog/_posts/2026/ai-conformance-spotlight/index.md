@@ -15,7 +15,7 @@ author: >-
 ---
 
 In this SIG Architecture spotlight we talked with [Janet Kuo](https://github.com/janetkuo) (Google)
-and [Yuan Tang](https://github.com/terrytangyuan) (Red Hat) about the journey of AI Conformance in
+and [Yuan Tang](https://github.com/terrytangyuan) (TensorScale AI) about the journey of AI Conformance in
 Kubernetes, from the initial [Working
 Group](https://github.com/kubernetes/community/blob/main/governance.md#working-groups) to the
 integration [SIG Architecture](https://www.kubernetes.dev/community/community-groups/sigs/architecture/)
@@ -35,8 +35,7 @@ Kubernetes. Today, I lead SIG Apps as a Co-chair & TL, and also lead the
 My current focus is to ensure Kubernetes remains the best platform for the next generation of
 workloads, such as AI.
 
-**Yuan Tang**: I’m a Senior Principal Software Engineer at Red Hat, where I lead the development of
-our AI platform and drive our upstream open source strategy. I became involved in Kubernetes early
+**Yuan Tang**: I'm a co-founder of TensorScale AI where we build AI infrastructure for world models. Prior to that, I was a Senior Principal Software Engineer at Red Hat, where I led the development of Red Hat AI platform and upstream open source strategy. I became involved in Kubernetes early
 on by fostering collaborations between the Kubernetes community and projects I was leading,
 including Kubeflow, Argo, and KServe. I later helped found and lead [WG Serving](https://github.com/kubernetes-sigs/wg-serving) and the AI Conformance program, advancing
 innovation and strengthening community collaboration around running AI workloads on Kubernetes.

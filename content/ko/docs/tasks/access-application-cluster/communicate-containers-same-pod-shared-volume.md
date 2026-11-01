@@ -23,7 +23,7 @@ weight: 110
 통신에 사용할 수 있는 볼륨을 공유한다.
 아래는 이 파드의 구성 파일이다.
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% code_sample file="pods/two-container-pod.yaml" %}}
 
 이 구성 파일에는 파드가 `shared-data`로 명명한 볼륨을 가진 것을
 알 수 있다.
@@ -130,7 +130,7 @@ debian 컨테이너에서 안녕하세요
 
 * [모듈 구조를 위한 합성 컨테이너 구조](https://www.slideshare.net/Docker/slideshare-burns)에 관하여 더 공부한다.
 
-* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여 확인한다.
+* [파드에서 저장소로 볼륨을 사용하도록 구성하기](/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여 확인한다.
 
 * [파드에서 컨테이너 간에 프로세스 네임스페이스를 공유하는 파드 구성하는 방법](/docs/tasks/configure-pod-container/share-process-namespace/)을 참고한다.
 

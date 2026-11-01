@@ -18,7 +18,7 @@ allows the clean up of resources like the following:
   * On a cloud when the cluster uses a [cloud controller manager](/docs/concepts/architecture/cloud-controller/)
   * On-premises when the cluster uses an addon similar to a cloud controller
     manager
-* [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
+* [Node Lease objects](/docs/concepts/architecture/nodes/#node-heartbeats)
 
 ## Owners and dependents {#owners-dependents}
 
