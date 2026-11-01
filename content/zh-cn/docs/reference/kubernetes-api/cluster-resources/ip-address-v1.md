@@ -43,7 +43,7 @@ IPv4 地址由点分隔的四个十进制数字组成，前导零可省略；IPv
 - **kind**: IPAddress
 
 <!--
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>), required
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
@@ -51,14 +51,14 @@ IPv4 地址由点分隔的四个十进制数字组成，前导零可省略；IPv
 
   spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)，必需
 
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
-  spec 是 IPAddress 的预期状态。更多信息：
+  `spec` 是 IPAddress 的预期状态。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## IPAddressSpec {#IPAddressSpec}
@@ -97,11 +97,11 @@ IPAddressSpec 描述 IP 地址中的属性。
 
   - **parentRef.name** (string)，必需
 
-    name 是被引用的对象的名称。
+    `name` 是被引用的对象的名称。
 
   - **parentRef.resource** (string)，必需
 
-    resource 是被引用的对象的资源。
+    `resource` 是被引用的对象的资源。
 
   <!--
   - **parentRef.group** (string)
@@ -115,11 +115,11 @@ IPAddressSpec 描述 IP 地址中的属性。
 
   - **parentRef.group** (string)
 
-    group 是被引用的对象的组。
+    `group` 是被引用的对象的组。
 
   - **parentRef.namespace** (string)
 
-    namespace 是被引用的对象的名字空间。
+    `namespace` 是被引用的对象的名字空间。
 
 ## IPAddressList {#IPAddressList}
 
@@ -150,19 +150,20 @@ IPAddressList 包含 IPAddress 的列表。
 
 - **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>)，必需
 
-  items 是 IPAddresses 的列表。
+  `items` 是 IPAddresses 的列表。
 
 <!--
 ## Operations {#Operations}
-
-### `get` read the specified IPAddress
-
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified IPAddress
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 IPAddress
 
 #### HTTP 请求
@@ -219,6 +220,7 @@ GET /apis/networking.k8s.io/v1/ipaddresses
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -259,6 +261,10 @@ GET /apis/networking.k8s.io/v1/ipaddresses
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 
@@ -557,6 +563,7 @@ DELETE /apis/networking.k8s.io/v1/ipaddresses
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -610,6 +617,10 @@ DELETE /apis/networking.k8s.io/v1/ipaddresses
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 

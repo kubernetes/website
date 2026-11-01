@@ -348,7 +348,7 @@ Python 客户端可以像 kubectl CLI 一样使用相同的
 When accessing the API from a pod, locating and authenticating
 to the API server are somewhat different.
 -->
-### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
+## 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
 
 当你从 Pod 中访问 API 时，定位和验证 API 服务器会有些许不同。
 

@@ -1,0 +1,38 @@
+{{ $kind := .Get "kind" }}
+
+{{ if eq $kind "bluesky" }}
+  <template id="bluesky-post-template">
+    <div class="bluesky-post">
+      <div data-field="text"></div>
+      <small>
+        <span data-field="date"></span> •
+        <a data-field="link" target="_blank" rel="noopener">{{ T "community_bluesky_link" }}</a>
+      </small>
+      <hr>
+    </div>
+  </template>
+
+  <div id="bluesky-feed-container"
+       data-handle="kubernetes.io"
+       data-limit="5"
+  >
+    <p>{{ T "community_bluesky_loading" }}</p>
+  </div>
+
+  <div id="bluesky-feed-fallback" hidden>
+    <p>
+      {{ T "community_bluesky_fallback_text" }}
+      <a href="https://bsky.app/profile/kubernetes.io">{{ T "community_bluesky_name" }}</a>
+    </p>
+  </div>
+
+  {{ $js := resources.Get "js/bluesky-feed.js" }}
+  {{ if hugo.IsProduction }}
+    {{ $js = $js | minify | fingerprint }}
+    <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ else }}
+    <script defer src="{{ $js.RelPermalink }}"></script>
+  {{ end }}
+{{ else }}
+  {{ errorf "social-media-feed: unsupported kind %q" $kind }}
+{{ end }}

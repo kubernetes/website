@@ -46,6 +46,7 @@ ServiceAccount 将以下内容绑定在一起：
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
+  
   标准对象的元数据，更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
@@ -54,21 +55,23 @@ ServiceAccount 将以下内容绑定在一起：
   <!--
   AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
   -->
-  AutomountServiceAccountToken 指示作为此服务帐户运行的 Pod 是否应自动挂载 API 令牌，
-  可以在 Pod 级别覆盖。
+  
+  AutomountServiceAccountToken 指示作为此服务帐户运行的 Pod
+  是否应自动挂载 API 令牌，可以在 Pod 级别覆盖。
 
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
   <!--
   *Atomic: will be replaced during a merge*
-  
+
   ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   -->
-  
-  **原子：将在合并期间被替换**  
 
-  imagePullSecrets 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount 的 Pod 中的任何镜像。
-  imagePullSecrets 与 Secret 不同，因为 Secret 可以挂载在 Pod 中，但 imagePullSecrets 只能由 kubelet 访问。更多信息：
+  **原子：将在合并期间被替换**
+
+  `imagePullSecrets` 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount
+  的 Pod 中的任何镜像。`imagePullSecrets` 与 Secret 不同，因为 Secret 可以挂载在 Pod 中，
+  但 `imagePullSecrets` 只能由 kubelet 访问。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 
 - **secrets** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
@@ -77,7 +80,7 @@ ServiceAccount 将以下内容绑定在一起：
   *Patch strategy: merge on key `name`*
 
   *Map: unique values on key name will be kept during a merge*
-  
+
   Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use.
   Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true".
   The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32.
@@ -86,24 +89,25 @@ ServiceAccount 将以下内容绑定在一起：
   Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created.
   More info: https://kubernetes.io/docs/concepts/configuration/secret
   -->
+  
   **补丁策略：基于键 `name` 合并**
 
   **映射：键 `name` 的唯一值将在合并过程中保留**
 
-  secrets 是允许使用此 ServiceAccount 运行的 Pod 使用的同一命名空间中的秘密列表。
+  `secrets` 是允许使用此 ServiceAccount 运行的 Pod 使用的同一命名空间中的秘密列表。
   仅当此服务帐户的 “kubernetes.io/enforce-mountable-secrets” 注释设置为 “true” 时，Pod 才限于此列表。
   **已弃用：**自 v1.32 起，`kubernetes.io/enforce-mountable-secrets` 注解已被弃用。
   建议使用单独的命名空间来隔离对挂载密钥的访问。
   此字段不应用于查找自动生成的服务帐户令牌机密以在 Pod 之外使用。
-  相反，可以使用 TokenRequest API 直接请求令牌，或者可以手动创建服务帐户令牌 Secret。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
+  相反，可以使用 TokenRequest API 直接请求令牌，或者可以手动创建服务帐户令牌 Secret。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 ## ServiceAccountList {#ServiceAccountList}
 
 <!--
 ServiceAccountList is a list of ServiceAccount objects
 -->
-ServiceAccountList 是 ServiceAccount 对象的列表
+ServiceAccountList 是 ServiceAccount 对象的列表。
 
 <hr>
 
@@ -116,6 +120,7 @@ ServiceAccountList 是 ServiceAccount 对象的列表
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
+  
   标准列表元数据, 更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -127,6 +132,7 @@ ServiceAccountList 是 ServiceAccount 对象的列表
   <!--
   List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   -->
+  
   ServiceAccount 列表，更多信息：
   https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
 
@@ -272,6 +278,13 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 -->
 - **timeoutSeconds** (**查询参数**): integer
@@ -372,6 +385,13 @@ GET /api/v1/serviceaccounts
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -806,6 +826,13 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 - **sendInitialEvents** (**查询参数**): boolean
 
 <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+-->
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

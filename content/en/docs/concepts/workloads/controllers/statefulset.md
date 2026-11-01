@@ -66,57 +66,7 @@ that provides a set of stateless replicas.
 
 The example below demonstrates the components of a StatefulSet.
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx
-  labels:
-    app: nginx
-spec:
-  ports:
-  - port: 80
-    name: web
-  clusterIP: None
-  selector:
-    app: nginx
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: web
-spec:
-  selector:
-    matchLabels:
-      app: nginx # has to match .spec.template.metadata.labels
-  serviceName: "nginx"
-  replicas: 3 # by default is 1
-  minReadySeconds: 10 # by default is 0
-  template:
-    metadata:
-      labels:
-        app: nginx # has to match .spec.selector.matchLabels
-    spec:
-      terminationGracePeriodSeconds: 10
-      containers:
-      - name: nginx
-        image: registry.k8s.io/nginx-slim:0.24
-        ports:
-        - containerPort: 80
-          name: web
-        volumeMounts:
-        - name: www
-          mountPath: /usr/share/nginx/html
-  volumeClaimTemplates:
-  - metadata:
-      name: www
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "my-storage-class"
-      resources:
-        requests:
-          storage: 1Gi
-```
+{{% code_sample file="controllers/statefulset.yaml" %}}
 
 {{< note >}}
 This example uses the `ReadWriteOnce` access mode, for simplicity. For
@@ -310,7 +260,7 @@ simultaneously (also known as "bursting"). This can speed up updates but may res
 
 A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
-annotations for the Pods in a StatefulSet. There are two possible values:
+annotations for the Pods in a StatefulSet. There are three possible values:
 
 `OnDelete`
 : When a StatefulSet's `.spec.updateStrategy.type` is set to `OnDelete`,
@@ -321,6 +271,14 @@ annotations for the Pods in a StatefulSet. There are two possible values:
 `RollingUpdate`
 : The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
   StatefulSet. This is the default update strategy.
+
+`Recreate`
+: {{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+  The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
+  Pods that reflect modifications made to a StatefulSet's `.spec.template`. Using this
+  strategy requires the `StatefulSetRecreateStrategy`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+  to be enabled. See [Recreate](#recreate) for details.
 
 ## Rolling Updates
 
@@ -348,7 +306,7 @@ update, roll out a canary, or perform a phased roll out.
 
 ### Maximum unavailable Pods
 
-{{< feature-state for_k8s_version="v1.35" state="beta" >}}
+{{< feature-state feature_gate_name="MaxUnavailableStatefulSet" >}}
 
 You can control the maximum number of Pods that can be unavailable during an update
 by specifying the `.spec.updateStrategy.rollingUpdate.maxUnavailable` field.
@@ -359,10 +317,6 @@ by rounding it up. This field cannot be 0. The default setting is 1.
 This field applies to all Pods in the range `0` to `replicas - 1`. If there is any
 unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 `maxUnavailable`.
-
-{{< note >}}
-The `maxUnavailable` field is in Beta stage and it is enabled by default.
-{{< /note >}}
 
 ### Forced rollback
 
@@ -383,6 +337,29 @@ configuration.
 After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
+
+## Recreate
+
+{{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
+
+When a StatefulSet's `.spec.updateStrategy.type` is set to `Recreate`, the StatefulSet
+controller deletes all of the StatefulSet's Pods at once and waits for them to terminate
+completely before creating any new Pods from the updated `.spec.template`. Unlike
+[`RollingUpdate`](#rolling-updates), the old and new revisions of a Pod are never running at
+the same time, so this strategy incurs downtime for the duration of the update. This mirrors
+the `Recreate` strategy of Deployments and is useful for applications that cannot run two
+versions concurrently, such as workloads that require exclusive access to a shared resource
+or that use an on-disk format that is incompatible between versions.
+
+The deletion always removes every Pod together, regardless of the
+[Pod Management Policy](#pod-management-policies). Once all Pods have terminated, the new
+Pods are created according to that policy: with `OrderedReady` (the default) the Pods are
+recreated one at a time, in ascending ordinal order, waiting for each to become Running and
+Ready before creating the next; with `Parallel` all of the Pods are recreated at once.
+
+Because this is an alpha feature, you must enable the `StatefulSetRecreateStrategy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
+on the kube-controller-manager and the kube-apiserver to use this strategy.
 
 ## Revision history
 
@@ -555,7 +532,7 @@ deleted when Pods are force-deleted.
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
 
-Should you manually scale a deployment, example via `kubectl scale
+Should you manually scale a StatefulSet, via `kubectl scale
 statefulset statefulset --replicas=X`, and then you update that StatefulSet
 based on a manifest (for example: by running `kubectl apply -f
 statefulset.yaml`), then applying that manifest overwrites the manual scaling
@@ -577,9 +554,9 @@ the `.spec.replicas` field automatically.
   * Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
   * Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
   * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
-  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tutorials/configuration/configure-persistent-volume-storage/).
 * `StatefulSet` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
+  Read the {{< api-reference page="apps/stateful-set-v1" >}}
   object definition to understand the API for stateful sets.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.

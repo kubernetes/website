@@ -69,6 +69,19 @@ Using this phase you can write the kubelet settings, certificates and (re)start 
 {{< tab name="kubelet-start" include="generated/kubeadm_join/kubeadm_join_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
+<!--
+## kubeadm join phase etcd-join {#cmd-join-phase-etcd-join}
+
+Join the new etcd member to the etcd cluster.
+-->
+## kubeadm join phase etcd-join {#cmd-join-phase-etcd-join}
+
+将新的 etcd 成员加入 etcd 集群。
+
+{{< tabs name="tab-etcd-join" >}}
+{{< tab name="etcd-join" include="generated/kubeadm_join/kubeadm_join_phase_etcd-join.md" />}}
+{{< /tabs >}}
+
 ## kubeadm join phase control-plane-join {#cmd-join-phase-control-plane-join}
 
 <!--
@@ -79,8 +92,18 @@ Using this phase you can join a node as a control-plane instance.
 {{< tabs name="tab-control-plane-join" >}}
 {{< tab name="control-plane-join" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join.md" />}}
 {{< tab name="all" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_all.md" />}}
-{{< tab name="etcd" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_etcd.md" />}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_mark-control-plane.md" />}}
+{{< /tabs >}}
+
+## kubeadm join phase wait-control-plane {#cmd-join-wait-control-plane}
+
+<!--
+Wait for the control plane components to start.
+-->
+等待控制平面组件启动。
+
+{{< tabs name="tab-wait-control-plane" >}}
+{{< tab name="wait-control-plane" include="generated/kubeadm_join/kubeadm_join_phase_wait-control-plane.md" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
@@ -92,10 +115,10 @@ Using this phase you can join a node as a control-plane instance.
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-  引导 Kubernetes 控制平面节点
+  引导 Kubernetes 控制平面节点。
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-  将节点添加到集群
+  将节点添加到集群。
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
-  恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
+  恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改。
 * [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
-  尝试实验性功能
+  尝试实验性功能。

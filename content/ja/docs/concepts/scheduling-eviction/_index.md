@@ -1,10 +1,7 @@
 ---
 title: "スケジューリング、プリエンプションと退避"
 weight: 95
-description: >
-  Kubernetesにおいてスケジューリングとは、稼働させたいPodをノードにマッチさせ、kubeletが実行できるようにすることを指します。
-  プリエンプションは、優先度の低いPodを終了させて、より優先度の高いPodがノード上でスケジュールできるようにするプロセスです。
-  退避(eviction)とは、リソース不足のノードで1つ以上のPodを積極的に終了させるプロセスです。
+content_type: concept
 no_list: true
 ---
 
@@ -12,22 +9,29 @@ Kubernetesにおいてスケジューリングとは、稼働させたい{{<glos
 プリエンプションは、{{<glossary_tooltip text="優先度" term_id="pod-priority">}}の低いPodを終了させて、より優先度の高いPodがノード上でスケジュールできるようにするプロセスです。
 退避とは、リソース不足のノードで1つ以上のPodを積極的に終了させるプロセスです。
 
-## スケジューリング
+## スケジューリング {#scheduling}
 
-* [Kubernetesのスケジューラー](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)
-* [ノード上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)
-* [Podのオーバーヘッド](/ja/docs/concepts/scheduling-eviction/pod-overhead/)
+* [Kubernetesのスケジューラー](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* [ノード上へのPodのスケジューリング](/docs/concepts/scheduling-eviction/assign-pod-node/)
+* [Podのオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)
 * [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)
-* [スケジューリングフレームワーク](/ja/docs/concepts/scheduling-eviction/scheduling-framework)
+* [TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)
+* [スケジューリングフレームワーク](/docs/concepts/scheduling-eviction/scheduling-framework)
 * [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
-* [スケジューラーのパフォーマンスチューニング](/ja/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* [拡張リソースのリソースビンパッキング](/ja/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [スケジューラーのパフォーマンスチューニング](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* [拡張リソースのリソースビンパッキング](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [PodGroup Scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/)
+* [Gangスケジューリング](/docs/concepts/scheduling-eviction/gang-scheduling/)
+* [Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
+* [Workload-Aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
+* [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
 
-## Pod Disruption
+## Pod Disruption {#pod-disruption}
 
-* [Podの優先度とプリエンプション](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)
+{{<glossary_definition term_id="pod-disruption" length="all">}}
+
+* [Podの優先度とプリエンプション](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [ノードの圧迫による退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+* [APIを起点とした退避](/docs/concepts/scheduling-eviction/api-eviction/)

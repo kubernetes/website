@@ -285,6 +285,8 @@ lack of data, using this policy option with Kubernetes {{< skew currentVersion >
 at your own risk.
 {{< /note >}}
 
+You can enable this option by adding `max-allowable-numa-nodes=<integer>` to the Topology Manager policy options, where the integer value must be greater than 8. The default is 8, which preserves the existing limit.
+
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
 latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
 Future, potential improvements to Kubernetes may improve Pod admission performance and the high
@@ -407,3 +409,7 @@ assignments.
 
 1. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
+
+## {{% heading "whatsnext" %}}
+
+- Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers).

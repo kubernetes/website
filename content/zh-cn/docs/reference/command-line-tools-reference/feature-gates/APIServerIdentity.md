@@ -12,7 +12,7 @@ stages:
     toVersion: "1.25"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.26"  
+    fromVersion: "1.26"
 ---
 
 <!--

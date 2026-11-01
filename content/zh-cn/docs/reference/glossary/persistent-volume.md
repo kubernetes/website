@@ -1,7 +1,6 @@
 ---
 title: 持久卷（Persistent Volume）
 id: persistent-volume
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/storage/persistent-volumes/
 short_description: >
   持久卷是代表集群中一块存储空间的 API 对象。
@@ -14,10 +13,9 @@ tags:
 <!--
 title: Persistent Volume
 id: persistent-volume
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
-  An API object that represents a piece of storage in the cluster.
+  API object that represents a piece of storage in the cluster.
 
 aka: 
 tags:
@@ -32,10 +30,9 @@ individual {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 -->
 持久卷是代表集群中一块存储空间的 API 对象。
 表示为一般的、可插拔的存储{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}，
-它可以超越任何单独的 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-的生命周期而存在。
+它可以超越任何单独的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的生命周期而存在。
 
-<!--more--> 
+<!--more-->
 
 <!--
 PersistentVolumes (PVs) provide an API that abstracts details of how storage is provided from how it is consumed.

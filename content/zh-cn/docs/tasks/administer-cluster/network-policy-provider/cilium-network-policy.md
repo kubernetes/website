@@ -36,7 +36,7 @@ To get familiar with Cilium easily you can follow the
 [Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
-To start minikube, minimal version required is >= v1.5.2, run the with the
+To start minikube, which requires version v1.5.2 or higher, run it with the
 following arguments:
 -->
 ## 在 Minikube 上部署 Cilium 用于基本测试   {#deploying-cilium-on-minikube-for-basic-testing}
@@ -45,7 +45,7 @@ following arguments:
 [Cilium Kubernetes 入门指南](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/s)
 在 minikube 中执行一个 Cilium 的基本 DaemonSet 安装。
 
-要启动 minikube，需要的最低版本为 1.5.2，使用下面的参数运行：
+要启动 minikube，需要 v1.5.2 或更高版本，使用下面的参数运行：
 
 ```shell
 minikube version
@@ -180,10 +180,10 @@ Once your cluster is running, you can follow the
 [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
-[Cilium Slack Channel](https://cilium.herokuapp.com/).
+[Cilium Slack Channel](https://slack.cilium.io/).
 -->
 集群运行后，
 你可以按照[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)试用基于
 Cilium 的 Kubernetes NetworkPolicy。玩得开心，如果你有任何疑问，请到
-[Cilium Slack 频道](https://cilium.herokuapp.com/)联系我们。
+[Cilium Slack 频道](https://slack.cilium.io/)联系我们。
 

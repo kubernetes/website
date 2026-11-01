@@ -61,7 +61,7 @@ class first,second white
 
 ### CNCF CLAに署名する {#sign-the-cla}
 
-すべてのKubernetesのコントリビューターは、[コントリビューターガイド](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)を読み、[Contributor License Agreement(コントリビューターライセンス契約、CLA)への署名](https://github.com/kubernetes/community/blob/master/CLA.md)を**必ず行わなければなりません**。
+すべてのKubernetesのコントリビューターは、[コントリビューターガイド](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md)を読み、[Contributor License Agreement(コントリビューターライセンス契約、CLA)への署名](https://github.com/kubernetes/community/blob/main/CLA.md)を**必ず行わなければなりません**。
 
 CLAへの署名が完了していないコントリビューターからのpull requestは、自動化されたテストで失敗します。名前とメールアドレスは`git config`コマンドで表示されるものに一致し、gitの名前とメールアドレスはCNCF CLAで使われたものに一致しなければなりません。
 

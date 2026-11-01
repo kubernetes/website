@@ -33,7 +33,7 @@ Les fonctions de trieur de PR incluent:
 
 Les requêtes suivantes sont utiles lors des opérations de triage.
 Après avoir utilisé ces trois requêtes, la liste restante de PRs devant être examinées est généralement petite.
-Ces requêtes excluent spécifiquement les PRs de localisation, et n'incluent que la branche `master` (sauf la derniere).
+Ces requêtes excluent spécifiquement les PRs de localisation, et n'incluent que la branche `master` (sauf la dernière).
 
 - [Pas de CLA, non éligible au merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
   Rappelez au contributeur de signer le CLA. S’ils ont déjà été rappelés à la fois par le bot et par un humain, fermez la PR et rappelez-leur qu'ils peuvent l'ouvrir après avoir signé le CLA.

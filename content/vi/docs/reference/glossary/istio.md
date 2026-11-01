@@ -1,7 +1,6 @@
 ---
 title: Istio
 id: istio
-date: 2018-04-12
 full_link: https://istio.io/latest/about/service-mesh/#what-is-istio
 short_description: >
   Một nền tảng mã nguồn mở (không chỉ dành riêng cho Kubernetes) cung cấp cách thống nhất để tích hợp microservices, quản lý luồng lưu lượng, thực thi chính sách và thu thập dữ liệu telemetry.

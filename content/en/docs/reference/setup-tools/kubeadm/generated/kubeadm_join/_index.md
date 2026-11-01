@@ -62,17 +62,18 @@ Often times the same token is used for both parts. In this case, the
 
 The "join [api-server-endpoint]" command executes the following phases:
 ```
-preflight              Run join pre-flight checks
-control-plane-prepare  Prepare the machine for serving a control plane
-  /download-certs        Download certificates shared among control-plane nodes from the kubeadm-certs Secret
-  /certs                 Generate the certificates for the new control plane components
-  /kubeconfig            Generate the kubeconfig for the new control plane components
-  /control-plane         Generate the manifests for the new control plane components
-kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
-control-plane-join     Join a machine as a control plane instance
-  /etcd                  Add a new local etcd member
-  /mark-control-plane    Mark a node as a control-plane
-wait-control-plane     Wait for the control plane to start
+preflight               Run join pre-flight checks
+control-plane-prepare   Prepare the machine for serving a control plane
+  /download-certs         Download certificates shared among control-plane nodes from the kubeadm-certs Secret
+  /certs                  Generate the certificates for the new control plane components
+  /kubeconfig             Generate the kubeconfig for the new control plane components
+  /control-plane          Generate the manifests for the new control plane components
+kubelet-start           Write kubelet settings, certificates and (re)start the kubelet
+etcd-join               Join etcd for control plane nodes
+kubelet-wait-bootstrap  Wait for the kubelet to bootstrap itself
+control-plane-join      Join a machine as a control plane instance
+  /mark-control-plane     Mark a node as a control-plane
+wait-control-plane      Wait for the control plane to start
 ```
 
 
@@ -191,7 +192,7 @@ kubeadm join [api-server-endpoint] [flags]
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
 </tr>
 
 <tr>

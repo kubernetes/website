@@ -1,7 +1,6 @@
 ---
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker merupakan suatu teknologi perangkat lunak yang menyediakan virtualisasi pada level sistem operasi yang juga dikenal sebagai Container.

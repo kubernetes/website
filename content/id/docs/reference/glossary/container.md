@@ -1,7 +1,6 @@
 ---
 title: Container
 id: container
-date: 2019-06-24
 full_link: /id/docs/concepts/overview/what-is-kubernetes/#mengapa-kontainer
 short_description: >
   Sebuah _image_ yang ringan dan dapat dijalankan yang mengandung perangkat lunak and segala dependensi yang dibutuhkan.

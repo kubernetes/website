@@ -1,7 +1,6 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Componente da camada de gerenciamento que observa os Pods recém-criados e que

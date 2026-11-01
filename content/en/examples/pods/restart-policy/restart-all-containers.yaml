@@ -18,11 +18,10 @@ spec:
     restartPolicy: Always
     restartPolicyRules:
     - action: RestartAllContainers
-      onExit:
-        exitCodes:
-          # Exit code 88 triggers a full pod restart.
-          operator: In
-          values: [88]
+      exitCodes:
+        # Exit code 88 triggers a full pod restart.
+        operator: In
+        values: [88]
   containers:
   - name: main-application
     image: registry.k8s.io/busybox:1.27.2

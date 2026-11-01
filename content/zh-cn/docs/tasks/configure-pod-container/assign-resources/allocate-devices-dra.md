@@ -23,13 +23,13 @@ with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For more information, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 -->
 本文介绍如何使用**动态资源分配（DRA）** 为 Pod 分配设备。
 这些指示说明面向工作负载运维人员。在阅读本文之前，请先了解 DRA 的工作原理以及相关术语，例如
 {{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}} 和
 {{< glossary_tooltip text="ResourceClaimTemplate" term_id="resourceclaimtemplate" >}}。
-更多信息参阅[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
+更多信息参阅[动态资源分配（DRA）](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/)。
 
 <!-- body -->
 
@@ -339,6 +339,6 @@ steps:
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation)
 -->
-* [进一步了解 DRA](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [进一步了解 DRA](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation)

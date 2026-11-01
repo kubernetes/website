@@ -761,9 +761,9 @@ so that you're relying on KMS encryption.
 请在主机之间使用非对称加密，或更改你正在使用的方法，以便依赖 KMS 加密。
 
 <!--
-## Write an encryption configuration file
+### Write an encryption configuration file
 -->
-## 编辑加密配置文件   {#write-an-encryption-configuration-file}
+### 编辑加密配置文件   {#write-an-encryption-configuration-file}
 
 {{< caution >}}
 <!--

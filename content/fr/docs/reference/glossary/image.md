@@ -1,7 +1,6 @@
 ---
 title: Image
 id: image
-date: 2018-04-12
 full_link:
 short_description: >
   Instance stockée d'un conteneur qui contient un ensemble de logiciels nécessaires à l'exécution d'une application.

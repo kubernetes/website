@@ -327,22 +327,22 @@ listed in alphabetical order:
 `full-pcpus-only` (GA, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22, GA since Kubernetes v1.33)
 
-`strict-cpu-reservation` (beta, visible by default)
+`strict-cpu-reservation` (GA, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 
 `prefer-align-cpus-by-uncorecache` (beta, visible by default)
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
-  (available since Kubernetes v1.32)
+  (available since Kubernetes v1.32, GA since Kubernetes v1.35)
 -->
 `full-pcpus-only`（GA，默认可见）
 : 始终分配完整的物理核心（自 Kubernetes v1.22 起可用，自 Kubernetes v1.33 起进阶到 GA）
 
-`strict-cpu-reservation`（Beta，默认可见）
+`strict-cpu-reservation`（GA，默认可见）
 : 阻止所有 Pod（无论其服务质量类别如何）在预留的 CPU 上运行（自 Kubernetes v1.32 起可用）
 
 `prefer-align-cpus-by-uncorecache`（Beta，默认可见）
-: 尽可能通过非核心（最后一级）高速缓存边界对齐 CPU（自 Kubernetes v1.32 起可用）
+: 尽可能通过非核心（最后一级）高速缓存边界对齐 CPU（自 Kubernetes v1.32 起可用，自 Kubernetes v1.35 起进阶到 GA）
 
 <!--
 You can toggle groups of options on and off based upon their maturity level
@@ -515,19 +515,19 @@ still be admitted using the default packed behavior.
 如果 CPUManager 在节点具有足够资源的情况下无法最佳地对齐，则仍将使用默认的打包行为接受该容器。
 
 <!--
-## Memory Management Policies
+## Policies for assigning memory to Pods {#memory-management-policies}
 -->
-## 内存管理策略   {#memory-management-policies}
+## 为 Pod 分配内存的策略   {#memory-management-policies}
 
 {{< feature-state feature_gate_name="MemoryManager" >}}
 
 <!--
-The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)
-allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
+The Kubernetes *Memory Manager* allocates RAM (memory, and optionally Linux huge pages) resources
+for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 -->
-Kubernetes 内存管理器（Memory Manager） 为 Guaranteed
-{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}中的 Pod
-启用有保证的内存（和巨页）分配能力。
+Kubernetes 内存管理器为 `Guaranteed`
+{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}中的
+Pod 分配 RAM（内存，以及可选的 Linux 大页内存）资源。
 
 <!--
 The Memory Manager employs hint generation protocol to yield the most suitable NUMA affinity for a pod.
@@ -543,6 +543,11 @@ Moreover, the Memory Manager ensures that the memory which a pod requests
 is allocated from a minimum number of NUMA nodes.
 -->
 此外，内存管理器可确保 Pod 请求的内存是从最少数量的 NUMA 节点中分配的。
+
+<!--
+To learn more, read [Control Memory Management Policies on a Node](/docs/tasks/administer-cluster/memory-manager/).
+-->
+要了解更多信息，请阅读[控制节点上的内存管理策略](/zh-cn/docs/tasks/administer-cluster/memory-manager/)。
 
 <!--
 ## Other resource managers

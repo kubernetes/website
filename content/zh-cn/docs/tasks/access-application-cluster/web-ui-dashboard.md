@@ -25,6 +25,28 @@ card:
   title: Use the Web UI Dashboard
 -->
 
+{{% pageinfo color="primary" %}}
+<!--
+**Kubernetes Dashboard is deprecated and unmaintained.**
+
+The Kubernetes Dashboard project has been archived and is no longer actively maintained.
+For new installations, consider using [Headlamp](https://headlamp.dev/).
+-->
+**Kubernetes Dashboard 已弃用且停止维护。**
+
+Kubernetes Dashboard 项目已归档，不再进行积极维护。
+对于新 Web 工具的选择，请考虑使用 [Headlamp](https://headlamp.dev/)。
+{{% /pageinfo %}}
+
+{{< note >}}
+<!--
+For in-cluster deployments similar to Kubernetes Dashboard, see the
+[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
+-->
+对于类似于 Kubernetes Dashboard 的集群内部署，请参阅
+[Headlamp 集群内安装指南](https://headlamp.dev/docs/latest/installation/in-cluster/)。
+{{< /note >}}
+
 <!-- overview -->
 
 <!--

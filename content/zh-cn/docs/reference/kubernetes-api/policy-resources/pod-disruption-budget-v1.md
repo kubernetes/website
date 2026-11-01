@@ -177,42 +177,6 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
 <hr>
 
-<!--
-- **currentHealthy** (int32), required
-
-  current number of healthy pods
--->
-- **currentHealthy** (int32)，必需
-
-  当前健康 Pod 的数量。
-
-<!--
-- **desiredHealthy** (int32), required
-
-  minimum desired number of healthy pods
--->
-- **desiredHealthy** (int32)，必需
-
-  健康 Pod 的最小期望值。
-
-<!--
-- **disruptionsAllowed** (int32), required
-
-  Number of pod disruptions that are currently allowed.
--->
-- **disruptionsAllowed** (int32)，必需
-
-  当前允许的 Pod 干扰计数。
-
-<!--
-- **expectedPods** (int32), required
-
-  total number of pods counted by this disruption budget
--->
-- **expectedPods** (int32)，必需
-
-  此干扰预算计入的 Pod 总数。
-
 - **conditions** ([]Condition)
 
   <!--
@@ -270,6 +234,24 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     <a name="Time"></a>
     `Time` 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
     `time` 包的许多工厂方法提供了包装器。
+  
+  <!--
+  - **disruptionsAllowed** (int32), required
+  
+    Number of pod disruptions that are currently allowed.
+  -->
+  - **disruptionsAllowed** (int32)，必需
+  
+    当前允许的 Pod 干扰计数。
+  
+  <!--
+  - **expectedPods** (int32), required
+  
+    total number of pods counted by this disruption budget
+  -->
+  - **expectedPods** (int32)，必需
+  
+    此干扰预算计入的 Pod 总数。
 
   <!--
   - **conditions.message** (string), required
@@ -324,6 +306,26 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     `observedGeneration` 表示设置状况时所基于的 `.metadata.generation`。
     例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration` 为 9，
     则状况相对于实例的当前状态已过期。
+  
+  <!--
+  - **currentHealthy** (int32), required
+  
+    current number of healthy pods
+  -->
+  
+  - **currentHealthy** (int32)，必需
+  
+    当前健康 Pod 的数量。
+  
+  <!--
+  - **desiredHealthy** (int32), required
+  
+    minimum desired number of healthy pods
+  -->
+  
+  - **desiredHealthy** (int32)，必需
+  
+    健康 Pod 的最小期望值。
 
 <!--
 - **disruptedPods** (map[string]Time)
@@ -596,9 +598,23 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -715,9 +731,23 @@ GET /apis/policy/v1/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1399,9 +1429,23 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

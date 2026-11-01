@@ -171,7 +171,7 @@ label and field selectors in the request to the authorization webhook.
 The authorization webhook can make authorization decisions
 informed by the scoped field and label selectors, if it wishes.
 
-The [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
+The [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/)
 gives guidelines for how these fields should be interpreted and handled by authorization webhooks,
 specifically using the parsed requirements rather than the raw selector strings,
 and how to handle unrecognized operators safely.
@@ -213,7 +213,7 @@ Access to other non-resource paths can be disallowed without restricting access
 to the REST api.
 
 For further information, refer to the
-[SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
+[SubjectAccessReview API documentation](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/)
 and
 [webhook.go implementation](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 

@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+# 此角色绑定使得用户 "dave" 能够读取 "development" 名字空间中的 Secret
+# 你需要一个名为 "secret-reader" 的 ClusterRole
+kind: RoleBinding
+metadata:
+  name: read-secrets
+  # RoleBinding 的名字空间决定了访问权限的授予范围。
+  # 这里隐含授权仅在 "development" 名字空间内的访问权限。
+  namespace: development
+subjects:
+- kind: User
+  name: dave # 'name' 是区分大小写的
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io

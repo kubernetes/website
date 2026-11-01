@@ -16,7 +16,7 @@ assigned to a container *without recreating the Pod*.
 Traditionally, changing a Pod's resource requirements necessitated deleting the existing Pod
 and creating a replacement, often managed by a [workload controller](/docs/concepts/workloads/controllers/).
 In-place Pod Resize allows changing the CPU/memory allocation of container(s) within a running Pod
-while potentially avoiding application disruption.
+while potentially avoiding application disruption. The process for resizing Pod resources is covered in [Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources).
 
 **Key Concepts:**
 
@@ -51,6 +51,13 @@ The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tool
 must be enabled
 for your control plane and for all nodes in your cluster.
 
+To enable automatic scheduler preemption for deferred resize requests, the
+`InPlacePodVerticalScalingSchedulerPreemption`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must also be enabled for your control plane.
+
+To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `InPlacePodVerticalScalingMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane and nodes, and the underlying nodes must be running cgroup v2.
+
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 
 ## Pod resize status
@@ -69,10 +76,24 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
-### How kubelet retries Deferred resizes
+### How deferred resizes are retried and preempted
 
 If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
-for example when another pod is removed or scaled down. If there are multiple deferred
+for example when another pod is removed or scaled down.
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled,
+`kube-scheduler` watches for pods with `Deferred` resize status.
+If a node lacks sufficient capacity to fulfill a higher-priority Pod's resize
+request, the scheduler can preempt (evict) lower-priority pods on that node
+to free up the required CPU or memory capacity.
+For more details, see
+[Preemption for in-place Pod resize](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption-for-in-place-pod-resize).
+{{< /note >}}
+
+If there are multiple deferred
 resizes, they are retried according to the following priority:
 
 * Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.
@@ -124,6 +145,23 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 * If only memory resources are changed, the container is restarted.
 * If *both* CPU and memory resources are changed simultaneously, the container is restarted (due to the memory policy).
 
+## Resizing memory-backed emptyDir volumes
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, the Pod `/resize` subresource supports updating the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes on running Pods without restarting containers or recreating the Pod.
+
+When a volume's `sizeLimit` is updated via the `/resize` subresource, the Kubelet dynamically updates the underlying `tmpfs` mount without container disruption while safely preventing out-of-memory errors or false-positive eviction triggers.
+
+To resize a memory-backed `emptyDir` volume, update `spec.volumes[].emptyDir.sizeLimit` targeting the Pod's `resize` subresource:
+
+```shell
+kubectl patch pod <pod-name> --subresource resize --patch \
+  '{"spec":{"volumes":[{"name":"cache-volume", "emptyDir":{"sizeLimit":"200Mi"}}]}}'
+```
+
+You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
+
 ## Limitations
 
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
@@ -152,8 +190,17 @@ to a race condition where memory usage may spike right after the check is perfor
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
+* **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
 
 These restrictions might be relaxed in future Kubernetes versions.
+
+## Create a namespace
+
+Create a namespace so that the resources you create in this exercise are isolated from the rest of your cluster.
+
+```shell
+kubectl create namespace qos-example
+```
 
 ## Example 1: Resizing CPU without restart
 
@@ -164,14 +211,14 @@ First, create a Pod designed for in-place CPU resize and restart-required memory
 Create the pod:
 
 ```shell
-kubectl create -f pod-resize.yaml
+kubectl create -f pod-resize.yaml -n qos-example
 ```
 
 This pod starts in the Guaranteed QoS class. Verify its initial state:
 
 ```shell
 # Wait a moment for the pod to be running
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml -n qos-example
 ```
 
 Observe the `spec.containers[0].resources` and `status.containerStatuses[0].resources`.
@@ -180,7 +227,7 @@ They should match the manifest (700m CPU, 200Mi memory). Note the `status.contai
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
 # Alternative methods:
@@ -210,14 +257,14 @@ Now, resize the memory for the *same* pod by increasing it to `300Mi`.
 Since the memory `resizePolicy` is `RestartContainer`, the container is expected to restart.
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
 Check the pod status shortly after patching:
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 You should now observe:
@@ -232,14 +279,14 @@ Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (wri
 
 ```shell
 # Attempt to patch with an excessively large CPU request
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
 Query the Pod's details:
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 You'll see changes indicating the problem:
@@ -255,10 +302,10 @@ To fix this, you would need to patch the pod again with feasible resource values
 
 ## Clean up
 
-Delete the pod:
+Delete your namespace. This deletes all the Pods that you created for this task:
 
 ```shell
-kubectl delete pod resize-demo
+kubectl delete namespace qos-example
 ```
 
 ## {{% heading "whatsnext" %}}

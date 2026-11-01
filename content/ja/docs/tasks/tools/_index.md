@@ -42,7 +42,7 @@ minikubeが起動したら、[サンプルアプリケーションの実行](/ja
 
 Kubernetesクラスターの作成、管理をするために{{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}}ツールを使用することができます。
 
-最低限実行可能でセキュアなクラスタを、ユーザーフレンドリーな方法で稼働させるために必要なアクションを実行します。
+最低限実行可能でセキュアなクラスターを、ユーザーフレンドリーな方法で稼働させるために必要なアクションを実行します。
 
 [kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)では、kubeadmをインストールする方法を示しています。
 一度インストールすれば、[クラスターを作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)するために使用できます。

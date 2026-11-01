@@ -32,7 +32,7 @@ fabric that links Pods together.
   plugins, which are deprecated since Kubernetes v1.23 (in favour of CSI).
   -->
 
-  {{< glossary_tooltip text="容器存储接口" term_id="csi" >}} (CSI) 插件提供了一种扩展
+  {{< glossary_tooltip text="容器存储接口" term_id="csi" >}}（CSI）插件提供了一种扩展
   Kubernetes 的方式使其支持新类别的卷。
   这些卷可以由持久的外部存储提供支持，可以提供临时存储，还可以使用文件系统范型为信息提供只读接口。
 
@@ -46,7 +46,7 @@ fabric that links Pods together.
   [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   design proposal has more detail on this approach.
 
-  The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+  The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
   includes general information on storage plugins.
   -->
 
@@ -55,7 +55,7 @@ fabric that links Pods together.
   归档的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   设计提案对此方法有更多详细说明。
 
-  [Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+  [Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
   包含了有关存储插件的通用信息。
 
 <!--
@@ -83,7 +83,7 @@ fabric that links Pods together.
 * [网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
   网络插件可以让 Kubernetes 使用不同的网络拓扑和技术。
-  你的 Kubernetes 集群需要一个 **网络插件** 才能拥有一个正常工作的 Pod 网络，
+  你的 Kubernetes 集群需要一个**网络插件**才能拥有一个正常工作的 Pod 网络，
   才能支持 Kubernetes 网络模型的其他方面。
 
   Kubernetes {{< skew currentVersion >}} 兼容

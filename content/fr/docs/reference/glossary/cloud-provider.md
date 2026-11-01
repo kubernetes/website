@@ -1,7 +1,6 @@
 ---
 title: Fournisseur de Cloud
 id: cloud-provider
-date: 2018-04-12
 full_link: /docs/concepts/cluster-administration/cloud-providers
 short_description: >
   Le fournisseur de cloud est une entreprise offrant une plateforme de cloud computing, pouvant faire fonctionner des clusters Kubernetes.

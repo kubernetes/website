@@ -1,7 +1,6 @@
 ---
 title: Cloud Provider
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   Một tổ chức cung cấp nền tảng điện toán đám mây.
 

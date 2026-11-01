@@ -18,9 +18,9 @@ dan melihat *log* (catatan). Untuk informasi lebih lanjut termasuk daftar lengka
 kubectl dapat diinstal pada berbagai platform Linux, macOS dan Windows.
 Pilihlah sistem operasi pilihan kamu di bawah ini.
 
-- [Instalasi kubectl pada Linux](/en/docs/tasks/tools/install-kubectl-linux)
-- [Instalasi kubectl pada macOS](/en/docs/tasks/tools/install-kubectl-macos)
-- [Instalasi kubectl pada Windows](/en/docs/tasks/tools/install-kubectl-windows)
+- [Instalasi kubectl pada Linux](/docs/tasks/tools/install-kubectl-linux/)
+- [Instalasi kubectl pada macOS](/docs/tasks/tools/install-kubectl-macos/)
+- [Instalasi kubectl pada Windows](/docs/tasks/tools/install-kubectl-windows/)
 
 ## kind
 

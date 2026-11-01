@@ -113,7 +113,7 @@ Other localization teams are happy to help you get started and answer your
 questions.
 
 Please also consider participating in the
-[SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs).
+[SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/main/sig-docs).
 The mission of the SIG Docs localization subgroup is to work across the SIG Docs
 localization teams to collaborate on defining and documenting the processes for
 creating localized contribution guides. In addition, the SIG Docs localization

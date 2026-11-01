@@ -1,7 +1,6 @@
 ---
 title: クラスター管理
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  Kubernetesクラスターの管理に関連する作業です。

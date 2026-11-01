@@ -1,7 +1,6 @@
 ---
 title: Container Sementara
 id: ephemeral-container
-date: 2019-08-26
 full_link: /id/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   Jenis tipe Container yang dapat kamu jalankan sementara di dalam sebuah Pod.

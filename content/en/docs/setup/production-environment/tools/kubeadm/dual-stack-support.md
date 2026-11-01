@@ -47,7 +47,7 @@ sudo sysctl --system
 ```
 
 
-You need to have an IPv4 and and IPv6 address range to use. Cluster operators typically
+You need to have an IPv4 and IPv6 address range to use. Cluster operators typically
 use private address ranges for IPv4. For IPv6, a cluster operator typically chooses a global
 unicast address block from within `2000::/3`, using a range that is assigned to the operator.
 You don't have to route the cluster's IP address ranges to the public internet.

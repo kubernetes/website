@@ -1,16 +1,6 @@
-document.querySelector('html').classList.add('search');
-
-document.addEventListener('DOMContentLoaded', function() {
-  let searchTerm = new URLSearchParams(window.location.search).get('q');
-  let fetchingElem = document.getElementById('bing-results-container');
-
-  if (!searchTerm) {
-    if (fetchingElem) fetchingElem.style.display = 'none';
-  }
-});
-
+// This is copied from google implementation in the Docsy search layout
 window.renderGoogleSearchResults = () => {
-  const cx = '013288817511911618469:elfqqbqldzg';
+  const cx = '013288817511911618469:elfqqbqldzg'; // Todo: move this to a site variable or a build variable
   const gcse = document.createElement('script');
   gcse.type = 'text/javascript';
   gcse.async = true;
@@ -22,10 +12,7 @@ window.renderGoogleSearchResults = () => {
 window.renderPageFindSearchResults = () => {
   let urlParams = new URLSearchParams(window.location.search);
   let searchTerm = urlParams.get("q") || "";
-  let sidebarSearch = document.querySelector('#search-results-search');
-  if (sidebarSearch) {
-    sidebarSearch.remove();
-  }
+
   document.getElementById('search').style.display = 'block';
   let pagefind = new PagefindUI({ element: "#search", showImages: false });
   if (searchTerm) {
@@ -104,6 +91,7 @@ async function loadSearch() {
   }
 }
 
+// The following is based on Docsy's assets/js/search.js
 (function ($) {
   "use strict";
 

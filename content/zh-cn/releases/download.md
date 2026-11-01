@@ -106,18 +106,6 @@ signatures:
 对于 Kubernetes {{< param "version" >}}，容器镜像使用
 [sigstore](https://sigstore.dev) 进行签名：
 
-{{< note >}}
-<!--
-Container image sigstore signatures do currently not match between different geographical locations.
-More information about this problem is available in the corresponding
-[GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
--->
-目前，不同地理位置之间的容器镜像 sigstore 签名不匹配。
-有关此问题的更多信息，请参阅相应的
-[GitHub Issue](https://github.com/kubernetes/registry.k8s.io/issues/187)。
-{{< /note >}}
-
-
 <!--
 The Kubernetes project publishes a list of signed Kubernetes container images
 in [SPDX 2.3](https://spdx.dev/specifications/) format.

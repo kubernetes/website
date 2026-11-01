@@ -4,7 +4,7 @@ import time
 import rediswq
 
 host="redis"
-# Uncomment next two lines if you do not have Kube-DNS working.
+# Uncomment next two lines if you do not have CoreDNS working.
 # import os
 # host = os.getenv("REDIS_SERVICE_HOST")
 

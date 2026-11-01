@@ -1,7 +1,6 @@
 ---
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   帮助理解容器的资源用量与性能特征的工具。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   Tool that provides understanding of the resource usage and performance characteristics for containers

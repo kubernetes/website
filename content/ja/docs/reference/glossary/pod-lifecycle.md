@@ -1,7 +1,6 @@
 ---
 title: Podのライフサイクル
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /ja/docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod

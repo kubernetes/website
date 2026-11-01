@@ -1,7 +1,6 @@
 ---
 title: 监视（Watch）
 id: watch
-date: 2024-07-02
 full_link: /zh-cn/docs/reference/using-api/api-concepts/#api-verbs
 short_description: >
   用于以流的形式跟踪 Kubernetes 中对象变化的动词。
@@ -11,11 +10,9 @@ tags:
 - API verb
 - fundamental
 ---
-
 <!--
 title: Watch
 id: watch
-date: 2024-07-02
 full_link: /docs/reference/using-api/api-concepts/#api-verbs
 short_description: >
   A verb that is used to track changes to an object in Kubernetes as a stream.
@@ -30,8 +27,7 @@ tags:
 A verb that is used to track changes to an object in Kubernetes as a stream.
 It is used for the efficient detection of changes.
 -->
-用于以流的形式跟踪 Kubernetes 中对象更改的动词。
-它用于高效检测更改。
+用于以流的形式跟踪 Kubernetes 中对象更改的动词。它用于高效检测更改。
 
 <!--more-->
 

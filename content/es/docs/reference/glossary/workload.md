@@ -1,7 +1,6 @@
 ---
 title: Workload
 id: workloads
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    Un Workload es una aplicación que se ejecuta en Kubernetes.

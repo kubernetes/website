@@ -94,7 +94,7 @@ RoleまたはClusterRoleオブジェクトの名前は有効な
 
 ### RoleBindingとClusterRoleBinding
 
-RoleBindingはRoleで定義された権限をユーザーまたはユーザのセットに付与します。
+RoleBindingはRoleで定義された権限をユーザーまたはユーザーのセットに付与します。
 RoleBindingは*subjects* (ユーザー、グループ、サービスアカウント)のリストと、付与されるRoleへの参照を保持します。
 RoleBindingは特定のNamespace内の権限を付与しますが、ClusterRoleBindingはクラスター全体にアクセスする権限を付与します。
 
@@ -265,14 +265,17 @@ rules: [] # コントロールプレーンは自動的にルールを入力し�
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# ClusterRole「monitoring-endpoints」を作成すると、
+# ClusterRole「monitoring-endpointslices」を作成すると、
 # 以下のルールがClusterRole「monitoring」に追加されます
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpoints", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 
@@ -556,7 +559,7 @@ ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるA
 
 ### ユーザー向けRole
 
-一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスター全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
+一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザーのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスター全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
 
 ユーザー向けのClusterRolesは[ClusterRoleの集約](#集約clusterrole)を使用して、管理者がこれらのClusterRolesにカスタムリソースのルールを含めることができるようにします。ルールを`admin`、`edit`、または`view` Roleに追加するには、次のラベルの一つ以上でClusterRoleを作成します。
 
@@ -1086,7 +1089,7 @@ RBACRoleBindingを使用して、permissive ABACポリシーを複製できま�
 {{< warning >}}
 次のポリシーでは、**すべて**のサービスアカウントがクラスター管理者としてふるまうことを許可しています。
 コンテナで実行されているアプリケーションは、サービスアカウントのクレデンシャルを自動的に受け取ります。
-secretsの表示や権限の変更など、APIに対して任意のアクションを実行できます。
+Secretの表示や権限の変更など、APIに対して任意のアクションを実行できます。
 これは推奨されるポリシーではありません。
 
 ```shell

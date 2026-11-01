@@ -1,7 +1,6 @@
 ---
 title: ReplicationController
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   একটি (ডেপ্রিসিয়েটেড) API অবজেক্ট যা একটি প্রতিলিপিকৃত অ্যাপ্লিকেশন পরিচালনা করে।

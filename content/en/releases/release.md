@@ -7,7 +7,7 @@ auto_generated: true
 
 {{% pageinfo color="light" %}}
 This content is auto-generated and links may not function. The source of the document is located
-[here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+[here](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md).
 {{% /pageinfo %}}
 <!-- Localization note: omit the pageinfo block when localizing -->
 
@@ -125,7 +125,7 @@ The general labeling process should be consistent across artifact types.
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/reference/versioning.md#kubernetes-release-versioning).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 

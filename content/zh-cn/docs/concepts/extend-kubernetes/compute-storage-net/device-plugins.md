@@ -166,7 +166,9 @@ The general workflow of a device plugin includes the following steps:
    initialization and setup to make sure the devices are in a ready state.
 
 1. The plugin starts a gRPC service, with a Unix socket under the host path
-   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+   `/var/lib/kubelet/device-plugins/` (this path is hardcoded and is not
+   affected by the kubelet's `--root-dir` or any other configuration), that
+   implements the following interfaces:
 -->
 ## 设备插件的实现    {#device-plugin-implementation}
 
@@ -174,8 +176,10 @@ The general workflow of a device plugin includes the following steps:
 
 1. 初始化。在这个阶段，设备插件将执行特定于供应商的初始化和设置，以确保设备处于就绪状态。
 
-2. 插件使用主机路径 `/var/lib/kubelet/device-plugins/` 下的 UNIX 套接字启动一个
-   gRPC 服务，该服务实现以下接口：
+2. 插件启动一个 gRPC 服务，该服务使用主机路径
+   `/var/lib/kubelet/device-plugins/` 下的 UNIX 套接字
+   （此路径是硬编码的，不受 kubelet 的 `--root-dir` 或其他配置的影响），
+   并实现了以下接口：
 
    <!--
    ```gRPC
@@ -319,13 +323,13 @@ The general workflow of a device plugin includes the following steps:
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
 kubelet instance. A new kubelet instance deletes all the existing Unix sockets under
-`/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
+`/var/lib/kubelet/device-plugins` (the hardcoded path for device plugins) when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 -->
 ### 处理 kubelet 重启   {#handling-kubelet-restarts}
 
 设备插件应能监测到 kubelet 重启，并且向新的 kubelet 实例来重新注册自己。
-新的 kubelet 实例启动时会删除 `/var/lib/kubelet/device-plugins` 下所有已经存在的 UNIX 套接字。
+新的 kubelet 实例启动时会删除 `/var/lib/kubelet/device-plugins` （设备插件的硬编码路径）下所有已经存在的 UNIX 套接字。
 设备插件需要能够监控到它的 UNIX 套接字被删除，并且当发生此类事件时重新注册自己。
 
 <!--
@@ -367,23 +371,27 @@ failed device is to use the [PodResources API](#monitoring-device-plugin-resourc
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
 <!--
-By enabling the feature gate `ResourceHealthStatus`, the field `allocatedResourcesStatus`
-will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
-field
-reports health information for each device assigned to the container.
+When the feature gate `ResourceHealthStatus` is enabled (beta and enabled by default since v1.36),
+the field `allocatedResourcesStatus`
+is added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
+field reports health information for each device assigned to the container.
+Each resource health entry can include an optional `message` field with additional
+human readable context about the health status, such as error details or failure reasons.
 -->
-通过启用特性门控 `ResourceHealthStatus`，系统将在每个 Pod 的
-`.status` 字段中的每个容器状态内添加 `allocatedResourcesStatus` 字段，
+当 `ResourceHealthStatus` 特性门控被启用（自 v1.36 起为 Beta 版并默认启用）时，
+`allocatedResourcesStatus` 字段将添加到每个容器状态中，位于每个 Pod 的 `.status` 内。
 `allocatedResourcesStatus` 字段报告分配给容器的每个设备的健康信息。
+每个资源健康状况条目都可以包含一个可选的“message”字段，其中包含有关健康状况的更多易于理解的上下文信息，
+如错误详情或故障原因。
 
 <!--
 For a failed Pod, or where you suspect a fault, you can use this status to understand whether
 the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
-an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
+an over-temperature event, the `allocatedResourcesStatus` field may report this.
 -->
 对于发生故障的 Pod，或者你怀疑存在故障的情况，你可以使用此状态来了解
 Pod 行为是否可能与设备故障有关。例如，如果加速器报告过热事件，
-则 `allocatedResourcesStatus` 字段可能能够报告此情况。
+则 `allocatedResourcesStatus` 字段能够报告此情况。
 
 <!--
 ## Device plugin deployment
@@ -391,7 +399,7 @@ Pod 行为是否可能与设备故障有关。例如，如果加速器报告过�
 You can deploy a device plugin as a DaemonSet, as a package for your node's operating system,
 or manually.
 
-The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
+The canonical directory `/var/lib/kubelet/device-plugins` (which is hardcoded on the kubelet) requires privileged access,
 so a device plugin must run in a privileged security context.
 If you're deploying a device plugin as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a {{< glossary_tooltip term_id="volume" >}}
@@ -404,7 +412,7 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 
 你可以将你的设备插件作为节点操作系统的软件包来部署、作为 DaemonSet 来部署或者手动部署。
 
-规范目录 `/var/lib/kubelet/device-plugins` 是需要特权访问的，
+规范目录 `/var/lib/kubelet/device-plugins`（在 kubelet 中硬编码）是需要特权访问的，
 所以设备插件必须要在被授权的安全的上下文中运行。
 如果你将设备插件部署为 DaemonSet，`/var/lib/kubelet/device-plugins` 目录必须要在插件的
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
@@ -474,13 +482,13 @@ In order to monitor resources provided by device plugins, monitoring agents need
 discover the set of devices that are in-use on the node and obtain metadata to describe which
 container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
 exposed by device monitoring agents should follow the
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 -->
 为了监控设备插件提供的资源，监控代理程序需要能够发现节点上正在使用的设备，
 并获取元数据来描述哪个指标与容器相关联。
 设备监控代理暴露给 [Prometheus](https://prometheus.io/) 的指标应该遵循
-[Kubernetes Instrumentation Guidelines（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md)，
+[Kubernetes Instrumentation Guidelines（英文）](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/metric-instrumentation.md)，
 使用 `pod`、`namespace` 和 `container` 标签来标识容器。
 
 <!--
@@ -528,16 +536,10 @@ CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUM
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API.
 Starting from Kubernetes v1.34, this feature is enabled by default.
-To disable, `kubelet` must be started with the following flags:
 -->
 从 Kubernetes v1.27 开始，`List` 端点可以通过 `DynamicResourceAllocation` API 提供在
 `ResourceClaims` 中分配的当前运行 Pod 的资源信息。
 从 Kubernetes v1.34 开始，此特性默认启用。
-要禁用此特性，必须使用以下标志启动 `kubelet`：
-
-```
---feature-gates=KubeletPodResourcesDynamicResources=false
-```
 
 <!--
 ```gRPC
@@ -717,7 +719,7 @@ resources on a node. If the goal is to evaluate free/unallocated resources it sh
 conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
 the same unless the underlying resources exposed to kubelet change. This happens rarely but when
 it does (for example: hotplug/hotunplug, device health changes), client is expected to call
-`GetAlloctableResources` endpoint.
+`GetAllocatableResources` endpoint.
 
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
@@ -725,7 +727,7 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 `GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)资源。
 如果目标是评估空闲/未分配的资源，此调用应该与 `List()` 端点一起使用。
 除非暴露给 kubelet 的底层资源发生变化，否则 `GetAllocatableResources` 得到的结果将保持不变。
-这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
+这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAllocatableResources` 端点。
 
 然而，调用 `GetAllocatableResources` 端点在 CPU、内存被更新的情况下是不够的，
 kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
@@ -752,43 +754,53 @@ NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告�
 会报告这类信息。
 
 <!--
-The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
+The gRPC service is served over a unix socket at `pod-resources/kubelet.sock` within the
+kubelet's root directory (typically `/var/lib/kubelet/pod-resources/kubelet.sock`).
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
-The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
+The canonical directory `pod-resources` within the kubelet root directory (typically
+`/var/lib/kubelet/pod-resources`) requires privileged access, so monitoring
 agents must run in a privileged security context. If a device monitoring agent is running as a
-DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
+DaemonSet, the `pod-resources` directory must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
-gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
+gRPC 服务通过 kubelet 根目录（通常为 `/var/lib/kubelet/pod-resources/kubelet.sock`）
+下的 Unix 套接字 `pod-resources/kubelet.sock` 提供。
 设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。
-规范的路径 `/var/lib/kubelet/pod-resources` 需要特权来进入，
+位于 kubelet 根目录（通常为 `/var/lib/kubelet/pod-resources`）下的标准
+`pod-resources` 目录需要特权访问权限。
 所以监控代理程序必须要在获得授权的安全的上下文中运行。
 如果设备监控代理以 DaemonSet 形式运行，必须要在插件的
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-中声明将 `/var/lib/kubelet/pod-resources`
+中声明将 `pod-resources`
 目录以{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
 {{< note >}}
 
 <!--
-When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+When accessing the `pod-resources/kubelet.sock` from DaemonSet
 or any other app deployed as a container on the host, which is mounting socket as
-a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
-instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
-that after kubelet restart, container will be able to re-connect to this socket.
+a volume, it is a good practice to mount the `pod-resources` directory
+instead of the socket file itself. This will ensure
+that after kubelet restart, the container will be able to re-connect to this socket.
+
+On a typical Linux node, this means mounting `/var/lib/kubelet/pod-resources/`
+instead of `/var/lib/kubelet/pod-resources/kubelet.sock`.
 -->
 在从 DaemonSet 或以容器形式部署在主机上的任何其他应用中访问
-`/var/lib/kubelet/pod-resources/kubelet.sock` 时，
-如果将套接字作为卷挂载，最好的做法是挂载目录 `/var/lib/kubelet/pod-resources/`
-而不是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
+`pod-resources/kubelet.sock` 时，
+如果将套接字作为卷挂载，最好的做法是挂载目录 `pod-resources`
+而不是 socket 文件本身。
 这样可以确保在 kubelet 重新启动后，容器将能够重新连接到此套接字。
+
+在典型的 Linux 节点上，这意味着挂载 `/var/lib/kubelet/pod-resources/`，
+而不是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
 
 <!--
 Container mounts are managed by inode referencing the socket or directory,
-depending on what was mounted. When kubelet restarts, socket is deleted
-and a new socket is created, while directory stays untouched.
-So the original inode for the socket become unusable. Inode to directory
+depending on what was mounted. When kubelet restarts, the socket is deleted
+and a new socket is created, while the directory stays untouched.
+So the original inode for the socket become unusable. The inode to the directory
 will continue working.
 -->
 容器挂载是通过引用套接字或目录的 inode 进行管理的，具体取决于挂载的内容。
@@ -830,27 +842,12 @@ message GetPodResourcesRequest {
 ```
 
 <!--
-To disable this feature, you must start your kubelet services with the following flag:
--->
-要禁用此特性，你必须使用以下标志启动 kubelet 服务：
-
-```
---feature-gates=KubeletPodResourcesGet=false
-```
-
-<!--
 The `Get` endpoint can provide Pod information related to dynamic resources
 allocated by the dynamic resource allocation API.
 Starting from Kubernetes v1.34, this feature is enabled by default.
-To disable, `kubelet` must be started with the following flags:
 -->
 `Get` 端点可以提供与动态资源分配 API 所分配的动态资源相关的 Pod 信息。
 从 Kubernetes v1.34 开始，此特性已默认启用。
-要禁用此特性，你必须确保使用以下标志启动 kubelet 服务：
-
-```
---feature-gates=KubeletPodResourcesDynamicResources=false
-```
 
 <!--
 ## Device plugin integration with the Topology Manager

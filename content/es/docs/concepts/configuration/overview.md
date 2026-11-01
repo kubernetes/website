@@ -97,7 +97,7 @@ a otros, no dudes en crear un _issue_ o enviar un PR.
   MyApp, tier: frontend, phase: test, deployment: v3 }`. Puedes utilizar estas labels para seleccionar los
   Pods apropiados para otros recursos; por ejemplo, un Service que selecciona todo los
   Pods `tier: frontend`, o todos los componentes `phase: test` de `app.kubernetes.io/name: MyApp`.
-  Revisa el [libro de visitas](https://github.com/kubernetes/examples/tree/master/guestbook/)
+  Revisa el [libro de visitas](https://github.com/kubernetes/examples/tree/master/web/guestbook/)
   para ver ejemplos de este enfoque.
 
   Un Service puede hacer que abarque múltiples Deployments omitiendo las labels específicas de la versión de su

@@ -4,9 +4,9 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "ServiceCIDR"
 content_type: "api_reference"
-description: "ServiceCIDR 使用 CIDR 格式定义 IP 地址的范围"
+description: "ServiceCIDR 使用 CIDR 格式定义 IP 地址的范围（例如：192.168.0.0/24 或 2001:db2::/64）"
 title: "ServiceCIDR"
-weight: 10
+weight: 11
 ---
 <!--
 api_metadata:
@@ -14,9 +14,9 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "ServiceCIDR"
 content_type: "api_reference"
-description: "ServiceCIDR defines a range of IP addresses using CIDR format (e."
+description: "ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64)."
 title: "ServiceCIDR"
-weight: 10
+weight: 11
 auto_generated: true
 -->
 
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
 -->
-ServiceCIDR 使用 CIDR 格式定义 IP 地址的范围（例如 192.168.0.0/24 或 2001:db2::/64）。
+ServiceCIDR 使用 CIDR 格式定义 IP 地址的范围（例如 "192.168.0.0/24" 或 "2001:db2::/64"）。
 此范围用于向 Service 对象分配 ClusterIP。
 
 <hr>
@@ -58,12 +58,12 @@ ServiceCIDR 使用 CIDR 格式定义 IP 地址的范围（例如 192.168.0.0/24 
 
 - **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
 
-  spec 是 ServiceCIDR 的期望状态。更多信息：
+  `spec` 是 ServiceCIDR 的期望状态。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
 
-  status 表示 ServiceCIDR 的当前状态。更多信息：
+  `status` 表示 ServiceCIDR 的当前状态。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## ServiceCIDRSpec {#ServiceCIDRSpec}
@@ -79,15 +79,16 @@ ServiceCIDRSpec 定义用户想要为 Service 分配 ClusterIP 所用的 CIDR。
 - **cidrs** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 -->
 - **cidrs** ([]string)
 
   **原子：将在合并期间被替换**
-  
-  cidrs 以 CIDR 表示法定义 IP 块（例如 "192.168.0.0/24" 或 "2001:db8::/64"），
-  从此 IP 块中为 Service 分配集群 IP。允许最多两个 CIDR，每个 IP 簇一个 CIDR。此字段是不可变更的。
+
+  `cidrs` 以 CIDR 表示法定义 IP 块（例如 "192.168.0.0/24" 或 "2001:db8::/64"），
+  从此 IP 块中为 Service 分配集群 IP。允许最多两个 CIDR，每个 IP 簇一个 CIDR。
+  此字段是不可变更的。
 
 ## ServiceCIDRStatus {#ServiceCIDRStatus}
 
@@ -102,9 +103,9 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
 
   <a name="Condition"></a>
@@ -113,10 +114,10 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 - **conditions** ([]Condition)
 
   **补丁策略：基于键 `type` 合并**
-  
+
   **Map：合并时将保留 type 键的唯一值**
-  
-  conditions 包含一个 metav1.Condition 数组，描述 ServiceCIDR 的状态。
+
+  `conditions` 包含一个 `metav1.Condition` 数组，描述 ServiceCIDR 的状态。
 
   <a name="Condition"></a>
   **condition 包含此 API 资源某一方面当前状态的详细信息。**
@@ -132,7 +133,7 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 
   - **conditions.lastTransitionTime** (Time)，必需
 
-    lastTransitionTime 是状况最近一次状态转化的时间。
+    `lastTransitionTime` 是状况最近一次状态转化的时间。
     变化应该发生在下层状况发生变化的时候。如果不知道下层状况发生变化的时间，
     那么使用 API 字段更改的时间是可以接受的。
 
@@ -152,11 +153,11 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 
   - **conditions.message** (string)，必需
 
-    message 是人类可读的消息，有关转换的详细信息，可以是空字符串。
+    `message` 是人类可读的消息，有关转换的详细信息，可以是空字符串。
 
   - **conditions.reason** (string)，必需
 
-    reason 包含一个程序标识符，指示 condition 最后一次转换的原因。
+    `reason` 包含一个程序标识符，指示 `condition` 最后一次转换的原因。
     特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否被视为有保证的 API。
     此值应该是 CamelCase 字符串且不能为空。
 
@@ -176,7 +177,7 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 
   - **conditions.status** (string)，必需
 
-    condition 的状态，可选值为 True、False、Unknown 之一。
+    `condition` 的状态，可选值为 True、False、Unknown 之一。
 
   - **conditions.type** (string)，必需
 
@@ -184,9 +185,9 @@ ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
 
   - **conditions.observedGeneration** (int64)
 
-    observedGeneration 表示设置 condition 基于的 .metadata.generation 的过期次数。
-    例如，如果 .metadata.generation 当前为 12，但 .status.conditions[x].observedGeneration 为 9，
-    则 condition 相对于实例的当前状态已过期。
+    `observedGeneration` 表示设置 `condition` 基于的 `.metadata.generation` 的过期次数。
+    例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration` 为 9，
+    则 `condition` 相对于实例的当前状态已过期。
 
 ## ServiceCIDRList {#ServiceCIDRList}
 
@@ -217,7 +218,7 @@ ServiceCIDRList 包含 ServiceCIDR 对象的列表。
 
 - **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>)，必需
 
-  items 是 ServiceCIDR 的列表。
+  `items` 是 ServiceCIDR 的列表。
 
 <!--
 ## Operations {#Operations}
@@ -358,6 +359,10 @@ GET /apis/networking.k8s.io/v1/servicecidrs
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -403,6 +408,10 @@ GET /apis/networking.k8s.io/v1/servicecidrs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -929,6 +938,10 @@ DELETE /apis/networking.k8s.io/v1/servicecidrs
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -984,6 +997,10 @@ DELETE /apis/networking.k8s.io/v1/servicecidrs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

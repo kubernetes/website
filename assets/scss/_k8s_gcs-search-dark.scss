@@ -1,0 +1,282 @@
+// Google Programmable Search Engine dark-mode styling.
+// Forward-port of Docsy v0.15's assets/scss/td/_gcs-search-dark.scss
+// (we're on Docsy 0.10 which doesn't ship this file yet).
+// Delete this file when k/website upgrades to Docsy 0.15+.
+//
+// Source: https://github.com/google/docsy/blob/v0.15.0/assets/scss/td/_gcs-search-dark.scss
+//
+// !important is required because Google's stylesheet uses high-specificity
+// + inline styles; the cleaner long-term fix is to configure colors on the
+// CSE admin panel for engine ID 011737558837375720776:fsdu1nryfng.
+//
+// cSpell:ignore gcsc tabh refinementhActive subelements
+
+:root {
+  --td-gcs-primary: var(--bs-link-color, var(--bs-primary));
+  --td-gcs-secondary: var(--bs-secondary-color);
+  --td-gcs-bg: var(--bs-body-bg);
+  --td-gcs-text: var(--bs-body-color);
+  --td-gcs-border: var(--bs-border-color);
+  --td-gcs-success: var(--bs-success);
+  --td-gcs-radius: var(--bs-border-radius);
+  --td-gcs-overlay-alpha: 0.72;
+}
+
+.gs-web-image-box {
+  margin-right: 0.5rem !important;
+}
+
+.gsc-control-cse {
+  font-family: var(--bs-body-font-family, system-ui, sans-serif) !important;
+  font-size: var(--bs-body-font-size, 1rem) !important;
+  line-height: var(--bs-body-line-height, 1.5) !important;
+  color: var(--bs-body-color, #212529) !important;
+}
+
+.gsc-tabHeader,
+.gsc-orderby,
+.gsc-result-info,
+.gs-snippet,
+.gsc-refinementHeader,
+.gsc-result {
+  font-size: var(--bs-body-font-size, 1rem) !important;
+  line-height: var(--bs-body-line-height, 1.5) !important;
+}
+
+.gsc-orderby,
+.gsc-orderby-label,
+.gsc-selected-option-container,
+.gsc-selected-option,
+.gsc-option-menu-item {
+  font-size: var(--bs-body-font-size, 1rem) !important;
+  line-height: var(--bs-body-line-height, 1.5) !important;
+}
+
+.gs-title {
+  font-size: calc(var(--bs-body-font-size, 1rem) * 1.1) !important;
+  line-height: 1.4 !important;
+}
+
+[data-bs-theme='dark'] {
+  .gsc-control-cse,
+  .gsc-control-cse .gsc-control-wrapper-cse {
+    background-color: var(--td-gcs-bg) !important;
+    color: var(--td-gcs-text) !important;
+    border: 0 !important;
+  }
+
+  .gsc-above-wrapper-area,
+  .gsc-tabsArea,
+  .gsc-refinementsArea {
+    border-bottom: 1px solid var(--td-gcs-border) !important;
+  }
+
+  .gsc-search-box {
+    background: transparent !important;
+  }
+
+  .gsc-input-box,
+  td.gsc-input {
+    background-color: var(--td-gcs-bg) !important;
+    border: 1px solid var(--td-gcs-border) !important;
+  }
+
+  input.gsc-input,
+  input.gsc-input:focus {
+    background-color: transparent !important;
+    color: var(--td-gcs-text) !important;
+    box-shadow: none !important;
+  }
+
+  input.gsc-search-button,
+  input.gsc-search-button-v2 {
+    background-color: var(--td-gcs-primary) !important;
+    border-color: var(--td-gcs-primary) !important;
+    color: #fff !important;
+    border-radius: var(--td-gcs-radius);
+  }
+
+  .gsc-modal-background-image,
+  .gsc-modal-background-image.gsc-modal-background-image-visible {
+    background-color: rgba(var(--td-gcs-bg), var(--td-gcs-overlay-alpha)) !important;
+    background-image: none !important;
+  }
+
+  .gsc-results-wrapper-overlay {
+    background-color: rgba(var(--td-gcs-bg), var(--td-gcs-overlay-alpha)) !important;
+  }
+
+  .gsc-results-wrapper-overlay.gsc-results-wrapper-visible {
+    background-color: rgba(var(--bs-secondary-bg-rgb), var(--td-gcs-overlay-alpha)) !important;
+  }
+
+  .gsc-tabHeader {
+    background: transparent !important;
+  }
+
+  .gsc-tabHeader.gsc-tabhInactive {
+    color: var(--td-gcs-secondary) !important;
+    border-bottom: 2px solid transparent !important;
+    cursor: pointer;
+  }
+
+  .gsc-tabHeader.gsc-tabhActive,
+  .gsc-refinementHeader.gsc-refinementhActive {
+    border-bottom: 2px solid var(--td-gcs-primary) !important;
+    color: var(--td-gcs-primary) !important;
+    background: transparent !important;
+  }
+
+  .gsc-refinementHeader {
+    color: var(--td-gcs-secondary) !important;
+  }
+
+  .gsc-results,
+  .gsc-results .gsc-result,
+  .gsc-webResult.gsc-result,
+  .gsc-imageResult-classic {
+    background-color: var(--td-gcs-bg) !important;
+    color: var(--td-gcs-text) !important;
+  }
+
+  .gsc-results .gsc-webResult.gsc-result,
+  .gsc-webResult.gsc-result {
+    border: 1px solid transparent !important;
+    background-color: var(--td-gcs-bg) !important;
+  }
+
+  .gsc-webResult.gsc-result.gsc-promotion {
+    background-color: var(--td-gcs-bg) !important;
+    border-color: transparent !important;
+  }
+
+  .gs-title,
+  .gs-title * {
+    color: var(--td-gcs-primary) !important;
+  }
+
+  .gs-snippet {
+    color: var(--td-gcs-secondary) !important;
+  }
+
+  .gs-no-results-result .gs-snippet,
+  .gs-error-result .gs-snippet {
+    background-color: var(--bs-warning-bg-subtle) !important;
+    border: 1px solid var(--bs-warning-border-subtle) !important;
+  }
+
+  .gs-visibleUrl,
+  .gs-visibleUrl-short {
+    color: var(--td-gcs-success) !important;
+  }
+
+  .gsc-result-info {
+    color: var(--td-gcs-secondary) !important;
+  }
+
+  .gsc-orderby {
+    background: transparent !important;
+  }
+
+  .gsc-orderby-label {
+    color: var(--td-gcs-secondary) !important;
+  }
+
+  .gsc-selected-option-container {
+    background-color: var(--td-gcs-bg) !important;
+    border: 1px solid var(--td-gcs-border) !important;
+    border-radius: var(--td-gcs-radius);
+    color: var(--td-gcs-text) !important;
+    position: relative;
+    padding-right: 1.7rem;
+  }
+
+  .gsc-selected-option {
+    color: inherit !important;
+  }
+
+  .gsc-control-cse .gsc-option-selector {
+    background: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--td-gcs-secondary);
+    position: absolute !important;
+    top: 50% !important;
+    right: 0.55rem !important;
+    transform: translateY(-50%);
+  }
+
+  .gsc-control-cse .gsc-option-menu {
+    background: var(--td-gcs-bg) !important;
+    border: 1px solid var(--td-gcs-border) !important;
+    color: var(--td-gcs-text) !important;
+  }
+
+  .gsc-option-menu-item {
+    color: var(--td-gcs-text) !important;
+    background: transparent !important;
+  }
+
+  .gsc-option-menu-item-highlighted {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--td-gcs-text) !important;
+  }
+
+  .gsc-results .gsc-cursor-box {
+    margin: 10px 0;
+  }
+
+  .gsc-results .gsc-cursor-box .gsc-cursor-page {
+    text-decoration: none;
+    color: var(--td-gcs-text) !important;
+    background: transparent;
+  }
+
+  .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+    border: var(--td-gcs-primary) solid 1px !important;
+    color: var(--bs-body-color) !important;
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .gsc-completion-container {
+    background: var(--td-gcs-bg) !important;
+    border: 1px solid var(--td-gcs-border) !important;
+    color: var(--td-gcs-text) !important;
+  }
+
+  .gsc-completion-selected {
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .gs-spelling a {
+    color: var(--td-gcs-primary) !important;
+  }
+
+  .gsc-table-result,
+  .gsc-table-cell-snippet-close {
+    border: 0 !important;
+  }
+
+  .gcsc-find-more-on-google {
+    color: var(--td-gcs-secondary) !important;
+  }
+
+  .gcsc-find-more-on-google a,
+  .gcsc-find-more-on-google-text,
+  .gcsc-find-more-on-google-query {
+    color: var(--td-gcs-primary) !important;
+    text-decoration: none !important;
+  }
+
+  .gcsc-find-more-on-google-magnifier path {
+    fill: var(--td-gcs-primary) !important;
+  }
+
+  .gcsc-find-more-on-google:hover .gcsc-find-more-on-google-magnifier path {
+    fill: var(--td-gcs-link-hover, var(--td-gcs-primary)) !important;
+  }
+}

@@ -1,7 +1,6 @@
 ---
 title: HostAliases
 id: HostAliases
-date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
 short_description: >
   HostAliasesは、Podのhostsファイルに注入されるIPアドレスとホスト名の間のマッピングです。

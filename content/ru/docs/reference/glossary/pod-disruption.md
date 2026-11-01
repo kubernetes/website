@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Нарушение работы подов
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   Процесс, в ходе которого происходит плановое или принудительное завершение работы подов на узлах.
 

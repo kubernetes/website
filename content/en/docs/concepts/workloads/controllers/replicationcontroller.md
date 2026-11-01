@@ -296,5 +296,5 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 * Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
   for ReplicationController.
 * `ReplicationController` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  Read the {{< api-reference page="core/replication-controller-v1" >}}
   object definition to understand the API for replication controllers.

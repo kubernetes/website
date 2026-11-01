@@ -1,7 +1,6 @@
 ---
 title: Kuantitas
 id: quantity
-date: 2018-08-07
 full_link:
 short_description: >
   Representasi bilangan bulat dari bilangan kecil atau besar menggunakan sufiks SI.

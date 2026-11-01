@@ -567,5 +567,5 @@ plugins:
 
 - さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
 - [リソースクォータの使用方法の例](/docs/tasks/administer-cluster/quota-api-object/)を参照してください。
-- [優先度クラスに対するクォータサポートの design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)を参照してください。
+- [優先度クラスに対するクォータサポートの design doc](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)を参照してください。
 - [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)を参照してください。

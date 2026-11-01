@@ -1,7 +1,6 @@
 ---
 title: कार्यभार (Workload)
 id: workloads
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    कार्यभार एक ऐप्लिकेशन है जो कुबेरनेट्स पर चल रहा है।

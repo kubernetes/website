@@ -135,11 +135,6 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
-{{< note >}}
-Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
-the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
-{{< /note >}}
-
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -158,7 +153,7 @@ containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
 may not respond correctly to this query, and thus the Kubelet falls back to using the
 value in its own `--cgroup-driver` flag.
 
-In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+In Kubernetes 1.38, this fallback behavior will be dropped, and older versions
 of containerd will fail with newer kubelets.
 
 {{< caution >}}
@@ -171,20 +166,13 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 {{< /caution >}}
 
-
-### Migrating to the `systemd` driver in kubeadm managed clusters
-
-If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
-follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
-
 ## CRI version support {#cri-versions}
 
-Your container runtime must support at least v1alpha2 of the container runtime interface.
+Your container runtime must support v1 of the container runtime interface.
 
 Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
-_only works_ with v1 of the CRI API. Earlier versions default
-to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
-using the (deprecated) v1alpha2 API instead.
+_only works_ with v1 of the CRI API. If a container runtime does not support the v1 API,
+the kubelet will not register as a node.
 
 ## Container runtimes
 
@@ -256,9 +244,6 @@ If you apply this change, make sure to restart containerd:
 ```shell
 sudo systemctl restart containerd
 ```
-
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
 In Kubernetes v1.28, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)

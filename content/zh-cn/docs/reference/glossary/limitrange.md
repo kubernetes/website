@@ -1,7 +1,6 @@
 ---
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /zh-cn/docs/concepts/policy/limit-range/
 short_description: >
   提供约束来限制命名空间中每个容器或 Pod 的资源消耗。
@@ -17,7 +16,6 @@ related:
 <!--
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/
 short_description: >
   Provides constraints to limit resource consumption per Containers or Pods in a namespace.
@@ -52,5 +50,5 @@ that may be requested/consumed by individual containers or Pods within a namespa
 -->
 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 用来限制可以创建的
 {{< glossary_tooltip text="API 资源" term_id="api-resource" >}}的数量（针对特定资源类型），
-或者限制命名空间内单个容器或 Pod 可请求/消耗的
-{{< glossary_tooltip text="基础设施资源" term_id="infrastructure-resource" >}}的量。
+或者限制命名空间内单个容器或 Pod
+可请求/消耗的{{< glossary_tooltip text="基础设施资源" term_id="infrastructure-resource" >}}的量。

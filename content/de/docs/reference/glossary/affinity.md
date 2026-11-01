@@ -1,7 +1,6 @@
 ---
 title: Affinität
 id: affinity
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      Regeln, die vom Scheduler verwendet werden, um festzulegen wo Pods platziert werden.

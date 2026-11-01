@@ -1,9 +1,11 @@
 ---
 title: 使用 Minikube 创建集群
+content_type: tutorial
 weight: 10
 ---
 <!--
 title: Using Minikube to Create a Cluster
+content_type: tutorial
 weight: 10
 -->
 
@@ -17,6 +19,46 @@ weight: 10
 * 了解 Kubernetes 集群。
 * 了解 Minikube。
 * 在你的电脑上启动一个 Kubernetes 集群。
+
+## {{% heading "prerequisites" %}}
+
+<!--
+This tutorial assumes that you have already installed `minikube`.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+-->
+本教程假设你已经安装了 `minikube`。
+请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)
+获取安装说明。
+
+{{< note >}}
+<!--
+Only execute instructions in **step 1: Installation**. The rest is covered in this tutorial.
+-->
+仅执行**步骤 1：安装**中的指令。其余内容将在本教程中介绍。
+{{< /note >}}
+
+<!--
+You also need to install `kubectl`.
+See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
+-->
+你还需要安装 `kubectl`。
+请参阅[安装工具](/zh-cn/docs/tasks/tools/#kubectl)了解安装说明。
+
+<!--
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+or [Git Bash](https://gitforwindows.org/) to run the commands as written.
+Commands that use `export`, `$()`, and similar constructs are **not** compatible
+with PowerShell or the Windows Command Prompt.
+-->
+本教程中的 Shell 命令使用 POSIX Shell 语法，
+大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
+Windows 用户必须使用兼容 POSIX 的 Shell，例如
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
+使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
 
 <!--
 ## Kubernetes Clusters
@@ -85,7 +127,7 @@ applications' desired state, scaling applications, and rolling out new updates.
 _Control Planes manage the cluster and the nodes that are used to host the running
 applications._
 -->
-**控制面管理集群，节点用于托管运行中的应用**
+**控制面管理集群，节点用于托管运行中的应用。**
 {{% /alert %}}
 
 <!--
@@ -93,18 +135,14 @@ applications._
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
 communicating with the Kubernetes control plane. The node should also have tools for
 handling container operations, such as {{< glossary_tooltip text="containerd" term_id="containerd" >}}
-or {{< glossary_tooltip term_id="cri-o" >}}. A Kubernetes cluster that handles production
-traffic should have a minimum of three nodes because if one node goes down, both an
-[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance are lost,
-and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+or {{< glossary_tooltip term_id="cri-o" >}}. A common and supported deployment
+model runs Kubernetes control plane components on dedicated control plane nodes.
 -->
 **节点是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色。**
 每个节点都有 Kubelet，它管理节点而且是节点与控制面通信的代理。
 节点还应该具有用于处理容器操作的工具，例如 {{< glossary_tooltip text="containerd" term_id="containerd" >}}
 或 {{< glossary_tooltip term_id="cri-o" >}}。
-处理生产级流量的 Kubernetes 集群至少应具有三个节点，因为如果只有一个节点，出现故障时其对应的
-[etcd](/zh-cn/docs/concepts/architecture/#etcd) 成员和控制面实例都会丢失，
-并且冗余会受到影响。你可以通过添加更多控制面节点来降低这种风险。
+一种常见且受支持的部署模型是在专用控制面节点上运行 Kubernetes 控制面组件。
 
 <!--
 When you deploy applications on Kubernetes, you tell the control plane to start
@@ -132,11 +170,39 @@ Minikube 是一种轻量级的 Kubernetes 实现，可在本地计算机上创�
 Minikube 可用于 Linux、macOS 和 Windows 系统。Minikube CLI 提供了用于引导集群工作的多种操作，
 包括启动、停止、查看状态和删除。
 
+<!--
+## Create a minikube cluster
+
+To start a minikube cluster:
+-->
+## 创建 Minikube 集群
+
+启动 Minikube 集群：
+
+```shell
+minikube start
+```
+
+<!--
+To verify the cluster status:
+-->
+验证集群状态：
+
+```shell
+minikube status
+```
+
+<!--
+For a complete walkthrough including deploying your first app and exploring the Kubernetes dashboard, see the [Hello Minikube](/docs/tutorials/hello-minikube/) tutorial.
+-->
+如需完整的操作指南（包括部署您的第一个应用和浏览 Kubernetes 仪表板），
+请参阅 [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/) 教程。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Tutorial [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Tutorial [Deploy an App](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 * Learn more about [Cluster Architecture](/docs/concepts/architecture/).
 -->
-* [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/) 教程。
+* [部署应用](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)教程。
 * 了解更多关于[集群架构](/zh-cn/docs/concepts/architecture/)方面的知识。

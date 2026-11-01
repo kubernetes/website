@@ -1,7 +1,6 @@
 ---
 title: ミラーPod
 id: mirror-pod
-date: 2019-08-06
 short_description: >
   kubelet上のstatic Podを追跡するAPIサーバー内のオブジェクトです。
 

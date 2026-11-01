@@ -1,7 +1,6 @@
 ---
 title: Объект
 id: object
-date: 2023-11-20
 full_link: /ru/docs/concepts/overview/working-with-objects/
 short_description: >
    Сущность в системе Kubernetes, представляющая часть состояния кластера.

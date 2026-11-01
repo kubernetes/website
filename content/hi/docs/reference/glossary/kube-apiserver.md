@@ -1,7 +1,6 @@
 ---
 title: API सर्वर
 id: kube-apiserver
-date: 2018-04-12
 full_link: /docs/concepts/overview/components/#kube-apiserver
 short_description: >
   एक कंट्रोल प्लेन घटक जो कुबेरनेट्स API की सेवाएं प्रदान करता है।।

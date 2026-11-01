@@ -1,7 +1,6 @@
 ---
 title: UID
 id: uid
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   オブジェクトを一意に識別するためのKubernetesが生成する文字列です。

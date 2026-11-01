@@ -1,7 +1,6 @@
 ---
 title: App Container
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   Container được sử dụng để chạy một phần của workload. So sánh với init container.

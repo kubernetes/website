@@ -19,13 +19,13 @@ weight: 30
 This page shows how to set minimum and maximum values for memory used by containers
 running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. 
 You specify minimum and maximum memory values in a
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/docs/reference/kubernetes-api/core/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 -->
 本页介绍如何设置在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}
 中运行的容器所使用的内存的最小值和最大值。你可以在
-[LimitRange](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/zh-cn/docs/reference/kubernetes-api/core/limit-range-v1/)
 对象中指定最小和最大内存值。如果 Pod 不满足 LimitRange 施加的约束，
 则无法在名字空间中创建它。
 
@@ -350,6 +350,18 @@ Pods that were created previously.
 
 LimitRange 为命名空间设定的最小和最大内存限制只有在 Pod 创建和更新时才会强制执行。
 如果你更新 LimitRange，它不会影响此前创建的 Pod。
+
+{{< note >}}
+<!--
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+the memory constraints are also enforced. If a resize would cause the Pod's memory values
+to violate the LimitRange constraints (either exceeding the maximum or falling below the minimum),
+the resize will be rejected and the Pod's resources remain at their previous values.
+-->
+使用[就地调整 Pod 大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)时，
+内存限制也会被强制执行。如果调整大小会导致 Pod 的内存值违反 LimitRange
+限制（超出最大值或低于最小值），则调整操作将被拒绝，Pod 的资源将保持之前的值。
+{{< /note >}}
 
 <!--
 ## Motivation for minimum and maximum memory constraints

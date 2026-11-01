@@ -75,6 +75,24 @@ acts as leader.
 Kubernetes 如何基于 Lease API 来选择哪个组件实例充当领导者。
 
 <!--
+### Kube controller manager lock release on exit
+-->
+### Kube 控制器管理器在退出时释放锁定
+
+{{< feature-state feature_gate_name="ControllerManagerReleaseLeaderElectionLockOnExit" >}}
+
+<!--
+When the `ControllerManagerReleaseLeaderElectionLockOnExit` feature gate is enabled,
+the `kube-controller-manager` actively releases its leader election lock during
+leader transitions, rather than waiting for the lock's TTL to expire. This allows
+a new leader to be elected more quickly, reducing leader transition latency.
+-->
+启用 `ControllerManagerReleaseLeaderElectionLockOnExit` 特性门后，
+`kube-controller-manager` 会在领导者切换期间主动释放其领导者选举锁，
+而不是等待锁的 TTL 过期。这使得新领导者能够更快地被选出，
+从而降低领导者切换延迟。
+
+<!--
 ## API server identity
 -->
 ## API 服务器身份   {#api-server-identity}

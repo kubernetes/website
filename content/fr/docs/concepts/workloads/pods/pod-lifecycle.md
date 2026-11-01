@@ -152,10 +152,10 @@ Le Pod reste dans le statut non prêt le temps que les Conteneurs du Pod s'arrê
 
 ### Quand devez-vous utiliser une startup probe ?
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Si votre conteneur démarre habituellement en plus de `initialDelaySeconds + failureThreshold × periodSeconds`, 
-vous devriez spécifier une startup probe qui vérifie le même point de terminaison que la liveness probe. La valeur par défaut pour `periodSeconds` est 30s.
+vous devriez spécifier une startup probe qui vérifie le même point de terminaison que la liveness probe. La valeur par défaut pour `periodSeconds` est 10s.
 Vous devriez alors mettre sa valeur `failureThreshold` suffisamment haute pour permettre au conteneur de démarrer, sans changer les valeurs par défaut de la liveness probe. Ceci aide à se protéger de deadlocks.
 
 Pour plus d'informations sur la manière de mettre en place une liveness, readiness ou startup probe,

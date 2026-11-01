@@ -12,7 +12,7 @@ description: >-
 This page shows how to set quotas for the total amount memory and CPU that
 can be used by all Pods running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 You specify quotas in a
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 object.
 
 
@@ -111,7 +111,7 @@ status:
 ```
 
 If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
-for just the `used` values, **and** pretty-print that that of the output. For example:
+for just the `used` values, **and** pretty-print the output. For example:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .
@@ -151,6 +151,12 @@ You can also restrict the totals for memory limit, cpu request, and cpu limit.
 Instead of managing total resource use within a namespace, you might want to restrict
 individual Pods, or the containers in those Pods. To achieve that kind of limiting, use a
 [LimitRange](/docs/concepts/policy/limit-range/).
+
+{{< note >}}
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+ResourceQuota enforcement applies to the resized values. If a resize would cause the namespace
+to exceed its quota limits, the resize is rejected and the Pod's resources remain unchanged.
+{{< /note >}}
 
 ## Clean up
 

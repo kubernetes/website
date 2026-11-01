@@ -50,7 +50,7 @@ GitHub 팀과 OWNERS 파일이다.
 
 ### GitHub 팀
 
-GitHub의 SIG Docs [팀]에는 두 분류가 있다.
+GitHub의 SIG Docs [팀](https://github.com/orgs/kubernetes/teams?query=sig-docs)에는 두 분류가 있다.
 
 - 승인자와 리더를 위한 `@sig-docs-{language}-owners`
 - 리뷰어를 위한 `@sig-docs-{language}-reviews`

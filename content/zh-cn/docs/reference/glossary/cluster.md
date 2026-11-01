@@ -1,7 +1,6 @@
 ---
 title: 集群（Cluster）
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
    一组工作机器，称为节点，会运行容器化应用程序。每个集群至少有一个工作节点。
@@ -14,7 +13,6 @@ tags:
 <!-- 
 title: Cluster
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
    A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.

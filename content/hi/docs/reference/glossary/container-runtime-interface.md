@@ -1,7 +1,6 @@
 ---
 title: कंटेनर रनटाइम इंटरफ़ेस (Container Runtime Interface)
 id: container-runtime-interface
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   क्यूबलेट और कंटेनर रनटाइम के बीच संचार के लिए मुख्य प्रोटोकॉल।

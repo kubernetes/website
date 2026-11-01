@@ -1,7 +1,6 @@
 ---
 title: 贡献者（Contributor）
 id: contributor
-date: 2018-04-12
 full_link: 
 short_description: >
   通过贡献代码、文档或者投入时间等方式来帮助 Kubernetes 项目或社区的人。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Contributor
 id: contributor
-date: 2018-04-12
 full_link: 
 short_description: >
   Someone who donates code, documentation, or their time to help the Kubernetes project or community.

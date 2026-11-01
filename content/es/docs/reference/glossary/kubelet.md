@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
   Agente que se ejecuta en cada nodo de un clúster. Se asegura de que los contenedores estén corriendo en un pod.

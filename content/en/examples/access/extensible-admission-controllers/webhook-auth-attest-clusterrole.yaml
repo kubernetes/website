@@ -1,0 +1,24 @@
+# ClusterRole granting attest permission for a specific API group
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: webhook-auth-attest-mygroup-example-com
+rules:
+  - apiGroups: ["authentication.k8s.io"]
+    resources: ["admissionReviewAPIGroups"]
+    resourceNames: ["mygroup.example.com"]
+    verbs: ["attest"]
+---
+# Bind the ClusterRole to the service account used for token acquisition
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: webhook-auth-attest-mygroup-example-com-binding
+subjects:
+  - kind: ServiceAccount
+    name: webhook-auth-sa
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: webhook-auth-attest-mygroup-example-com
+  apiGroup: rbac.authorization.k8s.io

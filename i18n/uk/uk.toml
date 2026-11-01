@@ -6,14 +6,21 @@
 [api_reference_title]
 other = "Довідка API"
 
+[api_reference_page_related_concepts]
+one = "Документація концепцій для {{ .title }}"
+other = "Сторінки, повʼязані з концепціями"
+
 [auto_generated_edit_notice]
 other = "(авто-створена сторінка)"
 
 [auto_generated_pageinfo]
-other = """<p>Цю сторінку було стоврено автоматично.</p><p>Якщо у вас є наміри надіслати пропозиції щодо неї, додайте згадку, про те що сторінку створено автоматично в описі вашого повідомлення. Зміни мають відбутись всюди в проєкті Kubernetes.</p>"""
+other = """<p>Цю сторінку було створено автоматично.</p><p>Якщо у вас є наміри надіслати пропозиції щодо неї, додайте згадку, про те що сторінку створено автоматично в описі вашого повідомлення. Зміни мають відбутись всюди в проєкті Kubernetes.</p>"""
 
 [banner_acknowledgement]
 other = "Приховати це повідомлення"
+
+[blog_mirrored_originally_published_at]
+other = 'Це дзеркало <a href="{{ .canonicalUrl }}">оригінальної статті</a>.'
 
 [blog_post_show_more]
 other = "Показати більше…"
@@ -38,10 +45,19 @@ other = "Очищення"
 other = "ICP license:"
 
 [community_advice_guidelines]
-other = "Ви також можете дізантись про наші {{ .link }}."
+other = "Ви також можете дізнатися про наші {{ .link }}."
 
 [community_bluesky_name]
 other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Слідкуйте за нами на"
+
+[community_bluesky_link]
+other = "Переглянути на Bluesky"
+
+[community_bluesky_loading]
+other = "Завантаження останніх новин з Bluesky..."
 
 [community_calendar_name]
 other = "Календар подій"
@@ -92,7 +108,7 @@ other = "X (колись Twitter)"
 
 # Також додайте [community_using], якщо локалізуєте цей сайт
 [community_using]
-other = "Користуєшся чи хотів би користуватись {{ .Site.Title }}? Дізнайся більше тут:"
+other = "Користуєтеся чи хочете користуватися {{ .Site.Title }}? Дізнайтеся більше тут:"
 
 [community_x_name]
 other = "X (колись Twitter)"
@@ -170,6 +186,9 @@ other = "Остання версія"
 [docs_version_other_heading]
 other = "Попередні версії"
 
+[docs_version_release_information]
+other = "інформація про випуск"
+
 [end_of_life]
 other = "Завершення життєвого циклу:"
 
@@ -227,6 +246,12 @@ other = "До"
 [feature_state]
 other = "СТАН ФУНКЦІОНАЛУ:"
 
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Функціональна можливість:"
+
 [feedback_heading]
 other = "Ваша думка"
 
@@ -240,25 +265,57 @@ other = "Чи була ця сторінка корисною?"
 other = "Так"
 
 [final_patch_release]
-other = "Остаточний патч-випуск"
+other = "Фінальний випуск-виправлення"
 
 [inline_list_separator]
 other = ","
 
 [input_placeholder_email_address]
-other = "адреса електроної пошти"
+other = "адреса електронної пошти"
 
 [javascript_required]
 other = "Вам потрібно [увімкнути](https://www.enable-javascript.com/) JavaScript, щоб переглядати цей вміст"
 
 [katacoda_message]
 other = """<h4>Закриття інтерактивних посібників</h4>
-<p>Інтерактивні навчальні посібники, які раніше були на цьому веб-сайті, були закриті.</p>
-<p>Kubernetes вдячний O'Reilly та Katacoda за багаторічну допомогу людям у перших кроках у навчанні Kubernetes.</p>
-<p>Закриття відбулося після того, як O'Reilly Media у 2019 році <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">придбала</a>
-Katacoda.</p>
+<p>Інтерактивні навчальні посібники, які раніше були розміщені на цьому веб-сайті, більше не доступні.</p>
+<p>Kubernetes висловлює вдячність O'Reilly та Katacoda за багаторічну допомогу людям у їхніх перших кроках у вивченні Kubernetes.</p>
+<p>Закриття відбулося після того, як O'Reilly Media у 2019 році <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">придбала</a> Katacoda.</p>
 <hr />
 <p>Посібники припинили свою роботу після <b>31<sup>го</sup> березня 2023</b>. Ви бачите це повідомлення, тому що ця конкретна сторінка ще не була оновлена після цього закриття.</p>"""
+
+[kubecon_region_china]
+other = "Китай"
+
+[kubecon_region_europe]
+other = "Європа"
+
+[kubecon_region_event]
+other = "Подія"
+
+[kubecon_region_india]
+other = "Індія"
+
+[kubecon_region_japan]
+other = "Японія"
+
+[kubecon_region_north_america]
+other = "Північна Америка"
+
+[kubectl_ref_collapse_all]
+other = "Згорнути все"
+
+[kubectl_ref_expand_all]
+other = "Розгорнути все"
+
+[kubectl_ref_search_placeholder]
+other = "Пошук команд або опису (наприклад, config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "Переглянути повну довідку"
+
+[kubernetes]
+other = "Kubernetes"
 
 [latest_release]
 other = "Останній Випуск:"
@@ -266,11 +323,11 @@ other = "Останній Випуск:"
 [latest_version]
 other = "остання версія."
 
-[layouts_blog_pager_prev]
-other = "<< Назад"
-
 [layouts_blog_pager_next]
 other = "Далі >>"
+
+[layouts_blog_pager_prev]
+other = "<< Назад"
 
 [layouts_case_studies_list_tell]
 other = "Розкажіть свою історію"
@@ -288,7 +345,7 @@ other = "Архітектура"
 other = "для отримання розширеного пояснення конкретного терміна."
 
 [layouts_docs_glossary_click_details_before]
-other = "Натисність на"
+other = "Натисніть на"
 
 [layout_docs_glossary_community_description]
 other = "Повʼязана з Kubernetes розробка з відкритим кодом."
@@ -303,7 +360,7 @@ other = "Типи ресурсів, які Kubernetes підтримує з ко
 other = "Основні обʼєкти"
 
 [layouts_docs_glossary_description]
-other = "Даний словник створений як повний стандартизований список термінології Kubernetes. Він включає в себе технічні терміни, специфічні для Kubernetes, а також більш загальні терміни, необхідні для кращого розуміння контексту."
+other = "Цей глосарій призначений для того, щоб стати вичерпним і стандартизованим переліком термінології Kubernetes. Він містить як технічні терміни, характерні саме для Kubernetes, так і більш загальні терміни, що надають корисний контекст."
 
 [layouts_docs_glossary_deselect_all]
 other = "Очистити вибір"
@@ -336,7 +393,7 @@ other = "Запуск і обслуговування Kubernetes."
 other = "Обслуговування"
 
 [layout_docs_glossary_security_description]
-other = "Підтримання захищенності та безпечності застосунків Kubernetes."
+other = "Забезпечення захисту та безпеки застосунків Kubernetes."
 
 [layout_docs_glossary_security_name]
 other = "Безпека"
@@ -345,7 +402,7 @@ other = "Безпека"
 other = "Вибрати все"
 
 [layout_docs_glossary_storage_description]
-other = "Як програми Kubernetes працюють з постійними даними."
+other = "Як застосунки Kubernetes працюють з постійними даними."
 
 [layout_docs_glossary_storage_name]
 other = "Зберігання"
@@ -389,9 +446,9 @@ other = "Отримання результатів…"
 [legacy_repos_message]
 other = """Сховища застарілих пакунків (`apt.kubernetes.io` та `yum.kubernetes.io`) визнані
 [застарілими та заморожені станом на 13 вересня 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
-**Використання [нових репозиторіїв пакунків, розміщених за адресою pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/),
-настійно рекомендується і є обовʼязковим для встановлення версій Kubernetes, випущених після 13 вересня 2023 року.**
-Застарілі репозиторії та їхні вміст можуть бути видалені у будь-який момент у майбутньому і без попереднього повідомлення.
+**Наполегливо рекомендується використання [нових репозиторіїв пакунків, розміщених за адресою `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/),
+які є обовʼязковими для встановлення версій Kubernetes, випущених після 13 вересня 2023 року.**
+Застарілі репозиторії та їх вміст можуть бути видалені у будь-який момент у майбутньому без попереднього повідомлення.
 Нові репозиторії пакунків надають можливість завантаження версій Kubernetes, починаючи з v1.24.0."""
 
 [main_by]
@@ -413,7 +470,7 @@ other = """The Linux Foundation &reg;. Всі права застережено.
 other = """Автори Kubernetes | Документація розповсюджується на умовах Ліцензії <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
 [main_github_invite]
-other = "Хочете помацати базовий код Kubernetes?"
+other = "Хочете долучитися до розробки основного коду Kubernetes?"
 
 [main_github_view_on]
 other = "Переглянути на GitHub"
@@ -431,7 +488,7 @@ other = "Переглянути попередні інформаційні ро
 other = "Підписатися"
 
 [main_page_history]
-other ="Історія сторінки"
+other = "Історія сторінки"
 
 [main_page_last_modified_on]
 other = "Сторінку востаннє змінено"
@@ -459,16 +516,19 @@ other = "Цілі"
 other = "Параметри"
 
 [outdated_blog__message]
-other = "Цій статті вже більше одного року. Старі статті можуть містити застарілу інформацію. Перевірте та переконайтесь, що інформація на сторінці не стала невірною після її публікації."
+other = "Ця стаття була опублікована більше року тому. Старіші статті можуть містити застарілу інформацію. Перевірте, чи інформація на цій сторінці не втратила актуальності з моменту її публікації."
 
 [page_deprecated]
 other = "(застаріла сторінка)"
+
+[page_not_available_in_language]
+other = "{{ .Language }} версія цієї сторінки недоступна"
 
 [parentoptions_heading]
 other = "Успадковані батьківські параметри"
 
 [patch_release]
-other = "Патч"
+other = "Випуск виправлень"
 
 [post_create_issue]
 other = "Створити тікет"
@@ -477,7 +537,13 @@ other = "Створити тікет"
 other = "Перш ніж ви розпочнете"
 
 [previous_patches]
-other = "Патч-версії:"
+other = "Випуски виправлень:"
+
+[release_actively_supported]
+other = "В стані активної підтримки"
+
+[release_announcement_blog]
+other = "Допис в блозі про оголошення про випуск"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -512,7 +578,7 @@ other = "Компонент"
 other = "завантажити бінарний файл"
 
 [release_binary_options]
-other = "Параметри завантаженя"
+other = "Параметри завантаження"
 
 [release_binary_os]
 other = "Операційна система"
@@ -542,7 +608,7 @@ other = """Ви можете знайти посилання для завант
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
-other = """Для завантаження старіших патч-версій компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами),
+other = """Для завантаження старіших версій виправлень компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами),
 дивіться файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
 
 [release_binary_version]
@@ -557,22 +623,47 @@ other = ")"
 [release_date_before]
 other = "(випущено: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
 
+[release_details]
+other = "Переглянути деталі випуску"
+
 [release_cherry_pick_deadline]
 other = "Строк Cherry Pick"
 
-[release_end_of_life_date]
+[release_download_page]
+other = "Завантажити Kubernetes {{ .minor_version }}"
+
+[release_end_of_life]
 other = "Завершення життєвого циклу"
+
+[release_end_of_life_date]
+other = "Дата завершення життєвого циклу"
+
+[release_end_of_life_details_past]
+other = """Ця версія досягла кінця терміну підтримки {{ .release_eol_date }}.
+Kubernetes {{ .minor_version }} більше не отримує оновлень безпеки та виправлень помилок. Оновіть свою версію до [підтримуваної версії](/releases/)."""
+
+[release_github_tag]
+other = "GitHub Tag"
+
+[release_latest_patch]
+other = "Останній випуск виправлення"
+
+[release_links]
+other = "Повʼязані посилання"
+
+[release_maintenance_details_past]
+other = "Ця версія ввійшла в режим технічного обслуговування {{ .maintenance_mode_start_date }}. Приймаються лише критичні виправлення безпеки. Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}. Будь ласка, плануйте оновлення до [новішої версії](/releases/)."
 
 # Also see release_maintenance_and_end_of_life_details_past
 [release_maintenance_and_end_of_life_details_current]
@@ -585,8 +676,17 @@ other = """ℹ️ **Kubernetes {{ .minor_version }} переходить у ре
 
 Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}."""
 
+[release_maintenance_mode]
+other = "Стан підтримки"
+
+[release_maintenance_mode_start_date]
+other = "Дата початку стану підтримки"
+
+[release_released_on]
+other = "Випущено: {{ .date }}"
+
 [release_full_details_initial_text]
-other = "Повний"
+other = "Версія"
 
 [release_information_navbar]
 other = "Інформація про випуск"
@@ -594,19 +694,21 @@ other = "Інформація про випуск"
 [release_minor_version]
 other = "Мінорна версія"
 
-[release_info_next_patch]
-other = "Наступний патч **%s**."
+[release_patch_releases_heading]
+one = "Випуск виправлення"
+other = "Випуски виправлень"
 
-# Localization note: You can use Markdown here.
-# The three placeholders (in order) are:
-#   Kubernetes minor version
-#   maintenance mode date
-#   end of life date
-#
-# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
-# tense of the text so long as the meaning is clear.
+[release_upcoming_patch_heading]
+other = "Наступний випуск виправлення"
+
+[release_info_next_patch]
+other = "Наступний випуск виправлення **%s**."
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
 [release_info_eol]
-other = "**%s** переходить в режим технічного обслуговування **%s**, кінець життєвого циклу — **%s**."
+other = ""
 
 [release_note]
 other = "Примітка"
@@ -614,11 +716,20 @@ other = "Примітка"
 [release_schedule]
 other = "Розклад"
 
+[release_series_page_intro]
+other = "На цій сторінці наведено огляд серії випусків Kubernetes {{ .minor_version }}."
+
+[release_status]
+other = "Статус випуску"
+
 [release_target_date]
 other = "Заплановано"
 
 [release_changelog]
 other = "Зміни"
+
+[rss_link_label]
+other = "RSS"
 
 [seealso_heading]
 other = "Дивіться також"
@@ -635,23 +746,29 @@ other = "Успішно"
 [synopsis_heading]
 other = "Огляд"
 
+[tab_default]
+other = "Tab {{ . }}"
+
+[theme_locked_notice]
+other = "Для цієї сторінки тему зафіксовано"
+
 [thirdparty_message]
 other = """Цей розділ містить посилання на проєкти сторонніх розробників, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Проєкти вказано в алфавітному порядку. Щоб додати проєкт до цього списку, ознайомтеся з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед надсиланням змін. <a href="#third-party-content-disclaimer">Докладніше.</a>"""
 
 [thirdparty_message_edit_disclaimer]
-other="""Поради щодо сторонього вмісту"""
+other = """Поради щодо стороннього вмісту"""
 
 [thirdparty_message_single_item]
 other = """&#128711; Цей елемент посилається на сторонній проєкт або продукт, який не є частиною Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Докладніше</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
+other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
 
 [thirdparty_message_vendor]
-other = """На цій сторінці є посилання на постачальників, які не належать до Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці сторонні продукти або проєкти. Для додавання постачальника, продукта або проєкта до цього списку, ознаймтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content”>настановами щодо вмісту</a> перед додаванням змін. <a href="#third-party-content-disclaimer">Додаткова інформація.</a>"""
+other = """На цій сторінці є посилання на постачальників, які не належать до Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці сторонні продукти або проєкти. Для додавання постачальника, продукта або проєкта до цього списку, ознайомтеся з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">настановами щодо вмісту</a> перед додаванням змін. <a href="#third-party-content-disclaimer">Додаткова інформація.</a>"""
 
 [toast_failure_copycode]
-other="Не вдалося скопіювати в буфер обміну: "
+other = "Не вдалося скопіювати в буфер обміну: "
 
 [toast_success_copycode]
 other = "Скопійовано до буферу обміну: "
@@ -660,7 +777,6 @@ other = "Скопійовано до буферу обміну: "
 other = "Перекладач(і)"
 
 [ui_search]
-# other = "Search"
 other = "Пошук"
 
 [version_check_mustbe]

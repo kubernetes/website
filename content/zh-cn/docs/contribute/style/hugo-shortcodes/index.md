@@ -230,14 +230,13 @@ which renders as:
 <!--
 You can link to a page of the Kubernetes API reference using the
 `api-reference` shortcode, for example to the
-{{< api-reference page="workload-resources/pod-v1" >}} reference:
+{{< api-reference page="core/pod-v1" >}} reference:
 -->
 你可以使用 `api-reference` 短代码链接到 Kubernetes API 参考页面，例如：
-Pod
-{{< api-reference page="workload-resources/pod-v1" >}} 参考文件：
+{{< api-reference page="core/pod-v1" >}} 参考文件：
 
 ```
-{{</* api-reference page="workload-resources/pod-v1" */>}}
+{{</* api-reference page="core/pod-v1" */>}}
 ```
 
 <!--
@@ -247,31 +246,35 @@ The content of the `page` parameter is the suffix of the URL of the API referenc
 
 <!--
 You can link to a specific place into a page by specifying an `anchor`
-parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}}
-reference or the {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}}
+parameter, for example to the {{< api-reference page="core/pod-v1" anchor="PodSpec" >}}
+reference or the {{< api-reference page="core/pod-v1" anchor="environment-variables" >}}
 section of the page:
 -->
 你可以通过指定 `anchor` 参数链接到页面中的特定位置，例如到
-{{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} 参考，或页面的
-{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}}
+{{< api-reference page="core/pod-v1" anchor="PodSpec" >}} 参考，或页面的
+{{< api-reference page="core/pod-v1" anchor="environment-variables" >}}
 部分：
 
 ```
-{{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
-{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
+{{</* api-reference page="core/pod-v1" anchor="PodSpec" */>}}
+{{</* api-reference page="core/pod-v1" anchor="environment-variables" */>}}
 ```
 
 <!--
 You can change the text of the link by specifying a `text` parameter, for
 example by linking to the
-{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}}
+{{< api-reference page="core/pod-v1" anchor="environment-variables" text="Environment Variables">}}
 section of the page:
--->
-你可以通过指定 `text` 参数来更改链接的文本，
-例如通过链接到页面的{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="环境变量">}}部分：
 
 ```
-{{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="环境变量" */>}}
+{{</* api-reference page="core/pod-v1" anchor="environment-variables" text="Environment Variable" */>}}
+```
+-->
+你可以通过指定 `text` 参数来更改链接的文本，
+例如通过链接到页面的{{< api-reference page="core/pod-v1" anchor="environment-variables" text="环境变量">}}部分：
+
+```
+{{</* api-reference page="core/pod-v1" anchor="environment-variables" text="环境变量" */>}}
 ```
 
 <!--
@@ -280,12 +283,6 @@ section of the page:
 You can make tables more accessible to screen readers by adding a table caption. To add a
 [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table,
 enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
-
-{{< note >}}
-Table captions are visible to screen readers but invisible when viewed in standard HTML.
-{{< /note >}}
-
-Here's an example:
 -->
 ## 表格标题  {#table-captions}
 
@@ -294,28 +291,27 @@ Here's an example:
 可用 `table` 短代码包围表格定义，并使用 `caption` 参数给出表格标题。
 
 {{< note >}}
+<!--
+Table captions are visible to screen readers but invisible when viewed in standard HTML.
+-->
 表格标题对屏幕阅读器是可见的，但在标准 HTML 中查看时是不可见的。
 {{< /note >}}
 
+<!--
+Here's an example:
+-->
 下面是一个例子：
 
 <!--
 ```go-html-template
 {{</* table caption="Configuration parameters" >}}
 Parameter | Description | Default
+:---------|:------------|:-------
 `timeout` | The timeout for requests | `30s`
 `logLevel` | The log level for log output | `INFO`
 {{< /table */>}}
-
-The rendered table looks like this:
-
-{{< table caption="Configuration parameters" >}}
-Parameter | Description | Default
-`timeout` | The timeout for requests | `30s`
-`logLevel` | The log level for log output | `INFO`
-{{< /table >}}
+```
 -->
-
 ```go-html-template
 {{</* table caption="配置参数" >}}
 参数      | 描述        | 默认值
@@ -325,8 +321,18 @@ Parameter | Description | Default
 {{< /table */>}}
 ```
 
+<!--
+The rendered table looks like this:
+-->
 所渲染的表格如下：
 
+<!--
+{{< table caption="Configuration parameters" >}}
+Parameter | Description | Default
+`timeout` | The timeout for requests | `30s`
+`logLevel` | The log level for log output | `INFO`
+{{< /table >}}
+-->
 {{< table caption="配置参数" >}}
 参数      | 描述        | 默认值
 :---------|:------------|:-------
@@ -359,10 +365,9 @@ The `tabs` shortcode takes these parameters:
 -->
 ## 标签页 {#tabs}
 
-在本站的 Markdown 页面（`.md` 文件）中，你可以加入一个标签页集来显示
-某解决方案的不同形式。
+在本站的 Markdown 页面（`.md` 文件）中，你可以加入一个标签页集来显示某解决方案的不同形式。
 
-标签页的短代码包含以下参数：
+`tabs` 短代码包含以下参数：
 
 <!--
 * `name`: The name as shown on the tab.
@@ -388,7 +393,6 @@ The `tabs` shortcode takes these parameters:
   例如 `{{</* tab name="Content File #1" include="example1" /*/>}}`。
   如果没有在 `codelang` 进行声明的话，Hugo 会根据文件名推测所用的语言。
   默认情况下，非内容文件将会被代码高亮。
-
 <!--
 * If your inner content is markdown, you must use the `%`-delimiter to surround the tab.
   For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
@@ -400,12 +404,13 @@ The `tabs` shortcode takes these parameters:
 
 <!--
 Below is a demo of the tabs shortcode.
-
-The tab **name** in a `tabs` definition must be unique within a content page.
 -->
 下面是标签页短代码的示例。
 
 {{< note >}}
+<!--
+The tab **name** in a `tabs` definition must be unique within a content page.
+-->
 内容页面下的 **tabs** 定义中的标签页 **name** 必须是唯一的。
 {{< /note >}}
 
@@ -419,7 +424,7 @@ The tab **name** in a `tabs` definition must be unique within a content page.
 {{< tab name="Tab 1" codelang="bash" >}}
 echo "This is tab 1."
 {{< /tab >}}
-{{< tab name="Tab 2" codelang="go" >}}
+{{< tab codelang="go" >}}
 println "This is tab 2."
 {{< /tab >}}
 {{< /tabs */>}}
@@ -430,12 +435,16 @@ Renders to:
 -->
 会转换为：
 
+<!--
+If you don't set a tab name, the site supplies one.
+-->
 {{< tabs name="tab_with_code" >}}
-{{< tab name="Tab 1" codelang="bash" >}}
-echo "This is tab 1."
+{{< tab name="Tab A" codelang="bash" >}}
+echo "This is tab A."
 {{< /tab >}}
-{{< tab name="Tab 2" codelang="go" >}}
-println "This is tab 2."
+{{< tab codelang="go" >}}
+// 如果你未设置标签名，则网站提供一个名称。
+println "This tab has a default name";
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -444,6 +453,24 @@ println "This is tab 2."
 -->
 ### 标签页演示：内联 Markdown 和 HTML
 
+<!--
+```go-html-template
+{{</* tabs name="tab_with_md" >}}
+{{% tab name="Markdown" %}}
+This is **some markdown.**
+{{< note >}}
+It can even contain shortcodes.
+{{< /note >}}
+{{% /tab %}}
+{{< tab name="HTML" >}}
+<div>
+	<h3>Plain HTML</h3>
+	<p>This is some <i>plain</i> HTML.</p>
+</div>
+{{< /tab >}}
+{{< /tabs */>}}
+```
+-->
 ```go-html-template
 {{</* tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
@@ -468,15 +495,33 @@ Renders to:
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
+<!--
+This is **some markdown.**
+-->
 这是**一些 markdown。**
+
 {{< note >}}
+<!--
+It can even contain shortcodes.
+-->
 它甚至可以包含短代码。
 {{< /note >}}
+
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
-	<h3>纯 HTML</h3>
-	<p>这是一些 <i>纯</i> HTML。</p>
+	<h3>
+  <!--
+  Plain HTML
+  -->
+  纯 HTML
+  </h3>
+	<p>
+  <!--
+  This is some <i>plain</i> HTML.
+  -->
+  这是一些 <i>纯</i> HTML。
+  </p>
 </div>
 {{< /tab >}}
 {{< /tabs >}}
@@ -507,12 +552,10 @@ Renders to:
 
 <!--
 ## Source code files
-You can use the `{{%/* code_sample */%}}` shortcode to embed the contents of file
-in a code block to allow users to download or copy its content to their clipboard.
-This shortcode is used when the contents of the sample file is generic and reusable, 
-and you want the users to try it out themselves.
+
+You can use the `{{%/* code_sample */%}}` shortcode to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This shortcode is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
 -->
-## 源代码文件
+## 源代码文件 {#source-code-files}
 
 你可以使用 `{{%/* code_sample */%}}` 短代码将文件内容嵌入代码块中，
 以允许用户下载或复制其内容到他们的剪贴板。
@@ -520,11 +563,7 @@ and you want the users to try it out themselves.
 可以使用此短代码。
 
 <!--
-This shortcode takes in two named parameters: `language` and `file`. 
-The mandatory parameter `file` is used to specify the path to the file
-being displayed. The optional parameter `language` is used to specify
-the programming language of the file. If the `language` parameter is not provided,
-the shortcode will attempt to guess the language based on the file extension.
+This shortcode takes in two named parameters: `language` and `file`. The mandatory parameter `file` is used to specify the path to the file being displayed. The optional parameter `language` is used to specify the programming language of the file. If the `language` parameter is not provided, the shortcode will attempt to guess the language based on the file extension.
 
 For example:
 -->
@@ -547,9 +586,7 @@ The output is:
 {{% code_sample language="yaml" file="application/deployment-scale.yaml" %}}
 
 <!--
-When adding a new sample file, such as a YAML file, create the file in one
-of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
-the page. In the markdown of your page, use the `code` shortcode:
+When adding a new sample file, such as a YAML file, create the file in one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for the page. In the markdown of your page, use the `code` shortcode:
 -->
 添加新的示例文件（例如 YAML 文件）时，在 `<LANG>/examples/`
 子目录之一中创建该文件，其中 `<LANG>` 是页面的语言。
@@ -559,6 +596,9 @@ the page. In the markdown of your page, use the `code` shortcode:
 {{%/* code_sample file="<RELATIVE-PATH>/example-yaml>" */%}}
 ```
 
+<!--
+where `<RELATIVE-PATH>` is the path to the sample file to include, relative to the `examples` directory. The following shortcode references a YAML file located at `/content/en/examples/configmap/configmaps.yaml`.
+-->
 其中 `<RELATIVE-PATH>` 是要包含的示例文件的路径，相对于 `examples` 目录。
 以下短代码引用位于 `/content/en/examples/configmap/configmaps.yaml` 的 YAML 文件。
 
@@ -585,16 +625,16 @@ usually need to add a
 to your cluster so that name resolution works.
 -->
 运行 Kubernetes 需要第三方软件。例如：你通常需要将
-[DNS 服务器](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
-添加到集群中，以便名称解析工作。
+[DNS 服务器](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)添加到集群中，
+以便名称解析工作。
 
 <!--
 When we link to third-party software, or otherwise mention it,
 we follow the [content guide](/docs/contribute/style/content-guide/)
 and we also mark those third party items.
 -->
-当我们链接到第三方软件或以其他方式提及它时，我们会遵循[内容指南](/zh-cn/docs/contribute/style/content-guide/)
-并标记这些第三方项目。
+当我们链接到第三方软件或以其他方式提及它时，
+我们会遵循[内容指南](/zh-cn/docs/contribute/style/content-guide/)并标记这些第三方项目。
 
 <!--
 Using these shortcodes adds a disclaimer to any documentation page
@@ -638,23 +678,24 @@ component), then there is a different form to use.
 
 <!--
 Add the shortcode:
-
-before the item, or just below the heading for the specific item.
 -->
 添加短代码：
-
-在项目之前，或在特定项目的段落下方添加此短代码：
 
 ```
 {{%/* thirdparty-content single="true" */%}}
 ```
 
 <!--
+before the item, or just below the heading for the specific item.
+-->
+在项目之前，或在特定项目的段落下方添加此短代码。
+
+<!--
 ## Details
 
 You can render a `<details>` HTML element using a shortcode:
 -->
-## 详细信息
+## 详细信息 {#details}
 
 你可以使用短代码呈现 `<details>` HTML 元素：
 
@@ -834,7 +875,6 @@ Renders to:
 * Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
 -->
-
 * 了解 [Hugo](https://gohugo.io/)。
 * 了解[撰写新的话题](/zh-cn/docs/contribute/style/write-new-topic/)。
 * 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。

@@ -1,7 +1,6 @@
 ---
 title: Init 容器（Init Container）
 id: init-container
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/pods/init-containers/
 short_description: >
   应用容器运行前必须先运行完成的一个或多个 Init 容器（Init Container）。
@@ -9,11 +8,9 @@ aka:
 tags:
 - fundamental
 ---
-
 <!--
 title: Init Container
 id: init-container
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/init-containers/
 short_description: >
   One or more initialization containers that must run to completion before any app containers run.
@@ -23,11 +20,11 @@ tags:
 -->
 
 <!--
- One or more initialization {{< glossary_tooltip text="containers" term_id="container" >}} that must run to completion before any app containers run.
+One or more initialization {{< glossary_tooltip text="containers" term_id="container" >}} that must run to completion before any app containers run.
 -->
-应用{{< glossary_tooltip text="容器" term_id="container" >}}运行前必须先运行完成的一个或多个 Init 容器（Init Container）。
+应用{{< glossary_tooltip text="容器" term_id="container" >}}运行前必须先运行完成的一个或多个 Init 容器。
 
-<!--more--> 
+<!--more-->
 
 <!--
 Initialization (init) containers are like regular app containers, with one difference: init containers must run to completion before any app containers can start. Init containers run in series: each init container must run to completion before the next init container begins.

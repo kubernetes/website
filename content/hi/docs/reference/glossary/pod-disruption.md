@@ -1,7 +1,6 @@
 ---
 title: पॉड विघटन (Pod Disruption)
 id: pod-disruption
-date: 2021-05-12
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   पॉड विघटन वह प्रक्रिया है जिसके द्वारा नोड्स पर पॉड्स को स्वेच्छा से या अनैच्छिक रूप से समाप्त कर दिया जाता है।

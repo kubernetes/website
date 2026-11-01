@@ -1,7 +1,6 @@
 ---
 title: यूआईडी (UID)
 id: uid
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   विशिष्ट ऑब्जेक्ट्स की पहचान करने के लिए एक कुबेरनेट्स सिस्टम-जनित स्ट्रिंग।

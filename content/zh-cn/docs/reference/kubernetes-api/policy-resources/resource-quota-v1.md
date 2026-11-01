@@ -44,12 +44,12 @@ ResourceQuota 设置每个命名空间强制执行的聚合配额限制。
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  标准的对象元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaSpec" >}}">ResourceQuotaSpec</a>)
 
-  <!-- 
+  <!--
   Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
@@ -77,8 +77,8 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
   hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
   -->
 
-  `hard` 是每种指定资源所需的硬性限制集合。
-  更多信息： https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  `hard` 是每种指定资源所需的硬性限制集合。更多信息：
+  https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 - **scopeSelector** (ScopeSelector)
 
@@ -86,7 +86,7 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
   scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched. 
   -->
 
-  `scopeSelector` 也是一组过滤器的集合，和 scopes 类似，
+  `scopeSelector` 也是一组过滤器的集合，和 `scopes` 类似，
   必须匹配配额所跟踪的每个对象，但使用 ScopeSelectorOperator 结合可能的值来表示。
   对于要匹配的资源，必须同时匹配 scopes 和 `scopeSelector`（如果在 `spec` 中设置了的话）。
 
@@ -95,7 +95,7 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
   *A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.* 
   -->
 
-  scope 选择算符表示的是由限定范围的资源选择算符进行**逻辑与**运算得出的结果。
+  `scope` 选择算符表示的是由限定范围的资源选择算符进行**逻辑与**运算得出的结果。
 
   - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
 
@@ -104,12 +104,13 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
     
     A list of scope selector requirements by scope of the resources. 
     -->
+    
     **原子：将在合并期间被替换**
 
     按资源范围划分的范围选择算符需求列表。
 
     <a name="ScopedResourceSelectorRequirement"></a>
-    <!-- 
+    <!--
     *A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.* 
     -->
 
@@ -117,7 +118,7 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
     - **scopeSelector.matchExpressions.operator** (string)，必需
 
-      <!-- 
+      <!--
       Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. 
       -->
 
@@ -139,7 +140,7 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
     - **scopeSelector.matchExpressions.scopeName** (string)，必需
 
-      <!-- 
+      <!--
       The name of the scope that the selector applies to. 
   
       Possible enum values:
@@ -171,6 +172,7 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
       An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. 
       -->
+      
       **原子：将在合并期间被替换**
 
       字符串值数组。
@@ -206,8 +208,8 @@ ResourceQuotaStatus 定义硬性限制和观测到的用量。
   Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/ 
   -->
 
-  `hard` 是每种指定资源所强制实施的硬性限制集合。
-  更多信息： https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  `hard` 是每种指定资源所强制实施的硬性限制集合。更多信息：
+  https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 - **used** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -236,8 +238,8 @@ ResourceQuotaList 是 ResourceQuota 列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
 
-  标准列表元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  标准列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>)，必需
 
@@ -284,11 +286,11 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -334,11 +336,11 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -410,6 +412,10 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -420,7 +426,7 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
 -->
 #### 参数
 
-- **namespace**（**路径参数**）: string, 必需
+- **namespace**（**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -459,6 +465,10 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
 - **sendInitialEvents**（**查询参数**）: boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）: integer
 
@@ -528,6 +538,10 @@ GET /api/v1/resourcequotas
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -573,6 +587,10 @@ GET /api/v1/resourcequotas
 - **sendInitialEvents**（**查询参数**）: boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）: integer
 
@@ -630,11 +648,11 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
 -->
 #### 参数
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>，必需
 
 - **dryRun** （**查询参数**）: string
 
@@ -708,15 +726,15 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>，必需
 
 - **dryRun** （**查询参数**）: string
 
@@ -788,15 +806,15 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>，必需
 
 - **dryRun** （**查询参数**）: string
 
@@ -872,15 +890,15 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** （**查询参数**）: string
 
@@ -960,15 +978,15 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** （**查询参数**）: string
 
@@ -1048,11 +1066,11 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
   ResourceQuota 的名称。
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1158,13 +1176,17 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 #### 参数
 
-- **namespace** （**路径参数**）: string, 必需
+- **namespace** （**路径参数**）: string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1214,9 +1236,13 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (*查询参数*): boolean
+- **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** （**查询参数**）: integer
 

@@ -22,6 +22,9 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.35"
+
+removed: true
 ---
 Enables topology aware routing based on topology hints
 in EndpointSlices. See [Topology Aware

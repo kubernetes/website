@@ -3,6 +3,8 @@ title: kubectl delete
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  按文件名、标准输入、资源和名称或按资源和标签选择算符删除资源
 ---
 <!--
 title: kubectl delete
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Delete resources by file names, stdin, resources and names, or by resources and label selector
 -->
 
 ## {{% heading "synopsis" %}}
@@ -52,7 +56,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 他们的更新请求将与剩余的资源一起丢失。
 
 在 CustomResourceDefinition 被删除之后，对发现缓存的的刷新可能需要长达 6 小时的时长。
-如果你不想等待，可以运行 "kubectl api-resources" 来刷新发现缓存。
+如果你不想等待，可以运行 `kubectl api-resources` 来刷新发现缓存。
 
 ```shell
 kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])
@@ -138,7 +142,8 @@ kubectl delete pods --all --interactive
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Delete all resources, in the namespace of the specified resource types.
 -->
@@ -150,7 +155,8 @@ Delete all resources, in the namespace of the specified resource types.
 <td colspan="2">-A, --all-namespaces</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
 -->
@@ -163,7 +169,8 @@ If present, list the requested object(s) across all namespaces. Namespace in cur
 <td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："background"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
 -->
@@ -177,7 +184,8 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -190,7 +198,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--field-selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
 -->
@@ -203,7 +212,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 containing the resource to delete.
 -->
@@ -215,7 +225,8 @@ containing the resource to delete.
 <td colspan="2">--force</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
 -->
@@ -228,7 +239,8 @@ If true, immediately remove resources from API and bypass graceful deletion. Not
 <td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：-1</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
 -->
@@ -242,7 +254,8 @@ Period of time in seconds given to the resource to terminate gracefully. Ignored
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for delete
 -->
@@ -254,7 +267,8 @@ delete 操作的帮助命令。
 <td colspan="2">--ignore-not-found</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;true&quot; when --all is specified.
 -->
@@ -266,7 +280,8 @@ Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;t
 <td colspan="2">-i, --interactive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, delete resource only when user confirms.
 -->
@@ -278,7 +293,8 @@ If true, delete resource only when user confirms.
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process a kustomization directory. This flag can't be used together with -f or -R.
 -->
@@ -290,7 +306,8 @@ Process a kustomization directory. This flag can't be used together with -f or -
 <td colspan="2">--now</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, resources are signaled for immediate shutdown (same as --grace-period=1).
 -->
@@ -302,7 +319,8 @@ If true, resources are signaled for immediate shutdown (same as --grace-period=1
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Output mode. Use &quot;-o name&quot; for shorter output (resource/name).
 -->
@@ -314,7 +332,8 @@ Output mode. Use &quot;-o name&quot; for shorter output (resource/name).
 <td colspan="2">--raw string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig file.
 -->
@@ -326,7 +345,8 @@ Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
@@ -338,7 +358,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
@@ -352,7 +373,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <td colspan="2">--timeout duration</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 -->
@@ -364,7 +386,8 @@ The length of time to wait before giving up on a delete, zero means determine a 
 <td colspan="2">--wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, wait for resources to be gone before returning. This waits for finalizers.
 -->
@@ -388,7 +411,8 @@ If true, wait for resources to be gone before returning. This waits for finalize
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
@@ -400,7 +424,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
@@ -412,7 +437,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -421,39 +447,59 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -466,19 +512,22 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 集群的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -491,19 +540,22 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -516,7 +568,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -529,7 +582,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -542,7 +596,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -555,7 +610,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -568,7 +624,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 向 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -578,10 +635,11 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -594,7 +652,22 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>  
+</td>  
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -608,7 +681,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -621,7 +695,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -634,7 +709,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -647,7 +723,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -660,7 +737,8 @@ database name
 database host:port
 -->
 数据库 host:port
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -673,7 +751,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -686,7 +765,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -699,7 +779,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -712,7 +793,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -725,7 +807,8 @@ database username
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -738,7 +821,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -751,7 +835,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -764,7 +849,8 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -777,7 +863,8 @@ Username for basic authentication to the API server
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -805,7 +892,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 </tbody>

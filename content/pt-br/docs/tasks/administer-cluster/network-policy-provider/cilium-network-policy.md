@@ -100,6 +100,6 @@ Um Pod `cilium` roda em cada um dos nós do seu cluster e garante as políticas 
 ## {{% heading "whatsnext" %}}
 
 Uma vez que seu cluster estiver rodando, você pode seguir o artigo [Declarar uma Network Policy (em inglês)](/docs/tasks/administer-cluster/declare-network-policy/) para testar as políticas de NetworkPolicy do Kubernetes com o Cilium.
-Divirta-se! Se tiver dúvidas, nos contate usando o [Canal Slack do Cilium](https://cilium.herokuapp.com/).
+Divirta-se! Se tiver dúvidas, nos contate usando o [Canal Slack do Cilium](https://slack.cilium.io/).
 
 

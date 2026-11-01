@@ -1,0 +1,27 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.deny"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  validations:
+  # 拒绝更改除默认 ServiceCIDR 之外的所有 ServiceCIDR
+  - expression: "object.metadata.name == 'kubernetes'"
+    message: "you can only create or update the default ServiceCIDR"
+  # 拒绝除 kube-apiserver 之外所有用户的更改
+  - expression: "request.userInfo.username == 'system:apiserver' && 'system:masters' in request.userInfo.groups"
+    message: "you can not create or update ServiceCIDR objects"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-deny-binding"
+spec:
+  policyName: "servicecidrs.deny"
+  validationActions: [Deny,Audit]

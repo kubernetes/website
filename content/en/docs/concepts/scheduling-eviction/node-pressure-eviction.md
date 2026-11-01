@@ -22,7 +22,7 @@ Node-pressure eviction is not the same as
 The kubelet does not respect your configured {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}
 or the pod's
 `terminationGracePeriodSeconds`. If you use [soft eviction thresholds](#soft-eviction-thresholds),
-the kubelet respects your configured `eviction-max-pod-grace-period`. If you use
+the kubelet respects your configured `evictionMaxPodGracePeriod`. If you use
 [hard eviction thresholds](#hard-eviction-thresholds), the kubelet uses a `0s` grace period (immediate shutdown) for termination.
 
 ## Self healing behavior
@@ -98,6 +98,18 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
+{{<note>}}
+{{< feature-state feature_gate_name="HugepageAwareEviction" >}}
+On nodes with [hugepages](/docs/tasks/manage-hugepages/scheduling-hugepages/)
+configured, the kubelet subtracts the node's total hugepage capacity from
+`memory.available` used by eviction manager.
+Without this adjustment, hugepage-reserved RAM inflates
+`AvailableBytes` because the memory cgroup controller does not track hugetlb
+allocations in its working set. This can delay eviction and lead to OOM kills.
+To restore the previous behavior, disable the `HugepageAwareEviction`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{</note>}}
+
 On Windows nodes, the value for `memory.available` is derived from the node's global
 memory commit levels (queried through the [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)
 system call) by subtracting the node's global [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information) from the node's [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information). Please note that `CommitLimit` can change if the node's page-file size changes!
@@ -112,39 +124,44 @@ eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
     and more. For example, `nodefs` contains `/var/lib/kubelet`.
 
 1. `imagefs`: An optional filesystem that container runtimes can use to store
-   container images (which are the read-only layers) and container writable
-   layers.
+   container images (which are the read-only layers). If there is no separate
+   `containerfs`, the image filesystem also stores container writable layers.
 
-1. `containerfs`: An optional filesystem that container runtime can use to
-   store the writeable layers. Similar to the main filesystem (see `nodefs`),
-   it's used to store local disk volumes, emptyDir volumes not backed by memory,
-   log storage, and ephemeral storage, except for the container images. When
-   `containerfs` is used, the `imagefs` filesystem can be split to only store
-   images (read-only layers) and nothing else.
+1. `containerfs`: An optional filesystem that container runtimes can use to
+   store container writable layers. When `containerfs` is used, the `imagefs`
+   filesystem can be split to only store images (read-only layers) and nothing
+   else.
+
+These identifiers describe the filesystems as the kubelet observes them. They do
+not always mean three different mount points: in common layouts, two or all
+three identifiers can refer to the same underlying filesystem.
 
 {{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-The _split image filesystem_ feature, which enables support for the `containerfs`
-filesystem, adds several new eviction signals, thresholds and metrics. To use
-`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
-`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
-filesystem support.
+The _split image filesystem_ feature adds new eviction signals, thresholds, and
+metrics for `containerfs`. To use `containerfs`, the Kubernetes release
+v{{< skew currentVersion >}} requires the `KubeletSeparateDiskGC`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+be enabled. For Kubernetes v{{< skew currentVersion >}}, only CRI-O (v1.29 or
+higher) offers `containerfs` filesystem support.
 {{</note>}}
 
-As such, kubelet generally allows three options for container filesystems:
+The kubelet supports three common layouts for container filesystems:
 
 - Everything is on the single `nodefs`, also referred to as "rootfs" or
-  simply "root", and there is no dedicated image filesystem.
+  simply "root". In this layout, `nodefs`, `imagefs`, and `containerfs`
+  all refer to the same underlying filesystem.
 
-- Container storage (see `nodefs`) is on a dedicated disk, and `imagefs`
-  (writable and read-only layers) is separate from the root filesystem.
-  This is often referred to as "split disk" (or "separate disk") filesystem.
-
-- Container filesystem `containerfs` (same as `nodefs` plus writable
-  layers) is on root and the container images (read-only layers) are
-  stored on separate `imagefs`. This is often referred to as "split image"
+- Container runtime storage is on a dedicated disk, separate from the root
+  filesystem. In this layout, `imagefs` and `containerfs` refer to the same
+  underlying filesystem, which stores both image layers and container writable
+  layers. This is often referred to as "split disk" (or "separate disk")
   filesystem.
+
+- Container writable layers are on `nodefs`, and the container images
+  (read-only layers) are stored on a separate `imagefs`. In this layout,
+  `containerfs` and `nodefs` refer to the same underlying filesystem. This is
+  often referred to as a "split image" filesystem.
 
 The kubelet will attempt to auto-discover these filesystems with their current
 configuration directly from the underlying container runtime and will ignore
@@ -196,13 +213,13 @@ the kubelet uses the lesser of the two grace periods. If you do not specify a
 maximum allowed grace period, the kubelet kills evicted pods immediately without
 graceful termination.
 
-You can use the following flags to configure soft eviction thresholds:
+You can use the following kubelet configuration file settings:
 
-- `eviction-soft`: A set of eviction thresholds like `memory.available<1.5Gi`
+- `evictionSoft`: A set of eviction thresholds like `memory.available<1.5Gi`
   that can trigger pod eviction if held over the specified grace period.
-- `eviction-soft-grace-period`: A set of eviction grace periods like `memory.available=1m30s`
+- `evictionSoftGracePeriod`: A set of eviction grace periods like `memory.available=1m30s`
   that define how long a soft eviction threshold must hold before triggering a Pod eviction.
-- `eviction-max-pod-grace-period`: The maximum allowed grace period (in seconds)
+- `evictionMaxPodGracePeriod`: The maximum allowed grace period (in seconds)
   to use when terminating pods in response to a soft eviction threshold being met.
 
 #### Hard eviction thresholds {#hard-eviction-thresholds}
@@ -211,7 +228,7 @@ A hard eviction threshold has no grace period. When a hard eviction threshold is
 met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
-You can use the `eviction-hard` flag to configure a set of hard eviction
+You can use the `evictionHard` field to configure a set of hard eviction
 thresholds like `memory.available<1Gi`.
 
 The kubelet has the following default hard eviction thresholds:
@@ -235,15 +252,15 @@ inherit their default values instead of 0.
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
 eviction thresholds will be set as follows:
 
-- If a single filesystem is used for everything, then `containerfs` thresholds
-  are set the same as `nodefs`.
+- If `containerfs` and `nodefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `nodefs`.
 
-- If separate filesystems are configured for both images and containers,
-  then `containerfs` thresholds are set the same as `imagefs`.
+- If `containerfs` and `imagefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `imagefs`.
 
-Setting custom overrides for thresholds related to `containersfs` is currently
-not supported, and a warning will be issued if an attempt to do so is made; any
-provided custom values will, as such, be ignored.
+Setting custom overrides for thresholds related to `containerfs` is not
+supported, and a warning will be issued if an attempt to do so is made; any
+provided custom values will be ignored.
 
 ## Eviction monitoring interval
 
@@ -268,7 +285,7 @@ The control plane also [maps](/docs/concepts/scheduling-eviction/taint-and-toler
 these node conditions to taints.
 
 The kubelet updates the node conditions based on the configured
-`--node-status-update-frequency`, which defaults to `10s`.
+`nodeStatusUpdateFrequency`, which defaults to `10s`.
 
 ### Node condition oscillation
 
@@ -349,7 +366,7 @@ so the above scenario will not apply if the node is, for example, under `DiskPre
 all the containers and they are equal. These pods will never be evicted because
 of another pod's resource consumption. If a system daemon (such as `kubelet`
 and `journald`) is consuming more resources than were reserved via
-`system-reserved` or `kube-reserved` allocations, and the node only has
+`systemReserved` or `kubeReserved` allocations, and the node only has
 `Guaranteed` or `Burstable` pods using less resources than requests left on it,
 then the kubelet must choose to evict one of these pods to preserve node stability
 and to limit the impact of resource starvation on other pods. In this case, it
@@ -380,7 +397,7 @@ The kubelet sorts pods differently based on whether the node has a dedicated
 - If `imagefs` triggers evictions, the kubelet sorts pods based on the
   writable layer usage of all containers.
 
-#### With `imagesfs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
+#### With `imagefs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
 
 - If `containerfs` triggers evictions, the kubelet sorts pods based on
   `containerfs` usage (`local volumes + logs and a writable layer of all containers`).
@@ -401,8 +418,7 @@ In some cases, pod eviction only reclaims a small amount of the starved resource
 This can lead to the kubelet repeatedly hitting the configured eviction thresholds
 and triggering multiple evictions.
 
-You can use the `--eviction-minimum-reclaim` flag or a [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-to configure a minimum reclaim amount for each resource. When the kubelet notices
+You can use the `evictionMinimumReclaim` field in a [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/) to configure a minimum reclaim amount for each resource. When the kubelet notices
 that a resource is starved, it continues to reclaim that resource until it
 reclaims the quantity you specify.
 
@@ -430,7 +446,7 @@ Similarly, the kubelet tries to reclaim the `imagefs` resource until the `imagef
 value reaches `102Gi`, representing 102 GiB of available container image storage. If the amount
 of storage that the kubelet could reclaim is less than 2GiB, the kubelet doesn't reclaim anything.
 
-The default `eviction-minimum-reclaim` is `0` for all resources.
+The default `evictionMinimumReclaim` is `0` for all resources.
 
 ## Node out of memory behavior
 
@@ -478,14 +494,18 @@ Consider the following scenario:
 - Operator wants to reserve 10% of memory capacity for system daemons (kernel, `kubelet`, etc.)
 - Operator wants to evict Pods at 95% memory utilization to reduce incidence of system OOM.
 
-For this to work, the kubelet is launched as follows:
+For this to work, the kubelet configuration file is populated as follows:
 
-```none
---eviction-hard=memory.available<500Mi
---system-reserved=memory=1.5Gi
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+evictionHard:
+  memory.available: "500Mi"
+systemReserved:
+  memory: "1.5Gi"
 ```
 
-In this configuration, the `--system-reserved` flag reserves 1.5GiB of memory
+In this configuration, the `systemReserved` reserves 1.5GiB of memory
 for the system, which is `10% of the total memory + the eviction threshold amount`.
 
 The node can reach the eviction threshold if a pod is using more than its request,
@@ -511,13 +531,13 @@ regular interval. If memory usage increases within that window rapidly, the
 kubelet may not observe `MemoryPressure` fast enough, and the OOM killer
 will still be invoked.
 
-You can use the `--kernel-memcg-notification` flag to enable the `memcg`
+You can use the `kernelMemcgNotification` configuration field to enable the `memcg`
 notification API on the kubelet to get notified immediately when a threshold
 is crossed.
 
 If you are not trying to achieve extreme utilization, but a sensible measure of
-overcommit, a viable workaround for this issue is to use the `--kube-reserved`
-and `--system-reserved` flags to allocate memory for the system.
+overcommit, a viable workaround for this issue is to use the `kubeReserved`
+and `systemReserved` configuration fields to allocate memory for the system.
 
 ### active_file memory is not considered as available memory
 

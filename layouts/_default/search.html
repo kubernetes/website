@@ -1,20 +1,12 @@
-{{/*
-Copied from Docsy with the addition of the search-input and the customSearch block.
-Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed
-*/}}
+{{/* Copied from Docsy with the addition of the search-input and the customSearch block. */}}
 {{ define "main" }}
-
-{{/*
-Do not use the `search-results-search` id elsewhere as it is used
-delete this element for pagefind/China users
-*/}}
 
 <div id="search-results-search" class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
   {{partial "search-input" .}}
 </div>
 <section class="row td-search-result">
   <div class="col-12 col-md-8 offset-md-2">
-    <h2 class="ml-4">{{ .Title }}</h2>
+    <h2 class="ms-4">{{ .Title }}</h2>
     {{ with .Site.Params.gcs_engine_id }}
     <script>
       (function() {

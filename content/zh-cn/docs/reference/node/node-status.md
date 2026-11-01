@@ -28,6 +28,7 @@ A Node's status contains the following information:
 * [Conditions](#condition)
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
+* [Declared Features](#declaredfeatures)
 -->
 ## 节点状态字段  {#node-status-fields}
 
@@ -37,6 +38,7 @@ A Node's status contains the following information:
 * [状况（Condition）](#condition)
 * [容量与可分配（Capacity）](#capacity)
 * [信息（Info）](#info)
+* [已声明的特性（Declared Features）](#declaredfeatures)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
@@ -60,7 +62,7 @@ kubectl describe node <节点名称>
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 -->
-### 地址   {#addresses}
+## 地址   {#addresses}
 
 这些字段的用法取决于你的云服务商或者物理机配置。
 
@@ -80,7 +82,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 
 The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 -->
-### 状况   {#condition}
+## 状况   {#condition}
 
 `conditions` 字段描述了所有 `Running` 节点的状况。状况的示例包括：
 
@@ -176,7 +178,7 @@ for more details.
 Describes the resources available on the node: CPU, memory, and the maximum
 number of pods that can be scheduled onto the node.
 -->
-### 容量（Capacity）与可分配（Allocatable）     {#capacity}
+## 容量（Capacity）与可分配（Allocatable）     {#capacity}
 
 这两个值描述节点上的可用资源：CPU、内存和可以调度到节点上的 Pod 的个数上限。
 
@@ -205,11 +207,45 @@ operating system the node uses.
 The kubelet gathers this information from the node and publishes it into
 the Kubernetes API.
 -->
-### 信息（Info） {#info}
+## 信息（Info） {#info}
 
 Info 指的是节点的一般信息，如内核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
 容器运行时详细信息，以及节点使用的操作系统。
 `kubelet` 从节点收集这些信息并将其发布到 Kubernetes API。
+
+<!--
+## Declared features {#declaredfeatures}
+-->
+## 声明式特性    {#declaredfeatures}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+<!--
+This field lists specific Kubernetes features that are currently enabled on the
+node's kubelet via [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
+The features are reported by the kubelet as a list of strings in the
+`.status.declaredFeatures` field of the Node object.
+-->
+此字段列出了通过[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)在节点的
+kubelet 上当前已启用的特定 Kubernetes 特性。
+kubelet 会将这些特性以字符串列表的形式报告到 Node 对象的
+`.status.declaredFeatures` 字段中。
+
+<!--
+This field is intended for newer features under active development; features that
+have graduated and no longer require a feature gate are considered baseline and
+are not declared in this field. This reflects the enablement of Kubernetes
+features, not the underlying operating system or kernel capabilities of the node.
+-->
+此字段用于记录正在积极开发的新特性；
+已完成且不再需要特性门控的功能被视为基线功能，无需在此字段中声明。
+这反映的是 Kubernetes 特性的启用情况，而非节点底层操作系统或内核的特性。
+
+<!--
+See [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
+for more details.
+-->
+有关更多详细信息，请参阅[节点声明特性](/zh-cn/docs/concepts/scheduling-eviction/node-declared-features/)。
 
 <!--
 ## Heartbeats

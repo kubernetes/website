@@ -1,7 +1,6 @@
 ---
 title: kube-apiserver
 id: kube-apiserver
-date: 2019-04-21
 full_link: /docs/reference/generated/kube-apiserver/
 short_description: >
   Komponen _control plane_ yang mengekspos API Kubernetes. Merupakan _front-end_ dari _control plane_ Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: Operações do Cluster
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  O trabalho envolvido no gerenciamento de um cluster Kubernetes.

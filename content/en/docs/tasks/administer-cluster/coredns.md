@@ -8,7 +8,7 @@ weight: 380
 ---
 
 <!-- overview -->
-This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
+This page describes the CoreDNS upgrade process and how to install CoreDNS.
 
 
 ## {{% heading "prerequisites" %}}
@@ -21,31 +21,14 @@ This page describes the CoreDNS upgrade process and how to install CoreDNS inste
 ## About CoreDNS
 
 [CoreDNS](https://coredns.io) is a flexible, extensible DNS server
-that can serve as the Kubernetes cluster DNS.
+that is the default implementation of Kubernetes cluster DNS.
 Like Kubernetes, the CoreDNS project is hosted by the
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
-You can use CoreDNS instead of kube-dns in your cluster by replacing
-kube-dns in an existing deployment, or by using tools like kubeadm
-that will deploy and upgrade the cluster for you.
-
 ## Installing CoreDNS
 
-For manual deployment or replacement of kube-dns, see the documentation at the
+For manual deployment, see the documentation at the
 [CoreDNS website](https://coredns.io/manual/installation/).
-
-## Migrating to CoreDNS
-
-### Upgrading an existing cluster with kubeadm
-
-In Kubernetes version 1.21, kubeadm removed its support for `kube-dns` as a DNS application.
-For `kubeadm` v{{< skew currentVersion >}}, the only supported cluster DNS application
-is CoreDNS.
-
-You can move to CoreDNS when you use `kubeadm` to upgrade a cluster that is
-using `kube-dns`. In this case, `kubeadm` generates the CoreDNS configuration
-("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for
-stub domains, and upstream name server.
 
 ## Upgrading CoreDNS
 
@@ -72,8 +55,8 @@ configuration of CoreDNS. For more details, check out the
 
 ## {{% heading "whatsnext" %}}
 
-You can configure [CoreDNS](https://coredns.io) to support many more use cases than
-kube-dns does by modifying the CoreDNS configuration ("Corefile").
+You can configure [CoreDNS](https://coredns.io) to support many use cases beyond
+basic service name resolution by modifying the CoreDNS configuration ("Corefile").
 For more information, see the [documentation](https://coredns.io/plugins/kubernetes/)
 for the `kubernetes` CoreDNS plugin, or read the 
 [Custom DNS Entries for Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).

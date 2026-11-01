@@ -120,7 +120,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 2. 在 ca.key 文件的基础上，生成 ca.crt 文件（用参数 `-days` 设置证书有效期）
 
    ```shell
-   openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
+   openssl req -x509 -new -noenc -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
    ```
 
 <!-- 
@@ -222,9 +222,15 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    ```
 
 <!-- 
-Finally, add the same parameters into the API server start parameters.
+1. Fill in and add the following parameters into the API server start parameters:
 -->
-最后，为 API 服务器添加相同的启动参数。
+1. 在 API 服务器的启动参数中填写并添加以下参数：
+
+   ```shell
+   --client-ca-file=/yourdirectory/ca.crt
+   --tls-cert-file=/yourdirectory/server.crt
+   --tls-private-key-file=/yourdirectory/server.key
+   ```
 
 ### cfssl
 

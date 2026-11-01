@@ -1,7 +1,6 @@
 ---
 title: Master
 id: master
-date: 2020-04-16
 short_description: >
   Termine vecchio, usato come sinonimo per i nodi che ospitano la control plane.
 

@@ -1,7 +1,6 @@
 ---
 title: kOps (Kubernetes Operations)
 id: kops
-date: 2018-04-12
 full_link: /docs/setup/production-environment/kops/
 short_description: >
   kOps will not only help you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes cluster, but it will also provision the necessary cloud infrastructure.

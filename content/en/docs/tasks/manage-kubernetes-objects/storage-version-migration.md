@@ -5,6 +5,7 @@ reviewers:
 - jpbetz
 - enj
 - nilekhc
+- michaelasp
 content_type: task
 min-kubernetes-server-version: v1.30
 weight: 60
@@ -33,14 +34,9 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Ensure that your cluster has the `StorageVersionMigrator`
+The `StorageVersionMigrator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)
-enabled. You will need control plane administrator access to make that change.
-
-Enable storage version migration REST API by setting runtime config
-`storagemigration.k8s.io/v1beta1` to `true` for the API server. For more information on
-how to do that,
-read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
+and `storagemigration.k8s.io/v1` REST API are enabled by default in all clusters.
 
 <!-- steps -->
 
@@ -100,7 +96,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
   spec:
@@ -127,7 +123,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
     uid: 628f6922-a9cb-4514-b076-12d3c178967c
@@ -322,13 +318,13 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
   spec:
     resource:
       group: example.com
-      resource: SelfieRequest
+      resource: selfierequests
   ```
 
   Create the object using _kubectl_ as follows:
@@ -349,7 +345,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
     uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
@@ -379,3 +375,40 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ```
 
   where `[...]` contains the additional arguments for connecting to the etcd server.
+
+- Also verify that the CRD's stored version status is now only v2:
+
+  ```shell
+  kubectl get crd testcrds.example.com -o yaml
+  ```
+
+  The output is similar to:
+
+  ```yaml
+  kind: CustomResourceDefinition
+  apiVersion: apiextensions.k8s.io/v1
+  metadata:
+    name: testcrds.example.com
+  spec:
+    group: example.com
+    names:
+      kind: TestCRD
+      plural: testcrds
+    scope: Namespaced
+    versions:
+      - name: v1
+        served: true
+        storage: false
+      - name: v2
+        served: true
+        storage: true
+  status:
+    acceptedNames:
+      kind: TestCRD
+      plural: testcrds
+    conditions:
+      - type: Established
+        status: "True"
+    storedVersions:
+      - v2
+  ```

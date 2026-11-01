@@ -24,6 +24,19 @@ container runtimes.
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its
 resources itself.
 
+## Headlamp
+
+[Headlamp](https://headlamp.dev/) is an extensible Kubernetes graphical user
+interface, and is an optional Kubernetes cluster component.
+Headlamp is part of the Kubernetes project.
+
+Headlamp provides:
+
+* A modern, user-friendly graphical interface for cluster management and troubleshooting
+* Support for both in-cluster deployment and desktop application modes
+* Extensibility through a plugin system
+* RBAC-based controls that adapt to user permissions
+
 ## Helm
 {{% thirdparty-content single="true" %}}
 
@@ -38,6 +51,12 @@ Use Helm to:
 * Intelligently manage your Kubernetes manifest files
 * Manage releases of Helm packages
 
+## kind
+
+[`kind`](https://kind.sigs.k8s.io/) is a tool for running local Kubernetes
+clusters using Docker container nodes. kind is primarily designed for testing
+Kubernetes itself, but may also be used for local development or CI.
+
 ## Kompose
 
 [`Kompose`](https://github.com/kubernetes/kompose) is a tool to help Docker Compose users move to Kubernetes.
@@ -50,11 +69,8 @@ Use Kompose to:
 
 ## Kui
 
-[`Kui`](https://github.com/kubernetes-sigs/kui) is a GUI tool that takes your normal
-`kubectl` command line requests and responds with graphics.
-
-Kui takes the normal `kubectl` command line requests and responds with graphics. Instead 
-of ASCII tables, Kui provides a GUI rendering with tables that you can sort.
+[`Kui`](https://github.com/kubernetes-sigs/kui) is a GUI tool that takes your normal `kubectl` command line requests and responds with graphics.
+Instead of ASCII tables, Kui provides a GUI rendering with tables that you can sort.
 
 Kui lets you:
 

@@ -16,7 +16,7 @@ weight: 100
 
 {{< feature-state for_k8s_version="v1.10" state="stable" >}}
 
-<!--  
+<!--
 `kubeadm init` and `kubeadm join` together provide a nice user experience for creating a
 bare Kubernetes cluster from scratch, that aligns with the best-practices.
 However, it might not be obvious _how_ kubeadm does that.
@@ -92,14 +92,14 @@ limited set of constant values for well-known paths and file names.
 为了降低复杂性并简化基于 kubeadm 的高级工具的开发，对于众所周知的路径和文件名，
 kubeadm 使用了一组有限的常量值。
 
-<!--  
+<!--
 The Kubernetes directory `/etc/kubernetes` is a constant in the application, since it is clearly the given path
 in a majority of cases, and the most intuitive location; other constant paths and file names are:
 -->
 Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
 因为在大多数情况下它显然是给定的路径，并且是最直观的位置；其他路径常量和文件名有：
 
-<!--  
+<!--
 - `/etc/kubernetes/manifests` as the path where the kubelet should look for static Pod manifests.
   Names of static Pod manifests are:
 -->
@@ -191,14 +191,14 @@ kubeadm 工具仅支持从已弃用的配置格式迁移到当前格式。
 -->
 ## kubeadm init 工作流程内部设计  {#kubeadm-init-workflow-internal-design}
 
-<!--  
+<!--
 The `kubeadm init` consists of a sequence of atomic work tasks to perform,
 as described in the `kubeadm init` [internal workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow).
 -->
 `kubeadm init` [内部工作流程](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)
 包含一系列要执行的原子性工作任务，如 `kubeadm init` 中所述。
 
-<!--  
+<!--
 The [`kubeadm init phase`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) command allows
 users to invoke each task individually, and ultimately offers a reusable and composable
 API/toolbox that can be used by other Kubernetes bootstrap tools, by any IT automation tool or by
@@ -221,7 +221,7 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并避免常见的集群启动问题。
 用户可以使用 `--ignore-preflight-errors` 选项跳过特定的预检或全部检查。
 
-<!--  
+<!--
 - [Warning] if the Kubernetes version to use (specified with the `--kubernetes-version` flag) is
   at least one minor version higher than the kubeadm CLI version.
 - Kubernetes system requirements:
@@ -237,7 +237,7 @@ kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
     - [错误] 如果内核早于最低要求的版本
     - [错误] 如果未设置所需的 Cgroups 子系统
 - [错误] 如果 CRI 端点未应答
-<!--  
+<!--
 - [Error] if user is not root
 - [Error] if the machine hostname is not a valid DNS subdomain
 - [Warning] if the host name cannot be reached via network lookup
@@ -304,7 +304,8 @@ Preflight checks can be invoked individually with the
 [`kubeadm init phase preflight`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-preflight)
 command.
 -->
-可以使用 [`kubeadm init phase preflight`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-preflight)
+可以使用
+[`kubeadm init phase preflight`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-preflight)
 命令单独触发预检。
 {{< /note >}}
 
@@ -361,7 +362,8 @@ kubeadm 生成用于不同目的的证书和私钥对：
   并保存到 `apiserver-kubelet-client.crt`，私钥保存到 `apiserver-kubelet-client.key`
   文件中。该证书应该在 `system:masters` 组织中。
 
-- 用于签名 ServiceAccount 令牌的私钥保存到 `sa.key` 文件中，公钥保存到 `sa.pub` 文件中。
+- 用于签名 ServiceAccount 令牌的私钥保存到 `sa.key` 文件中，公钥保存到
+  `sa.pub` 文件中。
 
 <!--
 - A certificate authority for the front proxy saved into `front-proxy-ca.crt` file with its key
@@ -380,7 +382,8 @@ kubeadm 生成用于不同目的的证书和私钥对：
 Certificates are stored by default in `/etc/kubernetes/pki`, but this directory is configurable
 using the `--cert-dir` flag.
 -->
-证书默认情况下存储在 `/etc/kubernetes/pki` 中，但是该目录可以使用 `--cert-dir` 标志进行配置。
+证书默认情况下存储在 `/etc/kubernetes/pki` 中，但是该目录可以使用
+`--cert-dir` 标志进行配置。
 
 <!--
 Please note that:
@@ -428,7 +431,7 @@ Kubeadm generates kubeconfig files with identities for control plane components:
 -->
 kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
 
-<!--  
+<!--
 - A kubeconfig file for the kubelet to use during TLS bootstrap -
   `/etc/kubernetes/bootstrap-kubelet.conf`. Inside this file, there is a bootstrap-token or embedded
   client certificates for authenticating this node with the cluster.
@@ -444,7 +447,8 @@ kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
 
   此客户端证书应：
 
-  - 根据[节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)模块的要求，属于 `system:nodes` 组织
+  - 根据[节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)模块的要求，属于
+    `system:nodes` 组织
   - 具有通用名称（CN）：`system:node:<小写主机名>`
 
 <!--
@@ -455,9 +459,8 @@ kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
 -->
 - 控制器管理器的 kubeconfig 文件 —— `/etc/kubernetes/controller-manager.conf`；
   在此文件中嵌入了一个具有控制器管理器身份标识的客户端证书。
-  此客户端证书应具有 CN：`system:kube-controller-manager`，
-  该 CN 由 [RBAC 核心组件角色](/zh-cn/docs/reference/access-authn-authz/rbac/#core-component-roles)
-  默认定义的。
+  此客户端证书应具有 CN：`system:kube-controller-manager`，该 CN 由
+  [RBAC 核心组件角色](/zh-cn/docs/reference/access-authn-authz/rbac/#core-component-roles)默认定义的。
 
 <!--
 - A kubeconfig file for scheduler, `/etc/kubernetes/scheduler.conf`; inside this file is embedded
@@ -466,9 +469,8 @@ kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
   [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 -->
 - 调度器的 kubeconfig 文件 —— `/etc/kubernetes/scheduler.conf`；
-  此文件中嵌入了具有调度器身份标识的客户端证书。此客户端证书应具有 CN：`system:kube-scheduler`，
-  该 CN 由 [RBAC 核心组件角色](/zh-cn/docs/reference/access-authn-authz/rbac/#core-component-roles)
-  默认定义的。
+  此文件中嵌入了具有调度器身份标识的客户端证书。此客户端证书应具有 CN：`system:kube-scheduler`，该 CN 由
+  [RBAC 核心组件角色](/zh-cn/docs/reference/access-authn-authz/rbac/#core-component-roles)默认定义的。
 
 <!-- 
 Additionally, a kubeconfig file for kubeadm as an administrative entity is generated and stored
@@ -525,7 +527,7 @@ Also note that:
 -->
 另外请注意：
 
-<!--  
+<!--
 1. `ca.crt` certificate is embedded in all the kubeconfig files.
 1. If a given kubeconfig file exists, and its content is evaluated as compliant with the above specs,
    the existing file will be used and the generation phase for the given kubeconfig will be skipped
@@ -548,13 +550,12 @@ Also note that:
 
 <!--
 ### Generate static Pod manifests for control plane components
--->
-### 为控制平面组件生成静态 Pod 清单  {#generate-static-pod-manifests-for-control-plane-components}
 
-<!--  
 Kubeadm writes static Pod manifest files for control plane components to
 `/etc/kubernetes/manifests`. The kubelet watches this directory for Pods to be created on startup.
 -->
+### 为控制平面组件生成静态 Pod 清单  {#generate-static-pod-manifests-for-control-plane-components}
+
 kubeadm 将用于控制平面组件的静态 Pod 清单文件写入 `/etc/kubernetes/manifests` 目录。
 kubelet 启动后会监视这个目录以便创建 Pod。
 
@@ -1163,13 +1164,6 @@ deployed as a DaemonSet:
 - `coredns` 的 ServiceAccount 绑定了 `system:coredns` ClusterRole 中的特权
 
 <!--
-In Kubernetes version 1.21, support for using `kube-dns` with kubeadm was removed.
-You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
--->
-在 Kubernetes 1.21 版本中，kubeadm 对 `kube-dns` 的支持被移除。
-你可以在 kubeadm 使用 CoreDNS，即使相关的 Service 名字仍然是 `kube-dns`。
-
-<!--
 ## kubeadm join phases internal design
 -->
 ## kubeadm join 步骤内部设计  {#kubeadm-join-phases-internal-design}
@@ -1308,8 +1302,8 @@ reference doc; when the connection with the cluster is established, kubeadm trie
 `cluster-info` ConfigMap, and if available, uses it.
 -->
 通过文件发现，集群 CA 证书是文件本身提供；事实上，这个发现文件是一个 kubeconfig 文件，
-只设置了 `server` 和 `certificate-authority-data` 属性，
-如 [`kubeadm join`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#file-or-https-based-discovery)
+只设置了 `server` 和 `certificate-authority-data` 属性，如
+[`kubeadm join`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#file-or-https-based-discovery)
 参考文档中所述，当与集群建立连接时，kubeadm 尝试访问 `cluster-info` ConfigMap，
 如果可用，就使用它。
 
@@ -1318,21 +1312,21 @@ reference doc; when the connection with the cluster is established, kubeadm trie
 -->
 ## TLS 引导  {#tls-boostrap}
 
-<!--  
+<!--
 Once the cluster info is known, the file `bootstrap-kubelet.conf` is written, thus allowing
 kubelet to do TLS Bootstrapping.
 -->
 知道集群信息后，kubeadm 将写入文件 `bootstrap-kubelet.conf`，从而允许 kubelet 执行
 TLS 引导。
 
-<!--  
+<!--
 The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes
 API server to submit a certificate signing request (CSR) for a locally created key pair.
 -->
 TLS 引导机制使用共享令牌对 Kubernetes API 服务器进行临时身份验证，
 以便为本地创建的密钥对提交证书签名请求（CSR）。
 
-<!--  
+<!--
 The request is then automatically approved and the operation completes saving `ca.crt` file and
 `kubelet.conf` file to be used by the kubelet for joining the cluster, while `bootstrap-kubelet.conf`
 is deleted.
@@ -1387,39 +1381,33 @@ All upgrade sub-commands support passing a configuration file.
 
 所有升级子命令都支持传递配置文件。
 
-<!--
 ### kubeadm upgrade plan
 
+<!--
 You can optionally run `kubeadm upgrade plan` before you run `kubeadm upgrade apply`.
 The `plan` subcommand checks which versions are available to upgrade
 to and validates whether your current cluster is upgradeable.
 -->
-### kubeadm upgrade plan
-
 你可以选择在运行 `kubeadm upgrade apply` 之前运行 `kubeadm upgrade plan`。
 `plan` 子命令会检查有哪些版本可以用来升级，并验证你当前的集群是否可升级。
 
-<!--
 ### kubeadm upgrade diff
 
+<!--
 This shows what differences would be applied to existing static pod manifests for control plane nodes.
 A more verbose way to do the same thing is running `kubeadm upgrade apply --dry-run` or
 `kubeadm upgrade node --dry-run`.
 -->
-### kubeadm upgrade diff
-
 这条命令会显示将对控制平面节点的现有静态 Pod 清单作哪些修改。
 获得更详细信息的一种做法是运行 `kubeadm upgrade apply --dry-run`
 或 `kubeadm upgrade node --dry-run`。
 
-<!--
 ### kubeadm upgrade apply
 
+<!--
 `kubeadm upgrade apply` prepares the cluster for the upgrade of all nodes, and also
 upgrades the control plane node where it's run. The steps it performs are:
 -->
-### kubeadm upgrade apply
-
 `kubeadm upgrade apply` 为所有节点的升级做准备，同时也会升级运行此命令时所在的控制平面节点。
 它所执行的步骤包括：
 
@@ -1452,16 +1440,14 @@ upgrades the control plane node where it's run. The steps it performs are:
 - 如果集群中所有现有的 kube-apiserver 已经升级到目标版本，则根据情况升级 kube-proxy 和 CoreDNS 插件。
 - 执行所有剩下的升级后任务，例如清理特定发布版本中废弃的功能。
 
-<!--
 ### kubeadm upgrade node
 
+<!--
 `kubeadm upgrade node` upgrades a single control plane or worker node after the cluster upgrade has
 started (by running `kubeadm upgrade apply`). The command detects if the node is a control plane node by checking
 if the file `/etc/kubernetes/manifests/kube-apiserver.yaml` exists. On finding that file, the kubeadm tool
 infers that there is a running kube-apiserver Pod on this node.
 -->
-### kubeadm upgrade node
-
 `kubeadm upgrade node` 在集群升级启动后（通过运行 `kubeadm upgrade apply`）升级单个控制平面或工作节点。
 此命令通过检查文件 `/etc/kubernetes/manifests/kube-apiserver.yaml` 是否存在来检测节点是否为控制平面节点。
 如果找到该文件，kubeadm 工具会推断此节点上正在运行 kube-apiserver Pod。

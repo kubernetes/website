@@ -1,7 +1,6 @@
 ---
 title: Node-pressure eviction
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   Node-pressure eviction is the process by which the kubelet proactively fails

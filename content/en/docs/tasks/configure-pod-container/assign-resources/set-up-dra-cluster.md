@@ -23,7 +23,7 @@ Ensure that you're familiar with how DRA works and with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For details, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 <!-- prerequisites -->
 
@@ -109,8 +109,8 @@ The output is similar to the following:
 
 ```
 NAME                                                  NODE                DRIVER               POOL                             AGE
-cluster-1-device-pool-1-driver.example.com-lqx8x      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
-cluster-1-device-pool-2-driver.example.com-29t7b      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
+00000-driver.example.com-cluster-1-node-1-abcde      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
+00000-driver.example.com-cluster-1-node-2-fghij      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
 ```
 
 Try the following troubleshooting steps:
@@ -190,5 +190,5 @@ kubectl delete -f https://k8s.io/examples/dra/deviceclass.yaml
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)

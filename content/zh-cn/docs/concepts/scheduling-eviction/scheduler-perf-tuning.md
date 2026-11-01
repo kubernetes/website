@@ -164,12 +164,11 @@ If you want the scheduler to score all nodes in your cluster, set
 
 <!--
 ## Example
+
+Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
 -->
 ## 示例
 
-<!--
-Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
--->
 下面就是一个将 `percentageOfNodesToScore` 参数设置为 50% 的例子。
 
 ```yaml
@@ -185,14 +184,13 @@ percentageOfNodesToScore: 50
 
 <!--
 ## Tuning percentageOfNodesToScore
--->
-## 调节 percentageOfNodesToScore 参数
 
-<!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
 minimum value of 100 nodes.
 -->
+## 调节 percentageOfNodesToScore 参数
+
 `percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。
 另外，还有一个 100 个 Node 的最小值是硬编码在程序中。
 
@@ -226,17 +224,18 @@ number of nodes in a cluster are checked for feasibility, some nodes are not
 sent to be scored for a given Pod. As a result, a Node which could possibly
 score a higher value for running the given Pod might not even be passed to the
 scoring phase. This would result in a less than ideal placement of the Pod.
+-->
+值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，
+很多节点都没有进入到打分阶段。这样就会造成一种后果，
+一个本来可以在打分阶段得分很高的节点甚至都不能进入打分阶段。
 
+<!--
 You should avoid setting `percentageOfNodesToScore` very low so that kube-scheduler
 does not make frequent, poor Pod placement decisions. Avoid setting the
 percentage to anything below 10%, unless the scheduler's throughput is critical
 for your application and the score of nodes is not important. In other words, you
 prefer to run the Pod on any Node as long as it is feasible.
 -->
-值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，
-很多节点都没有进入到打分阶段。这样就会造成一种后果，
-一个本来可以在打分阶段得分很高的节点甚至都不能进入打分阶段。
-
 由于这个原因，这个参数不应该被设置成一个很低的值。
 通常的做法是不会将这个参数的值设置的低于 10。
 很低的参数值一般在调度器的吞吐量很高且对节点的打分不重要的情况下才使用。
@@ -245,13 +244,12 @@ prefer to run the Pod on any Node as long as it is feasible.
 
 <!--
 ## How the scheduler iterates over Nodes
--->
-## 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
 
-<!--
 This section is intended for those who want to understand the internal details
 of this feature.
 -->
+## 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
+
 如果你想要理解这一个特性的内部细节，那么请仔细阅读这一章节。
 
 <!--
@@ -296,6 +294,90 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 After going over all the Nodes, it goes back to Node 1.
 -->
 在评估完所有 Node 后，将会返回到 Node 1，从头开始。
+
+<!--
+## Enabling Opportunistic Batching
+-->
+## 启用 Opportunistic 批处理
+
+{{< feature-state feature_gate_name="OpportunisticBatching" >}}
+
+<!--
+When scheduling large workloads, Pods often have equivalent scheduling constraints and require the scheduler
+to perform the same operations over and over again. The [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+feature allows the scheduler to reuse the filtering and scoring results between scheduling cycles
+which greatly speeds up the scheduling process.
+-->
+在调度大规模工作负载时，Pod 往往具有相同的调度约束，这需要调度器反复执行相同的操作。
+[Opportunistic 批处理](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+特性允许调度器在调度周期之间重用过滤和评分结果，从而显著加快调度过程。
+
+<!--
+With rescoring, the scheduler can continue batching in that situation. When the next Pod can still fit on
+the previously chosen Node, the scheduler updates that Node's score and puts it back into the cached candidate list.
+If rescoring does not succeed, the scheduler falls back to the existing behavior and flushes the cache.
+-->
+通过重新评分，调度器可以在该情况下继续进行批处理。如果下一个 Pod
+仍能放入之前选定的节点，调度器会更新该节点的评分，并将其放回缓存的候选列表中。
+如果重新评分失败，调度器将回退到原有行为并清空缓存。
+
+<!--
+Basically, this feature works like:
+1. The scheduler schedules pod-1 and caches the scheduling result.
+1. The scheduler schedules pod-2, 3, ... with the cached results.
+1. The cache expires after 0.5 second. The scheduler schedules the next pod which builds a new cache.
+
+Pods with equivalent scheduling constraints have to come to the scheduling cycle back to back. When the scheduler schedules a pod with different constraints, the cache is not used, but replaced with a new one.
+-->
+基本上，此功能的工作原理如下：
+
+1. 调度器调度 pod-1 并将调度结果缓存。
+1. 调度器使用缓存的结果调度 pod-2、pod-3 等。
+1. 缓存会在 0.5 秒后过期。调度器调度下一个 Pod，该 Pod 会构建一个新的缓存。
+
+具有相同调度约束的 Pod 必须连续进入调度周期。
+当调度器调度具有不同约束的 Pod 时，缓存不会被使用，而是会被新的缓存替换。
+
+<!--
+We apply this batching scheduling to specific pods that:
+1. Don't have inter pod affinity/anti-affinity
+1. Don't have topology spread constraints
+1. Don't have DRA (i.e., don't have any Resource Claims)
+1. Don't request extended resources that are backed by DRA
+-->
+我们将这种批量调度应用于满足以下条件的特定 Pod：
+
+1. Pod 之间不存在亲和性/反亲和性
+1. 没有拓扑分布约束
+1. 没有 DRA（即没有任何资源申领）
+1. 不要请求由 DRA 提供支持的扩展资源
+
+<!--
+Also, to enable this feature, the scheduler configuration needs to:
+1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
+1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+to `true` to make the batching more efficient
+-->
+此外，要启用此特性，调度器配置需要：
+
+1. 禁用[默认拓扑扩展](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)（设置为空）
+
+1. 将 [InterPodAffinityArgs](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+   的 `IgnorePreferredTermsOfExistingPods` 设置为 `true` 以提高批处理效率。
+
+<!--
+Note that whenever:
+1. Existing pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Custom plugins are used, they need to implement the Signature extension point
+
+The restrictions and conditions are expected to evolve in future releases.
+-->
+请注意以下情况：
+
+1. 如果现有 Pod 所使用的 Pod 亲和性约束与任何已调度 Pod 的标签匹配，则此特性可能无法带来任何好处。
+1. 如果使用了自定义插件，这些插件需要实现 Signature 扩展点。
+
+这些限制和条件预计会在未来的版本中进行调整。
 
 ## {{% heading "whatsnext" %}}
 

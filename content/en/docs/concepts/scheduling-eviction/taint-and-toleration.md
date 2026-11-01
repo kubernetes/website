@@ -183,8 +183,8 @@ In addition to `Equal` and `Exists`, you can use numeric comparison operators
 (`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based
 scheduling, such as matching nodes by reliability level or SLA tier.
 
-* `Gt` matches when the toleration value is greater than the taint value.
-* `Lt` matches when the toleration value is less than the taint value.
+* `Gt` matches when the taint value is greater than the toleration value.
+* `Lt` matches when the taint value is less than the toleration value.
 
 For numeric operators, both the toleration and taint values must be valid integers.
 If either value cannot be parsed as an integer, the toleration does not match.
@@ -228,7 +228,7 @@ When using numeric comparison operators:
 * If a value cannot be parsed as an integer, the toleration does not match.
 * Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
 * For `PreferNoSchedule` with numeric operators: if a pod's toleration doesn't satisfy the numeric comparison
-  (e.g., toleration value < taint value when using `Gt`), the scheduler gives the node a lower priority
+  (e.g., taint value < toleration value when using `Gt`), the scheduler gives the node a lower priority
   but may still schedule there if no better options exist.
 {{< /note >}}
 
@@ -398,8 +398,8 @@ arbitrary tolerations to DaemonSets.
 
 ## Device taints and tolerations
 
-Instead of tainting entire nodes, administrators can also [taint individual devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
-when the cluster uses [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+Instead of tainting entire nodes, administrators can also [taint individual devices](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations)
+when the cluster uses [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/)
 to manage special hardware. The advantage is that tainting can be targeted towards exactly the hardware that
 is faulty or needs maintenance. Tolerations are also supported and can be specified when requesting
 devices. Like taints they apply to all pods which share the same allocated device.
@@ -409,4 +409,4 @@ devices. Like taints they apply to all pods which share the same allocated devic
 * Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
   and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* Read about [device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+* Read about [device taints and tolerations](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations)

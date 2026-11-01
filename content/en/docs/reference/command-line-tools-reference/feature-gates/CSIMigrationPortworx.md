@@ -21,6 +21,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.35"
+
+removed: true
 ---
 Enables shims and translation logic to route volume operations
 from the Portworx in-tree plugin to Portworx CSI plugin.

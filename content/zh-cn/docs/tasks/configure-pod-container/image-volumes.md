@@ -31,25 +31,22 @@ mount content from OCI registries inside containers.
 - The container runtime needs to support the image volumes feature
 - You need to exec commands in the host
 - You need to be able to exec into pods
-- You need to enable the `ImageVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 -->
 - 容器运行时需要支持镜像卷特性
 - 你需要能够在主机上执行命令
 - 你需要能够进入 Pod 执行命令
-- 你需要启用 `ImageVolume`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
 
 <!--
 ## Run a Pod that uses an image volume {#create-pod}
 
-An image volume for a pod is enabled setting the `volumes.[*].image` field of `.spec`
+An image volume for a pod is enabled by setting the `volumes[*].image` field of `.spec`
 to a valid reference and consuming it in the `volumeMounts` of the container. For example:
 -->
 ## 运行使用镜像卷的 Pod   {#create-pod}
 
-为 Pod 启用镜像卷的方式是：在 `.spec` 中将 `volumes.[*].image`
+为 Pod 启用镜像卷的方式是：在 `.spec` 中将 `volumes[*].image`
 字段设置为一个有效的镜像并在容器的 `volumeMounts` 中消费此镜像。例如：
 
 {{% code_sample file="pods/image-volumes.yaml" %}}
@@ -69,7 +66,7 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
 2. 挂接到容器：
 
    ```shell
-   kubectl attach -it image-volume bash
+   kubectl exec image-volume -it -- bash
    ```
 
 <!--
@@ -148,7 +145,7 @@ from Kubernetes v1.33 when using the image volume feature.
 2. 挂接到容器：
 
    ```shell
-   kubectl attach -it image-volume bash
+   kubectl exec image-volume -it -- bash
    ```
 
 <!--

@@ -1,7 +1,6 @@
 ---
 title: Evento
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    Um relatório de um evento em algum lugar do cluster. Geralmente denota alguma mudança de estado no sistema.

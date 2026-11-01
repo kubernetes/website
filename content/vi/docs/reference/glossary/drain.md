@@ -1,7 +1,6 @@
 ---
 title: Drain
 id: drain
-date: 2024-12-27
 full_link:
 short_description: >
   Thực hiện việc loại bỏ các Pod khỏi một Node một cách an toàn để chuẩn bị cho việc bảo trì hoặc gỡ bỏ.

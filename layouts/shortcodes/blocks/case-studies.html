@@ -17,10 +17,10 @@
 				{{ $dark = $logo }}
 			{{- end -}}
 	  <div class="case-study-item">
-        <picture>
-	  	  <source srcset="{{$dark.RelPermalink}}" media="(prefers-color-scheme: dark)">
-	  	    <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
-		</picture>
+        <img src="{{ $logo.RelPermalink }}"
+             data-theme-src-light="{{ $logo.RelPermalink }}"
+             data-theme-src-dark="{{ $dark.RelPermalink }}"
+             alt="{{ .Title }}">
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>

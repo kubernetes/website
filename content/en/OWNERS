@@ -14,6 +14,6 @@ labels:
 - language/en
 
 # Disable inheritance so that the localization team don't end up as approvers for English
-# https://github.com/kubernetes/community/blob/master/communication/website-guidelines.md
+# https://github.com/kubernetes/community/blob/main/communication/website-guidelines.md
 options:
   no_parent_owners: true

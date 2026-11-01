@@ -7,6 +7,18 @@ weight: 10
 
 * Ręczne skalowanie istniejącej aplikacji za pomocą narzędzia kubectl.
 
+## {{% heading "prerequisites" %}}
+
+Polecenia w tym poradniku są napisane w składni zgodnej ze standardem POSIX, którą
+obsługują domyślne powłoki w Linuxie i macOS (np. bash, zsh, sh). Jeśli
+używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) lub
+[Git Bash](https://gitforwindows.org/), żeby
+uruchomić je w takiej formie. Polecenia z `export`, `$()` i podobnymi
+elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
+
+
+
 ## Skalowanie aplikacji {#scaling-an-application}
 
 {{% alert %}}
@@ -24,7 +36,7 @@ Jeśli nie pracowałeś z wcześniejszymi sekcjami, zacznij od sekcji
 
 _Skalowanie_ polega na zmianie liczby replik w Deploymencie.
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli próbujesz to zrobić po
 [poprzedniej sekcji](/pl/docs/tutorials/kubernetes-basics/expose/expose-intro/),
 mogłeś usunąć utworzoną usługę lub utworzyłeś usługę
@@ -39,7 +51,7 @@ polecenie, aby utworzyć nową z ustawionym `typem` na `LoadBalancer`:
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ## Ogólnie o skalowaniu {#scaling-overview}
 
@@ -59,7 +71,7 @@ _Skalowanie polega na zmianie liczby replik w ramach Deploymentu._
 
 Kiedy zwiększamy skalę Deploymentu, uruchomienie nowych Podów jest zlecane na Węzłach, które
 posiadają odpowiednio dużo zasobów. Operacja skalowania zwiększy liczbę Podów do oczekiwanej
-wartości. W Kubernetesie możliwe jest również [autoskalowanie](/docs/tasks/run-application/horizontal-pod-autoscale/)
+wartości. W Kubernetesie możliwe jest również [autoskalowanie](/docs/concepts/workloads/autoscaling/)
 Podów, ale jest ono poza zakresem niniejszego samouczka. Istnieje także możliwość
 skalowania do zera - w ten sposób zatrzymane zostaną wszystkie Pody należące do konkretnego Deploymentu.
 
@@ -174,7 +186,7 @@ Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
 ```
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli używasz minikube z Docker Desktop jako sterownika
 kontenerów, potrzebny jest tunel minikube. Wynika to z
 faktu, że kontenery w Docker Desktop są izolowane od Twojego hosta.
@@ -197,7 +209,7 @@ Następnie użyj podany URL, aby uzyskać dostęp do aplikacji:
 ```shell
 curl 127.0.0.1:51082
 ```
-{{< /note >}}
+{{< /alert >}}
 
 ### Zmniejsz Skalę {#scale-down}
 

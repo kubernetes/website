@@ -1,4 +1,3 @@
-
 <!--
 Read a file containing the kubeadm configuration API and report any validation problems
 -->
@@ -29,7 +28,7 @@ In this version of kubeadm, the following API versions are supported:
 
 - kubeadm.k8s.io/v1beta3
 
-```
+```shell
 kubeadm config validate [flags]
 ```
 
@@ -38,7 +37,7 @@ kubeadm config validate [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -46,10 +45,25 @@ kubeadm config validate [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--allow-deprecated-api</td>
+</tr>
+<tr>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Allow validation of deprecated APIs.
+-->
+允许验证已弃用的 API。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--allow-experimental-api</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Allow validation of experimental, unreleased APIs.
@@ -63,7 +77,8 @@ Allow validation of experimental, unreleased APIs.
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -77,7 +92,8 @@ Path to a kubeadm configuration file.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for validate
@@ -95,7 +111,7 @@ validate 的帮助命令。
 -->
 ### 从父命令继承而来的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -109,7 +125,8 @@ validate 的帮助命令。
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
@@ -124,7 +141,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

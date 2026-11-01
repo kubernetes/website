@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Namespace là một lớp trừu tượng trong Kubernetes dùng để cô lập các nhóm tài nguyên trong một cụm.

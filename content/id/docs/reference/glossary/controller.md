@@ -1,7 +1,6 @@
 ---
 title: Pengontrol
 id: controller
-date: 2018-04-12
 full_link: /id/docs/concepts/architecture/controller/
 short_description: >
   Kontrol tertutup yang mengawasi kondisi bersama dari klaster melalui apiserver dan membuat perubahan yang mencoba untuk membawa kondisi saat ini ke kondisi yang diinginkan.

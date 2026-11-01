@@ -1,7 +1,6 @@
 ---
 title: एग्रीगेशन लेयर
 id: aggregation-layer
-date: 2018-10-08
 full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
   एग्रीगेशन लेयर आपको अपने क्लस्टर में अतिरिक्त कुबेरनेट्स-शैली API स्थापित करने देता है।

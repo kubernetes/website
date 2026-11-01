@@ -324,6 +324,10 @@ fail validation.
 					<li><code>net.ipv4.tcp_fin_timeout</code> (since Kubernetes 1.29)</li>
 					<li><code>net.ipv4.tcp_keepalive_intvl</code> (since Kubernetes 1.29)</li>
 					<li><code>net.ipv4.tcp_keepalive_probes</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_rmem</code> (since Kubernetes 1.32)</li>
+					<li><code>net.ipv4.tcp_wmem</code> (since Kubernetes 1.32)</li>
+					<li><code>net.ipv4.tcp_slow_start_after_idle</code> (since Kubernetes 1.37)</li>
+					<li><code>net.ipv4.tcp_notsent_lowat</code> (since Kubernetes 1.37)</li>
 				</ul>
 			</td>
 		</tr>
@@ -511,7 +515,7 @@ of individual policies are not defined here.
 Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as:
 
 - [Kubewarden](https://github.com/kubewarden)
-- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [Kyverno](https://kyverno.io/policies)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
 ## Pod OS field

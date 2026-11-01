@@ -77,7 +77,7 @@ all 操作的帮助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -90,6 +90,29 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 -->
 用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm
 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to a directory that contains files named &quot;target[suffix][+patchtype].xtension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;ube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;orednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;son&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&uot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches re applied first alpha-numerically.
+-->
+指向一个目录的路径，目录中包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件。
+例如 &quot;kube-apiserver0+merge.yaml&quot; 或 &quot;etcd.json&quot;。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、
+&quot;kubeletconfiguration&quot;、&quot;corednsdeployment&quot;、&quot;kubeproxydaemonset&quot; 之一。
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或 &quot;json&quot;，对应 kubectl 所支持的补丁格式。
+默认 &quot;patchtype&quot; 为 &quot;strategic&quot;。
+&quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
+&quot;suffix&quot; 是一个可选字符串，可用于按字母与数字顺序确定哪些补丁优先应用。
 </p>
 </td>
 </tr>

@@ -20,10 +20,12 @@ auto_generated: true
 
 ## `Config`     {#Config}
 
+<p>
 <!--
 Config holds the information needed to build connect to remote kubernetes clusters as a given user
 -->
-<p>Config 保存以给定用户身份构建连接到远程 Kubernetes 集群所需的信息 </p>
+Config 保存以给定用户身份构建连接到远程 Kubernetes 集群所需的信息 
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -36,83 +38,100 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <code>string</code>
 </td>
 <td>
-  <!--
-  Legacy field from pkg/api/types.go TypeMeta.TODO(jlowdermilk): remove this after eliminating downstream dependencies.
-  -->
-   <p>来自 pkg/api/types.go TypeMeta 的遗留字段。</p>
+<p>
+<!--
+Legacy field from pkg/api/types.go TypeMeta.TODO(jlowdermilk): remove this after eliminating downstream dependencies.
+-->
+来自 <code>pkg/api/types.go</code> 中 TypeMeta 的遗留字段。
+TODO(jlowdermilk)：在消除下游依赖后将其移除。
+</p>
 </td>
 </tr>
 <tr><td><code>apiVersion</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this after eliminating downstream dependencies.
-  -->
-   <p>来自 pkg/api/types.go TypeMeta 的遗留字段。</p>
+<p>
+<!--
+Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this after eliminating downstream dependencies.
+-->
+来自 <code>pkg/api/types.go</code> TypeMeta 的遗留字段。
+</p>
 </td>
 </tr>
 <tr><td><code>preferences</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#Preferences"><code>Preferences</code></a>
 </td>
 <td>
-  <!--
-  Preferences holds general information to be use for cli interactions.
-  Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
-  -->
-  <p><code>preferences</code>保存用于 CLI 交互的一般信息。
-  已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。
-  </p>
+<p>
+<!--
+Preferences holds general information to be use for cli interactions.
+Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
+-->
+<code>preferences</code>保存用于 CLI 交互的一般信息。
+已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。
+</p>
 </td>
 </tr>
 <tr><td><code>clusters</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedCluster"><code>[]NamedCluster</code></a>
 </td>
 <td>
-  <!--
-  Clusters is a map of referenceable names to cluster configs.
-  -->
-   <p><code>clusters</code> 是从可引用名称到集群配置的映射。</p>
+<p>
+<!--
+Clusters is a map of referencable names to cluster configs.
+-->
+<code>clusters</code> 是从可引用名称到集群配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>users</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedAuthInfo"><code>[]NamedAuthInfo</code></a>
 </td>
 <td>
-  <!--
-  AuthInfos is a map of referenceable names to user configs.
-  -->
-   <p><code>users</code> 是一个从可引用名称到用户配置的映射。</p>
+<p>
+<!--
+AuthInfos is a map of referencable names to user configs.
+-->
+<code>users</code> 是一个从可引用名称到用户配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>contexts</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedContext"><code>[]NamedContext</code></a>
 </td>
 <td>
-  <!--
-  Contexts is a map of referenceable names to context configs.
-  -->
-  <p><code>contexts</code> 是从可引用名称到上下文配置的映射。</p>
+<p>
+<!--
+Contexts is a map of referencable names to context configs.
+-->
+<code>contexts</code> 是从可引用名称到上下文配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>current-context</code><B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  CurrentContext is the name of the context that you would like to use by default.
-  -->
-  <p><code>current-context</code> 是默认情况下你想使用的上下文的名称。</p>
+<p>
+<!--
+CurrentContext is the name of the context that you would like to use by default.
+-->
+<code>current-context</code> 是默认情况下你想使用的上下文的名称。
+</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
 <a href="#NamedExtension"><code>[]NamedExtension</code></a>
 </td>
 <td>
-  <!--
-  Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  -->
-  <p><code>extensions</code> 保存额外信息。这对于扩展程序是有用的，目的是使读写操作不会破解未知字段。</p>
+<p>
+<!--
+Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
+-->
+<code>extensions</code> 保存额外信息。这对于扩展程序是有用的，
+目的是使读写操作不会破解未知字段。
+</p>
 </td>
 </tr>
 </tbody>
@@ -127,10 +146,12 @@ Config holds the information needed to build connect to remote kubernetes cluste
 
 - [NamedAuthInfo](#NamedAuthInfo)
 
+<p>
 <!--
 AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
 -->
-<p>AuthInfo 包含描述身份信息的信息。这一信息用来告诉 kubernetes 集群你是谁。</p>
+AuthInfo 包含描述身份信息的信息。这一信息用来告诉 kubernetes 集群你是谁。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -140,97 +161,114 @@ AuthInfo contains information that describes identity information.  This is use 
 <code>string</code>
 </td>
 <td>
-  <!--
-  ClientCertificate is the path to a client cert file for TLS
-  -->
-  <p><code>client-certificate</code> 是 TLS 客户端证书文件的路径。</p>
+<p>
+<!--
+ClientCertificate is the path to a client cert file for TLS
+-->
+<code>client-certificate</code> 是 TLS 客户端证书文件的路径。
+</p>
 </td>
 </tr>
 <tr><td><code>client-certificate-data</code><br/>
 <code>[]byte</code>
 </td>
 <td>
-  <!--
-  ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
-  -->
-  <p><code>client-certificate-data</code> 包含用于 TLS 连接的、来自客户端证书的 PEM 编码的数据。
-  此字段值会覆盖 <code>client-certificate</code> 内容。</p>
+<p>
+<!--
+ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
+-->
+<code>client-certificate-data</code> 包含用于 TLS 连接的、来自客户端证书的 PEM 编码的数据。
+此字段值会覆盖 <code>client-certificate</code> 内容。
+</p>
 </td>
 </tr>
 <tr><td><code>client-key</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  ClientKey is the path to a client key file for TLS
-  -->
-  <p><code>client-key</code> 是用于 TLS 连接的客户端密钥文件的路径。</p>
+<p>
+<!--
+ClientKey is the path to a client key file for TLS
+-->
+<code>client-key</code> 是用于 TLS 连接的客户端密钥文件的路径。
+</p>
 </td>
 </tr>
 <tr><td><code>client-key-data</code><br/>
 <code>[]byte</code>
 </td>
 <td>
-  <!--
-  ClientKeyData contains PEM-encoded data from a client key file for TLS. Overrides ClientKey
-  -->
-   <p><code>client-key-data</code> 包含用于 TLS 连接的、来自客户端密钥文件的
-   PEM 编码数据。此数据会覆盖 <code>client-key</code> 的内容。</p>
+<p>
+<!--
+ClientKeyData contains PEM-encoded data from a client key file for TLS. Overrides ClientKey
+-->
+<code>client-key-data</code> 包含用于 TLS 连接的、来自客户端密钥文件的
+PEM 编码数据。此数据会覆盖 <code>client-key</code> 的内容。
+</p>
 </td>
 </tr>
 <tr><td><code>token</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  Token is the bearer token for authentication to the kubernetes cluster
-  -->
-  <p><code>token</code> 是用于向 kubernetes 集群进行身份验证的持有者令牌。</p>
+<p>
+<!--
+Token is the bearer token for authentication to the kubernetes cluster
+-->
+<code>token</code> 是用于向 kubernetes 集群进行身份验证的持有者令牌。
+</p>
 </td>
 </tr>
 <tr><td><code>tokenFile</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  TokenFile is a pointer to a file that contains a bearer token (as described above).
-  If both Token and TokenFile are present, the TokenFile will be periodically read and
-  the last successfully read value takes precedence over Token.
-  -->
-  <p><code>tokenFile</code> 是一个指针，指向包含有持有者令牌（如上所述）的文件。
-  如果 <code>token</code> 和 <code>tokenFile</code> 都存在，则系统会周期性地读取
-  <code>tokenFile</code> 文件，并且最近一次成功读入的内容会优先于 <code>token</code> 内容。
-  </p>
+<p>
+<!--
+TokenFile is a pointer to a file that contains a bearer token (as described above).
+If both Token and TokenFile are present, the TokenFile will be periodically read and
+the last successfully read value takes precedence over Token.
+-->
+<code>tokenFile</code> 是一个指针，指向包含有持有者令牌（如上所述）的文件。
+如果 <code>token</code> 和 <code>tokenFile</code> 都存在，则系统会周期性地读取
+<code>tokenFile</code> 文件，并且最近一次成功读入的内容会优先于 <code>token</code> 内容。
+</p>
 </td>
 </tr>
 <tr><td><code>as</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  Impersonate is the username to impersonate.  The name matches the flag.
-  -->
-  <p><code>as</code> 是要冒充的用户名。名字与命令行标志相匹配。</p>
+<p>
+<!--
+Impersonate is the username to impersonate.  The name matches the flag.
+-->
+<code>as</code> 是要冒充的用户名。名字与命令行标志相匹配。
+</p>
 </td>
 </tr>
 <tr><td><code>as-uid</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  ImpersonateUID is the uid to impersonate.
-  -->
-  <p><code>as-uid</code> 是要冒充的 UID。</p>
+<p>
+<!--
+ImpersonateUID is the uid to impersonate.
+-->
+<code>as-uid</code> 是要冒充的 UID。
+</p>
 </td>
 </tr>
 <tr><td><code>as-groups</code><br/>
 <code>[]string</code>
 </td>
 <td>
-  <!--
-  ImpersonateGroups is the groups to impersonate.
-  -->
-  <p><code>as-groups</code> 是要冒充的用户组。</p>
+<p>
+<!--
+ImpersonateGroups is the groups to impersonate.
+-->
+<code>as-groups</code> 是要冒充的用户组。
+</p>
 </td>
 </tr>
 <tr><td><code>as-user-extra</code><br/>

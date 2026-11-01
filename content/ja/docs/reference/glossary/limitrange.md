@@ -1,7 +1,6 @@
 ---
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /ja/docs/concepts/policy/limit-range/
 short_description: >
   各Namespace内のコンテナまたはPodごとのリソース消費量を制限するための制約を提供します。

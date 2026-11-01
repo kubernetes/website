@@ -1,7 +1,6 @@
 ---
 title: Kubectl
 id: kubectl
-date: 2018-04-12
 full_link: /docs/user-guide/kubectl-overview/
 short_description: >
   Herramienta de línea de comandos para comunicarse con un servidor ejecutando la API de Kubernetes.

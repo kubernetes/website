@@ -136,7 +136,7 @@ storage](/docs/tasks/administer-cluster/kms-provider/) of a cluster, especially
 for cluster secrets. This adds an additional layer of protection for data
 exfiltration since the actual stored data in the cluster is encrypted. This
 means that the API Server is actually decrypting the data as it retrieves them
-from storage. the data from storage. The APIServer must have the key for that
+from storage. The APIServer must have the key for that
 storage version in order to decode the object properly.
 
 The storage version in this case is more than just the binary encoding of the
@@ -148,7 +148,7 @@ it can be used as a storage version.
 Multiple storage versions for a single resource can pose problems for cluster
 administrators. A cluster administrator may not remove old versions of an API
 for CRDs which may be unsupported until they are sure that all objects are no
-longer using the storege version associated with it. With a large number of
+longer using the storage version associated with it. With a large number of
 objects and an opaque view into which ones are new and which ones still are
 backed by old storage versions, it makes it difficult to tell when a version can
 be safely removed. If a version is removed prematurely, it can mean being unable

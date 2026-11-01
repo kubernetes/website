@@ -296,6 +296,108 @@ Some checks to consider:
   要对列表、代码段、表格、注释和图像等元素格外留心。
 
 <!--
+### Website infrastructure
+
+For changes involving the website framework (such as Hugo upgrades, Docsy theme updates),
+Reviewers must ask the PR author to confirm the site builds without errors in production mode, or verify it themselves.
+This is necessary because automated Netlify previews may not catch specific asset transformation 
+or path resolution errors that only trigger during a full production build.
+-->
+### 网站基础设施   {#website-infrastructure}
+
+对于涉及网站框架的变更（例如 Hugo 升级、Docsy 主题更新），
+评审人必须要求 PR 作者确认站点在生产模式下的构建无错误，或者评审人自行进行验证。
+这是必要的，因为自动化的 Netlify 预览可能无法捕捉某些仅在完整生产构建过程中触发的资源转换或路径解析错误。
+
+<!--
+Reviewers can verify the build using one of the following methods:
+
+- **Container-based (recommended):** Ensures environment parity without needing Hugo installed locally.
+-->
+评审人可以通过以下方法之一验证构建：
+
+- **基于容器（推荐）：** 无需在本地安装 Hugo，即可确保环境一致性。
+
+  {{< note >}}
+
+  <!--
+  The default `container-serve` target runs in development mode. 
+  For a production-equivalent build, temporarily edit the `Makefile` and change 
+  `--environment development` to `--environment production` in the `container-serve` target, then run:
+  -->
+
+  默认的 `container-serve` 目标在开发模式下运行。
+  若要进行等同于生产环境的构建，请临时编辑 `Makefile`，
+  将 `container-serve` 目标中的 `--environment development`
+  修改为 `--environment production`，然后运行：
+
+  ```bash
+  make container-image
+  make container-serve
+  ```
+
+  {{< /note >}}
+
+
+<!--
+- **Local Hugo via Make:** Uses the existing Makefile target for a production build. Note that this performs a full build and is slower than serving the site.
+-->
+- **通过 Make 使用本地 Hugo：**使用现有的 Makefile 目标进行生产构建。
+  请注意，这会执行完整构建，速度比启动站点服务更慢。
+
+  ```bash
+  make production-build
+  ```
+
+<!--
+- **Direct Hugo command:** The fastest way to perform the production build without serving the site.
+-->
+- **直接使用 Hugo 命令：**这是在不启动站点服务的情况下执行生产构建的最快方式。
+
+  ```bash
+  hugo --gc --minify --templateMetrics --environment production
+  ```
+
+<!--
+#### Verify the output
+ 
+A successful build will display a summary table:
+-->
+#### 验证输出
+
+成功构建将显示如下汇总表：
+
+```text
+| EN  | ZH-CN | JA | ...
+---+------+-------+-----+
+Pages | 2601 | 2148 | 747 | ...
+
+Built in 95753 ms
+Environment: "production"
+```
+
+<!--
+If the build fails, you will see explicit ERROR logs;
+a failure such as a shortcode or asset transformation might look like:
+-->
+如果构建失败，你将看到明确的 ERROR 日志；
+例如，短代码或资源转换失败可能类似如下：
+
+```text
+ERROR render of "page" failed: "/src/layouts/shortcodes/cve-feed.html:3:14": 
+execute of template failed: template: shortcodes/cve-feed.html:3:14: 
+failed to transform "scss/main.scss" (text/x-scss): SCSS processing failed
+```
+
+<!--
+Review the Netlify preview to see how the failure is rendered on the site.
+If the production build fails, the PR must not be merged until the author addresses the
+transformation or template errors.
+-->
+请查看 Netlify 预览以了解该错误在站点上的呈现方式。
+如果生产构建失败，在作者修复相关转换或模板错误之前，不得合并该 PR。
+
+<!--
 ### Blog
 
 Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).

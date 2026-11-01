@@ -1,4 +1,167 @@
 # i18n strings for the Spanish (main) site.
+# NOTE: Por favor, mantenga las entradas en orden alfabético al editar.
+
+# Para "y", véase [conjunction_1]
+
+[api_reference_title]
+other = "Referencia de la API"
+
+[auto_generated_edit_notice]
+other = "(página autogenerada)"
+
+[auto_generated_pageinfo]
+other = """<p>Esta página se genera automáticamente.</p><p>Si planeas reportar un problema con esta página, menciona que la página es autogenerada en la descripción de tu problema. Es posible que la corrección deba realizarse en otro lugar del proyecto Kubernetes.</p>"""
+
+[banner_acknowledgement]
+other = "Ocultar este aviso"
+
+[blog_post_show_more]
+other = "Mostrar más publicaciones..."
+
+[browser_clipboard_support_warning]
+other = "Lo sentimos, tu navegador no soporta la copia de este ejemplo al portapapeles."
+
+[case_study_prefix]
+other = "Caso de estudio:"
+
+[caution]
+other = "Precaución:"
+
+[cleanup_heading]
+other = "Limpieza"
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "Licencia ICP:"
+
+[community_advice_guidelines]
+other = "También puedes leer sobre nuestras {{ .link }}."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Síguenos en"
+
+[community_bluesky_link]
+other = "Ver en Bluesky"
+
+[community_bluesky_loading]
+other = "Cargando las últimas noticias desde Bluesky..."
+
+[community_calendar_name]
+other = "Calendario de eventos"
+
+[community_contribute]
+other = "Contribuir"
+
+[community_contributor_site_name]
+other = "Sitio web de contribuidores"
+
+[community_develop]
+other = "Desarrollo"
+
+[community_forum_name]
+other = "Foro"
+
+[community_github_name]
+other = "GitHub"
+
+[community_introduce]
+other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese. Para obtener más información sobre cómo contribuir a Kubernetes, consulta nuestra {{ .link }}."
+
+[community_join]
+other= "Únete a la comunidad"
+
+[community_learn]
+other = "Aprender"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "X (anteriormente Twitter)"
+
+# Also cover [community_using] if localizing this site
+
+[community_x_name]
+other = "X (anteriormente Twitter)"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "y"
+
+[copy_sample_to_clipboard]
+other = "Copiar {{ .filename }} al portapapeles"
+
+[cve_id]
+other = "ID de CVE"
+
+[cve_issue_url]
+other = "URL del Issue de CVE en GitHub"
+
+[cve_summary]
+other = "Resumen del problema"
+
+[cve_table]
+other = "Lista oficial de CVEs de Kubernetes"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(última actualización: %s)"
+
+[deprecation_title]
+other = "Estás viendo la documentación para la versión de Kubernetes:"
+
+[deprecation_warning]
+other = " la documentación ya no se mantiene activamente. La versión que estás viendo actualmente es una instantánea estática. Para obtener información actualizada, consulta la "
+
+[deprecation_file_warning]
+other = "Obsoleto"
+
+[outdated_content_title]
+other = "La información en este documento puede estar desactualizada"
+
+[outdated_content_message]
+other = "Este documento tiene una fecha de actualización anterior al original, por lo que la información que contiene puede estar desactualizada. Si puedes leer en inglés, consulta la versión en inglés para obtener la información más reciente: "
+
+[dockershim_message]
+other = """Dockershim ha sido eliminado del proyecto Kubernetes a partir de la versión 1.24. Lee las <a href="/dockershim">Preguntas frecuentes sobre la eliminación de Dockershim</a> para más detalles."""
+
+[docs_label_browse]
+other = "Explorar documentos"
+
+[docs_label_contributors]
+other = "Contribuidores"
+
+[docs_label_i_am]
+other = "SOY..."
+
+[docs_label_users]
+other = "Usuarios"
+
+[docs_page_versions]
+other = "Este %s es para Kubernetes %s. Si deseas usar una versión diferente de Kubernetes, consulta las siguientes páginas en su lugar:"
 
 [docs_version_current]
 other = "(esta documentación)"
@@ -9,206 +172,586 @@ other = "Versión actual"
 [docs_version_other_heading]
 other = "Versiones anteriores"
 
-[deprecation_warning]
-other = " ya no mantiene activamente la documentación. La versión que está viendo actualmente es una instantánea estática. Para la documentación actualizada, visita la "
+[docs_version_release_information]
+other = "información de la versión"
 
-[deprecation_file_warning]
-other = "Descontinuado"
+[end_of_life]
+other = "Fin de vida útil (End of Life):"
 
-[objectives_heading]
-other = "Objetivos"
+[envvars_heading]
+other = "Variables de entorno"
 
-[cleanup_heading]
-other = "Limpieza de recursos"
+[error_404_were_you_looking_for]
+other = "¿Estabas buscando?"
 
-[prerequisites_heading]
-other = "Antes de empezar"
+[error_copy_to_clipboard]
+other = "Error"
 
-[subscribe_button]
-other = "Suscribir"
+[examples_heading]
+other = "Ejemplos"
 
-[whatsnext_heading]
-other = "Siguientes pasos"
+[feature_gate_enabled]
+other = "(habilitado por defecto)"
+
+[feature_gate_disabled]
+other = "(deshabilitado por defecto)"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Obsoleto"
+
+[feature_gate_table_header_default]
+other = "Por defecto"
+
+[feature_gate_table_header_feature]
+other = "Característica"
+
+[feature_gate_table_header_from]
+other = "Desde"
+
+[feature_gate_table_header_since]
+other = "Desde"
+
+[feature_gate_table_header_stage]
+other = "Estado"
+
+[feature_gate_table_header_to]
+other = "Hasta"
+
+[feature_gate_table_header_until]
+other = "Hasta"
+
+[feature_state]
+other = "ESTADO DE LA RECURSOS:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "El estado de esta característica se determina por la configuración de su feature gate. Para más información, consulta la {{ .link }}."
 
 [feedback_heading]
 other = "Comentarios"
 
+[feedback_no]
+other = "No"
+
 [feedback_question]
-other = "¿Esta página le ha sido de ayuda?"
+other = "¿Fue útil esta página?"
 
 [feedback_yes]
 other = "Sí"
 
-[feedback_no]
-other = "No"
+[final_patch_release]
+other = "Lanzamiento final de parche"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "dirección de correo electrónico"
+
+[javascript_required]
+other = "JavaScript debe estar [habilitado](https://www.enable-javascript.com/) para ver este contenido"
+
+[katacoda_message]
+other = """<h4>Cierre de los tutoriales interactivos</h4>
+<p>Los tutoriales interactivos que se encontraban anteriormente en este sitio web han sido cerrados.</p>
+<p>Kubernetes agradece a O'Reilly y Katacoda por muchos años de ayuda
+a las personas a dar sus primeros pasos en el aprendizaje de Kubernetes.</p>
+<p>El cierre se produjo tras la <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">adquisición</a>
+de Katacoda por parte de O'Reilly Media en 2019.</p>
+<hr />
+<p>Los tutoriales dejaron de funcionar después del <b>31 de marzo de 2023</b>. Estás viendo este aviso porque esta página en particular aún no ha sido actualizada tras dicho cierre.</p>"""
+
+[kubectl_ref_collapse_all]
+other = "Contraer todo"
+
+[kubectl_ref_expand_all]
+other = "Expandir todo"
+
+[kubectl_ref_search_placeholder]
+other = "Buscar comandos o descripción (ej. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "Ver referencia completa"
+
+[kubernetes]
+other = "Kubernetes"
+
+[latest_release]
+other = "Último lanzamiento:"
 
 [latest_version]
 other = "última versión."
 
-[version_check_mustbe]
-other = "Su versión de Kubernetes debe ser "
+[layouts_blog_pager_next]
+other = "Siguiente >>"
 
-[version_check_mustbeorlater]
-other = "Su versión de Kubernetes debe ser como mínimo "
+[layouts_blog_pager_prev]
+other = "<< Anterior"
 
-[version_check_tocheck]
-other = "Para comprobar la versión, introduzca "
+[layouts_case_studies_list_tell]
+other = "Cuenta tu historia"
 
-[caution]
-other = "Precaución:"
+[layouts_docs_glossary_aka]
+other = "También conocido como"
 
-[note]
-other = "Nota:"
+[layout_docs_glossary_architecture_description]
+other = "Los componentes internos de Kubernetes."
 
-[warning]
-other = "Advertencia:"
+[layout_docs_glossary_architecture_name]
+other = "Arquitectura"
 
-[main_read_about]
-other = "Leer"
+[layouts_docs_glossary_click_details_after]
+other = "indicadores a continuación para obtener una explicación más detallada de cualquier término en particular."
 
-[main_read_more]
-other = "Leer más"
+[layouts_docs_glossary_click_details_before]
+other = "Haz clic en los"
 
-[main_github_invite]
-other = "¿Está interesado en participar en el código base de Kubernetes?"
+[layout_docs_glossary_community_description]
+other = "Relacionado con el desarrollo de código abierto de Kubernetes."
 
-[main_github_view_on]
-other = "Ver en GitHub"
+[layout_docs_glossary_community_name]
+other = "Comunidad"
 
-[main_github_create_an_issue]
-other = "Abrir un Issue"
+[layout_docs_glossary_core-object_description]
+other = "Un tipo de recurso que Kubernetes soporta por defecto."
 
-[main_community_explore]
-other = "Explorar la comunidad"
+[layout_docs_glossary_core-object_name]
+other = "Objeto principal"
 
-[main_kubernetes_features]
-other = "Características de Kubernetes"
+[layouts_docs_glossary_description]
+other = "Este glosario pretende ser una lista exhaustiva y estandarizada de la terminología de Kubernetes. Incluye términos técnicos específicos de Kubernetes, así como términos más generales que proporcionan un contexto útil."
+
+[layouts_docs_glossary_deselect_all]
+other = "Deseleccionar todo"
+
+[layout_docs_glossary_extension_description]
+other = "Personalizaciones soportadas de Kubernetes."
+
+[layout_docs_glossary_extension_name]
+other = "Extensión"
+
+[layouts_docs_glossary_filter]
+other = "Filtrar términos de acuerdo a sus etiquetas"
+
+[layout_docs_glossary_fundamental_description]
+other = "Relevante para un usuario principiante de Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_networking_description]
+other = "Cómo se comunican los componentes de Kubernetes entre sí (y con programas fuera del cluster)."
+
+[layout_docs_glossary_networking_name]
+other = "Redes"
+
+[layout_docs_glossary_operation_description]
+other = "Inicio y mantenimiento de Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Operación"
+
+[layout_docs_glossary_security_description]
+other = "Mantener las aplicaciones de Kubernetes a salvo y seguras."
+
+[layout_docs_glossary_security_name]
+other = "Seguridad"
+
+[layouts_docs_glossary_select_all]
+other = "Seleccionar todo"
+
+[layout_docs_glossary_storage_description]
+other = "Cómo manejan los datos persistentes las aplicaciones de Kubernetes."
+
+[layout_docs_glossary_storage_name]
+other = "Almacenamiento"
+
+[layout_docs_glossary_tool_description]
+other = "Software que hace que Kubernetes sea más fácil o mejor de usar."
+
+[layout_docs_glossary_tool_name]
+other = "Herramienta"
+
+[layout_docs_glossary_user-type_description]
+other = "Representa un tipo común de usuario de Kubernetes."
+
+[layout_docs_glossary_user-type_name]
+other = "Tipo de usuario"
+
+[layout_docs_glossary_workload_description]
+other = "Aplicaciones que se ejecutan en Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Carga de trabajo (Workload)"
+
+[layouts_docs_partials_feedback_improvement]
+other = "sugerir una mejora"
+
+[layouts_docs_partials_feedback_issue]
+other = """Abre un issue en el [Repositorio de GitHub](https://www.github.com/kubernetes/website/) si deseas """
+
+[layouts_docs_partials_feedback_or]
+other = "o"
+
+[layouts_docs_partials_feedback_problem]
+other = "reportar un problema"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Gracias por la retroalimentacion. Si tienes una pregunta específica y respondible sobre cómo usar Kubernetes, hazla en"
+
+[layouts_docs_search_fetching]
+other = "Buscando resultados..."
+
+[legacy_repos_message]
+other = """Los repositorios de paquetes heredados (`apt.kubernetes.io` y `yum.kubernetes.io`) han sido [declarados obsoletos y congelados a partir del 13 de septiembre de 2023](/blog/2023/08/31/legacy-package-repository-deprecation/). **Se recomienda encarecidamente y se requiere el uso de los [nuevos repositorios de paquetes alojados en `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/) para poder instalar las versiones de Kubernetes lanzadas después del 13 de septiembre de 2023.** Los repositorios heredados obsoletos y sus contenidos podrían ser eliminados en cualquier momento en el futuro y sin previo aviso. Los nuevos repositorios de paquetes ofrecen descargas para las versiones de Kubernetes a partir de la v1.24.0."""
+
+[main_by]
+other = "por"
 
 [main_cncf_project]
 other = """Somos un proyecto graduado de la <a href="https://cncf.io/">CNCF</a></p>"""
 
+[main_community_explore]
+other = "Explorar la comunidad"
+
+[main_contribute]
+other = "Contribuir"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Todos los derechos reservados. The Linux Foundation tiene marcas registradas y utiliza marcas comerciales. Para obtener una lista de las marcas comerciales de The Linux Foundation, consulta nuestra <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">página de Uso de Marcas Comerciales</a>"""
+
+[main_documentation_license]
+other = """Los Autores de Kubernetes | Documentación distribuida bajo <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_github_invite]
+other = "¿Te interesa colaborar en la base de código principal de Kubernetes?"
+
+[main_github_view_on]
+other = "Ver en GitHub"
+
+[main_kubernetes_features]
+other = "Características de Kubernetes"
+
 [main_kubeweekly_baseline]
-other = "¿Interesado en recibir las últimas noticias de Kubernetes? Suscríbase a KubeWeekly."
+other = "¿Te interesa recibir las últimas noticias de Kubernetes? Regístrate en KubeWeekly."
 
 [main_kubeweekly_past_link]
 other = "Ver boletines anteriores"
 
 [main_kubeweekly_signup]
-other = "Suscríbase"
-
-[main_contribute]
-other = "Contribuir"
-
-[main_edit_this_page]
-other = "Editar esta página"
+other = "Suscribirse"
 
 [main_page_history]
-other ="Historial de cambios"
+other ="Historial de la página"
 
 [main_page_last_modified_on]
-other = "Página modificada por última vez el "
+other = "Página modificada por última vez el"
 
-[main_by]
-other = "por"
+[main_read_about]
+other = "Leer sobre"
 
-[main_documentation_license]
-other = """Los autores de Kubernetes | Documentación distribuida bajo <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+[main_read_more]
+other = "Leer más"
 
-[main_copyright_notice]
-other = """The Linux Foundation &reg;. Todos los derechos reservados. The Linux Foundation tiene marcas registradas y utiliza marcas registradas. Para obtener una lista de marcas registradas por The Linux Foundation, visita <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+[monthly_patch_release]
+other = "Lanzamiento mensual de parche"
 
-# Labels for the docs portal home page.
-[docs_label_browse]
-other = "Explorar la documentación"
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "n/a"
 
-[docs_label_contributors]
-other = "Contribuidores"
+[note]
+other = "Nota:"
 
-[docs_label_users]
-other = "Usuarios"
+[objectives_heading]
+other = "Objetivos"
 
-[docs_label_i_am]
-other = "Yo soy..."
+[options_heading]
+other = "Opciones"
 
-# layouts > blog > pager
+[outdated_blog__message]
+other = "Este artículo tiene más de un año de antigüedad. Los artículos más antiguos pueden contener contenido desactualizado. Verifica que la información de la página no se haya vuelto incorrecta desde su publicación."
 
-[layouts_blog_pager_prev]
-other = "<< Anterior"
+[page_deprecated]
+other = "(página inactiva)"
 
-[layouts_blog_pager_next]
-other = "Siguiente >>"
+[page_not_available_in_language]
+other = "Esta página no está disponible en {{ .Language }}"
 
-# layouts > blog > list
+[parentoptions_heading]
+other = "Opciones del padre heredadas"
 
-[layouts_case_studies_list_tell]
-other = "Cuéntanos tu historia"
+[patch_release]
+other = "Lanzamiento de parche"
 
-# layouts > docs > glossary
+[post_create_issue]
+other = "Crear un issue"
 
-[layouts_docs_glossary_description]
-other = "Este glosario tiene la intención de ser una lista completa y estandarizada de la terminología de Kubernetes. Incluye términos técnicos que son específicos de k8s, así como términos más generales que proporcionan un contexto."
+[prerequisites_heading]
+other = "Antes de empezar"
 
-[layouts_docs_glossary_filter]
-other = "Filtrar terminos por categoría:"
+[previous_patches]
+other = "Lanzamientos de parches:"
 
-[layouts_docs_glossary_select_all]
-other = "Seleccionar todos"
+[release_actively_supported]
+other = "Soportado activamente"
 
-[layouts_docs_glossary_deselect_all]
-other = "Eliminar selección"
+[release_announcement_blog]
+other = "Blog de anuncio del lanzamiento"
 
-[layouts_docs_glossary_aka]
-other = "También conocido como"
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """Puedes encontrar enlaces para descargar los componentes de Kubernetes (y sus sumas de verificación) en los archivos [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG). Alternativamente, utiliza [downloadkubernetes.com](https://www.downloadkubernetes.com/) para filtrar por versión y arquitectura."""
 
-[layouts_docs_glossary_click_details_before]
-other = "Haz click en el símbolo"
+[release_binary_arch]
+other  = "Arquitectura"
 
-[layouts_docs_glossary_click_details_after]
-other = "para obtener información detallada sobre el término."
+[release_binary_arch_option]
+other = "Arquitecturas"
 
-# layouts > docs > search
+[release_binary_copy_link]
+other = "Copiar enlace"
 
-[layouts_docs_search_fetching]
-other = "Obteniendo resultados.."
+[release_binary_copy_link_certifcate]
+other = "cert"
 
-# layouts > partial > feedback
+[release_binary_copy_link_checksum]
+other = "checksum"
 
-[layouts_docs_partials_feedback_thanks]
-other = "Muchas gracias por el feedback. Si tienes alguna pregunta específica sobre como usar Kubernetes, puedes preguntar en"
+[release_binary_copy_link_signature]
+other = "firma"
 
-[layouts_docs_partials_feedback_issue]
-other = "Abre un issue en el repositorio de GitHub si quieres"
+[release_binary_copy_link_tooltip]
+other = "copiar al portapapeles"
 
-[layouts_docs_partials_feedback_problem]
-other = "reportar un problema"
+[release_binary_download]
+other = "Descargar binario"
 
-[layouts_docs_partials_feedback_or]
-other = "o"
+[release_binary_download_tooltip]
+other = "descargar archivo binario"
 
-[layouts_docs_partials_feedback_improvement]
-other = "sugerir alguna mejora"
+[release_binary_options]
+other = "Opciones de descarga"
 
-# Community links
-[community_twitter_name]
-other = "Twitter"
-[community_github_name]
-other = "GitHub"
-[community_linkedin_name]
-other = "LinkedIn"
-[community_slack_name]
-other = "Slack"
-[community_stack_overflow_name]
-other = "Stack Overflow"
-[community_forum_name]
-other = "Foro"
-[community_events_calendar]
-other = "Calendario de eventos"
-[community_youtube_name]
-other = "YouTube"
+[release_binary_os]
+other = "Sistema operativo"
 
-# UI elements
+[release_binary_os_option]
+other = "Sistemas operativos"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Descargar binarios de los componentes de Kubernetes"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """Puedes encontrar los enlaces para descargar los componentes de Kubernetes <current-version> (junto con sus sumas de verificación) a continuación. Para acceder a las descargas de versiones soportadas anteriores, visita el enlace de la documentación respectiva para [versiones anteriores](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) o utiliza [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """Para descargar versiones de parches anteriores de los componentes de Kubernetes <current-version> (y sus sumas de verificación), por favor consulta el archivo [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+
+[release_binary_version]
+other  = "Versión"
+
+[release_binary_version_option]
+other = "Última versión"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(lanzado: "
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
+[release_date_format]
+# example: other = ":date_medium"
+other = "2006-01-02"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "Enero de 2006"
+
+[release_details]
+other = "Ver detalles del lanzamiento"
+
+[release_cherry_pick_deadline]
+other = "Fecha límite para Cherry Pick"
+
+[release_download_page]
+other = "Descargar Kubernetes {{ .minor_version }}"
+
+[release_end_of_life]
+other = "Fin de vida útil (End Of Life)"
+
+[release_end_of_life_date]
+other = "Fecha de fin de vida útil"
+
+[release_end_of_life_details_past]
+other = """Este lanzamiento llegó al fin de su vida útil el {{ .release_eol_date }}. Kubernetes {{ .minor_version }} ya no recibe actualizaciones de seguridad ni correcciones de errores. Actualiza a una [versión soportada](/releases/)."""
+
+[release_github_tag]
+other = "Etiqueta de GitHub"
+
+[release_latest_patch]
+other = "Último lanzamiento de parche"
+
+[release_links]
+other = "Enlaces relacionados"
+
+[release_maintenance_details_past]
+other = "Este lanzamiento entró en modo de mantenimiento el {{ .maintenance_mode_start_date }}. Solo se aceptan correcciones de seguridad críticas. La fecha de fin de vida útil para Kubernetes {{ .minor_version }} es {{ .release_eol_date }}. Por favor, planifica tu actualización a una [versión más reciente](/releases/)."
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} entra en modo de mantenimiento el {{ .maintenance_mode_start_date }}; la fecha de fin de vida útil para Kubernetes {{ .minor_version }} es {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} entró en modo de mantenimiento el {{ .maintenance_mode_start_date }}**.
+
+La fecha de fin de vida útil para Kubernetes {{ .minor_version }} es {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Modo de mantenimiento"
+
+[release_maintenance_mode_start_date]
+other = "Fecha de inicio del modo de mantenimiento"
+
+[release_released_on]
+other = "Lanzado el {{ .date }}"
+
+[release_full_details_initial_text]
+other = "Completo"
+
+[release_information_navbar]
+other = "Información del lanzamiento"
+
+[release_minor_version]
+other = "Versión menor"
+
+[release_patch_releases_heading]
+one = "Lanzamiento de parche"
+other = "Lanzamientos de parches"
+
+[release_upcoming_patch_heading]
+other = "Próximo parche"
+
+[release_info_next_patch]
+other = "El próximo lanzamiento de parche es **%s**."
+
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
+[release_info_eol]
+# Set this to "" if your localization implements the new strings.
+other = ""
+
+[release_note]
+other = "Nota"
+
+[release_schedule]
+other = "Calendario"
+
+[release_series_page_intro]
+other = "Esta página proporciona una visión general de la serie de lanzamientos de Kubernetes {{ .minor_version }}."
+
+[release_status]
+other = "Estado del lanzamiento"
+
+[release_target_date]
+other = "Fecha prevista"
+
+[release_changelog]
+other = "Changelog"
+
+[seealso_heading]
+other = "Ver también"
+
+[sidebar_toggle_nav]
+other = "Alternar navegación de la sección"
+
+[subscribe_button]
+other = "Suscribirse"
+
+[success_copy_to_clipboard]
+other = "Éxito"
+
+[synopsis_heading]
+other = "Sinopsis"
+
+[tab_default]
+other = "Pestaña {{ . }}"
+
+[thirdparty_message]
+other = """Esta sección enlaza a proyectos de terceros que proporcionan la funcionalidad requerida por Kubernetes. Los autores del proyecto Kubernetes no son responsables de estos proyectos, los cuales se listan en orden alfabético. Para añadir un proyecto a esta lista, lee la <a href="/docs/contribute/style/content-guide/#third-party-content">guía de contenido</a> antes de enviar un cambio. <a href="#third-party-content-disclaimer">Más información.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Consejos sobre contenido de terceros"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; Este elemento enlaza a un proyecto o producto de terceros que no forma parte de Kubernetes en sí mismo. <a class="alert-more-info" href="#third-party-content-disclaimer">Más información</a>"""
+[thirdparty_message_disclaimer]
+other = """<p>Los elementos de esta página se refieren a productos o proyectos de terceros que proporcionan la funcionalidad requerida por Kubernetes. Los autores del proyecto Kubernetes no son responsables de esos productos o proyectos de terceros. Consulta las <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">directrices del sitio web de la CNCF</a> para más detalles.</p><p>Deberías leer la <a href="/docs/contribute/style/content-guide/#third-party-content">guía de contenido</a> antes de proponer un cambio que añada un enlace adicional de terceros.</p>"""
+
+[thirdparty_message_vendor]
+other = """Los elementos de esta página se refieren a proveedores externos a Kubernetes. Los autores del proyecto Kubernetes no son responsables de esos productos o proyectos de terceros. Para añadir un proveedor, producto o proyecto a esta lista, lee la <a href="/docs/contribute/style/content-guide/#third-party-content">guía de contenido</a> antes de enviar un cambio. <a href="#third-party-content-disclaimer">More información.</a>"""
+
+[toast_failure_copycode]
+other="Error al copiar al portapapeles: "
+
+[toast_success_copycode]
+other = "Copiado al portapapeles: "
+
+[translated_by]
+other = "Traducido por"
+
 [ui_search]
 other = "Buscar"
 
-[input_placeholder_email_address]
-other = "dirección de correo electrónico"
+[version_check_mustbe]
+other = "Tu servidor de Kubernetes debe ser de la versión "
+
+[version_check_mustbeorlater]
+other = "Tu servidor de Kubernetes debe ser de la versión o posterior a "
+
+[version_check_tocheck]
+other = "Para verificar la versión, ingresa "
+
+[version_menu]
+other = "Versiones"
+
+[warning]
+other = "Advertencia:"
+
+[warning_copy_to_clipboard]
+other = "Advertencia"
+
+[whatsnext_heading]
+other = "¿Qué sigue?"

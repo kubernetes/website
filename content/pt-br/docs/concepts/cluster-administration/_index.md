@@ -5,6 +5,12 @@ content_type: concept
 description: >
   Detalhes de baixo nível relevantes para criar ou administrar um cluster Kubernetes.
 no_list: true
+card:
+  name: setup
+  weight: 60
+  anchors:
+  - anchor: "#securing-a-cluster"
+    title: Protegendo um cluster
 ---
 
 <!-- overview -->

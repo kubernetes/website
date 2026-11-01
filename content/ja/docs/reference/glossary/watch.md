@@ -1,7 +1,6 @@
 ---
 title: Watch
 id: watch
-date: 2024-07-02
 full_link: /docs/reference/using-api/api-concepts/#api-verbs
 short_description: >
   Kubernetes内のオブジェクトへの変更をストリームとして追跡するために使用される動詞です。

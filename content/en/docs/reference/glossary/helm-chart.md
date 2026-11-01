@@ -1,7 +1,6 @@
 ---
 title: Helm Chart
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
 short_description: >
   A package of pre-configured Kubernetes configurations that can be managed with the Helm tool.

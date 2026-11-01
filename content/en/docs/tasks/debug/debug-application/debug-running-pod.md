@@ -386,6 +386,76 @@ because a container has crashed or a container image doesn't include debugging
 utilities, such as with [distroless images](
 https://github.com/GoogleContainerTools/distroless).
 
+### Permissions for ephemeral containers {#ephemeral-container-permissions}
+
+For security reasons, adding an ephemeral container to a running Pod uses the Pod's
+`ephemeralcontainers` subresource. At the API level this is an
+**update** request on `pods/ephemeralcontainers`. Just being authorized to **patch**
+a Pod does not allow users to add ephemeral containers to that Pod.
+
+The `pods/ephemeralcontainers` subresource is intentionally not part of the
+default `admin` and `edit`
+[user-facing ClusterRoles](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
+For background on why, see
+[Ephemeral Containers: Access control](/docs/concepts/workloads/pods/ephemeral-containers/#access-control).
+
+If you run `kubectl debug` to add an ephemeral container without the required
+permission, you will see an error similar to:
+
+```
+Error from server (Forbidden): pods "example" is forbidden: User "alice" cannot
+patch resource "pods/ephemeralcontainers" in API group "" in the namespace "example-ns"
+```
+
+If you're managing cluster access and your cluster uses [Kubernetes RBAC](/docs/reference/access-authn-authz/rbac/), you can grant this permission in one of two ways.
+
+To extend the built-in `edit` and `admin` ClusterRoles cluster-wide, create an
+aggregated ClusterRole labeled for
+[ClusterRole aggregation](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles).
+The `aggregate-to-edit` label is sufficient because the default `edit`
+ClusterRole itself aggregates into `admin`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: aggregate-ephemeralcontainers-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+To grant the permission only to specific users or groups (for example, a
+dedicated debugging or SRE group), create a narrower ClusterRole and bind it
+directly:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: debug-ephemeralcontainers
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+{{< note >}}
+Ephemeral containers are evaluated by [Pod Security admission](/docs/concepts/security/pod-security-admission/)
+against the same [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+as regular containers. When granting permission to add ephemeral containers to
+Pods governed by the `baseline` or `restricted` policy, choose a matching
+[debugging profile](#debugging-profiles) such as `--profile=baseline` or
+`--profile=restricted` with `kubectl debug`.
+
+Any admission webhooks or admission policies in your cluster, that do not evaluate
+the `ephemeralContainers` field, may also need updating to intercept the
+`pods/ephemeralcontainers` resource and evaluate the `ephemeralContainers` field in a Pod's spec.
+{{< /note >}}
+
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
@@ -639,6 +709,41 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 ```shell
 kubectl delete pod node-debugger-mynode-pdx84
 ```
+
+### Capturing and analyzing Node/Pod traffic
+
+When debugging networking issues, capturing and analyzing network traffic from Nodes/Pods can provide valuable insights
+into connectivity problems, DNS resolution failures, or unexpected network behavior.
+
+You can use `kubectl debug` with the `--profile=sysadmin` flag to run network capture tools on a node.
+First, create a debugging session on the node where your Pod is running:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} -it --image=ubuntu:latest
+```
+
+Once inside the debug container, install tcpdump and capture traffic on the node's network interfaces:
+
+```shell
+apt-get update && apt-get install -y tcpdump
+tcpdump -i any -n
+```
+
+{{< note >}}
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod node-debugger-mynode-pdx84
+```
+{{< /note >}}
+
+You can also capture traffic from a specific Pod:
+
+```shell
+kubectl debug --profile=sysadmin pod/${POD_NAME} -n ${NAMESPACE} -it --image=ubuntu:latest
+```
+
+And then perform the same `tcpdump` command inside the debug container to capture traffic from the Pod's network namespace.
 
 ## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 

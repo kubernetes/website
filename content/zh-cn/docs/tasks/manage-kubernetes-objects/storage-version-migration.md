@@ -11,6 +11,7 @@ reviewers:
 - jpbetz
 - enj
 - nilekhc
+- michaelasp
 content_type: task
 min-kubernetes-server-version: v1.30
 weight: 60
@@ -31,6 +32,19 @@ Kubernetes 依赖主动重写的 API 数据来支持与静态存储相关的一�
 两个著名的例子是已存储资源的版本化模式（即针对给定资源的首选存储模式从 v1 更改为 v2）
 和静态加密（即基于数据加密方式的变化来重写过时的数据）。
 
+<!--
+Running storage version migrations allows for the assurance that all objects for
+a Resource have been migrated off of a stale storage version. The requirements
+to running a storage migration is ensuring that the Resource has an integer
+resource version. All Kubernetes Resources and CRDs are ensured to have this
+property, but migration will fail if this is not the case, for instance with
+aggregated APIs.
+-->
+运行存储版本迁移可以确保某个 Resource 的所有对象都已从过期的存储版本完成迁移。
+执行存储迁移的要求是确保此 Resource 具有整数的资源版本号。
+所有 Kubernetes 内置 Resource 以及 CRD 都需确保满足这一要求；
+但如果不满足，迁移将会失败，例如使用聚合 API 的情况。
+
 ## {{% heading "prerequisites" %}}
 
 <!--
@@ -41,21 +55,13 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-Ensure that your cluster has the `StorageVersionMigrator` and `InformerResourceVersion`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled. You will need control plane administrator access to make that change.
-
-Enable storage version migration REST api by setting runtime config
-`storagemigration.k8s.io/v1alpha1` to `true` for the API server. For more information on
-how to do that,
-read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
+The `StorageVersionMigrator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)
+and `storagemigration.k8s.io/v1` REST API are enabled by default in all clusters.
 -->
-确保你的集群启用了 `StorageVersionMigrator` 和 `InformerResourceVersion`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-你需要有控制平面管理员权限才能执行此项变更。
-
-在 API 服务器上将运行时配置 `storagemigration.k8s.io/v1alpha1` 设为 `true`，启用存储版本迁移 REST API。
-有关如何执行此操作的更多信息，请阅读[启用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
+`StorageVersionMigrator`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)和
+`storagemigration.k8s.io/v1` REST API 在所有集群中默认启用。
 
 <!-- steps -->
 
@@ -87,7 +93,9 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   Make sure to enable automatic reload of encryption
   configuration file by setting `--encryption-provider-config-automatic-reload` to true.
   -->
-  确保通过将 `--encryption-provider-config-automatic-reload` 设置为 true，允许自动重新加载加密配置文件。
+
+  确保通过将 `--encryption-provider-config-automatic-reload` 设置为 true，
+  允许自动重新加载加密配置文件。
 
 <!--
 - Create a Secret using kubectl.
@@ -104,7 +112,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Update the encryption configuration file as follows to rotate the encryption key.
 -->
-- [验证](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)该
+- [验证](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)此
   Secret 对象的序列化数据带有前缀 `k8s:enc:aescbc:v1:key1`。
 
 - 按照以下方式更新加密配置文件，以轮换加密密钥。
@@ -132,26 +140,27 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
 -->
-- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
+- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2`
+  进行重新加密，你将使用**存储版本迁移**。
 
 - 创建以下名为 `migrate-secret.yaml` 的 StorageVersionMigration 清单：
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   ```
 
   <!--
-  Create the object using _kubectl_ as follows:
+  Create the object using `kubectl` as follows:
   -->
-  使用以下 _kubectl_ 命令创建对象：
+
+  使用以下 `kubectl` 命令创建对象：
 
   ```shell
   kubectl apply -f migrate-secret.yaml
@@ -167,17 +176,18 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   获取 StorageVersionMigration 对象的方式如下：
 
   ```shell
-  kubectl get storageversionmigration.storagemigration.k8s.io/secrets-migration -o yaml
+  kubectl wait --for=condition=Succeeded storageversionmigration.storagemigration.k8s.io/secrets-migration
   ```
 
   <!--
   The output is similar to:
   -->
+
   输出类似于：
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
     uid: 628f6922-a9cb-4514-b076-12d3c178967c
@@ -186,18 +196,17 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   status:
     conditions:
-      - type: Running
-        status: "False"
-        lastUpdateTime: "2024-03-12T20:29:46Z"
-        reason: StorageVersionMigrationInProgress
-      - type: Succeeded
-        status: "True"
-        lastUpdateTime: "2024-03-12T20:29:46Z"
-        reason: StorageVersionMigrationSucceeded
+    - type: Running
+      status: "False"
+      lastUpdateTime: "2024-03-12T20:29:46Z"
+      reason: StorageVersionMigrationInProgress
+    - type: Succeeded
+      status: "True"
+      lastUpdateTime: "2024-03-12T20:29:46Z"
+      reason: StorageVersionMigrationSucceeded
     resourceVersion: "84"
   ```
 
@@ -223,10 +232,11 @@ version, it's important to ensure that all existing CRs stored as v1 are migrate
 This migration can be achieved through _Storage Version Migration_ to migrate all CRs from v1 to v2.
 -->
 考虑这样一种情况：
-用户创建了 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
-来提供自定义资源 (CR)，并将其设置为首选的存储模式。
+用户创建了 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}（CRD）
+来提供自定义资源（CR），并将其设置为首选的存储模式。
 当需要引入 CRD 的 v2 版本时，只需提供转换 Webhook 就可以为 v2 版本提供服务。
-基于转换 Webhook 的方式能够实现更平滑的过渡，用户可以使用 v1 或 v2 模式创建 CR，并通过合适的 Webhook 执行必要的模式转换。
+基于转换 Webhook 的方式能够实现更平滑的过渡，用户可以使用 v1 或 v2 模式创建
+CR，并通过合适的 Webhook 执行必要的模式转换。
 在将 v2 设置为首选的存储模式版本之前，重要的是要确保将当前已存储为 v1 的所有 CR 已被迁移到 v2。
 这种迁移可以通过使用**存储版本迁移**将所有 CR 从 v1 迁移到 v2 来达成。
 
@@ -239,39 +249,50 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   apiVersion: apiextensions.k8s.io/v1
   kind: CustomResourceDefinition
   metadata:
-    name: selfierequests.stable.example.com
+    name: selfierequests.example.com
   spec:
-    group: stable.example.com
+    group: example.com
     names:
-      plural: SelfieRequests
-      singular: SelfieRequest
+      plural: selfierequests
+      singular: selfierequest
       kind: SelfieRequest
       listKind: SelfieRequestList
     scope: Namespaced
     versions:
-      - name: v1
-        served: true
-        storage: true
-        schema:
-          openAPIV3Schema:
-            type: object
-            properties:
-              hostPort:
-                type: string
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            hostPort:
+              type: string
     conversion:
       strategy: Webhook
       webhook:
         clientConfig:
-          url: https://127.0.0.1:9443/crdconvert
+          url: "https://127.0.0.1:9443/crdconvert"
           caBundle: <CABundle info>
       conversionReviewVersions:
-        - v1
-        - v2
+      - v1
+      - v2
+  ```
+
+  <!--
+  The stored version at this point should be `v1`, confirm this by running:
+  -->
+
+  此时存储的版本应当是 `v1`，运行以下命令来确认这一点：
+
+  ```shell
+  kubectl get crd selfierequests.example.com -o jsonpath='{.spec.versions[?(@.storage==true)].name}'
   ```
 
   <!--
   Create CRD using kubectl:
   -->
+
   使用 kubectl 创建 CRD：
 
   ```shell
@@ -284,7 +305,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - 为 testcrd 示例创建一个清单。命名为 `cr1.yaml` 并使用以下内容：
 
   ```yaml
-  apiVersion: stable.example.com/v1
+  apiVersion: example.com/v1
   kind: SelfieRequest
   metadata:
     name: cr1
@@ -294,6 +315,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   Create CR using kubectl:
   -->
+
   使用 kubectl 创建 CR：
 
   ```shell
@@ -306,30 +328,32 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - 通过从 etcd 获取对象来验证 CR 是否以 v1 格式被写入和存储。
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
 
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
 - Update the CRD `test-crd.yaml` to include v2 version for serving and storage
   and v1 as serving only, as follows:
 -->
-- 如下更新 CRD `test-crd.yaml`，将 v2 版本设置为 served 和 storage，并将 v1 设置为仅 served：
+- 如下更新 CRD `test-crd.yaml`，将 v2 版本设置为 served 和 storage，
+  并将 v1 设置为仅 served：
 
   ```yaml
   apiVersion: apiextensions.k8s.io/v1
   kind: CustomResourceDefinition
   metadata:
-  name: selfierequests.stable.example.com
+  name: selfierequests.example.com
   spec:
-    group: stable.example.com
+    group: example.com
     names:
-      plural: SelfieRequests
-      singular: SelfieRequest
+      plural: selfierequests
+      singular: selfierequest
       kind: SelfieRequest
       listKind: SelfieRequestList
     scope: Namespaced
@@ -366,8 +390,19 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ```
 
   <!--
+  The stored version now should be `v2`, confirm this:
+  -->
+
+  现在存储的版本应是 `v2`，运行以下命令来确认这一点：
+
+  ```shell
+  kubectl get crd selfierequests.example.com -o jsonpath='{.spec.versions[?(@.storage==true)].name}'
+  ```
+
+  <!--
   Update CRD using kubectl:
   -->
+
   使用 kubectl 更新 CRD：
 
   ```shell
@@ -380,7 +415,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - 如下创建名为 `cr2.yaml` 的 CR 资源文件：
 
   ```yaml
-  apiVersion: stable.example.com/v2
+  apiVersion: example.com/v2
   kind: SelfieRequest
   metadata:
     name: cr2
@@ -402,12 +437,13 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - 通过从 etcd 获取对象来验证 CR 是否以 v2 格式被写入和存储。
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr2 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr2 [...] | hexdump -C
   ```
 
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
@@ -417,20 +453,20 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
   spec:
     resource:
-      group: stable.example.com
-      version: v1
-      resource: SelfieRequest
+      group: example.com
+      resource: selfierequests
   ```
 
   <!--
   Create the object using _kubectl_ as follows:
   -->
-  使用如下 _kubectl_ 命令创建此对象：
+
+  使用如下 `kubectl` 命令创建此对象：
 
   ```shell
   kubectl apply -f migrate-crd.yaml
@@ -441,8 +477,8 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   `Succeeded` condition set to "True" in the status field. Get the migration resource
   as follows:
 -->
-- 使用 status 监控 Secret 的迁移。
-  若迁移成功，应在 status 字段中将 `Succeeded` 状况设置为 "True"。
+- 使用 `status` 监控 Secret 的迁移。
+  若迁移成功，应在 `status` 字段中将 `Succeeded` 状况设置为 "True"。
   获取迁移资源的方式如下：
 
   ```shell
@@ -452,11 +488,12 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   <!--
   The output is similar to:
   -->
+
   输出类似于：
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
     uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
@@ -464,8 +501,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
     creationTimestamp: "2024-03-12T22:40:01Z"
   spec:
     resource:
-      group: stable.example.com
-      version: v1
+      group: example.com
       resource: testcrds
   status:
     conditions:
@@ -486,10 +522,56 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - 通过从 etcd 获取对象来验证之前创建的 cr1 是否现在以 v2 格式被写入和存储。
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
 
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
+
+<!--
+- Also verify that the CRD's stored version status is now only v2:
+-->
+- 还需确认该 CRD 的存储版本状态目前是否仅为 v2：
+
+  ```shell
+  kubectl get crd testcrds.example.com -o yaml
+  ```
+
+  <!--
+  The output is similar to:
+  -->
+
+  输出示例如下：
+
+  ```yaml
+  kind: CustomResourceDefinition
+  apiVersion: apiextensions.k8s.io/v1
+  metadata:
+    name: testcrds.example.com
+  spec:
+    group: example.com
+    names:
+      kind: TestCRD
+      plural: testcrds
+    scope: Namespaced
+    versions:
+      - name: v1
+        served: true
+        storage: false
+      - name: v2
+        served: true
+        storage: true
+  status:
+    acceptedNames:
+      kind: TestCRD
+      plural: testcrds
+    conditions:
+      - type: Established
+        status: "True"
+    storedVersions:
+      - v2
+  ```
+  

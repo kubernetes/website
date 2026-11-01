@@ -29,8 +29,8 @@ That will configure one of your Nodes to advertise a dongle resource.
 
 ## Assign an extended resource to a Pod
 
-To request an extended resource, include the `resources:requests` field in your
-Container manifest. Extended resources are fully qualified with any domain outside of
+To request an extended resource, include the `resources.requests.<resource_name>` field
+in the container manifest.
 `*.kubernetes.io/`. Valid extended resource names have the form `example.com/foo` where
 `example.com` is replaced with your organization's domain and `foo` is a
 descriptive resource name.
@@ -128,7 +128,23 @@ kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
+## Extended resources backed by DRA
 
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+The exercise above uses an extended resource that a Node advertises. Extended
+resources can also be backed by
+{{< glossary_tooltip text="Dynamic Resource Allocation" term_id="dra" >}} (DRA):
+a DeviceClass sets an `extendedResourceName`, and the scheduler satisfies matching
+extended-resource requests using DRA devices instead of Node-advertised capacity.
+
+A Pod requests the resource the same way in both cases — through
+`resources.requests.<resource_name>` — so a workload does not need to know whether a
+device plugin or DRA provides it. The same resource name can even be provided by a
+device plugin on some Nodes and by DRA on others.
+
+For the DeviceClass setup and examples, see
+[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource).
 
 ## {{% heading "whatsnext" %}}
 

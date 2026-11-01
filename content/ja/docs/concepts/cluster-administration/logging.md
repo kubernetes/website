@@ -22,7 +22,7 @@ weight: 60
 
 この例では、1秒に1回標準出力ストリームにテキストを書き込むコンテナを利用する、`Pod` specificationを使います。
 
-{{% codenew file="debug/counter-pod.yaml" %}}
+{{% code_sample file="debug/counter-pod.yaml" %}}
 
 このPodを実行するには、次のコマンドを使用します:
 
@@ -90,7 +90,7 @@ Docker JSONロギングドライバーは、各行を個別のメッセージと
 * Kubernetesスケジューラーとkube-proxyはコンテナ内で実行されます。
 * kubeletとコンテナランタイムはコンテナ内で実行されません。
 
-systemdを搭載したマシンでは、kubeletとコンテナランタイムがjournaldに書き込みます。systemdが存在しない場合、kubeletとコンテナランタイムは`var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナ内のシステムコンポーネントは、デフォルトのロギングメカニズムを迂回して、常に`/var/log`ディレクトリに書き込みます。それらは[`klog`](https://github.com/kubernetes/klog)というロギングライブラリを使用します。これらのコンポーネントのロギングの重大性に関する規則は、[development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)に記載されています。
+systemdを搭載したマシンでは、kubeletとコンテナランタイムがjournaldに書き込みます。systemdが存在しない場合、kubeletとコンテナランタイムは`var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナ内のシステムコンポーネントは、デフォルトのロギングメカニズムを迂回して、常に`/var/log`ディレクトリに書き込みます。それらは[`klog`](https://github.com/kubernetes/klog)というロギングライブラリを使用します。これらのコンポーネントのロギングの重大性に関する規則は、[development docs on logging](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)に記載されています。
 
 コンテナログと同様に、`/var/log`ディレクトリ内のシステムコンポーネントログはローテーションする必要があります。`kube-up.sh`スクリプトによって生成されたKubernetesクラスターでは、これらのログは、`logrotate`ツールによって毎日、またはサイズが100MBを超えた時にローテーションされるように設定されています。
 
@@ -131,13 +131,13 @@ Kubernetesはクラスターレベルロギングのネイティブソリュー�
 
 たとえば、Podは単一のコンテナを実行し、コンテナは2つの異なる形式を使用して2つの異なるログファイルに書き込みます。Podの構成ファイルは次のとおりです:
 
-{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod.yaml" %}}
 
 両方のコンポーネントをコンテナの`stdout`ストリームにリダイレクトできたとしても、異なる形式のログエントリを同じログストリームに書き込むことはおすすめしません。代わりに、2つのサイドカーコンテナを作成できます。各サイドカーコンテナは、共有ボリュームから特定のログファイルを追跡し、ログを自身の`stdout`ストリームにリダイレクトできます。
 
 2つのサイドカーコンテナを持つPodの構成ファイルは次のとおりです:
 
-{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 これで、このPodを実行するときに、次のコマンドを実行して、各ログストリームに個別にアクセスできます:
 
@@ -185,7 +185,7 @@ CPUとメモリーの使用量が少ない(CPUの場合は数ミリコアのオ�
 
 ロギングエージェントを使用したサイドカーコンテナを実装するために使用できる、2つの構成ファイルを次に示します。最初のファイルには、fluentdを設定するための[`ConfigMap`](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)が含まれています。
 
-{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
+{{% code_sample file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 fluentdの構成については、[fluentd documentation](https://docs.fluentd.org/)を参照してください。
@@ -193,7 +193,7 @@ fluentdの構成については、[fluentd documentation](https://docs.fluentd.o
 
 2番目のファイルは、fluentdを実行しているサイドカーコンテナを持つPodを示しています。Podは、fluentdが構成データを取得できるボリュームをマウントします。
 
-{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 サンプル構成では、fluentdを任意のロギングエージェントに置き換えて、アプリケーションコンテナ内の任意のソースから読み取ることができます。
 

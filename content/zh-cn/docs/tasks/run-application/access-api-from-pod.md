@@ -28,7 +28,7 @@ This guide demonstrates how to access the Kubernetes API from within a pod.
 When accessing the API from within a Pod, locating and authenticating
 to the API server are slightly different to the external client case.
 -->
-### 从 Pod 中访问 API   {#accessing-the-api-from-within-a-pod}
+## 从 Pod 中访问 API   {#accessing-the-api-from-within-a-pod}
 
 从 Pod 内部访问 API 时，定位 API 服务器和向服务器认证身份的操作与外部客户端场景不同。
 

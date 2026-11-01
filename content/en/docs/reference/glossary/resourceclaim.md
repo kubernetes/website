@@ -1,8 +1,7 @@
 ---
 title: ResourceClaim
 id: resourceclaim
-date: 2025-05-26
-full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
+full_link: /docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#resourceclaims-templates
 short_description: >
   Describes the resources that a workload needs, such as devices. ResourceClaims
   can request devices from DeviceClasses.
@@ -13,7 +12,7 @@ tags:
  Describes the resources that a workload needs, such as
 {{< glossary_tooltip text="devices" term_id="device" >}}. ResourceClaims are
 used in
-[dynamic resource allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+[dynamic resource allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)
 to provide Pods with access to a specific resource.
 
 <!--more-->

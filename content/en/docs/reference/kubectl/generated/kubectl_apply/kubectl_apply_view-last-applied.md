@@ -3,6 +3,8 @@ title: kubectl apply view-last-applied
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  View the latest last-applied-configuration annotations of a resource/object
 ---
 
 
@@ -133,6 +135,13 @@ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAM
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -227,7 +236,7 @@ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAM
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>
@@ -235,6 +244,13 @@ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAM
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>

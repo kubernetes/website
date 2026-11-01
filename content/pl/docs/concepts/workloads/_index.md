@@ -10,11 +10,11 @@ card:
   weight: 60
 ---
 
-{{< glossary_definition term_id="workload" length="short" >}} Niezależnie
-od tego, czy Twój workload jest pojedynczym komponentem, czy kilkoma
-współpracującymi ze sobą, na Kubernetes uruchamiasz go wewnątrz zestawu
-[_podów_](/docs/concepts/workloads/pods). Pod reprezentuje zestaw uruchomionych
-{{< glossary_tooltip text="kontenerów" term_id="container" >}} na Twoim klastrze.
+{{< glossary_definition term_id="workload" length="short" >}}
+Niezależnie od tego, czy Twój workload jest pojedynczym komponentem, czy kilkoma współpracującymi ze sobą,
+na Kubernetesie uruchamiasz go wewnątrz zestawu
+[_podów_](/docs/concepts/workloads/pods). Pod reprezentuje zbiór składający się z jednego lub więcej
+uruchomionych {{< glossary_tooltip text="kontenerów" term_id="container" >}} na Twoim klastrze.
 
 Pody mają [zdefiniowany cykl życia](/docs/concepts/workloads/pods/pod-lifecycle/). Na
 przykład, gdy Pod działa w twoim klastrze, krytyczna awaria na
@@ -65,6 +65,21 @@ trzeciej, jeśli chcesz uzyskać określone działanie, które nie jest części
 Kubernetesa. Na przykład, jeśli chcesz uruchomić grupę Podów dla swojej aplikacji, ale
 zatrzymać pracę, jeśli _wszystkie_ Pody nie są dostępne (może dla jakiegoś zadania
 wysokoprzepustowego rozproszonego), to można zaimplementować lub zainstalować rozszerzenie, które oferuje tę funkcję.
+
+## Rozmieszczanie workloadów {#workload-placement}
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
+
+Podczas gdy standardowe zasoby workloadów (takie jak Deploymenty czy Joby) zarządzają cyklem życia Podów, w niektórych
+przypadkach możesz mieć złożone wymagania dotyczące harmonogramowania, w których grupy Podów muszą być traktowane jako jedna całość.
+
+Za pomocą [Workload API](/docs/concepts/workloads/workload-api/) można definiować
+`PodGroupTemplates`, które grupują Pody i umożliwiają zastosowanie wobec nich zaawansowanych mechanizmów
+harmonogramowania, takich jak [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+W trakcie działania systemu kontrolery generują z tych szablonów obiekty
+[PodGroup](/docs/concepts/workloads/podgroup-api/), natomiast każdy `Pod` wskazuje swoją grupę `PodGroup`
+poprzez pole `spec.schedulingGroup`. Jest to szczególnie przydatne dla workloadów związanych z
+przetwarzaniem wsadowym i uczeniem maszynowym, gdzie wymagane jest rozmieszczenie "wszystko albo nic".
 
 ## {{% heading "whatsnext" %}}
 

@@ -88,8 +88,8 @@ przesłaniem nowej treści. Szczegóły znajdują się poniżej.
 ### Podpisz CNCF CLA {#sign-the-cla}
 
 Wszyscy współtwórcy Kubernetesa **muszą** przeczytać
-[Przewodnik dla Współtwórców](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) i
-[podpisać Umowę Licencyjną Współtwórcy (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md) .
+[Przewodnik dla Współtwórców](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md) i
+[podpisać Umowę Licencyjną Współtwórcy (CLA)](https://github.com/kubernetes/community/blob/main/CLA.md) .
 
 
 Pull requesty od autorów, którzy nie podpisali umowy CLA, nie

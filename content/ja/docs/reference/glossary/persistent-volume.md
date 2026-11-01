@@ -1,7 +1,6 @@
 ---
 title: 永続ボリューム
 id: persistent-volume
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
  クラスター内のストレージの一部を表すAPIオブジェクトです。通常利用可能で、個々のPodのライフサイクルの先にあるプラグイン形式のリソースです。

@@ -20,7 +20,7 @@ Refer to the [etcd documentation](https://etcd.io/docs/) for more context.
 
 Key details include:
 
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+* The minimum recommended etcd versions to run in production are `3.4.29+` and `3.5.11+`.
 
 * etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
@@ -446,13 +446,16 @@ either be a snapshot file from a previous backup operation, or from a remaining
    etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
    ```
 
-   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
-   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
-   first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
-   then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
-
 {{% /tab %}}
 {{< /tabs >}}
+
+If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster.
+Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
+first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
+then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
+On a cluster that kubeadm manages, also set `etcd.local.dataDir` to `<data-dir-location>` in the `kubeadm-config` ConfigMap
+([Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure/#updating-the-clusterconfiguration)).
+If it still names the old directory, the next `kubeadm upgrade` writes an etcd manifest for that directory.
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
@@ -480,6 +483,23 @@ Before you start an upgrade, back up your etcd cluster first.
 {{< /caution >}}
 
 For details on etcd upgrade, refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+
+## Streaming reads from etcd
+
+{{< feature-state feature_gate_name="EtcdRangeStream" >}}
+
+With the `EtcdRangeStream` feature gate enabled and etcd v3.7 or later, the API server
+reads large collections from etcd as a stream instead of in pages, which lowers peak
+memory use on both sides. If the backend does not implement the `RangeStream` RPC, the
+API server detects the gRPC `Unimplemented` response and falls back to paginated reads.
+If your etcd-compatible backend or proxy does not fall back cleanly, disable the gate
+with `--feature-gates=EtcdRangeStream=false`.
+
+{{< note >}}
+Streamed reads are recorded as `operation="listStream"` in the
+`etcd_request_duration_seconds` metric. Update any dashboard or alert that matches
+`operation="list"`.
+{{< /note >}}
 
 ## Maintaining etcd clusters
 

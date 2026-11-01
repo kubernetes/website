@@ -297,10 +297,12 @@ Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: ResourceClaim
 
-This annotation is assigned to generated ResourceClaims. 
+This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
-You should not need to read or modify the value of this annotation.
+Within [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/), the
+discoverable device metadata feature uses this annotation to map a generated ResourceClaim
+back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
+Kubernetes manages this annotation, so you should not modify it.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -353,6 +355,109 @@ The tutorial illustrates using AppArmor to restrict a container's abilities and 
 
 The profile specified dictates the set of rules and restrictions that the containerized process must
 adhere to. This helps enforce security policies and isolation for your containers.
+
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+
+This annotation records the node identifier used by a CSI driver, as a fallback when the
+[CSINode](/docs/reference/kubernetes-api/storage/csi-node-v1/) object is not available.
+The CSI external-attacher sidecar container populates it before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when an appropriate CSINode is not present.
+
+Because this annotation is deprecated, the Kubernetes project recommends that you do
+**not** set this on a VolumeAttachment, nor on any other object.
+
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+
+This annotation specifies the identifier for a node as understood by the
+Container Storage Interface (CSI) driver. `kubelet` populates this annotation
+by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the
+node ID during driver registration. The external-attacher sidecar container
+reads this annotation to get the node ID when attaching or detaching volumes.
+
+This annotation is deprecated in favor of the CSINode object, which provides the same
+functionality via the [`spec.drivers[].nodeID` field](/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver).
+
+### deployment.kubernetes.io/desired-replicas
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/desired-replicas: "3"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the desired number of replicas (`.spec.replicas`) from the Deployment
+that owns this ReplicaSet. The Deployment controller uses this annotation to track the
+desired state during rolling updates and scaling operations.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+
+### deployment.kubernetes.io/max-replicas
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/max-replicas: "5"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the maximum number of replicas that this ReplicaSet is allowed to have
+during a rolling update. This is used to implement the `maxSurge` parameter of the
+Deployment's rolling update strategy, which controls how many extra Pods can be created
+above the desired number during an update.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+
+### deployment.kubernetes.io/revision
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision: "2"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the revision number of the Deployment. Each time the Deployment's
+Pod template (`.spec.template`) is changed, the revision number is incremented.
+This annotation is used to track the rollout history and enables rollback to previous
+revisions using `kubectl rollout undo`.
+
+The revision number is also visible when running `kubectl rollout history deployment/<name>`.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+
+### deployment.kubernetes.io/revision-history
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision-history: "1,3"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on a ReplicaSet when a rollback
+causes that ReplicaSet to be reused. The value is a comma-separated list of all
+previous revision numbers that the ReplicaSet has served for a Deployment, maintained
+as a history when the `deployment.kubernetes.io/revision` annotation is updated to a
+new revision number.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
@@ -835,6 +940,22 @@ If a Pod is already running and you change the `kubernetes.io/enforce-mountable-
 to true, or you edit the associated ServiceAccount to remove the reference to a Secret
 that the Pod is already using, the Pod continues to run.
 
+### node.alpha.kubernetes.io/ttl (deprecated)
+
+Type: Label
+
+Example: `node.alpha.kubernetes.io/ttl: "0"`
+
+Used on: Node
+
+This label was used historically by some tools (such as minikube) to set a time-to-live
+value for nodes. The label is deprecated and should not be used in new deployments.
+
+{{< note >}}
+This label is deprecated and has no effect in current Kubernetes versions.
+It may still be set by older tools for backward compatibility.
+{{< /note >}}
+
 ### node.kubernetes.io/exclude-from-external-load-balancers
 
 Type: Label
@@ -1124,6 +1245,19 @@ you should consider adding the labels manually (or adding support for `Persisten
 With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone.
 If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 
+### volume.alpha.kubernetes.io/node-affinity (deprecated) {#volume-alpha-kubernetes-io-node-affinity}
+
+Type: Annotation
+
+Used on: PersistentVolume
+
+This annotation stored node affinity rules for a PersistentVolume as a JSON-serialized
+`NodeAffinity` object. The scheduler used these rules to limit which nodes could access the volume.
+
+This annotation has been deprecated since Kubernetes v1.10. Use the
+[`nodeAffinity` field](/docs/concepts/storage/persistent-volumes/#node-affinity) in the
+PersistentVolume spec instead.
+
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 
 Type: Annotation
@@ -1406,6 +1540,20 @@ Starting from v1.20, this annotation is deprecated.
 Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
+### gateway.networking.k8s.io/generator
+
+Type: Annotation
+
+Example: `gateway.networking.k8s.io/generator: "ingress2gateway"`
+
+Used on: Gateway, HTTPRoute, and other Gateway API resources
+
+This annotation is added by tools that automatically generate
+[Gateway API](/docs/concepts/services-networking/gateway/) resources.
+The value identifies the tool that created the resource (for example,
+`ingress2gateway`). The annotation is informational only and does not
+affect the behavior of any Gateway API implementation.
+
 ### ingressclass.kubernetes.io/is-default-class
 
 Type: Annotation
@@ -1493,6 +1641,18 @@ This annotation is used to record the original (expected) creation timestamp for
 when that Job is part of a CronJob.
 The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
 with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
+
+### cronjob.kubernetes.io/instantiate {#cronjob-kubernetes-io-instantiate}
+
+Type: Annotation
+
+Example: `cronjob.kubernetes.io/instantiate: "manual"`
+
+Used on: Jobs
+
+When you use `kubectl create job` with the `--from=cronjob/<cronjob-name>` flag to manually create a Job from an existing CronJob template, `kubectl` sets this annotation on the newly created Job. 
+The value of this annotation is always `manual`. This annotation allows you to distinguish 
+Jobs that were created on demand by a user from Jobs that the CronJob controller automatically creates on their scheduled time.
 
 ### kubectl.kubernetes.io/default-container
 
@@ -2811,5 +2971,5 @@ a namespace. When this label is set on a namespace with the value `"true"`
 `resource.k8s.io` API types. Currently, this permission applies to
 `ResourceClaim` and `ResourceClaimTemplate` objects.
 
-See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+See [Dynamic Resource Allocation Admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 for more information.

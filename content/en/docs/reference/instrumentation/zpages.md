@@ -11,13 +11,12 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.36" state="beta" >}}
 
 Kubernetes core components can expose a suite of _z-endpoints_ to make it easier for users
 to debug their cluster and its components. These endpoints are strictly to be used for human
 inspection to gain real time debugging information of a component binary.
-Avoid automated scraping of data returned by these endpoints; in Kubernetes {{< skew currentVersion >}}
-these are an **alpha** feature and the response format may change in future releases.
+In Kubernetes {{< skew currentVersion >}} these are **beta** features.
 
 <!-- body -->
 
@@ -63,7 +62,7 @@ Without an `Accept` header, the endpoint returns the plain text response format 
 
 To request the structured response, use:
 ```
-Accept: application/json;v=v1alpha1;g=config.k8s.io;as=Statusz
+Accept: application/json;v=v1beta1;g=config.k8s.io;as=Statusz
 ```
 
 {{< note >}}
@@ -75,7 +74,7 @@ Example structured response:
 ```json
 {
   "kind": "Statusz",
-  "apiVersion": "config.k8s.io/v1alpha1",
+  "apiVersion": "config.k8s.io/v1beta1",
   "metadata": {
     "name": "kube-apiserver"
   },
@@ -95,14 +94,14 @@ Example structured response:
 }
 ```
 
-The `config.k8s.io/v1alpha1` schema for the structured `/statusz` response is as follows:
+The `config.k8s.io/v1beta1` schema for the structured `/statusz` response is as follows:
 
 ```go
-// Statusz is the config.k8s.io/v1alpha1 schema for the /statusz endpoint.
+// Statusz is the config.k8s.io/v1beta1 schema for the /statusz endpoint.
 type Statusz struct {
 	// Kind is "Statusz".
 	Kind string `json:"kind"`
-	// APIVersion is the version of the object, e.g., "config.k8s.io/v1alpha1".
+	// APIVersion is the version of the object, e.g., "config.k8s.io/v1beta1".
 	APIVersion string `json:"apiVersion"`
 	// Standard object's metadata.
 	// +optional
@@ -136,6 +135,10 @@ type Statusz struct {
 
 Enabled using the `ComponentFlagz` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#ComponentFlagz), the `/flagz` endpoint shows you the command line arguments that were used to start a component.
 
+{{< note >}}
+`/flagz` reports command-line flags and defaults. For components that also load configuration files, such as the kubelet and kube-proxy, the effective running configuration can differ from `/flagz`; use `/configz` where available to inspect the merged component configuration.
+{{< /note >}}
+
 The `/flagz` plain text response from the API server looks something like:
 
 ```
@@ -163,7 +166,7 @@ Without an `Accept` header, the endpoint returns the plain text response format 
 
 To request the structured response, use:
 ```
-Accept: application/json;v=v1alpha1;g=config.k8s.io;as=Flagz
+Accept: application/json;v=v1beta1;g=config.k8s.io;as=Flagz
 ```
 
 {{< note >}}
@@ -175,7 +178,7 @@ Example structured response:
 ```json
 {
   "kind": "Flagz",
-  "apiVersion": "config.k8s.io/v1alpha1",
+  "apiVersion": "config.k8s.io/v1beta1",
   "metadata": {
     "name": "kube-apiserver"
   },
@@ -191,14 +194,14 @@ Example structured response:
 }
 ```
 
-The `config.k8s.io/v1alpha1` schema for the structured `/flagz` response is as follows:
+The `config.k8s.io/v1beta1` schema for the structured `/flagz` response is as follows:
 
 ```go
-// Flagz is the config.k8s.io/v1alpha1 schema for the /flagz endpoint.
+// Flagz is the config.k8s.io/v1beta1 schema for the /flagz endpoint.
 type Flagz struct {
 	// Kind is "Flagz".
 	Kind string `json:"kind"`
-	// APIVersion is the version of the object, e.g., "config.k8s.io/v1alpha1".
+	// APIVersion is the version of the object, e.g., "config.k8s.io/v1beta1".
 	APIVersion string `json:"apiVersion"`
 	// Standard object's metadata.
 	// +optional
@@ -212,7 +215,6 @@ type Flagz struct {
 ```
 
 {{< note >}}
-The structured responses for both `/statusz` and `/flagz` are alpha features in v1.35
-and are subject to change in future releases.
+The structured responses for both `/statusz` and `/flagz` are beta features in v1.36.
 They are intended to provide machine-parseable output for debugging and introspection tools. 
 {{< /note >}}

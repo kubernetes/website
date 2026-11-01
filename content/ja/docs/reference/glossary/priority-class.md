@@ -1,7 +1,6 @@
 ---
 title: PriorityClass
 id: priority-class
-date: 2024-03-19
 full_link: /ja/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   クラス名からPodが持つべきスケジューリングの優先度への対応付け。

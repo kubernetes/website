@@ -41,7 +41,7 @@ Use `<component> -h` to list available feature gates for a specific component.
 For detailed instructions on configuring feature gates in your cluster, see
 [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
 
-## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
+## Feature gates in Kubernetes v{{% skew currentVersion %}} {#list-of-gates}
 
 The following tables are a summary of the feature gates that you can set on
 different Kubernetes components.

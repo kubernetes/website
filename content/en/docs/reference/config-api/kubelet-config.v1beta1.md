@@ -10,6 +10,8 @@ auto_generated: true
 
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
+- [ImagePullIntent](#kubelet-config-k8s-io-v1beta1-ImagePullIntent)
+- [ImagePulledRecord](#kubelet-config-k8s-io-v1beta1-ImagePulledRecord)
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 - [SerializedNodeConfigSource](#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
   
@@ -70,7 +72,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 <tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
-<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+<td>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
@@ -240,7 +242,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 <tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
-<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+<td>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
@@ -374,6 +376,86 @@ Multiple providers may match against a single image, in which case credentials
 from all providers will be returned to the kubelet. If multiple providers are called
 for a single image, the results are combined. If providers return overlapping
 auth keys, the value from the provider earlier in this list is attempted first.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePullIntent`     {#kubelet-config-k8s-io-v1beta1-ImagePullIntent}
+    
+
+
+<p>ImagePullIntent is a record of the kubelet attempting to pull an image.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>ImagePullIntent</code></td></tr>
+    
+  
+<tr><td><code>image</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Image is the image spec from a Container's <code>image</code> field.
+The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
+characters like ':' and '/'.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePulledRecord`     {#kubelet-config-k8s-io-v1beta1-ImagePulledRecord}
+    
+
+
+<p>ImagePullRecord is a record of an image that was pulled by the kubelet.</p>
+<p>If there are no records in the <code>kubernetesSecrets</code> field and both <code>nodeWideCredentials</code>
+and <code>anonymous</code> are <code>false</code>, credentials must be re-checked the next time an
+image represented by this record is being requested.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>ImagePulledRecord</code></td></tr>
+    
+  
+<tr><td><code>lastUpdatedTime</code> <B>[Required]</B><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   <p>LastUpdatedTime is the time of the last update to this record</p>
+</td>
+</tr>
+<tr><td><code>imageRef</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ImageRef is a reference to the image represented by this file as received
+from the CRI.
+The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
+characters like ':' and '/'.</p>
+</td>
+</tr>
+<tr><td><code>credentialMapping</code> <B>[Required]</B><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullCredentials"><code>map[string]ImagePullCredentials</code></a>
+</td>
+<td>
+   <p>CredentialMapping maps <code>image</code> to the set of credentials that it was
+previously pulled with.
+<code>image</code> in this case is the content of a pod's container <code>image</code> field that's
+got its tag/digest removed.</p>
+<p>Example:
+Container requests the <code>hello-world:latest@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</code> image:
+&quot;credentialMapping&quot;: {
+&quot;hello-world&quot;: { &quot;nodePodsAccessible&quot;: true }
+}</p>
 </td>
 </tr>
 </tbody>
@@ -520,6 +602,20 @@ Default: &quot;&quot;</p>
    <p>tlsCipherSuites is the list of allowed cipher suites for the server.
 Note that TLS 1.3 ciphersuites are not configurable.
 Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+Default: nil</p>
+</td>
+</tr>
+<tr><td><code>tlsCurvePreferences</code><br/>
+<code>[]int32</code>
+</td>
+<td>
+   <p>tlsCurvePreferences is the set of allowed key exchange mechanisms for the server,
+specified as numeric Go crypto/tls CurveID values.
+The supported values depend on the Go version used.
+See https://pkg.go.dev/crypto/tls#CurveID for values supported for each Go version.
+The order of the list is ignored, and key exchange mechanisms are
+chosen by Go from this list using an internal preference order.
+If empty, the default Go curves will be used.
 Default: nil</p>
 </td>
 </tr>
@@ -742,10 +838,9 @@ Default: &quot;4h&quot;</p>
 </td>
 <td>
    <p>nodeStatusUpdateFrequency is the frequency that kubelet computes node
-status. If node lease feature is not enabled, it is also the frequency that
-kubelet posts node status to master.
-Note: When node lease feature is not enabled, be cautious when changing the
-constant, it must work with nodeMonitorGracePeriod in nodecontroller.
+status and checks if an update to the API server is necessary. Status
+is posted to the API server either when it changes or when
+nodeStatusReportFrequency has elapsed since the last report.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -754,10 +849,11 @@ Default: &quot;10s&quot;</p>
 </td>
 <td>
    <p>nodeStatusReportFrequency is the frequency that kubelet posts node
-status to master if node status does not change. Kubelet will ignore this
-frequency and post node status immediately if any change is detected. It is
-only used when node lease feature is enabled. nodeStatusReportFrequency's
-default value is 5m. But if nodeStatusUpdateFrequency is set explicitly,
+status to the API server if node status does not change. Kubelet will
+ignore this frequency and post node status immediately if any change
+is detected.
+nodeStatusReportFrequency's default value is 5m. But if
+nodeStatusUpdateFrequency is set explicitly,
 nodeStatusReportFrequency's default value will be set to
 nodeStatusUpdateFrequency for backward compatibility.
 Default: &quot;5m&quot;</p>
@@ -783,6 +879,8 @@ Default: 40</p>
 <td>
    <p>imageMinimumGCAge is the minimum age for an unused image before it is
 garbage collected.
+The field value must be greater than 0.
+If unset or 0, defaults to 2m.
 Default: &quot;2m&quot;</p>
 </td>
 </tr>
@@ -1179,10 +1277,7 @@ Default: &quot;5m&quot;</p>
 <td>
    <p>evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 when terminating pods in response to a soft eviction threshold being met. This value
-effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions. 
-The pod's effective grace period is calculated as:
-min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds).
-Note: A negative value will cause pods to be terminated immediately, as if the value was 0.
+effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions.
 Default: 0</p>
 </td>
 </tr>
@@ -1425,10 +1520,11 @@ Default: &quot;&quot;</p>
 <td>
    <p>This flag specifies the various Node Allocatable enforcements that Kubelet needs to perform.
 This flag accepts a list of options. Acceptable options are <code>none</code>, <code>pods</code>,
-<code>system-reserved</code> and <code>kube-reserved</code>.
+<code>system-reserved</code>, <code>system-reserved-compressible</code>, <code>kube-reserved</code>, and <code>kube-reserved-compressible</code>.
 If <code>none</code> is specified, no other options may be specified.
-When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
-When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
+When a <code>system-reserved</code> option is in the list, systemReservedCgroup must be specified.
+When a <code>kube-reserved</code> option is in the list, kubeReservedCgroup must be specified.
+If a <code>compressible</code> option is specified, the corresponding non-compressible option may not be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
 Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 for more information.
@@ -1443,6 +1539,16 @@ Default: [&quot;pods&quot;]</p>
 Unsafe sysctl groups are <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>,
 and <code>net.*</code>. For example: &quot;<code>kernel.msg*,net.ipv4.route.min_pmtu</code>&quot;
 Default: []</p>
+</td>
+</tr>
+<tr><td><code>defaultPodSysctls</code><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <p>DefaultPodSysctls is a set of default sysctls that will be applied to all pods.
+It can be overridden by sysctls set in pod spec.securityContext.sysctls.
+Support namespaced groups: <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>, <code>net.*</code>, <code>kernel.domainname</code>, and <code>user.*</code>.
+For example: {&quot;net.ipv4.ip_forward&quot;: &quot;1&quot;, &quot;kernel.shmall&quot;: &quot;1048576&quot;}</p>
 </td>
 </tr>
 <tr><td><code>volumePluginDir</code><br/>
@@ -1622,13 +1728,26 @@ Default: false</p>
    <p>MemoryThrottlingFactor specifies the factor multiplied by the memory limit or node allocatable memory
 when setting the cgroupv2 memory.high value to enforce MemoryQoS.
 Decreasing this factor will set lower high limit for container cgroups and put heavier reclaim pressure
-while increasing will put less reclaim pressure.
+while increasing will put less reclaim pressure. If nil, memory.high is not set.
 See https://kep.k8s.io/2570 for more details.
-Default: 0.9</p>
+Default: nil</p>
+</td>
+</tr>
+<tr><td><code>memoryReservationPolicy</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-MemoryReservationPolicy"><code>MemoryReservationPolicy</code></a>
+</td>
+<td>
+   <p>MemoryReservationPolicy controls how the kubelet applies cgroup v2 memory protection.
+&quot;None&quot; (default): The kubelet does not set memory.min for containers and pods,
+ensuring no hard memory is locked by the kernel.
+&quot;TieredReservation&quot;: The kubelet sets cgroup v2 memory.min for Guaranteed pods and memory.low for Burstable pods based on memory requests.
+Guaranteed memory is never reclaimed by the kernel; Burstable memory is preferentially retained but may be reclaimed under extreme pressure.
+See https://kep.k8s.io/2570 for more details.
+Default: None</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1692,10 +1811,10 @@ If not specified, the value in containerRuntimeEndpoint is used.</p>
 </td>
 <td>
    <p>FailCgroupV1 prevents the kubelet from starting on hosts
-that use cgroup v1. By default, this is set to 'false', meaning
-the kubelet is allowed to start on cgroup v1 hosts unless this
-option is explicitly enabled.
-Default: false</p>
+that use cgroup v1. By default, this is set to 'true', meaning
+the kubelet will not start on cgroup v1 hosts unless this
+option is explicitly disabled.
+Default: true</p>
 </td>
 </tr>
 <tr><td><code>userNamespaces</code><br/>
@@ -1726,7 +1845,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1888,6 +2007,50 @@ credential plugin.</p>
 </tbody>
 </table>
 
+## `ImagePullCredentials`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentials}
+    
+
+**Appears in:**
+
+- [ImagePulledRecord](#kubelet-config-k8s-io-v1beta1-ImagePulledRecord)
+
+
+<p>ImagePullCredentials describe credentials that can be used to pull an image.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubernetesSecrets</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullSecret"><code>[]ImagePullSecret</code></a>
+</td>
+<td>
+   <p>KubernetesSecretCoordinates is an index of coordinates of all the kubernetes
+secrets that were used to pull the image.</p>
+</td>
+</tr>
+<tr><td><code>kubernetesServiceAccounts</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullServiceAccount"><code>[]ImagePullServiceAccount</code></a>
+</td>
+<td>
+   <p>KubernetesServiceAccounts is an index of coordinates of all the kubernetes
+service accounts that were used to pull the image.</p>
+</td>
+</tr>
+<tr><td><code>nodePodsAccessible</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>NodePodsAccessible is a flag denoting the pull credentials are accessible
+by all the pods on the node, or that no credentials are needed for the pull.</p>
+<p>If true, it is mutually exclusive with the <code>kubernetesSecrets</code> field.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `ImagePullCredentialsVerificationPolicy`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy}
     
 (Alias of `string`)
@@ -1902,6 +2065,90 @@ when pod is requesting an image that appears on the system</p>
 
 
 
+
+## `ImagePullSecret`     {#kubelet-config-k8s-io-v1beta1-ImagePullSecret}
+    
+
+**Appears in:**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1beta1-ImagePullCredentials)
+
+
+<p>ImagePullSecret is a representation of a Kubernetes secret object coordinates along
+with a credential hash of the pull secret credentials this object contains.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>namespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>credentialHash</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>CredentialHash is a SHA-256 retrieved by hashing the image pull credentials
+content of the secret specified by the UID/Namespace/Name coordinates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePullServiceAccount`     {#kubelet-config-k8s-io-v1beta1-ImagePullServiceAccount}
+    
+
+**Appears in:**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1beta1-ImagePullCredentials)
+
+
+<p>ImagePullServiceAccount is a representation of a Kubernetes service account object coordinates
+for which the kubelet sent service account token to the credential provider plugin for image pull credentials.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>namespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+</tbody>
+</table>
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
     
@@ -2129,13 +2376,27 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>
+
+## `MemoryReservationPolicy`     {#kubelet-config-k8s-io-v1beta1-MemoryReservationPolicy}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+<p>MemoryReservationPolicy defines how the kubelet applies cgroup v2 memory protection.</p>
+
+
+
 
 ## `MemorySwapConfiguration`     {#kubelet-config-k8s-io-v1beta1-MemorySwapConfiguration}
     

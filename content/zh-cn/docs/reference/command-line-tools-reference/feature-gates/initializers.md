@@ -1,5 +1,4 @@
 ---
-# Removed from Kubernetes
 title: Initializers
 content_type: feature_gate
 
@@ -23,4 +22,4 @@ removed: true
 Allow asynchronous coordination of object creation using the
 Initializers admission plugin.
 -->
-允许使用 Intializer 准入插件来异步协调对象创建操作。
+允许使用 Initializer 准入插件来异步协调对象创建操作。

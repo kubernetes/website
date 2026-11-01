@@ -1,7 +1,6 @@
 ---
 title: Finalizer
 id: finalizer
-date: 2021-07-07
 full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
     Một khóa có phạm vi namespace dùng để yêu cầu Kubernetes chờ đến khi thỏa mãn các điều kiện cụ thể trước khi xóa hoàn toàn một đối tượng đã được đánh dấu để xóa.

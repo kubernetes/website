@@ -62,7 +62,7 @@ WALを際限のない増加から防ぐために、ZooKeeperサーバーは、�
 
 以下のマニフェストは[Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)、[Service](/ja/docs/concepts/services-networking/service/)、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を含んでいます。
 
-{{% codenew file="application/zookeeper/zookeeper.yaml" %}}
+{{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
 
 ターミナルを開き、マニフェストを作成するために
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)コマンドを使います。
@@ -466,7 +466,7 @@ command:
 …
 ```
 
-このcommandでは、ZooKeeperサーバーを開始するためにコマンドラインパラメータで設定を渡しています。
+このcommandでは、ZooKeeperサーバーを開始するためにコマンドラインパラメーターで設定を渡しています。
 設定をアンサンブルへ渡すのには環境変数を使うこともできます。
 
 ### ログの設定

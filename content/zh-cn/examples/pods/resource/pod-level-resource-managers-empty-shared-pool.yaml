@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-shared-pool
+  annotations:
+    kubernetes.io/description: "A pod demonstrating a configuration that is rejected because exclusive containers consume the entire pod resource budget, leaving no resources for the remaining container in the shared pool."
+spec:
+  # 在 Pod 级别，该 Pod 的 CPU request 等于 limits，内存 request 也等于内存 limits。
+  # main-app 和 metrics-sidecar 容器在容器级别满足 Guaranteed QoS 类的要求，而
+  # logging-sidecar 容器未指定任何资源 request。由于这些 Guaranteed 容器耗尽了
+  # Pod 的全部资源预算，logging-sidecar 所需的共享池中已剩下 0 个 CPU，
+  # 因此该 Pod 会在准入时被拒绝。
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: metrics-sidecar
+    # 注意：这是仅用于演示的占位镜像，并不是真正的 metrics 助手。
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+    resources:
+      requests:
+        cpu: "1"
+        memory: "1Gi"
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+  - name: logging-sidecar
+    # 注意：这是仅用于演示的占位镜像，并不是真正的日志代理。
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+  containers:
+  - name: main-app
+    # 注意：这是仅用于演示的占位镜像。
+    image: registry.k8s.io/pause:3.9
+    resources:
+      requests:
+        cpu: "3"
+        memory: "3Gi"
+      limits:
+        cpu: "3"
+        memory: "3Gi"

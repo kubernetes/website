@@ -374,11 +374,11 @@ Upgrade `kube-apiserver` to **{{< skew currentVersion >}}**
 {{< note >}}
 <!-- 
 Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
-[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
+[API change guidelines](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 -->
 [API 弃用](/zh-cn/docs/reference/using-api/deprecation-policy/)和
-[API 变更指南](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
+[API 变更指南](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md)
 的项目策略要求 `kube-apiserver` 在升级时不跳过次要版本，即使在单实例集群中也是如此。
 {{< /note >}}
 

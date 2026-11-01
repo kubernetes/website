@@ -16,7 +16,7 @@ cid: community
 community_styles_migrated: true
 menu:
   main:
-    weight: 50 
+    weight: 50
 -->
 
 <!--
@@ -25,7 +25,7 @@ menu:
   srcset="/images/community/kubernetes-community-final-02.jpg 1500w, /images/community/kubernetes-community-02-mobile.jpg 900w"
   sizes="(max-width: 900px) 900px, (max-width: 1920px) 1500px"
   src="/images/community/kubernetes-community-final-02.jpg"
-  alt="Kubernetes conference photo"> 
+  alt="Kubernetes conference photo">
 -->
 <img
   id="banner"
@@ -278,8 +278,5 @@ menu:
 <div class="community-section community-frame" id="news">
   <!-- <h2>Recent News</h2> -->
   <h2>最新新闻</h2>
-  <div class="twittercol1">
-    <!-- <a class="twitter-timeline" data-tweet-limit="1" data-width="600" data-height="800" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by kubernetesio</a> -->
-    <a class="twitter-timeline" data-tweet-limit="1" data-width="600" data-height="800" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">kubernetesio 账号发布的推文</a>
-  </div>
+  {{< social-media-feed kind="bluesky" >}}
 </div>

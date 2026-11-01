@@ -1,7 +1,6 @@
 ---
 title: কন্টেইনার রানটাইম
 id: container-runtime
-date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
  কন্টেইনার রানটাইম হল সেই সফটওয়্যার যা কন্টেইনার চালানোর জন্য দায়ী।

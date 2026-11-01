@@ -1,7 +1,6 @@
 ---
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   Werkzeug, um Ressourcenverbrauch und Performance Charakteristiken von Container besser zu verstehen

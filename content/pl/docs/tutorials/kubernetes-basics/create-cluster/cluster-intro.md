@@ -1,5 +1,6 @@
 ---
 title: Jak użyć Minikube do stworzenia klastra
+content_type: tutorial
 weight: 10
 ---
 
@@ -8,6 +9,25 @@ weight: 10
 * Dowiedz się, czym jest klaster Kubernetesa.
 - Dowiedz się, czym jest Minikube.
 * Uruchom klaster Kubernetesa.
+
+## {{% heading "prerequisites" %}}
+
+Ten samouczek zakłada, że masz już zainstalowany `minikube`. Aby dowiedzieć się więcej
+o instrukcji instalacji zobacz [minikube start](https://minikube.sigs.k8s.io/docs/start/).
+{{< note >}}
+Wykonaj tylko instrukcje zawarte w **kroku 1: Instalacja**. Reszta jest omówiona w tym przewodniku.
+{{< /note >}}
+
+Musisz również zainstalować `kubectl`. Zobacz
+[Instalacja narzędzi](/docs/tasks/tools/#kubectl) po instrukcje dotyczące instalacji.
+
+Polecenia w tym poradniku są napisane w składni zgodnej ze standardem POSIX, którą
+obsługują domyślne powłoki w Linuxie i macOS (np. bash, zsh, sh). Jeśli
+używasz Windowsa, potrzebujesz powłoki zgodnej z POSIX, np. WSL
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) lub
+[Git Bash](https://gitforwindows.org/), żeby
+uruchomić je w takiej formie. Polecenia z `export`, `$()` i podobnymi
+elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
 
 ## Klastry Kubernetesa {#kubernetes-clusters}
 
@@ -50,10 +70,8 @@ uruchomionych aplikacji._
 Na każdym węźle działa Kubelet, agent zarządzający tym węzłem i komunikujący
 się z warstwą sterowania Kubernetesa. Węzeł zawiera także narzędzia do obsługi kontenerów,
 takie jak {{< glossary_tooltip text="containerd" term_id="containerd" >}} lub
-{{< glossary_tooltip term_id="cri-o" >}}. Klaster Kubernetesa w środowisku produkcyjnym powinien składać się
-minimum z trzech węzłów, ponieważ w przypadku awarii jednego węzła traci się zarówno element
-[etcd](/docs/concepts/architecture/#etcd), jak i warstwy sterowania przy jednoczesnym
-zachowaniu minimalnej nadmiarowości (_redundancy_). Dodanie kolejnych węzłów warstwy sterowania może temu zapobiec.
+{{< glossary_tooltip term_id="cri-o" >}}. W powszechnie stosowanym i wspieranym modelu wdrożenia
+komponenty warstwy sterowania działają na przeznaczonych wyłącznie do tego węzłach.
 
 Kiedy instalujesz aplikację na Kubernetesie, zlecasz warstwie sterowania
 uruchomienie kontenera z aplikacją. Warstwa sterowania zleca uruchomienie kontenera
@@ -69,7 +87,23 @@ prosty klaster składający się tylko z jednego węzła. Minikube jest dostępn
 macOS i  Windows. Narzędzie linii poleceń Minikube obsługuje podstawowe
 operacje na klastrze, takie jak start, stop, prezentacja informacji jego stanie i usunięcie klastra.
 
+## Utwórz klaster minikube {#create-a-minikube-cluster}
+
+Aby uruchomić klaster minikube:
+
+```shell
+minikube start
+```
+
+Aby zweryfikować status klastra:
+
+```shell
+minikube status
+```
+
+Aby uzyskać pełne wprowadzenie, w tym wdrożenie Twojej pierwszej aplikacji i eksplorację dashboardu Kubernetesa, zapoznaj się z samouczkiem [Hello Minikube](/docs/tutorials/hello-minikube/).
+
 ## {{% heading "whatsnext" %}}
 
-* Samouczek [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Samouczek [Wdrażanie aplikacji](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 * Dowiedz się więcej o [architekturze klastra](/docs/concepts/architecture/).

@@ -1,7 +1,6 @@
 ---
 title: CRI-O
 id: cri-o
-date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
   专用于 Kubernetes 的轻量级容器运行时软件
@@ -13,7 +12,6 @@ tags:
 <!-- 
 title: CRI-O
 id: cri-o
-date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
   A lightweight container runtime specifically for Kubernetes

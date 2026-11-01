@@ -1,7 +1,6 @@
 ---
 title: Imagem
 id: image
-date: 2021-08-24
 full_link: 
 short_description: >
   Instância armazenada de um contêiner que contém o conjunto de softwares necessários para rodar uma aplicação.

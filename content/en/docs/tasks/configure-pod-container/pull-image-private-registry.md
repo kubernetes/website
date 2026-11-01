@@ -247,7 +247,7 @@ If no credentials match the registry, the image pull will be attempted without a
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [Secrets](/docs/concepts/configuration/secret/)
-  * or read the API reference for {{< api-reference page="config-and-storage-resources/secret-v1" >}}
+  * or read the API reference for {{< api-reference page="core/secret-v1" >}}
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).

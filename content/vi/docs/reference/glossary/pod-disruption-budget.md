@@ -2,7 +2,6 @@
 id: pod-disruption-budget
 title: Pod Disruption Budget
 full-link: /docs/concepts/workloads/pods/disruptions/
-date: 2019-02-12
 short_description: >
   Đối tượng giới hạn số lượng Pod trong ứng dụng có nhiều bản sao bị ngừng hoạt động đồng thời do các gián đoạn chủ động.
 

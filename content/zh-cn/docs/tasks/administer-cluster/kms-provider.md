@@ -91,7 +91,7 @@ you have selected.  Kubernetes recommends using KMS v2.
 <!--
 ## KMS encryption and per-object encryption keys
 -->
-### KMS 加密和为每个对象加密的密钥    {#kms-encryption-and-perobject-encryption-keys}
+## KMS 加密和为每个对象加密的密钥    {#kms-encryption-and-perobject-encryption-keys}
 
 <!--
 The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd.

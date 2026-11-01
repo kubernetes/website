@@ -432,6 +432,14 @@ the following fields are required:
 * `serviceAccountTokenAudience`:
   the intended audience for the projected service account token.
   This cannot be the empty string.
+  When the `ServiceAccountNodeAudienceRestriction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+  the kubelet must be authorized to request tokens for this audience;
+  otherwise the credential provider will not be invoked. You must grant
+  the `system:nodes` group permission to use the
+  `request-serviceaccounts-token-audience` verb on this audience via RBAC.
+  For details and examples, see
+  [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
 * `cacheType`:
   the type of cache key used for caching the credentials returned by the plugin
   when the service account token is used.
@@ -450,6 +458,11 @@ the following fields are required:
 * `serviceAccountTokenAudience`：
   预期的投射服务账号令牌的受众。
   这不能是空字符串。
+  当启用 `ServiceAccountNodeAudienceRestriction`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
+  kubelet 必须被授权为该受众请求令牌；否则，凭据提供程序将不会被调用。 
+  你必须通过 RBAC 授予 `system:nodes` 组在该受众上使用 `request-serviceaccounts-token-audience` 动词的权限。
+  有关详细信息和示例，请参阅[服务账号令牌受众限制](/zh-cn/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction)。
 
 **cacheType**：
   当使用服务账号令牌时，用于缓存插件返回凭据的缓存键的类型。

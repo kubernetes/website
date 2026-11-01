@@ -1,7 +1,6 @@
 ---
 title: 承認者
 id: approver
-date: 2018-04-12
 full_link: 
 short_description: >
   Kubernetesコードの貢献をレビュー、および承認できる人。

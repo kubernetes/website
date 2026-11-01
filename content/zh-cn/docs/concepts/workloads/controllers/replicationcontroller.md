@@ -620,12 +620,12 @@ ReplicationController。
 * Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
   for ReplicationController.
 * `ReplicationController` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  Read the {{< api-reference page="core/replication-controller-v1" >}}
   object definition to understand the API for replication controllers.
 -->
 ## {{% heading "whatsnext" %}}
 
 - 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 - 了解 [Depolyment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，ReplicationController 的替代品。
-- `ReplicationController` 是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
+- `ReplicationController` 是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="core/replication-controller-v1" >}}
   对象定义以了解 replication controllers 的 API。

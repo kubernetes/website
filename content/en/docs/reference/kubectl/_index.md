@@ -23,6 +23,7 @@ This overview covers `kubectl` syntax, describes the command operations, and pro
 For details about each command, including all the supported flags and subcommands, see the
 [kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
 
+For an overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
@@ -138,7 +139,7 @@ Operation       | Syntax    |       Description
 `apply`            | `kubectl apply -f FILENAME [flags]`| Apply a configuration change to a resource from a file or stdin.
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Attach to a running container either to view the output stream or interact with the container (stdin).
 `auth`    | `kubectl auth [flags] [options]` | Inspect authorization.
-`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | Modify certificate resources.
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
 `completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
@@ -270,10 +271,10 @@ Output format | Description
 `-o json`     | Output a JSON formatted API object.
 `-o jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 `-o jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
-`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object (beta).
+`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object.
 `-o name`     | Print only the resource name and nothing else.
 `-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o yaml`     | Output a YAML formatted API object. KYAML is an experimental Kubernetes-specific dialect of YAML, and can be parsed as YAML.
+`-o yaml`     | Output a YAML formatted API object. KYAML is a Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 
 ##### Example
 

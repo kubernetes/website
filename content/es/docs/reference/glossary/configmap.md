@@ -1,7 +1,6 @@
 ---
 title: Configmap
 id: configmap
-date: 2020-07-11
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   Almacena información no sensible.

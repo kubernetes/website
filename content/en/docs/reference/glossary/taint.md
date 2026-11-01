@@ -1,7 +1,6 @@
 ---
 title: Taint
 id: taint
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of pods on nodes or node groups.

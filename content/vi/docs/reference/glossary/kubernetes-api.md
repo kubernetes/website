@@ -1,7 +1,6 @@
 ---
 title: Kubernetes API
 id: kubernetes-api
-date: 2018-04-12
 full_link: /docs/concepts/overview/kubernetes-api/
 short_description: >
   Ứng dụng cung cấp các chức năng của Kubernetes thông qua giao diện RESTful và lưu trữ trạng thái của cluster.

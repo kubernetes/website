@@ -118,7 +118,7 @@ Lihat dokumentasi [conformance](https://gateway-api.sigs.k8s.io/concepts/conform
 
 Gateway API adalah penerus API [Ingress](/docs/concepts/services-networking/ingress/) tapi tidak termasuk dalam jenis Ingress. Akibatnya, konversi satu kali dari sumber daya Ingress yang ada ke sumber daya Gateway API diperlukan.
 
-Referensi panduan [migrasi ingress](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress) untuk rincian tentang migrasi sumber daya Ingress ke sumber daya Gateway API.
+Referensi panduan [migrasi ingress](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress) untuk rincian tentang migrasi sumber daya Ingress ke sumber daya Gateway API.
 
 ## {{% heading "whatsnext" %}}
 

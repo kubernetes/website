@@ -249,7 +249,7 @@ O Gateway API é o sucessor da API [Ingress](/docs/concepts/services-networking/
 No entanto, ele não inclui o tipo Ingress. Como resultado, é necessária uma conversão única dos seus
 recursos Ingress existentes para recursos do Gateway API.
 
-Consulte o guia de [migração do ingress](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)
+Consulte o guia de [migração do ingress](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)
 para detalhes sobre como migrar recursos Ingress para recursos do Gateway API.
 
 ## {{% heading "whatsnext" %}}

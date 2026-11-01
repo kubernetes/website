@@ -5,15 +5,16 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
 
-SIG Docs jest jedną z [special interest group](https://github.com/kubernetes/community/blob/master/sig-list.md)
+SIG Docs jest jedną z [special interest group](https://github.com/kubernetes/community/blob/main/sig-list.md)
 w ramach
 projektu Kubernetes, skoncentrowaną na pisaniu, aktualizowaniu i
 utrzymywaniu dokumentacji dla całego Kubernetesa. Zobacz
-[SIG Docs z repozytorium społeczności na GitHubie](https://github.com/kubernetes/community/tree/master/sig-docs) aby
+[SIG Docs z repozytorium społeczności na GitHubie](https://github.com/kubernetes/community/tree/main/sig-docs) aby
 uzyskać więcej informacji o SIG.
 
 SIG Docs zaprasza do współpracy nad treścią i recenzjami wszystkich współtwórców. Każdy
@@ -25,7 +26,7 @@ Możesz również zostać [członkiem](/docs/contribute/participate/roles-and-re
 lub [zatwierdzającym](/docs/contribute/participate/roles-and-responsibilities/#approvers).
 Te role wymagają większego dostępu i wiążą się z pewnymi
 obowiązkami w zakresie zatwierdzania i wprowadzania zmian. Zobacz
-[community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md),
+[community-membership](https://github.com/kubernetes/community/blob/main/community-membership.md),
 aby uzyskać więcej informacji na temat tego, jak działa członkostwo w społeczności Kubernetesa.
 
 Reszta tego dokumentu przedstawia unikalne sposoby, w jakie te role funkcjonują
@@ -40,7 +41,7 @@ Każda SIG, w tym SIG Docs, wybiera jednego lub więcej członków SIG do
 pełnienia roli przewodniczących. Są oni punktami kontaktowymi pomiędzy SIG
 Docs a innymi częściami organizacji Kubernetesa. Wymagają szerokiej wiedzy na
 temat struktury projektu Kubernetes jako całości oraz tego, jak SIG
-Docs działa w jej ramach. Zobacz [Kierownictwo](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
+Docs działa w jej ramach. Zobacz [Kierownictwo](https://github.com/kubernetes/community/tree/main/sig-docs#leadership)
 z aktualną listą przewodniczących.
 
 ## Zespoły i automatyzacja SIG Docs {#sig-docs-teams-and-automation}
@@ -82,7 +83,7 @@ Plik OWNERS zawiera listę osób, które są recenzentami i zatwierdzającymi SI
 Docs. Pliki OWNERS mogą również istnieć w podkatalogach i mogą nadpisywać osoby,
 które mogą działać jako recenzent lub zatwierdzający dla plików w tym podkatalogu
 i jego potomnych. Więcej informacji na temat plików OWNERS można znaleźć w
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
+[OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md).
 
 Ponadto, pojedynczy plik Markdown może wymieniać osoby przeglądające i zatwierdzające w swojej
 sekcji front-matter, albo poprzez wymienienie indywidualnych nazw użytkowników GitHub, albo grup GitHub.
@@ -112,6 +113,11 @@ ograniczamy scalanie pull requestów do zatwierdzających SIG Docs. Oto jak to d
 
 ## {{% heading "whatsnext" %}}
 
+Aby dowiedzieć się więcej o uczestnictwie w SIG Docs, zobacz:
+
+- [Role i obowiązki](/docs/contribute/participate/roles-and-responsibilities/)
+- [Osoby zarządzające zgłoszeniami (issues)](/docs/contribute/participate/issue-wrangler/)
+- [Osoby zarządzające pull requestami (PR)](/docs/contribute/participate/pr-wranglers/)
 
 Więcej informacji na temat wnoszenia wkładu w dokumentację Kubernetesa można znaleźć w:
 

@@ -159,7 +159,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 ## SIG Docsに参加する
 
-[コミュニティのページ](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)を確認することで、SIG Docs Kubernetesコミュニティとの関わり方を学ぶことができます。
+[コミュニティのページ](https://github.com/kubernetes/community/tree/main/sig-docs#meetings)を確認することで、SIG Docs Kubernetesコミュニティとの関わり方を学ぶことができます。
 
 本プロジェクトのメンテナーには以下の方法で連絡することができます:
 

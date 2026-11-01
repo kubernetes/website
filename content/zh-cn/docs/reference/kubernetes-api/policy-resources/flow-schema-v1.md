@@ -158,13 +158,13 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
   该测试将检查发出请求的主体、所请求的动作和要操作的资源。
   只有同时满足以下两个条件时，才表示此 PolicyRulesWithSubjects 与请求匹配：
   (a) 至少一个主体成员与请求匹配且
-  (b) 至少 resourceRules 或 nonResourceRules 的一个成员与请求匹配。**
+  (b) 至少 `resourceRules` 或 `nonResourceRules` 的一个成员与请求匹配。**
 
   <!--
   - **rules.subjects** ([]Subject), required
 
     *Atomic: will be replaced during a merge*
-    
+  
     subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
 
     <a name="Subject"></a>
@@ -174,9 +174,9 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
   - **rules.subjects** ([]Subject)，必需
 
     **原子性：将在合并期间被替换**
-    
-    subjects 是此规则相关的普通用户、服务账号或组的列表。在这个列表中必须至少有一个成员。
-    同时包含 system:authenticated 和 system:unauthenticated 用户组的列表会与每个请求匹配。
+  
+    `subjects` 是此规则相关的普通用户、服务账号或组的列表。在这个列表中必须至少有一个成员。
+    同时包含 `system:authenticated` 和 `system:unauthenticated` 用户组的列表会与每个请求匹配。
     此字段为必需。
 
     <a name="Subject"></a>
@@ -215,9 +215,9 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
 
       - **rules.subjects.group.name** (string)，必需
 
-        name 是要匹配的用户组，或使用 `*` 匹配所有用户组。有关一些广为人知的组名，请参阅
+        `name` 是要匹配的用户组，或使用 `*` 匹配所有用户组。有关一些广为人知的组名，请参阅
         https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go。必需。
-    
+
     <!--
     - **rules.subjects.serviceAccount** (ServiceAccountSubject)
 
@@ -249,7 +249,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
       - **rules.subjects.serviceAccount.namespace** (string)，必需
 
         `namespace` 是要匹配的 ServiceAccount 对象的名字空间。必需。
-    
+
     <!--
     - **rules.subjects.user** (UserSubject)
 
@@ -273,12 +273,12 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
       - **rules.subjects.user.name** (string)，必需
 
         `name` 是要匹配的用户名，可使用 `*` 匹配所有用户名。必需。
-  
+
   <!--
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
 
     *Atomic: will be replaced during a merge*
-    
+  
     `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 
     <a name="NonResourcePolicyRule"></a>
@@ -288,7 +288,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
 
     **原子性：将在合并期间被替换**
-    
+
     `nonResourceRules` 是由 NonResourcePolicyRule 对象构成的列表，
     根据请求的动作和目标非资源 URL 来识别匹配的请求。
 
@@ -296,12 +296,12 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
     **NonResourcePolicyRule 是根据请求的动作和目标非资源 URL 来匹配非资源请求的一种规则。
     只有满足以下两个条件时，NonResourcePolicyRule 才会匹配一个请求：
     (a) 至少 verbs 的一个成员与请求匹配且 (b) 至少 nonResourceURLs 的一个成员与请求匹配。**
-    
+
     <!--
     - **rules.nonResourceRules.nonResourceURLs** ([]string), required
 
       *Set: unique values will be kept during a merge*
-      
+
       `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
         - "/healthz" is legal
         - "/hea*" is illegal
@@ -314,7 +314,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
     - **rules.nonResourceRules.nonResourceURLs** ([]string)，必需
 
       **集合：合并期间保留唯一值**
-      
+
       `nonResourceURLs` 是用户有权访问的一组 URL 前缀，不可以为空。
       此字段为必需设置的字段。例如：
         - "/healthz" 是合法的
@@ -324,27 +324,27 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
         - "/healthz/*" 与所有组件自身的的健康检查路径匹配。
       `*` 与所有非资源 URL 匹配。如果存在此字符，则必须是唯一的输入项。
       必需。
-    
+  
     <!--
     - **rules.nonResourceRules.verbs** ([]string), required
 
       *Set: unique values will be kept during a merge*
-      
+    
       `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
     -->
 
     - **rules.nonResourceRules.verbs** ([]string)，必需
 
       **集合：在合并期间保留唯一值**
-      
+
       `verbs` 是与动作匹配的列表，不可以为空。`*` 与所有动作匹配。
       如果存在此字符，则必须是唯一的输入项。必需。
-  
+
   <!--
   - **rules.resourceRules** ([]ResourcePolicyRule)
 
     *Atomic: will be replaced during a merge*
-    
+  
     `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
 
     <a name="ResourcePolicyRule"></a>
@@ -354,44 +354,44 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
   - **rules.resourceRules** ([]ResourcePolicyRule)
 
     **原子性：将在合并期间被替换**
-    
+  
     `resourceRules` 是 ResourcePolicyRule 对象的列表，根据请求的动作和目标资源识别匹配的请求。
     `resourceRules` 和 `nonResourceRules` 两者必须至少有一个非空。
 
     <a name="ResourcePolicyRule"></a>
     **ResourcePolicyRule 是用来匹配资源请求的规则，对请求的动作和目标资源进行测试。
     只有满足以下条件时，ResourcePolicyRule 才会与某个资源请求匹配：
-    (a) 至少 verbs 的一个成员与请求的动作匹配，
-    (b) 至少 apiGroups 的一个成员与请求的 API 组匹配，
-    (c) 至少 resources 的一个成员与请求的资源匹配，
-    (d) 要么 (d1) 请求未指定一个名字空间（即，`namespace==""`）且 clusterScope 为 true，
+    (a) 至少 `verbs` 的一个成员与请求的动作匹配，
+    (b) 至少 `apiGroups` 的一个成员与请求的 API 组匹配，
+    (c) 至少 `resources` 的一个成员与请求的资源匹配，
+    (d) 要么 (d1) 请求未指定一个名字空间（即，`namespace==""`）且 `clusterScope` 为 true，
     要么 (d2) 请求指定了一个名字空间，且至少 namespaces 的一个成员与请求的名字空间匹配。**
 
     <!--
     - **rules.resourceRules.apiGroups** ([]string), required
 
       *Set: unique values will be kept during a merge*
-      
+
       `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 
     - **rules.resourceRules.resources** ([]string), required
 
       *Set: unique values will be kept during a merge*
-      
-      `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+
+      `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource. For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
     -->
 
     - **rules.resourceRules.apiGroups** ([]string)，必需
 
       **集合：合并期间保留唯一值**
-      
+
       `apiGroups` 是与 API 组匹配的列表，不可以为空。`*` 表示与所有 API 组匹配。
       如果存在此字符，则其必须是唯一的条目。必需。
 
     - **rules.resourceRules.resources** ([]string)，必需
 
       **集合：合并期间保留唯一值**
-      
+
       `resources` 是匹配的资源（即小写和复数）的列表，如果需要的话，还可以包括子资源。
       例如 [ "services", "nodes/status" ]。此列表不可以为空。
       `*` 表示与所有资源匹配。如果存在此字符，则必须是唯一的条目。必需。
@@ -400,7 +400,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
     - **rules.resourceRules.verbs** ([]string), required
 
       *Set: unique values will be kept during a merge*
-      
+
       `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
 
     - **rules.resourceRules.clusterScope** (boolean)
@@ -411,7 +411,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
     - **rules.resourceRules.verbs** ([]string)，必需
 
       **集合：合并期间保留唯一值**
-      
+
       `verbs` 是匹配的动作的列表，不可以为空。`*` 表示与所有动作匹配。
       如果存在此字符，则必须是唯一的条目。必需。
 
@@ -557,14 +557,16 @@ FlowSchemaList 是 FlowSchema 对象的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified FlowSchema
-#### HTTP Request
 -->
 ## 操作 {#Operations}
-
+  
 <hr>
 
+<!--
+### `get` read the specified FlowSchema
+  
+#### HTTP Request
+-->
 ### `get` 读取指定的 FlowSchema
 
 #### HTTP 请求
@@ -573,6 +575,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **pretty** (*in query*): string
@@ -598,6 +601,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 ### `get` read status of the specified FlowSchema
+  
 #### HTTP Request
 -->
 ### `get` 读取指定 FlowSchema 的状态
@@ -608,6 +612,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **pretty** (*in query*): string
@@ -633,6 +638,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 ### `list` list or watch objects of kind FlowSchema
+  
 #### HTTP Request
 -->
 ### `list` 列出或监视 FlowSchema 类别的对象
@@ -643,6 +649,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 <!--
 #### Parameters
+  
 - **allowWatchBookmarks** (*in query*): boolean
 - **continue** (*in query*): string
 - **fieldSelector** (*in query*): string
@@ -652,6 +659,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -693,6 +701,10 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -712,6 +724,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 <!--
 ### `create` create a FlowSchema
+  
 #### HTTP Request
 -->
 ### `create` 创建 FlowSchema
@@ -722,6 +735,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 <!--
 #### Parameters
+  
 - **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
@@ -763,6 +777,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 <!--
 ### `update` replace the specified FlowSchema
+  
 #### HTTP Request
 -->
 ### `update` 替换指定的 FlowSchema
@@ -773,6 +788,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
@@ -818,6 +834,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 ### `update` replace status of the specified FlowSchema
+  
 #### HTTP Request
 -->
 ### `update` 替换指定的 FlowSchema 的状态
@@ -828,6 +845,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
@@ -873,6 +891,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 ### `patch` partially update the specified FlowSchema
+  
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 FlowSchema
@@ -883,6 +902,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -933,6 +953,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 ### `patch` partially update status of the specified FlowSchema
+  
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 FlowSchema 的状态
@@ -943,6 +964,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -993,6 +1015,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 <!--
 ### `delete` delete a FlowSchema
+  
 #### HTTP Request
 -->
 ### `delete` 删除 FlowSchema
@@ -1003,6 +1026,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the FlowSchema
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1053,6 +1077,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 <!--
 ### `deletecollection` delete collection of FlowSchema
+  
 #### HTTP Request
 -->
 ### `deletecollection` 删除 FlowSchema 的集合
@@ -1063,6 +1088,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 <!--
 #### Parameters
+  
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **continue** (*in query*): string
 - **dryRun** (*in query*): string
@@ -1076,6 +1102,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -1129,6 +1156,10 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

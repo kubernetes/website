@@ -51,8 +51,10 @@ have specific allowed values.
 ## 良好的 Webhook 设计的重要性   {#why-good-webhook-design-matters}
 
 当任何创建、更新或删除请求发送到 Kubernetes API 时，就会发生准入控制。
-准入控制器会拦截符合你定义的特定条件的请求。然后，这些请求会被发送到变更准入 Webhook（Mutating Admission Webhook）
-或验证准入 Webhook（Validating Admission Webhook）。这些 Webhook 通常用于确保对象规范中的特定字段存在或具有特定允许值。
+准入控制器会拦截符合你定义的特定条件的请求。然后，这些请求会被发送到变更准入
+Webhook（Mutating Admission Webhook）或验证准入
+Webhook（Validating Admission Webhook）。这些
+Webhook 通常用于确保对象规范中的特定字段存在或具有特定允许值。
 
 <!--
 Webhooks are a powerful mechanism to extend the Kubernetes API. Badly-designed
@@ -61,7 +63,8 @@ the webhooks have over objects in the cluster. Like other API extension
 mechanisms, webhooks are challenging to test at scale for compatibility with
 all of your workloads, other webhooks, add-ons, and plugins. 
 -->
-Webhook 是扩展 Kubernetes API 的强大机制。设计不良的 Webhook 由于对集群中对象具有很大的控制权，
+Webhook 是扩展 Kubernetes API 的强大机制。
+设计不良的 Webhook 由于对集群中对象具有很大的控制权，
 常常会导致工作负载中断。与其他 API 扩展机制一样，对 Webhook 与所有工作负载、其他
 Webhook、插件及附加组件的兼容性进行大规模测试是一个挑战。
 
@@ -78,7 +81,7 @@ in unexpected behavior after you upgrade your clusters to newer versions.
 -->
 此外，随着每个版本的发布，Kubernetes 会通过新增特性、将特性提升为测试版或稳定版以及弃用旧特性来添加或修改 API。
 即使是稳定的 Kubernetes API 也可能会发生变化。例如，在 v1.29 中，`Pod` API 发生了变化，
-以添加 [Sidecar 容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)特性。
+以添加[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)特性。
 虽然因为新的 Kubernetes API 导致 Kubernetes 对象进入损坏状态的情况很少见，
 但那些在早期 API 版本中正常工作的 Webhook 可能无法适配该 API 的最新更改。
 这可能会导致在你将集群升级到较新版本后出现意外行为。
@@ -258,11 +261,6 @@ If you use
 don't use admission webhooks to validate values in CustomResource specifications
 or to set default values for fields. Kubernetes lets you define validation rules
 and default field values when you create CustomResourceDefinitions.
-
-To learn more, see the following resources:
-
-* [Validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
-* [Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)
 -->
 ### 为 CustomResourceDefinitions 使用内置验证和默认值 {#no-crd-validation-defaulting}
 
@@ -270,6 +268,12 @@ To learn more, see the following resources:
 请勿使用准入 Webhook 来验证 CustomResource 规约中的值，或者为其中的字段设置默认值。
 Kubernetes 允许你在创建 CustomResourceDefinitions 时定义验证规则和字段的默认值。
 
+<!--
+To learn more, see the following resources:
+
+* [Validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+* [Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)
+-->
 要了解更多，请参阅以下资源：
 
 * [验证规则](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
@@ -363,10 +367,6 @@ Webhook 要添加某个标签，而另一个控制器要删除该标签，那么
 
     Set the audit rule to create events for the specific resources that your
     webhook mutates.
-
-1.  Check your audit events for webhooks being reinvoked multiple times with the
-    same patch being applied to the same object, or for an object having
-    a field updated and reverted multiple times.
 -->
 1. 更新集群的审计策略以记录审计事件。使用以下参数：
 
@@ -376,7 +376,12 @@ Webhook 要添加某个标签，而另一个控制器要删除该标签，那么
 
    设置审计规则，为你的 Webhook 所变更的特定资源创建事件。
 
-1. 检查审计事件，查看是否有 Webhook 被多次重新调用并应用了相同的补丁到同一个对象的情况，
+<!--
+1.  Check your audit events for webhooks being reinvoked multiple times with the
+    same patch being applied to the same object, or for an object having
+    a field updated and reverted multiple times.
+-->
+2. 检查审计事件，查看是否有 Webhook 被多次重新调用并应用了相同的补丁到同一个对象的情况，
    或者某个对象的字段被多次更新和回滚的情况。
 
 <!--
@@ -479,8 +484,11 @@ calls to the webhook server. Consider the following scope limitations:
   failed node upgrades. Only apply validation controls to Lease objects in this
   namespace if you're confident that the controls won't put your cluster at
   risk.
-* Don't mutate TokenReview or SubjectAccessReview objects. These are always
-  read-only requests. Modifying these objects might break your cluster.
+* Don't match TokenReview, SubjectAccessReview, or other
+  [virtual authentication and authorization resources](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources).
+  These are always read-only requests, and intercepting them might break your
+  cluster. Starting with Kubernetes v1.37, admission webhooks are not called
+  for these resources by default.
 * Limit each webhook to a specific namespace by using a
   [`namespaceSelector`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector).
 -->
@@ -491,8 +499,10 @@ calls to the webhook server. Consider the following scope limitations:
 * 不要对节点租约（Node Leases）进行变更，这些租约以 Lease 对象的形式存在于
   `kube-node-lease` 系统命名空间中。对节点租约进行变更可能会导致节点升级失败。
   只有在你确信验证控制不会对集群造成风险时，才对这个命名空间中的 Lease 对象应用验证规则。
-* 不要对 TokenReview 或 SubjectAccessReview 对象进行变更。这些始终是只读请求。
-  修改这些对象可能会破坏你的集群。
+* 不要匹配 `TokenReview`、`SubjectAccessReview`
+  或其他[虚拟的身份验证与鉴权资源](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)。
+  这些请求始终是只读的，拦截它们可能会破坏你的集群。
+  从 Kubernetes v1.37 开始，默认情况下不会为这些资源调用准入 Webhook。
 * 使用 [`namespaceSelector`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector)
   将每个 Webhook 限制到特定的名字空间上。
 
@@ -542,7 +552,8 @@ For details, see
 配置中的 `matchPolicy` 字段控制此行为。在 `matchPolicy` 字段中指定值为
 `Equivalent` 或省略该字段，以允许 Webhook 对所有 API 版本起作用。
 
-更多详细信息，请参见[匹配请求：`matchPolicy`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)。
+更多详细信息，
+参见[匹配请求：`matchPolicy`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)。
 
 <!--
 ## Mutation scope and field considerations {#mutation-scope-considerations}

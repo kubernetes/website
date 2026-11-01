@@ -1,7 +1,6 @@
 ---
 title: 资源（基础设施）
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   数量确定的可供使用的基础设施（CPU、内存等）。
 
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Resource (infrastructure)
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   A defined amount of infrastructure available for consumption (CPU, memory, etc).
 
@@ -47,7 +45,7 @@ Kubernetes 抽象出常见的[资源](/zh-cn/docs/concepts/configuration/manage-
 来管理{{< glossary_tooltip text="工作负载" term_id="workload" >}}的使用。
 
 <!--
-You can also use [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) to
+You can also use [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) to
 manage complex resource allocations automatically.
 -->
-你也可以使用[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)来自动管理复杂的资源分配。
+你也可以使用[动态资源分配](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/)来自动管理复杂的资源分配。

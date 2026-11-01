@@ -1,7 +1,6 @@
 ---
 titre: Node
 id: node
-date: 2024-09-12
 full_link: /fr/docs/concepts/architecture/nodes/
 short_description: >
   Un nœud est une machine de travail dans Kubernetes.

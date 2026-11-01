@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   Sebuah objek API yang digunakan untuk menyimpan data nonkonfidensial sebagai pasangan kunci-nilai (_key-value_). Pod dapat menggunakan ConfigMap sebagai variabel lingkungan, argumen baris perintah (_command-line_), atau berkas konfigurasi dalam sebuah _volume_.

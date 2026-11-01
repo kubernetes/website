@@ -1,15 +1,14 @@
 <!--
 ### Synopsis
+
+Install the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
 ### 概要
 
-<!--
-Install the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
--->
 通过 API 服务器安装 CoreDNS 附加组件。请注意，即使 DNS 服务器已部署，在安装 CNI
 之前 DNS 服务器不会被调度执行。
 
-```
+```shell
 kubeadm init phase addon coredns [flags]
 ```
 
@@ -29,7 +28,9 @@ kubeadm init phase addon coredns [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -43,7 +44,9 @@ kubeadm 配置文件的路径。
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -57,22 +60,16 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
-RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - default=true)
+RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组用来描述各种特性门控的键值对（key=value）。选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false（BETA - 默认值=true）<br/>
-NodeLocalCRISocket=true|false（ALPHA - 默认值=false）<br/>
-PublicKeysECDSA=true|false（DEPRECATED - 默认值=false）<br/>
-RootlessControlPlane=true|false（ALPHA - 默认值=false）<br/>
-WaitForAllControlPlaneComponents=true|false（BETA - 默认值=true）
+RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>
@@ -81,7 +78,9 @@ WaitForAllControlPlaneComponents=true|false（BETA - 默认值=true）
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for coredns
@@ -100,7 +99,9 @@ coredns 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -119,7 +120,9 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
@@ -139,7 +142,9 @@ kubeconfig 文件。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -153,7 +158,9 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--print-manifest</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Print the addon manifests to STDOUT instead of installing them
@@ -172,12 +179,14 @@ Print the addon manifests to STDOUT instead of installing them
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use alternative range of IP address for service VIPs.
 -->
-为服务 VIP 选择 IP 地址范围。
+指定 Service VIP 使用 IP 地址的其他范围。
 </p>
 </td>
 </tr>
@@ -191,12 +200,14 @@ Use alternative range of IP address for service VIPs.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
-为服务使用其它域名，例如：&quot;myorg.internal&quot;。
+为 Service 使用其它域名，例如：&quot;myorg.internal&quot;。
 </p>
 </td>
 </tr>
@@ -220,12 +231,14 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验性] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>

@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   Обʼєкт API, призначений для зберігання неконфіденційних даних у вигляді пар ключ-значення. Може використовуватися як змінні середовища, аргументи командного рядка чи файли конфігурації у томі.

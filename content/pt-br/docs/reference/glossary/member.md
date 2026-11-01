@@ -1,7 +1,6 @@
 ---
 title: Membro
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   Um colaborador continuamente ativo na comunidade K8s.

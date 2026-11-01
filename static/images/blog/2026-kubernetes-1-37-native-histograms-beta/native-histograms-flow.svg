@@ -1,0 +1,99 @@
+<!-- To view or edit the mermaid code, use the following URL: -->
+<!-- https://mermaid.live/edit#pako:eNqVkE1vwjAMhv-KlXNpk3Zp3W64gI0D2m4TTg054Gq1VmlSpd1QUv77XOh2A028tH78eB17n2NvpWOCXg1J7gN76fRk2Z0q15tE54Y087k1eXlDqM572s-qU9Bv5kU4p-0lGgN8b5f92nUoBnduW3iE8oQpD9730rO2eBwH3x7Qk2G_q6kO7wYv_J00W14P71fP316e6rZ_KzKj3W-n_d7rQ3lT_Z4n57tXm991gHqK1vK-c1-5u0dY-E_1 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 610" width="100%" height="100%" role="img" aria-label="Kubernetes Native Histograms Dual Exposition Flow">
+  <title>Kubernetes Native Histograms Architecture Flow</title>
+  <desc>Flowchart showing how Kubernetes components register metrics with component-base/metrics, apply exponential histogram options when NativeHistograms feature gate is enabled, and dual-expose both classic buckets and native spans in the Protobuf payload.</desc>
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#326ce5" />
+    </marker>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.07" />
+    </filter>
+  </defs>
+
+  <style>
+    .node-k8s { fill: #326ce5; stroke: #2557c7; stroke-width: 1.5px; rx: 8px; ry: 8px; }
+    .node-payload { fill: #e8f0fe; stroke: #326ce5; stroke-width: 2px; rx: 8px; ry: 8px; }
+    .node-classic { fill: #f8f9fa; stroke: #c3c8cf; stroke-width: 1.5px; rx: 8px; ry: 8px; }
+    .node-native { fill: #f0f7ff; stroke: #326ce5; stroke-width: 1.5px; rx: 8px; ry: 8px; }
+    .badge-rect { fill: #ffffff; stroke: #d0d7de; stroke-width: 1px; rx: 13px; ry: 13px; }
+    .flow-line { fill: none; stroke: #326ce5; stroke-width: 2px; marker-end: url(#arrowhead); }
+    .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; text-anchor: middle; }
+    .text-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+    .text-badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 500; fill: #444d56; text-anchor: middle; }
+    .text-badge-code { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 11.5px; font-weight: 600; fill: #24292e; text-anchor: middle; }
+    .text-white { fill: #ffffff; }
+    .text-dark { fill: #24292e; }
+    .text-muted { fill: #57606a; }
+    .text-blue { fill: #185abc; }
+    .text-native-sub { fill: #0b57d0; }
+  </style>
+
+  <!-- Node A: Kubernetes Components -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-k8s" x="110" y="20" width="520" height="54" />
+    <text class="text-title text-white" x="370" y="42">Kubernetes components</text>
+    <text class="text-sub text-white" x="370" y="60" opacity="0.95">(kube-apiserver, kubelet, scheduler, kube-proxy)</text>
+  </g>
+
+  <!-- Edge A -> B -->
+  <path class="flow-line" d="M 370 74 L 370 148" />
+  <g filter="url(#card-shadow)">
+    <rect class="badge-rect" x="260" y="96" width="220" height="26" />
+    <text class="text-badge" x="370" y="113">Register histogram metric</text>
+  </g>
+
+  <!-- Node B: Component Base Metrics -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-k8s" x="190" y="148" width="360" height="48" />
+    <text class="text-title text-white" x="370" y="177" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14.5px">k8s.io/component-base/metrics</text>
+  </g>
+
+  <!-- Edge B -> C -->
+  <path class="flow-line" d="M 370 196 L 370 270" />
+  <g filter="url(#card-shadow)">
+    <rect class="badge-rect" x="210" y="218" width="320" height="26" />
+    <text class="text-badge" x="370" y="235">Feature gate: <tspan class="text-badge-code">NativeHistograms = true</tspan></text>
+  </g>
+
+  <!-- Node C: Exponential Options -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-k8s" x="90" y="270" width="560" height="54" />
+    <text class="text-title text-white" x="370" y="292">Apply exponential options</text>
+    <text class="text-sub text-white" x="370" y="310" opacity="0.95">(BucketFactor: 1.1, MaxBucketNumber: 160)</text>
+  </g>
+
+  <!-- Edge C -> D -->
+  <path class="flow-line" d="M 370 324 L 370 398" />
+  <g filter="url(#card-shadow)">
+    <rect class="badge-rect" x="235" y="346" width="270" height="26" />
+    <text class="text-badge" x="370" y="363">Scraped via Protobuf Accept header</text>
+  </g>
+
+  <!-- Node D: Dual Exposition Payload -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-payload" x="220" y="398" width="300" height="48" />
+    <text class="text-title text-blue" x="370" y="428">Dual exposition payload</text>
+  </g>
+
+  <!-- Edge D -> E (Classic) -->
+  <path class="flow-line" d="M 300 446 L 300 478 Q 300 488 290 488 L 210 488 Q 200 488 200 498 L 200 518" />
+
+  <!-- Edge D -> F (Native) -->
+  <path class="flow-line" d="M 440 446 L 440 488 Q 440 498 450 498 L 530 498 Q 540 498 540 508 L 540 518" />
+
+  <!-- Node E: Classic Buckets -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-classic" x="40" y="520" width="320" height="64" />
+    <text class="text-title text-dark" x="200" y="545">Classic buckets: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13.5px">h.Bucket</tspan></text>
+    <text class="text-sub text-muted" x="200" y="567">(backward compatible)</text>
+  </g>
+
+  <!-- Node F: Native Spans -->
+  <g filter="url(#card-shadow)">
+    <rect class="node-native" x="380" y="520" width="320" height="64" />
+    <text class="text-title text-blue" x="540" y="545">Native spans: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13.5px">h.Schema / h.PositiveSpan</tspan></text>
+    <text class="text-sub text-native-sub" x="540" y="567">(high resolution)</text>
+  </g>
+</svg>

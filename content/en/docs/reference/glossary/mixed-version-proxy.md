@@ -1,7 +1,6 @@
 ---
 title: Mixed Version Proxy (MVP)
 id: mvp
-date: 2023-07-24
 full_link: /docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   Feature that lets a kube-apiserver proxy a resource request to a different peer API server. 

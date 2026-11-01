@@ -6,7 +6,7 @@ weight: 30
 
 ## {{% heading "synopsis" %}}
 
-kubectl controls the Kubernetes cluster manager.
+{{< glossary_definition term_id="kubectl" length="short" >}}
 
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 
@@ -380,14 +380,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kuberc file is taken into account to define user specific preferences.
-</td>
-</tr>
-
-<tr>
-<td colspan="2">KUBECTL_KYAML</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kubectl is capable of producing Kubernetes-specific dialect of YAML output format.
 </td>
 </tr>
 

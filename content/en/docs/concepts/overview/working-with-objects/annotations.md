@@ -75,6 +75,11 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
+Valid annotation values have no character set restrictions — unlike label values, annotation values may contain any string, including special characters, whitespace, and structured data such as JSON or YAML.
+If you plan to store binary data (such as [CBOR](https://cbor.io/)),
+the Kubernetes project recommends that you base64 encode it.
+However, the total size of **all** annotations on a single object (keys and values combined) must not exceed 256 KiB.
+
 For example, here's a manifest for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 
 ```yaml

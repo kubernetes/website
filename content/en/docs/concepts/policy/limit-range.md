@@ -51,7 +51,7 @@ The name of a LimitRange object must be a valid
 - Second, the LimitRange tracks usage to ensure it does not exceed resource minimum,
   maximum and ratio defined in any LimitRange present in the namespace.
 - If you attempt to create or update an object (Pod or PersistentVolumeClaim) that violates
-  a LimitRange constraint, your request to the API server will fail with anHTTP status
+  a LimitRange constraint, your request to the API server will fail with an HTTP status
   code `403 Forbidden` and a message explaining the constraint that has been violated.
 - If you add a LimitRange in a namespace that applies to compute-related resources
   such as `cpu` and `memory`, you must specify requests or limits for those values.

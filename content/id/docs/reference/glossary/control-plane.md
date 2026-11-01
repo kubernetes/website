@@ -1,7 +1,6 @@
 ---
 title: Control Plane
 id: control-plane
-date: 2019-05-12
 full_link:
 short_description: >
   Merupakan lapisan orkestrasi Container yang mengekspos API dan antarmuka untuk mendefinisikan, menggelar, dan mengelola siklus hidup suatu Container.

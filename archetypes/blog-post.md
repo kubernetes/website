@@ -54,7 +54,7 @@ An optional section that links to resources for readers to get involved, and ack
 
 * [The name of a channel on Slack, #a-channel](https://<a-workspace>.slack.com/messages/<a-channel>)
 
-* [A link to a "contribute" page with more information](<https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact>).
+* [A link to a "contribute" page with more information](<https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact>).
 
 * Acknowledgements and thanks to the contributors. <person's name> ([<github id>](https://github.com/<github id>)) who did X, Y, and Z.
 

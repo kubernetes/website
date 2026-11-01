@@ -144,6 +144,9 @@ should have four Pods:
    nginx-deployment-148880595-rwovn   1/1       Running   0          2m
    ```
 
+For detailed scaling procedures including scaling down and scaling to zero, see
+[Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/).
+
 ## Deleting a deployment
 
 Delete the deployment by name:
@@ -162,3 +165,4 @@ added to Kubernetes, replicated applications were configured using a
 ## {{% heading "whatsnext" %}}
 
 - Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn how to [update a Deployment without downtime](/docs/tasks/run-application/update-deployment-rolling/).

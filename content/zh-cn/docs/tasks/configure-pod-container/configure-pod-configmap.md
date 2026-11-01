@@ -1147,9 +1147,9 @@ very
 
 {{< caution >}}
 <!--
-Like before, all previous files in the `/etc/config/` directory will be deleted.
+Like before, all previous files in the `/etc/config/` directory will be inaccessible.
 -->
-如前，`/etc/config/` 目录中所有先前的文件都将被删除。
+如前，`/etc/config/` 目录中所有先前的文件都将无法访问。
 {{< /caution >}}
 
 <!--
@@ -1338,7 +1338,7 @@ Pod 可以从使用 `data` 或 `binaryData` 的 ConfigMap 中加载数据。
 <!--
 ## Optional ConfigMaps
 -->
-### 可选的 ConfigMap {#optional-configmaps}
+## 可选的 ConfigMap {#optional-configmaps}
 
 <!--
 You can mark a reference to a ConfigMap as _optional_ in a Pod specification.
@@ -1427,7 +1427,7 @@ spec:
 <!--
 ## Restrictions
 -->
-### 限制   {#restrictions}
+## 限制   {#restrictions}
 
 <!--
 - You must create the `ConfigMap` object before you reference it in a Pod

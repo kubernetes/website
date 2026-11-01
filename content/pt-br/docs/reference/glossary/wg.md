@@ -1,7 +1,6 @@
 ---
 title: WG (Grupo de Trabalho)
 id: wg
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
 short_description: >
   Facilita a discussão e/ou implementação de um projeto de curta duração, pontual ou dissociado para um comitê, envolvendo um ou mais SIG (grupos de interesse especial).

@@ -1,7 +1,6 @@
 ---
 title: Anotasi
 id: annotation
-date: 2018-04-12
 full_link: /id/docs/concepts/overview/working-with-objects/annotations
 short_description: >
   Suatu pasangan kunci-nilai (_key-value_) yang digunakan untuk melampirkan metadata nonidentifikasi arbitrer ke objek.

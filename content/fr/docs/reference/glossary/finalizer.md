@@ -1,7 +1,6 @@
 ---
 title: Finalizer
 id: finalizer
-date: 2024-09-02
 full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   Une clé du namespace qui indique à Kubernetes d'attendre que certaines conditions soient remplies

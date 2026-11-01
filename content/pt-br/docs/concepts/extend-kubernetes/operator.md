@@ -26,7 +26,7 @@ O Kubernetes é projetado para automação. Por padrão, você tem bastante auto
 O conceito de {{< glossary_tooltip text="padrão operador" term_id="operator-pattern" >}} do Kubernetes permite a extensão do comportamento sem modificar o código do próprio Kubernetes, vinculando {{< glossary_tooltip text="controladores" term_id="controller" >}} a um ou mais recursos personalizados.
 Os operadores são clientes da API do Kubernetes que atuam como controladores para um [*recurso personalizado*](/docs/concepts/api-extension/custom-resources/).
 
-## Exemplo de um operador
+## Exemplo de um operador {#example}
 
 Algumas das coisas que você pode automatizar usando um operador incluem:
 
@@ -55,7 +55,7 @@ A maneira mais comum de implantar um operador é adicionar a definição persona
 O Controlador normalmente é executado fora da {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}}, assim como você executaria qualquer aplicação que rode em contêineres.
 Por exemplo, você pode executar o controlador no seu cluster como um *Deployment*.
 
-## Usando um operador
+## Usando um operador {#using-operators}
 
 Depois de implantar um operador, você o usaria adicionando, modificando ou excluindo o tipo de recurso que o operador usa. Seguindo o exemplo acima,
 você configuraria um Deployment para o próprio operador, e depois:
@@ -68,7 +68,7 @@ kubectl edit SampleDB/example-database # alterar manualmente algumas configuraç
 
 &hellip;e é isso! O Operador cuidará de aplicar as alterações, bem como manter o serviço existente em bom estado.
 
-## Escrevendo o seu próprio operador
+## Escrevendo o seu próprio operador {#writing-operator}
 
 Se não houver um operador no ecossistema que implemente o comportamento desejado, você pode programar o seu próprio.
 

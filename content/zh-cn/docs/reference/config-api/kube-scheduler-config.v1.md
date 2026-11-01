@@ -34,10 +34,12 @@ auto_generated: true
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
+<p>
 <!--
 ClientConnectionConfiguration contains details for constructing a client.
 -->
-<p>ClientConnectionConfiguration 中包含用来构造客户端所需的细节。</p>
+ClientConnectionConfiguration 中包含用来构造客户端所需的细节。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -47,10 +49,12 @@ ClientConnectionConfiguration contains details for constructing a client.
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    kubeconfig is the path to a KubeConfig file.
    -->
-   <p><code>kubeconfig</code> 字段为指向 KubeConfig 文件的路径。</p>
+   <code>kubeconfig</code> 字段为指向 KubeConfig 文件的路径。
+   </p>
 </td>
 </tr>
 <tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
@@ -84,20 +88,24 @@ client.
 <code>float32</code>
 </td>
 <td>
+   <p>
    <!--
    qps controls the number of queries per second allowed for this connection.
    -->
-   <p><code>qps</code> 控制此连接允许的每秒查询次数。</p>
+   <code>qps</code> 控制此连接允许的每秒查询次数。
+   </p>
 </td>
 </tr>
 <tr><td><code>burst</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
+   <p>
    <!--
    burst allows extra queries to accumulate when a client is exceeding its rate.
    -->
-   <p><code>burst</code> 允许在客户端超出其速率限制时可以累积的额外查询个数。</p>
+   <code>burst</code> 允许在客户端超出其速率限制时可以累积的额外查询个数。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -112,10 +120,12 @@ client.
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
+<p>
 <!--
 DebuggingConfiguration holds configuration for Debugging related features.
 -->
-<p>DebuggingConfiguration 包含与调试功能相关的配置。</p>
+DebuggingConfiguration 包含与调试功能相关的配置。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -125,22 +135,26 @@ DebuggingConfiguration holds configuration for Debugging related features.
 <code>bool</code>
 </td>
 <td>
+   <p>
    <!--
    enableProfiling enables profiling via web interface host:port/debug/pprof/
    -->
-   <p><code>enableProfiling</code> 字段允许通过 Web 接口 host:port/debug/pprof/ 执行性能分析。</p>
+   <code>enableProfiling</code> 字段允许通过 Web 接口 host:port/debug/pprof/ 执行性能分析。
+   </p>
 </td>
 </tr>
 <tr><td><code>enableContentionProfiling</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
 <td>
+   <p>
    <!--
    enableContentionProfiling enables block profiling, if
 enableProfiling is true.
    -->
-   <p><code>enableContentionProfiling</code> 字段在 
-   <code>enableProfiling</code> 为 true 时启用阻塞分析。</p>
+   <code>enableContentionProfiling</code> 字段在
+   <code>enableProfiling</code> 为 true 时启用阻塞分析。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -171,12 +185,12 @@ LeaderElectionConfiguration 为能够支持领导者选举的组件定义其领�
 <code>bool</code>
 </td>
 <td>
+   <p>
    <!--
    leaderElect enables a leader election client to gain leadership
 before executing the main loop. Enable this when running replicated
 components for high availability.
    -->
-   <p>
    <code>leaderElect</code> 允许领导者选举客户端在进入主循环执行之前先获得领导者角色。
    运行多副本组件时启用此功能有助于提高可用性。
    </p>
@@ -186,6 +200,7 @@ components for high availability.
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
    leaseDuration is the duration that non-leader candidates will wait
 after observing a leadership renewal until attempting to acquire
@@ -194,7 +209,6 @@ maximum duration that a leader can be stopped before it is replaced
 by another candidate. This is only applicable if leader election is
 enabled.
    -->
-   <p>
    <code>leaseDuration</code> 是非领导角色候选者在观察到需要领导席位更新时要等待的时间；
    只有经过所设置时长才可以尝试去获得一个仍处于领导状态但需要被刷新的席位。
    这里的设置值本质上意味着某个领导者在被另一个候选者替换掉之前可以停止运行的最长时长。
@@ -206,28 +220,28 @@ enabled.
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
    renewDeadline is the interval between attempts by the acting master to
 renew a leadership slot before it stops leading. This must be less
 than or equal to the lease duration. This is only applicable if leader
 election is enabled.
    -->
-   <p>
    <code>renewDeadline</code> 设置的是当前领导者在停止扮演领导角色之前需要刷新领导状态的时间间隔。
    此值必须小于或等于租约期限的长度。只有到启用了领导者选举时此字段才有意义。
    </p>
 </td>
 </tr>
-<tr><td><code>retryPeriod</code> <B>[Required<!--[Required]-->[必需]</B><br/>
+<tr><td><code>retryPeriod</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
    retryPeriod is the duration the clients should wait between attempting
 acquisition and renewal of a leadership. This is only applicable if
 leader election is enabled.
    -->
-   <p>
    <code>retryPeriod</code> 是客户端在连续两次尝试获得或者刷新领导状态之间需要等待的时长。
    只有当启用了领导者选举时此字段才有意义。
    </p>
@@ -237,33 +251,39 @@ leader election is enabled.
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    resourceLock indicates the resource object type that will be used to lock
 during leader election cycles.
    -->
-   <p><code>resourceLock</code> 字段给出在领导者选举期间要作为锁来使用的资源对象类型。</p>
+   <code>resourceLock</code> 字段给出在领导者选举期间要作为锁来使用的资源对象类型。
+   </p>
 </td>
 </tr>
 <tr><td><code>resourceName</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
+   <p>
+   <!--
    resourceName indicates the name of resource object that will be used to lock
 during leader election cycles.
    -->
-   <p><code>resourceName</code> 字段给出在领导者选举期间要作为锁来使用的资源对象名称。</p>
+   <code>resourceName</code> 字段给出在领导者选举期间要作为锁来使用的资源对象名称。
+   </p>
 </td>
 </tr>
 <tr><td><code>resourceNamespace</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    resourceName indicates the namespace of resource object that will be used to lock
 during leader election cycles.
    -->
-   <p><code>resourceNamespace</code> 字段给出在领导者选举期间要作为锁来使用的资源对象所在名字空间。</p>
+   <code>resourceNamespace</code> 字段给出在领导者选举期间要作为锁来使用的资源对象所在名字空间。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -271,11 +291,13 @@ during leader election cycles.
 
 ## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs}
 
+<p>
 <!--
 DefaultPreemptionArgs holds arguments used to configure the
 DefaultPreemption plugin.
 -->
-<p>DefaultPreemptionArgs 包含用来配置 DefaultPreemption 插件的参数。</p>
+DefaultPreemptionArgs 包含用来配置 DefaultPreemption 插件的参数。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -288,35 +310,39 @@ DefaultPreemption plugin.
 <code>int32</code>
 </td>
 <td>
+   <p>
    <!--
    MinCandidateNodesPercentage is the minimum number of candidates to
 shortlist when dry running preemption as a percentage of number of nodes.
 Must be in the range [0, 100]. Defaults to 10% of the cluster size if
 unspecified.
    -->
-   <p><code>minCandidateNodesPercentage</code> 字段为试运行抢占时 shortlist 中候选节点数的下限，
-   数值为节点数的百分比。字段值必须介于 [0, 100] 之间。未指定时默认值为整个集群规模的 10%。</p>
+   <code>minCandidateNodesPercentage</code> 字段为试运行抢占时 shortlist 中候选节点数的下限，
+   数值为节点数的百分比。字段值必须介于 [0, 100] 之间。未指定时默认值为整个集群规模的 10%。
+   </p>
 </td>
 </tr>
 <tr><td><code>minCandidateNodesAbsolute</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
-   <!--
-   MinCandidateNodesAbsolute is the absolute minimum number of candidates to
+<p>
+<!--
+MinCandidateNodesAbsolute is the absolute minimum number of candidates to
 shortlist. The likely number of candidates enumerated for dry running
 preemption is given by the formula:
 numCandidates = max(numNodes * minCandidateNodesPercentage, minCandidateNodesAbsolute)
 We say &quot;likely&quot; because there are other factors such as PDB violations
 that play a role in the number of candidates shortlisted. Must be at least
 0 nodes. Defaults to 100 nodes if unspecified.
-   -->
-   <p><code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
-   用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
-   候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
-   之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
-   会影响到进入 shortlist 中候选节点的个数。
-   取值至少为 0 节点。若未设置默认为 100 节点。</p>
+-->
+<code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
+用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
+候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
+之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
+会影响到进入 shortlist 中候选节点的个数。
+取值至少为 0 节点。若未设置默认为 100 节点。
+</p>
 </td>
 </tr>
 </tbody>
@@ -331,15 +357,13 @@ DynamicResourcesArgs holds arguments used to configure the DynamicResources plug
 DynamicResourcesArgs 封装了用来配置 DynamicResources 插件的参数。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>DynamicResourcesArgs</code></td></tr>
-    
-  
+
 <tr><td><code>filterTimeout</code> <B><!--[Required]-->必需</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -412,12 +436,99 @@ Setting it to zero completely disables the timeout.
 </tbody>
 </table>
 
+<tr><td><code>bindingTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+BindingTimeout limits how long the PreBind extension point may wait for
+ResourceClaim device BindingConditions to become satisfied when such
+conditions are present. While waiting, the scheduler periodically checks
+device status. If the timeout elapses before all required conditions are
+true (or any bindingFailureConditions become true), the allocation is
+cleared and the Pod re-enters scheduling queue. Note that the same or other node may be
+chosen if feasible; otherwise the Pod is placed in the unschedulable queue and
+retried based on cluster changes and backoff.
+-->
+<code>bindingTimeout</code> 限制了 <code>PreBind</code>
+扩展点等待 ResourceClaim 设备 <code>bindingConditions</code>
+满足的时间（当存在此类条件时）。等待期间，调度器会定期检查设备状态。
+
+如果在所有必需条件都为真（或任何 <code>bindingFailureConditions</code>
+为真）之前超时，则分配将被清除，Pod 将重新进入调度队列。
+
+请注意，如果可行，可以选择相同节点或其他节点；否则，Pod
+将被放入不可调度队列，并根据集群变化和退避策略进行重试。
+</p>
+<p>
+<!--
+Defaults &amp; feature gates:
+-->
+默认值和特性门控：
+</p>
+<!--
+<ul>
+<li>Defaults to 10 minutes when the DRADeviceBindingConditions feature gate is enabled.</li>
+<li>Has effect only when BOTH DRADeviceBindingConditions and
+DRAResourceClaimDeviceStatus are enabled; otherwise omit this field.</li>
+<li>When DRADeviceBindingConditions is disabled, setting this field is considered an error.</li>
+</ul>
+-->
+<ul>
+<li>启用 DRADeviceBindingConditions 特性门控时，默认值为 10 分钟。</li>
+<li>仅当 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 同时启用时才有效；否则，请省略此字段。</li>
+<li>禁用 DRADeviceBindingConditions 时，设置此字段将被视为错误。</li>
+</ul>
+<p>
+<!--
+Valid values:
+-->
+有效值：
+</p>
+<ul>
+<li>
+<blockquote>
+<p>
+<!--
+=1s (non-zero). No upper bound is enforced.
+-->
+<code>=1s</code>（非零）。没有上限。
+</p>
+</blockquote>
+</li>
+</ul>
+<p>
+<!--
+Tuning guidance:
+-->
+优化指南：
+</p>
+<!--
+<ul>
+<li>Lower values reduce time-to-retry when devices aren’t ready but can
+increase churn if drivers typically need longer to report readiness.</li>
+<li>Review scheduler latency metrics (e.g. PreBind duration in
+<code>scheduler_framework_extension_point_duration_seconds</code>) and driver
+readiness behavior before tightening this timeout.</li>
+</ul>
+-->
+<li>降低此值可以减少设备未就绪时的重试时间，但如果驱动程序通常需要更长时间才能报告就绪状态，
+则可能会增加设备流失率。</li>
+<li>在缩短此超时时间之前，请检查调度程序延迟指标（例如，
+<code>scheduler_framework_extension_point_duration_seconds</code> 中的
+PreBind 持续时间）和驱动程序就绪行为。</li>
+</td>
+</tr>
+
 ## `InterPodAffinityArgs`     {#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs}
 
+<p>
 <!--
 InterPodAffinityArgs holds arguments used to configure the InterPodAffinity plugin.
 -->
-<p>InterPodAffinityArgs 包含用来配置 InterPodAffinity 插件的参数。</p>
+InterPodAffinityArgs 包含用来配置 InterPodAffinity 插件的参数。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -430,24 +541,28 @@ InterPodAffinityArgs holds arguments used to configure the InterPodAffinity plug
 <code>int32</code>
 </td>
 <td>
+   <p>
    <!--
    HardPodAffinityWeight is the scoring weight for existing pods with a
 matching hard affinity to the incoming pod.
    -->
-   <p><code>hardPodAffinityWeight</code> 字段是一个计分权重值。针对新增的 Pod，要对现存的、
+   <code>hardPodAffinityWeight</code> 字段是一个计分权重值。针对新增的 Pod，要对现存的、
    带有与新 Pod 匹配的硬性亲和性设置的 Pods 计算亲和性得分。
+   </p>
 </td>
 </tr>
 <tr><td><code>ignorePreferredTermsOfExistingPods</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
 <td>
+   <p>
    <!--
    IgnorePreferredTermsOfExistingPods configures the scheduler to ignore existing pods' preferred affinity
 rules when scoring candidate nodes, unless the incoming pod has inter-pod affinities.
    -->
-   <p>ignorePreferredTermsOfExistingPods 配置调度器在为候选节点评分时忽略现有 Pod 的优选亲和性规则，
-   除非传入的 Pod 具有 Pod 间的亲和性。</p>
+   <code>ignorePreferredTermsOfExistingPods</code> 配置调度器在为候选节点评分时忽略现有 Pod 的优选亲和性规则，
+   除非传入的 Pod 具有 Pod 间的亲和性。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -455,10 +570,12 @@ rules when scoring candidate nodes, unless the incoming pod has inter-pod affini
 
 ## `KubeSchedulerConfiguration`     {#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration}
 
+<p>
 <!--
 KubeSchedulerConfiguration configures a scheduler
 -->
-<p>KubeSchedulerConfiguration 用来配置调度器。</p>
+KubeSchedulerConfiguration 用来配置调度器。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -471,10 +588,10 @@ KubeSchedulerConfiguration configures a scheduler
 <code>int32</code>
 </td>
 <td>
+   <p>
    <!--
    Parallelism defines the amount of parallelism in algorithms for scheduling a Pods. Must be greater than 0. Defaults to 16
    -->
-   <p>
    <code>parallelism</code> 字段设置为调度 Pod 而执行算法时的并发度。此值必须大于 0。默认值为 16。
    </p>
 </td>
@@ -483,36 +600,39 @@ KubeSchedulerConfiguration configures a scheduler
 <a href="#LeaderElectionConfiguration"><code>LeaderElectionConfiguration</code></a>
 </td>
 <td>
+   <p>
    <!--
    LeaderElection defines the configuration of leader election client.
    -->
-   <p>LeaderElection 字段用来定义领导者选举客户端的配置。</p>
+   <code>leaderElection</code> 字段用来定义领导者选举客户端的配置。
+   </p>
 </td>
 </tr>
 <tr><td><code>clientConnection</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
 </td>
 <td>
+   <p>
    <!--
    ClientConnection specifies the kubeconfig file and client connection
 settings for the proxy server to use when communicating with the apiserver.
    -->
-   <p><code>clientConnection</code> 字段为与 API 服务器通信时使用的代理服务器设置 kubeconfig 文件和客户端连接配置。</p>
+   <code>clientConnection</code> 字段为与 API 服务器通信时使用的代理服务器设置 kubeconfig 文件和客户端连接配置。
+   </p>
 </td>
 </tr>
 <tr><td><code>DebuggingConfiguration</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#DebuggingConfiguration"><code>DebuggingConfiguration</code></a>
 </td>
-<!--
-(Members of <code>DebuggingConfiguration</code> are embedded into this type.)
--->
-<td>（<code>DebuggingConfiguration</code> 的成员被内嵌到此类型中）
+<td>
+   <p>
    <!--
    DebuggingConfiguration holds configuration for Debugging related features
    TODO: We might wanna make this a substruct like Debugging componentbaseconfigv1alpha1.DebuggingConfiguration
    -->
-   <p><code>DebuggingConfiguration</code> 字段设置与调试相关功能特性的配置。
-   TODO：我们可能想把它做成一个子结构，像调试 component-base/config/v1alpha1.DebuggingConfiguration 一样。</p>
+   <code>DebuggingConfiguration</code> 字段设置与调试相关功能特性的配置。
+   TODO：我们可能想把它做成一个子结构，像调试 component-base/config/v1alpha1.DebuggingConfiguration 一样。
+   </p>
 </td>
 </tr>
 <tr><td><code>percentageOfNodesToScore</code> <B><!--[Required]-->[必需]</B><br/>
@@ -559,28 +679,30 @@ will be used.
 <code>int64</code>
 </td>
 <td>
+   <p>
    <!--
    podMaxBackoffSeconds is the max backoff for unschedulable pods.
 If specified, it must be greater than podInitialBackoffSeconds. If this value is null,
 the default value (10s) will be used.
    -->
-   <p><code>podMaxBackoffSeconds</code> 字段设置不可调度的 Pod 的最大回退秒数。
+   <code>podMaxBackoffSeconds</code> 字段设置不可调度的 Pod 的最大回退秒数。
    如果设置了此字段，则其值必须大于 podInitialBackoffSeconds 字段值。
-   如果此值设置为 null，则使用默认值（10s）。</p>
+   如果此值设置为 null，则使用默认值（10s）。
+   </p>
 </td>
 </tr>
 <tr><td><code>profiles</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile"><code>[]KubeSchedulerProfile</code></a>
 </td>
 <td>
+   <p>
    <!--
    Profiles are scheduling profiles that kube-scheduler supports. Pods can
 choose to be scheduled under a particular profile by setting its associated
 scheduler name. Pods that don't specify any scheduler name are scheduled
 with the &quot;default-scheduler&quot; profile, if present here.
    -->
-   <p>
-   <code>profiles</code> 字段为 kube-scheduler 所支持的方案（profiles）。
+   <code>profiles</code> 字段为 kube-scheduler 所支持的调度方案。
    Pod 可以通过设置其对应的调度器名称来选择使用特定的方案。
    未指定调度器名称的 Pod 会使用 &quot;default-scheduler&quot; 方案来调度，如果存在的话。
    </p>
@@ -590,12 +712,14 @@ with the &quot;default-scheduler&quot; profile, if present here.
 <a href="#kubescheduler-config-k8s-io-v1-Extender"><code>[]Extender</code></a>
 </td>
 <td>
+   <p>
    <!--
    Extenders are the list of scheduler extenders, each holding the values of how to communicate
 with the extender. These extenders are shared by all scheduler profiles.
    -->
-   <p><code>extenders</code> 字段为调度器扩展模块（Extender）的列表，每个元素包含如何与某扩展模块通信的配置信息。
-   所有调度器方案会共享此扩展模块列表。</p>
+   <code>extenders</code> 字段为调度器扩展模块（Extender）的列表，每个元素包含如何与某扩展模块通信的配置信息。
+   所有调度器方案会共享此扩展模块列表。
+   </p>
 </td>
 </tr>
 <tr><td><code>delayCacheUntilActive</code> <B><!--[Required]-->[必需]</B><br/>
@@ -609,7 +733,7 @@ with the extender. These extenders are shared by all scheduler profiles.
    failover with the benefit of lower memory overhead while waiting to become leader.
    Defaults to false.
    -->
-   DelayCacheUntilActive 指定何时开始缓存。如果字段设置为 true 并且启用了领导者选举，
+   <code>delayCacheUntilActive</code> 指定何时开始缓存。如果字段设置为 true 并且启用了领导者选举，
    则调度程序将等待填充通知者缓存，直到它成为领导者，这样做会减慢故障转移速度，
    并在等待成为领导者时降低内存开销。
    默认为 false。
@@ -621,10 +745,12 @@ with the extender. These extenders are shared by all scheduler profiles.
 
 ## `NodeAffinityArgs`     {#kubescheduler-config-k8s-io-v1-NodeAffinityArgs}
 
+<p>
 <!--
 NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 -->
-<p>NodeAffinityArgs 中包含配置 NodeAffinity 插件的参数。</p>
+NodeAffinityArgs 中包含配置 NodeAffinity 插件的参数。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -634,9 +760,10 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
 
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
+   <p>
    <!--
    AddedAffinity is applied to all Pods additionally to the NodeAffinity
 specified in the PodSpec. That is, Nodes need to satisfy AddedAffinity
@@ -645,7 +772,6 @@ match).
 When AddedAffinity is used, some Pods with affinity requirements that match
 a specific Node (such as Daemonset Pods) might remain unschedulable.
    -->
-   <p>
    <code>addedAffinity</code> 会作为附加的亲和性属性添加到所有 Pod 的规约中指定的 NodeAffinity 中。
    换言之，节点需要同时满足 addedAffinity 和 .spec.nodeAffinity。
    默认情况下，addedAffinity 为空（与所有节点匹配）。使用了 addedAffinity 时，
@@ -658,10 +784,12 @@ a specific Node (such as Daemonset Pods) might remain unschedulable.
 
 ## `NodeResourcesBalancedAllocationArgs`     {#kubescheduler-config-k8s-io-v1-NodeResourcesBalancedAllocationArgs}
 
+<p>
 <!--
 NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResourcesBalancedAllocation plugin.
 -->
-<p>NodeResourcesBalancedAllocationArgs 包含用来配置 NodeResourcesBalancedAllocation 插件的参数。</p>
+NodeResourcesBalancedAllocationArgs 包含用来配置 NodeResourcesBalancedAllocation 插件的参数。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -674,10 +802,12 @@ NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResour
 <a href="#kubescheduler-config-k8s-io-v1-ResourceSpec"><code>[]ResourceSpec</code></a>
 </td>
 <td>
+   <p>
    <!--
    Resources to be managed, the default is &quot;cpu&quot; and &quot;memory&quot; if not specified.
    -->
-   <p>要管理的资源；如果未设置，则默认值为 &quot;cpu&quot; 和 &quot;memory&quot;。</p>
+   要管理的资源；如果未设置，则默认值为 &quot;cpu&quot; 和 &quot;memory&quot;。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -685,10 +815,12 @@ NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResour
 
 ## `NodeResourcesFitArgs`     {#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs}
 
+<p>
 <!--
 NodeResourcesFitArgs holds arguments used to configure the NodeResourcesFit plugin.
 -->
-<p>NodeResourcesFitArgs 包含用来配置 NodeResourcesFit 插件的参数。</p>
+NodeResourcesFitArgs 包含用来配置 NodeResourcesFit 插件的参数。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -755,7 +887,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -1049,7 +1181,7 @@ managed by an extender.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1290,9 +1422,9 @@ for that plugin.
 - [PluginSet](#kubescheduler-config-k8s-io-v1-PluginSet)
 
 <!--
-Plugin specifies a plugin name and its weight when applicable. Weight is used only for Score plugins.
+Plugin specifies a plugin name and its weight when applicable. Weight is used only for Score and PlacementScore plugins.
 -->
-<p>Plugin 指定插件的名称及其权重（如果适用的话）。权重仅用于评分（Score）插件。</p>
+<p>Plugin 指定插件的名称及其权重（如果适用的话）。权重仅用于 Score 和 PlacementScore 插件。</p>
 
 
 <table class="table">
@@ -1314,9 +1446,9 @@ Plugin specifies a plugin name and its weight when applicable. Weight is used on
 </td>
 <td>
    <!--
-   Weight defines the weight of plugin, only used for Score plugins.
+   Weight defines the weight of plugin, only used for Score and PlacementScore plugins.
    -->
-   <p>插件的权重；仅适用于评分（Score）插件。</p>
+   <p>插件的权重；仅适用于 Score 和 PlacementScore 插件。</p>
 </td>
 </tr>
 </tbody>
@@ -1426,6 +1558,7 @@ When all default plugins need to be disabled, an array containing only one &quot
 
 - [KubeSchedulerProfile](#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile)
 
+<p>
 <!--
 Plugins include multiple extension points. When specified, the list of plugins for
 a particular extension point are the only ones enabled. If an extension point is
@@ -1433,12 +1566,13 @@ omitted from the config, then the default set of plugins is used for that extens
 Enabled plugins are called in the order specified here, after default plugins. If they need to
 be invoked before default plugins, default plugins must be disabled and re-enabled here in desired order.
 -->
-<p>Plugins 结构中包含多个扩展点。当此结构被设置时，
+Plugins 结构中包含多个扩展点。当此结构被设置时，
 针对特定扩展点所启用的所有插件都在这一列表中。
 如果配置中不包含某个扩展点，则使用该扩展点的默认插件集合。
 被启用的插件的调用顺序与这里指定的顺序相同，都在默认插件之后调用。
 如果它们需要在默认插件之前调用，则需要先行禁止默认插件，
-之后在这里按期望的顺序重新启用。</p>
+之后在这里按期望的顺序重新启用。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1448,8 +1582,26 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 <a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
 </td>
 <td>
-   <!--PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue.-->
-   <p>preEnqueue 是在将 Pod 添加到调度队列之前应调用的插件的列表。</p>
+   <p>
+   <!--
+   PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue.
+   -->
+   <code>preEnqueue</code> 是在将 Pod 添加到调度队列之前应调用的插件的列表。
+   </p>
+</td>
+</tr>
+<tr><td><code>podGroupPostFilter</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+<p>
+<!--
+   PodGroupPostFilter is a list of plugins that are invoked after the workload scheduling phase,
+but only when the PodGroup cannot be scheduled (equivalent to PostFilter for single pods).
+-->
+PodGroupPostFilter 是一组插件，它们在工作负载调度阶段之后被调用，但仅在
+PodGroup 无法被调度时才会触发（这相当于针对单个 Pod 的 PostFilter）。
+</p>
 </td>
 </tr>
 <tr><td><code>queueSort</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1613,6 +1765,30 @@ plugin through MultiPoint. This follows the same behavior as all other extension
    插件 pluginA 仍然会被注册。这一设计与所有其他扩展点的配置行为是相符的。</p>
 </td>
 </tr>
+<tr><td><code>placementGenerate</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   PlacementGenerate is a list of plugins that should be invoked during pod group scheduling cycle when determining placements for a pod group.
+   -->
+   <code>placementGenerate</code> 是一个插件列表，在 Pod 组调度周期中用于确定 Pod 组的放置策略时被调用。
+   </p>
+</td>
+</tr>
+<tr><td><code>placementScore</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   PlacementScore is a list of plugins that should be invoked during workload scheduling cycle when ranking pod group assignments.
+   -->
+   <code>placementScore</code> 是一个插件列表，在工作负载调度周期中用于对 Pod 组分配进行排序时被调用。
+   </p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1629,13 +1805,13 @@ plugin through MultiPoint. This follows the same behavior as all other extension
 
 - [PodTopologySpreadArgs](#kubescheduler-config-k8s-io-v1-PodTopologySpreadArgs)
 
+<p>
 <!--
 PodTopologySpreadConstraintsDefaulting defines how to set default constraints
 for the PodTopologySpread plugin.
 -->
-<p>PodTopologySpreadConstraintsDefaulting
-定义如何为 PodTopologySpread 插件设置默认的约束。</p>
-
+PodTopologySpreadConstraintsDefaulting 定义如何为 PodTopologySpread 插件设置默认的约束。
+</p>
 
 ## `RequestedToCapacityRatioParam`     {#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam}
 
@@ -1679,10 +1855,12 @@ RequestedToCapacityRatioParam define RequestedToCapacityRatio parameters
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1-ScoringStrategy)
 
+<p>
 <!--
 ResourceSpec represents a single resource.
 -->
-<p>ResourceSpec 用来代表某个资源。</p>
+ResourceSpec 用来代表某个资源。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1692,20 +1870,24 @@ ResourceSpec represents a single resource.
 <code>string</code>
 </td>
 <td>
-   <!--
-   Name of the resource.
-   -->
-   <p>资源名称。</p>
+<p>
+<!--
+Name of the resource.
+-->
+资源名称。
+</p>
 </td>
 </tr>
 <tr><td><code>weight</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int64</code>
 </td>
 <td>
-   <!--
-   Weight of the resource.
-   -->
-   <p>资源权重。</p>
+<p>
+<!--
+Weight of the resource.
+-->
+资源权重。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1720,10 +1902,12 @@ ResourceSpec represents a single resource.
 
 - [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 
+<p>
 <!--
 ScoringStrategy define ScoringStrategyType for node resource plugin
 -->
-<p>ScoringStrategy 为节点资源插件定义 ScoringStrategyType。</p>
+ScoringStrategy 为节点资源插件定义 ScoringStrategyType。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1733,10 +1917,12 @@ ScoringStrategy define ScoringStrategyType for node resource plugin
 <a href="#kubescheduler-config-k8s-io-v1-ScoringStrategyType"><code>ScoringStrategyType</code></a>
 </td>
 <td>
-   <!--
-   Type selects which strategy to run.
-   -->
-   <p><code>type</code> 用来选择要运行的策略。</p>
+<p>
+<!--
+Type selects which strategy to run.
+-->
+<code>type</code> 用来选择要运行的策略。
+</p>
 </td>
 </tr>
 <tr><td><code>resources</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1759,10 +1945,12 @@ Weight defaults to 1 if not specified or explicitly set to 0.
 <a href="#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam"><code>RequestedToCapacityRatioParam</code></a>
 </td>
 <td>
-   <!--
-   Arguments specific to RequestedToCapacityRatio strategy.
-   -->
-   <p>特定于 RequestedToCapacityRatio 策略的参数。</p>
+<p>
+<!--
+Arguments specific to RequestedToCapacityRatio strategy.
+-->
+特定于 RequestedToCapacityRatio 策略的参数。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1781,10 +1969,12 @@ Weight defaults to 1 if not specified or explicitly set to 0.
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1-ScoringStrategy)
 
+<p>
 <!--
 ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin.
 -->
-<p>ScoringStrategyType 是 NodeResourcesFit 插件所使用的的评分策略类型。</p>
+ScoringStrategyType 是 NodeResourcesFit 插件所使用的的评分策略类型。
+</p>
 
 ## `UtilizationShapePoint`     {#kubescheduler-config-k8s-io-v1-UtilizationShapePoint}
 
@@ -1797,10 +1987,12 @@ ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin
 
 - [RequestedToCapacityRatioParam](#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam)
 
+<p>
 <!--
 UtilizationShapePoint represents single point of priority function shape.
 -->
-<p>UtilizationShapePoint 代表的是优先级函数曲线中的一个评分点。</p>
+UtilizationShapePoint 代表的是优先级函数曲线中的一个评分点。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1810,20 +2002,24 @@ UtilizationShapePoint represents single point of priority function shape.
 <code>int32</code>
 </td>
 <td>
-   <!--
-   Utilization (x axis). Valid values are 0 to 100. Fully utilized node maps to 100.
-   -->
-   <p>利用率（x 轴）。合法值为 0 到 100。完全被利用的节点映射到 100。</p>
+<p>
+<!--
+Utilization (x axis). Valid values are 0 to 100. Fully utilized node maps to 100.
+-->
+利用率（x 轴）。合法值为 0 到 100。完全被利用的节点映射到 100。
+</p>
 </td>
 </tr>
 <tr><td><code>score</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
-   <!--
-   Score assigned to given utilization (y axis). Valid values are 0 to 10.
-   -->
-   <p><code>score</code> 分配给指定利用率的分值（y 轴）。合法值为 0 到 10。</p>
+<p>
+<!--
+Score assigned to given utilization (y axis). Valid values are 0 to 10.
+-->
+<code>score</code> 分配给指定利用率的分值（y 轴）。合法值为 0 到 10。
+</p>
 </td>
 </tr>
 </tbody>

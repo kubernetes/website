@@ -172,7 +172,6 @@ Kubeadm generates certificate and private key pairs for different purposes:
 - A client certificate for the API server to connect to the kubelets securely, generated using
   `ca.crt` as the CA and saved into `apiserver-kubelet-client.crt` file with its private key
   `apiserver-kubelet-client.key`.
-  This certificate should be in the `system:masters` organization
 
 - A private key for signing ServiceAccount Tokens saved into `sa.key` file along with its public key `sa.pub`
 
@@ -503,6 +502,15 @@ This is implemented by creating ClusterRoleBinding named
 `kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
 
+#### Allow the API server to access the kubelet API
+
+Kubeadm ensures that the API server can access the kubelet API using its client certificate
+`apiserver-kubelet-client.crt`.
+
+This is implemented by creating a ClusterRoleBinding named `kubeadm:apiserver-kubelet-client`
+between the user `kube-apiserver-kubelet-client` and the default RBAC role
+`system:kubelet-api-admin`.
+
 #### Create the public cluster-info ConfigMap
 
 This phase creates the `cluster-info` ConfigMap in the `kube-public` namespace.
@@ -543,9 +551,6 @@ addon.
 - A ServiceAccount for CoreDNS is created in the `kube-system` namespace.
 
 - The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
-
-In Kubernetes version 1.21, support for using `kube-dns` with kubeadm was removed.
-You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
 
 ## kubeadm join phases internal design
 

@@ -143,14 +143,14 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 ### 参考 {#reference}
 
 <!--
-* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+* {{< api-reference page="core/persistent-volume-v1" >}}
   * Pay attention to the `.spec.persistentVolumeReclaimPolicy`
     [field](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
     of PersistentVolume.
-* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
+* {{< api-reference page="core/persistent-volume-claim-v1" >}}
 -->
-* {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
+* {{< api-reference page="core/persistent-volume-v1" >}}
   * 注意 PersistentVolume 的 `.spec.persistentVolumeReclaimPolicy`
     [字段](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
-* {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
+* {{< api-reference page="core/persistent-volume-claim-v1" >}}
 

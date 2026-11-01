@@ -66,7 +66,7 @@ kubectl get pods
 Check container logs for environment variables:
 
 ```shell
-kubectl logs dapi-test-pod -c use-envfile | grep DB_ADDRESS
+kubectl logs envfile-test-pod -c use-envfile | grep DB_ADDRESS
 ```
 
 The output shows the values of selected environment variables:

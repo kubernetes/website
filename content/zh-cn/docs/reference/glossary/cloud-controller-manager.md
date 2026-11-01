@@ -1,7 +1,6 @@
 ---
 title: 云控制器管理器（Cloud Controller Manager）
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/architecture/cloud-controller/
 short_description: >
   将 Kubernetes 与第三方云提供商进行集成的控制平面组件。
@@ -14,11 +13,9 @@ tags:
 <!--
 title: Cloud Controller Manager
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /docs/concepts/architecture/cloud-controller/
 short_description: >
   Control plane component that integrates Kubernetes with third-party cloud providers.
-
 aka: 
 tags:
 - architecture

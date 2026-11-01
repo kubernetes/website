@@ -19,7 +19,7 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.27" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 <!--
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
@@ -105,7 +105,7 @@ The flow can be seen in the following diagram.
 
 ![topology_manager_flow](/images/docs/topology-manager-flow.png)
 -->
-该流程可见于下图。
+该流程可见于下图：
 
 ![topology_manager_flow](/images/docs/topology-manager-flow.png)
 
@@ -506,22 +506,22 @@ in the case where more than one NUMA node is required, using the minimum number 
 -->
 你可以通过将 `prefer-closest-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
 
-默认情况下，如果没有此选项，拓扑管理器会在单个 NUMA 节点或（在需要多个 NUMA 节点时）最小数量的 NUMA 节点上对齐资源。
+默认情况下，如果没有此选项，拓扑管理器会在单个 NUMA
+节点或（在需要多个 NUMA 节点时）最小数量的 NUMA 节点上对齐资源。
 
 <!--
-### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+### `max-allowable-numa-nodes` {#policy-option-max-allowable-numa-nodes}
 
-The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}},
-this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
-`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-are enabled.
+The `max-allowable-numa-nodes` option is GA since Kubernetes 1.35. In Kubernetes {{< skew currentVersion >}},
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 -->
-### `max-allowable-numa-nodes`（Beta） {#policy-option-max-allowable-numa-nodes}
+### `max-allowable-numa-nodes`    {#policy-option-max-allowable-numa-nodes}
 
-自 Kubernetes 1.31 起，`max-allowable-numa-nodes` 选项进入 Beta 阶段。
-在 Kubernetes {{< skew currentVersion >}} 中，只要启用了
-`TopologyManagerPolicyOptions` 和 `TopologyManagerPolicyBetaOptions`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略选项默认可见。
+自 Kubernetes 1.35 起，`max-allowable-numa-nodes` 选项进入一般可用（GA）阶段。
+在 Kubernetes {{< skew currentVersion >}} 中，只要启用了 `TopologyManagerPolicyOptions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+此策略选项默认可见。
 
 <!--
 The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
@@ -546,14 +546,16 @@ Kubernetes 项目对在有 8 个以上 NUMA 节点的（Kubernetes）节点上�
 {{< /note >}}
 
 <!--
-You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+You can enable this option by adding `max-allowable-numa-nodes=<integer>` to the Topology Manager policy options, where the integer value must be greater than 8. The default is 8, which preserves the existing limit.
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
 latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
 Future, potential improvements to Kubernetes may improve Pod admission performance and the high
 latency that happens as the number of NUMA nodes increases.
 -->
-你可以通过将 `max-allowable-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
+你可以通过将 `max-allowable-numa-nodes=<integer>`
+添加到拓扑管理器策略选项来启用此选项，其中整数值必须大于 8。
+默认值为 8，这将保留现有的限制。
 
 设置 `max-allowable-numa-nodes` 的值本身不会影响 Pod 准入的延时，
 但将 Pod 绑定到有多个 NUMA 节点的（Kubernetes）节点确实会产生影响。
@@ -564,7 +566,7 @@ Kubernetes 后续潜在的改进可能会提高 Pod 准入性能，并降低随�
 
 Consider the containers in the following Pod manifest:
 -->
-### Pod 与拓扑管理器策略的交互 {#pod-interactions-with-topology-manager-policies}
+## Pod 与拓扑管理器策略的交互 {#pod-interactions-with-topology-manager-policies}
 
 考虑以下 Pod 清单中的容器：
 
@@ -578,7 +580,8 @@ spec:
 <!--
 This pod runs in the `BestEffort` QoS class because no resource `requests` or `limits` are specified.
 -->
-该 Pod 以 `BestEffort` QoS 类运行，因为没有指定资源 `requests` 或 `limits`。
+该 Pod 以 `BestEffort` QoS 类运行，因为没有指定资源
+`requests` 或 `limits`。
 
 ```yaml
 spec:
@@ -628,7 +631,8 @@ spec:
 This pod with integer CPU request runs in the `Guaranteed` QoS class because `requests` are equal
 to `limits`.
 -->
-此 Pod 独立使用 CPU 请求量，以 `Guaranteed` QoS 类运行，因为其 `requests` 值等于 `limits` 值。
+此 Pod 独立使用 CPU 请求量，以 `Guaranteed` QoS 类运行，因为其
+`requests` 值等于 `limits` 值。
 
 ```yaml
 spec:
@@ -650,8 +654,8 @@ spec:
 This pod with sharing CPU request runs in the `Guaranteed` QoS class because `requests` are equal
 to `limits`.
 -->
-此 Pod 和其他资源共享 CPU 请求量，以 `Guaranteed` QoS 类运行，因为其 `requests` 值等于 `limits` 值。
-
+此 Pod 和其他资源共享 CPU 请求量，以 `Guaranteed` QoS 类运行，因为其
+`requests` 值等于 `limits` 值。
 
 ```yaml
 spec:
@@ -693,8 +697,8 @@ In the above two cases of the `Guaranteed` pod, the `none` CPU Manager policy wo
 topology hint.
 -->
 对于与其他资源 CPU 共享请求量的 `Guaranteed` Pod，`static` CPU
-管理器策略将返回默认的拓扑提示，因为没有独享的 CPU 请求；而设备管理器
-则针对所请求的设备返回有关提示。
+管理器策略将返回默认的拓扑提示，因为没有独享的 CPU 请求；
+而设备管理器则针对所请求的设备返回有关提示。
 
 在上述两种 `Guaranteed` Pod 的情况中，`none` CPU 管理器策略会返回默认的拓扑提示。
 
@@ -711,8 +715,8 @@ Using this information the Topology Manager calculates the optimal hint for the 
 this information, which will be used by the Hint Providers when they are making their resource
 assignments.
 -->
-基于此信息，拓扑管理器将为 Pod 计算最佳提示并存储该信息，并且供
-提示提供程序在进行资源分配时使用。
+基于此信息，拓扑管理器计算出 Pod 的最佳提示并存储此信息，
+提示提供者在进行资源分配时将使用此信息。
 
 <!--
 ## Known limitations
@@ -731,3 +735,10 @@ assignments.
    枚举可能的 NUMA 亲和性并为之生成提示时会发生状态爆炸。
    更多选项参见 [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)（Beta）。
 2. 调度器无法感知拓扑，所以有可能一个 Pod 被调度到一个节点之后，会因为拓扑管理器的缘故在该节点上启动失败。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).
+-->
+* 了解 [Pod 级资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)。

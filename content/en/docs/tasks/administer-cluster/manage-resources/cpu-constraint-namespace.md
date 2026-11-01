@@ -13,7 +13,7 @@ description: >-
 This page shows how to set minimum and maximum values for the CPU resources used by containers
 and Pods in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. You specify minimum
 and maximum CPU values in a
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/docs/reference/kubernetes-api/core/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
@@ -230,6 +230,13 @@ kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
 The maximum and minimum CPU constraints imposed on a namespace by a LimitRange are enforced only
 when a Pod is created or updated. If you change the LimitRange, it does not affect
 Pods that were created previously.
+
+{{< note >}}
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+the CPU constraints are also enforced. If a resize would cause the Pod's CPU values
+to violate the LimitRange constraints (either exceeding the maximum or falling below the minimum),
+the resize will be rejected and the Pod's resources remain at their previous values.
+{{< /note >}}
 
 ## Motivation for minimum and maximum CPU constraints
 

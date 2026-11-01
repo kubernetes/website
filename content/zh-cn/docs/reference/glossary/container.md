@@ -1,7 +1,6 @@
 ---
 title: 容器（Container）
 id: container
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/containers/
 short_description: >
   容器是可移植、可执行的轻量级的镜像，镜像中包含软件及其相关依赖。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Container
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/containers/
 short_description: >
   A lightweight and portable executable image that contains software and all of its dependencies.

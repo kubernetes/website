@@ -57,10 +57,20 @@ All objects you can create via the API have a unique object
 {{< glossary_tooltip text="name" term_id="name" >}} to allow idempotent creation and
 retrieval, except that virtual resource types may not have unique names if they are
 not retrievable, or do not rely on idempotency.
-Within a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, only one object
-of a given kind can have a given name at a time. However, if you delete the object,
-you can make a new object with the same name. Some objects are not namespaced (for
-example: Nodes), and so their names must be unique across the whole cluster.
+
+Within a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, an object's
+unique identity is defined by the tuple of its **API Group**, **Resource**,
+**Namespace**, and **Name**.
+
+* **Cross-Group:** You can have two objects with the same name if they belong to
+different API Groups (for example, `apps` vs. `example.com`).
+* **Cross-Version:** Different API Versions (such as `v1` and `v1beta1`) of the
+same Group and Resource represent the same underlying data. Creating an object
+with the same name in a different version of the same group results in a name
+clash, as they share the same identity in storage.
+
+Some objects are not namespaced (for example: Nodes), and so their names must
+be unique across the whole cluster.
 
 ### API verbs
 
@@ -541,6 +551,143 @@ Content-Type: application/json
 <followed by regular watch stream starting from resourceVersion="10245">
 ```
 
+## Sharded list and watch {#sharded-list-and-watch}
+
+{{< feature-state feature_gate_name="ShardedListAndWatch" >}}
+
+On large clusters, controllers that watch high-cardinality resource types (such as Pods
+or Endpoints) may consume significant network bandwidth and CPU by receiving and
+deserializing the full event stream, even when they only need a subset of objects.
+Sharded list and watch allows horizontally scaled controllers to split the workload
+so that each replica only receives the events it is responsible for.
+
+Kubernetes {{< skew currentVersion >}} introduces an alpha feature that allows clients
+to request a **filtered shard** of objects from the API server, using hash-based
+partitioning on metadata fields. To use this feature, enable the `ShardedListAndWatch`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the
+API server. When enabled, the API server filters both list responses and watch event
+streams server-side, delivering only the objects and events whose hashed metadata value
+falls within the requested range.
+
+### The shardSelector field
+
+The `ShardSelector` field on
+[`ListOptions`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listoptions-v1-meta)
+accepts a CEL-based expression using the `shardRange()` function:
+
+```
+shardRange(<field-path>, '<hex-start>', '<hex-end>')
+```
+
+Where:
+
+- **`<field-path>`** is the metadata field to hash, using CEL-style object-rooted syntax.
+  Currently supported paths are:
+  - `object.metadata.uid`
+  - `object.metadata.namespace`
+- **`<hex-start>`** is the inclusive lower bound of the hash range, as a `0x`-prefixed
+  16-digit lowercase hex string (for example, `'0x0000000000000000'`).
+- **`<hex-end>`** is the exclusive upper bound, as a `0x`-prefixed hex string. The maximum
+  value is `'0x10000000000000000'` (2^64).
+
+The API server computes a deterministic 64-bit
+[FNV-1a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function)
+hash of the specified field value and returns only objects whose hash falls within the
+range `[start, end)`. The hash function produces the same result for the same input
+across all API server instances, so sharded requests are safe to use with multiple
+API server replicas.
+
+You can combine multiple ranges with `||` (logical OR) to cover non-contiguous parts of
+the hash space. All ranges in a single expression must use the same field path.
+
+### Using sharded list and watch in controllers {#sharded-list-and-watch-controllers}
+
+Controllers typically use [informers](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)
+to list and watch resources. To shard the workload across replicas, each replica
+injects the `ShardSelector` field into the `ListOptions` used by its informers.
+
+The standard way to do this is with `WithTweakListOptions` when constructing a
+shared informer factory. The tweak function runs before every list and watch call
+the informer makes, so the shard selector is applied consistently:
+
+```go
+import (
+    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/client-go/informers"
+)
+
+// shardSelector is determined by the replica's identity (e.g. from a
+// StatefulSet ordinal or lease-based assignment). Each replica claims a
+// non-overlapping range of the hash space.
+shardSelector := "shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
+
+factory := informers.NewSharedInformerFactoryWithOptions(client, resyncPeriod,
+    informers.WithTweakListOptions(func(opts *metav1.ListOptions) {
+        opts.ShardSelector = shardSelector
+    }),
+)
+```
+
+With this configuration, every informer created from the factory only lists and
+watches objects whose hashed UID falls within the assigned range. Each replica
+receives a disjoint subset of the full collection, reducing per-replica network
+traffic and memory usage.
+
+For a 2-replica deployment, the selectors would be:
+
+```go
+// Replica 0: lower half of the hash space
+"shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
+
+// Replica 1: upper half of the hash space
+"shardRange(object.metadata.uid, '0x8000000000000000', '0x10000000000000000')"
+```
+
+A single replica can also handle non-contiguous ranges using `||`:
+
+```go
+"shardRange(object.metadata.uid, '0x0000000000000000', '0x4000000000000000') || " +
+    "shardRange(object.metadata.uid, '0x8000000000000000', '0xc000000000000000')"
+```
+
+### Shard information in responses
+
+When the API server honors a `ShardSelector`, the list response includes a `shardInfo`
+field in the list `metadata`. This echoes back the selector so clients can verify which
+shard they received. For watch streams, the shard selector applies equally: the API
+server only sends events for objects whose hash falls within the requested range.
+
+```json
+{
+  "kind": "PodList",
+  "apiVersion": "v1",
+  "metadata": {
+    "resourceVersion": "10245",
+    "shardInfo": {
+      "selector": "shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
+    }
+  },
+  "items": [...]
+}
+```
+
+{{< note >}}
+A list response that contains `shardInfo` represents a filtered subset of the full
+collection. Clients should not treat sharded list responses as a complete representation
+of the resource type.
+{{< /note >}}
+
+### Detecting server support
+
+If the API server does not support sharded list and watch (because the feature gate is
+not enabled, or the server is an older version), the `ShardSelector` field is ignored
+and the server returns the full, unfiltered result set. Clients can detect this by
+checking for the presence of `shardInfo` in the list response metadata. If `shardInfo`
+is absent, the server did not honor the shard selector and the client received the
+complete, unfiltered collection. In this case, the client should be prepared to handle
+the full result set, for example by applying client-side filtering to discard objects
+outside its assigned shard range.
+
 ## Response compression
 
 {{< feature-state feature_gate_name="APIResponseCompression" >}}
@@ -878,13 +1025,18 @@ header. The Kubernetes API implements a variation on HTTP content type negotiati
 As a client, you can provide an `Accept` header with the desired media type,
 along with parameters that indicate you want only metadata.
 For example: `Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
-for JSON.
+for JSON for a specific object and: 
+`Accept: application/json;as=PartialObjectMetadataList;g=meta.k8s.io;v=v1` for a list.
+
+{{< note >}}
+`as=PartialObjectMetadata` should be used in specific resource requests, and `as=PartialObjectMetadataList` should be used for lists.
+{{< /note >}}
 
 For example, to list all of the pods in a cluster, across all namespaces, but returning only the metadata for each pod:
 
 ```http
 GET /api/v1/pods
-Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1
+Accept: application/json;as=PartialObjectMetadataList;g=meta.k8s.io;v=v1
 ---
 200 OK
 Content-Type: application/json
@@ -1001,9 +1153,11 @@ relies on the normal deletion flow, so cluster breaking consequences may apply.
 
 By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
 user can perform an unsafe force **delete** operation of an undecryptable/corrupt
-resource. This option is behind an ALPHA feature gate, and it is disabled by
-default. In order to use this option, the cluster operator must enable the feature by
-setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+resource. This option is available when the `AllowUnsafeMalformedObjectDeletion`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled, which is the default since Kubernetes v1.37. A cluster operator can turn
+this behavior off by setting the command line option
+`--feature-gates=AllowUnsafeMalformedObjectDeletion=false`.
 
 {{< note >}}
 The user performing the force **delete** operation must have the privileges to do both
@@ -1634,3 +1788,14 @@ kube-apiserver additionally identifies its error responses with a message
 If you make a **watch** request for an unrecognized resource version, the API server
 may wait indefinitely (until the request timeout) for the resource version to become
 available.
+
+### Watch cache initialization {#watch-cache-initialization}
+
+To prevent control plane overload and API Priority and Fairness (APF) starvation during watch cache initialization or re-initialization, the Kubernetes API server applies two protective mechanisms:
+
+* **Startup readiness protection**: On startup, the API server delays reporting ready (`/readyz`) until every registered watch cache completes its initial synchronization from etcd. This prevents load balancers from directing client traffic to the API server prematurely, eliminating startup thundering-herd reads that would otherwise bypass the unready cache and hit etcd directly.
+* **Request rejection during cache initialization**: If requests arrive while the watch cache for a resource type is uninitialized—such as during server boot (before readiness) or after a runtime cache resync or disconnection—the API server prevents expensive queries from overwhelming etcd or hanging indefinitely:
+  * **`WATCH` requests** and **unpaginated or filtered `LIST` requests** (any list query without a pagination `limit` or that specifies a label or field selector) are rejected immediately with an HTTP `429 Too Many Requests` status code and a dynamic `Retry-After` header. This avoids hung goroutines, APF seat starvation, and etcd memory exhaustion.
+  * **Safe paginated reads**: Only **`GET` requests** and **paginated, unfiltered `LIST` requests** (`limit` > 0 with no label or field selector) are delegated directly to etcd as a safe fallback.
+
+Clients (including custom controllers and operators) should be designed to handle HTTP `429 Too Many Requests` responses gracefully by respecting `Retry-After` headers and implementing exponential backoff.

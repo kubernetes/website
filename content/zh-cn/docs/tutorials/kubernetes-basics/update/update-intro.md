@@ -15,9 +15,25 @@ Perform a rolling update using kubectl.
 使用 kubectl 执行滚动更新。
 
 <!--
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+or [Git Bash](https://gitforwindows.org/) to run the commands as written.
+Commands that use `export`, `$()`, and similar constructs are **not** compatible
+with PowerShell or the Windows Command Prompt.
+-->
+本教程中的 Shell 命令使用 POSIX Shell 语法，
+大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
+Windows 用户必须使用兼容 POSIX 的 Shell，例如
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
+使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
+
+<!--
 ## Updating an application
 -->
-## 更新应用
+## 更新应用  {#updating-an-application}
 
 {{% alert %}}
 <!--
@@ -39,7 +55,7 @@ for those new Pods to start before removing the old Pods.
 用户希望应用程序始终可用，而开发人员则需要每天多次部署它们的新版本。
 在 Kubernetes 中，这些是通过滚动更新（Rolling Update）完成的。 
 **滚动更新**允许通过使用新的实例逐步更新 Pod 实例，实现零停机的 Deployment 更新。
-新的 Pod 将被调度到具有可用资源的节点上。
+新的 Pod 将被调度到具有可用资源的节点上，Kubernetes 会等待这些新 Pod 启动后再移除旧的 Pod。
 
 <!--
 In the previous module we scaled our application to run multiple instances. This
@@ -76,23 +92,18 @@ versioned and any Deployment update can be reverted to a previous (stable) versi
 
 {{% alert %}}
 <!--
-_If a Deployment is exposed publicly, the Service will load-balance the traffic
-only to available Pods during the update._
+If a Deployment is publicly exposed, the Service will send traffic only to Pods that can handle requests.  
+This ensures users continue to access the application during an update.
 -->
-**如果 Deployment 的访问是公开的，Service
-在更新期间仅将流量负载均衡到可用的 Pod。**
+如果 Deployment 的访问是公开的，Service 只将流量发送到能够处理请求的 Pod。  
+这可以确保在更新期间，用户仍然可以继续访问此应用。
 {{% /alert %}}
 
 <!--
-Similar to application Scaling, if a Deployment is exposed publicly, the Service
-will load-balance the traffic only to available Pods during the update. An available
-Pod is an instance that is available to the users of the application.
-
+During a rolling update, this behavior keeps the application available by routing traffic only to Pods that are serving requests.
 Rolling updates allow the following actions:
 -->
-与应用程序规模扩缩类似，如果 Deployment 的访问是公开的，Service
-在更新期间仅将流量负载均衡到可用的 Pod。可用的 Pod 是指对应用的用户可用的实例。
-
+在滚动更新期间，这种行为通过仅将流量路由到能够处理请求的 Pod 来保持应用的可用性。
 滚动更新允许以下操作：
 
 <!--

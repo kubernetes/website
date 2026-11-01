@@ -1,7 +1,6 @@
 ---
 title: Username
 id: username
-date: 2021-03-16
 full_link: 
 short_description: >
    Um nome de usuário é um nome que identifica exclusivamente alguém em um sistema de computador.

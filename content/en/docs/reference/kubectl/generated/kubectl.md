@@ -3,6 +3,8 @@ title: kubectl
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  kubectl controls the Kubernetes cluster manager
 ---
 
 
@@ -57,6 +59,13 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
 </tr>
 
 <tr>
@@ -161,7 +170,7 @@ kubectl [flags]
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>
@@ -169,6 +178,13 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>
@@ -308,6 +324,7 @@ kubectl [flags]
 * [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
 * [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
 * [kubectl get](../kubectl_get/)	 - Display one or many resources
+* [kubectl kuberc](../kubectl_kuberc/)	 - Manage kuberc configuration files
 * [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
 * [kubectl label](../kubectl_label/)	 - Update the labels on a resource
 * [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
@@ -325,5 +342,5 @@ kubectl [flags]
 * [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
 * [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
 * [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl wait](../kubectl_wait/)	 - Wait for a specific condition on one or many resources
 

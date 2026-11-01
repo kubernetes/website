@@ -13,12 +13,6 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
-
-{{< note >}}
-Prior to Kubernetes 1.27, this feature was known as _Topology Aware Hints_.
-{{</ note >}}
-
 _Topology Aware Routing_ adjusts routing behavior to prefer keeping traffic in
 the zone it originated from. In some cases this can help reduce costs or improve
 network performance.
@@ -38,11 +32,6 @@ them to influence how the traffic is routed (favoring topologically closer
 endpoints).
 
 ## Enabling Topology Aware Routing
-
-{{< note >}}
-Prior to Kubernetes 1.27, this behavior was controlled using the
-`service.kubernetes.io/topology-aware-hints` annotation.
-{{</ note >}}
 
 You can enable Topology Aware Routing for a Service by setting the
 `service.kubernetes.io/topology-mode` annotation to `Auto`. When there are

@@ -13,7 +13,7 @@ possa executá-los.
 
 <!-- body -->
 
-## Visão geral do Escalonamento {#escalonamento}
+## Visão geral do Escalonamento {#scheduling}
 
 Um escalonador observa Pods recém-criados que não possuem um Nó atribuído. 
 Para cada Pod que o escalonador descobre, ele se torna responsável por 
@@ -52,7 +52,7 @@ requisitos individuais e coletivos de recursos, restrições de hardware / softw
 especificações de afinidade e anti-afinidade, localização de dados, interferência entre cargas de trabalho 
 e assim por diante.
 
-### Seleção do Nó no kube-scheduler {#implementação-kube-scheduler}
+### Seleção do Nó no kube-scheduler {#kube-scheduler-implementation}
 
 O kube-scheduler seleciona um Nó para o Pod em uma operação que consiste em duas etapas:
 

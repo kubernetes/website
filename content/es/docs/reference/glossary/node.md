@@ -1,7 +1,6 @@
 ---
 title: Node
 id: node
-date: 2018-04-12
 full_link: /docs/concepts/architecture/nodes/
 short_description: >
   Un Node, nodo en castellano, es una de las máquinas del clúster de Kubernetes.

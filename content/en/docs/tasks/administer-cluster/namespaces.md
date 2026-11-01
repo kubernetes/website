@@ -83,7 +83,7 @@ See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive
 A namespace can be in one of two phases:
 
 * `Active` the namespace is in use
-* `Terminating` the namespace is being deleted, and can not be used for new objects
+* `Terminating` the namespace is being deleted, and cannot be used for new objects
 
 For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
 in the API reference.
@@ -117,7 +117,7 @@ kubectl create namespace <insert-namespace-name-here>
 The name of your namespace must be a valid
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
-There's an optional field `finalizers`, which allows observables to purge resources whenever the
+There is an optional field `finalizers`, which allows observables to purge resources whenever the
 namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will
 be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
@@ -155,7 +155,7 @@ default   Active    13m
 
 ### Create new namespaces
 
-For this exercise, we will create two additional Kubernetes namespaces to hold our content.
+For this exercise, you create two additional Kubernetes namespaces to hold your content.
 
 In a scenario where an organization is using a shared Kubernetes cluster for development and
 production use cases:
@@ -170,7 +170,7 @@ production use cases:
   the production site.
 
 One pattern this organization could follow is to partition the Kubernetes cluster into two
-namespaces: `development` and `production`. Let's create two new namespaces to hold our work.
+namespaces: `development` and `production`. Create two new namespaces to hold your work.
 
 Create the `development` namespace using kubectl:
 
@@ -178,13 +178,13 @@ Create the `development` namespace using kubectl:
 kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 ```
 
-And then let's create the `production` namespace using kubectl:
+Create the `production` namespace using kubectl:
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
 ```
 
-To be sure things are right, list all of the namespaces in our cluster.
+To be sure things are right, list all of the namespaces in the cluster.
 
 ```shell
 kubectl get namespaces --show-labels
@@ -201,7 +201,7 @@ production    Active    23s       name=production
 
 A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 Users interacting with one namespace do not see the content in another namespace.
-To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
+To demonstrate this, create a Deployment and Pods in the `development` namespace.
 
 ```shell
 kubectl create deployment snowflake \
@@ -209,7 +209,7 @@ kubectl create deployment snowflake \
   -n=development --replicas=2
 ```
 
-We have created a deployment whose replica size is 2 that is running the pod called `snowflake`
+You created a deployment whose replica size is 2 that is running the pod called `snowflake`
 with a basic container that serves the hostname.
 
 ```shell
@@ -229,18 +229,18 @@ snowflake-3968820950-9dgr8   1/1       Running   0          2m
 snowflake-3968820950-vgc4n   1/1       Running   0          2m
 ```
 
-And this is great, developers are able to do what they want, and they do not have to worry about
+This demonstrates that developers are able to do what they want, and they do not have to worry about
 affecting content in the `production` namespace.
 
-Let's switch to the `production` namespace and show how resources in one namespace are hidden from
-the other.  The `production` namespace should be empty, and the following commands should return nothing.
+Switch to the `production` namespace and show how resources in one namespace are hidden from
+the other. The `production` namespace should be empty, and the following commands should return nothing.
 
 ```shell
 kubectl get deployment -n=production
 kubectl get pods -n=production
 ```
 
-Production likes to run cattle, so let's create some cattle pods.
+Create some pods in the `production` namespace.
 
 ```shell
 kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
@@ -269,7 +269,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 At this point, it should be clear that the resources users create in one namespace are hidden from
 the other namespace.
 
-As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
+As the policy support in Kubernetes evolves, this scenario extends to show how you can provide different
 authorization rules for each namespace.
 
 <!-- discussion -->

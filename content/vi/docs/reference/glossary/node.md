@@ -1,7 +1,6 @@
 ---
 title: Node
 id: node
-date: 2019-11-29
 full_link: /docs/concepts/architecture/nodes/
 short_description: >
   Một node là một máy worker trong Kubernetes

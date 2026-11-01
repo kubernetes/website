@@ -1,7 +1,6 @@
 ---
 title: PriorityClass
 id: priority-class
-date: 2024-03-19
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   A mapping from a class name to the scheduling priority that a Pod should have.

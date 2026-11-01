@@ -39,13 +39,12 @@ of ephemeral local storage a Pod can consume.
 
 ## Configurations for local ephemeral storage {#configurations}
 
-Kubernetes supports two ways to configure local ephemeral storage on a node:
+Kubernetes supports the following ways to configure local ephemeral storage on a
+node:
 {{< tabs name="local_storage_configurations" >}}
 {{% tab name="Single filesystem" %}}
 In this configuration, you place all different kinds of ephemeral local data
 (`emptyDir` volumes, writeable layers, container images, logs) into one filesystem.
-The most effective way to configure the kubelet means dedicating this filesystem
-to Kubernetes (kubelet) data.
 
 The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
@@ -61,30 +60,43 @@ and the kubelet is designed with that layout in mind.
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 {{% /tab %}}
-{{% tab name="Two filesystems" %}}
-You have a filesystem on the node that you're using for ephemeral data that
-comes from running Pods: logs, and `emptyDir` volumes. You can use this filesystem
-for other data (for example: system logs not related to Kubernetes); it can even
-be the root filesystem.
+{{% tab name="Runtime filesystem" %}}
+You use one filesystem on the node for ephemeral data from running Pods, such as
+logs and `emptyDir` volumes. You can also use this filesystem for other data,
+such as system logs that are not related to Kubernetes; it can even be the root
+filesystem.
 
 The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 into the first filesystem, and treats these similarly to ephemeral local storage.
 
 You also use a separate filesystem, backed by a different logical storage device.
-In this configuration, the directory where you tell the kubelet to place
-container image layers and writeable layers is on this second filesystem.
+In this configuration, the container runtime stores both container image layers
+and writeable layers on this second filesystem. Configure this storage location
+in your container runtime, not in the kubelet.
 
 The first filesystem does not hold any image layers or writeable layers.
 
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 {{% /tab %}}
+{{% tab name="Split image filesystem" %}}
+In this configuration, container image layers are on a separate filesystem, and
+container writeable layers are on the same filesystem as the kubelet's ephemeral
+data, such as logs and `emptyDir` volumes.
+
+This layout requires support for the `containerfs` eviction signals. For details
+about the feature gate and the container runtimes that support this layout, see
+[node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#filesystem-signals).
+{{% /tab %}}
 {{< /tabs >}}
 
-The kubelet can measure how much local storage it is using. It does this provided
-that you have set up the node using one of the supported configurations for local
-ephemeral storage.
+The [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#filesystem-signals)
+page refers to these observed filesystems as `nodefs`, `imagefs`, and
+`containerfs`. Those names do not always mean separate mount points.
+
+The kubelet can measure local storage use when you set up the node using one of
+the supported configurations for local ephemeral storage.
 
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
@@ -95,7 +107,10 @@ than as local ephemeral storage.
 {{< /note >}}
 
 {{< note >}}
-The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
+The kubelet can only track ephemeral storage on the filesystems it observes
+through the supported layouts. If you mount extra filesystems under paths such as
+`/var/lib/kubelet`, `/var/log`, or the container runtime storage directory
+outside those layouts, the kubelet might not report ephemeral storage correctly.
 {{< /note >}}
 
 ## Setting requests and limits for local ephemeral storage {#requests-limits}

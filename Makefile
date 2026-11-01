@@ -1,4 +1,5 @@
 HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
+NODE_VERSION      = $(shell grep ^NODE_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
@@ -27,7 +28,8 @@ CONTAINER_HUGO_MOUNTS = \
 	--mount type=bind,source=$(CURDIR)/layouts,target=/src/layouts,readonly \
 	--mount type=bind,source=$(CURDIR)/static,target=/src/static,readonly \
 	--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
-	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly
+	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly \
+	--mount type=bind,source=$(CURDIR)/hugo.server.toml,target=/src/hugo.server.toml,readonly
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -35,7 +37,7 @@ CCEND=\033[0m
 # Docker buildx related settings for multi-arch images
 DOCKER_BUILDX ?= docker buildx
 
-.PHONY: all build build-preview help serve
+.PHONY: all build build-preview help serve prepare-ci-test run-ci-test-production
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -56,7 +58,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	hugo --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -65,14 +67,14 @@ check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
-	GOMAXPROCS=1 hugo --cleanDestinationDir --minify --environment production
+	hugo --cleanDestinationDir --minify --environment production
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
-	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
+	hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildDrafts --buildFuture --environment development --renderSegments $(segments)
+	hugo server --config hugo.toml,hugo.server.toml --buildDrafts --buildFuture --environment development --renderSegments $(segments)
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -121,7 +123,7 @@ container-build: module-check
 container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN_TTY) --cap-drop=ALL --cap-add=AUDIT_WRITE $(CONTAINER_HUGO_MOUNTS) \
 		-p 1313:1313 $(CONTAINER_IMAGE) \
-		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
+		hugo server --config hugo.toml,hugo.server.toml --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
 
 test-examples:
 	scripts/test_examples.sh install
@@ -145,3 +147,25 @@ clean-api-reference: ## Clean all directories in API reference directory, preser
 api-reference: clean-api-reference ## Build the API reference pages. go needed
 	cd api-ref-generator/gen-resourcesdocs && \
 		go run cmd/main.go kwebsite --config-dir ../../api-ref-assets/config/ --file ../../api-ref-assets/api/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates ../../api-ref-assets/templates
+
+prepare-ci-test: ## Install CI deps (Node + Hugo) for running the production build in Prow.
+	@test -n "$$PROW_JOB_ID" || { echo "prepare-ci-test installs into /usr/local; run it only in Prow" 1>&2; exit 1; }
+	apt-get update -qq
+	apt-get install -y --no-install-recommends -qq curl git ca-certificates xz-utils
+	rm -rf /var/lib/apt/lists/*
+	cd /tmp && \
+	  curl -fsSLO --retry 3 --retry-delay 5 "https://nodejs.org/dist/v$(NODE_VERSION)/node-v$(NODE_VERSION)-linux-x64.tar.xz" && \
+	  curl -fsSL --retry 3 --retry-delay 5 "https://nodejs.org/dist/v$(NODE_VERSION)/SHASUMS256.txt" \
+	    | grep " node-v$(NODE_VERSION)-linux-x64.tar.xz$$" | sha256sum -c - && \
+	  tar -xJf node-v$(NODE_VERSION)-linux-x64.tar.xz -C /usr/local --strip-components=1 \
+	    --exclude='*/CHANGELOG.md' --exclude='*/LICENSE' --exclude='*/README.md'
+	cd /tmp && \
+	  curl -fsSLO --retry 3 --retry-delay 5 "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz" && \
+	  curl -fsSL --retry 3 --retry-delay 5 "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_checksums.txt" \
+	    | grep " hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz$$" | sha256sum -c - && \
+	  tar -xzf hugo_extended_$(HUGO_VERSION)_linux-amd64.tar.gz -C /usr/local/bin hugo
+
+run-ci-test-production: module-init ## Run the production build used by CI.
+	npm ci
+	HUGO_BASEURL=https://kubernetes.io/ HUGO_ENV=production HUGO_ENABLEGITINFO=true $(MAKE) production-build
+	npx -y pagefind --site public

@@ -1,6 +1,7 @@
 ---
 title: Extending the Kubernetes API
 weight: 30
+no_list: true
 ---
 
 Custom resources are extensions of the Kubernetes API. Kubernetes provides two ways to add custom resources to your cluster:

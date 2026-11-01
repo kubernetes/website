@@ -1,7 +1,6 @@
 ---
 title: Cluster
 id: cluster
-date: 2020-08-03
 full_link: 
 short_description: >
   Um conjunto de servidores de processamento, também chamados de nós, que

@@ -1,7 +1,6 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Компонент управляющего слоя, который отслеживает недавно созданные поды без назначенного для них узла и выбирает узел, на котором они должны работать.

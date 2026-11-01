@@ -163,7 +163,7 @@ reference for a full definition of the resource.
 
 An example NetworkPolicy might look like this:
 -->
-## NetworkPolicy 资源 {#networkpolicy-resource}
+## NetworkPolicy 资源  {#networkpolicy-resource}
 
 参阅 [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io)
 来了解资源的完整定义。
@@ -177,7 +177,7 @@ An example NetworkPolicy might look like this:
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
 solution supports network policy.
 -->
-除非选择支持网络策略的网络解决方案，否则将上述示例发送到 API 服务器没有任何效果。
+除非选择支持 NetworkPolicy 的网络解决方案，否则将上述示例发送到 API 服务器没有任何效果。
 {{< /note >}}
 
 <!--
@@ -186,12 +186,8 @@ __Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy needs
 [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
-**spec**: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+**spec**: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to define a particular network policy in the given namespace.
-
-**podSelector**: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to
-which the policy applies. The example policy selects pods with the label "role=db". An empty
-`podSelector` selects all pods in the namespace.
 -->
 **必需字段**：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、
 `kind` 和 `metadata` 字段。关于配置文件操作的一般信息，
@@ -199,9 +195,14 @@ which the policy applies. The example policy selects pods with the label "role=d
 和[对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management)。
 
 **spec**：NetworkPolicy
-[规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+[规约](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 中包含了在一个名字空间中定义特定网络策略所需的所有信息。
 
+<!--
+**podSelector**: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to
+which the policy applies. The example policy selects pods with the label "role=db". An empty
+`podSelector` selects all pods in the namespace.
+-->
 **podSelector**：每个 NetworkPolicy 都包括一个 `podSelector`，
 它对该策略所适用的一组 Pod 进行选择。示例中的策略选择带有 "role=db" 标签的 Pod。
 空的 `podSelector` 选择名字空间下的所有 Pod。
@@ -217,10 +218,6 @@ applies to ingress traffic to selected pod, egress traffic from selected pods, o
 traffic which matches both the `from` and `ports` sections. The example policy contains a single
 rule, which matches traffic on a single port, from one of three sources, the first specified via
 an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
-
-**egress**: Each NetworkPolicy may include a list of allowed `egress` rules. Each rule allows
-traffic which matches both the `to` and `ports` sections. The example policy contains a single
-rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 -->
 **policyTypes**：每个 NetworkPolicy 都包含一个 `policyTypes` 列表，其中包含
 `Ingress` 或 `Egress` 或两者兼具。`policyTypes` 字段表示给定的策略是应用于进入所选
@@ -233,6 +230,11 @@ Pod 的入站流量还是来自所选 Pod 的出站流量，或两者兼有。
 它匹配某个特定端口，来自三个来源中的一个，第一个通过 `ipBlock`
 指定，第二个通过 `namespaceSelector` 指定，第三个通过 `podSelector` 指定。
 
+<!--
+**egress**: Each NetworkPolicy may include a list of allowed `egress` rules. Each rule allows
+traffic which matches both the `to` and `ports` sections. The example policy contains a single
+rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
+-->
 **egress**：每个 NetworkPolicy 可包含一个 `egress` 规则的白名单列表。
 每个规则都允许匹配 `to` 和 `ports` 部分的流量。该示例策略包含一条规则，
 该规则将指定端口上的流量匹配到 `10.0.0.0/24` 中的任何目的地。
@@ -249,14 +251,8 @@ So, the example NetworkPolicy:
    * any pod in a namespace with the label `project=myproject`
    * IP addresses in the ranges `172.17.0.0`–`172.17.0.255` and `172.17.2.0`–`172.17.255.255`
      (ie, all of `172.17.0.0/16` except `172.17.1.0/24`)
-
-1. (Egress rules) allows connections from any pod in the `default` namespace with the label
-   `role=db` to CIDR `10.0.0.0/24` on TCP port 5978
-
-See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
-walkthrough for further examples.
 -->
-所以，该网络策略示例：
+所以，该 NetworkPolicy 示例：
 
 1. 隔离 `default` 名字空间下 `role=db` 的 Pod （如果它们不是已经被隔离的话）。
 2. （Ingress 规则）允许以下 Pod 连接到 `default` 名字空间下的带有 `role=db`
@@ -267,6 +263,13 @@ walkthrough for further examples.
    * IP 地址范围为 `172.17.0.0–172.17.0.255` 和 `172.17.2.0–172.17.255.255`
      （即，除了 `172.17.1.0/24` 之外的所有 `172.17.0.0/16`）
 
+<!--
+1. (Egress rules) allows connections from any pod in the `default` namespace with the label
+   `role=db` to CIDR `10.0.0.0/24` on TCP port 5978
+
+See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
+walkthrough for further examples.
+-->
 3. （Egress 规则）允许 `default` 名字空间中任何带有标签 `role=db` 的 Pod 到 CIDR
    `10.0.0.0/24` 下 5978 TCP 端口的连接。
 
@@ -280,13 +283,6 @@ There are four kinds of selectors that can be specified in an `ingress` `from` s
 
 **podSelector**: This selects particular Pods in the same namespace as the NetworkPolicy which
 should be allowed as ingress sources or egress destinations.
-
-**namespaceSelector**: This selects particular namespaces for which all Pods should be allowed as
-ingress sources or egress destinations.
-
-**namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
-`namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
-careful to use correct YAML syntax. For example:
 -->
 ## 选择器 `to` 和 `from` 的行为   {#behavior-of-to-and-from-selectors}
 
@@ -295,6 +291,14 @@ careful to use correct YAML syntax. For example:
 **podSelector**：此选择器将在与 NetworkPolicy 相同的名字空间中选择特定的
 Pod，应将其允许作为入站流量来源或出站流量目的地。
 
+<!--
+**namespaceSelector**: This selects particular namespaces for which all Pods should be allowed as
+ingress sources or egress destinations.
+
+**namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
+`namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
+careful to use correct YAML syntax. For example:
+-->
 **namespaceSelector**：此选择器将选择特定的名字空间，应将所有 Pod
 用作其入站流量来源或出站流量目的地。
 
@@ -354,13 +358,6 @@ Cluster ingress and egress mechanisms often require rewriting the source or dest
 of packets. In cases where this happens, it is not defined whether this happens before or
 after NetworkPolicy processing, and the behavior may be different for different
 combinations of network plugin, cloud provider, `Service` implementation, etc.
-
-In the case of ingress, this means that in some cases you may be able to filter incoming
-packets based on the actual original source IP, while in other cases, the "source IP" that
-the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
-
-For egress, this means that connections from pods to `Service` IPs that get rewritten to
-cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 -->
 如有疑问，请使用 `kubectl describe` 查看 Kubernetes 如何解释该策略。
 
@@ -371,6 +368,14 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 在发生这种情况时，不确定在 NetworkPolicy 处理之前还是之后发生，
 并且对于网络插件、云提供商、`Service` 实现等的不同组合，其行为可能会有所不同。
 
+<!--
+In the case of ingress, this means that in some cases you may be able to filter incoming
+packets based on the actual original source IP, while in other cases, the "source IP" that
+the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
+
+For egress, this means that connections from pods to `Service` IPs that get rewritten to
+cluster-external IPs may or may not be subject to `ipBlock`-based policies.
+-->
 对入站流量而言，这意味着在某些情况下，你可以根据实际的原始源 IP 过滤传入的数据包，
 而在其他情况下，NetworkPolicy 所作用的 `源IP` 则可能是 `LoadBalancer` 或
 Pod 的节点等。
@@ -450,6 +455,17 @@ egress traffic. This policy does not change the ingress isolation behavior of an
 -->
 此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被允许流出流量。
 此策略不会更改任何 Pod 的入站流量隔离行为。
+
+{{< caution >}}
+<!--
+A default deny-all egress policy also blocks DNS traffic. If your workloads need DNS
+resolution, you must add a separate NetworkPolicy that allows egress to your
+cluster's DNS service.
+-->
+默认的拒绝所有出站流量策略也会阻止 DNS 流量。
+如果你的工作负载需要进行 DNS 解析，就必须额外添加一条 NetworkPolicy，
+允许出站流量访问集群的 DNS 服务。
+{{< /caution >}}
 
 <!--
 ### Allow all egress traffic

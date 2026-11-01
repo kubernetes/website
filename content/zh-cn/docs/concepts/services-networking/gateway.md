@@ -165,35 +165,38 @@ reference for a full definition of this API kind.
 有关此 API 类别的完整定义，请参阅
 [GatewayClass](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.GatewayClass)。
 
-<!-- 
 ### Gateway {#api-kind-gateway}
 
+<!--
 A Gateway describes an instance of traffic handling infrastructure. It defines a network endpoint
 that can be used for processing traffic, i.e. filtering, balancing, splitting, etc. for backends
 such as a Service. For example, a Gateway may represent a cloud load balancer or an in-cluster proxy
 server that is configured to accept HTTP traffic.
 
-A minimal Gateway resource example:
+A typical Gateway resource example:
 -->
-### Gateway {#api-kind-gateway}
-
 Gateway 用来描述流量处理基础设施的一个实例。Gateway 定义了一个网络端点，该端点可用于处理流量，
 即对 Service 等后端进行过滤、平衡、拆分等。
 例如，Gateway 可以代表某个云负载均衡器，或配置为接受 HTTP 流量的集群内代理服务器。
 
-下面是一个精简的 Gateway 资源示例：
+下面是一个典型的 Gateway 资源示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: example-gateway
+  namespace: example-namespace
 spec:
   gatewayClassName: example-class
   listeners:
   - name: http
     protocol: HTTP
     port: 80
+    hostname: "www.example.com"
+    allowedRoutes:
+      namespaces:
+        from: Same
 ```
 
 <!-- 
@@ -203,13 +206,25 @@ to the Gateway by the implementation's controller. This address is used as a net
 processing traffic of backend network endpoints defined in routes.
 
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
-reference for a full definition of this API kind.
+reference for a full definition of this API kind. For guidance on configuring HTTPS/TLS listeners, see the
+[Gateway API TLS Guide](https://gateway-api.sigs.k8s.io/guides/tls/).
 -->
 在此示例中，流量处理基础设施的实例被编程为监听 80 端口上的 HTTP 流量。
 由于未指定 `addresses` 字段，因此对应实现的控制器负责将地址或主机名设置到 Gateway 之上。
 该地址用作网络端点，用于处理路由中定义的后端网络端点的流量。
 
-有关此类 API 的完整定义，请参阅 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
+有关此类 API 的完整定义，请参阅
+[Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
+有关配置 HTTPS/TLS 监听器的指导，请参阅
+[Gateway API TLS 指南](https://gateway-api.sigs.k8s.io/guides/tls/)。
+
+{{< note >}}
+<!--
+By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
+-->
+默认情况下，Gateway 只接受来自同一命名空间的 Route。
+如果需要跨命名空间的 Route，则必须通过配置 `allowedRoutes` 来显式允许。
+{{< /note >}}
 
 <!-- 
 ### HTTPRoute {#api-kind-httproute}
@@ -220,7 +235,7 @@ IP or the backing EndpointSlices of the Service. An HTTPRoute represents configu
 underlying Gateway implementation. For example, defining a new HTTPRoute may result in configuring additional
 traffic routes in a cloud load balancer or in-cluster proxy server.
 
-A minimal HTTPRoute example:
+A typical HTTPRoute example:
 -->
 ### HTTPRoute {#api-kind-httproute}
 
@@ -229,7 +244,7 @@ HTTPRoute 类别指定从 Gateway 监听器到后端网络端点的 HTTP 请求�
 HTTPRoute 表示将被应用到下层 Gateway 实现的配置。
 例如，定义新的 HTTPRoute 可能会导致在云负载均衡器或集群内代理服务器中配置额外的流量路由。
 
-下面是一个最精简的 HTTPRoute 示例：
+下面是一个最典型的 HTTPRoute 示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -283,11 +298,11 @@ GRPCRoute 类别给出将 gRPC 请求从 Gateway 监听器转发到后端网络�
 Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
 so gRPC traffic is guaranteed to flow properly.
 
-A minimal GRPCRoute example:
+A typical GRPCRoute example:
 -->
 支持 GRPCRoute 的 Gateway 必须支持 HTTP/2，且无需从 HTTP/1 升级，以确保 gRPC 流量能够正常传输。
 
-以下是一个精简的 GRPCRoute 示例：
+以下是一个典型的 GRPCRoute 示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -342,7 +357,7 @@ to forward the traffic to the correct backend. Since there is only one match spe
 for the com.example.User.Login method to svc.example.com will be forwarded.
 RPCs of any other method` will not be matched by this Route.
 
-See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
 reference for a full definition of this API kind.
 -->
 在这种情况下，GRPCRoute 将匹配发往 `svc.example.com` 的所有流量，
@@ -351,7 +366,7 @@ reference for a full definition of this API kind.
 其他请求方法的 RPC 调用都不会被此路由匹配。
 
 有关这种 API 类别的完整定义，请参阅
-[GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute) 参考文档。
+[GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute) 参考文档。
 
 <!-- 
 ## Request flow
@@ -398,7 +413,7 @@ Gateway API covers a broad set of features and is widely implemented. This combi
 clear conformance definitions and tests to ensure that the API provides a consistent experience
 wherever it is used.
 
-See the [conformance](https://gateway-api.sigs.k8s.io/concepts/conformance/) documentation to
+See the [conformance](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/) documentation to
 understand details such as release channels, support levels, and running conformance tests.
 -->
 ## 标准合规性 {#conformance}
@@ -406,7 +421,7 @@ understand details such as release channels, support levels, and running conform
 Gateway API 涵盖广泛的功能并得到广泛实现。
 这种组合需要明确的标准合规性定义和测试，以确保 API 在任何地方使用时都能提供一致的体验。
 
-请参阅[合规性](https://gateway-api.sigs.k8s.io/concepts/conformance/)相关的文档，
+请参阅[合规性](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/)相关的文档，
 以了解发布渠道、支持级别和运行合规性测试等详细信息。
 
 <!-- 
@@ -452,7 +467,8 @@ Make sure to review the documentation of your selected implementation to underst
 {{< /note >}}
 
 <!-- 
-Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/spec/) for additional
+Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/) for additional
 details of all Gateway API kinds.
 -->
-有关所有 Gateway API 类型的其他详细信息，请参阅 [API 规范](https://gateway-api.sigs.k8s.io/reference/spec/)。
+有关所有 Gateway API 类型的其他详细信息，请参阅
+[API 规范](https://gateway-api.sigs.k8s.io/reference/api-spec/main/spec/)。

@@ -10,6 +10,7 @@ weight: 20
 -->
 
 <!-- overview -->
+
 <!--
 This page provides a step-by-step example of updating configuration within a Pod via a ConfigMap
 and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
@@ -67,15 +68,15 @@ kubectl create configmap sport --from-literal=sport=football
 <!--
 Below is an example of a Deployment manifest with the ConfigMap `sport` mounted as a
 {{< glossary_tooltip text="volume" term_id="volume" >}} into the Pod's only container.
-{{% code_sample file="deployments/deployment-with-configmap-as-volume.yaml" %}}
-
-Create the Deployment:
 -->
 下面是一个 Deployment 清单示例，其中 ConfigMap `sport`
 作为{{< glossary_tooltip text="卷" term_id="volume" >}}挂载到 Pod 的唯一容器中。
 
 {{% code_sample file="deployments/deployment-with-configmap-as-volume.yaml" %}}
 
+<!--
+Create the Deployment:
+-->
 创建此 Deployment：
 
 ```shell
@@ -237,15 +238,16 @@ An application that loads its configuration once at startup will not notice a ch
 但是，你的应用只有在编写为轮询变更或监视文件更新时才能看到变更。
 启动时一次性加载其配置的应用将不会注意到变更。
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 The total delay from the moment when the ConfigMap is updated to the moment when
 new keys are projected to the Pod can be as long as kubelet sync period.
 Also check [Mounted ConfigMaps are updated automatically](/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically).
 -->
-从更新 ConfigMap 的那一刻到将新的键投射到 Pod 的那一刻，整个延迟可能与 kubelet 同步周期相同。
+从更新 ConfigMap 的那一刻到将新的键投射到 Pod 的那一刻，
+整个延迟可能与 kubelet 同步周期相同。
 另请参阅[挂载的 ConfigMap 会被自动更新](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically)。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 ## Update environment variables of a Pod via a ConfigMap {#rollout-configmap-env}
@@ -266,7 +268,8 @@ kubectl create configmap fruits --from-literal=fruits=apples
 <!--
 Below is an example of a Deployment manifest with an environment variable configured via the ConfigMap `fruits`.
 -->
-下面是一个 Deployment 清单的示例，包含一个通过 ConfigMap `fruits` 配置的环境变量。
+下面是一个 Deployment 清单的示例，包含一个通过 ConfigMap `fruits`
+配置的环境变量。
 
 {{% code_sample file="deployments/deployment-with-configmap-as-envvar.yaml" %}}
 
@@ -283,7 +286,8 @@ kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-a
 Check the pods for this Deployment to ensure they are ready (matching by
 {{< glossary_tooltip text="selector" term_id="selector" >}}):
 -->
-检查此 Deployment 的 Pod 以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
+检查此 Deployment 的 Pod
+以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-env-var
@@ -384,21 +388,23 @@ configmap/fruits edited
 
 <!--
 Tail the logs of the Deployment and observe the output for few seconds:
+-->
+查看此 Deployment 的日志，并观察几秒钟的输出：
 
+<!--
 ```shell
 # As the text explains, the output does NOT change
 kubectl logs deployments/configmap-env-var --follow
 ```
-
-Notice that the output remains **unchanged**, even though you edited the ConfigMap:
 -->
-查看此 Deployment 的日志，并观察几秒钟的输出：
-
 ```shell
 # 如上所述，输出不会有变化
 kubectl logs deployments/configmap-env-var --follow
 ```
 
+<!--
+Notice that the output remains **unchanged**, even though you edited the ConfigMap:
+-->
 请注意，即使你编辑了 ConfigMap，输出仍然**没有变化**：
 
 ```
@@ -408,7 +414,7 @@ Thu Jan  4 16:13:16 UTC 2024 The basket is full of apples
 Thu Jan  4 16:13:26 UTC 2024 The basket is full of apples
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Although the value of the key inside the ConfigMap has changed, the environment variable
 in the Pod still shows the earlier value. This is because environment variables for a
@@ -419,12 +425,16 @@ The new Pods would then run with the updated information.
 尽管 ConfigMap 中的键的取值已经变更，Pod 中的环境变量仍然显示先前的值。
 这是因为当源数据变更时，在 Pod 内运行的进程的环境变量**不会**被更新；
 如果你想强制更新，需要让 Kubernetes 替换现有的 Pod。新 Pod 将使用更新的信息来运行。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 You can trigger that replacement. Perform a rollout for the Deployment, using
 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/):
+-->
+你可以触发该替换。使用 [`kubectl rollout`](/zh-cn/docs/reference/kubectl/generated/kubectl_rollout/)
+为 Deployment 执行上线操作：
 
+<!--
 ```shell
 # Trigger the rollout
 kubectl rollout restart deployment configmap-env-var
@@ -432,12 +442,7 @@ kubectl rollout restart deployment configmap-env-var
 # Wait for the rollout to complete
 kubectl rollout status deployment configmap-env-var --watch=true
 ```
-
-Next, check the Deployment:
 -->
-你可以触发该替换。使用 [`kubectl rollout`](/zh-cn/docs/reference/kubectl/generated/kubectl_rollout/)
-为 Deployment 执行上线操作：
-
 ```shell
 # 触发上线操作
 kubectl rollout restart deployment configmap-env-var
@@ -446,6 +451,9 @@ kubectl rollout restart deployment configmap-env-var
 kubectl rollout status deployment configmap-env-var --watch=true
 ```
 
+<!--
+Next, check the Deployment:
+-->
 接下来，检查 Deployment：
 
 ```shell
@@ -476,7 +484,8 @@ The rollout causes Kubernetes to make a new {{< glossary_tooltip term_id="replic
 for the Deployment; that means the existing Pods eventually terminate, and new ones are created.
 After few seconds, you should see an output similar to:
 -->
-上线操作会导致 Kubernetes 为 Deployment 新建一个 {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}；
+上线操作会导致 Kubernetes 为 Deployment 新建一个
+{{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}；
 这意味着现有的 Pod 最终会终止，并创建新的 Pod。几秒钟后，你应该会看到类似以下的输出：
 
 ```
@@ -486,12 +495,12 @@ configmap-env-var-6d94d89bf5-74twx   1/1     Running       0          8s
 configmap-env-var-6d94d89bf5-d5vx8   1/1     Running       0          11s
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Please wait for the older Pods to fully terminate before proceeding with the next steps.
 -->
 请等待旧的 Pod 完全终止后再进行下一步。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 View the logs for a Pod in this Deployment:
@@ -576,7 +585,8 @@ kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-t
 Check the pods for this Deployment to ensure they are ready (matching by
 {{< glossary_tooltip text="selector" term_id="selector" >}}):
 -->
-检查此 Deployment 的 Pod 以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
+检查此 Deployment 的 Pod
+以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-two-containers
@@ -598,7 +608,8 @@ configmap-two-containers-565fb6d4f4-mzsmf   2/2     Running   0          20s
 Expose the Deployment (the `kubectl` tool creates a
 {{<glossary_tooltip text="Service" term_id="service">}} for you):
 -->
-公开 Deployment（`kubectl` 工具会为你创建 {{< glossary_tooltip text="Service" term_id="service" >}}）：
+公开 Deployment（`kubectl`
+工具会为你创建 {{< glossary_tooltip text="Service" term_id="service" >}}）：
 
 ```shell
 kubectl expose deployment configmap-two-containers --name=configmap-service --port=8080 --target-port=80
@@ -726,7 +737,8 @@ This ensures that the HTML file is always available when the web server is ready
 -->
 ## 在包含边车容器的 Pod 中通过 ConfigMap 更新配置    {#rollout-configmap-sidecar}
 
-要重现上述场景，可以使用[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作为辅助容器来写入
+要重现上述场景，
+可以使用[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作为辅助容器来写入
 HTML 文件。由于边车容器在概念上是一个 Init 容器，因此保证会在主要 Web 服务器容器启动之前启动。
 这确保了当 Web 服务器准备好提供服务时，HTML 文件始终可用。
 
@@ -755,8 +767,9 @@ writes a file in HTML that has its content based on a ConfigMap. The web server 
 以下是一个 Deployment 清单示例，该 Deployment 管理一组 Pod，每个 Pod 有一个主容器和一个边车容器。
 这两个容器共享一个 `emptyDir` 卷并使用此卷来通信。主容器运行 Web 服务器（NGINX）。
 在 Web 服务器容器中共享卷的挂载路径是 `/usr/share/nginx/html`。
-第二个容器是基于 Alpine Linux 作为辅助容器的边车容器。对于这个辅助容器，`emptyDir` 卷被挂载在 `/pod-data`。
-边车容器写入一个 HTML 文件，其内容基于 ConfigMap。Web 服务器容器通过 HTTP 提供此 HTML 文件。
+第二个容器是基于 Alpine Linux 作为辅助容器的边车容器。对于这个辅助容器，`emptyDir`
+卷被挂载在 `/pod-data`。边车容器写入一个 HTML 文件，其内容基于 ConfigMap。
+Web 服务器容器通过 HTTP 提供此 HTML 文件。
 
 {{% code_sample file="deployments/deployment-with-configmap-and-sidecar-container.yaml" %}}
 
@@ -773,7 +786,8 @@ kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-a
 Check the pods for this Deployment to ensure they are ready (matching by
 {{< glossary_tooltip text="selector" term_id="selector" >}}):
 -->
-检查此 Deployment 的 Pod 以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
+检查此 Deployment 的 Pod
+以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-sidecar-container
@@ -795,7 +809,8 @@ configmap-sidecar-container-5fb59f558b-wnmgk   2/2     Running   0          94s
 Expose the Deployment (the `kubectl` tool creates a
 {{<glossary_tooltip text="Service" term_id="service">}} for you):
 -->
-公开 Deployment（`kubectl` 工具会为你创建一个 {{< glossary_tooltip text="Service" term_id="service" >}}）：
+公开 Deployment（`kubectl`
+工具会为你创建一个 {{< glossary_tooltip text="Service" term_id="service" >}}）：
 
 ```shell
 kubectl expose deployment configmap-sidecar-container --name=configmap-sidecar-service --port=8081 --target-port=80
@@ -897,7 +912,7 @@ You should see the output change as follows:
 循环访问服务 URL 几秒钟。
 
 ```shell
-# 当你满意时可以取消此操作 (Ctrl-C)
+# 当你满意时可以取消此操作（Ctrl-C）
 while true; do curl --connect-timeout 7.5 http://localhost:8081; sleep 10; done
 ```
 
@@ -918,26 +933,27 @@ Sat Feb 17 13:13:35 UTC 2024 My preferred color is green
 -->
 ## 通过作为卷挂载的不可变 ConfigMap 更新配置   {#rollout-configmap-immutable-volume}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Immutable ConfigMaps are especially used for configuration that is constant and is **not** expected
 to change over time. Marking a ConfigMap as immutable allows a performance improvement where the kubelet does not watch for changes.
 
 If you do need to make a change, you should plan to either:
-
-- change the name of the ConfigMap, and switch to running Pods that reference the new name
-- replace all the nodes in your cluster that have previously run a Pod that used the old value
-- restart the kubelet on any node where the kubelet previously loaded the old ConfigMap
 -->
 不可变 ConfigMap 专门用于恒定且预期**不会**随时间变化的配置。
 将 ConfigMap 标记为不可变可以提高性能，因为 kubelet 不会监视变更。
 
 如果你确实需要进行变更，你应计划：
 
+<!--
+- change the name of the ConfigMap, and switch to running Pods that reference the new name
+- replace all the nodes in your cluster that have previously run a Pod that used the old value
+- restart the kubelet on any node where the kubelet previously loaded the old ConfigMap
+-->
 - 变更 ConfigMap 的名称，并转而运行引用新名称的 Pod
 - 替换集群中之前运行使用旧值的 Pod 的所有节点
 - 在任何之前加载过旧 ConfigMap 的节点上重新启动 kubelet
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 An example manifest for an [Immutable ConfigMap](/docs/concepts/configuration/configmap/#configmap-immutable) is shown below.
@@ -945,7 +961,8 @@ An example manifest for an [Immutable ConfigMap](/docs/concepts/configuration/co
 
 Create the Immutable ConfigMap:
 -->
-以下是一个[不可变 ConfigMap](/zh-cn/docs/concepts/configuration/configmap/#configmap-immutable)的示例清单。
+以下是一个[不可变 ConfigMap](/zh-cn/docs/concepts/configuration/configmap/#configmap-immutable)
+的示例清单。
 
 {{% code_sample file="configmap/immutable-configmap.yaml" %}}
 
@@ -977,7 +994,8 @@ kubectl apply -f https://k8s.io/examples/deployments/deployment-with-immutable-c
 Check the pods for this Deployment to ensure they are ready (matching by
 {{< glossary_tooltip text="selector" term_id="selector" >}}):
 -->
-检查此 Deployment 的 Pod 以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
+检查此 Deployment 的 Pod
+以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=immutable-configmap-volume
@@ -1023,7 +1041,7 @@ Wed Mar 20 03:52:44 UTC 2024 The name of the company is ACME, Inc.
 Wed Mar 20 03:52:54 UTC 2024 The name of the company is ACME, Inc.
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 <!--
 Once a ConfigMap is marked as immutable, it is not possible to revert this change
 nor to mutate the contents of the data or the binaryData field.
@@ -1034,7 +1052,7 @@ to define a slightly different pod template, referencing the new ConfigMap.
 一旦 ConfigMap 被标记为不可变，就无法撤销此变更，也无法修改 `data` 或 `binaryData` 字段的内容。
 为了修改使用此配置的 Pod 的行为，你需要创建一个新的不可变 ConfigMap，并编辑 Deployment
 以定义一个稍有不同的 Pod 模板，引用新的 ConfigMap。
-{{< /note >}}
+{{< /alert >}}
 
 <!--
 Create a new immutable ConfigMap by using the manifest shown below:
@@ -1183,7 +1201,8 @@ Wed Mar 20 04:24:37 UTC 2024 The name of the company is Fiktivesunternehmen GmbH
 <!--
 Once all the deployments have migrated to use the new immutable ConfigMap, it is advised to delete the old one.
 -->
-建议一旦所有 Deployment 都迁移到使用新的不可变 ConfigMap，删除旧的 ConfigMap。
+建议一旦所有 Deployment 都迁移到使用新的不可变 ConfigMap，
+删除旧的 ConfigMap。
 
 ```shell
 kubectl delete configmap company-name-20150801

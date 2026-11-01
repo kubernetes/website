@@ -1,7 +1,6 @@
 ---
 title: ノード圧迫による退避
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /ja/docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   ノード圧迫による退避は、kubeletがノード上のリソースを回収するためにPodを積極的に失敗させるプロセスです。

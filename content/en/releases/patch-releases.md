@@ -89,7 +89,7 @@ These releases are no longer supported.
 
 {{< eol-releases >}}
 
-[cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md
 [release-managers]: /releases/release-managers
 [release process description]: /releases/release
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

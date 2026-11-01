@@ -1,0 +1,40 @@
+{{/*
+  Returns a map keyed by minor_version of release announcement blog posts for
+  the current site language. Scans the English blog once and prefers the
+  current-language translation (via Page.Translations) when its front matter
+  carries a matching release_announcement.minor_version.
+*/}}
+{{- $releaseBlogMap := dict -}}
+{{- $currentLang := site.Language.Lang -}}
+{{- $englishSite := index (where site.Sites "Language.Lang" "en") 0 -}}
+{{- range where $englishSite.RegularPages "Section" "blog" -}}
+  {{- $announcement := .Params.release_announcement -}}
+  {{- if $announcement -}}
+    {{- $version := $announcement.minor_version -}}
+    {{- if $version -}}
+      {{- $url := .RelPermalink -}}
+      {{- $themes := $announcement.themes -}}
+
+      {{- if ne $currentLang "en" -}}
+        {{- with where .Translations ".Lang" $currentLang -}}
+          {{- $localized := index . 0 -}}
+          {{- with $localized.Params.release_announcement -}}
+            {{- if eq .minor_version $version -}}
+              {{- $url = $localized.RelPermalink -}}
+              {{- $themes = .themes -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- /* Use the first theme as the primary theme if available. */ -}}
+      {{- $primaryTheme := "" -}}
+      {{- if and $themes (gt (len $themes) 0) -}}
+        {{- $primaryTheme = index $themes 0 -}}
+      {{- end -}}
+      {{- $entry := dict "url" $url "theme" $primaryTheme -}}
+      {{- $releaseBlogMap = merge $releaseBlogMap (dict $version $entry) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $releaseBlogMap -}}

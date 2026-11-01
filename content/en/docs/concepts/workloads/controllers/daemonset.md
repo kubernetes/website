@@ -92,7 +92,7 @@ The `.spec.selector` is an object consisting of two fields:
 
 * `matchLabels` - works the same as the `.spec.selector` of a
   [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
-* `matchExpressions` - allows to build more sophisticated selectors by specifying key,
+* `matchExpressions` - allows building more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
 When the two are specified the result is ANDed.
@@ -270,5 +270,5 @@ For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-
 * Learn about [device plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) and
   [add ons](/docs/concepts/cluster-administration/addons/), which often run as DaemonSets.
 * `DaemonSet` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/daemon-set-v1" >}}
+  Read the {{< api-reference page="apps/daemon-set-v1" >}}
   object definition to understand the API for daemon sets.

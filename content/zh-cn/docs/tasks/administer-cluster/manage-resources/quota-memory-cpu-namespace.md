@@ -20,11 +20,11 @@ description: >-
 This page shows how to set quotas for the total amount memory and CPU that
 can be used by all Pods running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 You specify quotas in a
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 object.
 -->
 本文介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}下运行的所有
-Pod 设置总的内存和 CPU 配额。你可以通过使用 [ResourceQuota](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+Pod 设置总的内存和 CPU 配额。你可以通过使用 [ResourceQuota](/zh-cn/docs/reference/kubernetes-api/core/resource-quota-v1/)
 对象设置配额.
 
 ## {{% heading "prerequisites" %}}
@@ -237,6 +237,17 @@ individual Pods, or the containers in those Pods. To achieve that kind of limiti
 除了可以管理命名空间资源使用的总和，如果你想限制单个 Pod，或者限制这些 Pod 中的容器资源，
 可以使用 [LimitRange](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 实现这类的功能。
+
+{{< note >}}
+<!--
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+ResourceQuota enforcement applies to the resized values. If a resize would cause the namespace
+to exceed its quota limits, the resize is rejected and the Pod's resources remain unchanged.
+-->
+使用[就地调整 Pod 大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)时，
+资源配额限制将应用于调整后的值。
+如果调整大小会导致命名空间超出其配额限制，则调整操作将被拒绝，Pod 的资源将保持不变。
+{{< /note >}}
 
 <!--
 ## Clean up

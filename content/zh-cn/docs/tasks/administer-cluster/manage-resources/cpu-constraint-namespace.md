@@ -22,12 +22,12 @@ description: >-
 This page shows how to set minimum and maximum values for the CPU resources used by containers
 and Pods in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. You specify minimum
 and maximum CPU values in a
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/docs/reference/kubernetes-api/core/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 -->
 本页介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中的容器和 Pod
-设置其所使用的 CPU 资源的最小和最大值。你可以通过 [LimitRange](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+设置其所使用的 CPU 资源的最小和最大值。你可以通过 [LimitRange](/zh-cn/docs/reference/kubernetes-api/core/limit-range-v1/)
 对象声明 CPU 的最小和最大值.
 如果 Pod 不能满足 LimitRange 的限制，就无法在该命名空间中被创建。
 
@@ -364,6 +364,19 @@ Pods that were created previously.
 
 只有当 Pod 创建或者更新时，LimitRange 为命名空间规定的 CPU 最小和最大限制才会被强制执行。
 如果你对 LimitRange 进行修改，那不会影响此前创建的 Pod。
+
+{{< note >}}
+<!--
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+the CPU constraints are also enforced. If a resize would cause the Pod's CPU values
+to violate the LimitRange constraints (either exceeding the maximum or falling below the minimum),
+the resize will be rejected and the Pod's resources remain at their previous values.
+-->
+使用[就地调整 Pod 大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)时，
+CPU 限制也会被强制执行。如果调整大小会导致 Pod 的 CPU 值违反 LimitRange
+限制（超过最大值或低于最小值），则调整操作将被拒绝，Pod 的资源将保持在之前的值。
+{{< /note >}}
+
 
 <!--
 ## Motivation for minimum and maximum CPU constraints

@@ -1,7 +1,6 @@
 ---
 title: Feature gate
 id: feature-gate
-date: 2023-01-12
 full_link: /docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   A way to control whether or not a particular Kubernetes feature is enabled.

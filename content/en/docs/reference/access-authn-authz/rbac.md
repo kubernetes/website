@@ -216,10 +216,11 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by their resource name.
-For `create`, this limitation is because the name of the new object may not be known at authorization time.
-If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
-For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
+You cannot restrict **deletecollection** or top-level **create** requests by resource name.
+For **create**, this limitation is because the name of the new object may not be known at authorization time. However, the **create** limitation applies only to top-level resources, not subresources. For example, you can use the `resourceNames` field with `pods/exec`.
+If you restrict **list** or **watch** by `resourceName`, clients must include a `metadata.name` field selector in their **list** or **watch** request (that matches the specified `resourceName`)
+in order to be authorized.
+For example: `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 Rather than referring to individual `resources`, `apiGroups`, and `verbs`,
@@ -265,6 +266,14 @@ field of this one.
 The control plane overwrites any values that you manually specify in the `rules` field of an
 aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
 that are selected by the `aggregationRule`.
+
+Omit the `rules` field from manifests for aggregated ClusterRoles. Setting it, even to an
+empty list, claims ownership of the field when the manifest is applied with
+[server-side apply](/docs/reference/using-api/server-side-apply/). That ownership causes
+conflicts between the applier and the control plane: subsequent applies either fail with a
+field manager conflict on `.rules`, or (if conflicts are forced, as GitOps controllers
+typically do) repeatedly clear the aggregated rules, which the control plane then fills in
+again.
 {{< /caution >}}
 
 Here is an example aggregated ClusterRole:
@@ -278,7 +287,7 @@ aggregationRule:
   clusterRoleSelectors:
   - matchLabels:
       rbac.example.com/aggregate-to-monitoring: "true"
-rules: [] # The control plane automatically fills in the rules
+# The control plane automatically fills in the rules
 ```
 
 If you create a new ClusterRole that matches the label selector of an existing aggregated ClusterRole,
@@ -290,14 +299,17 @@ ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# When you create the "monitoring-endpoints" ClusterRole,
+# When you create the "monitoring-endpointslices" ClusterRole,
 # the rules below will be added to the "monitoring" ClusterRole.
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpointslices", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 
@@ -762,7 +774,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
-<td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td>
+<td>Role for the deprecated kube-dns component. (<a href="/docs/concepts/services-networking/dns-pod-service/">CoreDNS</a> does not use this role.)</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
@@ -1102,22 +1114,6 @@ In order from most secure to least secure, the approaches are:
      --clusterrole=view \
      --serviceaccount=my-namespace:default \
      --namespace=my-namespace
-   ```
-
-   Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
-   "default" service account in the `kube-system` namespace.
-   To allow those add-ons to run with super-user access, grant cluster-admin
-   permissions to the "default" service account in the `kube-system` namespace.
-
-   {{< caution >}}
-   Enabling this means the `kube-system` namespace contains Secrets
-   that grant super-user access to your cluster's API.
-   {{< /caution >}}
-
-   ```shell
-   kubectl create clusterrolebinding add-on-cluster-admin \
-     --clusterrole=cluster-admin \
-     --serviceaccount=kube-system:default
    ```
 
 3. Grant a role to all service accounts in a namespace

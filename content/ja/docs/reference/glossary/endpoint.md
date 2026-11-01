@@ -1,7 +1,6 @@
 ---
 title: エンドポイント（Endpoints）
 id: endpoints
-date: 2020-04-23
 full_link: 
 short_description: >
   エンドポイントは、サービスのセレクターに一致するPodのIPアドレスを記録する責任があります。

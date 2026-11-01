@@ -1,7 +1,6 @@
 ---
 title: Architecte de Cluster
 id: cluster-architect
-date: 2018-04-12
 full_link:
 short_description: >
   Personne qui conçoit une infrastructure impliquant un ou plusieurs clusters Kubernetes.

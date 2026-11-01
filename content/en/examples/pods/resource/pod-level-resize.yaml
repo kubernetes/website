@@ -21,7 +21,7 @@ spec:
     - resourceName: cpu
       restartPolicy: RestartContainer
     - resourceName: memory
-      restartPolicy: RestartContainer    
+      restartPolicy: RestartContainer
   resources: # Pod-level resources
     requests:
       cpu: 200m

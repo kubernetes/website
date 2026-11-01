@@ -1,7 +1,6 @@
 ---
 title: Kerberos
 id: kerberos
-date: 2021-03-16
 full_link: 
 short_description: >
    Kerberos é um protocolo de rede que usa criptografia de chave secreta para autenticar aplicativos cliente-servidor. O Kerberos solicita um tíquete criptografado por meio de uma sequência de servidor autenticada para usar os serviços.

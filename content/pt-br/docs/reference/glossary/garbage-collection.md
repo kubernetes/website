@@ -1,7 +1,6 @@
 ---
 title: Coleta de lixo
 id: garbage-collection
-date: 2021-07-07
 full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
   Um termo coletivo para os vários mecanismos que o Kubernetes usa para limpar os recursos do cluster.

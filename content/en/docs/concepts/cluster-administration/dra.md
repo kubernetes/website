@@ -99,7 +99,7 @@ client-go configuration within `kube-controller-manager` are critical.
 The specific values to tune your cluster to depend on a variety of factors like
 number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
 see the [SIG Scalability README on Kubernetes scalability
- thresholds](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)
+ thresholds](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)
 for more information. In scale tests performed against a DRA enabled cluster
 with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
 (10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`
@@ -111,7 +111,7 @@ While this is a good starting point, you can get a better idea of how to tune
 the different components that have the biggest effect on DRA performance for
 your deployment by monitoring the following metrics. For more information on all
 the stable metrics in Kubernetes, see the [Kubernetes Metrics
-Reference](/docs/reference/generated/metrics/).
+Reference](/docs/reference/instrumentation/metrics/).
 
 ### `kube-controller-manager` metrics
 
@@ -146,7 +146,7 @@ The following scheduler metrics are high level metrics aggregating performance
 across all Pods scheduled, not just those using DRA. It is important to note
 that the end-to-end metrics are ultimately influenced by the
 `kube-controller-manager`'s performance in creating ResourceClaims from
-ResourceClainTemplates in deployments that heavily use ResourceClainTemplates.
+ResourceClaimTemplates in deployments that heavily use ResourceClaimTemplates.
 
 * Scheduler End-to-End Duration: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by
@@ -189,6 +189,6 @@ metrics.
 ## {{% heading "whatsnext" %}}
 
 * [Learn more about
-  DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+  DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 * Read the [Kubernetes Metrics
-Reference](/docs/reference/generated/metrics/)
+Reference](/docs/reference/instrumentation/metrics/)

@@ -1,7 +1,6 @@
 ---
 title: Dynamic Volume Provisioning
 id: dynamicvolumeprovisioning
-date: 2018-04-12
 full_link: /docs/concepts/storage/dynamic-provisioning
 short_description: >
   Allows users to request automatic creation of storage  Volumes.

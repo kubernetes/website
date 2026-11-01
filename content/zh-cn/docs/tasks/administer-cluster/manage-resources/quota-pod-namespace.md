@@ -19,12 +19,12 @@ description: >-
 <!--
 This page shows how to set a quota for the total number of Pods that can run
 in a {{< glossary_tooltip text="Namespace" term_id="namespace" >}}. You specify quotas in a
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 object.
 -->
 本文主要介绍如何在{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中设置可运行 Pod 总数的配额。
 你可以通过使用
-[ResourceQuota](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/zh-cn/docs/reference/kubernetes-api/core/resource-quota-v1/)
 对象来配置配额。
 
 ## {{% heading "prerequisites" %}}

@@ -13,7 +13,7 @@ weight: 10
 <!-- overview -->
 
 Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}}
-by placing containers into Pods to run on _Nodes_.
+by placing {{< glossary_tooltip text="containers" term_id="container" >}} into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -308,5 +308,5 @@ Learn more about the following:
 * [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+* [Node Resource Managers](/docs/concepts/resource-management/resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).

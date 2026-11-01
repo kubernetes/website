@@ -84,13 +84,12 @@ Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleB
     *Atomic: will be replaced during a merge*
 
     NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
--->  
-
+-->
 - **rules** ([]PolicyRule)
 
   **原子：将在合并期间被替换**
 
-  rules 包含了这个 Role 的所有 PolicyRule。
+  `rules` 包含了这个 Role 的所有 PolicyRule。
 
   <a name="PolicyRule"></a>
   **PolicyRule 包含描述一个策略规则的信息，但不包含该规则适用于哪个主体或适用于哪个命名空间的信息。**
@@ -98,41 +97,41 @@ Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleB
   - **rules.apiGroups** ([]string)
 
     **原子：将在合并期间被替换**
-  
-    apiGroups 是包含资源的 apiGroup 的名称。
+
+    `apiGroups` 是包含资源的 `apiGroup` 的名称。
     如果指定了多个 API 组，则允许对任何 API 组中的其中一个枚举资源来请求任何操作。
     "" 表示核心 API 组，“*” 表示所有 API 组。
-  
+
   - **rules.resources** ([]string)
 
     **原子：将在合并期间被替换**
 
-    resources 是此规则所适用的资源的列表。
+    `resources` 是此规则所适用的资源的列表。
     “*” 表示所有资源。
 
   - **rules.verbs** ([]string)，必需
 
     **原子：将在合并期间被替换**
 
-    verbs 是适用于此规则中所包含的所有 ResourceKinds 的动作。
+    `verbs` 是适用于此规则中所包含的所有 ResourceKinds 的动作。
     “*” 表示所有动作。
-  
+
   - **rules.resourceNames** ([]string)
 
     **原子：将在合并期间被替换**
-  
-    resourceNames 是此规则所适用的资源名称白名单，可选。
+
+    `resourceNames` 是此规则所适用的资源名称白名单，可选。
     空集合意味着允许所有资源。
-  
+
   - **rules.nonResourceURLs** ([]string)
 
     **原子：将在合并期间被替换**
-  
-    nonResourceURLs 是用户应有权访问的一组部分 URL。
+
+    `nonResourceURLs` 是用户应有权访问的一组部分 URL。
     允许使用 “*”，但仅能作为路径中最后一段且必须用于完整的一段，
     因为非资源 URL 没有划分命名空间。
     此字段仅适用于从 ClusterRoleBinding 引用的 ClusterRole。
-    rules 可以应用到 API 资源（如 “pod” 或 “secret”）或非资源 URL 路径（如 “/api”），
+    `rules` 可以应用到 API 资源（如 “pod” 或 “secret”）或非资源 URL 路径（如 “/api”），
     但不能同时应用于两者。
 
 ## RoleList {#RoleList}
@@ -162,19 +161,20 @@ RoleList 是 Role 的集合。
   标准的对象元数据。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/role-v1#Role" >}}">Role</a>)，必需
-  
-  items 是 Role 的列表。
+
+  `items` 是 Role 的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified Role
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified Role
+#### HTTP Request
+-->
 ### `get` 读取指定的 Role
 
 #### HTTP 请求
@@ -195,15 +195,15 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
 #### 参数
 
 - **name**（**路径参数**）：string，必需
-  
+
   Role 的名称
 
 - **namespace**（**路径参数**）：string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -247,6 +247,8 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 - **sendInitialEvents** (*in query*): boolean
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+- **shardSelector** (*in query*): string
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -255,51 +257,55 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 #### 参数
 
 - **namespace**（**路径参数**）：string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **allowWatchBookmarks**（**查询参数**）：boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit**（**查询参数**）：integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds**（**查询参数**）：integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch**（**查询参数**）：boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -341,6 +347,8 @@ GET /apis/rbac.authorization.k8s.io/v1/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 - **sendInitialEvents** (*in query*): boolean
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+- **shardSelector** (*in query*): string
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -349,40 +357,44 @@ GET /apis/rbac.authorization.k8s.io/v1/roles
 #### 参数
 
 - **allowWatchBookmarks**（**查询参数**）：boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit**（**查询参数**）：integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   
@@ -708,6 +720,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 - **sendInitialEvents** (*in query*): boolean
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+- **shardSelector** (*in query*): string
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
@@ -767,6 +781,9 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   

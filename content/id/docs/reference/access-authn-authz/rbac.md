@@ -303,15 +303,17 @@ ClusterRole lain berlabel `rbac.example.com/aggregate-to-monitoring: true`.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# ketika kamu membuat ClusterRole "monitoring-endpoints",
+# ketika kamu membuat ClusterRole "monitoring-endpointslices",
 # aturan di bawah ini akan ditambahkan ke ClusterRole "monitoring".
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpoints", "pods"]
+  resources: ["services", "pods"]
   verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
 ```
 
 [Role bawaan pengguna](#role-dan-rolebinding-bawaan) menggunakan agregasi ClusterRole. Ini memungkinkan kamu,

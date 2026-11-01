@@ -524,9 +524,14 @@ The difference is entirely in the authorization checks performed by the API serv
 
 An audit event is logged for each impersonation request to help track how impersonation is used.
 
-When a request uses constrained impersonation, the audit event includes `authenticationMetadata`
+When a request uses constrained impersonation, the audit event includes an `authenticationMetadata`
 object with an `impersonationConstraint` field that indicates which constrained impersonation verb
 was used to authorize the request.
+
+For non-watch requests that take longer than 500ms, the API server also adds an
+`apiserver.latency.k8s.io/impersonation` annotation to the audit event
+recording the time taken to process the impersonation (along with other handlers that contributed
+to the overall duration).
 
 Example audit event:
 
@@ -543,6 +548,9 @@ Example audit event:
   "authenticationMetadata": {
     "impersonationConstraint": "impersonate:user-info"
   },
+  "annotations": {
+    "apiserver.latency.k8s.io/impersonation": "100ms"
+  },
   "verb": "list",
   "objectRef": {
     "resource": "pods",
@@ -553,9 +561,31 @@ Example audit event:
 
 The `impersonationConstraint` value indicates which mode was used (for example, `impersonate:user-info`,
 `impersonate:associated-node`). The specific action (for example, `list`) can be determined from the
-`verb` field in the audit event.
+`verb` field in the audit event. For slow requests, the latency annotation records the time (for example,
+`100ms`) taken to process the impersonation for the request.
+
+## Metrics
+
+`kube-apiserver` exposes the following Prometheus metrics for constrained impersonation:
+
+- `apiserver_impersonation_attempts_total{mode, decision}`: a counter that increments on each
+  impersonation attempt. A `mode` is one of `associated-node`,
+  `arbitrary-node`, `serviceaccount`, `user-info`, or `legacy`. The `decision` is `allowed` or `denied`.
+- `apiserver_impersonation_attempts_duration_seconds{mode, decision}`: a histogram tracking the time taken to
+  resolve the impersonated user. The `mode` and `decision` labels have the same values as above. Because of
+  caching within the handler, this reflects the amortized latency cost of impersonation requests.
+- `apiserver_impersonation_authorization_attempts_total{mode, decision}`:  a counter that increments each
+  time an impersonation attempt invokes the authorizer. The `mode` and `decision` labels have the same values as above.
+- `apiserver_impersonation_authorization_attempts_duration_seconds{mode, decision}`: a histogram
+  tracking the time taken by the authorizer for each impersonation attempt.
+  The `mode` and `decision` labels have the same values as above.
+
+For metrics `apiserver_impersonation_attempts_total{mode, decision}` and
+`apiserver_impersonation_attempts_duration_seconds{mode, decision}`, the `mode` is
+the empty string when `decision` is `denied`.
 
 ## {{% heading "whatsnext" %}}
 
 - Read about [RBAC authorization](/docs/reference/access-authn-authz/rbac/)
 - Understand [Kubernetes authentication](/docs/reference/access-authn-authz/authentication/)
+

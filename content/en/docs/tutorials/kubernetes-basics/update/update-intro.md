@@ -7,6 +7,17 @@ weight: 10
 
 Perform a rolling update using kubectl.
 
+## {{% heading "prerequisites" %}}
+
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+or [Git Bash](https://gitforwindows.org/) to run the commands as written.
+Commands that use `export`, `$()`, and similar constructs are **not** compatible
+with PowerShell or the Windows Command Prompt.
+
+
 ## Updating an application
 
 {{% alert %}}
@@ -47,14 +58,11 @@ versioned and any Deployment update can be reverted to a previous (stable) versi
 {{< /tutorials/carousel >}}
 
 {{% alert %}}
-_If a Deployment is exposed publicly, the Service will load-balance the traffic
-only to available Pods during the update._
+If a Deployment is publicly exposed, the Service will send traffic only to Pods that can handle requests.  
+This ensures users continue to access the application during an update.
 {{% /alert %}}
 
-Similar to application Scaling, if a Deployment is exposed publicly, the Service
-will load-balance the traffic only to available Pods during the update. An available
-Pod is an instance that is available to the users of the application.
-
+During a rolling update, this behavior keeps the application available by routing traffic only to Pods that are serving requests.
 Rolling updates allow the following actions:
 
 * Promote an application from one environment to another (via container image updates)

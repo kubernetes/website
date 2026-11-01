@@ -1,38 +1,30 @@
 ---
 title: 服务（Service）
 id: service
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/services-networking/service/
 short_description: >
-  将运行在一组 Pods 上的应用程序公开为网络服务的抽象方法。
+  将运行在一组 Pod 上的应用程序公开为网络服务的抽象方法。
 
 aka:
 tags:
 - fundamental
 - core-object
 ---
-
 <!--
----
 title: Service
 id: service
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   A way to expose an application running on a set of Pods as a network service.
-
-aka:
 tags:
 - fundamental
 - core-object
----
 -->
 
 <!--
 A method for exposing a network application that is running as one or more
 {{< glossary_tooltip text="Pods" term_id="pod" >}} in your cluster.
 -->
-
 将运行在一个或一组 {{< glossary_tooltip text="Pod" term_id="pod" >}} 上的网络应用程序公开为网络服务的方法。
 
 <!--more-->
@@ -53,7 +45,6 @@ the Domain Name System (DNS).
 
 The Service abstraction enables other mechanisms, such as Ingress and Gateway.
 -->
-
 Kubernetes Service 要么使用 IP 网络（IPv4、IPv6 或两者），要么引用位于域名系统 (DNS) 中的外部名称。
 
 Service 的抽象可以实现其他机制，如 Ingress 和 Gateway。

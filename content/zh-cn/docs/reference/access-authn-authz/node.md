@@ -169,6 +169,160 @@ admission plugin by starting the apiserver with
 准入插件。
 
 <!--
+## Service account token audience restriction {#service-account-token-audience-restriction}
+-->
+## 服务帐户令牌受众限制   {#service-account-token-audience-restriction}
+
+{{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
+
+<!--
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled and the `NodeRestriction` admission plugin is active, the kubelet can only
+request service account tokens for audiences that are already referenced by pods running
+on that node. This prevents a compromised node from obtaining tokens for arbitrary audiences.
+-->
+当启用了 `ServiceAccountNodeAudienceRestriction`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并且 `NodeRestriction` 准入插件处于活动状态时，kubelet 只能请求为那些已经在该节点上运行的
+Pod 引用的受众的服务账户令牌。这防止了被攻破的节点获取任意受众的令牌。
+
+<!--
+The allowed audiences are determined from the pod spec:
+
+- The default API server audience (empty or the API server's configured audience).
+- Audiences set in projected service account token volume sources.
+- Audiences configured in CSI driver `spec.tokenRequests` for any CSI driver used by
+  the pod, whether through inline CSI volumes, PersistentVolumeClaim-backed volumes,
+  or ephemeral volumes.
+-->
+允许的受众从 Pod 规约中确定：
+
+- 默认 API 服务器受众（空或 API 服务器配置的受众）。
+- 在投射服务账户令牌卷源中设置的受众。
+- 在 CSI 驱动 `spec.tokenRequests` 中配置的受众，适用于 Pod 使用的任何 CSI 驱动，
+  无论是通过内联 CSI 卷、由 PersistentVolumeClaim 支持的卷，或是临时卷。
+
+<!--
+This is particularly relevant when using [service account tokens for image credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/#service-account-token-for-image-pulls),
+where the kubelet requests tokens with a registry-specific audience on behalf of pods.
+-->
+这在使用[服务账户令牌为镜像凭据提供者](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/#service-account-token-for-image-pulls)时特别相关，
+此时 kubelet 代表 Pod 向特定注册表受众请求令牌。
+
+<!--
+### Allowing additional audiences with RBAC {#allowing-additional-audiences}
+
+You can grant kubelets permission to request tokens for audiences beyond what
+the pod spec references. When the kubelet requests a token with an audience that
+is not found in the pod spec, the NodeRestriction admission plugin checks whether
+the kubelet is authorized by performing an authorization check with the following
+attributes:
+-->
+### 使用 RBAC 允许额外的受众 {#allowing-additional-audiences}
+
+你可以授予 kubelet 权限，以请求超出 Pod 规约引用的受众的令牌。
+当 kubelet 请求带有未在 Pod 规约中找到的受众的令牌时，
+NodeRestriction 准入插件通过执行带有以下属性的授权检查来验证 kubelet 是否有权限：
+
+<!--
+| Attribute  | Value |
+| ---------- | ----- |
+| Verb       | `request-serviceaccounts-token-audience` |
+| API Group  | (empty string, meaning the core API group) |
+| Resource   | The requested audience value |
+| Name       | The service account name |
+| Namespace  | The service account namespace |
+-->
+| 属性                  | 值 |
+| --------------------- | --------------------------------------- |
+| 动词（Verb）           | `request-serviceaccounts-token-audience` |
+| API 组（API Group）    | （空字符串，意味着核心 API 组）              |
+| 资源（Resource）       | 请求的受众值                              |
+| 名称（Name）           | 服务账号名称                               |
+| 命名空间（Namespace）   | 服务账号命名空间                          |
+
+<!--
+You can use standard RBAC rules to authorize these checks. The `resources` field
+controls which audiences are allowed, and the `resourceNames` field controls which
+service accounts the rule applies to.
+
+For example, to allow the kubelet to request audience `my-registry-audience` for
+a specific service account:
+-->
+你可以使用标准的 RBAC 规则来授权这些检查。
+`resources` 字段控制允许哪些受众，`resourceNames`
+字段控制规则适用的服务账号。
+
+例如，要允许 kubelet 为特定服务账号请求受众 `my-registry-audience`：
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-audience-my-registry
+rules:
+- verbs: ["request-serviceaccounts-token-audience"]
+  apiGroups: [""]
+  resources: ["my-registry-audience"]
+  resourceNames: ["my-service-account"]
+```
+
+<!--
+Omitting `resourceNames` allows the audience for any service account. Using a
+wildcard (`"*"`) for `resources` allows any audience:
+-->
+省略 `resourceNames` 时，允许为任意服务账号请求该受众。
+`resources` 使用通配符（`"*"`）时，允许请求任意受众：
+
+<!--
+# any audience
+# no resourceNames: any service account
+-->
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-audience-unrestricted
+rules:
+- verbs: ["request-serviceaccounts-token-audience"]
+  apiGroups: [""]
+  resources: ["*"]  # 任意受众
+  # 无资源名称：任何服务帐户
+```
+
+<!--
+Bind the ClusterRole to the `system:nodes` group to apply it to all kubelets:
+-->
+将 ClusterRole 绑定到 `system:nodes` 组，使其应用于所有 kubelet：
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: node-audience-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: node-audience-my-registry
+subjects:
+- kind: Group
+  name: system:nodes
+  apiGroup: rbac.authorization.k8s.io
+```
+
+{{< note >}}
+<!--
+This restriction is part of the NodeRestriction admission plugin and only applies to
+node identities (kubelets). It does not restrict which audiences other callers of the
+`TokenRequest` API can request. If you need to restrict other callers, consider using a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+-->
+此限制是 NodeRestriction 准入插件的一部分，
+且仅适用于节点身份（kubelet）。它并不限制其他调用者可以请求的受众。
+如果你需要限制其他调用者，请考虑使用
+[ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。
+{{< /note >}}
+
+<!--
 ## Migration considerations
 -->
 ## 迁移考虑因素   {#migration-considerations}

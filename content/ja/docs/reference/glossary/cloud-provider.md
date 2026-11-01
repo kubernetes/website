@@ -1,7 +1,6 @@
 ---
 title: クラウドプロバイダー
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   クラウドコンピューティングプラットフォームを提供する組織。
 

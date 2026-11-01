@@ -1,7 +1,6 @@
 ---
 title: Cloud Provider
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   An organization that offers a cloud computing platform.
 

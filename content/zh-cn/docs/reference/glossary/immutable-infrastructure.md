@@ -1,7 +1,6 @@
 ---
 title: 不可变基础设施
 id: immutable-infrastructure
-date: 2024-03-25
 full_link:
 short_description: >
   不可变基础设施指的是一旦部署就不能变更的计算机基础设施（虚拟机、容器和网络设施）
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Immutable Infrastructure
 id: immutable-infrastructure
-date: 2024-03-25
 full_link:
 short_description: >
   Immutable Infrastructure refers to computer infrastructure (virtual machines, containers, network appliances) that cannot be changed once deployed
