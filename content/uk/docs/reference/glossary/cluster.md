@@ -1,11 +1,11 @@
 ---
 title: Кластер
 id: cluster
-full_link: 
+full_link:
 short_description: >
    Набір робочих машин, що називаються вузлами, які виконують контейнеризовані застосунки. Кожен кластер має принаймні один робочий вузол.
 
-aka: 
+aka:
 tags:
 - fundamental
 - operation
