@@ -63,7 +63,7 @@ Kubernetes пропонує кілька варіантів контролю д�
   </thead>
   <tbody>
     <tr>
-      <td><a href="/docs/reference/access-authn-authz/extensible-admission-controllers/">Змінювальний вебхук допуску</a></td>
+      <td><a href="/uk/docs/reference/access-authn-authz/extensible-admission-controllers/">Змінювальний вебхук допуску</a></td>
       <td>Перехоплює API-запити перед допуском і за потреби змінює їх за допомогою власної логіки.</td>
       <td><ul>
         <li>Виконуйте критичні зміни, які мають відбутися перед допуском ресурсу.</li>
