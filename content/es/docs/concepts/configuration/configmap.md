@@ -140,7 +140,7 @@ Lo importante es como los {{< glossary_tooltip text="Pods" term_id="pod" >}} y o
 Para este ejemplo, definimos un {{< glossary_tooltip text="Volumen" term_id="volume" >}} y lo montamos dentro del contenedor
 `demo` como `/config` creando dos ficheros,
 `/config/game.properties` y `/config/user-interface.properties`,
-aunque haya cuatro claves en el ConfigMap. Esto es debido a que enla definición
+aunque haya cuatro claves en el ConfigMap. Esto es debido a que en la definición
 del {{< glossary_tooltip text="Pod" term_id="pod" >}} se especifica el array `items` en la sección `volumes`.
 Si quieres omitir el array `items` entero, cada clave del ConfigMap se convierte en
 un fichero con el mismo nombre que la clave, y tienes 4 ficheros.
