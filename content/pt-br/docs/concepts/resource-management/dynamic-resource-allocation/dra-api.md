@@ -479,7 +479,6 @@ valores para um único atributo:
 O número total de valores individuais de atributos por dispositivo (campos escalares mais todos os
 elementos de listas combinados) é limitado a **48**. Quando qualquer dispositivo em um ResourceSlice utiliza esta funcionalidade ou outras funcionalidades avançadas, como taints,
 o ResourceSlice será limitado a no máximo **64** dispositivos.
-utilizam atributos do tipo lista ou outras funcionalidades avançadas, como taints.
 
 Aqui está um exemplo de um dispositivo anunciando vários modelos suportados utilizando um atributo
 do tipo lista de strings:
