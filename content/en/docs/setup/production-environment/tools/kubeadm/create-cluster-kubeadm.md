@@ -130,7 +130,7 @@ for more details on this topic.
 
 {{< warning >}}
 The Kubernetes project recommends against this approach (configuring all component instances
-with custom IP addresses). Instead, the Kubernetes maintainers recommend to setup the host network,
+with custom IP addresses). Instead, the Kubernetes maintainers recommend that you setup the host network,
 so that the default gateway IP is the one that Kubernetes components auto-detect and use.
 On Linux nodes, you can use commands such as `ip route` to configure networking; your operating
 system might also provide higher level network management tools. If your node's default gateway
