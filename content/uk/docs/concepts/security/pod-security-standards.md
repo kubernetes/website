@@ -44,7 +44,7 @@ weight: 15
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Podʼи Windows дають змогу запускати <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">контейнери HostProcess</a>, що надають привілейований доступ до хост-машини Windows. Привілейований доступ до хоста заборонено в політиці Baseline. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
+				<p>Podʼи Windows дають змогу запускати <a href="/uk/docs/tasks/configure-pod-container/create-hostprocess-pod">контейнери HostProcess</a>, що надають привілейований доступ до хост-машини Windows. Привілейований доступ до хоста заборонено в політиці Baseline. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
 				<p><strong>Обмежені поля</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
