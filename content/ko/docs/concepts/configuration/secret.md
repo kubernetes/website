@@ -48,7 +48,7 @@ API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 �
 1. [외부 시크릿 저장소 제공 서비스를 사용하는 것을 고려](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)한다.
 
 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인은
-[쿠버네티스 시크릿에 관한 좋은 관행](/docs/concepts/security/secrets-good-practices/)를 참고한다.
+[쿠버네티스 시크릿에 관한 좋은 관행](/docs/concepts/security/secrets-good-practices/)을 참고한다.
 
 {{< /caution >}}
 
@@ -113,9 +113,9 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
   민감한 데이터를 관리할 수 있다. 예를 들어, 클라이언트가 올바르게 인증했을 때에만(예: 서비스어카운트 토큰으로 인증) 시크릿을 공개하고, 
   파드가 HTTPS를 통해서만 접근하도록 처리하는 서비스가 있을 수
   있다.
-- 인증을 위해, X.509 인증서를 위한 커스텀 인증자(signer)를 구현하고, 
+- 인증을 위해, X.509 인증서를 위한 서명자(signer)를 구현하고, 
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)를 사용하여 
-  해당 커스텀 인증자가 인증서를 필요로 하는 파드에 인증서를 발급하도록 할 수 있다.
+  해당 서명자가 인증서를 필요로 하는 파드에 인증서를 발급하도록 할 수 있다.
 - [장치 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 사용하여 
   노드에 있는 암호화 하드웨어를 특정 파드에 노출할 수 있다. 
   예를 들어, 신뢰할 수 있는 파드를 별도로 구성된 TPM(Trusted Platform Module, 신뢰할 수 있는 플랫폼 모듈)을 제공하는 노드에 스케줄링할 수 있다.
@@ -405,7 +405,7 @@ kubectl create secret tls my-tls-secret \
 토큰을 저장한다.
 
 부트스트랩 토큰 시크릿은 보통 `kube-system` 네임스페이스에 생성되며
-`<token-id>` 가 해당 토큰 ID의 6개 문자의 문자열으로 구성된 `bootstrap-token-<token-id>` 형태로
+`<token-id>` 가 해당 토큰 ID의 6개 문자의 문자열로 구성된 `bootstrap-token-<token-id>` 형태로
 이름이 지정된다.
 
 쿠버네티스 매니페스트로서, 부트스트랩 토큰 시크릿은 다음과 유사할
@@ -483,7 +483,7 @@ kubectl create secret tls my-tls-secret \
 
 시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
 존재하는 `Secret` 오브젝트에 대한 수정은 해당 데이터를 사용하는 파드들에 자동으로 전파된다.
-자세한 정보는 [파드에서 시크릿을 파일처럼 사용하기](#using-secrets-as-files-from-a-pod)를 참고하라.
+자세한 정보는 [파드에서 시크릿을 파일처럼 사용하기](#using-secrets-as-files-from-a-pod)를 참고한다.
 
 ### 시크릿 사용하기
 
@@ -514,7 +514,7 @@ _선택 사항_ 으로 표시할 수 있다. 선택 사항 시크릿이
 기본적으로 시크릿은 필수이다. 모든 선택 사항이 아닌 시크릿이 사용 가능해지기 전에는
 파드의 어떤 컨테이너도 시작되지 않는다.
 
-파드가 선택 사항이 아닌 시크릿의 특정 키를 참조하고, 해당 시크릿은 존재하지은 지정한 키가 없는 경우
+파드가 선택 사항이 아닌 시크릿의 특정 키를 참조하고, 해당 시크릿은 존재하지만 지정한 키가 없는 경우
 파드는 시작 과정에서 실패한다.
 
 ### 파드에서 시크릿을 파일처럼 사용하기 {#using-secrets-as-files-from-a-pod}
@@ -685,7 +685,7 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
 ## {{% heading "whatsnext" %}}
 
 - 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인을 원한다면
-  [쿠버네티스 시크릿을 다루는 좋은 관행들](/docs/concepts/security/secrets-good-practices/)을 참고하라.
+  [쿠버네티스 시크릿을 다루는 좋은 관행들](/docs/concepts/security/secrets-good-practices/)을 참고한다.
 - [`kubectl` 을 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용하여 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
