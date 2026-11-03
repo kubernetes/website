@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating pod-level scope where one container gets exclusive resources and others share the remaining pod resources in a shared pool."
+spec:
+  # На рівні Podʼа запит Pod на CPU дорівнює лімітам, а запит на памʼять
+  # також дорівнює лімітам памʼяті. Контейнер main-app відповідає вимогам
+  # класу QoS Guaranteed на рівні контейнера, а sidecar-контейнери
+  # не вказують жодних запитів на ресурси. В області дії pod це означає, що
+  # kubelet може статично призначити 4 CPU всьому Podʼу, з яких 2
+  # призначаються виключно контейнеру main-app, а решта 2
+  # спільно використовуються sidecar-контейнерами в спільному пулі Podʼа.
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: metrics-sidecar
+    # Примітка: це образ-заповнювач для демонстрації, а не
+    # справжній допоміжний компонент для метрик.
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+  - name: logging-sidecar
+    # Примітка: це образ-заповнювач для демонстрації, а не
+    # справжній агент логування.
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+  containers:
+  - name: main-app
+    # Примітка: це образ-заповнювач для демонстрації.
+    image: registry.k8s.io/pause:3.9
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
