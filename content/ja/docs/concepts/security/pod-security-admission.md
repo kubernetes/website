@@ -97,9 +97,9 @@ Exemptionの次元は以下の通りです。
 つまり、Podの更新要求がこれらのフィールドを変更するだけであれば、Podが現在のポリシーレベルに違反していても拒否されることはありません。
 
 - すべてのメタデータの更新(seccompまたはAppArmorアノテーションへの変更を**除く**)
-  - `seccomp.security.alpha.kubernetes.io/pod` (非推奨)
-  - `container.seccomp.security.alpha.kubernetes.io/*` (非推奨)
-  - `container.apparmor.security.beta.kubernetes.io/*` (非推奨)
+  - `seccomp.security.alpha.kubernetes.io/pod`(非推奨)
+  - `container.seccomp.security.alpha.kubernetes.io/*`(非推奨)
+  - `container.apparmor.security.beta.kubernetes.io/*`(非推奨)
 - `.spec.activeDeadlineSeconds`に対する有効な更新
 - `.spec.tolerations`に対する有効な更新
 
