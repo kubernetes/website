@@ -173,10 +173,17 @@ kubectl get pods
 
 Notice that some of the Pods have a status of `ImagePullBackOff`.
 
-To get more insight into the problem, run the `describe pods` subcommand:
+To get more insight into the problem, first create an environment variable called `AFFECTED_POD` that has the name of the affected pod:
 
 ```shell
-kubectl describe pods
+export AFFECTED_POD="$(kubectl get pods --field-selector status.phase=Pending -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"
+echo "AFFECTED POD=$AFFECTED_POD"
+```
+
+Then, run the `describe pod` subcommand to explore the affected pod:
+
+```shell
+kubectl describe pod $AFFECTED_POD
 ```
 
 In the `Events` section of the output for the affected Pods, notice that the `v10`
