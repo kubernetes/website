@@ -13,7 +13,7 @@ SIG Docs는 쿠버네티스 프로젝트의
 [분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
 중 하나로, 쿠버네티스 전반에 대한 문서를 작성하고, 업데이트하며 유지보수하는 일을 주로 수행한다.
 분과회에 대한 보다 자세한 정보는
-[커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs)
+[커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs)
 를 참조한다.
 
 SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
@@ -40,7 +40,7 @@ SIG Docs를 포함한 각 SIG는, 한 명 이상의 SIG 멤버가 의장 역할�
 다른 쿠버네티스 조직 간 연락책(point of contact)이 된다. 이들은 쿠버네티스 프로젝트 전반의 조직과
 그 안에서 SIG Docs가 어떻게 운영되는지에 대한 폭넓은 지식을 갖추어야한다.
 현재 의장의 목록을 확인하려면
-[리더십](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
+[리더십](https://github.com/kubernetes/community/tree/main/sig-docs#leadership)
 문서를 참조한다.
 
 ## SIG Docs 팀과 자동화
