@@ -6,7 +6,6 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 [Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
@@ -103,35 +102,34 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
-ahead of lower-priority pods,
-but they cannot preempt other pods.
-A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
+ahead of lower-priority Pods,
+but they cannot preempt other Pods.
+A non-preempting Pod waiting to be scheduled will stay in the scheduling queue,
 until sufficient resources are free,
 and it can be scheduled.
-Non-preempting pods,
-like other pods,
+Non-preempting Pods,
+like other Pods,
 are subject to scheduler back-off.
-This means that if the scheduler tries these pods and they cannot be scheduled,
+This means that if the scheduler tries these Pods and they cannot be scheduled,
 they will be retried with lower frequency,
-allowing other pods with lower priority to be scheduled before them.
+allowing other Pods with lower priority to be scheduled before them.
 
-Non-preempting pods may still be preempted by other,
-high-priority pods.
+Non-preempting Pods may still be preempted by other,
+high-priority Pods.
 
 `preemptionPolicy` defaults to `PreemptLowerPriority`,
-which will allow pods of that PriorityClass to preempt lower-priority pods
+which will allow Pods of that PriorityClass to preempt lower-priority Pods
 (as is existing default behavior).
 If `preemptionPolicy` is set to `Never`,
-pods in that PriorityClass will be non-preempting.
+Pods in that PriorityClass will be non-preempting.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
-but do not wish to discard existing work by preempting running pods.
+but do not wish to discard existing work by preempting running Pods.
 The high priority job with `preemptionPolicy: Never` will be scheduled
-ahead of other queued pods,
+ahead of other queued Pods,
 as soon as sufficient cluster resources "naturally" become free.
 
 ### Example Non-preempting PriorityClass
@@ -243,10 +241,10 @@ resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
 Please note that Pod P is not necessarily scheduled to the "nominated Node".
-The scheduler always tries the "nominated Node" before iterating over any other nodes.
+The scheduler always tries the "nominated Node" before iterating over any other Nodes.
 After victim Pods are preempted, they get their graceful termination period. If
-another node becomes available while scheduler is waiting for the victim Pods to
-terminate, scheduler may use the other node to schedule Pod P. As a result
+another Node becomes available while scheduler is waiting for the victim Pods to
+terminate, scheduler may use the other Node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
 the scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
 arrives, the scheduler may give Node N to the new higher priority Pod. In such a
@@ -300,7 +298,7 @@ the scheduler does not preempt any Pods on the Node. Instead, it looks for anoth
 Node. The scheduler might find a suitable Node or it might not. There is no
 guarantee that the pending Pod can be scheduled.
 
-Our recommended solution for this problem is to create inter-Pod affinity only
+Our recommended solution for this problem is to create inter-pod affinity only
 towards equal or higher priority Pods.
 
 #### Cross node preemption
@@ -332,38 +330,38 @@ enough demand and if we find an algorithm with reasonable performance.
 When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled,
 preemption also applies when a running Pod's in-place resize request is `Deferred`
 (meaning the requested resize is temporarily not possible, but might become
-feasible later) due to insufficient node capacity.
+feasible later) due to insufficient Node capacity.
 For details on resize states, see
 [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status).
 
-If a higher-priority Pod cannot be resized in-place because its node lacks
+If a higher-priority Pod cannot be resized in-place because its Node lacks
 available CPU or memory, `kube-scheduler` attempts to preempt lower-priority Pods
-on that node to free up the required capacity.
+on that Node to free up the required capacity.
 
 Preemption for in-place Pod resize differs from standard Pod placement
 preemption in several key ways:
 
 * **Node restriction**: Preemption is strictly restricted to the Pod's currently
-  assigned node. The scheduler does not evaluate other candidate nodes across
+  assigned Node. The scheduler does not evaluate other candidate Nodes across
   the cluster.
 * **Resource delta calculation**: Required preemption capacity is calculated
   based on the resource delta (the difference between the desired resources and
   currently allocated resources), rather than the total Pod request.
 * **Resource blocking**: The requested resources of the resizing Pod are
-  considered already consumed for scheduler resource accounting on that node,
+  considered already consumed for scheduler resource accounting on that Node,
   blocking other lower-priority Pods from using them until the resize is
   eventually performed or the deferred status is removed by the Kubelet.
 * **Nominated node status**: The `nominatedNodeName` field in the Pod's status
-  is not set, because the Pod is already assigned to and running on its target node.
-* **Kubelet actuation**: The scheduler triggers preemption to free up node
+  is not set, because the Pod is already assigned to and running on its target Node.
+* **Kubelet actuation**: The scheduler triggers preemption to free up Node
   capacity, but does not re-bind the Pod. The Kubelet detects the newly freed
-  capacity on the node and performs the actual in-place resize actuation.
+  capacity on the Node and performs the actual in-place resize actuation.
 * **Node-level preemption policy**: Preemption can be disabled specifically for
-  in-place resizes on specific nodes using the Node spec's
+  in-place resizes on specific Nodes using the Node spec's
   `spec.podPreemptionPolicy.disableResizePreemption` field.
   Unlike standard preemption, which can only be disabled per-priority-class
   using `preemptionPolicy: Never`, this allows operators or autoscaling systems
-  to disable preemption on individual nodes.
+  to disable preemption on individual Nodes.
 
 For more details on in-place Pod resizing, see
 [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
@@ -371,15 +369,15 @@ For more details on in-place Pod resizing, see
 #### Disabling preemption for in-place Pod resize at the Node level {#disabling-preemption-for-in-place-pod-resize-at-the-node-level}
 
 Cluster operators and controllers can disable scheduler-triggered preemption
-caused by in-place Pod resize requests on specific nodes.
-This is useful for resizable nodes or nodes with custom autoscaling solutions,
+caused by in-place Pod resize requests on specific Nodes.
+This is useful for resizable Nodes or Nodes with custom autoscaling solutions,
 protecting existing workloads from disruption and allowing node-upsizing to
 handle the resource deficit instead.
 
 This is configured using the `spec.podPreemptionPolicy` field on the `Node` spec.
 If the `disableResizePreemption` list is non-empty, resize-induced preemption
-is disabled on that node, and `kube-scheduler` will skip preemption attempts
-for any deferred resizes running on that node.
+is disabled on that Node, and `kube-scheduler` will skip preemption attempts
+for any deferred resizes running on that Node.
 
 Here is an example Node configuration:
 
@@ -403,7 +401,7 @@ Constraints and validation rules:
 * **Non-empty list**: The policy is honored (preemption is disabled) if the
   list contains at least one entry.
   If the list is empty or the `podPreemptionPolicy` field is omitted,
-  preemption for in-place resize is enabled on the node.
+  preemption for in-place resize is enabled on the Node.
 
 ## Troubleshooting
 
@@ -432,7 +430,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 
 ### Pods are preempted, but the preemptor is not scheduled
 
-When pods are preempted, they receive their requested graceful termination
+When Pods are preempted, they receive their requested graceful termination
 period, which is by default 30 seconds. If the victim Pods do not terminate within
 this period, they are forcibly terminated. Once all the victims go away, the
 preemptor Pod can be scheduled.
@@ -444,23 +442,23 @@ schedule the higher priority Pod instead of the preemptor.
 This is expected behavior: the Pod with the higher priority should take the place
 of a Pod with a lower priority.
 
-### Higher priority Pods are preempted before lower priority pods
+### Higher priority Pods are preempted before lower priority Pods
 
-The scheduler tries to find nodes that can run a pending Pod. If no node is
+The scheduler tries to find Nodes that can run a pending Pod. If no Node is
 found, the scheduler tries to remove Pods with lower priority from an arbitrary
-node in order to make room for the pending pod.
-If a node with low priority Pods is not feasible to run the pending Pod, the scheduler
-may choose another node with higher priority Pods (compared to the Pods on the
-other node) for preemption. The victims must still have lower priority than the
+Node in order to make room for the pending Pod.
+If a Node with low priority Pods is not feasible to run the pending Pod, the scheduler
+may choose another Node with higher priority Pods (compared to the Pods on the
+other Node) for preemption. The victims must still have lower priority than the
 preemptor Pod.
 
-When there are multiple nodes available for preemption, the scheduler tries to
-choose the node with a set of Pods with lowest priority. However, if such Pods
+When there are multiple Nodes available for preemption, the scheduler tries to
+choose the Node with a set of Pods with lowest priority. However, if such Pods
 have PodDisruptionBudget that would be violated if they are preempted then the
-scheduler may choose another node with higher priority Pods.
+scheduler may choose another Node with higher priority Pods.
 
-When multiple nodes exist for preemption and none of the above scenarios apply,
-the scheduler chooses a node with the lowest priority.
+When multiple Nodes exist for preemption and none of the above scenarios apply,
+the scheduler chooses a Node with the lowest priority.
 
 ## Interactions between Pod priority and quality of service {#interactions-of-pod-priority-and-qos}
 
@@ -474,9 +472,9 @@ the removal of the lowest priority Pods is not sufficient to allow the scheduler
 to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
-The kubelet uses Priority to determine pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
-You can use the QoS class to estimate the order in which pods are most likely
-to get evicted. The kubelet ranks pods for eviction based on the following factors:
+The kubelet uses Priority to determine Pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
+You can use the QoS class to estimate the order in which Pods are most likely
+to get evicted. The kubelet ranks Pods for eviction based on the following factors:
 
   1. Whether the starved resource usage exceeds requests
   1. Pod Priority
