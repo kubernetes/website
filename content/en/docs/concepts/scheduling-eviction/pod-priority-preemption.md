@@ -320,8 +320,7 @@ preempted. Here's an example:
 If Pod Q were removed from its Node, the Pod anti-affinity violation would be
 gone, and Pod P could possibly be scheduled on Node N.
 
-We may consider adding cross Node preemption in future versions if there is
-enough demand and if we find an algorithm with reasonable performance.
+Kubernetes may consider adding cross-Node preemption in future versions if there is enough demand and an algorithm with reasonable performance is found.
 
 ### Preemption for in-place Pod resize {#preemption-for-in-place-pod-resize}
 
