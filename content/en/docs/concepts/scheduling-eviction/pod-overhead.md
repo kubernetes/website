@@ -10,8 +10,6 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
 When you run a Pod on a Node, the Pod itself takes an amount of system resources. These
 resources are additional to the resources needed to run the container(s) inside the Pod.
 In Kubernetes, _Pod Overhead_ is a way to account for the resources consumed by the Pod
@@ -24,7 +22,7 @@ In Kubernetes, the Pod's overhead is set at
 time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 
-A pod's overhead is considered in addition to the sum of container resource requests when
+A Pod's overhead is considered in addition to the sum of container resource requests when
 scheduling a Pod. Similarly, the kubelet will include the Pod overhead when sizing the Pod cgroup,
 and when carrying out Pod eviction ranking.
 
@@ -54,7 +52,7 @@ overhead:
 ```
 
 Workloads which are created which specify the `kata-fc` RuntimeClass handler will take the memory and
-cpu overheads into account for resource quota calculations, node scheduling, as well as Pod cgroup sizing.
+cpu overheads into account for resource quota calculations, Node scheduling, as well as Pod cgroup sizing.
 
 Consider running the given example workload, test-pod:
 
@@ -67,7 +65,7 @@ spec:
   runtimeClassName: kata-fc
   containers:
   - name: busybox-ctr
-    image: busybox:1.28
+    image: busybox:1.38
     stdin: true
     tty: true
     resources:
@@ -83,7 +81,7 @@ spec:
 ```
 
 {{< note >}}
-If only `limits` are specified in the pod definition, kubelet will deduce `requests` from those limits and set them to be the same as the defined `limits`.
+If only `limits` are specified in the Pod definition, kubelet will deduce `requests` from those limits and set them to be the same as the defined `limits`.
 {{< /note >}}
 
 At admission time the RuntimeClass [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
@@ -107,17 +105,17 @@ map[cpu:250m memory:120Mi]
 If a [ResourceQuota](/docs/concepts/policy/resource-quotas/) is defined, the sum of container requests as well as the
 `overhead` field are counted.
 
-When the kube-scheduler is deciding which node should run a new Pod, the scheduler considers that Pod's
+When the kube-scheduler is deciding which Node should run a new Pod, the scheduler considers that Pod's
 `overhead` as well as the sum of container requests for that Pod. For this example, the scheduler adds the
-requests and the overhead, then looks for a node that has 2.25 CPU and 320 MiB of memory available.
+requests and the overhead, then looks for a Node that has 2.25 CPU and 320 MiB of memory available.
 
-Once a Pod is scheduled to a node, the kubelet on that node creates a new {{< glossary_tooltip
-text="cgroup" term_id="cgroup" >}} for the Pod. It is within this pod that the underlying
+Once a Pod is scheduled to a Node, the kubelet on that Node creates a new {{< glossary_tooltip
+text="cgroup" term_id="cgroup" >}} for the Pod. It is within this Pod that the underlying
 container runtime will create containers.
 
 If the resource has a limit defined for each container (Guaranteed QoS or Burstable QoS with limits defined),
-the kubelet will set an upper limit for the pod cgroup associated with that resource (cpu.cfs_quota_us for CPU
-and memory.limit_in_bytes memory). This upper limit is based on the sum of the container limits plus the `overhead`
+the kubelet will set an upper limit for the pod cgroup associated with that resource (cpu.max for CPU
+and memory.max). This upper limit is based on the sum of the container limits plus the `overhead`
 defined in the PodSpec.
 
 For CPU, if the Pod is Guaranteed or Burstable QoS, the kubelet will set `cpu.shares` based on the
@@ -151,13 +149,13 @@ The output shows requests for 2250m CPU, and for 320MiB of memory. The requests 
 
 ## Verify Pod cgroup limits
 
-Check the Pod's memory cgroups on the node where the workload is running. In the following example,
+Check the Pod's memory cgroups on the Node where the workload is running. In the following example,
 [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
-is used on the node, which provides a CLI for CRI-compatible container runtimes. This is an
+is used on the Node, which provides a CLI for CRI-compatible container runtimes. This is an
 advanced example to show Pod overhead behavior, and it is not expected that users should need to check
-cgroups directly on the node.
+cgroups directly on the Node.
 
-First, on the particular node, determine the Pod identifier:
+First, on the particular Node, determine the Pod identifier:
 
 ```bash
 # Run this on the node where the Pod is scheduled
@@ -177,7 +175,7 @@ The resulting cgroup path includes the Pod's `pause` container. The Pod level cg
   "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
 
-In this specific case, the pod cgroup path is `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`.
+In this specific case, the Pod cgroup path is `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`.
 Verify the Pod level cgroup setting for memory:
 
 ```bash
