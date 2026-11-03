@@ -1,0 +1,30 @@
+{{- if gt (len .Site.Home.Translations) 0 -}}
+  {{- $languageOptions := partial "navbar-language-options.html" . -}}
+  <li class="nav-item td-navbar-mobile-group">
+    <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#k8s-mobile-main-nav-languages" aria-expanded="false" aria-controls="k8s-mobile-main-nav-languages">
+      <span>{{ .Language.LanguageName }}</span>
+      <i class="fas fa-chevron-down" aria-hidden="true"></i>
+    </button>
+    <div id="k8s-mobile-main-nav-languages" class="collapse td-navbar-mobile-group-menu">
+      <div class="td-navbar-mobile-group-menu-inner">
+        {{- range site.Languages }}
+          {{- if ne .Lang $languageOptions.currentLang }}
+            {{- with index $languageOptions.translationMap .Lang }}
+              <a class="td-navbar-mobile-group-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- range site.Languages }}
+          {{- if and (ne .Lang $languageOptions.currentLang) (not (index $languageOptions.translationMap .Lang)) }}
+            {{- with index $languageOptions.homeMap .Lang }}
+              <span class="td-navbar-mobile-group-item text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .Language.LanguageName) }}">
+                {{ .Language.LanguageName }}
+                <a href="{{ .RelPermalink }}" class="ms-1"><i class="fas fa-home fa-xs" aria-hidden="true"></i><span class="visually-hidden">{{ .Language.LanguageName }}</span></a>
+              </span>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      </div>
+    </div>
+  </li>
+{{- end }}
