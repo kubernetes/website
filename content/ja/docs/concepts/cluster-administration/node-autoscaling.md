@@ -116,7 +116,7 @@ graph TD
 
 ### オートスケーラーの実装 {#autoscaler-implementations}
 
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)と[Karpenter](https://github.com/kubernetes-sigs/karpenter)は、現在[SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling)がスポンサーをしている2つのノードオートスケーラーです。
+[Cluster Autoscaler](https://github.com/kubernetes-sigs/cluster-autoscaler)と[Karpenter](https://github.com/kubernetes-sigs/karpenter)は、現在[SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling)がスポンサーをしている2つのノードオートスケーラーです。
 
 クラスターユーザーの観点から、どちらのオートスケーラーも同様のノード自動スケーリング体験を提供するはずです。
 どちらもスケジュールできないPodのために新しいノードをプロビジョニングし、最適に利用されなくなったノードを統合します。
@@ -135,9 +135,9 @@ Cluster Autoscalerの1つのインスタンスで、複数のノードグルー�
 
 追加のコンテキスト:
 
-* [ドキュメント概要](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
-* [クラウドプロバイダー連携](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
-* [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+* [ドキュメント概要](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md)
+* [クラウドプロバイダー連携](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/README.md#faqdocumentation)
+* [Cluster Autoscaler FAQ](https://github.com/kubernetes-sigs/cluster-autoscaler/blob/main/pkg/FAQ.md)
 * [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter {#karpenter}
@@ -163,7 +163,7 @@ CarpenterとCluster Autoscalerの主な違い:
 * Cluster Autoscalerは、自動プロビジョニングをサポートしておらず、プロビジョニングできるノードグループは事前に構成する必要があります。
   Karpeterは、自動プロビジョニングをサポートしているため、ユーザーは均質なグループを完全に構成するのではなく、プロビジョニングされるノードの制約セットを構成するだけで済みます。
 * Cluster Autoscalerは、クラウドプロバイダーとの連携機能を直接提供し、Kubernetesプロジェクトの一部となっています。
-  Karpenterの場合、KuberentesプロジェクトはKarpenterをライブラリとして公開しており、クラウドプロバイダーはこのライブラリと連携してノードオートスケーラーを構築できます。
+  Karpenterの場合、KubernetesプロジェクトはKarpenterをライブラリとして公開しており、クラウドプロバイダーはこのライブラリと連携してノードオートスケーラーを構築できます。
 * Cluster Autoscalerは、小規模であまり知られていないプロバイダーを含む多数のクラウドプロバイダーとの連携機能を提供します。
   Karpenterと連携できるクラウドプロバイダーは、[AWS](https://github.com/aws/karpenter-provider-aws)や[Azure](https://github.com/Azure/karpenter-provider-azure)など、より少数です。
 

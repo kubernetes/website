@@ -1,21 +1,18 @@
 ---
-# title: Selector
 title: Селектор
 id: selector
 full_link: /docs/concepts/overview/working-with-objects/labels/
-# short_description: >
-#   Allows users to filter a list of resources based on labels.
 short_description: >
-  Дозволяє користувачам фільтрувати ресурси за мітками.
+  Дозволяє користувачам фільтрувати список ресурсів за мітками.
 
 aka:
+- Selector
 tags:
 - fundamental
 ---
-<!-- Allows users to filter a list of resources based on labels. -->
-Дозволяє користувачам фільтрувати ресурси за мітками.
+
+Дозволяє користувачам фільтрувати список {{< glossary_tooltip text="ресурсів API" term_id="api-resource" >}} за {{< glossary_tooltip text="мітками" term_id="label" >}}.
 
 <!--more-->
 
-<!-- Selectors are applied when querying lists of resources to filter them by {{< glossary_tooltip text="Labels" term_id="label" >}}. -->
-Селектори застосовуються при створенні запитів для фільтрації ресурсів за {{< glossary_tooltip text="мітками" term_id="label" >}}.
+Селектори застосовуються під час запиту списків ресурсів для їх фільтрації за мітками.

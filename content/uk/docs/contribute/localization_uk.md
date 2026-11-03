@@ -73,7 +73,8 @@ continuous development | безперервна розробка |
 continuous integration | безперервна інтеграція |
 contribute | робити внесок (до проекту), допомагати (проекту) |
 contributor | контриб'ютор, учасник проекту |
-control plane | площина управління |
+control plane | панель управління |
+control-plane node | вузол панелі управління |
 controller | контролер |
 CPU | ЦП |
 dashboard | дашборд |
