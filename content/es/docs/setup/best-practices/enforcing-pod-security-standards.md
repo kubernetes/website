@@ -1,7 +1,7 @@
 ---
 reviewers:
-- tallclair
-- liggitt
+- raelga
+- electrocucaracha
 title: Aplicar los estándares de seguridad de Pods
 weight: 40
 ---
