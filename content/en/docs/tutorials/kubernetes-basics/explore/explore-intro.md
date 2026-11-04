@@ -53,7 +53,7 @@ the cluster.
 
 ### Pods overview
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg" class="diagram-medium" >}}
+{{< svg src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg" class="diagram-medium" >}}
 
 {{% alert %}}
 _Containers should only be scheduled together in a single Pod if they are tightly
@@ -79,7 +79,7 @@ from a registry, unpacking the container, and running the application.
 
 ### Nodes overview
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg" class="diagram-medium" >}}
+{{< svg src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg" class="diagram-medium" >}}
 
 ## Troubleshooting with kubectl
 
