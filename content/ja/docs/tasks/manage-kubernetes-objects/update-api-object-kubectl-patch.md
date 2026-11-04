@@ -1,5 +1,5 @@
 ---
-title: kubectl patchを使用してAPIオブジェクトの更新
+title: kubectl patchを使用したAPIオブジェクトのインプレース更新
 description: 戦略的マージパッチかJSONマージパッチを用いて、kubectl patchでKubernetes APIオブジェクトをインプレース更新します。
 content_type: task
 weight: 50
@@ -22,9 +22,10 @@ weight: 50
 
 <!-- steps -->
 
-## Deploymentを戦略的マージパッチで更新 {#use-a-strategic-merge-patch-to-update-a-deployment}
+## 戦略的マージパッチを使用してDeploymentを更新する {#use-a-strategic-merge-patch-to-update-a-deployment}
 
-以下は、2つのレプリカがあるDeployment設定ファイルです。各レプリカは1つのコンテナを持つPodです:
+以下は、2つのレプリカがあるDeployment設定ファイルです。
+各レプリカは1つのコンテナを持つPodです:
 
 {{% code_sample file="application/deployment-patch.yaml" %}}
 
@@ -50,7 +51,8 @@ patch-demo-28633765-670qr   1/1       Running   0          23s
 patch-demo-28633765-j5qs3   1/1       Running   0          23s
 ```
 
-実行中のPodの名前に注目してください。これらのPodは後ほど違う名前のPodと置換されることが確認できます。
+実行中のPodの名前に注目してください。
+これらのPodは後ほど違う名前のPodと置換されることが確認できます。
 
 現時点では、各Podには1つのnginxイメージのコンテナが実行中です。
 これを2つのコンテナにしたいとします: 1つはnginx、もう1つはredisを実行します。
@@ -100,7 +102,7 @@ kubectl get pods
 
 出力から、以前のPodとは異なる名前になっていることが確認できます。
 Deploymentは古いPodを終了させ、更新されたDeploymentのspecに従う2つの新しいPodを作成しました。
-`2/2`は2つのコンテナが実行されていることを示しています:
+`2/2`は、各Podに2つのコンテナがあることを示しています:
 
 ```
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -126,12 +128,15 @@ containers:
 
 ### 戦略的マージパッチについての注意 {#notes-on-the-strategic-merge-patch}
 
-前の演習で適用したパッチは *戦略的マージパッチ* です。パッチが`containers`リストを置き換えなかったことに注目してください。
-代わりに、新しいコンテナがリストに追加されました。つまり、パッチ内のリストは既存のリストとマージされたのです。
+前の演習で適用したパッチは *戦略的マージパッチ* です。
+パッチが`containers`リストを置き換えなかったことに注目してください。
+代わりに、新しいコンテナがリストに追加されました。
+つまり、パッチ内のリストは既存のリストとマージされたのです。
 戦略的マージパッチをリストに対して使用したからといって、常にこのような挙動になるとは限りません。
 場合によっては、リストがマージされずに置換される場合もあります。
 
-リストはパッチ戦略によって置換かマージされます。パッチ戦略は、Kubernetesソースコードのフィールドタグ内にある`patchStrategy`キーの値で指定します。
+戦略的マージパッチでは、リストはパッチ戦略によって置換かマージされます。
+パッチ戦略は、Kubernetesソースコードのフィールドタグ内にある`patchStrategy`キーの値で指定します。
 例えば、`PodSpec`構造体の`Containers`フィールドにある`patchStrategy`の値は`merge`に設定されています:
 
 ```go
@@ -154,9 +159,9 @@ type PodSpec struct {
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- 編集者向け: ここではSyntaxハイライトのエラーを予防するために、jsonではなく意図的にyamlを使用しています。-->
+<!-- 編集者向け: ここではSyntaxハイライトのエラーを予防するために、jsonではなく意図的にyamlを使用しています。 -->
 
-パッチ戦略は[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で参照できます。
+パッチ戦略は[Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で参照できます。
 
 `patch-file-tolerations.yaml`ファイルを以下の内容で作成します:
 
@@ -176,7 +181,7 @@ Deploymentにパッチを適用します:
 kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
 
-パッチを適用したDeploymentを確認する:
+パッチを適用したDeploymentを確認します:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -203,24 +208,24 @@ type PodSpec struct {
 }
 ```
 
-## DeploymentをJSONマージパッチで更新 {#use-a-json-merge-patch-to-update-a-deployment}
+## JSONマージパッチを使用してDeploymentoを更新する {#use-a-json-merge-patch-to-update-a-deployment}
 
-戦略的マージパッチは[JSONマージパッチ](https://tools.ietf.org/html/rfc7386)とは違います。
-リストを更新する場合、JSONマージパッチではリストの全要素を指定する必要があります。
-既存のリストは新しいリストに置き換えられます。
+戦略的マージパッチは[JSONマージパッチ](https://tools.ietf.org/html/rfc7386)とは異なります。
+リストを更新する場合、JSONマージパッチでは新しいリストの全要素を指定する必要があります。
+そして、既存のリストは新しいリストに完全に置き換えられます。
 
-`kubectl patch`コマンドは`type`パラメータがあり、以下の値のいずれかで設定できます。
+`kubectl patch`コマンドには`type`パラメーターがあり、以下の値のいずれかで設定できます:
 
 <table>
-  <tr><th>Parameter value</th><th>Merge type</th></tr>
-  <tr><td>json</td><td><a href="https://tools.ietf.org/html/rfc6902">JSON Patch, RFC 6902</a></td></tr>
-  <tr><td>merge</td><td><a href="https://tools.ietf.org/html/rfc7386">JSON Merge Patch, RFC 7386</a></td></tr>
-  <tr><td>strategic</td><td>Strategic merge patch</td></tr>
+  <tr><th>パラメーター値</th><th>マージタイプ</th></tr>
+  <tr><td>json</td><td><a href="https://tools.ietf.org/html/rfc6902">JSONパッチ、RFC 6902</a></td></tr>
+  <tr><td>merge</td><td><a href="https://tools.ietf.org/html/rfc7386">JSONマージパッチ、RFC 7386</a></td></tr>
+  <tr><td>strategic</td><td>戦略的マージパッチ</td></tr>
 </table>
 
-JSONパッチとJSONマージパッチの比較は[JSONパッチとJSONマージパッチ](https://erosb.github.io/post/json-patch-vs-merge-patch/)を参照してください。
+JSONパッチとJSONマージパッチの比較は、[JSONパッチとJSONマージパッチ](https://erosb.github.io/post/json-patch-vs-merge-patch/)を参照してください。
 
-`type`パラメータのデフォルト値は`strategic`です。
+`type`パラメーターのデフォルト値は`strategic`です。
 したがって、前の演習で行ったパッチは戦略的マージパッチになります。
 
 次に、同じDeploymentに対してJSONマージパッチを実行します。
@@ -235,13 +240,13 @@ spec:
         image: gcr.io/google-samples/hello-app:2.0
 ```
 
-パッチコマンドで`type`を`merge`に設定してください:
+patchコマンドで`type`を`merge`に設定してください:
 
 ```shell
 kubectl patch deployment patch-demo --type merge --patch-file patch-file-2.yaml
 ```
 
-パッチを適用したDeploymentを確認する:
+パッチを適用したDeploymentを確認します:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -264,7 +269,8 @@ spec:
 kubectl get pods
 ```
 
-出力から、既存のPodが終了し、新しいPodが作成されたことが確認できます。`1/1`は、各新しいPodがコンテナを1つだけ実行していることを示しています。
+出力から、既存のPodが終了し、新しいPodが作成されたことが確認できます。
+`1/1`は、各新しいPodがコンテナを1つだけ実行していることを示しています。
 
 ```shell
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -272,9 +278,9 @@ patch-demo-1307768864-69308   1/1       Running   0          1m
 patch-demo-1307768864-c86dc   1/1       Running   0          1m
 ```
 
-## retainKeys戦略を使用した戦略的マージパッチでDeploymentを更新 {#use-strategic-merge-patch-to-update-a-deployment-using-the-retainkeys-strategy}
+## retainKeys戦略を使用した戦略的マージパッチでDeploymentを更新する {#use-strategic-merge-patch-to-update-a-deployment-using-the-retainkeys-strategy}
 
-ここに`RollingUpdate`戦略を使うDeployment用の設定ファイルがあります:
+以下は、`RollingUpdate`戦略を使うDeployment用の設定ファイルです:
 
 {{% code_sample file="application/deployment-retainkeys.yaml" %}}
 
@@ -284,7 +290,7 @@ Deploymentを作成します:
 kubectl apply -f https://k8s.io/examples/application/deployment-retainkeys.yaml
 ```
 
-現状では`RollingUpdate`戦略が使用されたDeploymentが作成されます。
+この時点で、`RollingUpdate`戦略が使用されたDeploymentが作成されます。
 
 `patch-file-no-retainkeys.yaml`ファイルを以下の内容で作成します:
 
@@ -308,7 +314,7 @@ The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbid
 
 `type`の値を更新する際に`spec.strategy.rollingUpdate`の値を削除するには、戦略的マージの`retainKeys`戦略を使用します。
 
-もう1つの`patch-file-retainkeys.yaml`ファイルを以下の内容で作成します:
+`patch-file-retainkeys.yaml`という別のファイルを以下の内容で作成します:
 
 ```yaml
 spec:
@@ -350,8 +356,8 @@ spec:
 
 - 文字列のリストが含まれています。
 - 保持する必要があるすべてのフィールドは、`$retainKeys`リストに存在していなければなりません。
-- 存在するフィールドは、ライブオブジェクトとマージされます。
-- 不足しているフィールドは、パッチ適用時にすべてクリアされます。
+- リストに存在するフィールドは、ライブオブジェクトとマージされます。
+- リストに存在しないフィールドは、パッチ適用時にすべてクリアされます。
 - `$retainKeys`リスト内のすべてのフィールドは、パッチに存在するフィールドのスーパーセットであるか、同一でなければなりません。
 
 `retainKeys`戦略はすべてのオブジェクトで機能するわけではありません。
@@ -380,14 +386,14 @@ type DeploymentSpec struct {
     ....
 }
 ```
-<!-- 編集者向け: ここではSyntaxハイライトのエラーを予防するために、jsonではなく意図的にyamlを使用しています。-->
+<!-- 編集者向け: ここではSyntaxハイライトのエラーを予防するために、jsonではなく意図的にyamlを使用しています。 -->
 
-`retainKeys`戦略は[Kubernetes APIレファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)を参照できます。
+`retainKeys`戦略は[Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)で参照できます。
 
 ### kubectl patchコマンドのその他の形式 {#alternate-forms-of-the-kubectl-patch-command}
 
 `kubectl patch`コマンドはYAMLとJSONを受け付けます。
-パッチを適用する場合、ファイルでもコマンドラインからも受け付けます。
+パッチはファイルとして指定することも、コマンドラインで直接指定することもできます。
 
 `patch-file.json`ファイルを以下の内容で作成します:
 
@@ -436,7 +442,7 @@ Deploymentを作成します:
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
-Deploymentに関連するPodを確認する:
+Deploymentに関連するPodを確認します:
 
 ```shell
 kubectl get pods -l app=nginx
@@ -463,7 +469,7 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 scale.autoscaling/nginx-deployment patched
 ```
 
-パッチを適用したDeploymentに関連するPodを確認する:
+パッチを適用したDeploymentに関連するPodを確認します:
 
 ```shell
 kubectl get pods -l app=nginx
@@ -478,7 +484,7 @@ nginx-deployment-7fb96c846b-lxfr2   1/1     Running   0          14s
 nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          107s
 ```
 
-パッチを適用したDeploymentを確認する:
+パッチを適用したDeploymentを確認します:
 
 ```shell
 kubectl get deployment nginx-deployment -o yaml
@@ -516,8 +522,6 @@ APIオブジェクトを更新するその他のコマンドには、[kubectl an
 
 
 * [Kubernetesオブジェクト管理](/docs/concepts/overview/working-with-objects/object-management/)
-* [命令型コマンドを利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [オブジェクト設定(命令型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [オブジェクト設定(宣言型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-
-
+* [命令型コマンドを使用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [設定ファイルを使用したKubernetesオブジェクトの命令的管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [設定ファイルを使用したKubernetesオブジェクトの宣言的管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
