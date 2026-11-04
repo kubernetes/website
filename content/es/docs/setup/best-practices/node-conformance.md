@@ -1,6 +1,7 @@
 ---
 reviewers:
-- Random-Liu
+- raelga
+- electrocucaracha
 title: Validar la configuración del nodo
 weight: 30
 ---
