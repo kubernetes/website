@@ -156,7 +156,8 @@ you unsuspend the CronJob.
 {{< caution >}}
 Executions that are suspended during their scheduled time count as missed Jobs.
 When `.spec.suspend` changes from `true` to `false` on an existing CronJob without a
-[starting deadline](#starting-deadline), the missed Jobs are scheduled immediately.
+[starting deadline](#starting-deadline), a Job for the most recent missed schedule
+is started immediately. Jobs for the earlier missed schedules are not started.
 {{< /caution >}}
 
 ### Jobs history limits
@@ -226,7 +227,7 @@ If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob
 {{< /caution >}}
 
 
-For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the Job and logs the error.
+For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, it records a `TooManyMissedTimes` warning Event with the message below, and still starts a Job for the most recent missed schedule. Jobs for the earlier missed schedules are never started, however many there are.
 
 ```
 too many missed start times. Set or decrease .spec.startingDeadlineSeconds or check clock skew
@@ -241,11 +242,12 @@ A CronJob is counted as missed if it has failed to be created at its scheduled t
 
 For example, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
 `startingDeadlineSeconds` field is not set. If the CronJob controller happens to
-be down from `08:29:00` to `10:21:00`, the Job will not start as the number of missed Jobs which missed their schedule is greater than 100.
+be down from `08:29:00` to `10:21:00`, more than 100 schedules are missed. When the controller is back, it records the warning above
+and starts one Job, for the most recent schedule. The earlier missed schedules do not run.
 
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
 `startingDeadlineSeconds` is set to 200 seconds. If the CronJob controller happens to
-be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (i.e., 3 missed schedules), rather than from the last scheduled time until now.
+be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (i.e., 3 missed schedules), rather than from the last scheduled time until now.
 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
