@@ -88,7 +88,7 @@ Kubernetes пропонує кілька варіантів контролю д�
       </ul></td>
     </tr>
     <tr>
-      <td><a href="/docs/reference/access-authn-authz/validating-admission-policy/">Валідаційна політика допуску</a></td>
+      <td><a href="/uk/docs/reference/access-authn-authz/validating-admission-policy/">Валідаційна політика допуску</a></td>
       <td>Перехоплює API-запити перед допуском і перевіряє їх на відповідність виразам CEL.</td>
       <td><ul>
         <li>Перевіряйте критичні конфігурації перед допуском ресурсу.</li>
