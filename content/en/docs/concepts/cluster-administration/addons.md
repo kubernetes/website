@@ -36,7 +36,7 @@ installation instructions. The list does not try to be exhaustive.
   in either a native routing or overlay/encapsulation mode, and can enforce
   network policies on L3-L7 using an identity-based security model that is
   decoupled from network addressing. Cilium can act as a replacement for
-  kube-proxy; it also offers additional, opt-in observability and security features.
+  `kube-proxy`; it also offers additional, opt-in observability and security features.
   Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly
   connect to a choice of CNI plugins, such as Calico, Canal or Flannel.
