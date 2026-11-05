@@ -559,12 +559,12 @@ webhooks:
 
 Вебхуки допуску не викликаються для таких незбережуваних (віртуальних) ресурсів автентифікації та авторизації, навіть якщо `rules` вебхука їм відповідають:
 
-* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
-* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
-* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
-* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
-* [SelfSubjectRulesReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/" >}})
-* [SubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/" >}})
+* [TokenReviews](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/)
+* [SelfSubjectReviews](/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/)
+* [LocalSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/)
+* [SelfSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/)
+* [SelfSubjectRulesReviews](/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/)
+* [SubjectAccessReviews](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/)
 
 Вебхук, який перехоплює ці ресурси, може заблокувати кластер від власного шляху автентифікації та авторизації: наприклад, вебхук, що виходить з ладу та відповідає `subjectaccessreviews`, може заблокувати перевірки авторизації, від яких залежить сам кластер. Їх виключення приводить вебхуки допуску у відповідність із [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) та [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/), які завжди виключали ці ресурси.
 
