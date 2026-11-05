@@ -80,7 +80,7 @@ Kubernetes пропонує кілька варіантів контролю д�
       </ul></td>
     </tr>
     <tr>
-      <td><a href="/docs/reference/access-authn-authz/extensible-admission-controllers/">Валідаційний вебхук допуску</a></td>
+      <td><a href="/uk/docs/reference/access-authn-authz/extensible-admission-controllers/">Валідаційний вебхук допуску</a></td>
       <td>Перехоплює API-запити перед допуском і перевіряє їх на відповідність складним визначенням політик.</td>
       <td><ul>
         <li>Перевіряйте критичні конфігурації перед допуском ресурсу.</li>
