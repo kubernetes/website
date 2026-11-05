@@ -55,7 +55,7 @@ math: true
 
 ## Налаштування менеджера памʼяті {#memory-manager-configuration}
 
-Інші менеджери вже мають бути налаштовані (див. [передумови вирівнювання ресурсів](#resource-alignment-prerequisites)). Встановіть у полі конфігурації `memoryManagerPolicy` в [конфігурації kubelet]({{< relref "/docs/reference/config-api/kubelet-config.v1beta1" >}}) назву обраної вами [політики](#policies).
+Інші менеджери вже мають бути налаштовані (див. [передумови вирівнювання ресурсів](#resource-alignment-prerequisites)). Встановіть у полі конфігурації `memoryManagerPolicy` в [конфігурації kubelet](/docs/reference/config-api/kubelet-config.v1beta1) назву обраної вами [політики](#policies).
 
 За бажанням можна зарезервувати певний обсяг памʼяті для системних процесів або процесів kubelet, щоб підвищити стабільність вузла (розділ [Налаштування зарезервованої памʼяті](#reserved-memory-flag)).
 
