@@ -11,7 +11,15 @@ NODE_VERSION = "20.17.0"
 HUGO_VERSION = "0.144.2"
 
 [context.deploy-preview]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview && npx -y pagefind --site public"
+command = """
+    if git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- netlify.toml; then
+      echo "No configuration or version updates. Running standard deploy view..."
+      git submodule update --init --recursive --depth 1 && make deploy-preview && npx -y pagefind --site public
+    else
+      echo "Configuration or Node dependencies changed! Running strict --panicOnWarning check..."
+      git submodule update --init --recursive --depth 1 && HUGO_FLAGS="--panicOnWarning" make deploy-preview && npx -y pagefind --site public
+    fi
+  """
 
 [context.branch-deploy]
 command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"

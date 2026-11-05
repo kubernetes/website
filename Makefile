@@ -58,7 +58,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	hugo $(HUGO_FLAGS) --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
