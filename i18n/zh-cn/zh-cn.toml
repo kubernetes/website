@@ -230,8 +230,7 @@ other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查
 [katacoda_message]
 other = """<h4>交互式教程关闭</h4>
 <p>本网站上的交互式教程即将关闭。Kubernetes 项目希望在未来的长远规划中恢复类似的交互式学习选项。</p>
-<p>此次关闭是在 O'Reilly Media 于 2019 年<a
-href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">收购</a> Katacoda 后进行的。</p>
+<p>此次关闭是在 O'Reilly Media 于 2019 年<a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">收购</a> Katacoda 后进行的。</p>
 <p>Kubernetes 衷心感谢 O'Reilly 和 Katacoda 多年来帮助人们迈出学习 Kubernetes 的第一步。</p>
 <p>教程将在<b>2023 年 3 月 31 日</b>后停止运行。更多信息，请参阅 "<a href="/zh-cn/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">免费的 Katacoda Kubernetes 教程即将关闭</a>。"</p>"""
 
@@ -292,10 +291,10 @@ other = "扩展"
 [layouts_docs_glossary_filter]
 other = "根据标签过滤术语"
 
-[layout_docs_glossary_fundamental_description]
+[layouts_docs_glossary_fundamental_description]
 other = "与首次使用 Kubernetes 的用户相关。"
 
-[layout_docs_glossary_fundamental_name]
+[layouts_docs_glossary_fundamental_name]
 other = "基础"
 
 [layout_docs_glossary_networking_description]
@@ -651,3 +650,21 @@ other = "警告"
 
 [whatsnext_heading]
 other = "接下来"
+
+[kubecon_region_china]
+other = "中国"
+
+[kubecon_region_europe]
+other = "欧洲"
+
+[kubecon_region_event]
+other = "活动"
+
+[kubecon_region_india]
+other = "印度"
+
+[kubecon_region_japan]
+other = "日本"
+
+[kubecon_region_north_america]
+other = "北美"
