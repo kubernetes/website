@@ -106,5 +106,5 @@ Kubelet більше стандартно не буде запускатися �
 ## {{% heading "whatsnext" %}} {#whats-next}
 
 - Дізнайтеся більше про [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
-- Дізнайтеся більше про [середовище виконання контейнерів](/docs/concepts/architecture/cri)
+- Дізнайтеся більше про [середовище виконання контейнерів](/docs/concepts/containers/cri/)
 - Дізнайтеся більше про [драйвери cgroup](/docs/setup/production-environment/container-runtimes#cgroup-drivers)
