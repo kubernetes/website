@@ -96,7 +96,7 @@ This feature can be enabled using the following steps:
   `<cluster-domain>` is "`cluster.local`" by default. `<node-local-address>` is the
   local listen IP address chosen for NodeLocal DNSCache.
 
-  * If kube-proxy is running in IPTABLES or NFTABLES mode:
+  * If kube-proxy is running in iptables or nftables mode:
 
     ``` bash
     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$coredns/g" nodelocaldns.yaml
@@ -107,11 +107,12 @@ This feature can be enabled using the following steps:
     In this mode, the `node-local-dns` pods listen on both the CoreDNS service IP
     as well as `<node-local-address>`, so pods can look up DNS records using either IP address.
 
-    The `node-local-dns` pods also install their own `iptables` rules, which mark DNS traffic
-    to these addresses as not tracked, so that it skips the service rules that kube-proxy
-    programs in `iptables` or `nftables` mode. The `node-local-dns` image uses the `iptables`
-    backend (`nft` or `legacy`) that the node uses, so it does not have to match the
-    [kube-proxy mode](/docs/reference/networking/virtual-ips/#proxy-modes).
+    The `node-local-dns` pods also install their own packet filtering rules that mark
+    DNS traffic to these addresses as not tracked. That traffic then skips the service
+    rules that kube-proxy programs, whether kube-proxy runs in `iptables` or in
+    `nftables` mode. The Pods create these rules with the `iptables` tools. The
+    `node-local-dns` image includes the `nft` and the `legacy` variant of those tools and
+    uses the variant that matches the rules already on the node.
 
   * If kube-proxy is running in IPVS mode:
 
