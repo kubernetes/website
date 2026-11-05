@@ -157,3 +157,17 @@ kubectl config view
 
 If you previously used a helper tool (for example, `kubectl-oidc-login`), ensure that it is still
 installed and configured correctly.
+
+### Troubleshooting the 'No Auth Provider Found' error message {#no-auth-provider-found}
+
+If kubectl reports `No Auth Provider Found`, your kubeconfig refers to an authentication
+provider that is no longer built into kubectl. In Kubernetes v1.26, kubectl removed the
+built-in authentication for the following cloud providers' managed Kubernetes offerings.
+These providers have released kubectl plugins to provide the cloud-specific authentication.
+For instructions, refer to the following provider documentation:
+
+* Azure AKS: [kubelogin plugin](https://azure.github.io/kubelogin/)
+* Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
+
+There could also be other causes for the same error message that are unrelated
+to that change.
