@@ -208,7 +208,7 @@ type PodSpec struct {
 }
 ```
 
-## JSONマージパッチを使用してDeploymentoを更新する {#use-a-json-merge-patch-to-update-a-deployment}
+## JSONマージパッチを使用してDeploymentを更新する {#use-a-json-merge-patch-to-update-a-deployment}
 
 戦略的マージパッチは[JSONマージパッチ](https://tools.ietf.org/html/rfc7386)とは異なります。
 リストを更新する場合、JSONマージパッチでは新しいリストの全要素を指定する必要があります。
