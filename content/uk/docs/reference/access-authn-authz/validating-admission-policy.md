@@ -431,8 +431,8 @@ error: failed to create deployment: deployments.apps "invalid" is forbidden: Val
 
 Такі види конфігурацій допуску не підлягають політикам, створеним через REST API, щоб запобігти циклічним залежностям:
 
-* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/" >}})
-* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/" >}})
+* [ValidatingAdmissionPolicies](/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/)
+* [ValidatingAdmissionPolicyBindings](/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/)
 * MutatingAdmissionPolicies
 * MutatingAdmissionPolicyBindings
 
@@ -442,11 +442,11 @@ error: failed to create deployment: deployments.apps "invalid" is forbidden: Val
 
 Крім того, такі непостійні (віртуальні) види API автентифікації та авторизації не підлягають жодним політикам допуску, включно з політиками на основі маніфестів, оскільки їх перехоплення могло б заблокувати кластер від власного шляху автентифікації та авторизації:
 
-* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
-* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
-* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
-* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
-* [SelfSubjectRulesReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/" >}})
-* [SubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/" >}})
+* [TokenReviews](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/)
+* [SelfSubjectReviews](/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/)
+* [LocalSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/)
+* [SelfSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/)
+* [SelfSubjectRulesReviews](/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/)
+* [SubjectAccessReviews](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/)
 
 Починаючи з Kubernetes v1.37, [вебхуки допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources) також типово виключають ці віртуальні ресурси.
