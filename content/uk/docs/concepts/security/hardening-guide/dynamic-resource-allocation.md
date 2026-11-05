@@ -1,14 +1,14 @@
 ---
-title: "Посібник зі зміцнення безпеки — динамічний розподіл ресурсів"
+title: "Посібник зі зміцнення безпеки — динамічне виділення ресурсів"
 description: >
-  Інформація про зміцнення безпеки авторизації та шаблонів доступу для динамічного розподілу ресурсів (DRA).
+  Інформація про зміцнення безпеки авторизації та шаблонів доступу для динамічного виділення ресурсів (DRA).
 content_type: concept
 weight: 90
 ---
 
 <!-- overview -->
 
-Динамічний розподіл ресурсів (DRA) додає потужні можливості планування та керування пристроями. Оскільки компоненти DRA оновлюють статус `ResourceClaim`, адміністратори кластера мають налаштувати авторизацію цих оновлень за допомогою явного RBAC з мінімальними привілеями.
+Динамічне виділення ресурсів (DRA) додає потужні можливості планування та керування пристроями. Оскільки компоненти DRA оновлюють статус `ResourceClaim`, адміністратори кластера мають налаштувати авторизацію цих оновлень за допомогою явного RBAC з мінімальними привілеями.
 
 {{< feature-state feature_gate_name="DRAResourceClaimGranularStatusAuthorization" >}}
 
@@ -24,7 +24,7 @@ weight: 90
 
 - **`resourceclaims/binding`**
   - Потрібно для зміни `status.allocation` та `status.reservedFor`.
-  - Зазвичай надається kube-scheduler та власним контролерам розподілу.
+  - Зазвичай надається kube-scheduler та власним контролерам виділення.
   - Використовує стандартні дієслова `update` та `patch`.
 - **`resourceclaims/driver`**
   - Потрібно для зміни `status.devices`.
@@ -43,7 +43,7 @@ weight: 90
 
 ## Приклади RBAC-шаблонів {#example-rbac-patterns}
 
-### Дозволи для планувальника та контролера розподілу {#scheduler-and-allocation-controller-permissions}
+### Дозволи для планувальника та контролера виділення {#scheduler-and-allocation-controller-permissions}
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -95,10 +95,10 @@ rules:
 
 ## Повʼязане завдання адміністратора кластера {#related-cluster-administrator-task}
 
-Щоб застосувати ці шаблони в запущеному кластері, дивіться [Зміцнення безпеки динамічного розподілу ресурсів у вашому кластері](/docs/tasks/administer-cluster/hardening-dra/).
+Щоб застосувати ці шаблони в запущеному кластері, дивіться [Зміцнення безпеки динамічного виділення ресурсів у вашому кластері](/docs/tasks/administer-cluster/hardening-dra/).
 
 ## {{% heading "whatsnext" %}} {#whats-next}
 
 - [Авторизація](/docs/reference/access-authn-authz/authorization/)
 - [Налаштування DRA в кластері](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
-- [Динамічний розподіл ресурсів](/docs/concepts/resource-management/dynamic-resource-allocation/)
+- [Динамічне виділення ресурсів](/docs/concepts/resource-management/dynamic-resource-allocation/)
