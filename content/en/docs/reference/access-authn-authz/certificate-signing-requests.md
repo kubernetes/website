@@ -79,6 +79,47 @@ state for some duration:
 * Pending requests: automatically deleted after 24 hours
 * All requests: automatically deleted after the issued certificate has expired
 
+### Key usages {#key-usages}
+
+The `spec.usages` field lists the key usages and extended key usages that the client asks
+for in the issued certificate. A signer decides which of them it allows; see
+[Kubernetes signers](#kubernetes-signers) for the rules of the built-in signers.
+
+Each value maps to a bit in the X.509 key usage extension
+([RFC 5280, section 4.2.1.3](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3))
+or to a purpose in the extended key usage extension
+([RFC 5280, section 4.2.1.12](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12)).
+The valid values are:
+
+| Value | X.509 extension | Meaning |
+|-------|-----------------|---------|
+| `signing` | Key usage | Same as `digital signature`. |
+| `digital signature` | Key usage | The key verifies digital signatures other than those on certificates and CRLs, for example during a TLS handshake. |
+| `content commitment` | Key usage | The key verifies signatures that show the signer committed to the signed content. Older versions of X.509 called this `nonRepudiation`. |
+| `key encipherment` | Key usage | The key encrypts other keys, for example in RSA key exchange. |
+| `key agreement` | Key usage | The key is used for key agreement, for example with Diffie-Hellman. |
+| `data encipherment` | Key usage | The key encrypts user data directly, not other keys. |
+| `cert sign` | Key usage | The key verifies signatures on certificates. Only CA certificates use this. |
+| `crl sign` | Key usage | The key verifies signatures on certificate revocation lists (CRLs). |
+| `encipher only` | Key usage | Together with `key agreement`: the key only encrypts data during key agreement. |
+| `decipher only` | Key usage | Together with `key agreement`: the key only decrypts data during key agreement. |
+| `any` | Extended key usage | No restriction on the purpose of the certificate (`anyExtendedKeyUsage`). |
+| `server auth` | Extended key usage | TLS server authentication, for example an HTTPS server or the kubelet serving endpoint. |
+| `client auth` | Extended key usage | TLS client authentication, for example a client of the kube-apiserver. |
+| `code signing` | Extended key usage | Signing of downloadable executable code. |
+| `email protection` | Extended key usage | Email protection, such as S/MIME. |
+| `s/mime` | Extended key usage | Same as `email protection`. |
+| `ipsec end system` | Extended key usage | IPsec end system. A legacy purpose from older X.509 profiles; RFC 5280 does not define it. |
+| `ipsec tunnel` | Extended key usage | IPsec tunnel. A legacy purpose from older X.509 profiles; RFC 5280 does not define it. |
+| `ipsec user` | Extended key usage | IPsec user. A legacy purpose from older X.509 profiles; RFC 5280 does not define it. |
+| `timestamping` | Extended key usage | Binding the hash of an object to a time, as done by a time-stamping authority. |
+| `ocsp signing` | Extended key usage | Signing OCSP responses. |
+| `microsoft sgc` | Extended key usage | Microsoft Server Gated Cryptography. A legacy, vendor-specific purpose. |
+| `netscape sgc` | Extended key usage | Netscape Server Gated Cryptography. A legacy, vendor-specific purpose. |
+
+For example, the built-in `kubernetes.io/kube-apiserver-client` signer requires `client auth`,
+and only also allows `digital signature` and `key encipherment`.
+
 ### Certificate signing authorization {#authorization}
 
 To allow creating a CertificateSigningRequest and retrieving any CertificateSigningRequest:
