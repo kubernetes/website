@@ -167,7 +167,7 @@ rules:
 
 ## {{% heading "whatsnext" %}} {#whats-next}
 
-- [Адміністрування cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager) містить інструкції щодо запуску cloud-controller-manager та управління ним.
+- [Адміністрування cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager) містить інструкції щодо запуску cloud-controller-manager та управління ним.
 
 - Щодо оновлення панелі управління з високою доступністю для використання cloud-controller-manager див. [Міграція реплікованої панелі управління для використання cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
 
