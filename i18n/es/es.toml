@@ -71,7 +71,7 @@ other = "Foro"
 other = "GitHub"
 
 [community_introduce]
-other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese. Para obtener más información sobre cómo contribuir a Kubernetes, consulta nuestra {{ .link }}."
+other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese."
 
 [community_join]
 other= "Únete a la comunidad"
