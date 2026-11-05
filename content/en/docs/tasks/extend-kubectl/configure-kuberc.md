@@ -8,32 +8,20 @@ content_type: task
 <!-- overview -->
 
 This page shows how to write a `kuberc` file to customize default options and
-define command aliases for kubectl. Start with one default option, then add
-shortcuts, preset arguments, and a credential plugin policy.
+define command aliases for kubectl v1.38 or later. Start with one default
+option, then add shortcuts, preset arguments, and a credential plugin policy.
 
 For background and detailed feature behavior, see
 [Kubectl user preferences (kuberc)](/docs/reference/kubectl/kuberc/).
 
-A `kuberc` file configures kubectl preferences. To access a cluster with commands
-such as `kubectl get pods`, configure connection and authentication settings in a
-separate kubeconfig file. See
-[Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-for instructions on writing one.
-
-{{< feature-state state="beta" for_k8s_version="1.34" >}}
+{{< feature-state state="stable" for_k8s_version="1.38" >}}
 
 ## {{% heading "prerequisites" %}}
 
-* [Install kubectl](/docs/tasks/tools/) v1.34 or later.
+* [Install or update kubectl](/docs/tasks/tools/) to v1.38 or later.
   Check your client version by running `kubectl version --client`.
 * Have a text editor and a directory where you can save the example file.
-* If you previously disabled kuberc, ensure that `KUBERC` is not set to `off`
-  and `KUBECTL_KUBERC` is not set to `false`.
-
-You do not need a running cluster for the main exercise, which generates
-manifests using `--dry-run=client`. The optional examples that access cluster
-resources require a configured kubeconfig, a running cluster, and appropriate
-permissions. You do not need to change any API server feature gates.
+* If you previously disabled kuberc, ensure that `KUBERC` is not set to `off`.
 
 The platform-specific examples use a POSIX shell, such as Bash or Zsh, on
 Linux and macOS, and PowerShell on Windows. The shared YAML and kubectl
@@ -54,7 +42,7 @@ without creating a resource in a cluster.
    On Windows, ensure that your editor does not append `.txt` to the filename.
 
    ```yaml
-   apiVersion: kubectl.config.k8s.io/v1beta1
+   apiVersion: kubectl.config.k8s.io/v1
    kind: Preference
    defaults:
    - command: create configmap
@@ -102,10 +90,108 @@ kubectl --kuberc=kuberc-example create configmap kuberc-demo --from-literal=mode
 An option passed on the command line takes precedence over the configured
 default. Your file still specifies YAML for subsequent invocations.
 
+## Use your preferences for subsequent commands
+
+To load preferences without passing `--kuberc` each time, create or edit the
+file at the default location for your operating system. If you already have
+a kuberc file, merge the settings you want to keep into it, preserving
+existing preferences and credential plugin policy. Otherwise, copy the
+contents of the example file into the new file.
+
+{{< tabs name="kuberc-default-location" >}}
+{{% tab name="Linux and macOS" %}}
+
+Create the default directory if it does not exist:
+
+```shell
+mkdir -p "$HOME/.kube"
+```
+
+Use your text editor to create or edit `$HOME/.kube/kuberc` and save your
+preferences there. Then unset `KUBERC` in the current shell so that kubectl
+uses the default file, and try the command without `--kuberc`:
+
+```shell
+unset KUBERC
+kubectl create configmap kuberc-demo --from-literal=mode=demo --dry-run=client
+```
+
+{{% /tab %}}
+{{% tab name="Windows (PowerShell)" %}}
+
+Create the default directory if it does not exist:
+
+```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.kube" -Force | Out-Null
+```
+
+Use your text editor to create or edit
+`$env:USERPROFILE\.kube\kuberc` and save your preferences as UTF-8 text.
+Ensure that the filename is `kuberc`, without a `.txt` extension.
+Then remove `KUBERC` from the current PowerShell session so that kubectl
+uses the default file, and try the command without `--kuberc`:
+
+```powershell
+Remove-Item Env:\KUBERC -ErrorAction SilentlyContinue
+kubectl create configmap kuberc-demo --from-literal=mode=demo --dry-run=client
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+This is a local configuration file; do not use `kubectl apply` to install it.
+
+You can also set the `KUBERC` environment variable to the path of your
+preferred file. From the directory containing `kuberc-example`, use the
+commands for your shell:
+
+{{< tabs name="kuberc-custom-location" >}}
+{{% tab name="Linux and macOS" %}}
+
+```shell
+export KUBERC="$PWD/kuberc-example"
+kubectl create configmap kuberc-demo --from-literal=mode=demo --dry-run=client
+```
+
+To return to the default location, run `unset KUBERC`.
+
+{{% /tab %}}
+{{% tab name="Windows (PowerShell)" %}}
+
+```powershell
+$env:KUBERC = (Resolve-Path -LiteralPath .\kuberc-example).Path
+kubectl create configmap kuberc-demo --from-literal=mode=demo --dry-run=client
+```
+
+To return to the default location, run:
+
+```powershell
+Remove-Item Env:\KUBERC -ErrorAction SilentlyContinue
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+These assignments affect the current shell session and programs launched
+from it. Kubectl selects a single kuberc file in this order:
+
+1. The file specified by `--kuberc`.
+1. The file specified by `KUBERC`.
+1. The default path for your operating system.
+
+It does not merge preferences from these locations. The selected preferences
+apply regardless of which kubeconfig or context you use; kuberc does not
+automatically select preferences by context. Use separate kuberc files for
+different workflows if needed. For scripts that need predictable behavior,
+explicitly pass the options they depend on or disable kuberc for that
+invocation.
+
 ## Create a command shortcut
 
-An alias gives a frequently used command a shorter, memorable name. This
-example defines `previewcm` to generate a ConfigMap manifest locally as YAML.
+An alias gives a frequently used command a shorter, memorable name. Use only
+letters (`a-z` or `A-Z`) in alias names, and avoid names of built-in kubectl
+commands. This example defines `previewcm` to generate a ConfigMap manifest
+locally as YAML.
 You will still supply the ConfigMap name and data when you run the alias.
 For alias configuration details, see
 [aliases](/docs/reference/kubectl/kuberc/#aliases).
@@ -114,7 +200,8 @@ The remaining examples update `kuberc-example`. If you use another file,
 replace `--kuberc=kuberc-example` with its path. Add entries under the
 existing `defaults` or `aliases` list, and replace an existing entry when
 modifying it. Do not create duplicate top-level keys or duplicate entries
-for the same command or alias.
+for the same command or alias. To use later changes by default, also copy
+them to your default kuberc file.
 
 1. Add this `aliases` section to your file, keeping the existing `defaults`:
 
@@ -234,108 +321,11 @@ the corresponding preference for that invocation. For additional
 recommendations, see
 [suggested defaults](/docs/reference/kubectl/kuberc/#suggested-defaults).
 
-## Use your preferences for subsequent commands
-
-To load preferences without passing `--kuberc` each time, create or edit the
-file at the default location for your operating system. If you already have
-a kuberc file, merge the settings you want to keep into it, preserving
-existing preferences and credential plugin policy. Otherwise, copy the
-contents of the example file into the new file.
-
-{{< tabs name="kuberc-default-location" >}}
-{{% tab name="Linux and macOS" %}}
-
-Create the default directory if it does not exist:
-
-```shell
-mkdir -p "$HOME/.kube"
-```
-
-Use your text editor to create or edit `$HOME/.kube/kuberc` and save your
-preferences there. Then unset `KUBERC` in the current shell so that kubectl
-uses the default file, and try the alias without `--kuberc`:
-
-```shell
-unset KUBERC
-kubectl previewcm kuberc-demo
-```
-
-{{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
-
-Create the default directory if it does not exist:
-
-```powershell
-New-Item -ItemType Directory -Path "$env:USERPROFILE\.kube" -Force | Out-Null
-```
-
-Use your text editor to create or edit
-`$env:USERPROFILE\.kube\kuberc` and save your preferences as UTF-8 text.
-Ensure that the filename is `kuberc`, without a `.txt` extension.
-Then remove `KUBERC` from the current PowerShell session so that kubectl
-uses the default file, and try the alias without `--kuberc`:
-
-```powershell
-Remove-Item Env:\KUBERC -ErrorAction SilentlyContinue
-kubectl previewcm kuberc-demo
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-This is a local configuration file; do not use `kubectl apply` to install it.
-
-With kubectl v1.35 or later, you can also set the `KUBERC` environment
-variable to the path of your preferred file. With kubectl v1.34, use
-`--kuberc` or the default location instead. From the directory containing
-`kuberc-example`, use the commands for your shell:
-
-{{< tabs name="kuberc-custom-location" >}}
-{{% tab name="Linux and macOS" %}}
-
-```shell
-export KUBERC="$PWD/kuberc-example"
-kubectl previewcm kuberc-demo
-```
-
-To return to the default location, run `unset KUBERC`.
-
-{{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
-
-```powershell
-$env:KUBERC = (Resolve-Path -LiteralPath .\kuberc-example).Path
-kubectl previewcm kuberc-demo
-```
-
-To return to the default location, run:
-
-```powershell
-Remove-Item Env:\KUBERC -ErrorAction SilentlyContinue
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-These assignments affect the current shell session and programs launched
-from it. Kubectl v1.35 and later select a single kuberc file in this order:
-
-1. The file specified by `--kuberc`.
-1. The file specified by `KUBERC`.
-1. The default path for your operating system.
-
-It does not merge preferences from these locations. The selected preferences
-apply regardless of which kubeconfig or context you use; kuberc does not
-automatically select preferences by context. Use separate kuberc files for
-different workflows if needed. For scripts that need predictable behavior,
-explicitly pass the options they depend on or disable kuberc for that
-invocation.
-
 ## Edit preferences from the command line
 
-With kubectl v1.36 or later, you can use `kubectl kuberc set` instead of
-editing YAML. For example, add wide output as the default for `get` in
-your example file:
+With kubectl v1.38 or later, use `kubectl kuberc set` to edit your preferences
+from the command line. For example, add wide output as the default for `get`
+in your example file:
 
 ```shell
 kubectl kuberc set --kuberc=kuberc-example --section=defaults --command=get --option=output=wide
@@ -366,8 +356,6 @@ Use a credential plugin policy to control which authentication helpers
 kubectl can execute from your kubeconfig. For example, you can restrict
 execution to helpers required by your provider that you trust.
 
-Credential plugin policies are available in kubectl v1.35 and later. The
-`command` field used in the following example requires v1.36 or later.
 Add these top-level fields to allow a trusted helper:
 
 ```yaml
@@ -386,8 +374,6 @@ For other policy choices, including `AllowAll` and `DenyAll`, see
 For valid entries and command matching rules, see
 [credentialPluginAllowlist](/docs/reference/kubectl/kuberc/#credentialpluginallowlist).
 
-<!-- discussion -->
-
 ## Troubleshoot your preferences
 
 If kubectl does not use the preferences you expect, check your client
@@ -402,9 +388,8 @@ authenticates to your cluster; a client dry run does not test whether a
 credential plugin can run.
 
 To compare behavior without preferences, set `KUBERC` to `off` and run
-kubectl **without** `--kuberc`. See
-[Disable kuberc](/docs/reference/kubectl/kuberc/#disable-kuberc) for the feature
-settings. To disable preferences temporarily for one command:
+kubectl **without** `--kuberc`. To disable preferences temporarily for one
+command:
 
 {{< tabs name="kuberc-disable-preferences" >}}
 {{% tab name="Linux and macOS" %}}
@@ -442,6 +427,5 @@ try {
 ## {{% heading "whatsnext" %}}
 
 * Read about [kubectl user preferences](/docs/reference/kubectl/kuberc/).
-* Consult the [kuberc v1beta1 API reference](/docs/reference/config-api/kuberc.v1beta1/).
 * Review [kubectl usage conventions](/docs/reference/kubectl/conventions/)
   when writing scripts.
