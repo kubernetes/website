@@ -335,6 +335,27 @@ where `<RELATIVE-PATH>` is the path to the sample file to include, relative to t
 The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code_sample */%}}`.
 Use `{{%/* code_sample */%}}` (not `{{%/* codenew */%}}` or `{{%/* code */%}}`) in new documentation.
 
+### Both dialects
+
+Example manifests are displayed in YAML, and that is what
+`{{%/* code_sample */%}}` shows and what `https://k8s.io/examples/...` serves.
+
+The manifests listed in `scripts/kyaml_examples.txt` are also rendered as
+[KYAML](/docs/reference/encodings/kyaml/) under `content/<LANG>/examples-kyaml/`.
+For those, the shortcode renders the two dialects as a pair of tabs; anything not
+listed renders in a single pane, exactly as it always has.
+
+The dialects themselves are configured in `hugo.toml`, under
+`[[params.codeSampleDialects]]`.
+
+The tabs are Docsy's, so they behave like every other tab pair on the site:
+choosing a dialect switches every example on the site, not just the one a reader
+clicked, and the choice is remembered across pages. Each tab's filename links to
+the file it shows, so the KYAML tab links to the generated copy.
+
+You do not write the second dialect; `make kyaml` generates it. See
+[Regenerating the KYAML rendering](/docs/contribute/style/write-new-topic/#kyaml-examples).
+
 ## Third party content marker
 
 Running Kubernetes requires third-party software. For example: you

@@ -1,0 +1,59 @@
+{{- /*
+Renders one Bootstrap tab set, and is the only place on the site that writes
+that markup. The "tabs" shortcode and the "code_sample" shortcode both call it,
+so a reader meets the same tabs whether a page declared them or a shortcode
+derived them.
+
+The markup is what Docsy's own tabpane shortcode produces, and
+data-td-tp-persist is what Docsy's js/tabpane-persist.js reads:
+layouts/partials/scripts.html loads that script on every page. Tabs sharing a
+persistence key move together, across tab sets and across pages. Without
+JavaScript the tab that opens active is the one shown.
+
+Expects a dict with:
+  id         slug the tab and pane ids are built from, unique within the page
+  ariaLabel  accessible name for the tab list, may be empty
+  paneClass  extra classes for every pane, may be empty
+  tabindex   tabindex for every pane; "0" where the pane scrolls
+  tabs       slice of dicts, one per tab:
+               label     the tab's text, already rendered
+               content   the pane's contents, already rendered
+               persist   key this tab is remembered under, may be empty
+               disabled  whether the tab cannot be chosen
+*/ -}}
+{{- $id := .id | anchorize -}}
+{{- $tabs := .tabs -}}
+{{- /* Paired once, so the tab and the pane that point at each other cannot
+       drift apart as the two loops below are edited. */ -}}
+{{- $ids := slice -}}
+{{- range $i, $tab := $tabs -}}
+{{- $ids = $ids | append (dict
+     "tab" (printf "tabs-%v-%v-tab" $id $i)
+     "pane" (printf "tabs-%v-%v" $id $i)) -}}
+{{- end -}}
+{{- /* The first tab a reader can actually choose, because marking a disabled
+       tab active would show its pane and leave no enabled tab selected. */ -}}
+{{- $active := -1 -}}
+{{- range $i, $tab := $tabs -}}
+{{- if and (lt $active 0) (not $tab.disabled) -}}{{- $active = $i -}}{{- end -}}
+{{- end -}}
+{{- if lt $active 0 -}}{{- $active = 0 -}}{{- end -}}
+<ul class="nav nav-tabs" id="tabs-{{ $id }}" role="tablist"
+    {{- with .ariaLabel }} aria-label="{{ . }}"{{ end }}>
+  {{- range $i, $tab := $tabs -}}
+  <li class="nav-item">
+    <button class="nav-link{{ if eq $i $active }} active{{ end }}{{ if $tab.disabled }} disabled{{ end }}"
+            id="{{ (index $ids $i).tab }}" data-bs-toggle="tab" data-bs-target="#{{ (index $ids $i).pane }}" role="tab"
+            {{ with $tab.persist }}data-td-tp-persist="{{ . }}" {{ end -}}
+            aria-controls="{{ (index $ids $i).pane }}" aria-selected="{{ eq $i $active }}">{{ $tab.label }}</button>
+  </li>
+  {{- end }}
+</ul>
+<div class="tab-content" id="tabs-{{ $id }}-content">
+  {{- range $i, $tab := $tabs -}}
+  <div class="tab-pane fade{{ with $.paneClass }} {{ . }}{{ end }}{{ if eq $i $active }} show active{{ end }}"
+       id="{{ (index $ids $i).pane }}" role="tabpanel" aria-labelledby="{{ (index $ids $i).tab }}" tabindex="{{ $.tabindex }}">
+    {{- $tab.content -}}
+  </div>
+  {{- end }}
+</div>
