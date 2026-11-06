@@ -4,6 +4,8 @@ content_type: concept
 weight: 10
 ---
 
+<!-- placeholder for KEP-5732 v1.38 Beta -->
+
 <!-- overview -->
 {{< feature-state feature_gate_name="TopologyAwareWorkloadScheduling" >}}
 
