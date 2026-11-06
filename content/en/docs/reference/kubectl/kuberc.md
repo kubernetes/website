@@ -4,7 +4,7 @@ content_type: concept
 weight: 70
 ---
 
-{{< feature-state state="beta" for_k8s_version="1.34" >}}
+{{< feature-state state="stable" for_k8s_version="1.38" >}}
 
 A Kubernetes `kuberc` configuration file allows you to define preferences for
 {{<glossary_tooltip text="kubectl" term_id="kubectl">}},
@@ -16,7 +16,7 @@ The default path on Windows is similar: `%USERPROFILE%\.kube\kuberc`.
 To provide kubectl with a path to a custom kuberc file, use the `--kuberc` command line option,
 or set the `KUBERC` environment variable.
 
-A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
+A `kuberc` using the `kubectl.config.k8s.io/v1` format allows you to define
 the following types of user preferences:
 
 1. [Aliases](#aliases) - allow you to create shorter versions of your favorite
@@ -25,6 +25,13 @@ the following types of user preferences:
    favorite commands.
 3. [Credential Plugin Policy](#credential-plugin-policy) - allow you to configure
    a policy for exec credential plugins.
+
+{{< caution >}}
+A `kuberc` using previous formats (`kubectl.config.k8s.io/v1beta1` or `kubectl.config.k8s.io/v1alpha1`)
+[is deprecated](/docs/reference/using-api/deprecation-policy/) and users are advised
+to migrate to the `kubectl.config.k8s.io/v1`. Using any of the `kubectl kuberc set`
+commands will automatically migrate your configuration to the recommended format.
+{{< /caution >}}
 
 ## aliases
 
@@ -36,7 +43,7 @@ This next example defines a `kubectl getn` alias for the `kubectl get` subcomman
 additionally specifying JSON output format: `--output=json`.
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 aliases:
 - name: getn
@@ -58,7 +65,7 @@ In this example, the following settings were used:
 With this alias, running `kubectl getn pods` will default JSON output. However,
 if you execute `kubectl getn pods -oyaml`, the output will be in YAML format.
 
-Full `kuberc` schema is available [here](/docs/reference/config-api/kuberc.v1beta1/).
+Full `kuberc` schema is available [here](/docs/reference/config-api/kuberc.v1/).
 
 ### prependArgs
 
@@ -67,7 +74,7 @@ which allows inserting arbitrary arguments immediately after the kubectl command
 and its subcommand (if any).
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 aliases:
   - name: getn
@@ -96,7 +103,7 @@ This next example, will introduce a mechanism similar to prepending arguments,
 this time, though, we will append arguments to the end of the kubectl command.
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 aliases:
 - name: runx
@@ -131,7 +138,7 @@ This next example makes the interactive removal the default mode for invoking
 `kubectl delete`:
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 defaults:
 - command: delete
@@ -151,8 +158,6 @@ With this setting, running `kubectl delete pod/test-pod` will default to prompti
 However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
 
 ## Credential plugin policy
-
-{{< feature-state for_k8s_version="v1.35" state="beta" >}}
 
 Editors of a `kubeconfig` can specify an executable plugin that will be used to
 acquire credentials to authenticate the client to the cluster. Within a `kuberc`
@@ -204,7 +209,7 @@ is the _logical OR_ of the decisions rendered by each item in the list.
 As an example, consider the following allowlist configuration:
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
@@ -227,7 +232,7 @@ have specified an allowlist when they actually haven't.
 
 For example, the following is invalid:
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
@@ -278,7 +283,7 @@ The following example shows an `"Allowlist"` policy with its allowlist:
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="POSIX" codelang="yaml" >}}
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
@@ -286,7 +291,7 @@ credentialPluginAllowlist:
   - command: /usr/local/bin/my-other-trusted-binary
 {{< /tab >}}
 {{< tab name="Windows" codelang="yaml" >}}
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
@@ -342,7 +347,7 @@ the necessary plugins in the
 {{< /caution >}}
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1beta1
+apiVersion: kubectl.config.k8s.io/v1
 kind: Preference
 defaults:
   # (1) default server-side apply
@@ -367,7 +372,7 @@ In this example, the following settings are enforced:
    accidental removal of resources from the cluster.
 1. No executable credential plugins will be permitted to execute.
 
-## Disable kuberc
+## Troubleshooting
 
 To temporarily disable the `kuberc` functionality, set (and export) the environment
 variable `KUBERC` with the value `off`:
@@ -376,10 +381,11 @@ variable `KUBERC` with the value `off`:
 export KUBERC=off
 ```
 
-or disable the feature gate:
+This might be useful for troubleshooting whether your `kuberc` is causing a problem.
+
+Alternatively, you can run `kubectl` with increased verbosity (`-v=5`) to get more
+detailed output about issues parsing the preference file:
 
 ```shell
-export KUBECTL_KUBERC=false
+kubectl -v=5 get pods
 ```
-
-This might be useful for troubleshooting whether your `kuberc` is causing a problem.
