@@ -8,9 +8,9 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
-[kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)는
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)는
 쿠버네티스의 기본 스케줄러이다. 그것은 클러스터의
 노드에 파드를 배치하는 역할을 한다.
 
@@ -43,7 +43,7 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 마치 100을 설정한 것처럼 작동한다.
 
 값을 변경하려면,
-[kube-scheduler 구성 파일](/docs/reference/config-api/kube-scheduler-config.v1beta3/)을
+[kube-scheduler 구성 파일](/docs/reference/config-api/kube-scheduler-config.v1/)을
 편집한 다음 스케줄러를 재시작한다.
 대부분의 경우, 구성 파일은 `/etc/kubernetes/config/kube-scheduler.yaml` 에서 찾을 수 있다.
 
@@ -61,12 +61,12 @@ kube-scheduler 컴포넌트가 정상인지 확인할 수 있다.
 노드가 충분히 발견되면 이를 찾는 것을 중단할 수 있다. 큰 규모의 클러스터에서는
 모든 노드를 고려하는 고지식한 접근 방식에 비해 시간이 절약된다.
 
-클러스터에 있는 모든 노드의 정수 백분율로 충분한 노두의 수에
+클러스터에 있는 모든 노드의 정수 백분율로 충분한 노드의 수에
 대한 임계값을 지정한다. kube-scheduler는 이 값을 노드의
 정수 값(숫자)로 변환 한다. 스케줄링 중에 kube-scheduler가 구성된
 비율을 초과 할만큼 충분히 실행 가능한 노드를 식별한 경우, kube-scheduler는
 더 실행 가능한 노드를 찾는 검색을 중지하고
-[스코어링 단계](/ko/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
+[스코어링 단계](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
 
 [스케줄러가 노드 탐색을 반복(iterate)하는 방법](#스케줄러가-노드-탐색을-반복-iterate-하는-방법)
 은 이 프로세스를 자세히 설명한다.
@@ -99,7 +99,7 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
-### percentageOfNodesToScore 튜닝
+## percentageOfNodesToScore 튜닝
 
 `percentageOfNodesToScore`는 1과 100 사이의 값이어야 하며
 기본값은 클러스터 크기에 따라 계산된다. 또한 100 노드로 하드 코딩된
@@ -159,6 +159,43 @@ percentageOfNodesToScore: 50
 
 모든 노드를 검토한 후, 노드 1로 돌아간다.
 
+## Opportunistic Batching 활성화하기
+
+{{< feature-state feature_gate_name="OpportunisticBatching" >}}
+
+대규모 워크로드를 스케줄링할 때, 파드는 동일한 스케줄링 제약 조건을 갖는 경우가 많아 스케줄러가
+같은 작업을 반복해서 수행해야 한다. [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+기능을 사용하면 스케줄러가 스케줄링 주기 간에 필터링과 스코어링 결과를 재사용할 수 있어
+스케줄링 프로세스가 크게 빨라진다.
+
+점수 재계산을 통해 스케줄러는 이러한 상황에서도 일괄 처리를 계속할 수 있다. 다음 파드가 여전히
+이전에 선택한 노드에 배치될 수 있으면, 스케줄러는 해당 노드의 점수를 업데이트하고 캐시된 후보 목록에 다시 넣는다.
+점수 재계산에 실패하면 스케줄러는 기존 동작으로 돌아가 캐시를 비운다.
+
+기본적으로 이 기능은 다음과 같이 동작한다.
+1. 스케줄러가 pod-1을 스케줄링하고 스케줄링 결과를 캐시한다.
+1. 스케줄러가 캐시된 결과를 사용하여 pod-2, 3, ...을 스케줄링한다.
+1. 캐시는 0.5초 후에 만료된다. 스케줄러가 다음 파드를 스케줄링하면서 새 캐시를 생성한다.
+
+동일한 스케줄링 제약 조건을 갖는 파드는 스케줄링 주기에 연속해서 들어와야 한다. 스케줄러가 다른 제약 조건을 갖는 파드를 스케줄링하면, 기존 캐시를 사용하지 않고 새 캐시로 교체한다.
+
+이러한 일괄 스케줄링은 다음 조건을 충족하는 파드에 적용된다.
+1. 파드 간 어피니티/안티-어피니티가 없음
+1. 토폴로지 분배 제약 조건이 없음
+1. DRA를 사용하지 않음(즉, 리소스클레임(ResourceClaim)이 없음)
+1. DRA 기반 확장 리소스를 요청하지 않음
+
+또한 이 기능을 활성화하려면, 스케줄러 구성을 다음과 같이 설정해야 한다.
+1. [기본 토폴로지 분배](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)를 비활성화한다(빈 값으로 설정).
+1. 일괄 처리의 효율을 높이기 위해 [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)의 `IgnorePreferredTermsOfExistingPods`를
+`true`로 설정한다.
+
+다음 사항에 유의한다.
+1. 기존 파드가 스케줄링되는 파드 중 어느 하나의 레이블과 일치하는 파드 어피니티 제약 조건을 사용하는 경우, 이 기능의 효과가 없을 수 있다.
+1. 사용자 정의 플러그인을 사용하는 경우, 해당 플러그인은 Signature 익스텐션 포인트(extension point)를 구현해야 한다.
+
+이러한 제한 사항과 조건은 향후 릴리스에서 달라질 수 있다.
+
 ## {{% heading "whatsnext" %}}
 
-* [kube-scheduler 구성 레퍼런스(v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 확인
+* [kube-scheduler 구성 레퍼런스(v1)](/docs/reference/config-api/kube-scheduler-config.v1/) 확인
