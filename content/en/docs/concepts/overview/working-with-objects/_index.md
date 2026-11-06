@@ -73,9 +73,16 @@ desired state, as well as some basic information about the object (such as a nam
 the Kubernetes API to create the object (either directly or via `kubectl`), that API request must
 include that information as JSON in the request body.
 Most often, you provide the information to `kubectl` in a file known as a _manifest_.
-By convention, manifests are YAML (you could also use JSON format).
-Tools such as `kubectl` convert the information from a manifest into JSON or another supported
-serialization format when making the API request over HTTP.
+By convention, manifests are YAML.
+
+The Kubernetes documentation often uses [KYAML](/docs/reference/encodings/kyaml/) to show manifests;
+however, anywhere that you see KYAML, you could also provide YAML written more conventionally.
+You can even use JSON, because JSON documents are also valid YAML.
+
+No matter what format you use in the manifest file, tools such as `kubectl` convert the information
+from a manifest and send it as JSON (or another
+[supported serialization format](/docs/reference/using-api/api-concepts/#alternate-representations-of-resources))
+when making the API request over HTTP.
 
 Here's an example manifest that shows the required fields and object spec for a Kubernetes
 Deployment:
@@ -95,6 +102,9 @@ The output is similar to this:
 ```
 deployment.apps/nginx-deployment created
 ```
+
+It's up to you whether you use KYAML dialect or not. If you do use KYAML, the file extension is still `.yaml`
+(or sometimes `.yml`).
 
 ### Required fields
 

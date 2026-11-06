@@ -1,6 +1,10 @@
-apiVersion: rules.example.com/v1
-kind: ReplicaLimit
-metadata:
-  name: "replica-limit-test.example.com"
-  namespace: "default"
-maxReplicas: 3
+---
+{
+  apiVersion: "rules.example.com/v1",
+  kind: "ReplicaLimit",
+  metadata: {
+    name: "replica-limit-test.example.com",
+    namespace: "default",
+  },
+  maxReplicas: 3,
+}

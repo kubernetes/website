@@ -48,14 +48,19 @@ The following example stores two strings in a Secret using the `data` field.
 1. Create the manifest:
 
    ```yaml
-   apiVersion: v1
-   kind: Secret
-   metadata:
-     name: mysecret
-   type: Opaque
-   data:
-     username: YWRtaW4=
-     password: MWYyZDFlMmU2N2Rm
+   ---
+   {
+     apiVersion: "v1",
+     kind: "Secret",
+     metadata: {
+       name: "mysecret",
+     },
+     type: "Opaque",
+     data: {
+       username: "YWRtaW4=",
+       password: "MWYyZDFlMmU2N2Rm",
+     },
+   }
    ```
 
    Note that the name of a Secret object must be a valid
@@ -94,9 +99,10 @@ username: "<user>"
 password: "<password>"
 ```
 
-You could store this in a Secret using the following definition:
+You could store this in a Secret using the following definition (plain YAML):
 
 ```yaml
+---
 apiVersion: v1
 kind: Secret
 metadata:
