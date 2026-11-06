@@ -114,10 +114,16 @@ For an example, consider a five-member etcd cluster running with the following
 client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
 `http://$IP4:2379`, and `http://$IP5:2379`. To start a Kubernetes API server:
 
-1. Run the following:
+1. Run one etcd instance on each of the five nodes, using that node's own IP
+   address for both flags (abbreviated; the full set of clustering flags is
+   covered by the [etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/)):
 
    ```shell
-   etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
+   etcd --listen-client-urls=http://$IP1:2379 --advertise-client-urls=http://$IP1:2379 ...
+   etcd --listen-client-urls=http://$IP2:2379 --advertise-client-urls=http://$IP2:2379 ...
+   etcd --listen-client-urls=http://$IP3:2379 --advertise-client-urls=http://$IP3:2379 ...
+   etcd --listen-client-urls=http://$IP4:2379 --advertise-client-urls=http://$IP4:2379 ...
+   etcd --listen-client-urls=http://$IP5:2379 --advertise-client-urls=http://$IP5:2379 ...
    ```
 
 2. Start the Kubernetes API servers with the flag
