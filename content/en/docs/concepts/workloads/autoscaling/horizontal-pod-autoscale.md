@@ -78,6 +78,13 @@ Kubernetes implements horizontal pod autoscaling as a control loop that runs int
 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 (and the default interval is 15 seconds).
 
+<!--
+TODO (KEP-6003): Document configurable per-HPA sync periods in Kubernetes
+v1.38, including best-effort timing, metric freshness, controller load, and
+autoscaling/v1 and autoscaling/v2 admission policy examples.
+Tracking issue: https://github.com/kubernetes/enhancements/issues/6003
+-->
+
 Once during each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition. The controller manager
 finds the target resource defined by the `scaleTargetRef`,
