@@ -93,3 +93,9 @@ TODO: Add more information about return codes once CRI implementation have check
       the Kubernetes changes to be merged to implement the new ContainerCheckpoint CRI API
       call. We need to wait after the 1.25 release to fix this.
 {{< /comment >}}
+
+{{< comment >}}
+TODO: Document Pod-level checkpoint and restore for Kubernetes v1.38
+(KEP-5823), including prerequisites, feature enablement, API usage,
+and limitations.
+{{< /comment >}}
