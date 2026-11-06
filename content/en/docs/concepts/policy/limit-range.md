@@ -53,6 +53,10 @@ The name of a LimitRange object must be a valid
 - If you attempt to create or update an object (Pod or PersistentVolumeClaim) that violates
   a LimitRange constraint, your request to the API server will fail with an HTTP status
   code `403 Forbidden` and a message explaining the constraint that has been violated.
+  In Kubernetes v1.38 and later, values that an update leaves unchanged are not checked
+  again, even if a LimitRange added or tightened since would reject them: for a
+  PersistentVolumeClaim this is its storage request, and for a Pod resize it is a resource
+  whose request and limit both stay the same.
 - If you add a LimitRange in a namespace that applies to compute-related resources
   such as `cpu` and `memory`, you must specify requests or limits for those values.
   Otherwise, the system may reject Pod creation.
