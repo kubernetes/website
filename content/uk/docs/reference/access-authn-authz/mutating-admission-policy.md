@@ -1,0 +1,201 @@
+---
+title: Змінювальна політика допуску
+content_type: concept
+---
+
+<!-- overview -->
+
+{{< feature-state feature_gate_name="MutatingAdmissionPolicy" >}}
+<!-- due to feature gate history, use manual version specification here -->
+
+На цій сторінці ви можете ознайомитися з інформацією про _MutatingAdmissionPolicies_. MutatingAdmissionPolicies дозволяють вам змінювати те, що відбувається, коли хтось вносить зміни до API Kubernetes. Якщо ви хочете використовувати декларативні політики лише для запобігання певному виду змін ресурсів (наприклад: захист платформених просторів імен від видалення), [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) є простішою та ефективнішою альтернативою.
+
+<!-- body -->
+
+## Що таке MutatingAdmissionPolicies? {#what-are-mutatingadmissionpolicies}
+
+Змінювальні політики допуску пропонують декларативну вбудовану альтернативу змінювальним вебхукам допуску.
+
+Змінювальні політики допуску використовують Common Expression Language (CEL) для оголошення мутацій ресурсів. Мутації можуть бути визначені або за допомогою *apply configuration*, яка обʼєднується за допомогою [server side apply merge strategy](/docs/reference/using-api/server-side-apply/#merge-strategy), або за допомогою [JSON patch](https://jsonpatch.com/).
+
+Змінювальні політики допуску мають широкі можливості налаштування: автори політик можуть визначати політики, які можна параметризувати та обмежувати певними ресурсами відповідно до потреб адміністраторів кластерів.
+
+## З яких ресурсів складається політика {#what-resources-make-a-policy}
+
+Політика зазвичай складається з трьох ресурсів:
+
+- MutatingAdmissionPolicy описує абстрактну логіку політики (наприклад: «ця політика встановлює певну мітку на певне значення»).
+
+- Ресурс _параметрів_ надає інформацію для MutatingAdmissionPolicy, щоб зробити її конкретним твердженням (наприклад, «встановіть мітку `owner` на щось на кшталт `company.example.com`»). Ресурси параметрів відносяться до ресурсів Kubernetes, доступних в API Kubernetes. Вони можуть бути вбудованими типами або розширеннями, такими як {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD). Наприклад, ви можете використовувати ConfigMap як параметр.
+- Привʼязка MutatingAdmissionPolicyBinding повʼязує вищезгадані ресурси (MutatingAdmissionPolicy і параметр) разом і задає область застосування. Якщо ви хочете встановити мітку `owner` лише для `Pods`, а не для інших типів API, привʼязка — це місце, де ви вказуєте цю мутацію.
+
+Для того, щоб політика мала ефект, необхідно визначити принаймні MutatingAdmissionPolicy та відповідне MutatingAdmissionPolicyBinding.
+
+{{< note >}}
+Імена, що закінчуються на `.static.k8s.io`, зарезервовані для [контролю допуску на основі маніфестів](/docs/reference/access-authn-authz/manifest-admission-control/) і не можуть використовуватися для політик або привʼязок на основі API. Це обмеження застосовується, коли функціональну можливість [`ManifestBasedAdmissionControlConfig`](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) увімкнено.
+{{< /note >}}
+
+Якщо MutatingAdmissionPolicy не потрібно налаштовувати через параметри, просто залиште `spec.paramKind` у MutatingAdmissionPolicy не вказаним.
+
+## Початок роботи з MutatingAdmissionPolicies {#getting-started-with-mutatingadmissionpolicies}
+
+Змінювальна політика допуску є частиною панелі управління кластером. Ви повинні створювати та розгортати їх з великою обережністю. Нижче описано, як швидко поекспериментувати зі змінювальними політиками допуску.
+
+### Створення MutatingAdmissionPolicy {#create-a-mutatingadmissionpolicy}
+
+Нижче наведено приклад політики MutatingAdmissionPolicy. Ця політика змінює щойно створені Podʼи так, щоб вони мали sidecar-контейнер, якщо його ще немає.
+
+{{% code_sample language="yaml" file="mutatingadmissionpolicy/applyconfiguration-example.yaml" %}}
+
+Поле `.spec.mutations` складається зі списку виразів, які обчислюють патчі до ресурсів. Патчі можуть бути як патчами [apply configuration](#patch-type-apply-configuration), так і патчами [JSON Patch](#patch-type-json-patch). Ви не можете вказати порожній список мутацій. Після обчислення всіх виразів API-сервер застосовує ці зміни до ресурсу, який проходить через допуск.
+
+Щоб налаштувати змінювальну політику допуску для використання в кластері, необхідна привʼязка. MutatingAdmissionPolicy буде активною лише тоді, коли існує відповідна привʼязка із зазначеним `spec.policyName`, що збігається із `spec.name` політики.
+
+Після створення привʼязки і політики будь-який запит до ресурсу, який відповідає `spec.matchConditions` політики, буде викликати набір визначених мутацій.
+
+Умови відповідності не можуть використовувати `namespaceObject` або `variables`. `namespaceObject` не заповнюється для умов відповідності та завжди має значення null, а на `variables` не можна посилатися, оскільки умови відповідності обчислюються раніше решти політики. Щоб вибирати запити на основі міток простору імен, використовуйте `namespaceSelector` у `matchConstraints` політики або у `matchResources` привʼязки.
+
+У наведеному вище прикладі створення Pod додасть мутацію `mesh-proxy` initContainer:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  namespace: default
+spec:
+  ...
+  initContainers:
+  - name: mesh-proxy
+    image: mesh/proxy:v1.0.0
+    args: ["proxy", "sidecar"]
+    restartPolicy: Always
+  - name: myapp-initializer
+    image: example/initializer:v1.0.0
+  ...
+```
+
+#### Ресурси параметрів {#parameter-resources}
+
+Ресурси параметрів дозволяють відокремити конфігурацію політики від її
+визначення. Політика може визначати `paramKind`, який окреслює GVK ресурсу параметра, а потім привʼязка політики привʼязує політику за назвою (через `policyName`) до певного ресурсу параметра через `paramRef`.
+
+Докладніше дивіться в розділі [ресурси параметрів](/docs/reference/access-authn-authz/validating-admission-policy/#parameter-resources) для отримання додаткової інформації.
+
+#### `ApplyConfiguration` {#patch-type-apply-configuration}
+
+Вирази MutatingAdmissionPolicy завжди є CEL. Кожен `expression` застосовної конфігурації повинен приводити до CEL-обʼєкта (оголошеного за допомогою ініціалізації `Object()`).
+
+Застосовні конфігурації не можуть змінювати атомарні структури, map або масиви через ризик випадкового видалення значень, не включених у застосовну конфігурацію.
+
+CEL-вирази мають доступ до типів обʼєктів, необхідних для створення застосовних конфігурацій:
+- `Object` — CEL-тип обʼєкта ресурсу.
+- `Object.<fieldName>` — CEL-тип поля обʼєкта (наприклад, `Object.spec`)
+- `Object.<fieldName1>.<fieldName2>...<fieldNameN>` — CEL-тип вкладеного поля (наприклад, `Object.spec.containers`)
+
+CEL-вирази мають доступ до вмісту запиту API, організованого в CEL-змінні, а також до деяких інших корисних змінних:
+
+- `object` — Обʼєкт з вхідного запиту. Для запитів DELETE має значення null.
+- `oldObject` — Наявний обʼєкт. Для запитів CREATE має значення null.
+- `request` — Атрибути запиту до API.
+- `params` — Ресурс параметра, на який посилається привʼязка політики, що оцінюється. Заповнюється тільки якщо політика має ParamKind.
+- `namespaceObject` — Обʼєкт простору імен, до якого належить вхідний обʼєкт. Для ресурсів рівня кластера має значення null.
+- `variables` — Map складених змінних, від імені до ліниво обчисленого значення. Наприклад, до змінної з іменем `foo` можна отримати доступ як `variables.foo`.
+- `authorizer` — Авторизатор CEL. Може використовуватися для виконання перевірки авторизації для принципала запиту (користувача або службового облікового запису). Див. https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+- `authorizer.requestResource` — CEL ResourceCheck, сконструйований з `authorizer` і сконфігурований з ресурсом запиту.
+
+Властивості `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` і `metadata.labels` завжди доступні з кореня обʼєкта. Інші властивості метаданих недоступні.
+
+#### `JSONPatch` {#patch-type-json-patch}
+
+Цю ж саму мутацію можна записати у вигляді [JSON Patch](https://jsonpatch.com/) так:
+
+{{% code_sample language="yaml" file="mutatingadmissionpolicy/json-patch-example.yaml" %}}
+
+Вираз буде обчислено CEL для створення [JSON patch](https://jsonpatch.com/). Посилання: https://github.com/google/cel-spec
+
+Кожен обчислений `expression` повинен повернути масив значень `JSONPatch`. Тип `JSONPatch` представляє одну операцію з патча JSON.
+
+Наприклад, цей CEL-вираз повертає патч JSON для умовної зміни значення:
+
+```
+  [
+    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+  ]
+```
+
+Щоб визначити JSON-обʼєкт для операції патча `value`, використовуйте типи CEL `Object`. Наприклад:
+
+```
+  [
+    JSONPatch{
+      op: "add",
+      path: "/spec/selector",
+      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+    }
+  ]
+```
+
+Щоб використовувати рядки, що містять символи '/' і '~' як ключі шляху до JSONPatch, використовуйте `jsonpatch.escapeKey()`. Наприклад:
+
+```
+  [
+    JSONPatch{
+      op: "add",
+      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+      value: "test"
+    },
+  ]
+```
+
+CEL-вирази мають доступ до типів, необхідних для створення патчів і обʼєктів JSON:
+
+- `JSONPatch` — CEL тип операцій JSON Patch. JSONPatch має поля `op`, `from`, `path` та `value`. Дивіться [JSON patch](https://jsonpatch.com/) для більш детальної інформації. Поле `value` може мати будь-яке значення: рядок, ціле число, масив, map або обʼєкт. Якщо встановлено, поля `path` і `from` мають бути встановлені на рядок [JSON-покажчик](https://datatracker.ietf.org/doc/html/rfc6901/), де CEL-функція `jsonpatch.escapeKey()` може бути використана для екранування ключів шляху, що містять `/` і `~`.
+- `Object` — CEL-тип обʼєкта ресурсу.
+- `Object.<fieldName>` — CEL-тип поля обʼєкта (наприклад, `Object.spec`)
+- `Object.<fieldName1>.<fieldName2>...<fieldNameN>` — CEL-тип вкладеного поля (наприклад, `Object.spec.containers`)
+
+CEL-вирази мають доступ до вмісту запиту API, організованого в CEL-змінні, а також до деяких інших корисних змінних:
+
+- `object` — Обʼєкт з вхідного запиту. Для запитів DELETE має значення null.
+- `oldObject` — Наявний обʼєкт. Для запитів CREATE має значення null.
+- `request` — Атрибути запиту до API.
+- `params` — Ресурс параметра, на який посилається привʼязка політики, що оцінюється. Заповнюється тільки якщо політика має ParamKind.
+- `namespaceObject` — Обʼєкт простору імен, до якого належить вхідний обʼєкт. Для ресурсів рівня кластера має значення null.
+- `variables` — Map складених змінних, від імені до ліниво обчисленого значення. Наприклад, до змінної з іменем `foo` можна отримати доступ як `variables.foo`.
+- `authorizer` — Авторизатор CEL. Може використовуватися для виконання перевірки авторизації для принципала запиту (користувача або службового облікового запису). Див. https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+- `authorizer.requestResource` — CEL ResourceCheck, сконструйований з `authorizer` і сконфігурований з ресурсом запиту.
+
+CEL-вирази мають доступ до [бібліотек функцій Kubernetes CEL](/docs/reference/using-api/cel/#cel-options-language-features-and-libraries), а також:
+
+- `jsonpatch.escapeKey` — Виконує екранування ключів JSONPatch. Символи `~` та `/` екрануються як `~0` та `~1` відповідно.
+
+Доступні тільки назви властивостей виду `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*`.
+
+## Види API, на які не поширюється змінювальний допуск {#api-kinds-exempt-from-mutating-admission}
+
+Існують певні види API, які не підлягають мутації під час надання допуску. Наприклад, ви не можете створити MutatingAdmissionPolicy, яка змінює MutatingAdmissionPolicy.
+
+Такі види конфігурацій допуску не підлягають політикам, створеним через REST API, щоб запобігти циклічним залежностям:
+
+* [ValidatingAdmissionPolicies](/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/)
+* [ValidatingAdmissionPolicyBindings](/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/)
+* MutatingAdmissionPolicies
+* MutatingAdmissionPolicyBindings
+
+{{< note >}}
+Коли налаштовано через [контроль допуску на основі маніфестів](/docs/reference/access-authn-authz/manifest-admission-control/), MutatingAdmissionPolicy може перехоплювати типи конфігурацій допуску, наведені вище. Це обходить обмеження, які зазвичай застосовуються до політик, створених через REST API, дозволяючи змінювати навіть конфігурації допуску та ресурси, що потребують підвищеної безпеки. На відміну від REST API, неправильна політика на основі маніфестів, що перехоплює ці ресурси, не буде незворотною, оскільки вона визначена на диску, а не через API.
+{{< /note >}}
+
+Крім того, такі непостійні (віртуальні) види API автентифікації та авторизації не підлягають жодним політикам допуску, включно з політиками на основі маніфестів, оскільки їх перехоплення могло б заблокувати кластер від власного шляху автентифікації та авторизації:
+
+* [TokenReviews](/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/)
+* [SelfSubjectReviews](/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/)
+* [LocalSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/)
+* [SelfSubjectAccessReviews](/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/)
+* [SelfSubjectRulesReviews](/docs/reference/kubernetes-api/definitions/self-subject-rules-review-v1-authorization/)
+* [SubjectAccessReviews](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/)
+
+Починаючи з Kubernetes v1.37,
+[вебхуки допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources) також типово виключають ці віртуальні ресурси.
