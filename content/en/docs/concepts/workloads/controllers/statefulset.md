@@ -377,7 +377,7 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 
 #### Key Properties
 
-See [ControllerRevision](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) to learn more about key properties and other details. 
+See [ControllerRevision](/docs/reference/kubernetes-api/apps/controller-revision-v1/) to learn more about key properties and other details. 
 
 ---
 

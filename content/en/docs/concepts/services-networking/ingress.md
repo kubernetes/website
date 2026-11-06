@@ -103,7 +103,7 @@ For general information about working with config files, see
 Ingress controllers frequently use [annotations](/docs/concepts/overview/working-with-objects/annotations/) to configure behavior.
 Review the documentation for your choice of ingress controller to learn which annotations are expected and / or supported.
 
-The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
+The [Ingress spec](/docs/reference/kubernetes-api/networking/ingress-v1/#IngressSpec)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
@@ -644,6 +644,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
+* Learn about the [Ingress](/docs/reference/kubernetes-api/networking/ingress-v1/) API
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 
