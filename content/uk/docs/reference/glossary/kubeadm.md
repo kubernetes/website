@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Ви можете використовувати kubeadm для встановлення компонентів як керівного вузла (control-plane nodes), так і {{< glossary_tooltip text="робочих вузлів" term_id="node" >}} (worker nodes).
+Ви можете використовувати kubeadm для встановлення компонентів як вузла панелі управління (control-plane nodes), так і {{< glossary_tooltip text="робочих вузлів" term_id="node" >}} (worker nodes).

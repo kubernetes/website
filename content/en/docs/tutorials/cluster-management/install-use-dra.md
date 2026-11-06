@@ -168,7 +168,7 @@ components individually with `kubectl`.
     {{% code_sample language="yaml" file="dra/driver-install/deviceclass.yaml" %}}
 
     ```shell
-    kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/deviceclass.yaml
+    kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/deviceclass.yaml
     ```
 
 1.  Create the ServiceAccount, ClusterRole and ClusterRoleBinding that will
@@ -180,7 +180,7 @@ components individually with `kubectl`.
         {{% code_sample language="yaml" file="dra/driver-install/serviceaccount.yaml" %}}
 
         ```shell
-        kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/serviceaccount.yaml
+        kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/serviceaccount.yaml
         ```
 
     1.  Create the ClusterRole: 
@@ -188,7 +188,7 @@ components individually with `kubectl`.
         {{% code_sample language="yaml" file="dra/driver-install/clusterrole.yaml" %}}
 
         ```shell
-        kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/clusterrole.yaml
+        kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrole.yaml
         ```
 
     1.  Create the ClusterRoleBinding:
@@ -196,7 +196,7 @@ components individually with `kubectl`.
         {{% code_sample language="yaml" file="dra/driver-install/clusterrolebinding.yaml" %}}
 
         ```shell
-        kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
+        kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
         ```
 
 1.  Create a {{< glossary_tooltip term_id="priority-class" >}} for the DRA
@@ -208,7 +208,7 @@ components individually with `kubectl`.
     {{% code_sample language="yaml" file="dra/driver-install/priorityclass.yaml" %}}
 
     ```shell
-    kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/priorityclass.yaml
+    kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/priorityclass.yaml
     ```
 
 1.  Deploy the actual DRA driver as a DaemonSet configured to run the example
@@ -218,7 +218,7 @@ components individually with `kubectl`.
     {{% code_sample language="yaml" file="dra/driver-install/daemonset.yaml" %}}
 
     ```shell
-    kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/daemonset.yaml
+    kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/daemonset.yaml
     ```
 
     The DaemonSet is configured with the volume mounts necessary to interact with the underlying
@@ -290,7 +290,7 @@ the claim is set to `some-gpu`.
 {{% code_sample language="yaml" file="dra/driver-install/example/resourceclaim.yaml" %}}
 
 ```shell
-kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/example/resourceclaim.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/example/resourceclaim.yaml
 ```
 
 ### Create the Pod that references that ResourceClaim
@@ -304,7 +304,7 @@ underlying container.
 {{% code_sample language="yaml" file="dra/driver-install/example/pod.yaml" %}}
 
 ```shell
-kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/example/pod.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/example/pod.yaml
 ```
 
 Confirm the pod has deployed:

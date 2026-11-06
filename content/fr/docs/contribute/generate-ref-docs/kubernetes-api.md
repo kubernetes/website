@@ -317,7 +317,7 @@ Dans cet exemple, un seul fichier a été modifié.
 Rappelez-vous que vous avez généré les deux `index.html` et `navData.js`.
 Mais apparemment le généré `navata.js` n'est pas différent du `navData.js` c'était déjà dans le dépôt `kubernetes/website`.
 
-Dans `<web-base>` executez `git add` et `git commit` pour enregistrer le commit du changement.
+Dans `<web-base>` exécutez `git add` et `git commit` pour enregistrer le commit du changement.
 
 Soumettez vos modifications en tant que [pull request](/docs/home/contribute/create-pull-request/) au dépôt [kubernetes/website](https://github.com/kubernetes/website).
 Surveillez votre pull request, et répondez aux commentaires des relecteurs au besoin.

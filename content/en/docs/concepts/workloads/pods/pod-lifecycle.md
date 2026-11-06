@@ -388,7 +388,7 @@ restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is ca
 300 seconds (5 minutes). Once a container has executed for 10 minutes without any
 problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
-explains the behaviour of `init containers` when specify `restartPolicy` field on it.
+explains the behaviour of `init containers` when you specify the `restartPolicy` field on it.
 
 #### Individual container restart policy and rules {#container-restart-rules}
 
