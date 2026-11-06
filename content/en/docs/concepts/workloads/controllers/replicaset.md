@@ -312,7 +312,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
   -H "Content-Type: application/json"
 ```
 
-Once the original is deleted, you can create a new ReplicaSet to replace it. As long
+Once the original is deleted, you can create a new ReplicaSet to replace it. As longtion
 as the old and new `.spec.selector` are the same, then the new one will adopt the old Pods.
 However, it will not make any effort to make existing Pods match a new, different pod template.
 To update Pods to a new spec in a controlled way, use a
