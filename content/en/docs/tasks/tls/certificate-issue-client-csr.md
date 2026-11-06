@@ -71,7 +71,7 @@ Encode the CSR document using this command:
 cat myuser.csr | base64 | tr -d "\n"
 ```
 
-Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/certificates/certificate-signing-request-v1/)
 and submit it to a Kubernetes cluster via kubectl. Below is a snippet of shell that you can use to generate the
 CertificateSigningRequest.
 
