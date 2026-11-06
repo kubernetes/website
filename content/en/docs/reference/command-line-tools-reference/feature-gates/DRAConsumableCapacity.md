@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Enables device sharing across multiple ResourceClaims or requests.
 
