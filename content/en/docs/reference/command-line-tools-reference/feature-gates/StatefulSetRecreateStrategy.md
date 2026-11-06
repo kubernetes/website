@@ -9,8 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
-  - stage: beta 
-    defaultValue: true 
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
     fromVersion: "1.38"
 ---
 Enables the `Recreate` update strategy for StatefulSets, which deletes all of a

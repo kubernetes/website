@@ -275,10 +275,10 @@ annotations for the Pods in a StatefulSet. There are three possible values:
 `Recreate`
 : {{< feature-state feature_gate_name="StatefulSetRecreateStrategy" >}}
   The `Recreate` update strategy deletes all of the StatefulSet's Pods before creating new
-  Pods that reflect modifications made to a StatefulSet's `.spec.template`. Using this
-  strategy requires the `StatefulSetRecreateStrategy`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
-  to be enabled. See [Recreate](#recreate) for details.
+  Pods that reflect modifications made to a StatefulSet's `.spec.template`. This
+  strategy is controlled by the `StatefulSetRecreateStrategy`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy),
+  which is enabled by default. See [Recreate](#recreate) for details.
 
 ## Rolling Updates
 
@@ -361,9 +361,10 @@ Pods are created according to that policy: with `OrderedReady` (the default) the
 recreated one at a time, in ascending ordinal order, waiting for each to become Running and
 Ready before creating the next; with `Parallel` all of the Pods are recreated at once.
 
-Because this is an alpha feature, you must enable the `StatefulSetRecreateStrategy`
+This feature is in beta, and the `StatefulSetRecreateStrategy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy)
-on the kube-controller-manager and the kube-apiserver to use this strategy.
+is enabled by default. To turn off this strategy, disable the feature gate on both the
+kube-controller-manager and the kube-apiserver.
 
 ## Revision history
 
