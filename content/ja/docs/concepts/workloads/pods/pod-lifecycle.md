@@ -149,7 +149,7 @@ PodのConditionは、Kubernetesの[label key format](/ja/docs/concepts/overview/
 * Pod内のすべてのコンテナが準備完了している。
 * `ReadinessGates`で指定された条件が全て`True`である。
 
-Podのコンテナは準備完了ですが、少なくとも1つのカスタムのConditionが欠落しているか「False」の場合、kubeletはPodの[Condition](#pod-condition)を`ContainersReady`に設定します。
+Podのコンテナは準備完了ですが、少なくとも1つのカスタムのConditionが欠落しているか「False」の場合、kubeletはPodの[Condition](#pod-conditions)を`ContainersReady`に設定します。
 
 ### PodのネットワークのReadiness {#pod-has-network}
 

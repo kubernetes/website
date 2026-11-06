@@ -36,7 +36,7 @@ Los objetos básicos de Kubernetes incluyen:
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/es/docs/concepts/overview/working-with-objects/namespaces/)
 
-Además, Kubernetes contiene abstracciónes de nivel superior llamadas Controladores. Los Controladores se basan en los objetos básicos y proporcionan funcionalidades adicionales sobre ellos. Incluyen:
+Además, Kubernetes contiene abstracciones de nivel superior llamadas Controladores. Los Controladores se basan en los objetos básicos y proporcionan funcionalidades adicionales sobre ellos. Incluyen:
 
 * [ReplicaSet](/es/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/es/docs/concepts/workloads/controllers/deployment/)

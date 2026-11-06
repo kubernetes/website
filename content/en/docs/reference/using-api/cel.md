@@ -953,7 +953,7 @@ following library of member functions:
   <td>int</td>
   <td>
     Returns a representation of the current value as an <tt>int64</tt> if possible
-    or results in an error if conversion would result in overflowor loss of precision.
+    or results in an error if conversion would result in overflow or loss of precision.
   </td>
 </tr>
 <tr>

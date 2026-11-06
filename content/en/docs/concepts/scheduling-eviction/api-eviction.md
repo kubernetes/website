@@ -23,12 +23,6 @@ You can use a [Kubernetes language client](/docs/tasks/administer-cluster/access
 to access the Kubernetes API and create an `Eviction` object. To do this, you
 POST the attempted operation, similar to the following example:
 
-{{< tabs name="Eviction_example" >}}
-{{% tab name="policy/v1" %}}
-{{< note >}}
-`policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases.
-{{< /note >}}
-
 ```json
 {
   "apiVersion": "policy/v1",
@@ -39,24 +33,6 @@ POST the attempted operation, similar to the following example:
   }
 }
 ```
-{{% /tab %}}
-{{% tab name="policy/v1beta1" %}}
-{{< note >}}
-Deprecated in v1.22 in favor of `policy/v1`
-{{< /note >}}
-
-```json
-{
-  "apiVersion": "policy/v1beta1",
-  "kind": "Eviction",
-  "metadata": {
-    "name": "quux",
-    "namespace": "default"
-  }
-}
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 Alternatively, you can attempt an eviction operation by accessing the API using
 `curl` or `wget`, similar to the following example:
@@ -103,8 +79,8 @@ If the API server allows the eviction, the Pod is deleted as follows:
 
 In some cases, your applications may enter a broken state, where the Eviction
 API will only return `429` or `500` responses until you intervene. This can
-happen if, for example, a ReplicaSet creates pods for your application but new
-pods do not enter a `Ready` state. You may also notice this behavior in cases
+happen if, for example, a ReplicaSet creates Pods for your application but new
+Pods do not enter a `Ready` state. You may also notice this behavior in cases
 where the last evicted Pod had a long termination grace period.
 
 If you notice stuck evictions, try one of the following solutions:

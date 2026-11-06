@@ -89,7 +89,7 @@ nodes, and/or deploy many workloads that heavily utilize DRA defined resource
 claims, the cluster administrator should configure the relevant components to
 anticipate the increased load. 
 
-The effects of mistuned components can have direct or snowballing affects
+The effects of mistuned components can have direct or snowballing effects
 causing different symptoms during the Pod lifecycle. If the `kube-scheduler`
 component's QPS and burst configurations are too low, the scheduler might
 quickly identify a suitable node for a Pod but take longer to bind the Pod to
@@ -133,7 +133,7 @@ high Workqueue Work Duration, this suggests the controller isn't performing
 optimally. Consider tuning parameters like QPS, burst, and CPU/memory
 configurations.
 
-If you are experiencing high Workequeue Add Rate, high Workqueue Depth, but
+If you are experiencing high Workqueue Add Rate, high Workqueue Depth, but
 reasonable Workqueue Work Duration, this indicates the controller is processing
 work, but concurrency might be insufficient. Concurrency is hardcoded in the
 controller, so as a cluster administrator, you can tune for this by reducing the

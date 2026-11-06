@@ -3,7 +3,7 @@ title: Sidecar Container
 id: sidecar-container
 full_link: /docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
-  An auxilliary container that stays running throughout the lifecycle of a Pod.
+  An auxiliary container that stays running throughout the lifecycle of a Pod.
 tags:
 - fundamental
 ---
