@@ -13,6 +13,8 @@ behind one command, with support for both planning an upgrade and actually perfo
 
 <!-- body -->
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ## kubeadm upgrade guidance
 
 The steps for performing an upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
