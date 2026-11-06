@@ -66,8 +66,8 @@ Google is a proud Diamond sponsor of KubeCon EU 2016. Come to London next month,
 -->
 会场地址：CodeNode * 英国伦敦南广场 10 号  
 酒店住宿：[酒店](https://skillsmatter.com/contact-us)  
-网站：[kubecon.io] (https://www.kubecon.io/)  
-推特：[@KubeConio] (https://twitter.com/kubeconio)
+网站：[kubecon.io](https://www.kubecon.io/)
+推特：[@KubeConio](https://twitter.com/kubeconio)
 谷歌是 KubeCon EU 2016 的钻石赞助商。下个月 3 月 10 - 11 号来伦敦，参观 13 号展位，了解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有信息!
 
 <!--
