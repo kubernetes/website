@@ -229,7 +229,7 @@ other = "Esta funcionalidad estable está deshabilitada de forma predeterminada.
 other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión v{{ .stableVersion }}. Estuvo disponible por primera vez en la versión v{{ .firstReleaseWithThisFeature }}. Ya no es posible deshabilitar ni excluirse de esta funcionalidad o comportamiento (está bloqueada); si se establece explícitamente un valor para el <tt>{{ .featureGateName }}</tt> asociado, {{ .kubernetes }} lo ignora sin generar ningún error."""
 
 [feature_gate_removed_after_ga]
-other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stable Version }}. Ya no es posible activar o desactivar esta funcionalidad (el componente <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> asociado ha sido eliminado)."""
+other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stableVersion }}. Ya no es posible activar o desactivar esta funcionalidad (el componente <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> asociado ha sido eliminado)."""
 
 [feature_gate_removed_before_ga_final_version_clear]
 other = """{{ .kubernetes }} ya no incluye esta funcionalidad o comportamiento. La última versión de {{ .kubernetes }} que reconocía el parámetro de control de funcionalidades (feature gate) <tt>{{ .featureGateName }}</tt> fue la {{ .toVersion }}. Ya no es posible modificar dicho ajuste."""
