@@ -52,11 +52,12 @@ kubelet's `/metrics/cadvisor` endpoint has the same signal per container, as
 
 ## Same utilization, different pressure
 
-For the test, I used a kind cluster on a machine with four CPUs. I gave the
-worker node two of them and put the control plane on the other two, so the
-control plane didn't compete with the test workload. The workload is a small
-pod that runs busy loops. Each loop keeps one CPU fully busy whenever it gets
-one. The [appendix](#appendix-reproducing-the-runs) has the full setup.
+For the test, I used a [kind](https://kind.sigs.k8s.io/) cluster on a machine
+with four CPUs. I gave the worker node two of them and put the control plane on
+the other two, so the control plane didn't compete with the test workload. The
+workload is a small pod that runs busy loops. Each loop keeps one CPU fully
+busy whenever it gets one. The [appendix](#appendix-reproducing-the-runs) has
+the full setup.
 
 In each run, I waited 60 seconds for things to settle, then read the node's CPU
 pressure 12 times, 10 seconds apart. The numbers below are the average of those
@@ -221,6 +222,7 @@ don't use it outside a local test cluster.
 
 ```shell
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.8.0/components.yaml
+# See the previous warning about the --kubelet-insecure-tls flag!
 kubectl -n kube-system patch deployment metrics-server --type=json \
   -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
 kubectl -n kube-system rollout status deployment/metrics-server
