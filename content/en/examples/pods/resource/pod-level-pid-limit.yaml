@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pid-demo
+  namespace: pod-resources-example
+spec:
+  resources:
+    limits:
+      pids: "2048"
+  containers:
+  - name: pid-demo-ctr
+    image: registry.k8s.io/pause:3.10
