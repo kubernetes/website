@@ -17,7 +17,7 @@ weight: 70
 * {{< glossary_tooltip text="Вузли" term_id="node" >}}, видалені в таких сценаріях:
   * У хмарі, коли кластер використовує [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/)
   * Локально (на власному обладнанні), коли кластер використовує надбудову, схожу на cloud-controller-manager
-* [Обʼєкти Node Lease](/docs/concepts/architecture/nodes/#heartbeats)
+* [Обʼєкти Node Lease](/docs/concepts/architecture/nodes/#node-heartbeats)
 
 ## Власники та залежності {#owners-dependents}
 
