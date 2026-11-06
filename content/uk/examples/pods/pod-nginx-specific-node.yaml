@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  nodeName: foo-node # призначити Pod на конкретний вузол
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
