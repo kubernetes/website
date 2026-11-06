@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-backoff-limit-per-index-example
+spec:
+  completions: 10
+  parallelism: 3
+  completionMode: Indexed  # потрібно для цієї можливості
+  backoffLimitPerIndex: 1  # максимальна кількість невдач на один індекс
+  maxFailedIndexes: 5      # максимальна кількість невдалих індексів перед припиненням виконання Job
+  template:
+    spec:
+      restartPolicy: Never # потрібно для цієї можливості
+      containers:
+      - name: example
+        image: python
+        command:           # Job завершується невдачею, оскільки є принаймні один невдалий індекс
+                           # (тут усі парні індекси завершуються невдачею), але всі індекси
+                           # виконуються, оскільки maxFailedIndexes не перевищено.
+        - python3
+        - -c
+        - |
+          import os, sys
+          print("Hello world")
+          if int(os.environ.get("JOB_COMPLETION_INDEX")) % 2 == 0:
+            sys.exit(1)
