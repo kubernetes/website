@@ -60,6 +60,9 @@ To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `
 
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 
+The `InPlacePodVerticalScalingExclusiveCPUs`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodVerticalScalingExclusiveCPUS)
+must be enabled to resize in-place Guaranteed QoS Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/).
+
 ## Pod resize status
 
 The Kubelet updates the Pod's status conditions to indicate the state of a resize request:
