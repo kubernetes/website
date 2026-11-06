@@ -724,7 +724,7 @@ RBDの特徴として、複数のコンシューマーから同時に読み取�
 
 * Ceph CSIドライバー(`rbd.csi.ceph.com`)v3.5.0以降をKubernetesクラスターにインストールする必要があります。
 * CSIドライバーの動作に必要なパラメーターとして`clusterID`フィールドがありますが、ツリー内StorageClassには`monitors`フィールドがあるため、Kubernetesストレージ管理者はCSI config mapでモニターハッシュ(例：`#echo -n '<monitors_string>' | md5sum`)に基づいたclusterIDを作成し、モニターをこのclusterID設定の下に保持しなければなりません。
-* また、ツリー内Storageclassの`adminId`の値が`admin`と異なる場合、ツリー内Storageclassに記載されている`adminSecretName`に`adminId`パラメーター値のbase64値をパッチしなければなりませんが、それ以外はスキップすることが可能です。
+* また、ツリー内StorageClassの`adminId`の値が`admin`と異なる場合、ツリー内StorageClassに記載されている`adminSecretName`に`adminId`パラメーター値のbase64値をパッチしなければなりませんが、それ以外はスキップすることが可能です。
 {{< /note >}}
 
 ### secret
