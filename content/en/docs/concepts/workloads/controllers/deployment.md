@@ -656,6 +656,35 @@ The output is similar to this:
 deployment.apps/nginx-deployment scaled
 ```
 
+{{< alert color="info" title="Note" >}}
+When the
+[`WorkloadWithDeployment`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled and a Deployment uses
+[gang scheduling](#automatic-podgroup-management), the gang size follows
+`schedulingPolicy.gang.minCount`, or `.spec.replicas` when `minCount` is unset.
+
+The gang size can be changed in two ways:
+
+- Set, update, or unset `.spec.scheduling.schedulingPolicy.gang.minCount`.
+- Change `.spec.replicas` when `minCount` is unset.
+
+The Deployment controller updates the Workload template, and the ReplicaSet
+controller reconciles the PodGroup's minimum count before managing Pods.
+For positive replica counts, updates apply to future scheduling cycles without
+recreating the PodGroup or evicting running Pods. Additional Pods remain Pending
+if scheduling requirements cannot be met.
+
+For a positive replica count, `gang.minCount` must not exceed `.spec.replicas`.
+An explicit `minCount` therefore acts as a minimum for manual scaling and
+horizontal Pod autoscaling. Leaving `minCount` unset allows the gang size to
+follow the replica count.
+
+Scaling to zero is allowed with an explicit `minCount`. The Workload retains
+the explicit value, or 1 when unset, while the PodGroup is deleted. Scaling above
+zero recreates the PodGroup before creating Pods. A positive replica count below
+an explicit `minCount` is rejected.
+{{< /alert >}}
+
 ### Proportional scaling
 
 RollingUpdate Deployments support running multiple versions of an application at the same time. When you
@@ -1106,6 +1135,141 @@ can create multiple Deployments, one for each release, following the canary patt
 [managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
 To learn what's involved, follow the [Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/) tutorial.
+
+## Automatic PodGroup management
+
+{{< feature-state feature_gate_name="WorkloadWithDeployment" >}}
+
+When the
+[`WorkloadWithDeployment`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled, the Deployment controller compiles a Deployment's
+`.spec.scheduling` configuration into a
+[Workload](/docs/concepts/workloads/workload-api/).
+The ReplicaSet controller creates a
+[PodGroup](/docs/concepts/workloads/podgroup-api/) for each active ReplicaSet
+revision before creating its Pods. This supports explicit scheduling intent
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/),
+topology co-location, and disruption behavior.
+
+This feature requires the `GenericWorkload` feature gate. Topology co-location
+additionally requires the `TopologyAwareWorkloadScheduling` feature gate.
+
+When `.spec.scheduling` is omitted, the controllers do not create Workload or
+PodGroup objects, and the Deployment uses standard pod-by-pod scheduling.
+
+### Scheduling configuration
+
+The `.spec.scheduling` field accepts the following fields:
+
+- `schedulingPolicy`: when specified, exactly one of `basic` or `gang` must be
+  set. When omitted within a configured `.spec.scheduling`, the policy defaults
+  to basic. With gang scheduling, `minCount` specifies the minimum number of Pods
+  that must be schedulable together. For a positive replica count, an omitted
+  `gang.minCount` defaults to the Deployment's `.spec.replicas`. See
+  [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
+- `schedulingConstraints`:
+  [topology](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
+  co-location constraints for the Deployment's Pods.
+- `disruptionMode`: whether scheduler preemption disrupts Pods individually
+  (`single`) or as a group (`all`). See
+  [disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
+- `resourceClaims`: dynamic resource claims shared across the Pods in each
+  PodGroup.
+
+All `.spec.scheduling` fields are immutable after the Deployment is created,
+except for `schedulingPolicy.gang.minCount`, which can be set, updated, or unset
+to change the gang size. The `.spec.scheduling` field cannot be added or removed
+after creation.
+
+### Gang scheduling example {#example-gang-scheduling}
+
+The following Deployment requests gang scheduling for its 3 Pods, co-located
+within a single zone, and disrupted together:
+
+{{% code_sample file="controllers/deployment-gang-scheduling.yaml" %}}
+
+For the Alpha release, gang-scheduled Deployments require the Recreate deployment
+strategy. The API server rejects the RollingUpdate strategy for Deployments that
+use gang scheduling.
+
+When the Deployment and ReplicaSet controllers process this Deployment, they:
+
+1. Create a [Workload](/docs/concepts/workloads/workload-api/) object in the same
+   namespace, containing a `podGroupTemplate` compiled from `.spec.scheduling`
+   (here, a [gang policy](/docs/concepts/workloads/workload-api/policies/) with
+   `minCount: 3`).
+1. Create a ReplicaSet for the Deployment revision.
+1. Create a PodGroup object from that template. The PodGroup is the runtime
+   scheduling unit and carries an inline copy of the policy.
+1. Create Pods with `.spec.schedulingGroup.podGroupName` set to the PodGroup's
+   name, linking each Pod to its scheduling group.
+
+The Workload is owned by the Deployment and retained across rollouts. Each
+PodGroup is owned by its ReplicaSet and carries a non-controller owner reference
+to the Workload. Each ReplicaSet revision has an independent scheduling context.
+Deleting the Deployment removes its Workload, ReplicaSets, PodGroups, and Pods
+through controller cleanup and garbage collection.
+
+### Default scheduling example {#example-default-scheduling}
+
+A Deployment that omits `.spec.scheduling` uses standard pod-by-pod scheduling:
+the Deployment creates a ReplicaSet defining all the expected Pods, the
+ReplicaSet creates Pods, and the scheduler only considers one new Pod at a time
+when deciding where it should run. No Workload or PodGroup objects are created.
+
+The following Deployment uses this default behavior:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 3
+  # .spec.scheduling omitted → no Workload or PodGroup objects are created.
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: web-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: web-server
+    spec:
+      containers:
+      - name: server
+        image: server-image:v1
+```
+
+Setting `.spec.scheduling: {}` instead defaults to the basic scheduling policy.
+In this case, the controllers create Workload and PodGroup objects, but do not
+enforce a gang minimum count.
+
+### Limitations for Alpha release {#workload-integration-limitations}
+
+- Each active ReplicaSet maps to exactly one PodGroup. A `gang.minCount` lower
+  than `.spec.replicas` does not split the replicas into multiple independently
+  scheduled PodGroups.
+- Gang scheduling requires the Recreate deployment strategy. RollingUpdate with
+  gang scheduling is rejected.
+- Only `schedulingPolicy.gang.minCount` is mutable. All other `.spec.scheduling`
+  fields are immutable after creation.
+- Controller-managed scheduling does not support externally managed Workload or
+  PodGroup objects. Setting `.spec.scheduling` together with
+  `.spec.template.spec.schedulingGroup` is rejected.
+- Topology binding is fixed for the lifetime of a PodGroup. Replacement Pods can
+  remain Pending if the selected topology domain lacks capacity, even when
+  capacity is available in another domain.
+- `disruptionMode` only affects scheduler preemption, not voluntary evictions
+  through the eviction API. PodDisruptionBudgets are enforced independently
+  during voluntary evictions and do not block Recreate rollouts or
+  controller-driven scaling.
+- Shared resource claims require the `DRAWorkloadResourceClaims` feature gate.
+  When this gate is disabled, `.spec.scheduling.resourceClaims` is retained on
+  the Deployment but stripped from the PodGroup by the API server.
+- Disabling `WorkloadWithDeployment` while scheduling-enabled Deployments have
+  running Pods can result in a mixture of Pods with and without scheduling-group
+  references. After the gate is re-enabled, recovery can require recreating the
+  inconsistent Pods or their ReplicaSet.
 
 ## Writing a Deployment Spec
 
