@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.38: Updates to Container Lifecycle"
-date: 2026-11-05T10:30:00-08:00
+draft: true
 slug: kubernetes-v1-38-updates-to-container-lifecycle
 author: >
   Sreeram Venkitesh (DigitalOcean)
