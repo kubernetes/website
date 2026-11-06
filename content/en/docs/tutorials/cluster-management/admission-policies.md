@@ -369,8 +369,8 @@ After you change it, try creating one more namespace. What happens?
 To remove the resources created, run the following commands:
 
 ```bash
-kubectl delete validatingadmissionpolices/enforce-multiple-replicas-deployments \
-               validatingadmissionpolicybindings/enforce-multiple-replicas-deployments
+kubectl delete validatingadmissionpolicies/enforce-multiple-replicas-deployments \
+               validatingadmissionpolicybindings/enforce-multiple-replicas-deployments-binding
 
 kubectl delete mutatingadmissionpolicies/default-pod-security-baseline \
                mutatingadmissionpolicybindings/default-pod-security-baseline
