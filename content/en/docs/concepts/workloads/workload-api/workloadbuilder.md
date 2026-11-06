@@ -8,6 +8,8 @@ description: >-
 weight: 40
 ---
 
+<!-- placeholder for KEP-6089 v1.38 Beta -->
+
 <!-- overview -->
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
