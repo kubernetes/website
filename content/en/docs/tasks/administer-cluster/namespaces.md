@@ -38,7 +38,7 @@ kube-system       Active   11d
 Kubernetes starts with four initial namespaces:
 
 * `default` The default namespace for objects with no other namespace
-* `kube-node-lease` This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
+* `kube-node-lease` This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#node-heartbeats) so that the control plane can detect node failure.
 * `kube-public` This namespace is created automatically and is readable by all users
   (including those not authenticated). This namespace is mostly reserved for cluster usage,
   in case that some resources should be visible and readable publicly throughout the whole cluster.

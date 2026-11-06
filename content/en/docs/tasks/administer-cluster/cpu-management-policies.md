@@ -26,7 +26,7 @@ For detailed information on resource management, please refer to the
 documentation.
 
 For detailed information on how the kubelet implements resource management, please refer to the
-[Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+[Node ResourceManagers](/docs/concepts/resource-management/resource-managers/) documentation.
 
 ## {{% heading "prerequisites" %}}
 
@@ -65,8 +65,8 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 
-* [`none`](#none-policy): the default policy.
-* [`static`](#static-policy): allows pods with certain resource characteristics to be
+* [`none`](#none-policy-configuration): the default policy.
+* [`static`](#static-policy-configuration): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 
 The CPU manager periodically writes resource updates through the CRI in
@@ -183,7 +183,7 @@ incompatible options are used, the kubelet will fail to start with the error
 explained in the logs.
 
 For mode detail about the behavior of the individual options you can configure, please refer to the
-[Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+[Node ResourceManagers](/docs/concepts/resource-management/resource-managers/) documentation.
 
 ## {{% heading "whatsnext" %}}
 
