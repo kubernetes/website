@@ -212,12 +212,19 @@ can be fetched, scaling is skipped. This means that the HPA is still capable
 of scaling up if one or more metrics give a `desiredReplicas` greater than
 the current value.
 
-Finally, right before HPA scales the target, the scale recommendation is recorded. The
-controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. You can configure this value using the
+Finally, right before HPA scales the target,
+the scale recommendation is recorded.
+When scaling down, the controller considers all recommendations within a
+configurable window choosing the highest recommendation from within that window.
+You can configure this value using the
 `--horizontal-pod-autoscaler-downscale-stabilization` command line option, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
+
+To stabilize scaling up, set `behavior.scaleUp.stabilizationWindowSeconds`
+to a value greater than zero. The controller then uses the lowest
+recommendation from within that window.
+For details, see [Stabilization window](#stabilization-window).
 
 ## Pod readiness and autoscaling metrics
 
@@ -479,13 +486,18 @@ The stabilization window is used to restrict the [flapping](#flapping) of
 replica count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
 uses this window to infer a previous desired state and avoid unwanted changes to workload
 scale.
+You can set a separate stabilization window for scaling up and for scaling
+down, and the algorithm uses the window differently for each direction.
 
-For example, in the following example snippet, a stabilization window is specified for `scaleDown`.
+The following example configures a separate stabilization window for
+`scaleDown` and for `scaleUp`.
 
 ```yaml
 behavior:
   scaleDown:
     stabilizationWindowSeconds: 300
+  scaleUp:
+    stabilizationWindowSeconds: 60
 ```
 
 When the metrics indicate that the target should be scaled down the algorithm looks
@@ -494,6 +506,14 @@ interval. In the above example, all desired states from the past 5 minutes will 
 
 This approximates a rolling maximum, and avoids having the scaling algorithm frequently
 remove Pods only to trigger recreating an equivalent Pod just moments later.
+
+When the metrics indicate that the target should be scaled up, the algorithm
+uses the lowest value from the scale-up window instead. In the above example,
+the algorithm considers all desired states from the past 60 seconds, including
+the current one.
+
+This approximates a rolling minimum, and helps avoid scaling up in response to
+brief spikes in the metrics.
 
 ### Tolerance {#tolerance}
 
