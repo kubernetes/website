@@ -261,7 +261,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * A simple example of how to use the Java API from an application outside a kubernetes cluster
+ * A simple example of how to use the Java API from an application outside a Kubernetes cluster
  *
  * <p>Easiest way to run this: mvn exec:java
  * -Dexec.mainClass="io.kubernetes.client.examples.KubeConfigFileClientExample"
