@@ -128,6 +128,12 @@
   }
 }
 
+// Right-align the theme-switcher menu to its toggle, like the language menu.
+.td-navbar .td-light-dark-menu .dropdown-menu[data-bs-popper] {
+  right: 0;
+  left: auto;
+}
+
 .td-light-dark-menu .td-locked-theme {
   position: relative;
 }
