@@ -117,7 +117,7 @@ providing additional services.
 Sidecar containers run concurrently with the main application container. They are active
 throughout the lifecycle of the pod and can be started and stopped independently of the
 main container. Unlike [init containers](/docs/concepts/workloads/pods/init-containers/),
-sidecar containers support [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+sidecar containers support [probes](/docs/concepts/workloads/pods/probes/#types-of-probe) to control their lifecycle.
 
 Sidecar containers can interact directly with the main application containers, because
 like init containers they always share the same network, and can optionally also share
@@ -167,5 +167,5 @@ request and limit, the same as the scheduler.
 * Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
-* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* Learn about the [types of probes](/docs/concepts/workloads/pods/probes/#types-of-probe): liveness, readiness, startup probe.
 * Learn about [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
