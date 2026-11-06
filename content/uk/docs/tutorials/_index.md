@@ -16,7 +16,7 @@ content_type: concept
 
 * [Основи Kubernetes](/docs/tutorials/kubernetes-basics/) — детальний інтерактивний навчальний посібник, що допоможе вам зрозуміти систему Kubernetes і спробувати деякі базові функції Kubernetes.
 * [Вступ до Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-* [Привіт Minikube](/docs/tutorials/hello-minikube/)
+* [Привіт Minikube](/uk/docs/tutorials/hello-minikube/)
 
 ## Налаштування {#configuration}
 
