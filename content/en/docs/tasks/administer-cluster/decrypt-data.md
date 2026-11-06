@@ -86,7 +86,7 @@ other API kinds, adjust the steps to match.
 First, find the API server configuration files. On each control plane node, static Pod manifest
 for the kube-apiserver specifies a command line argument, `--encryption-provider-config`.
 You are likely to find that this file is mounted into the static Pod using a
-[`hostPath`](/docs/concepts/storage/volumes/#hostpath) volume mount. Once you locate the volume
+[`hostPath`](/docs/reference/storage/volume-types/#hostpath) volume mount. Once you locate the volume
 you can find the file on the node filesystem and inspect it.
 
 ### Configure the API server to decrypt objects

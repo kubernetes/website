@@ -148,7 +148,7 @@ control plane components.
   When possible, restrict this access to the `root` user.
 - Isolate the kubelet from other components running on the node, using
   mechanisms such as Linux kernel namespaces.
-- Ensure that you restrict or forbid the use of [`hostPath` mounts](/docs/concepts/storage/volumes/#hostpath)
+- Ensure that you restrict or forbid the use of [`hostPath` mounts](/docs/reference/storage/volume-types/#hostpath)
   that include the container runtime socket, either directly or by mounting a parent
   directory. Also `hostPath` mounts must be set as read-only to mitigate risks
   of attackers bypassing directory restrictions.
