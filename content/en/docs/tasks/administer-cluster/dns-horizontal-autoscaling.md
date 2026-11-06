@@ -79,7 +79,7 @@ CoreDNS is the default DNS service for Kubernetes. CoreDNS sets the label
 kube-dns.
 {{< /note >}}
 
-## Enable DNS horizontal autoscaling {#enablng-dns-horizontal-autoscaling}
+## Enable DNS horizontal autoscaling {#enabling-dns-horizontal-autoscaling}
 
 In this section, you create a new Deployment. The Pods in the Deployment run a
 container based on the `cluster-proportional-autoscaler-amd64` image.

@@ -66,7 +66,7 @@ Le RuntimeHandler doit être un sous-domaine DNS valide selon la norme RFC 1123 
 #### 4. Créer les ressources RuntimeClass correspondantes
 
 Les configurations effectuées à l'étape 3 doivent chacune avoir un nom `RuntimeHandler` associé, qui
-identifie la configuration. Pour chaque RuntimeHandler (et optionellement les handlers vides `""`),
+identifie la configuration. Pour chaque RuntimeHandler (et optionnellement les handlers vides `""`),
 créez un objet RuntimeClass correspondant.
 
 La ressource RuntimeClass ne contient actuellement que 2 champs significatifs: le nom RuntimeClass
@@ -85,7 +85,7 @@ spec:
 
 {{< note >}}
 Il est recommandé de limiter les opérations d'écriture sur la RuntimeClass (create/update/patch/delete) à
-l'administrateur du cluster. C'est la configuration par défault. Voir [Vue d'ensemble d'autorisation](/docs/reference/access-authn-authz/authorization/) pour plus de détails.
+l'administrateur du cluster. C'est la configuration par défaut. Voir [Vue d'ensemble d'autorisation](/docs/reference/access-authn-authz/authorization/) pour plus de détails.
 {{< /note >}}
 
 ### Usage
