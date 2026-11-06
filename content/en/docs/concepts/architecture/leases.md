@@ -47,6 +47,20 @@ the `kube-controller-manager` actively releases its leader election lock during
 leader transitions, rather than waiting for the lock's TTL to expire. This allows
 a new leader to be elected more quickly, reducing leader transition latency.
 
+### Leader election recovery
+
+{{< feature-state feature_gate_name="LeaderElectionRecovery" >}}
+
+<!-- TODO(KEP-6361): placeholder; to be completed before the v1.38 docs deadline. -->
+
+When the `LeaderElectionRecovery` feature gate is enabled, the `kube-controller-manager`
+and `cloud-controller-manager` do not exit if they fail to renew their leader election
+Lease, for example while the API server or etcd is unavailable. Instead, they block
+write requests from their controllers and keep trying to renew the Lease. If a renewal
+succeeds, writes resume without a restart, and the existing informer caches are reused.
+If another instance takes over the Lease, or the `--leader-elect-recovery-deadline`
+passes, the component exits as it does today.
+
 ## API server identity
 
 {{< feature-state feature_gate_name="APIServerIdentity" >}}
