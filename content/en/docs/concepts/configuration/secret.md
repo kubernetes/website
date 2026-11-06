@@ -634,8 +634,11 @@ You can also update any existing mutable Secret to make it immutable.
 {{< note >}}
 Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
 nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
-Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods.
+
+If you need different data, prefer a new name and point new Pods at that object.
+Reusing the same name is only safe after every existing reference to the old
+object (not only Pods) has gone away. Existing Pods keep a mount to the deleted
+Secret; recreate those Pods as well.
 {{< /note >}}
 
 ## Information security for Secrets
