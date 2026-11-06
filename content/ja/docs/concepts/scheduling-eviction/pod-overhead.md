@@ -144,7 +144,7 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 
 ### Observability
 
-Podのオーバヘッドが利用されているタイミングを特定し、定義されたオーバーヘッドで実行されているワークロードの安定性を観察するため、[kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)には`kube_pod_overhead`というメトリクスが用意されています。この機能はv1.9のkube-state-metricsでは利用できませんが、次のリリースで期待されています。それまでは、kube-state-metricsをソースからビルドする必要があります。
+Podのオーバーヘッドが利用されているタイミングを特定し、定義されたオーバーヘッドで実行されているワークロードの安定性を観察するため、[kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)には`kube_pod_overhead`というメトリクスが用意されています。この機能はv1.9のkube-state-metricsでは利用できませんが、次のリリースで期待されています。それまでは、kube-state-metricsをソースからビルドする必要があります。
 
 
 
