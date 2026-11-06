@@ -18,5 +18,8 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.38"
+
+removed: true
 ---
 Track IP address allocations for Service cluster IPs using IPAddress objects.

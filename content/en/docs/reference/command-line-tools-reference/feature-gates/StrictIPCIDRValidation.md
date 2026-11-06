@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.38"
 ---
 Use stricter validation for fields containing IP addresses and CIDR values.
 
