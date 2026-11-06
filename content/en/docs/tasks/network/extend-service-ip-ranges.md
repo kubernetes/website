@@ -134,10 +134,12 @@ for i in $(seq 13 16); do kubectl create service clusterip "test-$i" --tcp 80 -o
 
 ### Deleting a ServiceCIDR
 
-You cannot delete a ServiceCIDR if there are IPAddresses that depend on the ServiceCIDR.
+A ServiceCIDR cannot finish deletion while IPAddresses still depend on it.
+Request deletion without waiting so that you can inspect the finalizer and
+remove the dependent Services in the following steps:
 
 ```sh
-kubectl delete servicecidr newcidr1
+kubectl delete servicecidr newcidr1 --wait=false
 ```
 
 ```
