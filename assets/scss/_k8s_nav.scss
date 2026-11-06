@@ -21,10 +21,6 @@
   }
 
   .navbar-brand {
-    @include media-breakpoint-down(sm) {
-      margin-inline-start: auto;
-    }
-
     svg {
       height: 38px;
     }
@@ -76,6 +72,9 @@
     top: 20%;
     z-index: 5;
   }
+  .navbar-brand {
+      align-self: flex-start;
+    }
 }
 }
 
@@ -156,6 +155,10 @@
 }
 
 /* Small/Mobile viewport nav menu */
+
+body.pushmenu-open {
+  overflow: hidden;
+}
 
 .pi-pushmenu {
   display: none;
