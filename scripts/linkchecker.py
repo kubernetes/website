@@ -46,6 +46,7 @@ import glob
 import os
 import re
 import sys
+from collections import namedtuple
 
 # These are the bad links that doesn't hurt, though good to fix
 BAD_LINK_TYPES = {
@@ -81,8 +82,17 @@ LANG = None
 RESULT = {}
 # Cached redirect entries
 REDIRECTS = {}
+# Simple, unconditional redirect entries used by optional validation
+VALIDATION_REDIRECTS = {}
+REDIRECT_RULES = []
+# Duplicate redirect sources, recorded as (first rule, duplicate rule)
+REDIRECT_DUPLICATES = []
 # Cached anchors in target pages
 ANCHORS = {}
+
+RedirectRule = namedtuple(
+    "RedirectRule", ["source", "target", "status", "line"]
+)
 
 
 def new_record(level, message, target):
@@ -217,36 +227,165 @@ def check_file_exists(base, path, ftype="markdown"):
     return False
 
 
+def normalize_redirect_path(path):
+    """Normalize a path for exact matching in the redirect table."""
+    path = path.split("#", 1)[0]
+    if not path.endswith("/"):
+        path += "/"
+    return path
+
+
+def is_simple_redirect_path(path):
+    """Return True for an exact internal path without special syntax."""
+    return (path.startswith("/") and
+            not path.startswith("//") and
+            "*" not in path and
+            ":" not in path)
+
+
+def is_external_url(path):
+    """Return True for HTTP(S) redirect targets."""
+    return path.startswith("http://") or path.startswith("https://")
+
+
 def get_redirect(path):
-    """Check if the path exists in the redirect database.
+    """Return the final redirect target, or None for no match or a cycle."""
+    target = normalize_redirect_path(path)
+    visited = set()
+    last_target = None
 
-    NOTE: We do NOT check if the redirect target is there or not. We do an
-    **exact** matching for redirection entries.
-    :returns: The redirect target if any, or None if not found.
-    """
-    global REDIRECTS
-
-    def _check_redirect(t):
-        for key, value in REDIRECTS.items():
-            if key == t:  # EXACT MATCH
-                return value
-        return None
-
-    # NOTE: anchor is ignored, can be a future todo
-    parts = path.split("#")
-    target = parts[0]
-    if not target.endswith("/"):
-        target += "/"
-
-    new_target = _check_redirect(target)
-    last_target = new_target
-    while new_target:
-        new_target = _check_redirect(new_target)
-        if new_target is None:
-            break
-        last_target = new_target
+    while target in REDIRECTS:
+        if target in visited:
+            return None
+        visited.add(target)
+        last_target = REDIRECTS[target]
+        if is_external_url(last_target):
+            return last_target
+        target = normalize_redirect_path(last_target)
 
     return last_target
+
+
+def parse_redirects(content):
+    """Load redirects and collect exact 3xx rules for validation."""
+    global REDIRECTS, VALIDATION_REDIRECTS
+    global REDIRECT_RULES, REDIRECT_DUPLICATES
+
+    REDIRECTS = {}
+    VALIDATION_REDIRECTS = {}
+    REDIRECT_RULES = []
+    REDIRECT_DUPLICATES = []
+
+    for line_number, item in enumerate(content, start=1):
+        parts = item.split()
+        if len(parts) < 2 or item.lstrip().startswith("#"):
+            continue
+
+        source = parts[0]
+        target = parts[1]
+
+        # Preserve the existing lookup behavior used by Markdown link checks.
+        REDIRECTS[normalize_redirect_path(source)] = target
+
+        # Validate only simple, unconditional 3xx rules. Rules with wildcards,
+        # placeholders, rewrites, or conditions are outside this first scope.
+        if len(parts) > 3:
+            continue
+        status = parts[2] if len(parts) == 3 else "301"
+        if not re.fullmatch(r"30[12378]!?", status):
+            continue
+        if not is_simple_redirect_path(source):
+            continue
+        if not (is_simple_redirect_path(target) or is_external_url(target)):
+            continue
+
+        rule = RedirectRule(source, target, status, line_number)
+        key = normalize_redirect_path(source)
+        if key in VALIDATION_REDIRECTS:
+            REDIRECT_DUPLICATES.append((VALIDATION_REDIRECTS[key], rule))
+            continue
+        VALIDATION_REDIRECTS[key] = rule
+        REDIRECT_RULES.append(rule)
+
+
+def resolve_validation_redirect(path):
+    """Resolve a chain made only from simple redirect rules."""
+    target = path.split("#", 1)[0]
+    chain = [target]
+    visited = set()
+
+    while True:
+        key = normalize_redirect_path(target)
+        if key in visited:
+            return chain, True
+        rule = VALIDATION_REDIRECTS.get(key)
+        if rule is None:
+            return chain, False
+        visited.add(key)
+        target = rule.target
+        chain.append(target)
+        if is_external_url(target):
+            return chain, False
+
+
+def redirect_target_exists(path):
+    """Check targets that map unambiguously to documentation content."""
+    path = path.split("#", 1)[0].split("?", 1)[0]
+    if path.startswith("/docs/"):
+        if ("/docs/reference/generated/kubectl/" in path or
+                "/docs/reference/generated/kubernetes-api/" in path):
+            return check_file_exists(ROOT + "/static", path, "html")
+        base = os.path.join(ROOT, "content", "en")
+        return (check_file_exists(base, path) or
+                check_file_exists(base, path, "html"))
+    if re.match(r"^/[^/]+/docs/", path):
+        base = os.path.join(ROOT, "content")
+        return (check_file_exists(base, path) or
+                check_file_exists(base, path, "html"))
+    return None
+
+
+def validate_redirects():
+    """Warn about simple duplicate, chained, cyclic, or dangling redirects."""
+    records = []
+
+    for first, duplicate in REDIRECT_DUPLICATES:
+        if (first.target == duplicate.target and
+                first.status == duplicate.status):
+            detail = ("Duplicate redirect source at line %d; first declared "
+                      "at line %d" % (duplicate.line, first.line))
+        else:
+            detail = ("Conflicting redirect source at line %d; first declared "
+                      "at line %d (%s -> %s)" %
+                      (duplicate.line, first.line, first.source, first.target))
+        records.append(new_record("WARNING", detail, duplicate.source))
+
+    reported_cycles = set()
+    for rule in REDIRECT_RULES:
+        chain, cycle = resolve_validation_redirect(rule.source)
+        if cycle:
+            cycle_key = frozenset(normalize_redirect_path(path)
+                                  for path in chain)
+            if cycle_key not in reported_cycles:
+                records.append(new_record(
+                    "WARNING", "Potential redirect cycle: " +
+                    " -> ".join(chain), rule.source))
+                reported_cycles.add(cycle_key)
+            continue
+
+        if len(chain) > 2:
+            records.append(new_record(
+                "WARNING", "Declared redirect chain: " +
+                " -> ".join(chain), rule.source))
+
+        target_exists = redirect_target_exists(chain[-1])
+        if target_exists is False:
+            records.append(new_record(
+                "WARNING", "Redirect target does not match a content file; "
+                "verify whether it is generated or an alias: " + chain[-1],
+                rule.source))
+
+    return records
 
 
 def check_target(page, anchor, target):
@@ -483,13 +622,16 @@ def parse_arguments():
     PARSER.add_argument("-w", dest="in_place_edit", action="store_true",
                         help="[EXPERIMENTAL] Turns on in-place replacement "
                              "for localized content.")
+    PARSER.add_argument("--check-redirects", action="store_true",
+                        help=("Warn about duplicate and potentially chained, "
+                              "cyclic, or dangling simple redirect rules."))
 
     return PARSER.parse_args()
 
 
 def main():
     """The main entry of the program."""
-    global ARGS, ROOT, REDIRECTS, PARSER, LANG
+    global ARGS, ROOT, PARSER, LANG
 
     ARGS = parse_arguments()
     ROOT = os.path.join(os.path.dirname(__file__), '..')
@@ -502,29 +644,25 @@ def main():
               "'content/zh-cn/docs/concepts/**/*.md'\n")
         PARSER.print_help()
         sys.exit(-1)
-
     LANG = parts[1]
 
     # read redirects data
     redirects_fn = os.path.join(ROOT, "static", "_redirects.base")
+    if ARGS.check_redirects:
+        print("Redirect rules: " + os.path.normpath(redirects_fn))
     try:
         with open(redirects_fn, "r") as f:
             data = f.readlines()
-        for item in data:
-            parts = item.split()
-            # There are entries without 301 specified
-            if len(parts) < 2:
-                continue
-            entry = parts[0]
-            # There are some entries not ended with "/"
-            if entry.endswith("/"):
-                REDIRECTS[entry] = parts[1]
-            else:
-                REDIRECTS[entry + "/"] = parts[1]
+        parse_redirects(data)
 
     except Exception as ex:
         print("[Error] failed in reading redirects file: " + str(ex))
         return
+
+    if ARGS.check_redirects:
+        redirect_records = validate_redirects()
+        if redirect_records:
+            RESULT[redirects_fn] = redirect_records
 
     folders = [f for f in glob.glob(ARGS.filter, recursive=True)]
     for page in folders:

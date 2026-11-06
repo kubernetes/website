@@ -167,6 +167,38 @@ This a link checker for Kubernetes documentation website.
   available. This is an experimental feature and aims to reduce the amount of
   work required to update links to point to localized content. It currently
   works for Markdown files only.
+- Use `--check-redirects` to also warn about duplicate and potentially chained,
+  cyclic, or dangling simple redirect rules in `static/_redirects.base`. These
+  warnings do not change the exit status.
+
+The two options have different scopes:
+
+- Use `-f` to limit the Markdown link check to the document or glob you are
+  working on. For example, use it after editing a single documentation page to
+  find links that point to an old URL covered by a declared redirect.
+- Use `--check-redirects` to inspect all simple redirect rules in
+  `static/_redirects.base`. It is a repository-wide check; `-f` does not limit
+  which redirect rules are inspected.
+
+For example:
+
+```shell
+# Check Markdown links in a documentation file you changed
+./scripts/linkchecker.py -n \
+  -f 'content/<lang>/docs/<path-to-file>.md'
+
+# Check declared simple redirect rules
+./scripts/linkchecker.py -n --check-redirects
+```
+
+The redirect validator intentionally skips wildcard, placeholder, conditional,
+rewrite, and custom response rules. Validation of the generated `_redirects`
+file and deployment-specific behavior is outside this initial scope. Because
+Hugo aliases and generated pages are not evaluated, target warnings require
+manual confirmation.
+
+This does not replace `make container-internal-linkcheck`, which uses htmltest
+for broader validation of links in the rendered English website.
 ```
 
 Usage: linkchecker.py -h
