@@ -12,7 +12,7 @@ card:
 SIG Docsは、Kubernetesプロジェクト内の 
 [special interest groups](https://github.com/kubernetes/community/blob/main/sig-list.md)の1つであり、
 Kubernetes全体のドキュメントの作成、更新、および保守に重点を置いています。 
-SIGの詳細については、[SIG DocsのGithubリポジトリ](https://github.com/kubernetes/community/tree/main/sig-docs)を参照してください。
+SIGの詳細については、[SIG DocsのGitHubリポジトリ](https://github.com/kubernetes/community/tree/main/sig-docs)を参照してください。
 
 SIG Docsは、すべての寄稿者からのコンテンツとレビューを歓迎します。
 誰でもPull Request(PR)を開くことができ、コンテンツに関するissueを提出したり、進行中のPull Requestにコメントしたりできます。
@@ -67,7 +67,7 @@ Kubernetesプロジェクトは、GitHubのissueとPull Requestに関連する�
 - blunderbuss
 - approve
 
-これらの2つのプラグインは`kubernetes.website`のGithubリポジトリのトップレベルにある
+これらの2つのプラグインは`kubernetes.website`のGitHubリポジトリのトップレベルにある
 [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)ファイルと、
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)ファイルを使用して、
 リポジトリ内でのprowの動作を制御します。
