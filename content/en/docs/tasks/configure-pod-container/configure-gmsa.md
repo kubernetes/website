@@ -9,7 +9,7 @@ weight: 30
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 This page shows how to configure
-[Group Managed Service Accounts](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA)
+[Group Managed Service Accounts](https://learn.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA)
 for Pods and containers that will run on Windows nodes. Group Managed Service Accounts
 are a specific type of Active Directory account that provides automatic password management,
 simplified service principal name (SPN) management, and the ability to delegate the management
@@ -69,10 +69,10 @@ manually (with appropriate substitutions for the parameters)
 
 Before Pods in Kubernetes can be configured to use GMSAs, the desired GMSAs need
 to be provisioned in Active Directory as described in the
-[Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1).
+[Windows GMSA documentation](https://learn.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1).
 Windows worker nodes (that are part of the Kubernetes cluster) need to be configured
 in Active Directory to access the secret credentials associated with the desired GMSA as described in the
-[Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
+[Windows GMSA documentation](https://learn.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
 ## Create GMSA credential spec resources
 

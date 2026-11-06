@@ -26,7 +26,7 @@ to restrict resource access through user permissions. While neither filesystem o
 isolation are supported, a new volume is created on the host upon starting the container
 to give it a clean and consolidated workspace. HostProcess containers can also be built on
 top of existing Windows base images and do not inherit the same
-[compatibility requirements](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
+[compatibility requirements](https://learn.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
 as Windows server containers, meaning that the version of the base images does not need
 to match that of the host. It is, however, recommended that you use the same base image
 version as your Windows Server container workloads to ensure you do not have any unused
@@ -209,9 +209,9 @@ used for resource tracking due to the difference in how HostProcess containers a
 
 By default, HostProcess containers support the ability to run as one of three supported Windows service accounts:
 
-- **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
-- **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
-- **[NetworkService](https://docs.microsoft.com/windows/win32/services/networkservice-account)**
+- **[LocalSystem](https://learn.microsoft.com/windows/win32/services/localsystem-account)**
+- **[LocalService](https://learn.microsoft.com/windows/win32/services/localservice-account)**
+- **[NetworkService](https://learn.microsoft.com/windows/win32/services/networkservice-account)**
 
 You should select an appropriate Windows service account for each HostProcess
 container, aiming to limit the degree of privileges so as to avoid accidental (or even

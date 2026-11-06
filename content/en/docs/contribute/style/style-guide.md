@@ -50,7 +50,7 @@ in the [API Reference](/docs/reference/kubernetes-api/). When writing
 general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
 When you are generally discussing an API object, use
-[sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+[sentence-style capitalization](https://learn.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 The following examples focus on capitalization. For more information about formatting
 API object names, review the related guidance on [Code Style](#code-style-inline-code).
