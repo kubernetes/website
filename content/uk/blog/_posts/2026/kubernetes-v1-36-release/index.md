@@ -2,7 +2,6 @@
 layout: blog
 title: "Kubernetes v1.36: ハル (Хару)"
 date: 2026-04-22
-evergreen: true
 slug: kubernetes-v1-36-release
 release_announcement:
   minor_version: "1.36"
