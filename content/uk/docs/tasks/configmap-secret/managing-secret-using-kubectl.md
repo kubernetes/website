@@ -151,12 +151,12 @@ username:    5 bytes
 kubectl edit secrets <secret-name>
 ```
 
-Це відкриє ваш стандартний редактор і дозволить оновити закодовані в base64 значення Secret у полі `data`, як у наведеному нижче прикладі:
+Це відкриє ваш типовий редактор і дозволить оновити закодовані в base64 значення Secret у полі `data`, як у наведеному нижче прикладі:
 
 ```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
+# Будь ласка, відредагуйте наведений нижче обʼєкт. Рядки, що починаються з символу «#», ігноруватимуться,
+# а порожній файл призведе до припинення редагування. Якщо під час збереження цього файлу виникне помилка, його
+# буде знову відкрито з зазначенням відповідних помилок.
 #
 apiVersion: v1
 data:
