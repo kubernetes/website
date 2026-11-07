@@ -27,10 +27,10 @@ no_list: true
 쿠버네티스 클러스터에 대한 요구 사항이 
 다음 이슈에 의해 어떻게 영향을 받는지 고려해야 한다.
 
-- *가용성*: 단일 머신 쿠버네티스 [학습 환경](/ko/docs/setup/#학습-환경)은 SPOF(Single Point of Failure, 단일 장애 지점) 이슈를 갖고 있다.
-  고가용성 클러스터를 만드는 것에는 다음과 같은 고려 사항이 있다.
-  - 컨트롤 플레인과 워크 노드를 분리
-  - 컨트롤 플레인 구성요소를 여러 노드에 복제
+- *가용성*: 단일 머신 쿠버네티스 [학습 환경](/ko/docs/setup/#학습-환경)은 단일 장애 지점(Single Point of Failure) 문제를 갖고 있다.
+  고가용성 클러스터를 만드려면 다음 사항을 고려해야 한다.
+  - 컨트롤 플레인과 워커 노드를 분리
+  - 컨트롤 플레인 구성요소를 여러 노드에 복제(replicate)
   - 클러스터의 {{< glossary_tooltip term_id="kube-apiserver" text="API 서버" >}}로 가는 트래픽을 로드밸런싱
   - 워커 노드를 충분히 운영하거나, 워크로드 변경에 따라 빠르게 제공할 수 있도록 보장
 
@@ -48,13 +48,13 @@ no_list: true
   역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/)) 및 
   기타 보안 메커니즘을 사용하여, 사용자와 워크로드가 필요한 자원에 
   액세스할 수 있게 하면서도 워크로드와 클러스터를 안전하게 유지할 수 있다. 
-  [정책](/ko/docs/concepts/policy/)과 
-  [컨테이너 리소스](/ko/docs/concepts/configuration/manage-resources-containers/)를 
+  [정책](/docs/concepts/policy/)과 
+  [컨테이너 리소스](/docs/concepts/configuration/manage-resources-containers/)를 
   관리하여, 사용자 및 워크로드가 접근할 수 있는 자원에 대한 제한을 설정할 수 있다.
 
 쿠버네티스 프로덕션 환경을 직접 구축하기 전에, 이 작업의 일부 또는 전체를 
-[턴키 클라우드 솔루션](/ko/docs/setup/production-environment/turnkey-solutions/) 
-제공 업체 또는 기타 [쿠버네티스 파트너](/ko/partners/)에게 
+[턴키 클라우드 솔루션](/docs/setup/production-environment/turnkey-solutions/) 
+제공 업체 또는 기타 [쿠버네티스 파트너](/partners/)에게 
 넘기는 것을 고려할 수 있다.
 다음과 같은 옵션이 있다.
 
@@ -86,7 +86,7 @@ no_list: true
 
 가장 간단한 쿠버네티스 클러스터는 모든 컨트롤 플레인 및 워커 노드 서비스가 
 하나의 머신에 실행되는 클러스터이다. 
-[쿠버네티스 컴포넌트](/ko/docs/concepts/overview/components/) 
+[쿠버네티스 컴포넌트](/docs/concepts/overview/components/) 
 그림에 명시된 대로, 워커 노드를 추가하여 해당 환경을 확장할 수 있다. 
 클러스터를 단기간만 사용하거나, 
 심각한 문제가 발생한 경우 폐기하는 것이 가능하다면, 이 방식을 선택할 수 있다.
@@ -100,17 +100,17 @@ no_list: true
 
 - *배포 도구 선택*: kubeadm, kops, kubespray와 같은 도구를 이용해 
   컨트롤 플레인을 배포할 수 있다. 
-  [배포 도구로 쿠버네티스 설치하기](/ko/docs/setup/production-environment/tools/)에서 
+  [배포 도구로 쿠버네티스 설치하기](/docs/setup/production-environment/tools/)에서 
   여러 배포 도구를 이용한 프로덕션 수준 배포에 대한 팁을 확인한다. 
   배포 시, 다양한 
-  [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을 사용할 수 있다.
+  [컨테이너 런타임](/docs/setup/production-environment/container-runtimes/)을 사용할 수 있다.
 - *인증서 관리*: 컨트롤 플레인 서비스 간의 보안 통신은 인증서를 사용하여 구현된다. 
   인증서는 배포 중에 자동으로 생성되거나, 또는 자체 인증 기관을 사용하여 생성할 수 있다. 
-  [PKI 인증서 및 요구 조건](/ko/docs/setup/best-practices/certificates/)에서 
+  [PKI 인증서 및 요구 조건](/docs/setup/best-practices/certificates/)에서 
   상세 사항을 확인한다.
 - *apiserver를 위한 로드밸런서 구성*: 여러 노드에서 실행되는 apiserver 서비스 인스턴스에 
   외부 API 호출을 분산할 수 있도록 로드밸런서를 구성한다. 
-  [외부 로드밸런서 생성하기](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/)에서 
+  [외부 로드밸런서 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)에서 
   상세 사항을 확인한다.
 - *etcd 서비스 분리 및 백업*: etcd 서비스는 
   다른 컨트롤 플레인 서비스와 동일한 시스템에서 실행되거나, 
@@ -137,13 +137,13 @@ no_list: true
   영역의 그룹을 지역(region)이라고 한다.
   동일한 지역의 여러 영역에 클러스터를 분산하면 
   하나의 영역을 사용할 수 없게 된 경우에도 클러스터가 계속 작동할 가능성을 높일 수 있다.
-  [여러 영역에서 실행](/ko/docs/setup/best-practices/multiple-zones/)에서 상세 사항을 확인한다.
+  [여러 영역에서 실행](/docs/setup/best-practices/multiple-zones/)에서 상세 사항을 확인한다.
 - *구동 중인 기능 관리*: 클러스터를 계속 유지하려면, 
   상태 및 보안을 유지하기 위해 수행해야 하는 작업이 있다. 
   예를 들어 kubeadm으로 클러스터를 생성한 경우, 
-  [인증서 관리](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)와 
-  [kubeadm 클러스터 업그레이드하기](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)에 대해 도움이 되는 가이드가 있다.
-  [클러스터 운영하기](/ko/docs/tasks/administer-cluster/)에서 
+  [인증서 관리](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)와 
+  [kubeadm 클러스터 업그레이드하기](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)에 대해 도움이 되는 가이드가 있다.
+  [클러스터 운영하기](/docs/tasks/administer-cluster/)에서 
   더 많은 쿠버네티스 관리 작업을 볼 수 있다.
 
 컨트롤 플레인 서비스를 실행할 때 사용 가능한 옵션에 대해 보려면, 
@@ -151,7 +151,7 @@ no_list: true
 [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/), 
 [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)를 참조한다.
 고가용성 컨트롤 플레인 예제는 
-[고가용성 토폴로지를 위한 옵션](/ko/docs/setup/production-environment/tools/kubeadm/ha-topology/),
+[고가용성 토폴로지를 위한 옵션](/docs/setup/production-environment/tools/kubeadm/ha-topology/),
 [kubeadm을 이용하여 고가용성 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/high-availability/),
 [쿠버네티스를 위한 etcd 클러스터 운영하기](/docs/tasks/administer-cluster/configure-upgrade-etcd/)를 참조한다.
 etcd 백업 계획을 세우려면 
@@ -167,34 +167,28 @@ etcd 백업 계획을 세우려면
 
 - *노드 구성하기*: 노드는 물리적 또는 가상 머신일 수 있다. 
   직접 노드를 만들고 관리하려면 지원되는 운영 체제를 설치한 다음 
-  적절한 [노드 서비스](/ko/docs/concepts/overview/components/#노드-컴포넌트)를 추가하고 실행한다.
+  적절한 [노드 서비스](/docs/concepts/overview/components/#노드-컴포넌트)를 추가하고 실행한다.
   다음을 고려해야 한다.
   - 워크로드의 요구 사항 (노드가 적절한 메모리, CPU, 디스크 속도, 저장 용량을 갖도록 구성)
   - 일반적인 컴퓨터 시스템이면 되는지, 아니면 GPU, 윈도우 노드, 또는 VM 격리를 필요로 하는 워크로드가 있는지
-- *노드 검증하기*: [노드 구성 검증하기](/ko/docs/setup/best-practices/node-conformance/)에서 
+- *노드 검증하기*: [노드 구성 검증하기](/docs/setup/best-practices/node-conformance/)에서 
   노드가 쿠버네티스 클러스터에 조인(join)에 필요한 요구 사항을 
   만족하는지 확인하는 방법을 알아본다.
 - *클러스터에 노드 추가하기*: 클러스터를 자체적으로 관리하는 경우, 
   머신을 준비하고, 클러스터의 apiserver에 이를 수동으로 추가하거나 
   또는 머신이 스스로 등록하도록 하여 노드를 추가할 수 있다. 
-  이러한 방식으로 노드를 추가하는 방법을 보려면 [노드](/ko/docs/concepts/architecture/nodes/) 섹션을 확인한다.
+  이러한 방식으로 노드를 추가하는 방법을 보려면 [노드](/docs/concepts/architecture/nodes/) 섹션을 확인한다.
 - *노드 스케일링*: 클러스터가 최종적으로 필요로 하게 될 용량만큼 
   확장하는 것에 대한 계획이 있어야 한다. 
   실행해야 하는 파드 및 컨테이너 수에 따라 필요한 노드 수를 판별하려면 
-  [대형 클러스터에 대한 고려 사항](/ko/docs/setup/best-practices/cluster-large/)을 확인한다. 
+  [대형 클러스터에 대한 고려 사항](/docs/setup/best-practices/cluster-large/)을 확인한다. 
   만약 노드를 직접 관리한다면, 직접 물리적 장비를 구입하고 설치해야 할 수도 있음을 의미한다.
-- *노드 자동 스케일링*: 대부분의 클라우드 공급자는 
-  비정상 노드를 교체하거나 수요에 따라 노드 수를 늘리거나 줄일 수 있도록 
-  [클러스터 오토스케일러](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)를 지원한다. 
-  [자주 묻는 질문](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)에서 
-  오토스케일러가 어떻게 동작하는지, 
-  [배치](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment) 섹션에서 
-  각 클라우드 공급자별로 어떻게 구현했는지를 확인한다. 
-  온프레미스의 경우, 필요에 따라 새 노드를 가동하도록 
-  스크립트를 구성할 수 있는 가상화 플랫폼이 있다.
+- *노드 오토스케일링*: 노드를 자동으로 관리하기 위해 
+  사용할 수 있는 도구에 대해 알아보려면 
+  [노드 오토스케일링](/docs/concepts/cluster-administration/node-autoscaling)을 참고한다.
 - *노드 헬스 체크 구성*: 중요한 워크로드의 경우, 
   해당 노드에서 실행 중인 노드와 파드의 상태가 정상인지 확인하고 싶을 것이다. 
-  [Node Problem Detector](/ko/docs/tasks/debug/debug-cluster/monitor-node-health/) 
+  [노드 문제 탐지기](/docs/tasks/debug/debug-cluster/monitor-node-health/) 
   데몬을 사용하면 노드가 정상인지 확인할 수 있다.
 
 ## 프로덕션 사용자 관리
@@ -219,7 +213,7 @@ etcd 백업 계획을 세우려면
   쿠버네티스 사용자를 인증하는 다양한 방법에 대한 설명은 
   [인증](/docs/reference/access-authn-authz/authentication/)을 참조한다.
 - *인가*: 일반 사용자 인가를 위해,
-  RBAC 와 ABAC 중 하나를 선택하여 사용할 수 있다. [인가 개요](/ko/docs/reference/access-authn-authz/authorization/)에서
+  RBAC 와 ABAC 중 하나를 선택하여 사용할 수 있다. [인가 개요](/docs/reference/access-authn-authz/authorization/)에서
   사용자 계정과 서비스 어카운트 인가를 위한 여러 가지 모드를
   확인할 수 있다.
   - *역할 기반 접근 제어* ([RBAC](/docs/reference/access-authn-authz/rbac/)): 인증된 사용자에게 
@@ -265,17 +259,15 @@ etcd 백업 계획을 세우려면
 워크로드의 요구 사항을 충족하도록 클러스터를 구성할 때 다음 항목을 고려한다.
 
 - *네임스페이스 제한 설정*: 메모리, CPU와 같은 자원의 네임스페이스 별 쿼터를 설정한다. 
-  [메모리, CPU 와 API 리소스 관리](/ko/docs/tasks/administer-cluster/manage-resources/)에서 
-  상세 사항을 확인한다. 
-  [계층적 네임스페이스](/blog/2020/08/14/introducing-hierarchical-namespaces/)를 설정하여 
-  제한을 상속할 수도 있다.
+  [메모리, CPU, API 리소스 관리](/docs/tasks/administer-cluster/manage-resources/)에서 
+  상세 사항을 확인한다.
 - *DNS 요청에 대한 대비*: 워크로드가 대규모로 확장될 것으로 예상된다면, 
   DNS 서비스도 확장할 준비가 되어 있어야 한다. 
-  [클러스터의 DNS 서비스 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
+  [클러스터의 DNS 서비스 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
 - *추가적인 서비스 어카운트 생성*: 사용자 계정은 *클러스터*에서 사용자가 무엇을 할 수 있는지 결정하는 반면에, 
   서비스 어카운트는 특정 네임스페이스 내의 파드 접근 권한을 결정한다. 
   기본적으로, 파드는 자신의 네임스페이스의 기본 서비스 어카운트을 이용한다.
-  [서비스 어카운트 관리하기](/ko/docs/reference/access-authn-authz/service-accounts-admin/)에서 
+  [서비스 어카운트 관리하기](/docs/reference/access-authn-authz/service-accounts-admin/)에서 
   새로운 서비스 어카운트을 생성하는 방법을 확인한다. 예를 들어, 다음의 작업을 할 수 있다.
   - 파드가 특정 컨테이너 레지스트리에서 이미지를 가져 오는 데 사용할 수 있는 시크릿을 추가한다.
     [파드를 위한 서비스 어카운트 구성하기](/docs/tasks/configure-pod-container/configure-service-account/)에서
@@ -287,22 +279,22 @@ etcd 백업 계획을 세우려면
 ## {{% heading "whatsnext" %}}
 
 - 프로덕션 쿠버네티스를 직접 구축할지, 
-  아니면 [턴키 클라우드 솔루션](/ko/docs/setup/production-environment/turnkey-solutions/) 또는 
-  [쿠버네티스 파트너](/ko/partners/)가 제공하는 서비스를 이용할지 결정한다.
+  아니면 [턴키 클라우드 솔루션](/docs/setup/production-environment/turnkey-solutions/) 또는 
+  [쿠버네티스 파트너](/partners/)가 제공하는 서비스를 이용할지 결정한다.
 - 클러스터를 직접 구축한다면, 
-  [인증서](/ko/docs/setup/best-practices/certificates/)를 어떻게 관리할지, 
+  [인증서](/docs/setup/best-practices/certificates/)를 어떻게 관리할지, 
   [etcd](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)와 
-  [API 서버](/ko/docs/setup/production-environment/tools/kubeadm/ha-topology/) 
+  [API 서버](/docs/setup/production-environment/tools/kubeadm/ha-topology/) 
   등의 기능에 대한 고가용성을 
   어떻게 보장할지를 계획한다.
-- 배포 도구로 [kubeadm](/ko/docs/setup/production-environment/tools/kubeadm/),
-  [kops](/ko/docs/setup/production-environment/tools/kops/),
-  [Kubespray](/ko/docs/setup/production-environment/tools/kubespray/) 중 
-  하나를 선택한다.
+- 배포 도구로 [kubeadm](/docs/setup/production-environment/tools/kubeadm/),
+  [kops](/docs/setup/production-environment/tools/kops/),
+  [Kubespray](/docs/setup/production-environment/tools/kubespray/) 중   하나를 선택한다.
 - [인증](/docs/reference/access-authn-authz/authentication/) 및 
-  [인가](/ko/docs/reference/access-authn-authz/authorization/) 방식을 선택하여 
+  [인가](/docs/reference/access-authn-authz/authorization/) 방식을 선택하여 
   사용자 관리 방법을 구성한다.
-- [자원 제한](/ko/docs/tasks/administer-cluster/manage-resources/), 
-  [DNS 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
-  [서비스 어카운트](/ko/docs/reference/access-authn-authz/service-accounts-admin/)를 설정하여 
+- [자원 제한(limits)](/docs/tasks/administer-cluster/manage-resources/), 
+  [DNS 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
+  [서비스 어카운트](/docs/reference/access-authn-authz/service-accounts-admin/)를 설정하여 
   애플리케이션 워크로드의 실행에 대비한다.
+
