@@ -15,7 +15,7 @@ weight: 40
 <!-- overview -->
 This tutorial demonstrates running [Apache Zookeeper](https://zookeeper.apache.org) on
 Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
-[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget),
+[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets),
 and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
 ## {{% heading "prerequisites" %}}
@@ -28,7 +28,7 @@ Kubernetes concepts:
 - [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 - [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 
 - [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-- [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
+- [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)
 - [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 - [kubectl CLI](/docs/reference/kubectl/kubectl/)
 

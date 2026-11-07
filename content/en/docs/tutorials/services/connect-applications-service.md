@@ -64,7 +64,7 @@ Node to be forwarded to backing Pods, you can - but the networking model should
 mean that you do not need to do so.
 
 You can read more about the
-[Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
+[Kubernetes Networking Model](/docs/concepts/services-networking/#the-kubernetes-network-model)
 if you're curious.
 
 ## Creating a Service
