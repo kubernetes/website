@@ -299,17 +299,17 @@ untuk setiap `Service` yang aktif. _Environment_ yang didukung adalah [Docker li
 dan variabel `{SVCNAME}_SERVICE_HOST` dan `{SVCNAME}_SERVICE_PORT`, dinama nama `Service` akan diubah
 menjadi huruf kapital dan tanda _minus_  akan diubah menjadi _underscore_.
 
-Sebagai contoh, `Service` `"redis-master"` yang mengekspos _port_ TCP 6379 serta _alamat_
+Sebagai contoh, `Service` `"redis-leader"` yang mengekspos _port_ TCP 6379 serta _alamat_
 _cluster IP_ _10.0.0.11_ akan memiliki _environment_ sebagai berikut:
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_LEADER_SERVICE_HOST=10.0.0.11
+REDIS_LEADER_SERVICE_PORT=6379
+REDIS_LEADER_PORT=tcp://10.0.0.11:6379
+REDIS_LEADER_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_LEADER_PORT_6379_TCP_PROTO=tcp
+REDIS_LEADER_PORT_6379_TCP_PORT=6379
+REDIS_LEADER_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 Hal ini merupakan kebutuhan yang urutannya harus diperhatikan - `Service` apa pun yang

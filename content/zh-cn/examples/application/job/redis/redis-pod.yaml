@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: redis-master
+  name: redis-leader
   labels:
     app: redis
 spec:
