@@ -42,6 +42,24 @@ that are available for pods. The scheduler does not over-subscribe
 Node Allocatable is exposed as part of `v1.Node` object in the API and as part
 of `kubectl describe node` in the CLI.
 
+The `kubelet` calculates 'Allocatable' by subtracting `kubeReserved`,
+`systemReserved`, and the eviction thresholds from the node's `Capacity`. For
+`memory`, the `kubelet` also subtracts any pre-allocated hugepages, which the
+`kubelet` reports as separate `hugepages-<size>` resources.
+
+{{< note >}}
+For `memory`, the node's `Capacity` is the `MemTotal` value from
+`/proc/meminfo`, not the physical memory installed in the machine. The kernel
+excludes memory that it reserves at boot, such as the kernel image and
+`crashkernel`, and memory that firmware or hardware claims.
+
+The node's `Capacity` can change when the boot-time reservation changes, which
+also changes 'Allocatable' without any change to `kubeReserved` or
+`systemReserved`. A kernel update can cause a large change. Even a plain reboot
+of the same kernel can change the node's `Capacity` slightly, typically by a few
+kilobytes.
+{{< /note >}}
+
 Resources can be reserved for two categories of system daemons in the `kubelet`.
 
 ### Enabling QoS and Pod level cgroups
