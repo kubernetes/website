@@ -7,7 +7,7 @@
 other = "Referencia de la API"
 
 [api_reference_page_related_concepts]
-one = "Concept documentation for {{ .title }}"
+one = "Documentación conceptual para {{ .title }}"
 other = "Páginas de conceptos relacionados"
 
 [auto_generated_edit_notice]
@@ -78,7 +78,7 @@ other = "Foro"
 other = "GitHub"
 
 [community_introduce]
-other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese."
+other = "Kubernetes es un proyecto de código abierto que cualquier persona de la comunidad puede usar, mejorar y disfrutar. ¡Nos encantaría que te unieras! Aquí tienes algunas maneras de enterarte de lo que está pasando y participar."
 
 [community_join]
 other= "Únete a la comunidad"
@@ -199,11 +199,9 @@ other = "Ejemplos"
 
 # Used with feature_gate_stage_* and then with either feature_gate_enabled or feature_gate_disabled
 # This localization string is for determining the punctuation and other details (including word order).
-## Localizers: you can put marks such as « and » around the .stage (if useful)
 [feature_gate_details]
 other = """<span class="feature-state-stage">{{ .stage }}</span> desde {{ .kubernetes }} v{{ .version }}; {{ .enabled_or_disabled }}"""
 
-## Localizers: you can put marks such as « and » around the .stage (if useful)
 [feature_gate_details_partial]
 other = """<span class="feature-state-stage">{{ .stage }}</span> desde {{ .kubernetes }} v{{ .version }}"""
 
@@ -225,6 +223,7 @@ other = "Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido de
 
 [feature_gate_stable_graduated_disabled]
 other = "Esta funcionalidad estable está deshabilitada de forma predeterminada. Ya no es posible habilitarla para optar por el comportamiento asociado."
+
 [feature_gate_stable_locked]
 other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión v{{ .stableVersion }}. Estuvo disponible por primera vez en la versión v{{ .firstReleaseWithThisFeature }}. Ya no es posible deshabilitar ni excluirse de esta funcionalidad o comportamiento (está bloqueada); si se establece explícitamente un valor para el <tt>{{ .featureGateName }}</tt> asociado, {{ .kubernetes }} lo ignora sin generar ningún error."""
 
@@ -321,7 +320,7 @@ other = "China"
 other = "Europe"
 
 [kubecon_region_event]
-other = "Event"
+other = "Evento"
 
 [kubecon_region_india]
 other = "India"
@@ -330,7 +329,7 @@ other = "India"
 other = "Japan"
 
 [kubecon_region_north_america]
-other = "North America"
+other = "América del norte"
 
 [kubectl_ref_collapse_all]
 other = "Contraer todo"
