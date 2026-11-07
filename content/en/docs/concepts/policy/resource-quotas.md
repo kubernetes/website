@@ -40,13 +40,18 @@ ResourceQuotas work like this:
   - To make sure the enforcement stays enforced, the cluster administrator should also restrict access to delete or update
     that ResourceQuota; for example, by defining a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 
-- Users create resources (pods, services, etc.) in the namespace, and the quota system
+- Users create resources (Pods, Services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
 
   You can apply a [scope](#quota-scopes) to a ResourceQuota to limit where it applies,
 
-- If creating or updating a resource violates a quota constraint, the control plane rejects that request with HTTP
-  status code `403 Forbidden`. The error includes a message explaining the constraint that would have been violated.
+  However, Kubernetes resource quota divides up aggregate cluster resources, but it creates no
+  restrictions around nodes: pods from several namespaces may run on the same node.
+
+- If creating or updating a resource violates a quota constraint, the 
+  {{< glossary_tooltip text="control plane" term_id="control-plane" >}} (specifically, the API server)
+  rejects that request with HTTP status code `403 Forbidden`. The error includes a message explaining
+  the constraint that would have been violated.
 
 - If quotas are enabled in a namespace for {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
   such as `cpu` and `memory`, users must specify requests or limits for those values when they define a Pod; otherwise,
@@ -66,35 +71,16 @@ resources than are available, the creation of the Deployment (or other workload 
 the Deployment may not be able to get all of the Pods it manages to exist. In that case you can check the status of
 the Deployment, for example with `kubectl describe`, to see what has happened.
 
-- For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
-  (new) pod in that namespace sets a limit for that resource.
-  If you enforce a resource quota in a namespace for either `cpu` or `memory`,
-  you and other clients, **must** specify either `requests` or `limits` for that resource,
-  for every new Pod you submit. If you don't, the control plane may reject admission
-  for that Pod.
-- For other resources: ResourceQuota works and will ignore pods in the namespace without
-  setting a limit or request for that resource. It means that you can create a new pod
-  without limit/request for ephemeral storage if the resource quota limits the ephemeral
-  storage of this namespace.
+If you are not already familiar with requests and limits in Kubernetes, and how these are
+different, or you would like a recap of this, read
+[requests compared to limits](#requests-vs-limits).
 
-You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
-a default request for these resources.
+## Object naming
 
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-Examples of policies that could be created using namespaces and quotas are:
-
-- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
-  let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
-- Limit the "testing" namespace to using 1 core and 1GiB RAM. Let the "production" namespace
-  use any amount.
-
-In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
-there may be contention for resources. This is handled on a first-come-first-served basis.
-
-
-## Enabling Resource Quota
+## Enabling ResourceQuota
 
 ResourceQuota support is enabled by default for many Kubernetes distributions. It is
 enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
@@ -103,6 +89,77 @@ one of its arguments.
 
 A resource quota is enforced in a particular namespace when there is a
 ResourceQuota in that namespace.
+
+## Resource limiting and Pods
+
+ResourceQuota has special behavior for two kinds of infrastructure resources: `cpu` and `memory`.
+
+For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
+(new) pod in that namespace sets a limit for that resource.
+If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+you and other clients, **must** specify either `requests` or `limits` for that resource,
+for every new Pod you submit. If you don't, the control plane may reject admission
+for that Pod.
+
+For other infrastructure resources: the limit is enforced, in that the limits you set
+for the infrastructure resource cannot exceed the overall quota for that resource.
+Howeverm, it is possible to create a new Pod without setting any limit or request for that
+particular resource. This behavior means that you can create a new pod without specifying
+a limit/request for ephemeral storage, even if the resource quota limits the ephemeral
+storage of this namespace.
+
+However, you can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically
+set a default request for these resources. Doing that can help to ensure that the quotas
+you define take effect in the way you would expect.
+
+Read [quota for extended resources](#quota-for-extended-resources) to learn about quota
+for custom types of infrastructure resource, that are not part of core Kubernetes.
+
+## Examples
+
+Here's an example ResourceQuota:
+
+```yaml
+---
+# Prevent Pods setting an aggregate memory limit higher than 1024 GiB.
+# This can be one Pod that tries to use all 1TiB of available RAM, or many smaller
+# Pods that use up to the configured limit.
+#
+# You can use a LimitRange or ValidatingAdmissionPolicy to ensure that Pods
+# (in the relevant namespace) always have a memory limit either at the overall
+# Pod level, or across each of their containers. However, Kubernetes automatically
+# enforces a limit and rejects Pods that don't set a memory limit, because of
+# the special treatment for resource types "cpu" and "memory".
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: example-memory-quota
+spec:
+  hard:
+    limits.memory: "1024Gi"
+```
+
+### ResourceQuota as part of an overall enforcement design {#example-overall-enforcement}
+
+Examples of policies that could be created using namespaces and quotas are:
+
+- In a cluster with a capacity of 32 GiB RAM, and 16 CPU cores, let team A use 20 GiB and 10 CPU cores,
+  let B use 10GiB and 4 CPU cores, and hold 2GiB and 2 CPU cores in reserve for future allocation.
+- Limit the "testing" namespace to using 1 core and 1GiB RAM. Let the "production" namespace
+  use any amount of infrastructure resources.
+
+In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
+there may be contention for resources. Kubernetes uses
+[PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) to decide which
+Pods are preferred for scheduling and which are the first to be removed (_preempted_) to make room for others.
+Read [quota and cluster capacity](#quota-and-cluster-capacity) to learn more.
+
+You can use a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) to
+set fine-grained or custom policies on resource requests and limits. For example, you want to ensure
+that a Pod never requests less than 50% of its limit for memory, and you also want the overall
+amount of memory use to be below a limit that you define. ValidatingAdmissionPolicies never
+provide enforcement of quotas across different objects of the same kind.
 
 ## Types of resource quota
 
@@ -127,10 +184,10 @@ The following resource types are supported:
 | `cpu` | Same as `requests.cpu` |
 | `memory` | Same as `requests.memory` |
 
-### Quota for extended resources
+#### Quota for extended resources
 
-In addition to the resources mentioned above, in release 1.10, quota support for
-[extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
+You can set quota for
+[extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources).
 
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
 and `limits` for the same extended resource in a quota. So for extended resources, only quota items
@@ -218,14 +275,18 @@ using the following syntax:
 For example, the PodTemplate API is in the core API group and so if you want to limit the number of
 PodTemplate objects in a namespace, you use `count/podtemplates`.
 
-These types of quotas are useful to protect against exhaustion of control plane storage. For example, you may
-want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
-actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
-a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
+These types of quotas are useful to protect against exhaustion of control plane storage.
 
+For example, a ConfigMap or a Secret can hold just under 1MiB of data. Knowing this, you may
+want to limit the number of Secrets in a server. Many large Secrets in a cluster can actually prevent servers
+and controllers from starting. (If you want to limit the _size_ that an individual Secret can be, you might
+use a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)).
 
+As another example, you can set a quota for Jobs to protect against a poorly configured CronJob.
+CronJobs that create too many Jobs in their namespace can lead to a denial of service that affects the
+wider cluster.
 
-If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
+If you define a quota on object count, it applies to Kubernetes' APIs that are part of the API server, and
 to any custom resources backed by a CustomResourceDefinition.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group,
 use `count/widgets.example.com`.
@@ -274,7 +335,7 @@ exhausts the cluster's supply of Pod IPs.
 
 You can find more examples on [Viewing and Setting Quotas](#viewing-and-setting-quotas).
 
-## Viewing and Setting Quotas
+## Viewing and setting ResourceQuotas
 
 kubectl supports creating, updating, and viewing quotas:
 
@@ -299,7 +360,7 @@ EOF
 ```
 
 ```shell
-kubectl create -f ./compute-resources.yaml --namespace=myspace
+kubectl create -f  --namespace=myspace
 ```
 
 ```shell
@@ -372,6 +433,7 @@ kubectl also supports object count quota for all standard namespaced resources
 using the syntax `count/<resource>.<group>`:
 
 ```shell
+# You can skip this if that namespace already exists
 kubectl create namespace myspace
 ```
 
@@ -397,26 +459,6 @@ count/pods                    2     3
 count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
-
-## Quota and Cluster Capacity
-
-ResourceQuotas are independent of the cluster capacity. They are
-expressed in absolute units. So, if you add nodes to your cluster, this does *not*
-automatically give each namespace the ability to consume more resources.
-
-Sometimes more complex policies may be desired, such as:
-
-- Proportionally divide total cluster resources among several teams.
-- Allow each tenant to grow resource usage as needed, but have a generous
-  limit to prevent accidental resource exhaustion.
-- Detect demand from one namespace, add nodes, and increase quota.
-
-Such policies could be implemented using `ResourceQuotas` as building blocks, by
-writing a "controller" that watches the quota usage and adjusts the quota
-hard limits of each namespace according to other signals.
-
-Note that resource quota divides up aggregate cluster resources, but it creates no
-restrictions around nodes: pods from several namespaces may run on the same node.
 
 ## Quota scopes
 
@@ -785,6 +827,38 @@ When the quota is scoped for the volume attributes class using the `scopeSelecto
 * `requests.storage`
 
 Read [Limit Storage Consumption](/docs/tasks/administer-cluster/limit-storage-consumption/) to learn more about this.
+
+## Quota and cluster capacity
+
+ResourceQuotas are independent of the cluster capacity. They are
+expressed in absolute units. So, if you add nodes to your cluster, this does **not**
+automatically give each namespace the ability to consume more resources.
+
+Sometimes more complex policies may be desired, such as:
+
+- Proportionally divide total cluster resources among several teams.
+- Allow each tenant to grow resource usage as needed, but have a generous
+  limit to prevent accidental resource exhaustion.
+- Detect demand from one namespace, add nodes, and increase quota.
+
+As a cluster administrator, you could implement that kind of policy,
+using ResourceQuotas as building blocks. For example, if you wrote a
+{{< glossary_tooltip text="controller" term_id="controller" >}}
+that watches the infrastructure resource usage within each namespace,
+and then adjusts the quota hard limits of each namespace according to
+an algorithm.
+
+## Requests compared to limits {#requests-vs-limits}
+
+When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
+The quota can be configured to quota either value.
+
+If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
+container makes an explicit request for those resources. If the quota has a value specified for `limits.cpu` or `limits.memory`,
+then it requires that every incoming container specifies an explicit limit for those resources.
+
+Read [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+to learn about how Kubernetes handles contention between Pods for infrastructure resources.
 
 
 ## {{% heading "whatsnext" %}}
