@@ -138,7 +138,7 @@ API Kubernetes типово використовує [JSON](https://www.json.org
    }
    ```
 
-Ви також можете запросити представлення цього кодування у вигляді [таблиці](#table-fetches) та [тільки метаданих](#metadata-only-fetches).
+Ви також можете запитувати в цьому кодуванні [таблиці](#table-fetches) та [лише метадані](#metadata-only-fetches).
 
 ### Кодування ресурсів у форматі YAML {#yaml-encoding}
 
@@ -180,7 +180,7 @@ Kubernetes також підтримує медіатип [`application/yaml`](h
      …
    ```
 
-Ви також можете запросити представлення цього кодування у вигляді [таблиці](#table-fetches) та [тільки метаданих](#metadata-only-fetches).
+Ви також можете запитувати в цьому кодуванні [таблиці](#table-fetches) та [лише метадані](#metadata-only-fetches).
 
 ### Кодування Kubernetes Protobuf {#protobuf-encoding}
 
@@ -230,10 +230,10 @@ Kubernetes використовує обгортку-конверт для ко�
 Формат обгортки:
 
 ```
-A four byte magic number prefix:
+Префікс — чотирибайтове магічне число:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
-An encoded Protobuf message with the following IDL:
+Закодоване повідомлення Protobuf з таким IDL:
   message Unknown {
     // typeMeta повинне містити рядкові значення для "kind" та "apiVersion", як вони встановлені в обʼєкті JSON
     optional TypeMeta typeMeta = 1;
@@ -261,7 +261,7 @@ An encoded Protobuf message with the following IDL:
 Клієнти, які отримують відповідь у форматі `application/vnd.kubernetes.protobuf`, що не відповідає очікуваному префіксу, повинні відхилити відповідь, оскільки майбутні версії можуть змінити формат серіалізації несумісним чином і зроблять це шляхом зміни префікса.
 {{< /note >}}
 
-Ви також можете запросити представлення цього кодування у вигляді [таблиці](#table-fetches) та [тільки метаданих](#metadata-only-fetches).
+Ви також можете запитувати в цьому кодуванні [таблиці](#table-fetches) та [лише метадані](#metadata-only-fetches).
 
 #### Сумісність із Kubernetes Protobuf {#protobuf-encoding-compatibility}
 
@@ -285,7 +285,7 @@ Accept: application/vnd.kubernetes.protobuf, application/json
 
 На додаток до наявного медіатипу `application/apply-patch+yaml` для YAML-кодованих [конфігурацій server-side apply](#patch-and-apply), API-сервери, у яких увімкнено CBOR, прийматимуть медіатип `application/apply-patch+cbor` для CBOR-кодованих конфігурацій server-side apply. Для `application/json-patch+json` або `application/merge-patch+json`, або `application/strategic-merge-patch+json` немає підтримуваного еквівалента в CBOR.
 
-Ви також можете запросити представлення цього кодування у вигляді [таблиці](#table-fetches) та [тільки метаданих](#metadata-only-fetches).
+Ви також можете запитувати в цьому кодуванні [таблиці](#table-fetches) та [лише метадані](#metadata-only-fetches).
 
 ## Ефективне виявлення змін {#efficient-detection-of-changes}
 
@@ -344,7 +344,7 @@ API Kubernetes дозволяє клієнтам зробити початков
 
 ### Закладки спостереження {#watch-bookmarks}
 
-Щоб зменшити вплив короткого вікна історії, API Kubernetes надає подію спостереження під назвою `BOOKMARK`. Це особливий вид події, що позначає, що всі зміни до вказаної клієнтом `resourceVersion` вже були надіслані. Документ, що представляє подію `BOOKMARK`, має тип, який запитується запитом, але містить лише поле `.metadata.resourceVersion`. Наприклад:
+Щоб зменшити вплив короткого вікна історії, API Kubernetes надає подію спостереження під назвою `BOOKMARK` (закладка). Це особливий вид події, що позначає, що всі зміни до вказаної клієнтом `resourceVersion` вже були надіслані. Документ, що представляє подію `BOOKMARK`, має тип, який запитується запитом, але містить лише поле `.metadata.resourceVersion`. Наприклад:
 
 ```http
 GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
@@ -755,7 +755,7 @@ Accept: application/json;as=Table;g=meta.k8s.io;v=v1,application/json`
 Щоб отримати часткові метадані обʼєкта, ви можете запросити відповіді лише з метаданими в заголовку `Accept`. API Kubernetes реалізує варіант узгодження типу вмісту HTTP. Як клієнт, ви можете надати заголовок `Accept` з бажаним медіатипом, а також параметрами, які вказують, що ви хочете отримати лише метадані. Наприклад: `Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1` для JSON для конкретного обʼєкта та `Accept: application/json;as=PartialObjectMetadataList;g=meta.k8s.io;v=v1` для списку.
 
 {{< note >}}
-`as=PartialObjectMetadata` слід використовувати в запитах до конкретних ресурсів, а `as=PartialObjectMetadataList` — для списків.
+`as=PartialObjectMetadata` слід використовувати в запитах до конкретних ресурсів, а `as=PartialObjectMetadataList` — для запитів **list**.
 {{< /note >}}
 
 Наприклад, щоб отримати список усіх Podʼів у кластері, в усіх просторах імен, але повернути лише метадані для кожного Podʼа:
