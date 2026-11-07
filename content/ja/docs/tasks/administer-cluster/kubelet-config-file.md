@@ -67,7 +67,7 @@ evictionHard:
 
 {{< note >}}
 `kubeadm`でクラスターを初期化する場合は、クラスターの作成時に`kubeadm init`でkubeletの設定を使用してください。
-詳細は[kubeadmを使用したkubeletの設定](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)を参照してください。
+詳細は[kubeadmを使用したクラスター内の各kubeletの設定](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)を参照してください。
 {{< /note >}}
 
 kubeletの設定ファイルへのパスを`--config`フラグに指定して、kubeletを起動します。
@@ -112,10 +112,10 @@ kubeletの設定構造では、データ型によってマージ方法が異な�
 
 起動時に、kubeletは次の設定をマージします。
 
-* コマンドラインで指定されたフィーチャーゲート（優先順位が最も低い）。
+* コマンドラインで指定されたフィーチャーゲート(優先順位が最も低い)。
 * kubelet設定。
 * ソート順に並べたドロップイン設定ファイル。
-* フィーチャーゲートを除くコマンドライン引数（優先順位が最も高い）。
+* フィーチャーゲートを除くコマンドライン引数(優先順位が最も高い)。
 
 {{< note >}}
 kubeletの設定ドロップインディレクトリの仕組みは、`kubeadm`ツールの設定パッチ機能と似ていますが、異なります。
