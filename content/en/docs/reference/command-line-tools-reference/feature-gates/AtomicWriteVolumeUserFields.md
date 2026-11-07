@@ -10,6 +10,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 This feature gate exists in the Kubernetes API server and kubelet.
 

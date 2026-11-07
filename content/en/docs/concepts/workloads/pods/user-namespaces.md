@@ -167,6 +167,7 @@ configure a custom range, the node needs to have:
  * A user `kubelet` in the system (you cannot use any other username here)
  * The binary `getsubids` installed (part of [shadow-utils][shadow-utils]) and
    in the `PATH` for the kubelet binary.
+ * The binary `getent` installed and in the `PATH` for the kubelet binary.
  * A configuration of subordinate UIDs/GIDs for the `kubelet` user (see
    [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) and
    [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)).
