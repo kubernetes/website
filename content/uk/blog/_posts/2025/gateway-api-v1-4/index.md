@@ -5,12 +5,12 @@ date: 2025-11-06T09:00:00-08:00
 slug: gateway-api-v1-4
 author: >
     [Beka Modebadze](https://github.com/bexxmodd) (Google),
-    [Gateway API Contributors](https://github.com/kubernetes-sigs/gateway-api/blob/v1.4.0/CHANGELOG/1.4-TEAM.md)
+    [Учасники проєкту Gateway API](https://github.com/kubernetes-sigs/gateway-api/blob/v1.4.0/CHANGELOG/1.4-TEAM.md)
 translator: >
   [Андрій Головін](https://github.com/Andygol)
 ---
 
-![Gateway API logo](gateway-api-logo.svg)
+![Логотип Gateway API](gateway-api-logo.svg)
 
 Готові до революції у сфері мережевих технологій Kubernetes? Спільнота Kubernetes SIG Network представила загальнодоступну версію Gateway API (v1.4.0)! Випущена 6 жовтня 2025 року версія 1.4.0 зміцнює позиції сучасних, динамічних і розширюваних мережевих технологій у Kubernetes.
 
@@ -265,7 +265,9 @@ spec:
 
 #### Для операторів кластерів: ви все ще контролюєте ситуацію {#for-cluster-operators-you-re-still-in-control}
 
-Ця можливість не забирає контроль у операторів кластерів («Chihiro»). Насправді, вони мають явний контроль над тим, які шлюзи можуть діяти як типові. Шлюз прийме ці _маршрути з типовим шлюзом_ лише в тому випадку, якщо він налаштований на це.
+Ця можливість не забирає контроль у операторів кластерів («Chihiro»[^1]). Насправді, вони мають явний контроль над тим, які шлюзи можуть діяти як типові. Шлюз прийме ці _маршрути з типовим шлюзом_ лише в тому випадку, якщо він налаштований на це.
+
+[^1]: Chihiro — одна з персон Gateway API, що уособлює оператора кластера, див. <https://gateway-api.sigs.k8s.io/docs/concepts/roles-and-personas/#key-roles-and-personas>
 
 Ви також можете використовувати ValidatingAdmissionPolicy, щоб вимагати або навіть забороняти маршрутам покладатися на типовий Gateway.
 
