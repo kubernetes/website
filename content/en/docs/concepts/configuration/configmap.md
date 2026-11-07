@@ -162,9 +162,20 @@ To consume a ConfigMap in a volume in a Pod:
    that directory. Each key in the ConfigMap `data` map becomes the filename
    under `mountPath`.
 
-This is an example of a Pod that mounts a ConfigMap in a volume:
+This is an example of a ConfigMap that holds one file-like key, followed by
+a Pod that mounts that ConfigMap in a volume:
 
 ```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  # The key name becomes the file name inside the container
+  app-config.properties: |
+    log.level=info
+    cache.enabled=true
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -174,14 +185,38 @@ spec:
   - name: mypod
     image: redis
     volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
+    - name: config
+      mountPath: "/etc/config"
       readOnly: true
   volumes:
-  - name: foo
+  - name: config
     configMap:
-      name: myconfigmap
+      name: app-config
 ```
+
+In this example, the key `app-config.properties` in the ConfigMap becomes a file
+with the same name, so the container sees `/etc/config/app-config.properties`.
+Kubernetes does not rename or remap anything here: when you don't specify
+`items`, each key in the ConfigMap is projected as a file named after that key,
+inside the directory given by `mountPath`.
+
+If you only want some of the keys, or you want a file name that differs from
+the key, add an `items` list to the volume. Each entry selects a `key` and
+optionally sets the `path` (the file name, relative to `mountPath`) to use for it:
+
+```yaml
+  volumes:
+  - name: config
+    configMap:
+      name: app-config
+      items:
+      - key: app-config.properties
+        path: settings.conf
+```
+
+With this `items` list, only the listed keys are projected, and the container
+sees `/etc/config/settings.conf` instead of `/etc/config/app-config.properties`.
+If you set `path` to the same value as `key`, the file name matches the key.
 
 Each ConfigMap you want to use needs to be referred to in `.spec.volumes`.
 
@@ -334,3 +369,4 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 * Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
+  
