@@ -25,7 +25,7 @@ cards:
 - name: tutorials
   title: "Спробуйте Kubernetes"
   description: "Скористайтеся навчальними посібниками, щоб дізнатися, як розгортати застосунки в Kubernetes."
-  button: "Навчальні посібники"
+  button: "Посібники"
   button_path: "/docs/tutorials"
 - name: setup
   title: "Встановлення кластера K8s"
