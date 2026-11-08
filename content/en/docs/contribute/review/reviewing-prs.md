@@ -232,7 +232,7 @@ transformation or template errors.
 Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
 
 Before reviewing blog PRs, be familiar with the [blog guidelines](/docs/contribute/blog/guidelines/)
-  and with [submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
+  and with [submitting blog articles](/docs/contribute/blog/article-submission/).
 
 Make sure you also know about [evergreen](/docs/contribute/blog/#maintenance-evergreen) articles
 and how to decide if an article is evergreen.
