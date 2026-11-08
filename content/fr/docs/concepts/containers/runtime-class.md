@@ -91,7 +91,7 @@ l'administrateur du cluster. C'est la configuration par défaut. Voir [Vue d'ens
 ### Usage
 
 Une fois que les RuntimeClasses sont configurées pour le cluster, leur utilisation est très simple.
-Spécifiez `runtimeClassName` dans la spécficiation du pod. Par exemple:
+Spécifiez `runtimeClassName` dans la spécification du pod. Par exemple:
 
 ```yaml
 apiVersion: v1
@@ -109,7 +109,7 @@ RuntimeClass n'existe pas, ou si la CRI ne peut pas exécuter le handler corresp
 [l'événement](/docs/tasks/debug-application-cluster/debug-application-introspection/) correspondant pour un
 message d'erreur.
 
-Si aucun `runtimeClassName` n'est spécifié, le RuntimeHandler par défault sera utilisé, qui équivaut
+Si aucun `runtimeClassName` n'est spécifié, le RuntimeHandler par défaut sera utilisé, qui équivaut
 au comportement lorsque la fonctionnalité RuntimeClass est désactivée.
 
 
