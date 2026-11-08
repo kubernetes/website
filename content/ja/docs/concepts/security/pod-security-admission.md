@@ -6,30 +6,29 @@ content_type: concept
 weight: 20
 ---
 
-
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-Kubernetesの[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)はPodに対して異なる分離レベルを定義します。
+Kubernetesの[Podセキュリティの標準](/docs/concepts/security/pod-security-standards/)はPodに対して異なる分離レベルを定義します。
 これらの標準によって、Podの動作をどのように制限したいかを、明確かつ一貫した方法で定義することができます。
 
 KubernetesはPodセキュリティの標準を強制するために、組み込みの _Pod Security_ {{< glossary_tooltip text="アドミッションコントローラー" term_id="admission-controller" >}}を提供しています。
 Podセキュリティの制限は、Pod作成時に{{< glossary_tooltip text="名前空間" term_id="namespace" >}}レベルで適用されます。
 
-### 組み込みのPodセキュリティアドミッションによる強制
+### 組み込みのPodセキュリティアドミッションによる強制 {#built-in-pod-security-admission-enforcement}
 
 このページは、Kubernetes v{{< skew currentVersion >}}のドキュメントの一部です。
 異なるバージョンのKubernetesを利用している場合は、そのリリースのドキュメントを参照してください。
 
 <!-- body -->
 
-## Podのセキュリティレベル
+## Podのセキュリティレベル {#pod-security-levels}
 
-Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
-これらの要件の詳細については、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)のページを参照してください。
+Podのセキュリティアドミッションは、Podの[Security Context](/docs/tasks/configure-pod-container/security-context/)とその他の関連フィールドに、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards)で定義された3つのレベル、`privileged`、`baseline`、`restricted`に従って要件を設定するものです。
+これらの要件の詳細については、[Podセキュリティの標準](/docs/concepts/security/pod-security-standards)のページを参照してください。
 
-## Podの名前空間に対するセキュリティアドミッションラベル
+## Podの名前空間に対するセキュリティアドミッションラベル {#pod-security-admission-labels-for-namespaces}
 
 この機能を有効にするか、Webhookをインストールすると、名前空間を設定して、各名前空間でPodセキュリティに使用したいアドミッションコントロールモードを定義できます。
 Kubernetesは、名前空間に使用したい定義済みのPodセキュリティの標準レベルのいずれかを適用するために設定できる{{< glossary_tooltip term_id="label" text="ラベル" >}}のセットを用意しています。
@@ -39,13 +38,14 @@ Kubernetesは、名前空間に使用したい定義済みのPodセキュリテ�
 モード | 説明
 :---------|:------------
 **enforce** | ポリシーに違反した場合、Podは拒否されます。
-**audit** | ポリシー違反は、[監査ログ](/ja/docs/tasks/debug/debug-cluster/audit/)に記録されるイベントに監査アノテーションを追加するトリガーとなりますが、それ以外は許可されます。
+**audit** | ポリシー違反は、[監査ログ](/docs/tasks/debug/debug-cluster/audit/)に記録されるイベントに監査アノテーションを追加するトリガーとなりますが、それ以外は許可されます。
 **warn** | ポリシーに違反した場合は、ユーザーへの警告がトリガーされますが、それ以外は許可されます。
 {{< /table >}}
 
 名前空間は、任意のまたはすべてのモードを設定することができ、異なるモードに対して異なるレベルを設定することもできます。
 
 各モードには、使用するポリシーを決定する2つのラベルがあります。
+
 ```yaml
 # モードごとのレベルラベルは、そのモードに適用するポリシーレベルを示す。
 #
@@ -64,14 +64,14 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 [名前空間のラベルを使用してPodセキュリティスタンダードを強制する](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)で使用例を確認できます。
 
 
-## ワークロードリソースとPodテンプレート
+## ワークロードリソースとPodテンプレート {#workload-resources-and-pod-templates}
 
-Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip term_id="job">}}のような[ワークロードオブジェクト](/ja/docs/concepts/workloads/controllers/)を作成することによって、しばしば間接的に生成されます。
+Podは、{{< glossary_tooltip term_id="deployment" >}}や{{< glossary_tooltip term_id="job">}}のような[ワークロードオブジェクト](/docs/concepts/workloads/controllers/)を作成することによって、しばしば間接的に生成されます。
 ワークロードオブジェクトは _Pod template_ を定義し、ワークロードリソースの{{< glossary_tooltip term_id="controller" text="コントローラー" >}}はそのテンプレートに基づきPodを作成します。
 違反の早期発見を支援するために、auditモードとwarningモードは、ワークロードリソースに適用されます。
 ただし、enforceモードはワークロードリソースには**適用されず**、結果としてのPodオブジェクトにのみ適用されます。
 
-## 適用除外(Exemption)
+## 適用除外(Exemption) {#exemptions}
 
 Podセキュリティの強制に対し _適用除外_ を定義することで、特定の名前空間に関連するポリシーのために禁止されていたPodの作成を許可することができます。
 Exemptionは[アドミッションコントローラーの設定](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)で静的に設定することができます。
@@ -103,7 +103,7 @@ Exemptionの次元は以下の通りです。
 - `.spec.activeDeadlineSeconds`に対する有効な更新
 - `.spec.tolerations`に対する有効な更新
 
-## メトリクス
+## メトリクス {#metrics}
 
 kube-apiserverによって公開されるPrometheusのメトリクスは以下の通りです。
 
@@ -112,10 +112,9 @@ kube-apiserverによって公開されるPrometheusのメトリクスは以下�
 - `pod_security_evaluations_total`: ポリシーの評価の件数を示すメトリクスで、エクスポート中に無視または適用除外されたリクエストはカウントされません。
 - `pod_security_exemptions_total`: 適用除外されたリクエストの件数を示すメトリクスで、無視またはスコープ外のリクエストはカウントされません。
 
+## {{% heading "whatsnext" %}} {##what-s-next}
 
-## {{% heading "whatsnext" %}}
-
-- [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards)
+- [Podセキュリティの標準](/docs/concepts/security/pod-security-standards)
 - [Podセキュリティ標準の強制](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [ビルトインのアドミッションコントローラーを設定してPodセキュリティスタンダードを強制する](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [名前空間のラベルを使用してPodセキュリティスタンダードを強制する](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
