@@ -44,12 +44,28 @@ weight: 30
 
 Ось простий приклад, де Ingress спрямовує весь свій трафік на один Service:
 
-{{< figure src="/docs/images/ingress.svg" alt="Схема Ingress" class="diagram-large" caption="Схема. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
+{{< mermaid >}}
+graph LR;
+  client([клієнт])-. Балансувальник навантаження, <br> яким керує Ingress .->ingress[Ingress];
+  ingress-->|правило маршрутизації|service[Service];
+  subgraph cluster["Кластер"]
+  ingress;
+  service-->pod1[Pod];
+  service-->pod2[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service,pod1,pod2 k8s;
+  class client plain;
+  class cluster cluster;
+{{< /mermaid >}}
+
+*Схема. Ingress*
 
 Ingress можна налаштувати так, щоб він надавав сервісам зовнішньодоступні URL, балансував навантаження трафіку, виконував термінацію SSL / TLS та пропонував віртуальний хостинг на основі імен. [Контролер Ingress](/docs/concepts/services-networking/ingress-controllers) відповідає за виконання Ingress, зазвичай за допомогою балансувальника навантаження, хоча він також може налаштовувати ваш граничний маршрутизатор або додаткові фронтенди, щоб допомогти обробляти трафік.
 
-Ingress не відкриває довільні порти чи протоколи. Для відкриття в інтернет доступу до сервісів, відмінних від HTTP та HTTPS, зазвичай використовується сервіс типу [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) або
-[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+Ingress не відкриває довільні порти чи протоколи. Для відкриття в інтернет доступу до сервісів, відмінних від HTTP та HTTPS, зазвичай використовується сервіс типу [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) або [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Передумови {#prerequisites}
 
@@ -69,8 +85,7 @@ Ingress не відкриває довільні порти чи протоко�
 
 {{% code_sample file="service/networking/minimal-ingress.yaml" %}}
 
-Для Ingress необхідні поля `apiVersion`, `kind`, `metadata` та `spec`.
-Назва обʼєкта Ingress повинна бути дійсним [імʼям DNS-піддомену](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). Загальну інформацію про роботу з файлами конфігурації дивіться в розділах [розгортання застосунків](/docs/tasks/run-application/run-stateless-application-deployment/), [налаштування контейнерів](/docs/tasks/configure-pod-container/configure-pod-configmap/), [управління ресурсами](/docs/concepts/workloads/management/). Контролери Ingress часто використовують [анотації](/docs/concepts/overview/working-with-objects/annotations/) для налаштування поведінки. Ознайомтеся з документацією обраного вами контролера Ingress, щоб дізнатися, які анотації очікуються та/або підтримуються.
+Для Ingress необхідні поля `apiVersion`, `kind`, `metadata` та `spec`. Назва обʼєкта Ingress повинна бути дійсним [імʼям DNS-піддомену](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). Загальну інформацію про роботу з файлами конфігурації дивіться в розділах [розгортання застосунків](/docs/tasks/run-application/run-stateless-application-deployment/), [налаштування контейнерів](/docs/tasks/configure-pod-container/configure-pod-configmap/), [управління ресурсами](/docs/concepts/workloads/management/). Контролери Ingress часто використовують [анотації](/docs/concepts/overview/working-with-objects/annotations/) для налаштування поведінки. Ознайомтеся з документацією обраного вами контролера Ingress, щоб дізнатися, які анотації очікуються та/або підтримуються.
 
 [Специфікація Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec) містить усю інформацію, необхідну для налаштування балансувальника навантаження чи проксі-сервера. Найважливіше те, що вона містить список правил, які зіставляються з усіма вхідними запитами. Ресурс Ingress підтримує правила лише для спрямування трафіку HTTP(S).
 
@@ -300,7 +315,27 @@ test-ingress   external-lb   *       203.0.113.123   80      59s
 
 Конфігурація розгалуження (fanout) маршрутизує трафік з однієї IP-адреси до більш ніж одного Service на основі запитуваного HTTP URI. Ingress дозволяє звести кількість балансувальників навантаження до мінімуму. Наприклад, таке налаштування:
 
-{{< figure src="/docs/images/ingressFanOut.svg" alt="Схема розгалуження Ingress" class="diagram-large" caption="Схема. Розгалуження (fanout) Ingress" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
+{{< mermaid >}}
+graph LR;
+  client([клієнт])-. Балансувальник навантаження, <br> яким керує Ingress .->ingress[Ingress, 178.91.123.132];
+  ingress-->|/foo|service1[Service service1:4200];
+  ingress-->|/bar|service2[Service service2:8080];
+  subgraph cluster["Кластер"]
+  ingress;
+  service1-->pod1[Pod];
+  service1-->pod2[Pod];
+  service2-->pod3[Pod];
+  service2-->pod4[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{< /mermaid >}}
+
+*Схема. Розгалуження (fanout) Ingress*
 
 Для цього знадобиться Ingress такого вигляду:
 
@@ -339,7 +374,27 @@ Events:
 
 Віртуальні хости на основі імен підтримують маршрутизацію HTTP-трафіку до кількох імен хостів за однією IP-адресою.
 
-{{< figure src="/docs/images/ingressNameBased.svg" alt="Схема віртуального хостингу на основі імен з Ingress" class="diagram-large" caption="Схема. Віртуальний хостинг на основі імен з Ingress" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
+{{< mermaid >}}
+graph LR;
+  client([клієнт])-. Балансувальник навантаження, <br> яким керує Ingress .->ingress[Ingress, 178.91.123.132];
+  ingress-->|Host: foo.bar.com|service1[Service service1:80];
+  ingress-->|Host: bar.foo.com|service2[Service service2:80];
+  subgraph cluster["Кластер"]
+  ingress;
+  service1-->pod1[Pod];
+  service1-->pod2[Pod];
+  service2-->pod3[Pod];
+  service2-->pod4[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{< /mermaid >}}
+
+*Схема. Віртуальний хостинг на основі імен з Ingress*
 
 Наступний Ingress вказує балансувальнику навантаження, що стоїть за ним, маршрутизувати запити на основі [заголовка Host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
