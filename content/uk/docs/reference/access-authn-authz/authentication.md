@@ -268,10 +268,10 @@ Kubernetes має вбудовану підтримку JWT та OpenID Connect 
 
 ```javascript
 {
-  "iss": "https://example.com",   // must match the issuer.url
-  "aud": ["my-app"],              // at least one of the entries in issuer.audiences must match the "aud" claim in presented JWTs.
-  "exp": 1234567890,              // token expiration as Unix time (the number of seconds elapsed since January 1, 1970 UTC)
-  "<username-claim>": "user"      // this is the username claim configured in the claimMappings.username.claim or claimMappings.username.expression
+  "iss": "https://example.com",   // має збігатися з issuer.url
+  "aud": ["my-app"],              // принаймні один з елементів в issuer.audiences повинен збігатися з твердженням "aud" в наданих JWT.
+  "exp": 1234567890,              // закінчення терміну дії токена у вигляді часу Unix (кількість секунд, що минули з 1 січня 1970 року UTC)
+  "<username-claim>": "user"      // це твердження для імені користувача, налаштоване в claimMappings.username.claim або claimMappings.username.expression
 }
 ```
 
