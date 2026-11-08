@@ -101,7 +101,7 @@ Tinycert надає:
 
 ## Що далі? {#what-next}
 
-* Ознайомтеся з документацією для [Сертифікатів Podʼів](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests) та [Cluster Trust Bundles](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles).
+* Ознайомтеся з документацією для [Сертифікатів Podʼів](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests) та [Cluster Trust Bundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles).
 * Перегляньте та надайте відгук щодо [проєкту стандарту SPIFFE Filesystem Delivery](https://github.com/spiffe/spiffe/pull/376), який прагне зробити використання SPIFFE сертифікатів безпосередньо на нативному Kubernetes максимально простим.
 * Приєднуйтесь до Kubernetes SIG Auth, щоб допомогти формувати майбутнє підписувачів, що вбудовані безпосередньо в ядро Kubernetes.
 * Спробуйте створити власний підписувач на основі Tinycert.
