@@ -20,7 +20,7 @@ other = """<p>Esta página se genera automáticamente.</p><p>Si planeas reportar
 other = "Ocultar este aviso"
 
 [blog_mirrored_originally_published_at]
-other = 'Esto es un espejo de la <a href="{{ .canonicalUrl }}">artículo original</a>.'
+other = 'Esto es un reflejo del <a href="{{ .canonicalUrl }}">artículo original</a>.'
 
 [blog_post_show_more]
 other = "Mostrar más publicaciones..."
@@ -78,7 +78,7 @@ other = "Foro"
 other = "GitHub"
 
 [community_introduce]
-other = "Kubernetes es un proyecto de código abierto que cualquier persona de la comunidad puede usar, mejorar y disfrutar. ¡Nos encantaría que te unieras! Aquí tienes algunas maneras de enterarte de lo que está pasando y participar."
+other = "Kubernetes es un proyecto de código abierto donde cualquier persona de la comunidad puede usar, mejorar y disfrutar. ¡Nos encantaría que te unieras! Aquí tienes algunas formas para enterarte de lo que está pasando y participar."
 
 [community_join]
 other= "Únete a la comunidad"
@@ -216,22 +216,22 @@ other = "Más información sobre esta función"
 
 [feature_gate_more_information_how_to_enable]
 other = """<p>Para utilizar esta función, usted (o un administrador del clúster) deberá habilitar la <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> feature gate para todos los componentes pertinentes en tu clúster.</p>
-<p>Consulte <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Enable Or Disable Feature Gates</a> para obtener más información.</p>"""
+<p>Consulte <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Habilitar o Deshabilitar Feature Gates</a> para obtener más información.</p>"""
 
 [feature_gate_stable_graduated]
 other = "Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stableVersion }}. Estuvo disponible por primera vez en la versión {{ .firstReleaseWithThisFeature }}."
 
 [feature_gate_stable_graduated_disabled]
-other = "Esta funcionalidad estable está deshabilitada de forma predeterminada. Ya no es posible habilitarla para optar por el comportamiento asociado."
+other = "Esta funcionalidad estable está deshabilitada de forma predeterminada. Ya no es posible habilitarla para usar por el comportamiento asociado."
 
 [feature_gate_stable_locked]
-other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión v{{ .stableVersion }}. Estuvo disponible por primera vez en la versión v{{ .firstReleaseWithThisFeature }}. Ya no es posible deshabilitar ni excluirse de esta funcionalidad o comportamiento (está bloqueada); si se establece explícitamente un valor para el <tt>{{ .featureGateName }}</tt> asociado, {{ .kubernetes }} lo ignora sin generar ningún error."""
+other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión v{{ .stableVersion }}. Estuvo disponible por primera vez en la versión v{{ .firstReleaseWithThisFeature }}. Ya no es posible deshabilitar ni excluir esta funcionalidad o comportamiento (está bloqueada); si se establece explícitamente un valor para el <tt>{{ .featureGateName }}</tt> asociado, {{ .kubernetes }} lo ignora sin generar ningún error."""
 
 [feature_gate_removed_after_ga]
 other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stableVersion }}. Ya no es posible activar o desactivar esta funcionalidad (el componente <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> asociado ha sido eliminado)."""
 
 [feature_gate_removed_before_ga_final_version_clear]
-other = """{{ .kubernetes }} ya no incluye esta funcionalidad o comportamiento. La última versión de {{ .kubernetes }} que reconocía el parámetro de control de funcionalidades (feature gate) <tt>{{ .featureGateName }}</tt> fue la {{ .toVersion }}. Ya no es posible modificar dicho ajuste."""
+other = """{{ .kubernetes }} ya no incluye esta funcionalidad o comportamiento. La última versión de {{ .kubernetes }} que reconocía el feature gate <tt>{{ .featureGateName }}</tt> fue la {{ .toVersion }}. Ya no es posible modificar dicho ajuste."""
 
 # Used when we somehow don't know when the feature gate was removed.
 [feature_gate_removed_before_ga_final_version_unclear]
@@ -317,7 +317,7 @@ de Katacoda por parte de O'Reilly Media en 2019.</p>
 other = "China"
 
 [kubecon_region_europe]
-other = "Europe"
+other = "Europa"
 
 [kubecon_region_event]
 other = "Evento"
@@ -326,10 +326,10 @@ other = "Evento"
 other = "India"
 
 [kubecon_region_japan]
-other = "Japan"
+other = "Japon"
 
 [kubecon_region_north_america]
-other = "América del norte"
+other = "Norteamérica"
 
 [kubectl_ref_collapse_all]
 other = "Contraer todo"
