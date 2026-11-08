@@ -98,7 +98,7 @@ spec:
     # Le template de pod se termine ici
 ```
 
-Modifier le template de pod ou changer pour un nouvau template de pod n'a pas d'effet sur les pods déjà existants. Les Pods ne reçoivent pas une mise à jour
+Modifier le template de pod ou changer pour un nouveau template de pod n'a pas d'effet sur les pods déjà existants. Les Pods ne reçoivent pas une mise à jour
 du template directement ; au lieu de cela, un nouveau Pod est créé pour correspondre au nouveau template de pod.
 
 Par exemple, un contrôleur de Deployment s'assure que les Pods en cours d'exécution correspondent au template de pod en cours. Si le template est mis à jour,
