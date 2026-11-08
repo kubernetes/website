@@ -18,9 +18,9 @@ Podセキュリティの標準はセキュリティを幅広くカバーする�
 
 <!-- body -->
 
-## プロファイルの詳細
+## プロファイルの詳細 {#profile-details}
 
-### 特権
+### 特権 {#privileged}
 
 **_特権_ ポリシーは意図的に開放されていて、完全に制限がかけられていません。**
 この種のポリシーは通常、特権ユーザーまたは信頼されたユーザーが管理する、システムまたはインフラレベルのワークロードに対して適用されることを意図しています。
@@ -29,7 +29,7 @@ Podセキュリティの標準はセキュリティを幅広くカバーする�
 特権セキュリティポリシーの適用されたPodを定義すると、そのPodは典型的なコンテナの隔離メカニズムをバイパスすることができます。
 例えば、ノードのホストネットワークにアクセスできるPodを定義することもできます。
 
-### ベースライン
+### ベースライン {#baseline}
 
 **_ベースライン_ ポリシーは、一般的なコンテナ化されたランタイムに適用しやすく、かつ既知の特権昇格を防ぐことを意図しています。**
 このポリシーはクリティカルではないアプリケーションの運用者または開発者を対象にしています。
@@ -328,7 +328,7 @@ Podセキュリティの標準はセキュリティを幅広くカバーする�
 	</tbody>
 </table>
 
-### 制限
+### 制限 {#restricted}
 
 **_制限_ ポリシーはいくらかの互換性を犠牲にして、Podを強化するためのベストプラクティスを強制することを意図しています。**
 セキュリティ上クリティカルなアプリケーションの運用者や開発者、また信頼度の低いユーザーも対象にしています。
@@ -487,7 +487,7 @@ Podセキュリティの標準はセキュリティを幅広くカバーする�
 	</tbody>
 </table>
 
-## ポリシーの実例
+## ポリシーの実例 {#policy-instantiation}
 
 ポリシーの定義とポリシーの実装を切り離すことによって、ポリシーを強制する機構とは独立して、汎用的な理解や複数のクラスターにわたる共通言語とすることができます。
 
@@ -500,7 +500,7 @@ Podセキュリティの標準はセキュリティを幅広くカバーする�
 - {{< example file="security/podsecurity-baseline.yaml" >}}ベースラインnamespace{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}制限namespace{{< /example >}}
 
-### 代替案
+### 代替案 {#alternatives}
 
 {{% thirdparty-content %}}
 
@@ -510,7 +510,7 @@ Kubernetesエコシステムでは、セキュリティプロファイルを強�
 - [Kyverno](https://kyverno.io/policies)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
-## PodのOSフィールド
+## PodのOSフィールド {#pod-os-field}
 
 KubernetesではLinuxとWindowsの動作するノードをどちらも利用できます。
 両方の種類のノードを一つのクラスターに混在させることもできます。
@@ -521,25 +521,25 @@ Kubernetesにおいて、WindowsはLinuxベースのワークロードと比べ�
 v1.24以前のKubeletはPodのOSフィールドを強制しないため、もしもクラスターにv1.24以前のバージョンのノードがある場合は、制限ポリシーはv1.25以前に固定されるべきです。
 {{< /note >}}
 
-### Podセキュリティの標準における制限ポリシーの変更点
+### Podセキュリティの標準における制限ポリシーの変更点 {#restricted-pod-security-standard-changes}
 
 Kubernetes v1.25での他の重要な変更点として、 _制限_ ポリシーは`pod.spec.os.name`フィールドを使用するようにアップデートされました。
 OS名に基づき、OS固有の特定のポリシーが他のOSでは緩和されるようになりました。
 
-#### OS固有のポリシー制御
+#### OS固有のポリシー制御 {#os-specific-policy-controls}
 以下の制御における制限は、`.spec.os.name`が`windows`以外のときのみ要求されます:
 - 特権昇格
 - Seccomp
 - Linuxケーパビリティ
 
-## ユーザー名前空間
+## ユーザー名前空間 {#user-namespaces}
 
 ユーザー名前空間はLinux固有の機能であり、ワークロードをより高度に隔離します。
 ユーザー名前空間を使用するPodが、Podセキュリティの標準と一緒に動作する仕組みは[ドキュメント](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)に記載されています。
 
-## FAQ
+## FAQ {#faq}
 
-### 特権とベースラインの間のプロファイルがないのはどうしてですか?
+### 特権とベースラインの間のプロファイルがないのはどうしてですか? {#why-isn-t-there-a-profile-between-privileged-and-baseline}
 
 ここで定義されている3つのプロファイルは最も安全(制限)から最も安全ではない(特権)まで、直線的に段階が設定されており、幅広いワークロードをカバーしています。
 ベースラインを超える特権が必要な場合、その多くはアプリケーションに特化しているため、その限られた要求に対して標準的なプロファイルを提供することはできません。
@@ -547,7 +547,7 @@ OS名に基づき、OS固有の特定のポリシーが他のOSでは緩和さ�
 
 将来、他のプロファイルの必要性が明らかになった場合、SIG Authはこの方針について再考する可能性があります。
 
-### セキュリティプロファイルとセキュリティコンテキストの違いは何ですか?
+### セキュリティプロファイルとセキュリティコンテキストの違いは何ですか? {#what-s-the-difference-between-a-security-profile-and-a-security-context}
 
 [Security Context](/docs/tasks/configure-pod-container/security-context/)は実行時のコンテナやPodを設定するものです。
 Security ContextはPodのマニフェストの中でPodやコンテナの仕様の一部として定義され、コンテナランタイムへ渡されるパラメーターを示します。
@@ -556,7 +556,7 @@ Security ContextはPodのマニフェストの中でPodやコンテナの仕様�
 2021年7月時点で、[Podセキュリティポリシー](/docs/concepts/policy/pod-security-policy/)は非推奨であり、組み込みの[Podセキュリティアドミッションコントローラー](/docs/concepts/security/pod-security-admission/)に移行しました。
 
 
-### サンドボックス化されたPodはどのように扱えばよいでしょうか?
+### サンドボックス化されたPodはどのように扱えばよいでしょうか? {#what-about-sandboxed-pods}
 
 現在のところ、Podがサンドボックス化されていると見なされるかどうかを制御できるAPI標準はありません。
 サンドボックス化されたPodはサンドボックス化されたランタイム（例えばgVisorやKata Containers）の使用により特定することは可能ですが、サンドボックス化されたランタイムの標準的な定義は存在しません。
