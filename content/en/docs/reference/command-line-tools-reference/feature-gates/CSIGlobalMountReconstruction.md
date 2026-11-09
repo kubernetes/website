@@ -17,6 +17,8 @@ Pod directory describes them anymore: for example, when the node rebooted while
 volume directory is missing or corrupt. Without this feature gate, the kubelet has
 no record of such a volume and leaves it out of the Node's `.status.volumesInUse`,
 so the attach/detach controller may attach it to another node before it is unstaged
-on this one. With the feature gate enabled, the kubelet also looks for staged
-volumes in the CSI global mount directories when it starts, and keeps each volume
-it finds there in `.status.volumesInUse` until it has unstaged that volume.
+on this one. With the feature gate enabled, the kubelet asks the CSI volume plugin
+at startup for the volumes it still has staged, filesystem and raw block, and keeps
+each volume it finds in `.status.volumesInUse` until it has unstaged that volume.
+When the Pod's `vol_data.json` is missing or corrupt, the kubelet reads the copy
+stored beside the global mount instead.
