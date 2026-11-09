@@ -13,7 +13,7 @@ Sistemas distribuídos frequentemente precisam de _leases_, que fornecem um meca
 compartilhados e coordenar as atividades entre os membros de um conjunto.
 No Kubernetes, o conceito de lease é representado por objetos [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
 no {{< glossary_tooltip text="grupo de API" term_id="api-group" >}} `coordination.k8s.io`,
-que são usados para funcionalidades críticas do sistema, como os heartbeats dos nós e a eleição de líder entre componentes.
+que são usados para funcionalidades críticas do sistema, como os heartbeats dos nós e a eleição de líder no nível de componentes.
 
 <!-- body -->
 
@@ -38,13 +38,13 @@ Leia [eleição de líder coordenada](/docs/concepts/cluster-administration/coor
 para entender como o Kubernetes se apoia na API de Lease para selecionar qual instância do componente
 atua como líder.
 
-### Liberação do lock do kube-controller-manager ao encerrar
+### Liberação do bloqueio do kube-controller-manager ao encerrar
 
 {{< feature-state feature_gate_name="ControllerManagerReleaseLeaderElectionLockOnExit" >}}
 
 Quando o feature gate `ControllerManagerReleaseLeaderElectionLockOnExit` está habilitado,
-o `kube-controller-manager` libera ativamente o seu lock de eleição de líder durante
-as transições de liderança, em vez de esperar o TTL do lock expirar. Isso permite
+o `kube-controller-manager` libera ativamente o seu bloqueio de eleição de líder durante
+as transições de liderança, em vez de esperar o TTL do bloqueio expirar. Isso permite
 que um novo líder seja eleito mais rapidamente, reduzindo a latência da transição de liderança.
 
 ## Identidade do servidor de API
@@ -57,7 +57,7 @@ descubram quantas instâncias do `kube-apiserver` estão operando a camada de ge
 A existência de leases do kube-apiserver possibilita funcionalidades futuras que podem exigir coordenação entre
 as instâncias do kube-apiserver.
 
-Você pode inspecionar as Leases de cada kube-apiserver procurando por objetos lease no namespace `kube-system`
+Você pode inspecionar as Leases pertencentes a cada kube-apiserver procurando por objetos lease no namespace `kube-system`
 com o nome `apiserver-<sha256-hash>`. Alternativamente, você pode usar o seletor de label `apiserver.kubernetes.io/identity=kube-apiserver`:
 
 ```shell
