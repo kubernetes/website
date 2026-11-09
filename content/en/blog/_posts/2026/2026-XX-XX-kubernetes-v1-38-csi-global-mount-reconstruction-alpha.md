@@ -2,7 +2,6 @@
 layout: blog
 title: "Kubernetes v1.38: Kubelet Recovers Orphaned CSI Global Mounts (Alpha)"
 draft: true
-date: 2026-XX-XX
 slug: kubernetes-v1-38-csi-global-mount-reconstruction-alpha
 author: "Cesar Celis (CCH Software Inc.)"
 ---
@@ -36,8 +35,9 @@ up by hand. That is [#101791](https://github.com/kubernetes/kubernetes/issues/10
 With the gate on, kubelet asks each volume plugin which volumes it still has staged, and the CSI
 plugin answers from its own directory. Kubelet records each one it does not already track as
 uncertain, and reports it in `volumesInUse` while the node still has it attached, the same way it
-treats a volume rebuilt from a pod directory. If a pod still wants the volume, kubelet verifies it. If no pod wants it, kubelet calls
-`NodeUnstageVolume`, and removes the directory only after that succeeds.
+treats a volume rebuilt from a pod directory. If a pod still wants the volume, kubelet verifies it.
+If no pod wants it, kubelet calls `NodeUnstageVolume`, and removes the directory only after that
+succeeds.
 
 When the pod-local `vol_data.json` is unreadable, kubelet reads the copy kept beside the global
 mount. It finds that copy through the bind mount the pod already holds.
@@ -54,8 +54,8 @@ If both copies of `vol_data.json` are lost, nothing on the node names the volume
 needs manual cleanup.
 
 The pod-local fallback needs the bind mount, so it works after a kubelet restart but not after a
-reboot. After a reboot such a volume is still found by the listing and unstaged, but kubelet does not call
-`NodeUnpublishVolume` for it first.
+reboot. After a reboot such a volume is still found by the listing and unstaged, but kubelet does
+not call `NodeUnpublishVolume` for it first.
 
 In-tree FibreChannel and iSCSI are not covered. They can join later by implementing the same
 plugin call, with no change to the volume manager.
@@ -87,7 +87,7 @@ again. When the gate picks up such a global mount, kubelet logs, at verbosity 2:
 The driver then gets `NodeUnstageVolume`, and the `VolumeAttachment` goes away only after it
 succeeds. With the gate off, the volume is detached while it is still staged.
 
-The steps, with a mock CSI driver that delays `NodeUnstageVolume`, are in the
+The steps, with a mock CSI driver, are in the
 [KEP test plan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/6058-csi-global-mount-fallback#e2e-tests).
 
 ## Getting involved
