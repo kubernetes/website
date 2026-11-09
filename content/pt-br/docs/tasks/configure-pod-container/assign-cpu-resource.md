@@ -8,8 +8,8 @@ weight: 20
 
 Esta página mostra como atribuir uma *requisição* de CPU e um *limite* de CPU a
 um contêiner. Contêineres não podem usar mais CPU do que o limite configurado.
-Desde que o sistema tenha tempo de CPU livre, um contêiner tem garantida a
-alocação de tanta CPU quanto requisita.
+Desde que o sistema tenha tempo de CPU livre, é garantido que um contêiner
+receba tanta CPU quanto requisita.
 
 
 
@@ -137,7 +137,7 @@ O recurso de CPU é medido em unidades de *CPU*. No Kubernetes, uma CPU equivale
 
 Valores fracionários são permitidos. Um contêiner que requisita 0,5 CPU tem garantida a metade
 da CPU de um contêiner que requisita 1 CPU. Você pode usar o sufixo m para indicar mili. Por exemplo,
-100m CPU, 100 miliCPU e 0,1 CPU são a mesma coisa. Não é permitida uma precisão menor do que 1m.
+100m CPU, 100 miliCPU e 0,1 CPU são a mesma coisa. Não é permitida uma precisão mais fina do que 1m.
 
 A CPU é sempre requisitada como uma quantidade absoluta, nunca como uma quantidade relativa; 0,1 é a mesma
 quantidade de CPU em uma máquina com um, dois ou 48 núcleos.
