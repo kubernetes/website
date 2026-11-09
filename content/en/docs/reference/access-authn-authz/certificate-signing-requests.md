@@ -89,7 +89,8 @@ Each value maps to a bit in the X.509 key usage extension
 ([RFC 5280, section 4.2.1.3](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3))
 or to a purpose in the extended key usage extension
 ([RFC 5280, section 4.2.1.12](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12)).
-The valid values are:
+The following table shows how the built-in Kubernetes signers map each value. Custom signers
+might interpret these values differently. The valid values are:
 
 | Value | X.509 extension | Meaning |
 |-------|-----------------|---------|
