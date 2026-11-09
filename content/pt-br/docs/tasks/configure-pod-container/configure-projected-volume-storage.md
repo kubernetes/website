@@ -1,14 +1,11 @@
 ---
-reviewers:
-- jpeeler
-- pmorie
-title: Configurar um Pod para Usar um Volume Projetado para Armazenamento
+title: Configure um Pod para Usar um Volume Projetado para Armazenamento
 content_type: task
 weight: 100
 ---
 
 <!-- overview -->
-Esta página mostra como usar um Volume [`projected`](/docs/concepts/storage/volumes/#projected)
+Esta página mostra como usar um Volume [`projected`](/docs/concepts/storage/volumes/#projetado)
 para montar várias fontes de volume existentes no mesmo diretório. Atualmente,
 volumes `secret`, `configMap`, `downwardAPI` e `serviceAccountToken` podem ser
 projetados.
@@ -28,7 +25,7 @@ projetados.
 
 Neste exercício, você cria {{< glossary_tooltip text="Secrets" term_id="secret" >}}
 de nome de usuário e senha a partir de arquivos locais. Em seguida, você cria um
-Pod que executa um contêiner e usa um Volume [`projected`](/docs/concepts/storage/volumes/#projected)
+Pod que executa um contêiner e usa um Volume [`projected`](/docs/concepts/storage/volumes/#projetado)
 para montar os Secrets no mesmo diretório compartilhado.
 
 Aqui está o arquivo de configuração do Pod:
@@ -86,6 +83,6 @@ kubectl delete secret user pass
 
 ## {{% heading "whatsnext" %}}
 
-* Saiba mais sobre volumes [`projected`](/docs/concepts/storage/volumes/#projected).
+* Saiba mais sobre volumes [`projected`](/docs/concepts/storage/volumes/#projetado).
 * Leia o documento de design do [volume tudo-em-um](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) (_all-in-one volume_).
 
