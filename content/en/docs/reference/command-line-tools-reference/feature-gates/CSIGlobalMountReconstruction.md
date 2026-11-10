@@ -11,14 +11,10 @@ stages:
     fromVersion: "1.38"
 ---
 Enables the kubelet to find [CSI](/docs/concepts/storage/volumes/#csi) volumes that
-are still staged on the node after a kubelet restart or a node reboot, even when no
-Pod directory describes them anymore: for example, when the node rebooted while
-`NodeUnstageVolume` was in progress, or when the `vol_data.json` file in the Pod's
-volume directory is missing or corrupt. Without this feature gate, the kubelet has
-no record of such a volume and leaves it out of the Node's `.status.volumesInUse`,
-so the attach/detach controller may attach it to another node before it is unstaged
-on this one. With the feature gate enabled, the kubelet asks the CSI volume plugin
-at startup for the volumes it still has staged, filesystem and raw block, and keeps
-each volume it finds in `.status.volumesInUse` until it has unstaged that volume.
-When the Pod's `vol_data.json` is missing or corrupt, the kubelet reads the copy
-stored beside the global mount instead.
+are still staged after a kubelet restart or a node reboot, but that no Pod directory
+describes anymore. Without this feature gate, such a volume is missing from the Node's
+`.status.volumesInUse`, and the attach/detach controller may attach it to another node
+before it is unstaged. With the feature gate enabled, the kubelet keeps each such
+volume in `.status.volumesInUse` until it has unstaged it. After a kubelet restart, it
+also reads the copy of `vol_data.json` beside the global mount when the Pod's copy is
+missing or corrupt. Only CSI drivers that implement `NodeStageVolume` are affected.
