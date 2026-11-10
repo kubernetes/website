@@ -23,20 +23,40 @@
 {{ if not ($.Scratch.Get "content") }}
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
-{{ $filename := printf ($.Scratch.Get "filename") | safeURL }}
-{{ $ghlink := printf "https://%s/%s%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) $filename | safeURL }}
-{{ with $.Scratch.Get "content" }}
-<div class="highlight code-sample">
-    <div class="copy-code-icon">
-    {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
-    {{ if $ghlink }}</a>{{ end }}
-    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" $file) -}}
-    {{- with resources.Get "images/copycode.svg" -}}
-    <img src="{{  .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $file | anchorize }}')" title="{{ $copyTitle }}"></img>
-    {{- end -}}
-    </div>
-    <div class="includecode" id="{{ $file | anchorize }}">
-       {{- highlight . $codelang $opts -}}
-    </div>
+{{- $ghbase := printf "https://%s/%s" site.Params.githubwebsiteraw (default "main" site.Params.docsbranch) -}}
+{{- $source := $.Scratch.Get "filename" -}}
+{{- /* .Ordinal counts within the parent shortcode, so add the parent's too. */ -}}
+{{- $ordinal := string .Ordinal -}}
+{{- with .Parent }}{{ $ordinal = printf "%d-%s" .Ordinal $ordinal }}{{ end -}}
+{{- $anchor := printf "%s-%s" ($file | anchorize) $ordinal -}}
+{{- $pane := dict "file" $file "content" ($.Scratch.Get "content") "codelang" $codelang "options" $opts "ghlink" (printf "%s%s" $ghbase $source) "id" $anchor -}}
+{{- /* variants="kyaml": also show the sample as read from
+       content/<lang>/examples-<variant>/<file>, one tab per variant. */ -}}
+{{- with .Get "variants" -}}
+{{- $tabs := slice (merge $pane (dict "label" (path.Ext $file | strings.TrimPrefix "."))) -}}
+{{- range split . "," -}}
+{{- with trim . " " -}}
+{{- $path := replaceRE "^(/content/[^/]+)/examples/" (printf "${1}/examples-%s/" .) $source -}}
+{{- if not (fileExists $path) -}}
+{{- errorf "[%s] code_sample variant %q of %q not found at %q" site.Language.Lang . $file $path -}}
+{{- end -}}
+{{- /* Options such as hl_lines refer to the source's lines, so drop them. */ -}}
+{{- $tabs = $tabs | append (merge $pane (dict "label" . "content" (readFile $path) "options" "" "ghlink" (printf "%s%s" $ghbase $path) "id" (printf "%s-%s" $anchor .))) -}}
+{{- end -}}
+{{- end -}}
+{{- /* Docsy tabpane markup; data-td-tp-persist makes a choice stick site-wide. */ -}}
+<ul class="nav nav-tabs" id="tabs-{{ $anchor }}" role="tablist" aria-label="{{ T "code_sample_variant_group" }}">
+{{- range $i, $t := $tabs }}
+  <li class="nav-item"><button class="nav-link{{ if eq $i 0 }} active{{ end }}" id="tabs-{{ $anchor }}-{{ $i }}-tab" data-bs-toggle="tab" data-bs-target="#tabs-{{ $anchor }}-{{ $i }}" role="tab" data-td-tp-persist="{{ lower $t.label }}" aria-controls="tabs-{{ $anchor }}-{{ $i }}" aria-selected="{{ eq $i 0 }}">{{ upper $t.label }}</button></li>
+{{- end }}
+</ul>
+<div class="tab-content" id="tabs-{{ $anchor }}-content">
+{{- range $i, $t := $tabs }}
+  <div class="tab-pane fade{{ if eq $i 0 }} show active{{ end }}" id="tabs-{{ $anchor }}-{{ $i }}" role="tabpanel" aria-labelledby="tabs-{{ $anchor }}-{{ $i }}-tab" tabindex="0">
+  {{- partial "code-sample-pane.html" $t -}}
+  </div>
+{{- end }}
 </div>
+{{- else -}}
+{{- partial "code-sample-pane.html" $pane -}}
 {{- end -}}
