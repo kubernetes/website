@@ -24,7 +24,7 @@ CONTENT_DIR="content/ja"
 
 if [ $# -eq 0 ]; then
 	cd "${REPO_ROOT}/${CONTENT_DIR}" || {
-		echo "Failed to change directory to ${REPO/ROOT}/${CONTENT_DIR}." >&2
+		echo "Failed to change directory to ${REPO_ROOT}/${CONTENT_DIR}." >&2
 		exit 2
 	}
 	set -- *
