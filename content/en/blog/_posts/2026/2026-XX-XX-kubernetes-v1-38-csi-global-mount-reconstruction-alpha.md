@@ -70,7 +70,7 @@ reads it, so it can be turned on one node at a time.
 
 With the gate on, a kubelet that finds a staged volume no pod on the node still needs calls
 `NodeUnstageVolume` for it at startup. It decides that from the pods the API server assigns to the
-node, so while the API server cannot be reached, nothing is unstaged.
+node, so until it has heard from the API server after it starts, nothing is unstaged.
 
 To roll back, turn the gate off and restart the kubelet. The two extra fields `MountDevice` writes
 are not read with the gate off, so there is nothing to clean up. If
