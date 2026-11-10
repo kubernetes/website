@@ -27,7 +27,7 @@ The `CertificateSigningRequest` API is the standard, general-purpose way to ask 
 
 The `PodCertificateRequest` API is a specialized tool designed specifically for your applications.
 - **Usage**: When an application running inside a `Pod` needs its own certificate to talk securely to other services, it uses a PCR. The cluster automatically places this certificate directly into the Pod for the application to use it.
-- **Workflow**: When a Pod starts up, the `kubelet` automatically requests a certificate. Then `kube-apiserver` confirms the identity of the Pod, issues the certificate and places it securely inside the Pod for the application to use.
+- **Workflow**: When a Pod starts up, the `kubelet` automatically requests a certificate. Then `kube-apiserver` confirms the identity of the Pod, the signer issues the certificate and `kubelet` places it securely inside the Pod for the application to use.
 - **Key Difference from CSR**: While a CSR is a general tool that often requires manual approval, a PCR is a flow built specifically for workloads. It allows the `kubelet` to automatically request and handle certificates for running applications behind the scenes, without waiting for an administrator approval.
 
 ## Key Components
