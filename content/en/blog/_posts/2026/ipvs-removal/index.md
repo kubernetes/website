@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Deprecation of kube-proxy IPVS backend"
-draft: true
-slug: ipvs-deprecation
+title: "Scheduling the removal of the kube-proxy IPVS backend"
+date: 2026-11-16T10:35:00-08:00
+slug: ipvs-removal
 author: >
   Dan Winship (Red Hat)
 ---
@@ -20,12 +20,14 @@ the `nftables` backend was the idea that it would eventually replace
 both the `iptables` and `ipvs` backends. Because the `ipvs` backend in
 particular is complex, not 100% feature complete, and architecturally
 quite different from the other two backends (and thus more work to
-maintain), Kubernetes SIG Network decided to officially deprecate it
-as of Kubernetes 1.35. Although it currently remains available in
+maintain), Kubernetes SIG Network decided to officially [deprecate it
+as of Kubernetes 1.35]. Although it currently remains available in
 kube-proxy (with a warning about its deprecation), we (Kubernetes SIG
-Network) now plan to remove it as of Kubernetes 1.40. All `ipvs` users
+Network) now plan to remove it in Kubernetes 1.40. All `ipvs` users
 should therefore be planning to migrate to either the `nftables` or
 `iptables` backends.
+
+[deprecate it as of Kubernetes 1.35]: https://kubernetes.io/blog/2025/12/17/kubernetes-v1-35-release/#deprecation-of-ipvs-mode-in-kube-proxy
 
 ## Why was the `ipvs` backend written?
 
