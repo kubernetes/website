@@ -111,8 +111,8 @@ Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-pa
 
 _Pourquoi ne pas simplement exécuter plusieurs programmes dans un unique conteneur (Docker) ?_
 
-1. Transparence. Rendre les conteneurs à l'intérieur du pod visibles par l'infrastucture
-   permet à l'infrastucture de fournir des services à ces conteneurs,
+1. Transparence. Rendre les conteneurs à l'intérieur du pod visibles par l'infrastructure
+   permet à l'infrastructure de fournir des services à ces conteneurs,
    comme la gestion des processus et le monitoring des ressources. Ceci
    apporte un certain nombre de facilités aux utilisateurs.
 1. Découpler les dépendances logicielles. Les conteneurs individuels peuvent être
@@ -174,7 +174,7 @@ Par défaut, toutes les suppressions ont une période de grâce de 30 secondes. 
 
 ### Suppression forcée de pods
 
-La suppression forcée d'un pod est définie comme la suppression immédiate d'un pod de l'état du cluster et d'etcd. Lorqu'une suppression forcée est effectuée, l'apiserver n'attend pas la confirmation de kubelet que le pod a été terminé sur le nœud sur lequel il s'exécutait. Il supprime le pod de l'API immédiatement pour qu'un nouveau pod puisse être créé avec le même nom. Sur le nœud, les pods devant se terminer immédiatement se verront donner une courte période de grâce avant d'être tués de force.
+La suppression forcée d'un pod est définie comme la suppression immédiate d'un pod de l'état du cluster et d'etcd. Lorsqu'une suppression forcée est effectuée, l'apiserver n'attend pas la confirmation de kubelet que le pod a été terminé sur le nœud sur lequel il s'exécutait. Il supprime le pod de l'API immédiatement pour qu'un nouveau pod puisse être créé avec le même nom. Sur le nœud, les pods devant se terminer immédiatement se verront donner une courte période de grâce avant d'être tués de force.
 
 Les suppressions forcées peuvent être potentiellement dangereuses pour certains pods et doivent être effectuées avec précaution. Dans le cas de pods d'un StatefulSet, veuillez vous référer à la documentation pour [supprimer des Pods d'un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
