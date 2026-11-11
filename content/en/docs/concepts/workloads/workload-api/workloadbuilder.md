@@ -17,7 +17,7 @@ Controller authors embed these primitives into their own APIs so that users expr
 scheduling intent (gang scheduling, topology, disruption behavior) with a consistent
 schema across the ecosystem, and the shared `workloadbuilder` library compiles that
 intent into the scheduler-facing [Workload](/docs/concepts/workloads/workload-api/),
-[PodGroup](/docs/concepts/workloads/podgroup-api/), and [CompositePodGroup](/docs/concepts/workloads/workload-api/compositepodgroup-api/) objects.
+[PodGroup](/docs/concepts/workloads/podgroup-api/), and [CompositePodGroup](/docs/concepts/workloads/compositepodgroup-api/) objects.
 
 The built-in consumer of these building blocks today is the
 [Job](/docs/concepts/workloads/controllers/job/) controller, gated by the
