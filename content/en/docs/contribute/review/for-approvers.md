@@ -8,8 +8,8 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and
-[Approvers](/docs/contribute/participate/#approvers) do a few extra things
+SIG Docs [Reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers) and
+[Approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) do a few extra things
 when reviewing a change.
 
 Every week a specific docs approver volunteers to triage and review pull requests.

@@ -15,36 +15,51 @@
 # limitations under the License.
 ##########
 
-# cd to the root path
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+# Usage: verify-spelling.sh [DIRECTORY|FILE]...
+# If no argument is given, CONTENT_DIR (defined below) is checked.
+# Exit codes: 0 if no incorrect word is found, 1 if any is found, 2 on error.
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 CONTENT_DIR="content/ja"
-cd "${ROOT}/${CONTENT_DIR}"
 
-TARGET_WORDS=""               # invalid:valid
-TARGET_WORDS="${TARGET_WORDS} コンテナー:コンテナ"
-TARGET_WORDS="${TARGET_WORDS} アーキテクチャー:アーキテクチャ"
-TARGET_WORDS="${TARGET_WORDS} コントローラ[^ー]:コントローラー"
-TARGET_WORDS="${TARGET_WORDS} オペレータ[^ー]:オペレーター"
-TARGET_WORDS="${TARGET_WORDS} パラメータ[^ー]:パラメーター"
-TARGET_WORDS="${TARGET_WORDS} レイヤ[^ー]:レイヤー"
-TARGET_WORDS="${TARGET_WORDS} クラスタ[^ーリ]:クラスター" # 例外的にクラスタリングはクラスターリングにしない
-TARGET_WORDS="${TARGET_WORDS} バイナリー:バイナリ"
+if [ $# -eq 0 ]; then
+	cd "${REPO_ROOT}/${CONTENT_DIR}" || {
+		echo "Failed to change directory to ${REPO_ROOT}/${CONTENT_DIR}." >&2
+		exit 2
+	}
+	set -- *
+fi
 
-INVALID_CONTAINED=""
+TARGET_WORDS=(
+	# incorrect_word_with_regex:correct_word
+	"コンテナー:コンテナ"
+	"アーキテクチャー:アーキテクチャ"
+	"コントローラ[^ー]:コントローラー"
+	"オペレータ[^ー]:オペレーター"
+	"パラメータ[^ー]:パラメーター"
+	"レイヤ[^ー]:レイヤー"
+	"クラスタ[^ーリ]:クラスター" # クラスタリングは除外
+	"バイナリー:バイナリ"
+)
 
-for word_set in $(echo ${TARGET_WORDS})
+EXIT_CODE=0
+
+for word_pair in "${TARGET_WORDS[@]}"
 do
-	invalid=$(echo ${word_set} | awk -F: '{print $1}')
-	valid=$(echo ${word_set} | awk -F: '{print $2}')
-	grep -E "${invalid}" * -R
-	if [ $? -eq 0 ]; then
-		echo "Invalid word ${invalid} is contained under ${CONTENT_DIR}."
-		echo "Please replace ${invalid} with ${valid}."
+	incorrect_word_with_regex="${word_pair%%:*}"
+	correct_word="${word_pair#*:}"
+	incorrect_word="${incorrect_word_with_regex%%\[*}"
+	grep -EHRn "${incorrect_word_with_regex}|${incorrect_word}$" -- "$@"
+	grep_status=$?
+	if [ "${grep_status}" -eq 0 ]; then
+		echo "Incorrect word ${incorrect_word} is contained."
+		echo "Please replace ${incorrect_word} with ${correct_word}."
 		echo
-		INVALID_CONTAINED="TRUE"
+		EXIT_CODE=1
+	elif [ "${grep_status}" -ne 1 ]; then
+		echo "Failed to run grep with exit code ${grep_status}." >&2
+		exit 2
 	fi
 done
 
-if [ "${INVALID_CONTAINED}" != "" ]; then
-	exit 1
-fi
+exit "${EXIT_CODE}"

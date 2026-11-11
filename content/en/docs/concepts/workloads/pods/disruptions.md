@@ -255,7 +255,7 @@ indicates one of the following reasons for the Pod termination:
 
 `TerminationByKubelet`
 : Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
-  the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown),
+  the [graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown),
   or preemption for [system critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 In all other disruption scenarios, like eviction due to exceeding

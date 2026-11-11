@@ -191,5 +191,5 @@ kubectl describe node <вставте-назву-вузла-тут>
 - [Плавне та неплавне вимикання вузлів](/docs/concepts/cluster-administration/node-shutdown/).
 - [Автомасштабування вузла](/docs/concepts/cluster-administration/node-autoscaling/) для керування кількістю та розміром вузлів у вашому кластері.
 - [Заплямованість та Толерантність](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-- [Менеджери ресурсів вузла](/docs/concepts/policy/node-resource-managers/).
+- [Менеджери ресурсів вузла](/docs/concepts/resource-management/resource-managers/).
 - [Управління ресурсами для вузлів з операційною системою Windows](/docs/concepts/configuration/windows-resource-management/).

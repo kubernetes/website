@@ -53,7 +53,7 @@ Por ejemplo, cuando usas la API de Kubernetes para crear un Deployment, estás p
 
 ### El Master de Kubernetes
 
-El Master de Kubernetes es el responsable de mantener el estado deseado de tu clúster. Cuando interactuas con Kubernetes, como por ejemplo cuando utilizas la interfaz de línea de comandos `kubectl`, te estás comunicando con el master de tu clúster de Kubernetes.
+El Master de Kubernetes es el responsable de mantener el estado deseado de tu clúster. Cuando interactúas con Kubernetes, como por ejemplo cuando utilizas la interfaz de línea de comandos `kubectl`, te estás comunicando con el master de tu clúster de Kubernetes.
 
 > Por "master" entendemos la colección de daemons que gestionan el estado del clúster. Típicamente, estos daemons se ejecutan todos en un único nodo del clúster, y este nodo recibe por tanto la denominación de master. El master puede estar replicado por motivos de disponibilidad y redundancia.
 

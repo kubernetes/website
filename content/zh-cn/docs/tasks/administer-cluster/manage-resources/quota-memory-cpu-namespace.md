@@ -168,7 +168,7 @@ status:
 
 <!--
 If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
-for just the `used` values, **and** pretty-print that that of the output. For example:
+for just the `used` values, **and** pretty-print the output. For example:
 -->
 如果有 `jq` 工具的话，你可以通过（使用 [JSONPath](/zh-cn/docs/reference/kubectl/jsonpath/)）
 直接查询 `used` 字段的值，并且输出整齐的 JSON 格式。

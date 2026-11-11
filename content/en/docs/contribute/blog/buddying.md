@@ -13,7 +13,7 @@ Read [contributing to Kubernetes blogs](/docs/contribute/blog/) to learn about t
 When people contribute to either blog as an author, the Kubernetes project pairs up authors
 as _writing buddies_. This page explains how to fulfil the buddy role.
 
-You should make sure that you have at least read an outline of [article submission](/docs/contribute/blog/submission/)
+You should make sure that you have at least read an outline of [article submission](/docs/contribute/blog/article-submission/)
 before you read on within this page.
 
 <!-- body -->
@@ -79,7 +79,7 @@ GitHub.
 
 Whichever route they take, your role is to provide feedback that lets the blog team provide
 a simple signoff and confirm that the article can merge as a draft. See
-[submitting articles to Kubernetes blogs](/docs/contribute/blog/submission/) for what the authors
+[submitting articles to Kubernetes blogs](/docs/contribute/blog/article-submission/) for what the authors
 need to do.
 
 Use GitHub suggestions to point out any required changes.

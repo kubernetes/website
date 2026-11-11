@@ -1,71 +1,62 @@
 ---
-#title: Tutorials
-title: Навчальні матеріали
+title: Навчальні посібники
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
 
 <!-- overview -->
 
-<!--This section of the Kubernetes documentation contains tutorials.
-A tutorial shows how to accomplish a goal that is larger than a single
-[task](/docs/tasks/). Typically a tutorial has several sections,
-each of which has a sequence of steps.
-Before walking through each tutorial, you may want to bookmark the
-[Standardized Glossary](/docs/reference/glossary/) page for later references.
--->
-У цьому розділі документації Kubernetes зібрані навчальні матеріали. Кожний матеріал показує, як досягти окремої мети, що більша за одне [завдання](/docs/tasks/). Зазвичай навчальний матеріал має декілька розділів, кожен з яких містить певну послідовність дій. До ознайомлення з навчальними матеріалами вам, можливо, знадобиться додати у закладки сторінку з [Глосарієм](/docs/reference/glossary/) для подальшого консультування.
-
-
+У цьому розділі документації Kubernetes зібрані навчальні посібники. Навчальний посібник показує, як досягти мети, що більша за одне [завдання](/docs/tasks/). Зазвичай навчальний посібник має декілька розділів, кожен з яких містить певну послідовність дій. До ознайомлення з навчальними посібниками вам, можливо, знадобиться додати у закладки сторінку зі [Стандартизованим глосарієм](/docs/reference/glossary/), щоб звертатися до неї пізніше.
 
 <!-- body -->
 
-<!--## Basics
--->
-## Основи
+## Основи {#basics}
 
-<!--* [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
--->
-* [Основи Kubernetes](/docs/tutorials/kubernetes-basics/) - детальний навчальний матеріал з інтерактивними уроками, що допоможе вам зрозуміти Kubernetes і спробувати його базову функціональність.
-* [Масштабовані мікросервіси з Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+* [Основи Kubernetes](/docs/tutorials/kubernetes-basics/) — детальний інтерактивний навчальний посібник, що допоможе вам зрозуміти систему Kubernetes і спробувати деякі базові функції Kubernetes.
 * [Вступ до Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-* [Привіт Minikube](/docs/tutorials/hello-minikube/)
+* [Привіт Minikube](/uk/docs/tutorials/hello-minikube/)
 
-<!--## Configuration
--->
-## Конфігурація
+## Налаштування {#configuration}
 
-* [Конфігурування Redis використовуючи ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Конфігурування Redis за допомогою ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
-## Застосунки без стану (Stateless Applications) {#застосунки-без-стану}
+## Створення Podʼів {#authoring-pods}
 
-* [Відкриття зовнішньої IP-адреси для доступу до програми в кластері](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [Використання sidecar-контейнерів](/docs/tutorials/configuration/pod-sidecar-containers/)
+
+## Застосунки без стану {#stateless-applications}
+
+* [Відкриття зовнішньої IP-адреси для доступу до застосунку в кластері](/docs/tutorials/stateless-application/expose-external-ip-address/)
 * [Приклад: Розгортання застосунку PHP Guestbook з Redis](/docs/tutorials/stateless-application/guestbook/)
 
-## Застосунки зі станом (Stateful Applications) {#застосунки-зі-станом}
+## Застосунки зі станом {#stateful-applications}
 
 * [Основи StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/)
 * [Приклад: WordPress та MySQL із постійними томами](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 * [Приклад: Розгортання Cassandra зі Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
-* [Запуск ZooKeeper, координатора розподіленої системи](/docs/tutorials/stateful-application/zookeeper/)
+* [Запуск ZooKeeper, розподіленої CP-системи](/docs/tutorials/stateful-application/zookeeper/)
 
-## Кластери
+## Services {#services}
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-* [Seccomp](/docs/tutorials/clusters/seccomp/)
-
-## Сервіси
-
+* [Підключення застосунків за допомогою Services](/docs/tutorials/services/connect-applications-service/)
 * [Використання Source IP](/docs/tutorials/services/source-ip/)
 
-## {{% heading "whatsnext" %}}
+## Безпека {#security}
 
+* [Застосування стандартів безпеки Podʼів на рівні кластера](/docs/tutorials/security/cluster-level-pss/)
+* [Застосування стандартів безпеки Podʼів на рівні простору імен](/docs/tutorials/security/ns-level-pss/)
+* [Обмеження доступу контейнера до ресурсів за допомогою AppArmor](/docs/tutorials/security/apparmor/)
+* [Seccomp](/docs/tutorials/security/seccomp/)
 
-<!--If you would like to write a tutorial, see
-[Using Page Templates](/docs/home/contribute/page-templates/)
-for information about the tutorial page type and the tutorial template.
--->
-Якщо ви хочете написати навчальний матеріал, у статті
-[Використання шаблонів сторінок](/docs/home/contribute/page-templates/)
-ви знайдете інформацію про тип навчальної сторінки і шаблон.
+## Керування кластером {#cluster-management}
+
+* [Запуск kubelet в автономному режимі](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Налаштування своп-памʼяті на вузлах Kubernetes](/docs/tutorials/cluster-management/provision-swap-memory/)
+* [Встановлення драйверів та виділення пристроїв за допомогою DRA](/docs/tutorials/cluster-management/install-use-dra/)
+* [Ознайомлення з валідаційними та змінювальними політиками допуску](/docs/tutorials/cluster-management/admission-policies/)
+
+## {{% heading "whatsnext" %}} {#what-s-next}
+
+Якщо ви хочете написати навчальний посібник, ознайомтеся зі сторінкою [Типи вмісту сторінок](/docs/contribute/style/page-content-types/), щоб дізнатися більше про тип сторінки навчального посібника.

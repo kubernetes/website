@@ -107,7 +107,7 @@ en cours d'exécution :
 * `readinessProbe` : Indique si le Conteneur est prêt à servir des requêtes.
    Si la readiness probe échoue, le contrôleur de points de terminaison (Endpoints)
    retire l'adresse IP du Pod des points de terminaison de tous les Services
-   correspodant au Pod. L'état par défaut avant le délai initial est
+   correspondant au Pod. L'état par défaut avant le délai initial est
    `Failure`. Si le Conteneur ne fournit pas de readiness probe, l'état par
    défaut est `Success`.
 
@@ -288,7 +288,7 @@ En général, les Pods restent jusqu'à ce qu'un humain ou un process de
 
 Le plan de contrôle nettoie les Pods terminés (avec une phase à `Succeeded` ou
 `Failed`), lorsque le nombre de Pods excède le seuil configuré
-(determiné par `terminated-pod-gc-threshold` dans le kube-controller-manager).
+(déterminé par `terminated-pod-gc-threshold` dans le kube-controller-manager).
 Ceci empêche une fuite de ressources lorsque les Pods sont créés et supprimés au fil du temps.
 
 Il y a différents types de ressources pour créer des Pods :
