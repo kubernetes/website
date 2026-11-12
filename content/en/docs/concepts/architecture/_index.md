@@ -127,11 +127,13 @@ which serves DNS records for Kubernetes services.
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 
-### Web UI (Dashboard)
+### Web UI (Headlamp)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose,
-web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications
-running in the cluster, as well as the cluster itself.
+[Headlamp](https://headlamp.dev/) is an easy-to-use web UI. It lets you view and manage
+Kubernetes resources through a graphical interface, with plugins to extend its functionality.
+
+Previously, [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) was the default
+UI for Kubernetes, but it has since been deprecated, and Headlamp is recommended for new installations.
 
 ### Container resource monitoring
 
@@ -213,4 +215,4 @@ Learn more about the following:
 - Etcd's official [documentation](https://etcd.io/docs/).
 - Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
 - Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
-- [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
+- [kubectl](/docs/reference/kubectl/) command line tool.
