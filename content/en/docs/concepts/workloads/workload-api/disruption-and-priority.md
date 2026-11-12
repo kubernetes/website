@@ -77,7 +77,7 @@ This value is also used for the ordering of PodGroups in the scheduling queue.
 When the priorities of individual pods forming this PodGroup differ from PodGroup priority
 the PodGroup will not be scheduled with `all pods in a single pod group should have the same priority as the pod group` error.
 
-When the [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/podgroup-preemption-policy/)
+When the [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy/)
 feature gate is enabled, PodGroup has also `preemptionPolicy` field. This field is also taken from the PriorityClass.
 It is an authoritative field for all pods in the group and it decides whether the PodGroup can perform a preemption of
 lower priority pods and pod groups to accommodate a place for itself.  When the feature gate is enabled all pods in the PodGroup

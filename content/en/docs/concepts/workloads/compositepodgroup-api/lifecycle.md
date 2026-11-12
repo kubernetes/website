@@ -50,7 +50,7 @@ resources in the hierarchy exist.
   a mismatch is detected, the scheduler rejects the hierarchy as unschedulable.
 - **Consistent preemption policy**: All Pods across an entire `CompositePodGroup` hierarchy must use
   the same `spec.preemptionPolicy`. In addition, when the
-  [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/podgroup-preemption-policy/)
+  [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy/)
   feature gate is enabled, the root group's preemption policy must be equal to the one specified by
   the Pods. If a mismatch is detected, the scheduler rejects the hierarchy as unschedulable.
 - **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of 4 levels.
