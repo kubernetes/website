@@ -58,11 +58,20 @@ As a Pod progresses through its lifecycle, the kubelet sets the following condit
 1. `PodReadyToStartContainers`: the Pod sandbox has been successfully created and networking configured. The sandbox and network are set up by the {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} and {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin.
 1. `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/) have completed successfully. For a Pod without init containers, this is set to `True` before sandbox creation.
 1. `ContainersReady`: all containers in the Pod are ready. A container's readiness is determined by its [readiness probe](/docs/concepts/workloads/pods/probes/#readiness-probe), if configured.
-1. `Ready`: the Pod is able to serve requests and should be added to the load balancing pools of all matching [Services](/docs/concepts/services-networking/service/). Pods that are not `Ready` are removed from Service endpoints.
+1. `Ready`: the Pod is able to serve requests and is normally eligible to receive traffic through matching [Services](/docs/concepts/services-networking/service/).
 
 {{< note >}}
 The `Ready` condition depends on more than just `ContainersReady`. If the Pod specifies `readinessGates`, all of those custom conditions must also be `True` for the Pod to be `Ready`. See [Pod readiness](#enhanced-pod-readiness) for details.
 {{< /note >}}
+
+For Services with a selector, otherwise eligible Pods that are not `Ready` remain
+listed in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
+with the endpoint's `ready` condition set to `false`. Service proxies normally
+exclude these endpoints from traffic. However, if a Service sets
+`spec.publishNotReadyAddresses` to `true`, the endpoint's `ready` condition is
+`true` regardless of the Pod's `Ready` condition. See
+[EndpointSlice conditions](/docs/concepts/services-networking/endpoint-slices/#conditions)
+for details.
 
 You can inspect a Pod's conditions using kubectl:
 
