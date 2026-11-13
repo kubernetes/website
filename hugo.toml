@@ -515,11 +515,24 @@ language_alternatives = ["en"]
 description = "Довершена система оркестрування контейнерів"
 languageNameLatinScript = "Ukrainian"
 
+[languages.uz]
+title = "Kubernetes"
+languageName = "Oʻzbekcha (Uzbek)"
+weight = 17
+contentDir = "content/uz"
+languagedirection = "ltr"
+
+[languages.uz.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Ishlab chiqarish darajasidagi konteyner orkestratsiyasi"
+languageNameLatinScript = "Oʻzbekcha"
+
 [languages.vi]
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 17
+weight = 18
 languagedirection = "ltr"
 
 [languages.vi.params]

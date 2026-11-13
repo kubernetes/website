@@ -1,0 +1,786 @@
+# Oʻzbekcha (uz) sayt satrlari. Inglizcha kalitlar i18n/en/en.toml dan olingan.
+# Yozuvlarni tahrirlaganda alifbo tartibini saqlang.
+
+[api_reference_title]
+other = "API maʼlumotnomasi"
+
+[api_reference_page_related_concepts]
+one = "{{ .title }} uchun tushuncha hujjati"
+other = "Tegishli tushuncha sahifalari"
+
+[auto_generated_edit_notice]
+other = "(avtomatik yaratilgan sahifa)"
+
+[auto_generated_pageinfo]
+other = """<p>Bu sahifa avtomatik yaratiladi.</p><p>Agar ushbu sahifa boʻyicha muammo xabar qilmoqchi boʻlsangiz, tavsifda sahifa avtomatik yaratilganini yozing. Tuzatish Kubernetes loyihasining boshqa joyida qilinishi mumkin.</p>"""
+
+[banner_acknowledgement]
+other = "Bu xabarni yashirish"
+
+[blog_mirrored_originally_published_at]
+other = 'Bu <a href="{{ .canonicalUrl }}">asl maqola</a>ning nusxasidir.'
+
+[blog_post_show_more]
+other = "Yana koʻrsatish..."
+
+[browser_clipboard_support_warning]
+other = "Afsus, brauzeringiz bu misolni klipboardga nusxalashni qoʻllab-quvvatlamaydi."
+
+[case_study_prefix]
+other = "Amaliy tajriba:"
+
+[caution]
+other = "Ehtiyot:"
+
+[cleanup_heading]
+other = "Tozalash"
+
+# Lokalizatsiya eslatmasi: bu qator Xitoy ICP litsenziyasi matnidan oldin turadi.
+[china_icp_license]
+other = "ICP license:"
+
+[community_advice_guidelines]
+other = "Shuningdek, bizning {{ .link }} haqida oʻqishingiz mumkin."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_bluesky_fallback_text]
+other = "Bizni kuzating:"
+
+[community_bluesky_link]
+other = "Blueskyda koʻrish"
+
+[community_bluesky_loading]
+other = "Blueskydagi soʻnggi yangiliklar yuklanmoqda..."
+
+[community_calendar_name]
+other = "Tadbirlar taqvimi"
+
+[community_contributor_site_name]
+other = "Hissa qoʻshuvchilar sayti"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "X (avval Twitter)"
+
+[community_x_name]
+other = "X (avval Twitter)"
+
+[community_youtube_name]
+other = "YouTube"
+
+[conjunction_1]
+other = "va"
+
+[copy_sample_to_clipboard]
+other = "{{ .filename }} ni klipboardga nusxalash"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub muammo havolasi"
+
+[cve_summary]
+other = "Muammo qisqacha"
+
+[cve_table]
+other = "Kubernetesning rasmiy CVE roʻyxati"
+
+# Go vaqt formati. Oʻzgartirmang.
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(oxirgi yangilanish: %s)"
+
+[deprecation_title]
+other = "Siz Kubernetesning quyidagi versiyasi hujjatlarini koʻryapsiz:"
+
+[deprecation_warning]
+other = " hujjatlari endi faol yangilanmaydi. Siz koʻrayotgan versiya statik suratdir. Yangilangan maʼlumot uchun qarang: "
+
+[deprecation_file_warning]
+other = "Eskirgan"
+
+[outdated_content_title]
+other = "Ushbu hujjatdagi maʼlumot eskirgan boʻlishi mumkin"
+
+[outdated_content_message]
+other = "Bu hujjatning yangilanish sanasi asl nusxadan eskiroq, shuning uchun undagi maʼlumot eskirgan boʻlishi mumkin. Inglizcha oʻqiy olsangiz, eng yangi maʼlumot uchun inglizcha versiyaga qarang: "
+
+[dockershim_message]
+other = """Dockershim Kubernetes loyihasidan 1.24 relizidan boshlab olib tashlangan. Batafsil maʼlumot uchun <a href="/dockershim">Dockershimni olib tashlash boʻyicha savol-javob</a>ni oʻqing."""
+
+[docs_label_browse]
+other = "Hujjatlarni koʻrish"
+
+[docs_label_contributors]
+other = "Hissa qoʻshuvchilar"
+
+[docs_label_i_am]
+other = "MEN..."
+
+[docs_label_users]
+other = "Foydalanuvchilar"
+
+[docs_page_versions]
+other = "Bu %s Kubernetes %s uchun. Boshqa Kubernetes versiyasidan foydalanmoqchi boʻlsangiz, quyidagi sahifalarga qarang:"
+
+[docs_version_current]
+other = "(shu hujjatlar)"
+
+[docs_version_latest_heading]
+other = "Soʻnggi versiya"
+
+[docs_version_other_heading]
+other = "Eski versiyalar"
+
+[docs_version_release_information]
+other = "reliz haqida maʼlumot"
+
+[end_of_life]
+other = "Xizmat muddati tugashi:"
+
+[envvars_heading]
+other = "Muhit oʻzgaruvchilari"
+
+[error_404_were_you_looking_for]
+other = "Quyidagini qidiryapsizmi:"
+
+[error_copy_to_clipboard]
+other = "Xato"
+
+[examples_heading]
+other = "Misollar"
+
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span>, {{ .kubernetes }} v{{ .version }} dan beri; {{ .enabled_or_disabled }}"""
+
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span>, {{ .kubernetes }} v{{ .version }} dan beri"""
+
+[feature_gate_enabled]
+other = "standart boʻyicha yoqilgan"
+
+[feature_gate_disabled]
+other = "standart boʻyicha oʻchirilgan"
+
+[feature_gate_more_details]
+other = "Bu funksiya haqida batafsil"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>Bu funksiyadan foydalanish uchun siz (yoki klaster administratori) klasterdagi barcha tegishli komponentlarda <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> feature gate ni yoqishingiz kerak.</p>
+<p>Batafsil maʼlumot: <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Feature gate larni yoqish yoki oʻchirish</a>.</p>"""
+
+[feature_gate_stable_graduated]
+other = "Bu {{ .kubernetes }} dagi barqaror funksiya va {{ .stableVersion }} versiyasidan beri shunday. U birinchi marta v{{ .firstReleaseWithThisFeature }} relizida paydo boʻlgan."
+
+[feature_gate_stable_graduated_disabled]
+other = "Bu barqaror feature gate standart boʻyicha oʻchirilgan. Bogʻliq xatti-harakatni yoqish uchun bu feature gate ni endi yoqib boʻlmaydi."
+
+[feature_gate_stable_locked]
+other = """Bu {{ .kubernetes }} dagi barqaror funksiya va v{{ .stableVersion }} versiyasidan beri shunday. U birinchi marta v{{ .firstReleaseWithThisFeature }} relizida paydo boʻlgan. Bu funksiya yoki xatti-harakatni endi oʻchirib yoki rad etib boʻlmaydi (u qulflangan). Bogʻliq <tt>{{ .featureGateName }}</tt> feature gate uchun qiymat bersangiz ham, {{ .kubernetes }} uni eʼtiborsiz qoldiradi va xato xabar qilmaydi."""
+
+[feature_gate_removed_after_ga]
+other = """Bu {{ .kubernetes }} dagi barqaror funksiya va {{ .stableVersion }} relizidan beri shunday. Bu funksiyani endi almashtirib boʻlmaydi (bogʻliq <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> olib tashlangan)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """{{ .kubernetes }} endi bu funksiya yoki xatti-harakatni oʻz ichiga olmaydi. <tt>{{ .featureGateName }}</tt> feature gate ni tanigan soʻnggi {{ .kubernetes }} relizi {{ .toVersion }} edi. Bu sozlamani endi almashtirib boʻlmaydi."""
+
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """{{ .kubernetes }} endi bu funksiya yoki xatti-harakatni oʻz ichiga olmaydi. Bu sozlamani endi almashtirib boʻlmaydi."""
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "Stable"
+
+[feature_gate_stage_deprecated]
+other = "Eskirgan"
+
+[feature_gate_table_header_default]
+other = "Standart"
+
+[feature_gate_table_header_feature]
+other = "Funksiya"
+
+[feature_gate_table_header_from]
+other = "Dan"
+
+[feature_gate_table_header_since]
+other = "Boshlab"
+
+[feature_gate_table_header_stage]
+other = "Bosqich"
+
+[feature_gate_table_header_to]
+other = "Gacha"
+
+[feature_gate_table_header_until]
+other = "Qadar"
+
+[feature_state]
+other = "Funksiya holati:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
+
+[feedback_heading]
+other = "Fikr-mulohaza"
+
+[feedback_no]
+other = "Yoʻq"
+
+[feedback_question]
+other = "Bu sahifa foydali boʻldimi?"
+
+[feedback_yes]
+other = "Ha"
+
+[final_patch_release]
+other = "Yakuniy patch-reliz"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "elektron pochta manzili"
+
+[javascript_required]
+other = "Bu tarkibni koʻrish uchun JavaScript [yoqilgan](https://www.enable-javascript.com/) boʻlishi kerak"
+
+[katacoda_message]
+other = """<h4>Interaktiv qoʻllanmalar yopildi</h4>
+<p>Avval ushbu veb-saytda boʻlgan interaktiv qoʻllanmalar yopilgan.</p>
+<p>Kubernetes odamlarga Kubernetesni oʻrganishda birinchi qadamlarni qoʻyishga koʻp yillar yordam bergani uchun O'Reilly va Katacoda ga minnatdor.</p>
+<p>Yopilish O'Reilly Media ning 2019-yilda Katacoda ni
+<a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">sotib olishi</a>dan keyin yuz berdi.</p>
+<hr />
+<p>Qoʻllanmalar <b>2023-yil 31-mart</b>dan keyin ishlamay qoʻydi. Bu xabarni koʻrayotganingiz sababi shuki, ushbu sahifa hali yangilanmagan.</p>"""
+
+[kubecon_region_china]
+other = "Xitoy"
+
+[kubecon_region_europe]
+other = "Yevropa"
+
+[kubecon_region_event]
+other = "Tadbir"
+
+[kubecon_region_india]
+other = "Hindiston"
+
+[kubecon_region_japan]
+other = "Yaponiya"
+
+[kubecon_region_north_america]
+other = "Shimoliy Amerika"
+
+[kubectl_ref_collapse_all]
+other = "Hammasini yigʻish"
+
+[kubectl_ref_expand_all]
+other = "Hammasini yoyish"
+
+[kubectl_ref_search_placeholder]
+other = "Buyruq yoki tavsifni qidiring (masalan, config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "Toʻliq maʼlumotnomani koʻrish"
+
+[kubernetes]
+other = "Kubernetes"
+
+[latest_release]
+other = "Soʻnggi reliz:"
+
+[latest_version]
+other = "eng soʻnggi versiya."
+
+[layouts_blog_pager_next]
+other = "Keyingi >>"
+
+[layouts_blog_pager_prev]
+other = "<< Oldingi"
+
+[layouts_case_studies_list_tell]
+other = "Tajribangizni ulashing"
+
+[layouts_docs_glossary_aka]
+other = "Boshqa nomi"
+
+[layout_docs_glossary_architecture_description]
+other = "Kubernetesning ichki komponentlari."
+
+[layout_docs_glossary_architecture_name]
+other = "Arxitektura"
+
+[layouts_docs_glossary_click_details_after]
+other = "koʻrsatkichlarini bosing — istalgan atama uchun batafsil tushuntirish ochiladi."
+
+[layouts_docs_glossary_click_details_before]
+other = "Quyidagi"
+
+[layout_docs_glossary_community_description]
+other = "Kubernetesning ochiq manbali ishlab chiqilishi bilan bogʻliq."
+
+[layout_docs_glossary_community_name]
+other = "Hamjamiyat"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes standart boʻyicha qoʻllab-quvvatlaydigan resurs turi."
+
+[layout_docs_glossary_core-object_name]
+other = "Asosiy obyekt"
+
+[layouts_docs_glossary_description]
+other = "Bu lugʻat Kubernetes terminlarining toʻliq va yagona roʻyxati boʻlishi uchun moʻljallangan. Unda Kubernetesga xos texnik atamalar ham, foydali kontekst beradigan umumiy atamalar ham bor."
+
+[layouts_docs_glossary_deselect_all]
+other = "Tanlovni bekor qilish"
+
+[layout_docs_glossary_extension_description]
+other = "Kubernetesning qoʻllab-quvvatlanadigan moslashtirishlari."
+
+[layout_docs_glossary_extension_name]
+other = "Kengaytma"
+
+[layouts_docs_glossary_filter]
+other = "Atamalarni teglariga qarab saralash"
+
+[layout_docs_glossary_fundamental_description]
+other = "Kubernetesdan birinchi marta foydalanuvchi uchun muhim."
+
+[layout_docs_glossary_fundamental_name]
+other = "Asosiy"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes komponentlari bir-biri bilan (va klasterdan tashqaridagi dasturlar bilan) qanday gaplashadi."
+
+[layout_docs_glossary_networking_name]
+other = "Tarmoq"
+
+[layout_docs_glossary_operation_description]
+other = "Kubernetesni ishga tushirish va yuritish."
+
+[layout_docs_glossary_operation_name]
+other = "Yuritish"
+
+[layout_docs_glossary_security_description]
+other = "Kubernetes ilovalarini xavfsiz saqlash."
+
+[layout_docs_glossary_security_name]
+other = "Xavfsizlik"
+
+[layouts_docs_glossary_select_all]
+other = "Hammasini tanlash"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes ilovalari doimiy maʼlumotni qanday saqlaydi."
+
+[layout_docs_glossary_storage_name]
+other = "Saqlash"
+
+[layout_docs_glossary_tool_description]
+other = "Kubernetesdan foydalanishni osonlashtiradigan yoki yaxshilaydigan dasturiy taʼminot."
+
+[layout_docs_glossary_tool_name]
+other = "Vosita"
+
+[layout_docs_glossary_user-type_description]
+other = "Kubernetes foydalanuvchisining keng tarqalgan turini ifodalaydi."
+
+[layout_docs_glossary_user-type_name]
+other = "Foydalanuvchi turi"
+
+[layout_docs_glossary_workload_description]
+other = "Kubernetesda ishlayotgan ilovalar."
+
+[layout_docs_glossary_workload_name]
+other = "Yuklama"
+
+[layouts_docs_partials_feedback_improvement]
+other = "yaxshilashni taklif qiling"
+
+[layouts_docs_partials_feedback_issue]
+other = """Agar xohlasangiz, [GitHub repozitoriyida](https://www.github.com/kubernetes/website/) muammo oching: """
+
+[layouts_docs_partials_feedback_or]
+other = "yoki"
+
+[layouts_docs_partials_feedback_problem]
+other = "muammo haqida xabar bering"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Fikr-mulohaza uchun rahmat. Kubernetesdan qanday foydalanish haqida aniq savolingiz boʻlsa, uni shu yerda bering:"
+
+[layouts_docs_search_fetching]
+other = "Natijalar olinmoqda..."
+
+[legacy_repos_message]
+other = """Eski paket repozitoriyalari (`apt.kubernetes.io` va `yum.kubernetes.io`)
+[2023-yil 13-sentabrdan boshlab eskirgan va muzlatilgan](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**[pkgs.k8s.io dagi yangi paket repozitoriyalaridan](/blog/2023/08/15/pkgs-k8s-io-introduction/) foydalanish qatʼiy tavsiya etiladi va 2023-yil 13-sentabrdan keyin chiqarilgan Kubernetes versiyalarini oʻrnatish uchun talab qilinadi.**
+Eskirgan repozitoriyalar va ularning tarkibi kelajakda istalgan vaqtda, qoʻshimcha ogohlantirishsiz olib tashlanishi mumkin.
+Yangi paket repozitoriyalari v1.24.0 dan boshlab Kubernetes versiyalarini yuklab olish imkonini beradi."""
+
+[main_by]
+other = "muallif"
+
+[main_cncf_project]
+other = """Biz <a href="https://cncf.io/">CNCF</a> ning bitirgan loyihasimiz</p>"""
+
+[main_community_explore]
+other = "Hamjamiyatni oʻrganish"
+
+[main_contribute]
+other = "Hissa qoʻshish"
+
+[main_copyright_notice]
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. Veb-saytdan foydalanish shartlari, savdo belgisi siyosati va boshqa loyiha siyosatlari uchun <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a> ga qarang"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Hujjatlar <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> ostida tarqatiladi"""
+
+[main_github_invite]
+other = "Kubernetesning asosiy kod bazasida ishlashni xohlaysizmi?"
+
+[main_github_view_on]
+other = "GitHubda koʻrish"
+
+[main_kubernetes_features]
+other = "Kubernetes imkoniyatlari"
+
+[main_kubeweekly_baseline]
+other = "Kubernetes yangiliklarini olishni xohlaysizmi? KubeWeekly ga yoziling."
+
+[main_kubeweekly_past_link]
+other = "Oldingi axborotnomalarni koʻrish"
+
+[main_kubeweekly_signup]
+other = "Obuna boʻlish"
+
+[main_page_history]
+other = "Sahifa tarixi"
+
+[main_page_last_modified_on]
+other = "Sahifa oxirgi marta oʻzgartirilgan sana"
+
+[main_read_about]
+other = "Haqida oʻqish"
+
+[main_read_more]
+other = "Batafsil"
+
+[monthly_patch_release]
+other = "Oylik patch-reliz"
+
+[not_applicable]
+other = "mavjud emas"
+
+[note]
+other = "Eslatma:"
+
+[objectives_heading]
+other = "Maqsadlar"
+
+[options_heading]
+other = "Parametrlar"
+
+[outdated_blog__message]
+other = "Bu maqola bir yildan koʻproq vaqt oldin yozilgan. Eski maqolalarda eskirgan tarkib boʻlishi mumkin. Sahifadagi maʼlumot nashr etilganidan beri notoʻgʻri boʻlib qolmaganini tekshiring."
+
+[page_deprecated]
+other = "(eskirgan sahifa)"
+
+[page_not_available_in_language]
+other = "Bu sahifa {{ .Language }} tilida mavjud emas"
+
+[parentoptions_heading]
+other = "Meros qolgan ota parametrlar"
+
+[patch_release]
+other = "Patch-reliz"
+
+[post_create_issue]
+other = "Muammo ochish"
+
+[prerequisites_heading]
+other = "Boshlashdan oldin"
+
+[previous_patches]
+other = "Patch-relizlar:"
+
+[release_actively_supported]
+other = "Faol qoʻllab-quvvatlanadi"
+
+[release_announcement_blog]
+other = "Reliz eʼloni blogi"
+
+[release_binary_alternate_links]
+other = """Kubernetes komponentlarini (va ularning nazorat yigʻindilarini) yuklab olish havolalari [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) fayllarida.
+Shu bilan bir qatorda, versiya va arxitektura boʻyicha saralash uchun [downloadkubernetes.com](https://www.downloadkubernetes.com/) dan foydalaning."""
+
+[release_binary_arch]
+other = "Arxitektura"
+
+[release_binary_arch_option]
+other = "Arxitekturalar"
+
+[release_binary_copy_link]
+other = "Havolani nusxalash"
+
+[release_binary_copy_link_certifcate]
+other = "sertifikat"
+
+[release_binary_copy_link_checksum]
+other = "nazorat yigʻindisi"
+
+[release_binary_copy_link_signature]
+other = "imzo"
+
+[release_binary_copy_link_tooltip]
+other = "klipboardga nusxalash"
+
+[release_binary_download]
+other = "Binar faylni yuklab olish"
+
+[release_binary_download_tooltip]
+other = "binar faylni yuklab olish"
+
+[release_binary_options]
+other = "Yuklab olish parametrlari"
+
+[release_binary_os]
+other = "Operatsion tizim"
+
+[release_binary_os_option]
+other = "Operatsion tizimlar"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Kubernetes komponentlari binar fayllarini yuklab olish"
+
+# <current-version> ni tarjima qilmang.
+[release_binary_section]
+other = """Quyida <current-version> Kubernetes komponentlarini (va ularning nazorat yigʻindilarini) yuklab olish havolalari bor.
+Eski qoʻllab-quvvatlanadigan versiyalar uchun [eski versiyalar](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) hujjatiga oʻting yoki [downloadkubernetes.com](https://www.downloadkubernetes.com/) dan foydalaning."""
+
+# <current-version> va <current-changelog-url> ni tarjima qilmang.
+[release_binary_section_note]
+other = """<current-version> Kubernetes komponentlarining eski patch versiyalarini (va ularning nazorat yigʻindilarini) yuklab olish uchun
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) fayliga qarang."""
+
+[release_binary_version]
+other = "Versiya"
+
+[release_binary_version_option]
+other = "Soʻnggi versiya"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(chiqarilgan: "
+
+# Go vaqt formati. Oʻzgartirmang.
+[release_date_format]
+other = "2006-01-02"
+
+# Go vaqt formati. Oʻzgartirmang.
+[release_date_format_month]
+other = "January 2006"
+
+[release_details]
+other = "Reliz tafsilotlarini koʻrish"
+
+[release_cherry_pick_deadline]
+other = "Cherry-pick muddati"
+
+[release_download_page]
+other = "Kubernetes {{ .minor_version }} ni yuklab olish"
+
+[release_end_of_life]
+other = "Xizmat muddati tugashi"
+
+[release_end_of_life_date]
+other = "Xizmat muddati tugash sanasi"
+
+[release_end_of_life_details_past]
+other = """Bu reliz {{ .release_eol_date }} da xizmat muddatini tugatgan.
+Kubernetes {{ .minor_version }} endi xavfsizlik yangilanishlari yoki xato tuzatishlarini olmaydi. [Qoʻllab-quvvatlanadigan versiya](/releases/)ga yangilang."""
+
+[release_github_tag]
+other = "GitHub tegi"
+
+[release_latest_patch]
+other = "Soʻnggi patch-reliz"
+
+[release_links]
+other = "Tegishli havolalar"
+
+[release_maintenance_details_past]
+other = "Bu reliz {{ .maintenance_mode_start_date }} da texnik xizmat rejimiga oʻtgan. Faqat muhim xavfsizlik tuzatishlari qabul qilinadi. Kubernetes {{ .minor_version }} ning xizmat muddati tugash sanasi {{ .release_eol_date }}. [Yangiroq versiya](/releases/)ga yangilashni rejalashtiring."
+
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} {{ .maintenance_mode_start_date }} da texnik xizmat rejimiga oʻtadi. Kubernetes {{ .minor_version }} ning xizmat muddati tugash sanasi {{ .release_eol_date }}."
+
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} {{ .maintenance_mode_start_date }} da texnik xizmat rejimiga oʻtgan**.
+
+Kubernetes {{ .minor_version }} ning xizmat muddati tugash sanasi {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Texnik xizmat rejimi"
+
+[release_maintenance_mode_start_date]
+other = "Texnik xizmat rejimi boshlanish sanasi"
+
+[release_released_on]
+other = "{{ .date }} da chiqarilgan"
+
+[release_full_details_initial_text]
+other = "Toʻliq"
+
+[release_information_navbar]
+other = "Reliz haqida"
+
+[release_minor_version]
+other = "Kichik versiya"
+
+[release_patch_releases_heading]
+one = "Patch-reliz"
+other = "Patch-relizlar"
+
+[release_upcoming_patch_heading]
+other = "Kutilayotgan patch"
+
+[release_info_next_patch]
+other = "Keyingi patch-reliz: **%s**."
+
+[release_info_eol]
+other = ""
+
+[release_note]
+other = "Eslatma"
+
+[release_schedule]
+other = "Jadval"
+
+[release_series_page_intro]
+other = "Bu sahifa Kubernetes {{ .minor_version }} relizlar turkumi haqida umumiy maʼlumot beradi."
+
+[release_status]
+other = "Reliz holati"
+
+[release_target_date]
+other = "Reja sanasi"
+
+[release_changelog]
+other = "Oʻzgarishlar jurnali"
+
+[rss_link_label]
+other = "RSS"
+
+[seealso_heading]
+other = "Yana qarang"
+
+[sidebar_toggle_nav]
+other = "Boʻlim navigatsiyasini yigʻish"
+
+[subscribe_button]
+other = "Obuna boʻlish"
+
+[success_copy_to_clipboard]
+other = "Muvaffaqiyat"
+
+[synopsis_heading]
+other = "Qisqacha"
+
+[tab_default]
+other = "Varaq {{ . }}"
+
+[theme_locked_notice]
+other = "Bu sahifa uchun mavzu qotirilgan"
+
+[thirdparty_message]
+other = """Bu boʻlim Kubernetes talab qiladigan funksiyani beradigan uchinchi tomon loyihalariga havola qiladi. Kubernetes loyihasi mualliflari alifbo tartibida keltirilgan bu loyihalar uchun javobgar emas. Loyihani roʻyxatga qoʻshish uchun oʻzgarish yuborishdan oldin <a href="/docs/contribute/style/content-guide/#third-party-content">tarkib qoʻllanmasi</a>ni oʻqing. <a href="#third-party-content-disclaimer">Batafsil.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other = """Uchinchi tomon tarkibi boʻyicha maslahat"""
+
+[thirdparty_message_single_item]
+other = """&#128711; Bu element Kubernetesning oʻzi tarkibiga kirmaydigan uchinchi tomon loyihasi yoki mahsulotiga havola qiladi. <a class="alert-more-info" href="#third-party-content-disclaimer">Batafsil</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Bu sahifadagi elementlar Kubernetes talab qiladigan funksiyani beradigan uchinchi tomon mahsulotlari yoki loyihalariga ishora qiladi. Kubernetes loyihasi mualliflari bu uchinchi tomon mahsulotlari yoki loyihalari uchun javobgar emas. Batafsil maʼlumot: <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF veb-sayt yoʻriqnomalari</a>.</p><p>Qoʻshimcha uchinchi tomon havolasini qoʻshadigan oʻzgarishni taklif qilishdan oldin <a href="/docs/contribute/style/content-guide/#third-party-content">tarkib qoʻllanmasi</a>ni oʻqing.</p>"""
+
+[thirdparty_message_vendor]
+other = """Bu sahifadagi elementlar Kubernetesdan tashqaridagi yetkazib beruvchilarga ishora qiladi. Kubernetes loyihasi mualliflari bu uchinchi tomon mahsulotlari yoki loyihalari uchun javobgar emas. Yetkazib beruvchi, mahsulot yoki loyihani roʻyxatga qoʻshish uchun oʻzgarish yuborishdan oldin <a href="/docs/contribute/style/content-guide/#third-party-content">tarkib qoʻllanmasi</a>ni oʻqing. <a href="#third-party-content-disclaimer">Batafsil.</a>"""
+
+[toast_failure_copycode]
+other = "Klipboardga nusxalab boʻlmadi: "
+
+[toast_success_copycode]
+other = "Klipboardga nusxalandi: "
+
+[translated_by]
+other = "Tarjima qilgan"
+
+[ui_search]
+other = "Saytdan qidirish"
+
+[version_check_mustbe]
+other = "Kubernetes serveringiz versiyasi quyidagicha boʻlishi kerak: "
+
+[version_check_mustbeorlater]
+other = "Kubernetes serveringiz quyidagi versiyada yoki undan keyinroq boʻlishi kerak: "
+
+[version_check_tocheck]
+other = "Versiyani tekshirish uchun kiriting: "
+
+[version_menu]
+other = "Versiyalar"
+
+[warning]
+other = "Ogohlantirish:"
+
+[warning_copy_to_clipboard]
+other = "Ogohlantirish"
+
+[whatsnext_heading]
+other = "Keyingi qadam"
