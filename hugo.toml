@@ -611,6 +611,10 @@ source = "i18n/uk"
 target = "i18n"
 
 [[module.mounts]]
+source = "i18n/uz"
+target = "i18n"
+
+[[module.mounts]]
 source = "i18n/vi"
 target = "i18n"
 
@@ -670,6 +674,9 @@ target = "i18n"
   [segments.uk]
     [[segments.uk.includes]]
       lang = 'uk'
+  [segments.uz]
+    [[segments.uz.includes]]
+      lang = 'uz'
   [segments.vi]
     [[segments.vi.includes]]
       lang = 'vi'
