@@ -21,10 +21,8 @@ classifies it as `Strong signal`, `Moderate signal`,
 `Weak signal (lastmod only)`, or `No signal`.
 
 New locale note:
-    Locales under content/ are auto-discovered when scanning all locales.
-    New locales should start with the default LocaleProfile. Add explicit
-    calibration only after manual report review shows repeated
-    locale-specific false positives or false negatives.
+    Locales under content/ are auto-discovered when scanning all locales,
+    and no per-locale configuration is required when adding a new locale.
 
 Usage:
     # Scan all non-en locales (default)
@@ -51,20 +49,10 @@ from dataclasses import dataclass, field
 from typing import Dict, FrozenSet, List, Optional, Set, Tuple
 
 # --- Constants ---
-# These thresholds are empirically set per locale; 
-# a statistical approach (median+MAD from structurally-clean files)
-# could replace them with auto-calibrated per-locale values.
 _LENGTH_GAP_MIN_EN_LINES = 15      # EN files shorter than this skip all length-gap checks
-_SHORT_EN_THRESHOLD = 40           # below this, length gap requires a companion indicator
-_CJK_SHORT_EN_THRESHOLD = 56       # same guard for CJK (denser text, files run longer)
-_LATIN_MIN_EN_LINES = 55           # Latin compactness guard activates only above this
-
-# Empirical boundary: Latin false alarms sit at >=0.94, real ru mismatch at <=0.85.
-_LATIN_BODY_RATIO_MIN = 0.90       # body-word ratio floor for "full translation" in Latin guard
+_BODY_WORD_RATIO_MIN = 0.90        # body-word ratio floor for suppressing line-count gaps
 
 _LENGTH_GAP_NONE = ""
-_LENGTH_GAP_SILENT = "silent"
-_LENGTH_GAP_SMALL = "small"
 _LENGTH_GAP_MODERATE = "moderate"
 _LENGTH_GAP_LARGE = "large"
 
@@ -82,9 +70,13 @@ _STRIP_CMNT = re.compile(r"<!--.*?-->", re.DOTALL)
 _STRIP_CMNT_LINE = re.compile(r"<!--.*?-->[ \t]*\n?", re.DOTALL)
 _STRIP_INLINE = re.compile(r"`[^`\n]+`")
 
-# Unicode-aware body-word counter for the Latin-compactness check; keeps
-# `informação` and Cyrillic words intact.
-_BODY_WORD_RE = re.compile(r"[^\W_]{2,}", re.UNICODE)
+# Unicode-aware body-word counter; groups characters in unspaced scripts
+# into 1-2 character units so ratios align with space-delimited scripts.
+_BODY_WORD_RE = re.compile(
+    r"[\u3005\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff"
+    r"\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{1,2}|[^\W_]{2,}",
+    re.UNICODE,
+)
 
 _FS_VERSION_RE = re.compile(r'for_k8s_version="(v?\d+\.\d+)"')
 _FS_GATE_RE = re.compile(r'feature_gate_name="([A-Za-z_][A-Za-z0-9_]*)"')
@@ -119,9 +111,9 @@ STATUS_MODERATE_SIGNAL = "Moderate signal"
 STATUS_LASTMOD_ONLY = "Weak signal (lastmod only)"
 STATUS_NO_SIGNAL = "No signal"
 _LASTMOD_ONLY_NOTE = (
-    "English source has a newer git commit timestamp (`lastmod`) than the "
-    "localized file, but no structural or token signal was found (may be minor "
-    "typo/link edits or prose-only updates)."
+    "English source has a newer branch commit timestamp than the localized "
+    "file, but no structural or token signal was found (may be prose-only "
+    "edits; may differ from the out-of-date banner)."
 )
 
 # Cutoffs for when missing items count as a "strong" outdatedness signal;
@@ -293,132 +285,6 @@ _STATUS_SORT_KEY = {
     STATUS_NO_SIGNAL: 3,
 }
 
-# New locale calibration guide:
-#
-# - Locales under content/ are auto-discovered; adding a locale directory is
-#   enough for the script to scan it.
-# - Start with the default LocaleProfile. Add an explicit profile only to
-#   record known properties such as script or text direction, or after manual
-#   review shows repeated locale-specific false alarms / blindspots.
-# - Suggested first run:
-#     python3 scripts/l10n-outdatedness-triage.py --lang <locale> --verbose
-# - Manually compare flagged localized files with their English sources, then
-#   classify findings as real drift, false alarm, or mixed.
-# - Add calibration only for repeated patterns, and document the reason in
-#   the LocaleProfile notes field.
-
-# --- Locale profiles ---
-
-@dataclass(frozen=True)
-class LocaleProfile:
-    """Centralizes locale-specific calibration so adding a new locale is a
-    single map entry rather than a scattering of conditionals."""
-
-    script: str = "unknown"
-    direction: str = "ltr"
-
-    # Length-gap behavior
-    short_en_threshold: int = _SHORT_EN_THRESHOLD
-    min_en_lines_for_length_gap: int = _LENGTH_GAP_MIN_EN_LINES
-    ignore_only_length_gap: bool = False
-
-    # Optional compactness guard (Latin-script: word counts behave like EN)
-    compactness_guard: bool = False
-    compactness_min_en_lines: int = _LATIN_MIN_EN_LINES
-    body_word_ratio_min: float = _LATIN_BODY_RATIO_MIN
-
-    # Free-form note recording empirical rationale or future calibration plans.
-    notes: str = ""
-
-
-_DEFAULT_LOCALE_PROFILE = LocaleProfile()
-
-_LOCALE_PROFILES: Dict[str, LocaleProfile] = {
-    # CJK: denser glyphs run shorter at the same content volume, so raise
-    # the short-EN floor before length gaps are trusted.
-    "ko": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
-    "ja": LocaleProfile(
-        script="cjk",
-        short_en_threshold=_CJK_SHORT_EN_THRESHOLD,
-        ignore_only_length_gap=True,
-        notes=(
-            "Japanese can produce line-count-only false alarms because "
-            "physical wrapping differs from English; non-length structural "
-            "signals are still checked."
-        ),
-    ),
-    "zh-cn": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
-    "zh-tw": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
-
-    # Latin-script locales whose word counts behave like EN's: full
-    # translations run loose-wrapped at high body-word ratios.
-    "pt-br": LocaleProfile(
-        script="latin",
-        compactness_guard=True,
-        notes=(
-            "Latin-script compactness guard can suppress line-count-only false "
-            "alarms when a localized page has high body-word ratio, because "
-            "full translations may wrap differently from English. Non-length "
-            "structural signals are still checked."
-        ),
-    ),
-    "es": LocaleProfile(
-        script="latin",
-        compactness_guard=True,
-        notes=(
-            "Latin-script compactness guard can suppress line-count-only false "
-            "alarms when a localized page has high body-word ratio, because "
-            "full translations may wrap differently from English. Non-length "
-            "structural signals are still checked."
-        ),
-    ),
-    "de": LocaleProfile(
-        script="latin",
-        compactness_guard=True,
-        notes=(
-            "Latin-script compactness guard can suppress line-count-only false "
-            "alarms when a localized page has high body-word ratio, because "
-            "full translations may wrap differently from English. Non-length "
-            "structural signals are still checked."
-        ),
-    ),
-    "fr": LocaleProfile(
-        script="latin",
-        compactness_guard=True,
-        notes=(
-            "Latin-script compactness guard can suppress line-count-only false "
-            "alarms when a localized page has high body-word ratio, because "
-            "full translations may wrap differently from English. Non-length "
-            "structural signals are still checked."
-        ),
-    ),
-    "it": LocaleProfile(
-        script="latin",
-        compactness_guard=True,
-        notes=(
-            "Latin-script compactness guard can suppress line-count-only false "
-            "alarms when a localized page has high body-word ratio, because "
-            "full translations may wrap differently from English. Non-length "
-            "structural signals are still checked."
-        ),
-    ),
-
-    # Cyrillic — explicitly opt out of the Latin compactness guard:
-    # real ru/uk drift at the same pattern sits at notably lower body ratios.
-    "ru": LocaleProfile(script="cyrillic"),
-    "uk": LocaleProfile(script="cyrillic"),
-
-    # Persian is the first RTL localization. Initial audit found no
-    # RTL-specific parsing issue, so this records metadata only and does not
-    # enable RTL-specific heuristics.
-    "fa": LocaleProfile(script="arabic", direction="rtl"),
-}
-
-
-def get_locale_profile(locale: str) -> LocaleProfile:
-    return _LOCALE_PROFILES.get(locale, _DEFAULT_LOCALE_PROFILE)
-
-
 # --- Data classes ---
 
 @dataclass(frozen=True)
@@ -488,8 +354,7 @@ def _count_visible_lines(text: str) -> int:
     return sum(1 for line in t.splitlines() if line.strip())
 
 def _count_body_words(text: str) -> int:
-    # For the Latin-compactness check: separates loose-wrapped full
-    # translations from thinned content.
+    # Separates differently wrapped full translations from thinned content.
     t = _STRIP_FM.sub("", text, count=1)
     t = _STRIP_CMNT.sub("", t)
     t = _STRIP_CODE.sub("", t)
@@ -934,10 +799,6 @@ def _classify_length_gap(l10n_to_en_line_ratio: float) -> str:
         return _LENGTH_GAP_LARGE
     if l10n_to_en_line_ratio < 0.65:
         return _LENGTH_GAP_MODERATE
-    if l10n_to_en_line_ratio < 0.80:
-        return _LENGTH_GAP_SMALL
-    if l10n_to_en_line_ratio < 0.90:
-        return _LENGTH_GAP_SILENT
     return _LENGTH_GAP_NONE
 
 def _build_length_gap_reason(level: str, l10n_to_en_line_ratio: float) -> str:
@@ -956,39 +817,14 @@ def _build_length_gap_reason(level: str, l10n_to_en_line_ratio: float) -> str:
         return f"substantially shorter than en (line ratio {ratio_str})"
     return ""
 
-def _is_only_length_gap(stats: FileStats) -> bool:
-    # True when no structural loss is present — only a length gap fired.
-    return (stats.missing_h2 == 0
-            and stats.missing_h3 == 0
-            and stats.missing_code_blocks == 0
-            and stats.missing_anchors == 0
-            and stats.missing_new_versions == 0)
-
 def _should_ignore_length_gap(
-    stats: FileStats, en: ParsedFile, l10n: ParsedFile,
-    profile: LocaleProfile, level: str, has_support: bool,
+    stats: FileStats, l10n: ParsedFile, level: str, has_support: bool,
 ) -> bool:
-    """Drop length gap when unreliable (EN shorter than the profile's
-    short-EN threshold, no other indicator firing) or expected by locale
-    shape. Profile-driven so adding a locale is a single map entry:
-    `ignore_only_length_gap` handles locales such as Japanese where visible 
-    line counts can differ from English because of Japanese wrapping behavior; 
-    `compactness_guard` covers Latin-script locales whose full
-    translations run loose-wrapped at high body-word ratios."""
+    """Drop length gap when unsupported by non-length indicators or when body
+    word count already matches a full translation."""
     if level == _LENGTH_GAP_NONE or l10n.visible_lines == 0:
         return False
-    if not has_support or stats.l10n_to_en_body_word_ratio >= _LATIN_BODY_RATIO_MIN:
-        return True
-    if (level in (_LENGTH_GAP_MODERATE, _LENGTH_GAP_LARGE)
-            and _is_only_length_gap(stats)):
-        if (profile.ignore_only_length_gap
-                and en.visible_lines >= profile.short_en_threshold):
-            return True
-        if (profile.compactness_guard
-                and en.visible_lines >= profile.compactness_min_en_lines
-                and stats.l10n_to_en_body_word_ratio >= profile.body_word_ratio_min):
-            return True
-    return False
+    return not has_support or stats.l10n_to_en_body_word_ratio >= _BODY_WORD_RATIO_MIN
 
 # --- Indicator detection ---
 
@@ -1013,52 +849,47 @@ def _has_length_gap_support(stats: FileStats) -> bool:
 
 
 def _has_standalone_volume_loss(
-    stats: FileStats, en: ParsedFile, l10n: ParsedFile, profile: LocaleProfile,
+    stats: FileStats, en: ParsedFile, l10n: ParsedFile,
 ) -> bool:
     if l10n.visible_lines == 0:
         return False
     if (
         _has_severe_paragraph_loss(en, l10n)
-        and stats.l10n_to_en_body_word_ratio < _LATIN_BODY_RATIO_MIN
+        and stats.l10n_to_en_body_word_ratio < _BODY_WORD_RATIO_MIN
     ):
         return True
-    if (
-        not profile.ignore_only_length_gap
-        and en.visible_lines >= 20
+    return (
+        en.visible_lines >= 20
         and stats.l10n_to_en_line_ratio < 0.50
         and stats.l10n_to_en_body_word_ratio < 0.60
-    ):
-        return True
-    return False
+    )
 
 
 def build_indicators(
-    stats: FileStats, en: ParsedFile, l10n: ParsedFile, profile: LocaleProfile,
+    stats: FileStats, en: ParsedFile, l10n: ParsedFile,
 ) -> List[str]:
     indicators: List[str] = []
 
     if l10n.visible_lines == 0 and en.visible_lines >= 1:
         indicators.append("empty_stub")
 
-    # Empty-stub bypass on the short-EN floor so empty stubs still reach a level.
-    if (en.visible_lines >= profile.min_en_lines_for_length_gap
-            or l10n.visible_lines == 0):
+    if en.visible_lines >= _LENGTH_GAP_MIN_EN_LINES and l10n.visible_lines > 0:
         level = _classify_length_gap(stats.l10n_to_en_line_ratio)
     else:
         level = _LENGTH_GAP_NONE
 
-    standalone_volume_loss = _has_standalone_volume_loss(stats, en, l10n, profile)
+    standalone_volume_loss = _has_standalone_volume_loss(stats, en, l10n)
     has_support = _has_length_gap_support(stats) or standalone_volume_loss
 
     if standalone_volume_loss and level not in (_LENGTH_GAP_LARGE, _LENGTH_GAP_MODERATE):
         level = _LENGTH_GAP_MODERATE
 
     if not standalone_volume_loss and _should_ignore_length_gap(
-        stats, en, l10n, profile, level, has_support
+        stats, l10n, level, has_support
     ):
         level = _LENGTH_GAP_NONE
 
-    if level == _LENGTH_GAP_LARGE and l10n.visible_lines > 0:
+    if level == _LENGTH_GAP_LARGE:
         indicators.append("large_length_gap")
     elif level == _LENGTH_GAP_MODERATE:
         indicators.append("moderate_length_gap")
@@ -1256,7 +1087,7 @@ def build_reasons(
         ])
         semantic_reasons.append((
             "severe_shortcode_mismatch" in indicator_set,
-            f"missing {len(stats.missing_shortcode_values)} shortcode value(s): "
+            f"shortcode value mismatch ({len(stats.missing_shortcode_values)}): "
             f"{formatted_items}",
         ))
 
@@ -1364,14 +1195,13 @@ def analyze_file_pair(
     en_lastmod: int = 0,
     l10n_lastmod: int = 0,
 ) -> FileReport:
-    profile = get_locale_profile(locale)
     en = parse_markdown(en_path)
     l10n = parse_markdown(l10n_path)
     outdated_examples = _find_outdated_local_examples(
         l10n.example_files, en_path, l10n_path, locale
     )
     stats = compute_stats(en, l10n, outdated_local_examples=outdated_examples)
-    indicators = build_indicators(stats, en, l10n, profile)
+    indicators = build_indicators(stats, en, l10n)
     status = classify_status(indicators)
     is_minor_fix = False
     if status != STATUS_NO_SIGNAL:
@@ -1426,25 +1256,24 @@ def _load_git_last_commits(repo_root: str) -> Dict[str, int]:
     _GIT_LASTMOD_CACHE[abs_root] = last_timestamps
     return last_timestamps
 
-_ORPHAN_HISTORY_CACHE: Dict[
-    str,
-    Tuple[
-        Dict[str, Tuple[str, Optional[str], str, str, Tuple[str, ...]]],
-        Dict[str, str],
-    ],
-] = {}
+@dataclass(frozen=True)
+class OrphanEvent:
+    next_path: Optional[str]
+    date: str
+    subject: str
+    split_targets: Tuple[str, ...] = ()
+    is_rename: bool = False
+
+_ORPHAN_HISTORY_CACHE: Dict[str, Tuple[Dict[str, OrphanEvent], Dict[str, str]]] = {}
 
 def _load_orphan_history(
     repo_root: str,
-) -> Tuple[
-    Dict[str, Tuple[str, Optional[str], str, str, Tuple[str, ...]]],
-    Dict[str, str],
-]:
+) -> Tuple[Dict[str, OrphanEvent], Dict[str, str]]:
     abs_root = os.path.abspath(repo_root)
     if abs_root in _ORPHAN_HISTORY_CACHE:
         return _ORPHAN_HISTORY_CACHE[abs_root]
 
-    events: Dict[str, Tuple[str, Optional[str], str, str, Tuple[str, ...]]] = {}
+    events: Dict[str, OrphanEvent] = {}
     try:
         out = subprocess.check_output(
             [
@@ -1479,12 +1308,18 @@ def _load_orphan_history(
                 row[1] for row in rows
                 if row[0] == "D" and row[1].endswith(".md") and "/docs/" in row[1]
             ]
-            co_added = (
+            has_renames = any(row[0].startswith("R") for row in rows)
+            single_replacement = (
+                added_md[0]
+                if len(deleted_md) == 1 and len(added_md) == 1
+                else None
+            )
+            split_targets = (
                 tuple(sorted(
                     added_md,
                     key=lambda path: ("/included/" in path, path.endswith("/_index.md"), path),
                 ))
-                if (1 <= len(added_md) <= 15 and len(deleted_md) <= 3)
+                if len(deleted_md) == 1 and 2 <= len(added_md) <= 15 and not has_renames
                 else ()
             )
             for parts in rows:
@@ -1492,13 +1327,22 @@ def _load_orphan_history(
                 old_path = parts[1]
                 if status_code.startswith("R"):
                     new_path = parts[2] if len(parts) > 2 else None
-                    if old_path not in events or events[old_path][0] == "D":
-                        events[old_path] = (
-                            status_code, new_path, commit_date, commit_subject, (),
+                    if old_path not in events or not events[old_path].is_rename:
+                        events[old_path] = OrphanEvent(
+                            next_path=new_path,
+                            date=commit_date,
+                            subject=commit_subject,
+                            is_rename=True,
                         )
                 elif status_code == "D" and old_path not in events:
-                    events[old_path] = (
-                        "D", None, commit_date, commit_subject, co_added,
+                    is_sole_deleted_doc = (
+                        len(deleted_md) == 1 and old_path == deleted_md[0]
+                    )
+                    events[old_path] = OrphanEvent(
+                        next_path=single_replacement if is_sole_deleted_doc else None,
+                        date=commit_date,
+                        subject=commit_subject,
+                        split_targets=split_targets if is_sole_deleted_doc else (),
                     )
     except (OSError, subprocess.SubprocessError):
         events = {}
@@ -1523,61 +1367,80 @@ def _load_orphan_history(
     _ORPHAN_HISTORY_CACHE[abs_root] = (events, redirects)
     return events, redirects
 
+def _en_doc_to_url(en_path: str) -> str:
+    if not en_path.startswith("content/en/"):
+        return ""
+    rel_doc = en_path[len("content/en/"):]
+    return "/" + re.sub(r"(/_index\.md|\.md)$", "", rel_doc).rstrip("/")
+
+def _trace_en_path(
+    en_path: str,
+    events: Dict[str, OrphanEvent],
+    abs_root: str,
+) -> Tuple[str, Optional[OrphanEvent], bool]:
+    cur = en_path
+    last_event: Optional[OrphanEvent] = None
+    renames_only = True
+    seen: Set[str] = set()
+    while (
+        not os.path.isfile(os.path.join(abs_root, cur))
+        and cur in events
+        and cur not in seen
+    ):
+        seen.add(cur)
+        last_event = events[cur]
+        if not last_event.next_path:
+            break
+        renames_only = renames_only and last_event.is_rename
+        cur = last_event.next_path
+    return cur, last_event, renames_only
+
 def _describe_orphan(rel_l10n: str, locale: str, repo_root: str) -> List[str]:
     abs_root = os.path.abspath(repo_root)
     events, redirects = _load_orphan_history(abs_root)
     rel_doc = rel_l10n.split(f"content/{locale}/", 1)[-1]
     en_path = f"content/en/{rel_doc}"
-    url_path = "/" + re.sub(r"(/_index\.md|\.md)$", "", rel_doc).rstrip("/")
-    redirect_target = redirects.get(url_path)
-    history_event = events.get(en_path)
-    commit_date = history_event[2] if history_event else ""
-    commit_subject = history_event[3] if history_event else ""
-    co_added = history_event[4] if history_event else ()
 
-    if history_event and history_event[1]:
-        new_path: Optional[str] = history_event[1]
-        seen = {en_path}
-        while (
-            new_path
-            and not os.path.isfile(os.path.join(abs_root, new_path))
-            and new_path in events
-            and new_path not in seen
-        ):
-            seen.add(new_path)
-            if events[new_path][1]:
-                commit_date = events[new_path][2]
-                new_path = events[new_path][1]
-            else:
-                break
-        if new_path and os.path.isfile(os.path.join(abs_root, new_path)):
-            return [f"moved in en to `{new_path}` ({commit_date})"]
+    terminal_path, last_event, renames_only = _trace_en_path(en_path, events, abs_root)
+    commit_date = last_event.date if last_event else ""
+    redirect_target = (
+        redirects.get(_en_doc_to_url(en_path))
+        or redirects.get(_en_doc_to_url(terminal_path))
+    )
 
+    moved_paths = [terminal_path]
     if redirect_target and "#" not in redirect_target:
-        clean_redirect = redirect_target.strip("/")
-        candidate_en_path = f"content/en/{clean_redirect}.md"
-        if os.path.isfile(os.path.join(abs_root, candidate_en_path)):
+        redirect_path = f"content/en/{redirect_target.strip('/')}.md"
+        # An explicit redirect outranks a single-replacement guess, but not a rename chain.
+        moved_paths.insert(1 if renames_only else 0, redirect_path)
+    for moved_path in moved_paths:
+        if moved_path != en_path and os.path.isfile(os.path.join(abs_root, moved_path)):
             date_suffix = f" ({commit_date})" if commit_date else ""
-            return [f"moved in en to `{candidate_en_path}`{date_suffix}"]
+            return [f"moved in en to `{moved_path}`{date_suffix}"]
 
-    if len(co_added) >= 2:
-        formatted_files = _format_truncated_items(
-            [f"`{path}`" for path in co_added], limit=3,
-        )
-        return [
-            f"split in en into {len(co_added)} files ({commit_date}): {formatted_files}"
-        ]
-
-    if len(co_added) == 1 and os.path.isfile(os.path.join(abs_root, co_added[0])):
-        return [f"moved in en to `{co_added[0]}` ({commit_date})"]
+    if last_event and last_event.split_targets:
+        live_targets: List[str] = []
+        for target in last_event.split_targets:
+            resolved, _, _ = _trace_en_path(target, events, abs_root)
+            if os.path.isfile(os.path.join(abs_root, resolved)) and resolved not in live_targets:
+                live_targets.append(resolved)
+        if len(live_targets) >= 2:
+            formatted_files = _format_truncated_items(
+                [f"`{path}`" for path in live_targets], limit=3,
+            )
+            return [
+                f"split in en into {len(live_targets)} files ({commit_date}): {formatted_files}"
+            ]
+        if len(live_targets) == 1:
+            return [f"moved in en to `{live_targets[0]}` ({commit_date})"]
 
     if redirect_target:
         if commit_date:
             return [f"removed in en ({commit_date})", f"redirects to `{redirect_target}`"]
         return [f"redirects in en to `{redirect_target}`"]
 
-    if history_event:
-        return [f"removed in en ({commit_date}: {commit_subject})"]
+    if last_event:
+        return [f"removed in en ({commit_date}: {last_event.subject})"]
 
     return ["no en git history found (verify filename or locale-specific page)"]
 
@@ -1669,17 +1532,6 @@ def count_files_by_status(
         c[STATUS_NO_SIGNAL],
     )
 
-def _build_locale_profile_note(profile: LocaleProfile) -> List[str]:
-    if not profile.notes:
-        return []
-    return [
-        "**Locale-specific calibration note:**",
-        "",
-        f"> {profile.notes}",
-        "",
-    ]
-
-
 def _build_report_disclaimer(include_fix_effort: bool = True) -> List[str]:
     """Triage disclaimer + status-meaning block included in every per-locale report."""
     lines = [
@@ -1700,7 +1552,7 @@ def _build_report_disclaimer(include_fix_effort: bool = True) -> List[str]:
         ])
     lines.extend([
         "- `Moderate signal`: medium-confidence signal; verify manually.",
-        f"- `{STATUS_LASTMOD_ONLY}`: English source has a newer git commit timestamp (`lastmod`), with no structural or token signal found; verifying and updating is recommended to clear the outdated notice on `kubernetes.io`.",
+        f"- `{STATUS_LASTMOD_ONLY}`: English source has a newer branch commit timestamp, with no structural or token signal found; worth checking for prose-only updates and potential out-of-date banners on `kubernetes.io`.",
         "- `No signal`: no signal found; lowest priority, not a guarantee that the translation is current.",
         "",
     ])
@@ -1807,7 +1659,6 @@ def build_locale_report(
     branch: str = "main",
     output_dir: str = ".",
 ) -> str:
-    profile = get_locale_profile(locale)
     strong, moderate, lastmod_only, no_signal = count_files_by_status(evaluated)
     total = len(evaluated) + len(orphans)
 
@@ -1835,7 +1686,6 @@ def build_locale_report(
         "",
     ]
     lines.extend(_build_report_disclaimer())
-    lines.extend(_build_locale_profile_note(profile))
     lines.extend([
         "| Triage category | Count |",
         "|---|---:|",

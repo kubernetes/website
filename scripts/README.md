@@ -124,10 +124,9 @@ The status labels are triage categories, not final judgments:
   needs review or update (`Major fix` or `Minor fix`).
 - `Moderate signal`: some indicators were found, but the page needs
   manual verification.
-- `Weak signal (lastmod only)`: English source has a newer git
-  commit timestamp (`lastmod`), with no structural or token signal found;
-  verifying and updating is still recommended to clear the outdated notice
-  on `kubernetes.io`.
+- `Weak signal (lastmod only)`: English source has a newer branch commit
+  timestamp, with no structural or token signal found; worth checking for
+  prose-only updates and potential out-of-date banners on `kubernetes.io`.
 - `No signal`: no outdatedness indicators were found by this tool; this
   does not guarantee the translation is fully current.
 
