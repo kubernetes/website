@@ -41,7 +41,7 @@ kube-dns.
 -->
 ### 创建一个简单的 Pod 作为测试环境   {#create-a-simple-pod-to-use-as-a-test-environment}
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{< code_sample file="admin/dns/dnsutils.yaml" >}}
 
 {{< note >}}
 <!--
