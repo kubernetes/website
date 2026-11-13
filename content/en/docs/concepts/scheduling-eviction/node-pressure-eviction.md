@@ -206,21 +206,43 @@ administrator-specified grace period. The kubelet does not evict pods until the
 grace period is exceeded. The kubelet returns an error on startup if you do
 not specify a grace period.
 
-You can specify both a soft eviction threshold grace period and a maximum
-allowed pod termination grace period for kubelet to use during evictions. If you
-specify a maximum allowed grace period and the soft eviction threshold is met,
-the kubelet uses the lesser of the two grace periods. If you do not specify a
-maximum allowed grace period, the kubelet kills evicted pods immediately without
-graceful termination.
+You can also specify a maximum allowed pod termination grace period for the
+kubelet to use during soft evictions. Once the soft eviction threshold grace
+period has elapsed, the kubelet uses the lesser of this maximum and the Pod's
+`terminationGracePeriodSeconds` when terminating the Pod. If you do not specify
+a maximum allowed grace period, the kubelet kills evicted pods immediately
+without graceful termination.
 
 You can use the following kubelet configuration file settings:
 
-- `evictionSoft`: A set of eviction thresholds like `memory.available<1.5Gi`
-  that can trigger pod eviction if held over the specified grace period.
-- `evictionSoftGracePeriod`: A set of eviction grace periods like `memory.available=1m30s`
-  that define how long a soft eviction threshold must hold before triggering a Pod eviction.
+- `evictionSoft`: A map of eviction signals to threshold quantities, such as
+  `memory.available: "1.5Gi"`, that can trigger pod eviction if held over the
+  specified grace period.
+- `evictionSoftGracePeriod`: A map of eviction signals to grace period durations,
+  such as `memory.available: "1m30s"`, that define how long a soft eviction
+  threshold must hold before triggering a Pod eviction.
 - `evictionMaxPodGracePeriod`: The maximum allowed grace period (in seconds)
   to use when terminating pods in response to a soft eviction threshold being met.
+
+For example, the following
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
+sets a soft memory eviction threshold and its grace period:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+evictionSoft:
+  memory.available: "1.5Gi"
+evictionSoftGracePeriod:
+  memory.available: "1m30s"
+evictionMaxPodGracePeriod: 30
+```
+
+In this example, available memory must remain below 1.5GiB for 90 seconds before
+the soft threshold can trigger eviction. Once eviction begins, the kubelet allows
+the lesser of 30 seconds and the Pod's `terminationGracePeriodSeconds` for
+termination. The threshold grace period and the Pod termination grace period
+serve different purposes.
 
 #### Hard eviction thresholds {#hard-eviction-thresholds}
 
@@ -228,8 +250,8 @@ A hard eviction threshold has no grace period. When a hard eviction threshold is
 met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
-You can use the `evictionHard` field to configure a set of hard eviction
-thresholds like `memory.available<1Gi`.
+You can use the `evictionHard` field to configure a map of eviction signals to
+threshold quantities, such as `evictionHard: {memory.available: "1Gi"}`.
 
 The kubelet has the following default hard eviction thresholds:
 
