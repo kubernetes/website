@@ -38,7 +38,7 @@ export GOPATH=$HOME/<workspace>
 Get a local clone of the following repositories:
 
 ```shell
-git clone github.com/kubernetes-sigs/reference-docs
+git clone https://github.com/kubernetes-sigs/reference-docs
 ```
 Move into the `gen-apidocs` directory of the `reference-docs` repository and install the required Go packages:
 ```shell
