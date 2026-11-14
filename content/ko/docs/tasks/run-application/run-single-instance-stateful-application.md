@@ -50,8 +50,8 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 [쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)
 을 보자
 
-{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
-{{< codenew file="application/mysql/mysql-pv.yaml" >}}
+{{< code_sample file="application/mysql/mysql-deployment.yaml" >}}
+{{< code_sample file="application/mysql/mysql-pv.yaml" >}}
 
 1. YAML 파일의 PV와 PVC를 배포한다.
 

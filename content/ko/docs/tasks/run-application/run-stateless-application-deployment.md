@@ -38,7 +38,7 @@ weight: 10
 디플로이먼트에 대한 명세를 YAML 파일에 기술할 수 있다. 예를 들어 이 YAML 파일은 
 nginx:1.14.2 도커 이미지를 실행하는 디플로이먼트에 대한 명세를 담고 있다.
 
-{{< codenew file="application/deployment.yaml" >}}
+{{< code_sample file="application/deployment.yaml" >}}
 
 
 1. YAML 파일을 기반으로 디플로이먼트를 생성한다.
@@ -100,7 +100,7 @@ nginx:1.14.2 도커 이미지를 실행하는 디플로이먼트에 대한 명�
 새 YAML 파일을 적용하여 디플로이먼트를 업데이트할 수 있다. 이 YAML 파일은 
 nginx 1.16.1을 사용하도록 디플로이먼트를 업데이트해야 함을 명시하고 있다.
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{< code_sample file="application/deployment-update.yaml" >}}
 
 1. 새 YAML 파일을 적용한다.
 
@@ -116,7 +116,7 @@ nginx 1.16.1을 사용하도록 디플로이먼트를 업데이트해야 함을 
 이 YAML 파일은 `replicas`를 4로 설정하여 디플로이먼트에 
 4개의 파드가 있어야 함을 명시하고 있다.
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{< code_sample file="application/deployment-scale.yaml" >}}
 
 1. 새 YAML 파일을 적용한다.
 
