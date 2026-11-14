@@ -224,7 +224,7 @@ deployment.apps/my-nginx created
 Ensure that there is 1 replica:
 
 ```shell
-kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='merge' -p '{"spec":{"replicas": 1}}'
+kubectl scale deployment/my-nginx --replicas=1
 ```
 
 ```none
@@ -235,7 +235,7 @@ and allow Kubernetes to add more temporary replicas during a rollout, by setting
 100%:
 
 ```shell
-kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
+kubectl patch deployment/my-nginx --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge":"100%"}}}}'
 ```
 
 ```none
