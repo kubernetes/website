@@ -369,6 +369,10 @@ var kub = (function () {
 var pushmenu = (function(){
     var allPushMenus = {};
 
+    function setScrollLock(locked) {
+        document.body.classList.toggle('pushmenu-open', locked);
+    }
+    
     $(document).ready(function(){
         $('[data-auto-burger]').each(function(){
             var container = this;
@@ -423,6 +427,7 @@ var pushmenu = (function(){
             }
             var pushmenuEl = target.closest('.pi-pushmenu');
             if (pushmenuEl) {
+                setScrollLock(false);
                 pushmenuEl.classList.remove('on');
                 setTimeout(function () { pushmenuEl.style.display = 'none'; }, 300);
             }
@@ -464,9 +469,16 @@ var pushmenu = (function(){
 
         window.addEventListener('resize', closeMe);
 
+        // Restoring the page from the back/forward cache can bring back an open
+        // drawer; close it so the page is never left locked.
+        window.addEventListener('pageshow', function (e) {
+            if (e.persisted) closeMe({});
+        });
+
         function closeMe(e) {
             if (e.target == sled) return;
-
+            
+            setScrollLock(false);
             $(el).removeClass('on');
             setTimeout(function(){
                 $(el).css({display: 'none'});
@@ -474,6 +486,7 @@ var pushmenu = (function(){
         }
 
         function exposeMe(){
+            setScrollLock(true);
             $(el).css({
                 display: 'block',
                 zIndex: highestZ()
