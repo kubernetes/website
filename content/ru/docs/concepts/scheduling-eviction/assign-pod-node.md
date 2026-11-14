@@ -79,7 +79,7 @@ Kubernetes также навешивает [стандартный набор л
 
 В качестве примера рассмотрим следующую спецификацию пода:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{< code_sample file="pods/pod-with-node-affinity.yaml" >}}
 
 В этом примере применяются следующие правила:
 
@@ -111,7 +111,7 @@ Kubernetes также навешивает [стандартный набор л
 
 В качестве примера рассмотрим следующую спецификацию пода:
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{< code_sample file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 Если правилу `preferredDuringSchedulingIgnoredDuringExecution` соответствуют два узла (один — с лейблом `label-1:key-1`, другой — с `label-2:key-2`), планировщик считает вес `weight` каждого узла и добавляет его к другим оценкам для этого узла. Под планируется на узел с наивысшей итоговой оценкой.
 
@@ -198,7 +198,7 @@ profiles:
 
 Рассмотрим следующую спецификацию пода:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{< code_sample file="pods/pod-with-pod-affinity.yaml" >}}
 
 В примере задается одно правило совместного существования подов, и одно — раздельного. Для совместного правила используется жесткий тип `requiredDuringSchedulingIgnoredDuringExecution`, для раздельного — мягкий `preferredDuringSchedulingIgnoredDuringExecution`.
 
