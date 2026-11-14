@@ -6,7 +6,7 @@ weight: 240
 
 <!-- overview -->
 
-This example demonstrates how to limit the amount of storage consumed in a namespace.
+This example demonstrates how to limit the amount of storage consumed in a namespace. You can also read [Configure Quotas for Storage](/docs/tasks/administer-cluster/quota-storage/).
 
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
 [LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/),
