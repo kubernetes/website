@@ -60,6 +60,8 @@ o controle do conjunto de backends por conta própria.
 
 A abstração Service permite esse desacoplamento.
 
+Implantações canário são um caso de uso comum para Services. Para saber o que está envolvido, siga o tutorial [Implantar uma versão usando uma implantação canário](/docs/tutorials/stateless-application/canary-deployment/).
+
 O conjunto de Pods direcionado por um Service geralmente é determinado
 por um {{< glossary_tooltip text="seletor" term_id="selector" >}} que você
 define.
@@ -74,7 +76,7 @@ cluster. Um Ingress permite que você consolide suas regras de roteamento em um 
 que você possa expor múltiplos componentes da sua carga de trabalho, executando separadamente no seu
 cluster, atrás de um único ponto de entrada.
 
-O [Gateway API](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) para Kubernetes
+O [Gateway](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) API para Kubernetes
 fornece capacidades extras além de Ingress e Service. Você pode adicionar Gateway ao seu cluster -
 é uma família de APIs de extensão, implementadas usando
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}} -
@@ -119,19 +121,13 @@ correspondam ao seu seletor, e então faz quaisquer atualizações necessárias 
 EndpointSlices para o Service.
 
 O nome de um objeto Service deve ser um
-[nome de rótulo RFC 1035](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names) válido.
+[nome de rótulo RFC 1123](/docs/concepts/overview/working-with-objects/names#rfc-1123-label-names) válido.
 
 
 {{< note >}}
 Um Service pode mapear _qualquer_ `port` de entrada para uma `targetPort`. Por padrão e
 por conveniência, a `targetPort` é definida com o mesmo valor do campo `port`.
 {{< /note >}}
-
-### Requisitos de nomenclatura relaxados para objetos Service
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-O feature gate `RelaxedServiceNameValidation` permite que nomes de objetos Service comecem com um dígito. Quando este feature gate está habilitado, os nomes de objetos Service devem ser [nomes de rótulo RFC 1123](/docs/concepts/overview/working-with-objects/names/#dns-label-names) válidos.
 
 ### Definições de porta {#field-spec-ports}
 
@@ -140,6 +136,20 @@ atributo `targetPort` de um Service. Por exemplo, podemos vincular a `targetPort
 do Service à porta do Pod da seguinte maneira:
 
 ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -153,20 +163,6 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app.kubernetes.io/name: proxy
-  ports:
-  - name: name-of-service-port
-    protocol: TCP
-    port: 80
-    targetPort: http-web-svc
 ```
 
 Isso funciona mesmo se houver uma mistura de Pods no Service usando um único
@@ -366,7 +362,7 @@ Este campo segue a sintaxe de rótulo padrão do Kubernetes. Valores válidos s�
 
 | Protocolo | Descrição |
 |----------|-------------|
-| `kubernetes.io/h2c` | HTTP/2 sobre cleartext conforme descrito na [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
+| `kubernetes.io/h2c` | HTTP/2 sobre cleartext conforme descrito na [RFC 9113](https://www.rfc-editor.org/rfc/rfc9113) |
 | `kubernetes.io/ws`  | WebSocket sobre cleartext conforme descrito na [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 | `kubernetes.io/wss` | WebSocket sobre TLS conforme descrito na [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 
@@ -532,32 +528,63 @@ Para evitar este problema, o intervalo de portas para services NodePort é divid
 A atribuição dinâmica de portas usa a faixa superior por padrão, e pode usar a faixa inferior uma vez que a
 faixa superior tenha sido esgotada. Os usuários podem então alocar da faixa inferior com menor risco de conflito de porta.
 
-#### Configuração de endereço IP personalizado para Services `type: NodePort` {#service-nodeport-custom-listen-address}
+Ao usar o intervalo padrão de NodePort 30000-32767, as faixas são particionadas da seguinte forma:
 
-Você pode configurar nós no seu cluster para usar um endereço IP específico para servir services de
-node port. Você pode querer fazer isso se cada nó estiver conectado a múltiplas redes (por exemplo:
-uma rede para tráfego de aplicação, e outra rede para tráfego entre nós e a
-camada de gerenciamento).
+- Faixa estática: 30000-30085
+- Faixa dinâmica: 30086-32767
 
-Se você deseja especificar endereço(s) IP particular(es) para fazer proxy da porta, você pode definir a
-flag `--nodeport-addresses` para o kube-proxy ou o campo equivalente `nodePortAddresses`
-do [arquivo de configuração do kube-proxy](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-para bloco(s) de IP particular(es).
+Consulte [Evitar conflitos ao atribuir portas a Services NodePort](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)
+para mais detalhes sobre como as faixas estática e dinâmica são calculadas.
 
-Esta flag recebe uma lista delimitada por vírgulas de blocos de IP (por exemplo, `10.0.0.0/8`, `192.0.2.0/25`)
-para especificar intervalos de endereços IP que o kube-proxy deve considerar como locais para este nó.
+#### Configuração de endereço IP para Services `type: NodePort` {#service-nodeport-custom-listen-address}
 
-Por exemplo, se você iniciar o kube-proxy com a flag `--nodeport-addresses=127.0.0.0/8`,
-o kube-proxy seleciona apenas a interface de loopback para Services NodePort.
-O padrão para `--nodeport-addresses` é uma lista vazia.
-Isso significa que o kube-proxy deve considerar todas as interfaces de rede disponíveis para NodePort.
-(Isso também é compatível com versões anteriores do Kubernetes.)
-{{< note >}}
-Este Service é visível como `<NodeIP>:spec.ports[*].nodePort` e `.spec.clusterIP:spec.ports[*].port`.
-Se a flag `--nodeport-addresses` para o kube-proxy ou o campo equivalente
-no arquivo de configuração do kube-proxy estiver definida, `<NodeIP>` seria um
-endereço IP de nó filtrado (ou possivelmente endereços IP).
-{{< /note >}}
+Ao usar o kube-proxy no [modo
+`iptables`](/docs/reference/networking/virtual-ips/#proxy-mode-iptables), Services NodePort ficam
+disponíveis em todos os IPs do nó por padrão. Ao usar o [modo
+`nftables`](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), eles ficam
+disponíveis apenas no IP primário do nó (ou nos IPs primários dual-stack) por padrão.
+
+Você pode alterar o conjunto de IPs do nó nos quais os Services NodePort ficam disponíveis com a
+flag `--nodeport-addresses` do kube-proxy, ou com o campo equivalente `nodePortAddresses`
+do [arquivo de configuração do kube-proxy](/docs/reference/config-api/kube-proxy-config.v1alpha1/).
+Ela aceita uma lista delimitada por vírgulas de blocos de IP (por exemplo, `10.0.0.0/8`, `192.0.2.0/25`) ou uma
+ou mais das seguintes palavras-chave:
+
+- `primary` - o endereço IPv4 e/ou IPv6 primário do nó, de acordo com o objeto Node.
+  (Este é o valor padrão para o modo `nftables`.)
+- `localhost` - os endereços de loopback do nó (`127.0.0.0/8`, `::1/128`).
+- `all` - todos os endereços. (Este é o valor padrão para os modos `iptables` e `ipvs`.)
+
+Por exemplo, se você iniciar o kube-proxy com a _flag_ `--nodeport-addresses=192.168.0.0/24`,
+o kube-proxy tentará encontrar um endereço IP local nessa sub-rede em cada nó, e servirá
+Services NodePort apenas por meio desse IP.
+
+#### Services `type: NodePort` via localhost {#localhost-nodeports}
+
+Os mecanismos usados pelos proxies de Service para implementar Services NodePort nem sempre
+suportam fornecer Services NodePort em localhost. Para o kube-proxy:
+
+  - Ao usar o modo `iptables`, com um valor de `--nodeport-addresses` que inclua
+    `127.0.0.1`, services NodePort estarão disponíveis em `127.0.0.1`. No entanto, isso
+    requer habilitar um sysctl do kernel (`route_localnet`) que pode ter efeitos colaterais
+    inseguros em alguns clusters. NodePorts em localhost do IPTables podem ser desabilitados passando
+    `--iptables-localhost-nodeports false` para o kube-proxy, ou definindo
+    `--nodeport-addresses` para um intervalo que não inclua `127.0.0.1`.
+
+  - Ao usar o modo `ipvs`, ou o modo `iptables` em clusters IPv6 single-stack, Services
+    NodePort não estão disponíveis em localhost.
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+  - Ao usar o modo `nftables`, Services NodePort estarão disponíveis em localhost quando o
+    feature gate `KubeProxyNFTablesLocalhostNodePorts` estiver habilitado, e
+    `--nodeport-addresses` estiver definido com um valor que inclua explicitamente `localhost`.
+    (Defini-lo apenas como `all` não habilitará Services NodePort em localhost.) Isso é
+    implementado redirecionando conexões NodePort de localhost através de um proxy em espaço de usuário,
+    portanto não é tão eficiente quanto o proxy de Service comum.
+
+Plugins de rede de terceiros que possuem suas próprias implementações de proxy de Service podem ou
+não suportar NodePorts em localhost; consulte a documentação desses plugins.
 
 ### `type: LoadBalancer` {#loadbalancer}
 
@@ -682,17 +709,15 @@ Nomes sem prefixo são reservados para usuários finais.
 
 #### Modo do endereço IP do balanceador de carga {#load-balancer-ip-mode}
 
-{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
-
-Para um Service do `type: LoadBalancer`, um controlador pode definir `.status.loadBalancer.ingress.ipMode`. 
-O `.status.loadBalancer.ingress.ipMode` especifica como o IP do balanceador de carga se comporta. 
+Para um Service do `type: LoadBalancer`, um controlador pode definir `.status.loadBalancer.ingress.ipMode`.
+O `.status.loadBalancer.ingress.ipMode` especifica como o IP do balanceador de carga se comporta.
 Ele pode ser especificado apenas quando o campo `.status.loadBalancer.ingress.ip` também estiver especificado.
 
-Existem dois valores possíveis para `.status.loadBalancer.ingress.ipMode`: "VIP" e "Proxy". 
-O valor padrão é "VIP", significando que o tráfego é entregue ao nó 
-com o destino definido para o IP e porta do balanceador de carga. 
-Existem dois casos ao definir isso como "Proxy", dependendo de como o balanceador de carga 
-do provedor de nuvem entrega o tráfego:  
+Existem dois valores possíveis para `.status.loadBalancer.ingress.ipMode`: "VIP" e "Proxy".
+O valor padrão é "VIP", significando que o tráfego é entregue ao nó
+com o destino definido para o IP e porta do balanceador de carga.
+Existem dois casos ao definir isso como "Proxy", dependendo de como o balanceador de carga
+do provedor de nuvem entrega o tráfego:
 
 - Se o tráfego é entregue ao nó e então sofre DNAT para o Pod, o destino seria definido para o IP do nó e a node port;
 - Se o tráfego é entregue diretamente ao Pod, o destino seria definido para o IP e porta do Pod.
@@ -712,7 +737,7 @@ dependendo do provedor de serviço de nuvem que você está usando:
 
 {{< tabs name="service_tabs" >}}
 {{% tab name="Default" %}}
-Select one of the tabs.
+Selecione uma das abas.
 {{% /tab %}}
 
 {{% tab name="GCP" %}}
@@ -865,7 +890,7 @@ esses Services, e não há balanceamento de carga ou proxy feito pela plataforma
 
 Um headless Service permite que um cliente se conecte a qualquer Pod que preferir, diretamente. Headless Services não
 configuram rotas e encaminhamento de pacotes usando
-[endereços IP virtuais e proxies](/docs/reference/networking/virtual-ips/); em vez disso, Headless Services reportam os
+[endereços IP virtuais e proxies](/docs/reference/networking/virtual-ips/); em vez disso, headless Services reportam os
 endereços IP de endpoint dos Pods individuais via registros DNS internos, servidos através do
 [serviço DNS](/docs/concepts/services-networking/dns-pod-service/) do cluster.
 Para definir um headless Service, você cria um Service com `.spec.type` definido como ClusterIP (que também é o padrão para `type`),
@@ -986,34 +1011,26 @@ para controlar como o Kubernetes roteia o tráfego para backends íntegros ("pro
 
 Consulte [Políticas de Tráfego](/docs/reference/networking/virtual-ips/#traffic-policies) para mais detalhes.
 
-### Distribuição de tráfego {#traffic-distribution}
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+### Controle de distribuição de tráfego {#traffic-distribution}
 
 O campo `.spec.trafficDistribution` fornece outra maneira de influenciar o
 roteamento de tráfego dentro de um Service do Kubernetes. Enquanto as políticas de tráfego focam em garantias
 semânticas estritas, a distribuição de tráfego permite que você expresse _preferências_
 (como rotear para endpoints topologicamente mais próximos). Isso pode ajudar a otimizar
-desempenho, custo ou confiabilidade. No Kubernetes {{< skew currentVersion >}}, o
-seguinte valor de campo é suportado: 
-
-`PreferClose`
-: Indica uma preferência por rotear o tráfego para endpoints que estão na mesma
-  zona que o cliente.
-
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-No Kubernetes {{< skew currentVersion >}}, dois valores adicionais estão
-disponíveis (a menos que o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PreferSameTrafficDistribution` esteja
-desabilitado):
+desempenho, custo ou confiabilidade. No Kubernetes {{< skew currentVersion >}}, os
+seguintes valores são suportados:
 
 `PreferSameZone`
-: Este é um alias para `PreferClose` que é mais claro sobre a semântica pretendida.
+: Indica uma preferência por rotear o tráfego para endpoints que estão na mesma
+  zona que o cliente.
 
 `PreferSameNode`
 : Indica uma preferência por rotear o tráfego para endpoints que estão no mesmo
   nó que o cliente.
+
+`PreferClose` (descontinuado)
+: Este é um alias mais antigo para `PreferSameZone` que é menos claro sobre
+  a semântica.
 
 Se o campo não for definido, a implementação aplicará sua estratégia de roteamento padrão.
 
@@ -1029,6 +1046,12 @@ IP do cliente. Leia [afinidade de sessão](/docs/reference/networking/virtual-ip
 para saber mais.
 
 ## IPs externos
+
+{{< feature-state for_k8s_version="v1.36" state="deprecated" >}}
+
+Todos os usuários devem começar a migrar para fora do uso de `externalIPs`.
+Considere usar um controlador de balanceador de carga externo ou uma implementação da
+API Gateway em vez disso.
 
 Se houver IPs externos que roteiam para um ou mais nós do cluster, os Services do Kubernetes
 podem ser expostos nesses `externalIPs`. Quando o tráfego de rede chega ao cluster, com
