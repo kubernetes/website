@@ -12,6 +12,8 @@ This command initializes a Kubernetes control plane node.
 
 {{< include "generated/kubeadm_init/_index.md" >}}
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ### Init workflow {#init-workflow}
 
 `kubeadm init` bootstraps a Kubernetes control plane node by executing the

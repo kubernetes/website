@@ -19,6 +19,14 @@ Instead, we expect higher-level and more tailored tooling to be built on top of 
 
 To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
 
+## Global flags
+
+`-v` / `--v` (klog verbosity) and `--rootfs` are flags on the parent
+`kubeadm` command. They apply to every subcommand. The generated options
+tables on the subcommand pages omit them. `--v=5` is usually enough for
+troubleshooting; `--v=10` prints each API client request and its body.
+Run `kubeadm --help` to list them.
+
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes control-plane node
