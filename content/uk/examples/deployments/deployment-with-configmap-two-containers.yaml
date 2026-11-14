@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-two-containers
+  labels:
+    app.kubernetes.io/name: configmap-two-containers
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: configmap-two-containers
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: configmap-two-containers
+    spec:
+      volumes:
+        - name: shared-data
+          emptyDir: {}
+        - name: config-volume
+          configMap:
+            name: color
+      containers:
+        - name: nginx
+          image: nginx
+          volumeMounts:
+            - name: shared-data
+              mountPath: /usr/share/nginx/html
+        - name: alpine
+          image: alpine:3
+          volumeMounts:
+            - name: shared-data
+              mountPath: /pod-data
+            - name: config-volume
+              mountPath: /etc/config
+          command:
+            - /bin/sh
+            - -c
+            - while true; do echo "$(date) My preferred color is $(cat /etc/config/color)" > /pod-data/index.html;
+              sleep 10; done;

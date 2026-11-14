@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating container-level scope where one container gets exclusive resources and others run in the node's shared pool."
+spec:
+  # На рівні Podʼа, Pod має запит на CPU, рівний лімітам, і запит на памʼять також
+  # рівний лімітам памʼяті. Контейнер infrastructure-sidecar відповідає вимогам для
+  # класу QoS Guaranteed на рівні контейнера, а робочі контейнери не вказують
+  # жодного запиту на ресурси. У межах контейнерного масштабу kubelet оцінює
+  # контейнери індивідуально для ексклюзивного виділення. Це означає, що
+  # infrastructure-sidecar отримує ексклюзивний фрагмент CPU на 2 ядра, тоді як
+  # робочі контейнери працюють у загальному пулі вузла, все це обмежено загальними
+  # лімітами Podʼа.
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: infrastructure-sidecar
+    # Примітка: Тут поле image є заповнювачем для демонстраційних цілей, а не
+    # справжнім допоміжним елементом інфраструктури.
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
+  containers:
+  - name: worker-1
+    # Примітка: Тут поле image є заповнювачем для демонстраційних цілей.
+    image: registry.k8s.io/pause:3.9
+  - name: worker-2
+    # Примітка: Тут поле image є заповнювачем для демонстраційних цілей.
+    image: registry.k8s.io/pause:3.9

@@ -9,7 +9,7 @@ weight: 40
 <!-- overview -->
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
-Планування з урахуванням робочого навантаження (Workload-aware Scheduling) визначає набір *будівельних блоків* API багаторазового використання у {{< glossary_tooltip text="групі API" term_id="api-group" >}} `scheduling.k8s.io`. Автори контролерів вбудовують ці примітиви у свої власні API, щоб користувачі виражали намір щодо планування (групове планування, топологія, поведінка під час порушення) з узгодженою схемою в усій екосистемі, а спільна бібліотека `workloadbuilder` компілює цей намір в орієнтовані на планувальник обʼєкти [Workload](/docs/concepts/workloads/workload-api/), [PodGroup](/docs/concepts/workloads/podgroup-api/) та [CompositePodGroup](/docs/concepts/workloads/workload-api/compositepodgroup-api/).
+Планування з урахуванням робочого навантаження (Workload-aware Scheduling) визначає набір *будівельних блоків* API багаторазового використання у {{< glossary_tooltip text="групі API" term_id="api-group" >}} `scheduling.k8s.io`. Автори контролерів вбудовують ці примітиви у свої власні API, щоб користувачі виражали намір щодо планування (групове планування, топологія, поведінка під час порушення) з узгодженою схемою в усій екосистемі, а спільна бібліотека `workloadbuilder` компілює цей намір в орієнтовані на планувальник обʼєкти [Workload](/docs/concepts/workloads/workload-api/), [PodGroup](/docs/concepts/workloads/podgroup-api/) та [CompositePodGroup](/docs/concepts/workloads/compositepodgroup-api/).
 
 Вбудованим споживачем цих будівельних блоків наразі є контролер [Job](/docs/concepts/workloads/controllers/job/), який вмикається функціональною можливістю [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob).
 

@@ -56,7 +56,7 @@ class first,second white
 
 - Пишіть документацію Kubernetes у Markdown та збирайте сайт Kubernetes за допомогою [Hugo](https://gohugo.io/).
 - Документація Kubernetes використовує [CommonMark](https://commonmark.org/) як свій варіант Markdown.
-- Вихідний код розміщено на [GitHub](https://github.com/kubernetes/website). Документацію Kubernetes можна знайти в `/content/en/docs/`. Частина довідкової документації автоматично генерується скриптами в теці `update-imported-docs/`.
+- Вихідний код розміщено на [GitHub](https://github.com/kubernetes/website). Документацію Kubernetes можна знайти в `/content/en/docs/`. Частина довідкової документації генерується інструментами з репозиторію [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs). Доступні посібники зі створення довідкової документації наведено в [розділі про довідкову документацію](/docs/contribute/generate-ref-docs/).
 - [Типи контенту сторінок](/docs/contribute/style/page-content-types/) описують подання вмісту документації в Hugo.
 - Для внеску в документацію Kubernetes можна використовувати [shortcodes Docsy](https://www.docsy.dev/docs/adding-content/shortcodes/) або [власні shortcodes Hugo](/docs/contribute/style/hugo-shortcodes/).
 - Крім стандартних shortcodes Hugo, ми використовуємо в документації низку [власні shortcodes Hugo](/docs/contribute/style/hugo-shortcodes/) для керування поданням вмісту.

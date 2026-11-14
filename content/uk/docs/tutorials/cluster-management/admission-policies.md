@@ -189,7 +189,7 @@ spec:
 Щоб застосувати цю політику:
 
 ```shell
-kubectl apply --server-side -f https://k8s.io/examples/access/manifest-admission-control/default-pod-security-baseline.yaml 
+kubectl apply --server-side -f https://k8s.io/examples/access/manifest-admission-control/default-pod-security-baseline.yaml
 ```
 
 Щоб активувати цю політику, потрібен MutatingAdmissionPolicyBinding; наприклад:

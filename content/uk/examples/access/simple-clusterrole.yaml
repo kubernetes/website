@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  # "namespace" пропущено, оскільки ClusterRole не привʼязані до простору імен
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  #
+  # на рівні HTTP, назва ресурсу для доступу до обʼєктів Secret
+  # це "secrets"
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
