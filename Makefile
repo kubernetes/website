@@ -58,7 +58,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	hugo $(HUGO_FLAGS) --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -67,7 +67,7 @@ check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
-	hugo --cleanDestinationDir --minify --environment production
+	hugo $(HUGO_FLAGS) --cleanDestinationDir --minify --environment production
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
