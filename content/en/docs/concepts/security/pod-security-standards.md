@@ -37,7 +37,7 @@ For example, you can define a Pod that has access to the node's host network.
 
 **The _Baseline_ policy is aimed at ease of adoption for common containerized workloads while
 preventing known privilege escalations.** This policy is targeted at application operators and
-developers of non-critical applications. The following listed controls should be
+developers of non-critical applications. The following listed controls must be
 enforced/disallowed:
 
 {{< note >}}
@@ -338,7 +338,7 @@ fail validation.
 
 **The _Restricted_ policy is aimed at enforcing current Pod hardening best practices, at the
 expense of some compatibility.** It is targeted at operators and developers of security-critical
-applications, as well as lower-trust users. The following listed controls should be
+applications, as well as lower-trust users. The following listed controls must be
 enforced/disallowed:
 
 {{< note >}}
@@ -383,7 +383,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) must not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
