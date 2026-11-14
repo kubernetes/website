@@ -15,7 +15,7 @@ menu:
     title: "Dokumentacja"
     weight: 10
 description: >
-  Kubernetes to otwarte oprogramowanie służące do automatyzacji procesów uruchamiania, skalowania i zarządzania aplikacjami w kontenerach. Gospodarzem tego projektu o otwartym kodzie źródłowym jest Cloud Native Computing Foundation.
+  Kubernetes to otwarte oprogramowanie służące do automatyzacji procesów uruchamiania, skalowania i zarządzania aplikacjami w kontenerach. Właścicielem tego projektu o otwartym kodzie źródłowym jest Cloud Native Computing Foundation.
 overview: >
   Kubernetes to otwarte oprogramowanie służące do automatyzacji procesów uruchamiania, skalowania i zarządzania aplikacjami w kontenerach. Gospodarzem tego projektu o otwartym kodzie źródłowym jest Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
@@ -51,17 +51,17 @@ cards:
   button_path: /docs/contribute
 - name: training
   title: "Szkolenia"
-  description: "Uzyskaj certyfikat Kubernetes i spraw, aby Twoje projekty cloud native zakończyły się sukcesem!"
+  description: "Uzyskaj certyfikat Kubernetesa aby Twoje projekty Cloud Native zakończyły się sukcesem!"
   button: "Oferta szkoleń"
   button_path: "/training"
 - name: Download
   title: Pobierz Kubernetesa
-  description: Zainstaluj Kubernetes lub zakutalizuj do najnowszej wersji.
+  description: Zainstaluj Kubernetesa lub zaktualizuj do najnowszej wersji.
   button: "Pobierz Kubernetesa"
   button_path: "/releases/download"
 - name: about
   title: O dokumentacji
-  description: Tu znajdziesz dokumentację bieżącej i czterech poprzednich wersji Kubernetes.
+  description: Tu znajdziesz dokumentację bieżącej i 4 poprzednich wersji Kubernetesa.
   button: "Zobacz dostępne wersje"
   button_path: "/docs/home/supported-doc-versions"
 ---
