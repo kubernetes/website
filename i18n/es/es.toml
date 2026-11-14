@@ -6,6 +6,10 @@
 [api_reference_title]
 other = "Referencia de la API"
 
+[api_reference_page_related_concepts]
+one = "Documentación conceptual para {{ .title }}"
+other = "Páginas de conceptos relacionados"
+
 [auto_generated_edit_notice]
 other = "(página autogenerada)"
 
@@ -14,6 +18,9 @@ other = """<p>Esta página se genera automáticamente.</p><p>Si planeas reportar
 
 [banner_acknowledgement]
 other = "Ocultar este aviso"
+
+[blog_mirrored_originally_published_at]
+other = 'Esto es un reflejo del <a href="{{ .canonicalUrl }}">artículo original</a>.'
 
 [blog_post_show_more]
 other = "Mostrar más publicaciones..."
@@ -71,7 +78,7 @@ other = "Foro"
 other = "GitHub"
 
 [community_introduce]
-other = "Kubernetes es un proyecto de código abierto, y la comunidad de Kubernetes es el corazón del proyecto. La comunidad de Kubernetes es un grupo diverso de personas que trabajan juntas para construir, mantener y promover Kubernetes. La comunidad de Kubernetes es acogedora, inclusiva y colaborativa, y siempre está buscando nuevas personas para unirse a la comunidad. Si estás interesado en contribuir a Kubernetes, hay muchas formas de hacerlo. Puedes contribuir con código, documentación, traducciones, diseño, pruebas, o cualquier otra cosa que te interese. Para obtener más información sobre cómo contribuir a Kubernetes, consulta nuestra {{ .link }}."
+other = "Kubernetes es un proyecto de código abierto donde cualquier persona de la comunidad puede usar, mejorar y disfrutar. ¡Nos encantaría que te unieras! Aquí tienes algunas formas para enterarte de lo que está pasando y participar."
 
 [community_join]
 other= "Únete a la comunidad"
@@ -190,11 +197,45 @@ other = "Error"
 [examples_heading]
 other = "Ejemplos"
 
+# Used with feature_gate_stage_* and then with either feature_gate_enabled or feature_gate_disabled
+# This localization string is for determining the punctuation and other details (including word order).
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span> desde {{ .kubernetes }} v{{ .version }}; {{ .enabled_or_disabled }}"""
+
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span> desde {{ .kubernetes }} v{{ .version }}"""
+
 [feature_gate_enabled]
 other = "(habilitado por defecto)"
 
 [feature_gate_disabled]
 other = "(deshabilitado por defecto)"
+
+[feature_gate_more_details]
+other = "Más información sobre esta función"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>Para utilizar esta función, usted (o un administrador del clúster) deberá habilitar la <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> feature gate para todos los componentes pertinentes en tu clúster.</p>
+<p>Consulte <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Habilitar o Deshabilitar Feature Gates</a> para obtener más información.</p>"""
+
+[feature_gate_stable_graduated]
+other = "Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stableVersion }}. Estuvo disponible por primera vez en la versión {{ .firstReleaseWithThisFeature }}."
+
+[feature_gate_stable_graduated_disabled]
+other = "Esta funcionalidad estable está deshabilitada de forma predeterminada. Ya no es posible habilitarla para usar por el comportamiento asociado."
+
+[feature_gate_stable_locked]
+other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión v{{ .stableVersion }}. Estuvo disponible por primera vez en la versión v{{ .firstReleaseWithThisFeature }}. Ya no es posible deshabilitar ni excluir esta funcionalidad o comportamiento (está bloqueada); si se establece explícitamente un valor para el <tt>{{ .featureGateName }}</tt> asociado, {{ .kubernetes }} lo ignora sin generar ningún error."""
+
+[feature_gate_removed_after_ga]
+other = """Esta es una funcionalidad estable en {{ .kubernetes }}, y lo ha sido desde la versión {{ .stableVersion }}. Ya no es posible activar o desactivar esta funcionalidad (el componente <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> asociado ha sido eliminado)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """{{ .kubernetes }} ya no incluye esta funcionalidad o comportamiento. La última versión de {{ .kubernetes }} que reconocía el feature gate <tt>{{ .featureGateName }}</tt> fue la {{ .toVersion }}. Ya no es posible modificar dicho ajuste."""
+
+# Used when we somehow don't know when the feature gate was removed.
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """{{ .kubernetes }} ya no incluye esta funcionalidad o comportamiento. Ya no es posible activar o desactivar esa configuración."""
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -271,6 +312,24 @@ a las personas a dar sus primeros pasos en el aprendizaje de Kubernetes.</p>
 de Katacoda por parte de O'Reilly Media en 2019.</p>
 <hr />
 <p>Los tutoriales dejaron de funcionar después del <b>31 de marzo de 2023</b>. Estás viendo este aviso porque esta página en particular aún no ha sido actualizada tras dicho cierre.</p>"""
+
+[kubecon_region_china]
+other = "China"
+
+[kubecon_region_europe]
+other = "Europa"
+
+[kubecon_region_event]
+other = "Evento"
+
+[kubecon_region_india]
+other = "India"
+
+[kubecon_region_japan]
+other = "Japon"
+
+[kubecon_region_north_america]
+other = "Norteamérica"
 
 [kubectl_ref_collapse_all]
 other = "Contraer todo"
@@ -689,6 +748,9 @@ other = "Fecha prevista"
 
 [release_changelog]
 other = "Changelog"
+
+[rss_link_label]
+other = "RSS"
 
 [seealso_heading]
 other = "Ver también"
