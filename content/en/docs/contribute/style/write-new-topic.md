@@ -134,6 +134,18 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 {{%/* code_sample file="pods/storage/gce-volume.yaml" */%}}
 ```
 
+### Showing a KYAML variant {#kyaml-examples}
+
+To also show a code sample in [KYAML](/docs/reference/encodings/kyaml/), add
+`variants="kyaml"` to its `code_sample` shortcode, then run:
+
+```shell
+make kyaml
+```
+
+Commit the files it writes under `content/en/examples-kyaml/`. Do not edit them
+by hand. `make verify-kyaml` fails if they are out of date.
+
 ## Showing how to create an API object from a configuration file
 
 If you need to demonstrate how to create an API object based on a
