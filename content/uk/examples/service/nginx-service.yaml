@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 8000 # порт, на якому цей сервіс повинен працювати
+    # контейнер у кожному Podʼі, до якого підключатися, — може бути імʼям
+    # (наприклад, 'www') або номером (наприклад, 80)
+    targetPort: 80
+    protocol: TCP
+  # так само, як селектор у Deployment,
+  # але цього разу він визначає набір Podʼів, між якими
+  # балансується трафік.
+  selector:
+    app: nginx
