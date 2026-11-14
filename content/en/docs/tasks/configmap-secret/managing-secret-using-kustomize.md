@@ -42,8 +42,8 @@ secretGenerator:
 1.  Store the credentials in files. The filenames are the keys of the secret:
 
     ```shell
-    echo -n 'admin' > ./username.txt
-    echo -n '1f2d1e2e67df' > ./password.txt
+    echo -n 'admin' > ./username
+    echo -n '1f2d1e2e67df' > ./password
     ```
     The `-n` flag ensures that there's no newline character at the end of your
     files.
@@ -54,8 +54,8 @@ secretGenerator:
     secretGenerator:
     - name: database-creds
       files:
-      - username.txt
-      - password.txt
+      - username
+      - password
     ```
 {{% /tab %}}
 {{% tab name=".env files" %}}
