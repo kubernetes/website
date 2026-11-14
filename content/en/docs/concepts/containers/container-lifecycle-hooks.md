@@ -95,6 +95,13 @@ takes 10 seconds to stop normally after receiving the signal, then the Container
 before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
 (55+10) it takes for these two things to happen.
 
+{{< note >}}
+If your `PreStop` hook needs longer to run, increase
+`terminationGracePeriodSeconds` so that it covers both the hook's
+worst-case execution time and the container's normal shutdown duration.
+Otherwise, the container is killed before either step can finish.
+{{< /note >}}
+
 If either a `PostStart` or `PreStop` hook fails,
 it kills the Container.
 
