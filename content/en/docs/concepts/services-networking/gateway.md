@@ -212,7 +212,7 @@ spec:
   rules:
   - matches:
     - method:
-        service: com.example
+        service: com.example.User
         method: Login
     backendRefs:
     - name: foo-svc
@@ -222,7 +222,7 @@ spec:
 In this case, the GRPCRoute will match any traffic for svc.example.com and apply its routing rules
 to forward the traffic to the correct backend. Since there is only one match specified,only requests
 for the com.example.User.Login method to svc.example.com will be forwarded.
-RPCs of any other method` will not be matched by this Route.
+RPCs of any other method will not be matched by this Route.
 
 See the [GRPCRoute](https://gateway-api.sigs.k8s.io/references/spec/#grpcroute)
 reference for a full definition of this API kind.
