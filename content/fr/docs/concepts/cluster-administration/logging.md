@@ -43,7 +43,7 @@ l'extérieur du cluster. Même sans avoir l'intention de journaliser les
 évènements au niveau du cluster, il est intéressant de savoir comment les
 journaux sont conservés et gérés au niveau d'un nœud.
 
-## Journalisation simple d'évènements dans Kubernetes
+## Journalisation simple d'évènements dans Kubernetes {#basic-logging-in-kubernetes}
 
 Dans cette section, on va utiliser un exemple simple de journalisation
 d'évènements avec le flux de sortie standard. Cette démonstration utilise un
