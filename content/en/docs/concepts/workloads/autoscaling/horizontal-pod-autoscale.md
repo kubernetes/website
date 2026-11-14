@@ -133,17 +133,16 @@ value:
 
 ```math
 \begin{equation*}
-desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
+\text{desiredReplicas} = \mathrm{ceil}\left\lceil \text{currentReplicas} \times \frac{\text{currentMetricValue}}{\text{desiredMetricValue}} \right\rceil
 \end{equation*}
 ```
 
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since
-\\( { 200.0 \div 100.0 } = 2.0 \\).  
-If the current value is instead `50m`, you'll halve the number of
-replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a
-[configurable tolerance](#tolerance), 0.1 by default).
+is `100m`, the number of replicas will be doubled, since \\( { 200.0 \div
+100.0 } = 2.0 \\). If the current value is instead `50m`, you'll halve
+the number of replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The
+control plane skips any scaling action if the ratio is sufficiently close
+to 1.0 (within a [configurable tolerance](#tolerance), 0.1 by default).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
@@ -179,8 +178,9 @@ since it started. This value is configured with the
 `--horizontal-pod-autoscaler-cpu-initialization-period` command line option,
 and its default is 5 minutes.
 
-The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
-calculated, using the remaining pods not set aside or discarded from above.
+The \\( \text{currentMetricValue} \over \text{desiredMetricValue} \\) base scale
+ratio is then calculated, using the remaining pods not set aside or discarded
+from above.
 
 If there were any missing metrics, the control plane recomputes the average more
 conservatively, assuming those pods were consuming 100% of the desired
