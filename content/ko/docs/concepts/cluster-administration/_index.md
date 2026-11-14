@@ -8,6 +8,12 @@ content_type: concept
 description: >
   쿠버네티스 클러스터 생성 또는 관리에 관련된 로우-레벨(lower-level)의 세부 정보를 설명한다.
 no_list: true
+card:
+  name: setup
+  weight: 60
+  anchors:
+  - anchor: "#securing-a-cluster"
+    title: 클러스터 보안
 ---
 
 <!-- overview -->
@@ -46,6 +52,7 @@ no_list: true
 ## 클러스터 관리
 
 * [노드 관리](/ko/docs/concepts/architecture/nodes/) 방법을 배운다.
+    * [노드 오토스케일링](/ko/docs/concepts/cluster-administration/node-autoscaling/)에 대해 알아본다.
 
 * 공유 클러스터에 대한 [리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 설정하고 관리하는 방법을 배운다.
 
@@ -70,6 +77,10 @@ no_list: true
   인증과 권한 부여 후 
   쿠버네티스 API 서버에 대한 요청을 가로채는 플러그인에 대해 설명한다.
 
+* [어드미션 웹훅 모범 사례](/docs/concepts/cluster-administration/admission-webhooks-good-practices/)는
+  뮤테이팅 어드미션 웹훅과 밸리데이팅 어드미션 웹훅을 설계할 때의
+  모범 사례와 고려 사항을 제공한다.
+  
 * [쿠버네티스 클러스터에서 Sysctls 사용하기](/ko/docs/tasks/administer-cluster/sysctl-cluster/)는 
   관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다
 .
