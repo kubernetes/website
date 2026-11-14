@@ -1,0 +1,34 @@
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaim
+metadata:
+  name: gpu-claim
+spec:
+  devices:
+    requests:
+    - name: gpu
+      exactly:
+        deviceClassName: gpu.example.com
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-metadata-reader
+spec:
+  resourceClaims:
+  - name: my-gpu
+    resourceClaimName: gpu-claim
+  containers:
+  - name: workload
+    image: ubuntu:24.04
+    resources:
+      claims:
+      - name: my-gpu
+        request: gpu
+    command:
+    - sh
+    - -c
+    - |
+      echo "=== DRA device metadata ==="
+      find /var/run/kubernetes.io/dra-device-attributes -name '*-metadata.json' -print -exec cat {} \;
+      sleep 3600
+  restartPolicy: Never

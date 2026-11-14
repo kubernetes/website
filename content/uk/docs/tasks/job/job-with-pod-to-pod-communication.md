@@ -79,16 +79,16 @@ spec:
           for i in 0 1 2
           do
             gotStatus="-1"
-            wantStatus="0"             
+            wantStatus="0"
             while [ $gotStatus -ne $wantStatus ]
-            do                                       
+            do
               ping -c 1 example-job-${i}.headless-svc > /dev/null 2>&1
-              gotStatus=$?                
+              gotStatus=$?
               if [ $gotStatus -ne $wantStatus ]; then
                 echo "Failed to ping pod example-job-${i}.headless-svc, retrying in 1 second..."
                 sleep 1
               fi
-            done                                                         
+            done
             echo "Successfully pinged pod: example-job-${i}.headless-svc"
           done
 ```

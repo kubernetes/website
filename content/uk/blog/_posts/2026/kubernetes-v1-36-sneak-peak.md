@@ -81,7 +81,7 @@ Kubernetes v1.33 представив підтримку taints та tolerations
 
 У Kubernetes v1.36 ця функція переходить у бета-стадію після завершення комплекснішого тестування, що робить її типово доступною без необхідності вмикати функціональну можливість та відкритою для відгуків користувачів.
 
-Щоб дізнатися про taints та tolerations, дивіться [Taints та tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).  
+Щоб дізнатися про taints та tolerations, дивіться [Taints та tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 Для отримання додаткової інформації про це покращення дивіться [KEP-5055: DRA: device taints and tolerations](https://kep.k8s.io/5055).
 
 ### Підтримка DRA для розділюваних пристроїв {#dra-support-for-partitionable-devices}

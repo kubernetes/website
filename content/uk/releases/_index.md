@@ -30,7 +30,7 @@ notoc: true
   Ці випуски більше не підтримуються й не отримують оновлень безпеки та виправлень помилок.
   Якщо ви використовуєте один із цих випусків, проєкт Kubernetes наполегливо рекомендує оновитися до [підтримуваної версії](#release-history).
   {{< /note >}}
-  
+
   {{< eol-releases >}}
 </details>
 
@@ -39,7 +39,7 @@ notoc: true
 Ознайомтесь з [графіком](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) виходу майбутнього випуску **{{< skew nextMinorVersion >}}** Kubernetes!
 
 {{< note >}}
-Це посилання на графік може бути тимчасово недоступним на ранніх етапах планування випуску.  
+Це посилання на графік може бути тимчасово недоступним на ранніх етапах планування випуску.
 Найновіші оновлення дивіться в [репозиторії SIG Release](https://github.com/kubernetes/sig-release/tree/master/releases).
 {{< /note >}}
 

@@ -166,7 +166,7 @@ some avg10=0.00 avg60=0.00 avg300=0.00 total=0
 full avg10=0.00 avg60=0.00 avg300=0.00 total=0
 ```
 
-Як можна інтерпретувати ці метрики разом? Візьмемо, наприклад, такий запит до Summary API:  
+Як можна інтерпретувати ці метрики разом? Візьмемо, наприклад, такий запит до Summary API:
 `kubectl get --raw "/api/v1/nodes/$(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')/proxy/stats/summary" | jq '.pods[].containers[] | select(.name=="<CONTAINER_NAME>") | {name, cpu: .cpu.psi, memory: .memory.psi, io: .io.psi}'`.
 Це повертає інформацію у форматі JSON, як показано нижче.
 

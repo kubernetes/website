@@ -78,12 +78,12 @@ func getServiceAccountTokens(req *csi.NodePublishVolumeRequest) (string, error) 
     if tokens, ok := req.Secrets[serviceAccountTokenKey]; ok {
         return tokens, nil
     }
-    
+
     // Повернення до контексту тому (поточна поведінка)
     if tokens, ok := req.VolumeContext[serviceAccountTokenKey]; ok {
         return tokens, nil
     }
-    
+
     return "", fmt.Errorf("service account tokens not found")
 }
 ```
