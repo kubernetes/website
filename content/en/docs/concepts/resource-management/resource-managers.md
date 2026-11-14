@@ -365,4 +365,6 @@ concept page, or read how to
 
 ## {{% heading "whatsnext" %}}
 
--   [Node Resource Managers](/docs/concepts/policy/node-resource-managers/)
+-   [Control CPU Management Policies on the Node](/docs/tasks/administer-cluster/cpu-management-policies/)
+-   [Control Memory Management Policies on the Node](/docs/tasks/administer-cluster/memory-manager/)
+-   [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)

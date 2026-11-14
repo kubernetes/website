@@ -265,4 +265,4 @@ the
     [Use pod-level resources with `kubelet` resource managers](/docs/tutorials/cluster-management/use-pod-level-resource-managers/)
     tutorial.
 -   Read about
-    [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+    [Node Resource Managers](/docs/concepts/resource-management/resource-managers/).
