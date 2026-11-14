@@ -136,7 +136,7 @@ See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 
 {{< note >}}
-Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+Docker Engine does not implement the [CRI](/docs/concepts/containers/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
 For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 has to be installed. cri-dockerd is a project based on the legacy built-in
@@ -199,7 +199,7 @@ This is because kubeadm and Kubernetes require
 
 For more information on version skews, see:
 
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+* Kubernetes [version and version-skew policy](/releases/version-skew-policy/)
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{% legacy-repos-deprecation %}}
