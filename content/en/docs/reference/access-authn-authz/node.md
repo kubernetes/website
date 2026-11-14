@@ -3,71 +3,55 @@ reviewers:
 - timstclair
 - deads2k
 - liggitt
-title: Using Node Authorization
+title: Node 認可の使用
 content_type: concept
 weight: 34
 ---
 
 <!-- overview -->
-Node authorization is a special-purpose authorization mode that specifically
-authorizes API requests made by kubelets.
 
+Node 認可は、kubelet から送信される API リクエストを認可するための専用モードです。
 
 <!-- body -->
-## Overview
 
-The Node authorizer allows a kubelet to perform API operations. This includes:
+## 概要
 
-Read operations:
+Node authorizer は、kubelet が API 操作を実行できるようにします。これには、以下が含まれます。
 
-* services
-* endpoints
-* nodes
-* pods
-* secrets, configmaps, persistent volume claims and persistent volumes related
-  to pods bound to the kubelet's node
+読み取り操作:
+
+- services
+- endpoints
+- nodes
+- pods
+- kubelet のノードにバインドされた Pod に関連する secrets、configmaps、persistent volume claims、および persistent volumes
 
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
-Kubelets are limited to reading their own Node objects, and only reading pods bound to their node.
+kubelet が読み取り可能な対象は、自身の Node オブジェクトと、自身のノードにバインドされた Pod に制限されます。
 
-Write operations:
+書き込み操作:
 
-* nodes and node status (enable the `NodeRestriction` admission plugin to limit
-  a kubelet to modify its own node)
-* pods and pod status (enable the `NodeRestriction` admission plugin to limit a
-  kubelet to modify pods bound to itself)
-* events
+- nodes および node status（kubelet が自身のノードのみを変更できるように制限するには、`NodeRestriction` admission plugin を有効にします）
+- pods および pod status（kubelet が自身のノードにバインドされた Pod のみを変更できるように制限するには、`NodeRestriction` admission plugin を有効にします）
+- events
 
-Auth-related operations:
+認証関連の操作:
 
-* read/write access to the
-  [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/)
-  for TLS bootstrapping
-* the ability to create TokenReviews and SubjectAccessReviews for delegated
-  authentication/authorization checks
+- TLS ブートストラップのための [CertificateSigningRequests API](/docs/reference/access-authn-authz/certificate-signing-requests/) への読み取りおよび書き込みアクセス
+- 委任された認証および認可のチェックを行うための TokenReviews および SubjectAccessReviews の作成
 
-In future releases, the node authorizer may add or remove permissions to ensure
-kubelets have the minimal set of permissions required to operate correctly.
+将来のリリースでは、kubelet が正常に動作するために必要な最小限の権限を確保するため、Node authorizer によって権限が追加または削除される可能性があります。
 
-In order to be authorized by the Node authorizer, kubelets must use a credential
-that identifies them as being in the `system:nodes` group, with a username of
-`system:node:<nodeName>`.
-This group and user name format match the identity created for each kubelet as part of 
-[kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/).
+Node authorizer による認可を受けるには、kubelet は自身が `system:nodes` グループに属し、ユーザー名が `system:node:<nodeName>` であることを示す認証情報を使用する必要があります。
 
-The value of `<nodeName>` **must** match precisely the name of the node as
-registered by the kubelet. By default, this is the host name as provided by
-`hostname`, or overridden via the
-[kubelet option](/docs/reference/command-line-tools-reference/kubelet/)
-`--hostname-override`. However, when using the `--cloud-provider` kubelet
-option, the specific hostname may be determined by the cloud provider, ignoring
-the local `hostname` and the `--hostname-override` option. 
-For specifics about how the kubelet determines the hostname, see the
-[kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/).
+このグループ名とユーザー名の形式は、[kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) の一環として各 kubelet に作成される ID の形式と一致します。
 
-To enable the Node authorizer, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with the `--authorization-config` flag set to a file that includes the `Node` authorizer; for example:
+`<nodeName>` の値は、kubelet によって登録されたノード名と**完全に一致する必要があります**。デフォルトでは、これは `hostname` によって取得されるホスト名です。または、[kubelet オプション](/docs/reference/command-line-tools-reference/kubelet/)の `--hostname-override` によって上書きされます。ただし、kubelet オプション `--cloud-provider` を使用する場合、具体的なホスト名はクラウドプロバイダーによって決定されることがあり、ローカルの `hostname` および `--hostname-override` オプションは無視されます。
+
+kubelet がホスト名を決定する方法の詳細については、[kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/) を参照してください。
+
+Node authorizer を有効にするには、`Node` authorizer を含むファイルを `--authorization-config` フラグで指定して、{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} を起動します。例:
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -78,60 +62,43 @@ authorizers:
   ...
 ```
 
-Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
-the `--authorization-mode` flag set to a comma-separated list that includes `Node`;
-for example:
+または、`Node` を含むカンマ区切りのリストを `--authorization-mode` フラグに指定して、{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} を起動します。例:
+
 ```shell
 kube-apiserver --authorization-mode=...,Node --other-options --more-options
 ```
 
-To limit the API objects kubelets are able to write, enable the
-[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction)
-admission plugin by starting the apiserver with
-`--enable-admission-plugins=...,NodeRestriction,...`
+kubelet が書き込み可能な API オブジェクトを制限するには、`--enable-admission-plugins=...,NodeRestriction,...` を指定して apiserver を起動し、[NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) admission plugin を有効にします。
 
 ## Service account token audience restriction {#service-account-token-audience-restriction}
 
 {{< feature-state feature_gate_name="ServiceAccountNodeAudienceRestriction" >}}
 
-When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled and the `NodeRestriction` admission plugin is active, the kubelet can only
-request service account tokens for audiences that are already referenced by pods running
-on that node. This prevents a compromised node from obtaining tokens for arbitrary audiences.
+`ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) が有効で、`NodeRestriction` admission plugin がアクティブな場合、kubelet は、そのノードで実行中の Pod によってすでに参照されている audience に対してのみ、service account token を要求できます。これにより、侵害されたノードが任意の audience のトークンを取得することを防ぎます。
 
-The allowed audiences are determined from the pod spec:
+許可される audience は Pod の spec に基づいて決定されます。
 
-- The default API server audience (empty or the API server's configured audience).
-- Audiences set in projected service account token volume sources.
-- Audiences configured in CSI driver `spec.tokenRequests` for any CSI driver used by
-  the pod, whether through inline CSI volumes, PersistentVolumeClaim-backed volumes,
-  or ephemeral volumes.
+- デフォルトの API server audience（空の値、または API server に設定された audience）。
+- 投影された service account token のボリュームソースに設定された audience。
+- Pod が使用するすべての CSI driver の `spec.tokenRequests` に設定された audience。これには、インライン CSI ボリューム、PersistentVolumeClaim に基づくボリューム、一時ボリュームを介して使用される場合が含まれます。
 
-This is particularly relevant when using [service account tokens for image credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/#service-account-token-for-image-pulls),
-where the kubelet requests tokens with a registry-specific audience on behalf of pods.
+これは、[イメージ認証情報プロバイダー向けの service account token](/docs/tasks/administer-cluster/kubelet-credential-provider/#service-account-token-for-image-pulls) を使用する場合に特に重要です。この場合、kubelet は Pod に代わって、レジストリ固有の audience を持つトークンを要求します。
 
-### Allowing additional audiences with RBAC {#allowing-additional-audiences}
+### RBAC による追加の audience の許可 {#allowing-additional-audiences}
 
-You can grant kubelets permission to request tokens for audiences beyond what
-the pod spec references. When the kubelet requests a token with an audience that
-is not found in the pod spec, the NodeRestriction admission plugin checks whether
-the kubelet is authorized by performing an authorization check with the following
-attributes:
+Pod の spec で参照されている audience 以外についても、kubelet にトークンを要求する権限を付与できます。kubelet が Pod の spec に存在しない audience を指定してトークンを要求すると、NodeRestriction admission plugin は、以下の属性を使用して認可チェックを実行し、kubelet が認可されているかどうかを確認します。
 
-| Attribute  | Value |
-| ---------- | ----- |
-| Verb       | `request-serviceaccounts-token-audience` |
-| API Group  | (empty string, meaning the core API group) |
-| Resource   | The requested audience value |
-| Name       | The service account name |
-| Namespace  | The service account namespace |
+| 属性 | 値 |
+| --- | --- |
+| Verb | `request-serviceaccounts-token-audience` |
+| API Group | （空文字列。コア API グループを意味します） |
+| Resource | 要求された audience の値 |
+| Name | service account 名 |
+| Namespace | service account の名前空間 |
 
-You can use standard RBAC rules to authorize these checks. The `resources` field
-controls which audiences are allowed, and the `resourceNames` field controls which
-service accounts the rule applies to.
+標準の RBAC ルールを使用して、これらのチェックを認可できます。`resources` フィールドで許可する audience を制御し、`resourceNames` フィールドでルールの適用対象となる service account を制御します。
 
-For example, to allow the kubelet to request audience `my-registry-audience` for
-a specific service account:
+たとえば、特定の service account に対して、kubelet が `my-registry-audience` という audience を要求できるようにするには、次のようにします。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -145,8 +112,7 @@ rules:
   resourceNames: ["my-service-account"]
 ```
 
-Omitting `resourceNames` allows the audience for any service account. Using a
-wildcard (`"*"`) for `resources` allows any audience:
+`resourceNames` を省略すると、すべての service account に対してその audience が許可されます。`resources` にワイルドカード（`"*"`）を使用すると、すべての audience が許可されます。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -156,11 +122,11 @@ metadata:
 rules:
 - verbs: ["request-serviceaccounts-token-audience"]
   apiGroups: [""]
-  resources: ["*"]  # any audience
-  # no resourceNames: any service account
+  resources: ["*"]  # 任意の audience
+  # resourceNames なし: すべての service account
 ```
 
-Bind the ClusterRole to the `system:nodes` group to apply it to all kubelets:
+すべての kubelet に適用するには、ClusterRole を `system:nodes` グループにバインドします。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -178,28 +144,23 @@ subjects:
 ```
 
 {{< note >}}
-This restriction is part of the NodeRestriction admission plugin and only applies to
-node identities (kubelets). It does not restrict which audiences other callers of the
-`TokenRequest` API can request. If you need to restrict other callers, consider using a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+
+この制限は NodeRestriction admission plugin の一部であり、ノード ID（kubelet）にのみ適用されます。`TokenRequest` API を呼び出す他のクライアントが要求できる audience は制限されません。他のクライアントも制限する必要がある場合は、[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) の使用を検討してください。
+
 {{< /note >}}
 
-## Migration considerations
+## 移行に関する考慮事項
 
-### Kubelets outside the `system:nodes` group
+### `system:nodes` グループに属していない kubelet
 
-Kubelets outside the `system:nodes` group would not be authorized by the `Node`
-authorization mode, and would need to continue to be authorized via whatever
-mechanism currently authorizes them.
-The node admission plugin would not restrict requests from these kubelets.
+`system:nodes` グループに属していない kubelet は、`Node` 認可モードでは認可されません。そのため、現在それらの kubelet を認可している仕組みを引き続き使用する必要があります。
 
-### Kubelets with undifferentiated usernames
+NodeRestriction admission plugin は、これらの kubelet からのリクエストを制限しません。
 
-In some deployments, kubelets have credentials that place them in the `system:nodes` group,
-but do not identify the particular node they are associated with,
-because they do not have a username in the `system:node:...` format.
-These kubelets would not be authorized by the `Node` authorization mode,
-and would need to continue to be authorized via whatever mechanism currently authorizes them.
+### 識別可能なユーザー名を持たない kubelet
 
-The `NodeRestriction` admission plugin would ignore requests from these kubelets,
-since the default node identifier implementation would not consider that a node identity.
+一部のデプロイ環境では、kubelet の認証情報によって `system:nodes` グループへの所属は示されているものの、ユーザー名が `system:node:...` 形式ではないため、どのノードに関連付けられているかを特定できない場合があります。
 
+これらの kubelet は `Node` 認可モードでは認可されないため、現在それらを認可している仕組みを引き続き使用する必要があります。
+
+`NodeRestriction` admission plugin は、これらの kubelet からのリクエストを無視します。これは、デフォルトのノード識別子の実装では、それらをノード ID として認識しないためです。
