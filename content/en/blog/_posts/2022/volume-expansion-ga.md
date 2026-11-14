@@ -95,7 +95,7 @@ Although volume expansion is now stable as part of the recent v1.24 release,
 SIG Storage are working to make it even simpler for users of Kubernetes to expand their persistent storage.
 Kubernetes 1.23 introduced features for triggering recovery from failed volume expansion, allowing users
 to attempt self-service healing after a failed resize.
-See [Recovering from volume expansion failure](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) for more details.
+See [Recovering from volume expansion failure](/docs/concepts/storage/expanding-persistent-volumes/#recovering-from-failure-when-expanding-volumes) for more details.
 
 The Kubernetes contributor community is also discussing the potential for StatefulSet-driven storage expansion. This proposed
 feature would let you trigger expansion for all underlying PVs that are providing storage to a StatefulSet,
