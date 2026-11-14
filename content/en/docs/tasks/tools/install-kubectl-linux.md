@@ -51,7 +51,20 @@ The following methods exist for installing kubectl on Linux:
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
 
-   {{< /note >}}
+  To download the latest patch of an **older minor version**, replace `stable.txt` with
+  `stable-<major>.<minor>.txt`. For example, to download the latest {{< skew prevMinorVersion >}}
+  release on Linux x86-64:
+
+  ```bash
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable-{{< skew prevMinorVersion>}}.txt)/bin/linux/amd64/kubectl"
+  ```
+
+  And for Linux ARM64:
+
+  ```bash
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable-{{< skew prevMinorVersion>}}.txt)/bin/linux/arm64/kubectl"
+  ```
+  {{< /note >}}
 
 1. Validate the binary (optional)
 
