@@ -133,6 +133,9 @@ kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 # create a CronJob that prints "Hello World" every minute
 kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
+# create a Secret named my-secret with keys password=s33msi4 and username=jane
+kubectl create secret generic my-secret --from-literal=password='s33msi4' --from-literal=username='jane'
+
 kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
