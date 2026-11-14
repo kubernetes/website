@@ -4,7 +4,7 @@ title: "Follow bare metal provisioning in Headlamp with Tinkerbell"
 draft: true
 slug: tinkerbell-headlamp-provisioning
 author: >
-  [Ayushmaan Sharma](https://github.com/ayushmaan-16) (LFX Mentorship 2026 Term 2)
+  [Ayushmaan Sharma](https://github.com/ayushmaan-16)
 ---
 
 Before a physical server can run applications, it needs an operating system and the right disk and
@@ -34,7 +34,7 @@ Following an Ubuntu provisioning run from Running to Success in Headlamp:
 
 ## Connect provisioning, automation, and machine management
 
-Custom Resource Definitions (CRDs) add resource types to the Kubernetes API. The plugin brings seven
+CustomResourceDefinitions (CRDs) add resource types to the Kubernetes API. The plugin brings seven
 Tinkerbell resource types into familiar Headlamp list and detail views:
 
 | Resource | Description |
