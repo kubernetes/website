@@ -93,6 +93,9 @@ The following information is available through a `downwardAPI` volume
 `metadata.annotations`
 : all of the pod's annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line  
 
+Within the volume, you can find the exposed data as read-only files in the
+plain text format.
+
 ### Information available via `resourceFieldRef` {#downwardapi-resourceFieldRef}
 
 These container-level fields allow you to provide information about
@@ -142,8 +145,6 @@ based on the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-r
 calculation.
 
 ## {{% heading "whatsnext" %}}
-
-You can read about [`downwardAPI` volumes](/docs/concepts/storage/volumes/#downwardapi).
 
 You can try using the downward API to expose container- or Pod-level information:
 * as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
