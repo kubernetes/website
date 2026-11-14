@@ -1,7 +1,7 @@
 ---
 title: Generating Reference Documentation for Configuration APIs
 content_type: task
-weight: 60
+weight: 50
 ---
 
 <!-- overview -->
