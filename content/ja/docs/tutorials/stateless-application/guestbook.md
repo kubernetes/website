@@ -45,13 +45,13 @@ card:
 
 以下のマニフェストファイルは、シングルレプリカのRedisのマスターPodを実行するDeploymentコントローラーを指定しています。
 
-{{% code_sample file="application/guestbook/redis-master-deployment.yaml" %}}
+{{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
 1. マニフェストファイルをダウンロードしたディレクトリ内で、ターミナルウィンドウを起動します。
-1. `redis-master-deployment.yaml`ファイルから、RedisのマスターのDeploymentを適用します。
+1. `redis-leader-deployment.yaml`ファイルから、RedisのマスターのDeploymentを適用します。
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-deployment.yaml
       ```
 
 1. Podのリストを問い合わせて、RedisのマスターのPodが実行中になっていることを確認します。
@@ -64,7 +64,7 @@ card:
 
       ```shell
       NAME                            READY     STATUS    RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running   0          28s
+      redis-leader-1068406935-3lswp   1/1       Running   0          28s
       ```
 
 1. 次のコマンドを実行して、RedisのマスターのPodからログを表示します。
@@ -81,12 +81,12 @@ POD-NAMEの部分を実際のPodの名前に書き換えてください。
 
 ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/ja/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
 
-{{% code_sample file="application/guestbook/redis-master-service.yaml" %}}
+{{% code_sample file="application/guestbook/redis-leader-service.yaml" %}}
 
-1. 次の`redis-master-service.yaml`から、RedisのマスターのServiceを適用します。
+1. 次の`redis-leader-service.yaml`から、RedisのマスターのServiceを適用します。
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-service.yaml
       ```
 
 1. Serviceのリストを問い合わせて、RedisのマスターのServiceが実行中になっていることを確認します。
@@ -100,11 +100,11 @@ POD-NAMEの部分を実際のPodの名前に書き換えてください。
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      redis-leader   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
       ```
 
 {{< note >}}
-このマニフェストファイルは、`redis-master`という名前のServiceを、前に定義したラベルにマッチする一連のラベル付きで作成します。これにより、ServiceはネットワークトラフィックをRedisのマスターのPodへとルーティングできるようになります。
+このマニフェストファイルは、`redis-leader`という名前のServiceを、前に定義したラベルにマッチする一連のラベル付きで作成します。これにより、ServiceはネットワークトラフィックをRedisのマスターのPodへとルーティングできるようになります。
 {{< /note >}}
 
 
@@ -118,12 +118,12 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 もし1つもレプリカが実行されていなければ、このDeploymentは2つのレプリカをコンテナクラスター上で起動します。逆に、もしすでに2つ以上のレプリカが実行されていれば、実行中のレプリカが2つになるようにスケールダウンします。
 
-{{% code_sample file="application/guestbook/redis-slave-deployment.yaml" %}}
+{{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
 
-1. `redis-slave-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを適用します。
+1. `redis-follower-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを適用します。
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-follower-deployment.yaml
       ```
 
 1. Podのリストを問い合わせて、RedisのスレーブのPodが実行中になっていることを確認します。
@@ -136,21 +136,21 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
       ```shell
       NAME                            READY     STATUS              RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running             0          1m
-      redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
-      redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
+      redis-leader-1068406935-3lswp   1/1       Running             0          1m
+      redis-follower-2005841000-fpvqc    0/1       ContainerCreating   0          6s
+      redis-follower-2005841000-phfv9    0/1       ContainerCreating   0          6s
       ```
 
 ### RedisのスレーブのServiceを作成する
 
 ゲストブックアプリケーションは、データを読み込むためにRedisのスレーブと通信する必要があります。Redisのスレーブが発見できるようにするためには、Serviceをセットアップする必要があります。Serviceは一連のPodに対する透過的なロードバランシングを提供します。
 
-{{% code_sample file="application/guestbook/redis-slave-service.yaml" %}}
+{{% code_sample file="application/guestbook/redis-follower-service.yaml" %}}
 
-1. 次の`redis-slave-service.yaml`ファイルから、RedisのスレーブのServiceを適用します。
+1. 次の`redis-follower-service.yaml`ファイルから、RedisのスレーブのServiceを適用します。
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-follower-service.yaml
       ```
 
 1. Serviceのリストを問い合わせて、RedisのスレーブのServiceが実行中になっていることを確認します。
@@ -164,13 +164,13 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    2m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
+      redis-leader   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
+      redis-follower    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
       ```
 
 ## ゲストブックのフロントエンドをセットアップして公開する
 
-ゲストブックアプリケーションには、HTTPリクエストをサーブするPHPで書かれたウェブフロントエンドがあります。このアプリケーションは、書き込みリクエストに対しては`redis-master` Serviceに、読み込みリクエストに対しては`redis-slave` Serviceに接続するように設定されています。
+ゲストブックアプリケーションには、HTTPリクエストをサーブするPHPで書かれたウェブフロントエンドがあります。このアプリケーションは、書き込みリクエストに対しては`redis-leader` Serviceに、読み込みリクエストに対しては`redis-follower` Serviceに接続するように設定されています。
 
 ### ゲストブックのフロントエンドのDeploymentを作成する
 
@@ -199,7 +199,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ### フロントエンドのServiceを作成する
 
-適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/ja/docs/concepts/services-networking/service/#publishing-services-service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
+適用した`redis-follower`および`redis-leader` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/ja/docs/concepts/services-networking/service/#publishing-services-service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
 
 もしゲストの人にゲストブックにアクセスしてほしいのなら、フロントエンドServiceを外部から見えるように設定しなければなりません。そうすれば、クライアントはコンテナクラスターの外部からServiceにリクエストを送れるようになります。Minikubeでは、Serviceを`NodePort`でのみ公開できます。
 
@@ -227,8 +227,8 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
       frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
+      redis-leader   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
+      redis-follower    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
       ```
 
 ### フロントエンドのServiceを`NodePort`経由で表示する
@@ -293,9 +293,9 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
       frontend-3823415956-k22zn       1/1       Running   0          54m
       frontend-3823415956-w9gbt       1/1       Running   0          54m
       frontend-3823415956-x2pld       1/1       Running   0          5s
-      redis-master-1068406935-3lswp   1/1       Running   0          56m
-      redis-slave-2005841000-fpvqc    1/1       Running   0          55m
-      redis-slave-2005841000-phfv9    1/1       Running   0          55m
+      redis-leader-1068406935-3lswp   1/1       Running   0          56m
+      redis-follower-2005841000-fpvqc    1/1       Running   0          55m
+      redis-follower-2005841000-phfv9    1/1       Running   0          55m
       ```
 
 1. 次のコマンドを実行すると、フロントエンドのPodの数をスケールダウンできます。
@@ -316,9 +316,9 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
       NAME                            READY     STATUS    RESTARTS   AGE
       frontend-3823415956-k22zn       1/1       Running   0          1h
       frontend-3823415956-w9gbt       1/1       Running   0          1h
-      redis-master-1068406935-3lswp   1/1       Running   0          1h
-      redis-slave-2005841000-fpvqc    1/1       Running   0          1h
-      redis-slave-2005841000-phfv9    1/1       Running   0          1h
+      redis-leader-1068406935-3lswp   1/1       Running   0          1h
+      redis-follower-2005841000-fpvqc    1/1       Running   0          1h
+      redis-follower-2005841000-phfv9    1/1       Running   0          1h
       ```
 
 
@@ -339,10 +339,10 @@ DeploymentとServiceを削除すると、実行中のPodも削除されます。
       結果は次のようになるはずです。
 
       ```
-      deployment.apps "redis-master" deleted
-      deployment.apps "redis-slave" deleted
-      service "redis-master" deleted
-      service "redis-slave" deleted
+      deployment.apps "redis-leader" deleted
+      deployment.apps "redis-follower" deleted
+      service "redis-leader" deleted
+      service "redis-follower" deleted
       deployment.apps "frontend" deleted
       service "frontend" deleted
       ```
