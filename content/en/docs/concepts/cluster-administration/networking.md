@@ -34,12 +34,20 @@ To learn about the Kubernetes networking model, see [here](/docs/concepts/servic
 
 ## Kubernetes IP address ranges
 
-Kubernetes clusters require to allocate non-overlapping IP addresses for Pods, Services and Nodes,
-from a range of available addresses configured in the following components:
+Kubernetes clusters require non-overlapping IP address ranges for Pods, Services, and Nodes. 
+Because Kubernetes networking is pluggable, 
+the source of these ranges depends on your cluster's configuration:
 
-- The network plugin is configured to assign IP addresses to Pods.
-- The kube-apiserver is configured to assign IP addresses to Services.
-- The kubelet or the cloud-controller-manager is configured to assign IP addresses to Nodes.
+Pods
+: The network plugin, often a {{< glossary_tooltip text=CNI" term_id="cni" >}} plugin, defines and assigns the IP address ranges for Pods.
+
+Services
+: The `kube-apiserver` assigns IP addresses for Services that needs them; automation (not part of Kubernetes) can also assign these, so that the API server does not have to. Services have an IP address assigned from a separate range from Nodes and Pods.
+
+Nodes
+: The cloud provider or bare metal node manager defines the IP ranges available for Nodes. Alternatively, for smaller clusters, an administrator can manually assign IP address ranges for nodes.
+
+Before changing these ranges, consult the documentation for your CNI (such as Calico or Cilium) or your cloud provider to identify where these IP address ranges are managed for your specific environment.
 
 {{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
 
