@@ -1,0 +1,12 @@
+/ja/docs/     /ja/docs/home/ 301!
+/ja/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
+/ja/docs/tutorials/clusters/apparmor/     /ja/docs/tutorials/security/apparmor/ 301
+/ja/docs/tutorials/kubernetes-basics/scale-intro/     /ja/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
+/ja/docs/tutorials/kubernetes-basics/update-intro/     /ja/docs/tutorials/kubernetes-basics/update/update-intro/ 301
+/ja/docs/setup/learning-environment/     /ja/docs/tasks/tools/  302!
+/ja/docs/setup/learning-environment/kind/  /ja/docs/tasks/tools/  302
+/ja/docs/setup/learning-environment/minikube/  /ja/docs/tasks/tools/ 302
+/ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
+/ja/docs/setup/independent/create-cluster-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
+/ja/docs/setup/independent/ha-topology/     /ja/docs/setup/production-environment/tools/kubeadm/ha-topology/   301
+/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/   301
