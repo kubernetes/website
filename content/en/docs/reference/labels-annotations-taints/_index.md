@@ -1092,6 +1092,20 @@ Starting in v1.17, this label is deprecated in favor of
 [topology.kubernetes.io/zone](#topologykubernetesiozone).
 {{< /note >}}
 
+### pv.beta.kubernetes.io/gid {#pv-beta-kubernetes-io-gid}
+
+Type: Annotation
+
+Example: `pv.beta.kubernetes.io/gid: "1234"`
+
+Used on: PersistentVolume
+
+A cluster administrator can set this annotation on a PersistentVolume to specify
+a supplemental group ID (GID). When a Pod that consumes the PersistentVolume is
+mounted, the kubelet passes this value to the volume plugin so that processes
+in the Pod can access the underlying storage. This is typically used to grant
+group access to shared network storage such as NFS.
+
 ### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
 
 Type: Annotation
@@ -1258,6 +1272,20 @@ This annotation has been deprecated since Kubernetes v1.10. Use the
 [`nodeAffinity` field](/docs/concepts/storage/persistent-volumes/#node-affinity) in the
 PersistentVolume spec instead.
 
+### volume.alpha.kubernetes.io/pre-resize-capacity {#volume-alpha-kubernetes-io-pre-resize-capacity}
+
+Type: Annotation
+
+Example: `volume.alpha.kubernetes.io/pre-resize-capacity: "5Gi"`
+
+Used on: PersistentVolume
+
+Set by the external-resizer on a PersistentVolume during volume expansion when a
+filesystem resize is still required after the underlying storage has been resized.
+Its value is the PersistentVolumeClaim's `status.capacity` from before the
+expansion began. The PersistentVolume controller reads it when binding the claim,
+and the annotation is removed once node-side expansion completes.
+
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 
 Type: Annotation
@@ -1299,6 +1327,20 @@ A Kubernetes administrator can specify additional
 [mount options](/docs/concepts/storage/persistent-volumes/#mount-options)
 for when a PersistentVolume is mounted on a node.
 
+### volume.kubernetes.io/node-expansion-not-required {#volume-kubernetes-io-node-expansion-not-required}
+
+Type: Annotation
+
+Example: `volume.kubernetes.io/node-expansion-not-required: "yes"`
+
+Used on: PersistentVolumeClaim
+
+Set on a PersistentVolumeClaim by the external-resizer to indicate that node-side
+(filesystem) expansion is not required for a completed volume resize. The kubelet
+consults this annotation on `ReadWriteMany` PVCs so that once the underlying
+volume has already reached the requested size, it does not run a per-node
+expansion pass on every node mounting the volume.
+
 ### volume.kubernetes.io/storage-provisioner  {#volume-kubernetes-io-storage-provisioner}
 
 Type: Annotation
@@ -1308,6 +1350,20 @@ Used on: PersistentVolumeClaim
 This annotation is added to a PVC that is supposed to be dynamically provisioned.
 Its value is the name of a volume plugin that is supposed to provision a volume
 for this PVC.
+
+### volume.kubernetes.io/storage-resizer {#volume-kubernetes-io-storage-resizer}
+
+Type: Annotation
+
+Example: `volume.kubernetes.io/storage-resizer: "pd.csi.storage.gke.io"`
+
+Used on: PersistentVolumeClaim
+
+Records the name of the resizer plugin (typically an out-of-tree external-resizer
+sidecar) that is handling an expansion request for this PersistentVolumeClaim.
+This is the resize-time analog of
+[`volume.kubernetes.io/storage-provisioner`](#volume-kubernetes-io-storage-provisioner),
+which records the plugin that provisioned the PVC.
 
 ### volume.kubernetes.io/selected-node
 
@@ -1598,6 +1654,19 @@ Used on: StorageClass
 
 When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
 resource without a class specified will be assigned this default class.
+
+### storageclass.beta.kubernetes.io/is-default-class (deprecated) {#storageclass-beta-kubernetes-io-is-default-class}
+
+Type: Annotation
+
+Example: `storageclass.beta.kubernetes.io/is-default-class: "true"`
+
+Used on: StorageClass
+
+The beta form of
+[`storageclass.kubernetes.io/is-default-class`](#storageclass-kubernetes-io-is-default-class),
+still honored by the default StorageClass admission plugin for backward
+compatibility. New clusters should use the stable annotation.
 
 ### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
