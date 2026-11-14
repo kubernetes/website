@@ -145,8 +145,8 @@ for resource usage apply:
   resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the sum of
 [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
-  * the sum of all non-init containers(app and sidecar containers) request/limit for a
-  resource
+  * the sum of all app containers and sidecar containers (that is, init containers with
+    `restartPolicy: Always`) request/limit for a resource.
   * the effective init request/limit for a resource
 * Scheduling is done based on effective requests/limits, which means
   init containers can reserve resources for initialization that are not used
