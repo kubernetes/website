@@ -7,36 +7,32 @@ sitemap:
   priority: 1.0
 ---
 
-{{< blocks/section class="k8s-overview" >}}
-{{% blocks/feature image="flower" id="feature-primary" %}}
-[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
-
-It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
-{{% /blocks/feature %}}
-
-{{% blocks/feature image="scalable" %}}
-#### Planet scale
-
-Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.
-
-{{% /blocks/feature %}}
-
-{{% blocks/feature image="blocks" %}}
-#### Never outgrow
-
-Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
-
-{{% /blocks/feature %}}
-
-{{% blocks/feature image="suitcase" %}}
-#### Run K8s anywhere
-
-Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
-
-To download Kubernetes, visit the [download](/releases/download/) section.
-
-{{% /blocks/feature %}}
-
+{{< blocks/section class="home-overview" >}}
+<div class="home-overview__intro">
+  <p><a href="{{< relref "/docs/concepts/overview/" >}}">Kubernetes</a> (K8s) is open source software that runs<br class="home-overview__desktop-break"> your containers across a cluster of machines.</p>
+</div>
+<div class="home-overview__cards">
+  {{% blocks/feature image="scalable" %}}
+  <h3>Scalable</h3>
+  <p>Scale to match demand. Kubernetes adjusts the number of running instances automatically based on CPU, memory, or your own metrics, and grows from a single laptop to thousands of nodes without changing how you work.</p>
+  <a href="{{< relref "/docs/concepts/workloads/autoscaling/" >}}">Learn more <span aria-hidden="true">&#8594;</span></a>
+  {{% /blocks/feature %}}
+  {{% blocks/feature image="resilient" %}}
+  <h3>Resilient</h3>
+  <p>Kubernetes keeps your applications running, restarting containers that fail, rescheduling them when a node goes down, and routing traffic only to instances that are ready. Recovery happens automatically, often before anyone notices.</p>
+  <a href="{{< relref "/docs/concepts/architecture/self-healing/" >}}">Learn more <span aria-hidden="true">&#8594;</span></a>
+  {{% /blocks/feature %}}
+  {{% blocks/feature image="suitcase" %}}
+  <h3>Portable</h3>
+  <p>Run the same way on a laptop, on-premises, or across public clouds. Kubernetes is open source with no vendor lock-in, so you can move workloads to wherever makes the most sense.</p>
+  <a href="{{< relref "/docs/concepts/overview/" >}}">Learn more <span aria-hidden="true">&#8594;</span></a>
+  {{% /blocks/feature %}}
+  {{% blocks/feature image="blocks" %}}
+  <h3>Extensible</h3>
+  <p>Kubernetes is a platform to build on. Define your own resource types, automate operations with custom controllers, and draw on a vast ecosystem of tools, all through the same API, without forking the core.</p>
+  <a href="{{< relref "/docs/concepts/extend-kubernetes/" >}}">Learn more <span aria-hidden="true">&#8594;</span></a>
+  {{% /blocks/feature %}}
+</div>
 {{< /blocks/section >}}
 
 {{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
