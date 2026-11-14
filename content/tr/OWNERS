@@ -1,0 +1,14 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Turkish.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-tr-reviews
+
+approvers:
+- sig-docs-tr-owners
+
+labels:
+- area/localization
+- language/tr
