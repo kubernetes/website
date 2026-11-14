@@ -6,7 +6,7 @@ content_type: concept
 weight: 20
 ---
 
-[Рецензенти](/docs/contribute/participate/#reviewers) та [затверджувачі](/docs/contribute/participate/#approvers) SIG Docs під час рецензування змін виконують кілька додаткових дій.
+[Рецензенти](/docs/contribute/participate/roles-and-responsibilities/#reviewers) та [затверджувачі](/docs/contribute/participate/roles-and-responsibilities/#approvers) SIG Docs під час рецензування змін виконують кілька додаткових дій.
 
 Щотижня певний затверджувач документації добровільно береться розглядати (triage) й рецензувати pull request. Ця особа є "PR Wrangler" (відповідальним за PR) на тиждень. Докладніше див. [графік PR Wrangler](https://github.com/kubernetes/website/wiki/PR-Wranglers). Щоб стати PR Wrangler, відвідайте щотижневу зустріч SIG Docs і зголосіться. Навіть якщо вас немає в графіку на поточний тиждень, ви все одно можете рецензувати pull request (PR), які ще ніхто активно не рецензує.
 

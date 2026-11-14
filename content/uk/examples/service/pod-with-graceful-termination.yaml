@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 120 # надзвичайно тривалий період завершення роботи
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        lifecycle:
+          preStop:
+            # Фактичне завершення роботи може тривати будь-який час, але не довше, ніж terminationGracePeriodSeconds.
+            # У цьому прикладі — просто зачекайте принаймні стільки, скільки триває terminationGracePeriodSeconds;
+            # через 120 секунд контейнер буде примусово завершено.
+            # Зверніть увагу: весь цей час nginx продовжуватиме обробляти запити.
+            sleep: 180

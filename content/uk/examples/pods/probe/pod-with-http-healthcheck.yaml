@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-http-healthcheck
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    # визначає перевірку стану
+    livenessProbe:
+      # http-перевірка
+      httpGet:
+        path: /_status/healthz
+        port: 80
+      # тривалість очікування ініціалізації контейнера
+      # після запуску, перед застосуванням перевірки стану
+      initialDelaySeconds: 30
+      timeoutSeconds: 1
+    ports:
+    - containerPort: 80

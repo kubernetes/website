@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: run-as-username-container-demo
+spec:
+  securityContext:
+    windowsOptions:
+      runAsUserName: "ContainerUser"
+  containers:
+  - name: run-as-username-demo
+    image: mcr.microsoft.com/windows/servercore:ltsc2019
+    command: ["ping", "-t", "localhost"]
+    securityContext:
+        windowsOptions:
+            runAsUserName: "ContainerAdministrator"
+  nodeSelector:
+    kubernetes.io/os: windows
