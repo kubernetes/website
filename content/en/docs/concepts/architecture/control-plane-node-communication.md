@@ -88,6 +88,13 @@ not validate the certificate provided by the HTTPS endpoint nor provide client c
 while the connection will be encrypted, it will not provide any guarantees of integrity. These
 connections **are not currently safe** to run over untrusted or public networks.
 
+Requests that the API server proxies to a node's kubelet are authorized against the
+`proxy` subresource of the Node, and the API server then connects to the kubelet using its own
+client credentials. Access to `nodes/proxy` therefore gives access to the whole kubelet API,
+including running commands in any container on that node, and even the **get** verb is enough.
+See [Access to `proxy` subresource of Nodes](/docs/concepts/security/rbac-good-practices/#access-to-proxy-subresource-of-nodes)
+before granting it.
+
 ### SSH tunnels
 
 Kubernetes supports [SSH tunnels](https://www.ssh.com/academy/ssh/tunneling) to protect the control plane to nodes communication paths. In this

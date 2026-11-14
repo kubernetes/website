@@ -148,6 +148,15 @@ and replaces every field present in a higher priority file.
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
 they can follow these steps to inspect the kubelet configuration:
 
+{{< caution >}}
+These steps read the configuration through the API server's node proxy, which needs **get**
+permission on `nodes/proxy`. That permission is not read-only: it also allows running commands
+in any container on the node. Don't grant it to users or tools only so that they can read the
+kubelet configuration. A client that connects to the kubelet directly can instead be granted
+the narrower `nodes/configz` subresource, see
+[fine-grained authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#fine-grained-authorization).
+{{< /caution >}}
+
 1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl_proxy/) in your terminal.
 
    ```bash
