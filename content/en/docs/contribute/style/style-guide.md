@@ -691,6 +691,32 @@ An exception to this rule is documentation about announced deprecations
 targeting removal in future versions. One example of documentation like this
 is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-guide/).
 
+### Use precise terms for deprecated and removed APIs
+
+When you write about API changes, use terms that describe the API's current
+state. For API support timelines, see the
+[Kubernetes Deprecation Policy](/docs/reference/using-api/deprecation-policy/).
+
+- Use _deprecated_ for an API version, field, or feature that still works, but
+  that users should stop using because it is planned for removal or replacement.
+- Use _no longer served_ for an API version that the API server no longer
+  accepts in requests. The resource might still be available through a newer API
+  version.
+- Use _removed_ for a field, feature, or behavior that is no longer available in
+  the release you are documenting. For API versions, prefer _no longer served_
+  when you mean that the API server no longer accepts that version.
+
+Avoid using _obsolete_ for Kubernetes APIs. It is less specific than
+_deprecated_, _no longer served_, or _removed_.
+
+{{< table caption = "Do and Don't - Use precise API change terms" >}}
+Do | Don't
+:--| :-----
+The `batch/v1beta1` API version of CronJob is no longer served as of v1.25. | The `batch/v1beta1` API version of CronJob is obsolete in v1.25.
+Migrate manifests and API clients to use the `batch/v1` API version. | Stop using the removed CronJob API.
+The field is deprecated. Use the replacement field instead. | The field is removed in a future release.
+{{< /table >}}
+
 ### Avoid statements that will soon be out of date
 
 Avoid words like "currently" and "new." A feature that is new today might not be
