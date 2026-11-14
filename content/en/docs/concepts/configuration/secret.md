@@ -131,7 +131,7 @@ the exact mechanisms for issuing and refreshing those session tokens.
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [Secret](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
+the [Secret](/docs/reference/kubernetes-api/core/secret-v1/)
 resource, or certain equivalent `kubectl` command line flags (if available).
 The Secret type is used to facilitate programmatic handling of the Secret data.
 
@@ -689,4 +689,4 @@ Secrets used on that node.
 - Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
+- Read the [API reference](/docs/reference/kubernetes-api/core/secret-v1/) for `Secret`

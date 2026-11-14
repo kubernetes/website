@@ -740,7 +740,7 @@ A PV can specify node affinity to define constraints that limit what nodes this
 volume can be accessed from. Pods that use a PV will only be scheduled to nodes
 that are selected by the node affinity. To specify node affinity, set
 `nodeAffinity` in the `.spec` of a PV. The
-[PersistentVolume](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
+[PersistentVolume](/docs/reference/kubernetes-api/core/persistent-volume-v1/#PersistentVolumeSpec)
 API reference has more details on this field.
 
 #### Updates to node affinity
@@ -1230,5 +1230,5 @@ and need persistent storage, it is recommended that you use the following patter
 
 Read about the APIs described in this page:
 
-* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
-* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
+* [`PersistentVolume`](/docs/reference/kubernetes-api/core/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/core/persistent-volume-claim-v1/)
