@@ -41,9 +41,13 @@ the amount of resources available in the cluster, and real-time events such as o
 
 ## API object
 
-The VerticalPodAutoscaler is defined as a {{< glossary_tooltip text="Custom Resource Definition" term_id="customresourcedefinition" >}} (CRD) in Kubernetes. Unlike HorizontalPodAutoscaler, which is part of the core Kubernetes API, VPA must be installed separately in your cluster.
+The VerticalPodAutoscaler (VPA) is defined as a {{< glossary_tooltip text="Custom Resource Definition" term_id="customresourcedefinition" >}} (CRD) in Kubernetes. Unlike HorizontalPodAutoscaler, which is part of the core Kubernetes API, VPA must be installed separately in your cluster.
 
-The current stable API version is `autoscaling.k8s.io/v1`. More details about the VPA installation and API can be found in the [VPA GitHub repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler).
+The current stable API version is `autoscaling.k8s.io/v1`. API documentation, release information, and other project resources are in the
+[VPA GitHub repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler).
+
+To install the VPA control plane in your cluster, see
+[Install the VerticalPodAutoscaler add-on using Helm](/docs/tasks/administer-cluster/manage-add-ons/install-vertical-pod-autoscaler-helm/).
 
 ## How does a VerticalPodAutoscaler work?
 
@@ -256,7 +260,8 @@ For example, if the `max` field in a Container LimitRange resource is exceeded, 
 
 ## {{% heading "whatsnext" %}}
 
-If you configure autoscaling in your cluster, you may also want to consider using
-[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
+* To deploy the VPA components, you can follow [Install the VerticalPodAutoscaler add-on using Helm](/docs/tasks/administer-cluster/manage-add-ons/install-vertical-pod-autoscaler-helm/).
+
+* If you configure autoscaling in your cluster, you may also want to consider using [node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 You can also read more about [_horizontal_ Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).
