@@ -1,9 +1,24 @@
 {{ $src := (.Page.Resources.GetMatch (printf "**%s*" (.Get "src"))) }}
 {{ $clickToZoom := .Get "clicktozoom" }}
+{{- /* SVG support: uncomment the two blocks below to handle SVG files
+       via the dedicated svg shortcode.
+
+       Block 1 — variable init + detection (before <figure>):
+       {{ $svgContent := "" }}
+       {{ if strings.HasSuffix (index (split (.Get "src") "?") 0) ".svg" }}
+         {{ $svgShortcode := printf "{{< svg %q >}}" (.Get "src") }}
+         {{ $svgContent = .Page.RenderString $svgShortcode }}
+       {{ end }}
+*/ -}}
 <figure{{ with .Get "class" }} class="{{ . }} {{ if $clickToZoom }}clickable-zoom{{ end }}"{{ end }}>
     {{- if .Get "link" -}}
         <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
     {{- end }}
+    {{- /* Block 2 — conditional SVG/img rendering (inside <figure>/<a>):
+         {{ if $svgContent }}
+           {{ $svgContent }}
+         {{ else }}
+    */ -}}
     <img src="{{ if $src }}{{ $src.RelPermalink }}{{ else }}{{ .Get "src" }}{{ end }}" 
          {{- if or (.Get "alt") (.Get "caption") }}
          alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
@@ -11,6 +26,9 @@
          {{- with .Get "width" }} width="{{ . }}"{{ end -}}
          {{- with .Get "height" }} height="{{ . }}"{{ end -}}
     /> <!-- Closing img tag -->
+    {{- /* Block 2 continued (closing end):
+         {{ end }}
+    */ -}}
     {{- if .Get "link" }}</a>{{ end -}}
     {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
         <figcaption>
