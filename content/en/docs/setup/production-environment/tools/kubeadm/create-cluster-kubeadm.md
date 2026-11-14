@@ -279,6 +279,15 @@ on how to use `kubeadm kubeconfig user` to generate kubeconfig files for additio
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
 
+{{< note >}}
+The `kubeadm join` command is output only after `kubeadm init` completes successfully.
+If `kubeadm init` fails, times out, or reports that the `kubelet` service could not be started,
+the control plane has not finished initializing and no join command is generated.
+To resolve this, inspect the error output (e.g. using `systemctl status kubelet` and `journalctl -xeu kubelet`),
+verify the prerequisites in [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/),
+run [`kubeadm reset`](#tear-down) to clean up state, and re-run `kubeadm init`.
+{{< /note >}}
+
 The token is used for mutual authentication between the control-plane node and the joining
 nodes. The token included here is secret. Keep it safe, because anyone with this
 token can add authenticated nodes to your cluster. These tokens can be listed,
