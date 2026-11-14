@@ -8,7 +8,7 @@
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `fetch_kubecon_events.py` | This script fetches upcoming KubeCon events from the Linux Foundation calendar and writes `data/events/kubecon.yaml`.               |
-| `l10n-outdatedness-triage.py` | This script compares localized Markdown files against their English source and classifies outdatedness triage signals as strong, moderate, or no signal. |
+| `l10n-outdatedness-triage.py` | This script compares localized Markdown files against their English source and classifies outdatedness triage signals as strong, moderate, weak (lastmod only), or no signal. |
 | `hash-files.sh`         | This script emits as hash for the files listed in $@                                                                                  |
 | `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
 | `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
@@ -121,9 +121,12 @@ The status labels are triage categories, not final judgments:
 - `Orphan`: localized file has no matching English source; verify whether
   it was renamed, removed, or intentionally locale-specific.
 - `Strong signal`: strong indicators suggest the localized page likely
-  needs review or update.
+  needs review or update (`Major fix` or `Minor fix`).
 - `Moderate signal`: some indicators were found, but the page needs
   manual verification.
+- `Weak signal (lastmod only)`: English source has a newer branch commit
+  timestamp, with no structural or token signal found; worth checking for
+  prose-only updates and potential out-of-date banners on `kubernetes.io`.
 - `No signal`: no outdatedness indicators were found by this tool; this
   does not guarantee the translation is fully current.
 
