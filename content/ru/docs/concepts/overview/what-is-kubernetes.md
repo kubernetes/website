@@ -1,7 +1,4 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
 title: Что такое Kubernetes
 content_type: concept
 weight: 10
