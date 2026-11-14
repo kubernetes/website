@@ -111,7 +111,9 @@ cri-containerd.apparmor.d (enforce)
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
-First, load the profile you want to use onto your Nodes. This profile blocks all file write operations:
+First, load the profile you want to use onto your Nodes.
+This profile blocks all file write operations,
+but allows the container to receive signals so that it can be stopped:
 
 ```
 #include <tunables/global>
@@ -123,6 +125,9 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 
   # Deny all file writes.
   deny /** w,
+
+  # Allow receiving signals (for example, so the runtime can stop the container).
+  signal (receive),
 }
 ```
 
@@ -144,6 +149,9 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 
   # Deny all file writes.
   deny /** w,
+
+  # Allow receiving signals (for example, so the runtime can stop the container).
+  signal (receive),
 }
 EOF'
 done
