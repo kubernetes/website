@@ -2,8 +2,7 @@
 title: kubectl config set
 content_type: tool-reference
 weight: 30
-description: >-
-  设置 kubeconfig 文件中的单个值
+description: 设置 kubeconfig 文件中的单个值
 ---
 <!--
 title: kubectl config set
@@ -19,7 +18,7 @@ description: >-
 <!--
 Set an individual value in a kubeconfig file.
 
- PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.
+ PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key. Map keys may not contain dots.
 
  PROPERTY_VALUE is the new value you want to set. Binary fields such as 'certificate-authority-data' expect a base64 encoded string unless the --set-raw-bytes flag is used.
 
@@ -42,13 +41,13 @@ kubectl config set PROPERTY_NAME PROPERTY_VALUE
 ```
 # Set the server field on the my-cluster cluster to https://1.2.3.4
 kubectl config set clusters.my-cluster.server https://1.2.3.4
-  
+
 # Set the certificate-authority-data field on the my-cluster cluster
 kubectl config set clusters.my-cluster.certificate-authority-data $(echo "cert_data_here" | base64 -i -)
-  
+
 # Set the cluster field in the my-context context to my-cluster
 kubectl config set contexts.my-context.cluster my-cluster
-  
+
 # Set the client-key-data field in the cluster-admin user using --set-raw-bytes option
 kubectl config set users.cluster-admin.client-key-data cert_data_here --set-raw-bytes=true
 ```
@@ -56,13 +55,13 @@ kubectl config set users.cluster-admin.client-key-data cert_data_here --set-raw-
 ```shell
 # 将 my-cluster 集群的 server 字段设置为 https://1.2.3.4
 kubectl config set clusters.my-cluster.server https://1.2.3.4
-  
+
 # 设置 my-cluster 集群的 certificate-authority-data 字段
 kubectl config set clusters.my-cluster.certificate-authority-data $(echo "cert_data_here" | base64 -i -)
-  
+
 # 将 my-context 上下文中的 cluster 字段设置为 my-cluster
 kubectl config set contexts.my-context.cluster my-cluster
-  
+
 # 使用 --set-raw-bytes 选项设置 cluster-admin 用户中的 client-key-data 字段
 kubectl config set users.cluster-admin.client-key-data cert_data_here --set-raw-bytes=true
 ```
@@ -85,7 +84,7 @@ kubectl config set users.cluster-admin.client-key-data cert_data_here --set-raw-
 <!--
 help for set
 -->
-关于 set 的帮助信息。
+关于 <code>set</code> 的帮助信息。
 </p>
 </td>
 </tr>
@@ -99,7 +98,8 @@ help for set
 <!--
 When writing a []byte PROPERTY_VALUE, write the given string directly without base64 decoding.
 -->
-写入 <code>[]byte</code> 格式的 PROPERTY_VALUE 时，直接写入给定的字符串，无需 base64 解码。
+写入 <code>[]byte</code> 格式的 PROPERTY_VALUE
+时，直接写入给定的字符串，无需 base64 解码。
 </p>
 </td>
 </tr>
@@ -173,7 +173,7 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -265,7 +265,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果为 true，则对服务器所有请求的响应不再压缩。
+如果为 <code>true</code>，则对服务器所有请求的响应不再压缩。
 </p>
 </td>
 </tr>
@@ -279,7 +279,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
+如果为 <code>true</code>，则则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
 </p>
 </td>
 </tr>
@@ -307,8 +307,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -356,7 +356,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "none"-->默认值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -364,13 +364,13 @@ Password for basic authentication to the API server
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+要记录的性能分析信息。可选值为（<code>none|cpu|heap|goroutine|threadcreate|block|mutex|trace</code>）。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默认值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -384,7 +384,21 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
+</tr>
+
+<tr>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -413,7 +427,7 @@ Kubernetes API 服务器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -427,7 +441,7 @@ Writes in the storage driver will be buffered for this duration, and committed t
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -441,23 +455,25 @@ database name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database host:port
 -->
-数据库 host:port。
+数据库 <code>host:port</code>。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database password
 -->
@@ -470,7 +486,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 use secure connection with database
 -->
@@ -480,10 +497,11 @@ use secure connection with database
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 table name
 -->
@@ -493,10 +511,11 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 database username
 -->
@@ -523,7 +542,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Bearer token for authentication to the API server
 -->
@@ -536,7 +556,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 The name of the kubeconfig user to use
 -->
@@ -549,7 +570,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Username for basic authentication to the API server
 -->
@@ -562,11 +584,12 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+--version, --version=raw 打印版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
 </p>
 </td>
 </tr>
@@ -575,7 +598,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">  
+<p>  
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
