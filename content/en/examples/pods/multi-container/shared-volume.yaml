@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-volume-example
+spec:
+  initContainers:
+  - name: content-writer
+    image: registry.k8s.io/busybox:1.27.2
+    command: ["sh", "-c", 'echo "Hello from the init container" > /content/index.html']
+    volumeMounts:
+    - name: content
+      mountPath: /content
+  containers:
+  - name: web
+    image: nginx:1.29
+    volumeMounts:
+    - name: content
+      mountPath: /usr/share/nginx/html
+      readOnly: true
+  volumes:
+  - name: content
+    emptyDir:
+      sizeLimit: 10Mi

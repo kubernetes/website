@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: localhost-example
+spec:
+  initContainers:
+  - name: client
+    image: registry.k8s.io/busybox:1.27.2
+    restartPolicy: Always
+    command: ["sh", "-c", 'while true; do wget -qO- http://localhost:80 | head -n 4; sleep 5; done']
+  containers:
+  - name: web
+    image: nginx:1.29
+    ports:
+    - containerPort: 80
