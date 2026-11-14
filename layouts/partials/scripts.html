@@ -33,9 +33,12 @@
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $jsArray := slice $jsBs $jsBase $jsNav $jsSearch -}}
+{{ $jsMobileNavigation := resources.Get "js/mobile-navigation.js" -}}
+{{ $jsArray := slice $jsBs $jsBase $jsNav $jsSearch $jsMobileNavigation -}}
 {{ if .Site.Params.ui.showLightDarkModeMenu -}}
   {{ $jsArray = $jsArray | append (resources.Get "js/dark-mode.js") -}}
+  {{/* Load the mobile theme bridge after Docsy's theme script. */ -}}
+  {{ $jsArray = $jsArray | append (resources.Get "js/mobile-theme-selector.js") -}}
 {{ end -}}
 {{ $js := $jsArray | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
