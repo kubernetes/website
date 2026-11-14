@@ -139,33 +139,47 @@ Port definitions in Pods have names, and you can reference these names in the
 of the Service to the Pod port in the following way:
 
 ```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app.kubernetes.io/name: proxy
-  ports:
-  - name: name-of-service-port
-    protocol: TCP
-    port: 80
-    targetPort: http-web-svc
+---
+{
+  apiVersion: "v1",
+  kind: "Service",
+  metadata: {
+    name: "nginx-service",
+  },
+  spec: {
+    selector: {
+      app.kubernetes.io/name: "proxy",
+    },
+    ports: [{
+      name: "name-of-service-port",
+      protocol: "TCP",
+      port: 80,
+      targetPort: "http-web-svc",
+    }],
+  },
+}
 
 ---
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  labels:
-    app.kubernetes.io/name: proxy
-spec:
-  containers:
-  - name: nginx
-    image: nginx:stable
-    ports:
-      - containerPort: 80
-        name: http-web-svc
+{
+  apiVersion: "v1",
+  kind: "Pod",
+  metadata: {
+    name: "nginx",
+    labels: {
+      app.kubernetes.io/name: "proxy",
+    },
+  },
+  spec: {
+    containers: [{
+      name: "nginx",
+      image: "nginx:stable",
+      ports: [{
+        containerPort: 80,
+        name: "http-web-svc",
+      }],
+    }],
+  },
+}
 ```
 
 This works even if there is a mixture of Pods in the Service using a single
@@ -221,26 +235,38 @@ to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 
 ```yaml
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: my-service-1 # by convention, use the name of the Service
-                     # as a prefix for the name of the EndpointSlice
-  labels:
-    # You should set the "kubernetes.io/service-name" label.
-    # Set its value to match the name of the Service
-    kubernetes.io/service-name: my-service
-addressType: IPv4
-ports:
-  - name: http # should match with the name of the service port defined above
-    appProtocol: http
-    protocol: TCP
-    port: 9376
-endpoints:
-  - addresses:
-      - "10.4.5.6"
-  - addresses:
-      - "10.1.2.3"
+---
+{
+  apiVersion: "discovery.k8s.io/v1",
+  kind: "EndpointSlice",
+  metadata: {
+    # by convention, use the name of the Service
+    # as a prefix for the name of the EndpointSlice
+    name: "my-service-1",
+
+    labels: {
+      # You should set the "kubernetes.io/service-name" label.
+      # Set its value to match the name of the Service
+      kubernetes.io/service-name: "my-service",
+    },
+  },
+  addressType: "IPv4",
+  ports: [{
+    name: "http", # should match with the name of the service port defined above
+    appProtocol: "http",
+    protocol: "TCP",
+    port: 9376,
+  }],
+  endpoints: [{
+    addresses: [
+      "10.4.5.6",
+    ],
+  }, {
+    addresses: [
+      "10.1.2.3",
+    ],
+  }],
+}
 ```
 
 #### Custom EndpointSlices
@@ -378,22 +404,30 @@ so that these are unambiguous.
 For example:
 
 ```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 9377
+---
+{
+  apiVersion: "v1",
+  kind: "Service",
+  metadata: {
+    name: "my-service",
+  },
+  spec: {
+    selector: {
+      app.kubernetes.io/name: "MyApp",
+    },
+    ports: [{
+      name: "http",
+      protocol: "TCP",
+      port: 80,
+      targetPort: 9376,
+    }, {
+      name: "https",
+      protocol: "TCP",
+      port: 443,
+      targetPort: 9377,
+    }],
+  },
+}
 ```
 
 {{< note >}}
@@ -502,23 +536,35 @@ Here is an example manifest for a Service of `type: NodePort` that specifies
 a NodePort value (30007, in this example):
 
 ```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  type: NodePort
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - port: 80
-      # By default and for convenience, the `targetPort` is set to
-      # the same value as the `port` field.
-      targetPort: 80
-      # Optional field
-      # By default and for convenience, the Kubernetes control plane
-      # will allocate a port from a range (default: 30000-32767)
-      nodePort: 30007
+---
+{
+  apiVersion: "v1",
+  kind: "Service",
+  metadata: {
+    name: "my-service",
+  },
+
+  spec: {
+    type: "NodePort",
+    selector: {
+      app.kubernetes.io/name: "MyApp",
+    },
+    ports: [
+      {
+        port: 80,
+  
+        # By default and for convenience, the `targetPort` is set to
+        # the same value as the `port` field.
+        targetPort: 80,
+  
+        # Optional field.
+        # By default and for convenience, the Kubernetes control plane
+        # will allocate a port from a range (default: 30000-32767).
+        nodePort: 30007,
+      },
+    ],
+  },
+}
 ```
 
 #### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
@@ -1068,20 +1114,28 @@ In the example below, the Service named `"my-service"` can be accessed by client
 on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[].port`).
 
 ```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 49152
-  externalIPs:
-    - 198.51.100.32
+---
+{
+  apiVersion: "v1",
+  kind: "Service",
+  metadata: {
+    name: "my-service",
+  },
+  spec: {
+    selector: {
+      app.kubernetes.io/name: "MyApp",
+    },
+    ports: [{
+      name: "http",
+      protocol: "TCP",
+      port: 80,
+      targetPort: 49152,
+    }],
+    externalIPs: [
+      "198.51.100.32",
+    ],
+  },
+}
 ```
 
 {{< note >}}
