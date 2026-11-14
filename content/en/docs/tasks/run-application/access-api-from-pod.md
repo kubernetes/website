@@ -119,3 +119,24 @@ The output will be similar to this:
   ]
 }
 ```
+
+
+## Security considerations
+
+When your Pod calls the Kubernetes API, it authenticates as its ServiceAccount
+and is limited by whatever authorization the cluster applies to that identity.
+
+For detailed guidance, read
+[Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/)
+(including
+[`automountServiceAccountToken`](/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)),
+[Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/),
+and [Authorization in Kubernetes](/docs/reference/access-authn-authz/authorization/)
+for how role-based checks fit together with other authorization modes your
+platform may enable.
+
+{{< note >}}
+This task explains how to reach the API from a Pod, not how to design your
+full security posture. Prefer the documentation linked above and your
+organization's baselines over treating this page as a standalone checklist.
+{{< /note >}}
