@@ -1,0 +1,22 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "demo-policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["*"]
+        apiVersions: ["*"]
+        operations:  ["CREATE", "UPDATE"]
+        resources:   ["*"]
+  matchConditions:
+    - name: 'exclude-leases' # Імʼя кожної умови має бути унікальним
+      expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Відповідність ресурсам, які не є lease.
+    - name: 'exclude-kubelet-requests'
+      expression: '!("system:nodes" in request.userInfo.groups)' # Відповідність запитам від користувачів, що не є вузлами.
+    - name: 'rbac' # Пропуск запитів RBAC.
+      expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+  validations:
+    - expression: "!object.metadata.name.contains('demo') || object.metadata.namespace == 'demo'"
+
