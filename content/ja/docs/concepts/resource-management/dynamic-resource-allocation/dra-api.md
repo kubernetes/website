@@ -492,4 +492,4 @@ spec:
 
 DRAによる拡張リソースの割り当ては、`kube-apiserver`、`kube-scheduler`、`kube-controller-manager`、および`kubelet`の[`DRAExtendedResource`フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)によって制御されます。
 
-拡張リソースを要求する一連の流れのハンズオンについては、[コンテナに拡張リソースを割り当てる](/docs/tasks/configure-pod-container/extended-resource/)を参照してください。
+拡張リソースを要求する一連の流れのハンズオンについては、[拡張リソースをコンテナに割り当てる](/docs/tasks/configure-pod-container/extended-resource/)を参照してください。

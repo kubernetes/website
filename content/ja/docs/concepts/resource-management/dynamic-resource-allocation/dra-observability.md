@@ -393,7 +393,7 @@ DRA kubeletプラグインは、メタデータを書き込む前に検証を行
 Goのコンシューマーは、ストリームをデコードするときに、生成された検証をオプトインできます。
 デコードと検証は別々の結果を持ちます:
 検証エラーが発生しても、正常にデコードされたオブジェクトが返されることを妨げません。
-使用方法については、[DRAデバイスメタデータへのアクセス](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/#read-metadata-application)を参照してください。
+使用方法については、[DRAデバイスメタデータにアクセスする](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/#read-metadata-application)を参照してください。
 
 ### 即時メタデータと遅延メタデータ {#device-metadata-lifecycle}
 

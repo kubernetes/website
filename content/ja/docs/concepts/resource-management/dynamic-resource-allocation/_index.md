@@ -3,6 +3,8 @@ title: Dynamic Resource Allocation
 content_type: concept
 weight: 20
 no_list: true
+aliases:
+- /ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
 ---
 
 <!-- overview -->
