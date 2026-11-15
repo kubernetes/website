@@ -1,6 +1,9 @@
 /* This file is provided by Docsy as an extension point for styling.
 Override variables from the theme here. */
 
+// Keep Open Sans (Docsy 0.13 defaults to system fonts)
+$td-enable-google-fonts: true;
+
 $primary: #326ce5;
 $secondary: #495057;
 

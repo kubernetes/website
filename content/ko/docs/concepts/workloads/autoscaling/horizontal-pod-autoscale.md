@@ -133,7 +133,7 @@ HorizontalPodAutoscaler 컨트롤러는 스케일링을 지원하는 상응하�
 
 ```math
 \begin{equation*}
-원하는레플리카수 = ceil\left\lceil 현재레플리카수 \times \frac{현재메트릭값}{원하는메트릭값} \right\rceil
+\text{원하는레플리카수} = ceil\left\lceil \text{현재레플리카수} \times \frac{\text{현재메트릭값}}{\text{원하는메트릭값}} \right\rceil
 \end{equation*}
 ```
 
