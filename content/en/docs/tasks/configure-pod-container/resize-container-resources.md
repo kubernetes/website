@@ -180,9 +180,10 @@ to a race condition where memory usage may spike right after the check is perfor
       (as this would change it to Guaranteed).
     * *BestEffort*: Resource requirements (`requests` or `limits`) cannot be added
       (as this would change it to Burstable or Guaranteed).
-* **Container Types:** Non-restartable {{< glossary_tooltip text="init containers" term_id="init-container" >}} and
-  {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} cannot be resized.
+* **Container Types:** {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}} cannot be resized.
   [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) can be resized.
+  Non-restartable {{< glossary_tooltip text="init containers" term_id="init-container" >}} can be resized
+  while they are running; their `resizePolicy` cannot be set to `RestartContainer`.
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
