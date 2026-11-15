@@ -246,21 +246,9 @@ have some limitations:
 
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
-- Regular updates to the Pod specification can change `spec.containers[*].image`,
-  `spec.initContainers[*].image` and `spec.activeDeadlineSeconds`, subject to validation.
-  The following fields have additional restrictions:
-
-  - For `spec.tolerations`, you can only add new entries.
-  - For `spec.schedulingGates`, you can only remove existing entries.
-  - You can set `spec.terminationGracePeriodSeconds` to `1` if its previous value
-    was negative; you cannot otherwise change this field through a regular Pod update.
-
-  Pods that still have scheduling gates also allow constrained updates to
-  `spec.nodeSelector` and `spec.affinity.nodeAffinity`. You can add node selector
-  entries and further restrict required node affinity, but you cannot remove or
-  change existing node selector entries or loosen existing required node affinity.
-  Preferred node affinity terms can be updated while the Pod is gated.
-  See [mutable Pod scheduling directives](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/#mutable-pod-scheduling-directives).
+- Pod updates may not change fields other than `spec.containers[*].image`,
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds`,
+  `spec.tolerations` or `spec.schedulingGates`. For `spec.tolerations`, you can only add new entries.
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
