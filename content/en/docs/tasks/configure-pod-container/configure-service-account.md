@@ -120,7 +120,6 @@ default   1          1d
 You can create additional ServiceAccount objects like this:
 
 ```shell
-# Create a new service account named build-robot
 kubectl create serviceaccount build-robot
 ```
 
