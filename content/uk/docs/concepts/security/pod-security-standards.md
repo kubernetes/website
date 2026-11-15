@@ -149,7 +149,7 @@ weight: 15
 				<p><strong>Дозволені значення</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
-					<li>Відомий список (не підтримується вбудованим <a href="/docs/concepts/security/pod-security-admission/">контролером Pod Security Admission</a>)</li>
+					<li>Відомий список (не підтримується вбудованим <a href="/uk/docs/concepts/security/pod-security-admission/">контролером Pod Security Admission</a>)</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>

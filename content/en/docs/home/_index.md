@@ -54,7 +54,7 @@ cards:
   description: "Get certified in Kubernetes and make your cloud native projects successful!"
   button: "View training"
   button_path: "/training"
-- name: Download
+- name: download
   title: Download Kubernetes
   description: Install Kubernetes or upgrade to the newest version.
   button: "Download Kubernetes"

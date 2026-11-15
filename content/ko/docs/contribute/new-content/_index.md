@@ -98,7 +98,7 @@ git 이름과 이메일은 CNCF CLA에 사용된 것과
 :---------|:------------
 현재 릴리스의 기존 또는 새로운 영어 콘텐츠 | `main`
 기능 변경 릴리스의 콘텐츠 | `dev-<version>` 패턴을 사용하여 기능 변경이 있는 주 버전과 부 버전에 해당하는 브랜치. 예를 들어, `v{{< skew nextMinorVersion >}}` 에서 기능이 변경된 경우, ``dev-{{< skew nextMinorVersion >}}`` 에 문서 변경을 추가한다.
-다른 언어로된 콘텐츠(현지화) | 현지화 규칙을 사용. 자세한 내용은 [현지화 브랜치 전략](/docs/contribute/localization/#branching-strategy)을 참고한다.
+다른 언어로된 콘텐츠(현지화) | 현지화 규칙을 사용. 자세한 내용은 [현지화 브랜치 전략](/docs/contribute/localization/#브랜치-전략)을 참고한다.
 
 어떤 브랜치를 선택해야 할지 모르는 경우 슬랙의 `#sig-docs` 에 문의한다.
 

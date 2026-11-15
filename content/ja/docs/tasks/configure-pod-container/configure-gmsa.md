@@ -47,7 +47,7 @@ Podまたはコンテナレベルで参照するGMSA資格情報仕様を追加�
 上で述べたGMSA Webhookと関連するオブジェクトを展開、構成するための[スクリプト](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh)があります。
 スクリプトは、`--dry-run=server`オプションをつけることで、クラスターに対して行われる変更内容をレビューすることができます。
 
-Webhookと関連するオプジェクトを(適切なパラメーターを渡すことで)手動で展開するための[YAMLテンプレート](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl)もあります。
+Webhookと関連するオブジェクトを(適切なパラメーターを渡すことで)手動で展開するための[YAMLテンプレート](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl)もあります。
 
 <!-- steps -->
 
