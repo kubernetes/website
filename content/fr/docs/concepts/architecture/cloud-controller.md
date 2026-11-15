@@ -2,6 +2,7 @@
 title: Gestionnaire du contrôleur de cloud
 content_type: concept
 weight: 40
+theme_lock: light
 ---
 
 <!-- overview -->
@@ -105,15 +106,11 @@ les routes de manière appropriée. Il nécessite un accès Get aux objets Nœud
 
 ### Contrôleur de service {#autorisation-contrôleur-de-service}
 
-Le contrôleur de service surveille les événements de création, de mise à jour et de suppression des objets Service, puis
-configure les Endpoints pour ces Services de manière appropriée (pour les EndpointSlices, le
-kube-controller-manager les gère à la demande).
+Le contrôleur de service surveille les événements de **création**, de **mise à jour** et de **suppression** des objets Service, puis configure les équilibreurs de charge (load balancers) pour ces Services de manière appropriée.
 
 Pour accéder aux Services, il nécessite un accès **list** et **watch**. Pour mettre à jour les Services, il nécessite
-un accès **patch** et **update**.
+un accès **patch** et **update** à la sous-ressource `status`.
 
-Pour configurer les ressources Endpoints pour les Services, il nécessite un accès **create**, **list**,
-**get**, **watch** et **update**.
 
 `v1/Service` :
 
@@ -173,9 +170,14 @@ rules:
   - services
   verbs:
   - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services/status
+  verbs:
   - patch
   - update
-  - watch
 - apiGroups:
   - ""
   resources:
@@ -191,16 +193,6 @@ rules:
   - list
   - update
   - watch
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
 ```
 
 

@@ -5,6 +5,7 @@ weight: 10 # highlight it
 card:
   name: tasks
   weight: 10
+aliases: [/pt-br/docs/reference/kubectl/cheatsheet/]
 ---
 
 <!-- overview -->

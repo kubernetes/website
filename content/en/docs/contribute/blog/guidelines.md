@@ -132,7 +132,7 @@ Here are some examples of content that is appropriate for the
 * Articles discussing building a cloud native platform for specific use cases
 * Your opinion about the good or bad points about Kubernetes
 * Announcements and stories about non-core Kubernetes, such as the Gateway API
-* [Post-release announcements and updates](#post-release-comms)
+* [Post-release announcements and updates](/docs/contribute/blog/article-submission/#route-3-post-release-comms)
 * Messages about important Kubernetes security vulnerabilities
 * Kubernetes projects updates
 * Tutorials and walkthroughs

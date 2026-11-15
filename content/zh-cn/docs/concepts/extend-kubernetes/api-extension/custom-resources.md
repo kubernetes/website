@@ -269,12 +269,6 @@ of use nor flexibility is compromised.
 Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as
 a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA).
 To users, the Kubernetes API appears extended.
-
-CRDs allow users to create new types of resources without adding another API server. You do not
-need to understand API Aggregation to use CRDs.
-
-Regardless of how they are installed, the new resources are referred to as Custom Resources to
-distinguish them from built-in Kubernetes resources (like pods).
 -->
 Kubernetes 提供这两种选项以满足不同用户的需求，这样就既不会牺牲易用性也不会牺牲灵活性。
 
@@ -283,11 +277,18 @@ Kubernetes 提供这两种选项以满足不同用户的需求，这样就既不
 [API 聚合（API Aggregation，AA）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 。
 对用户而言，看起来仅仅是 Kubernetes API 被扩展了。
 
+<!--
+CRDs allow users to create new types of resources without adding another API server. You do not
+need to understand API Aggregation to use CRDs.
+
+Regardless of how they are installed, the new resources are referred to as Custom Resources to
+distinguish them from built-in Kubernetes resources (like pods).
+-->
 CRD 允许用户创建新的资源类别同时又不必添加新的 API 服务器。
 使用 CRD 时，你并不需要理解 API 聚合。
 
 无论以哪种方式安装定制资源，新的资源都会被当做定制资源，以便与内置的
-Kubernetes 资源（如 Pods）相区分。
+Kubernetes 资源（如 Pod）相区分。
 
 {{< note >}}
 <!--
@@ -319,13 +320,14 @@ The name of the CRD object itself must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) derived from the defined resource name and its API group; see [how to create a CRD](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition) for more details.
 Further, the name of an object whose kind/resource is defined by a CRD must also be a valid DNS subdomain name.
 -->
-## CustomResourceDefinitions
+## CustomResourceDefinition
 
 [CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
 API 资源允许你定义定制资源。
 定义 CRD 对象的操作会使用你所设定的名字和模式定义（Schema）创建一个新的定制资源，
 Kubernetes API 负责为你的定制资源提供存储和访问服务。
-CRD 对象的名称必须是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
+CRD 对象的名称必须是有效的
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
 该名称由定义的资源名称及其 API 组派生而来。有关详细信息，
 请参见[如何创建 CRD](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition)。
 此外，由 CRD 定义的某种对象/资源的名称也必须是有效的 DNS 子域名。
@@ -441,8 +443,8 @@ Aggregated APIs offer more advanced API features and customization of other feat
 -->
 | 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
-| 合法性检查 | 帮助用户避免错误，允许你独立于客户端版本演化 API。这些特性对于由很多无法同时更新的客户端的场合。| 可以。大多数验证可以使用 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 来设定。[CRDValidationRatcheting](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) 特性门控允许在资源的失败部分未发生变化的情况下，忽略 OpenAPI 指定的失败验证。其他合法性检查操作可以通过添加[合法性检查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)来实现。 | 可以，可执行任何合法性检查。|
-| 默认值设置 | 同上 | 可以。可通过 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 关键词（自 1.17 正式发布）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)来实现（不过从 etcd 中读取老的对象时不会执行这些 Webhook）。 | 可以。 |
+| 合法性检查 | 帮助用户避免错误，允许你独立于客户端版本演化 API。这些特性对于由很多无法同时更新的客户端的场合。| 可以。大多数验证可以使用 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation)来设定。[CRDValidationRatcheting](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) 特性门控允许在资源的失败部分未发生变化的情况下，忽略 OpenAPI 指定的失败验证。其他合法性检查操作可以通过添加[合法性检查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)来实现。 | 可以，可执行任何合法性检查。|
+| 默认值设置 | 同上 | 可以。可通过 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 关键词（自 1.17 正式发布）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook) 来实现（不过从 etcd 中读取老的对象时不会执行这些 Webhook）。 | 可以。 |
 | 多版本支持 | 允许通过两个 API 版本同时提供同一对象。可帮助简化类似字段更名这类 API 操作。如果你能控制客户端版本，这一特性将不再重要。 | [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning)。 | 可以。 |
 | 定制存储 | 支持使用具有不同性能模式的存储（例如，要使用时间序列数据库而不是键值存储），或者因安全性原因对存储进行隔离（例如对敏感信息执行加密）。 | 不可以。 | 可以。 |
 | 定制业务逻辑 | 在创建、读取、更新或删除对象时，执行任意的检查或操作。 | 可以。要使用 [Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。 | 可以。 |
@@ -452,7 +454,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | 新的端点要支持标记了 `Content-Type: application/strategic-merge-patch+json` 的 PATCH 操作。对于更新既可在本地更改也可在服务器端更改的对象而言是有用的。要了解更多信息，可参见[使用 `kubectl patch` 来更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。 | 不可以。 | 可以。 |
 | 支持协议缓冲区 | 新的资源要支持想要使用协议缓冲区（Protocol Buffer）的客户端。 | 不可以。 | 可以。 |
 | OpenAPI Schema | 是否存在新资源类别的 OpenAPI（Swagger）Schema 可供动态从服务器上读取？是否存在机制确保只能设置被允许的字段以避免用户犯字段拼写错误？是否实施了字段类型检查（换言之，不允许在 `string` 字段设置 `int` 值）？ | 可以，依据 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 模式（1.16 中进入正式发布状态）。 | 可以。|
-| 实例名称 | 这种扩展机制是否对通过这种方式定义的对象（类别/资源）的名称有任何限制? | 可以，此类对象的名称必须是一个有效的 DNS 子域名。 | 不可以|
+| 实例名称 | 这种扩展机制是否对通过这种方式定义的对象（类别/资源）的名称有任何限制？ | 可以，此类对象的名称必须是一个有效的 DNS 子域名。 | 不可以|
 
 <!--
 ### Common Features
@@ -534,7 +536,7 @@ Failure），例如导致第三方代码被在 API 服务器上运行，
 Custom resources consume storage space in the same way that ConfigMaps do. Creating too many
 custom resources may overload your API server's storage space.
 
-Custom resources are placed into storage based upon the the current storage
+Custom resources are placed into storage based upon the current storage
 version of the resource, defined in the CRD spec. Any update to a custom
 resource will use the currently defined storage version to store the resource.
 All other versions either need to have all the fields of that version or define
@@ -586,13 +588,6 @@ custom resources. Not all client libraries support custom resources. The _Go_ an
 libraries do.
 
 When you add a custom resource, you can access it using:
-
-- `kubectl`
-- The Kubernetes dynamic client.
-- A REST client that you write.
-- A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator)
-  (generating one is an advanced undertaking, but some projects may provide a client along with
-  the CRD or AA).
 -->
 ## 访问定制资源   {#accessing-a-custom-resources}
 
@@ -601,6 +596,14 @@ Kubernetes [客户端库](/zh-cn/docs/reference/using-api/client-libraries/)可�
 
 当你添加了新的定制资源后，可以用如下方式之一访问它们：
 
+<!--
+- `kubectl`
+- The Kubernetes dynamic client.
+- A REST client that you write.
+- A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator)
+  (generating one is an advanced undertaking, but some projects may provide a client along with
+  the CRD or AA).
+-->
 - `kubectl`
 - Kubernetes 动态客户端
 - 你所编写的 REST 客户端
@@ -647,8 +650,8 @@ The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 -->
 你需要启用 `CustomResourceFieldSelectors`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-来使用此行为，然后将其应用到集群中的所有 CustomResourceDefinitions。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来使用此行为，
+然后将其应用到集群中的所有 CustomResourceDefinitions。
 
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 字段可以用来控制哪些字段可以用在字段选择算符中。
@@ -685,4 +688,3 @@ example2   blue   M
 -->
 * 了解如何[使用聚合层扩展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 * 了解如何[使用 CustomResourceDefinition 来扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
-

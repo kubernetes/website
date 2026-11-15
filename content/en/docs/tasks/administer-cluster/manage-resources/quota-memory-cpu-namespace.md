@@ -12,7 +12,7 @@ description: >-
 This page shows how to set quotas for the total amount memory and CPU that
 can be used by all Pods running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 You specify quotas in a
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+[ResourceQuota](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 object.
 
 
@@ -111,7 +111,7 @@ status:
 ```
 
 If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
-for just the `used` values, **and** pretty-print that that of the output. For example:
+for just the `used` values, **and** pretty-print the output. For example:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .

@@ -212,13 +212,13 @@ device plugin or DRA provides it. The same resource name can even be provided by
 device plugin on some Nodes and by DRA on others.
 
 For the DeviceClass setup and examples, see
-[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource).
+[Extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource).
 -->
 在这两种情况下，Pod 请求资源的方式完全相同 — 都是通过 `resources.requests.<resource_name>` 来指定，
 因此工作负载无需了解该资源究竟是由设备插件还是 DRA 提供的。
 
 有关 DeviceClass 的配置方法和示例，
-请参阅[通过 DRA 分配扩展资源](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)。
+请参阅[通过 DRA 分配扩展资源](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource)。
 
 ## {{% heading "whatsnext" %}}
 

@@ -378,7 +378,7 @@ that satisfies the claim's requirements.
 
 This allows the priority of resource allocation to be influenced by the names
 assigned to pools and ResourceSlices. Note that pools without
-[binding conditions](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-binding-conditions)
+[binding conditions](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions)
 are always evaluated before those
 with binding conditions, regardless of their names.
 

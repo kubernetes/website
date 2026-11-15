@@ -19,7 +19,7 @@ stages:
     fromVersion: "1.34"
 ---
 Allows authorization to use field and label selectors.
-Enables `fieldSelector` and `labelSelector` fields in the [SubjectAccessReview API](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/),
+Enables `fieldSelector` and `labelSelector` fields in the [SubjectAccessReview API](/docs/reference/kubernetes-api/definitions/subject-access-review-v1-authorization/),
 passes field and label selector information to [authorization webhooks](/docs/reference/access-authn-authz/webhook/),
 enables `fieldSelector` and `labelSelector` functions in the [authorizer CEL library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors),
 and enables checking `fieldSelector` and `labelSelector` fields in [authorization webhook `matchConditions`](/docs/reference/access-authn-authz/authorization/#using-configuration-file-for-authorization).

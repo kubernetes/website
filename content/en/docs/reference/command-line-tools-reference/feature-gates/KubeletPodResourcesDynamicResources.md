@@ -21,7 +21,7 @@ stages:
 Extend the kubelet's
 [pod resources monitoring gRPC API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 endpoints List and Get to include resources allocated in ResourceClaims
-via [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+via [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/).
 
 Below is an example of GPU metrics to show how this API is consumed by
 [NVIDIA dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) to collect per pod GPU metrics allocated by

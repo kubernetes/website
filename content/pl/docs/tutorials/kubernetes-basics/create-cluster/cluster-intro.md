@@ -70,10 +70,8 @@ uruchomionych aplikacji._
 Na każdym węźle działa Kubelet, agent zarządzający tym węzłem i komunikujący
 się z warstwą sterowania Kubernetesa. Węzeł zawiera także narzędzia do obsługi kontenerów,
 takie jak {{< glossary_tooltip text="containerd" term_id="containerd" >}} lub
-{{< glossary_tooltip term_id="cri-o" >}}. Klaster Kubernetesa w środowisku produkcyjnym powinien składać się
-minimum z trzech węzłów, ponieważ w przypadku awarii jednego węzła traci się zarówno element
-[etcd](/docs/concepts/architecture/#etcd), jak i warstwy sterowania przy jednoczesnym
-zachowaniu minimalnej nadmiarowości (_redundancy_). Dodanie kolejnych węzłów warstwy sterowania może temu zapobiec.
+{{< glossary_tooltip term_id="cri-o" >}}. W powszechnie stosowanym i wspieranym modelu wdrożenia
+komponenty warstwy sterowania działają na przeznaczonych wyłącznie do tego węzłach.
 
 Kiedy instalujesz aplikację na Kubernetesie, zlecasz warstwie sterowania
 uruchomienie kontenera z aplikacją. Warstwa sterowania zleca uruchomienie kontenera
@@ -103,7 +101,7 @@ Aby zweryfikować status klastra:
 minikube status
 ```
 
-Aby uzyskać pełne wprowadzenie, w tym wdrożenie Twojej pierwszej aplikacji i eksplorację dashboardu Kubernetes, zapoznaj się z samouczkiem [Hello Minikube](/docs/tutorials/hello-minikube/).
+Aby uzyskać pełne wprowadzenie, w tym wdrożenie Twojej pierwszej aplikacji i eksplorację dashboardu Kubernetesa, zapoznaj się z samouczkiem [Hello Minikube](/docs/tutorials/hello-minikube/).
 
 ## {{% heading "whatsnext" %}}
 

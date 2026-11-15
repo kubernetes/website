@@ -1,5 +1,7 @@
 ---
 title: Tableau de bord (Dashboard)
+description: >-
+  Déployer l'interface web (Tableau de bord Kubernetes) et y accéder.
 content_type: concept
 weight: 10
 card:
@@ -7,6 +9,18 @@ card:
   weight: 30
   title: Utiliser le tableau de bord (Dashboard)
 ---
+
+{{% pageinfo color="primary" %}}
+**Le Tableau de bord Kubernetes est déprécié et n'est plus maintenu.**
+
+Le projet a été archivé et n'est plus maintenu.
+Pour les nouvelles installations, préférez [Headlamp](https://headlamp.dev/).
+{{% /pageinfo %}}
+
+{{< note >}}
+Pour les déploiements intra-cluster similaires au Tableau de bord Kubernetes, se référer à
+[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
+{{< /note >}}
 
 <!-- overview -->
 

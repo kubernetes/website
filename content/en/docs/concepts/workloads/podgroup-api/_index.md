@@ -1,6 +1,6 @@
 ---
 title: "PodGroup API"
-weight: 25
+weight: 90
 no_list: true
 ---
 
@@ -111,7 +111,7 @@ for each PodGroup, allowing the devices allocated to each generated
 ResourceClaim to be shared by the Pods in each PodGroup.
 
 For more details and a more complete example, see the
-[DRA documentation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#workload-resource-claims).
+[DRA documentation](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#workload-resource-claims).
 
 ### Status
 

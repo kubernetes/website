@@ -1,7 +1,7 @@
 ---
 title: مشارکت‌کننده‌ی کد (Code Contributor)
 id: code-contributor
-full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
+full_link: https://github.com/kubernetes/community/tree/main/contributors/devel
 short_description: >
   شخصی که کد را توسعه می دهد و به پایگاه کد منبع باز کوبرنتیز مشارکت می کند.
 

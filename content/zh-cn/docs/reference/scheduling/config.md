@@ -801,7 +801,6 @@ profiles:
         enabled:
         - name: 'CustomPlugin1'
         - name: 'CustomPlugin2'
-        - name: 'DefaultPlugin2'
         disabled:
         - name: 'DefaultPlugin1'
 
@@ -843,7 +842,11 @@ profiles:
         - name: 'DefaultPlugin2'
           weight: 1
         - name: 'DefaultPlugin1'
+          weight: 1
+        - name: 'CustomPlugin1'
           weight: 3
+        - name: 'CustomPlugin2'
+          weight: 1
 ```
 
 <!--
@@ -852,102 +855,6 @@ as well as its seamless integration with the existing methods for configuring ex
 -->
 虽然这是一个复杂的例子，但它展示了 `MultiPoint`
 配置的灵活性以及它与配置扩展点的现有方法的无缝集成。
-
-<!--
-## Scheduler configuration migrations
--->
-## 调度程序配置迁移   {#scheduler-configuration-migrations}
-
-{{< tabs name="tab_with_md" >}}
-{{% tab name="v1beta1 → v1beta2" %}}
-
-<!--
-* With the v1beta2 configuration version, you can use a new score extension for the
-  `NodeResourcesFit` plugin.
-  The new extension combines the functionalities of the `NodeResourcesLeastAllocated`,
-  `NodeResourcesMostAllocated` and `RequestedToCapacityRatio` plugins.
-  For example, if you previously used the `NodeResourcesMostAllocated` plugin, you
-  would instead use `NodeResourcesFit` (enabled by default) and add a `pluginConfig`
-  with a `scoreStrategy` that is similar to:
--->
-* 在 v1beta2 配置版本中，你可以为 `NodeResourcesFit` 插件使用新的 score 扩展。
-  新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated`
-  和 `RequestedToCapacityRatio` 插件的功能。
-  例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
-  则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig`
-  和 `scoreStrategy`，类似于：
-
-  ```yaml
-  apiVersion: kubescheduler.config.k8s.io/v1beta2
-  kind: KubeSchedulerConfiguration
-  profiles:
-  - pluginConfig:
-    - args:
-        scoringStrategy:
-          resources:
-          - name: cpu
-            weight: 1
-          type: MostAllocated
-      name: NodeResourcesFit
-  ```
-
-<!--
-* The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
--->
-* 调度器插件 `NodeLabel` 已弃用；相反，要使用
-  [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-  插件（默认启用）来实现类似的行为。
-
-<!--
-* The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
--->
-* 调度程序插件 `ServiceAffinity` 已弃用；
-  相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
-  插件（默认启用）来实现类似的行为。
-
-<!--
-* The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
--->
-* 调度器插件 `NodePreferAvoidPods` 已弃用；
-  相反，使用[节点污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)来实现类似的行为。
-
-<!--
-* A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
--->
-* 在 v1beta2 配置文件中启用的插件优先于该插件的默认配置。
-
-<!--
-* Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
--->
-* 调度器的健康检查和审计的绑定地址，所配置的 `host` 或 `port`
-  无效将导致验证失败。
-
-{{% /tab %}}
-
-{{% tab name="v1beta2 → v1beta3" %}}
-<!--
-* Three plugins' weight are increased by default:
-  * `InterPodAffinity` from 1 to 2
-  * `NodeAffinity` from 1 to 2
-  * `TaintToleration` from 1 to 3
--->
-* 默认增加三个插件的权重：
-  * `InterPodAffinity` 从 1 到 2
-  * `NodeAffinity` 从 1 到 2
-  * `TaintToleration` 从 1 到 3
-{{% /tab %}}
-
-{{% tab name="v1beta3 → v1" %}}
-
-<!--
-* The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin (enabled by default)
-to achieve similar behavior.
--->
-* 调度器插件 `SelectorSpread` 被移除，改为使用 `PodTopologySpread`
-  插件（默认启用）来实现类似的行为。
-
-{{% /tab %}}
-{{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
 

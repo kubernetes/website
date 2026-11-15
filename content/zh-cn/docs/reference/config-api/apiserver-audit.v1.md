@@ -111,7 +111,7 @@ Event captures all the information that can be included in an API audit log.
 </tr>
 
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -124,7 +124,7 @@ Event captures all the information that can be included in an API audit log.
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -216,7 +216,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>
@@ -269,7 +269,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -282,7 +282,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -336,7 +336,7 @@ EventList is a list of audit Events.
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -378,7 +378,7 @@ categories are logged.
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>
@@ -835,16 +835,16 @@ Requests must match the rules of every field (an intersection of rules).
 <code>[]string</code>
 </td>
 <td>
-   <p>
-   <!--
-   Namespaces that this rule matches.
-   The empty string &quot;&quot; matches non-namespaced resources.
-   An empty list implies every namespace.
-   -->
-   此规则所适用的名字空间列表。
-   空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
-   空列表意味着适用于所有名字空间。
-   </p>
+<p>
+<!--
+Namespaces that this rule matches.
+The empty string &quot;&quot; matches non-namespaced resources.
+An empty list implies every namespace.
+-->
+此规则所适用的名字空间列表。
+空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
+空列表意味着适用于所有名字空间。
+</p>
 </td>
 </tr>
 
@@ -852,26 +852,26 @@ Requests must match the rules of every field (an intersection of rules).
 <code>[]string</code>
 </td>
 <td>
-   <p>
-   <!--
-   NonResourceURLs is a set of URL paths that should be audited.
-   <code>*</code>s are allowed, but only as the full, final step in the path.
-   Examples:
-   -->
-   <code>nonResourceURLs</code> 是一组需要被审计的 URL 路径。
-   允许使用 <code>&ast;<code>，但只能作为路径中最后一个完整分段。
-   例如：
-   </p>
-   <!--
-   <ul>
-   <li><code>/metrics</code> - Log requests for apiserver metrics</li>
-   <li><code>/healthz*</code> - Log all health checks</li>
-   </ul>
-   -->
-   <ul>
-     <li>&quot;/metrics&quot; - 记录对 API 服务器度量值（metrics）的所有请求；</li>
-     <li>&quot;/healthz&ast;&quot; - 记录所有健康检查。</li>
-   </ul>
+<p>
+<!--
+NonResourceURLs is a set of URL paths that should be audited.
+<code>*</code>s are allowed, but only as the full, final step in the path.
+Examples:
+-->
+<code>nonResourceURLs</code> 是一组需要被审计的 URL 路径。
+允许使用 <code>&ast;<code>，但只能作为路径中最后一个完整分段。
+例如：
+</p>
+<!--
+<ul>
+<li><code>/metrics</code> - Log requests for apiserver metrics</li>
+<li><code>/healthz*</code> - Log all health checks</li>
+</ul>
+-->
+<ul>
+  <li>&quot;/metrics&quot; - 记录对 API 服务器度量值（metrics）的所有请求；</li>
+  <li>&quot;/healthz&ast;&quot; - 记录所有健康检查。</li>
+</ul>
 </td>
 </tr>
 
@@ -879,17 +879,17 @@ Requests must match the rules of every field (an intersection of rules).
 <a href="#audit-k8s-io-v1-Stage"><code>[]Stage</code></a>
 </td>
 <td>
-   <p>
-   <!--
-   OmitStages is a list of stages for which no events are created. Note that this can also
-   be specified policy wide in which case the union of both are omitted.
-   An empty list means no restrictions will apply.
-   -->
-   字段 <code>omitStages</code> 是一个阶段（Stage）列表，针对所列的阶段服务器不会生成审计事件。
-   注意这一选项也可以在策略（Policy）级别指定。服务器审计组件会忽略
-   <code>omitStages</code> 中给出的阶段，也会忽略策略中给出的阶段。
-   空列表意味着不对阶段作任何限制。
-   </p>
+<p>
+<!--
+OmitStages is a list of stages for which no events are created. Note that this can also
+be specified policy wide in which case the union of both are omitted.
+An empty list means no restrictions will apply.
+-->
+字段 <code>omitStages</code> 是一个阶段（Stage）列表，针对所列的阶段服务器不会生成审计事件。
+注意这一选项也可以在策略（Policy）级别指定。服务器审计组件会忽略
+<code>omitStages</code> 中给出的阶段，也会忽略策略中给出的阶段。
+空列表意味着不对阶段作任何限制。
+</p>
 </td>
 </tr>
 
@@ -917,12 +917,12 @@ Policy.OmitManagedFields will stand.</li>
 </ul>
 -->
 <ul>
-  <li>值为 'true' 将从 API 审计日志中删除托管字段</li>
-  <li>
-  值为 'false' 表示托管字段应包含在 API 审计日志中
-  请注意，如果指定此规则中的值将覆盖全局默认值。
-  如果未指定，则使用 <code>policy.omitManagedFields</code> 中指定的全局默认值。
-  </li>
+<li>值为 'true' 将从 API 审计日志中删除托管字段</li>
+<li>
+值为 'false' 表示托管字段应包含在 API 审计日志中
+请注意，如果指定此规则中的值将覆盖全局默认值。
+如果未指定，则使用 <code>policy.omitManagedFields</code> 中指定的全局默认值。
+</li>
 </ul>
 </td>
 </tr>

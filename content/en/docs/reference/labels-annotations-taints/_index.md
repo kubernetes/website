@@ -299,7 +299,7 @@ Used on: ResourceClaim
 
 This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
+Within [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/), the
 discoverable device metadata feature uses this annotation to map a generated ResourceClaim
 back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
 Kubernetes manages this annotation, so you should not modify it.
@@ -1091,6 +1091,42 @@ Type: Label
 Starting in v1.17, this label is deprecated in favor of
 [topology.kubernetes.io/zone](#topologykubernetesiozone).
 {{< /note >}}
+
+### pod.alpha.kubernetes.io/init-containers (deprecated) {#pod-alpha-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.alpha.kubernetes.io/init-container-statuses (deprecated) {#pod-alpha-kubernetes-io-init-container-statuses}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to report the
+status of a Pod's init containers.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+`initContainerStatuses` field of Pod `.status`.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.beta.kubernetes.io/init-containers (deprecated) {#pod-beta-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during the beta stage of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
 
 ### pv.beta.kubernetes.io/gid {#pv-beta-kubernetes-io-gid}
 
@@ -3040,5 +3076,5 @@ a namespace. When this label is set on a namespace with the value `"true"`
 `resource.k8s.io` API types. Currently, this permission applies to
 `ResourceClaim` and `ResourceClaimTemplate` objects.
 
-See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+See [Dynamic Resource Allocation Admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 for more information.

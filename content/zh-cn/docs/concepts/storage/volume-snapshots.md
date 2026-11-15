@@ -30,17 +30,18 @@ system. This document assumes that you are already familiar with Kubernetes
 
 <!--
 ## Introduction
--->
-## 介绍 {#introduction}
 
-<!--
 Similar to how API resources `PersistentVolume` and `PersistentVolumeClaim` are
 used to provision volumes for users and administrators, `VolumeSnapshotContent`
 and `VolumeSnapshot` API resources are provided to create volume snapshots for
 users and administrators.
 -->
-与 `PersistentVolume` 和 `PersistentVolumeClaim` 这两个 API 资源用于给用户和管理员制备卷类似，
-`VolumeSnapshotContent` 和 `VolumeSnapshot` 这两个 API 资源用于给用户和管理员创建卷快照。
+## 介绍 {#introduction}
+
+与 `PersistentVolume` 和 `PersistentVolumeClaim` 这两个
+API 资源用于给用户和管理员制备卷类似，
+`VolumeSnapshotContent` 和 `VolumeSnapshot` 这两个
+API 资源用于给用户和管理员创建卷快照。
 
 <!--
 A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that
@@ -54,7 +55,8 @@ like a PersistentVolume is a cluster resource.
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar
 to a PersistentVolumeClaim.
 -->
-`VolumeSnapshot` 是用户对于卷的快照的请求。它类似于持久卷声明（PersistentVolumeClaim）。
+`VolumeSnapshot` 是用户对于卷的快照的请求。
+它类似于持久卷声明（PersistentVolumeClaim）。
 
 <!--
 `VolumeSnapshotClass` allows you to specify different attributes belonging to a
@@ -62,8 +64,10 @@ to a PersistentVolumeClaim.
 volume on the storage system and therefore cannot be expressed by using the same
 `StorageClass` of a `PersistentVolumeClaim`.
 -->
-`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。在从存储系统的相同卷上获取的快照之间，
-这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim` 相同的 `StorageClass` 来表示。
+`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。
+在从存储系统的相同卷上获取的快照之间，
+这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim`
+相同的 `StorageClass` 来表示。
 
 <!--
 Volume snapshots provide Kubernetes users with a standardized way to copy a volume's
@@ -125,6 +129,18 @@ For advanced use cases, such as creating group snapshots of multiple volumes, se
 [CSI 卷组快照文档](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html)。
 
 <!--
+In clusters where a snapshot is only usable from part of the cluster (for example, a
+snapshot of a volume in one zone of a multi-zone cluster without shared storage),
+the snapshot's topology can be recorded and honored when restoring from it. For
+details, see the external
+[CSI Documentation](https://kubernetes-csi.github.io/docs/introduction.html).
+-->
+在快照仅在集群部分范围内可用的集群中
+（例如，没有共享存储的多可用区集群中、位于某一可用区的卷的快照），
+可以记录快照的拓扑，并在从快照恢复时遵循该拓扑。有关详情，请参阅外部的
+[CSI（容器存储接口）文档](https://kubernetes-csi.github.io/docs/introduction.html)。
+
+<!--
 ## Lifecycle of a volume snapshot and volume snapshot content
 
 `VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests
@@ -154,7 +170,8 @@ They exist in the Kubernetes API and are available for consumption.
 -->
 #### 预制备 {#static}
 
-集群管理员创建多个 `VolumeSnapshotContents`。它们带有存储系统上实际卷快照的详细信息，可以供集群用户使用。
+集群管理员创建多个 `VolumeSnapshotContents`。
+它们带有存储系统上实际卷快照的详细信息，可以供集群用户使用。
 它们存在于 Kubernetes API 中，并且能够被使用。
 
 <!--
@@ -179,14 +196,16 @@ The binding is a one-to-one mapping.
 -->
 ### 绑定 {#binding}
 
-在预制备和动态制备场景下，快照控制器处理绑定 `VolumeSnapshot` 对象和其合适的 `VolumeSnapshotContent` 对象。
+在预制备和动态制备场景下，快照控制器处理绑定 `VolumeSnapshot`
+对象和其合适的 `VolumeSnapshotContent` 对象。
 绑定关系是一对一的。
 
 <!--
 In the case of pre-provisioned binding, the VolumeSnapshot will remain unbound until the
 requested VolumeSnapshotContent object is created.
 -->
-在预制备快照绑定场景下，`VolumeSnapshotContent` 对象创建之后，才会和 `VolumeSnapshot` 进行绑定。
+在预制备快照绑定场景下，`VolumeSnapshotContent` 对象创建之后，才会和
+`VolumeSnapshot` 进行绑定。
 
 <!--
 ### Persistent Volume Claim as Snapshot Source Protection
@@ -209,8 +228,10 @@ source, the PersistentVolumeClaim object is not removed immediately. Instead, re
 the PersistentVolumeClaim object is postponed until the snapshot is readyToUse or aborted.
 -->
 在为某 `PersistentVolumeClaim` 生成快照时，该 `PersistentVolumeClaim` 处于被使用状态。
-如果删除一个正作为快照源使用的 `PersistentVolumeClaim` API 对象，该 `PersistentVolumeClaim` 对象不会立即被移除。
-相反，移除 `PersistentVolumeClaim` 对象的动作会被推迟，直到快照状态变为 ReadyToUse 或快照操作被中止时再执行。
+如果删除一个正作为快照源使用的 `PersistentVolumeClaim` API 对象，
+该 `PersistentVolumeClaim` 对象不会立即被移除。
+相反，移除 `PersistentVolumeClaim` 对象的动作会被推迟，
+直到快照状态变为 ReadyToUse 或快照操作被中止时再执行。
 
 <!--
 ### Delete
@@ -233,7 +254,7 @@ Each VolumeSnapshot contains a spec and a status.
 -->
 ## 卷快照 {#volume-snapshots}
 
-每个 `VolumeSnapshot` 包含一个 spec 和一个 status。
+每个 `VolumeSnapshot` 包含一个 `spec` 和一个 `status`。
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
@@ -259,7 +280,8 @@ default class is used if available.
 这个字段是动态制备快照中的必填字段。
 
 卷快照可以通过指定 [VolumeSnapshotClass](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
-使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
+使用 `volumeSnapshotClassName` 属性来请求特定类。
+如果没有设置，那么使用默认类（如果有）。
 
 <!--
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName`
@@ -425,6 +447,52 @@ spec:
 ```
 
 <!--
+## Volume Snapshot Topology
+
+In some clusters a snapshot is only usable from part of the cluster. For example, in
+a multi-zone cluster where storage is not shared across zones, a snapshot of a volume
+in one zone is only usable from that zone: volumes restored from the snapshot can only
+be created where the snapshot data resides.
+
+When the `VolumeSnapshotTopology` feature is enabled, this topology is recorded and
+honored:
+-->
+## 卷快照拓扑
+
+在某些集群中，快照仅能在集群的一部分范围内使用。
+例如，在存储未跨可用区共享的多可用区集群中，位于某一可用区的卷的快照只能在该可用区内使用：
+从该快照恢复的卷只能在快照数据所在的位置创建。
+
+启用 `VolumeSnapshotTopology` 特性后，该拓扑将被记录并遵循：
+
+<!--
+- A cluster administrator can set `allowedTopologies` on a
+  [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) to request
+  where dynamically created snapshots should be usable from.
+- The CSI driver reports where a snapshot is usable from, and the csi-snapshotter
+  sidecar records it on `VolumeSnapshotContent.spec.nodeAffinity`.
+- When you provision a volume from a snapshot, this topology is used to place the
+  restored volume where the snapshot data is accessible.
+-->
+- 集群管理员可以在
+  [VolumeSnapshotClass](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
+ 上设置 `allowedTopologies`，以指定动态创建的快照应可在哪些位置使用。
+- CSI 驱动会上报快照可在哪些位置使用，csi-snapshotter 边车会将其记录在
+  `VolumeSnapshotContent.spec.nodeAffinity` 中。
+- 从快照置备卷时，该拓扑会用于将恢复后的卷放置在快照数据可访问的位置。
+
+<!--
+This is an alpha feature of the CSI sidecars, enabled with the
+`VolumeSnapshotTopology` feature gate on the csi-snapshotter and external-provisioner.
+For details, see the external
+[CSI Documentation](https://kubernetes-csi.github.io/docs/introduction.html).
+-->
+这是 CSI 边车的一个 Alpha 特性，通过在 csi-snapshotter 和
+external-provisioner 上启用 `VolumeSnapshotTopology` 特性门控来开启。
+有关详情，请参阅外部的
+[CSI 文档](https://kubernetes-csi.github.io/docs/introduction.html)。
+
+<!--
 ## Provisioning Volumes from Snapshots
 -->
 ## 从快照制备卷 {#provisioning-volumes-from-snapshots}
@@ -433,7 +501,8 @@ spec:
 You can provision a new volume, pre-populated with data from a snapshot, by using
 the _dataSource_ field in the `PersistentVolumeClaim` object.
 -->
-你可以制备一个新卷，该卷预填充了快照中的数据，在 `PersistentVolumeClaim` 对象中使用 **dataSource** 字段。
+你可以制备一个新卷，该卷预填充了快照中的数据，在 `PersistentVolumeClaim`
+对象中使用 **dataSource** 字段。
 
 <!--
 For more details, see

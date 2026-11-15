@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.37: Pod-Level Resource Managers graduated to Beta"
-draft: true
+date: 2026-09-15T10:30:00-08:00
 slug: kubernetes-v1-37-pod-level-resource-managers-beta
 author: Kevin Torres Martinez (Google)
 ---

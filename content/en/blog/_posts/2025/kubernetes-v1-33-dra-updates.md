@@ -8,23 +8,23 @@ author: >
   [Patrick Ohly](https://github.com/pohly) (Intel)
 ---
 
-Kubernetes [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) was originally introduced as an alpha feature in the v1.26 release, and then went through a significant redesign for Kubernetes v1.31. The main DRA feature went to beta in v1.32, and the project hopes it will be generally available in Kubernetes v1.34.
+Kubernetes [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) (DRA) was originally introduced as an alpha feature in the v1.26 release, and then went through a significant redesign for Kubernetes v1.31. The main DRA feature went to beta in v1.32, and the project hopes it will be generally available in Kubernetes v1.34.
 
 The basic feature set of DRA provides a far more powerful and flexible API for requesting devices than Device Plugin. And while DRA remains a beta feature for v1.33, the DRA team has been hard at work implementing a number of new features and UX improvements. One feature has been promoted to beta, while a number of new features have been added in alpha. The team has also made progress towards getting DRA ready for GA.
 
 ### Features promoted to beta
 
-[Driver-owned Resource Claim Status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status) was promoted to beta. This allows the driver to report driver-specific device status data for each allocated device in a resource claim, which is particularly useful for supporting network devices.
+[Driver-owned Resource Claim Status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resourceclaim-device-status) was promoted to beta. This allows the driver to report driver-specific device status data for each allocated device in a resource claim, which is particularly useful for supporting network devices.
 
 ### New alpha features
 
-[Partitionable Devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices) lets a driver advertise several overlapping logical devices (“partitions”), and the driver can reconfigure the physical device dynamically based on the actual devices allocated. This makes it possible to partition devices on-demand to meet the needs of the workloads and therefore increase the utilization.
+[Partitionable Devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices) lets a driver advertise several overlapping logical devices (“partitions”), and the driver can reconfigure the physical device dynamically based on the actual devices allocated. This makes it possible to partition devices on-demand to meet the needs of the workloads and therefore increase the utilization.
 
-[Device Taints and Tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-taints-and-tolerations) allow devices to be tainted and for workloads to tolerate those taints. This makes it possible for drivers or cluster administrators to mark devices as unavailable. Depending on the effect of the taint, this can prevent devices from being allocated or cause eviction of pods that are using the device.
+[Device Taints and Tolerations](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations) allow devices to be tainted and for workloads to tolerate those taints. This makes it possible for drivers or cluster administrators to mark devices as unavailable. Depending on the effect of the taint, this can prevent devices from being allocated or cause eviction of pods that are using the device.
 
-[Prioritized List](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#prioritized-list) lets users specify a list of acceptable devices for their workloads, rather than just a single type of device. So while the workload might run best on a single high-performance GPU, it might also be able to run on 2 mid-level GPUs. The scheduler will attempt to satisfy the alternatives in the list in order, so the workload will be allocated the best set of devices available in the cluster.
+[Prioritized List](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#prioritized-list) lets users specify a list of acceptable devices for their workloads, rather than just a single type of device. So while the workload might run best on a single high-performance GPU, it might also be able to run on 2 mid-level GPUs. The scheduler will attempt to satisfy the alternatives in the list in order, so the workload will be allocated the best set of devices available in the cluster.
 
-[Admin Access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access) has been updated so that only users with access to a namespace with the `resource.k8s.io/admin-access: "true"` label are authorized to create ResourceClaim or ResourceClaimTemplates objects with the `adminAccess` field within the namespace. This grants administrators access to in-use devices and may enable additional permissions when making the device available in a container. This ensures that non-admin users cannot misuse the feature.
+[Admin Access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access) has been updated so that only users with access to a namespace with the `resource.k8s.io/admin-access: "true"` label are authorized to create ResourceClaim or ResourceClaimTemplates objects with the `adminAccess` field within the namespace. This grants administrators access to in-use devices and may enable additional permissions when making the device available in a container. This ensures that non-admin users cannot misuse the feature.
 
 ### Preparing for general availability
 

@@ -624,10 +624,7 @@ settings for the proxy server to use when communicating with the apiserver.
 <tr><td><code>DebuggingConfiguration</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#DebuggingConfiguration"><code>DebuggingConfiguration</code></a>
 </td>
-<!--
-(Members of <code>DebuggingConfiguration</code> are embedded into this type.)
--->
-<td>（<code>DebuggingConfiguration</code> 的成员被内嵌到此类型中）
+<td>
    <p>
    <!--
    DebuggingConfiguration holds configuration for Debugging related features
@@ -763,7 +760,7 @@ NodeAffinityArgs 中包含配置 NodeAffinity 插件的参数。
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
 
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>
@@ -890,7 +887,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.37/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -1184,7 +1181,7 @@ managed by an extender.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1593,6 +1590,20 @@ Plugins 结构中包含多个扩展点。当此结构被设置时，
    </p>
 </td>
 </tr>
+<tr><td><code>podGroupPostFilter</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+<p>
+<!--
+   PodGroupPostFilter is a list of plugins that are invoked after the workload scheduling phase,
+but only when the PodGroup cannot be scheduled (equivalent to PostFilter for single pods).
+-->
+PodGroupPostFilter 是一组插件，它们在工作负载调度阶段之后被调用，但仅在
+PodGroup 无法被调度时才会触发（这相当于针对单个 Pod 的 PostFilter）。
+</p>
+</td>
+</tr>
 <tr><td><code>queueSort</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
 </td>
@@ -1844,10 +1855,12 @@ RequestedToCapacityRatioParam define RequestedToCapacityRatio parameters
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1-ScoringStrategy)
 
+<p>
 <!--
 ResourceSpec represents a single resource.
 -->
-<p>ResourceSpec 用来代表某个资源。</p>
+ResourceSpec 用来代表某个资源。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1857,20 +1870,24 @@ ResourceSpec represents a single resource.
 <code>string</code>
 </td>
 <td>
-   <!--
-   Name of the resource.
-   -->
-   <p>资源名称。</p>
+<p>
+<!--
+Name of the resource.
+-->
+资源名称。
+</p>
 </td>
 </tr>
 <tr><td><code>weight</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int64</code>
 </td>
 <td>
-   <!--
-   Weight of the resource.
-   -->
-   <p>资源权重。</p>
+<p>
+<!--
+Weight of the resource.
+-->
+资源权重。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1885,10 +1902,12 @@ ResourceSpec represents a single resource.
 
 - [NodeResourcesFitArgs](#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 
+<p>
 <!--
 ScoringStrategy define ScoringStrategyType for node resource plugin
 -->
-<p>ScoringStrategy 为节点资源插件定义 ScoringStrategyType。</p>
+ScoringStrategy 为节点资源插件定义 ScoringStrategyType。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1898,10 +1917,12 @@ ScoringStrategy define ScoringStrategyType for node resource plugin
 <a href="#kubescheduler-config-k8s-io-v1-ScoringStrategyType"><code>ScoringStrategyType</code></a>
 </td>
 <td>
-   <!--
-   Type selects which strategy to run.
-   -->
-   <p><code>type</code> 用来选择要运行的策略。</p>
+<p>
+<!--
+Type selects which strategy to run.
+-->
+<code>type</code> 用来选择要运行的策略。
+</p>
 </td>
 </tr>
 <tr><td><code>resources</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1924,10 +1945,12 @@ Weight defaults to 1 if not specified or explicitly set to 0.
 <a href="#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam"><code>RequestedToCapacityRatioParam</code></a>
 </td>
 <td>
-   <!--
-   Arguments specific to RequestedToCapacityRatio strategy.
-   -->
-   <p>特定于 RequestedToCapacityRatio 策略的参数。</p>
+<p>
+<!--
+Arguments specific to RequestedToCapacityRatio strategy.
+-->
+特定于 RequestedToCapacityRatio 策略的参数。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1946,10 +1969,12 @@ Weight defaults to 1 if not specified or explicitly set to 0.
 
 - [ScoringStrategy](#kubescheduler-config-k8s-io-v1-ScoringStrategy)
 
+<p>
 <!--
 ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin.
 -->
-<p>ScoringStrategyType 是 NodeResourcesFit 插件所使用的的评分策略类型。</p>
+ScoringStrategyType 是 NodeResourcesFit 插件所使用的的评分策略类型。
+</p>
 
 ## `UtilizationShapePoint`     {#kubescheduler-config-k8s-io-v1-UtilizationShapePoint}
 
@@ -1962,10 +1987,12 @@ ScoringStrategyType the type of scoring strategy used in NodeResourcesFit plugin
 
 - [RequestedToCapacityRatioParam](#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam)
 
+<p>
 <!--
 UtilizationShapePoint represents single point of priority function shape.
 -->
-<p>UtilizationShapePoint 代表的是优先级函数曲线中的一个评分点。</p>
+UtilizationShapePoint 代表的是优先级函数曲线中的一个评分点。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1975,20 +2002,24 @@ UtilizationShapePoint represents single point of priority function shape.
 <code>int32</code>
 </td>
 <td>
-   <!--
-   Utilization (x axis). Valid values are 0 to 100. Fully utilized node maps to 100.
-   -->
-   <p>利用率（x 轴）。合法值为 0 到 100。完全被利用的节点映射到 100。</p>
+<p>
+<!--
+Utilization (x axis). Valid values are 0 to 100. Fully utilized node maps to 100.
+-->
+利用率（x 轴）。合法值为 0 到 100。完全被利用的节点映射到 100。
+</p>
 </td>
 </tr>
 <tr><td><code>score</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
-   <!--
-   Score assigned to given utilization (y axis). Valid values are 0 to 10.
-   -->
-   <p><code>score</code> 分配给指定利用率的分值（y 轴）。合法值为 0 到 10。</p>
+<p>
+<!--
+Score assigned to given utilization (y axis). Valid values are 0 to 10.
+-->
+<code>score</code> 分配给指定利用率的分值（y 轴）。合法值为 0 到 10。
+</p>
 </td>
 </tr>
 </tbody>

@@ -14,7 +14,7 @@
 | `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
 | `replace-capture.sh`    | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically               |
 | `check-ctrlcode.py`     | This script finds control-code(0x00-0x1f) in text files.                                                                              |
-| `ja/verify-spelling.sh` | This script finds Japanese words that are against the guideline.                                                                      |
+| `ja/verify-spelling.sh` | This script checks whether the long vowel mark in katakana words is used correctly, according to the guideline.                       |
 
 
 
@@ -241,9 +241,17 @@ The output is following format.
 
 ## ja/verify-spelling.sh
 
-This script finds Japanese words that are against the guideline[1]
-[1] https://kubernetes.io/ja/docs/contribute/localization/#%E9%A0%BB%E5%87%BA%E5%8D%98%E8%AA%9E
+This script checks whether the long vowel mark in katakana words is used correctly, according to the guideline:
+https://kubernetes.io/ja/docs/contribute/localization/#long-vowel
 
 ```
-Usage: ./ja/verify-spelling.sh
+Usage: ./ja/verify-spelling.sh [DIRECTORY|FILE]...
 ```
+
+If no argument is given, the script checks the `CONTENT_DIR` directory defined in the script.
+
+Exit codes:
+
+- `0`: No incorrect word is found.
+- `1`: One or more incorrect words are found.
+- `2`: An error occurred.

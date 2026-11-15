@@ -41,10 +41,10 @@ apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: silver
-driverName: pd.csi.storage.gke.io
+driverName: csi.storage.example.com
 parameters:
-  provisioned-iops: "3000"
-  provisioned-throughput: "50" 
+  iops: "3000"
+  throughput: "50Mi"
 ```
 
 ### Provisioner
@@ -92,10 +92,10 @@ apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: gold
-driverName: pd.csi.storage.gke.io
+driverName: csi.storage.example.com
 parameters:
   iops: "4000"
-  throughput: "60"
+  throughput: "60Mi"
 ```
 
 The end user can update the PVC with the new VolumeAttributesClass gold and apply:

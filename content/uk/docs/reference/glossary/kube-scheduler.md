@@ -1,21 +1,17 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-full_link: /docs/reference/generated/kube-scheduler/
-# short_description: >
-#   Control Plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.
+full_link: /docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
-  Компонент площини управління, що відстежує створені Pod'и, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
+  Компонент панелі управління, що відстежує щойно створені Podʼи, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
 
 aka:
 tags:
 - architecture
 ---
-<!-- Control Plane component that watches for newly created pods with no assigned node, and selects a node for them to run on. -->
-Компонент площини управління, що відстежує створені Pod'и, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
+
+Компонент панелі управління, що відстежує щойно створені {{< glossary_tooltip term_id="pod" text="Podʼи" >}}, які ще не розподілені по {{< glossary_tooltip term_id="node" text="вузлах" >}}, і обирає вузол, на якому вони працюватимуть.
 
 <!--more-->
 
-<!--Factors taken into account for scheduling decisions include individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference and deadlines.
--->
-При виборі вузла враховуються наступні фактори: індивідуальна і колективна потреба у ресурсах, обмеження за апаратним/програмним забезпеченням і політиками, характеристики affinity і anti-affinity, локальність даних, сумісність робочих навантажень і граничні терміни виконання.
+Під час вибору вузла враховуються такі фактори: індивідуальна і колективна потреба в {{< glossary_tooltip text="ресурсах" term_id="infrastructure-resource" >}}, обмеження за апаратним/програмним забезпеченням і політиками, характеристики affinity та anti-affinity, локальність даних, взаємний вплив робочих навантажень і граничні терміни виконання.

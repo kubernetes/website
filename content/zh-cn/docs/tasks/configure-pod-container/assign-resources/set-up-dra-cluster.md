@@ -38,13 +38,13 @@ Ensure that you're familiar with how DRA works and with DRA terminology like
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, and
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}.
 For details, see
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
 -->
 确保你已了解 DRA 的工作机制及其术语，例如
 {{< glossary_tooltip text="DeviceClasses" term_id="deviceclass" >}}、
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}以及
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}。
-更多信息请参见[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
+更多信息请参见[动态资源分配（DRA）](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/)。
 
 <!-- prerequisites -->
 
@@ -320,8 +320,8 @@ kubectl delete -f https://k8s.io/examples/dra/deviceclass.yaml
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about DRA](/docs/concepts/resource-management/dynamic-resource-allocation)
 * [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)
 -->
-* [进一步了解 DRA](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [进一步了解 DRA](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation)
 * [使用 DRA 为工作负载分配设备](/zh-cn/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra)

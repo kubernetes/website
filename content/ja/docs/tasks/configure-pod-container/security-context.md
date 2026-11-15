@@ -547,8 +547,8 @@ securityContext:
 
 ## コンテナにAppArmorプロフィールを設定する
 
-コンテナにAppArmorプロフィールを設定するには、`securityContext`セクションに`appAormorProfile`フィールドを含めてください。
-`appAormerProfile`フィールドには、`type`フィールドと`localhostProfile`フィールドから構成される[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+コンテナにAppArmorプロフィールを設定するには、`securityContext`セクションに`appArmorProfile`フィールドを含めてください。
+`appArmorProfile`フィールドには、`type`フィールドと`localhostProfile`フィールドから構成される[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
 >}}/#apparmorprofile-v1-core)オブジェクトが入ります。`type`フィールドの有効なオプションは`RuntimeDefault`(デフォルト)、`Unconfined`、`Localhost`です。
 `localhostProfile`は`type`が`Localhost`のときには必ず設定しなければなりません。この値はノードで事前に設定されたプロフィール名を示します。Podは事前にどのノードにスケジュールされるかわからないため、指定されたプロフィールはPodがスケジュールされ得る全てのノードにロードされている必要があります。カスタムプロフィールをセットアップする方法は[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)を参照してください。
 

@@ -9,7 +9,7 @@ card:
 ---
 
 
-This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
+This website is maintained by [Kubernetes SIG Docs](/docs/contribute/participate/).
 The Kubernetes project welcomes help from all contributors, new or experienced!
 
 Kubernetes documentation contributors:

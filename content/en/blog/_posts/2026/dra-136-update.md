@@ -30,7 +30,7 @@ several highly anticipated features have graduated to Beta and Stable.
 ### Prioritized list (stable) {#prioritized-list}
 
 Hardware heterogeneity is a reality in most clusters. With the
-[Prioritized list](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#prioritized-list)
+[Prioritized list](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#prioritized-list)
 feature, you can confidently define fallback preferences when requesting
 devices. Instead of hardcoding a request for a specific device model, you can specify an
 ordered list of preferences (e.g., "Give me an H100, but if none are available, fall back
@@ -41,7 +41,7 @@ scheduling flexibility and cluster utilization.
 
 As DRA becomes the standard for resource allocation, bridging the gap with legacy systems
 is crucial. The DRA
-[Extended resource](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+[Extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)
 feature allows users to request resources via traditional extended resources on a Pod.
 This allows for a gradual transition to DRA, meaning cluster operators can migrate clusters
 to DRA but let application developers adopt the ResourceClaim API on their own schedule.
@@ -50,7 +50,7 @@ to DRA but let application developers adopt the ResourceClaim API on their own s
 
 Hardware accelerators are powerful, and sometimes a single workload doesn't need an
 entire device. The
-[Partitionable devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices)
+[Partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
 feature, provides native DRA support for dynamically carving physical hardware into smaller,
 logical instances (such as Multi-Instance GPUs) based on workload demands. This allows
 administrators to safely and efficiently share expensive accelerators across multiple Pods.
@@ -59,7 +59,7 @@ administrators to safely and efficiently share expensive accelerators across mul
 
 Just as you can taint a Kubernetes Node, you can apply taints directly to specific DRA
 devices.
-[Device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-taints-and-tolerations)
+[Device taints and tolerations](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations)
 empower cluster administrators to manage hardware more effectively. You can taint faulty
 devices to prevent them from being allocated to standard claims, or reserve specific hardware
 for dedicated teams, specialized workloads, and experiments. Ultimately, only Pods with
@@ -68,7 +68,7 @@ matching tolerations are permitted to claim these tainted devices.
 ### Device binding conditions (beta) {#device-binding-conditions}
 
 To improve scheduling reliability, the Kubernetes scheduler can use the
-[Binding conditions](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-binding-conditions)
+[Binding conditions](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions)
 feature to delay committing a Pod to a Node until its required external resources—such as attachable
 devices or FPGAs—are fully prepared. By explicitly modeling resource readiness, this
 prevents premature assignments that can lead to Pod failures, ensuring a much more robust
@@ -78,7 +78,7 @@ and predictable deployment process.
 
 Knowing when a device has failed or become unhealthy is critical for workloads running on
 specialized hardware. With
-[Resource health status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-health-monitoring),
+[Resource health status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-health-monitoring),
 Kubernetes expose device health information directly in the Pod status, giving users and
 controllers crucial visibility to quickly identify and react to hardware failures. The
 feature includes support for human-readable health status messages, making it
@@ -92,8 +92,8 @@ that are disabled by default.
 
 ### ResourceClaim support for workloads {#workload-resourceclaims}
 
-To optimize large-scale AI/ML workloads that rely on strict topological scheduling, the 
-[ResourceClaim support for workloads](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#workload-resourceclaims)
+To optimize large-scale AI/ML workloads that rely on strict topological scheduling, the
+[ResourceClaim support for workloads](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#workload-resource-claims)
 feature enables Kubernetes to seamlessly manage shared resources across massive sets
 of Pods. By associating ResourceClaims or ResourceClaimTemplates with PodGroups,
 this feature eliminates previous scaling bottlenecks, such as the limit on the
@@ -105,7 +105,7 @@ management from specialized orchestrators.
 Why should DRA only be for external accelerators? In v1.36, we are introducing the first
 iteration of using the DRA APIs to manage _node allocatable_ infrastructure resources (like CPU and
 memory). By bringing CPU and memory allocation under the DRA umbrella with the DRA
-[Node allocatable resources](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#node-allocatable-resources)
+[Node allocatable resources](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#node-allocatable-resources)
 feature, users can leverage DRA's advanced placement, NUMA-awareness, and prioritization
 semantics for standard compute resources, paving the way for incredibly fine-grained
 performance tuning.
@@ -114,7 +114,7 @@ performance tuning.
 
 One of the most requested features from cluster administrators has been better visibility
 into hardware capacity. The new
-[Resource pool status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resource-pool-status)
+[Resource pool status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resource-pool-status)
 feature allows you to query the availability of devices in DRA resource pools. By creating a
 `ResourcePoolStatusRequest` object, you get a point-in-time snapshot of device counts
 — total, allocated, available, and unavailable — for each pool managed by a given
@@ -146,7 +146,7 @@ generates names that reflect the exact device ordering specified by the driver a
 Workloads running on nodes with DRA devices often need to discover details about
 their allocated devices, such as PCI bus addresses or network
 interface configuration, without querying the Kubernetes API. With
-[Device metadata](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata),
+[Device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata),
 Kubernetes defines a standard protocol for how DRA drivers expose device
 attributes to containers as versioned JSON files at well-known paths. Drivers
 built with the
@@ -174,7 +174,7 @@ share feedback, or start building your first DRA driver.
 
 ## Getting involved
 
-A good starting point is joining the WG Device Management 
+A good starting point is joining the WG Device Management
 [Slack channel](https://kubernetes.slack.com/archives/C0409NGC1TK) and
 [meetings](https://docs.google.com/document/d/1qxI87VqGtgN7EAJlqVfxx86HGKEAc2A3SKru8nJHNkQ/edit?tab=t.0#heading=h.tgg8gganowxq),
 which happen at Americas/EMEA and EMEA/APAC friendly time slots.

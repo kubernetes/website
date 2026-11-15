@@ -7,8 +7,6 @@ author: >
   [Taahir Ahmed](https://github.com/ahmedtd)
 ---
 
-## Pod Certificate / Cluster Trust Bundles Blog Post
-
 Kubernetes brings a wealth of features that make it easy to run your production
 workloads securely and reliably.  While aspects like scheduling, health checks
 and resource limits are probably at the front of your mind, one other important
@@ -130,17 +128,17 @@ issuance process chronologically:
       status.certificateChain field.  
    5) The signer controller also fills out the status.beginRefreshAt field to
       instruct Kubelet when it should begin trying to refresh the certificate.  
+   6) Kubelet retrieves the issued certificate, and writes the private key and
       certificate to the container filesystem.  
 3) For each clusterTrustBundle source:  
-   6) Kubelet retrieves the issued certificate, and writes the private key and
    1) Kubelet collects all the ClusterTrustBundles that match the signer name
+      and label selectors in the source.  
    2) Kubelet unifies all of the certificates from all matching
       ClusterTrustBundles, and (stably) reorders them (to prevent applications
       from accidentally depending on a particular ordering).  
-      and label selectors in the source.  
    3) Kubelet writes the certificates to the file path named in the source.  
-   and trust anchors from the filesystem.  
 4) Your application pod starts up, and the application reads keys, certificates,
+   and trust anchors from the filesystem.  
 5) Kubelet periodically updates the files from clusterTrustBundle sources as the
    contents of the selected ClusterTrustBundles changes. The application must
    pick up the changes using inotify or polling.  

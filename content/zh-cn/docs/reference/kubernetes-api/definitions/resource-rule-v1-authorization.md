@@ -11,7 +11,6 @@ weight: 410
 ---
 
 <!--
----
 api_metadata:
   apiVersion: "authorization.k8s.io/v1"
   import: "k8s.io/api/authorization/v1"
@@ -22,18 +21,16 @@ description: "ResourceRule is the list of actions the subject is allowed to perf
 title: "ResourceRule"
 weight: 410
 auto_generated: true
----
 -->
 
 `apiVersion: authorization.k8s.io/v1`
 
 `import "k8s.io/api/authorization/v1"`
 
-
 ## ResourceRule {#ResourceRule}
 
 <!--
-ResourceRule is the list of actions the subject is allowed to perform on resources. 
+ResourceRule is the list of actions the subject is allowed to perform on resources.
 The list ordering isn&#39;t significant, may contain duplicates, and possibly be incomplete.
 -->
 ResourceRule 是主体被允许对资源执行的操作列表。
@@ -48,12 +45,12 @@ ResourceRule 是主体被允许对资源执行的操作列表。
       <td><code>apiGroups</code><br/><em>string array</em></td>
       <td>
       <!--
-      apiGroups is the name of the APIGroup that contains the resources.  
+      apiGroups is the name of the APIGroup that contains the resources.
       If multiple API groups are specified, any action requested against 
-      one of the enumerated resources in any API group will be allowed.  
+      one of the enumerated resources in any API group will be allowed.
       "*" means all.
       -->
-      apiGroups 是包含相关资源的 API 组名称。
+      <code>apiGroups</code> 是包含相关资源的 API 组名称。
       如果指定了多个 API 组，则针对其中任一 API 组内所列资源发起的任何操作请求都将被允许。
       其中，"*" 表示所有。
       </td>
@@ -65,7 +62,7 @@ ResourceRule 是主体被允许对资源执行的操作列表。
       resourceNames is an optional white list of names that the rule applies to.  
       An empty set means that everything is allowed.  "*" means all.
       -->
-      resourceNames 是一个可选的名称白名单，用于指定该规则适用的对象。
+      <code>resourceNames</code> 是一个可选的名称白名单，用于指定该规则适用的对象。
       若该集合为空，则表示允许所有对象；"*" 表示所有对象。
       </td>
     </tr>
@@ -73,14 +70,14 @@ ResourceRule 是主体被允许对资源执行的操作列表。
       <td><code>resources</code><br/><em>string array</em></td>
       <td>
       <!--
-      resources is a list of resources this rule applies to.  
-      "*" means all in the specified apiGroups.  
+      resources is a list of resources this rule applies to.
+      "*" means all in the specified apiGroups.
       "*/foo" represents the subresource 'foo' for all resources 
       in the specified apiGroups.
       -->
-      resources 是此规则适用的资源列表。
-      "*"  表示指定 apiGroups 中的所有资源。"*/foo" 表示指定 apiGroups
-      中所有资源的子资源 "foo"。
+      <code>resources</code> 是此规则适用的资源列表。
+      "*" 表示指定 <code>apiGroups</code> 中的所有资源。"*/foo" 表示指定
+      <code>apiGroups</code> 中所有资源的子资源 "foo"。
       </td>
     </tr>
     <tr>
@@ -88,14 +85,14 @@ ResourceRule 是主体被允许对资源执行的操作列表。
       <td>
       <!--
       verbs is a list of kubernetes resource API verbs, 
-      like: get, list, watch, create, update, delete, proxy.  
+      like: get, list, watch, create, update, delete, proxy.
       "*" means all.
       -->
-      verbs 是 Kubernetes 资源 API 动词的列表，例如：
-      get、list、watch、create、update、delete、proxy。
-      其中 "*" 表示所有动词。
+      <code>verbs</code> 是 Kubernetes 资源 API 动词的列表，例如：
+      <code>get</code>、<code>list</code>、<code>watch</code>、
+      <code>create</code>、<code>update</code>、<code>delete</code>、
+      <code>proxy</code>。其中 "*" 表示所有动词。
       </td>
     </tr>
   </tbody>
 </table>
-

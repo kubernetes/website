@@ -144,5 +144,5 @@ To disable this setting a cluster admin should set `failCgroupV1` to false in th
 ## {{% heading "whatsnext" %}}
 
 - Learn more about [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
-- Learn more about [container runtime](/docs/concepts/architecture/cri)
+- Learn more about [container runtime](/docs/concepts/containers/cri/)
 - Learn more about [cgroup drivers](/docs/setup/production-environment/container-runtimes#cgroup-drivers)

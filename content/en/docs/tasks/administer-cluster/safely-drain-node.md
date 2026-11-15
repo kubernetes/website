@@ -43,7 +43,7 @@ before the drain can proceed.
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
 hardware maintenance, etc.). Safe evictions allow the pod's containers
-to [gracefully terminate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+to [gracefully terminate](/docs/concepts/workloads/pods/pod-termination/)
 and will respect the PodDisruptionBudgets you have specified.
 
 {{< note >}}
@@ -88,6 +88,14 @@ a node of its DaemonSet pods:
 the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
 new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
 taints, which allows the new Pods to launch onto a node that you are draining.
+
+DaemonSet Pods are typically node-local services such as networking, storage, or
+log collection that need to remain on the node for as long as the node itself is
+running. Because the DaemonSet controller pins each Pod to a specific node and
+ignores the unschedulable taint, evicting these Pods would only cause them to be
+recreated on the same node. `--ignore-daemonsets` skips them so that drain can
+complete; the Pods continue to run while you perform maintenance and are removed
+when the node is removed from the cluster.
 
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).

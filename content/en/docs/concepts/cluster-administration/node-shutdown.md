@@ -34,7 +34,7 @@ For more details, refer to the
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
 Kubelet ensures that pods follow the normal
-[pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+[pod termination process](/docs/concepts/workloads/pods/pod-termination/)
 during the node shutdown. During node shutdown, the kubelet does not accept new
 Pods (even if those Pods are already bound to the node).
 
@@ -330,3 +330,5 @@ Learn more about the following:
 
 - Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
 - Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).
+
+For how to shutdown a cluster see [Shutting Down and Restarting Clusters](/docs/task/administer-cluster/cluster-shutdown-and-restart/).
