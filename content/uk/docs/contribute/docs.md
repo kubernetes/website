@@ -8,7 +8,7 @@ card:
   title: Внесок у документацію
 ---
 
-Цей вебсайт підтримує [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs). Проєкт Kubernetes вітає допомогу від усіх учасників, як нових, так і досвідчених!
+Цей вебсайт підтримує [Kubernetes SIG Docs](/docs/contribute/participate/). Проєкт Kubernetes вітає допомогу від усіх учасників, як нових, так і досвідчених!
 
 Учасники, які працюють над документацією Kubernetes:
 

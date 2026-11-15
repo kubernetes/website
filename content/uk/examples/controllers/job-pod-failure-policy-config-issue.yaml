@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-pod-failure-policy-config-issue
+spec:
+  completions: 8
+  parallelism: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: main
+        image: "non-existing-repo/non-existing-image:example"
+  backoffLimit: 6
+  podFailurePolicy:
+    rules:
+    - action: FailJob
+      onPodConditions:
+      - type: ConfigIssue

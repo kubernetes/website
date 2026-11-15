@@ -42,6 +42,12 @@ weight: 60
 
 Під час використання ефемерних контейнерів корисно увімкнути [спільний простір імен процесів (process namespace sharing)](/docs/tasks/configure-pod-container/share-process-namespace/), щоб ви могли переглядати процеси в інших контейнерах.
 
+## Керування доступом {#access-control}
+
+Додавання ефемерного контейнера до запущеного Podʼа використовує субресурс `ephemeralcontainers` Podʼа, а не поле `pod.spec`. Це навмисне рішення. Деякі втулки допуску та політики безпеки не розпізнають ефемерні контейнери, а окрема поверхня API для їх створення дає адміністраторам кластера змогу явно визначити, хто може додавати контейнери до вже запущених Podʼів.
+
+З тієї ж причини субресурс `pods/ephemeralcontainers` **не** входить до стандартних [ClusterRoles `admin` і `edit` для користувачів](/docs/reference/access-authn-authz/rbac/#user-facing-roles). Щоб дозволити користувачам додавати ефемерні контейнери (наприклад, за допомогою [`kubectl debug`](/docs/reference/kubectl/generated/kubectl_debug/)), адміністратори кластера мають явно надати права `patch` (і зазвичай `update`) на `pods/ephemeralcontainers`. Рекомендовані підходи описано в розділі [Налагодження запущених Podʼів: дозволи для ефемерних контейнерів](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container-permissions).
+
 ## {{% heading "whatsnext" %}} {#whats-next}
 
 - Дізнайтеся, як [налагоджувати Podʼи за допомогою ефемерних контейнерів](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).

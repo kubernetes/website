@@ -4,8 +4,7 @@ type: docs
 weight: 40
 ---
 
-"Менеджери Випусків" — це загальний термін, що охоплює групу учасників Kubernetes, відповідальних
-за підтримку гілок випусків та створення випусків, використовуючи інструменти, надані SIG Release.
+"Менеджери Випусків" — це загальний термін, що охоплює групу учасників Kubernetes, відповідальних за підтримку гілок випусків та створення випусків, використовуючи інструменти, надані SIG Release.
 
 Обовʼязки кожної ролі описані нижче.
 
@@ -34,14 +33,14 @@ weight: 40
 
 ## Довідники {#handbooks}
 
-**Примітка: Довідники для Команди Патч-Випусків та Менеджерів Гілок будуть уніфіковані пізніше.**
+**Примітка: Довідники для Команди Випусків виправлень та Менеджерів Гілок будуть уніфіковані пізніше.**
 
-- [Команда Патч-Випусків][handbook-patch-release]
+- [Команда Випусків виправлень][handbook-patch-release]
 - [Менеджери Гілок][handbook-branch-mgmt]
 
 ## Менеджери випусків {#release-managers}
 
-**Примітка:** У документації можуть згадуватися Команда Патч-Випусків та роль Менеджера Гілок. Ці дві ролі були обʼєднані у роль Менеджерів Випусків.
+**Примітка:** У документації можуть згадуватися Команда Випусків виправлень та роль Менеджера Гілок. Ці дві ролі були обʼєднані у роль Менеджерів Випусків.
 
 Мінімальні вимоги до Менеджерів Випусків та Асистентів Менеджерів Випусків:
 
@@ -54,15 +53,15 @@ weight: 40
 Менеджери Випусків відповідають за:
 
 - Координацію та проведення випусків Kubernetes:
-  - Патч-випуски (`x.y.z`, де `z` > 0)
+  - Випуски виправлення (`x.y.z`, де `z` > 0)
   - Мінорні випуски (`x.y.z`, де `z` = 0)
   - Попередні випуски (alpha, beta та реліз-кандидати)
   - Роботу з [Командою Випуску][release-team] протягом кожного циклу випуску
-  - Встановлення [графіку та періодичності патч-випусків][patches]
+  - Встановлення [графіку та періодичності випусків виправлення][patches]
 - Підтримку гілок випусків:
   - Перегляд cherry picks
-  - Забезпечення справності гілки випуску та недопущення непередбачених патчів
-- Наставництво для [групи Асистентів Менеджерів Випусків](#асистенти-менеджерів-випусків)
+  - Забезпечення справності гілки випуску та недопущення непередбачених виправлень
+- Наставництво для [групи Асистентів Менеджерів Випусків](#release-manager-associates)
 - Активну розробку функцій та підтримку коду в k/release
 - Підтримку Асистентів Менеджерів Випусків та учасників через активну участь у програмі наставництва
   - Щомісячні перевірки з Асистентами та делегування завдань, надання можливості їм проводити
@@ -75,15 +74,15 @@ weight: 40
 
 Посилання на GitHub: @kubernetes/release-engineering
 
-- [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
-- [Cici Huang] ([@cici37](https://github.com/cici37))
-- [Carlos Panato] ([@cpanato](https://github.com/cpanato))
-- [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
-- [Marko Mudrinić] ([@xmudrii](https://github.com/xmudrii))
-- [Nabarun Pal] ([@palnabarun](https://github.com/palnabarun))
-- [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
-- [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
-- [Verónica López] ([@verolop](https://github.com/verolop))
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
+- Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
+- Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
+- Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
+- Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ### Як стати менеджером випусків {#becoming-a-release-manager}
 
@@ -100,21 +99,21 @@ weight: 40
 
 Асистенти Менеджерів Випусків є стажерами Менеджерів Випусків, раніше відомими як тіні Менеджерів Випусків. Вони відповідають за:
 
-- Роботу над патч-випусками, перегляд cherry picks
+- Роботу над випусками виправлення, перегляд cherry picks
 - Внесок у k/release: оновлення залежностей та ознайомлення з кодовою базою
 - Внесок у документацію: підтримку довідників, забезпечення документування процесів випуску
 - За допомогою Менеджера Випусків: роботу з Командою Випуску протягом циклу випуску та проведення випусків Kubernetes
 - Пошук можливостей для допомоги у пріоритизації та комунікації
-  - Надсилання попередніх оголошень та оновлень про патч-випуски
+  - Надсилання попередніх оголошень та оновлень про випуски виправлення
   - Оновлення календаря, допомога з датами випуску та віхами з [графіку циклу випуску][k-sig-release-releases]
 - Через програму Buddy, інтеграція нових учасників та співпраця з ними над завданнями
 
 Посилання на GitHub: @kubernetes/release-engineering
 
-- [Arnaud Meukam] ([@ameukam](https://github.com/ameukam))
-- [Jim Angel] ([@jimangel](https://github.com/jimangel))
-- [Joseph Sandoval] ([@jrsapi](https://github.com/jrsapi))
-- [Xander Grzywinski] ([@salaxander](https://github.com/salaxander))
+- Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Jim Angel ([@jimangel](https://github.com/jimangel))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
+- Xander Grzywinski ([@salaxander](https://github.com/salaxander))
 
 ### Як стати асистентом менеджера випусків {#becoming-a-release-manager-associate}
 
@@ -140,15 +139,15 @@ weight: 40
 
 ### Голови {#chairs}
 
-- [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
-- [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
-- [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
+- Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
 
 ### Технічні Лідери {#technical-leads}
 
-- [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
-- [Carlos Panato] ([@cpanato](https://github.com/cpanato))
-- [Verónica López] ([@verolop](https://github.com/verolop))
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ---
 
