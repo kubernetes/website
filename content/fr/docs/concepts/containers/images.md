@@ -46,7 +46,7 @@ Veuillez utiliser les versions *18.06 ou ultérieure*, les versions antérieures
 
 Si vous avez des problèmes en téléchargeant des manifestes viciés, nettoyez les anciens manifestes dans `$HOME/.docker/manifests` pour recommencer de zéro.
 
-Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. Par exemple, l'image `pause` qui a le manifeste pour toutes les architetures et l'image `pause-amd64` qui est rétrocompatible
+Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. Par exemple, l'image `pause` qui a le manifeste pour toutes les architectures et l'image `pause-amd64` qui est rétrocompatible
 pour d'anciennes configurations ou des fichiers YAML qui auraient codé en dur les images avec des suffixes.
 
 ## Utiliser un registre privé

@@ -75,7 +75,7 @@ Vous pouvez définir une ou plusieurs `topologySpreadConstraint` pour indiquer a
 - **whenUnsatisfiable** indique comment traiter un Pod qui ne satisfait pas les contraintes de propagation :
   - `DoNotSchedule` (défaut) indique au scheduler de ne pas le programmer.
   - `ScheduleAnyway` indique au scheduler de le programmer, tout en priorisant les noeuds minimisant le biais (*skew*).
-- **labelSelector** est utilisé pour touver les Pods correspondants. Les Pods correspondants à ce sélecteur de labels sont comptés pour déterminer le nombre de Pods dans leurs domaines de topologie correspodants. Voir [Sélecteurs de labels](/docs/concepts/overview/working-with-objects/labels/#label-selectors) pour plus de détails.
+- **labelSelector** est utilisé pour trouver les Pods correspondants. Les Pods correspondants à ce sélecteur de labels sont comptés pour déterminer le nombre de Pods dans leurs domaines de topologie correspondants. Voir [Sélecteurs de labels](/docs/concepts/overview/working-with-objects/labels/#label-selectors) pour plus de détails.
 
 Vous pouvez en savoir plus sur ces champ en exécutant `kubectl explain Pod.spec.topologySpreadConstraints`.
 
