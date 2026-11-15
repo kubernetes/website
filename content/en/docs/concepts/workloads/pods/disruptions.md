@@ -141,7 +141,7 @@ The default behavior is to wait for the application pods to become [healthy](/do
 before the drain can proceed.
 
 When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
+[terminated](/docs/concepts/workloads/pods/pod-termination/), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 ## PodDisruptionBudget example {#pdb-example}
@@ -251,7 +251,7 @@ indicates one of the following reasons for the Pod termination:
 : Pod has been marked for {{<glossary_tooltip term_id="api-eviction" text="eviction using the Kubernetes API">}} .
 
 `DeletionByPodGC`
-: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection).
 
 `TerminationByKubelet`
 : Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
@@ -272,7 +272,7 @@ Pod disruption condition will be cleared.
 {{< /note >}}
 
 Along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
-phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)).
 
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
 [Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).
