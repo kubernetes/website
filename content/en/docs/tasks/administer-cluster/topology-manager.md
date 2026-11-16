@@ -137,7 +137,7 @@ alignments produced by the Topology Manager on different occasions:
 * all containers can be and are allocated to a shared set of NUMA nodes.
 
 The total amount of particular resource demanded for the entire pod is calculated according to the
-[effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
+[effective requests/limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
 formula.
 
 Using the `pod` scope in tandem with `single-numa-node` Topology Manager policy is specifically
