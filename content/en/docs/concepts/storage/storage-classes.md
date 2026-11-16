@@ -291,7 +291,7 @@ There are two types of provisioners for vSphere storage classes:
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi).
 For more information on the CSI provisioner, see
-[Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
+[Kubernetes vSphere CSI Driver](https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/container-storage-plugin/3-0/getting-started-with-vmware-vsphere-container-storage-plug-in-3-0.html) and
 [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
