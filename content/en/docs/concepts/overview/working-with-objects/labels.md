@@ -323,7 +323,7 @@ labels:
   tier: frontend
 ```
 
-while the Redis master and replica would have different `tier` labels, and perhaps even an
+while the Redis leader and replica would have different `tier` labels, and perhaps even an
 additional `role` label:
 
 ```yaml
@@ -331,7 +331,7 @@ labels:
   app: guestbook
   app.kubernetes.io/name: guestbook
   tier: backend
-  role: master
+  role: leader
 ```
 
 and
@@ -356,7 +356,7 @@ NAME                           READY  STATUS    RESTARTS   AGE   APP         TIE
 guestbook-fe-4nlpb             1/1    Running   0          1m    guestbook   frontend   <none>
 guestbook-fe-ght6d             1/1    Running   0          1m    guestbook   frontend   <none>
 guestbook-fe-jpy62             1/1    Running   0          1m    guestbook   frontend   <none>
-guestbook-redis-master-5pg3b   1/1    Running   0          1m    guestbook   backend    master
+guestbook-redis-leader-5pg3b   1/1    Running   0          1m    guestbook   backend    leader
 guestbook-redis-replica-2q2yf  1/1    Running   0          1m    guestbook   backend    replica
 guestbook-redis-replica-qgazl  1/1    Running   0          1m    guestbook   backend    replica
 my-nginx-divi2                 1/1    Running   0          29m   nginx       <none>     <none>
