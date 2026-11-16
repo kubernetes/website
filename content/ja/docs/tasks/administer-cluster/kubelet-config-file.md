@@ -46,18 +46,18 @@ evictionHard:
 
 1. `address`: kubeletはIPアドレス`192.168.0.8`でサービスを提供します。
 1. `port`: kubeletはポート`20250`でサービスを提供します。
-1. `serializeImagePulls`: イメージのプルを並列に実行します。
+1. `serializeImagePulls`: イメージの取得を並列に実行します。
 1. `evictionHard`: 次のいずれかの条件に該当すると、kubeletはPodを退避させます。
-   - ノードで利用可能なメモリーが`100MiB`を下回ったとき。
-   - ノードのメインファイルシステムで利用可能な領域が`10%`未満になったとき。
-   - イメージファイルシステムで利用可能な領域が`15%`未満になったとき。
-   - ノードのメインファイルシステムで、inodeの`95%`を超えて使用しているとき。
+   - ノードで利用可能なメモリが100MiBを下回ったとき。
+   - ノードのメインファイルシステムで利用可能な領域が10%未満になったとき。
+   - イメージファイルシステムで利用可能な領域が15%未満になったとき。
+   - ノードのメインファイルシステムで、inodeの95%を超えて使用しているとき。
 
 {{< note >}}
-この例のように、`evictionHard`のパラメーターのうち1つだけデフォルト値を変更すると、ほかのパラメーターのデフォルト値は引き継がれず、`0`に設定されます。
+この例のように、evictionHardのパラメーターのうち1つだけデフォルト値を変更すると、ほかのパラメーターのデフォルト値は引き継がれず、0に設定されます。
 カスタム値を指定する場合は、それぞれのしきい値をすべて指定してください。
-または、kubeletの設定ファイルで`MergeDefaultEvictionSettings`を`true`に設定できます。
-そうすると、いずれかのパラメーターを変更した場合に、ほかのパラメーターは`0`ではなくデフォルト値を引き継ぎます。
+または、kubeletの設定ファイルでMergeDefaultEvictionSettingsをtrueに設定できます。
+そうすると、いずれかのパラメーターを変更した場合に、ほかのパラメーターは0ではなくデフォルト値を引き継ぎます。
 {{< /note >}}
 
 `imagefs`は省略可能なファイルシステムです。
@@ -66,12 +66,13 @@ evictionHard:
 ## 設定ファイルを使ってkubeletプロセスを起動する {#start-a-kubelet-process-configured-via-the-config-file}
 
 {{< note >}}
-`kubeadm`でクラスターを初期化する場合は、クラスターの作成時に`kubeadm init`でkubeletの設定を使用してください。
+kubeadmでクラスターを初期化する場合は、クラスターの作成時に`kubeadm init`でkubeletの設定を使用してください。
 詳細は[kubeadmを使用したクラスター内の各kubeletの設定](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)を参照してください。
 {{< /note >}}
 
 kubeletの設定ファイルへのパスを`--config`フラグに指定して、kubeletを起動します。
 kubeletはこのファイルから設定を読み込みます。
+
 設定ファイルと同じ値を指定するコマンドラインフラグがある場合、その値はコマンドラインフラグで上書きされます。
 これは、コマンドラインAPIとの後方互換性を確保するためです。
 
@@ -93,18 +94,18 @@ Kubernetes v1.28からv1.29では、kubeletプロセスの環境変数`KUBELET_C
 この環境変数の値は問いません。
 
 {{< note >}}
-有効なkubeletドロップイン設定ファイルの拡張子は、`.conf`でなければなりません。
+有効なkubeletドロップイン設定ファイルの拡張子は、`.conf`**でなければなりません**。
 たとえば、`99-kubelet-address.conf`のようにします。
 {{< /note >}}
 
-kubeletは、設定ドロップインディレクトリ内のファイルを、ファイル名全体の英数字順で処理します。
+kubeletは、設定ドロップインディレクトリ内のファイルを、**ファイル名全体**の英数字順で処理します。
 たとえば、`00-kubelet.conf`を最初に処理し、その後に`01-kubelet.conf`で上書きします。
 
 これらのファイルには部分的な設定を記述できますが、設定として無効であってはならず、`apiVersion`と`kind`を含む型メタデータを指定する必要があります。
 検証は、kubelet内部に保存される最終的な設定構造に対してのみ行われます。
 これにより、望ましくない設定を防ぎながら、さまざまなソースからkubelet設定を管理してマージできます。
-
 ただし、設定フィールドのデータ型によって動作が異なる点に注意してください。
+
 kubeletの設定構造では、データ型によってマージ方法が異なります。
 詳細は[リファレンス](/docs/reference/node/kubelet-config-directory-merging/)を参照してください。
 
@@ -122,13 +123,13 @@ kubeletの設定ドロップインディレクトリの仕組みは、`kubeadm`�
 `kubeadm`ツールは設定に対して特定の[パッチ適用方法](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)を使用します。
 一方、kubeletの設定ドロップインファイルで使用できるパッチ適用方法は`replace`のみです。
 
-kubeletは、サフィックスを英数字順に並べてマージ順序を決定し、優先順位の高いファイルに存在するフィールドをすべて置き換えます。
+kubeletは、**サフィックス**を英数字順に並べてマージ順序を決定し、優先順位の高いファイルに存在するフィールドをすべて置き換えます。
 {{< /note >}}
 
 ## kubeletの設定を表示する {#viewing-the-kubelet-configuration}
 
 この機能を使うと設定が複数のファイルに分散する場合があります。
-最終的に有効になっている設定を確認するには、次の手順に従います。
+最終的に有効になっているkubeletの設定を確認するには、次の手順に従います。
 
 1. ターミナルで[`kubectl proxy`](/docs/reference/kubectl/generated/kubectl_proxy/)を使ってプロキシサーバーを起動します。
 
@@ -275,5 +276,5 @@ kubeletは、サフィックスを英数字順に並べてマージ順序を決�
 
 ## {{% heading "whatsnext" %}}
 
-- [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)リファレンスを確認して、kubelet設定についてさらに学びましょう。
-- [リファレンス](/docs/reference/node/kubelet-config-directory-merging)を確認して、kubelet設定のマージについてさらに学びましょう。
+- [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)リファレンスを確認して、kubelet設定についてさらに学ぶ。
+- [リファレンス](/docs/reference/node/kubelet-config-directory-merging)を確認して、kubelet設定のマージについてさらに学ぶ。
