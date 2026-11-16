@@ -46,7 +46,8 @@ remains unscheduled until the scheduler is able to place it.
 The scheduler finds feasible Nodes for a Pod and then runs a set of
 functions to score the feasible Nodes and picks a Node with the highest
 score among the feasible ones to run the Pod. The scheduler then notifies
-the API server about this decision in a process called _binding_.
+the API server about this decision in a process called
+{{< glossary_tooltip text="binding" term_id="binding" >}}.
 
 Factors that need to be taken into account for scheduling decisions include
 individual and collective resource requirements, hardware / software /

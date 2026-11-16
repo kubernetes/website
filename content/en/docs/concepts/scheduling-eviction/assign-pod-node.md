@@ -642,6 +642,8 @@ spec:
 
 The above Pod will only run on the node `kube-01`.
 
+Setting `nodeName` directly at creation binds the Pod immediately to that node, bypassing the scheduler. To learn more about how Pods are bound to Nodes, read [Binding](/docs/concepts/scheduling-eviction/binding/).
+
 ## nominatedNodeName
 
 {{< feature-state feature_gate_name="NominatedNodeNameForExpectation" >}}
@@ -738,3 +740,4 @@ are not available for `podAffinity`.
   resource allocation decisions.
 - Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
 - Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
+- Learn about [Pod-to-Node binding](/docs/concepts/scheduling-eviction/binding/).

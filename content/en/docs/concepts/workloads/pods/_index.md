@@ -267,6 +267,7 @@ The above update rules apply to regular pod updates, but other pod fields can be
   This is typically only used by the Kubelet and other system controllers.
 - **Binding:** The `binding` subresource allows setting the pod's `spec.nodeName` via a `Binding` request.
   This is typically only used by the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
+  See [Binding](/docs/concepts/scheduling-eviction/binding/) for more details.
 
 ### Pod generation
 

@@ -32,7 +32,7 @@ Each attempt to schedule one Pod is split into two phases, the
 
 ### Scheduling cycle & binding cycle
 
-The scheduling cycle selects a node for the Pod, and the binding cycle applies
+The scheduling cycle selects a node for the Pod, and the [binding cycle](/docs/concepts/scheduling-eviction/binding/#the-binding-cycle-in-kube-scheduler) applies
 that decision to the cluster. Together, a scheduling cycle and binding cycle are
 referred to as a "scheduling context".
 
@@ -239,7 +239,8 @@ returned to the scheduling queue.
 
 ### Bind
 
-These plugins are used to bind a Pod to a Node. Bind plugins will not be called
+These plugins are used to bind a Pod to a Node by committing the assignment to the API server
+(see [Pod-to-Node binding](/docs/concepts/scheduling-eviction/binding/)). Bind plugins will not be called
 until all PreBind plugins have completed. Each bind plugin is called in the
 configured order. A bind plugin may choose whether or not to handle the given
 Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
