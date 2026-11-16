@@ -39,14 +39,14 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
-- [emptyDir](/docs/concepts/storage/volumes/#emptydir): empty at Pod startup,
+- [emptyDir](/docs/reference/storage/volume-types/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
-- [configMap](/docs/concepts/storage/volumes/#configmap),
-  [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
-  [secret](/docs/concepts/storage/volumes/#secret): inject different
+- [configMap](/docs/reference/storage/volume-types/#configmap),
+  [downwardAPI](/docs/reference/storage/volume-types/#downwardapi),
+  [secret](/docs/reference/storage/volume-types/#secret): inject different
   kinds of Kubernetes data into a Pod
-- [image](/docs/concepts/storage/volumes/#image): allows mounting container image files or artifacts,
+- [image](/docs/reference/storage/volume-types/#image): allows mounting container image files or artifacts,
   directly to a Pod.
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
