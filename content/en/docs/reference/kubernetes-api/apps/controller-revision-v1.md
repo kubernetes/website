@@ -40,7 +40,7 @@ ControllerRevision implements an immutable snapshot of state data. Clients are r
       <td>APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</td>
     </tr>
     <tr>
-      <td><code>data</code><br/><em></em></td>
+      <td><code>data</code>&nbsp;<strong>*</strong><br/><em></em></td>
       <td>Data is the serialized representation of the state.</td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@ ControllerRevision implements an immutable snapshot of state data. Clients are r
       <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>revision</code>&nbsp;<strong>*</strong><br/><em>integer</em></td>
+      <td><code>revision</code><br/><em>integer</em></td>
       <td>Revision indicates the revision of the state represented by Data.</td>
     </tr>
   </tbody>
@@ -1151,6 +1151,8 @@ GET /apis/apps/v1/watch/controllerrevisions
     </tr>
   </tbody>
 </table>
+
+
 
 
 

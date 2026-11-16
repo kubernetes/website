@@ -11,6 +11,7 @@ reviewers:
 - jpbetz
 - enj
 - nilekhc
+- michaelasp
 content_type: task
 min-kubernetes-server-version: v1.30
 weight: 60
@@ -54,22 +55,13 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-Ensure that your cluster has the `StorageVersionMigrator`
+The `StorageVersionMigrator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)
-enabled. You will need control plane administrator access to make that change.
-
-Enable storage version migration REST API by setting runtime config
-`storagemigration.k8s.io/v1beta1` to `true` for the API server. For more information on
-how to do that,
-read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
+and `storagemigration.k8s.io/v1` REST API are enabled by default in all clusters.
 -->
-确保你的集群启用了 `StorageVersionMigrator`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)。
-你需要有控制平面管理员权限才能执行此项变更。
-
-在 API 服务器上将运行时配置 `storagemigration.k8s.io/v1beta1` 设为
-`true`，启用存储版本迁移 REST API。
-有关如何执行此操作的更多信息，请阅读[启用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
+`StorageVersionMigrator`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)和
+`storagemigration.k8s.io/v1` REST API 在所有集群中默认启用。
 
 <!-- steps -->
 
@@ -101,7 +93,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   Make sure to enable automatic reload of encryption
   configuration file by setting `--encryption-provider-config-automatic-reload` to true.
   -->
-  
+
   确保通过将 `--encryption-provider-config-automatic-reload` 设置为 true，
   允许自动重新加载加密配置文件。
 
@@ -120,7 +112,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Update the encryption configuration file as follows to rotate the encryption key.
 -->
-- [验证](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)该
+- [验证](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)此
   Secret 对象的序列化数据带有前缀 `k8s:enc:aescbc:v1:key1`。
 
 - 按照以下方式更新加密配置文件，以轮换加密密钥。
@@ -148,13 +140,14 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
 -->
-- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
+- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2`
+  进行重新加密，你将使用**存储版本迁移**。
 
 - 创建以下名为 `migrate-secret.yaml` 的 StorageVersionMigration 清单：
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
   spec:
@@ -166,7 +159,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   <!--
   Create the object using `kubectl` as follows:
   -->
-  
+
   使用以下 `kubectl` 命令创建对象：
 
   ```shell
@@ -194,7 +187,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: secrets-migration
     uid: 628f6922-a9cb-4514-b076-12d3c178967c
@@ -289,7 +282,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   The stored version at this point should be `v1`, confirm this by running:
   -->
-  
+
   此时存储的版本应当是 `v1`，运行以下命令来确认这一点：
 
   ```shell
@@ -299,7 +292,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   Create CRD using kubectl:
   -->
-  
+
   使用 kubectl 创建 CRD：
 
   ```shell
@@ -322,6 +315,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   Create CR using kubectl:
   -->
+
   使用 kubectl 创建 CR：
 
   ```shell
@@ -340,7 +334,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
-  
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
@@ -398,7 +392,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   The stored version now should be `v2`, confirm this:
   -->
-  
+
   现在存储的版本应是 `v2`，运行以下命令来确认这一点：
 
   ```shell
@@ -408,7 +402,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   Update CRD using kubectl:
   -->
-  
+
   使用 kubectl 更新 CRD：
 
   ```shell
@@ -449,7 +443,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
-  
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
@@ -459,7 +453,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
   spec:
@@ -471,7 +465,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   Create the object using _kubectl_ as follows:
   -->
-  
+
   使用如下 `kubectl` 命令创建此对象：
 
   ```shell
@@ -494,12 +488,12 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   The output is similar to:
   -->
-  
+
   输出类似于：
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1beta1
+  apiVersion: storagemigration.k8s.io/v1
   metadata:
     name: crdsvm
     uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
@@ -534,7 +528,7 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
   <!--
   where `[...]` contains the additional arguments for connecting to the etcd server.
   -->
-  
+
   其中 `[...]` 包含连接到 etcd 服务器的额外参数。
 
 <!--
@@ -580,3 +574,4 @@ CR，并通过合适的 Webhook 执行必要的模式转换。
     storedVersions:
       - v2
   ```
+  

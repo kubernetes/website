@@ -383,14 +383,6 @@ kubectl [flags]
 </td>
 </tr>
 
-<tr>
-<td colspan="2">KUBECTL_KYAML</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kubectl is capable of producing Kubernetes-specific dialect of YAML output format.
-</td>
-</tr>
-
 </tbody>
 </table>
 

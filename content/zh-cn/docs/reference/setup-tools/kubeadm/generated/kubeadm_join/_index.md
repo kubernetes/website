@@ -116,18 +116,20 @@ control-plane-join      Join a machine as a control plane instance
 wait-control-plane      Wait for the control plane to start
 ```
 -->
-1. preflight：运行接入前检查
-2. control-plane-prepare：准备用作控制平面的机器
-   1. download-certs：从 kubeadm-certs Secret 下载控制平面节点之间共享的证书
-   2. certs：为新的控制平面组件生成证书
-   3. kubeconfig：为新的控制平面组件生成 kubeconfig
-   4. control-plane：生成新控制平面组件的清单
-3. kubelet-start：写入 kubelet 设置、证书并（重新）启动 kubelet
-4. etcd-join：将 etcd 加入控制平面节点
-5. kubelet-wait-bootstrap：等待 kubelet 完成引导过程
-6. control-plane-join：将机器加入为控制平面实例
-   1. etcd：添加新的本地 etcd 成员
-7. wait-control-plane：等待控制平面启动
+```shell
+preflight               运行接入前检查
+control-plane-prepare   准备用作控制平面的机器
+  /download-certs         从 kubeadm-certs Secret 下载控制平面节点之间共享的证书
+  /certs                  为新的控制平面组件生成证书
+  /kubeconfig             为新的控制平面组件生成 kubeconfig
+  /control-plane          生成新控制平面组件的清单
+kubelet-start           写入 kubelet 设置、证书并（重新）启动 kubelet
+etcd-join               将 etcd 加入控制平面节点
+kubelet-wait-bootstrap  等待 kubelet 完成引导过程
+control-plane-join      将机器加入为控制平面实例
+  /mark-control-plane     标记节点为控制平面
+wait-control-plane      等待控制平面启动
+```
 
 ```shell
 kubeadm join [api-server-endpoint] [flags]
@@ -148,7 +150,9 @@ kubeadm join [api-server-endpoint] [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on.
@@ -169,7 +173,8 @@ If not set the default network interface will be used.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If the node should host a new control plane instance, the port for the API Server to bind to.
@@ -183,7 +188,8 @@ If the node should host a new control plane instance, the port for the API Serve
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use this key to decrypt the certificate secrets uploaded by init. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
@@ -198,7 +204,8 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -212,7 +219,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--control-plane</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Create a new control plane instance on this node
@@ -226,7 +234,8 @@ Create a new control plane instance on this node
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -243,7 +252,8 @@ use this option only if you have more than one CRI installed or if you have non-
 <td colspan="2">--discovery-file string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -258,7 +268,8 @@ For file-based discovery, a file or URL from which to load cluster information.
 <td colspan="2">--discovery-token string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -273,13 +284,14 @@ For token-based discovery, the token used to validate cluster information fetche
 <td colspan="2">--discovery-token-ca-cert-hash stringSlice</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").
 -->
-对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式："&lt;type&gt;:&lt;value&gt;")。
+对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配（格式："&lt;type&gt;:&lt;value&gt;"）。
 </p>
 </td>
 </tr>
@@ -288,7 +300,8 @@ For token-based discovery, validate that the root CA public key matches this has
 <td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -303,7 +316,8 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!-- 
@@ -318,7 +332,8 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -333,7 +348,8 @@ join 操作的帮助命令。
 <td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -349,7 +365,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <td colspan="2">--node-name string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -364,18 +381,19 @@ Specify the node name.
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--  
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;, &quot;kubeproxydaemonset&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
-例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
-"target" 可以是 “kube-apiserver”、“kube-controller-manager”、“kube-scheduler”、“etcd”、“kubeletconfiguration” 之一，
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。"extension" 必须为 "json" 或 "yaml"。
-"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
+例如，&quot;kube-apiserver0+merge.yaml&quot; 或仅仅是 &quot;etcd.json&quot;。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot;、&quot;corednsdeployment&quot;、&quot;kubeproxydaemonset&quot; 之一，
+&quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或 &quot;json&quot; 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 &quot;patchtype&quot; 为 &quot;strategic&quot;。&quot;extension&quot; 必须为 &quot;json&quot; 或 &quot;yaml&quot;。
+&quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </p>
 </td>
 </tr>
@@ -384,7 +402,8 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -399,7 +418,8 @@ List of phases to be skipped
 <td colspan="2">--tls-bootstrap-token string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -414,7 +434,8 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
@@ -444,7 +465,8 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td>
+<td>
+</td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--

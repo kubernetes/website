@@ -282,7 +282,7 @@ Kubelet puede medir la cantidad de almacenamiento local que se está usando. Est
 
 - el `LocalStorageCapacityIsolation`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  está habilitado (esta caracterísitca está habilitada por defecto), y
+  está habilitado (esta característica está habilitada por defecto), y
 - has configurado el nodo usando una de las configuraciones soportadas
   para almacenamiento local efímero..
 
@@ -535,7 +535,7 @@ recurso extendido a nivel de clúster "example.com/foo" es mantenido
 por el extensor del scheduler.
 
 - El scheduler envía un Pod al extensor del scheduler solo si la solicitud del Pod "example.com/foo".
-- El campo `ignoredByScheduler` especifica que el schduler no compruba el recurso
+- El campo `ignoredByScheduler` especifica que el scheduler no comprueba el recurso
   "example.com/foo"  en su predicado `PodFitsResources`.
 
 ```json

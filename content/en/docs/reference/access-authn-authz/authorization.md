@@ -104,9 +104,11 @@ Kubernetes sometimes checks authorization for additional permissions using speci
   * **approve** verb for CertificateSigningRequests, and **update** for revisions to existing approvals
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * **bind** and **escalate** verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
-* [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+* [Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)
   * Synthetic subresources such as `resourceclaims/binding` and `resourceclaims/driver` in the `resource.k8s.io` API group.
   * Node-aware verbs such as `associated-node:update`, `associated-node:patch`, `arbitrary-node:update`, and `arbitrary-node:patch` for DRA driver `resourceclaims/status` updates.
+* [Force deletion of corrupt resources](/docs/reference/using-api/api-concepts/#force-deletion)
+  * **unsafe-delete-ignore-read-errors** verb on the resource, checked in addition to the **delete** verb.
 
 ## Authorization context
 
@@ -355,7 +357,7 @@ or deny a request.
 
 You cannot combine the `--authorization-mode` command line argument with the
 `--authorization-config` command line argument used for
-[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
+[configuring authorization using a local file](#using-configuration-file-for-authorization).
 
 For more information on command line arguments to the API server, read the
 [`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).

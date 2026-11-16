@@ -126,5 +126,5 @@ Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 -->
 最后，如果你的集群启用了 RBAC，请创建相关的 RBAC 规则：
 
-{{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
+{{< code_sample file="admin/konnectivity/konnectivity-rbac.yaml" >}}
 

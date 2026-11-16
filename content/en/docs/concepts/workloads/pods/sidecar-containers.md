@@ -74,7 +74,7 @@ next init container from the ordered `.spec.initContainers` list.
 That status either becomes true because there is a process running in the
 container and no startup probe defined, or as a result of its `startupProbe` succeeding.
 
-Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-termination/#termination-with-sidecars),
 the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
 The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
 This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
@@ -117,7 +117,7 @@ providing additional services.
 Sidecar containers run concurrently with the main application container. They are active
 throughout the lifecycle of the pod and can be started and stopped independently of the
 main container. Unlike [init containers](/docs/concepts/workloads/pods/init-containers/),
-sidecar containers support [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+sidecar containers support [probes](/docs/concepts/workloads/pods/probes/#types-of-probe) to control their lifecycle.
 
 Sidecar containers can interact directly with the main application containers, because
 like init containers they always share the same network, and can optionally also share
@@ -130,42 +130,27 @@ exchange messages with the app container in a Pod. Any data passing is one-way
 Changing the image of a sidecar container will not cause the Pod to restart, but will
 trigger a container restart.
 
-## Resource sharing within containers
+## Resource requests and limits {#resource-sharing-within-containers}
 
-{{< comment >}}
-This section is also present in the [init containers](/docs/concepts/workloads/pods/init-containers/) page.
-If you're editing this section, change both places.
-{{< /comment >}}
+The scheduler places a Pod on a node based on how much of each resource the Pod
+requests as a whole, so the requests that you set on sidecar containers can affect
+whether and where the Pod can be scheduled.
 
-Given the order of execution for init, sidecar and app containers, the following rules
-for resource usage apply:
+Sidecar containers keep running alongside the app containers, so Kubernetes adds
+their requests to those of the app containers.
+When an init container starts, the sidecar containers listed before it in the
+`initContainers` field are already running, so Kubernetes counts their requests
+together with the request of that init container.
+As a result, the order of sidecar containers and init containers in the
+`initContainers` field can change the request of the Pod.
 
-* The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*. If any resource has no
-  resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the sum of
-[pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
-  * the sum of all non-init containers(app and sidecar containers) request/limit for a
-  resource
-  * the effective init request/limit for a resource
-* Scheduling is done based on effective requests/limits, which means
-  init containers can reserve resources for initialization that are not used
-  during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for all init, sidecar and app containers alike.
-
-Quota and limits are applied based on the effective Pod request and
-limit.
-
-### Sidecar containers and Linux cgroups {#cgroups}
-
-On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
-request and limit, the same as the scheduler.
+See [Effective Pod requests and limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
+to learn how Kubernetes calculates the requests and limits of a Pod, with examples.
 
 ## {{% heading "whatsnext" %}}
 
 * Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
-* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* Learn about the [types of probes](/docs/concepts/workloads/pods/probes/#types-of-probe): liveness, readiness, startup probe.
 * Learn about [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/).

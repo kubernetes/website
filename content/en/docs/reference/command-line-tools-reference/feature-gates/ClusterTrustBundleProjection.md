@@ -13,5 +13,9 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.37"
 ---
 [`clusterTrustBundle` projected volume sources](/docs/concepts/storage/projected-volumes#clustertrustbundle).

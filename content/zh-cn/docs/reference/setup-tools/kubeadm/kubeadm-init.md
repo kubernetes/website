@@ -121,19 +121,10 @@ following steps:
 
 <!--
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
-   In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
 8. 通过 API 服务器安装一个 DNS 服务器（CoreDNS）和 kube-proxy 附加组件。
-   在 Kubernetes v1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
-
-   {{< warning >}}
-   <!--
-   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
-   -->
-   从 v1.18 开始，在 kubeadm 中使用 kube-dns 的支持已被废弃，并已在 v1.21 版本中移除。
-   {{< /warning >}}
 
 <!--
 ### Using init phases with kubeadm {#init-phases}
@@ -300,15 +291,15 @@ List of feature gates:
 
 <!--
 {{< table caption="kubeadm feature gates" >}}
-Feature | Default | Alpha | Beta | GA
-:-------|:--------|:------|:-----|:----
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
+ Feature | Default | Alpha | Beta | GA | Deprecated
+ :-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
-特性 | 默认值 | Alpha | Beta | GA
-:-------|:--------|:------|:-----|:----
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
+特性 | 默认值 | Alpha | Beta | GA  |已弃用
+:-------|:--------|:------|:-----|:----|:----
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 
 {{< note >}}
@@ -324,52 +315,6 @@ Feature gate descriptions:
 特性门控的描述：
 
 <!--
-`NodeLocalCRISocket`
-: With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
-  `/var/lib/kubelet/instance-config.yaml` instead of reading/writing it from/to the annotation
-  `kubeadm.alpha.kubernetes.io/cri-socket` on the Node object. The new file is applied as an instance
-  configuration patch, before any other user managed patches are applied when the `--patches` flag
-  is used. It contains a single field `containerRuntimeEndpoint` from the
-  [KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
-  is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
-  kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
--->
-`NodeLocalCRISocket`
-: 启用此特性门控后，kubeadm 将使用 `/var/lib/kubelet/instance-config.yaml` 文件读写每个节点的 CRI 套接字，
-  不再是从 Node 对象上的 `kubeadm.alpha.kubernetes.io/cri-socket` 注解读取 CRI 套接字，
-  也不再将 CRI 套接字写入到 Node 对象的 `kubeadm.alpha.kubernetes.io/cri-socket` 注解。
-  这个新的文件将作为实例配置补丁被应用，之后才会应用其他通过 `--patches` 标志设置的用户管理的补丁。
-  这个新的文件仅包含源自
-  [KubeletConfiguration 文件格式](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的字段
-  `containerRuntimeEndpoint`。如果升级期间此特性门控被启用，但 `/var/lib/kubelet/instance-config.yaml`
-  文件还不存在，kubeadm 将尝试从 `/var/lib/kubelet/kubeadm-flags.env` 文件读取 CRI 套接字值。
-
-<!--
-List of deprecated feature gates:
--->
-已弃用特性门控的列表：
-
-<!--
-{{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default | Alpha | Beta | GA | Deprecated
-:-------|:--------|:------|:-----|:---|:----------
-`PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
-`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
-{{< /table >}}
--->
-{{< table caption="kubeadm 弃用的特性门控" >}}
-特性 | 默认值 | Alpha | Beta | GA | 弃用
-:-------|:--------|:------|:-----|:---|:----------
-`PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
-`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
-{{< /table >}}
-
-<!--
-Feature gate descriptions:
--->
-特性门控描述：
-
-<!--
 `ControlPlaneKubeletLocalMode`
 : With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
   to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
@@ -379,23 +324,6 @@ Feature gate descriptions:
 : 启用此特性门控后，当加入新的控制平面节点时，
   kubeadm 将配置 kubelet 连接到本地 kube-apiserver。
   这将确保在滚动升级期间不会违反版本偏差策略。
-
-<!--
-`PublicKeysECDSA`
-: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
-  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
-  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
-  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
-  functionality available in kubeadm v1beta4.
--->
-`PublicKeysECDSA`
-: 可用于创建一个使用 ECDSA 证书而非默认 RSA 算法的集群。
-  支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
-  但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
-  在 v1.31 之前的 Kubernetes 版本中有一个 Bug，即使你启用了 `PublicKeysECDSA` 特性门控，
-  所生成的 kubeconfig 文件中的密钥仍然使用 RSA 设置。
-  此特性门控现已弃用，替换为 kubeadm v1beta4 中可用的 `encryptionAlgorithm` 功能。
 
 <!--
 `RootlessControlPlane`
@@ -422,6 +350,8 @@ Feature | Alpha | Beta | GA | Removed
 `ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`NodeLocalCRISocket` | 1.32 | 1.34 | 1.36 | 1.37  
+`PublicKeysECDSA` | 1.19 | - | - | 1.37  
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 `WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
@@ -433,6 +363,8 @@ Feature | Alpha | Beta | GA | Removed
 `ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`NodeLocalCRISocket` | 1.32 | 1.34 | 1.36 | 1.37  
+`PublicKeysECDSA` | 1.19 | - | - | 1.37  
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 `WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
@@ -461,6 +393,44 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 : 在 IP 双栈特性处于开发过程中时，此标志有助于配置组件的双栈支持。有关 Kubernetes
   双栈支持的更多详细信息，请参阅
   [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
+
+<!--
+`NodeLocalCRISocket`
+: With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
+  `/var/lib/kubelet/instance-config.yaml` instead of reading/writing it from/to the annotation
+  `kubeadm.alpha.kubernetes.io/cri-socket` on the Node object. The new file is applied as an instance
+  configuration patch, before any other user managed patches are applied when the `--patches` flag
+  is used. It contains a single field `containerRuntimeEndpoint` from the
+  [KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
+  is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
+  kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
+-->
+`NodeLocalCRISocket`
+: 启用此特性门控后，kubeadm 将使用 `/var/lib/kubelet/instance-config.yaml` 文件读写每个节点的 CRI 套接字，
+  不再是从 Node 对象上的 `kubeadm.alpha.kubernetes.io/cri-socket` 注解读取 CRI 套接字，
+  也不再将 CRI 套接字写入到 Node 对象的 `kubeadm.alpha.kubernetes.io/cri-socket` 注解。
+  这个新的文件将作为实例配置补丁被应用，之后才会应用其他通过 `--patches` 标志设置的用户管理的补丁。
+  这个新的文件仅包含源自
+  [KubeletConfiguration 文件格式](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的字段
+  `containerRuntimeEndpoint`。如果升级期间此特性门控被启用，但 `/var/lib/kubelet/instance-config.yaml`
+  文件还不存在，kubeadm 将尝试从 `/var/lib/kubelet/kubeadm-flags.env` 文件读取 CRI 套接字值。
+
+<!--
+`PublicKeysECDSA`
+: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
+  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
+  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
+  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
+  functionality available in kubeadm v1beta4.
+-->
+`PublicKeysECDSA`
+: 可用于创建一个使用 ECDSA 证书而非默认 RSA 算法的集群。
+  支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
+  但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
+  在 v1.31 之前的 Kubernetes 版本中有一个 Bug，即使你启用了 `PublicKeysECDSA` 特性门控，
+  所生成的 kubeconfig 文件中的密钥仍然使用 RSA 设置。
+  此特性门控现已弃用，替换为 kubeadm v1beta4 中可用的 `encryptionAlgorithm` 功能。
 
 <!--
 `UnversionedKubeletConfigMap`

@@ -75,6 +75,10 @@ containers against the desired state. During this period of time, the following 
   [kubernetes/kubernetes#123859](https://github.com/kubernetes/kubernetes/issues/123859)
   for the discussion and details.
 
+* If the kubelet configuration is updated, restarting the kubelet does not dynamically
+  reapply most configuration settings to already running Pods. Most updated settings
+  apply only to newly created Pods.
+
 Overall, in a healthy cluster a kubelet restart does not break running
 workloads. On large clusters with overcommitted nodes, however, the
 re-initialization load and the paused garbage collection and eviction can
@@ -178,7 +182,7 @@ When the node comes back:
 * Local storage tied to the lifetime of a container or Pod can be lost. A
   container's writable layer is discarded when the container is recreated, so
   data written there does not survive the reboot. An
-  [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) volume lasts as long as
+  [`emptyDir`](/docs/reference/storage/volume-types/#emptydir) volume lasts as long as
   the Pod stays on the node: a memory-backed `emptyDir` (`medium: Memory`) is
   always lost on reboot because it is held in RAM, while a disk-backed `emptyDir`
   survives a reboot as long as the Pod is not evicted or deleted, and is removed

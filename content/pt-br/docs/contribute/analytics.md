@@ -3,7 +3,7 @@ title: Visualizando Analytics do Site
 content_type: concept
 weight: 120
 card:
-  name: contribuir
+  name: contribute
   weight: 100
 ---
 

@@ -1,7 +1,7 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes 
+title: Documentação do Kubernetes
 noedit: true
 layout: docsportal_home
 body_class: docs-portal
@@ -12,9 +12,11 @@ hide_feedback: true
 menu:
   main:
     title: "Documentação"
-    weight: 20
+    weight: 10
+description: >
+  O Kubernetes é uma engine de orquestração de contêineres de código aberto para automatizar a implantação, escalonamento e gerenciamento de aplicações conteinerizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation.
 overview: >
-  O Kubernetes é uma engine de orquestração de contêineres Open Source utilizado para automatizar a implantação, dimensionamento e gerenciamento de aplicativos em contêiner. O projeto é hospedado por the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  O Kubernetes é uma engine de orquestração de contêineres de código aberto para automatizar a implantação, escalonamento e gerenciamento de aplicações conteinerizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
   title: "Entenda o básico"
@@ -33,7 +35,7 @@ cards:
   button_path: "/docs/setup"
 - name: tasks
   title: "Aprenda a usar o Kubernetes"
-  description: "Procure tarefas comuns e como realizá-las usando uma pequena seqüência de etapas."
+  description: "Procure tarefas comuns e como realizá-las usando uma pequena sequência de etapas."
   button: "Visualizar tarefas"
   button_path: "/docs/tasks"
 - name: reference
@@ -42,14 +44,23 @@ cards:
   button: Visualizar referência
   button_path: /docs/reference
 - name: contribute
-  title: Contribua para a documentação
-  description: Qualquer um pode contribuir, quer você seja novo no projeto ou esteja há um bom tempo.
-  button: Contribua para a Documentação
-  button_path: /docs/contribute
-- name: download
+  title: Contribua para o Kubernetes
+  description: Descubra como você pode ajudar a tornar o Kubernetes melhor.
+  button: Veja Formas de Contribuir
+  button_path: "/docs/contribute"
+- name: training
+  title: "Treinamento"
+  description: "Seja certificado em Kubernetes e torne seus projetos de cloud native bem-sucedidos!"
+  button: "Ver treinamentos"
+  button_path: "/training"
+- name: Download
   title: Download Kubernetes
-  description: Se você estiver instalando o Kubernetes ou atualizando para a versão mais recente, consulte as notas de versão atuais.
+  description: Instale o Kubernetes ou atualize-o para a versão mais recente.
+  button: "Faça download do Kubernetes"
+  button_path: "/releases/download"
 - name: about
   title: Sobre a documentação
   description: Este site contém documentação para a versão atual e as 4 versões anteriores do Kubernetes.
+  button: "Ver versões disponíveis"
+  button_path: "/docs/home/supported-doc-versions"
 ---

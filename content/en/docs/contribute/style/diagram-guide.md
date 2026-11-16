@@ -691,7 +691,7 @@ The following lists several items to consider when adding diagram captions:
   and the number must be unique for each diagram in your documentation page.
   Add a period after the number.  
 * Add your diagram caption text after the `Figure NUMBER.` on the same line.
-  You must puncuate the caption with a period. Keep the caption text short.
+  You must punctuate the caption with a period. Keep the caption text short.
 * Position your diagram caption __BELOW__ your diagram.
 
 **Diagram Referral**

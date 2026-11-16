@@ -55,7 +55,7 @@ Kubernetesでは、{{< glossary_tooltip text="Service" term_id="service" >}}は�
 
 以下のServiceは、Cassandra Podとクラスター内のクライアント間のDNSルックアップに使われます:
 
-{{% codenew file="application/cassandra/cassandra-service.yaml" %}}
+{{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
 `cassandra-service.yaml`ファイルから、Cassandra StatefulSetのすべてのメンバーをトラッキングするServiceを作成します。
 
@@ -91,7 +91,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 クラウドを使用している場合、StatefulSetを更新してください。
 {{< /note >}}
 
-{{% codenew file="application/cassandra/cassandra-statefulset.yaml" %}}
+{{% code_sample file="application/cassandra/cassandra-statefulset.yaml" %}}
 
 `cassandra-statefulset.yaml`ファイルから、CassandraのStatefulSetを作成します:
 
@@ -246,7 +246,7 @@ StatefulSetに関連するすべてのリソースを自動的に破棄するよ
 
 ## Cassandraコンテナの環境変数
 
-このチュートリアルのPodでは、Googleの[コンテナレジストリ](https://cloud.google.com/container-registry/docs/)の[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)イメージを使用しました。このDockerイメージは[debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)をベースにしており、OpenJDK 8が含まれています。
+このチュートリアルのPodでは、Googleの[コンテナレジストリ](https://cloud.google.com/container-registry/docs/)の[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile)イメージを使用しました。このDockerイメージは[debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)をベースにしており、OpenJDK 8が含まれています。
 
 このイメージには、Apache Debianリポジトリの標準のCassandraインストールが含まれます。
 環境変数を利用すると、`cassandra.yaml`に挿入された値を変更できます。
@@ -263,5 +263,5 @@ StatefulSetに関連するすべてのリソースを自動的に破棄するよ
 
 
 * [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
-* [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
-* カスタムの[Seed Providerの設定](https://git.k8s.io/examples/cassandra/java/README.md)についてもっと学ぶ。
+* [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
+* カスタムの[Seed Providerの設定](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)についてもっと学ぶ。

@@ -166,7 +166,7 @@ by checking the component's metric endpoint for `kubernetes_feature_enabled`.
 ### Dynamic Resource Allocation graduates to alpha
 
 [Dynamic Resource
-Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/)
 is a [new feature](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) 
 that puts resource scheduling in the hands of third-party developers: it offers an
 alternative to the limited "countable" interface for requesting access to resources

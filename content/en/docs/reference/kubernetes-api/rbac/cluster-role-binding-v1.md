@@ -45,15 +45,15 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata.</td>
+      <td>metadata is the standard object's metadata.</td>
     </tr>
     <tr>
       <td><code>roleRef</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "../definitions/role-ref-v1-rbac#RoleRef" >}}">RoleRef</a></em></td>
-      <td>RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.</td>
+      <td>roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.</td>
     </tr>
     <tr>
       <td><code>subjects</code><br/><em><a href="{{< ref "../flowcontrol/flow-schema-v1#Subject" >}}">Subject array</a></em></td>
-      <td>Subjects holds references to the objects the role applies to.</td>
+      <td>subjects holds references to the objects the role applies to.</td>
     </tr>
   </tbody>
 </table>
@@ -890,6 +890,8 @@ GET /apis/rbac.authorization.k8s.io/v1/watch/clusterrolebindings
     </tr>
   </tbody>
 </table>
+
+
 
 
 

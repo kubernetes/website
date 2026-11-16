@@ -143,8 +143,6 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-  configure it properly, see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
   and investigating each container by running `docker logs`. For other container runtime, see
   [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
@@ -152,8 +150,6 @@ This may be caused by a number of problems. The most common are:
 这可能是由许多问题引起的。最常见的是：
 
 - 网络连接问题。在继续之前，请检查你的计算机是否具有全部联通的网络连接。
-- 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
-  请参阅[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs`
   命令来检视每个容器的运行日志。
   对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
@@ -382,7 +378,8 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
    `client-certificate-data` and `client-key-data` with:
 -->
-5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data` 和 `client-key-data` 替换为：
+5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data`
+   和 `client-key-data` 替换为：
 
    ```yaml
    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
@@ -450,7 +447,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will
   not display the offending alias IP address. Alternatively an API endpoint specific to
-  DigitalOcean allows to query for the anchor IP from the droplet:
+  DigitalOcean allows you to query for the anchor IP from the droplet:
 -->
 - 这或许是由于 Kubernetes 使用的 IP 无法与看似相同的子网上的其他 IP 进行通信的缘故，
   可能是由机器提供商的政策所导致的。
@@ -458,7 +455,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP。
 
   使用 `ip addr show` 命令代替 `ifconfig` 命令去检查这种情况，因为 `ifconfig` 命令
-  不会显示有问题的别名 IP 地址。或者指定的 DigitalOcean 的 API 端口允许从 droplet 中
+  不会显示有问题的别名 IP 地址。或者指定的 DigitalOcean 的 API 端口允许你从 droplet 中
   查询 anchor IP：
 
   ```sh

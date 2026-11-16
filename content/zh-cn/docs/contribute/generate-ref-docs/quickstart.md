@@ -140,7 +140,10 @@ determines the version of the release.
 
 <!--
 The `update-imported-docs.py` script performs the following steps:
+-->
+脚本 `update-imported-docs.py` 执行以下步骤：
 
+<!--
 1. Clones the related repositories specified in a configuration file. For the
    purpose of generating reference docs, the repository that is cloned by
    default is `kubernetes-sigs/reference-docs`.
@@ -151,8 +154,6 @@ The `update-imported-docs.py` script performs the following steps:
 1. Updates `kubectl` command links from `kubectl`.md to the refer to
    the sections in the `kubectl` command reference.
 -->
-脚本 `update-imported-docs.py` 执行以下步骤：
-
 1. 克隆配置文件中所指定的相关仓库。就生成参考文档这一目的而言，要克隆的仓库默认为
    `kubernetes-sigs/reference-docs`。
 1. 在所克隆的仓库下运行命令，准备文档生成器，之后生成 HTML 和 Markdown 文件。
@@ -163,11 +164,11 @@ The `update-imported-docs.py` script performs the following steps:
 
 <!--
 When the generated files are in your local clone of the `<web-base>`
-repository, you can submit them in a [pull request](/docs/contribute/start/)
+repository, you can submit them in a [pull request](/docs/contribute/new-content/open-a-pr/)
 to `<web-base>`.
 -->
 当所生成的文件已经被放到 `<web-base>` 目录下，你就可以将其提交到你的派生副本中，
-并基于所作提交发起[拉取请求（PR）](/docs/contribute/start/)到 kubernetes/website 仓库。
+并基于所作提交发起[拉取请求（PR）](/zh-cn/docs/contribute/new-content/open-a-pr/)到 kubernetes/website 仓库。
 
 <!--
 ## Configuration file format
@@ -221,8 +222,8 @@ If you encounter build issues, contact the SIG-Docs team on the
 在不了解参考文档构造命令的情况下，不要更改 `generate-command` 字段的内容。
 你一般不需要更新 `reference.yml` 文件。不过也有时候上游的源代码发生变化，
 导致需要对配置文件进行更改（例如：Golang 版本依赖或者第三方库发生变化）。
-如果你遇到类似问题，请在 [Kubernetes Slack 的 #sig-docs 频道](https://kubernetes.slack.com)
-联系 SIG-Docs 团队。
+如果你遇到类似问题，请在 [Kubernetes Slack 的 #sig-docs 频道](https://kubernetes.slack.com)联系
+SIG-Docs 团队。
 
 {{< note >}}
 <!--
@@ -283,7 +284,9 @@ cd <web-base>/update-imported-docs
 ./update-imported-docs.py <configuration-file.yml> <release-version>
 ```
 
-<!-- For example: -->
+<!--
+For example:
+-->
 例如：
 
 ```shell
@@ -340,7 +343,9 @@ content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm.md
 content/en/docs/reference/kubectl/kubectl.md
 ```
 
-<!-- ### Generated kubectl command reference files -->
+<!--
+### Generated kubectl command reference files
+-->
 ### 生成的 kubectl 命令参考文件
 
 ```
@@ -356,7 +361,9 @@ static/docs/reference/generated/kubectl/node_modules/jquery/dist/jquery.min.js
 static/docs/reference/generated/kubectl/css/font-awesome.min.css
 ```
 
-<!-- ### Generated Kubernetes API reference directories and files -->
+<!--
+### Generated Kubernetes API reference directories and files
+-->
 ### 生成的 Kubernetes API 参考目录与文件
 
 ```
@@ -377,29 +384,38 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fon
 
 <!--
 Run `git add` and `git commit` to commit the files.
+-->
+运行 `git add` 和 `git commit` 提交文件。
 
+<!--
 ## Creating a pull request
 
 Create a pull request to the `kubernetes/website` repository. Monitor your
 pull request, and respond to review comments as needed. Continue to monitor
 your pull request until it is merged.
-
-A few minutes after your pull request is merged, your updated reference
-topics will be visible in the
-[published documentation](/docs/home/).
 -->
-运行 `git add` 和 `git commit` 提交文件。
-
 ## 创建拉取请求 {#creating-a-pull-request}
 
 接下来创建一个对 `kubernetes/website` 仓库的拉取请求（PR）。
 监视所创建的 PR，并根据需要对评阅意见给出反馈。
 继续监视该 PR 直到其被合并为止。
 
-当你的 PR 被合并几分钟之后，你所做的对参考文档的变更就会出现
-[发布的文档](/zh-cn/docs/home/)上。
+<!--
+A few minutes after your pull request is merged, your updated reference
+topics will be visible in the
+[published documentation](/docs/home/).
+-->
+当你的 PR 被合并几分钟之后，你所做的对参考文档的变更就会出现[发布的文档](/zh-cn/docs/home/)上。
 
 ## {{% heading "whatsnext" %}}
+
+<!--
+To regenerate every reference set for a release and submit the output as pull
+requests, see
+[Generating Reference Documentation for a Release](/docs/contribute/generate-ref-docs/release-generation/).
+-->
+要为一个发行版本重新生成所有参考文档集合并把输出提交为拉取请求，
+请参阅[为发行版本生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/release-generation/)。
 
 <!--
 To generate the individual reference documentation by manually setting up the required build repositories and
@@ -414,4 +430,3 @@ running the build targets, see the following guides:
 * [为 Kubernetes 组件和工具生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [为 kubectl 命令生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubectl/)
 * [为 Kubernetes API 生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-api/)
-

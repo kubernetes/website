@@ -97,29 +97,38 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 {{< feature-state feature_gate_name="MemoryQoS" >}}
 
-Memory QoS uses the memory controller of cgroup v2 to manage memory throttling
+[Memory QoS](/docs/reference/command-line-tools-reference/feature-gates/#memoryqos) uses the memory controller of cgroup v2 to manage memory throttling
 and protection in Kubernetes. It uses the Pod's QoS class to decide which cgroup
-settings to apply, but it is a separate opt-in feature. Disabling Memory QoS
-does not change how Pods are classified.
+settings to apply, but it does not change how Pods are classified.
+
+The default `kubelet` configuration does not enable memory
+throttling or memory protection. To enable either behavior, [configure](/docs/reference/config-api/kubelet-config.v1beta1/)
+`memoryThrottlingFactor` or `memoryReservationPolicy`, respectively.
 
 ### Memory throttling
 
-For Burstable pods, the kubelet sets `memory.high` to throttle memory allocation
+Memory throttling is controlled by the `kubelet` configuration field
+`memoryThrottlingFactor`. Its default value is `nil`, which means that the
+`kubelet` does not set `memory.high`. To enable memory throttling, set
+`memoryThrottlingFactor` to a value greater than 0 and less than or equal to 1.
+
+For Burstable Pods, the kubelet uses `memory.high` to throttle memory allocation
 before the workload hits its hard limit (`memory.max`). The throttling threshold
-is calculated as:
+for a container is calculated as:
 
 ```
 memory.high = requests + memoryThrottlingFactor * (limits - requests)
 ```
 
-where `memoryThrottlingFactor` defaults to 0.9. For example, a container with a
-256 MiB request and a 1 GiB limit gets `memory.high` set to roughly 947 MiB.
-If a Burstable container has no memory limit, node allocatable memory is used in
-place of the limit.
+For example, with `memoryThrottlingFactor` set to `0.9`, a container with a
+`256 MiB` request and a `1 GiB` limit gets `memory.high` set to roughly `947 MiB`.
+If a Burstable container has no memory limit, the kubelet uses node allocatable
+memory in place of the limit.
 
-Guaranteed pods do not get `memory.high` because their requests equal their
-limits. BestEffort pods do not get `memory.high` because they have no requests
-or limits.
+For BestEffort containers, which have no memory request or limit, the kubelet
+calculates `memory.high` using a request of zero and node allocatable memory in
+place of the limit. Guaranteed containers do not get `memory.high` because
+their requests equal their limits.
 
 ### Configuring memory reservation
 
@@ -135,6 +144,51 @@ Memory reservation is controlled via the kubelet configuration field
   - **Burstable** pods: `memory.low` is set to memory requests. The kernel
     preferentially retains this memory but may reclaim it under extreme pressure.
   - **BestEffort** pods: no memory protection is set.
+
+For example, the following kubelet configuration enables memory throttling with
+a factor of `0.9` and tiered memory protection:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+memoryThrottlingFactor: 0.9
+memoryReservationPolicy: TieredReservation
+```
+
+You can configure either field independently. Omit `memoryThrottlingFactor` so
+that the kubelet does not set `memory.high`, or set
+`memoryReservationPolicy: None` to disable memory protection.
+
+Because cgroup v2 memory protection is hierarchical, the kubelet also configures
+the ancestor cgroups. It sets `memory.min` on the kubepods root cgroup to the sum
+of the memory requests for Guaranteed and Burstable Pods. It sets `memory.low`
+on the kubepods root cgroup and the Burstable QoS cgroup to the sum of the
+memory requests for Burstable Pods. Without this ancestor coverage, the
+per-Pod and per-container protection would be ineffective.
+
+{{< caution >}}
+For a Guaranteed Pod, memory requests equal memory limits. With
+`memoryReservationPolicy: TieredReservation`, `memory.min` therefore equals
+`memory.max`. For a workload that uses a large page cache, the kernel might be
+unable to reclaim enough page cache before the cgroup reaches `memory.max`,
+which can result in an OOM kill. Size the memory limit to include sufficient
+headroom for page cache.
+{{< /caution >}}
+
+### Disabling or rolling back Memory QoS
+
+To disable Memory QoS, set the `MemoryQoS` feature gate to `false`, ensure that
+`memoryReservationPolicy` is unset or set to `None`, and restart the kubelet.
+At startup, the kubelet resets `memory.min` and `memory.low` on the kubepods
+root cgroup, and `memory.low` on the Burstable QoS cgroup, to zero. Pod-level
+and container-level `memory.min` and `memory.low` values can remain, but they
+are ineffective because the corresponding ancestor protection is zero.
+
+When Memory QoS is disabled, the kubelet sets `memory.high` to `max` whenever
+the container runtime applies a resource configuration to a new, restarted, or
+in-place resized container. An already running container that is not restarted
+or resized can retain its previous `memory.high` value until the next restart or
+in-place resize.
 
 ### System requirements
 

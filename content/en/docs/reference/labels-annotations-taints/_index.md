@@ -299,7 +299,7 @@ Used on: ResourceClaim
 
 This annotation is assigned to generated ResourceClaims.
 Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
-Within [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), the
+Within [dynamic resource allocation](/docs/concepts/resource-management/dynamic-resource-allocation/), the
 discoverable device metadata feature uses this annotation to map a generated ResourceClaim
 back to the Pod claim name (`pod.spec.resourceClaims[].name`) for template-based claims.
 Kubernetes manages this annotation, so you should not modify it.
@@ -355,6 +355,40 @@ The tutorial illustrates using AppArmor to restrict a container's abilities and 
 
 The profile specified dictates the set of rules and restrictions that the containerized process must
 adhere to. This helps enforce security policies and isolation for your containers.
+
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+
+This annotation records the node identifier used by a CSI driver, as a fallback when the
+[CSINode](/docs/reference/kubernetes-api/storage/csi-node-v1/) object is not available.
+The CSI external-attacher sidecar container populates it before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when an appropriate CSINode is not present.
+
+Because this annotation is deprecated, the Kubernetes project recommends that you do
+**not** set this on a VolumeAttachment, nor on any other object.
+
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+
+This annotation specifies the identifier for a node as understood by the
+Container Storage Interface (CSI) driver. `kubelet` populates this annotation
+by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the
+node ID during driver registration. The external-attacher sidecar container
+reads this annotation to get the node ID when attaching or detaching volumes.
+
+This annotation is deprecated in favor of the CSINode object, which provides the same
+functionality via the [`spec.drivers[].nodeID` field](/docs/reference/kubernetes-api/storage/csi-node-v1/#CSINodeDriver).
 
 ### deployment.kubernetes.io/desired-replicas
 
@@ -1057,6 +1091,54 @@ Type: Label
 Starting in v1.17, this label is deprecated in favor of
 [topology.kubernetes.io/zone](#topologykubernetesiozone).
 {{< /note >}}
+
+### pod.alpha.kubernetes.io/init-containers (deprecated) {#pod-alpha-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.alpha.kubernetes.io/init-container-statuses (deprecated) {#pod-alpha-kubernetes-io-init-container-statuses}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during early prototyping of init containers to report the
+status of a Pod's init containers.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+`initContainerStatuses` field of Pod `.status`.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.beta.kubernetes.io/init-containers (deprecated) {#pod-beta-kubernetes-io-init-containers}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during the beta stage of init containers to specify
+container definitions that must run to completion before the Pod's main containers start.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+[`initContainers`](/docs/concepts/workloads/pods/init-containers/) field in the Pod spec.
+The API server drops this annotation from any Pod on which it is set.
+
+### pod.beta.kubernetes.io/init-container-statuses (deprecated) {#pod-beta-kubernetes-io-init-container-statuses}
+
+Type: Annotation
+
+Used on: Pod
+
+This annotation was used during the beta stage of init containers to report the
+status of a Pod's init containers.
+Support for this annotation was removed in Kubernetes v1.8 in favor of the
+`initContainerStatuses` field of Pod `.status`.
+The API server drops this annotation from any Pod on which it is set.
 
 ### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
 
@@ -2937,5 +3019,5 @@ a namespace. When this label is set on a namespace with the value `"true"`
 `resource.k8s.io` API types. Currently, this permission applies to
 `ResourceClaim` and `ResourceClaimTemplate` objects.
 
-See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+See [Dynamic Resource Allocation Admin access](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#admin-access)
 for more information.

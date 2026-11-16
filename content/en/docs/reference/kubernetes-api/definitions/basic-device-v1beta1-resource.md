@@ -68,8 +68,8 @@ BasicDevice defines one device instance.
       <td>ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.  There can only be a single entry per counterSet.  The maximum number of device counter consumptions per device is 2.</td>
     </tr>
     <tr>
-      <td><code>nodeAllocatableResourceMappings</code><br/><em>object</em></td>
-      <td>NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.</td>
+      <td><code>nodeAllocatableResources</code><br/><em>object</em></td>
+      <td>NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.</td>
     </tr>
     <tr>
       <td><code>nodeName</code><br/><em>string</em></td>
@@ -80,11 +80,13 @@ BasicDevice defines one device instance.
       <td>NodeSelector defines the nodes where the device is available.  Must use exactly one term.  Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.</td>
     </tr>
     <tr>
-      <td><code>taints</code><br/><em><a href="{{< ref "../resource/resource-slice-v1#DeviceTaint" >}}">DeviceTaint array</a></em></td>
+      <td><code>taints</code><br/><em><a href="{{< ref "../resource/device-taint-rule-v1#DeviceTaint" >}}">DeviceTaint array</a></em></td>
       <td>If specified, these are the driver-defined taints.  The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.  This is a beta field and requires enabling the DRADeviceTaints feature gate.</td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 

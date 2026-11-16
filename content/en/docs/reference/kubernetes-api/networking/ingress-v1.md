@@ -45,7 +45,7 @@ Ingress is a collection of rules that allow inbound connections to reach the end
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
+      <td>metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
       <td><code>spec</code><br/><em><a href="{{< ref "#IngressSpec" >}}">IngressSpec</a></em></td>
@@ -279,7 +279,7 @@ IngressRule represents the rules mapping the paths under a specified host to the
     </tr>
     <tr>
       <td><code>http</code><br/><em><a href="{{< ref "#HTTPIngressRuleValue" >}}">HTTPIngressRuleValue</a></em></td>
-      <td></td>
+      <td>http is a HTTP IngressRuleValue, which contains a list of http selectors</td>
     </tr>
   </tbody>
 </table>
@@ -1647,6 +1647,8 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

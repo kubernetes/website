@@ -117,7 +117,7 @@ Alternatively, you can set the MergeDefaultEvictionSettings to true in the kubel
 configuration file, if any parameter is changed then the other parameters will inherit
 their default values instead of 0.
 -->
-在此示例中，只更改 evictionHard 的一个参数的默认值，
+在此示例中，只更改 `evictionHard` 的一个参数的默认值，
 这样其他参数的默认值将不会被继承，其他参数会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
 或者，你也可以在 kubelet 配置文件中将 `MergeDefaultEvictionSettings` 设置为 true，
 这样如果修改了其中某个参数，其他参数将继承其默认值，而不是被设为 0。
@@ -147,7 +147,8 @@ See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools
 Start the kubelet with the `--config` flag set to the path of the kubelet's config file.
 The kubelet will then load its config from this file.
 -->
-启动 kubelet 需要将 `--config` 参数设置为 kubelet 配置文件的路径。kubelet 将从此文件加载其配置。
+启动 kubelet 需要将 `--config` 参数设置为 kubelet 配置文件的路径。
+kubelet 将从此文件加载其配置。
 
 <!--
 Note that command line flags which target the same value as a config file will override that value.
@@ -421,7 +422,6 @@ they can follow these steps to inspect the kubelet configuration:
        "enableProfilingHandler": true,
        "enableDebugFlagsHandler": true,
        "seccompDefault": false,
-       "memoryThrottlingFactor": 0.9,
        "registerNode": true,
        "localStorageCapacityIsolation": true,
        "containerRuntimeEndpoint": "unix:///var/run/crio/crio.sock"

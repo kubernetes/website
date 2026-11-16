@@ -52,7 +52,7 @@ The StatefulSet guarantees that a given network identity will always map to the 
       <td>Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#StatefulSetSpec" >}}">StatefulSetSpec</a></em></td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#StatefulSetSpec" >}}">StatefulSetSpec</a></em></td>
       <td>Spec defines the desired identities of pods in this set.</td>
     </tr>
     <tr>
@@ -245,11 +245,11 @@ StatefulSetCondition describes the state of a statefulset at a certain point.
       <td>The reason for the condition's last transition.</td>
     </tr>
     <tr>
-      <td><code>status</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>status</code><br/><em>string</em></td>
       <td>Status of the condition, one of True, False, Unknown.</td>
     </tr>
     <tr>
-      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>type</code><br/><em>string</em></td>
       <td>Type of statefulset condition.</td>
     </tr>
   </tbody>
@@ -309,7 +309,7 @@ StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller
     </tr>
     <tr>
       <td><code>type</code><br/><em>string</em></td>
-      <td>Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.<br/><br/>Possible enum values:<br/> - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.<br/> - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.</td>
+      <td>Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.<br/><br/>Possible enum values:<br/> - `"OnDelete"` disables ordered rolling restarts. Version tracking is done on a best-effort basis - the controller will try to eventually converge StatefulSet's currentRevision with updateRevision. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.<br/> - `"Recreate"` indicates that all existing pods will be deleted and fully terminated before any new-revision pods are created. This ensures that old and new revision Pods never run at the same time. This is an alpha type and requires enabling StatefulSetRecreateStrategy feature gate. Switching to the Recreate strategy is allowed when the feature gate is enabled, and switching away from it to a different update strategy is also allowed. +featureGate=StatefulSetRecreateStrategy<br/> - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.</td>
     </tr>
   </tbody>
 </table>
@@ -1850,6 +1850,8 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/scale
     </tr>
   </tbody>
 </table>
+
+
 
 
 

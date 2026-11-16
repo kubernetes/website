@@ -28,7 +28,7 @@ Describe fields and structure of various resources.
 
  This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:
 
-        &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;]
+        TYPE.FIELDNAME[.FIELDNAME]
         
  Information about each field is retrieved from the server in OpenAPI format.
 
@@ -46,6 +46,9 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
   
   # Get all the fields in the resource
   kubectl explain pods --recursive
+  
+  # Get fields in the resource up to a specific recursive depth
+  kubectl explain pods --recursive --max-depth=2
   
   # Get the explanation for deployment in supported api versions
   kubectl explain deployments --api-version=apps/v1
@@ -81,6 +84,13 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 </tr>
 
 <tr>
+<td colspan="2">--max-depth int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Maximum recursion depth when printing nested fields with --recursive. 0 means no limit. Requires --recursive when greater than 0.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "plaintext"</td>
 </tr>
 <tr>
@@ -91,7 +101,7 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Print the fields of fields (Currently only 1 level deep)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Print the fields of fields. Use --max-depth to cap the recursion depth.</p></td>
 </tr>
 
 </tbody>
@@ -239,6 +249,13 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the file to write the profile to</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Proxy URL to use for requests to the API server</p></td>
 </tr>
 
 <tr>

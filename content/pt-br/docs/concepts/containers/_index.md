@@ -3,7 +3,9 @@ title: Contêineres
 weight: 40
 description: Tecnologia para empacotar aplicações com suas dependências em tempo de execução
 content_type: concept
-no_list: true
+card:
+  name: concepts
+  weight: 50
 ---
 
 <!-- overview -->

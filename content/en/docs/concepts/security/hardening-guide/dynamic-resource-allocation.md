@@ -113,4 +113,4 @@ To apply these patterns in a running cluster, see
 
 - [Authorization](/docs/reference/access-authn-authz/authorization/)
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
-- [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+- [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/)

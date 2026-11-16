@@ -167,12 +167,6 @@ that the containers in that Pod are designed for. For Pods that run Linux contai
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
 to `windows`.
 
-{{< note >}}
-If you are running a version of Kubernetes older than 1.24, you may need to enable
-the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be able to set a value for `.spec.pod.os`.
-{{< /note >}}
-
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
 use normal Kubernetes mechanisms for
 [assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
@@ -293,11 +287,11 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
                cpu: 1
                memory: 800Mi
              requests:
-               cpu: .1
+               cpu: 100m
                memory: 300Mi
            ports:
              - containerPort: 80
-    selector:
+     selector:
        matchLabels:
          app: iis-2019
    ---

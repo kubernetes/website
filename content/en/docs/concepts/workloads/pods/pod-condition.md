@@ -115,12 +115,9 @@ and to have any required storage volumes mounted. Once these phases are complete
 the kubelet works with a container runtime
 (using {{< glossary_tooltip text="Container Runtime Interface (CRI)" term_id="cri" >}})
 to set up a runtime sandbox and configure networking for the Pod.
-If the `PodReadyToStartContainersCondition` feature gate is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}),
-the `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
+The `PodReadyToStartContainers` condition is added to the `status.conditions` field of a Pod.
 
-The `PodReadyToStartContainers` condition is set to `False` by the kubelet
-when it detects a Pod does not have a runtime sandbox with networking configured. This occurs in the following scenarios:
+The condition is set to `False` by the kubelet when it detects a Pod does not have a runtime sandbox with networking configured. This occurs in the following scenarios:
 
 - Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
 - Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due to either:
@@ -153,11 +150,11 @@ indicates one of the following reasons for the Pod termination:
 : Pod has been marked for {{<glossary_tooltip term_id="api-eviction" text="eviction using the Kubernetes API">}} .
 
 `DeletionByPodGC`
-: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection).
 
 `TerminationByKubelet`
 : Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
-  the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown),
+  the [graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown),
   or preemption for [system critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 In all other disruption scenarios, like eviction due to exceeding
@@ -174,7 +171,7 @@ Pod disruption condition will be cleared.
 {{< /note >}}
 
 Along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
-phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)).
 
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
 [Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).

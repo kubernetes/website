@@ -10,8 +10,8 @@ This document outlines files that kubelet reads and writes.
 
 {{< note >}}
 
-This document is for informational purpose and not describing any guaranteed behaviors or APIs.
-It lists resources used by the kubelet, which is an implementation detail and a subject to change at any release.
+This document is for informational purposes and not describing any guaranteed behaviors or APIs.
+It lists resources used by the kubelet, which is an implementation detail and subject to change at any release.
 
 {{< /note >}}
 
@@ -82,7 +82,7 @@ Names of files:
 
 - `memory_manager_state` for the [Memory Manager](/docs/tasks/administer-cluster/memory-manager/)
 - `cpu_manager_state` for the [CPU Manager](/docs/tasks/administer-cluster/cpu-management-policies/)
-- `dra_manager_state` for [DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+- `dra_manager_state` for [DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
 
 ### Checkpoint file for device manager {#device-manager-state}
 
@@ -104,7 +104,7 @@ Names of files:
 
 - `allocated_pods_state` records the resources allocated to each pod running on the node
 - `actuated_pods_state` records the resources that have been accepted by the runtime
-  for each pod pod running on the node
+  for each pod running on the node
 
 The files are located within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
@@ -138,7 +138,7 @@ On a typical Linux node, this means `/var/lib/kubelet/pod-resources`.
 
 ### DRA, CSI, and Device plugins
 
-The kubelet looks for socket files created by device plugins managed via [DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+The kubelet looks for socket files created by device plugins managed via [DRA](/docs/concepts/resource-management/dynamic-resource-allocation/),
 device manager, or storage plugins, and then attempts to connect
 to these sockets. The directory that the kubelet looks in is `plugins_registry` within the kubelet base
 directory, so on a typical Linux node this means `/var/lib/kubelet/plugins_registry`.
@@ -188,7 +188,7 @@ See the [seccomp reference](/docs/reference/node/seccomp/) for details.
 ### AppArmor
 
 The kubelet does not load or refer to AppArmor profiles by a Kubernetes-specific path.
-AppArmor profiles are loaded via the node operating system rather then referenced by their path.
+AppArmor profiles are loaded via the node operating system rather than referenced by their path.
 
 ## Locking
 
@@ -197,7 +197,7 @@ AppArmor profiles are loaded via the node operating system rather then reference
 
 A lock file for the kubelet; typically `/var/run/kubelet.lock`. The kubelet uses this to ensure
 that two different kubelets don't try to run in conflict with each other.
-You can configure the path to the lock file using the the `--lock-file` kubelet command line argument.
+You can configure the path to the lock file using the `--lock-file` kubelet command line argument.
 
 If two kubelets on the same node use a different value for the lock file path, they will not be able to
 detect a conflict when both are running.

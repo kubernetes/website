@@ -124,11 +124,11 @@ używane porty oraz listę zdarzeń związanych z cyklem życia Poda.
 Wyjście komendy `describe` jest obszerne i obejmuje niektóre pojęcia, których jeszcze nie
 omawialiśmy, ale nie martw się tym, bo staną się one zrozumiałe przed końcem tego bootcampu.
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Komenda `describe` może być używana do uzyskania szczegółowych informacji o większości
 obiektów Kubernetesa, w tym o Węzłach, Podach i Deploymentach. Wyjście komendy
 _describe_ jest zaprojektowane tak, aby było czytelne dla ludzi, a nie do wykorzystania w skryptach.
-{{< /note >}}
+{{< /alert >}}
 
 ### Pokazywanie aplikacji w terminalu {#show-the-app-in-the-terminal}
 
@@ -157,9 +157,9 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/
 
 URL jest ścieżką do API Poda.
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Nie musimy określać nazwy kontenera, ponieważ wewnątrz poda mamy tylko jeden kontener.
-{{< /note >}}
+{{< /alert >}}
 
 ### Wykonywanie polecenia w kontenerze {#executing-commands-on-the-container}
 
@@ -193,11 +193,11 @@ Możesz sprawdzić, czy aplikacja działa, wykonując polecenie curl:
 curl http://localhost:8080
 ```
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Użyliśmy tutaj `localhost`, ponieważ wykonaliśmy polecenie wewnątrz Podu
 NodeJS. Jeśli nie możesz połączyć się z `localhost:8080`, upewnij się, że uruchomiłeś
 polecenie `kubectl exec` i wykonujesz polecenie z wnętrza Podu.
-{{< /note >}}
+{{< /alert >}}
 
 Aby zamknąć połączenie z kontenerem, wpisz `exit`.
 

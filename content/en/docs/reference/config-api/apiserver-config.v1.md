@@ -245,7 +245,7 @@ resources:
 <tr><td><code>TracingConfiguration</code> <B>[Required]</B><br/>
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
-<td>(Members of <code>TracingConfiguration</code> are embedded into this type.)
+<td>
    <p>Embed the component config tracing configuration struct</p>
 </td>
 </tr>

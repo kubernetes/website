@@ -184,7 +184,7 @@ For more information, see
 有关细节请参阅[挂接到 Gateways](https://gateway-api.sigs.k8s.io/api-types/httproute/#attaching-to-gateways)。
 
 <!--
-#### [Conformance Profiles and Reports](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
+#### [Conformance Profiles and Reports](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/#conformance-profiles)
 
 The conformance report API has been expanded with the `mode` field (intended to
 specify the working mode of the implementation), and the `gatewayAPIChannel`
@@ -194,7 +194,7 @@ description of the testing outcome. The Reports have been reorganized in a more
 structured way, and the implementations can now add information on how the tests
 have been run and provide reproduction steps.
 -->
-#### [合规性配置文件和报告](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
+#### [合规性配置文件和报告](https://gateway-api.sigs.k8s.io/docs/concepts/conformance/#conformance-profiles)
 
 合规性报告 API 被扩展了，添加了 `mode` 字段（用于指定实现的工作模式）以及 `gatewayAPIChannel`（标准或实验性）。
 `gatewayAPIVersion` 和 `gatewayAPIChannel` 现在由套件机制自动填充，并附有测试结果的简要描述。
@@ -425,4 +425,3 @@ Kubernetes routing APIs for both ingress and service mesh.
 * 2023 年 10 月 [Gateway API v1.0：正式发布（GA）](/zh-cn/blog/2023/10/31/gateway-api-ga/)
 * 2023 年 10 月[介绍 ingress2gateway；简化 Gateway API 升级](/blog/2023/10/25/introducing-ingress2gateway/)
 * 2023 年 8 月 [Gateway API v0.8.0：引入服务网格支持](/zh-cn/blog/2023/08/29/gateway-api-v0-8/)
-  

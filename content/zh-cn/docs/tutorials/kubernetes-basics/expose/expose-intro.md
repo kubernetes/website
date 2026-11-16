@@ -112,8 +112,7 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 
 * _ExternalName_ - Maps the Service to the contents of the `externalName` field
 (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
-No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
-or CoreDNS version 0.0.8 or higher.
+No proxying of any kind is set up.
 -->
 * **LoadBalancer** - 在当前云中创建一个外部负载均衡器（如果支持的话），
   并为 Service 分配一个固定的外部 IP。这是 NodePort 的超集。
@@ -121,7 +120,6 @@ or CoreDNS version 0.0.8 or higher.
 * **ExternalName** - 将 Service 映射到 `externalName`
   字段的内容（例如 `foo.bar.example.com`），
   通过返回带有该名称的 `CNAME` 记录实现。不设置任何类型的代理。
-  这种类型需要 `kube-dns` 的 v1.7 或更高版本，或者 CoreDNS 的 v0.8 或更高版本。
 
 <!--
 More information about the different types of Services can be found in the

@@ -104,17 +104,17 @@ sudo apt-cache madison kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
-For systems with DNF:
+For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo dnf list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 For systems with DNF5:
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-sudo yum list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
+sudo dnf list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -146,15 +146,15 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
-   For systems with DNF:
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -263,15 +263,15 @@ To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/do
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
-   For systems with DNF:   
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    For systems with DNF5:   
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -328,7 +328,7 @@ During upgrade kubeadm writes the following backup folders under `/etc/kubernete
 
 `kubeadm-backup-etcd` contains a backup of the local etcd member data for this control plane Node.
 In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
-can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
+can be manually restored in `/var/lib/etcd`. In case external etcd is used, this backup folder will be empty.
 
 `kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control plane Node.
 In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
@@ -353,12 +353,12 @@ these backup files will need to be cleared manually.
 - Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
-- Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
+- Renews kubeadm-managed certificates used by control plane components as those components are upgraded, using the local CA certificate and key. Certificate renewal is enabled by default; use `--certificate-renewal=false` to disable it.
 
 `kubeadm upgrade node` does the following on additional control plane nodes:
 
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
-- Optionally backups the kube-apiserver certificate.
+- Renews kubeadm-managed certificates used by control plane components as those components are upgraded, using the local CA certificate and key. Certificate renewal is enabled by default; use `--certificate-renewal=false` to disable it.
 - Upgrades the static Pod manifests for the control plane components.
 - Upgrades the kubelet configuration for this node.
 

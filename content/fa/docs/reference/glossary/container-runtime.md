@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-کوبرنتیز از محیط های اجرای کانتینر مانند {{< glossary_tooltip term_id="containerd" >}}، {{< glossary_tooltip term_id="cri-o" >}}، و هرگونه پیاده‌سازی دیگر از [Kubernetes CRI (رابط محیط اجرای کانتینر)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) پشتیبانی می‌کند.
+کوبرنتیز از محیط های اجرای کانتینر مانند {{< glossary_tooltip term_id="containerd" >}}، {{< glossary_tooltip term_id="cri-o" >}}، و هرگونه پیاده‌سازی دیگر از [Kubernetes CRI (رابط محیط اجرای کانتینر)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md) پشتیبانی می‌کند.

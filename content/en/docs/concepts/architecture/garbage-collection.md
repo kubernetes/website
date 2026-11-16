@@ -8,7 +8,7 @@ weight: 70
 {{<glossary_definition term_id="garbage-collection" length="short">}} This
 allows the clean up of resources like the following:
 
-* [Terminated pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [Terminated pods](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)
 * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [Objects without owner references](#owners-dependents)
 * [Unused containers and container images](#containers-images)
@@ -18,7 +18,7 @@ allows the clean up of resources like the following:
   * On a cloud when the cluster uses a [cloud controller manager](/docs/concepts/architecture/cloud-controller/)
   * On-premises when the cluster uses an addon similar to a cloud controller
     manager
-* [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
+* [Node Lease objects](/docs/concepts/architecture/nodes/#node-heartbeats)
 
 ## Owners and dependents {#owners-dependents}
 

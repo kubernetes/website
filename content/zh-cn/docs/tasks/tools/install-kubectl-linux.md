@@ -317,20 +317,20 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 {{< note >}}
 <!--
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `dnf update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 -->
 要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/yum.repos.d/kubernetes.repo`
-中的版本，再运行 `yum update` 命令。
+中的版本，再运行 `dnf update` 命令。
 更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
 {{< /note >}}
 
 <!--
-2. Install kubectl using `yum`:
+2. Install kubectl using `dnf`:
 -->
-2. 使用 `yum` 安装 kubectl：
+2. 使用 `dnf` 安装 kubectl：
 
    ```bash
-   sudo yum install -y kubectl
+   sudo dnf install -y kubectl
    ```
 
 {{% /tab %}}

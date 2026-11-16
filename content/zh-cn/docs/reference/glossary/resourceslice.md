@@ -1,7 +1,7 @@
 ---
 title: ResourceSlice
 id: resourceslice
-full_link: /zh-cn/docs/reference/kubernetes-api/workload-resources/resource-slice-v1beta1/
+full_link: /zh-cn/docs/reference/kubernetes-api/resource/resource-slice-v1/
 short_description: >
   用一个相似资源所构成的池来表示一个或多个基础设施资源（如设备）。
 
@@ -11,7 +11,7 @@ tags:
 <!--
 title: ResourceSlice
 id: resourceslice
-full_link: /docs/reference/kubernetes-api/workload-resources/resource-slice-v1beta1/
+full_link: /docs/reference/kubernetes-api/resource/resource-slice-v1/
 short_description: >
   Represents one or more infrastructure resources, like devices, in a pool of
   similar resources.
@@ -42,4 +42,5 @@ ResourceClaim and schedules the Pod onto a node that can access the resources.
 -->
 当 {{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}}
 被创建时，Kubernetes 使用 ResourceSlice 找到有权限访问满足申领资源的节点。
-Kubernetes 将这些资源分配给 ResourceClaim，并将对应的 Pod 调度到能够访问这些资源的节点上。
+Kubernetes 将这些资源分配给 ResourceClaim，并将对应的 Pod
+调度到能够访问这些资源的节点上。

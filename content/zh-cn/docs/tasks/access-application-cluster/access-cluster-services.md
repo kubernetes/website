@@ -35,8 +35,8 @@ such as your desktop machine.
 
 在 Kubernetes 里，[节点](/zh-cn/docs/concepts/architecture/nodes/)、
 [Pod](/zh-cn/docs/concepts/workloads/pods/) 和
-[服务](/zh-cn/docs/concepts/services-networking/service/) 都有自己的 IP。
-许多情况下，集群上的节点 IP、Pod IP 和某些服务 IP 是路由不可达的，
+[Service](/zh-cn/docs/concepts/services-networking/service/) 都有自己的 IP。
+许多情况下，集群上的节点 IP、Pod IP 和某些 Service IP 是路由不可达的，
 所以不能从集群之外访问它们，例如从你自己的台式机。
 
 <!--
@@ -46,7 +46,7 @@ You have several options for connecting to nodes, pods and services from outside
 -->
 ### 连接方式   {#ways-to-connect}
 
-你有多种可选方式从集群外连接节点、Pod 和服务：
+你有多种可选方式从集群外连接节点、Pod 和 Service：
 
 <!--
 - Access services through public IPs.
@@ -65,10 +65,10 @@ You have several options for connecting to nodes, pods and services from outside
   - 使用类型为 `NodePort` 或 `LoadBalancer` 的 Service，可以从外部访问它们。
     请查阅 [Service](/zh-cn/docs/concepts/services-networking/service/) 和
     [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 文档。
-  - 取决于你的集群环境，你可以仅把 Service 暴露在你的企业网络环境中，也可以将其暴露在
-    因特网上。需要考虑暴露的服务是否安全，它是否有自己的用户认证？
+  - 取决于你的集群环境，你可以仅把 Service 暴露在你的企业网络环境中，也可以将其暴露在因特网上。
+    需要考虑暴露的服务是否安全，它是否有自己的用户认证？
   - 将 Pod 放置于 Service 背后。如果要访问一个副本集合中特定的 Pod，例如用于调试目的，
-    请给 Pod 指定一个独特的标签并创建一个新服务选择该标签。
+    请给 Pod 指定一个独特的标签并创建一个新 Service，选择该标签。
   - 大部分情况下，都不需要应用开发者通过节点 IP 直接访问节点。
 <!--
 - Access services, nodes, or pods using the Proxy Verb.
@@ -86,7 +86,7 @@ You have several options for connecting to nodes, pods and services from outside
   - 代理可能给某些应用带来麻烦
   - 此方式仅适用于 HTTP/HTTPS
   - 进一步的描述在[这里](#manually-constructing-apiserver-proxy-urls)
-  - 从集群中的 node 或者 pod 访问。
+  - 从集群中的节点或 Pod 访问。
 <!--
 - Access from a node or pod in the cluster.
   - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
@@ -127,7 +127,7 @@ The output is similar to this:
 Kubernetes master is running at https://192.0.2.1
 elasticsearch-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
 kibana-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kibana-logging/proxy
-kube-dns is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kube-dns/proxy
+coredns is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kube-dns/proxy
 grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
 heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
@@ -163,16 +163,6 @@ proxy URLs that include service endpoints, suffixes, and parameters, you append 
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also
 use the port number in place of the *port_name* for both named and unnamed ports.
-
-By default, the API server proxies to your service using HTTP. To use HTTPS, prefix the service name with `https:`:
-`http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
-
-The supported formats for the `<service_name>` segment of the URL are:
-
-* `<service_name>` - proxies to the default or unnamed port using http
-* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
-* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
-* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
 -->
 #### 手动构建 API 服务器代理 URLs   {#manually-constructing-apiserver-proxy-urls}
 
@@ -183,9 +173,22 @@ The supported formats for the `<service_name>` segment of the URL are:
 如果还没有为你的端口指定名称，你可以不用在 URL 中指定 **port_name**。
 对于命名和未命名端口，你还可以使用端口号代替 **port_name**。
 
-默认情况下，API 服务器使用 HTTP 为你的服务提供代理。 要使用 HTTPS，请在服务名称前加上 `https:`：
+<!--
+By default, the API server proxies to your service using HTTP. To use HTTPS, prefix the service name with `https:`:
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
+
+The supported formats for the `<service_name>` segment of the URL are:
+
+* `<service_name>` - proxies to the default or unnamed port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
+* `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
+-->
+默认情况下，API 服务器使用 HTTP 为你的服务提供代理。要使用 HTTPS，请在服务名称前加上 `https:`：
+`http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`。
+
 URL 的 `<service_name>` 段支持的格式为：
+
 * `<service_name>` - 使用 http 代理到默认或未命名端口
 * `<service_name>:<port_name>` - 使用 http 代理到指定的端口名称或端口号
 * `https:<service_name>:` -  使用 https 代理到默认或未命名端口（注意尾随冒号）
@@ -198,7 +201,8 @@ URL 的 `<service_name>` 段支持的格式为：
 -->
 ##### 示例   {#examples}
 
-* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用以下地址：
+* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，
+  你可以使用以下地址：
 
   ```
   http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
@@ -207,7 +211,8 @@ URL 的 `<service_name>` 段支持的格式为：
 <!--
 * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:
 -->
-* 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你可以使用以下地址：
+* 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，
+  你可以使用以下地址：
 
   ```
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
@@ -236,7 +241,8 @@ URL 的 `<service_name>` 段支持的格式为：
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 -->
-* 如要访问 **https** Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你可以使用以下地址：
+* 如要访问 **https** Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，
+  你可以使用以下地址：
 
   ```
   https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true

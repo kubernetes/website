@@ -26,11 +26,11 @@ elementami **nie** zadziałają w PowerShellu ani w zwykłym wierszu polecenia.
 _Deployment odpowiada za stworzenie i aktualizacje instancji Twojej aplikacji._
 {{% /alert %}}
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Ten samouczek wykorzystuje kontener wymagający architektury AMD64. Jeśli używasz
 minikube na komputerze z inną architekturą CPU, możesz spróbować użyć minikube z
 sterownikiem, który potrafi emulować AMD64. Na przykład potrafi to zrobić sterownik Docker Desktop.
-{{< /note >}}
+{{< /alert >}}
 
 Mając [działający klaster Kubernetesa](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/),
 można na nim zacząć
@@ -153,10 +153,10 @@ Na przykład możemy bezpośrednio zapytać o wersję za pomocą polecenia `curl
 curl http://localhost:8001/version
 ```
 
-{{< note >}}
+{{< alert color="info" title="Informacja" >}}
 Jeśli port 8001 jest niedostępny, upewnij się, że
 `kubectl proxy`, który uruchomiłeś wyżej, działa w drugim terminalu.
-{{< /note >}}
+{{< /alert >}}
 
 Serwer API automatycznie utworzy punkt końcowy dla każdego poda,
 bazując na nazwie poda, który jest również dostępny przez serwer proxy.

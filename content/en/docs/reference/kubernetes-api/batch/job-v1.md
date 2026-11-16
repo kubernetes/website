@@ -113,6 +113,10 @@ JobSpec describes how the job execution will look like.
       <td>podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods   when they are terminating (has a metadata.deletionTimestamp) or failed. - Failed means to wait until a previously created Pod is fully terminated (has phase   Failed or Succeeded) before creating a replacement Pod.  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.<br/><br/>Possible enum values:<br/> - `"Failed"` means to wait until a previously created Pod is fully terminated (has phase Failed or Succeeded) before creating a replacement Pod.<br/> - `"TerminatingOrFailed"` means that we recreate pods when they are terminating (has a metadata.deletionTimestamp) or failed.</td>
     </tr>
     <tr>
+      <td><code>scheduling</code><br/><em><a href="{{< ref "#JobSchedulingConfiguration" >}}">JobSchedulingConfiguration</a></em></td>
+      <td>scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.</td>
+    </tr>
+    <tr>
       <td><code>selector</code><br/><em><a href="{{< ref "../definitions/label-selector-v1-meta#LabelSelector" >}}">LabelSelector</a></em></td>
       <td>A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</td>
     </tr>
@@ -183,7 +187,7 @@ JobStatus represents the current state of a Job.
     </tr>
     <tr>
       <td><code>terminating</code><br/><em>integer</em></td>
-      <td>The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).  This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).</td>
+      <td>The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).</td>
     </tr>
     <tr>
       <td><code>uncountedTerminatedPods</code><br/><em><a href="{{< ref "#UncountedTerminatedPods" >}}">UncountedTerminatedPods</a></em></td>
@@ -254,6 +258,35 @@ JobCondition describes current state of a job.
     <tr>
       <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>Type of job condition, Complete or Failed.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## JobSchedulingConfiguration {#JobSchedulingConfiguration}
+
+JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>disruptionMode</code><br/><em><a href="{{< ref "#WorkloadPodGroupDisruptionMode" >}}">WorkloadPodGroupDisruptionMode</a></em></td>
+      <td>DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaims</code><br/><em><a href="{{< ref "#WorkloadPodGroupResourceClaim" >}}">WorkloadPodGroupResourceClaim array</a></em><br/><em>patch strategy: merge on key <code>name</code></em></td>
+      <td>ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingConstraints</code><br/><em><a href="{{< ref "#WorkloadPodGroupSchedulingConstraints" >}}">WorkloadPodGroupSchedulingConstraints</a></em></td>
+      <td>SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.</td>
+    </tr>
+    <tr>
+      <td><code>schedulingPolicy</code><br/><em><a href="{{< ref "#WorkloadPodGroupSchedulingPolicy" >}}">WorkloadPodGroupSchedulingPolicy</a></em></td>
+      <td>SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.</td>
     </tr>
   </tbody>
 </table>
@@ -404,6 +437,131 @@ UncountedTerminatedPods holds UIDs of Pods that have terminated but haven&#39;t 
     </tr>
   </tbody>
 </table>
+
+
+## WorkloadPodGroupAllDisruptionMode {#WorkloadPodGroupAllDisruptionMode}
+
+WorkloadPodGroupAllDisruptionMode indicates that all pods in the group must be disrupted together.
+
+<hr>
+
+
+
+## WorkloadPodGroupBasicSchedulingPolicy {#WorkloadPodGroupBasicSchedulingPolicy}
+
+WorkloadPodGroupBasicSchedulingPolicy indicates standard Kubernetes scheduling behavior.
+
+<hr>
+
+
+
+## WorkloadPodGroupDisruptionMode {#WorkloadPodGroupDisruptionMode}
+
+WorkloadPodGroupDisruptionMode defines how individual pods within a group can be disrupted. Exactly one mode must be set.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>all</code><br/><em><a href="{{< ref "#WorkloadPodGroupAllDisruptionMode" >}}">WorkloadPodGroupAllDisruptionMode</a></em></td>
+      <td>all specifies that all pods in the group must be disrupted together.</td>
+    </tr>
+    <tr>
+      <td><code>single</code><br/><em><a href="{{< ref "#WorkloadPodGroupSingleDisruptionMode" >}}">WorkloadPodGroupSingleDisruptionMode</a></em></td>
+      <td>single specifies that pods can be disrupted independently from each other.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadPodGroupGangSchedulingPolicy {#WorkloadPodGroupGangSchedulingPolicy}
+
+WorkloadPodGroupGangSchedulingPolicy defines the parameters for gang (all-or-nothing) scheduling.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>minCount</code><br/><em>integer</em></td>
+      <td>minCount is the minimum number of pods that must be scheduled at the same time for the scheduler to admit the entire group. This field is optional. If it is not specified, the controller should inject a context-specific sane default (e.g., parallelism for a Job). If set, it must be a positive integer.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadPodGroupResourceClaim {#WorkloadPodGroupResourceClaim}
+
+WorkloadPodGroupResourceClaim references a dynamic resource claim that is shared across pods in the group.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>name</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td>name uniquely identifies this resource claim inside the group. This field is required. It must be a DNS_LABEL.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaimName</code><br/><em>string</em></td>
+      <td>resourceClaimName is the name of a ResourceClaim object in the same namespace. This field is optional. If it is not specified, no resource claim is used. If set, it must be a DNS subdomain.</td>
+    </tr>
+    <tr>
+      <td><code>resourceClaimTemplateName</code><br/><em>string</em></td>
+      <td>resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace. This field is optional. If it is not specified, no resource claim template is used. If set, it must be a DNS subdomain.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadPodGroupSchedulingConstraints {#WorkloadPodGroupSchedulingConstraints}
+
+WorkloadPodGroupSchedulingConstraints defines leaf-level scheduling constraints, such as topology.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>topology</code><br/><em><a href="{{< ref "../scheduling/pod-group-v1beta1#TopologyConstraint" >}}">TopologyConstraint array</a></em></td>
+      <td>topology specifies desired topological placements for all pods within the pod group. If unset, no topology placement is requested.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadPodGroupSchedulingPolicy {#WorkloadPodGroupSchedulingPolicy}
+
+WorkloadPodGroupSchedulingPolicy defines the scheduling policy for a group of pods managed by a workload controller. Exactly one policy must be set.
+
+<hr>
+
+<table>
+  <thead><tr><th>Field</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>basic</code><br/><em><a href="{{< ref "#WorkloadPodGroupBasicSchedulingPolicy" >}}">WorkloadPodGroupBasicSchedulingPolicy</a></em></td>
+      <td>basic specifies that standard, pod-by-pod Kubernetes scheduling behavior should be used.</td>
+    </tr>
+    <tr>
+      <td><code>gang</code><br/><em><a href="{{< ref "#WorkloadPodGroupGangSchedulingPolicy" >}}">WorkloadPodGroupGangSchedulingPolicy</a></em></td>
+      <td>gang specifies all-or-nothing scheduling semantics.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## WorkloadPodGroupSingleDisruptionMode {#WorkloadPodGroupSingleDisruptionMode}
+
+WorkloadPodGroupSingleDisruptionMode indicates that individual pods can be disrupted independently.
+
+<hr>
+
 
 
 
@@ -1705,6 +1863,8 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 

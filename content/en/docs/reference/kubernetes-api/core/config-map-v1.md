@@ -41,7 +41,7 @@ ConfigMap holds configuration data for pods to consume.
     </tr>
     <tr>
       <td><code>binaryData</code><br/><em>object</em></td>
-      <td>BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.</td>
+      <td>BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.</td>
     </tr>
     <tr>
       <td><code>data</code><br/><em>object</em></td>
@@ -1155,6 +1155,8 @@ GET /api/v1/watch/configmaps
     </tr>
   </tbody>
 </table>
+
+
 
 
 

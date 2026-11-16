@@ -70,6 +70,17 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 minikube start
 ```
 
+{{< alert color="info" title="Note" >}}
+<!--
+The command `minikube start` creates a single-Node cluster. That Node acts as both the control plane and a worker Node. This differs from many production Kubernetes clusters, where control plane Nodes are typically isolated from worker Node using
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) or completely invisible to the user.
+-->
+`minikube start` 命令会创建一个单节点集群。该节点同时充当控制面节点和工作节点。
+这与许多生产环境中的 Kubernetes 集群不同；在这些集群中，控制面节点通常使用
+[污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
+与工作节点隔离，或者对用户完全不可见。
+{{< /alert >}}
+
 <!--
 ## Check the status of the minikube cluster
 

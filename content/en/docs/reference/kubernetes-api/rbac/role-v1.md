@@ -45,11 +45,11 @@ Role is a namespaced, logical grouping of PolicyRules that can be referenced as 
     </tr>
     <tr>
       <td><code>metadata</code><br/><em><a href="{{< ref "../definitions/object-meta-v1-meta#ObjectMeta" >}}">ObjectMeta</a></em></td>
-      <td>Standard object's metadata.</td>
+      <td>metadata is the standard object's metadata.</td>
     </tr>
     <tr>
       <td><code>rules</code><br/><em><a href="{{< ref "../definitions/policy-rule-v1-rbac#PolicyRule" >}}">PolicyRule array</a></em></td>
-      <td>Rules holds all the PolicyRules for this Role</td>
+      <td>rules holds all the PolicyRules for this Role</td>
     </tr>
   </tbody>
 </table>
@@ -1147,6 +1147,8 @@ GET /apis/rbac.authorization.k8s.io/v1/watch/roles
     </tr>
   </tbody>
 </table>
+
+
 
 
 

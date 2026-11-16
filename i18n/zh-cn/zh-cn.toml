@@ -235,6 +235,24 @@ href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-fo
 <p>Kubernetes 衷心感谢 O'Reilly 和 Katacoda 多年来帮助人们迈出学习 Kubernetes 的第一步。</p>
 <p>教程将在<b>2023 年 3 月 31 日</b>后停止运行。更多信息，请参阅 "<a href="/zh-cn/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">免费的 Katacoda Kubernetes 教程即将关闭</a>。"</p>"""
 
+[kubecon_region_china]
+other = "中国"
+
+[kubecon_region_europe]
+other = "欧洲"
+
+[kubecon_region_event]
+other = "大会"
+
+[kubecon_region_india]
+other = "印度"
+
+[kubecon_region_japan]
+other = "日本"
+
+[kubecon_region_north_america]
+other = "北美"
+
 [latest_release]
 other = "最新发行版本："
 

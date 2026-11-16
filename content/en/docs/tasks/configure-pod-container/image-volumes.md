@@ -112,4 +112,4 @@ whole image at the mount path.
 
 ## Further reading
 
-- [`image` volumes](/docs/concepts/storage/volumes/#image)
+- [`image` volumes](/docs/reference/storage/volume-types/#image)

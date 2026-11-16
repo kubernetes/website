@@ -70,3 +70,5 @@ Condition contains details for one aspect of the current state of this API Resou
 
 
 
+
+

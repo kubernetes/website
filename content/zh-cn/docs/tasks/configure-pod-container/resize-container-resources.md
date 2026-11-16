@@ -84,6 +84,13 @@ The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tool
 must be enabled
 for your control plane and for all nodes in your cluster.
 
+To enable automatic scheduler preemption for deferred resize requests, the
+`InPlacePodVerticalScalingSchedulerPreemption`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must also be enabled for your control plane.
+
+To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `InPlacePodVerticalScalingMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane and nodes, and the underlying nodes must be running cgroup v2.
+
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 -->
 
@@ -91,6 +98,13 @@ The `kubectl` client version must be at least v1.32 to use the `--subresource=re
 
 你需要在控制平面和集群中的所有节点上启用 `InPlacePodVerticalScaling`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。  
+
+要为被延后的资源调整请求启用调度器自动抢占功能，还必须为你的控制平面启用
+`InPlacePodVerticalScalingSchedulerPreemption` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+要动态调整基于内存的（`medium: Memory`）`emptyDir` 卷的大小，还必须为你的控制平面和节点启用
+`InPlacePodVerticalScalingMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并且底层节点必须运行 CGroup v2。
 
 要使用 `--subresource=resize` 参数，`kubectl` 客户端版本需至少为 v1.32。
 
@@ -124,10 +138,39 @@ kubelet 会通过更新 Pod 的状态状况来反映调整请求的当前状态�
   执行过程中的任何错误都会在 `message` 字段中报告，同时带有 `reason: Error`。
 
 <!--
-### How kubelet retries Deferred resizes
+### How deferred resizes are retried and preempted
 
 If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
-for example when another pod is removed or scaled down. If there are multiple deferred
+for example when another pod is removed or scaled down.
+-->
+### 被延后的资源调整请求如何重试与抢占
+
+如果请求的调整大小操作被标记为 **Deferred**，kubelet 会定期重新尝试执行该调整，例如当其他 Pod 被移除或缩容时。
+
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingSchedulerPreemption" >}}
+
+<!--
+When the `InPlacePodVerticalScalingSchedulerPreemption` feature gate is enabled,
+`kube-scheduler` watches for pods with `Deferred` resize status.
+If a node lacks sufficient capacity to fulfill a higher-priority Pod's resize
+request, the scheduler can preempt (evict) lower-priority pods on that node
+to free up the required CPU or memory capacity.
+For more details, see
+[Preemption for in-place Pod resize](/docs/concepts/scheduling-eviction/pod-priority-preemption/preemption-for-in-place-pod-resize).
+-->
+当启用 `InPlacePodVerticalScalingSchedulerPreemption` 特性门控时，`kube-scheduler`
+会监视那些资源调整状态为 `Deferred`（已延后）的 Pod。
+
+如果某节点的容量不足以满足一个高优先级 Pod 的资源调整请求，
+调度器可以抢占（即驱逐）该节点上优先级较低的 Pod，
+从而释放出所需的 CPU 或内存容量。
+
+更多细节请参见[就地 Pod 资源调整的抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/preemption-for-in-place-pod-resize)。
+{{< /note >}}
+
+<!--
+If there are multiple deferred
 resizes, they are retried according to the following priority:
 
 * Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.
@@ -137,16 +180,14 @@ resizes, they are retried according to the following priority:
 A higher priority resize being marked as pending will not block the remaining pending resizes from being attempted;
 all remaining pending resizes will still be retried even if a higher-priority resize gets deferred again.
 -->
-### 如何重试 Deferred 调整大小
-
-如果请求的调整大小操作被标记为 **Deferred**，kubelet 会定期重新尝试执行该调整，例如当其他 Pod 被移除或缩容时。
 当存在多个延迟的调整操作时，kubelet 会按照以下优先级顺序进行重试：
 
 * 优先级（基于 PriorityClass）较高的 Pod，其调整请求会先被重试。
 * 如果两个 Pod 拥有相同的优先级，则会先重试 Guaranteed 类型的 Pod，再重试 Burstable 的类型 Pod。
 * 如果上述条件均相同，则优先处理在延迟状态下停留时间更长的 Pod。
 
-需要注意的是，即使高优先级的调整被再次标记为待处理，也不会阻塞其余待处理的调整操作；其余的待处理调整仍会被继续重试。
+需要注意的是，即使高优先级的调整被再次标记为待处理，也不会阻塞其余待处理的调整操作；
+其余的待处理调整仍会被继续重试。
 
 <!--
 ### Leveraging `observedGeneration` Fields
@@ -235,6 +276,45 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 * 如果**同时**更改 CPU 和内存资源，容器将重启（由于内存策略）。
 
 <!--
+## Resizing memory-backed emptyDir volumes
+-->
+## 调整内存支持的 emptyDir 卷大小
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
+
+<!--
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, the Pod `/resize` subresource supports updating he `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes on running Pods without restarting containers or recreating he Pod.
+-->
+当启用 `InPlacePodVerticalScalingMemoryBackedVolumes` 特性门控时，Pod
+的 `/resize` 子资源支持更新运行中 Pod 上基于内存的（`medium: Memory`）`emptyDir`
+卷的 `sizeLimit`，而无需重启容器或重建 Pod。
+
+<!--
+When a volume's `sizeLimit` is updated via the `/resize` subresource, the Kubelet dynamically updates the underlying `tmpfs` ount without container disruption while safely preventing out-of-memory errors or false-positive eviction triggers.
+
+To resize a memory-backed `emptyDir` volume, update `spec.volumes[].emptyDir.sizeLimit` targeting the Pod's `resize` subresource:
+-->
+当通过 `/resize` 子资源更新某个卷的 `sizeLimit` 时，kubelet
+会动态地更新底层的 `tmpfs` 挂载点，且不会对容器造成中断，
+同时能安全地避免出现内存不足（OOM）错误或误触发驱逐。
+
+要调整基于内存的 `emptyDir` 卷的大小，请针对 Pod 的 `resize`
+子资源更新 `spec.volumes[].emptyDir.sizeLimit`：
+
+```shell
+kubectl patch pod <pod-name> --subresource resize --patch \
+  '{"spec":{"volumes":[{"name":"cache-volume", "emptyDir":{"sizeLimit":"200Mi"}}]}}'
+```
+
+<!--
+You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once ompleted, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df h`).
+-->
+你可以通过 Pod 的状态状况（`PodResizePending` 和
+`PodResizeInProgress`）来监控资源调整进度。
+完成之后，你可以在运行中的容器内核对实际的卷容量（例如使用
+`kubectl exec` 运行 `df -h`）。
+
+<!--
 ## Limitations
 
 For Kubernetes v{{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
@@ -314,6 +394,14 @@ to a race condition where memory usage may spike right after the check is perfor
 -->
 * **交换内存**：使用[交换内存](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)的 Pod 不能调整内存请求，
   除非内存的 `resizePolicy` 为 `RestartContainer`。
+
+<!--
+* **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
+-->
+* **基于内存的卷调整大小：**原地调整基于内存的（`medium: Memory`）`emptyDir`
+  卷的大小，要求节点运行 CGroup v2。在运行 CGroup v1 的节点上，
+  原地卷调整请求会被视为不可行而拒绝。基于磁盘的 `emptyDir`
+  卷和持久卷无法通过 Pod 的 `/resize` 子资源进行调整大小。
 
 <!--
 These restrictions might be relaxed in future Kubernetes versions.

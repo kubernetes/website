@@ -152,6 +152,21 @@ kube-proxy 会根据不同配置以不同的模式启动。
 : kube-proxy 使用 nftables 配置数据包转发规则的一种模式。
 
 <!--
+If you do not choose a mode explicitly (via the `--proxy-mode`
+command-line option, or the `mode` field in a config file) when
+starting kube-proxy, then it will use the recommended default version.
+In Kubernetes {{< skew currentVersion >}}, this is `iptables`, but a
+future version of Kubernetes will change the default to `nftables`. To
+avoid having the proxy backend in a cluster be changed unexpectedly
+during an upgrade, you should ensure that all clusters have a
+kube-proxy configuration that explicitly indicates which mode to use.
+-->
+如果你在启动 kube-proxy 时未显式选择模式（通过 `--proxy-mode` 命令行参数，或在配置文件中的
+`mode` 字段），它将使用推荐的默认后端。在 Kubernetes {{</* skew currentVersion */>}} 中，
+当前为 `iptables`；但在未来版本的 Kubernetes 中，默认值将被改为 `nftables`。
+为避免集群中的代理后端在升级过程中被意外更改，你应确保所有集群的 kube-proxy 配置都明确指定使用哪种模式。
+
+<!--
 There is only one mode available for kube-proxy on Windows:
 
 [`kernelspace`](#proxy-mode-kernelspace)
@@ -167,6 +182,10 @@ Windows 上的 kube-proxy 只有一种模式可用：
 
 _This proxy mode is only available on Linux nodes._
 
+**The `ipvs` proxy mode is deprecated**. Support for `ipvs` mode will be disabled by default from Kubernetes v1.40 (you can re-enable it with the `KubeProxyIPVS`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/));
+`ipvs` mode will be fully removed in Kubernetes v1.43.
+
 In this mode, kube-proxy configures packet forwarding rules using the
 iptables API of the kernel netfilter subsystem. For each endpoint, it
 installs iptables rules which, by default, select a backend Pod at
@@ -175,6 +194,10 @@ random.
 ### `iptables` 代理模式 {#proxy-mode-iptables}
 
 **此代理模式仅适用于 Linux 节点。**
+
+**`ipvs` 代理模式已弃用**。从 Kubernetes v1.40 起，对 `ipvs` 模式的支持将被默认禁用（你可以使用
+`KubeProxyIPVS` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)重新启用）；
+`ipvs` 模式将在 Kubernetes v1.43 中被完全移除。
 
 在这种模式下，kube-proxy 使用内核 netfilter 子系统的 iptables API 
 配置数据包转发规则。对于每个端点，kube-proxy 会添加 iptables 
@@ -523,21 +546,6 @@ field in the kube-proxy configuration.
 [ipvs.scheduler](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
 字段进行配置的。
 
-{{< note >}}
-<!--
-To run kube-proxy in IPVS mode, you must make IPVS available on
-the node before starting kube-proxy.
-
-When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
-kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-exits with an error.
--->
-要在 IPVS 模式下运行 kube-proxy，必须在启动 kube-proxy 之前确保节点上的 IPVS 可用。
-
-当 kube-proxy 以 IPVS 代理模式启动时，它会验证 IPVS 内核模块是否可用。
-如果未检测到 IPVS 内核模块，则 kube-proxy 会退出并报错。
-{{< /note >}}
-
 <!--
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
@@ -546,14 +554,10 @@ exits with an error.
 <!--
 ### `nftables` proxy mode {#proxy-mode-nftables}
 
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
-
 _This proxy mode is only available on Linux nodes, and requires kernel
 5.13 or later._
 -->
 ### `nftables` 代理模式 {#proxy-mode-nftables}
-
-{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
 
 **此代理模式仅适用于 Linux 节点，并且需要 5.13 或更高的内核版本。**
 
@@ -578,15 +582,6 @@ becomes noticeable in clusters with tens of thousands of services).
 nftables API 是 iptables API 的后继，旨在提供比 iptables 更好的性能和可扩展性。
 `nftables` 代理模式能够比 `iptables` 模式更快、更高效地处理 Service 端点的变化，
 并且在内核中处理数据包的效率也更高（尽管这只有在拥有数万个 Service 的集群中才会比较明显）。
-
-<!--
-As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
-still relatively new, and may not be compatible with all network
-plugins; consult the documentation for your network plugin.
--->
-
-在 Kubernetes {{< skew currentVersion >}} 中，`nftables`
-模式仍然相对较新，可能还不兼容所有的网络插件；请查阅你的网络插件文档。
 
 <!--
 #### Migrating from `iptables` mode to `nftables`
@@ -617,25 +612,6 @@ differently the `nftables` mode:
   `type: NodePort` Service 只能通过节点上的主 IPv4 和/或 IPv6 地址进行访问。
   你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
   `--nodeport-addresses 0.0.0.0/0` 以监听所有（本地）IPv4 IP。
-
-<!--
-- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
-  `--nodeport-addresses` range includes `127.0.0.1` (and the option
-  `--iptables-localhost-nodeports false` option is not passed), then
-  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
-  In `nftables` mode (and `ipvs` mode), this will not work. If you
-  are not sure if you are depending on this functionality, you can
-  check kube-proxy's
-  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-  is non-0, that means that some client has connected to a `type: NodePort`
-  Service via localhost/loopback.
--->
-- **`127.0.0.1` 上的 `type: NodePort` Service**：在 `iptables` 模式下，如果
-  `--nodeport-addresses` 范围包括 `127.0.0.1`（且未传递 `--iptables-localhost-nodeports false` 选项），
-  则 `type: NodePort` Service 甚至可以在 "localhost" (`127.0.0.1`) 上访问。
-  在 `nftables` 模式（和 `ipvs` 模式）下，这将不起作用。如果你不确定是否依赖此功能，
-  可以检查 kube-proxy 的 `iptables_localhost_nodeports_accepted_packets_total` 指标；
-  如果该值非 0，则表示某些客户端已通过本地主机或本地回路连接到 `type: NodePort` Service。
 
 <!--
 - **NodePort interaction with firewalls**: The `iptables` mode of
@@ -673,6 +649,39 @@ differently the `nftables` mode:
   `iptables_ct_state_invalid_dropped_packets_total`
   指标，看看你的集群是否依赖于该修复程序，如果是，你可以使用 `--conntrack-tcp-be-liberal`
   选项运行 kube-proxy，以在 `nftables` 模式下解决该问题。
+
+{{< feature-state feature_gate_name="KubeProxyNFTablesLocalhostNodePorts" >}}
+
+<!--
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  Originally, in `nftables` mode, this did not work. However, in
+  Kubernetes {{< skew currentVersion >}}, you can enable localhost
+  NodePorts in `nftables` mode by enabling the
+  `KubeProxyNFTablesLocalhostNodePorts` feature gate, and setting
+  `--nodeport-addresses` to `primary,localhost` rather than the
+  default value of `primary`.
+
+  If you are not sure if you are depending on this functionality, you
+  can check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type:
+  NodePort` Service via localhost/loopback.
+-->
+- `type: NodePort` **在 `127.0.0.1` 上的访问**：在 `iptables` 模式下，如果 `--nodeport-addresses`
+  范围包含 `127.0.0.1`（并且未设置 `--iptables-localhost-nodeports false` 选项），那么
+  `type: NodePort` Service 即使在 "localhost"（`127.0.0.1`）上也可被访问。
+  最初，在 `nftables` 模式下，这种行为并不生效。但在 Kubernetes {{</* skew currentVersion */>}} 中，
+  你可以通过启用 `KubeProxyNFTablesLocalhostNodePorts` 特性门控，并将
+  `--nodeport-addresses` 设置为 `primary,localhost`（而非默认值 `primary`），在
+  `nftables` 模式下启用 localhost NodePort。
+
+  如果你不确定是否依赖此特性，可以检查 kube-proxy 的
+  `iptables_localhost_nodeports_accepted_packets_total`
+  指标；如果该指标非 0，则表示已有客户端通过 localhost/本地回路连接了
+  `type: NodePort` 类型 Service。
 
 <!--
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}

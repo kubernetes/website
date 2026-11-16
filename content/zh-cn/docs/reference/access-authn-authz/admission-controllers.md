@@ -43,24 +43,24 @@ Kubernetes 的若干重要功能都要求启用一个准入控制器，以便正
 
 <!--
 ## What are they?
--->
-## 什么是准入控制插件？  {#what-are-they}
 
-<!--
 Admission controllers are code within the Kubernetes
 {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} that check the
 data arriving in a request to modify a resource.
+-->
+## 什么是准入控制插件？  {#what-are-they}
 
+准入控制器是 Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
+用于检查请求中到达的数据，以修改资源。
+
+<!--
 Admission controllers apply to requests that create, delete, or modify objects.
 Admission controllers can also block custom verbs, such as a request to connect to a
 pod via an API server proxy. Admission controllers do _not_ (and cannot) block requests
 to read (**get**, **watch** or **list**) objects, because reads bypass the admission
 control layer.
 -->
-准入控制器是 Kubernetes
-{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
-用于检查请求中到达的数据，以修改资源。
-
 准入控制器适用于创建、删除或修改对象的请求。
 准入控制器也可以阻止自定义动作，例如通过 API 服务器代理连接到 Pod 的请求。
 准入控制器**不会**（也不能）阻止读取（**get**、**watch** 或 **list**）对象的请求，
@@ -84,33 +84,37 @@ Kubernetes {{< skew currentVersion >}}
 
 <!--
 ### Admission control extension points
+-->
+### 准入控制扩展点   {#admission-control-extension-points}
 
-Within the full [list](#what-does-each-admission-controller-do), there are three
+<!--
+Within the full [list](#what-does-each-admission-controller-do), there are four
 special controllers:
 [MutatingAdmissionWebhook](#mutatingadmissionwebhook),
+[MutatingAdmissionPolicy](#mutatingadmissionpolicy),
 [ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
 [ValidatingAdmissionPolicy](#validatingadmissionpolicy).
 The two webhook controllers execute the mutating and validating (respectively)
 [admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-which are configured in the API. ValidatingAdmissionPolicy provides a way to embed
-declarative validation code within the API, without relying on any external HTTP
+which are configured in the API. MutatingAdmissionPolicy and ValidatingAdmissionPolicy provides a way to embed
+declarative mutation/validation code within the API, without relying on any external HTTP
 callouts.
 -->
-### 准入控制扩展点   {#admission-control-extension-points}
-
-在完整的[列表](#what-does-each-admission-controller-do)中，有三个特殊的控制器：
+在完整的[列表](#what-does-each-admission-controller-do)中，有四个特殊的控制器：
 [MutatingAdmissionWebhook](#mutatingadmissionwebhook)、
+[MutatingAdmissionPolicy](#mutatingadmissionpolicy)、
 [ValidatingAdmissionWebhook](#validatingadmissionwebhook)
 和 [ValidatingAdmissionPolicy](#validatingadmissionpolicy)。
-前两个 Webhook 控制器分别执行在 API
+这两个 Webhook 控制器分别执行在 API
 中所配置的变更和验证[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
-而 ValidatingAdmissionPolicy 提供了一种在 API 中嵌入声明式验证代码的方式，无需依赖任何外部 HTTP 调用。
+而 MutatingAdmissionPolicy 和 ValidatingAdmissionPolicy 提供了一种在 API
+中嵌入声明式变更/验证代码的方式，无需依赖任何外部 HTTP 调用。
 
 <!--
-You can use these three admission controllers to customize cluster behavior at
+You can use these four admission controllers to customize cluster behavior at
 admission time.
 -->
-你可以使用这三个准入控制器来定制准入时的集群行为。
+你可以使用这四个准入控制器来定制准入时的集群行为。
 
 <!--
 ### Admission control phases
@@ -155,7 +159,7 @@ validating webhooks. It shows that the continue until the first rejection,
 or being accepted by all of them. It also shows that mutations by mutating
 webhooks cause all previously called webhooks to be called again.
 -->
-{{< figure src="/zh-cn/docs/reference/access-authn-authz/admission-control-phases.svg" alt="kube-apiserver 在准入阶段处理请求的时序图，展示了变更性 Webhook，随后是验证准入策略（ValidatingAdmissionPolicies），最后是验证性 Webhook。此时序图表明，请求会持续经过这些步骤，直到遇到第一个被拒绝的情况，或者被所有检查接受。此外，此图还显示，变更性 Webhook 所做的变更会导致所有之前调用过的 Webhook 被重新调用。" class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI](https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI)" >}}
+{{< figure src="/zh-cn/docs/reference/access-authn-authz/admission-control-phases.svg" alt="kube-apiserver 在准入阶段处理请求的时序图，展示了变更性 Webhook，随后是验证准入策略（ValidatingAdmissionPolicies），最后是验证性 Webhook。此时序图表明，请求会持续经过这些步骤，直到遇到第一个被拒绝的情况，或者被所有检查接受。此外，此图还显示，变更性 Webhook 所做的变更会导致所有之前调用过的 Webhook 被重新调用。" class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1v2zYQ_isHDcZazO-O34QhQJdiazAEKJquAwZ9oaSzxZoiNZJy4gT-7ztSL1bs5sPQ6otE8rm75-45inwOEpViEAa9HnxgewSrwKCFjZL2nj8hbIWKmRAHYAZsxg1wI3-2oNEUmFhMIS29UWZtYcLRaMttVsbDROWjHHXOeDr4aprPETemRDOardfjSPZ6z1xyGz5Hgc0wxygIo0BiaTUTUdCPgoYELUAUTKfFI03Tl8F_S5SJnyfjnGut9LvEKm1oyuoSj_1IAj215y9McxYLNJWFX6qWmbP6bbf1sX-aTRcJzl3sc8hnfLQ3SijtgQ8Zt3gGE0oVXRS85k8qixSxg9tqPJyBvpV6JI_HY68XyUg2FXjP2Vaz3E05OxLxc6URaYXAhB1YokRqamBJgsbwmAtuD31gMgWTqVKkECOURcqcmLhHfQDLc_QO0so9-RtWAcjJezSJ7hbxvubSol20XRnjgBXcoCaXkFE4weWW-obAxhpqG-3GnmaaU19wJaHImEFH68Gt5aVl1k0_YJwptTN9ci2EeiCi8QH2THBiTcjWQaEETzgan92GS9-4J1zraAgn-rfWB3QVY9bzSaj2XFJbl_QWfmrDtXFN_5V6nuL0gVKM0bl0ZS1sxYjCgdo4g_wsAhNGdcM0qRlnVg069CBhpUHvrtC456o0lEdCY4rTgmjTkXL1LNsyLmuRjk07FExbqkfBpIW_SAm3h_37cvndx1u3-ifJpiVaKqGbuffqfQNd2szB3RupSEml0y9-Qmn-5MdtT74wTfMbq4W3bnW_oYprJSqDWD3CH5SNiZVWlyD4NdbXN1XWlUBn4lzSvWsKTEHb79bxJf7LqWPIojM6s0GZulJXA1_YwfW1L1wIn6pGhzc43A77kGikDQYMCpW-revvgN6AihZ2a0md59WiJnbJJhkmu2qqoP9oxcA0cd1_B353G5zapc3uY70TTl3oNXPhGkwIt3KvdnhmdDiZtAsnlncq5ZuDa_-q3qBi_3rDNyARU0zfvqjN6wz_rvv4fzGsjX44RVK_ZdjRu6kicOkgrunEK7FPVi3rc0edynaWXib86XspN2X9bsqX-vwA0q3E1PvU8u5n3hGqPhxasNsfDuy2lotiCup7hGZPmdIfac4BuhsAhQv6dJjytLoE9IP62kHXG39ene4Z9JnihpXC-mOVzGjj_6NU3lhqVW6zINzQj5tG1fFYH7YNhJVW3R9k0owx5XRRuKuuU_5WRW4od9Q3in5UQTgZ-zBB-Bw8BuFgNpsOF_PF-mo-nkxmq-WsHxwINFkOr8aT5WoxW01Wy8l4fewHT57ZZDieL-fr8WI8W01XV7Px9PgfcW89xA](https://mermaid.live/edit#pako:eNqtVm1v2zYQ_isHDcZazO-O34QhQJdiazAEKJquAwZ9oaSzxZoiNZJy4gT-7ztSL1bs5sPQ6otE8rm75-45inwOEpViEAa9HnxgewSrwKCFjZL2nj8hbIWKmRAHYAZsxg1wI3-2oNEUmFhMIS29UWZtYcLRaMttVsbDROWjHHXOeDr4aprPETemRDOardfjSPZ6z1xyGz5Hgc0wxygIo0BiaTUTUdCPgoYELUAUTKfFI03Tl8F_S5SJnyfjnGut9LvEKm1oyuoSj_1IAj215y9McxYLNJWFX6qWmbP6bbf1sX-aTRcJzl3sc8hnfLQ3SijtgQ8Zt3gGE0oVXRS85k8qixSxg9tqPJyBvpV6JI_HY68XyUg2FXjP2Vaz3E05OxLxc6URaYXAhB1YokRqamBJgsbwmAtuD31gMgWTqVKkECOURcqcmLhHfQDLc_QO0so9-RtWAcjJezSJ7hbxvubSol20XRnjgBXcoCaXkFE4weWW-obAxhpqG-3GnmaaU19wJaHImEFH68Gt5aVl1k0_YJwptTN9ci2EeiCi8QH2THBiTcjWQaEETzgan92GS9-4J1zraAgn-rfWB3QVY9bzSaj2XFJbl_QWfmrDtXFN_5V6nuL0gVKM0bl0ZS1sxYjCgdo4g_wsAhNGdcM0qRlnVg069CBhpUHvrtC456o0lEdCY4rTgmjTkXL1LNsyLmuRjk07FExbqkfBpIW_SAm3h_37cvndx1u3-ifJpiVaKqGbuffqfQNd2szB3RupSEml0y9-Qmn-5MdtT74wTfMbq4W3bnW_oYprJSqDWD3CH5SNiZVWlyD4NdbXN1XWlUBn4lzSvWsKTEHb79bxJf7LqWPIojM6s0GZulJXA1_YwfW1L1wIn6pGhzc43A77kGikDQYMCpW-revvgN6AihZ2a0md59WiJnbJJhkmu2qqoP9oxcA0cd1_B353G5zapc3uY70TTl3oNXPhGkwIt3KvdnhmdDiZtAsnlncq5ZuDa_-q3qBi_3rDNyARU0zfvqjN6wz_rvv4fzGsjX44RVK_ZdjRu6kicOkgrunEK7FPVi3rc0edynaWXib86XspN2X9bsqX-vwA0q3E1PvU8u5n3hGqPhxasNsfDuy2lotiCup7hGZPmdIfac4BuhsAhQv6dJjytLoE9IP62kHXG39ene4Z9JnihpXC-mOVzGjj_6NU3lhqVW6zINzQj5tG1fFYH7YNhJVW3R9k0owx5XRRuKuuU_5WRW4od9Q3in5UQTgZ-zBB-Bw8BuFgNpsOF_PF-mo-nkxmq-WsHxwINFkOr8aT5WoxW01Wy8l4fewHT57ZZDieL-fr8WI8W01XV7Px9PgfcW89xA)" >}}
 
 <!--
 ## Why do I need them?
@@ -180,7 +184,8 @@ admission control plugins:
 -->
 ## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
-Kubernetes API 服务器的 `enable-admission-plugins` 标志接受一个（以逗号分隔的）准入控制插件列表，
+Kubernetes API 服务器的 `enable-admission-plugins`
+标志接受一个（以逗号分隔的）准入控制插件列表，
 这些插件会在集群修改对象之前被调用。
 
 例如，下面的命令启用 `NamespaceLifecycle` 和 `LimitRanger` 准入控制插件：
@@ -235,7 +240,7 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 在 Kubernetes {{< skew currentVersion >}} 中，默认启用的插件有：
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
 
 <!--
@@ -443,9 +448,9 @@ have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 -->
-此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds` 和
-`default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍 `notready:NoExecute` 和
-`unreachable:NoExecute` 污点
+此准入控制器基于 k8s-apiserver 的输入参数 `default-not-ready-toleration-seconds`
+和 `default-unreachable-toleration-seconds` 为 Pod 设置默认的容忍度，以容忍
+`notready:NoExecute` 和 `unreachable:NoExecute` 污点
 （如果 Pod 尚未容忍 `node.kubernetes.io/not-ready：NoExecute` 和
 `node.kubernetes.io/unreachable：NoExecute` 污点的话）。
 `default-not-ready-toleration-seconds` 和 `default-unreachable-toleration-seconds`
@@ -455,10 +460,7 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
 feature is very powerful (allows network traffic interception) and not well
 controlled by policy.  When enabled, users of the cluster may not create new
@@ -466,6 +468,8 @@ Services which use `externalIPs` and may not add new values to `externalIPs` on
 existing `Service` objects.  Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 -->
+**类别**：验证。
+
 此准入控制器拒绝新的 `Service` 中使用字段 `externalIPs`。
 此功能非常强大（允许网络流量拦截），并且无法很好地受策略控制。
 启用后，集群用户将无法创建使用 `externalIPs` 的新 `Service`，也无法在现有
@@ -497,7 +501,7 @@ which can be surfaced to running containers using the
 [Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
 [topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -632,14 +636,13 @@ This admission controller is disabled by default.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
 
 This admission controller is disabled by default.
 -->
+**类别**：验证。
+
 ImagePolicyWebhook 准入控制器允许使用后端 Webhook 做出准入决策。
 
 此准入控制器默认被禁用。
@@ -745,7 +748,8 @@ ImagePolicyWebhook 的配置文件必须引用
 The kubeconfig file's `cluster` field must point to the remote service, and the `user` field
 must contain the returned authorizer.
 -->
-kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users` 字段需要包含已返回的授权者。
+kubeconfig 文件的 `clusters` 字段需要指向远端服务，`users`
+字段需要包含已返回的授权者。
 
 <!--
 ```yaml
@@ -801,7 +805,8 @@ any pod annotations that match `*.image-policy.k8s.io/*`.
 
 当面对一个准入决策时，API 服务器发送一个描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
-该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*` 匹配的所有 Pod 注解。
+该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*`
+匹配的所有 Pod 注解。
 
 {{< note >}}
 <!--
@@ -887,7 +892,7 @@ result, images included under image volumes are not in scope for the
 ImagePolicyWebhook.
 -->
 `ImageReview` 对象将包含打算作为容器执行的 Pod 中的所有镜像。
-这包括在 Pod 规范中 containers、initContainers 或 ephemeralContainers
+这包括在 Pod 规约中 containers、initContainers 或 ephemeralContainers
 字段中指定的镜像。因此，包含在镜像卷中的镜像不在 ImagePolicyWebhook 的范围内。
 {{< /note >}}
 
@@ -895,7 +900,8 @@ ImagePolicyWebhook.
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 -->
-更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
+更多的文档，请参阅
+[`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
 
 <!--
 #### Extending with Annotations
@@ -968,13 +974,29 @@ LimitRanger 还可以用于将默认资源请求应用到没有设定资源约�
 当前，默认的 LimitRanger 对 `default` 名字空间中的所有 Pod 都设置 0.1 CPU 的需求。
 
 <!--
-See the [LimitRange API reference](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+See the [LimitRange API reference](/docs/reference/kubernetes-api/core/limit-range-v1/)
 and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 for more details.
 -->
 请查看
-[limitRange API 文档](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)和
+[limitRange API 文档](/zh-cn/docs/reference/kubernetes-api/core/limit-range-v1/)和
 [LimitRange 例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)以了解更多细节。
+
+### MutatingAdmissionPolicy {#mutatingadmissionpolicy}
+
+<!--
+**Type**: Mutating.
+
+[This admission controller](/docs/reference/access-authn-authz/mutating-admission-policy/) uses the Common Expression Language (CEL) to declare mutations to resources. Mutations can be defined either with an apply configuration that is merged using the server side apply merge strategy, or a JSON patch.
+It is enabled when both feature gate `mutatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+If any of the MutatingAdmissionPolicy fails, the request fails.
+-->
+**类别**：变更。
+
+[此准入控制器](/zh-cn/docs/reference/access-authn-authz/mutating-admission-policy/)使用通用表达式语言（CEL）
+来声明对资源的变更。变更既可以通过使用服务器端应用合并策略合并的应用配置来定义，也可以通过 JSON 补丁来定义。
+当 `mutatingadmissionpolicy` 和 `admissionregistration.k8s.io/v1alpha1` 特性门控组/版本被启用时，
+该准入控制器才会被启用。如果任意 MutatingAdmissionPolicy 失败，则请求失败。
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
@@ -1013,10 +1035,7 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 #### Use caution when authoring and installing mutating webhooks
--->
-#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
 
-<!--
 * Users may be confused when the objects they try to create are different from
   what they get back.
 * Built in control loops may break when the objects they try to create are
@@ -1028,6 +1047,8 @@ group/version via the `--runtime-config` flag, both are on by default.
   is finalized, not all possible webhook behaviors will be guaranteed to be supported
   indefinitely.
 -->
+#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
+
 * 当用户尝试创建的对象与返回的对象不同时，用户可能会感到困惑。
 * 当他们读回的对象与尝试创建的对象不同，内建的控制回路可能会出问题。
   * 与覆盖原始请求中设置的字段相比，使用原始请求未设置的字段会引起问题的可能性较小。
@@ -1039,16 +1060,15 @@ group/version via the `--runtime-config` flag, both are on by default.
 
 <!--
 **Type**: Mutating.
--->
-**类别**：变更。
 
-<!--
 This admission controller examines all incoming requests on namespaced resources and checks
 if the referenced namespace does exist.
 It creates a namespace if it cannot be found.
 This admission controller is useful in deployments that do not want to restrict creation of
 a namespace prior to its usage.
 -->
+**类别**：变更。
+
 此准入控制器会检查针对名字空间域资源的所有传入请求，并检查所引用的名字空间是否确实存在。
 如果找不到所引用的名字空间，控制器将创建一个名字空间。
 此准入控制器对于不想要求名字空间必须先创建后使用的集群部署很有用。
@@ -1057,13 +1077,12 @@ a namespace prior to its usage.
 
 <!--
 **Type**: Validating.
--->
-**类别**：验证。
 
-<!--
 This admission controller checks all requests on namespaced resources other than `Namespace` itself.
 If the namespace referenced from a request doesn't exist, the request is rejected.
 -->
+**类别**：验证。
+
 此准入控制器检查针对名字空间作用域的资源（除 `Namespace` 自身）的所有请求。
 如果请求引用的名字空间不存在，则拒绝该请求。
 
@@ -1523,11 +1542,11 @@ controller to enforce quota constraints.
 则必须使用这个准入控制器来强制执行配额限制。
 
 <!--
-See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+See the [ResourceQuota API reference](/docs/reference/kubernetes-api/core/resource-quota-v1/)
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[ResourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
+[ResourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/core/resource-quota-v1/)和
 [ResourceQuota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}

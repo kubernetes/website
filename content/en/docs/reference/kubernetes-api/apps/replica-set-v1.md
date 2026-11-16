@@ -48,7 +48,7 @@ ReplicaSet ensures that a specified number of pod replicas are running at any gi
       <td>If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#ReplicaSetSpec" >}}">ReplicaSetSpec</a></em></td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#ReplicaSetSpec" >}}">ReplicaSetSpec</a></em></td>
       <td>Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
     <tr>
@@ -180,11 +180,11 @@ ReplicaSetCondition describes the state of a replica set at a certain point.
       <td>The reason for the condition's last transition.</td>
     </tr>
     <tr>
-      <td><code>status</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>status</code><br/><em>string</em></td>
       <td>Status of the condition, one of True, False, Unknown.</td>
     </tr>
     <tr>
-      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
+      <td><code>type</code><br/><em>string</em></td>
       <td>Type of replica set condition.</td>
     </tr>
   </tbody>
@@ -1726,6 +1726,8 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale
     </tr>
   </tbody>
 </table>
+
+
 
 
 

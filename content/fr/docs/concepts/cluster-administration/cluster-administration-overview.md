@@ -18,7 +18,7 @@ Voir le guide: [choisir la bonne solution](/fr/docs/setup/pick-right-solution/) 
 Avant de choisir un guide, voici quelques considérations:
 
  - Voulez-vous simplement essayer Kubernetes sur votre machine ou voulez-vous créer un cluster haute disponibilité à plusieurs nœuds? Choisissez les distributions les mieux adaptées à vos besoins.
- - **Si vous recherchez la haute disponibilité**, apprenez à configurer des [clusters multi zones](/docs/concepts/cluster-administration/federation/).
+ - **Si vous recherchez la haute disponibilité**, apprenez à configurer des [clusters multi zones](/fr/docs/setup/best-practices/multiple-zones/).
  - Utiliserez-vous **un cluster Kubernetes hébergé**, comme [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), ou **hébergerez-vous votre propre cluster**?
  - Votre cluster sera-t-il **on-premises**, ou **sur un cloud (IaaS)**? Kubernetes ne prend pas directement en charge les clusters hybrides. Cependant, vous pouvez configurer plusieurs clusters.
  - **Si vous configurez Kubernetes on-premises**, choisissez le [modèle réseau](/docs/concepts/cluster-administration/networking/) qui vous convient le mieux.

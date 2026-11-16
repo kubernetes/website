@@ -48,7 +48,7 @@ ResourceClaimTemplate is used to produce ResourceClaim objects.
       <td>Standard object metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a></em></td>
+      <td><code>spec</code><br/><em><a href="{{< ref "#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a></em></td>
       <td>Describes the ResourceClaim that is to be generated.  This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.</td>
     </tr>
   </tbody>
@@ -69,7 +69,7 @@ ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
       <td>ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.</td>
     </tr>
     <tr>
-      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "resource-claim-v1#ResourceClaimSpec" >}}">ResourceClaimSpec</a></em></td>
+      <td><code>spec</code><br/><em><a href="{{< ref "resource-claim-v1#ResourceClaimSpec" >}}">ResourceClaimSpec</a></em></td>
       <td>Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.</td>
     </tr>
   </tbody>
@@ -1168,6 +1168,8 @@ GET /apis/resource.k8s.io/v1/watch/resourceclaimtemplates
     </tr>
   </tbody>
 </table>
+
+
 
 
 

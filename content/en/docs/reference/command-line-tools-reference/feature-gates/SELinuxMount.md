@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.37"
 
 ---
 Speeds up container startup by allowing kubelet to mount volumes
@@ -20,6 +24,3 @@ for a Pod directly with the correct SELinux label instead of changing each file 
 recursively.
 It widens the performance improvements behind the `SELinuxMountReadWriteOncePod`
 feature gate by extending the implementation to all volumes.
-
-Enabling the `SELinuxMount` feature gate requires the feature gates `SELinuxMountReadWriteOncePod`
-and `SELinuxChangePolicy` to be enabled.

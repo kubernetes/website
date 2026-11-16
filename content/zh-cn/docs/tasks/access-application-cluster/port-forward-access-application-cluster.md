@@ -13,6 +13,7 @@ min-kubernetes-server-version: v1.10
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
@@ -47,6 +48,7 @@ for database debugging.
    <!--
    The output of a successful command verifies that the deployment was created:
    -->
+   
    成功执行的命令的输出可以证明创建了 Deployment：
 
    ```
@@ -56,6 +58,7 @@ for database debugging.
    <!--
    View the pod status to check that it is ready:
    -->
+   
    查看 Pod 状态，检查其是否准备就绪：
 
    ```shell
@@ -65,6 +68,7 @@ for database debugging.
    <!--
    The output displays the pod created:
    -->
+   
    输出显示创建的 Pod：
 
    ```
@@ -75,6 +79,7 @@ for database debugging.
    <!--
    View the Deployment's status:
    -->
+   
    查看 Deployment 状态：
 
    ```shell
@@ -84,6 +89,7 @@ for database debugging.
    <!--
    The output displays that the Deployment was created:
    -->
+   
    输出显示创建的 Deployment：
 
    ```
@@ -95,6 +101,7 @@ for database debugging.
    The Deployment automatically manages a ReplicaSet.
    View the ReplicaSet status using:
    -->
+   
    该 Deployment 自动管理一个 ReplicaSet。查看该 ReplicaSet 的状态：
 
    ```shell
@@ -104,6 +111,7 @@ for database debugging.
    <!--
    The output displays that the ReplicaSet was created:
    -->
+   
    输出显示 ReplicaSet 已被创建：
 
    ```
@@ -123,6 +131,7 @@ for database debugging.
    <!--
    The output of a successful command verifies that the Service was created:
    -->
+   
    成功执行的命令的输出可以证明 Service 已经被创建：
 
    ```
@@ -132,6 +141,7 @@ for database debugging.
    <!--
    Check the Service created:
    -->
+   
    检查所创建的 Service：
 
    ```shell
@@ -141,6 +151,7 @@ for database debugging.
    <!--   
    The output displays the service created:
    -->
+   
    输出显示已被创建的 Service：
 
    ```
@@ -159,6 +170,7 @@ for database debugging.
    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
    ```
    -->
+   
    ```shell
    # 将 mongo-75f59d57f4-4nd6q 改为 Pod 的名称
    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
@@ -167,6 +179,7 @@ for database debugging.
    <!--
    The output displays the port for MongoDB in that Pod:
    -->
+   
    输出应该显示对应 Pod 中 MongoDB 的端口：
 
    ```
@@ -176,6 +189,7 @@ for database debugging.
    <!--
    27017 is the official TCP port for MongoDB.
    -->
+   
    27017 是 MongoDB 的官方 TCP 端口。
 
 <!--
@@ -194,6 +208,7 @@ for database debugging.
    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
    ```
    -->
+   
    ```shell
    # 将 mongo-75f59d57f4-4nd6q 改为 Pod 的名称
    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
@@ -202,27 +217,37 @@ for database debugging.
    <!--
    which is the same as
    -->
+   
    这相当于
 
    ```shell
    kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
    ```
 
-   <!-- or -->
+   <!--
+   or
+   -->
+   
    或者
 
    ```shell
    kubectl port-forward deployment/mongo 28015:27017
    ```
 
-   <!-- or -->
+   <!--
+   or
+   -->
+   
    或者
 
    ```shell
    kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
    ```
 
-   <!-- or -->
+   <!--
+   or
+   -->
+   
    或者
 
    ```shell
@@ -232,6 +257,7 @@ for database debugging.
    <!--
    Any of the above commands works. The output is similar to this:
    -->
+   
    以上所有命令都有效。输出类似于：
 
    ```
@@ -243,6 +269,7 @@ for database debugging.
    <!--
    `kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
    -->
+   
    `kubectl port-forward` 不会返回。你需要打开另一个终端来继续这个练习。
    {{< /note >}}
 
@@ -268,6 +295,7 @@ for database debugging.
    <!--
    A successful ping request returns:
    -->
+   
    成功的 ping 请求应该返回：
 
    ```
@@ -277,7 +305,7 @@ for database debugging.
 <!--
 ### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 -->
-### （可选操作）让 _kubectl_ 来选择本地端口 {#let-kubectl-choose-local-port}
+### （可选操作）让 **kubectl** 来选择本地端口 {#let-kubectl-choose-local-port}
 
 <!--
 If you don't need a specific local port, you can let `kubectl` choose and allocate 
@@ -324,9 +352,32 @@ The support for UDP protocol is tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->
 `kubectl port-forward` 仅实现了 TCP 端口 支持。
-在 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862)
+在 [Issue 47862](https://github.com/kubernetes/kubernetes/issues/47862)
 中跟踪了对 UDP 协议的支持。
 {{< /note >}}
+
+<!--
+## Authorization and security considerations
+  
+Access to `kubectl port-forward` is controlled by Kubernetes authorization mechanisms like {{< glossary_tooltip text="Role-Based Access Control (RBAC)" term_id="rbac" >}}. Authorization is enforced by the Kubernetes API server, not by the `kubectl` client.
+-->
+## 鉴权与安全考量
+  
+对 `kubectl port-forward` 的访问由 Kubernetes 的鉴权机制控制，
+例如{{</* glossary_tooltip text="基于角色的访问控制（RBAC）" term_id="rbac" */>}}。
+鉴权由 Kubernetes API 服务器而非 `kubectl` 客户端执行。
+  
+<!--
+To use `kubectl port-forward`, a user must have permission to access the target resource (for example, a Pod or Service) and the `portforward` subresource. Typical required permissions include `get` on `pods` and `create` on `pods/portforward`.
+  
+Cluster administrators should carefully restrict these permissions, as port-forwarding can provide direct network access to workloads and may bypass network-level controls.
+-->
+要使用 `kubectl port-forward`，用户必须拥有访问目标资源（例如 Pod 或 Service）的权限，
+并拥有对 `portforward` 子资源的权限。典型所需的权限包括对 `pods` 的 `get`
+和对 `pods/portforward` 的 `create`。
+  
+集群管理员应当谨慎地限制这些权限，因为端口转发可以为工作负载提供直接的网络访问，
+并且可能绕过网络层面的控制。
 
 ## {{% heading "whatsnext" %}}
 

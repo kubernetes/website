@@ -1,7 +1,7 @@
 ---
 content_type: "api_reference"
 title: "Discovery"
-weight: 130
+weight: 110
 auto_generated: true
 ---
 

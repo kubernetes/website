@@ -86,7 +86,7 @@ If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; when the Pod is deleted, the corresponding
 endpoint in the EndpointSlice will update its [conditions](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/#conditions): the endpoint ready
 condition will be set to false, so load balancers will not use the Pod for
-regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-termination/)
 for more information about how the kubelet handles Pod deletion.
 {{< /note >}}
 
@@ -327,6 +327,10 @@ have additional fields that can be set on `httpGet`:
   headers.
 * `port`: Name or number of the port to access on the container. Number must be
   in the range 1 to 65535.
+* `protocol`: Protocol to use for the probe request. Defaults to `HTTP1`.
+  Set to `HTTP2` to probe over HTTP/2 cleartext (h2c). Requires the
+  `H2CContainerProbe` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  to be enabled.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified port and
 path to perform the check. The kubelet sends the probe to the Pod's IP address,
@@ -378,6 +382,16 @@ startupProbe:
       - name: User-Agent
         value: ""
 ```
+
+{{< feature-state feature_gate_name="H2CContainerProbe" >}}
+
+You can configure an HTTP probe to use HTTP/2 cleartext (h2c) by setting the
+`protocol` field to `HTTP2`. When `protocol` is set to `HTTP2`, the kubelet
+uses h2c (HTTP/2 over plain TCP) instead of HTTP/1.1. The default `protocol`
+is `HTTP1`. Setting `protocol: HTTP2` requires `scheme: HTTP` (the default);
+the API server rejects the combination of `protocol: HTTP2` with
+`scheme: HTTPS`. For more details, see
+[Use HTTP/2 cleartext (h2c) with HTTP probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#use-h2c-with-http-probes).
 
 #### Redirect handling {#http-probes-redirects}
 
@@ -456,6 +470,14 @@ and you cannot configure a custom hostname.
 Configuration problems (for example: incorrect port or service, unimplemented
 health checking protocol) are considered a probe failure, similar to HTTP and
 TCP probes.
+
+{{< feature-state feature_gate_name="GRPCContainerProbeTLS" >}}
+
+You can configure a gRPC probe to connect over TLS by setting the `mode` field
+to `TLS`. When `mode` is set to `TLS`, the kubelet uses TLS with
+`InsecureSkipVerify` (it does not verify the server certificate). The default
+`mode` is `Plaintext`. For more details, see
+[Use TLS with gRPC probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#grpc-probe-tls).
 
 ## {{% heading "whatsnext" %}}
 

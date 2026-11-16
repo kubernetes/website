@@ -110,7 +110,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)
+which are independent programs that follow a [specification](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository
@@ -260,7 +260,7 @@ To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](h
 - `fileSystemId`: The file system under which the access point is created.
 - `directoryPerms`: The directory permissions of the root directory created by the access point.
 
-For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/dynamic_provisioning/README.md) documentation.
+For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/efs/dynamic_provisioning/README.md) documentation.
 
 
 ### NFS
@@ -292,7 +292,7 @@ There are two types of provisioners for vSphere storage classes:
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi).
 For more information on the CSI provisioner, see
 [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
-[vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+[migrating from in-tree plugins to CSI drivers](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Event represents a single event to a watched resource."
 title: "WatchEvent"
-weight: 640
+weight: 650
 auto_generated: true
 ---
 
@@ -45,6 +45,8 @@ Event represents a single event to a watched resource.
     </tr>
   </tbody>
 </table>
+
+
 
 
 

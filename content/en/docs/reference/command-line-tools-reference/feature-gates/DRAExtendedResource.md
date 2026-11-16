@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.36"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.37"
+
 ---
 Enables support for the [Extended Resource allocation by DRA](/docs/concepts/configuration/manage-resources-containers/#extended-resources-allocation-by-dra) feature.
 It makes it possible to specify an extended resource name in a DeviceClass.

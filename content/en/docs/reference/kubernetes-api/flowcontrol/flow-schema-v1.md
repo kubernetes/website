@@ -48,7 +48,7 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
       <td>`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</td>
     </tr>
     <tr>
-      <td><code>spec</code><br/><em><a href="{{< ref "#FlowSchemaSpec" >}}">FlowSchemaSpec</a></em></td>
+      <td><code>spec</code>&nbsp;<strong>*</strong><br/><em><a href="{{< ref "#FlowSchemaSpec" >}}">FlowSchemaSpec</a></em></td>
       <td>`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</td>
     </tr>
     <tr>
@@ -174,10 +174,10 @@ FlowSchemaCondition describes conditions for a FlowSchema.
     </tr>
     <tr>
       <td><code>status</code><br/><em>string</em></td>
-      <td>`status` is the status of the condition. Can be True, False, Unknown. Required.</td>
+      <td>`status` is the status of the condition. Should be specified and set to one of True, False, Unknown.</td>
     </tr>
     <tr>
-      <td><code>type</code><br/><em>string</em></td>
+      <td><code>type</code>&nbsp;<strong>*</strong><br/><em>string</em></td>
       <td>`type` is the type of the condition. Required.</td>
     </tr>
   </tbody>
@@ -1387,6 +1387,8 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
     </tr>
   </tbody>
 </table>
+
+
 
 
 
