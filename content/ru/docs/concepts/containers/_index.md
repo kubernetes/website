@@ -2,7 +2,6 @@
 title: Контейнеры
 weight: 40
 description: Технология упаковки приложения вместе с его runtime-зависимостями.
-reviewers:
 content_type: concept
 no_list: true
 ---

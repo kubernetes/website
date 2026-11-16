@@ -201,7 +201,7 @@ choco install minikube
 
 {{< note >}}
 
-Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/ru/docs/setup/learning-environment/minikube/#указание-драйвера-виртуальной-машины).
+Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Доступные драйверы перечислены в [документации minikube](https://minikube.sigs.k8s.io/docs/drivers/).
 
 {{< /note >}}
 
@@ -251,4 +251,4 @@ minikube delete
 ## {{% heading "whatsnext" %}}
 
 
-* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)
+* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/#minikube)
