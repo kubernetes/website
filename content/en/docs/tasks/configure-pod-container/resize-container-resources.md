@@ -145,22 +145,38 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 * If only memory resources are changed, the container is restarted.
 * If *both* CPU and memory resources are changed simultaneously, the container is restarted (due to the memory policy).
 
-## Resizing memory-backed emptyDir volumes
+## Resizing memory-backed emptyDir volumes {#resizing-memory-backed-emptydir-volumes}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScalingMemoryBackedVolumes" >}}
 
-When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, the Pod `/resize` subresource supports updating the `sizeLimit` of memory-backed (`medium: Memory`) `emptyDir` volumes on running Pods without restarting containers or recreating the Pod.
+When the `InPlacePodVerticalScalingMemoryBackedVolumes` feature gate is enabled, the Pod `/resize` subresource supports dynamically adding, modifying, or removing the `sizeLimit` of existing memory-backed (`medium: Memory`) `emptyDir` volumes on running Pods without restarting containers or recreating the Pod. Container `resizePolicy` settings do not apply to volume resizes; updating `sizeLimit` alone never restarts containers.
 
-When a volume's `sizeLimit` is updated via the `/resize` subresource, the Kubelet dynamically updates the underlying `tmpfs` mount without container disruption while safely preventing out-of-memory errors or false-positive eviction triggers.
-
-To resize a memory-backed `emptyDir` volume, update `spec.volumes[].emptyDir.sizeLimit` targeting the Pod's `resize` subresource:
+To set or update the `sizeLimit` of a memory-backed `emptyDir` volume, patch `spec.volumes[].emptyDir.sizeLimit` targeting the Pod's `resize` subresource:
 
 ```shell
 kubectl patch pod <pod-name> --subresource resize --patch \
   '{"spec":{"volumes":[{"name":"cache-volume", "emptyDir":{"sizeLimit":"200Mi"}}]}}'
 ```
 
-You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
+To remove an existing `sizeLimit` so the volume capacity falls back to the Pod's memory limit (or node allocatable memory if Pod limits are unset), set `sizeLimit` to `null`:
+
+```shell
+kubectl patch pod <pod-name> --subresource resize --patch \
+  '{"spec":{"volumes":[{"name":"cache-volume", "emptyDir":{"sizeLimit":null}}]}}'
+```
+
+### Effective capacity, actuation ordering, and shrinkage safety
+
+* **Effective `tmpfs` capacity:** The kubelet computes the mounted `tmpfs` capacity as the minimum of node allocatable memory, total Pod memory limit (if set), and the volume's `sizeLimit` (if set). If `sizeLimit` is omitted or removed, the mounted `tmpfs` size automatically tracks in-place changes to container or Pod memory limits. Even though `sizeLimit` values exceeding the Pod memory limit are capped at mount time, files written to `tmpfs` count against container and Pod memory cgroups; configure `sizeLimit` with headroom below container and Pod memory limits so volume usage does not starve processes and trigger OOM kills.
+* **Coordinated resize ordering:** When container or Pod memory limits and memory-backed volume `sizeLimit` values are updated together, the kubelet sequences actuation safely: volume downsizing runs *before* lowering memory cgroup limits, and memory cgroup limits are expanded *before* upsizing volumes (preventing workloads from writing to an expanded `tmpfs` before the cgroup limit increases).
+* **Shrinkage safety:** If you decrease `sizeLimit` below the amount of data currently stored in the volume, the Linux kernel rejects the `tmpfs` remount without modifying the mount, corrupting files, or restarting containers. The kubelet reports the failure on the `PodResizeInProgress` condition (`status: "True"`, `reason: Error`), emits a `ResizeError` warning event, and periodically retries the resize on subsequent sync cycles until usage drops below the requested limit or a new `sizeLimit` is specified.
+* **Eviction behavior:** Pod-level `emptyDir` size-limit eviction is bypassed for `medium: Memory` volumes because the kernel enforces `tmpfs` capacity directly by returning `ENOSPC` on writes, while container and Pod cgroups govern memory pressure.
+
+### Monitoring memory-backed volume resizes
+
+* **Status and container verification:** Monitor resize state using the `PodResizePending` and `PodResizeInProgress` conditions, and verify the active `tmpfs` size inside a running container (for example, `kubectl exec <pod-name> -- df -h /cache`).
+* **Events:** Pod resize lifecycle events (`ResizeStarted`, `ResizeCompleted`, `ResizeError`, and `ResizeInfeasible`) include modified memory-backed `emptyDir` volumes in their resource summary payload.
+* **Metrics:** The kubelet exposes `kubelet_volume_requested_resizes_total` (labeled with `medium="memory"` and `operation` set to `add`, `remove`, `increase`, or `decrease`), tracks actuation latency in `kubelet_pod_resize_duration_milliseconds`, and increments `kubelet_pod_infeasible_resizes_total` (`reason_detail="cgroups_v1_unsupported"`) when a volume resize is rejected on a cgroup v1 node.
 
 ## Limitations
 
@@ -191,7 +207,7 @@ to a race condition where memory usage may spike right after the check is perfor
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
-* **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
+* **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2; on cgroup v1 nodes, volume resize requests are rejected with `PodResizePending` (`reason: Infeasible`). Only the `sizeLimit` of existing `medium: Memory` `emptyDir` volumes can be added, modified, or removed via `/resize`; adding or removing volume entries in `spec.volumes`, resizing static Pods, and resizing disk-backed `emptyDir` or persistent volumes via `/resize` are not supported.
 
 These restrictions might be relaxed in future Kubernetes versions.
 
