@@ -21,7 +21,7 @@ When accessing the Kubernetes API for the first time, use the
 Kubernetes command-line tool, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
-to access it. Typically, this is automatically set-up when you work through
+to access it. Typically, this is automatically set up when you work through
 a [Getting started guide](/docs/setup/),
 or someone else set up the cluster and provided you with credentials and a location.
 
@@ -36,7 +36,7 @@ kubectl. Complete documentation is found in the [kubectl manual](/docs/reference
 
 ### Directly accessing the REST API
 
-kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an http client like
+kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an HTTP client like
 `curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the API server:
 
 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses
