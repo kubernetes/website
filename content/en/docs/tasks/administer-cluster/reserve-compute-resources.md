@@ -74,20 +74,20 @@ be configured to use the `systemd` cgroup driver.
 - **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
 - **KubeletConfiguration Setting**: `kubeReservedCgroup: ""`
 
-`kubeReserved` is meant to capture resource reservation for kubernetes system
+`kubeReserved` is meant to capture resource reservation for Kubernetes system
 daemons like the `kubelet`, `container runtime`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
 `kubeReserved` is typically a function of `pod density` on the nodes.
 
 In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
 specified to reserve the specified number of process IDs for
-kubernetes system daemons.
+Kubernetes system daemons.
 
-To optionally enforce `kubeReserved` on kubernetes system daemons, specify the parent
+To optionally enforce `kubeReserved` on Kubernetes system daemons, specify the parent
 control group for kube daemons as the value for `kubeReservedCgroup` setting,
 and [add `kube-reserved` to `enforceNodeAllocatable`](#enforcing-node-allocatable).
 
-It is recommended that the kubernetes system daemons are placed under a top
+It is recommended that the Kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
 [the design proposal](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
@@ -134,8 +134,8 @@ with `.slice` appended.
 **KubeletConfiguration Setting**: `reservedSystemCPUs:`. Example value `0-3`
 
 `reservedSystemCPUs` is meant to define an explicit CPU set for OS system daemons and
-kubernetes system daemons. `reservedSystemCPUs` is for systems that do not intend to
-define separate top level cgroups for OS system daemons and kubernetes system daemons
+Kubernetes system daemons. `reservedSystemCPUs` is for systems that do not intend to
+define separate top level cgroups for OS system daemons and Kubernetes system daemons
 with regard to cpuset resource.
 If the Kubelet **does not** have `kubeReservedCgroup` and `systemReservedCgroup`,
 the explicit cpuset provided by `reservedSystemCPUs` will take precedence over the CPUs
@@ -143,10 +143,10 @@ defined by `kubeReservedCgroup` and `systemReservedCgroup` options.
 
 This option is specifically designed for Telco/NFV use cases where uncontrolled
 interrupts/timers may impact the workload performance. you can use this option
-to define the explicit cpuset for the system/kubernetes daemons as well as the
+to define the explicit cpuset for the system/Kubernetes daemons as well as the
 interrupts/timers, so the rest CPUs on the system can be used exclusively for
 workloads, with less impact from uncontrolled interrupts/timers. To move the
-system daemon, kubernetes daemons and interrupts/timers to the explicit cpuset
+system daemon, Kubernetes daemons and interrupts/timers to the explicit cpuset
 defined by this option, other mechanism outside Kubernetes should be used.
 For example: in Centos, you can do this using the tuned toolset.
 
@@ -192,7 +192,7 @@ respectively.
 System daemons are expected to be treated similar to
 [Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed).
 System daemons can burst within their bounding control groups and this behavior needs
-to be managed as part of kubernetes deployments. For example, `kubelet` should
+to be managed as part of Kubernetes deployments. For example, `kubelet` should
 have its own control group and share `kubeReserved` resources with the
 container runtime. However, Kubelet cannot burst and use up all available Node
 resources if `kubeReserved` is enforced.
