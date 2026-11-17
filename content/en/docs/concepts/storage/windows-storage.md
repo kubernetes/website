@@ -13,7 +13,7 @@ weight: 110
 
 <!-- overview -->
 
-This page provides an storage overview specific to the Windows operating system.
+This page provides a storage overview specific to the Windows operating system.
 
 <!-- body -->
 
