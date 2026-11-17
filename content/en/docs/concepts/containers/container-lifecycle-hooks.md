@@ -129,18 +129,24 @@ Here is some example output of the resulting events you see from running `kubect
 
 ```
 Events:
-  Type     Reason               Age              From               Message
-  ----     ------               ----             ----               -------
-  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
-  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
-  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
-  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
-  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
-  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
-  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
-  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
-  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
+  Type     Reason               Age               From               Message
+  ----     ------               ----              ----               -------
+  Normal   Scheduled            45s               default-scheduler  Successfully assigned default/lifecycle-demo to hook-control-plane
+  Normal   Pulled               42s               kubelet            spec.containers{lifecycle-demo-container}: Successfully pulled image "nginx" in 2.329s (2.329s including waiting). Image size: 63933865 bytes.
+  Normal   Pulled               40s               kubelet            spec.containers{lifecycle-demo-container}: Successfully pulled image "nginx" in 436ms (436ms including waiting). Image size: 63933865 bytes.
+  Normal   Pulled               27s               kubelet            spec.containers{lifecycle-demo-container}: Successfully pulled image "nginx" in 403ms (404ms including waiting). Image size: 63933865 bytes.
+  Normal   Pulling              5s (x4 over 45s)  kubelet            spec.containers{lifecycle-demo-container}: Pulling image "nginx"
+  Normal   Created              5s (x4 over 42s)  kubelet            spec.containers{lifecycle-demo-container}: Container created
+  Normal   Pulled               5s                kubelet            spec.containers{lifecycle-demo-container}: Successfully pulled image "nginx" in 434ms (434ms including waiting). Image size: 63933865 bytes.
+  Normal   Started              4s (x4 over 42s)  kubelet            spec.containers{lifecycle-demo-container}: Container started
+  Warning  FailedPostStartHook  4s (x4 over 42s)  kubelet            spec.containers{lifecycle-demo-container}: PostStartHook failed
+  Normal   Killing              4s (x4 over 42s)  kubelet            spec.containers{lifecycle-demo-container}: FailedPostStartHook
+  Warning  BackOff              4s (x4 over 40s)  kubelet            spec.containers{lifecycle-demo-container}: Back-off restarting failed container lifecycle-demo-container in pod lifecycle-demo_default(7b71727e-b83d-4637-989e-37b9b9beb8d8)
 ```
+
+The event does not say why the handler failed. The kubelet keeps the handler's error
+and output out of the event message, so that sensitive data is not exposed through events.
+To find the reason, check the kubelet's log on the node where the Pod is running.
 
 
 
