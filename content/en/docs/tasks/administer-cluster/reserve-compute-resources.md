@@ -216,7 +216,7 @@ allocated appropriately when there is contention.
 * If absolutely necessary, enforce non-compressible `systemReserved` resources over time.
 
 The resource requirements of kube system daemons may grow over time as more and
-more features are added. Over time, kubernetes project will attempt to bring
+more features are added. Over time, Kubernetes project will attempt to bring
 down utilization of node system daemons, but that is not a priority as of now.
 So expect a drop in `Allocatable` capacity in future releases.
 
