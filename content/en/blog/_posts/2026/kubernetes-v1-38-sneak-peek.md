@@ -1,13 +1,16 @@
 ---
 layout: blog
-title: "Kubernetes v1.38 Sneak Peek"
-date: 2026-11-23T08:00:00-08:00
+title: 'Kubernetes v1.38 Sneak Peek'
+draft: true
 slug: kubernetes-v1-38-sneak-peek
 author: >
-  [Kubernetes v1.38 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.38/release-team.md)
+  Aaron Braundmeier,
+  Arsh Sharma,
+  Kirti Goyal,
+  Omar Nasser,
+  Sayan Chowdhury,
+  Urvashi Choubey
 ---
-
-**Editors:** Aaron Braundmeier, Arsh Sharma, Kirti Goyal, Omar Nasser, Sayan Chowdhury, Urvashi Choubey
 
 As we get closer to the release date for Kubernetes v1.38, the project develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This blog outlines some of the planned changes for the Kubernetes 1.38 release, that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment and keeping up to date with the latest changes. The information listed below is based on the current status of the v1.38 release and may change before the actual release date.
 
