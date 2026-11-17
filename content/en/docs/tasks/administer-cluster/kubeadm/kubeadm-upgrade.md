@@ -331,7 +331,7 @@ In case of an etcd upgrade failure and if the automatic rollback does not work, 
 can be manually restored in `/var/lib/etcd`. In case external etcd is used, this backup folder will be empty.
 
 `kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control plane Node.
-In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
+In case of an upgrade failure and if the automatic rollback does not work, the contents of this folder can be
 manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
 and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 
