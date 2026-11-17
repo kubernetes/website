@@ -138,7 +138,7 @@ var filesIgnore = []string{
 	"audit/audit-policy.yaml",
 	// The registration of this API group has some problems
 	"customresourcedefinition/shirt-resource-definition.yaml",
-	// This is an raw example
+	// This is a raw example
 	"customresourcedefinition/shirt-resources.yaml",
 	// kind.x-k8s.io group not recognizable
 	"pods/security/seccomp/kind.yaml",
@@ -492,7 +492,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(path string, data [][]b
 					return fmt.Errorf("Decoding error %s: %v", path, err)
 				}
 
-				// skip manifest missking `apiVersion` or `kind` fields.
+				// skip manifest missing `apiVersion` or `kind` fields.
 				if _, found := doc["apiVersion"]; !found {
 					continue
 				}
@@ -520,7 +520,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(path string, data [][]b
 				return fmt.Errorf("Decoding error %s: %v", path, err)
 			}
 
-			// skip manifest missking `apiVersion` or `kind` fields.
+			// skip manifest missing `apiVersion` or `kind` fields.
 			if _, found := doc["apiVersion"]; !found {
 				return nil
 			}
