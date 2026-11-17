@@ -1,7 +1,7 @@
 ---
 title: Effective Pod requests and limits
 content_type: concept
-weight: 5
+weight: 8
 ---
 
 <!-- overview -->
@@ -26,6 +26,10 @@ without reserving more node resources than the Pod needs.
 <!-- body -->
 
 ## Calculating effective requests and limits
+
+The `initContainers` field of a Pod is a list that can contain init containers,
+sidecar containers, or both.
+A sidecar container is an entry in that list that has `restartPolicy: Always`.
 
 For each resource, Kubernetes calculates a request/limit for two phases:
 
@@ -52,11 +56,11 @@ this calculation works for specific Pods.
 
 The following rules also apply:
 
-* Scheduling is done based on effective requests/limits, which means
+* Scheduling is done based on effective requests, which means
   init containers can reserve resources for initialization that are not used
   during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for all init, sidecar and app containers alike.
+* The Pod has a single QoS (quality of service) class, which applies to
+  all init, sidecar and app containers alike.
 
 Quota and limits are applied based on the effective Pod request and
 limit.
@@ -180,6 +184,69 @@ spec:
   so the sum of their requests is 100m + 400m = 500m.
 * The effective CPU request of the Pod is the higher of the two values
   (300m and 500m), which is 500m.
+
+## Pod-level resources
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+If you set a request or limit for a resource in the `spec.resources` field of a Pod,
+Kubernetes uses that value as the effective request or limit of the Pod
+instead of calculating it from the containers.
+For a resource that you don't set in `spec.resources`, Kubernetes calculates
+the effective value from the containers, as described in
+[Calculating effective requests and limits](#calculating-effective-requests-and-limits).
+Kubernetes still adds the [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+to the value from `spec.resources`.
+The pod-level request for a resource must be at least the effective request
+calculated from the containers.
+
+This Pod has the same containers as the `sidecar-before-init` Pod,
+and also sets a pod-level CPU request:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-level-request
+spec:
+  resources: # Pod-level resources
+    requests:
+      cpu: 500m
+  initContainers:
+  - name: sidecar
+    image: busybox:1.38
+    command: ["sleep", "infinity"]
+    restartPolicy: Always # make this container a sidecar
+    resources:
+      requests:
+        cpu: 100m
+  - name: init
+    image: busybox:1.38
+    command: ["sleep", "5"]
+    resources:
+      requests:
+        cpu: 200m
+  containers:
+  - name: app
+    image: busybox:1.38
+    command: ["sleep", "infinity"]
+    resources:
+      requests:
+        cpu: 50m
+```
+
+* During initialization, the `sidecar` container is already running when the `init`
+  container starts, so the effective init request is 100m + 200m = 300m.
+* After initialization, the `sidecar` and `app` containers run at the same time,
+  so the sum of their requests is 100m + 50m = 150m.
+* The effective CPU request calculated from the containers is the higher of the two values
+  (300m and 150m), which is 300m. The pod-level CPU request (500m) is at least
+  this value, so this Pod is valid.
+* Kubernetes uses the pod-level CPU request instead of the value calculated from
+  the containers, so the effective CPU request of the Pod is 500m.
+
+See [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+to learn how to set resources at the Pod level.
 
 ## Linux cgroups {#cgroups}
 
