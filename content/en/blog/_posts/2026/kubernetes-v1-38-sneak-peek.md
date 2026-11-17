@@ -134,8 +134,6 @@ Kubernetes v1.38 release is planned for **Wednesday, December 16th, 2026**. Stay
 
 You can see the announcements of changes in the release notes for:
 
-<!-- Only list releases the community currently supports — see the patch release support period: https://kubernetes.io/releases/patch-releases/#support-period. Update this list each cycle: drop the oldest entry, add the new one. -->
-
 - [Kubernetes v1.37](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.37.md)
 - [Kubernetes v1.36](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.36.md)
 - [Kubernetes v1.35](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.35.md)
