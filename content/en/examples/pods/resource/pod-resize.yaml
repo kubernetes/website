@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: resize-demo
-  namespace: qos-example
+  namespace: rcr-example
 spec:
   containers:
   - name: pause
