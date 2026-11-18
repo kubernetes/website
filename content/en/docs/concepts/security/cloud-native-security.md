@@ -227,3 +227,6 @@ logs are both tamper-proof and confidential.
 * [Network policies](/docs/concepts/services-networking/network-policies/) for Pods
 * [Pod security standards](/docs/concepts/security/pod-security-standards/)
 * [RuntimeClasses](/docs/concepts/containers/runtime-class)
+
+* [Kubernetes penetration testing: RBAC, Secrets, and privilege escalation](https://en.hackita.it/articoli/kubernetes-privilege-escalation/)
+  A hands-on, command-driven guide to assessing Kubernetes clusters, covering API discovery, ServiceAccount and RBAC enumeration, exposed Secrets and credentials, workload permissions, kubelet and `nodes/proxy` attack surfaces, privilege-escalation paths, container escape techniques, lateral movement, and detection and hardening.
