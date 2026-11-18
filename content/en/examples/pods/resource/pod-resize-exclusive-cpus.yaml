@@ -2,11 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: resize-exclusive-cpus-demo
-  namespace: qos-example
+  namespace: rcr-example
 spec:
   containers:
   - name: pause
-    image: registry.k8s.io/pause:3.8
+    image: nginx
+    command: 
+        - '/bin/bash'
+        - '-c'
+        - "baselineCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}'); currentCPUs=$(echo $baselineCPUs); echo \"CPUs assigned during admission (baselineCPUs) = $baselineCPUs\";while true; do assignedCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}') && if [[ \"$currentCPUs\" -ne \"$assignedCPUs\" ]]; then echo \"CPUs assigned updated from (before resize) $currentCPUs to (after resize assignedCPUs) $assignedCPUs including (baselineCPUs) $baselineCPUs\";currentCPUs=$(echo $assignedCPUs);fi; done"
     resizePolicy:
     - resourceName: cpu
       restartPolicy: NotRequired # Default, but explicit here

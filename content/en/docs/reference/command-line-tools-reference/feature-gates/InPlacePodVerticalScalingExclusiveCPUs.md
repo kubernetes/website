@@ -8,8 +8,7 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.38"
+    fromVersion: "1.32"
 ---
-Enable resource resizing for containers in Guaranteed pods with integer CPU requests.
-It applies only in nodes with `InPlacePodVerticalScaling` and `CPUManager` features enabled,
-and the CPUManager policy set to `static`.
+Enable In-place cpu resource resizing of Pods with Guaranteed Quality of Service (QOS) class 
+which make use of exclusive CPUs using the static CPU management policy.
