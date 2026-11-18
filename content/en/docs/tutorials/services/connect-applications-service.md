@@ -241,7 +241,7 @@ or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-cored
 Let's run another curl application to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
+kubectl run curl --image=busybox:1.28 -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
@@ -251,7 +251,7 @@ Hit enter for command prompt
 Then, hit enter and run `nslookup my-nginx`:
 
 ```shell
-[ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
+/ # nslookup my-nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
