@@ -18,7 +18,11 @@ As we get closer to the release date for Kubernetes v1.38, the project develops 
 
 ### kubectl: WebSocket opt-out environment variables removed
 
-Since 1.31 `kubectl` has used WebSockets instead of SPDY by default for `kubectl exec`, `attach`, `cp` and `port-forward`. The `KUBECTL_REMOTE_COMMAND_WEBSOCKETS` and `KUBECTL_PORT_FORWARD_WEBSOCKETS` environment variables let you turn that behavior off. These variables are going to be removed in v1.38. `kubectl` now always tries WebSockets first and falls back to SPDY when it needs to. If your scripts or CI environments set either of these environment variables, you can remove them since they will no longer have any effect.
+Since 1.31 `kubectl` has used WebSockets instead of SPDY by default for `kubectl exec`, `attach`, `cp` and `port-forward`.
+The `KUBECTL_REMOTE_COMMAND_WEBSOCKETS` and `KUBECTL_PORT_FORWARD_WEBSOCKETS` environment variables let you turn
+that behavior off. These variables are going to be removed in v1.38.
+`kubectl` will then always try WebSockets first and falls back to SPDY when it needs to (the same as the current default behaviour).
+If your scripts or CI environments set either of these environment variables, you can remove them since they will no longer have any effect.
 
 
 To learn more, refer to [KEP-4006: Transition from SPDY to WebSockets](https://kubernetes.dev/resources/keps/4006).
