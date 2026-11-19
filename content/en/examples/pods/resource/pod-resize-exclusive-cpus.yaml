@@ -5,17 +5,15 @@ metadata:
   namespace: rcr-example
 spec:
   containers:
-  - name: pause
+  - name: nginx
     image: nginx
     command: 
         - '/bin/bash'
         - '-c'
-        - "baselineCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}'); currentCPUs=$(echo $baselineCPUs); echo \"CPUs assigned during admission (baselineCPUs) = $baselineCPUs\";while true; do assignedCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}') && if [[ \"$currentCPUs\" -ne \"$assignedCPUs\" ]]; then echo \"CPUs assigned updated from (before resize) $currentCPUs to (after resize assignedCPUs) $assignedCPUs including (baselineCPUs) $baselineCPUs\";currentCPUs=$(echo $assignedCPUs);fi; done"
+        - "baselineCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}'); currentCPUs=$(echo $baselineCPUs); echo \"CPUs assigned during admission (baselineCPUs) = $baselineCPUs\";while true; do assignedCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}') && if [[ \"$currentCPUs\" -ne \"$assignedCPUs\" ]]; then echo \"CPUs assigned updated from $currentCPUs to $assignedCPUs (baselineCPUs) $baselineCPUs\";currentCPUs=$(echo $assignedCPUs);fi; done"
     resizePolicy:
     - resourceName: cpu
       restartPolicy: NotRequired # Default, but explicit here
-    - resourceName: memory
-      restartPolicy: RestartContainer
     resources:
       limits:
         memory: "200Mi"
