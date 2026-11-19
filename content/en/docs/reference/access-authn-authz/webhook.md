@@ -206,10 +206,10 @@ which conditional responses the client supports receiving:
         "handledDecisionTypes": ["Allow", "Deny", "NoOpinion", "ConditionsMap", "Union"]
       },
       "resourceAttributes": {
-        "namespace": "dev",
+        "namespace": "team-a",
         "verb": "create",
         "group": "",
-        "resource": "persistentvolumes"
+        "resource": "persistentvolumeclaims"
       },
       "user": "alice",
       "groups": ["developers"]
@@ -258,7 +258,7 @@ and provides a `conditionalDecision` containing the conditions to evaluate:
             {
               "id": "storage-class-dev",
               "condition": "object.spec.storageClassName == 'dev'",
-              "description": "Only allow creating PersistentVolumes with storageClassName 'dev'"
+              "description": "Only allow creating PersistentVolumeClaims with storageClassName 'dev'"
             }
           ]
         }
@@ -429,11 +429,11 @@ to the REST api.
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
 
 When a webhook authorizer returns conditional responses, Kubernetes needs to evaluate
-those conditions during the admission phase. Currently, the API server evaluates
-conditions by calling back to the webhook via the `AuthorizationConditionsReview` API,
-regardless of the condition `type`. In the future, conditions using the built-in
-`authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server,
-while custom condition types would still require a callback to the webhook.
+those conditions during the admission phase. The API server may evaluate well-known
+condition types (such as `authorizer.kubernetes.io/cel`) in-process, or it may call the
+webhook via the `AuthorizationConditionsReview` API to evaluate some or all of the
+well-known condition types. Custom condition types always require a callback to the
+webhook, since only the webhook knows how to evaluate them.
 
 Webhooks that support conditional authorization must implement the
 `AuthorizationConditionsReview` API at the endpoint specified by
@@ -457,7 +457,7 @@ The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
             "id": "storage-class-restriction",
             "condition": "object.spec.storageClassName == 'dev'",
             "type": "authorizer.kubernetes.io/cel",
-            "description": "User can only create PVs with storageClassName 'dev'"
+            "description": "User can only create PVCs with storageClassName 'dev'"
           }
         ]
       }
@@ -466,15 +466,15 @@ The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
       "requestKind": {
         "group": "",
         "version": "v1",
-        "kind": "PersistentVolume"
+        "kind": "PersistentVolumeClaim"
       },
       "requestResource": {
         "group": "",
         "version": "v1",
-        "resource": "persistentvolumes"
+        "resource": "persistentvolumeclaims"
       },
-      "name": "my-pv",
-      "namespace": "",
+      "name": "my-pvc",
+      "namespace": "team-a",
       "operation": "CREATE",
       "userInfo": {
         "username": "alice",
@@ -483,8 +483,8 @@ The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
       },
       "object": {
         "apiVersion": "v1",
-        "kind": "PersistentVolume",
-        "metadata": { "name": "my-pv" },
+        "kind": "PersistentVolumeClaim",
+        "metadata": { "name": "my-pvc", "namespace": "team-a" },
         "spec": { "storageClassName": "dev" }
       },
       "oldObject": null,

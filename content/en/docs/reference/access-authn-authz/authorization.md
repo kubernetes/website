@@ -64,7 +64,7 @@ or namespace.
 
 Conditional authorization enables more fine-grained access control policies that
 span both the authorization and admission phases. For example, an authorizer can
-express: "allow user Alice to create PersistentVolumes, but only when
+express: "allow user Alice to create PersistentVolumeClaims, but only when
 spec.storageClassName is 'dev'".
 
 When an authorizer returns a conditional response:
@@ -73,10 +73,11 @@ When an authorizer returns a conditional response:
    of its policies based on available metadata, returning a set of conditions
    that must be satisfied for the request to be allowed.
 2. During the **admission phase**, the `AuthorizationConditionsEnforcer` admission 
-   controller calls the authorizer back to evaluate the conditions the authorizer 
-   produced in the authorization phase, producing a final allow or deny decision.
+   controller evaluates the conditions the authorizer produced in the authorization 
+   phase, either by evaluating well-known condition types directly or by delegating 
+   evalution to the original authorizer, producing a final allow or deny decision.
 
-Conditional authorization is supported for requests that proceed through admission:
+Conditional authorization is supported for requests that are intercepted by admission:
 - `create`, `update`, `patch`, `delete`, `deletecollection` verbs
 - Connect requests (for example, `pods/exec`, `pods/portforward`)
 
@@ -464,9 +465,9 @@ admission phases work together to enforce fine-grained policies:
    proceeds with normal request processing, including mutation by admission controllers.
 
 3. **Admission phase**: The `AuthorizationConditionsEnforcer` admission controller
-   (always enabled when the feature is active) evaluates all returned conditions
-   against the fully-mutated request and stored objects. If the conditions evaluate
-   to allow, the request proceeds; otherwise, it's denied.
+   (guaranteed to be enabled when conditional authorization is used) evaluates all 
+   returned conditions against the fully-mutated request and stored objects. If 
+   the conditions evaluate to allow, the request proceeds; otherwise, it's denied.
 
 ### Partial evaluation examples
 
@@ -481,7 +482,7 @@ authorization phase:
 
 **Request 1: Alice creates a ConfigMap**
 
-- **Policy 1**: Matches completely (user is Alice, verb is create, resource is ConfigMaps).
+- **Policy 1**: Matches completely (user is Alice, verb is create, resource is configmaps).
   No request content is needed. → **Allow**
 - **Policy 2**: Does not apply (wrong resource)
 
@@ -490,10 +491,10 @@ just like without conditional authorization. No admission-phase evaluation is ne
 
 ```mermaid
 graph LR
-    Request["Request:<br/>User: Alice<br/>Verb: create<br/>Resource: ConfigMap"]
+    Request["Request:<br/>User: Alice<br/>Verb: create<br/>Resource: configmaps"]
 
-    Policy1{"Policy 1:<br/>Alice create ConfigMaps?"}
-    Policy2{"Policy 2:<br/>Alice create PVCs?"}
+    Policy1{"Policy 1:<br/>Alice create configmaps?"}
+    Policy2{"Policy 2:<br/>Alice create persistentvolumeclaims?"}
 
     Allow[("ALLOW<br/>(unconditional)")]
 
@@ -511,7 +512,7 @@ graph LR
 
 - **Policy 1**: Does not apply (wrong resource)
 - **Policy 2**: Partially matches (user is Alice, verb is create, resource is
-  PersistentVolumeClaims), but the request content (specifically `spec.storageClassName`)
+  persistentvolumeclaims), but the request content (specifically `spec.storageClassName`)
   is not yet available. → **Conditional Allow** (condition: `object.spec.storageClassName == 'dev'`)
 
 Result: The request proceeds to admission, where the condition is evaluated. If
@@ -519,10 +520,10 @@ Result: The request proceeds to admission, where the condition is evaluated. If
 
 ```mermaid
 graph LR
-    Request["Request:<br/>User: Alice<br/>Verb: create<br/>Resource: PVC"]
+    Request["Request:<br/>User: Alice<br/>Verb: create<br/>Resource: persistentvolumeclaims"]
 
-    Policy1{"Policy 1:<br/>Alice create ConfigMaps?"}
-    Policy2{"Policy 2:<br/>Alice create PVCs?"}
+    Policy1{"Policy 1:<br/>Alice create configmaps?"}
+    Policy2{"Policy 2:<br/>Alice create persistentvolumeclaims?"}
 
     Conditional[("CONDITIONAL ALLOW<br/>Condition:<br/>object.spec.storageClassName<br/>== 'dev'")]
 
@@ -557,10 +558,10 @@ allows the request, it's rejected with HTTP 403 (Forbidden) at the authorization
 
 ```mermaid
 graph LR
-    Request["Request:<br/>User: Bob<br/>Verb: create<br/>Resource: PVC"]
+    Request["Request:<br/>User: Bob<br/>Verb: create<br/>Resource: persistentvolumeclaims"]
 
-    Policy1{"Policy 1:<br/>Alice create ConfigMaps?"}
-    Policy2{"Policy 2:<br/>Alice create PVCs?"}
+    Policy1{"Policy 1:<br/>Alice create configmaps?"}
+    Policy2{"Policy 2:<br/>Alice create persistentvolumeclaims?"}
 
     NoOpinion[("NO OPINION")]
     Deny[("403 FORBIDDEN<br/>(no authorizer allowed)")]
@@ -633,7 +634,7 @@ users:
     client-key: /etc/kubernetes/pki/apiserver-webhook-client.key
 ```
 
-The webhook implements a policy: "allow user Alice to create PersistentVolumes,
+The webhook implements a policy: "allow user Alice to create PersistentVolumeClaims,
 but only when `spec.storageClassName` is 'dev'".
 
 #### Sequence diagrams
@@ -651,11 +652,11 @@ sequenceDiagram
     participant Admission as Admission<br/>Controllers
     participant Storage as etcd
 
-    Alice->>+API: POST /api/v1/persistentvolumes<br/>(storageClassName: dev)
+    Alice->>+API: POST /api/v1/namespaces/team-a/persistentvolumeclaims<br/>(storageClassName: dev)
 
     rect rgb(240, 248, 255)
         Note over API,Webhook: Authorization Phase
-        API->>+Webhook: SubjectAccessReview<br/>(user: alice, verb: create, resource: persistentvolumes)
+        API->>+Webhook: SubjectAccessReview<br/>(user: alice, verb: create, resource: persistentvolumeclaims)
         Note over Webhook: Partial evaluation:<br/>Cannot check storageClassName yet
         Webhook-->>-API: Conditional Response<br/>(condition: object.spec.storageClassName == 'dev')
         Note over API: Store conditions in<br/>request context
@@ -677,7 +678,7 @@ sequenceDiagram
         Admission-->>API: OK
     end
 
-    API->>Storage: Write PersistentVolume
+    API->>Storage: Write PersistentVolumeClaim
     Storage-->>API: Success
     API-->>-Alice: 201 Created
 ```
@@ -694,11 +695,11 @@ sequenceDiagram
     participant Webhook as Webhook<br/>Authorizer
     participant Admission as Admission<br/>Controllers
 
-    Alice->>+API: POST /api/v1/persistentvolumes<br/>(storageClassName: production)
+    Alice->>+API: POST /api/v1/namespaces/team-a/persistentvolumeclaims<br/>(storageClassName: production)
 
     rect rgb(240, 248, 255)
         Note over API,Webhook: Authorization Phase
-        API->>+Webhook: SubjectAccessReview<br/>(user: alice, verb: create, resource: persistentvolumes)
+        API->>+Webhook: SubjectAccessReview<br/>(user: alice, verb: create, resource: persistentvolumeclaims)
         Note over Webhook: Partial evaluation:<br/>Cannot check storageClassName yet
         Webhook-->>-API: Conditional Response<br/>(condition: object.spec.storageClassName == 'dev')
         Note over API: Store conditions in<br/>request context
@@ -724,21 +725,21 @@ sequenceDiagram
 
 #### Step-by-step flow
 
-When Alice attempts to create a PersistentVolume with this manifest:
+When Alice attempts to create a PersistentVolumeClaim with this manifest:
 
 ```yaml
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: my-pv
+  name: my-pvc
+  namespace: team-a
 spec:
-  capacity:
-    storage: 10Gi
   storageClassName: dev
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: /data
+  resources:
+    requests:
+      storage: 10Gi
 ```
 
 **Step 1: Authorization phase**
@@ -757,11 +758,11 @@ spec:
     - ConditionsMap
     - Union
   resourceAttributes:
-    namespace: ""
+    namespace: team-a
     verb: create
     group: ""
     version: v1
-    resource: persistentvolumes
+    resource: persistentvolumeclaims
   user: alice
   groups:
   - system:authenticated
@@ -769,7 +770,7 @@ spec:
 ```
 
 The webhook examines the request and recognizes that:
-- Alice is trying to create a PersistentVolume (metadata is available)
+- Alice is trying to create a PersistentVolumeClaim (metadata is available)
 - The request body content is not yet available during authorization
 - The policy requires checking `spec.storageClassName`
 
@@ -788,7 +789,7 @@ status:
       - id: storage-class-dev-only
         condition: "object.spec.storageClassName == 'dev'"
         type: authorizer.kubernetes.io/cel
-        description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
+        description: "User alice can only create PersistentVolumeClaims with storageClassName 'dev'"
 ```
 
 Because the response contains a conditional allow (an `allowConditions` entry), the API server
@@ -799,7 +800,7 @@ proceeds with the request, storing the conditions in the request context.
 The request proceeds through the normal request chain:
 - Request body is decoded and validated
 - Mutating admission controllers run (if any). In this example, a mutating admission
-  controller adds the label `storage-tier: standard` to the PersistentVolume.
+  controller adds the label `storage-tier: standard` to the PersistentVolumeClaim.
 - Validating admission controllers begin
 
 **Step 3: Admission phase - condition enforcement**
@@ -819,18 +820,18 @@ request:
         - id: storage-class-dev-only
           condition: "object.spec.storageClassName == 'dev'"
           type: authorizer.kubernetes.io/cel
-          description: "User alice can only create PersistentVolumes with storageClassName 'dev'"
+          description: "User alice can only create PersistentVolumeClaims with storageClassName 'dev'"
   admissionRequest:
     requestKind:
       group: ""
       version: v1
-      kind: PersistentVolume
+      kind: PersistentVolumeClaim
     requestResource:
       group: ""
       version: v1
-      resource: persistentvolumes
-    name: my-pv
-    namespace: ""
+      resource: persistentvolumeclaims
+    name: my-pvc
+    namespace: team-a
     operation: CREATE
     userInfo:
       username: alice
@@ -839,19 +840,19 @@ request:
       - system:authenticated
     object:
       apiVersion: v1
-      kind: PersistentVolume
+      kind: PersistentVolumeClaim
       metadata:
-        name: my-pv
+        name: my-pvc
+        namespace: team-a
         labels:
           storage-tier: standard
       spec:
-        capacity:
-          storage: 10Gi
         storageClassName: dev
         accessModes:
         - ReadWriteOnce
-        hostPath:
-          path: /data
+        resources:
+          requests:
+            storage: 10Gi
     oldObject: null
     options: null
 ```
@@ -881,11 +882,11 @@ response:
 
 Since the conditions evaluated to allow, the `AuthorizationConditionsEnforcer`
 allows the request to proceed. Other validating admission controllers run,
-and if all succeed, the PersistentVolume is created in etcd.
+and if all succeed, the PersistentVolumeClaim is created in etcd.
 
 #### Alternative scenario: denied request
 
-If Alice had instead tried to create a PersistentVolume with
+If Alice had instead tried to create a PersistentVolumeClaim with
 `storageClassName: production`:
 
 1. Steps 1-3 would proceed identically
@@ -909,9 +910,9 @@ If Alice had instead tried to create a PersistentVolume with
 
 4. The `AuthorizationConditionsEnforcer` denies the request with an error message:
    ```
-   Error from server (Forbidden): persistentvolumes "my-pv" is forbidden: 
-   User "alice" cannot create resource "persistentvolumes" in API group "" 
-   at the cluster scope: User alice can only create PersistentVolumes with
+   Error from server (Forbidden): persistentvolumeclaims "my-pvc" is forbidden: 
+   User "alice" cannot create resource "persistentvolumeclaims" in API group "" 
+   in the namespace "team-a": User alice can only create PersistentVolumeClaims with
    storageClassName 'dev'
    ```
 
@@ -921,12 +922,13 @@ In the examples above, the conditions use CEL (Common Expression Language) expre
 `object.spec.storageClassName == 'dev'`, indicated by `type: authorizer.kubernetes.io/cel`
 (the type field may be omitted for CEL expressions).
 
-Currently, the API server evaluates conditions by sending an `AuthorizationConditionsReview`
-back to the webhook regardless of the condition `type`. In the future, conditions using the
-built-in `authorizer.kubernetes.io/cel` type may be evaluated in-process by the API server's
-built-in CEL evaluator, avoiding the callback and improving performance while maintaining the
-same security guarantees. Custom condition types (for example, `type: example.com/custom-policy`)
-would always require the callback, since only the webhook knows how to evaluate them.
+The API server may evaluate well-known condition types in-process — conditions using the
+built-in `authorizer.kubernetes.io/cel` type can be handled by the API server's own CEL
+evaluator, avoiding the callback and improving performance while maintaining the same
+security guarantees. It may also send an `AuthorizationConditionsReview` back to the webhook
+to evaluate some or all of the well-known condition types. Custom condition types (for
+example, `type: example.com/custom-policy`) always require the callback, since only the
+webhook knows how to evaluate them.
 
 Because of this, a webhook authorizer must be able to evaluate any condition it authors —
 including `authorizer.kubernetes.io/cel` conditions — via the `AuthorizationConditionsReview` API.
@@ -966,8 +968,7 @@ graph LR
 ```
 
 A condition's effect is determined by which list it appears in within `conditionsMap`
-(`allowConditions`, `denyConditions`, or `noOpinionConditions`), rather than by a field
-on the condition itself:
+(`allowConditions`, `denyConditions`, or `noOpinionConditions`):
 
 - **Deny** (a condition in `denyConditions`): If the condition evaluates to `true`, the
   request is immediately denied, short-circuiting evaluation of other authorizers.
@@ -1030,38 +1031,71 @@ conditions that share the same precondition.
 
 #### Handling evaluation errors
 
-When a condition fails to evaluate (for example, due to a malformed CEL expression,
-external system timeout, or missing data), the authorizer can communicate this through
-the `evaluationError` field. The error is non-fatal: the authorization system can
-still make a decision based on other conditions or authorizers.
+An authorizer that cannot evaluate a condition reports why in evaluationError. 
+Common causes are a malformed expression, a timed-out external lookup, or 
+missing data. Unlike `reason`, the field changes how the API server treats
+the decision:
 
-For example, if a webhook encounters an error evaluating conditions, it returns:
+| Decision | `evaluationError` set | Outcome |
+|----------|----------------------|---------|
+| `Allow`  | yes | Request proceeds. The error is not surfaced to the client. |
+| `Deny`   | yes | Request fails with `500 Internal Server Error`, not `403 Forbidden`. The deny `reason` is not
+shown to the client. |
+| `NoOpinion` | yes | Evaluation continues with the remaining authorizers. If one of them allows or denies, the
+error is discarded. If none does, the request fails with `500 Internal Server Error`. |
+
+An authorizer that wants a clean `403` must return `Deny` with a `reason` and
+no `evaluationError`. Set `evaluationError` only when the error genuinely
+reflects partial information that an operator should see.
+
+The same rules apply to conditions evaluated in-process by the API server. In a
+`ConditionsMap`, a condition that errors is treated conservatively, as if it had
+evaluated to true for its own effect:
+
+- a `denyConditions` entry that errors makes the map evaluate to `Deny`
+- a `noOpinionConditions` entry that errors makes the map evaluate to `NoOpinion`
+- an `allowConditions` entry that errors makes the map evaluate to `NoOpinion`,
+  never `Allow`
+
+Within one effect group the first condition that evaluates to true short-circuits
+the rest, so errors from conditions evaluated before it are not reported.
+
+A webhook reporting a failed evaluation returns:
 
 ```yaml
 apiVersion: authorization.k8s.io/v1alpha1
 kind: AuthorizationConditionsReview
 response:
+  # Must be copied from request.admissionRequest.uid.
+  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
   decision:
     type: NoOpinion
     noOpinion:
-      reason: "Could not evaluate condition"
+      reason: 'could not evaluate condition "example.com/owner-match"'
       evaluationError: "unable to access external policy database: connection timeout"
 ```
 
-The evaluation error is also reflected in the top-level `SubjectAccessReview` status:
+#### Returning only possible decisions
 
-```yaml
-apiVersion: authorization.k8s.io/v1
-kind: SubjectAccessReview
-status:
-  allowed: true
-  reason: "RBAC allowed"
-  evaluationError: "webhook 'policy-checker' timeout, using cached decision"
-```
+An authorizer must return a decision that was possible given the conditions it
+was asked to evaluate. For a `ConditionsMap`, that means:
 
-The presence of `evaluationError` indicates that authorization completed, but with
-partial information. This allows operators to monitor authorization health while
-still serving requests when non-critical authorizers fail.
+- `NoOpinion` is always allowed
+- `Allow` only if the map contains `allowConditions`
+- `Deny` only if the map contains `denyConditions`
+
+The API server may refine a decision before sending it — for example by dropping
+conditions it already evaluated to false — so the authorizer must determine the
+possible outcomes from the decision in `request.decision`, not from the decision
+it originally authored.
+
+If the authorizer returns an outcome that was not possible, the API server
+discards it and fails closed to the strictest outcome the conditions allowed:
+`Deny` if a deny was possible, otherwise `NoOpinion`. Because this is also
+recorded as an evaluation error, a fail-closed `Deny` surfaces as
+`500 Internal Server Error`. Responses that omit `uid`, return a mismatched
+`uid`, or return a conditional (`ConditionsMap`, `Union`) decision are rejected
+the same way.
 
 ## Checking API access
 
@@ -1189,7 +1223,7 @@ spec:
     - Union
   resourceAttributes:
     group: ""
-    resource: persistentvolumes
+    resource: persistentvolumeclaims
     verb: create
 status:
   allowed: false
@@ -1200,7 +1234,7 @@ status:
       - id: storage-class-restriction
         condition: object.spec.storageClassName == "dev"
         type: authorizer.kubernetes.io/cel
-        description: "User can only create PersistentVolumes with storageClassName 'dev'"
+        description: "User can only create PersistentVolumeClaims with storageClassName 'dev'"
 {{< /highlight >}}
 
 The `authorizationOptions.handledDecisionTypes` field behaves the same way here as it does for
