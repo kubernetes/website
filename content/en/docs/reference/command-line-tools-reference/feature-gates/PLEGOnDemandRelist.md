@@ -15,5 +15,7 @@ stages:
     defaultValue: true
     fromVersion: "1.37"
 ---
-Allow the kubelet to ask its Pod Lifecycle Event Generator (PLEG) to relist
-an individual Pod on demand, in addition to the periodic relist of all Pods.
+Allow the kubelet to ask its _Pod lifecycle event generator_ (PLEG) to relist an individual Pod on demand, in addition to the periodic relist of all Pods.
+
+The improved mechanism lowers the latency for the kubelet to observe changes that
+it makes to the pod via the container runtime.
