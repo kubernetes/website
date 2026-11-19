@@ -170,6 +170,8 @@ When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the P
 
 If `InPlacePodVerticalScalingExclusiveCPUs` feature gate is disable, In-place resource resizing is infeasible for Guaranteed QoS pods on nodes configured with a Static CPU Policy. Any attempt of in-place resize for Guaranteed QoS pods with static CPU policy will fail and update status to Infeasible.
 
+In-place resize is allowed with multiple containers per operation when topology management policy of node is [container topology manager scope](/docs/tasks/administer-cluster/topology-manager/#container-scope) or with [pod topology manager scope](/docs/tasks/administer-cluster/topology-manager/#pod-scope) for [none](/docs/tasks/administer-cluster/topology-manager/#policy-none) and [best-effort](/docs/tasks/administer-cluster/topology-manager/#policy-best-effort) multi container scaling is allowed.
+
 ### Key concepts 
 
 * **baseline CPUs:** is the cpuset allocated when the container was admitted the first time
@@ -215,7 +217,7 @@ Possible reasons for skipping are
 - `InPlacePodVerticalScalingExclusiveCPUs` is not enabled
 - Pod is using pod-level resources
 - Pod QoS class is not Guaranteed
-- Pod is usinsg shared pool CPUs or recorded state is inconsistent
+- Pod is using shared pool CPUs or recorded state is inconsistent
 
 Possible reasons for failure are
 
@@ -262,11 +264,23 @@ to a race condition where memory usage may spike right after the check is perfor
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
 * **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/memory-manager/)
-  cannot be resized in-place.
+  cannot be resized in-place. When `InPlacePodVerticalScalingExclusiveCPUs` is not enabled Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
-* **Static CPU management policy:** One container can resize per operation, resize of regular non-restartable init-containers with exclusive CPUs is not supported.
+
+For Kubernetes {{< skew currentVersion >}}, when `InPlacePodVerticalScalingExclusiveCPUs` is enabled, resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy has the following limitations:
+
+ - Cannot move container from shared to exclusive pool
+ - Cannot move container from exlusive to shared pool
+ - Not allowed to resize non-restartable init-container with exclusively allocated pool
+ - Not allowed to reduce container exclusively allocated pool below baseline
+ - Not allowed to resize exclusive CPUs of more that on container in a single operation with the pod scope
+ - Not allowed to resize when CPU Manager checkpoint state is corrupted
+ - Skip resize when Pod is using pod-level resources**
+ - Skip resize when Pod QoS is not Guaranteed**
+ - Skip resize when Pod is using shared pool CPUs or recorded state is inconsistent"
+ - Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
 
 These restrictions might be relaxed in future Kubernetes versions.
 
