@@ -563,10 +563,10 @@ You'll see changes indicating the problem:
   because the resize was not applied by the Kubelet.
 * The `restartCount` will not have changed due to this failed attempt.
 
-### Scale up to a shared pool above baseline CPUs
+### Troubleshooting a non feasible CPU increase attempting to move from exclusive to a shared pool CPUs
 
-Now, increase the CPU request and limit to `2500m`, this value is above than baseline CPUs (2) but it is not integer,
-which means is asking to resize the container and change its QoS to use CPUs from the shared pool.
+Now, increase the CPU request and limit to `2500m`, observe that this value even if it is above the baseline CPUs (2) it is not integer,
+which means this resize attempt we know before hand that it will fail since we cannot move container from exclusive to shared pool.
 
 ```shell
 kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
