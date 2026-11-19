@@ -465,7 +465,7 @@ CPUs assigned updated from (before resize) 1-2 to (after resize assignedCPUs) 1-
 
 Observe that the CPUs are now increase by one, in the above example from CPUs 1-2, to CPUs 1,2,3 maintaining the baseline CPUs 1-2
 
-q### Scale up above available CPUs
+### Scale up above available CPUs
 
 First check the total amount of CPUs available in the node.
 
