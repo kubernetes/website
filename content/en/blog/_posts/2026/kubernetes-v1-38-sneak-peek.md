@@ -29,7 +29,14 @@ To learn more, refer to [KEP-4006: Transition from SPDY to WebSockets](https://k
 
 ### kubectl: `name` dropped from kuberc credential plugin allowlist entries
 
-The `kuberc` file keeps kubectl user preferences separate from cluster credentials in the kubeconfig, including an allowlist of the credential plugins kubectl is allowed to run. In the beta `kubectl.config.k8s.io/v1beta1` API, an allowlist entry could use `name` as an alias for `command` which has been deprecated since v1.36. With kuberc graduating to stable in v1.38, the new `kubectl.config.k8s.io/v1` API does not include `name`. So remember to change your credential plugin allowlist to `command` if it uses `name` currently, when you move your kuberc file to `v1`.
+The `kuberc` file keeps kubectl user preferences separate from cluster credentials in the kubeconfig,
+including an allowlist of the credential plugins kubectl is allowed to run.
+In the beta `kubectl.config.k8s.io/v1beta1` API, an allowlist entry could use `name` as an alias
+for `command` (which has been deprecated since v1.36).
+
+With kuberc expected to graduate to stable in v1.38, the new `kubectl.config.k8s.io/v1` API does not include `name`.
+You can change your credential plugin allowlist to `command` if it uses `name` currently, rather than wait to do it
+when you move your kuberc file to `v1`.
 
 To learn more, refer to [KEP-3104: Separate kubectl user preferences from cluster configs](https://kubernetes.dev/resources/keps/3104).
 
