@@ -162,10 +162,52 @@ kubectl patch pod <pod-name> --subresource resize --patch \
 
 You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
 
-## Resizing Pods managed by static CPU manager
+## Resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy
+
 {{< feature-state feature_gate_name="InPlacePodVerticalScalingExclusiveCPUs" >}}
 
-When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports updating the CPUs of in-place Guaranteed QoS Pods managed by [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/).
+When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports in-place updating the CPUs of Guaranteed QoS Pods managed by [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/).
+
+### Key concepts 
+
+* **baseline CPUs:** is the cpuset allocated when the container was admitted the first time
+* **assigned CPUs:** is the cpuset allocated before a resize, when the container in question is asked to resize
+* **resized CPUs:**  is the cpuset allocated after a successful resize, the "resized CPUs" is always a superset of "baseline CPUs" i.e. baselineCPUs < resizedCPUs_A_UpSize < resizedCPUs_B_UpSize ... < resizedCPUs_N_UpSize in case of N successive up sizes.
+
+### Use cases
+
+#### CPU limit increase
+
+  During CPU limit increase ( upsize or scale up ) of a running container of a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
+  - ensures that "baseline CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
+  - Attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
+
+#### CPU limit decrease
+
+  During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet: 
+  - to be successfull must ensures that after resize there is no decrease of number of CPUs below the CPUs allocated
+    upon creation of the Guaranteed Pod (“baseline CPUs”) for the running container in question. If this is not possible
+    instead infeasible error is returned.
+  - allows the decrease of number of CPUs up to the CPUs allocated upon creation of the Guaranteed Pod ("baseline CPUs")
+    of a running container of a Guaranteed Pod keeping "baseline CPUs".
+  - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
+  - allows retained CPUs ("resized CPUs") to be a subset of the previous "resized CPUs", and "baseline CPUs" are kept
+```
+    i.e. _baselineCPUs < resizedCPUS_A_UpSize, baselineCPUs <= resizedCPUS_B_DownSize < resizedCPUS_A_UpSize._
+```
+  - Downsize does not need to be an upsize in reverse for example below is a valid flow.
+  ```
+    upsize: baseline = 4 -> 8 -> 12
+    downsize: 12 -> 6
+  ```
+
+### Topology hints
+
+When the CPU Manager, under a static policy, generates a NUMA Topology hint for a Guaranteed pod undergoing an in place CPU pod-resize, it follows these rules to determine the new affinity:
+
+The pod's current NUMA Affinity (single or multiple NUMA nodes) can accommodate the resized CPU request. If yes, the current affinity is maintained.
+If the current affinity is insufficient and expansion is needed the new NUMA affinity must always include all NUMA nodes from the current affinity.
+On downsize the end result must be a superset of the "baseline CPUs" and a subset of the "resized CPUs".
 
 ## Limitations
 
