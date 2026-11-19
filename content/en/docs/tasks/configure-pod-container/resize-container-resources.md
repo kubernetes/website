@@ -168,6 +168,8 @@ You can monitor the resize progress using the Pod's status conditions (`PodResiz
 
 When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports in-place updating the CPUs of Guaranteed QoS Pods managed by [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/).
 
+If `InPlacePodVerticalScalingExclusiveCPUs` feature gate is disable, In-place resource resizing is infeasible for Guaranteed QoS pods on nodes configured with a Static CPU Policy. Any attempt of in-place resize for Guaranteed QoS pods with static CPU policy will fail and update status to Infeasible.
+
 ### Key concepts 
 
 * **baseline CPUs:** is the cpuset allocated when the container was admitted the first time
@@ -187,7 +189,7 @@ When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the P
   During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet: 
   - to be successfull must ensures that after resize there is no decrease of number of CPUs below the CPUs allocated
     upon creation of the Guaranteed Pod (“baseline CPUs”) for the running container in question. If this is not possible
-    instead infeasible error is returned.
+    resize will fail and update status to Infeasible.
   - allows the decrease of number of CPUs up to the CPUs allocated upon creation of the Guaranteed Pod ("baseline CPUs")
     of a running container of a Guaranteed Pod keeping "baseline CPUs".
   - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
@@ -200,6 +202,31 @@ When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the P
     upsize: baseline = 4 -> 8 -> 12
     downsize: 12 -> 6
   ```
+
+#### Troubleshooting failed resizing CPUs attempts
+
+A CPU resize attempt of Guaranteed QoS Pods managed by static CPU manager policy could fail or skipped:
+
+Possible reasons for failure are: 
+
+- unable to allocate container's CPU exclusive pool, for example because Topology criteria ( NUMA affinity etc ) could not be satisfied for the requests.
+
+Possible reasons for skipping are
+- `InPlacePodVerticalScalingExclusiveCPUs` is not enabled
+- Pod is using pod-level resources
+- Pod QoS class is not Guaranteed
+- Pod is usinsg shared pool CPUs or recorded state is inconsistent
+
+Possible reasons for failure are
+
+- Cannot move container from shared to exclusive pool.
+- Cannot move container from exclusive to shared pool.
+- Not allowed to resize non-restartable init-container with exclusively allocated pool.
+- Not allowed to reduce container exclusively allocated pool below baseline.
+- Not allowed to resize exclusive CPUs of more that on container in a single operation with the pod scope
+- Inconsistent recorded state due to corrupted CPU Manager checkpoint state.
+
+For a full list please check the latest status of [KEP-5554](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5554-in-place-update-pod-resources-alongside-static-cpu-manager-policy)
 
 ### Topology hints
 
@@ -234,7 +261,7 @@ to a race condition where memory usage may spike right after the check is perfor
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
-* **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
+* **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/memory-manager/)
   cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
