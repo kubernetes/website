@@ -120,63 +120,34 @@ not a commitment and the release content is subject to change.
 
 ### kubectl user preferences (kuberc) graduate to stable {#kuberc}
 
-kuberc is expected to graduate to stable (GA) in v1.38. kuberc is a separate kubectl configuration
-file where you can define aliases (shorter versions of your commands), defaults (default options for
-your commands), and a credential plugin policy (which exec credential plugins kubectl may run),
-without changing the kubeconfig file that holds your cluster configuration and credentials.
+kuberc, the separate kubectl configuration file for user preferences such as aliases, default
+options and a credential plugin policy, is expected to graduate to stable in v1.38.
 
-To learn more about this enhancement, refer to
+To learn more, read [Kubectl user preferences (kuberc)](/docs/reference/kubectl/kuberc/) or refer to
 [KEP-3104: Separate kubectl user preferences from cluster configs](https://kubernetes.dev/resources/keps/3104).
 
 ### Pod-level resources graduate to stable {#pod-level-resources}
 
-Kubernetes has traditionally let you set resource requests and limits only on each container in a
-Pod. Pod-level resources extend the Pod API so you can also set requests and limits for the Pod as a
-whole, rather than configuring every container individually. In v1.38, this feature is expected to
-graduate to stable.
+Pod-level resources, which let you set CPU, memory and hugepages requests and limits for a Pod as a
+whole, are expected to graduate to stable in v1.38. If you run Linux nodes with `LimitedSwap`, see
+the [swap behavior change](#pod-level-resources-swap) above before you upgrade.
 
-Pod-level resources support CPU, memory and hugepages, and work alongside existing container-level
-resource specifications. This simplifies resource management for multi-container workloads and lets
-containers within a Pod share the resources available to it.
-
-If you run Linux nodes with `LimitedSwap`, see the [swap behavior change](#pod-level-resources-swap)
-above before you upgrade.
-
-To learn more about this enhancement, refer to
+To learn more, read
+[Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+or refer to
 [KEP-2837: Pod Level Resource Specifications](https://kubernetes.dev/resources/keps/2837).
 
 ### DRA support for partitionable devices graduates to stable {#dra-partitionable-devices}
 
+Partitionable devices let a
 [Dynamic Resource Allocation](/docs/concepts/resource-management/dynamic-resource-allocation/) (DRA)
-was designed so that hardware such as GPUs could be carved up on demand, instead of being
-partitioned statically ahead of time as with the older device plugin API. This lets the size of each
-slice be matched to the workload that requests it, which improves utilization. _Partitionable
-devices_ bring that capability to DRA's structured parameters model, and in v1.38 the feature is
-expected to graduate to stable.
+driver advertise a device such as a GPU both as a whole and as smaller partitions, and the scheduler
+allocates only combinations that fit within the physical device. The feature is expected to
+graduate to stable in v1.38, and the `DRAPartitionableDevices` feature gate will then be locked on.
 
-With this enhancement, a driver can publish a full device together with the partitions that can be
-carved from it, and the scheduler works out which combinations can be allocated at the same time.
-For example, a single GPU can be advertised both as one whole device and as several smaller
-Multi-Instance GPU (MIG) partitions. The scheduler allocates only combinations that fit within the
-physical device.
-
-This is done with a few additions to the ResourceSlice API:
-
-- `sharedCounters` lets a driver define named sets of counters that describe the capacity of the
-  underlying hardware, such as memory or compute slices.
-- `consumesCounters` on a device declares how much of those counters the device (or partition) uses,
-  so the scheduler can account for overlapping allocations.
-- `perDeviceNodeSelection`, together with `nodeName`, `nodeSelector` and `allNodes` on each device,
-  lets individual devices set their own node availability. This makes it possible to represent
-  multi-host devices, such as a group of TPUs spread across several nodes.
-
-These changes are transparent to end users. Workloads still request devices through a ResourceClaim
-as before, and the driver and scheduler take care of the partitioning details.
-
-The feature is controlled by the `DRAPartitionableDevices` feature gate. With the graduation to
-stable, the gate will be locked on and you will no longer be able to turn it off.
-
-To learn more, refer to
+To learn more, read
+[Partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
+or refer to
 [KEP-4815: DRA: Add support for partitionable devices](https://kubernetes.dev/resources/keps/4815).
 
 ### EvictionRequest API (alpha) {#eviction-request-api}
