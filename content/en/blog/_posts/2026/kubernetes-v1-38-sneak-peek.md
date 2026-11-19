@@ -20,7 +20,6 @@ As we get closer to the release date for Kubernetes v1.38, the project develops 
 
 Since 1.31 `kubectl` has used WebSockets instead of SPDY by default for `kubectl exec`, `attach`, `cp` and `port-forward`. The `KUBECTL_REMOTE_COMMAND_WEBSOCKETS` and `KUBECTL_PORT_FORWARD_WEBSOCKETS` environment variables let you turn that behavior off. These variables are going to be removed in v1.38. `kubectl` now always tries WebSockets first and falls back to SPDY when it needs to. If your scripts or CI environments set either of these environment variables, you can remove them since they will no longer have any effect.
 
-On the server side, the `TranslateStreamCloseWebsocketRequests`, `PortForwardWebsockets`, `AuthorizePodWebsocketUpgradeCreatePermission` and `ExtendWebSocketsToKubelet` feature gates graduate to stable and are locked on, so they can no longer be turned off. They will be removed from the list of feature gates in a future release (removed no earlier than v1.41).
 
 To learn more, refer to [KEP-4006: Transition from SPDY to WebSockets](https://kubernetes.dev/resources/keps/4006).
 
