@@ -351,6 +351,50 @@ Containers within the Pod see the system hostname as being the same as the confi
 `name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
 section.
 
+#### Network isolated Pods {#network-isolated-pods}
+
+{{< feature-state feature_gate_name="NetworkIsolatedPods" >}}
+
+The Pod's attachment to the pod network is controlled by the `podNetwork` field of
+the Pod spec. If the field is unset, or set to `Default`, then the Pod will be
+attached to the pod network as described above.
+
+To run a Pod that is not attached to the pod network, set `podNetwork` to `Isolated`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: isolated-worker
+spec:
+  podNetwork: Isolated
+  containers:
+  - name: worker
+    image: busybox:1.28
+    command: ["sleep", "3600"]
+```
+
+A network isolated Pod has its own network namespace, and that namespace contains
+only a loopback interface. The containers in the Pod still share the network namespace
+and can communicate with each other using `localhost`, but the Pod has no Pod IP
+addresses: `.status.podIP` and `.status.podIPs` stay empty.
+
+Because the Pod has no Pod IP addresses, it is never selected as a backend of a Service,
+and its containers cannot have ports with `hostPort` set. You also cannot use `httpGet`,
+`tcpSocket` or `grpc` [probes](/docs/concepts/workloads/pods/probes/), or `httpGet` or
+`tcpSocket` [lifecycle hook handlers](/docs/concepts/containers/container-lifecycle-hooks/).
+Use `exec` probes and handlers instead.
+
+To run network isolated Pods, the `NetworkIsolatedPods`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#NetworkIsolatedPods)
+must be enabled on the kube-apiserver and on the kubelet, and the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} of the node
+must support Pods that are not attached to the pod network. The scheduler only places
+network isolated Pods on nodes that meet these requirements.
+
+You cannot set `podNetwork` on a Pod that sets `hostNetwork: true`, and you cannot
+change the field after the Pod is created.
+
 ## Pod security settings {#pod-security}
 
 To set security constraints on Pods and containers, you use the
