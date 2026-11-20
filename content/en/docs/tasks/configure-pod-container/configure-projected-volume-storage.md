@@ -8,7 +8,7 @@ weight: 100
 ---
 
 <!-- overview -->
-This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount
+This page shows how to use a [`projected`](/docs/reference/storage/volume-types/#projected) Volume to mount
 several existing volume sources into the same directory. Currently, `secret`, `configMap`, `downwardAPI`,
 and `serviceAccountToken` volumes can be projected.
 
@@ -25,7 +25,7 @@ and `serviceAccountToken` volumes can be projected.
 <!-- steps -->
 ## Configure a projected volume for a pod
 
-In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
+In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/reference/storage/volume-types/#projected) Volume to mount the Secrets into the same shared directory.
 
 Here is the configuration file for the Pod:
 
@@ -82,6 +82,6 @@ kubectl delete secret user pass
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
+* Learn more about [`projected`](/docs/reference/storage/volume-types/#projected) volumes.
 * Read the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 

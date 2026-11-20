@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" width="780" height="400" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, sans-serif">
+  <title id="t">Worker node CPU used and CPU pressure in runs A, B, and C</title>
+  <desc id="d">Two bar charts. CPU used: run A 2.00 cores, run B 2.00 cores, run C 0.51 cores, on a node pinned to 2 CPUs. CPU pressure some.avg10: run A under 1%, run B 99.6%, run C 75.2%. Run A has 2 busy loops, run B has 6 busy loops, run C has 2 busy loops with a 500m CPU limit.</desc>
+  <rect width="780" height="400" fill="#fcfcfb"/>
+
+  <text x="60" y="30" font-size="16" font-weight="bold" fill="#0b0b0b">Worker node CPU used and CPU pressure, runs A–C</text>
+
+  <!-- Panel 1: CPU used -->
+  <text x="60" y="62" font-size="13" font-weight="bold" fill="#0b0b0b">CPU used (cores)</text>
+  <g stroke="#e4e3df" stroke-width="1">
+    <line x1="60" y1="190" x2="360" y2="190"/>
+  </g>
+  <line x1="60" y1="80" x2="360" y2="80" stroke="#52514e" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="360" y="74" font-size="11" fill="#52514e" text-anchor="end">node capacity: 2 CPUs</text>
+  <line x1="60" y1="300" x2="360" y2="300" stroke="#52514e" stroke-width="1"/>
+  <g font-size="11" fill="#52514e" text-anchor="end">
+    <text x="52" y="304">0</text>
+    <text x="52" y="194">1</text>
+    <text x="52" y="84">2</text>
+  </g>
+  <g fill="#2a78d6">
+    <path d="M82,300 V84 Q82,80 86,80 H134 Q138,80 138,84 V300 Z"/>
+    <path d="M182,300 V84 Q182,80 186,80 H234 Q238,80 238,84 V300 Z"/>
+    <path d="M282,300 V247.79 Q282,243.79 286,243.79 H334 Q338,243.79 338,247.79 V300 Z"/>
+  </g>
+  <g font-size="12" fill="#0b0b0b" text-anchor="middle">
+    <text x="110" y="96" fill="#ffffff">2.00</text>
+    <text x="210" y="96" fill="#ffffff">2.00</text>
+    <text x="310" y="236">0.51</text>
+  </g>
+
+  <!-- Panel 2: CPU pressure -->
+  <text x="440" y="62" font-size="13" font-weight="bold" fill="#0b0b0b">CPU pressure, some.avg10 (%)</text>
+  <g stroke="#e4e3df" stroke-width="1">
+    <line x1="440" y1="80" x2="740" y2="80"/>
+    <line x1="440" y1="190" x2="740" y2="190"/>
+  </g>
+  <line x1="440" y1="300" x2="740" y2="300" stroke="#52514e" stroke-width="1"/>
+  <g font-size="11" fill="#52514e" text-anchor="end">
+    <text x="432" y="304">0</text>
+    <text x="432" y="194">50</text>
+    <text x="432" y="84">100</text>
+  </g>
+  <g fill="#2a78d6">
+    <rect x="462" y="298" width="56" height="2"/>
+    <path d="M562,300 V84.81 Q562,80.81 566,80.81 H614 Q618,80.81 618,84.81 V300 Z"/>
+    <path d="M662,300 V138.49 Q662,134.49 666,134.49 H714 Q718,134.49 718,138.49 V300 Z"/>
+  </g>
+  <g font-size="12" fill="#0b0b0b" text-anchor="middle">
+    <text x="490" y="290">&lt;1%</text>
+    <text x="590" y="97" fill="#ffffff">99.6%</text>
+    <text x="690" y="150" fill="#ffffff">75.2%</text>
+  </g>
+
+  <!-- Run labels, shared by both panels -->
+  <g font-size="12" fill="#0b0b0b" text-anchor="middle">
+    <text x="110" y="320" font-weight="bold">A</text>
+    <text x="210" y="320" font-weight="bold">B</text>
+    <text x="310" y="320" font-weight="bold">C</text>
+    <text x="490" y="320" font-weight="bold">A</text>
+    <text x="590" y="320" font-weight="bold">B</text>
+    <text x="690" y="320" font-weight="bold">C</text>
+  </g>
+  <g font-size="11" fill="#52514e" text-anchor="middle">
+    <text x="110" y="336">2 loops</text>
+    <text x="210" y="336">6 loops</text>
+    <text x="310" y="336">2 loops,</text>
+    <text x="310" y="350">500m limit</text>
+    <text x="490" y="336">2 loops</text>
+    <text x="590" y="336">6 loops</text>
+    <text x="690" y="336">2 loops,</text>
+    <text x="690" y="350">500m limit</text>
+  </g>
+
+  <text x="60" y="384" font-size="11" fill="#52514e">kind worker node pinned to 2 CPUs, control plane on separate CPUs. Each value is the mean of 12 samples over 2 minutes.</text>
+</svg>

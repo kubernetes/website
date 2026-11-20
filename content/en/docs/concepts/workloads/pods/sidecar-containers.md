@@ -130,37 +130,22 @@ exchange messages with the app container in a Pod. Any data passing is one-way
 Changing the image of a sidecar container will not cause the Pod to restart, but will
 trigger a container restart.
 
-## Resource sharing within containers
+## Resource requests and limits {#resource-sharing-within-containers}
 
-{{< comment >}}
-This section is also present in the [init containers](/docs/concepts/workloads/pods/init-containers/) page.
-If you're editing this section, change both places.
-{{< /comment >}}
+The scheduler places a Pod on a node based on how much of each resource the Pod
+requests as a whole, so the requests that you set on sidecar containers can affect
+whether and where the Pod can be scheduled.
 
-Given the order of execution for init, sidecar and app containers, the following rules
-for resource usage apply:
+Sidecar containers keep running alongside the app containers, so Kubernetes adds
+their requests to those of the app containers.
+When an init container starts, the sidecar containers listed before it in the
+`initContainers` field are already running, so Kubernetes counts their requests
+together with the request of that init container.
+As a result, the order of sidecar containers and init containers in the
+`initContainers` field can change the request of the Pod.
 
-* The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*. If any resource has no
-  resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the sum of
-[pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
-  * the sum of all non-init containers(app and sidecar containers) request/limit for a
-  resource
-  * the effective init request/limit for a resource
-* Scheduling is done based on effective requests/limits, which means
-  init containers can reserve resources for initialization that are not used
-  during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for all init, sidecar and app containers alike.
-
-Quota and limits are applied based on the effective Pod request and
-limit.
-
-### Sidecar containers and Linux cgroups {#cgroups}
-
-On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
-request and limit, the same as the scheduler.
+See [Effective Pod requests and limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
+to learn how Kubernetes calculates the requests and limits of a Pod, with examples.
 
 ## {{% heading "whatsnext" %}}
 
