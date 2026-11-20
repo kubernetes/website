@@ -7,7 +7,7 @@ no_list: true
 
 En Kubernetes, la planificación se refiere a asegurarse de que los {{<glossary_tooltip text="Pods" term_id="pod">}}
 se asignen a los {{<glossary_tooltip text="nodos" term_id="node">}} para que
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}} pueda ejecutarlos. La apropiación
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}} pueda ejecutarlos. La apropiación (Preemption)
 es el proceso de terminar Pods con menor {{<glossary_tooltip text="prioridad" term_id="pod-priority">}}
 para que los Pods con mayor prioridad puedan planificarse en los nodos. El desalojo es el proceso
 de terminar uno o más Pods en los nodos.
