@@ -9,6 +9,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.35"
+    toVersion: "1.37"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 When the `AuthorizePodWebsocketUpgradeCreatePermission` feature gate is `true`,
 clients must be authorized to **create** Pod subresources even when triggering their
@@ -21,7 +26,3 @@ the **create** RBAC permission), the WebSocket protocol requires an HTTP `GET` r
 the handshake. To correct this defect, a synthetic RBAC check is now applied to ensure
 WebSocket upgrades strictly enforce the **create** permission, matching the existing
 SPDY security model.
-
-You may want to disable this feature gate if you have existing clients or custom tooling
-that rely on the previous behavior—specifically, if they connect via WebSockets but do *not*
-currently hold the **create** RBAC permission.
