@@ -240,6 +240,26 @@ kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only
 guaranteed to verify a connection to the API server using the default service (`kubernetes.default.svc`).
 
+#### PodCertificate signers
+
+PodCertificate signers described in this section are built-in signers that will
+sign certificates for Pods that request `podCertificate` volume.
+
+1. `kubernetes.io/service-serving`: signs serving certificates for Pod and Service FQDNs
+    1. {{< feature-state feature_gate_name="KubeServingCertificatesSigner" >}}
+    1. Trust distribution: uses ClusterTrustBundle identified by the signer name.
+    1. Subject: none
+    1. X509 Extensions: uses DNS SANs determined from Pod's `podCertificate.userAnnotations` projected volume annotations
+        - `"kubernetes.io/add-pod-fqdn": "true"`
+            - adds Pod's FQDN to the resulting certificate's DNS SAN
+            - requires Pod's `spec.subdomain` to be set
+        - `"kubernetes.io/service-names": "<comma-delimeted-service-names>"`
+            - adds FQDNs of all the services to the resulting certificate's DNS SANs
+            - the Pod must match all the Services' label selectors
+    1. Key usages: ["digital signature"] or ["digital signature", "key encipherment"] for RSA keys
+    1. Extended Key Usages: ["server auth"]
+    1. Expiration/certificate lifetime: Maximum 1 day.
+
 ### Custom signers
 
 You can also introduce your own custom signer, which should have a similar prefixed name but using your
