@@ -46,9 +46,16 @@ To align memory resources with other requested resources in a Pod spec:
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate
-and it requires support in the container runtime.  
+In Kubernetes v1.38 and later, the `WindowsCPUAndMemoryAffinity` feature gate is enabled by default.
+The default Memory Manager policy is still `None`, so enabling the feature gate alone does not
+change workload behavior.
 Only the [None](#policy-none) and [BestEffort](#policy-best-effort) policies are supported on Windows.
+
+Windows memory affinity requires CRI v1 with the `WindowsCpuGroupAffinity` field and containerd
+v2.3.0 or later with its paired runhcs release. The containerd 2.3 release uses
+[runhcs v0.15.0-rc.4](https://github.com/containerd/containerd/blob/release/2.3/script/setup/runhcs-version).
+The kubelet does not check the container runtime version or query its affinity capabilities. If the
+runtime does not support CPU affinity, the container starts without CPU affinity.
 
 ## How does the Memory Manager operate?
 
@@ -129,15 +136,44 @@ This policy is only supported on Linux.
 
 **This policy is only supported on Windows.**
 
-On Windows, NUMA node assignment works differently than Linux.
-There is no mechanism to ensure that Memory access only comes from a specific NUMA node.
-Instead the Windows operating system scheduler selects the most optimal NUMA node based on the CPU(s) assignments.
-It is possible that Windows might use other NUMA nodes if the Windows scheduler deems them optimal.
+On Windows, the operating system does not provide an API that guarantees physical memory allocation
+from a particular NUMA node. The `BestEffort` policy tracks available and requested memory in the
+internal _node map_ and checks that a suitable NUMA node has enough memory before assigning
+resources. Windows can still allocate pages from another NUMA node.
 
-The policy does track the amount of memory available and requested through the internal _node map_.
-The memory manager makes a best effort at ensuring that enough memory is available on a NUMA node before making
-a resource assignment.  
-This means that in most cases memory assignment should function as specified.
+The kubelet uses Windows CPU Group affinity to influence memory locality:
+
+- If CPU Manager has not allocated exclusive CPUs, the kubelet assigns the CPUs associated with
+  the NUMA nodes that Memory Manager selected.
+- If CPU Manager has allocated exclusive CPUs, that allocation is authoritative. Memory Manager
+  derives its NUMA affinity from those CPUs, and the kubelet does not expand the CPU affinity to
+  other CPUs in the selected NUMA nodes.
+
+For workloads where cross-NUMA memory access is undesirable, configure the Topology Manager
+[`single-numa-node` policy](/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node)
+together with CPU Manager. Topology Manager then admits a Pod only when the CPU and memory hint
+providers align on one NUMA node. Physical memory placement remains best effort and can include
+pages from remote NUMA nodes.
+
+The manager checkpoint state, kubelet
+[Pod Resources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources),
+and kubelet diagnostic logs report logical allocation decisions. They cannot determine the physical
+NUMA node from which Windows allocated a container's memory. Kubernetes therefore does not expose
+a metric or Pod condition for physical memory misalignment on Windows.
+
+## Changing the Memory Manager Policy
+
+Changing the Memory Manager policy or configuration can make the existing checkpoint incompatible
+with the new configuration. Reset the state on each affected node:
+
+1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
+2. Stop the kubelet.
+3. Remove the `memory_manager_state` file from the kubelet root directory.
+4. Update the Memory Manager policy or configuration.
+5. Start the kubelet.
+
+Skipping this procedure can prevent the kubelet from starting because it cannot restore the
+previous checkpoint with the new configuration.
 
 ## Reserved memory configuration {#reserved-memory-flag}
 
