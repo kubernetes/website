@@ -71,7 +71,7 @@ be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
 
-- **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
+- **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, hugepages-2Mi: 512Mi, pid=1000}`
 - **KubeletConfiguration Setting**: `kubeReservedCgroup: ""`
 
 `kubeReserved` is meant to capture resource reservation for kubernetes system
@@ -79,8 +79,8 @@ daemons like the `kubelet`, `container runtime`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
 `kubeReserved` is typically a function of `pod density` on the nodes.
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for
+In addition to `cpu`, `memory`, `ephemeral-storage`, and `hugepages-<size>`,
+`pid` may be specified to reserve the specified number of process IDs for
 kubernetes system daemons.
 
 To optionally enforce `kubeReserved` on kubernetes system daemons, specify the parent
@@ -101,7 +101,7 @@ with `.slice` appended.
 
 ### System Reserved
 
-- **KubeletConfiguration Setting**: `systemReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
+- **KubeletConfiguration Setting**: `systemReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, hugepages-2Mi: 512Mi, pid=1000}`
 - **KubeletConfiguration Setting**: `systemReservedCgroup: ""`
 
 `systemReserved` is meant to capture resource reservation for OS system daemons
@@ -110,9 +110,9 @@ like `sshd`, `udev`, etc. `systemReserved` should reserve `memory` for the
 Reserving resources for user login sessions is also recommended (`user.slice` in
 systemd world).
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for OS system
-daemons.
+In addition to `cpu`, `memory`, `ephemeral-storage`, and `hugepages-<size>`,
+`pid` may be specified to reserve the specified number of process IDs for OS
+system daemons.
 
 To optionally enforce `systemReserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `systemReservedCgroup` setting,

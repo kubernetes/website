@@ -214,6 +214,10 @@ you make as part of `evictionHard`.
 
 If you do not follow the formula above, the Memory Manager will show an error on startup.
 
+For each hugepage size, the sum of `reservedMemory` limits across all NUMA
+nodes must equal the combined `kubeReserved` and `systemReserved` values for
+that size; `evictionHard` does not apply to hugepages.
+
 In other words, the example 1 (above) illustrates that for the conventional memory (`type=memory`),
 Kubernetes reserves 3GiB in total; that is:
 
