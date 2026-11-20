@@ -58,6 +58,14 @@ The Kubernetes network model is built out of several pieces:
   Kubernetes API that allows you to control traffic between pods, or between pods and
   the outside world.
 
+{{< note >}}
+{{< feature-state feature_gate_name="NetworkIsolatedPods" >}}
+A Pod that sets `podNetwork: Isolated` is an exception to this model. The Pod is not
+attached to the pod network: it has no Pod IP address, it cannot reach other Pods or
+Services through the pod network, and it is never a backend of a Service.
+See [Network isolated Pods](/docs/concepts/workloads/pods/#network-isolated-pods).
+{{< /note >}}
+
 In older container systems, there was no automatic connectivity
 between containers on different hosts, and so it was often necessary
 to explicitly create links between containers, or to map container
