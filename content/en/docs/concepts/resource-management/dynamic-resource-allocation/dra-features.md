@@ -339,6 +339,13 @@ use it to distribute devices across different NUMA nodes to optimize memory band
 and reduce contention.
 
 
+<!--
+TODO (KEP-5981): Document DRA sharing affinity for consumable capacity in
+Kubernetes v1.38, including feature gate configuration, driver-provided affinity
+extractors, and examples of claims sharing a device with matching configuration.
+Tracking issue: https://github.com/kubernetes/enhancements/issues/5981
+-->
+
 ## Granular status authorization {#granular-status-authorization}
 
 {{< feature-state feature_gate_name="DRAResourceClaimGranularStatusAuthorization" >}}
