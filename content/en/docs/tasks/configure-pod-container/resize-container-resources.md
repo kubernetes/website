@@ -468,7 +468,7 @@ This pod starts in the Guaranteed QoS class, using exclusive CPUs. Verify its in
 kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
 ```
 
-Observe `spec.containers[0].resources` , `status.containerStatuses[0].resources` and `spec.containerStatuses[0].allocatedResources`.
+Observe `spec.containers[0].resources` , `status.containerStatuses[0].resources` and `status.containerStatuses[0].allocatedResources`.
 
 They should match the manifest (2 CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 
