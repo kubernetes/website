@@ -49,7 +49,7 @@ field).
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resource sharing within containers](#resource-sharing-within-containers).
+as documented in [Resource requests and limits](#resource-sharing-within-containers).
 
 Regular init containers (in other words: excluding sidecar containers) do not support the
 `lifecycle`, `livenessProbe`, `readinessProbe`, or `startupProbe` fields. Init containers
@@ -317,35 +317,22 @@ The Pod which is already running correctly would be killed by `activeDeadlineSec
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 
-### Resource sharing within containers
+### Resource requests and limits {#resource-sharing-within-containers}
 
-Given the order of execution for init, sidecar and app containers, the following rules
-for resource usage apply:
+The scheduler places a Pod on a node based on how much of each resource the Pod
+requests as a whole, so the requests that you set on init containers can affect
+whether and where the Pod can be scheduled.
 
-* The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*. If any resource has no
-  resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the higher of:
-  * the sum of all app containers request/limit for a resource
-  * the effective init request/limit for a resource
-* Scheduling is done based on effective requests/limits, which means
-  init containers can reserve resources for initialization that are not used
-  during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for init containers and app containers alike.
+Init containers run one at a time and finish before the app containers start,
+so Kubernetes does not add their requests to each other or to those of the app containers.
+Instead, the Pod requests enough resources to run its largest init container.
+If the largest init container request is more than the sum of the requests of the
+containers that run after initialization, the request of the Pod is based on that
+init container request.
+The node keeps this larger request reserved for the Pod even after initialization finishes.
 
-Quota and limits are applied based on the effective Pod request and
-limit.
-
-### Init containers and Linux cgroups {#cgroups}
-
-On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
-request and limit, the same as the scheduler.
-
-{{< comment >}}
-This section also present under [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) page.
-If you're editing this section, change both places.
-{{< /comment >}}
+See [Effective Pod requests and limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
+to learn how Kubernetes calculates the requests and limits of a Pod, with examples.
 
 ### Pod restart reasons
 

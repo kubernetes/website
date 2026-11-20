@@ -130,7 +130,7 @@ For a hands-on walkthrough, see
 If you want to use canarying with a StatefulSet, you will typically need to add your
 own mechanism to do that. One detail that's relevant is that a StatefulSet doesn't
 have to have an ordinal (Pod number) that starts at zero.
-For example, you have have a main StatefulSet with starting ordinal zero and 7 replicas (pod number 0 to pod number 6), and a canary StatefulSet with starting ordinal 7 (pod number 7). By managing how much traffic or work the canary Pod picks up,
+For example, you have a main StatefulSet with starting ordinal zero and 7 replicas (pod number 0 to pod number 6), and a canary StatefulSet with starting ordinal 7 (pod number 7). By managing how much traffic or work the canary Pod picks up,
 you can gradually increase your confidence that the new code or configuration is
 correct.
 

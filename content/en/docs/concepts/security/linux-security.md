@@ -15,7 +15,7 @@ This page describes security considerations and best practices specific to the L
 ## Protection for Secret data on nodes
 
 On Linux nodes, memory-backed volumes (such as [`secret`](/docs/concepts/configuration/secret/)
-volume mounts, or [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) with `medium: Memory`)
+volume mounts, or [`emptyDir`](/docs/reference/storage/volume-types/#emptydir) with `medium: Memory`)
 are implemented with a `tmpfs` filesystem.
 
 If you have swap configured and use an older Linux kernel (or a current kernel and an unsupported configuration of Kubernetes),
