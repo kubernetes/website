@@ -29,7 +29,7 @@ projecting these values into the running container.
 In this manifest, you can see the `initContainer` mounts an `emptyDir` volume and writes environment variables to a file within it,
 and the regular containers reference both the file and the environment variable key 
 through the `fileKeyRef` field without needing to mount the volume. 
-When `optional` field is set to false, the specified `key` in `fileKeyRef` must exist in the environment variables file.
+When the `optional` field is set to `false` (the default), the file and the specified `key` must exist, or the container fails to start with `CreateContainerConfigError`. When `optional` is set to `true` and the file or the `key` is missing, the kubelet does not set the environment variable.
 
 The volume will only be mounted to the container that writes to the file
 (`initContainer`), while the consumer container that consumes the environment variable will not have the volume mounted.
@@ -87,11 +87,12 @@ MY_VAR='my-literal-value'
 
 ### Rules
 
-* Variable declaration: Use the form `VAR='value'`. Spaces surrounding `=` are ignored; leading spaces on a line are ignored; blank lines are ignored.
+* Variable declaration: Use the form `VAR='value'`, with no whitespace between the variable name, `=`, and the opening quote. Leading spaces on a line are ignored; blank lines are ignored.
+* Empty values: Use `VAR=''` to set the variable to an empty string. A key with an empty value exists, so it satisfies `optional: false`.
 * Quoted values: Values must be enclosed in single quotes (`'`).
   * The content inside single quotes is preserved literally. No escape-sequence processing, whitespace folding, or character interpretation is applied.
   * Newlines inside single quotes are preserved (multi-line values are supported).
-* Comments: Lines that begin with `#` are treated as comments and ignored. A `#` character inside a single-quoted value is not a comment.
+* Comments: Lines that begin with `#` are treated as comments and ignored. A comment can also follow the closing quote after a space or tab, as in `VAR='value' # comment`. A `#` character inside a single-quoted value is not a comment.
 
 Examples:
 
@@ -109,6 +110,10 @@ line2'
   * `VAR=value` — not supported.
 * Double-quoted values are **prohibited**:
   * `VAR="value"` — not supported.
+* Whitespace around `=` is **prohibited**:
+  * `VAR ='value'` and `VAR= 'value'` are not supported. In bash, `VAR= 'value'` runs `value` as a command and does not set `VAR`.
+* Text directly after the closing quote is **prohibited**:
+  * `VAR='value'#comment` is not supported. In bash, the `#` here is part of the value.
 * Multiple adjacent quoted strings are **not** supported:
   * `VAR='val1''val2'` — not supported.
 * Any form of interpolation, expansion, or concatenation is **not** supported:
