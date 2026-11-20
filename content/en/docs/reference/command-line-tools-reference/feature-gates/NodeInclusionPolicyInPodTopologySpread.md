@@ -16,8 +16,10 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    toVersion: "1.37"
+
+removed: true
 ---
 Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in
 [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
