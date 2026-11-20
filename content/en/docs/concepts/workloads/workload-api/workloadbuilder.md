@@ -27,8 +27,9 @@ The built-in consumer of these building blocks today is the
 
 ## Reusable building blocks
 
-The building blocks are strongly-typed Go structs in the `scheduling.k8s.io/v1alpha3`
-API group. They are meant for *controller authors*: a controller embeds these structs into
+The building blocks are strongly-typed Go structs in the `scheduling.k8s.io/v1`
+API group. They are not API resources that you create on their own. They are meant for
+*controller authors*: a controller embeds these structs into
 its own API type as fields, and the `workloadbuilder` library compiles them. The type names
 follow two conventions: leaf-level types are prefixed `WorkloadPodGroup...` (for example,
 `WorkloadPodGroupSchedulingPolicy`) and the multi-level variants - `WorkloadCompositePodGroup...`.
@@ -44,10 +45,10 @@ all four of them into a single type reachable at `spec.scheduling`:
 
 ```go
 type JobSchedulingConfiguration struct {
-    SchedulingPolicy      *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicy
-    SchedulingConstraints *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraints
-    DisruptionMode        *schedulingv1alpha3.WorkloadPodGroupDisruptionMode
-    ResourceClaims        []schedulingv1alpha3.WorkloadPodGroupResourceClaim
+    SchedulingPolicy      *schedulingv1.WorkloadPodGroupSchedulingPolicy
+    SchedulingConstraints *schedulingv1.WorkloadPodGroupSchedulingConstraints
+    DisruptionMode        *schedulingv1.WorkloadPodGroupDisruptionMode
+    ResourceClaims        []schedulingv1.WorkloadPodGroupResourceClaim
 }
 ```
 
@@ -63,20 +64,23 @@ for what each policy means and how the scheduler applies it.
 
 The one difference is that the block's `gang` minimum count is optional. Users may leave
 `minCount` unset, in which case the controller supplies a default that makes sense for its
-own domain; the Job controller, for example, uses the Job's parallelism.
+own domain; the Job controller, for example, uses the Job's parallelism. Supplying that
+default is mandatory, as the library cannot compile a gang policy that still has no 
+minimum count.
 
 ### Scheduling constraints
 
 The scheduling constraints block carries the topology constraints documented in
 [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/):
 a node label key naming the domain (such as a rack or a zone) that every Pod in the group
-must share, with at most one topology constraint per group. Controllers should freeze the
+must share, with at most one topology constraint per group. The leaf and composite
+constraints blocks share a single `WorkloadTopologyConstraint` type. Controllers should freeze the
 field after creation, since constraints are immutable in the compiled Workload.
 
 ### Disruption mode
 
 The disruption mode block selects whether the group's Pods may be disrupted individually
-(`single`) or only as a unit (`all`), corresponding to the `Pod` and `PodGroup` disruption
+(`single`) or only as a unit (`all`), corresponding to the `Single` and `All` disruption
 modes documented in
 [Pod group disruption and priority](/docs/concepts/workloads/workload-api/disruption-and-priority/).
 
@@ -105,8 +109,9 @@ analogous set of primitives prefixed with `WorkloadCompositePodGroup...`
 (for example `WorkloadCompositePodGroupSchedulingPolicy`). They follow the same shapes as
 the leaf-level blocks, except the composite gang policy uses `minGroupCount` (the minimum
 number of child groups that must be schedulable together) in place of the leaf's
-`minCount`. Keeping leaf and composite types distinct lets each hierarchy level evolve
-independently.
+`minCount`. There is no composite resource claims block, because claims are consumed by
+Pods and so belong to the leaf level only. Keeping leaf and composite types distinct lets
+each hierarchy level evolve independently.
 
 ### Example: the Job integration
 
@@ -125,9 +130,8 @@ in-tree controllers (such as the Job controller) and out-of-tree controllers (su
 JobSet or Kubeflow TrainJob), which vendor it like any other Go dependency. It ships from
 `k8s.io/component-helpers/scheduling/schedulingv1/workloadbuilder`.
 
-The library consumes the `scheduling.k8s.io/v1alpha3` building blocks and compiles them into
-`scheduling.k8s.io/v1beta1` Workload and PodGroup objects, while CompositePodGroup
-objects remain `scheduling.k8s.io/v1alpha3`.
+The library consumes the `scheduling.k8s.io/v1` building blocks and compiles them into
+`scheduling.k8s.io/v1beta1` Workload, PodGroup, and CompositePodGroup objects.
 
 ### How a controller uses it
 
@@ -136,17 +140,21 @@ component. A node with no children becomes a single `PodGroupTemplate`, while a 
 children becomes a `CompositePodGroupTemplate` over them, which is how a multi-level
 controller represents a group of groups. Each node carries:
 
+* a *name*, which becomes the name of the compiled template.
+* a *path*, the field path where the node's scheduling configuration lives in the
+  controller's API (for a Job, `spec.scheduling`).
 * a *default config*, the controller's own defaults for anything the user leaves unset. This
   is where a controller decides, for example, that an unconfigured Job stays on `basic`
-  scheduling.
+  scheduling. It also carries the priority class name that the compiled template inherits.
 * an *input*, the user's intent taken from the controller's API. The controller records each
-  building block together with the field path it lives at, so validation errors point at the
-  exact field the user set.
+  building block together with its location relative to the node's path, so validation errors
+  point at the exact field the user set. A leaf node supplies the `WorkloadPodGroup...`
+  blocks and a node with children supplies the `WorkloadCompositePodGroup...` blocks.
 * optional *callbacks*, which adjust the merged configuration. This is how a controller
   supplies a context-specific default, such as filling in an unset gang minimum count from
   the Job's parallelism.
 
-The controller then hands that tree to a `Builder` and works through four calls:
+The controller then hands that tree to a `Builder` and works through these calls:
 
 1. `NewBuilder` constructs the builder from the tree, along with the name, namespace, and
    owner reference for the object to be produced. The owner becomes the Workload's
@@ -156,7 +164,15 @@ The controller then hands that tree to a `Builder` and works through four calls:
 1. `BuildWorkload` compiles the tree into a Workload. The result is cached, so several
    PodGroups can be created from one compiled result.
 1. `NewPodGroup` creates a runtime PodGroup from one of the compiled templates, naming the
-   template it should be built from.
+   template it should be built from. For a node with children, `NewCompositePodGroup` does
+   the same for a CompositePodGroup. Neither call links the new object to a parent, so a
+   controller that nests groups sets `spec.parentCompositePodGroupName` on the returned
+   object itself.
+
+The library also provides `GenerateWorkloadName` and `GeneratePodGroupName`, which return
+deterministic, DNS-compatible names. Both include the owner's UID, so a controller can find
+its objects by name, a name reused after deletion does not collide with the old objects, and
+sibling owners that select the same template get separate PodGroups.
 
 ```go
 builder := workloadbuilder.NewBuilder(item, opts)
@@ -164,7 +180,8 @@ if errs := builder.Validate(ctx, workloadbuilder.ValidationInput{}); len(errs) >
     // reject the request
 }
 workload, err := builder.BuildWorkload()
-podGroup, err := builder.NewPodGroup("trainer-pg", item.Name)
+podGroupName := workloadbuilder.GeneratePodGroupName(workload.Name, item.Name, opts.Owner.UID)
+podGroup, err := builder.NewPodGroup(podGroupName, item.Name)
 ```
 
 For complete, runnable versions of this flow, including how the Job controller wires it up,
@@ -176,17 +193,27 @@ see the examples in the
 `Validate` checks a configuration in two layers:
 
 * **Structural validation** of the building blocks themselves: required fields, value ranges,
-  the rule that exactly one member of a union is set, and immutability. These checks come from
+  formats, and the rule that exactly one member of a union is set. These checks come from
   [declarative validation](/docs/reference/using-api/declarative-validation/) rules generated
   from the API types.
 * **Controller-policy checks** that declarative validation cannot express: the allow-lists
-  described below, and cross-field rules such as rejecting the `all` disruption mode alongside
-  the `basic` policy.
+  described below, and rules that span fields or nodes of the tree:
+  * the `all` disruption mode is rejected alongside the `basic` policy.
+  * under a parent that uses the `gang` policy, every child must use `gang` as well.
+  * under a parent whose disruption mode is `all`, every child must use `all` as well.
+  * every node in the tree must resolve to the same priority class name.
 
-Validation also differs between creating and updating an object. On an update, the library
-additionally enforces the fields that are frozen after creation, which means the controller
-has to supply the previously stored configuration along with the new one. On a create there is
-nothing to compare against, so those checks do not apply.
+Validation also differs between creating and updating an object. On an update, the controller
+supplies the previously stored configuration along with the new one, by setting `OldRoot` in
+the `ValidationInput`, so that declarative validation can tell which values changed. On a
+create there is nothing to compare against, so the controller passes an empty
+`ValidationInput`.
+
+The library does not make any building block immutable. Which fields are frozen after
+creation is each controller's decision, and the controller enforces it in its own API
+validation. The recommendation is to freeze the scheduling constraints, the disruption mode,
+the resource claims, and the choice between `basic` and `gang`, while leaving the gang
+minimum count mutable so that a workload can scale.
 
 #### Opting out of declarative validation
 
@@ -213,6 +240,9 @@ Options are therefore denied by default. When a new policy is introduced, an exi
 controller keeps rejecting it until its maintainers extend the allow-list, which for an
 out-of-tree controller means updating its vendored copy of the library as well.
 
+An empty allow-list allows nothing. An unset policy counts as `basic` and an unset disruption
+mode counts as `single`, so a controller that calls `Validate` has to list at least those.
+
 ```go
 builder := workloadbuilder.NewBuilder(item, workloadbuilder.BuildOptions{
     Owner:                  owner,
@@ -225,15 +255,35 @@ allErrs := builder.Validate(ctx, workloadbuilder.ValidationInput{})
 ### Generating PodGroups from an existing Workload
 
 When the Workload already exists, whether compiled by a parent controller or created manually,
-a child controller that only manages the runtime PodGroup uses `NewBuilderFromExistingWorkload`
+a lower-level controller that only manages the runtime PodGroup uses `NewBuilderFromExistingWorkload`
 instead. That builder creates PodGroup objects from the supplied Workload using its own owner
 reference. It does not validate or compile anything, so the existing Workload is never
-recompiled.
+recompiled. Calling `Validate` or `BuildWorkload` on this builder returns an error because the Workload is already compiled.
 
 ```go
 builder := workloadbuilder.NewBuilderFromExistingWorkload(parentWorkload, workloadbuilder.BuildOptions{Owner: owner})
 podGroup, err := builder.NewPodGroup("trainer-pg", "trainer-pgt-0")
 ```
+
+#### Delegating PodGroup creation to a lower-level controller
+
+A parent controller that compiles the Workload but leaves PodGroup creation to a lower-level
+controller passes the details down as annotations on the object it creates for that controller:
+
+`scheduling.k8s.io/workload-name`
+: The name of the Workload, in the same namespace, that holds the template. It is required
+  whenever `scheduling.k8s.io/group-template-name` is set.
+
+`scheduling.k8s.io/group-template-name`
+: The name of the template inside that Workload that the lower-level controller creates its PodGroups from.
+
+`scheduling.k8s.io/parent-compositepodgroup`
+: The name of the CompositePodGroup that those PodGroups attach to. It is only needed
+  when the parent has created a CompositePodGroup for them.
+
+The library does not read these annotations. The lower-level controller reads them, fetches
+the named Workload, passes it to `NewBuilderFromExistingWorkload`, and sets the parent
+CompositePodGroup name on the PodGroups it creates.
 
 ## {{% heading "whatsnext" %}}
 
