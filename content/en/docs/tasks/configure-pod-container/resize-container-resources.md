@@ -47,16 +47,16 @@ and actual requests from the status when making scheduling decisions.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled
-for your control plane and for all nodes in your cluster.
-
 To enable automatic scheduler preemption for deferred resize requests, the
 `InPlacePodVerticalScalingSchedulerPreemption`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must also be enabled for your control plane.
+must be enabled for your control plane.
 
 To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `InPlacePodVerticalScalingMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane and nodes, and the underlying nodes must be running cgroup v2.
+
+To allow pods with certain resource characteristics to be granted increased CPU affinity and exclusivity on the node, the CPU Manager Policy must be set to [static](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) for your ndodes.
+
+To resize In-place CPU resource of [Pods with Guaranteed Quality of Service](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#guaranteed)(QoS) class which make use of exclusive CPUs using the [static](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy, the `InPlacePodVerticalScalingExclusiveCPUs`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your nodes.
 
 The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
 
@@ -162,6 +162,57 @@ kubectl patch pod <pod-name> --subresource resize --patch \
 
 You can monitor the resize progress using the Pod's status conditions (`PodResizePending` and `PodResizeInProgress`). Once completed, you can verify the actual volume capacity inside the running container (for example, using `kubectl exec` to run `df -h`).
 
+## Resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScalingExclusiveCPUs" >}}
+
+When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports in-place updating the CPUs of Guaranteed QoS Pods managed by [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/).
+
+If `InPlacePodVerticalScalingExclusiveCPUs` feature gate is disable, In-place resource resizing is infeasible for Guaranteed QoS pods on nodes configured with a Static CPU Policy. Any attempt of in-place resize for Guaranteed QoS pods with static CPU policy will fail and update status to Infeasible.
+
+In-place resize is allowed with multiple containers per operation when topology management policy of node is [container topology manager scope](/docs/tasks/administer-cluster/topology-manager/#container-scope) or with [pod topology manager scope](/docs/tasks/administer-cluster/topology-manager/#pod-scope) for [none](/docs/tasks/administer-cluster/topology-manager/#policy-none) and [best-effort](/docs/tasks/administer-cluster/topology-manager/#policy-best-effort) multi container scaling is allowed.
+
+### Key concepts 
+
+* **baseline CPUs:** is the cpuset allocated when the container was admitted the first time
+* **assigned CPUs:** is the cpuset allocated before a resize, when the container in question is asked to resize
+* **resized CPUs:**  is the cpuset allocated after a successful resize, the "resized CPUs" is always a superset of "baseline CPUs" i.e. baselineCPUs < resizedCPUs_A_UpSize < resizedCPUs_B_UpSize ... < resizedCPUs_N_UpSize in case of N successive up sizes.
+
+### Use cases
+
+#### CPU limit increase
+
+  During CPU limit increase ( upsize or scale up ) of a running container of a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
+  - ensures that "assigned CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
+  - Attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
+
+#### CPU limit decrease
+
+  During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet: 
+  - to be successfull must ensures that after resize there is no decrease of number of CPUs below the CPUs allocated
+    upon creation of the Guaranteed Pod (“baseline CPUs”) for the running container in question. If this is not possible
+    resize will fail and update status to Infeasible.
+  - allows the decrease of number of CPUs up to the CPUs allocated upon creation of the Guaranteed Pod ("baseline CPUs")
+    of a running container of a Guaranteed Pod keeping "baseline CPUs".
+  - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
+  - allows retained CPUs ("resized CPUs") to be a subset of the previous `assigned CPUs`, and "baseline CPUs" are kept
+```
+    i.e. _baselineCPUs < resizedCPUS_A_UpSize, baselineCPUs <= resizedCPUS_B_DownSize < resizedCPUS_A_UpSize._
+```
+  - Downsize does not need to be an upsize in reverse for example below is a valid flow.
+  ```
+    upsize: baseline = 4 -> 8 -> 12
+    downsize: 12 -> 6
+  ```
+
+### Topology hints
+
+When the CPU Manager, under a static policy, generates a NUMA Topology hint for a Guaranteed pod undergoing an in place CPU pod-resize, it follows these rules to determine the new affinity:
+
+The pod's current NUMA Affinity (single or multiple NUMA nodes) can accommodate the resized CPU request. If yes, the current affinity is maintained.
+If the current affinity is insufficient and expansion is needed the new NUMA affinity must always include all NUMA nodes from the current affinity.
+On downsize the end result must be a superset of the "baseline CPUs" and a subset of the "resized CPUs".
+
 ## Limitations
 
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
@@ -187,11 +238,21 @@ to a race condition where memory usage may spike right after the check is perfor
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
-* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
-  cannot be resized in-place.
+* **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/memory-manager/)
+  cannot be resized in-place. When `InPlacePodVerticalScalingExclusiveCPUs` is disabled, Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
+
+{{< note >}}
+When `InPlacePodVerticalScalingExclusiveCPUs` is enabled, resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy has the following limitations:
+
+- Cannot move container from shared to exclusive pool.
+- Cannot move container from exclusive to shared pool.
+- Not allowed to resize non-restartable init-container with exclusively allocated pool.
+- Not allowed to reduce container exclusively allocated pool below baseline.
+- Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
+{{< /note >}}
 
 These restrictions might be relaxed in future Kubernetes versions.
 
@@ -200,7 +261,7 @@ These restrictions might be relaxed in future Kubernetes versions.
 Create a namespace so that the resources you create in this exercise are isolated from the rest of your cluster.
 
 ```shell
-kubectl create namespace qos-example
+kubectl create namespace rcr-example
 ```
 
 ## Example 1: Resizing CPU without restart
@@ -212,28 +273,41 @@ First, create a Pod designed for in-place CPU resize and restart-required memory
 Create the pod:
 
 ```shell
-kubectl create -f pod-resize.yaml -n qos-example
+kubectl create -f pod-resize.yaml -n rcr-example
 ```
 
 This pod starts in the Guaranteed QoS class. Verify its initial state:
 
 ```shell
 # Wait a moment for the pod to be running
-kubectl get pod resize-demo --output=yaml -n qos-example
+kubectl get pod resize-demo --output=yaml -n rcr-example
 ```
 
 Observe the `spec.containers[0].resources` and `status.containerStatuses[0].resources`.
 They should match the manifest (700m CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 
+Check the pod logs to verify which CPUs are also assigned.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see an output similar to (exact number will depending on nodes CPUs , below example is from a node with 5 CPUs)
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+```
+
+Note that above are a confirmation that the container is using CPUs from the shared pool.
+
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
 ```shell
-kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
-  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+kubectl patch pod resize-demo -n rcr-example --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
 # Alternative methods:
-# kubectl -n qos-example edit pod resize-demo --subresource resize
-# kubectl -n qos-example apply -f <updated-manifest> --subresource resize --server-side
+# kubectl -n rcr-example edit pod resize-demo --subresource resize
+# kubectl -n rcr-example apply -f <updated-manifest> --subresource resize --server-side
 ```
 
 {{< note >}}
@@ -244,13 +318,26 @@ Older versions will report an `invalid subresource` error.
 Check the pod status again after patching:
 
 ```shell
-kubectl get pod resize-demo --output=yaml --namespace=qos-example
+kubectl get pod resize-demo --output=yaml --namespace=rcr-example
 ```
 
 You should see:
 * `spec.containers[0].resources` now shows `cpu: 800m`.
+* `status.containerStatuses[0].allocatedResources` also shows `cpu: 800m`.
 * `status.containerStatuses[0].resources` also shows `cpu: 800m`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+Check the pod logs to verify that container is still using CPUs from the shared pool.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see the same output as in the previous step unchanged.
+
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+```
 
 ## Example 2: Resizing memory with restart
 
@@ -258,21 +345,34 @@ Now, resize the memory for the *same* pod by increasing it to `300Mi`.
 Since the memory `resizePolicy` is `RestartContainer`, the container is expected to restart.
 
 ```shell
-kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
-  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
+kubectl patch pod resize-demo -n rcr-example --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
 Check the pod status shortly after patching:
 
 ```shell
-kubectl get pod resize-demo --output=yaml --namespace=qos-example
+kubectl get pod resize-demo --output=yaml --namespace=rcr-example
 ```
 
 You should now observe:
 * `spec.containers[0].resources` shows `memory: 300Mi`.
+* `status.containerStatuses[0].allocatedResources` also shows `memory: 300Mi`.
 * `status.containerStatuses[0].resources` also shows `memory: 300Mi`.
 * `status.containerStatuses[0].restartCount` has increased to `1` (or more, if restarts happened previously),
   indicating the container was restarted to apply the memory change.
+
+Check the pod logs to verify that container, after the restart is still using CPUs from the shared pool.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see the same output as in the previous steps unchanged.
+
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+```
 
 ## Troubleshooting: Infeasible resize request
 
@@ -280,35 +380,348 @@ Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (wri
 
 ```shell
 # Attempt to patch with an excessively large CPU request
-kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
-  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
+kubectl patch pod resize-demo -n rcr-example --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
 Query the Pod's details:
 
 ```shell
-kubectl get pod resize-demo --output=yaml --namespace=qos-example
+kubectl get pod resize-demo --output=yaml --namespace=rcr-example
 ```
 
 You'll see changes indicating the problem:
 
-* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1000"`).
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1k"`).
 * A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
-* The condition's `message` will explain why (`Node didn't have enough capacity: cpu, requested: 800000, capacity: ...`)
+* The condition's `message` will explain why but will differ depending if `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled or not
+  - if not enabled (default), reason will be (`Node didn't have enough capacity: cpu, requested: 1000, capacity: ...`)
+  - if enabled, reason will be (`cannot move container from shared to exclusive pool, (requested CPUs = 1000)`
 * Crucially, `status.containerStatuses[0].resources` will *still show the previous values* (`cpu: 800m`, `memory: 300Mi`),
   because the infeasible resize was not applied by the Kubelet.
 * The `restartCount` will not have changed due to this failed attempt.
 
-To fix this, you would need to patch the pod again with feasible resource values.
+Check the pod logs to verify that container, is still using CPUs from the shared pool.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see the same output as in the previous steps unchanged.
+
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+```
+
+To fix this, we increase the CPU request and limit to `1500m`. You use `kubectl patch` with the `--subresource resize` command line argument.
+
+```shell
+kubectl patch pod resize-demo -n rcr-example --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"1500m"}, "limits":{"cpu":"1500m"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl get pod resize-demo --output=yaml --namespace=rcr-example
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 1500m`.
+* `status.containerStatuses[0].allocatedResources` also shows `cpu: 1500m`.
+* `status.containerStatuses[0].resources` also shows `cpu: 1500m`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+Check the pod logs to verify that container is still using CPUs from the shared pool.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see the same output as in the previous step unchanged.
+
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+```
+
+Keep this pod running and proceed with next example.
+
+## Example 3: Resizing CPU without restart, alongside Static CPU Management policy
+
+
+### Create a pod using two exclusive CPUs
+
+First, create a guaranteed Pod using exclusive CPUs designed for in-place CPU resize.
+
+{{% code_sample file="pods/resource/pod-resize-exclusive-cpus.yaml" %}}
+
+Create the pod:
+
+```shell
+kubectl -n rcr-example create -f pod-resize-exclusive-cpus.yaml
+```
+
+This pod starts in the Guaranteed QoS class, using exclusive CPUs. Verify its initial state:
+
+```shell
+# Wait a moment for the pod to be running
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+Observe `spec.containers[0].resources` , `status.containerStatuses[0].resources` and `status.containerStatuses[0].allocatedResources`.
+
+They should match the manifest (2 CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
+
+Check first the newly created pod logs to verify exclusive CPUs are also assigned.
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to:
+```
+CPUs assigned during admission (baselineCPUs) = 1-2
+```
+
+The CPUs allocated might be different depending on your node, what is important is to notice that two CPUs are allocated.
+
+Now check the pod we created in the previous steps and is still running. 
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see an output similar to:
+```
+CPUs assigned during admission (baselineCPUs) = 0-4
+CPUs assigned updated from 0-4 to 0,3-4 (baselineCPUs) 0-4
+```
+
+Observe that after the creation of the creation of the guaranteed Pod using exclusive CPUs
+continues to use CPUs from the shared pool but now shared pool is reduced by the 2 CPUs.
+
+Also observe that since this pod is in shared pool  newly assigned CPUs is not a subset of baseline CPUs.
+
+To proceed with the next step now we will delete the pod which uses CPUs from the shared pool, 
+to free up CPUs.
+
+```
+kubectl delete pod resize-demo -n rcr-exampe
+```
+
+Now check that the pod is deleted checking the logs.
+
+```shell
+kubectl logs resize-demo -n rcr-example
+```
+
+You should see an output similar to:
+```
+error: error from server (NotFound): pods "resize-demo" not found in namespace "rcr-example"
+```
+
+### Scale up pod with one additional CPU
+
+Now, increase the CPU request and limit to `3`. You use `kubectl patch` with the `--subresource resize` command line argument.
+
+```shell
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"3"}, "limits":{"cpu":"3"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 3` both for limits and requests.
+* `status.containerStatuses[0].allocatedResources` shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+Check the pod logs to verify CPUs are also assigned.
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to ( exact numbers depends on your node):
+```
+CPUs assigned during admission (baselineCPUs) = 1-2
+CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+```
+
+Observe that the CPUs are now increase by one, in the above example from CPUs 1-2, to CPUs 1,2,3 maintaining the baseline CPUs 1-2
+
+
+### Scale down reducing CPUs back to baseline CPUs
+
+
+Now, decrease the CPU request and limit to the total number of baselineCPUs, for our example it was `2`.
+
+```shell
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"2"}, "limits":{"cpu":"2"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 2` both for limits and requests.
+* `status.containerStatuses[0].allocatedResources` shows `cpu: 2`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].resources` also shows `cpu: 2`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+Check the pod logs to verify CPUs are also assigned.
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to ( exact numbers depends on your node):
+```
+CPUs assigned during admission (baselineCPUs) = 1-2
+CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+```
+
+Observe that the CPUs are now reduced from 1-3 to 1-2 equal to baseline CPUs 1-2
+
+
+### Troubleshooting, attempting to resize below baseline CPUs
+
+Now, decrease the CPU request and limit to `1`, this value is less than baseline CPUs.
+
+```shell
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"1"}, "limits":{"cpu":"1"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, ... not allowed to reduce container exclusively allocated pool below baseline, (baseline CPUs = 2, requested CPUs = 1)`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
+  because the resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+Check the pod logs to verify that CPUs were not updated
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to ( exact numbers depends on your node):
+```
+CPUs assigned during admission (baselineCPUs) = 1-2
+CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+```
+
+### Troubleshooting a non feasible CPU increase attempting to move from exclusive to a shared pool CPUs
+
+Now, increase the CPU request and limit to `2500m`, observe that this value even if it is above the baseline CPUs (2) it is not integer,
+which means this resize attempt we know before hand that it will fail since we cannot move container from exclusive to shared pool.
+
+```shell
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"2500m"}, "limits":{"cpu":"2500m"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "2500m"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, nothing to be done ... cannot move container from exclusive to shared pool`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
+  because the resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+
+To fix this, we patch the pod again with a feasible resource values.
+
+```shell
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"3"}, "limits":{"cpu":"3"}}}]}}'
+```
+
+Check the pod status again after patching:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 3`.
+* `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+
+Check the pod logs to verify that CPUs were not updated
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to ( exact numbers depends on your node):
+```
+CPUs assigned during admission (baselineCPUs) = 1-2
+CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+```
+
+### Troubelshooting a non feasible CPU increase attempting to allocate CPUs beyond nodes capacity
+
+Next, try requesting one thousand CPUs, an extreme number
+
+```shell
+# Attempt to patch with an excessively large CPU request one thousand CPUs
+minikube kubectl -- -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"1k"}, "limits":{"cpu":"1k"}}}]}}'
+```
+
+Query the Pod's details:
+
+```shell
+kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
+```
+
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1k"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Resize is not feasible, nothing to be done ... containerName = nginx, topologyError = unable to take 998 of 1000 requested                           
+      CPUs (2 CPUs retained): not enough cpus available to satisfy request: requested=1000
+      (of which 2 already allocated), available=2)'
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
+  because the infeasible resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
 
 ## Clean up
 
 Delete your namespace. This deletes all the Pods that you created for this task:
 
 ```shell
-kubectl delete namespace qos-example
+kubectl delete namespace rcr-example
 ```
-
 ## {{% heading "whatsnext" %}}
 
 
