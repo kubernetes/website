@@ -1006,9 +1006,10 @@ the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
 
-In Kubernetes 1.35 or later the `.status.startTime` field is cleared on Job suspension
-when the [MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
-feature gate is enabled.
+In Kubernetes v1.38 and later, the `.status.startTime` field is cleared when a Job
+is suspended. In Kubernetes v1.35 through v1.37, this behavior depends on the
+[MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
+feature gate, which is enabled by default starting in Kubernetes v1.36.
 
 When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
@@ -1127,11 +1128,17 @@ tolerations, labels, annotations and [scheduling gates](/docs/concepts/schedulin
 
 {{< feature-state feature_gate_name="MutableSchedulingDirectivesForSuspendedJobs" >}}
 
-In Kubernetes 1.34 or earlier mutating of Pod's scheduling directives is allowed only for
-suspended Jobs that have never been unsuspended before. In Kubernetes 1.35, this is allowed
-for any suspended Jobs when the `MutableSchedulingDirectivesForSuspendedJobs` feature gate is enabled.
+In Kubernetes v1.34 or earlier, you can update Pod scheduling directives only for
+a suspended Job that has never been unsuspended. Starting with Kubernetes v1.35,
+you can also update scheduling directives after a running Job is suspended and
+its active Pods have terminated.
 
-Additionally, this feature gate enables clearing of the `.status.startTime` field on [Job suspension](#suspending-a-job).
+In Kubernetes v1.35 through v1.37, this behavior depends on the
+`MutableSchedulingDirectivesForSuspendedJobs` feature gate. Starting with
+Kubernetes v1.38, the feature is stable and always enabled.
+
+This behavior also clears the `.status.startTime` field when the
+[Job is suspended](#suspending-a-job).
 
 ### Mutable Pod resources for suspended Jobs
 
