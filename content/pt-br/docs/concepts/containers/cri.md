@@ -10,7 +10,7 @@ A CRI é uma interface de plugins que permite ao kubelet utilizar uma ampla vari
 
 Você precisa de um {{< glossary_tooltip text="agente de execução de contêiner" term_id="container-runtime" >}} funcional em cada nó do seu cluster, para que o {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} possa iniciar {{< glossary_tooltip text="Pods" term_id="pod" >}} e seus contêineres.
 
-{{< glossary_definition prepend="A Interface de Execução de Contêiner (CRI) é" term_id="cri" length="all" >}}
+{{< glossary_definition term_id="cri" length="all" >}}
 
 <!-- body -->
 
