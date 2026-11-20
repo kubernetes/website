@@ -55,7 +55,7 @@ The process follows these steps for each PodGroup:
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, gang scheduling extends its support to `CompositePodGroups`.
 
 Contrary to `PodGroups` that group Pods, `CompositePodGroups` group child groups together - either

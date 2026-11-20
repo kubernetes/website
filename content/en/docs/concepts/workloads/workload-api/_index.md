@@ -95,7 +95,7 @@ This data is not used to schedule or manage the Workload.
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, you can use `CompositePodGroupTemplates` to define multi-level, hierarchical scheduling
 requirements in a `Workload`. These requirements can include enforcing nested topology constraints
 across different layers of cluster infrastructure (multi-level topology-aware scheduling),
@@ -139,7 +139,7 @@ To ensure cluster stability and control-plane efficiency, the group-template hie
 enforces the following limits:
 
 - **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of
-  4 levels.
+  5 levels.
 - **List limit**: Every `compositePodGroupTemplates` and `podGroupTemplates` list is strictly
   capped at a maximum of 8 items.
 
@@ -155,7 +155,7 @@ that enforces gang scheduling across two child `PodGroup` templates (`minGroupCo
 each specifying its own gang scheduling policy:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: gang-of-gangs-workload

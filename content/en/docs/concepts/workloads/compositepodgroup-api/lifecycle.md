@@ -53,7 +53,7 @@ resources in the hierarchy exist.
   [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy/)
   feature gate is enabled, the root group's preemption policy must be equal to the one specified by
   the Pods. If a mismatch is detected, the scheduler rejects the hierarchy as unschedulable.
-- **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of 4 levels.
+- **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of 5 levels.
 - **List item limit**: The maximum number of child `CompositePodGroupTemplates` and
   `PodGroupTemplates` at any level of a `Workload` is 8.
 - **Immutable gang group count**: The `spec.schedulingPolicy.gang.minGroupCount` field on a

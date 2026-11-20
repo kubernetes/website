@@ -56,10 +56,12 @@ The API supports two disruption modes for `CompositePodGroups`:
 If not specified, the mode defaults to `Single`.
 
 {{< note >}}
-In v1.37, a group can set its disruption mode to `All` and have child groups that have a mode set to
-`Single`. In such case, the top-level `All` mode overrides the descendant `Single` modes.
+A group with the disruption mode set to `All` must only have child groups that have a mode set to
+`All` as well.
 
-This configuration is discouraged due to unclear semantics.
+If a `Workload` object does not satisfy this condition, `kube-apiserver` rejects it on a creation
+attempt. Similarly, `kube-scheduler` does not proceed to scheduling `CompositePodGroup` hierarchies
+not adhering to this constraint.
 {{< /note >}}
 
 ## Pod group priority
@@ -112,16 +114,10 @@ is performed in the same way as for the `PodGroups`, through the priority admiss
 The priority of a root `CompositePodGroup` acts as the authoritative priority for all child groups
 and Pods within its hierarchy during
 [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
-All Pods within a single group hierarchy must share the exact same priority and must be equal to the
-priority of the root `CompositePodGroup`.
+All Pods and all groups within a single group hierarchy must share the exact same priority.
 
 The value of priority is also used for the ordering of root `CompositePodGroups` in the scheduling
 active queue.
-
-{{< note >}}
-In v1.37, the scheduler doesn't validate if the non-root groups have priority value that is equal to
-the priority of the root `CompositePodGroup`.
-{{< /note >}}
 
 ### PreemptionPolicy in CompositePodGroup
 
