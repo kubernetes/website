@@ -229,115 +229,23 @@ in the kube-apiserver and kube-scheduler. The
 [`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
 must also be enabled.
 
-## Consumable capacity
+## Consumable capacity {#consumable-capacity}
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
-The consumable capacity feature allows the same devices to be consumed by multiple independent ResourceClaims,
-with the Kubernetes scheduler managing how much of the device's capacity is used up by each claim.
-This is analogous to how Pods can share the resources on a Node; ResourceClaims can share the resources on a Device.
+Multiple ResourceClaims can share the capacity of a single device, with the
+scheduler tracking how much capacity each claim consumes.
+See [Capacity sharing](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity)
+for configuration and examples.
 
-The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice`
-to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
+## Shared consumable capacity {#shared-consumable-capacity}
 
-When requesting exactly one kind of device in a `ResourceClaim`, set
-`spec.devices.requests[].exactly.capacity` to specify the device resource
-requirements for each allocation. For a prioritized list of different alternatives, set `capacity` within
-the relevant `spec.devices.requests[].firstAvailable[]` entries.
+{{< feature-state feature_gate_name="DRASharedConsumableCapacity" >}}
 
-For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity,
-a concept known as **consumable capacity**.
-Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity.
-Furthermore, driver authors can use the `requestPolicy` constraints on individual device capacities to control
-how those capacities are consumed.
-For example, the driver author can specify that a given capacity is only consumed in increments of 1Gi.
-
-Here is an example of a network device which allows multiple allocations and contains a consumable bandwidth capacity.
-
-```yaml
-kind: ResourceSlice
-apiVersion: resource.k8s.io/v1
-metadata:
-  name: resourceslice
-spec:
-  nodeName: worker-1
-  pool:
-    name: pool
-    generation: 1
-    resourceSliceCount: 1
-  driver: dra.example.com
-  devices:
-  - name: eth1
-    allowMultipleAllocations: true
-    attributes:
-      name:
-        string: "eth1"
-    capacity:
-      bandwidth:
-        requestPolicy:
-          default: "1M"
-          validRange:
-            min: "1M"
-            step: "8"
-        value: "10G"
-```
-
-The consumable capacity can be requested as shown in the below example.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceClaimTemplate
-metadata:
-  name: bandwidth-claim-template
-spec:
-  spec:
-    devices:
-      requests:
-      - name: req-0
-        exactly:
-          deviceClassName: resource.example.com
-          capacity:
-            requests:
-              bandwidth: 1G
-```
-
-The allocation result will include the consumed capacity and the identifier of the share.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceClaim
-...
-status:
-  allocation:
-    devices:
-      results:
-      - consumedCapacity:
-          bandwidth: 1G
-        device: eth1
-        shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
-```
-
-In this example, a multiply-allocatable device was chosen. However, any `resource.example.com` device
-with at least the requested 1G bandwidth could have met the requirement.
-If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device.
-To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
-
-### DistinctAttribute constraint
-
-When requesting multiple devices in a ResourceClaim, you can use the DistinctAttribute
-constraint to ensure that each allocated device has a different value for a specified
-attribute. This constraint was introduced with the consumable capacity feature.
-
-The DistinctAttribute constraint is particularly useful when working with
-multiply-allocatable devices. It prevents the scheduler from allocating the same
-device multiple times within a single ResourceClaim, even when that device allows
-multiple allocations.
-
-Beyond preventing duplicate allocations, this constraint helps optimize performance
-by ensuring devices are distributed based on their attributes. For example, you can
-use it to distribute devices across different NUMA nodes to optimize memory bandwidth
-and reduce contention.
-
+Allocations of related devices can draw request-driven amounts from shared counters
+in a resource pool, with the scheduler enforcing the aggregate budget.
+See [Shared consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity-shared)
+for configuration and examples.
 
 ## Granular status authorization {#granular-status-authorization}
 

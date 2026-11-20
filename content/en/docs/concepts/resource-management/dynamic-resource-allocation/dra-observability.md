@@ -185,7 +185,7 @@ To check resource pool status:
      - `partitionSummary`: for [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
        pools, per-partition-type allocatability (see
        [Partition summary](#resource-pool-partition-summary)).
-     - `shareableSummary`: for pools with [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity),
+     - `shareableSummary`: for pools with [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity),
        aggregate capacity usage (see
        [Shareable summary](#resource-pool-shareable-summary)).
    - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
@@ -280,7 +280,7 @@ feature gates to be enabled.
 
 ### Shareable summary {#resource-pool-shareable-summary}
 
-For pools that contain [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+For pools that contain [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity)
 (devices that set `allowMultipleAllocations` and can be consumed by multiple
 claims), `shareableSummary` reports aggregate capacity usage across the pool:
 
@@ -296,7 +296,7 @@ feature (the
 [`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
 feature gate) and does not require `DRAPartitionableDevicesType`; the shareable
 devices it summarizes come from the
-[consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+[consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity)
 feature.
 
 
