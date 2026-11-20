@@ -183,7 +183,7 @@ In-place resize is allowed with multiple containers per operation when topology 
 #### CPU limit increase
 
   During CPU limit increase ( upsize or scale up ) of a running container of a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
-  - ensures that "baseline CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
+  - ensures that "assigned CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
   - Attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
 
 #### CPU limit decrease
@@ -195,7 +195,7 @@ In-place resize is allowed with multiple containers per operation when topology 
   - allows the decrease of number of CPUs up to the CPUs allocated upon creation of the Guaranteed Pod ("baseline CPUs")
     of a running container of a Guaranteed Pod keeping "baseline CPUs".
   - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
-  - allows retained CPUs ("resized CPUs") to be a subset of the previous "resized CPUs", and "baseline CPUs" are kept
+  - allows retained CPUs ("resized CPUs") to be a subset of the previous `assigned CPUs`, and "baseline CPUs" are kept
 ```
     i.e. _baselineCPUs < resizedCPUS_A_UpSize, baselineCPUs <= resizedCPUS_B_DownSize < resizedCPUS_A_UpSize._
 ```
@@ -204,31 +204,6 @@ In-place resize is allowed with multiple containers per operation when topology 
     upsize: baseline = 4 -> 8 -> 12
     downsize: 12 -> 6
   ```
-
-#### Troubleshooting failed resizing CPUs attempts
-
-A CPU resize attempt of Guaranteed QoS Pods managed by static CPU manager policy could fail or skipped:
-
-Possible reasons for failure are: 
-
-- unable to allocate container's CPU exclusive pool, for example because Topology criteria ( NUMA affinity etc ) could not be satisfied for the requests.
-
-Possible reasons for skipping are
-- `InPlacePodVerticalScalingExclusiveCPUs` is not enabled
-- Pod is using pod-level resources
-- Pod QoS class is not Guaranteed
-- Pod is using shared pool CPUs or recorded state is inconsistent
-
-Possible reasons for failure are
-
-- Cannot move container from shared to exclusive pool.
-- Cannot move container from exclusive to shared pool.
-- Not allowed to resize non-restartable init-container with exclusively allocated pool.
-- Not allowed to reduce container exclusively allocated pool below baseline.
-- Not allowed to resize exclusive CPUs of more that on container in a single operation with the pod scope
-- Inconsistent recorded state due to corrupted CPU Manager checkpoint state.
-
-For a full list please check the latest status of [KEP-5554](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5554-in-place-update-pod-resources-alongside-static-cpu-manager-policy)
 
 ### Topology hints
 
@@ -264,23 +239,20 @@ to a race condition where memory usage may spike right after the check is perfor
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
 * **Node Policies:** Pods managed by [static Memory manager policies](/docs/tasks/administer-cluster/memory-manager/)
-  cannot be resized in-place. When `InPlacePodVerticalScalingExclusiveCPUs` is not enabled Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) cannot be resized in-place.
+  cannot be resized in-place. When `InPlacePodVerticalScalingExclusiveCPUs` is disabled, Pods managed by [static CPU manager policies](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) cannot be resized in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
 
-For Kubernetes {{< skew currentVersion >}}, when `InPlacePodVerticalScalingExclusiveCPUs` is enabled, resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy has the following limitations:
+{{< note >}}
+When `InPlacePodVerticalScalingExclusiveCPUs` is enabled, resizing CPUs of Guaranteed QoS Pods managed by static CPU manager policy has the following limitations:
 
- - Cannot move container from shared to exclusive pool
- - Cannot move container from exlusive to shared pool
- - Not allowed to resize non-restartable init-container with exclusively allocated pool
- - Not allowed to reduce container exclusively allocated pool below baseline
- - Not allowed to resize exclusive CPUs of more that on container in a single operation with the pod scope
- - Not allowed to resize when CPU Manager checkpoint state is corrupted
- - Skip resize when Pod is using pod-level resources**
- - Skip resize when Pod QoS is not Guaranteed**
- - Skip resize when Pod is using shared pool CPUs or recorded state is inconsistent"
- - Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
+- Cannot move container from shared to exclusive pool.
+- Cannot move container from exclusive to shared pool.
+- Not allowed to resize non-restartable init-container with exclusively allocated pool.
+- Not allowed to reduce container exclusively allocated pool below baseline.
+- Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
+{{< /note >}}
 
 These restrictions might be relaxed in future Kubernetes versions.
 
