@@ -224,7 +224,7 @@ in the `kube-apiserver` and `kube-scheduler`.
 {{< feature-state feature_gate_name="DRANodeAllocatableResources" >}}
 
 Devices managed by DRA can have an underlying footprint composed of node allocatable
-resources, such as `cpu`, `memory`, or `hugepages`.
+resources, such as `cpu`, `memory`, `hugepages-<size>`, or `ephemeral-storage`.
 This feature integrates these DRA-based requests into the scheduler's standard
 accounting alongside regular Pod `spec` requests for these resources.
 
@@ -242,10 +242,12 @@ When authoring a PodSpec using claims for these types of devices, there are a fe
     *  Each individual container's limit plus its DRA allocations must not exceed the Pod-level limits; otherwise, the Pod will fail to schedule.
 *   A container's total resource requirement is the sum of its container-level resources
     and any node allocatable resources from its associated resource claims.
-*   **Claim Sharing Restriction**: Claims that use direct resource mappings (`mapping`) cannot be shared across multiple Pods. Claims for devices 
+*   **Missing limits**: For `cpu`, `memory`, and `ephemeral-storage`, DRA allocations are added to cgroup or eviction limits only when a limit is set in the Pod or container `spec` (otherwise, the resource remains unbounded at the limit level). For `hugepages-<size>`, DRA allocations are enforced even if the container `spec` omits a hugepages limit (unless a Pod-level hugepages limit is set).
+*   **Claim Sharing Restriction**: Claims that use direct resource mappings (`mapping`) cannot be shared across multiple Pods (including across members of the same PodGroup). Claims for devices 
     with `overhead` can support device sharing and overhead is tracked per Pod or per container.
 *   Pods with DRA claims support in-place resizing for standard requests in `spec`. The scheduler ensures 
     that resized standard requests combined with static DRA allocations still fit on the node.
+*   **ResourceQuota, HPA, and `kubectl describe node`**: `ResourceQuota` accounts for DRA node allocatable resources (enforcing hard limits on `pods/status` updates during `PreBind`), HorizontalPodAutoscaler (HPA) includes them in pod request utilization calculations, and `kubectl describe node` includes them in per-pod rows and node resource totals.
 
 ### Details for DRA Driver Authors
 
@@ -261,7 +263,7 @@ The `nodeAllocatableResources` field supports two different use cases:
 
 *   **Mapping**: Used when the DRA device directly represents the standard resource
     (e.g., a CPU or Memory DRA driver). The scheduler calculates the exact quantity
-    by scaling the capacity using `capacityMultiplier`, or scaling the device count
+    by scaling the capacity using `capacityMultiplier` (with `capacityKey`), or scaling the device count
     using `deviceMultiplier`.
 *   **Overhead**: Used when the device requires auxiliary node dependencies (e.g.,
     host memory consumed by a GPU). This can be defined as a flat `perPod` cost or
@@ -293,18 +295,19 @@ spec:
     capacity:
       "cpu.example.com/cpu": "128"
     nodeAllocatableResources:
-      mapping:
-        cpu:
+      cpu:
+        mapping:
           capacityKey: "cpu.example.com/cpu"
+          capacityMultiplier: "1"
   - name: socket1cpus
     allowMultipleAllocations: true
     capacity:
       "cpu.example.com/cpu": "128"
     nodeAllocatableResources:
-      mapping:
-        cpu:
+      cpu:
+        mapping:
           capacityKey: "cpu.example.com/cpu"
-          capacityMultiplier: 1
+          capacityMultiplier: "1"
 ```
 
 #### Example: Accelerator with Auxiliary Resources (Overhead)
@@ -330,21 +333,32 @@ spec:
       example.com/model:
         string: "model-x"
     nodeAllocatableResources:
-      overhead:
-        memory:
+      memory:
+        overhead:
           perPod: "8Gi"
 ```
 
-After a Pod is successfully bound to the node, the exact quantities of 
-node allocatable resources allocated via DRA are aggregated by the `kube-scheduler`
-and embedded directly into the Pod's `status.nodeAllocatableResourceClaimStatuses` field.
-This provides a clear, persistent handoff from the scheduler to the `kubelet`.
+Before binding a Pod to the node, the `kube-scheduler` aggregates the exact quantities of
+node allocatable resources allocated via DRA and records them in the Pod's
+`status.extraNodeAllocatableResources` field (with one pod entry using an empty
+`containerName` and per-container entries keyed by `containerName`).
+This provides a clear, persistent handoff from the scheduler to the `kubelet` and
+other control-plane components.
 
-Crucially, the `kubelet` natively consumes this API to perfectly align system-level boundaries:
-- **cgroups**: Pod and container cgroups would now include DRA based allocations, preventing workloads from being artificially throttled by the kernel.
+Crucially, the `kubelet` natively consumes this API to align system-level boundaries:
+- **cgroups**: Pod and container cgroups include DRA-based allocations, preventing workloads from being artificially throttled by the kernel.
 - **OOM Scores**: The `kubelet` factors the container's DRA memory requests into its effective memory request.
+- **Eviction and Preemption**: The `kubelet` includes DRA allocations in eviction ranking, `ephemeral-storage` limit eviction, and preemption.
 
-Node allocatable resources is an alpha feature and is enabled when the
-[`DRANodeAllocatableResources` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRANodeAllocatableResources) is enabled in the `kube-apiserver`,
-`kube-scheduler`, and `kubelet`.
+{{< note >}}
+In v1.38, `status.extraNodeAllocatableResources` replaces the alpha `status.nodeAllocatableResourceClaimStatuses`
+field, and kubelets with `DRANodeAllocatableResources` enabled declare the `DRAExtraNodeAllocatableResources` node feature.
+If you used the alpha feature gate in v1.37, recreate Pods that use devices with `nodeAllocatableResources` after upgrading.
+{{< /note >}}
+
+Node allocatable resources is a beta feature. In v1.38, it is disabled by default under the default
+`--min-compatibility-version` (`1.37`) and enabled by default when `--min-compatibility-version` is
+set to `1.38` or later. You can enable it explicitly via the
+[`DRANodeAllocatableResources` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRANodeAllocatableResources)
+in the `kube-apiserver`, `kube-scheduler`, `kubelet`, and `kube-controller-manager`.
 
