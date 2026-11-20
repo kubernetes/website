@@ -95,6 +95,8 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 ## Memory QoS with cgroup v2
 
+// v1.38 placeholder
+
 {{< feature-state feature_gate_name="MemoryQoS" >}}
 
 [Memory QoS](/docs/reference/command-line-tools-reference/feature-gates/#memoryqos) uses the memory controller of cgroup v2 to manage memory throttling
