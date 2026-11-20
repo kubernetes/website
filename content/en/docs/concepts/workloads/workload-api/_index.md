@@ -10,9 +10,9 @@ simple_list: true
 The `Workload` API resource defines the scheduling requirements and structure of a multi-Pod
 application. While workload controllers such as [Job](/docs/concepts/workloads/controllers/job/)
 manage the application's runtime state, the `Workload` specifies how groups of `Pods`
-should be scheduled. The Job controller is the only built-in controller that creates
-[PodGroup](/docs/concepts/workloads/podgroup-api/) objects from the `Workload`'s
-`PodGroupTemplates` at runtime.
+should be scheduled. With their respective feature gates enabled, the Job and ReplicaSet controllers
+create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from the
+Workload's `podGroupTemplates` at runtime.
 
 <!-- body -->
 
@@ -202,6 +202,28 @@ Other workload controllers (such as JobSet) may manage their own `Workload` and
 
 For the full set of scheduling fields and examples, see
 [Integrate with Workload APIs](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis).
+
+## Gang scheduling with Deployments
+
+{{< feature-state feature_gate_name="WorkloadWithDeployment" >}}
+
+When the
+[`WorkloadWithDeployment`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithDeployment)
+feature gate is enabled, a
+[Deployment](/docs/concepts/workloads/controllers/deployment/) can express
+scheduling requirements through its `.spec.scheduling` field.
+The Deployment controller creates one Workload, and the ReplicaSet controller
+creates one PodGroup per active ReplicaSet revision before creating its Pods.
+
+To request gang scheduling, set `.spec.scheduling.schedulingPolicy.gang` and use
+the Recreate deployment strategy. For a positive replica count, an omitted
+`gang.minCount` defaults to the Deployment's `.spec.replicas`.
+
+When `.spec.scheduling` is omitted, the controllers do not create Workload or
+PodGroup objects, and the Deployment's scheduling behavior is unchanged.
+
+For scheduling fields, examples, and limitations, see
+[Automatic PodGroup management](/docs/concepts/workloads/controllers/deployment/#automatic-podgroup-management).
 
 ## {{% heading "whatsnext" %}}
 
