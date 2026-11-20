@@ -51,15 +51,19 @@ a new leader to be elected more quickly, reducing leader transition latency.
 
 {{< feature-state feature_gate_name="LeaderElectionRecovery" >}}
 
-<!-- TODO(KEP-6361): placeholder; to be completed before the v1.38 docs deadline. -->
-
 When the `LeaderElectionRecovery` feature gate is enabled, the `kube-controller-manager`
-and `cloud-controller-manager` do not exit if they fail to renew their leader election
-Lease, for example while the API server or etcd is unavailable. Instead, they block
-write requests from their controllers and keep trying to renew the Lease. If a renewal
-succeeds, writes resume without a restart, and the existing informer caches are reused.
-If another instance takes over the Lease, or the `--leader-elect-recovery-deadline`
-passes, the component exits as it does today.
+does not exit if it fails to renew its leader election Lease, for example while the
+API server or etcd is unavailable. Instead, it stops its controllers from writing to the
+API server and keeps trying to renew the Lease. If a renewal succeeds, writes resume
+without a restart and the existing informer caches are reused. If another instance takes
+over the Lease, the `kube-controller-manager` exits.
+
+By default there is no limit on how long the `kube-controller-manager` keeps trying.
+Set `--leader-elect-recovery-deadline` to make it exit if it has not renewed the Lease
+within that duration.
+
+The `cloud-controller-manager` still exits when it fails to renew its Lease. Leader
+election recovery is not used when coordinated leader election is enabled.
 
 ## API server identity
 
