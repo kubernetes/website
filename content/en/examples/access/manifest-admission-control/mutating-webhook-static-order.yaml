@@ -1,0 +1,14 @@
+# This is an example AdmissionConfiguration that loads mutating webhooks from
+# static files on disk and runs them after all webhooks registered through the
+# Kubernetes API. Valid values for staticOrder are StaticFirst (the default),
+# StaticLast and ByName.
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: MutatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
+    kubeConfigFile: "<path-to-kubeconfig>"
+    staticManifestsDir: "/etc/kubernetes/admission/mutating-webhooks/"
+    staticOrder: StaticLast
