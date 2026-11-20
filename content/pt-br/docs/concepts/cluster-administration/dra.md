@@ -4,13 +4,9 @@ content_type: concept
 weight: 60
 ---
 
-<!-- overview -->
-
 Esta página descreve as boas práticas para configurar um cluster do Kubernetes
 com Alocação Dinâmica de Recursos (DRA). Essas
 instruções são para administradores de cluster.
-
-<!-- body -->
 
 ## Permissões separadas para APIs relacionadas à DRA
 
