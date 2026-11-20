@@ -1,134 +1,195 @@
 ---
-title: Boas práticas para Alocação Dinâmica de Recursos (DRA) para administradores de cluster
+title: Good practices for Dynamic Resource Allocation as a Cluster Admin
 content_type: concept
 weight: 60
 ---
 
-Esta página descreve as boas práticas para configurar um cluster do Kubernetes
-com Alocação Dinâmica de Recursos (DRA). Essas
-instruções são para administradores de cluster.
+<!-- overview -->
 
-## Permissões separadas para APIs relacionadas à DRA
+This page describes good practices when configuring a Kubernetes cluster
+utilizing Dynamic Resource Allocation (DRA). These instructions are for cluster
+administrators.
 
-A DRA é orquestrada por várias APIs diferentes. Use ferramentas de autorização
-(como RBAC ou similares) para controlar o acesso às APIs corretas, de acordo com o perfil dos seus usuários.
+<!-- body -->
 
-Em geral, DeviceClasses e ResourceSlices devem ser restritos aos administradores e aos drivers DRA. Operadores
-de cluster que implantarão Pods com claims precisarão de acesso às APIs ResourceClaim e
-ResourceClaimTemplate; ambas têm escopo de namespace.
+## Separate permissions to DRA related APIs
 
-## Implantação e manutenção de drivers DRA
+DRA is orchestrated through a number of different APIs. Use authorization tools
+(like RBAC, or another solution) to control access to the right APIs depending
+on the persona of your user.
 
-Os drivers DRA são aplicativos de terceiros executados em cada nó do seu cluster para interagir com o hardware desse nó
-e com os componentes nativos de DRA do Kubernetes. O procedimento de instalação depende do driver que você escolher, mas o driver provavelmente é implantado como um DaemonSet em todos ou em parte dos nós do cluster (usando seletores de nós ou mecanismos similares).
+In general, DeviceClasses and ResourceSlices should be restricted to admins and
+the DRA drivers. Cluster operators that will be deploying Pods with claims will
+need access to ResourceClaim and ResourceClaimTemplate APIs; both of these APIs
+are namespace scoped.
 
-### Use drivers que permitam atualização contínua, caso estejam disponíveis
+## DRA driver deployment and maintenance
 
-Os drivers DRA implementam a interface do [pacote `kubeletplugin`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin).
-Seu driver pode oferecer suporte a _atualizações contínuas_ implementando uma propriedade dessa interface que permite que duas versões de um mesmo driver DRA coexistam por um curto período. Esse recurso está disponível apenas a partir da versão 1.33 do kubelet e talvez não seja suportado pelo seu driver em clusters heterogêneos com nós conectados rodando versões antigas do Kubernetes; verifique a documentação do seu driver para ter certeza.
+DRA drivers are third-party applications that run on each node of your cluster
+to interface with the hardware of that node and Kubernetes' native DRA
+components. The installation procedure depends on the driver you choose, but is
+likely deployed as a DaemonSet to all or a selection of the nodes (using node
+selectors or similar mechanisms) in your cluster.
 
-Se as atualizações contínuas estiverem disponíveis para essa situação, considere utilizá-las para minimizar atrasos de agendamento quando houver atualização no seu driver.
+### Use drivers with seamless upgrade if available
 
-Caso não seja possível utilizar atualizações contínuas, durante o tempo de inatividade dos drivers para atualizações, você pode observar que:
+DRA drivers implement the [`kubeletplugin` package
+interface](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin).
+Your driver may support _seamless upgrades_ by implementing a property of this
+interface that allows two versions of the same DRA driver to coexist for a short
+time. This is only available for kubelet versions 1.33 and above and may not be
+supported by your driver for heterogeneous clusters with attached nodes running
+older versions of Kubernetes - check your driver's documentation to be sure.
 
-* Pods não poderão inicializar a menos que os claims dos quais eles dependem já tenham sido preparados para
-  uso.
-* A limpeza após o último Pod que usou um claim é adiada até que o driver esteja
-  disponível novamente. O Pod não é marcado como encerrado. Isso impede que os recursos usados por esse Pod sejam reutilizados por outros Pods.
-* Os Pods em execução continuarão funcionando.
+If seamless upgrades are available for your situation, consider using it to
+minimize scheduling delays when your driver updates.
 
-### Confirme se o seu driver DRA expõe uma liveness probe e utilize-a
+If you cannot use seamless upgrades, during driver downtime for upgrades you may
+observe that:
 
-É provável que seu driver DRA implemente um socket gRPC para verificações de integridade como parte das boas práticas para drivers DRA. A maneira mais fácil de utilizar esse socket gRPC é configurá-lo como uma liveness probe no DaemonSet que implanta seu driver DRA. A documentação do seu driver ou as ferramentas de implantação podem já incluir isso, mas se você estiver criando sua configuração separadamente ou não estiver executando seu driver DRA como um Pod do Kubernetes, certifique-se de que suas ferramentas de orquestração reiniciem o driver em caso de falhas nas verificações de integridade desse socket gRPC. Isso minimiza qualquer tempo de inatividade indesejado do driver e dá a ele mais oportunidades de autocorreção, reduzindo atrasos no agendamento ou o tempo de resolução de problemas.
+- Pods cannot start unless the claims they depend on were already prepared for
+  use.
+- Cleanup after the last pod which used a claim gets delayed until the driver is
+  available again. The pod is not marked as terminated. This prevents reusing
+  the resources used by the pod for other pods.
+- Running pods will continue to run.
 
-### Ao drenar um nó, drene o driver DRA o mais tarde possível
+### Confirm your DRA driver exposes a liveness probe and utilize it
 
-O driver DRA é responsável por desfazer a preparação dos dispositivos que foram alocados a Pods e, se o driver DRA for {{< glossary_tooltip text="drenado"
-term_id="drain" >}} antes que os Pods com claims tenham sido excluídos, ele não conseguirá concluir sua limpeza. Se você implementar uma lógica personalizada de drenagem para nós, considere verificar se não há ResourceClaims ou ResourceClaimTemplates alocados/reservados antes de encerrar o próprio driver DRA.
+Your DRA driver likely implements a gRPC socket for healthchecks as part of DRA
+driver good practices. The easiest way to utilize this grpc socket is to
+configure it as a liveness probe for the DaemonSet deploying your DRA driver.
+Your driver's documentation or deployment tooling may already include this, but
+if you are building your configuration separately or not running your DRA driver
+as a Kubernetes pod, be sure that your orchestration tooling restarts the DRA
+driver on failed healthchecks to this grpc socket. Doing so will minimize any
+accidental downtime of the DRA driver and give it more opportunities to self
+heal, reducing scheduling delays or troubleshooting time.
 
-## Monitore e ajuste os componentes para uma carga maior, especialmente em ambientes de alta escala
+### When draining a node, drain the DRA driver as late as possible
 
-O {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}, componente da camada de gerenciamento,
-e o controlador interno de ResourceClaim,
-gerenciado pelo {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, realizam o
-trabalho pesado durante o agendamento de Pods com claims, com base em metadados armazenados nas
-APIs da DRA. Em comparação com Pods agendados sem DRA, o número de chamadas ao servidor de API,
-a memória e a utilização de CPU necessárias por esses componentes aumentam para
-Pods que utilizam claims da DRA. Além disso, componentes locais ao nó, como o driver DRA
-e o kubelet, utilizam as APIs da DRA para alocar o hardware solicitado no momento da criação da sandbox
-do Pod. Especialmente em ambientes de grande escala, onde os clusters possuem muitos
-nós e/ou implantam muitas cargas de trabalho que utilizam intensamente os claims de recursos
-definidos pela DRA, o administrador do cluster deve configurar os componentes relevantes para
-antecipar o aumento da carga.
+The DRA driver is responsible for unpreparing any devices that were allocated to
+Pods, and if the DRA driver is {{< glossary_tooltip text="drained"
+term_id="drain" >}} before Pods with claims have been deleted, it will not be
+able to finalize its cleanup. If you implement custom drain logic for nodes,
+consider checking that there are no allocated/reserved ResourceClaim or
+ResourceClaimTemplates before terminating the DRA driver itself.
 
-A falta de ajustes nos componentes pode causar efeitos diretos ou em cascata, com sintomas variados ao longo do ciclo de vida do Pod. Se as configurações de QPS e burst do `kube-scheduler` forem muito baixas, o agendador pode identificar rapidamente um nó adequado para um Pod, mas demorar mais para vincular o Pod a esse nó. Com a DRA, durante o agendamento do Pod, os parâmetros QPS e burst na configuração do client-go dentro do `kube-controller-manager` são fundamentais.
+## Monitor and tune components for higher load, especially in high scale environments
 
-Os valores específicos para ajustar seu cluster dependem de diversos fatores, como
-o número de nós/Pods, a taxa de criação de Pods e a rotatividade, mesmo em ambientes que não utilizam a DRA;
-consulte o [README do SIG Scalability sobre limites de escalabilidade do Kubernetes](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)
-para obter mais informações. Em testes de escalabilidade realizados em um cluster com DRA habilitada
-com 100 nós, envolvendo 720 Pods de longa duração (90% de saturação) e 80 Pods de rotatividade
-(10% de rotatividade, 10 vezes), com uma taxa de criação de Jobs de 10, o QPS do `kube-controller-manager`
-pôde ser reduzido a até 75 e o burst a 150 para atingir metas de métricas equivalentes
-às de implantações sem DRA. Nesse limite inferior, observou-se que o
-limitador de taxa do lado do cliente foi acionado o suficiente para proteger o servidor de API contra
-picos bruscos de requisições, mas o limite ainda era alto o suficiente para que os SLOs de inicialização dos Pods não fossem afetados.
-Esse é um bom ponto de partida, mas, para ajustar os componentes que mais afetam o desempenho da DRA na sua implantação, monitore as métricas a seguir. Para obter mais informações sobre todas
-as métricas estáveis no Kubernetes, consulte a [Referência de Métricas do Kubernetes](/docs/reference/instrumentation/metrics/).
+Control plane component {{< glossary_tooltip text="kube-scheduler"
+term_id="kube-scheduler" >}} and the internal ResourceClaim controller
+orchestrated by the component {{< glossary_tooltip
+text="kube-controller-manager" term_id="kube-controller-manager" >}} do the
+heavy lifting during scheduling of Pods with claims based on metadata stored in
+the DRA APIs. Compared to non-DRA scheduled Pods, the number of API server
+calls, memory, and CPU utilization needed by these components is increased for
+Pods using DRA claims. In addition, node local components like the DRA driver
+and kubelet utilize DRA APIs to allocated the hardware request at Pod sandbox
+creation time. Especially in high scale environments where clusters have many
+nodes, and/or deploy many workloads that heavily utilize DRA defined resource
+claims, the cluster administrator should configure the relevant components to
+anticipate the increased load.
 
-### Métricas do `kube-controller-manager`
+The effects of mistuned components can have direct or snowballing effects
+causing different symptoms during the Pod lifecycle. If the `kube-scheduler`
+component's QPS and burst configurations are too low, the scheduler might
+quickly identify a suitable node for a Pod but take longer to bind the Pod to
+that node. With DRA, during Pod scheduling, the QPS and Burst parameters in the
+client-go configuration within `kube-controller-manager` are critical.
 
-As métricas a seguir analisam detalhadamente o controlador interno de ResourceClaim
-gerenciado pelo `kube-controller-manager`.
+The specific values to tune your cluster to depend on a variety of factors like
+number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
+see the [SIG Scalability README on Kubernetes scalability
+thresholds](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)
+for more information. In scale tests performed against a DRA enabled cluster
+with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
+(10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`
+QPS could be set to as low as 75 and Burst to 150 to meet equivalent metric
+targets for non-DRA deployments. At this lower bound, it was observed that the
+client side rate limiter was triggered enough to protect the API server from
+explosive burst but was high enough that pod startup SLOs were not impacted.
+While this is a good starting point, you can get a better idea of how to tune
+the different components that have the biggest effect on DRA performance for
+your deployment by monitoring the following metrics. For more information on all
+the stable metrics in Kubernetes, see the [Kubernetes Metrics
+Reference](/docs/reference/instrumentation/metrics/).
 
-* Taxa de adição à fila de trabalho: monitore
-  {{< highlight promql "hl_inline=true"  >}} sum(rate(workqueue_adds_total{name="resource_claim"}[5m])) {{< /highlight >}} para avaliar a rapidez com que os itens são adicionados ao controlador de ResourceClaim.
-* Profundidade da fila de trabalho: acompanhe
+### `kube-controller-manager` metrics
+
+The following metrics look closely at the internal ResourceClaim controller
+managed by the `kube-controller-manager` component.
+
+- Workqueue Add Rate: Monitor {{< highlight promql "hl_inline=true"  >}} sum(rate(workqueue_adds_total{name="resource_claim"}[5m])) {{< /highlight >}} to gauge how quickly items are added to the ResourceClaim controller.
+- Workqueue Depth: Track
   {{< highlight promql "hl_inline=true" >}}sum(workqueue_depth{endpoint="kube-controller-manager",
-  name="resource_claim"}){{< /highlight >}} para identificar acúmulo de itens no controlador de ResourceClaim.
-* Duração do trabalho na fila: observe
-  {{< highlight promql "hl_inline=true">}}histogram_quantile(0.99,
+  name="resource_claim"}){{< /highlight >}} to identify any backlogs in the ResourceClaim
+  controller.
+- Workqueue Work Duration: Observe {{< highlight promql "hl_inline=true">}}histogram_quantile(0.99,
   sum(rate(workqueue_work_duration_seconds_bucket{name="resource_claim"}[5m]))
-  by (le)){{< /highlight >}} para compreender a velocidade com que o controlador de ResourceClaim processa o trabalho.
+  by (le)){{< /highlight >}} to understand the speed at which the ResourceClaim controller
+  processes work.
 
-Se você estiver enfrentando baixa taxa de adição à fila de trabalho, alta profundidade da fila de trabalho e/ou
-alta duração do trabalho na fila, isso sugere que o controlador não está funcionando
-de maneira ideal. Considere ajustar parâmetros como QPS, burst e configurações de CPU/memória.
+If you are experiencing low Workqueue Add Rate, high Workqueue Depth, and/or
+high Workqueue Work Duration, this suggests the controller isn't performing
+optimally. Consider tuning parameters like QPS, burst, and CPU/memory
+configurations.
 
-Se você estiver enfrentando alta taxa de adição à fila de trabalho, alta profundidade da fila de trabalho, mas
-uma duração razoável do trabalho na fila, isso indica que o controlador está processando
-o trabalho, mas a concorrência pode ser insuficiente. A concorrência é fixa no código do
-controlador; portanto, como administrador do cluster, você pode ajustar isso reduzindo o
-QPS de criação de Pods, para que a taxa de adição à fila de trabalho de ResourceClaims seja mais
-gerenciável.
+If you are experiencing high Workqueue Add Rate, high Workqueue Depth, but
+reasonable Workqueue Work Duration, this indicates the controller is processing
+work, but concurrency might be insufficient. Concurrency is hardcoded in the
+controller, so as a cluster administrator, you can tune for this by reducing the
+pod creation QPS, so the add rate to the resource claim workqueue is more
+manageable.
 
-### Métricas do `kube-scheduler`
+### `kube-scheduler` metrics
 
-As métricas a seguir, do agendador, são de alto nível e agregam o desempenho de todos os Pods agendados, e não apenas daqueles que utilizam a DRA. É importante observar que as métricas de ponta a ponta são, em última instância, influenciadas pelo desempenho do `kube-controller-manager` na criação de ResourceClaims a partir de ResourceClaimTemplates em implantações que fazem uso intensivo de ResourceClaimTemplates.
+The following scheduler metrics are high level metrics aggregating performance
+across all Pods scheduled, not just those using DRA. It is important to note
+that the end-to-end metrics are ultimately influenced by the
+`kube-controller-manager`'s performance in creating ResourceClaims from
+ResourceClaimTemplates in deployments that heavily use ResourceClaimTemplates.
 
-* Duração de ponta a ponta do agendador: monitore {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
-  sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by (le)){{< /highlight >}}.
-* Latência do algoritmo do agendador: acompanhe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
-  sum(increase(scheduler_scheduling_algorithm_duration_seconds_bucket[5m])) by (le)){{< /highlight >}}.
+- Scheduler End-to-End Duration: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
+  sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by
+  (le)){{< /highlight >}}.
+- Scheduler Algorithm Latency: Track {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
+  sum(increase(scheduler_scheduling_algorithm_duration_seconds_bucket[5m])) by
+  (le)){{< /highlight >}}.
 
-### Métricas do `kubelet`
+### `kubelet` metrics
 
-Quando um Pod vinculado a um nó precisa ter um ResourceClaim atendido, o kubelet chama os métodos `NodePrepareResources` e `NodeUnprepareResources` do driver DRA. É possível observar esse comportamento do ponto de vista do kubelet por meio das seguintes métricas.
+When a Pod bound to a node must have a ResourceClaim satisfied, kubelet calls
+the `NodePrepareResources` and `NodeUnprepareResources` methods of the DRA
+driver. You can observe this behavior from the kubelet's point of view with the
+following metrics.
 
-* Kubelet NodePrepareResources: monitore {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
-  sum(rate(dra_operations_duration_seconds_bucket{operation_name="PrepareResources"}[5m])) by (le)){{< /highlight >}}.
-* Kubelet NodeUnprepareResources: acompanhe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
-  sum(rate(dra_operations_duration_seconds_bucket{operation_name="UnprepareResources"}[5m])) by (le)){{< /highlight >}}.
+- Kubelet NodePrepareResources: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
+  sum(rate(dra_operations_duration_seconds_bucket{operation_name="PrepareResources"}[5m]))
+  by (le)){{< /highlight >}}.
+- Kubelet NodeUnprepareResources: Track {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
+  sum(rate(dra_operations_duration_seconds_bucket{operation_name="UnprepareResources"}[5m]))
+  by (le)){{< /highlight >}}.
 
-### Operações do `kubeletplugin` da DRA
+### DRA kubeletplugin operations
 
-Os drivers DRA implementam a [interface do pacote `kubeletplugin`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
-que expõe suas próprias métricas para as operações gRPC subjacentes `NodePrepareResources` e `NodeUnprepareResources`. É possível observar esse comportamento do ponto de vista do `kubeletplugin` interno por meio das seguintes métricas.
+DRA drivers implement the [`kubeletplugin` package
+interface](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
+which surfaces its own metric for the underlying gRPC operation
+`NodePrepareResources` and `NodeUnprepareResources`. You can observe this
+behavior from the point of view of the internal kubeletplugin with the following
+metrics.
 
-* Operação gRPC NodePrepareResources do `kubeletplugin` da DRA: observe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99, sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodePrepareResources"}[5m])) by (le)){{< /highlight >}}.
-* Operação gRPC NodeUnprepareResources do `kubeletplugin` da DRA: observe {{< highlight promql "hl_inline=true" >}} histogram_quantile(0.99, sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodeUnprepareResources"}[5m])) by (le)){{< /highlight >}}.
+- DRA kubeletplugin gRPC NodePrepareResources operation: Observe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
+  sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".\*NodePrepareResources"}[5m]))
+  by (le)){{< /highlight >}}.
+- DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe {{< highlight promql "hl_inline=true" >}} histogram_quantile(0.99,
+  sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".\*NodeUnprepareResources"}[5m]))
+  by (le)){{< /highlight >}}.
 
 ## {{% heading "whatsnext" %}}
 
-* [Aprenda mais sobre a DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
-* Leia a [Referência de Métricas do Kubernetes](/docs/reference/instrumentation/metrics/)
+- [Learn more about
+  DRA](/docs/concepts/resource-management/dynamic-resource-allocation/)
+- Read the [Kubernetes Metrics
+  Reference](/docs/reference/instrumentation/metrics/)
