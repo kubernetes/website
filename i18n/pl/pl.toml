@@ -192,11 +192,47 @@ other = "Błąd"
 [examples_heading]
 other = "Przykłady"
 
+# Used with feature_gate_stage_* and then with either feature_gate_enabled or feature_gate_disabled
+# This localization string is for determining the punctuation and other details (including word order).
+## Localizers: you can put marks such as « and » around the .stage (if useful)
+[feature_gate_details]
+other = """<span class="feature-state-stage">{{ .stage }}</span> od wersji {{ .kubernetes }} v{{ .version }}; {{ .enabled_or_disabled }}"""
+
+## Localizers: you can put marks such as « and » around the .stage (if useful)
+[feature_gate_details_partial]
+other = """<span class="feature-state-stage">{{ .stage }}</span> od wersji {{ .kubernetes }} v{{ .version }}"""
+
 [feature_gate_enabled]
-other = "(domyślnie włączone)"
+other = "domyślnie włączone"
 
 [feature_gate_disabled]
-other = "(domyślnie wyłączone)"
+other = "domyślnie wyłączone"
+
+[feature_gate_more_details]
+other = "Więcej informacji o tej funkcji"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>Aby użyć tej funkcji, musisz włączyć bramkę funkcji <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> we wszystkich komponentach klastra (Ty lub administrator klastra).</p>
+<p>Więcej informacji znajdziesz w dokumencie <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Włączanie i wyłączanie bramek funkcji</a>.</p>"""
+
+[feature_gate_stable_graduated]
+other = "Ta funkcja jest stabilna w {{ .kubernetes }} od wersji {{ .stableVersion }}. Po raz pierwszy była dostępna w wydaniu v{{ .firstReleaseWithThisFeature }}."
+
+[feature_gate_stable_graduated_disabled]
+other = "Ta stabilna bramka funkcji jest domyślnie wyłączona. Nie można już włączyć tej bramki."
+
+[feature_gate_stable_locked]
+other = """Ta funkcja jest stabilna w {{ .kubernetes }} od wersji v{{ .stableVersion }}. Po raz pierwszy była dostępna w wydaniu v{{ .firstReleaseWithThisFeature }}. Nie można już wyłączyć tej funkcji ani zrezygnować z tego zachowania (jest ono zablokowane); jeśli jawnie ustawisz wartość bramki funkcji <tt>{{ .featureGateName }}</tt>, {{ .kubernetes }} to zignoruje, ale nie zgłosi błędu."""
+
+[feature_gate_removed_after_ga]
+other = """Ta funkcja jest stabilna w {{ .kubernetes }} od wydania {{ .stableVersion }}. Nie można już włączać tej funkcji (powiązana <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">bramka funkcji</a> została usunięta)."""
+
+[feature_gate_removed_before_ga_final_version_clear]
+other = """{{ .kubernetes }} nie zawiera już tej funkcji. Ostatnim wydaniem {{ .kubernetes }}, które rozpoznawało bramkę funkcji <tt>{{ .featureGateName }}</tt>, było {{ .toVersion }}. Nie można już włączać tego ustawienia."""
+
+# Used when we somehow don't know when the feature gate was removed.
+[feature_gate_removed_before_ga_final_version_unclear]
+other = """{{ .kubernetes }} nie zawiera już tej funkcji. Nie można już przełączać tego ustawienia."""
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -205,7 +241,7 @@ other = "Alpha"
 other = "Beta"
 
 [feature_gate_stage_stable]
-other = "GA"
+other = "Stable"
 
 [feature_gate_stage_deprecated]
 other = "Przestarzałe"
@@ -232,7 +268,7 @@ other = "Do"
 other = "Do"
 
 [feature_state]
-other = "STATUS FUNKCJONALNOŚCI:"
+other = "Status funkcjonalności:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
@@ -457,7 +493,7 @@ other = "Poznaj społeczność"
 other = "Wnieś swój wkład"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>."""
+other = """Copyright &copy; Kubernetes a Series of LF Projects, LLC. For website terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org/policies/" class="light-text">https://lfprojects.org/policies/</a>"""
 
 [main_documentation_license]
 other = """Autorzy Kubernetesa | Dokumentacja jest udostępniana w ramach licencji <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
