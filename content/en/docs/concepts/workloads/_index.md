@@ -63,7 +63,7 @@ additional behaviors. Using a
 [custom resource definition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
 you can add in a third-party workload resource if you want a specific behavior that's not part
 of Kubernetes' core. For example, if you wanted to run a group of Pods for your application but
-stop work unless _all_ the Pods are available (perhaps for some high-throughput distributed task),
+stop work unless _all_ the Pods are available (perhaps for some high-throughput [distributed task](https://glossary.cncf.io/distributed-systems/)),
 then you can implement or install an extension that does provide that feature.
 
 ## Workload placement
@@ -103,4 +103,3 @@ for applications:
 Once your application is running, you might want to make it available on the internet as
 a [Service](/docs/concepts/services-networking/service/) or, for web application only,
 using an [Ingress](/docs/concepts/services-networking/ingress).
-
