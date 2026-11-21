@@ -26,7 +26,7 @@ For detailed information on resource management, please refer to the
 documentation.
 
 For detailed information on how the kubelet implements resource management, please refer to the
-[Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+[Node ResourceManagers](/docs/concepts/resource-management/resource-managers/) documentation.
 
 ## {{% heading "prerequisites" %}}
 
@@ -182,8 +182,8 @@ The `prefer-align-cpus-by-uncorecache` option can be enabled by adding the
 incompatible options are used, the kubelet will fail to start with the error 
 explained in the logs.
 
-For mode detail about the behavior of the individual options you can configure, please refer to the
-[Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+For more detail about the behavior of the individual options you can configure, please refer to the
+[Node ResourceManagers](/docs/concepts/resource-management/resource-managers/) documentation.
 
 ## {{% heading "whatsnext" %}}
 
