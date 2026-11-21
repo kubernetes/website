@@ -15,7 +15,7 @@ You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/system_config/installation/))
 - `curl` (often provided by your operating system)
-- `jq` ([download jq](https://jqlang.github.io/jq/download/))
+- `jq` version 1.6 or later ([download jq](https://jqlang.github.io/jq/download/))
 
 ## Verifying binary signatures
 
@@ -57,6 +57,54 @@ Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
 For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
+
+## Verifying the release provenance
+
+Kubernetes releases published since v1.38.0-beta.0, including the patch
+releases of older minor versions, come with signed
+[SLSA build provenance](https://slsa.dev/spec/v1.0/provenance) next to their
+artifacts. The `provenance.json` file is a Sigstore bundle signed by the
+release process. It lists the digest of every binary and release tarball, and
+records the builder and the Kubernetes source commit that the release was built
+from.
+
+Retrieve the provenance together with the artifact that you want to check:
+
+```shell
+URL=https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}
+
+curl -sSfL --retry 3 --retry-delay 3 "$URL/provenance.json" -o provenance.json
+curl -sSfL --retry 3 --retry-delay 3 "$URL/bin/linux/amd64/kubectl" -o kubectl
+```
+
+Then verify the provenance and check that it lists the digest of the artifact
+by using `cosign verify-blob-attestation`:
+
+```shell
+cosign verify-blob-attestation kubectl \
+  --bundle provenance.json \
+  --type slsaprovenance1 \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
+```
+
+The command fails if the signature doesn't verify, or if the provenance doesn't
+list the digest of the artifact.
+
+To see which source the release was built from, read the resolved dependencies
+of the provenance:
+
+```shell
+jq -r '.dsseEnvelope.payload | @base64d | fromjson
+  | .predicate.buildDefinition.resolvedDependencies[]
+  | "\(.uri) \(.digest.gitCommit)"' provenance.json
+```
+
+The output is similar to this:
+
+```console
+git+https://github.com/kubernetes/kubernetes@refs/tags/v{{< skew currentPatchVersion >}} 6575724b63e50cd5dd454e774bc293c6de1e4e12
+```
 
 ## Verifying image signatures
 
@@ -104,6 +152,58 @@ For more information, please refer
 to the [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
 section.
 
+### Verifying image provenance
+
+For the same releases, the release process also attaches signed SLSA build
+provenance to the images that it builds, which registry.k8s.io serves as an
+[OCI referrer](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers)
+of the image. To verify it, run:
+
+```shell
+cosign verify-attestation registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} \
+  --new-bundle-format \
+  --type slsaprovenance1 \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com \
+  | jq -er '.payload | @base64d | fromjson | .predicate.runDetails.builder.id'
+```
+
+The output is similar to this:
+
+```console
+https://git.k8s.io/release/docs/krel
+```
+
+{{< note >}}
+Cosign 2 needs the `--new-bundle-format` option to find attestations that are
+attached as OCI referrers. Cosign 3 uses that format by default.
+{{< /note >}}
+
+### Verifying the image verification summaries
+
+When the image promoter publishes an image on registry.k8s.io, it checks the
+provenance of the image and records the result in a signed
+[SLSA verification summary](https://slsa.dev/spec/v1.0/verification_summary).
+For the images of releases published since v1.38.0-beta.0, the summary claims
+SLSA build level 1 or higher. To check that, run:
+
+```shell
+cosign verify-attestation registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} \
+  --new-bundle-format \
+  --type https://slsa.dev/verification_summary/v1 \
+  --certificate-identity promoter-summaries@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com \
+  | jq -e '.payload | @base64d | fromjson | .predicate
+    | select(.verifier.id == "https://k8s.io/promo-tools/verifier/v1")
+    | .verificationResult == "PASSED"
+      and any(.verifiedLevels[];
+        IN("SLSA_BUILD_LEVEL_1", "SLSA_BUILD_LEVEL_2", "SLSA_BUILD_LEVEL_3"))'
+```
+
+The command prints `true`. It fails if there is no summary, if the result of
+the summary isn't `PASSED`, or if the summary doesn't claim at least SLSA build
+level 1.
+
 ## Verifying Image Signatures with Admission Controller
 
 For non-control plane images (for example
@@ -144,4 +244,25 @@ cosign verify-blob \
     --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
     --certificate-oidc-issuer https://accounts.google.com \
     "$VERSION.spdx"
+```
+
+Releases published since v1.38.0-beta.0, including the patch releases of older
+minor versions, also publish the SBOM in the
+[SPDX 3](https://spdx.github.io/spdx-spec/v3.0.1/) format as
+`kubernetes-release.spdx3.json`, which you can verify the same way:
+
+```bash
+URL="https://dl.k8s.io/release/$VERSION"
+
+for FILE in kubernetes-release.spdx3.json{,.sha512,.sig,.cert}; do
+    curl -sSfL --retry 3 --retry-delay 3 "$URL/$FILE" -o "$FILE"
+done
+
+echo "$(cat kubernetes-release.spdx3.json.sha512) kubernetes-release.spdx3.json" | sha512sum --check
+
+cosign verify-blob kubernetes-release.spdx3.json \
+    --certificate kubernetes-release.spdx3.json.cert \
+    --signature kubernetes-release.spdx3.json.sig \
+    --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com
 ```
