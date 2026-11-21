@@ -317,6 +317,51 @@ a single container might be running with high usage and the HPA will not scale o
 pod usage is still within acceptable limits.
 {{< /note >}}
 
+### Utilization is relative to requests {#utilization-relative-to-requests}
+
+The HPA controller calculates utilization from resource requests only. Resource limits
+are not part of the calculation. An `averageUtilization` of `75` means that the average
+usage of the Pods equals 75% of their requests. It does not mean 75% of their limits.
+
+When a container's limit is much higher than its request, a target that you may read as
+"75% of the Pod's size" can be reached while the Pods are still mostly idle. Values above
+100 are valid, so you can set a target that sits between the request and the limit.
+
+To scale at a chosen share of a container's limit, convert it to a target based on the request:
+
+```
+averageUtilization = (share of limit) × limit ÷ request × 100
+```
+
+For example, a container with a CPU request of `250m` and a CPU limit of `1` that should
+scale out at 75% of its limit (`750m`) needs an `averageUtilization` of `300`. If you change
+the request later, recalculate the target, because the same `averageUtilization` then
+corresponds to a different amount of CPU.
+
+If you would rather state the amount directly, use the `AverageValue` target type instead
+of `Utilization`. This example scales out when the average Pod uses 750 millicores of CPU,
+regardless of the request:
+
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: AverageValue
+    averageValue: 750m
+```
+
+For a Pod with several containers, the requests of all containers are added together. A
+sidecar that requests a lot of CPU but uses little lowers the Pod's utilization, so the
+main container can be busy well before the HPA scales out. To scale on one container,
+use a [container resource metric](#container-resource-metrics).
+
+{{< note >}}
+A container is only guaranteed its request. A limit is a cap, and the node might not have
+spare capacity for a container to reach it. Choose a target that the containers can reach
+on a busy node.
+{{< /note >}}
+
 ### Container resource metrics
 
 {{< feature-state feature_gate_name="HPAContainerMetrics" >}}
