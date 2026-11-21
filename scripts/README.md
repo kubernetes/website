@@ -5,6 +5,7 @@
 | `find_pr.py`            | Find what GitHub pull requests touch a given file.                                                                                    |
 | `upstream_changes.py`   | Find what changes occurred between two versions.                                                                                      |
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
+| `kyaml.sh`              | Generates the KYAML variant of example manifests that pages request with `code_sample ... variants="kyaml"`.                         |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `fetch_kubecon_events.py` | This script fetches upcoming KubeCon events from the Linux Foundation calendar and writes `data/events/kubecon.yaml`.               |
@@ -71,6 +72,21 @@ To install the dependencies:
 To run the examples:
 
     $ ./scripts/test_examples.sh run
+
+## kyaml.sh
+
+This script generates the [KYAML](https://kubernetes.io/docs/reference/encodings/kyaml/)
+variant of example manifests, for `code_sample` shortcodes that set
+`variants="kyaml"`. It writes to `content/<lang>/examples-kyaml/`. Do not edit
+those files by hand; the manifest under `content/<lang>/examples/` is the
+source.
+
+    $ ./scripts/kyaml.sh generate [<lang>]   # or: make kyaml
+    $ ./scripts/kyaml.sh verify   [<lang>]   # or: make verify-kyaml
+
+`verify` fails if the generated files are out of date. Without a language,
+both commands cover English plus every language that already has
+`examples-kyaml/`.
 
 ## check-headers-file.sh
 
