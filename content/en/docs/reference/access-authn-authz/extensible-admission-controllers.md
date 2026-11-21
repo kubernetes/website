@@ -234,7 +234,7 @@ As an alternative to the manual credential management described in
 [Authenticate API servers](#authenticate-apiservers), the `kube-apiserver` can
 issue short-lived, scoped ServiceAccount tokens for authenticating to admission
 webhooks. This mechanism uses the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+[TokenRequest](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 API to issue tokens that are bound to a specific webhook configuration and
 scoped to particular API groups.
 

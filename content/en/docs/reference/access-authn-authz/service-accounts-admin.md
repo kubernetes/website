@@ -292,8 +292,7 @@ could then be mounted into running Pods.
 
 In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API credentials
 are [obtained directly](#bound-service-account-token-volume) using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API,
-and are mounted into Pods using a projected volume.
+`TokenRequest` API, and are mounted into Pods using a projected volume.
 The tokens obtained using this method have bounded lifetimes, and are automatically
 invalidated when the Pod they are mounted into is deleted.
 
@@ -305,7 +304,7 @@ the Kubernetes control plane automatically populates the token into that Secret.
 
 {{< note >}}
 Although the manual mechanism for creating a long-lived ServiceAccount token exists,
-using [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+using `TokenRequest`
 to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
@@ -473,7 +472,7 @@ administrator can configure this value through the
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-You use the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+You use the `TokenRequest`
 subresource of a ServiceAccount to obtain a time-bound token for that ServiceAccount.
 You don't need to call this to obtain an API token for use within a container, since
 the kubelet sets this up for you using a _projected volume_.
