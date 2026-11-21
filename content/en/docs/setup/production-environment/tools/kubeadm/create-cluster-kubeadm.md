@@ -130,7 +130,7 @@ for more details on this topic.
 
 {{< warning >}}
 The Kubernetes project recommends against this approach (configuring all component instances
-with custom IP addresses). Instead, the Kubernetes maintainers recommend to setup the host network,
+with custom IP addresses). Instead, the Kubernetes maintainers recommend that you set up the host network,
 so that the default gateway IP is the one that Kubernetes components auto-detect and use.
 On Linux nodes, you can use commands such as `ip route` to configure networking; your operating
 system might also provide higher level network management tools. If your node's default gateway
@@ -320,7 +320,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 {{< note >}}
 Kubeadm should be CNI agnostic and the validation of CNI providers is out of the scope of our current e2e testing.
 If you find an issue related to a CNI plugin you should log a ticket in its respective issue
-tracker instead of the kubeadm or kubernetes issue trackers.
+tracker instead of the kubeadm or Kubernetes issue trackers.
 {{< /note >}}
 
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
