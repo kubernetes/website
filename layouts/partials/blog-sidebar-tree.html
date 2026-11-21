@@ -50,15 +50,19 @@ sidebar-tree in use elsewhere on the site. */}}
     {{ $year := .Key }}
     {{ $mid := printf "m-%s-%s" ($s.RelPermalink | anchorize) ($year) -}}
     {{ $active := and (not $shouldDelayActive) (in .Pages $p) -}}
+    {{ $foldable := and $p.Site.Params.ui.sidebar_menu_foldable (ge $ulNr 1) -}}
+    {{ $postsID := printf "%s-posts" $mid -}}
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child{{ if $active }} active-path{{ end }}{{ if (not (or $show $p.Site.Params.ui.sidebar_menu_foldable )) }} collapse{{ end }}" id="{{ $mid }}-li">
-      {{ if (and $p.Site.Params.ui.sidebar_menu_foldable (ge $ulNr 1)) -}}
-      <input type="checkbox" id="{{ $mid }}-check"{{ if $active}} checked{{ end }}/>
-      <label for="{{ $mid }}-check"><span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $year }}</span></label>
+      {{ if $foldable -}}
+      <button class="td-sidebar-nav__section-toggle{{ if not $active }} collapsed{{ end }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $postsID }}" aria-expanded="{{ if $active }}true{{ else }}false{{ end }}" aria-controls="{{ $postsID }}">
+        <span class="td-sidebar-nav__section-toggle-icon fas fa-caret-right" aria-hidden="true"></span>
+        <span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $year }}</span>
+      </button>
       {{ else -}}
       {{ with $s.Params.Icon}}<i class="{{ . }}"></i>{{ end }}<span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $year }}</span>
       {{- end }}
       {{- $ulNr := 2 }}
-      <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
+      <ul{{ if $foldable }} id="{{ $postsID }}"{{ end }} class="ul-{{ $ulNr }}{{ if $foldable }} collapse{{ if $active }} show{{ end }}{{ else if (gt $ulNr 1) }} foldable{{ end }}">
         {{ range .Pages -}}
         {{ $mid := printf "m-%s" (.RelPermalink | anchorize) -}}
         {{ $active := and (not $shouldDelayActive) (eq . $p) -}}
