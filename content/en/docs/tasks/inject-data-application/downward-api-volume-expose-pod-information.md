@@ -72,7 +72,7 @@ The output shows the contents of the `labels` file and the `annotations` file:
 ```
 cluster="test-cluster1"
 rack="rack-22"
-zone="us-est-coast"
+zone="us-east-coast"
 
 build="two"
 builder="john-doe"
@@ -96,7 +96,7 @@ to the `labels` file:
 ```shell
 cluster="test-cluster1"
 rack="rack-22"
-zone="us-est-coast"
+zone="us-east-coast"
 ```
 
 Similarly, view the `annotations` file:
