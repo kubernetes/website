@@ -335,6 +335,20 @@ where `<RELATIVE-PATH>` is the path to the sample file to include, relative to t
 The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code_sample */%}}`.
 Use `{{%/* code_sample */%}}` (not `{{%/* codenew */%}}` or `{{%/* code */%}}`) in new documentation.
 
+### Code sample variants
+
+A code sample can also be shown in other serializations. Put each variant at the
+same path under `content/<LANG>/examples-<VARIANT>/`, then list the variants:
+
+```none
+{{%/* code_sample file="pods/simple-pod.yaml" variants="kyaml" */%}}
+```
+
+The shortcode shows one tab per serialization. The first tab is the original
+file, labeled with its file extension. A reader's choice of tab applies to
+every code sample on the site. If a listed variant file is missing, the site
+build fails.
+
 ## Third party content marker
 
 Running Kubernetes requires third-party software. For example: you
