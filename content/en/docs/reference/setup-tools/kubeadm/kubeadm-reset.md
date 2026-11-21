@@ -12,6 +12,8 @@ Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join
 <!-- body -->
 {{< include "generated/kubeadm_reset/_index.md" >}}
 
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ### Reset workflow {#reset-workflow}
 
 `kubeadm reset` is responsible for cleaning up a node local file system from files that were created using
