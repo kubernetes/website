@@ -76,7 +76,7 @@ minikube dashboard
 
 Now, switch back to the terminal where you ran `minikube start`.
 
-{{< alert color="info" title="Note" >}}
+{{< note >}}
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
@@ -88,7 +88,7 @@ The `dashboard` command creates a temporary proxy to make the dashboard accessib
 To stop the proxy, run `Ctrl+C` to exit the process.
 After the command exits, the dashboard remains running in the Kubernetes cluster.
 You can run the `dashboard` command again to create another proxy to access the dashboard.
-{{< /alert >}}
+{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="URL copy and paste" %}}
