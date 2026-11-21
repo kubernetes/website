@@ -158,9 +158,10 @@ ip addr
 wget -qO - 10.0.170.92
 ```
 ```
-CLIENT VALUES:
-client_address=10.244.3.8
-command=GET
+...
+Request Information:
+        client_address=10.244.3.8
+        method=GET
 ...
 ```
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
@@ -295,8 +296,9 @@ curl 203.0.113.140
 ```
 The output is similar to this:
 ```
-CLIENT VALUES:
-client_address=10.240.0.5
+...
+Request Information:
+        client_address=10.240.0.5
 ...
 ```
 
@@ -368,8 +370,9 @@ curl 203.0.113.140
 ```
 The output is similar to this:
 ```
-CLIENT VALUES:
-client_address=198.51.100.79
+...
+Request Information:
+        client_address=198.51.100.79
 ...
 ```
 
