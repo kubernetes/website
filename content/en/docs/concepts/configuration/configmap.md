@@ -324,8 +324,12 @@ immutable: true
 
 Once a ConfigMap is marked as immutable, it is _not_ possible to revert this change
 nor to mutate the contents of the `data` or the `binaryData` field. You can
-only delete and recreate the ConfigMap. Because existing Pods maintain a mount point
-to the deleted ConfigMap, it is recommended to recreate these pods.
+only delete and recreate the ConfigMap.
+
+If you need different data, prefer a new name and point new Pods at that object.
+Reusing the same name is only safe after every existing reference to the old
+object (not only Pods) has gone away. Existing Pods keep a mount to the deleted
+ConfigMap; recreate those Pods as well.
 
 ## {{% heading "whatsnext" %}}
 
