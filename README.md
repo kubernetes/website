@@ -190,8 +190,10 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | [German](./content/de/README.md)     | [Russian](./content/ru/README.md)    |
 | [Hindi](./content/hi/README.md)      | [Spanish](./content/es/README.md)    |
 | [Indonesian](./content/id/README.md) | [Ukrainian](./content/uk/README.md) |
-| [Italian](./content/it/README.md)    | [Vietnamese](./content/vi/README.md) |
-| [Japanese](./content/ja/README.md)   | |
+| [Italian](./content/it/README.md)    | [Uzbek](./README-uz.md) |
+| [Japanese](./content/ja/README.md)   | [Vietnamese](./content/vi/README.md) |
+
+Uzbek localization contact: [Anvarbek Ziyodov](https://github.com/Mr-Perfectuz) (`anvarbekdev@gmail.com`).
 
 ## Code of conduct
 
