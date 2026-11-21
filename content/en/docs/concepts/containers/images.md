@@ -94,7 +94,7 @@ these values have:
   {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
   to pull the image. The container runtime contacts the registry, resolves
   the image tag or name to a
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier),
+  [digest](#image-names),
   and downloads any layers that are not already cached locally.
   If all layers are already present, the container runtime uses the cached
   image without downloading it again. The kubelet itself does not check
