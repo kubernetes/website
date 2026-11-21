@@ -494,7 +494,7 @@ REY LEJANO: We've always been able to use empty dir for ephemeral volumes, but n
 -->
 **CRAIG BOX：此版本中的另一个 GA 功能--临时卷。**
 
-REY LEJANO：我们一直能够将空目录用于临时卷，但现在我们实际上可以拥有[临时内联卷] (https://github.com/kubernetes/enhancements/issues/1698)，
+REY LEJANO：我们一直能够将空目录用于临时卷，但现在我们实际上可以拥有[临时内联卷](https://github.com/kubernetes/enhancements/issues/1698)，
 这意味着你可以使用标准 CSI 驱动程序并能够与它一起使用临时卷。
 
 <!--
