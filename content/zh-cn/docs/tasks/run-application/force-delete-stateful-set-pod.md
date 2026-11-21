@@ -85,13 +85,13 @@ For the above to lead to graceful termination, the Pod **must not** specify a
 `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a
 `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged
 for StatefulSet Pods. Graceful deletion is safe and will ensure that the Pod
-[shuts down gracefully](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+[shuts down gracefully](/docs/concepts/workloads/pods/pod-termination/)
 before the kubelet deletes the name from the apiserver.
 -->
 为了让上面操作能够体面地终止 Pod，Pod **一定不能**设置 `pod.Spec.TerminationGracePeriodSeconds` 为 0。
 将 `pod.Spec.TerminationGracePeriodSeconds` 设置为 0 秒的做法是不安全的，强烈建议 StatefulSet 类型的
 Pod 不要使用。体面删除是安全的，并且会在 kubelet 从 API 服务器中删除资源名称之前确保
-[体面地结束 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[体面地结束 Pod](/zh-cn/docs/concepts/workloads/pods/pod-termination/)。
 
 <!--
 A Pod is not deleted automatically when a node is unreachable.

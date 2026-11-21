@@ -203,7 +203,7 @@ A `PodDisruptionBudget` has three fields:
 - `.spec.minAvailable` which is a description of the number of pods from that
   set that must still be available after the eviction, even in the absence
   of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-- `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
+- `.spec.maxUnavailable` which is a description
   of the number of pods from that set that can be unavailable after the eviction.
   It can be either an absolute number or a percentage.
 -->
@@ -211,18 +211,14 @@ A `PodDisruptionBudget` has three fields:
 - `.spec.minAvailable` 表示驱逐后仍须保证可用的 Pod 数量。即使因此影响到 Pod 驱逐
   （即该条件在和 Pod 驱逐发生冲突时优先保证）。
   `minAvailable` 值可以是绝对值，也可以是百分比。
-- `.spec.maxUnavailable` （Kubernetes 1.7 及更高的版本中可用）表示驱逐后允许不可用的
+- `.spec.maxUnavailable` 表示驱逐后允许不可用的
   Pod 的最大数量。其值可以是绝对值或是百分比。
 
 {{< note >}}
 <!--
-The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
-PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, while
-for policy/v1 an empty selector matches every pod in the namespace.
+An empty selector (`{}`) matches every pod in the namespace.
 -->
-`policy/v1beta1` 和 `policy/v1` API 中 PodDisruptionBudget 的空选择算符的行为
-略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pod，而
-`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pod。
+空选择器（`{}`）会匹配该命名空间中的所有 Pod。
 {{< /note >}}
 
 <!--
