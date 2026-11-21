@@ -314,7 +314,7 @@ information about this API.
 {{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
 
 The EndpointSlice API is the evolution of the older
-[Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+[Endpoints](/docs/reference/kubernetes-api/core/endpoints-v1/)
 API. The deprecated Endpoints API has several problems relative to
 EndpointSlice:
 
@@ -1110,6 +1110,6 @@ For more context, read the following:
 
 * [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-* [Service API reference](/docs/reference/kubernetes-api/service-resources/service-v1/)
-* [EndpointSlice API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
-* [Endpoint API reference (legacy)](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+* [Service API reference](/docs/reference/kubernetes-api/core/service-v1/)
+* [EndpointSlice API reference](/docs/reference/kubernetes-api/discovery/endpoint-slice-v1/)
+* [Endpoint API reference (legacy)](/docs/reference/kubernetes-api/core/endpoints-v1/)
