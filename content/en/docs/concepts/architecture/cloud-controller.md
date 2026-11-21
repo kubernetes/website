@@ -7,8 +7,6 @@ theme_lock: light
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.11" >}}
-
 Cloud infrastructure technologies let you run Kubernetes on public, private, and hybrid clouds.
 Kubernetes believes in automated, API-driven infrastructure without tight coupling between
 components.
@@ -42,26 +40,25 @@ The controllers inside the cloud controller manager include:
 
 ### Node controller
 
-The node controller is responsible for updating {{< glossary_tooltip text="Node" term_id="node" >}} objects
-when new servers are created in your cloud infrastructure. The node controller obtains information about the
-hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
+The Node controller is responsible for updating {{< glossary_tooltip text="Node" term_id="node" >}} objects
+when new servers are created in your cloud infrastructure. The Node controller obtains information about the
+hosts running inside your tenancy with the cloud provider. The Node controller performs the following functions:
 
 1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
-1. Annotating and labelling the Node object with cloud-specific information, such as the region the node
+1. Annotating and labelling the Node object with cloud-specific information, such as the region the Node
    is deployed into and the resources (CPU, memory, etc) that it has available.
-1. Obtain the node's hostname and network addresses.
-1. Verifying the node's health. In case a node becomes unresponsive, this controller checks with
+1. Obtain the Node's hostname and network addresses.
+1. Verifying the Node's health. In case a Node becomes unresponsive, this controller checks with
    your cloud provider's API to see if the server has been deactivated / deleted / terminated.
-   If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
+   If the Node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
    cluster.
 
-Some cloud provider implementations split this into a node controller and a separate node
-lifecycle controller.
+Some cloud provider implementations split this into a Node controller and a separate Node lifecycle controller.
 
 ### Route controller
 
 The route controller is responsible for configuring routes in the cloud
-appropriately so that containers on different nodes in your Kubernetes
+appropriately so that containers on different Nodes in your Kubernetes
 cluster can communicate with each other.
 
 Depending on the cloud provider, the route controller might also allocate blocks
@@ -207,7 +204,7 @@ rules:
 * Want to know how to implement your own cloud controller manager, or extend an existing project?
 
   - The cloud controller manager uses Go interfaces, specifically, `CloudProvider` interface defined in
-    [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)
+    [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)
     from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider) to allow
     implementations from any cloud to be plugged in.
   - The implementation of the shared controllers highlighted in this document (Node, Route, and Service),
