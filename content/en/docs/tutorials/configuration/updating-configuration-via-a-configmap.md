@@ -559,6 +559,9 @@ If you do need to make a change, you should plan to either:
 {{< /alert >}}
 
 An example manifest for an [Immutable ConfigMap](/docs/concepts/configuration/configmap/#configmap-immutable) is shown below.
+For simplicity, this manifest is in plain YAML format rather than [KYAML](/docs/reference/encodings/kyaml/)
+(which many examples use). KYAML is 100% compatible with YAML anyway.
+
 {{% code_sample file="configmap/immutable-configmap.yaml" %}}
 
 Create the Immutable ConfigMap:
