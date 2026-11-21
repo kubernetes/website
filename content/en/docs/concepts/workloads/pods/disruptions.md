@@ -123,6 +123,14 @@ then the Eviction API will allow voluntary disruption of one (but not two) pods 
 The group of pods that comprise the application is specified using a label selector, the same
 as the one used by the application's controller (deployment, stateful-set, etc).
 
+{{< caution >}}
+Do not configure PodDisruptionBudgets so that the same Pod matches more than one PDB.
+The eviction API rejects eviction of a Pod covered by multiple PDBs. Overlapping selectors
+are unsupported for ongoing protection; see
+[Arbitrary workloads and arbitrary selectors](/docs/tasks/run-application/configure-pdb/#arbitrary-controllers-and-selectors)
+for the temporary overlap used when migrating between PDBs.
+{{< /caution >}}
+
 The "intended" number of pods is computed from the `.spec.replicas` of the workload resource
 that is managing those pods. The control plane discovers the owning workload resource by
 examining the `.metadata.ownerReferences` of the Pod.
