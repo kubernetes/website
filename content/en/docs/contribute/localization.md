@@ -1,9 +1,6 @@
 ---
 title: Localizing Kubernetes documentation
 content_type: concept
-approvers:
-- remyleone
-- rlenferink
 weight: 50
 card:
   name: contribute
@@ -63,6 +60,13 @@ localization you want to help out with is inside `content/<two-letter-code>`.
 Create or update your chosen localized page based on the English original. See
 [localize content](#localize-content) for more details.
 
+To contribute to a localization, you **must be fluent in the target language**. If
+you use AI tools to assist with your contribution, you must follow the Kubernetes
+[AI Guidance](https://www.kubernetes.dev/docs/guide/pull-requests/#ai-guidance),
+thoroughly review and verify all generated text yourself, and disclose AI tool usage
+in your pull request description. Large, unreviewed AI-generated pull requests are
+not accepted.
+
 If you notice a technical inaccuracy or other problem with the upstream
 (English) documentation, you should fix the upstream documentation first and
 then repeat the equivalent fix by updating the localization you're working on.
@@ -79,12 +83,17 @@ changes to the upstream (English) content.
 If you want the Kubernetes documentation localized into a new language, here's
 what you need to do.
 
-Because contributors can't approve their own pull requests, you need _at least
-two contributors_ to begin a localization.
+SIG Docs **recommends starting a new localization with at least four
+contributors**. Because contributors can't review or approve their own pull
+requests, a team of four or more ensures steady capacity for peer review and
+ongoing maintenance even when individual availability changes.
 
-All localization teams must be self-sufficient. The Kubernetes website is happy
-to host your work, but it's up to you to translate it and keep existing
-localized content current.
+Please organize your team with a sustainable workflow for long-term maintenance.
+Upstream English documentation changes continuously, which regularly creates
+outdated localized pages; if a localization is treated as a one-time effort,
+stale content quickly accumulates. While SIG Docs helps new teams get started,
+each localization team is responsible for translating and keeping its content
+current over time.
 
 You'll need to know the two-letter language code for your language. Consult the
 [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php)
@@ -133,9 +142,30 @@ GitHub organization. Each person on the team needs to create their own
 [Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose)
 in the `kubernetes/org` repository.
 
+### Peer review and earning reviewer or approver roles
+
+When starting a new localization, contributors do not immediately apply for
+official reviewer (`sig-docs-**-reviews`) or approver (`sig-docs-**-owners`)
+roles. Instead, new teams follow a staged onboarding process:
+
+1. **Peer review among contributors**: Translate the
+   [minimum required content](#minimum-required-content) manually first to build
+   shared terminology and team consensus. Team members review each other's pull
+   requests and, once satisfied with the translation quality, leave a comment
+   such as `LGTM` (or `/lgtm` if already a Kubernetes GitHub organization member).
+2. **Temporary approval support**: While your team is building its track record,
+   the **SIG Docs Localization Subproject Leads** (`@kubernetes/sig-docs-localization-owners`)
+   temporarily help with official pull request approvals (`/approve`) after your
+   team's peer review is complete.
+3. **Apply after demonstrating eligibility**: Once contributors have demonstrated
+   eligibility through consistent contributions and peer reviews, eligible
+   candidates can apply for reviewer or approver roles according to
+   [Roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/).
+
 ### Add your localization team in GitHub
 
-Next, add your Kubernetes localization team to
+Once your team members have demonstrated eligibility for reviewer or approver
+roles, add your Kubernetes localization team to
 [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml).
 For an example of adding a localization team, see the PR to add the
 [Spanish localization team](https://github.com/kubernetes/org/pull/685).
@@ -225,7 +255,9 @@ repository to add the code of conduct in your language.
 
 ### Set up the OWNERS files
 
-To set the roles of each user contributing to the localization, create an
+After your team has demonstrated eligibility and created the GitHub teams in
+[Add your localization team in GitHub](#add-your-localization-team-in-github),
+set the roles of each user contributing to the localization by creating an
 `OWNERS` file inside the language-specific subdirectory with:
 
 - **reviewers**: A list of kubernetes teams with reviewer roles, in this case,
@@ -358,12 +390,16 @@ Translation tools can speed up the translation process. For example, some
 editors offer plugins to quickly translate text.
 
 {{< caution >}}
-Machine-generated translation is insufficient on its own. Localization requires
-extensive human review to meet minimum standards of quality.
+AI-generated translation is insufficient on its own. Localization requires
+fluency in the target language and extensive human review to meet minimum
+standards of quality, in accordance with the Kubernetes
+[AI Guidance](https://www.kubernetes.dev/docs/guide/pull-requests/#ai-guidance).
 {{< /caution >}}
 
 To ensure accuracy in grammar and meaning, members of your localization team
-should carefully review all machine-generated translations before publishing.
+should carefully review all AI-assisted translations before publishing. See
+[Using AI assistance and AGENTS.md](#using-ai-assistance-and-agents-md) for
+details.
 
 ### Localize SVG images
 
@@ -474,6 +510,48 @@ includes content on the following subjects:
 - Markdown conventions
 - Kubernetes API object terminology
 
+### Using AI assistance and AGENTS.md
+
+Once an established localization team has defined its glossary, style guide, and
+review practices, the team can create a locale-specific `AGENTS.md` file to
+provide reusable context and guardrails for AI tools (for drafting translations,
+self-reviewing changes, or updating outdated content).
+
+To set up `AGENTS.md` for your localization:
+
+1. Copy [`content/AGENTS_TEMPLATE.md`](https://github.com/kubernetes/website/blob/main/content/AGENTS_TEMPLATE.md)
+   to `content/<two-letter-code>/AGENTS.md`.
+2. Customize the `[CUSTOMIZE]` sections with your team's glossary, formatting
+   conventions, and review checklist while keeping the universal Hugo and
+   Markdown structural rules intact.
+
+For a practical example, see the Korean localization's
+[`content/ko/AGENTS.md`](https://github.com/kubernetes/website/blob/main/content/ko/AGENTS.md)
+alongside the [Korean Localization Guide](/ko/docs/contribute/localization_ko/).
+
+Because `AGENTS.md` is placed under `content/<two-letter-code>/` rather than the
+repository root, reference it directly in your prompt. For example:
+
+- **Drafting a new translation**: `"Follow content/ko/AGENTS.md to draft a translation for content/en/docs/<path>.md."`
+- **Updating outdated pages**: `"Follow content/ko/AGENTS.md and use scripts/l10n-outdatedness-triage.py to update a few Strong signal (Minor fix) pages."`
+- **Reviewing a page**: `"Follow content/ko/AGENTS.md to review content/ko/docs/<path>.md."`
+
+When using `AGENTS.md` and AI tools, please keep these community guidelines in
+mind:
+
+- **Follow the Kubernetes AI guidance**: Align with the
+  [Kubernetes AI Guidance](https://www.kubernetes.dev/docs/guide/pull-requests/#ai-guidance)
+  by contributing in languages you are fluent in and noting AI assistance in your
+  pull request description.
+- **Build team consensus first**: We encourage new teams to translate manually and
+  agree on shared terminology and style through their first live release before
+  adopting `AGENTS.md`.
+- **Treat AI output as a draft**: Review generated content yourself to ensure
+  accurate meaning, natural phrasing, valid Hugo shortcodes, and working links.
+- **Coordinate large-scale contributions**: After your first live release, plan
+  large-scale translations or updates as a team effort with full team review,
+  and check in with the SIG Docs Localization Subproject Leads beforehand.
+
 ### Language-specific Zoom meetings
 
 If the localization project needs a separate meeting time, contact a SIG Docs
@@ -542,16 +620,19 @@ merge your localization branch into the new release branch
 localization branch to `{{< release-branch >}}`.
 {{< /note >}}
 
-At the beginning of every team milestone, it's helpful to open an issue
-comparing upstream changes between the previous localization branch and the
-current localization branch. There are two scripts for comparing upstream
-changes.
+At the beginning of every team milestone, or during regular maintenance, it's
+helpful to identify and prioritize outdated localized pages as upstream English
+documentation evolves. You can use the following scripts in
+[`scripts/`](https://github.com/kubernetes/website/tree/main/scripts):
 
-- [`upstream_changes.py`](https://github.com/kubernetes/website/tree/main/scripts#upstream_changespy)
-  is useful for checking the changes made to a specific file. And
-- [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy)
-  is useful for creating a list of outdated files for a specific localization
-  branch.
+- [`l10n-outdatedness-triage.py`](https://github.com/kubernetes/website/tree/main/scripts#l10n-outdatedness-triagepy)
+  generates an outdatedness triage report by considering both structural
+  characteristics and modification timestamps between localized pages and their
+  English source. Teams can also pair this triage report with their `AGENTS.md`
+  to assist in updating outdated pages.
+- [`lsync.sh`](https://github.com/kubernetes/website/tree/main/scripts#lsyncsh)
+  checks whether the English version of a specific file or directory has changed
+  since the localized version was last committed, and displays the git diff.
 
 While only approvers can open a new localization branch and merge pull requests,
 anyone can open a pull request for a new localization branch. No special
