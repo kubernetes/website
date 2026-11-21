@@ -561,7 +561,7 @@ deserializing the full event stream, even when they only need a subset of object
 Sharded list and watch allows horizontally scaled controllers to split the workload
 so that each replica only receives the events it is responsible for.
 
-Kubernetes {{< skew currentVersion >}} introduces an alpha feature that allows clients
+Kubernetes {{< skew currentVersion >}} introduces a beta feature that allows clients
 to request a **filtered shard** of objects from the API server, using hash-based
 partitioning on metadata fields. To use this feature, enable the `ShardedListAndWatch`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the
@@ -606,25 +606,25 @@ Controllers typically use [informers](/docs/reference/using-api/api-concepts/#ef
 to list and watch resources. To shard the workload across replicas, each replica
 injects the `ShardSelector` field into the `ListOptions` used by its informers.
 
-The standard way to do this is with `WithTweakListOptions` when constructing a
-shared informer factory. The tweak function runs before every list and watch call
-the informer makes, so the shard selector is applied consistently:
+The standard way to do this is with `sharding.NewShardRangeSelector` and
+`WithShardSelector` when constructing a shared informer factory:
 
 ```go
 import (
-    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/apimachinery/pkg/sharding"
     "k8s.io/client-go/informers"
 )
 
-// shardSelector is determined by the replica's identity (e.g. from a
+// shardIndex in [0, totalShards) is determined by the replica's identity (e.g. from a
 // StatefulSet ordinal or lease-based assignment). Each replica claims a
 // non-overlapping range of the hash space.
-shardSelector := "shardRange(object.metadata.uid, '0x0000000000000000', '0x8000000000000000')"
+selector, err := sharding.NewShardRangeSelector("object.metadata.uid", shardIndex, totalShards)
+if err != nil {
+    // handle error
+}
 
 factory := informers.NewSharedInformerFactoryWithOptions(client, resyncPeriod,
-    informers.WithTweakListOptions(func(opts *metav1.ListOptions) {
-        opts.ShardSelector = shardSelector
-    }),
+    informers.WithShardSelector(selector),
 )
 ```
 
@@ -686,7 +686,8 @@ checking for the presence of `shardInfo` in the list response metadata. If `shar
 is absent, the server did not honor the shard selector and the client received the
 complete, unfiltered collection. In this case, the client should be prepared to handle
 the full result set, for example by applying client-side filtering to discard objects
-outside its assigned shard range.
+outside its assigned shard range. Informers configured with `WithShardSelector` apply
+this client-side filtering automatically.
 
 ## Response compression
 
