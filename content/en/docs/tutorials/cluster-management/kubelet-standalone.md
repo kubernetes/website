@@ -57,7 +57,7 @@ This means that swap should either be disabled or tolerated by kubelet.
 If you configure the kubelet to tolerate swap, the kubelet still configures Pods (and the
 containers in those Pods) not to use swap space. To find out how Pods can actually
 use the available swap, you can read more about
-[swap memory management](/docs/concepts/architecture/nodes/#swap-memory) on Linux nodes.
+[swap memory management](/docs/concepts/cluster-administration/swap-memory-management/) on Linux nodes.
 {{< /alert >}}
 
 If you have swap memory enabled, either disable it or add `failSwapOn: false` to the
