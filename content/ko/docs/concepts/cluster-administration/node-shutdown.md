@@ -10,25 +10,75 @@ weight: 10
 노드가 셧다운되기 전에 드레인 되지 않으면 워크로드가 실패할 수 있다.
 노드 셧다운은 그레이스풀(graceful) 또는 논 그레이스풀(non-graceful) 두 가지로 나뉜다.
 
+{{< caution >}}
+데비안(Debian)의 `unattended-upgrades` 패키지는 기본 구성에서 그레이스풀 노드 셧다운과 충돌한다.
+`unattended-upgrades`의 기본 구성은 서버의 셧다운 유예 기간을 변경한다.
+이 구성을 사용하고 `shutdownGracePeriod` 값이 30초를 초과하면,
+kubelet이 셧다운 이벤트를 올바르게 처리하는 데 필요한 잠금을 획득하지 못한다.
+
+이 문제를 방지하려면
+`/etc/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf`를
+`/dev/null`을 가리키는 심볼릭 링크로 만들어 `unattended-upgrades` 구성의 해당 부분을 비활성화할 수 있다.
+
+자세한 내용은 [`logind.conf` 문서](https://www.freedesktop.org/software/systemd/man/latest/logind.conf.html)를 참고한다.
+{{< /caution >}}
+
 <!-- body -->
 
 ## 그레이스풀(Graceful) 노드 셧다운(shutdown) {#graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.21" >}}
-
 Kubelet은 노드 시스템 셧다운을 감지하고 노드에서 실행 중인 파드를 종료하려고 시도한다.
 
-Kubelet은 노드가 종료되는 동안 파드가 
-일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 
-따르도록 한다.
+Kubelet은 노드가 종료되는 동안 파드가 일반
+[파드 종료 프로세스](/docs/concepts/workloads/pods/pod-termination/)를 따르도록 한다.
+셧다운 중에는 이미 해당 노드에 바인딩된 파드도 새로 받아들이지 않는다.
 
+### 그레이스풀 노드 셧다운 활성화
+
+<span id="windows-graceful-node-shutdown"></span>
+
+{{< tabs name="graceful_shutdown_os" >}}
+{{% tab name="Linux" %}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+Linux에서는 `GracefulNodeShutdown`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)로
+그레이스풀 노드 셧다운을 제어한다. 이 기능 게이트는 쿠버네티스 1.21부터 기본적으로 활성화되어 있다.
+
+{{< note >}}
 그레이스풀 노드 셧다운 기능은
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)를
 사용하여 주어진 기간 동안 노드 종료를 지연시키므로 systemd에 의존한다.
+{{< /note >}}
+{{% /tab %}}
 
-그레이스풀 노드 셧다운은 1.21에서 기본적으로 활성화된 `GracefulNodeShutdown`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 
-제어된다.
+{{% tab name="Windows" %}}
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+
+Windows에서는 `WindowsGracefulNodeShutdown`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)로
+그레이스풀 노드 셧다운을 제어한다. 이 기능은 쿠버네티스 1.32에서 알파로 도입되었으며,
+1.34에서 베타가 되어 기본적으로 활성화된다.
+
+{{< note >}}
+Windows에서 그레이스풀 노드 셧다운을 사용하려면 kubelet이 Windows 서비스로 실행되어야 한다.
+이 경우 [서비스 제어 핸들러](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)가
+등록되어 지정된 시간 동안 사전 종료 이벤트 처리를 지연시킬 수 있다.
+{{< /note >}}
+
+Windows의 그레이스풀 노드 셧다운은 취소할 수 없다.
+
+kubelet이 Windows 서비스로 실행되지 않으면
+[사전 종료(Preshutdown)](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
+이벤트를 설정하거나 모니터링할 수 없다. 이 경우 노드는 아래의
+[논 그레이스풀 노드 셧다운](#non-graceful-node-shutdown) 절차를 거쳐야 한다.
+
+이 기능이 활성화된 상태에서 kubelet이 Windows 서비스로 실행되지 않아도 kubelet은 계속 실행된다.
+이때 Windows 서비스로 실행해야 한다는 오류를 로그에 기록한다.
+{{% /tab %}}
+{{< /tabs >}}
+
+### 그레이스풀 노드 셧다운 구성
 
 기본적으로, 아래 설명된 두 구성 옵션,
 `shutdownGracePeriod` 및 `shutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
@@ -36,7 +86,9 @@ Kubelet은 노드가 종료되는 동안 파드가
 기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 
 0이 아닌 값으로 설정해야 한다.
 
-일단 systemd가 노드 셧다운을 감지하거나 알림을 받으면, kubelet은 해당 노드에 대해 `NotReady` 상태를 설정하고, `reason`은 `"node is shutting down"`으로 기록된다. kube-scheduler는 이 상태를 인식하고 해당 노드에 새로운 파드를 스케줄링하지 않는다; 다른 서드파티 스케줄러들도 동일한 로직을 따르도록 기대된다. 즉, 새로운 파드는 해당 노드에 배치되지 않으며 따라서 실행되지 않는다.
+kubelet은 노드 셧다운 알림을 받으면 노드에 `NotReady` 상태를 설정하고
+`reason`을 `"node is shutting down"`으로 기록한다. kube-scheduler는 이 상태를 인식하고
+해당 노드에 새 파드를 스케줄링하지 않는다. 서드파티 스케줄러도 같은 방식으로 동작해야 한다.
 
 **또한** kubelet은 노드 셧다운을 감지하면 `PodAdmission` 단계에서 파드를 거절하고, 따라서 `node.kubernetes.io/not-ready:NoSchedule`에 대한 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}을 가진 파드조차도 그 노드에서는 실행되지 않는다.
 
@@ -62,7 +114,7 @@ Kubelet이 API를 통해 노드에 이런 상태를 설정할 때, 동시에 로
 
 {{< note >}}
 
-시스템(또는 관리자가 수동으로)에 의해 노드 셧다운이 취소되는 경우가 있다. 이런 상황에서는 노드가 다시 Ready 상태로 돌아간다.
+셧다운을 취소할 수 있는 환경에서 시스템이나 관리자가 노드 셧다운을 취소하면 노드는 다시 `Ready` 상태로 돌아간다.
 그러나 이미 종료 절차가 시작된 파드들은 kubelet에 의해 복구되지 않으며, 다시 스케줄링되어야 한다.
 
 {{< /note >}}
@@ -89,9 +141,8 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
-그레이스풀 노드 셧다운 시 파드 셧다운 순서에 더 많은 유연성을 제공할 수 있도록, 
-클러스터에 프라이어리티클래스(PriorityClass) 기능이 활성화되어 있으면 
-그레이스풀 노드 셧다운 과정에서 파드의 프라이어리티클래스가 고려된다. 
+파드 우선순위 기반 그레이스풀 노드 셧다운 기능을 클러스터에서 활성화하면,
+kubelet은 셧다운 순서를 결정할 때 파드의 프라이어리티클래스(PriorityClass)를 고려한다.
 이 기능으로 그레이스풀 노드 셧다운 시 파드가 종료되는 순서를 클러스터 관리자가 
 [프라이어리티 클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#프라이어리티클래스) 
 기반으로 명시적으로 정할 수 있다.
@@ -169,7 +220,7 @@ kubelet은 해당 범위에 해당되는 파드를 위해 기다려 주지 않�
 이 기능을 사용하려면 `GracefulNodeShutdownBasedOnPodPriority` 
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 하고, 
 [kubelet config](/docs/reference/config-api/kubelet-config.v1beta1/)의 
-`ShutdownGracePeriodByPodPriority`를 
+`shutdownGracePeriodByPodPriority`를
 파드 프라이어리티 클래스 값과 각 값에 대한 종료 대기 시간을 명시하여 
 지정해야 한다.
 
@@ -187,7 +238,7 @@ kubelet은 해당 범위에 해당되는 파드를 위해 기다려 주지 않�
 {{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
 
 전달한 명령이 kubelet에서 사용하는 금지 잠금 메커니즘(inhibitor locks mechanism)을 트리거하지 않거나, 
-또는 사용자 오류(예: ShutdownGracePeriod 및 ShutdownGracePeriodCriticalPods가 제대로 설정되지 않음)로 인해 
+또는 `shutdownGracePeriod` 및 `shutdownGracePeriodCriticalPods`가 제대로 설정되지 않는 등의 사용자 오류로 인해
 kubelet의 노드 셧다운 관리자(Node Shutdown Manager)가
 노드 셧다운 액션을 감지하지 못할 수 있다. 
 자세한 내용은 위의 [그레이스풀 노드 셧다운](#graceful-node-shutdown) 섹션을 참조한다.
@@ -201,15 +252,14 @@ kubelet의 노드 셧다운 관리자(Node Shutdown Manager)가
 VolumeAttachment도 기존의 셧다운된 노드에서 삭제되지 않아 
 결국 파드가 사용하던 볼륨이 다른 동작 중인 노드에 연결(attach)될 수 없다. 
 결과적으로, 스테이트풀셋에서 실행되는 애플리케이션이 제대로 작동하지 않는다. 
+기존 노드가 다시 가동되면 kubelet이 해당 파드를 삭제하고, 새 파드는 다른 동작 중인 노드에 생성된다.
 기존의 셧다운된 노드가 정상으로 돌아오지 못하면, 
 이러한 파드는 셧다운된 노드에 '종료 중(terminating)' 상태로 영원히 고착될 것이다.
 
 위와 같은 상황을 완화하기 위해, 사용자가 `node.kubernetes.io/out-of-service` 테인트를 `NoExecute` 또는 `NoSchedule` 값으로 
 추가하여 노드를 서비스 불가(out-of-service) 상태로 표시할 수 있다. 
-`kube-controller-manager`에 `NodeOutOfServiceVolumeDetach`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-가 활성화되어 있고, 노드가 이 테인트에 의해 서비스 불가 상태로 표시되어 있는 경우, 
-노드에 매치되는 톨러레이션이 없다면 노드 상의 파드는 강제로 삭제될 것이고, 
-노드 상에서 종료되는 파드에 대한 볼륨 해제(detach) 작업은 즉시 수행될 것이다. 
+이 테인트로 노드를 서비스 불가 상태로 표시하면, 테인트와 일치하는 톨러레이션이 없는 파드는
+강제로 삭제되고, 해당 노드에서 종료 중인 파드의 볼륨 분리(detach) 작업은 즉시 수행된다.
 이를 통해 서비스 불가 상태 노드의 파드가 빠르게 다른 노드에서 복구될 수 있다.
 
 논 그레이스풀 셧다운 과정 동안, 파드는 다음의 두 단계로 종료된다.
@@ -242,26 +292,9 @@ VolumeAttachment도 기존의 셧다운된 노드에서 삭제되지 않아
 - 문서에 명시된 단계에서 벗어나면 데이터 손상이 발생할 수 있다.
 {{< /note >}}
 
-## 윈도우 그레이스풀 노드 셧다운 {#windows-graceful-node-shutdown}
-
-{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
-
-Windows 그레이스풀 노드 셧다운 기능은 kubelet이 Windows 서비스로 실행될 때 동작한다.
-이 경우 [서비스 제어 핸들러](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
-가 등록되어, 지정된 시간 동안 사전 종료(Preshutdown) 이벤트를 지연시킬 수 있다.
-
-Windows 그레이스풀 노드 셧다운은 1.32에서 알파 기능으로 도입된 `WindowsGracefulNodeShutdown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-로 제어된다.
-
-Windows 그레이스풀 노드 셧다운은 취소할 수 없다.
-
-만약 kubelet이 Windows 서비스로 실행되지 않는다면, [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
- 이벤트를 설정하고 모니터링할 수 없으며, 노드는 위에서 언급한 [논 그레이스풀 셧다운](#non-graceful-node-shutdown)
- 절차를 거쳐야 한다.
-
-Windows 그레이스풀 노드 셧다운 기능이 활성화되어 있지만 kubelet이 Windows 서비스로 실행되지 않는 경우, kubelet은 실패하지 않고 계속 실행된다. 그러나 Windows 서비스로 실행되어야 한다는 오류를 로그에 기록한다.
-
 ## {{% heading "whatsnext" %}}
 
 * 블로그: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)를 읽어본다.
 * 클러스터 구조: [노드](/docs/concepts/architecture/nodes/)를 읽어본다.
+
+클러스터를 종료하는 방법은 [클러스터 셧다운 및 재시작](/docs/tasks/administer-cluster/cluster-shutdown-and-restart/)을 참고한다.
