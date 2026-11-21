@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 45 174 120" role="img" aria-labelledby="title desc">
+  <title id="title">Resilient</title>
+  <desc id="desc">A monitoring waveform icon</desc>
+  <rect x="24" y="54" width="166" height="102" rx="8" fill="#316ce6"/>
+  <rect x="24" y="54" width="166" height="18" rx="8" fill="#08c1d1"/>
+  <path d="M43 108h24l12-29 18 62 18-42 13 9h43" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+</svg>
