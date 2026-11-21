@@ -167,7 +167,7 @@ several types of extensions.
 
 Plugins for kubectl are separate binaries that add or replace the behavior of specific subcommands.
 The `kubectl` tool can also integrate with [credential plugins](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
-These extensions only affect a individual user's local environment, and so cannot enforce site-wide policies.
+These extensions only affect an individual user's local environment, and so cannot enforce site-wide policies.
 
 If you want to extend the `kubectl` tool, read [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins/).
 
