@@ -26,7 +26,7 @@ installation instructions. The list does not try to be exhaustive.
   policy provider. Calico supports a flexible set of networking options so you
   can choose the most efficient option for your situation, including non-overlay
   and overlay networks, with or without BGP. Calico uses the same engine to
-  enforce network policy for hosts, pods, and (if using Istio & Envoy)
+  enforce network policy for hosts, Pods, and (if using Istio & Envoy)
   applications at the service mesh layer.
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   unites Flannel and Calico, providing networking and network policy.
@@ -36,10 +36,10 @@ installation instructions. The list does not try to be exhaustive.
   in either a native routing or overlay/encapsulation mode, and can enforce
   network policies on L3-L7 using an identity-based security model that is
   decoupled from network addressing. Cilium can act as a replacement for
-  kube-proxy; it also offers additional, opt-in observability and security features.
+  `kube-proxy`; it also offers additional, opt-in observability and security features.
   Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly
-  connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
+  connect to a choice of CNI plugins, such as Calico, Canal or Flannel.
   CNI-Genie is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/cni-genie/).
 * [Contiv](https://contivpp.io/) provides configurable networking (native L3 using BGP,
   overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich
@@ -91,15 +91,12 @@ installation instructions. The list does not try to be exhaustive.
 * [Terway](https://github.com/AliyunContainerService/terway/) is a suite of CNI plugins
   based on AlibabaCloud's VPC and ECS network products. It provides native VPC networking
   and network policies in AlibabaCloud environments.
-* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
-  provides networking and network policy, will carry on working on both sides
-  of a network partition, and does not require an external database.
 
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
   be [installed](https://github.com/coredns/helm)
-  as the in-cluster DNS for pods.
+  as the in-cluster DNS for Pods.
 
 ## Visualization &amp; Control
 
@@ -113,7 +110,7 @@ installation instructions. The list does not try to be exhaustive.
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) is an add-on
   to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
 * The
-  [node problem detector](https://github.com/kubernetes/node-problem-detector)
+  [Node problem detector](https://github.com/kubernetes/node-problem-detector)
   runs on Linux nodes and reports system issues as either
   [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) or
   [Node conditions](/docs/concepts/architecture/nodes/#condition).
