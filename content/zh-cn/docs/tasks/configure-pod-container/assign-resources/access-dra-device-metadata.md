@@ -1,40 +1,40 @@
 ---
 title: 访问 DRA 设备元数据
 content_type: task
-min-kubernetes-server-version: v1.36
+min-kubernetes-server-version: v1.37
 weight: 30
 ---
 <!--
 title: Access DRA Device Metadata
 content_type: task
-min-kubernetes-server-version: v1.36
+min-kubernetes-server-version: v1.37
 weight: 30
 -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.36" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.37" >}}
 
 <!-- overview -->
 
 <!--
 This page shows you how to access
-[device metadata](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)
+[device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
 from containers that use _dynamic resource allocation (DRA)_. Device metadata
 lets workloads discover information about allocated devices such as device
-attributes or network interface details — by reading JSON files at
+attributes or network interface details by reading JSON files at
 well-known paths inside the container.
 
 Before reading this page, familiarize yourself with
-[Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/)
 and how to
 [allocate devices to workloads](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
 -->
 本页面展示如何从使用动态资源分配（DRA）的容器中访问
-[设备元数据](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)。
+[设备元数据](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)。
 设备元数据让工作负载能够发现有关已分配设备的信息（如设备属性或网络接口详细信息），
 具体方式是在容器内的已知路径读取 JSON 文件。
 
 在阅读本页面之前，你应该熟悉
-[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
+[动态资源分配（DRA）](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/)
 以及如何[为工作负载分配设备](/zh-cn/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)。
 
 <!-- body -->
@@ -48,16 +48,20 @@ and how to
   drivers. For more information, see
   [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 * Ensure that the DRA driver deployed in your cluster supports device metadata.
-  Drivers that use the [DRA kubelet plugin](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin) enable the `EnableDeviceMetadata` and
-  `MetadataVersions` options when starting the plugin. Check the driver's
-  documentation for details.
+  Driver authors who use the
+  [DRA kubelet plugin](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
+  enable support with
+  [`EnableDeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#EnableDeviceMetadata)
+  and must include `metadata.resource.k8s.io/v1beta1` in the selected versions.
+  A driver can also emit `v1alpha1` for compatibility with older consumers.
 -->
 * 确保集群管理员已安装配置了 DRA、挂接了设备并安装了驱动程序。
   更多信息请参阅[在集群中设置 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
 * 确保集群中部署的 DRA 驱动程序支持设备元数据。
-  使用 [DRA kubelet 插件](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
-  的驱动程序在启动插件时会启用 `EnableDeviceMetadata` 和 `MetadataVersions` 选项。
-  有关详细信息，请查阅驱动程序的文档。
+  使用 [DRA kubelet 插件](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)的驱动开发者，
+  可通过 [`EnableDeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#EnableDeviceMetadata)
+  启用该支持，并且必须在所选版本中包含 `metadata.resource.k8s.io/v1beta1`。
+  驱动还可以发出 `v1alpha1` 以兼容旧版使用方。
 
 <!--
 ## Access device metadata with a ResourceClaim {#access-metadata-resourceclaim}
@@ -119,7 +123,7 @@ device metadata files appear inside the container at:
    /var/run/kubernetes.io/dra-device-attributes/resourceclaims/gpu-claim/gpu/gpu.example.com-metadata.json
    {
      "kind": "DeviceMetadata",
-     "apiVersion": "metadata.resource.k8s.io/v1alpha1",
+     "apiVersion": "metadata.resource.k8s.io/v1beta1",
      ...
    }
    ```
@@ -135,14 +139,23 @@ device metadata files appear inside the container at:
    ```
 
    <!--
-   The output is a JSON object containing device attributes like the model,
-   driver version, and device UUID. See
-   [metadata schema](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata-schema)
-   for details on the JSON structure.
+   A metadata file is a JSON stream. It contains one object for each API
+   version selected by the driver, in the order configured by the driver.
+   Drivers should put the newest version first. The objects contain equivalent
+   device metadata, so the command might print more than one JSON object.
    -->
-   输出是一个 JSON 对象，包含设备属性，例如型号、驱动版本和设备 UUID。
-   有关 JSON 结构的详细信息，请参阅
-   [元数据模式](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata-schema)。
+   元数据文件是一个 JSON 流。它包含驱动所选择的每个 API 版本对应的一个对象，
+   顺序与驱动配置的顺序一致。驱动应将最新版本放在最前面。
+   这些对象包含等价的设备元数据，因此该命令可能输出多个 JSON 对象。
+
+   <!--
+   The output contains device attributes such as the model, driver version,
+   and device UUID. Device capacities are not part of the metadata schema. See
+   [metadata schema](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata-schema)
+   -->
+   输出包含设备属性，例如型号、驱动版本和设备 UUID。
+   设备容量不属于元数据模式的一部分。
+   参见[元数据模式](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata-schema)。
 
 <!--
 ## Access device metadata with a ResourceClaimTemplate {#access-metadata-template}
@@ -215,15 +228,18 @@ JSON 元数据还包括一个 `podClaimName` 字段，用于记录此映射。
 ### Go 应用程序
 
 <!--
-The `k8s.io/dynamic-resource-allocation/devicemetadata` package provides
-ready-made functions for reading metadata files. These functions handle
-version negotiation automatically, decoding the metadata stream and converting
-it to internal types so your code works across schema versions without manual
-version checks.
+The
+[`k8s.io/dynamic-resource-allocation/devicemetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/evicemetadata)
+package provides ready-made functions for reading metadata files. These
+functions handle version negotiation automatically, decoding the metadata
+stream and converting it to internal types so your code works across schema
+versions without manual version checks. They skip objects with unknown API
+versions and return the first compatible object.
 -->
-`k8s.io/dynamic-resource-allocation/devicemetadata` 包提供了用于读取元数据文件的现成函数。
-这些函数自动处理版本协商，解码元数据流并将其转换为内部类型，
-使你的代码能够跨模式版本工作，而无需手动版本检查。
+[`k8s.io/dynamic-resource-allocation/devicemetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/evicemetadata)
+包提供了用于读取元数据文件的现成函数。这些函数会自动完成版本协商，
+对元数据流进行解码并转换为内部类型，因此你的代码无需手动检查版本，
+即可在不同模式版本之间正常工作。它们会跳过 API 版本未知的对象，并返回第一个兼容的对象。
 
 <!--
 For a directly referenced ResourceClaim:
@@ -256,16 +272,68 @@ dm, err := devicemetadata.ReadResourceClaimMetadataWithDriverName("gpu.example.c
 ```
 
 <!--
-The returned `*metadata.DeviceMetadata` contains the claim metadata, requests,
-and per-device attributes.
+The functions that read all drivers return a `*metadata.DeviceMetadata` with
+merged requests and per-device attributes. The functions that accept a driver
+name return the complete metadata object from that driver's file.
+
+The read helper functions decode metadata without validating it. To opt in to
+validation, open the file and use
+[`DecodeMetadataFromStream`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata#DecodeMetadataFromStream):
 -->
-返回的 `*metadata.DeviceMetadata` 包含 claim 元数据、请求和每个设备的属性。
+读取所有驱动信息的函数返回一个 `*metadata.DeviceMetadata`，
+其中合并了请求与各设备的属性。接受驱动名称的函数则返回该驱动文件中的完整元数据对象。
+
+这些读取辅助函数只解码元数据，不做校验。如需启用校验，请打开文件并使用
+[`DecodeMetadataFromStream`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata#DecodeMetadataFromStream)：
+
+```go
+import (
+       "encoding/json"
+       "os"
+
+       "k8s.io/dynamic-resource-allocation/api/metadata"
+       "k8s.io/dynamic-resource-allocation/devicemetadata"
+)
+
+func readMetadata(path string) (*metadata.DeviceMetadata, error) {
+       file, err := os.Open(path)
+       if err != nil {
+               return nil, err
+       }
+       defer file.Close()
+
+       var deviceMetadata metadata.DeviceMetadata
+       var validationErr error
+       err = devicemetadata.DecodeMetadataFromStream(
+               json.NewDecoder(file),
+               &deviceMetadata,
+               devicemetadata.DecodeMetadataWithValidationResult(&validationErr),
+       )
+       if err != nil {
+               return nil, err
+       }
+       if validationErr != nil {
+               return nil, validationErr
+       }
+       return &deviceMetadata, nil
+}
+```
 
 <!--
-Applications in other languages can read the JSON file directly and inspect
-the `apiVersion` field to determine the schema version before parsing.
+Decoding and validation have separate results. A validation error does not
+prevent the decoder from populating `deviceMetadata`. Validation is useful when
+metadata comes from a custom driver because the DRA kubelet plugin does not
+validate objects before writing them.
+  
+Applications in other languages can decode the JSON stream one object at a
+time, inspect each `apiVersion`, skip unknown versions, and use the first
+version that they support.
 -->
-其他语言的应用程序可以直接读取 JSON 文件，并在解析之前检查 `apiVersion` 字段以确定模式版本。
+解码与校验的结果相互独立。校验错误不会阻止解码器填充 `deviceMetadata`。
+当元数据来自自定义驱动时，校验非常有用，因为 DRA kubelet 插件在写出对象之前不会对其进行校验。
+
+使用其他语言编写的应用可以逐个解码 JSON 流中的对象，检查每个
+`apiVersion`，跳过未知版本，并使用其支持的第一个版本。
 
 <!--
 ## Clean up {#clean-up}
@@ -285,12 +353,12 @@ kubectl delete -f https://k8s.io/examples/dra/dra-device-metadata-template-pod.y
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Learn more about DRA device metadata](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)
+* [Learn more about DRA device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
 * [Allocate devices to workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 * For more information on the design, see
   [KEP-5304](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5304-dra-attributes-downward-api).
 -->
-* [进一步了解 DRA 设备元数据](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-metadata)
+* [进一步了解 DRA 设备元数据](/zh-cn/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata)
 * [使用 DRA 为工作负载分配设备](/zh-cn/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 * 有关设计的更多信息，请参阅
   [KEP-5304](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5304-dra-attributes-downward-api)。
