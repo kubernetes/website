@@ -47,7 +47,7 @@ Configurations with a single API server will experience unavailability while the
    to a separate file and make the flags `--client-ca-file` and `--cluster-signing-cert-file` point to the copy.
    Once `ca.crt` is no longer a bundle, you can restore the problem flags to point to `ca.crt` and delete the copy.
 
-   [Issue 1350](https://github.com/kubernetes/kubeadm/issues/1350) for kubeadm tracks an bug with the
+   [Issue 1350](https://github.com/kubernetes/kubeadm/issues/1350) for kubeadm tracks a bug with the
    kube-controller-manager being unable to accept a CA bundle.
    {{< /note >}}
 
