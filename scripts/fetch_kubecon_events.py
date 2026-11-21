@@ -20,6 +20,7 @@ from typing import Optional
 CALENDAR_URL = "https://events.linuxfoundation.org/about/calendar/?_sf_s=kubecon"
 EVENT_LIMIT = 2
 OUTPUT_PATH = "data/events/kubecon.yaml"
+TIMEOUT = (10, 30)  # (connect timeout, read timeout)
 
 HEADERS = {
     'User-Agent': 'kubernetes-website-bot/1.0 (+https://github.com/kubernetes/website)'
@@ -128,7 +129,11 @@ def _build_location(ld_event: dict) -> dict:
 def _fetch_event_detail(url: str) -> Optional[dict]:
     """Fetch an individual event page and extract JSON-LD + colors."""
     print(f"  Fetching event page: {url}")
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(
+        url,
+        headers=HEADERS,
+        timeout=TIMEOUT,
+    )
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -156,7 +161,11 @@ def _fetch_event_detail(url: str) -> Optional[dict]:
 def _discover_event_urls(calendar_url: str = CALENDAR_URL) -> list[tuple[str, str]]:
     """Scrape calendar page for KubeCon event URLs. Returns list of (title, url)."""
     print(f"Fetching calendar: {calendar_url}")
-    response = requests.get(calendar_url, headers=HEADERS)
+    response = requests.get(
+        calendar_url,
+        headers=HEADERS,
+        timeout=TIMEOUT,
+    )
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, 'html.parser')
