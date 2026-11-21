@@ -26,15 +26,25 @@ window.renderPageFindSearchResults = () => {
   });
 }
 
+/**
+ * When passed to URLSearchParams, this results in double-encoding
+ */
+function encodeSensitiveChars(value) {
+  return value.replace(/[=.[\]{}]/g, (match) => {
+    return '%' + match.charCodeAt(0).toString(16).toUpperCase();
+  });
+}
+
 function updateQueryString(key, value) {
   const baseUrl = window.location.href.split("?")[0];
   const queryString = window.location.search.slice(1);
   const urlParams = new URLSearchParams(queryString);
+  const sanitizedValue = encodeSensitiveChars(value);
 
   if (urlParams.has(key)) {
-    urlParams.set(key, value);
+    urlParams.set(key, sanitizedValue);
   } else {
-    urlParams.append(key, value);
+    urlParams.append(key, sanitizedValue);
   }
 
   const newUrl = baseUrl + "?" + urlParams.toString();
@@ -113,7 +123,10 @@ async function loadSearch() {
           }
 
           const query = $(this).val();
-          document.location = $(this).data('search-page') + "?q=" + query;
+          const sanitizedQuery = encodeSensitiveChars(query);
+          const urlParams = new URLSearchParams();
+          urlParams.set('q', sanitizedQuery);
+          document.location = $(this).data('search-page') + "?" + urlParams.toString();
 
           return false;
         });
