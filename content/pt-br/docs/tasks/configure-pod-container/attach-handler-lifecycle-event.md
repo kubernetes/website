@@ -35,7 +35,7 @@ Aqui está o arquivo de configuração do Pod:
 
 No arquivo de configuração, você pode ver que o comando de postStart grava um
 arquivo `message` no diretório `/usr/share` do contêiner. O comando de preStop
-encerra o nginx de forma graciosa. Isso é útil se o contêiner estiver sendo
+encerra o nginx de forma controlada. Isso é útil se o contêiner estiver sendo
 encerrado por causa de uma falha.
 
 Crie o Pod:
@@ -68,7 +68,7 @@ A saída mostra o texto gravado pelo manipulador postStart:
 
 O Kubernetes envia o evento postStart imediatamente após o contêiner ser criado.
 No entanto, não há garantia de que o manipulador postStart seja chamado antes
-do ponto de entrada (_entrypoint_) do contêiner. O manipulador postStart é
+de o ponto de entrada (_entrypoint_) do contêiner ser chamado. O manipulador postStart é
 executado de forma assíncrona em relação ao código do contêiner, mas o
 gerenciamento do contêiner pelo Kubernetes fica bloqueado até que o manipulador
 postStart termine. O status do contêiner só passa a ser RUNNING depois que o
@@ -84,7 +84,7 @@ do Pod expire. Para mais detalhes, veja
 O Kubernetes só envia o evento preStop quando um Pod ou um contêiner do Pod é
 *encerrado*. Isso significa que o hook preStop não é invocado quando o Pod é
 *concluído*. Sobre essa limitação, veja os detalhes em
-[Hooks do contêiner](/docs/concepts/containers/container-lifecycle-hooks/#container-hooks).
+[Hooks do contêiner](/docs/concepts/containers/container-lifecycle-hooks/#hooks-do-contêiner).
 {{< /note >}}
 
 
