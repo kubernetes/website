@@ -19,6 +19,9 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.36"
+
+removed: true
 ---
 Allows specifying the maximal number of pod
 retries per index in Indexed jobs.
