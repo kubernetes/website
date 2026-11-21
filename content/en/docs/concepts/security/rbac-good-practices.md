@@ -61,10 +61,9 @@ In cases where a workload requires powerful permissions, consider the following 
 
 ### Hardening
 
-Kubernetes defaults to providing access which may not be required in every cluster. Reviewing
-the RBAC rights provided by default can provide opportunities for security hardening.
-In general, changes should not be made to rights provided to `system:` accounts some options
-to harden cluster rights exist:
+Kubernetes provides some RBAC permissions by default that may not be required in every cluster.
+Although permissions granted to `system:` accounts should generally remain unchanged, administrators
+can consider the following hardening measures:
 
 - Review bindings for the `system:unauthenticated` group and remove them where possible, as this gives 
   access to anyone who can contact the API server at a network level.
