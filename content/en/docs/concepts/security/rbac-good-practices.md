@@ -154,6 +154,14 @@ Kubernetes API.
 See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
 for more information.
 
+Monitoring and inventory tools often ask for `nodes/proxy` when they only need to read the
+kubelet's `/pods`, `/healthz` or `/configz` endpoints. With
+[fine-grained kubelet authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#fine-grained-authorization),
+the kubelet checks the `nodes/pods`, `nodes/healthz` and `nodes/configz` subresources for those
+endpoints before falling back to `nodes/proxy`, so grant the narrower subresources to tools that
+call the kubelet directly. This doesn't apply to requests sent through the API server's node proxy,
+which are always authorized against `nodes/proxy`.
+
 ### Escalate verb
 
 Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses.
