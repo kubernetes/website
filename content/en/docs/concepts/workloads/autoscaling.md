@@ -55,14 +55,14 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 You can automatically scale a workload vertically using a [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) (VPA).
-Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a an add-on that you or a cluster administrator may need to deploy before you can use it.
+Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is an add-on that you or a cluster administrator may need to deploy before you can use it.
 
 Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
 (CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the VPA to work.
+installed in your cluster for the VPA to work.
 {{< /note >}}
 
 #### In-place pod vertical scaling
@@ -92,13 +92,13 @@ While the Cluster Proportional Autoscaler scales the number of replicas of a wor
 the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
 (for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
 
-### Event driven Autoscaling
+### Event-driven autoscaling
 
 It is also possible to scale workloads based on events, for example using the
 [_Kubernetes Event Driven Autoscaler_ (**KEDA**)](https://keda.sh/).
 
 KEDA is a CNCF-graduated project enabling you to scale your workloads based on the number
-of events to be processed, for example the amount of messages in a queue. There exists
+of events to be processed, for example the number of messages in a queue. There is
 a wide range of adapters for different event sources to choose from.
 
 ### Autoscaling based on schedules
@@ -106,7 +106,7 @@ a wide range of adapters for different event sources to choose from.
 Another strategy for scaling your workloads is to **schedule** the scaling operations, for example in order to
 reduce resource consumption during off-peak hours.
 
-Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
+Similar to event-driven autoscaling, such behavior can be achieved using KEDA in conjunction with
 its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/).
 The `Cron` scaler allows you to define schedules (and time zones) for scaling your workloads in or out.
 
