@@ -19,7 +19,7 @@ APIのクライアントがKubernetesクラスター内で実行される場合�
 
 以下のクライアントライブラリは、[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/main/sig-api-machinery)によって公式にメンテナンスされています。
 
-| Language   | Client Library | Sample Programs |
+| 言語 | クライアントライブラリ | サンプルプログラム |
 |------------|----------------|-----------------|
 | C          | [github.com/kubernetes-client/c](https://github.com/kubernetes-client/c/) | [閲覧する](https://github.com/kubernetes-client/c/tree/master/examples)
 | dotnet     | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [閲覧する](https://github.com/kubernetes-client/csharp/tree/master/examples)
@@ -35,9 +35,9 @@ APIのクライアントがKubernetesクラスター内で実行される場合�
 
 {{% thirdparty-content %}}
 
-以下のKubernetes APIのクライアントライブラリはKubernetesのチームではなく、その著作者によって提供され、メンテナンスされています。
+以下のKubernetes APIのクライアントライブラリはKubernetesのチームではなく、各ライブラリの作者によって提供され、メンテナンスされています。
 
-| Language             | Client Library                           |
+| 言語 | クライアントライブラリ |
 | -------------------- | ---------------------------------------- |
 | Clojure              | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
 | DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
