@@ -215,6 +215,95 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
+## Revision history
+
+ControllerRevision is a Kubernetes API resource used by controllers, such as the DaemonSet controller, to track historical configuration changes.
+
+DaemonSet use ControllerRevisions to maintain a revision history, enabling rollbacks and version tracking.
+
+### How DaemonSet track changes using ControllerRevisions
+
+When you update a DaemonSet's Pod template (`spec.template`), the DaemonSet controller:
+
+1. Prepares a new ControllerRevision object  
+2. Stores a snapshot of the Pod template and metadata  
+3. Assigns an incremental revision number  
+
+#### Key Properties
+
+See [ControllerRevision](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) to learn more about key properties and other details. 
+
+---
+
+### Managing Revision History
+
+Control retained revisions with `.spec.revisionHistoryLimit`:
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-agent
+spec:
+  revisionHistoryLimit: 5  # Keep last 5 revisions
+  # ... other spec fields ...
+```
+
+* **Default**: 10 revisions retained if unspecified  
+* **Cleanup**: Oldest revisions are garbage-collected when exceeding the limit
+
+#### Performing Rollbacks
+
+You can revert to a previous configuration using:
+
+```bash
+# View revision history
+kubectl rollout history daemonset/monitoring-agent
+
+# Rollback to a specific revision
+kubectl rollout undo daemonset/monitoring-agent --to-revision=3
+```
+
+This will:
+
+* Apply the Pod template from revision 3  
+* Create a new ControllerRevision with an updated revision number  
+
+#### Inspecting ControllerRevisions
+
+To view associated ControllerRevisions:
+
+```bash
+# List all revisions for the DaemonSet
+kubectl get controllerrevisions -l app.kubernetes.io/name=monitoring-agent
+
+# View detailed configuration of a specific revision
+kubectl get controllerrevision/monitoring-agent-3 -o yaml
+```
+
+#### Best Practices
+
+##### Retention Policy
+
+- Set `revisionHistoryLimit` between **5–10** for most workloads.  
+- Increase only if **deep rollback history** is required.
+
+##### Monitoring
+
+* Regularly check revisions with:
+
+  ```bash
+  kubectl get controllerrevisions
+  ```
+
+- Alert on **rapid revision count growth**.
+
+##### Avoid
+
+* Manual edits to ControllerRevision objects.  
+* Using revisions as a backup mechanism (use actual backup tools).
+* Setting `revisionHistoryLimit: 0` (disables rollback capability).
+
 ## Alternatives to DaemonSet
 
 ### Init scripts
