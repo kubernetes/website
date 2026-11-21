@@ -130,10 +130,21 @@ for more information.
 
 On startup, the kubelet merges configuration from:
 
-* Feature gates specified over the command line (lowest precedence).
-* The kubelet configuration.
+* The kubelet configuration file (lowest precedence).
 * Drop-in configuration files, according to sort order.
-* Command line arguments excluding feature gates (highest precedence).
+* Command line arguments, including feature gates (highest precedence).
+
+Feature gates are merged per gate. If you set a feature gate on the command line, that value
+overrides the same feature gate in the kubelet configuration file or in a drop-in file.
+Feature gates that you set only in a configuration file still take effect.
+
+{{< caution >}}
+Avoid setting the same feature gate to different values on the command line and in a
+configuration file. When the kubelet fills in default values for its configuration files,
+it uses the feature gate values from those files; it applies the command line values afterwards.
+For a feature gate that affects default values, conflicting settings can cause the kubelet
+to fail configuration validation and not start.
+{{< /caution >}}
 
 {{< note >}}
 The config drop-in dir mechanism for the kubelet is similar but different from how the `kubeadm` tool allows you to patch configuration.
