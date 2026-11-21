@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-level-request
+spec:
+  resources: # Pod-level resources
+    requests:
+      cpu: 500m
+  initContainers:
+  - name: sidecar
+    image: busybox:1.38
+    command: ["sleep", "infinity"]
+    restartPolicy: Always # make this container a sidecar
+  - name: init
+    image: busybox:1.38
+    command: ["sleep", "5"]
+    resources:
+      requests:
+        cpu: 200m
+  containers:
+  - name: app
+    image: busybox:1.38
+    command: ["sleep", "infinity"]
+    resources:
+      requests:
+        cpu: 400m
