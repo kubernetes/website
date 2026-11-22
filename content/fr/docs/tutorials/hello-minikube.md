@@ -245,7 +245,7 @@ La commande `minikube` inclut un ensemble intégré d'{{< glossary_tooltip text=
     kubectl get pod,svc -n kube-system
     ```
 
-    La sortie devrait être simulaire à :
+    La sortie devrait être similaire à :
 
     ```
     NAME                                        READY     STATUS    RESTARTS   AGE
