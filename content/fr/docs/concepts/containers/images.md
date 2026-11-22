@@ -338,7 +338,7 @@ Il y a plusieurs solutions pour configurer des registres privés. Voici quelques
 1. Cluster exécutant quelques images propriétaires qui doivent être protégées de l'extérieur de l'entreprise, mais visibles pour tous les utilisateurs du cluster.
    - Utilisez un [registre Docker](https://docs.docker.com/registry/) hébergé privé.
      - Il peut être hébergé sur le [Hub Docker](https://hub.docker.com/signup), ou ailleurs.
-     - Configurez manuellement .docker/config.json sur caque nœud comme décrit ci-dessus.
+     - Configurez manuellement .docker/config.json sur chaque nœud comme décrit ci-dessus.
    - Ou, utilisez un registre privé interne derrière votre pare-feu avec un accès ouvert en lecture.
      - Aucune configuration Kubernetes n'est nécessaire.
    - Ou, dans GCE/Google Kubernetes Engine, utilisez le Google Container Registry du projet.

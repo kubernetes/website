@@ -54,7 +54,7 @@ Le fichier de configuration pour le Pod défini une commande ainsi que deux argu
 
    Le résultat montre que le container exécuté dans le Pod nommé container-demo a complété son exécution.  
 
-1. Pour voir le résultat de la commade exécutée dans le container, on peut afficher les logs pour le Pod:
+1. Pour voir le résultat de la commande exécutée dans le container, on peut afficher les logs pour le Pod:
 
    ```shell
    kubectl logs command-demo

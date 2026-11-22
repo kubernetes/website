@@ -48,4 +48,4 @@ Il y a deux concepts supportés qui fournissent un contexte sur le sujet : comme
 * Le [ramasse-miettes](/docs/concepts/workloads/controllers/garbage-collection/), fait le ménage dans votre cluster après qu’une de _vos ressource_ soit supprimé.
 * Le [temps de vie d’un controlleur éteint](/docs/concepts/workloads/controllers/ttlafterfinished/) supprime les Jobs une fois qu’un temps définit soit passé après son accomplissement.
 
-Une fois que votre application est lancée, vous souhaitez peut etre la rendre disponible sur internet comme un [Service](/docs/concepts/services-networking/service/) ou comme une application web uniquement en utilsant un [Ingress](/docs/concepts/services-networking/ingress).
+Une fois que votre application est lancée, vous souhaitez peut-être la rendre disponible sur internet comme un [Service](/docs/concepts/services-networking/service/) ou comme une application web uniquement en utilisant un [Ingress](/docs/concepts/services-networking/ingress).

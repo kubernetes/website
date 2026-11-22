@@ -83,7 +83,7 @@ Pour créer le Secret, appliquez le répertoire contenant le fichier kustomizati
 kubectl apply -k <directory-path>
 ```
 
-Le résutat est similaire à :
+Le résultat est similaire à :
 
 ```
 secret/database-creds-5hdh7hhgfk created
@@ -99,7 +99,7 @@ Pour vérifier que le Secret a été créé et décoder les données du Secret,
 kubectl get -k <directory-path> -o jsonpath='{.data}' 
 ```
 
-Le résutat est similaire à :
+Le résultat est similaire à :
 
 ```
 { "password": "MWYyZDFlMmU2N2Rm", "username": "YWRtaW4=" }
