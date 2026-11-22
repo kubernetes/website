@@ -250,11 +250,11 @@ The kubelet detects the cgroup driver automatically. See [systemd cgroup driver]
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
 In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
-sandbox image by setting the following config:
+sandbox image by setting the following config. This uses the config `version = 3` format introduced in containerd 2.0:
 
 ```toml
-[plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.10"
+[plugins.'io.containerd.cri.v1.images'.pinned_images]
+  sandbox = 'registry.k8s.io/pause:3.10'
 ```
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
