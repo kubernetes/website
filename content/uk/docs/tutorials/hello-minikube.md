@@ -19,14 +19,12 @@ card:
 
 ## {{% heading "prerequisites" %}} {#before-you-begin}
 
-
 Цей навчальний посібник передбачає, що ви вже налаштували `minikube`. Інструкції щодо встановлення дивіться в __Кроці 1__ на сторінці [minikube start](https://minikube.sigs.k8s.io/docs/start/).
 {{< alert color="info" title="Примітка" >}}
 Виконайте лише інструкції з __Кроку 1, Встановлення__. Решту розглянуто на цій сторінці.
 {{< /alert >}}
 
 Вам також потрібно встановити `kubectl`. Інструкції щодо встановлення дивіться в розділі [Встановлення інструментів](/docs/tasks/tools/#kubectl).
-
 
 <!-- lessoncontent -->
 
@@ -47,6 +45,7 @@ minikube start
 ```shell
 minikube status
 ```
+
 Вивід наведеної вище команди має показувати всі компоненти у стані Running або Configured, як у прикладі виводу нижче:
 
 ```
@@ -64,7 +63,8 @@ kubeconfig: Configured
 
 {{< tabs name="dashboard" >}}
 {{% tab name="Запуск вебоглядача" %}}
-Відкрийте **новий** термінал і виконайте:
+Відкрийте __новий__ термінал і виконайте:
+
 ```shell
 # Запустіть новий термінал та залиште його працювати.
 minikube dashboard
@@ -87,7 +87,8 @@ minikube dashboard
 
 Якщо ви не хочете, щоб minikube відкривав вебоглядач за вас, виконайте підкоманду `dashboard` з прапорцем `--url`. `minikube` виведе URL, який ви можете відкрити у вебоглядачі на свій вибір.
 
-Відкрийте **новий** термінал і виконайте:
+Відкрийте __новий__ термінал і виконайте:
+
 ```shell
 # Запустіть новий термінал та залиште його працювати.
 minikube dashboard --url
@@ -165,7 +166,6 @@ minikube dashboard --url
    I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
    I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
    ```
-
 
 {{< alert color="info" title="Примітка" >}}
 Більше про команди `kubectl` ви можете дізнатися зі статті [Інструмент командного рядка (kubectl)](/docs/reference/kubectl/).
@@ -347,8 +347,7 @@ minikube delete
 
 ## {{% heading "whatsnext" %}} {#what-s-next}
 
-
-* Навчальний посібник про те, як _[розгорнути свій перший застосунок у Kubernetes за допомогою kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
+* Навчальний посібник про те, як *[розгорнути свій перший застосунок у Kubernetes за допомогою kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)*.
 * Дізнайтеся більше про [обʼєкти Deployment](/docs/concepts/workloads/controllers/deployment/).
 * Дізнайтеся більше про [розгортання застосунків](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Дізнайтеся більше про [обʼєкти Service](/docs/concepts/services-networking/service/).

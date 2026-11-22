@@ -41,7 +41,7 @@ cards:
   title: Довідкова інформація
   description: Ознайомтеся з термінологією, синтаксисом командного рядка, типами ресурсів API і документацією з налаштування інструментів.
   button: Довідкова інформація
-  button_path: /docs/reference
+  button_path: "/docs/reference"
 - name: contribute
   title: Способи участі
   description: Дізнайтеся, як допомогти зробити Kubernetes кращим.
@@ -52,7 +52,7 @@ cards:
   description: "Отримайте сертифікат Kubernetes і зробіть свої хмарні проєкти успішними!"
   button: "Навчання"
   button_path: "/training"
-- name: Download
+- name: download
   title: Отримання Kubernetes
   description: Встановіть чи оновіть Kubernetes до останньої версії.
   button: "Завантажити"

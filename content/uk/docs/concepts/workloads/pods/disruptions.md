@@ -168,7 +168,7 @@ Deployment створює заміну для `pod-b` з назвою `pod-e`. �
 : Pod, який повʼязаний із вузлом, якого вже не існує, має бути видалений за допомогою [збору сміття Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
 
 `TerminationByKubelet`
-: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/architecture/nodes/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 У всіх інших сценаріях порушення, таких як виселення через перевищення [обмежень контейнерів Podʼа](/docs/concepts/configuration/manage-resources-containers/), Podʼи не отримують стан `DisruptionTarget`, оскільки ці порушення, ймовірно, були спричинені самим Podʼом і повторилися б під час повторної спроби.
 
