@@ -10,7 +10,7 @@ spec:
     command: 
         - '/bin/bash'
         - '-c'
-        - "baselineCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}'); currentCPUs=$(echo $baselineCPUs); echo \"CPUs assigned during admission (baselineCPUs) = $baselineCPUs\";while true; do assignedCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}') && if [[ \"$currentCPUs\" -ne \"$assignedCPUs\" ]]; then echo \"CPUs assigned updated from $currentCPUs to $assignedCPUs (baselineCPUs) $baselineCPUs\";currentCPUs=$(echo $assignedCPUs);fi; done"
+        - "baselineCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}'); currentCPUs=$(echo $baselineCPUs); echo \"baseline CPUs = $baselineCPUs\";while true; do assignedCPUs=$(cat /proc/self/status | grep Cpus_allowed_list | awk -F' ' '{print $2}') && if [[ \"$currentCPUs\" -ne \"$assignedCPUs\" ]]; then echo \"assigned CPUs before resize = $currentCPUs, resized CPUs = $assignedCPUs\";currentCPUs=$(echo $assignedCPUs);fi; done"
     resizePolicy:
     - resourceName: cpu
       restartPolicy: NotRequired # Default, but explicit here

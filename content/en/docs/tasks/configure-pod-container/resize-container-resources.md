@@ -287,7 +287,7 @@ kubectl logs resize-demo -n rcr-example
 
 You should see an output similar to (exact number will depending on nodes CPUs , below example is from a node with 5 CPUs)
 ```
-CPUs assigned during admission (baselineCPUs) = 0-4
+Shared pool CPUs assigned during admission = 0-4
 ```
 
 Note that above are a confirmation that the container is using CPUs from the shared pool.
@@ -329,7 +329,7 @@ kubectl logs resize-demo -n rcr-example
 You should see the same output as in the previous step unchanged.
 
 ```
-CPUs assigned during admission (baselineCPUs) = 0-4
+Shared pool CPUs assigned during admission = 0-4
 ```
 
 ## Example 2: Resizing memory with restart
@@ -364,7 +364,7 @@ kubectl logs resize-demo -n rcr-example
 You should see the same output as in the previous steps unchanged.
 
 ```
-CPUs assigned during admission (baselineCPUs) = 0-4
+Shared pool CPUs assigned during admission = 0-4
 ```
 
 ## Troubleshooting: Infeasible resize request
@@ -392,18 +392,6 @@ You'll see changes indicating the problem:
   - if enabled (default), reason will be (`Error from server (Forbidden): pods "resize-demo" is forbidden: node didn't have enough allocatable resources: cpu, requested: 1000000, allocatable: ...`)
   because the infeasible resize was not applied by the Kubelet.
 * `status.containerStatuses[0].restartCount` remains `1`, due to this failed attempt.
-
-Check the pod logs to verify that container, is still using CPUs from the shared pool.
-
-```shell
-kubectl logs resize-demo -n rcr-example
-```
-
-You should see the same output as in the previous steps unchanged.
-
-```
-CPUs assigned during admission (baselineCPUs) = 0-4
-```
 
 To fix this, we increase the CPU request and limit to `1500m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
@@ -433,7 +421,7 @@ kubectl logs resize-demo -n rcr-example
 You should see the same output as in the previous step unchanged.
 
 ```
-CPUs assigned during admission (baselineCPUs) = 0-4
+Shared pool CPUs assigned during admission = 0-4
 ```
 
 Keep this pod running and proceed with next example.
@@ -472,7 +460,7 @@ kubectl logs resize-exclusive-cpus-demo -n rcr-example
 
 You should see an output similar to:
 ```
-CPUs assigned during admission (baselineCPUs) = 1-2
+baseline CPUs = 1-2
 ```
 
 The CPUs allocated might be different depending on your node, what is important is to notice that two CPUs are allocated.
@@ -485,14 +473,15 @@ kubectl logs resize-demo -n rcr-example
 
 You should see an output similar to:
 ```
-CPUs assigned during admission (baselineCPUs) = 0-4
-CPUs assigned updated from 0-4 to 0,3-4 (baselineCPUs) 0-4
+Shared pool CPUs assigned during admission = 0-4
+Shared pool CPUs changed from 0-4 to 0,3-4
 ```
 
-Observe that after the creation of the creation of the guaranteed Pod using exclusive CPUs
-continues to use CPUs from the shared pool but now shared pool is reduced by the 2 CPUs.
-
-Also observe that since this pod is in shared pool  newly assigned CPUs is not a subset of baseline CPUs.
+Observe that after the creation of `resize-exclusive-cpus-demo` pod, shared pool
+is updated. In above example default CPUs was 0,1,2,3,4 used by `resize-demo`pod, 
+when `resize-exclusive-cpus-demo/nginx` pod containers was admitted, it was assigned
+exclusively 1,2. This resulted to a new CPUs shared pool with 0,3,4, assigned to
+`resize-demo/nginx` pod container. 
 
 To proceed with the next step now we will delete the pod which uses CPUs from the shared pool, 
 to free up CPUs.
@@ -541,8 +530,8 @@ kubectl logs resize-exclusive-cpus-demo -n rcr-example
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-CPUs assigned during admission (baselineCPUs) = 1-2
-CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+baseline CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
 ```
 
 Observe that the CPUs are now increase by one, in the above example from CPUs 1-2, to CPUs 1,2,3 maintaining the baseline CPUs 1-2
@@ -578,12 +567,12 @@ kubectl logs resize-exclusive-cpus-demo -n rcr-example
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-CPUs assigned during admission (baselineCPUs) = 1-2
-CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
-CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+baseline CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
+assigned CPUs before resize = 1-3, resized CPUs = 1-2
 ```
 
-Observe that the CPUs are now reduced from 1-3 to 1-2 equal to baseline CPUs 1-2
+Observe that the CPUs are now reduced from 1-3 to 1-2, equal to baseline CPUs 1-2
 
 
 ### Troubleshooting, attempting to resize below baseline CPUs
@@ -618,9 +607,9 @@ kubectl logs resize-exclusive-cpus-demo -n rcr-example
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-CPUs assigned during admission (baselineCPUs) = 1-2
-CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
-CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+baseline CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
+assigned CPUs before resize = 1-3, resized CPUs = 1-2
 ```
 
 ### Troubleshooting a non feasible CPU increase attempting to move from exclusive to a shared pool CPUs
@@ -675,10 +664,10 @@ kubectl logs resize-exclusive-cpus-demo -n rcr-example
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-CPUs assigned during admission (baselineCPUs) = 1-2
-CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
-CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
-CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
+baseline CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
+assigned CPUs before resize = 1-3, resized CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
 ```
 
 ### Troubelshooting a non feasible CPU increase attempting to allocate CPUs beyond nodes capacity
