@@ -120,12 +120,7 @@ default   1          1d
 You can create additional ServiceAccount objects like this:
 
 ```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: build-robot
-EOF
+kubectl create serviceaccount build-robot
 ```
 
 The name of a ServiceAccount object must be a valid
