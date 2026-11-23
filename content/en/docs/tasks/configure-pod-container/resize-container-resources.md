@@ -673,6 +673,20 @@ Observe that since the patch was rejected from the server, you'll see changes in
 * Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 3`, `memory: 200Mi`), because the resize was rejected in from Kubernetes API and was never applied by the Kubelet.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
+Check the pod logs to verify that CPUs were not updated
+
+```shell
+kubectl logs resize-exclusive-cpus-demo -n rcr-example
+```
+
+You should see an output similar to ( exact numbers depends on your node):
+```
+baseline CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
+assigned CPUs before resize = 1-3, resized CPUs = 1-2
+assigned CPUs before resize = 1-2, resized CPUs = 1-3
+```
+
 ## Clean up
 
 Delete your namespace. This deletes all the Pods that you created for this task:
