@@ -95,11 +95,11 @@ cgroupDriver: systemd
 - [containerd](#containerd-systemd)
 - [CRI-O](#cri-o)
 
-У Kubernetes {{< skew currentVersion >}}, якщо ввімкнено функціональну можливість [`KubeletCgroupDriverFromCRI`](/docs/reference/command-line-tools-reference/feature-gates/#KubeletCgroupDriverFromCRI) і середовище виконання контейнерів підтримує CRI RPC `RuntimeConfig`, kubelet автоматично визначає відповідний драйвер cgroup із середовища виконання та ігнорує налаштування `cgroupDriver` у конфігурації kubelet.
+Kubernetes очікує, що ви використовуєте середовище виконання контейнерів із підтримкою CRI RPC `RuntimeConfig`. У такому разі kubelet автоматично визначає відповідний драйвер cgroup у середовищі виконання. До визначення CRI RPC `RuntimeConfig` старіші версії Kubernetes задавали драйвер cgroup за допомогою параметра `cgroupDriver` у конфігурації kubelet.
 
 Однак старіші версії середовищ виконання контейнерів (зокрема containerd 1.y і старіші) не підтримують CRI RPC `RuntimeConfig` і можуть некоректно відповідати на цей запит, тому kubelet повертається до використання значення свого прапорця `--cgroup-driver`.
 
-У Kubernetes 1.38 цю резервну поведінку буде вилучено, і старіші версії containerd не працюватимуть із новішими kubelet.
+У майбутньому випуску Kubernetes цю резервну поведінку буде вилучено, і старіші версії containerd не працюватимуть із новішими kubelet.
 
 {{< caution >}}
 Зміна драйвера cgroup вузла, який уже приєднався до кластера, — делікатна операція. Якщо kubelet створював Podʼи, використовуючи семантику одного драйвера cgroup, перемикання середовища виконання контейнерів на інший драйвер cgroup може спричинити помилки під час спроби повторно створити пісочницю Podʼа для таких наявних Podʼів. Перезапуск kubelet може не усунути цих помилок.
@@ -172,7 +172,7 @@ Containerd версії 2.x:
 sudo systemctl restart containerd
 ```
 
-У Kubernetes v1.28 можна ввімкнути автоматичне виявлення драйвера cgroup як альфа-можливість. Докладніше див. [драйвер cgroup systemd](#systemd-cgroup-driver).
+Kubelet автоматично визначає драйвер cgroup. Докладніше див. [драйвер cgroup systemd](#systemd-cgroup-driver).
 
 #### Перевизначення образу пісочниці (pause) {#override-pause-image-containerd}
 
@@ -203,7 +203,7 @@ cgroup_manager = "cgroupfs"
 
 Також зверніть увагу на змінений `conmon_cgroup`, який має бути встановлений у значення `pod`, коли CRI-O використовується з `cgroupfs`. Загалом конфігурацію драйвера cgroup для kubelet (зазвичай її задають через kubeadm) і CRI-O потрібно тримати узгодженими.
 
-У Kubernetes v1.28 можна ввімкнути автоматичне виявлення драйвера cgroup як альфа-можливість. Докладніше див. [драйвер cgroup systemd](#systemd-cgroup-driver).
+Kubelet автоматично визначає драйвер cgroup. Докладніше див. [драйвер cgroup systemd](#systemd-cgroup-driver).
 
 Для CRI-O стандартний сокет CRI — `/var/run/crio/crio.sock`.
 

@@ -61,4 +61,4 @@ min-kubernetes-server-version: v1.37
 
 ## {{% heading "whatsnext" %}} {#what-s-next}
 
-- Дізнайтеся більше про [томи `emptyDir`](/docs/concepts/storage/volumes/#emptydir)
+- Дізнайтеся більше про [томи `emptyDir`](/docs/reference/storage/volume-types/#emptydir)

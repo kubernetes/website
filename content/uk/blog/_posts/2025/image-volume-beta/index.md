@@ -78,4 +78,4 @@ cat /volume/file
 ## Ознайомтесь також {#further-reading}
 
 - [Використання томів образів у Podʼах](/docs/tasks/configure-pod-container/image-volumes)
-- [Огляд томів `image`](/docs/concepts/storage/volumes/#image)
+- [Огляд томів `image`](/docs/reference/storage/volume-types/#image)

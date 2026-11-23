@@ -863,6 +863,38 @@ Kubelet заповнює це значенням типу екземпляра, 
 Починаючи з версії v1.17, ця мітка застаріла на користь [topology.kubernetes.io/zone](#topologykubernetesiozone).
 {{< /note >}}
 
+### pod.alpha.kubernetes.io/init-containers (застаріло) {#pod-alpha-kubernetes-io-init-containers}
+
+Тип: Annotation
+
+Використовується для: Pod
+
+Ця анотація використовувалася під час раннього прототипування init-контейнерів, щоб визначати контейнери, які мають завершити роботу до запуску основних контейнерів Podʼа. У Kubernetes v1.8 її підтримку вилучено на користь поля [`initContainers`](/docs/concepts/workloads/pods/init-containers/) у специфікації Podʼа. API-сервер видаляє цю анотацію з будь-якого Podʼа, на якому її встановлено.
+
+### pod.alpha.kubernetes.io/init-container-statuses (застаріло) {#pod-alpha-kubernetes-io-init-container-statuses}
+
+Тип: Annotation
+
+Використовується для: Pod
+
+Ця анотація використовувалася під час раннього прототипування init-контейнерів, щоб повідомляти про їхній стан у Podʼі. У Kubernetes v1.8 її підтримку вилучено на користь поля `initContainerStatuses` у `.status` Podʼа. API-сервер видаляє цю анотацію з будь-якого Podʼа, на якому її встановлено.
+
+### pod.beta.kubernetes.io/init-containers (застаріло) {#pod-beta-kubernetes-io-init-containers}
+
+Тип: Annotation
+
+Використовується для: Pod
+
+Ця анотація використовувалася на бета-етапі розробки init-контейнерів, щоб визначати контейнери, які мають завершити роботу до запуску основних контейнерів Podʼа. У Kubernetes v1.8 її підтримку вилучено на користь поля [`initContainers`](/docs/concepts/workloads/pods/init-containers/) у специфікації Podʼа. API-сервер видаляє цю анотацію з будь-якого Podʼа, на якому її встановлено.
+
+### pod.beta.kubernetes.io/init-container-statuses (застаріло) {#pod-beta-kubernetes-io-init-container-statuses}
+
+Тип: Annotation
+
+Використовується для: Pod
+
+Ця анотація використовувалася на бета-етапі розробки init-контейнерів, щоб повідомляти про їхній стан у Podʼі. У Kubernetes v1.8 її підтримку вилучено на користь поля `initContainerStatuses` у `.status` Podʼа. API-сервер видаляє цю анотацію з будь-якого Podʼа, на якому її встановлено.
+
 ### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
 
 Тип: Annotation

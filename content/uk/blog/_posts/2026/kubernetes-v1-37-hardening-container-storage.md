@@ -182,7 +182,7 @@ rm: can't remove '/tmp/guest_file': Operation not permitted
 
 ## Важливі деталі {#things-to-know}
 
-Починаючи користуватися цими можливостями, майте на увазі ці ключові моменти. Повні деталі доступні в офіційній документації для [параметрів bind mount](/docs/tasks/configure-pod-container/configure-bind-mount-options/), [режиму тому `emptyDir`](/docs/tasks/configure-pod-container/configure-emptydir-volume-mode/) та [томів `emptyDir`](/docs/concepts/storage/volumes/#emptydir).
+Починаючи користуватися цими можливостями, майте на увазі ці ключові моменти. Повні деталі доступні в офіційній документації для [параметрів bind mount](/docs/tasks/configure-pod-container/configure-bind-mount-options/), [режиму тому `emptyDir`](/docs/tasks/configure-pod-container/configure-emptydir-volume-mode/) та [томів `emptyDir`](/docs/reference/storage/volume-types/#emptydir).
 
 - **Типова поведінка не змінилася**: Якщо ви пропускаєте `bindMountOptions` або не встановлюєте `mode` для `emptyDir`, ви отримуєте типову поведінку (як-от дозволи `0777`) точно так само, як і раніше.
 - **Широка підтримка томів**: `bindMountOptions` працює з `emptyDir`, PersistentVolume, CSI-томами, проєкційними томами, ConfigMap, Secret та іншими. Єдиним винятком є томи образів, які явно не підтримуються. Поле `mode` працює з усіма типами середовища `emptyDir`: default (на основі диска), `Memory` (tmpfs) та `HugePages`.

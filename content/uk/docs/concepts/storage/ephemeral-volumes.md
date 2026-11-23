@@ -22,9 +22,9 @@ _Ефемерні томи_ призначені для таких сценар�
 
 Kubernetes підтримує кілька різновидів ефемерних томів для різних цілей:
 
-- [emptyDir](/docs/concepts/storage/volumes/#emptydir): порожній під час запуску Podʼа, сховище надається локально з базової теки kubelet (зазвичай кореневий диск) або з оперативної памʼяті
-- [configMap](/docs/concepts/storage/volumes/#configmap), [downwardAPI](/docs/concepts/storage/volumes/#downwardapi), [secret](/docs/concepts/storage/volumes/#secret): вставляють різні види даних Kubernetes у Pod
-- [image](/docs/concepts/storage/volumes/#image): дозволяє монтувати файли образів контейнерів або артефакти безпосередньо в Pod.
+- [emptyDir](/docs/reference/storage/volume-types/#emptydir): порожній під час запуску Podʼа, сховище надається локально з базової теки kubelet (зазвичай кореневий диск) або з оперативної памʼяті
+- [configMap](/docs/reference/storage/volume-types/#configmap), [downwardAPI](/docs/reference/storage/volume-types/#downwardapi), [secret](/docs/reference/storage/volume-types/#secret): вставляють різні види даних Kubernetes у Pod
+- [image](/docs/reference/storage/volume-types/#image): дозволяє монтувати файли образів контейнерів або артефакти безпосередньо в Pod.
 - [ефемерні томи CSI](#csi-ephemeral-volumes): схожі на попередні види томів, але надаються спеціальними драйверами {{< glossary_tooltip text="CSI" term_id="csi" >}}, які спеціально [підтримують цю можливість](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [загальні ефемерні томи](#generic-ephemeral-volumes), які можуть надавати всі драйвери сховища, що також підтримують постійні томи
 

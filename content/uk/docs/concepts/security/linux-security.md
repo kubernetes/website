@@ -14,7 +14,7 @@ weight: 40
 
 ## Захист даних Secret на вузлах {#protection-for-secret-data-on-nodes}
 
-На вузлах Linux томи в памʼяті (наприклад, монтування томів [`secret`](/docs/concepts/configuration/secret/) або [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) з `medium: Memory`) реалізовано за допомогою файлової системи `tmpfs`.
+На вузлах Linux томи в памʼяті (наприклад, монтування томів [`secret`](/docs/concepts/configuration/secret/) або [`emptyDir`](/docs/reference/storage/volume-types/#emptydir) з `medium: Memory`) реалізовано за допомогою файлової системи `tmpfs`.
 
 Якщо у вас налаштовано своп і ви використовуєте старе ядро Linux (або поточне ядро та непідтримувану конфігурацію Kubernetes), дані з томів у **памʼяті** можуть записуватися в постійне сховище.
 

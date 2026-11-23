@@ -20,7 +20,7 @@ weight: 60
 
 ## Приклад процесу з завершенням роботи точки доступу {#example-flow-with-endpoint-termination}
 
-Нижче наведено приклад процесу, описаного в документі [Завершення роботи Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+Нижче наведено приклад процесу, описаного в документі [Завершення роботи Podʼів](/docs/concepts/workloads/pods/pod-termination/).
 
 Припустімо, у вас є Deployment з однією реплікою `nginx` (просто для демонстрації) та Service:
 

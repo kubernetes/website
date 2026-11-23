@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-На цій сторінці показано, як Pod може використовувати [том `downwardAPI`](/docs/concepts/storage/volumes/#downwardapi), щоб передавати інформацію про себе контейнерам, які працюють у Podʼі. Том `downwardAPI` може надавати поля Podʼа й контейнера.
+На цій сторінці показано, як Pod може використовувати [том `downwardAPI`](/docs/reference/storage/volume-types/#downwardapi), щоб передавати інформацію про себе контейнерам, які працюють у Podʼі. Том `downwardAPI` може надавати поля Podʼа й контейнера.
 
 У Kubernetes є два способи надати поля Podʼа та контейнера запущеному контейнеру:
 
@@ -128,7 +128,7 @@ total 8
 
 {{% code_sample file="pods/inject/dapi-volume-resources.yaml" %}}
 
-У маніфесті ви бачите, що Pod має [том `downwardAPI`](/docs/concepts/storage/volumes/#downwardapi), а єдиний контейнер у цьому Podʼі монтує цей том у `/etc/podinfo`.
+У маніфесті ви бачите, що Pod має [том `downwardAPI`](/docs/reference/storage/volume-types/#downwardapi), а єдиний контейнер у цьому Podʼі монтує цей том у `/etc/podinfo`.
 
 Подивіться на масив `items` у `downwardAPI`. Кожен елемент масиву визначає файл у томі downward API.
 

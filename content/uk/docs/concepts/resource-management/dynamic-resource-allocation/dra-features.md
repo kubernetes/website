@@ -10,7 +10,7 @@ weight: 40
 
 <!-- body -->
 
-## Пристрої, що розділяються на розділи {#partitionable-devices}
+## Подільні пристрої {#partitionable-devices}
 
 {{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
 
@@ -68,7 +68,7 @@ spec:
           value: 6Gi
 ```
 
-Пристрої, що розділяються на розділи, контролюються функціональною можливістю [`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices) у `kube-apiserver` та `kube-scheduler`.
+Подільні пристрої контролюються функціональною можливістю [`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices) у `kube-apiserver` та `kube-scheduler`.
 
 ## Групи сумісності пристроїв {#device-compatibility-groups}
 
@@ -76,9 +76,9 @@ spec:
 
 Групи сумісності пристроїв дозволяють драйверу DRA оголошувати, які розділені пристрої можуть бути спільно виділені на тому самому фізичному обладнанні. Без цієї функції несумісні комбінації пристроїв виявляються лише тоді, коли kubelet готує Pod на вузлі — що призводить до невдалої підготовки. З групами сумісності планувальник відхиляє несумісні комбінації на етапі планування, до початку будь-якої роботи на стороні вузла.
 
-Це найбільш корисно для обладнання, яке підтримує взаємовиключні режими роботи. Наприклад, GPU, який може працювати в режимі MIG або в режимі vGPU: пристрій у режимі MIG та пристрій у режимі vGPU не можуть бути спільно виділені, оскільки вони несумісним чином споживають фізичні ресурси, що перекриваються. Оголошуючи `compatibilityGroups`, драйвер робить це обмеження видимим для планувальника.
+Це найбільш корисно для обладнання, яке підтримує взаємовиключні режими роботи. Наприклад, GPU, який може працювати в режимі MIG або в режимі vGPU: подільний пристрій у режимі MIG та подільний пристрій у режимі vGPU не можуть бути спільно виділені, оскільки вони несумісним чином споживають фізичні ресурси, що перекриваються. Оголошуючи `compatibilityGroups`, драйвер робить це обмеження видимим для планувальника.
 
-Ця функція ґрунтується на [пристроях, що розділяються на розділи](#partitionable-devices): поле `compatibilityGroups` знаходиться в записах `device.consumesCounters[]`, які існують лише для пристроїв, що розділяються на розділи. Обидві функціональні можливості `DRADeviceCompatibilityGroups` та `DRAPartitionableDevices` мають бути увімкнені в `kube-apiserver` та `kube-scheduler`.
+Ця функція ґрунтується на [подільних пристроях](#partitionable-devices): поле `compatibilityGroups` знаходиться в записах `device.consumesCounters[]`, які існують лише для подільних пристроїв. Обидві функціональні можливості `DRADeviceCompatibilityGroups` та `DRAPartitionableDevices` мають бути увімкнені в `kube-apiserver` та `kube-scheduler`.
 
 ### Як це працює {#device-compatibility-groups-how-it-works}
 

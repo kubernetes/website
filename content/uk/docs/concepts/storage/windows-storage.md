@@ -44,5 +44,5 @@ weight: 110
 
 Наведені нижче вбудовані втулки підтримують постійне сховище на вузлах Windows:
 
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
+* [`azureFile`](/docs/reference/storage/volume-types/#azurefile)
+* [`vsphereVolume`](/docs/reference/storage/volume-types/#vspherevolume)

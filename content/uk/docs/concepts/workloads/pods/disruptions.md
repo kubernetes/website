@@ -82,7 +82,7 @@ Podʼи, які видаляються або недоступні через п
 
 Рекомендується встановлювати [політику виселення несправних Podʼів](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy) `AlwaysAllow` у ваших PodDisruptionBudgets для підтримки виселення застосунків, що працюють неправильно, під час очищення вузла. Стандартно очищення чекає, доки Podʼи застосунку стануть [справними](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod), перш ніж продовжитися.
 
-Коли Pod виселяється за допомогою API виселення, він коректно [завершується](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) з урахуванням налаштування `terminationGracePeriodSeconds` його [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+Коли Pod виселяється за допомогою API виселення, він коректно [завершується](/docs/concepts/workloads/pods/pod-termination/) з урахуванням налаштування `terminationGracePeriodSeconds` його [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 ## Приклад PodDisruptionBudget {#pdb-example}
 
@@ -165,10 +165,10 @@ Deployment створює заміну для `pod-b` з назвою `pod-e`. �
 : Pod був позначений для {{<glossary_tooltip term_id="api-eviction" text="виселення за допомогою API Kubernetes">}}.
 
 `DeletionByPodGC`
-: Pod, який повʼязаний із вузлом, якого вже не існує, має бути видалений за допомогою [збору сміття Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+: Pod, який повʼязаний із вузлом, якого вже не існує, має бути видалений за допомогою [збору сміття Podʼів](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection).
 
 `TerminationByKubelet`
-: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/architecture/nodes/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 У всіх інших сценаріях порушення, таких як виселення через перевищення [обмежень контейнерів Podʼа](/docs/concepts/configuration/manage-resources-containers/), Podʼи не отримують стан `DisruptionTarget`, оскільки ці порушення, ймовірно, були спричинені самим Podʼом і повторилися б під час повторної спроби.
 
@@ -176,7 +176,7 @@ Deployment створює заміну для `pod-b` з назвою `pod-e`. �
 Процес порушення роботи Podʼа може бути зупинено. Панель управління може повторно спробувати продовжити порушення роботи того самого Podʼа, але це не гарантовано. В результаті стан `DisruptionTarget` може бути додано до Podʼа, але цей Pod може фактично не бути видаленим. У такій ситуації через деякий час стан порушення роботи Podʼа буде очищено.
 {{< /note >}}
 
-Разом з очищенням Podʼів механізм збору сміття Podʼів (PodGC) також позначає їх як невдалі, якщо вони перебувають у нетермінальній фазі (див. також [збір сміття Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+Разом з очищенням Podʼів механізм збору сміття Podʼів (PodGC) також позначає їх як невдалі, якщо вони перебувають у нетермінальній фазі (див. також [збір сміття Podʼів](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)).
 
 Під час використання Job (або CronJob) ви можете використовувати ці стани порушення роботи Podʼів як частину [політики збоїв Podʼа](/docs/concepts/workloads/controllers/job#pod-failure-policy) вашого Job.
 

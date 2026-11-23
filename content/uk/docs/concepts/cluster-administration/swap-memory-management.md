@@ -162,7 +162,7 @@ k8s-worker3: false
 
 ### Томи в памʼяті {#memory-backed-volumes}
 
-На вузлах Linux томи в памʼяті (такі як монтування томів [`secret`](/docs/concepts/configuration/secret/) або [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) з `medium: Memory`) реалізовано за допомогою файлової системи `tmpfs`. Вміст таких томів завжди має залишатися в памʼяті, тому його не слід витісняти на диск. Щоб вміст таких томів залишався в памʼяті, використовується параметр `noswap` для tmpfs.
+На вузлах Linux томи в памʼяті (такі як монтування томів [`secret`](/docs/concepts/configuration/secret/) або [`emptyDir`](/docs/reference/storage/volume-types/#emptydir) з `medium: Memory`) реалізовано за допомогою файлової системи `tmpfs`. Вміст таких томів завжди має залишатися в памʼяті, тому його не слід витісняти на диск. Щоб вміст таких томів залишався в памʼяті, використовується параметр `noswap` для tmpfs.
 
 Ядро Linux офіційно підтримує параметр `noswap` з версії 6.3 (докладніше дивіться у [Вимогах до версії ядра Linux](/docs/reference/node/kernel-version-requirements/#requirements-other)). Однак різні дистрибутиви часто переносять цей параметр монтування й у старіші версії Linux.
 

@@ -16,7 +16,7 @@ tags:
 
 Ви можете запросити виселення, безпосередньо викликавши Eviction API за допомогою клієнта kube-apiserver, як-от команди `kubectl drain`. Коли створюється обʼєкт `Eviction`, API-сервер завершує роботу Podʼа.
 
-Виселення, ініційовані API, дотримуються налаштованих вами [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) і [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
+Виселення, ініційовані API, дотримуються налаштованих вами [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) і [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-termination/).
 
 Виселення, ініційоване API, — це не те саме, що [виселення внаслідок тиску на вузол](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 

@@ -127,10 +127,10 @@ Kubelet встановлює стан `PodReadyToStartContainers` в `True` пі
 : Pod підлягає виселенню за допомогою {{<glossary_tooltip term_id="api-eviction" text="API Kubernetes">}}.
 
 `DeletionByPodGC`
-: Pod, який привʼязаний до вузла, що більше не існує, підлягає видаленню за допомогою механізму [збору сміття Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+: Pod, який привʼязаний до вузла, що більше не існує, підлягає видаленню за допомогою механізму [збору сміття Podʼів](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection).
 
 `TerminationByKubelet`
-: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/architecture/nodes/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+: Pod було завершено kubelet через {{<glossary_tooltip term_id="node-pressure-eviction" text="виселення внаслідок тиску на вузол">}}, [коректне вимкнення вузла](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) або витіснення заради [системно критичних Podʼів](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 У всіх інших сценаріях порушення, таких як виселення через перевищення [обмежень контейнерів Podʼа](/docs/concepts/configuration/manage-resources-containers/), Podʼи не отримують стан `DisruptionTarget`, оскільки ці порушення, ймовірно, були спричинені самим Podʼом і повторилися б під час повторної спроби.
 
@@ -138,7 +138,7 @@ Kubelet встановлює стан `PodReadyToStartContainers` в `True` пі
 Процес порушення роботи Podʼа може бути зупинено. Панель управління може повторно спробувати продовжити порушення роботи того самого Podʼа, але це не гарантовано. В результаті стан `DisruptionTarget` може бути додано до Podʼа, але цей Pod може фактично не бути видаленим. У такій ситуації через деякий час стан порушення роботи Podʼа буде очищено.
 {{< /note >}}
 
-Разом з очищенням Podʼів, механізм збору сміття Podʼів (PodGC) також позначає їх як невдалі, якщо вони перебувають у нетермінальній фазі (див. також [збір сміття Podʼів](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+Разом з очищенням Podʼів, механізм збору сміття Podʼів (PodGC) також позначає їх як невдалі, якщо вони перебувають у нетермінальній фазі (див. також [збір сміття Podʼів](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)).
 
 Під час використання Job (або CronJob) ви можете використовувати ці стани порушення роботи Podʼів як частину [політики збоїв Podʼа](/docs/concepts/workloads/controllers/job#pod-failure-policy) вашого Job.
 

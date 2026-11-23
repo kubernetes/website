@@ -6,409 +6,129 @@ weight: 40
 
 <!-- overview -->
 
-Ви розгорнули ваш застосунок та відкрили до нього доступ через Service. Що далі? Kubernetes надає низку інструментів, які допомагають керувати розгортанням вашого застосунку, зокрема масштабуванням та оновленням.
+Керування робочими навантаженнями в Kubernetes охоплює організацію, розгортання, оновлення, масштабування та обслуговування застосунків. Після розгортання застосунку та відкриття до нього доступу через Service потрібні стратегії для надійної роботи: оновлення без переривання обслуговування користувачів, масштабування відповідно до попиту та відновлення після збоїв. На цій сторінці описано ключові концепції й стратегії, а також наведено посилання на покрокові інструкції.
 
 <!-- body -->
 
 ## Організація конфігурацій ресурсів {#organizing-resource-configurations}
 
-Багато застосунків потребують створення кількох ресурсів, таких як Deployment разом із Service. Керування кількома ресурсами можна спростити, обʼєднавши їх в одному файлі (розділивши їх `---` у YAML). Наприклад:
+Більшість застосунків потребує спільної роботи кількох ресурсів Kubernetes. Типовому вебзастосунку можуть знадобитися Deployment, Service, ConfigMap, PersistentVolumeClaim і Gateway (з використанням доповнення Gateway API). Ефективна організація цих ресурсів спрощує розгортання, оновлення та усунення проблем.
 
-{{% code_sample file="application/nginx-app.yaml" %}}
+Kubernetes підтримує кілька способів організації ресурсів:
 
-Кілька ресурсів можна створити так само, як і один ресурс:
+- **Групування в одному файлі:** обʼєднайте повʼязані ресурси в одному YAML-маніфесті, розділивши їх за допомогою `---`. Ресурси можна визначати в будь-якому порядку.
+- **Організація за теками:** зберігайте всі маніфести застосунку в одній теці та впорядковуйте їх за мікросервісом або рівнем застосунку.
+- **Конфігурація за URL:** розгортайте ресурси безпосередньо з маніфестів, розміщених у системі керування версіями.
 
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
-```
-
-```none
-service/my-nginx-svc created
-deployment.apps/my-nginx created
-```
-
-Ресурси будуть створені в порядку, в якому вони зʼявляються в маніфесті. Тому краще спочатку вказати Service, оскільки це забезпечить, що планувальник зможе розподілити повʼязані з Service Podʼи в процесі їх створення контролером(ами), такими як Deployment.
-
-`kubectl apply` також приймає кілька аргументів `-f`:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml \
-  -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-Рекомендовано розміщувати ресурси, повʼязані з одним мікросервісом або рівнем застосунку, в одному файлі та групувати всі файли, повʼязані з вашим застосунком, в одній теці. Якщо рівні вашого застосунку звʼязуються один з одним за допомогою DNS, ви можете розгорнути всі компоненти вашого стека разом.
-
-Також можна вказати URL як джерело конфігурації, що зручно для розгортання безпосередньо з маніфестів у вашій системі контролю версій:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-```none
-deployment.apps/my-nginx created
-```
-
-Якщо потрібно визначити більше маніфестів, наприклад, додати ConfigMap, це також можна зробити.
+Докладніше про команди `kubectl` для цих підходів дивіться в розділі [Інструмент командного рядка kubectl](/docs/reference/kubectl/).
 
 ### Зовнішні інструменти {#external-tools}
 
-У цьому розділі перераховані лише найпоширеніші інструменти, які використовуються для керування робочими навантаженнями в Kubernetes. Щоб переглянути більше інструментів, подивіться [Application definition and image build](https://landscape.cncf.io/guide#app-definition-and-development--application-definition-image-build) в {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
+Деякі інструменти розширюють керування обʼєктами Kubernetes за межі можливостей `kubectl`, доступних за замовчуванням.
 
 #### Helm {#external-tool-helm}
 
 {{% thirdparty-content single="true" %}}
 
-[Helm](https://helm.sh/) — це інструмент для керування пакетами попередньо налаштованих ресурсів Kubernetes. Ці пакети відомі як _Helm-чарти_.
+[Helm](https://helm.sh/) — це інструмент керування пакунками попередньо налаштованих ресурсів Kubernetes. Такі пакунки називаються _чартами Helm_.
 
 #### Kustomize {#external-tool-kustomize}
 
-[Kustomize](https://kustomize.io/) проходить по маніфестах Kubernetes, щоб додати, видалити або оновити конфігураційні опції. Він доступний як окремий бінарний файл і як [вбудована можливість](/docs/tasks/manage-kubernetes-objects/kustomization/) kubectl.
+[Kustomize](https://kustomize.io/) обробляє маніфести Kubernetes, щоб додавати, видаляти або оновлювати параметри конфігурації. Він доступний як окремий виконуваний файл і як [вбудована можливість](/docs/tasks/manage-kubernetes-objects/kustomization/) `kubectl`.
 
-## Пакетні операції в kubectl {#bulk-operations-in-kubectl}
+## Стратегії оновлення {#update-strategies}
 
-Створення ресурсів — не єдина операція, яку `kubectl` може виконувати в пакетному режимі. Він також може витягувати назви ресурсів з конфігураційних файлів для виконання інших операцій, зокрема для видалення тих же ресурсів, які ви створили:
+Під час випуску нової версії застосунку спосіб переходу Kubernetes зі старої версії на нову визначає, чи виникне простій і наскільки ризикованим буде оновлення. Kubernetes підтримує кілька стратегій, кожна з яких підходить для різних сценаріїв.
 
-```shell
-kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
-```
+### Поетапні оновлення {#rolling-updates}
 
-```none
-deployment.apps "my-nginx" deleted
-service "my-nginx-svc" deleted
-```
+Під час поетапного оновлення старі Podʼи поступово замінюються новими. Протягом оновлення суміш старих і нових Podʼів обслуговує трафік, тож застосунок залишається доступним. Це стандартна стратегія для Deployments.
 
-У випадку з двома ресурсами ви можете вказати обидва ресурси в командному рядку, використовуючи синтаксис resource/name:
+Швидкість поетапного оновлення визначають два параметри:
 
-```shell
-kubectl delete deployments/my-nginx services/my-nginx-svc
-```
+- **`maxUnavailable`** — найбільша кількість Podʼів, які можуть бути недоступними під час оновлення (стандартно 25%).
+- **`maxSurge`** — найбільша кількість додаткових Podʼів понад бажану кількість під час оновлення (стандартно 25%).
 
-Для більшої кількості ресурсів буде зручніше вказати селектор (запит за мітками), використовуючи `-l` або `--selector`, щоб відфільтрувати ресурси за їхніми мітками:
+Поетапні оновлення можна призупиняти та продовжувати, щоб перевірити часткове оновлення або обʼєднати кілька змін в одному розгортанні. Якщо нова версія має проблеми, можна повернутися до попередньої ревізії.
 
-```shell
-kubectl delete deployment,services -l app=nginx
-```
+Покрокові інструкції дивіться в розділі [Оновлення Deployment без простою](/docs/tasks/run-application/update-deployment-rolling/), а параметри конфігурації — у розділі [Deployment](/docs/concepts/workloads/controllers/deployment/#strategy).
 
-```none
-deployment.apps "my-nginx" deleted
-service "my-nginx-svc" deleted
-```
+### Повторне створення {#recreate}
 
-### Ланцюжки та фільтрація {#chaining-and-filtering}
+Стратегія Recreate завершує роботу всіх наявних Podʼів перед створенням нових. Це спричиняє короткий простій, але гарантує, що одночасно працює лише одна версія застосунку.
 
-Оскільки `kubectl` виводить назви ресурсів у тому ж синтаксисі, який він приймає, ви можете обʼєднувати операції в ланцюжки, використовуючи `$()` або `xargs`:
+Використовуйте Recreate, якщо:
 
-```shell
-kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ )
-kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ | xargs -i kubectl get '{}'
-```
+- застосунок не може одночасно працювати з двома версіями (наприклад, через несумісність схем бази даних);
+- потрібен чистий перехід без одночасної роботи старих і нових Podʼів.
 
-Вивід може бути подібний до:
+Докладніше дивіться в документації про [стратегії Deployment](/docs/concepts/workloads/controllers/deployment/#strategy).
 
-```none
-NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
-```
+Стратегію Recreate також можна застосувати до StatefulSet, якщо ввімкнути альфа-функціональність [`StatefulSetRecreateStrategy`](/docs/reference/command-line-tools-reference/feature-gates/#StatefulSetRecreateStrategy), вимкнену за замовчуванням і доступну з Kubernetes v1.37. Оскільки такі навантаження (або їхні компоненти) часто керують постійним станом, додайте власний механізм, який забезпечить збереження даних під час заміни всіх Podʼів.
 
-За допомогою наведених вище команд ви спочатку створюєте ресурси в `docs/concepts/cluster-administration/nginx/` і виводите створені ресурси у форматі виводу `-o name` (виводите кожен ресурс як resource/name). Потім за допомогою `grep` ви вибираєте лише Service, а потім виводите його за допомогою [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
+### Канаркові розгортання {#canary-deployments}
 
-### Рекурсивні операції з локальними файлами {#recursive-operations-on-local-files}
+Під час канаркового розгортання нова версія застосунку працює паралельно зі стабільною, а до нової версії спрямовується лише невелика частка трафіку. Це дає змогу перевірити її в реальних виробничих умовах перед повним розгортанням.
 
-Якщо ви організували ваші ресурси в кількох підтеках всередині певної теки, ви можете рекурсивно виконувати операції і з підтеками, вказавши `--recursive` або `-R` разом з аргументом `--filename`/`-f`.
+У Kubernetes цей шаблон використовує мітки для розрізнення стабільних і канаркових Podʼів. Обидва Deployments мають спільну мітку (наприклад, `app: my-app`), за якою один Service спрямовує трафік до обох наборів Podʼів. Мітка `track` зі значенням `stable` або `canary` розрізняє версії. Змінюючи кількість реплік, ви керуєте часткою трафіку між стабільними й канарковими Podʼами.
 
-Наприклад, припустимо, є тека `project/k8s/development`, яка містить усі {{< glossary_tooltip text="маніфести" term_id="manifest" >}}, необхідні для середовища розробки, організовані за типом ресурсу:
+Практичну інструкцію дивіться в розділі [Розгортання випуску за допомогою канаркового розгортання](/docs/tutorials/stateless-application/canary-deployment/).
 
-```none
-project/k8s/development
-├── configmap
-│   └── my-configmap.yaml
-├── deployment
-│   └── my-deployment.yaml
-└── pvc
-    └── my-pvc.yaml
-```
+Щоб застосувати канаркове розгортання до StatefulSet, зазвичай потрібен власний механізм. Наприклад, основний StatefulSet може мати початковий порядковий номер 0 і сім реплік (Podʼи з номерами 0–6), а канарковий StatefulSet — початковий номер 7 (Pod 7). Керуючи обсягом трафіку або роботи для канаркового Podʼа, можна поступово перевірити новий код або конфігурацію.
 
-Стандартно виконання пакетної операції для `project/k8s/development` зупиниться на першому рівні теки, не обробляючи жодних вкладених тек. Якщо ви спробували б створити ресурси з цієї теки, використовуючи наступну команду, ви б отримали помилку:
+Повна реалізація цього шаблону для застосунку зі збереженням стану виходить за межі основної функціональності Kubernetes.
 
-```shell
-kubectl apply -f project/k8s/development
-```
+### Порівняння стратегій оновлення {#comparing-update-strategies}
 
-```none
-error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
-```
+| Стратегія | Простій | Рівень ризику | Найкраще підходить для |
+|-----------|---------|---------------|------------------------|
+| Поетапне оновлення | Немає | Низький — поступове розгортання | Більшості робочих навантажень |
+| Повторне створення | Є | Низький — чіткий перехід | Несумісних версій |
+| Канаркове розгортання | Немає | Найнижчий — мала частка трафіку | Ризикованих змін, які потрібно перевірити у виробничому середовищі |
 
-Натомість вкажіть аргумент командного рядка `--recursive` або `-R` разом з аргументом `--filename`/`-f`:
+## Масштабування робочих навантажень {#scaling-workloads}
 
-```shell
-kubectl apply -f project/k8s/development --recursive
-```
+Масштабування змінює кількість реплік Podʼів відповідно до попиту. Kubernetes підтримує два підходи:
 
-```none
-configmap/my-config created
-deployment.apps/my-deployment created
-persistentvolumeclaim/my-pvc created
-```
+- **Ручне масштабування:** ви задаєте кількість реплік безпосередньо. Цей підхід зручний для передбачуваних, запланованих або разових змін місткості, коли потрібна кількість реплік відома заздалегідь.
+- **Автоматичне масштабування:** HorizontalPodAutoscaler (HPA) відстежує метрики, такі як використання CPU, памʼяті або власні метрики, і автоматично змінює кількість реплік. Цей підхід підходить для змінного або непередбачуваного попиту.
 
-Аргумент `--recursive` працює з будь-якою операцією, яка приймає аргумент `--filename`/`-f`, такою як: `kubectl create`, `kubectl get`, `kubectl delete`, `kubectl describe` або навіть `kubectl rollout`.
+{{< caution >}}
+Якщо HorizontalPodAutoscaler керує Deployment або StatefulSet, не встановлюйте поле `replicas` вручну. HPA постійно узгоджує кількість реплік і перевизначатиме ручні зміни.
+{{< /caution >}}
 
-Аргумент `--recursive` також працює, коли вказані кілька аргументів `-f`:
+Покрокові інструкції з ручного масштабування наведено в розділі [Ручне масштабування Deployment](/docs/tasks/run-application/scale-deployment/). Для автоматичного масштабування дивіться [інструкцію з HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-```shell
-kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
-```
+## Оновлення ресурсів на місці {#updating-resources-in-place}
 
-```none
-namespace/development created
-namespace/staging created
-configmap/my-config created
-deployment.apps/my-deployment created
-persistentvolumeclaim/my-pvc created
-```
+Після розгортання ресурсів часто потрібно змінити їх, не замінюючи весь обʼєкт. Kubernetes надає кілька способів оновлення на місці для різних процесів:
 
-Якщо ви хочете дізнатися більше про `kubectl`, ознайомтеся зі статтею [Інструмент командного рядка (kubectl)](/docs/reference/kubectl/).
-
-## Оновлення застосунку без перебоїв у роботі {#updating-your-application-without-an-outage}
-
-В якийсь момент вам, ймовірно, доведеться оновити ваш розгорнутий застосунок, зазвичай шляхом зазначення нового образу чи теґу образу. `kubectl` підтримує кілька операцій оновлення, кожна з яких застосовується до різних сценаріїв.
-
-Ви можете запускати кілька копій вашого застосунку і використовувати _розгортання_ (rollout) для поступового перенаправлення трафіку до нових справних Podʼів. З часом всі запущені Podʼи отримають нове програмне забезпечення.
-
-У цьому розділі сторінки показано, як створювати та оновлювати застосунки за допомогою Deployments.
-
-Припустимо, ви запускали версію 1.14.2 nginx:
-
-```shell
-kubectl create deployment my-nginx --image=nginx:1.14.2
-```
-
-```none
-deployment.apps/my-nginx created
-```
-
-Переконайтеся, що є 1 репліка:
-
-```shell
-kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='merge' -p '{"spec":{"replicas": 1}}'
-```
-
-```none
-deployment.apps/my-nginx scaled
-```
-
-і дозвольте Kubernetes додавати більше тимчасових реплік під час розгортання, встановивши _максимальне перевищення_ (surge maximum) на 100%:
-
-```shell
-kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
-```
-
-```none
-deployment.apps/my-nginx patched
-```
-
-Щоб оновитись до версії 1.16.1, змініть `.spec.template.spec.containers[0].image` з `nginx:1.14.2` на `nginx:1.16.1`, використовуючи `kubectl edit`:
-
-```shell
-kubectl edit deployment/my-nginx
-# Змініть маніфест, щоб використовувати новіший образ контейнера, потім збережіть зміни
-```
-
-Ось і все! Deployment декларативно й поступово оновить розгорнутий застосунок nginx у фоновому режимі. Він забезпечує, що лише певна кількість старих реплік може бути недоступною під час оновлення, і лише певна кількість нових реплік може бути створена понад бажану кількість Podʼів. Щоб дізнатися більше про те, як це відбувається, перегляньте сторінку [Deployment](/docs/concepts/workloads/controllers/deployment/).
-
-Ви можете використовувати розгортання з DaemonSets, Deployments або StatefulSets.
-
-### Керування розгортаннями {#managing-rollouts}
-
-Ви можете використовувати [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) для керування поступовим оновленням наявного застосунку.
-
-Наприклад:
-
-```shell
-kubectl apply -f my-deployment.yaml
-
-# дочекайтеся завершення розгортання
-kubectl rollout status deployment/my-deployment --timeout 10m # тайм-аут 10 хвилин
-```
-
-або
-
-```shell
-kubectl apply -f backing-stateful-component.yaml
-
-# не чекайте завершення розгортання, просто перевірте статус
-kubectl rollout status statefulsets/backing-stateful-component --watch=false
-```
-
-Ви також можете призупиняти, відновлювати або скасовувати розгортання. Перегляньте [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) для отримання додаткової інформації.
-
-## Канаркові розгортання {#canary-deployments}
-
-Ще один сценарій, коли потрібні кілька міток, — розрізнення розгортань різних версій або конфігурацій одного й того ж компонента. Поширеною практикою є *канаркове* розгортання нової версії застосунку (зазначеної через теґ образу в шаблоні Podʼа) поруч з попередньою версією, щоб нова версія могла отримати реальний промисловий трафік перед повним розгортанням.
-
-Наприклад, можна використовувати мітку `track` для розрізнення різних версій.
-
-Основна, стабільна версія буде мати мітку `track` зі значенням `stable`:
-
-```none
-name: frontend
-replicas: 3
-...
-labels:
-   app: guestbook
-   tier: frontend
-   track: stable
-...
-image: gb-frontend:v3
-```
-
-А потім ви можете створити нову версію фронтенду для guestbook, яка має мітку `track` з іншим значенням (тобто `canary`), так що два набори Podʼів не перетинатимуться:
-
-```none
-name: frontend-canary
-replicas: 1
-...
-labels:
-   app: guestbook
-   tier: frontend
-   track: canary
-...
-image: gb-frontend:v4
-```
-
-Service фронтенду охоплюватиме обидва набори реплік, вибираючи спільну підмножину їх міток (тобто пропускаючи мітку `track`), так що трафік буде перенаправлено на обидва застосунки:
-
-```yaml
-selector:
-   app: guestbook
-   tier: frontend
-```
-
-Ви можете налаштувати кількість реплік стабільної та канаркової версій, щоб визначити частку реального промислового трафіку, яку отримає кожна з них (у цьому випадку 3:1). Коли ви будете впевнені в новій версії, ви можете оновити стабільний канал випуску до нової версії застосунку і видалити канаркову.
-
-Щоб дізнатися, що це передбачає, пройдіть навчальний матеріал [Розгортання релізу за допомогою канаркового розгортання](/docs/tutorials/stateless-application/canary-deployment/).
-
-## Оновлення анотацій {#updating-annotations}
-
-Іноді ви захочете додати анотації до ресурсів. Анотації — це довільні неідентифікувальні метадані, які можуть отримувати API-клієнти, такі як інструменти або бібліотеки. Це можна зробити за допомогою `kubectl annotate`. Наприклад:
-
-```shell
-kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
-kubectl get pods my-nginx-v4-9gw19 -o yaml
-```
-
-```none
-apiVersion: v1
-kind: pod
-metadata:
-  annotations:
-    description: my frontend running nginx
-...
-```
-
-Для отримання додаткової інформації дивіться [анотації](/docs/concepts/overview/working-with-objects/annotations/) та [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/).
-
-## Масштабування вашого застосунку {#scaling-your-application}
-
-Коли навантаження на ваш застосунок зростає або зменшується, використовуйте `kubectl`, щоб масштабувати ваш застосунок. Наприклад, щоб зменшити кількість реплік nginx з 3 до 1, виконайте:
-
-```shell
-kubectl scale deployment/my-nginx --replicas=1
-```
-
-```none
-deployment.apps/my-nginx scaled
-```
-
-Тепер у вас буде тільки один Pod, яким керує Deployment.
-
-```shell
-kubectl get pods -l app=my-nginx
-```
-
-```none
-NAME                        READY     STATUS    RESTARTS   AGE
-my-nginx-2035384211-j5fhi   1/1       Running   0          30m
-```
-
-Щоб система автоматично вибирала кількість реплік nginx в межах від 1 до 3, виконайте:
-
-```shell
-# Для цього потрібне наявне джерело метрик контейнерів і Podʼів
-kubectl autoscale deployment/my-nginx --min=1 --max=3
-```
-
-```none
-horizontalpodautoscaler.autoscaling/my-nginx autoscaled
-```
-
-Тепер ваші репліки nginx будуть масштабуватися вгору і вниз за потреби автоматично.
-
-Для отримання додаткової інформації перегляньте [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/), [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) і [горизонтальне автомасштабування Podʼів](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).
-
-## Оновлення ресурсів на місці {#in-place-updates-of-resources}
-
-Іноді потрібно вносити до створених вами ресурсів вузькі оновлення, що не порушують роботу.
-
-### kubectl apply {#kubectl-apply}
-
-Рекомендується підтримувати набір конфігураційних файлів у системі контролю версій (див. [конфігурація як код](https://martinfowler.com/bliki/InfrastructureAsCode.html)), щоб їх можна було підтримувати та версіонувати разом з кодом для ресурсів, які вони конфігурують. Тоді ви можете використовувати [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/) для того, щоб надіслати зміни конфігурації в кластер.
-
-Ця команда порівнює версію конфігурації, яку ви надсилаєте, з попередньою версією та застосовує внесені вами зміни, не перезаписуючи автоматичні зміни властивостей, які ви не вказали.
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-```none
-deployment.apps/my-nginx configured
-```
-
-Щоб дізнатися більше про механізм, що лежить в основі, прочитайте [server-side apply](/docs/reference/using-api/server-side-apply/).
-
-### kubectl edit {#kubectl-edit}
-
-Також ви можете оновлювати ресурси за допомогою [`kubectl edit`](/docs/reference/kubectl/generated/kubectl_edit/):
-
-```shell
-kubectl edit deployment/my-nginx
-```
-
-Це еквівалентно тому, щоб спочатку виконати `get` для ресурсу, відредагувати його в текстовому редакторі, а потім виконати `apply` для ресурсу з оновленою версією:
-
-```shell
-kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
-vi /tmp/nginx.yaml
-# зробіть деякі редагування, а потім збережіть файл
-
-kubectl apply -f /tmp/nginx.yaml
-deployment.apps/my-nginx configured
-
-rm /tmp/nginx.yaml
-```
-
-Це дозволяє легше вносити більш значні зміни. Зверніть увагу, що ви можете вказати редактор за допомогою змінних середовища `EDITOR` або `KUBE_EDITOR`.
-
-Для отримання додаткової інформації дивіться [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/).
-
-### kubectl patch {#kubectl-patch}
-
-Ви можете використовувати [`kubectl patch`](/docs/reference/kubectl/generated/kubectl_patch/) для оновлення обʼєктів API на місці. Ця підкоманда підтримує JSON patch, JSON merge patch і strategic merge patch.
-
-Дивіться [Оновлення обʼєктів API на місці за допомогою kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/) для отримання додаткових деталей.
+- **Декларативне керування** (`kubectl apply`): порівнює файл конфігурації з фактичним станом і застосовує лише відмінності. Цей підхід підходить для конфігурацій, які зберігаються як код у системі керування версіями. Докладніше дивіться в розділі [застосування на стороні сервера](/docs/reference/using-api/server-side-apply/).
+- **Інтерактивне редагування** (`kubectl edit`): відкриває живий ресурс у текстовому редакторі, де можна безпосередньо внести зміни. Зручно для разових змін або дослідження.
+- **Операції виправлення** (`kubectl patch`): змінюють окремі поля за допомогою JSON patch, JSON merge patch або strategic merge patch. Найкраще підходять для скриптів та автоматизації. Докладніше дивіться в розділі [Оновлення обʼєктів API на місці за допомогою kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/).
 
 ## Оновлення з порушенням роботи {#disruptive-updates}
 
-В деяких випадках може знадобитися оновити поля ресурсу, які не можна оновити після його ініціалізації, або може знадобитися зробити рекурсивну зміну негайно, наприклад, щоб виправити несправні Podʼи, створені Deployment. Для зміни таких полів використовуйте `replace --force`, що видаляє і повторно створює ресурс. У цьому випадку ви можете змінити ваш оригінальний конфігураційний файл:
+Деякі поля ресурсів незмінні після створення (наприклад, назва контейнера Podʼа або `clusterIP` Service). Щоб змінити незмінне поле, потрібно видалити ресурс і створити його заново. Команда `kubectl replace --force` виконує це однією дією.
 
-```shell
-kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
-```
+{{< caution >}}
+Таке оновлення спричиняє простій, оскільки Kubernetes видаляє наявний ресурс перед створенням його заміни. Використовуйте цей підхід лише тоді, коли оновлення на місці неможливе.
+{{< /caution >}}
 
-```none
-deployment.apps/my-nginx deleted
-deployment.apps/my-nginx replaced
-```
+## Рекомендації для адміністраторів кластера {#cluster-administrator-considerations}
 
-## {{% heading "whatsnext" %}} {#whats-next}
+Адміністратор кластера може встановити обмеження, які впливають на керування робочими навантаженнями командами застосунків:
 
-- Дізнайтеся, [як використовувати `kubectl` для інспекції застосунків та налагодження](/docs/tasks/debug/debug-application/debug-running-pod/).
+- [**ResourceQuotas**](/docs/concepts/policy/resource-quotas/): обмежують загальний обсяг обчислювальних ресурсів, доступний простору імен, щоб одна команда не використала надмірну частину місткості кластера.
+- [**PodDisruptionBudgets**](/docs/concepts/workloads/pods/disruptions/): гарантують, що під час добровільних переривань, наприклад обслуговування вузла або розгортання Deployment, залишається доступною мінімальна кількість Podʼів. Дивіться також [Визначення PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/).
+- [**Обмеження розподілу топології**](/docs/concepts/scheduling-eviction/topology-spread-constraints/): сприяють або вимагають розподілу Podʼів між доменами відмов (зонами, вузлами) для підвищення доступності.
+- [**Позначки taint і допуски**](/docs/concepts/scheduling-eviction/taint-and-toleration/): керують тим, які Podʼи можна планувати на певних вузлах; це корисно для виділення обладнання або ізоляції робочих навантажень.
+
+## {{% heading "whatsnext" %}}
+
+- [Ручне масштабування Deployment](/docs/tasks/run-application/scale-deployment/)
+- [Оновлення Deployment без простою](/docs/tasks/run-application/update-deployment-rolling/)
+- [Канаркове розгортання](/docs/tutorials/stateless-application/canary-deployment/)
+- [Автоматичне масштабування Podʼів](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [Deployments](/docs/concepts/workloads/controllers/deployment/)
+- [Перевірка та налагодження застосунків](/docs/tasks/debug/debug-application/debug-running-pod/)

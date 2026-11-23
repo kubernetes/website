@@ -352,32 +352,35 @@ FlexVolumes (застаріли з Kubernetes v1.23) дозволяють змі
 Типи PersistentVolume реалізовано як втулки. Наразі Kubernetes підтримує такі втулки:
 
 * [`csi`](/docs/concepts/storage/volumes/#csi) — Container Storage Interface (CSI)
-* [`fc`](/docs/concepts/storage/volumes/#fc) — Сховище Fibre Channel (FC)
-* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) — том HostPath (лише для тестування на одному вузлі; НЕ ПРАЦЮВАТИМЕ в кластері з кількома вузлами; натомість розгляньте використання тому `local`)
-* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) — Сховище iSCSI (SCSI через IP)
-* [`local`](/docs/concepts/storage/volumes/#local) — локальні пристрої зберігання, змонтовані на вузлах.
-* [`nfs`](/docs/concepts/storage/volumes/#nfs) — сховище Network File System (NFS)
+* [`fc`](/docs/reference/storage/volume-types/#fc) — Сховище Fibre Channel (FC)
+* [`hostPath`](/docs/reference/storage/volume-types/#hostpath) — том HostPath (лише для тестування на одному вузлі; НЕ ПРАЦЮВАТИМЕ в кластері з кількома вузлами; натомість розгляньте використання тому `local`)
+* [`iscsi`](/docs/reference/storage/volume-types/#iscsi) — Сховище iSCSI (SCSI через IP)
+* [`local`](/docs/reference/storage/volume-types/#local) — локальні пристрої зберігання, змонтовані на вузлах.
+* [`nfs`](/docs/reference/storage/volume-types/#nfs) — сховище Network File System (NFS)
 
-Такі типи PersistentVolume застаріли, але все ще доступні. Якщо ви використовуєте ці типи томів, крім `flexVolume`, `cephfs` та `rbd`, встановіть відповідні драйвери CSI.
+Вбудовані драйвери для наведених нижче типів PersistentVolume **вилучено** у вказаних версіях. Kubernetes перенаправляє їхні операції до відповідних драйверів CSI. Встановіть відповідний [драйвер CSI](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins).
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) — AWS Elastic Block Store (EBS) (**міграцію стандартно ввімкнено** починаючи з v1.23)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) — Azure Disk (**міграцію стандартно ввімкнено** починаючи з v1.23)
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) — Azure File (**міграцію стандартно ввімкнено** починаючи з v1.24)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) — Cinder (блочне сховище OpenStack) (**міграцію стандартно ввімкнено** починаючи з v1.21)
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) — FlexVolume (**застаріло** починаючи з версії v1.23, план міграції відсутній, планів припинення підтримки немає)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) — GCE Persistent Disk (**міграцію стандартно ввімкнено** починаючи з v1.23)
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) — Том Portworx (**міграцію стандартно ввімкнено** починаючи з v1.31)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) — том vSphere VMDK (**міграцію стандартно ввімкнено** починаючи з v1.25)
+* [`awsElasticBlockStore`](/docs/reference/storage/volume-types/#awselasticblockstore) — AWS Elastic Block Store (EBS) (**вилучено** у v1.27)
+* [`azureDisk`](/docs/reference/storage/volume-types/#azuredisk) — Azure Disk (**вилучено** у v1.27)
+* [`azureFile`](/docs/reference/storage/volume-types/#azurefile) — Azure File (**вилучено** у v1.30)
+* [`cinder`](/docs/reference/storage/volume-types/#cinder) — Cinder (блочне сховище OpenStack) (**вилучено** у v1.26)
+* [`gcePersistentDisk`](/docs/reference/storage/volume-types/#gcepersistentdisk) — GCE Persistent Disk (**вилучено** у v1.28)
+* [`portworxVolume`](/docs/reference/storage/volume-types/#portworxvolume) — том Portworx (**вилучено** у v1.36)
+* [`vsphereVolume`](/docs/reference/storage/volume-types/#vspherevolume) — том vSphere VMDK (**вилучено** у v1.30)
+
+Тип PersistentVolume `flexVolume` застарів, але підтримується без міграції на CSI.
+
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) — FlexVolume (**застаріло** починаючи з v1.23; плану міграції немає, підтримку не планують припиняти)
 
 Старіші версії Kubernetes також підтримували такі типи вбудованих PersistentVolume:
 
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) (**недоступно** починаючи з версії v1.31)
+* [`cephfs`](/docs/reference/storage/volume-types/#cephfs) (**недоступно** починаючи з версії v1.31)
 * `flocker` — Flocker storage. (**недоступно** починаючи з версії v1.25)
 * `glusterfs` — GlusterFS storage. (**недоступно** починаючи з версії v1.26)
-* `photonPersistentDisk` — Photon controller persistent disk. (**недоступно** починаючи з версії v1.15)
+* `photonPersistentDisk` — Photon controller persistent disk. (**недоступно** починаючи з версії v1.16)
 * `quobyte` — Том Quobyte. (**недоступно** починаючи з версії v1.25)
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) — Rados Block Device (RBD) volume (**недоступно** починаючи з версії v1.31)
-* `scaleIO` — Том ScaleIO. (**недоступно** починаючи з версії v1.21)
+* [`rbd`](/docs/reference/storage/volume-types/#rbd) — Rados Block Device (RBD) volume (**недоступно** починаючи з версії v1.31)
+* `scaleIO` — Том ScaleIO. (**недоступно** починаючи з версії v1.22)
 * `storageos` — Том StorageOS. (**недоступно** починаючи з версії v1.25)
 
 ## Постійні томи {#persistent-volumes}
@@ -518,7 +521,7 @@ PV може мати клас, який задається встановлен�
 ### Спорідненість вузла {#node-affinity}
 
 {{< note >}}
-Для більшості типів томів вам не потрібно встановлювати це поле. Вам слід явно встановити його для томів [local](/docs/concepts/storage/volumes/#local).
+Для більшості типів томів вам не потрібно встановлювати це поле. Вам слід явно встановити його для томів [local](/docs/reference/storage/volume-types/#local).
 {{< /note >}}
 
 PV може вказувати спорідненість вузла, щоб визначити обмеження, з яких вузлів можна отримати доступ до цього тому. Podʼи, які використовують PV, плануватимуться лише на вузли, вибрані спорідненістю вузла. Щоб вказати спорідненість вузла, встановіть `nodeAffinity` у `.spec` PV. Докладніше про це поле дивіться в довіднику API [PersistentVolume](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec).

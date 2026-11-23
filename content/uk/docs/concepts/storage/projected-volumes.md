@@ -16,9 +16,9 @@ weight: 21 # одразу після постійних томів
 
 Наразі можна проєцювати такі типи джерел томів:
 
-* [`secret`](/docs/concepts/storage/volumes/#secret)
-* [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
-* [`configMap`](/docs/concepts/storage/volumes/#configmap)
+* [`secret`](/docs/reference/storage/volume-types/#secret)
+* [`downwardAPI`](/docs/reference/storage/volume-types/#downwardapi)
+* [`configMap`](/docs/reference/storage/volume-types/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
 * [`podCertificate`](#podcertificate)

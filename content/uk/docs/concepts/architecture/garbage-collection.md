@@ -8,7 +8,7 @@ weight: 70
 
 {{< glossary_definition term_id="garbage-collection" length="short" >}} Це дозволяє очищати ресурси, такі як:
 
-* [Завершені Podʼи](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [Завершені Podʼи](/docs/concepts/workloads/pods/pod-termination/#pod-garbage-collection)
 * [Завершені завдання (Jobs)](/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [Обʼєкти без посилань на власника](#owners-dependents)
 * [Невикористані контейнери та образи контейнерів](#containers-images)

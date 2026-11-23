@@ -29,7 +29,7 @@ weight: 70
 kubectl delete pods <pod>
 ```
 
-Щоб таке видалення призвело до коректного завершення, Pod **не повинен** задавати `pod.Spec.TerminationGracePeriodSeconds` зі значенням 0. Практика встановлення `pod.Spec.TerminationGracePeriodSeconds` на 0 секунд є небезпечною й категорично не рекомендована для Podʼів StatefulSet. Коректне видалення безпечне й гарантує, що Pod [коректно завершить роботу](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) до того, як kubelet видалить його назву з API-сервера.
+Щоб таке видалення призвело до коректного завершення, Pod **не повинен** задавати `pod.Spec.TerminationGracePeriodSeconds` зі значенням 0. Практика встановлення `pod.Spec.TerminationGracePeriodSeconds` на 0 секунд є небезпечною й категорично не рекомендована для Podʼів StatefulSet. Коректне видалення безпечне й гарантує, що Pod [коректно завершить роботу](/docs/concepts/workloads/pods/pod-termination/) до того, як kubelet видалить його назву з API-сервера.
 
 Pod не видаляється автоматично, коли вузол недоступний. Podʼи, що працюють на недоступному вузлі, переходять у стан 'Terminating' або 'Unknown' після [тайм-ауту](/docs/concepts/architecture/nodes/#condition). Podʼи також можуть переходити в ці стани, коли користувач намагається коректно видалити Pod на недоступному вузлі. Pod у такому стані можна вилучити з API-сервера лише такими способами:
 

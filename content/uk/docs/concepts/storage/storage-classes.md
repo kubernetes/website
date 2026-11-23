@@ -194,7 +194,7 @@ Kubernetes не містить внутрішнього provisioner для NFS. 
 - [Provisioner CSI](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [Provisioner vCP](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-Вбудовані provisioners [застаріли](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). Докладніше про provisioner CSI дивіться в [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) та [міграції vSphereVolume на CSI](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+Вбудовані provisioners [застаріли](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). Докладніше про provisioner CSI дивіться в [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) та [міграцію з вбудованих втулків на драйвери CSI](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins).
 
 #### Provisioner CSI {#vsphere-provisioner-csi}
 

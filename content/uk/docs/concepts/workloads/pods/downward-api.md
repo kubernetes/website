@@ -74,6 +74,8 @@ description: "Є два способи надати поля Podʼа та кон
 `metadata.annotations`
 : всі анотації Podʼа у форматі `annotation-key="escaped-annotation-value"` з однією анотацією на рядок
 
+У томі ви можете знайти відкриті дані у вигляді файлів лише для читання у звичайному текстовому форматі.
+
 ### Інформація, доступна за допомогою `resourceFieldRef` {#downwardapi-resourceFieldRef}
 
 Ці поля рівня контейнера дозволяють надавати інформацію про [запити та обмеження](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) для ресурсів, таких як CPU та памʼять.
@@ -113,7 +115,7 @@ description: "Є два способи надати поля Podʼа та кон
 
 ## {{% heading "whatsnext" %}} {#whats-next}
 
-Ви можете прочитати про [томи `downwardAPI`](/docs/concepts/storage/volumes/#downwardapi).
+Ви можете прочитати про [томи `downwardAPI`](/docs/reference/storage/volume-types/#downwardapi).
 
 Ви можете спробувати використовувати _downward API_ щоб надати інформацію рівня контейнера чи Podʼа:
 

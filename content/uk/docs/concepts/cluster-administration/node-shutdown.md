@@ -22,7 +22,7 @@ weight: 10
 
 kubelet намагається виявити вимкнення системи вузла та завершує Podʼи, що працюють на вузлі.
 
-kubelet забезпечує, щоб під час вимкнення вузла Podʼи проходили звичайний [процес завершення Podʼа](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination). Під час вимкнення вузла kubelet не приймає нові Podʼи (навіть якщо ці Podʼи вже привʼязані до вузла).
+kubelet забезпечує, щоб під час вимкнення вузла Podʼи проходили звичайний [процес завершення Podʼа](/docs/concepts/workloads/pods/pod-termination/). Під час вимкнення вузла kubelet не приймає нові Podʼи (навіть якщо ці Podʼи вже привʼязані до вузла).
 
 ### Увімкнення коректного вимкнення вузла {#enabling-graceful-node-shutdown}
 
@@ -209,3 +209,5 @@ shutdownGracePeriodByPodPriority:
 
 - Блог: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
 - Архітектура кластера: [Вузли](/docs/concepts/architecture/nodes/).
+
+Щоб завершити роботу всього кластера, дивіться інструкції з [завершення роботи та перезапуску кластера](/docs/tasks/administer-cluster/cluster-shutdown-and-restart/).

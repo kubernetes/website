@@ -9,7 +9,7 @@ weight: 110
 Ви можете ініціювати виселення, викликавши Eviction API безпосередньо або програмно,
 використовуючи клієнт {{<glossary_tooltip term_id="kube-apiserver" text="API-сервера">}}, наприклад, команду `kubectl drain`. Це створює обʼєкт `Eviction`, що змушує API-сервер завершити роботу Podʼа.
 
-Виселення, ініційовані API, враховують налаштовані вами [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) та [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
+Виселення, ініційовані API, враховують налаштовані вами [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) та [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-termination/).
 
 Використання API для створення обʼєкта Eviction для Podʼа схоже на виконання контрольованої політикою [операції `DELETE`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod) над Podʼом.
 

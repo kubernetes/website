@@ -3,7 +3,7 @@ title: FlexVolume
 id: flexvolume
 full_link: /docs/concepts/storage/volumes/#flexvolume
 short_description: >
-    FlexVolume — це застарілий інтерфейс для створення зовнішніх (out-of-tree) втулків томів. {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} — це новіший інтерфейс, який вирішує кілька проблем з FlexVolume.
+    FlexVolume — це застарілий інтерфейс для створення зовнішніх (out-of-tree) втулків томів. Container Storage Interface (CSI) — це новіший інтерфейс, який вирішує кілька проблем з FlexVolume.
 
 aka:
 tags:
