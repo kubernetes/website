@@ -141,7 +141,7 @@ The content of the `page` parameter is the suffix of the URL of the API referenc
 You can link to a specific place into a page by specifying an `anchor`
 parameter, for example to the {{< api-reference page="core/pod-v1" anchor="PodSpec" >}}
 reference or the {{< api-reference page="core/pod-v1" anchor="EnvVar" >}}
-reference:
+section of the page:
 
 ```
 {{</* api-reference page="core/pod-v1" anchor="PodSpec" */>}}
@@ -152,7 +152,7 @@ reference:
 You can change the text of the link by specifying a `text` parameter, for
 example by linking to the
 {{< api-reference page="core/pod-v1" anchor="EnvVar" text="Environment Variables">}}
-reference:
+section of the page:
 
 ```
 {{</* api-reference page="core/pod-v1" anchor="EnvVar" text="Environment Variables" */>}}
