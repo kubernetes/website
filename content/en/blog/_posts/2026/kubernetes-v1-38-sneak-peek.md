@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.38 Sneak Peek'
-draft: true
+date: 2026-11-23T08:00:00-08:00
 slug: kubernetes-v1-38-sneak-peek
 author: >
   Aaron Braundmeier,
