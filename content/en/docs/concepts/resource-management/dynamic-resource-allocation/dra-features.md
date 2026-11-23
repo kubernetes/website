@@ -476,6 +476,36 @@ preempt lower-priority Pods using the standard
 workflow. This feature introduces no new API types or fields, and respects
 `preemptionPolicy: Never`.
 
+### Limitations {#preemption-limitations}
+
+`DRAPreemption` has the following constraints:
+
+- **Pod-owned ResourceClaims only**: Unallocated claims needed by the preemptor
+  must be owned by the Pod (for example, generated from a
+  ResourceClaimTemplate). For victims, only claims owned by the victim Pod and
+  not reserved by other consumers are simulated as released.
+- **Node-local devices only**: Only claims whose allocated devices are
+  restricted to a single node (`spec.nodeName` on the ResourceSlice, or
+  per-device `nodeName` when `spec.perDeviceNodeSelection` is `true`) are
+  released. Claims containing devices using `nodeSelector` or `allNodes` are
+  skipped.
+- **Exclusively allocated devices only**: Shared allocations through
+  [consumable capacity](#consumable-capacity) (`shareID` and `consumedCapacity`)
+  and request-dependent counter consumption (`consumedCounters`) are still
+  treated as consumed and are not released or held. Allocations with
+  `adminAccess: true` are ignored.
+- **No DRA-backed extended resources**: Preemption by or of Pods using
+  [extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource)
+  is not supported.
+- **No PodGroups**: Pods belonging to a PodGroup (`.spec.schedulingGroup`) do
+  not trigger DRA preemption and are not simulated as releasing DRA devices.
+- **In-memory state only**: Device holds and tracked victim claims (see
+  [How it works](#preemption-how-it-works)) live only in `kube-scheduler` memory
+  and are lost on restart (freed devices may be taken by another Pod, or the
+  preemptor may preempt again). Multiple schedulers do not share this state, and
+  external components such as Cluster Autoscaler can see
+  `.status.nominatedNodeName` but not which devices are held.
+
 ### How it works {#preemption-how-it-works}
 
 When a higher-priority Pod cannot allocate its ResourceClaims on any node,
@@ -503,35 +533,6 @@ When a higher-priority Pod cannot allocate its ResourceClaims on any node,
   so lower- or equal-priority Pods cannot take them. Higher-priority Pods can
   still claim the freed devices once deallocated. The hold ends when the
   preemptor is scheduled, deleted, or its nomination is cleared or replaced.
-
-### Limitations {#preemption-limitations}
-
-In alpha, `DRAPreemption` has the following constraints:
-
-- **Pod-owned ResourceClaims only**: Unallocated claims needed by the preemptor
-  must be owned by the Pod (for example, generated from a
-  ResourceClaimTemplate). For victims, only claims owned by the victim Pod and
-  not reserved by other consumers are simulated as released.
-- **Node-local devices only**: Only claims whose non-`adminAccess` devices are
-  restricted to a single node (`spec.nodeName` on the ResourceSlice, or
-  per-device `nodeName` when `spec.perDeviceNodeSelection` is `true`) are
-  released. Claims containing devices using `nodeSelector` or `allNodes` are
-  skipped.
-- **Exclusively allocated devices only**: Shared allocations through
-  [consumable capacity](#consumable-capacity) (`shareID` and `consumedCapacity`)
-  and request-dependent counter consumption (`consumedCounters`) are still
-  treated as consumed and are not released or held. Allocations with
-  `adminAccess: true` are ignored.
-- **No DRA-backed extended resources**: Preemption by or of Pods using
-  [extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource)
-  is not supported.
-- **No PodGroups**: Pods belonging to a PodGroup (`.spec.schedulingGroup`) do
-  not trigger DRA preemption and are not simulated as releasing DRA devices.
-- **In-memory state only**: Holds and tracked victim claims live only in
-  `kube-scheduler` memory and are lost on restart (freed devices may be taken by
-  another Pod, or the preemptor may preempt again). Multiple schedulers do not
-  share this state, and external components such as Cluster Autoscaler can see
-  `.status.nominatedNodeName` but not which devices are held.
 
 DRA preemption is controlled by the
 [`DRAPreemption`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPreemption)

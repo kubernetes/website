@@ -417,14 +417,7 @@ scheduler can preempt lower-priority Pods that hold exclusively allocated,
 node-local DRA devices using Pod-owned ResourceClaims (such as claims generated
 from a ResourceClaimTemplate).
 
-Unlike CPU and memory resources, a preempted Pod's DRA devices are freed
-asynchronously by `kube-controller-manager` after the Pod terminates. To prevent
-cascading preemptions and avoid having freed devices taken before the preemptor
-schedules, `kube-scheduler` tracks the victim Pods' ResourceClaims while they
-are being deallocated and holds the selected devices in memory for the nominated
-preemptor against lower- and equal-priority Pods.
-
-For more details and alpha limitations, see
+For more details and limitations, see
 [Preemption for DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#preemption).
 
 ## Troubleshooting

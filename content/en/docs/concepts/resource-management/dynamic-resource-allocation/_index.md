@@ -93,7 +93,7 @@ The workflow of using DRA to allocate devices involves the following types of us
   [`DRAPreemption`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPreemption)
   feature gate on `kube-scheduler`. See
   [DRA preemption](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#preemption)
-  for details and alpha limitations.
+  for details and limitations.
 
 ## {{% heading "whatsnext" %}}
 
