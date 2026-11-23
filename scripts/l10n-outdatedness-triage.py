@@ -72,9 +72,12 @@ _STRIP_INLINE = re.compile(r"`[^`\n]+`")
 
 # Unicode-aware body-word counter; groups characters in unspaced scripts
 # into 1-2 character units so ratios align with space-delimited scripts.
+_UNSPACED_CHARS = (
+    r"\u3005\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff"
+    r"\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff"
+)
 _BODY_WORD_RE = re.compile(
-    r"[\u3005\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff"
-    r"\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]{1,2}|[^\W_]{2,}",
+    rf"[{_UNSPACED_CHARS}]{{1,2}}|[^\W_{_UNSPACED_CHARS}]{{2,}}",
     re.UNICODE,
 )
 
@@ -1410,7 +1413,9 @@ def _describe_orphan(rel_l10n: str, locale: str, repo_root: str) -> List[str]:
 
     moved_paths = [terminal_path]
     if redirect_target and "#" not in redirect_target:
-        redirect_path = f"content/en/{redirect_target.strip('/')}.md"
+        redirect_path, _, _ = _trace_en_path(
+            f"content/en/{redirect_target.strip('/')}.md", events, abs_root,
+        )
         # An explicit redirect outranks a single-replacement guess, but not a rename chain.
         moved_paths.insert(1 if renames_only else 0, redirect_path)
     for moved_path in moved_paths:
@@ -1434,7 +1439,12 @@ def _describe_orphan(rel_l10n: str, locale: str, repo_root: str) -> List[str]:
         if len(live_targets) == 1:
             return [f"moved in en to `{live_targets[0]}` ({commit_date})"]
 
-    if redirect_target:
+    redirect_doc = redirect_target.split("#", 1)[0].strip("/") if redirect_target else ""
+    if redirect_target and (
+        not redirect_target.startswith("/docs/")
+        or os.path.isfile(os.path.join(abs_root, f"content/en/{redirect_doc}.md"))
+        or os.path.isfile(os.path.join(abs_root, f"content/en/{redirect_doc}/_index.md"))
+    ):
         if commit_date:
             return [f"removed in en ({commit_date})", f"redirects to `{redirect_target}`"]
         return [f"redirects in en to `{redirect_target}`"]
