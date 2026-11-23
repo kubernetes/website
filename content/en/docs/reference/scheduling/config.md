@@ -60,6 +60,11 @@ extension points:
    nodes) where a considered PodGroup could be scheduled. This extension point
    is only applicable to PodGroup scheduling and requires Workload scheduling
    to be enabled.
+1. `placementFeasible`: These plugins evaluate whether a placement is feasible
+   for a PodGroup—whether it is already schedulable, may still become
+   schedulable as more Pods or child groups are evaluated, or is unschedulable
+   so evaluation can stop early. This extension point is only applicable to
+   PodGroup scheduling and requires Workload scheduling to be enabled.
 1. `placementScore`: These plugins score the placements proposed by
    `placementGenerate`, to pick the optimal placement for the considered
     PodGroup.
@@ -197,6 +202,10 @@ extension points:
 - `PodGroupPodsCount`: Provides the placement scoring algorithm based on the number of pods that
   can be scheduled in the given placement.
   Extension points: `placementScore`.
+- `GangScheduling`: Implements
+  [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+  Enabled when the `GenericWorkload` feature gate is enabled.
+  Extension points: `preEnqueue`, `placementFeasible`.
 
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:

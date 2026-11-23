@@ -70,7 +70,7 @@ For more details about how internal scheduler queues work, read
 
 EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
-Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
+Plugins that implement PreEnqueue, PreFilter, Filter, Reserve, Permit or PlacementFeasible should implement this interface.
 
 ### QueueingHint
 
