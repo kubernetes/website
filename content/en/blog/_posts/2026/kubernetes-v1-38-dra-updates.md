@@ -169,11 +169,20 @@ leaving the request without a status. New warning events and metrics help
 operators diagnose incomplete pools and observe request processing.
 `DRAResourcePoolStatus` remains off by default.
 
-<!-- Release review: DRA preemption (KEP-5690). The framework part,
-kubernetes/kubernetes#144065, merged and added the DRAPreemption gate, but the
-feature only takes effect with kubernetes/kubernetes#143456, which has a
-code-freeze exception until Friday 20 November 2026 (AoE). Add an Alpha
-section only if #143456 merges. -->
+### DRA preemption
+
+[DRA preemption](https://www.kubernetes.dev/resources/keps/5690/) lets the
+scheduler preempt a lower-priority Pod to free a device for a higher-priority
+Pod. For example, if a batch Pod holds the only GPU that matches a
+higher-priority inference Pod's claim, the scheduler can evict the batch Pod
+and wait for its ResourceClaim to be deallocated. While the inference Pod
+is nominated to the node, the scheduler holds the selected GPU in memory
+so that Pods of equal or lower priority cannot take it first.
+
+In Alpha, this applies to exclusively allocated, node-local devices in
+Pod-owned ResourceClaims, such as claims created from a
+ResourceClaimTemplate. To try it, enable the `DRAPreemption` feature gate
+on `kube-scheduler`. The gate is off by default.
 
 ## Other changes worth checking before you upgrade
 
