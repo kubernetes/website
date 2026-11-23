@@ -74,6 +74,11 @@ Each DeviceTaintRule adds one taint to devices which match the device selector.
 Without such a selector, no devices are tainted.
 This makes it harder to accidentally evict all pods using ResourceClaims when leaving out the selector by mistake.
 
+A selector that is present but empty (`deviceSelector: {}`) matches all devices.
+To make that intent explicit, set `all: true` in the selector.
+`all` cannot be combined with `driver`, `pool` or `device`, and `all: false` is rejected.
+An empty selector is still accepted, but the API server returns a warning that recommends `all: true`.
+
 Devices can be selected by giving the name of a DeviceClass, driver, pool, and/or device.
 The DeviceClass selects all devices that are selected by the selectors in that DeviceClass.
 With just the driver name, an admin can taint all devices managed by that driver,
