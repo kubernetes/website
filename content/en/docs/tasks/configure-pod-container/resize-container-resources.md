@@ -396,10 +396,9 @@ You'll see changes indicating the problem:
 * A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
 * The condition's `message` will explain why but will differ depending if `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled or not
   - if not enabled (default), reason will be (`Node didn't have enough capacity: cpu, requested: 1000, capacity: ...`)
-  - if enabled, reason will be (`cannot move container from shared to exclusive pool, (requested CPUs = 1000)`
-* Crucially, `status.containerStatuses[0].resources` will *still show the previous values* (`cpu: 800m`, `memory: 300Mi`),
+  - if enabled (default), reason will be (`Error from server (Forbidden): pods "resize-demo" is forbidden: node didn't have enough allocatable resources: cpu, requested: 1000000, allocatable: ...`)
   because the infeasible resize was not applied by the Kubelet.
-* The `restartCount` will not have changed due to this failed attempt.
+* `status.containerStatuses[0].restartCount` remains `1`, due to this failed attempt.
 
 Check the pod logs to verify that container, is still using CPUs from the shared pool.
 
@@ -430,7 +429,7 @@ You should see:
 * `spec.containers[0].resources` now shows `cpu: 1500m`.
 * `status.containerStatuses[0].allocatedResources` also shows `cpu: 1500m`.
 * `status.containerStatuses[0].resources` also shows `cpu: 1500m`, indicating the resize was successful on the node.
-* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+* `status.containerStatuses[0].restartCount` remains `1`, because the CPU `resizePolicy` was `NotRequired`.
 
 Check the pod logs to verify that container is still using CPUs from the shared pool.
 
@@ -506,7 +505,7 @@ To proceed with the next step now we will delete the pod which uses CPUs from th
 to free up CPUs.
 
 ```
-kubectl delete pod resize-demo -n rcr-exampe
+kubectl delete pod resize-demo -n rcr-example
 ```
 
 Now check that the pod is deleted checking the logs.
@@ -686,6 +685,7 @@ You should see an output similar to ( exact numbers depends on your node):
 CPUs assigned during admission (baselineCPUs) = 1-2
 CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
 CPUs assigned updated from 1-3 to 1-2 (baselineCPUs) 1-2
+CPUs assigned updated from 1-2 to 1-3 (baselineCPUs) 1-2
 ```
 
 ### Troubelshooting a non feasible CPU increase attempting to allocate CPUs beyond nodes capacity
@@ -694,8 +694,13 @@ Next, try requesting one thousand CPUs, an extreme number
 
 ```shell
 # Attempt to patch with an excessively large CPU request one thousand CPUs
-minikube kubectl -- -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
+kubectl -n rcr-example patch pod resize-exclusive-cpus-demo --subresource resize --patch \
   '{"spec":{"containers":[{"name":"nginx", "resources":{"requests":{"cpu":"1k"}, "limits":{"cpu":"1k"}}}]}}'
+```
+
+You should see an output similar to ( exact numbers for allocatable depends on your node):
+```sheel
+Error from server (Forbidden): pods "resize-exclusive-cpus-demo" is forbidden: node didn't have enough allocatable resources: cpu, requested: 1000000, allocatable: 4500
 ```
 
 Query the Pod's details:
@@ -704,16 +709,11 @@ Query the Pod's details:
 kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
 ```
 
-You'll see changes indicating the problem:
+Observe that since the patch was rejected from the server, you'll see changes indicating the problem:
 
-* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1k"`).
-* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
-* The condition's `message` will explain why (`Resize is not feasible, nothing to be done ... containerName = nginx, topologyError = unable to take 998 of 1000 requested                           
-      CPUs (2 CPUs retained): not enough cpus available to satisfy request: requested=1000
-      (of which 2 already allocated), available=2)'
-* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 2`, `memory: 200Mi`),
-  because the infeasible resize was not applied by the Kubelet.
-* The `restartCount` will not have changed due to this failed attempt.
+* The `spec.containers[0].resources` reflects the *desired* state and is unchanged (`cpu: "3"`)
+* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 3`, `memory: 200Mi`), because the resize was rejected in from Kubernetes API and was never applied by the Kubelet.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
 ## Clean up
 
