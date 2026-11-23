@@ -355,18 +355,6 @@ You should now observe:
 * `status.containerStatuses[0].restartCount` has increased to `1` (or more, if restarts happened previously),
   indicating the container was restarted to apply the memory change.
 
-Check the pod logs to verify that container, after the restart is still using CPUs from the shared pool.
-
-```shell
-kubectl logs resize-demo -n rcr-example
-```
-
-You should see the same output as in the previous steps unchanged.
-
-```
-Shared pool CPUs assigned during admission = 0-4
-```
-
 ## Troubleshooting: Infeasible resize request
 
 Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (written as `"1000"` instead of `"1000m"` for millicores), which likely exceeds node capacity.
@@ -411,18 +399,6 @@ You should see:
 * `status.containerStatuses[0].allocatedResources` also shows `cpu: 1500m`.
 * `status.containerStatuses[0].resources` also shows `cpu: 1500m`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `1`, because the CPU `resizePolicy` was `NotRequired`.
-
-Check the pod logs to verify that container is still using CPUs from the shared pool.
-
-```shell
-kubectl logs resize-demo -n rcr-example
-```
-
-You should see the same output as in the previous step unchanged.
-
-```
-Shared pool CPUs assigned during admission = 0-4
-```
 
 Keep this pod running and proceed with next example.
 
