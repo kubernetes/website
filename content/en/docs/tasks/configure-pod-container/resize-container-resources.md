@@ -182,26 +182,22 @@ You can resize several containers of a Pod in a single resize request, unless th
 
   During CPU limit increase ( upsize or scale up ) of a running container of a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
   - ensures that "assigned CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
-  - Attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
+  - attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
+
+If any of above are not possible upsize will fail and update status to `Infeasible` and the condition's `message` will explain why.
 
 #### CPU limit decrease
 
-  During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet: 
-  - to be successfull must ensures that after resize there is no decrease of number of CPUs below the CPUs allocated
-    upon creation of the Guaranteed Pod (“baseline CPUs”) for the running container in question. If this is not possible
-    resize will fail and update status to Infeasible.
-  - allows the decrease of number of CPUs up to the CPUs allocated upon creation of the Guaranteed Pod ("baseline CPUs")
-    of a running container of a Guaranteed Pod keeping "baseline CPUs".
+  During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet:
+  - ensures the end result must be a superset of the "baseline CPUs" and a subset of the "resized CPUs"
   - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
-  - allows retained CPUs ("resized CPUs") to be a subset of the previous `assigned CPUs`, and "baseline CPUs" are kept
-```
-    i.e. _baselineCPUs < resizedCPUS_A_UpSize, baselineCPUs <= resizedCPUS_B_DownSize < resizedCPUS_A_UpSize._
-```
-  - Downsize does not need to be an upsize in reverse for example below is a valid flow.
+  - does not need downize to be an upsize in reverse for example below is a valid flow.
   ```
     upsize: baseline = 4 -> 8 -> 12
     downsize: 12 -> 6
   ```
+
+If any of above are not possible downsize will fail and update status to `Infeasible` and the condition's `message` will explain why.
 
 ### Topology hints
 
@@ -209,7 +205,6 @@ When the CPU Manager, under a static policy, generates a NUMA Topology hint for 
 
 The pod's current NUMA Affinity (single or multiple NUMA nodes) can accommodate the resized CPU request. If yes, the current affinity is maintained.
 If the current affinity is insufficient and expansion is needed the new NUMA affinity must always include all NUMA nodes from the current affinity.
-On downsize the end result must be a superset of the "baseline CPUs" and a subset of the "resized CPUs".
 
 ## Limitations
 
