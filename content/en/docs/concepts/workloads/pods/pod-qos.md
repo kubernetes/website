@@ -8,9 +8,9 @@ weight: 85
 
 This page introduces _Quality of Service (QoS) classes_ in Kubernetes, and explains
 how Kubernetes assigns a QoS class to each Pod as a consequence of the resource
-constraints that you specify for the containers in that Pod. Kubernetes relies on this
-classification to make decisions about which Pods to evict when there are not enough
-available resources on a Node.
+constraints that you specify at the Pod level or for the containers in that Pod.
+Kubernetes relies on this classification to make decisions about which Pods to evict
+when there are not enough available resources on a Node.
 
 <!-- body -->
 
@@ -19,12 +19,12 @@ available resources on a Node.
 Kubernetes classifies the Pods that you run and allocates each Pod into a specific
 _quality of service (QoS) class_. Kubernetes uses that classification to influence how different
 pods are handled. Kubernetes does this classification based on the
-[resource requests](/docs/concepts/configuration/manage-resources-containers/)
-of the {{< glossary_tooltip text="Containers" term_id="container" >}} in that Pod, along with
+[resource requests and limits](/docs/concepts/configuration/manage-resources-containers/)
+specified at the Pod level (`spec.resources`) or on the
+{{< glossary_tooltip text="Containers" term_id="container" >}} in that Pod, along with
 how those requests relate to resource limits.
 This is known as {{< glossary_tooltip text="Quality of Service" term_id="qos-class" >}}
-(QoS) class. Kubernetes assigns every Pod a QoS class based on the resource requests
-and limits of its component Containers. QoS classes are used by Kubernetes to decide
+(QoS) class. QoS classes are used by Kubernetes to decide
 which Pods to evict from a Node experiencing
 [Node Pressure](/docs/concepts/scheduling-eviction/node-pressure-eviction/). The possible
 QoS classes are `Guaranteed`, `Burstable`, and `BestEffort`. When a Node runs out of resources,
@@ -50,12 +50,17 @@ For a Pod to be given a QoS class of `Guaranteed`:
 * Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 
-If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
+If instead the Pod specifies CPU or memory in
+[Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+(`spec.resources`):
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-* The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
-* The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
+* The Pod must have a Pod-level memory limit and memory request, both greater than zero, and their values must be equal.
+* The Pod must have a Pod-level CPU limit and CPU request, both greater than zero, and their values must be equal.
+
+If `spec.resources` specifies neither CPU nor memory, Kubernetes determines the
+Pod's QoS class from its containers.
 
 ### Burstable
 

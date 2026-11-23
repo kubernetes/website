@@ -90,13 +90,17 @@ or the custom metrics API (for all other metrics).
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent
   [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
-  on the containers in each Pod. If a target raw value is set, the raw metric values are used directly.
+  for each Pod (using the
+  [Pod-level resource request](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+  in `spec.resources.requests` if set, or the sum of requests on the Pod's containers
+  otherwise). If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted Pods, and produces a ratio used to scale
   the number of desired replicas.
 
-  Please note that if some of the Pod's containers do not have the relevant resource request set,
-  CPU utilization for the Pod will not be defined and the autoscaler will
+  Please note that if the Pod does not set a Pod-level request for the resource and some of
+  the Pod's containers do not have the relevant resource request set,
+  utilization for the Pod will not be defined and the autoscaler will
   not take any action for that metric. See the [algorithm details](#algorithm-details) section below
   for more information about how the autoscaling algorithm works.
 

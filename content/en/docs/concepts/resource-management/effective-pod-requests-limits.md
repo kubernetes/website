@@ -9,7 +9,7 @@ weight: 5
 This page explains the _effective request_ and _effective limit_ of a
 {{< glossary_tooltip text="Pod" term_id="pod" >}}, and how Kubernetes calculates them
 from the [resource requests and limits](/docs/concepts/configuration/manage-resources-containers/)
-that you specify for the containers in that Pod.
+that you specify at the Pod level (`spec.resources`) or for individual containers in that Pod.
 Kubernetes uses these values for the Pod as a whole, for example when it schedules the Pod,
 enforces resource quota, or sizes the Pod-level cgroup on Linux.
 
@@ -60,6 +60,18 @@ The following rules also apply:
 
 Quota and limits are applied based on the effective Pod request and
 limit.
+
+## Pod-level resources {#pod-level-resources}
+
+When a Pod specifies
+[Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+in `spec.resources` for a supported resource (`cpu`, `memory`, or `hugepages-<size>`),
+those Pod-level requests and limits replace the container-level aggregation
+described above; any
+[pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) is still added
+to the effective request and, when a limit is set, to the effective limit.
+For resources not specified at the Pod level, Kubernetes continues to derive
+the effective request and limit from the Pod's containers.
 
 ## Examples of effective requests
 

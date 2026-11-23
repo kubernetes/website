@@ -24,7 +24,9 @@ In Kubernetes, the Pod's overhead is set at
 time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 
-A pod's overhead is considered in addition to the sum of container resource requests when
+A pod's overhead is considered in addition to the Pod's
+[resource requests](/docs/concepts/configuration/manage-resources-containers/)
+(whether specified at the Pod level in `spec.resources` or aggregated from containers) when
 scheduling a Pod. Similarly, the kubelet will include the Pod overhead when sizing the Pod cgroup,
 and when carrying out Pod eviction ranking.
 

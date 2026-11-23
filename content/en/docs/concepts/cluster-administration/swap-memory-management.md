@@ -384,6 +384,36 @@ It is important to note that, for containers within Burstable QoS Pods, it is po
 opt-out of swap usage by specifying memory requests that are equal to memory limits.
 Containers configured in this manner will not have access to swap memory.
 
+### LimitedSwap with Pod-level resources {#limitedswap-pod-level-resources}
+
+When a Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+on a Linux node configured with cgroup v2 and `LimitedSwap`, the kubelet enforces
+swap limits at both the Pod cgroup and container cgroup levels.
+
+A Pod with Pod-level resources is eligible for swap only if it has `Burstable`
+QoS, is not a critical Pod, has a non-zero effective memory request, and its
+effective Pod memory request does not equal its effective Pod memory limit.
+Ineligible Pods (including `Burstable` Pods whose Pod-level memory request equals
+their Pod-level memory limit) receive no swap (`memory.swap.max` is set to `0`)
+at both the Pod and container levels.
+
+For an eligible Pod, `podMemoryRequest` is the Pod's effective memory request
+excluding Pod overhead (`spec.resources.requests.memory` when set, or the
+aggregate container memory request otherwise). The Pod cgroup's swap limit is
+configured using the same proportional formula:
+
+( `podMemoryRequest` / `nodeTotalMemory` ) × `totalPodsSwapAvailable`
+
+Inside an eligible Pod, each container's swap limit depends on its memory
+specification and remains bounded by the parent Pod cgroup's swap limit:
+
+| Container memory specification | Container swap behavior |
+| --- | --- |
+| No memory request or limit | Shares the Pod's swap limit (`memory.swap.max` set to `max`) when `spec.resources.requests.memory` is set; otherwise no swap (`0`). |
+| Memory request less than limit, or memory request only | Proportional to `containerMemoryRequest`, bounded by the Pod cgroup's swap limit. |
+| Memory request equal to limit | Opts out of swap (`memory.swap.max` set to `0`). |
+| Ephemeral container | No swap (`memory.swap.max` set to `0`). |
+
 
 ## {{% heading "whatsnext" %}}
 

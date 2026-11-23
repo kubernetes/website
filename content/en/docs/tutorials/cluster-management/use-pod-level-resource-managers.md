@@ -52,12 +52,9 @@ To complete this tutorial, you need:
     and restart the `kubelet` service.
 -   `kubectl` access with permission to create namespaces and pods.
 
-Ensure the following
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) are
-enabled for your control plane and for the worker nodes:
-
--   `PodLevelResources`
--   `PodLevelResourceManagers`
+Ensure the `PodLevelResourceManagers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled for your control plane and for the worker nodes.
 
 ## Create a namespace {#create-namespace}
 

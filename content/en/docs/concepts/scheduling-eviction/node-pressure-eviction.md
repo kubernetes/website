@@ -467,6 +467,12 @@ The kubelet also sets an `oom_score_adj` value of `-997` for any containers in P
 `system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}.
 {{</note>}}
 
+When a `Burstable` Pod specifies
+[Pod-level memory requests](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+(`spec.resources.requests.memory`), `memoryRequestBytes` for each container includes both the
+container's memory request and an equal share of any unallocated Pod-level memory request
+(`max(podMemoryRequest - aggregateContainerMemoryRequests, 0) / containerCount`).
+
 If the kubelet can't reclaim memory before a node experiences OOM, the
 `oom_killer` calculates an `oom_score` based on the percentage of memory it's
 using on the node, and then adds the `oom_score_adj` to get an effective `oom_score`
