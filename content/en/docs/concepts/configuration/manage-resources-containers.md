@@ -312,8 +312,9 @@ specifications using the Pod's `/resize` subresource. You can control whether a 
 restart is required by setting the `resizePolicy` field in the container specification.
 
 {{< note >}}
-In-place resize currently applies to container-level resources. For resizing Pod-level
-resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
+In-place resize supports both container-level and Pod-level CPU and memory resources.
+For resizing Pod-level resources, see
+[Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources/).
 {{< /note >}}
 
 {{< note >}}
