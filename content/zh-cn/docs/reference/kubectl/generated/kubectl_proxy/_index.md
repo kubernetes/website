@@ -3,8 +3,7 @@ title: kubectl proxy
 content_type: tool-reference
 weight: 30
 no_list: true
-description: >-
-  运行到 Kubernetes API 服务器的代理
+description: 运行到 Kubernetes API 服务器的代理
 ---
 <!--
 title: kubectl proxy
@@ -34,36 +33,47 @@ kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-pref
 <!--
 ```
   # To proxy all of the Kubernetes API and nothing else
+  kubectl proxy --api-prefix=/
+  
   # To proxy only part of the Kubernetes API and also some static files
   # You can get pods info with 'curl localhost:8001/api/v1/pods'
+  kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
+  
   # To proxy the entire Kubernetes API at a different root
   # You can get pods info with 'curl localhost:8001/custom/api/v1/pods'
+  kubectl proxy --api-prefix=/custom/
+  
   # Run a proxy to the Kubernetes API server on port 8011, serving static content from ./local/www/
+  kubectl proxy --port=8011 --www=./local/www/
+  
   # Run a proxy to the Kubernetes API server on an arbitrary local port
   # The chosen port for the server will be output to stdout
+  kubectl proxy --port=0
+  
   # Run a proxy to the Kubernetes API server, changing the API prefix to k8s-api
   # This makes e.g. the pods API available at localhost:8001/k8s-api/v1/pods/
+  kubectl proxy --api-prefix=/k8s-api
 ```
 -->
 ```shell
 # 代理所有的 Kubernetes API 请求，不对其他请求作处理
 kubectl proxy --api-prefix=/
-  
+
 # 仅代理部分 Kubernetes API 和一些静态文件
 # 你可以使用 `curl localhost:8001/api/v1/pods` 获取 Pod 信息
 kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
-  
+
 # 要在不同的根路径下代理整个 Kubernetes API
 # 你可以使用 `curl localhost:8001/custom/api/v1/pods` 获取 Pod 信息
 kubectl proxy --api-prefix=/custom/
-  
+
 # 在端口 8011 上运行指向 Kubernetes API 服务器的代理，并使用 ./local/www/ 提供静态内容
 kubectl proxy --port=8011 --www=./local/www/
-  
+
 # 在任意本地端口上运行指向 Kubernetes API 服务器的代理
 # 为服务器选择的端口将被输出到标准输出
 kubectl proxy --port=0
-  
+
 # 运行指向 Kubernetes API 服务器的代理，将 API 前缀更改为 k8s-api
 # 例如，这会让用户能够通过 localhost:8001/k8s-api/v1/pods/ 访问 Pod API
 kubectl proxy --api-prefix=/k8s-api
@@ -143,7 +153,7 @@ Prefix to serve the proxied API under.
 <!--
 If true, enables automatic path appending of the kube context server path to each request.
 -->
-如果为 true，则启用自动路径追加机制，将 kube 上下文服务器路径追加到每个请求。
+如果为 <code>true</code>，则启用自动路径追加机制，将 kube 上下文服务器路径追加到每个请求。
 </p>
 </td>
 </tr>
@@ -157,7 +167,7 @@ If true, enables automatic path appending of the kube context server path to eac
 <!--
 If true, disable request filtering in the proxy. This is dangerous, and can leave you vulnerable to XSRF attacks, when used with an accessible port.
 -->
-如果为 true，则在代理中禁用请求过滤。
+如果为 <code>true</code>，则在代理中禁用请求过滤。
 此设置是危险的，因为这一设置在使用可访问的端口时可能会使你容易受到 XSRF 攻击。
 </p>
 </td>
@@ -450,7 +460,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
+如果为 <code>true</code>，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
 </p>
 </td>
 </tr>
@@ -478,8 +488,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -522,7 +532,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 向 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -535,7 +546,8 @@ Password for basic authentication to the API server
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
 要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -548,7 +560,22 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>  
+</td>  
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -562,7 +589,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -575,7 +603,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -588,7 +617,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -601,7 +631,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -614,7 +645,8 @@ database name
 database host:port
 -->
 数据库 host:port
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -627,7 +659,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -640,7 +673,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -653,7 +687,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -666,7 +701,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -679,7 +715,8 @@ database username
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
