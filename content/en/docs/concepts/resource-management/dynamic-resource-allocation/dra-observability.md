@@ -234,10 +234,10 @@ counts right away. Instead it:
 1. Sets a status that has only a `WaitingForPools` condition with status `True`.
    The condition's `lastTransitionTime` records when the wait started. While
    waiting, `poolCount` is 0 and `pools` is empty.
-1. Waits up to 15 seconds from that time for the driver to finish publishing.
+2. Waits up to 15 seconds from that time for the driver to finish publishing.
    Because the start time is stored in the request, a kube-controller-manager
    restart neither resets nor skips the wait.
-1. Writes the final status with a `Complete` condition. If a pool is still
+3. Writes the final status with a `Complete` condition. If a pool is still
    incomplete, its `validationError` starts with `PoolIncomplete:`, its device
    counts are unset, and the controller records a `PoolIncomplete` Warning event
    on the request.
