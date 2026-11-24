@@ -64,14 +64,16 @@ due to these undesirable allocations. Undesirable in this case meaning, for exam
 devices being allocated from different NUMA Nodes, thus incurring additional latency.
 -->
 在引入拓扑管理器之前，Kubernetes 中的 CPU 和设备管理器相互独立地做出资源分配决策。
-这可能会导致在多处理系统上出现不符合期望的资源分配情况；由于这些与期望相左的分配，对性能或延迟敏感的应用将受到影响。
+这可能会导致在多处理系统上出现不符合期望的资源分配情况；
+由于这些与期望相左的分配，对性能或延迟敏感的应用将受到影响。
 这里的不符合期望意指，例如，CPU 和设备是从不同的 NUMA 节点分配的，因此会导致额外的延迟。
 
 <!--
 The Topology Manager is a kubelet component, which acts as a source of truth so that other kubelet
 components can make topology aligned resource allocation choices.
 -->
-拓扑管理器是一个 kubelet 组件，扮演信息源的角色，以便其他 kubelet 组件可以做出与拓扑结构相对应的资源分配决定。
+拓扑管理器是一个 kubelet 组件，扮演信息源的角色，以便其他 kubelet
+组件可以做出与拓扑结构相对应的资源分配决定。
 
 <!--
 The Topology Manager provides an interface for components, called *Hint Providers*, to send and
@@ -241,7 +243,8 @@ To select the `pod` scope, set `topologyManagerScope` in the
 -->
 ### `pod` 作用域 {#pod-scope}
 
-要选择 `pod` 作用域，在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中将
+要选择 `pod` 作用域，在
+[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中将
 `topologyManagerScope` 设置为 `pod`。
 
 <!--
@@ -263,21 +266,13 @@ alignments produced by the Topology Manager on different occasions:
 * 所有容器可以被分配到一个共享的 NUMA 节点集，实际上也是这样分配的。
 
 <!--
-The total amount of particular resource demanded for the entire pod is calculated according to
-[effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
-formula, and thus, this total value is equal to the maximum of:
-
-* the sum of all app container requests,
-* the maximum of init container requests,
-
-for a resource.
+The total amount of particular resource demanded for the entire pod is calculated according to the
+[effective requests/limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
+formula.
 -->
-整个 Pod 所请求的某种资源总量是根据
-[有效 request/limit](/zh-cn/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
-公式来计算的，因此，对某一种资源而言，该总量等于以下数值中的最大值：
-
-* 所有应用容器请求之和；
-* 初始容器请求的最大值。
+整个 Pod 对某种资源的请求总量，
+按[有效 requests/limits](/zh-cn/docs/concepts/resource-management/effective-pod-requests-limits/)
+公式计算。
 
 <!--
 Using the `pod` scope in tandem with `single-numa-node` Topology Manager policy is specifically
@@ -294,8 +289,8 @@ node; hence, the inter-NUMA communication overhead can be eliminated for that po
 In the case of `single-numa-node` policy, a pod is accepted only if a suitable set of NUMA nodes
 is present among possible allocations. Reconsider the example above:
 -->
-在 `single-numa-node` 策略下，只有当可能的分配方案中存在合适的 NUMA 节点集时，Pod 才会被接受。
-重新考虑上述的例子：
+在 `single-numa-node` 策略下，只有当可能的分配方案中存在合适的 NUMA
+节点集时，Pod 才会被接受。重新考虑上述的例子：
 
 <!--
 * a set containing only a single NUMA node - it leads to pod being admitted,
@@ -495,7 +490,8 @@ policies favor sets of NUMA nodes with shorter distance between them when making
 这种限制出现在多插槽以及单插槽多 NUMA 系统中，如果拓扑管理器决定将资源对齐到不相邻的 NUMA 节点上，
 可能导致执行延迟敏感和高吞吐的应用出现明显的性能下降。
 
-如果你指定 `prefer-closest-numa-nodes` 策略选项，则在做出准入决策时 `best-effort` 和 `restricted`
+如果你指定 `prefer-closest-numa-nodes` 策略选项，
+则在做出准入决策时 `best-effort` 和 `restricted`
 策略将偏向于彼此之间距离较短的一组 NUMA 节点。
 
 <!--
@@ -540,9 +536,11 @@ of using the Topology Manager on (Kubernetes) nodes with more than 8 NUMA nodes.
 lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
 at your own risk.
 -->
-如果你选择 `max-allowable-numa-nodes` 策略选项，则可以允许在有 8 个以上 NUMA 节点的节点上启用拓扑管理器。
-Kubernetes 项目对在有 8 个以上 NUMA 节点的（Kubernetes）节点上使用拓扑管理器的影响只有有限的数据。
-由于缺少数据，所以不推荐在 Kubernetes {{< skew currentVersion >}} 上使用此策略选项，你需自行承担风险。
+如果你选择 `max-allowable-numa-nodes` 策略选项，则可以允许在有 8 个以上
+NUMA 节点的节点上启用拓扑管理器。Kubernetes 项目对在有 8 个以上 NUMA
+节点的（Kubernetes）节点上使用拓扑管理器的影响只有有限的数据。
+由于缺少数据，所以不推荐在 Kubernetes {{< skew currentVersion >}}
+上使用此策略选项，你需自行承担风险。
 {{< /note >}}
 
 <!--
@@ -559,7 +557,8 @@ latency that happens as the number of NUMA nodes increases.
 
 设置 `max-allowable-numa-nodes` 的值本身不会影响 Pod 准入的延时，
 但将 Pod 绑定到有多个 NUMA 节点的（Kubernetes）节点确实会产生影响。
-Kubernetes 后续潜在的改进可能会提高 Pod 准入性能，并降低随着 NUMA 节点数量增加而产生的高延迟。
+Kubernetes 后续潜在的改进可能会提高 Pod 准入性能，并降低随着 NUMA
+节点数量增加而产生的高延迟。
 
 <!--
 ## Pod interactions with topology manager policies
@@ -684,8 +683,9 @@ In the case of the `Guaranteed` pod with integer CPU request, the `static` CPU M
 would return topology hints relating to the exclusive CPU and the Device Manager would send back
 hints for the requested device.
 -->
-拓扑管理器将考虑以上 Pod。拓扑管理器将咨询建议提供者即 CPU 和设备管理器，以获取 Pod 的拓扑提示。
-对于独立使用 CPU 请求量的 `Guaranteed` Pod，`static` CPU 管理器策略将返回独占 CPU 相关的拓扑提示，
+拓扑管理器将考虑以上 Pod。拓扑管理器将咨询建议提供者即 CPU 和设备管理器，
+以获取 Pod 的拓扑提示。对于独立使用 CPU 请求量的 `Guaranteed` Pod，
+`static` CPU 管理器策略将返回独占 CPU 相关的拓扑提示，
 而设备管理器将返回有关所请求设备的提示。
 
 <!--
@@ -739,6 +739,6 @@ assignments.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).
+* Read about [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)
 -->
-* 了解 [Pod 级资源管理器](/zh-cn/docs/concepts/workloads/resource-managers/#pod-level-resource-managers)。
+* 了解 [Pod 级资源管理器](/zh-cn/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)。
