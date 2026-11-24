@@ -192,11 +192,12 @@ If any of above are not possible upsize will fail, `resized CPUs` will be equal 
 
   During CPU decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet:
   - ensures `resized CPUs` must be a superset of the "baseline CPUs" and a subset of the "assigned CPUs"
-  - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
-  - does not need downize to be an upsize in reverse for example below is a valid flow.
+  - applies the same NUMA Topology rules as for a CPU increase
+  - a decrease doesn't have to mirror an earlier increase, for example below sequence is valid
   ```
-    upsize: baseline = 4 -> 8 -> 12
-    downsize: 12 -> 6
+    admission  baseline CPUs = 0-3                                     (  4 CPUs )
+    scale up   assigned CPUs before resize = 0-3, resized CPUs = 0-11  ( 12 CPUs )
+    scale down assigned CPUs before resize = 0-11, resized CPUs = 0-5  (  6 CPUs )
   ```
 
 If any of above are not possible upsize will fail, `resized CPUs` will be equal to `assigned CPUs` and update status to `Infeasible` (the condition's `message` will explain why it failed).
