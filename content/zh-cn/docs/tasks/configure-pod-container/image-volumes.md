@@ -108,11 +108,11 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
 <!--
 ## Further reading
 
-- [`image` volumes](/docs/concepts/storage/volumes/#image)
+- [`image` volumes](/docs/reference/storage/volume-types/#image)
 -->
 ## 进一步阅读
 
-- [`image` 卷](/zh-cn/docs/concepts/storage/volumes/#image)
+- [`image` 卷](/zh-cn/docs/reference/storage/volume-types/#image)
 
 <!--
 ## Use `subPath` (or `subPathExpr`)

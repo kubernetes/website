@@ -384,7 +384,7 @@ the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for
 If you want to avoid this. Please see the below section.
 -->
 **隐式合并的**附加组可能会导致安全问题，
-特别是在访问卷时（有关细节请参见 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)）。  
+特别是在访问卷时（有关细节请参见 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)）。 
 如果你想避免这种问题，请查阅以下章节。
 {{</note>}}
 
@@ -616,7 +616,7 @@ for a volume.
 检查和管理卷属主和访问权限的方式。
 
 <!--
-**fsGroupChangePolicy** -  `fsGroupChangePolicy` defines behavior for changing ownership
+**fsGroupChangePolicy** - `fsGroupChangePolicy` defines behavior for changing ownership
   and permission of the volume before being exposed inside a Pod.
   This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
   This field has two possible values:
@@ -649,14 +649,14 @@ securityContext:
 
 <!--
 This field has no effect on ephemeral volume types such as
-[`secret`](/docs/concepts/storage/volumes/#secret),
-[`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
+[`secret`](/docs/reference/storage/volume-types/#secret),
+[`configMap`](/docs/reference/storage/volume-types/#configmap),
+and [`emptyDir`](/docs/reference/storage/volume-types/#emptydir).
 -->
 {{< note >}}
-此字段对于 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
-[`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
-和 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
+此字段对于 [`secret`](/zh-cn/docs/reference/storage/volume-types/#secret)、
+[`configMap`](/zh-cn/docs/reference/storage/volume-types/#configmap)
+和 [`emptyDir`](/zh-cn/docs/reference/storage/volume-types/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
 

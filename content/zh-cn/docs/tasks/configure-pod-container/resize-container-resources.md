@@ -361,13 +361,16 @@ to a race condition where memory usage may spike right after the check is perfor
     （因为这会将其更改为 Burstable 或 Guaranteed）。
 
 <!--
-* **Container Types:** Non-restartable {{< glossary_tooltip text="init containers" term_id="init-container" >}} and
-  {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} cannot be resized.
+* **Container Types:** {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}} cannot be resized.
   [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) can be resized.
+  Non-restartable {{< glossary_tooltip text="init containers" term_id="init-container" >}} can be resized
+  while they are running; their `resizePolicy` cannot be set to `RestartContainer`.
 -->
-* **容器类型**：不可重启的 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
-  {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}不能调整大小。
+* **容器类型**：{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}
+  不能调整大小。
   [边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)可以调整大小。
+  不可重启的{{< glossary_tooltip text="初始化容器" term_id="init-container" >}}在运行期间可以调整大小；
+  其 `resizePolicy` 不能设置为 `RestartContainer`。
 
 <!--
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
