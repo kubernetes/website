@@ -16,8 +16,6 @@ resource pool into the typed partition summary view of
 [ResourcePoolStatusRequest](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resource-pool-partition-summary).
 The field names a device attribute (such as a MIG profile) whose value groups
 each partition type, so that a ResourcePoolStatusRequest can report how many
-devices of each partition type are still allocatable. This builds on the
-[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-and
+devices of each partition type are still allocatable. This requires the
 [`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
-feature gates, both of which must also be enabled.
+feature gate to be enabled.

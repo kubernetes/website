@@ -83,11 +83,6 @@ spec:
           value: 6Gi
 ```
 
-Partitionable devices is controlled by the
-[`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-in the `kube-apiserver` and `kube-scheduler`.
-
-
 ## Device compatibility groups {#device-compatibility-groups}
 
 {{< feature-state feature_gate_name="DRADeviceCompatibilityGroups" >}}
@@ -108,8 +103,8 @@ scheduler.
 
 This feature builds on [partitionable devices](#partitionable-devices): the
 `compatibilityGroups` field lives on `device.consumesCounters[]` entries, which
-only exist for partitionable devices. Both the `DRADeviceCompatibilityGroups`
-and `DRAPartitionableDevices` feature gates must be enabled in the
+only exist for partitionable devices. The `DRADeviceCompatibilityGroups`
+feature gate must be enabled in the
 `kube-apiserver` and `kube-scheduler`.
 
 ### How it works {#device-compatibility-groups-how-it-works}
@@ -225,9 +220,7 @@ cause the scheduler to treat the pool as incomplete.
 
 Device compatibility groups is controlled by the
 [`DRADeviceCompatibilityGroups` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceCompatibilityGroups)
-in the kube-apiserver and kube-scheduler. The
-[`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-must also be enabled.
+in the kube-apiserver and kube-scheduler.
 
 ## Consumable capacity
 
