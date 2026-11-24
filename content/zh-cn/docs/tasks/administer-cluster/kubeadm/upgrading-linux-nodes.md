@@ -49,58 +49,77 @@ document.
 <!--
 ## Upgrading worker nodes
 
-### Upgrade kubeadm
+### Upgrade kubeadm and kubectl
 
-Upgrade kubeadm:
+Upgrade kubeadm and kubectl:
 -->
 ## 升级工作节点   {#upgrading-worker-nodes}
 
-### 升级 kubeadm   {#upgrade-kubeadm}
+### 升级 kubeadm 和 kubectl   {#upgrade-kubeadm-and-kubectl}
 
-升级 kubeadm：
+升级 kubeadm 和 kubectl：
+
+{{< note >}}
+<!--
+kubectl must be within one minor version of kube-apiserver as per the
+[version skew policy](/releases/version-skew-policy/#kubectl).
+If you are upgrading the control plane across multiple minor versions before
+upgrading worker nodes, the node-local kubectl may fall outside the allowed
+skew. Upgrading kubectl alongside kubeadm here ensures it stays within
+the supported version range throughout the node upgrade process.
+-->
+根据[版本偏差策略](/zh-cn/releases/version-skew-policy/#kubectl)，kubectl
+与 kube-apiserver 的版本偏差必须在一个次要版本以内。
+
+如果你在升级工作节点之前需要跨多个次要版本升级控制平面，那么节点本地的
+kubectl 可能会超出允许的版本偏差范围。此处将 kubectl 与 kubeadm
+一同升级，可确保在整个节点升级过程中，它始终处于受支持的版本范围内。
+{{< /note >}}
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 <!--
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo apt-mark unhold kubeadm && \
-sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-sudo apt-mark hold kubeadm
+sudo apt-mark unhold kubeadm kubectl && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm kubectl
 ```
 -->
 ```shell
 # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-sudo apt-mark unhold kubeadm && \
-sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-sudo apt-mark hold kubeadm
+sudo apt-mark unhold kubeadm kubectl && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
 <!--
-For systems with DNF:
+For systems with DNF4 (Fedora < 41, RHEL/Centos < 10):
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 -->
-对于使用 DNF 的系统：
+对于使用 DNF4 的系统（Fedora < 41、RHEL/CentOS < 10）：
+
 ```shell
 # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 
 <!--
 For systems with DNF5:
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
 ```
 -->
 对于使用 DNF5 的系统：
+
 ```shell
 # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+sudo dnf install -y kubeadm-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -135,28 +154,29 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 -->
 ```shell
+
 # 在控制平面节点上执行此命令
 # 将 <node-to-drain> 替换为你正腾空的节点的名称
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
 <!--
-### Upgrade kubelet and kubectl
+### Upgrade kubelet
 
-1. Upgrade the kubelet and kubectl:
+1. Upgrade the kubelet:
 -->
-### 升级 kubelet 和 kubectl   {#upgrade-kubelet-and-kubectl}
+### 升级 kubelet   {#upgrade-kubelet}
 
-1. 升级 kubelet 和 kubectl:
+1. 升级 kubelet:
 
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
    <!--
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo apt-mark unhold kubelet kubectl && \
-   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   sudo apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet
    ```
    -->
    ```shell
@@ -168,29 +188,31 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{% tab name="CentOS、RHEL 或 Fedora" %}}
    <!--
-   For systems with DNF:
+   For systems with DNF4 (Fedora < 41, RHEL/CentOS < 10):
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    -->
-   对于使用 DNF 的系统：
+   对于使用 DNF4 的系统（Fedora < 41、RHEL/CentOS < 10）：
+
    ```shell
    # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    <!--
    For systems with DNF5:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
    -->
    对于使用 DNF5 的系统：
+
    ```shell
    # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+   sudo dnf install -y kubelet-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
