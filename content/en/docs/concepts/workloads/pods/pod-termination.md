@@ -42,9 +42,10 @@ If no stop signal is defined in the image, the default signal of the container r
 
 {{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
-You can configure a custom stop signal for your containers from the container lifecycle.
-The Pod's `spec.os.name` field must be set for defining stop signals in the container lifecycle. The list of signals that are valid depends on the OS the Pod is scheduled to.
-For Pods scheduled to Windows nodes, only SIGTERM and SIGKILL are valid signals.
+You can configure a custom stop signal for your containers from the container lifecycle. The
+Pod's `spec.os.name` field must be set for defining stop signals in the container lifecycle.
+The list of signals that are valid depends on the OS the Pod is scheduled to. For Pods
+scheduled to Windows nodes, only SIGTERM and SIGKILL are valid signals.
 
 Here is an example Pod spec defining a custom stop signal:
 
