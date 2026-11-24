@@ -297,4 +297,4 @@ VolumeAttachment도 기존의 셧다운된 노드에서 삭제되지 않아
 * 블로그: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)를 읽어본다.
 * 클러스터 구조: [노드](/docs/concepts/architecture/nodes/)를 읽어본다.
 
-클러스터를 종료하는 방법은 [클러스터 셧다운 및 재시작](/docs/tasks/administer-cluster/cluster-shutdown-and-restart/)을 참고한다.
+클러스터를 종료하는 방법은 [클러스터 종료 및 재시작](/docs/tasks/administer-cluster/cluster-shutdown-and-restart/)을 참고한다.
