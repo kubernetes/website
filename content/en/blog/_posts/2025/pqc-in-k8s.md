@@ -14,7 +14,7 @@ theoretical for many applications, their potential to break current
 cryptographic standards is a serious concern, especially for long-lived
 systems. This is where _Post-Quantum Cryptography_ (PQC) comes in. In this
 article, I\'ll dive into what PQC means for TLS and, more specifically, for the
-Kubernetes ecosystem. I'll explain what the (suprising) state of PQC in
+Kubernetes ecosystem. I'll explain what the (surprising) state of PQC in
 Kubernetes is and what the implications are for current and future clusters.
 
 ## What is Post-Quantum Cryptography
@@ -103,7 +103,7 @@ v1.33.0, you can connect to the API server using a recent OpenSSL client:
 $ minikube start --kubernetes-version=v1.33.0
 $ kubectl cluster-info
 Kubernetes control plane is running at https://127.0.0.1:<PORT>
-$ kubectl config view --minify --raw -o jsonpath=\'{.clusters[0].cluster.certificate-authority-data}\' | base64 -d > ca.crt
+$ kubectl config view --minify --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}' | base64 -d > ca.crt
 $ openssl version
 OpenSSL 3.5.0 8 Apr 2025 (Library: OpenSSL 3.5.0 8 Apr 2025)
 $ echo -n "Q" | openssl s_client -connect 127.0.0.1:<PORT> -CAfile ca.crt
