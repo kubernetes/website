@@ -47,13 +47,15 @@ kubectl describe pods ${POD_NAME}
 다음과 같은 사유가 있을 수 있다.
 
 * **리소스가 부족한 경우**: 사용자 클러스터의 CPU 나 메모리가 고갈되었을 수 있다.
-  이러한 경우, 파드를 삭제하거나, 리소스 요청을 조정하거나, 클러스터에 노드를 추가해야 한다.
-  [컴퓨트 자원 문서](/ko/docs/concepts/configuration/manage-resources-containers/)에서 더 많은 정보를 확인한다.
+  이러한 경우, 파드를 삭제하거나, 리소스 요청을 조정하거나,
+  클러스터에 노드를 추가해야 한다. [컴퓨트 자원 문서](/docs/concepts/configuration/manage-resources-containers/)에서
+  더 많은 정보를 확인한다.
 
 * **`hostPort`를 사용하고 있는 경우**: 파드를 `hostPort`에 바인딩할 때,
   파드가 스케줄링될 수 있는 장소 수 제한이 존재한다.
   대부분의 경우 `hostPort`는 불필요하므로, 파드를 노출하기 위해서는 서비스(Service) 오브젝트 사용을 고려해 본다.
   `hostPort`가 꼭 필요하다면 클러스터의 노드 수 만큼만 파드를 스케줄링할 수 있다.
+
 
 #### 파드가 계속 waiting 상태인 경우
 
@@ -67,36 +69,38 @@ kubectl describe pods ${POD_NAME}
 * 이미지가 풀 될 수 있는지 확인하기 위해 수동으로 이미지를 풀 해본다.
   예를 들어, PC에서 도커를 사용하는 경우, `docker pull <image>` 명령을 실행한다.
 
+
 #### 파드가 계속 terminating 상태인 경우
 
 파드가 `Terminating` 상태에서 멈췄다면, 파드 삭제가 요청되었지만
 컨트롤 플레인이 파드 오브젝트를 삭제할 수 없는 상태이다.
 
-이는 보통 파드에 [파이널라이저(finalizer)](/ko/docs/concepts/overview/working-with-objects/finalizers/)가 있고,
+이는 보통 파드에 [파이널라이저(finalizer)](/docs/concepts/overview/working-with-objects/finalizers/)가 있고,
 클러스터에 설치된 [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)이
-컨트롤 플레인의 파이널라이저 제거를 막을 때 발생한다.
+컨트롤 플레인이 파이널라이저를
+제거하지 못하게 막을 때 발생한다.
 
-이 상황인지 확인하려면 클러스터에 `pods` 리소스의 `UPDATE` 작업을 대상으로 하는
+이 상황인지 확인하려면 클러스터에
+`pods` 리소스의 `UPDATE` 작업을 대상으로 하는
 `ValidatingWebhookConfiguration` 또는 `MutatingWebhookConfiguration`이 있는지 확인한다.
 
 서드파티에서 제공한 웹훅을 사용하는 경우에는 다음과 같이 조치한다.
-
 - 최신 버전을 사용하고 있는지 확인한다.
 - `UPDATE` 작업에는 웹훅이 동작하지 않도록 설정한다.
 - 해당 제공자에게 이슈를 등록한다.
 
 웹훅을 직접 작성한 경우에는 다음과 같이 조치한다.
-
 - 변경 웹훅(mutating webhook)은 `UPDATE` 작업에서 변경 불가능한 필드를 수정하지 않도록 한다.
   예를 들어, 컨테이너 변경은 일반적으로 허용되지 않는다.
-- 검증 웹훅(validating webhook)은 새로 변경되는 내용에만 검증 정책을 적용한다.
-  기존에 정책을 위반한 파드는 검증을 통과하도록 허용한다.
-  이렇게 하면 검증 웹훅을 설치하기 전에 생성된 파드도 계속 실행될 수 있다.
+- 검증 웹훅(validating webhook)은 검증 정책을
+  새로 변경되는 내용에만 적용한다. 즉, 기존에 정책을 위반한 파드도
+  검증을 통과하도록 허용한다. 이렇게 하면 검증 웹훅을 설치하기 전에
+  생성된 파드도 계속 실행될 수 있다.
 
 #### 파드가 손상(crashing)되었거나 양호하지 않을(unhealthy) 경우
 
 일단 사용자의 파드가 스케줄 되면,
-[구동중인 파드 디버그하기](/ko/docs/tasks/debug/debug-application/debug-running-pod/)에 있는
+[구동중인 파드 디버그하기](/docs/tasks/debug/debug-application/debug-running-pod/)에 있는
 방법을 사용하여 디버깅을 할 수 있다.
 
 #### 파드가 running 상태이지만 해야 할 일을 하고 있지 않은 경우
@@ -125,7 +129,8 @@ pods/mypod
 예를 들어, `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` 를 실행한 다음,
 원본 파드 상세(`mypod.yaml`)와 apiserver를 통해 확인한 파드 상세(`mypod-on-apiserver.yaml`)를
 수동으로 비교한다. 보통 원본 버전에는 없지만 "apiserver" 버전에는 있는 줄들이 존재한다.
-이는 예상대로이다. 하지만, 원본 버전에는 있지만 "apiserver" 버전에는 없는 줄들이 있다면,
+이는 예상대로이다. 하지만, 원본 버전에는 있지만
+"apiserver" 버전에는 없는 줄들이 있다면,
 이는 원본 파드 상세에 문제가 있을 수도 있음을 의미한다.
 
 ### 레플리케이션컨트롤러 디버깅하기 {#debugging-replication-controllers}
@@ -139,12 +144,11 @@ pods/mypod
 
 ### 서비스 디버깅하기 {#debugging-services}
 
-서비스는 파드 집합에 대한 로드 밸런싱 기능을 제공한다.
-일반적인 몇몇 문제들 때문에 서비스가 제대로 동작하지 않을 수 있다.
-다음 지침을 이용하여 서비스 문제를 디버깅할 수 있다.
+서비스는 파드 집합에 대한 로드 밸런싱 기능을 제공한다. 일반적인 몇몇 문제들 때문에 서비스가
+제대로 동작하지 않을 수 있다. 다음 지침을 이용하여 서비스 문제를 디버깅할 수 있다.
 
 먼저 서비스에 엔드포인트가 있는지 확인한다. 모든 서비스 오브젝트에 대해
-API 서버는 하나 이상의 `EndpointSlice` 리소스를 제공한다.
+API 서버는 하나 이상의 엔드포인트슬라이스(EndpointSlice) 리소스를 제공한다.
 
 다음 명령으로 이 리소스를 조회할 수 있다.
 
@@ -152,8 +156,8 @@ API 서버는 하나 이상의 `EndpointSlice` 리소스를 제공한다.
 kubectl get endpointslices -l kubernetes.io/service-name=${SERVICE_NAME}
 ```
 
-`EndpointSlice`에 있는 엔드포인트 수가 서비스에 속할 것으로 예상하는 파드 수와 일치하는지 확인한다.
-예를 들어, 서비스가 레플리카 3개인 nginx 컨테이너를 대상으로 한다면, 서비스의 `EndpointSlice`에서
+엔드포인트슬라이스에 있는 엔드포인트 수가 서비스에 속할 것으로 예상하는 파드 수와 일치하는지 확인한다.
+예를 들어, 서비스가 레플리카 3개인 nginx 컨테이너를 대상으로 한다면, 서비스의 엔드포인트슬라이스에서
 서로 다른 3개의 IP 주소가 확인되어야 한다.
 
 #### 서비스에 엔드포인트가 없는 경우
@@ -175,8 +179,7 @@ spec:
 kubectl get pods --selector=name=nginx,type=frontend
 ```
 
-이 셀렉터에 매치되는 파드 목록을 조회할 수 있다.
-서비스에 속할 것으로 예상하는 파드가 모두 조회 결과에 있는지 확인한다.
+이 셀렉터에 매치되는 파드 목록을 조회할 수 있다. 서비스에 속할 것으로 예상하는 파드가 모두 조회 결과에 있는지 확인한다.
 파드의 `containerPort`가 서비스의 `targetPort`와 일치하는지 확인한다.
 
 #### 네트워크 트래픽이 포워드되지 않는 경우
