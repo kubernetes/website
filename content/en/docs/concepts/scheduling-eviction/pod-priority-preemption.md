@@ -405,6 +405,21 @@ Constraints and validation rules:
   If the list is empty or the `podPreemptionPolicy` field is omitted,
   preemption for in-place resize is enabled on the node.
 
+### Preemption for Dynamic Resource Allocation (DRA) {#dra-preemption}
+
+{{< feature-state feature_gate_name="DRAPreemption" >}}
+
+By default, `kube-scheduler` does not preempt lower-priority Pods to free
+devices allocated through
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
+When the `DRAPreemption` feature gate is enabled on `kube-scheduler`, the
+scheduler can preempt lower-priority Pods that hold exclusively allocated,
+node-local DRA devices using Pod-owned ResourceClaims (such as claims generated
+from a ResourceClaimTemplate).
+
+For more details and limitations, see
+[Preemption for DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#preemption).
+
 ## Troubleshooting
 
 Pod priority and preemption can have unwanted side effects. Here are some
