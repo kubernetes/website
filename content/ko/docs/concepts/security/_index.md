@@ -2,7 +2,7 @@
 title: "보안"
 weight: 85
 description: >
-  클라우드 네이티브 워크로드를 안전하게 유지하기 위한 개념.
+  클라우드 네이티브 워크로드를 안전하게 유지하기 위한 개념
 simple_list: true
 ---
 
@@ -12,7 +12,7 @@ simple_list: true
 
 쿠버네티스는 클라우드 네이티브 아키텍처를 기반으로 하며,
 클라우드 네이티브 정보 보안 모범 사례에 대한
-{{< glossary_tooltip text="CNCF" term_id="cncf" >}}의 조언을 따른다.
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}의 조언을 바탕으로 한다.
 
 [클라우드 네이티브 보안과 쿠버네티스](/docs/concepts/security/cloud-native-security/)를 읽고
 클러스터와 그 위에서 실행하는 애플리케이션을 보호하는 방법을
@@ -43,7 +43,7 @@ TLS를 구성하고 사용해야 한다.
 ### 워크로드 보호
 
 [파드 시큐리티 표준](/docs/concepts/security/pod-security-standards/)을 적용하여
-파드와 컨테이너를 적절하게 격리한다. 필요한 경우
+파드와 해당 컨테이너가 적절하게 격리되도록 보장한다. 필요한 경우
 [런타임클래스(RuntimeClass)](/docs/concepts/containers/runtime-class)를 사용하여 사용자 정의 격리를
 정의할 수도 있다.
 
@@ -125,7 +125,7 @@ API 접근 제어, 네트워킹 등에 대한 자체 정책 제어를
 * [파드 시큐리티 표준](/docs/concepts/security/pod-security-standards/)
 * [런타임클래스](/docs/concepts/containers/runtime-class)
 
-배경을 알아본다.
+관련 배경을 살펴본다.
 
 <!-- if changing this, also edit the front matter of content/en/docs/concepts/security/cloud-native-security.md to match; check the no_list setting -->
 * [클라우드 네이티브 보안과 쿠버네티스](/docs/concepts/security/cloud-native-security/)
@@ -135,5 +135,5 @@ API 접근 제어, 네트워킹 등에 대한 자체 정책 제어를
 * [공인 쿠버네티스 보안 전문가(Certified Kubernetes Security Specialist)](https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/)
   자격증 및 공식 교육 과정.
 
-이 섹션에서 더 읽어본다.
+이 섹션의 다른 문서를 살펴본다.
 
