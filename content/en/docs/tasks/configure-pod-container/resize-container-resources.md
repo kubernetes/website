@@ -172,9 +172,9 @@ You can resize several containers of a Pod in a single resize request, unless th
 
 ### Key concepts 
 
-* **baseline CPUs:** is the cpuset allocated when the container was admitted the first time
-* **assigned CPUs:** is the cpuset allocated before a resize, when the container in question is asked to resize
-* **resized CPUs:**  is the cpuset allocated after a successful resize, the "resized CPUs" is always a superset of "baseline CPUs" i.e. baselineCPUs < resizedCPUs_A_UpSize < resizedCPUs_B_UpSize ... < resizedCPUs_N_UpSize in case of N successive up sizes.
+* **baseline CPUs** is the cpuset allocated when the container was admitted the first time
+* **assigned CPUs** is the cpuset the container holds at the moment a resize is requested
+* **resized CPUs**  is the cpuset allocated after the container resize attempt ( if resize is unsuccessful, resize CPUs will be equal to assigned CPUs )
 
 ### Use cases
 
@@ -184,12 +184,12 @@ You can resize several containers of a Pod in a single resize request, unless th
   - ensures that "assigned CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
   - attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
 
-If any of above are not possible upsize will fail and update status to `Infeasible` and the condition's `message` will explain why.
+If any of above are not possible upsize will fail, `resized CPUs` will be equal to `assigned CPUs` and update status to `Infeasible` (the condition's `message` will explain why it failed).
 
 #### CPU limit decrease
 
   During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet:
-  - ensures the end result must be a superset of the "baseline CPUs" and a subset of the "resized CPUs"
+  - ensures `resized CPUs` must be a superset of the "baseline CPUs" and a subset of the "assigned CPUs"
   - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
   - does not need downize to be an upsize in reverse for example below is a valid flow.
   ```
@@ -197,7 +197,7 @@ If any of above are not possible upsize will fail and update status to `Infeasib
     downsize: 12 -> 6
   ```
 
-If any of above are not possible downsize will fail and update status to `Infeasible` and the condition's `message` will explain why.
+If any of above are not possible upsize will fail, `resized CPUs` will be equal to `assigned CPUs` and update status to `Infeasible` (the condition's `message` will explain why it failed).
 
 ### Topology hints
 
