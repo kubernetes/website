@@ -23,7 +23,7 @@ and run code implemented in a handler when the corresponding lifecycle hook is e
 
 ## Container hooks
 
-There are two hooks that are exposed to Containers:
+There are three hooks that are exposed to Containers:
 
 `PostStart`
 
@@ -53,6 +53,8 @@ A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-termination/).
 
 `StopSignal`
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
 The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
 stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
