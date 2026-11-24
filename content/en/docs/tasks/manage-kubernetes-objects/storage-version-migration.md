@@ -20,6 +20,9 @@ maintenance activities related to at rest storage. Two prominent examples are
 the versioned schema of stored resources (that is, the preferred storage schema
 changing from v1 to v2 for a given resource) and encryption at rest
 (that is, rewriting stale data based on a change in how the data should be encrypted).
+[Storage compression](/docs/tasks/administer-cluster/compress-data/) (alpha) is
+another example: when you change which resources the API server compresses,
+existing objects keep their old form until they're rewritten.
 
 Running storage version migrations allows for the assurance that all objects for
 a Resource have been migrated off of a stale storage version. The requirements

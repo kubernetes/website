@@ -191,6 +191,10 @@ to give it precedence.
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-config.v1/).
 
+If you also configure [storage compression](/docs/tasks/administer-cluster/compress-data/)
+(alpha), the API server compresses each value before it encrypts it, so stored values
+still start with the `k8s:enc:` prefix and the verification steps on this page don't change.
+
 {{< caution >}}
 If any resource is not readable via the encryption configuration (because keys were changed),
 and you cannot restore a working configuration, your only recourse is to delete that entry from
@@ -730,3 +734,4 @@ encryption keys to be rotated without restarting the API server.
 
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).
+* Learn how to [compress data at rest](/docs/tasks/administer-cluster/compress-data/), which you can use alongside encryption at rest.

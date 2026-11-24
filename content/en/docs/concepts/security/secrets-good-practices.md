@@ -30,6 +30,17 @@ term_id="etcd" text="etcd">}}. You should configure encryption of your Secret
 data in `etcd`. For instructions, refer to
 [Encrypt Secret Data at Rest](/docs/tasks/administer-cluster/encrypt-data/).
 
+{{< alert color="caution" title="Caution" >}}
+If you use [storage compression](/docs/tasks/administer-cluster/compress-data/)
+(alpha) and name `secrets` in its configuration, a Secret's stored size depends
+on its contents, not only on its length. Someone who can read etcd or its
+backups, and who can change part of a Secret without being able to read it, can
+learn about the rest of that Secret by watching its stored size change.
+Wildcards in the compression configuration never select Secrets. Before you name
+`secrets`, check that nobody can `update` or `patch` Secrets without `get` or
+`list`.
+{{< /alert >}}
+
 ### Configure least-privilege access to Secrets {#least-privilege-secrets}
 
 When planning your access control mechanism, such as Kubernetes
