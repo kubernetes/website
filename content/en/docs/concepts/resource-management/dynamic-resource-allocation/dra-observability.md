@@ -166,6 +166,9 @@ To check resource pool status:
    kubectl get resourcepoolstatusrequest/check-gpus -o yaml
    ```
 
+   For a readable summary that also lists any Warning events, run
+   `kubectl describe resourcepoolstatusrequest/check-gpus`.
+
    The status includes:
    - `poolCount`: total number of pools matching the filter (may exceed the number
      of pools listed if truncated by the limit).
@@ -174,21 +177,29 @@ To check resource pool status:
      - `generation`: the latest pool generation observed across ResourceSlices.
      - `resourceSliceCount`: the number of ResourceSlices making up the pool.
      - `totalDevices`: total devices in the pool.
-     - `allocatedDevices`: devices currently allocated to claims.
+     - `allocatedDevices`: devices currently allocated to claims. Allocations
+       with admin access are not counted.
      - `availableDevices`: devices available for allocation
        (totalDevices - allocatedDevices - unavailableDevices).
-     - `unavailableDevices`: devices not available due to taints or other conditions.
+     - `unavailableDevices`: devices that are not allocated but have a
+       `NoSchedule` or `NoExecute` taint, either on the device itself or from a
+       [DeviceTaintRule](/docs/concepts/resource-management/dynamic-resource-allocation/device-taints/#device-taints-and-tolerations).
+       A device that is both allocated and tainted counts as allocated only.
      - `nodeName`: the node associated with the pool, if any.
-     - `validationError`: set when the pool's data could not be fully validated
-       (for example, during a generation rollout). When set, device count fields
-       may be unset.
+     - `validationError`: set when the pool's data could not be fully validated.
+       The message starts with a reason prefix, such as `PoolIncomplete:` for a
+       pool whose driver had not finished publishing it (see
+       [Incomplete pools](#resource-pool-incomplete)). When set, device count
+       fields may be unset.
      - `partitionSummary`: for [partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
        pools, per-partition-type allocatability (see
        [Partition summary](#resource-pool-partition-summary)).
      - `shareableSummary`: for pools with [shareable devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity),
        aggregate capacity usage (see
        [Shareable summary](#resource-pool-shareable-summary)).
-   - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
+   - `conditions`: the final status has a `Complete` (success) or `Failed`
+     (error) condition. Before that, the status may have only a
+     `WaitingForPools` condition (see [Incomplete pools](#resource-pool-incomplete)).
 
 1. Delete the request when done:
 
@@ -198,9 +209,13 @@ To check resource pool status:
 
 ResourcePoolStatusRequest objects are processed once by a controller in
 kube-controller-manager. The spec is immutable once created, and the entire
-object becomes immutable once the status is populated. To get updated
-availability data, delete and recreate the request. Completed requests are
-automatically cleaned up after 1 hour.
+object becomes immutable once the status has a `Complete` or `Failed`
+condition. To get updated availability data, delete and recreate the request.
+Completed requests are automatically cleaned up after 1 hour, and requests that
+never complete are cleaned up after 24 hours.
+
+If a request fails, the controller records a `CalculationFailed` Warning event
+on it, and the `Failed` condition message explains the cause.
 
 This feature requires explicit RBAC permissions on the ResourcePoolStatusRequest
 resource. No default ClusterRoles include this permission.
@@ -208,6 +223,28 @@ resource. No default ClusterRoles include this permission.
 Resource pool status is controlled by the
 [`DRAResourcePoolStatus` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
 in the `kube-apiserver` and `kube-controller-manager`.
+
+### Incomplete pools {#resource-pool-incomplete}
+
+A pool can span several ResourceSlices, and a driver publishes them one at a
+time. If some of a pool's ResourceSlices are not published yet when the
+controller first processes a request, the controller does not report partial
+counts right away. Instead it:
+
+1. Sets a status that has only a `WaitingForPools` condition with status `True`.
+   The condition's `lastTransitionTime` records when the wait started. While
+   waiting, `poolCount` is 0 and `pools` is empty.
+2. Waits up to 15 seconds from that time for the driver to finish publishing.
+   Because the start time is stored in the request, a kube-controller-manager
+   restart neither resets nor skips the wait.
+3. Writes the final status with a `Complete` condition. If a pool is still
+   incomplete, its `validationError` starts with `PoolIncomplete:`, its device
+   counts are unset, and the controller records a `PoolIncomplete` Warning event
+   on the request.
+
+The waiting status can be replaced once by the final status; after that, the
+request does not change. If the driver finishes publishing later, create a new
+request to see the complete pool.
 
 ### Partition summary {#resource-pool-partition-summary}
 
@@ -284,9 +321,11 @@ For pools that contain [shareable devices](/docs/concepts/resource-management/dy
 (devices that set `allowMultipleAllocations` and can be consumed by multiple
 claims), `shareableSummary` reports aggregate capacity usage across the pool:
 
-- `fullyAvailableDevices`: shareable devices with no capacity consumed.
-- `partiallyAvailableDevices`: shareable devices with some, but not all, capacity
-  consumed.
+- `fullyAvailableDevices`: shareable devices with no allocations, other than
+  allocations with admin access.
+- `partiallyAvailableDevices`: shareable devices with at least one allocation
+  (other than allocations with admin access), regardless of how much capacity
+  remains.
 - `capacity`: per capacity name, the aggregate `total`, `consumed`, and
   `available` (`total` minus `consumed`, never negative) amounts across the pool.
 
