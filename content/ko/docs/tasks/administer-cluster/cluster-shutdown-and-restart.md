@@ -49,7 +49,7 @@ notAfter=Mar  3 09:18:19 2026 GMT
 
 각 노드를 정상적으로 종료하면 클러스터도 정상적으로 종료할 수 있다. 이렇게 하면 일반적으로 나중에 클러스터를 정상적으로 재시작할 수 있다. [노드 셧다운](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)을 사용하면 노드의 파드를 다른 가용한 노드로 안전하게 축출할 수 있지만, 클러스터 전체를 종료할 때는 클러스터가 재시작될 때까지 축출된 파드를 다른 곳에 다시 스케줄링할 필요가 없다. 따라서 이 절차에서는 클러스터가 재시작될 때까지 종료 중인 노드의 파드가 다시 스케줄링되지 않도록 한다. 워커 노드를 먼저 종료한 뒤 컨트롤 플레인을 종료한다.
 
-### 노드를 스케줄링 불가 상태로 표시
+### 워커 노드를 스케줄링 불가 상태로 표시
 
 `kubectl cordon`으로 워커 노드와 컨트롤 플레인 노드를 모두 스케줄링 불가 상태로 표시한다.
 
@@ -62,8 +62,8 @@ kubectl cordon --selector='node-role.kubernetes.io/control-plane'
 
 `kubectl drain`을 사용해 모든 파드를 축출한다.
 
-`kubectl drain`은 파드를 축출하기 전에 내부적으로 대상 노드를 스케줄링 불가 상태로 표시하므로 기본적으로는 이것만으로 충분하지만, 규모가 큰 클러스터에서는 드레이닝(draining)하기 전에 모든 노드가 제대로 스케줄링 불가 상태로 표시되었는지 먼저 확인해야 할 수 있다. 노드의 스케줄링 가능 여부는 `kubectl get nodes`로 확인할 수 있다.
-워커 노드를 먼저 드레이닝한 뒤 컨트롤 플레인 노드를 드레이닝한다.
+`kubectl drain`은 파드를 축출하기 전에 내부적으로 대상 노드를 스케줄링 불가 상태로 표시하므로 기본적으로는 이것만으로 충분하지만, 규모가 큰 클러스터에서는 드레인(drain)하기 전에 모든 노드가 제대로 스케줄링 불가 상태로 표시되었는지 먼저 확인해야 할 수 있다. 노드의 스케줄링 가능 여부는 `kubectl get nodes`로 확인할 수 있다.
+워커 노드를 먼저 드레인한 뒤 컨트롤 플레인 노드를 드레인한다.
 
 ```bash
 kubectl drain --ignore-daemonsets --selector='!node-role.kubernetes.io/control-plane'
@@ -131,8 +131,8 @@ kubectl uncordon --selector='!node-role.kubernetes.io/control-plane'
 kubectl get pods --all-namespaces
 ```
 
-이 명령은 가장 간단한 확인 방법이다. 실제 프로덕션 환경에서는 시스템 구성에 따라
-추가 절차와 검증이 필요할 수 있다.
+이 명령은 가장 간단한 확인 방법이다.
+실제 프로덕션 환경에서는 시스템 구성에 따라 추가 절차와 검증이 필요할 수 있다.
 
 ### 유의 사항
 
