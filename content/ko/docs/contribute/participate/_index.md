@@ -5,6 +5,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
@@ -112,6 +113,11 @@ PR 소유자에게 조언하는데 활용된다.
 
 ## {{% heading "whatsnext" %}}
 
+SIG Docs 참여에 대해 더 알아보려면 다음을 참고한다.
+
+- [역할과 책임](/ko/docs/contribute/participate/roles-and-responsibilities/)
+- [이슈 랭글러(Issue Wrangler)](/ko/docs/contribute/participate/issue-wrangler/)
+- [PR 랭글러(PR Wrangler)](/ko/docs/contribute/participate/pr-wranglers/)
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
