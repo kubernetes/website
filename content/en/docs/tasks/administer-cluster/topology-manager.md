@@ -69,8 +69,8 @@ The flow can be seen in the following diagram.
 In Kubernetes v1.38 and later, the `WindowsCPUAndMemoryAffinity` feature gate is enabled by default.
 
 Windows topology alignment requires CRI v1 with the `WindowsCpuGroupAffinity` field and containerd
-v2.3.0 or later with its paired runhcs release. The containerd 2.3 release uses
-[runhcs v0.15.0-rc.4](https://github.com/containerd/containerd/blob/release/2.3/script/setup/runhcs-version).
+v2.3.5 or later with its paired runhcs release. Containerd v2.3.5 uses
+[runhcs v0.15.0-rc.4](https://github.com/containerd/containerd/blob/v2.3.5/script/setup/runhcs-version).
 The kubelet does not check the container runtime version or query its affinity capabilities. If the
 runtime does not support CPU affinity, the container starts without CPU affinity.
 
