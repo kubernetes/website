@@ -79,6 +79,10 @@ extension points:
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
    Pod _schedulable_, the remaining plugins are not called. These plugins are not
    applicable for pods being scheduled as part of PodGroup scheduling.
+   When the `GenericWorkload` feature gate is enabled, `kube-scheduler` logs an
+   error at startup for each plugin enabled at `postFilter` that is not also
+   enabled at `podGroupPostFilter` (for example, because it does not implement
+   `PodGroupPostFilterPlugin`).
 1. `podGroupPostFilter`: These plugins are called in their configured order when no
    feasible placement is found for the pod group. If any `podGroupPostFilter` plugin marks
    the pod group as _schedulable_, the remaining plugins are not called. This extension point
@@ -195,7 +199,12 @@ extension points:
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
-  Extension points: `postFilter`, `podGroupPostFilter`.
+  Extension points: `postFilter`, `podGroupPostFilter`, `reserve`.
+  {{< note >}}
+  The `reserve` extension point is enabled when the `GenericWorkload` feature
+  gate is enabled. It tracks victims condemned during workload-aware preemption
+  to guide victim-aware node ranking.
+  {{< /note >}}
 - `TopologyPlacement`: Provides the default placement generation mechanism for PodGroup's topology
   constraints.
   Extension points: `placementGenerate`.
