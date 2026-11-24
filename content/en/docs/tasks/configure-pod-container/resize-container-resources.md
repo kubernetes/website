@@ -664,31 +664,7 @@ You should see an output similar to ( exact numbers for allocatable depends on y
 Error from server (Forbidden): pods "resize-exclusive-cpus-demo" is forbidden: node didn't have enough allocatable resources: cpu, requested: 1000000, allocatable: 4500
 ```
 
-Query the Pod's details:
-
-```shell
-kubectl -n rcr-example get pod resize-exclusive-cpus-demo --output=yaml
-```
-
-Observe that since the patch was rejected from the server, you'll see changes indicating the problem:
-
-* The `spec.containers[0].resources` reflects the *desired* state and is unchanged (`cpu: "3"`)
-* Crucially, `status.containerStatuses[0].allocatedResources` will *still show the previous values* (`cpu: 3`, `memory: 200Mi`), because the resize was rejected in from Kubernetes API and was never applied by the Kubelet.
-* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
-
-Check the pod logs to verify that CPUs were not updated
-
-```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
-```
-
-You should see an output similar to ( exact numbers depends on your node):
-```
-baseline CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
-assigned CPUs before resize = 1-3, resized CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
-```
+The request has been rejected by the API-server, we do not need to check the `spec` and `status` as we did in the previous steps.
 
 ## Clean up
 
