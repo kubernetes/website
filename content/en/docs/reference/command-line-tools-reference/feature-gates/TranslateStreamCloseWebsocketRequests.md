@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.37"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Allow WebSocket streaming of the
 remote command sub-protocol (`exec`, `cp`, `attach`) from clients requesting
