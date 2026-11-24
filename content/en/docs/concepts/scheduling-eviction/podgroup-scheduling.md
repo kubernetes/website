@@ -85,7 +85,7 @@ It iterates over the Pods and performs the following for each:
      Instead, it relies on the `PodGroupPostFilter` extension point executed for the whole PodGroup.
 
 2. Checks whether the schedulable Pods meet the group's scheduling criteria
-   (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the `PlacementFeasible` extension point after evaluating each Pod in the group against the cumulative scheduling results.
+   (e.g., the `minCount` for [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)) by invoking the configurable [`PlacementFeasible`](/docs/reference/scheduling/config/#extension-points) extension point after evaluating each Pod in the group against the cumulative scheduling results.
    If it returns a `Success` status for any Pod, the PodGroup is deemed feasible.
    If the algorithm processes all Pods without achieving a `Success` status, or if no Pods are scheduled during this cycle, the PodGroup is considered unschedulable.
 
@@ -258,6 +258,15 @@ You can check conditions with:
 ```shell
 kubectl get podgroup <name> -o jsonpath='{.status.conditions}'
 ```
+
+### Pod conditions
+
+When a Pod cannot be scheduled because its `PodGroup` failed scheduling as a whole, the Pod's
+`PodScheduled` condition is set to `False` with a message naming its parent `PodGroup`.
+
+Pods that fail individually (or when runtime validation fails before scheduling) still report their
+own failure or error message. Inspect the `PodGroup`'s `PodGroupInitiallyScheduled` condition for
+the detailed group-level reason.
 
 ## CompositePodGroup conditions
 

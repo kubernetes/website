@@ -117,7 +117,10 @@ For more details and a more complete example, see the
 
 The scheduler updates `status.conditions` to report whether the group has been
 successfully scheduled. The primary condition is `PodGroupInitiallyScheduled`, which is `True`
-when all required Pods have been placed and `False` when scheduling fails.
+when all required Pods have been placed and `False` when scheduling fails. When a Pod cannot be
+scheduled because its `PodGroup` failed as a whole, the Pod's `PodScheduled` condition names the
+parent `PodGroup` instead of repeating the group's failure details; inspect the `PodGroup`
+conditions for the detailed reason.
 
 {{< note >}}
 The `PodGroupInitiallyScheduled` condition reflects the initial scheduling decision only.
@@ -126,8 +129,8 @@ The scheduler does not update it if Pods later fail or are evicted. See
 for details.
 {{< /note >}}
 
-See the [PodGroup lifecycle](/docs/concepts/workloads/podgroup-api/lifecycle/#podgroup-status)
-page for the full list of conditions and reasons.
+See the [PodGroup conditions](/docs/concepts/scheduling-eviction/podgroup-scheduling/#podgroup-conditions)
+for the full list of conditions and reasons.
 
 ## Creating a PodGroup
 
