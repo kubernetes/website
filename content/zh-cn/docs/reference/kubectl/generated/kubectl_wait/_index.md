@@ -127,7 +127,8 @@ do echo "Checking conditions..."; sleep 1; done
 Select all resources in the namespace of the specified resource types
 -->
 选择指定资源类型的命名空间中的所有资源。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -142,7 +143,8 @@ If present, list the requested object(s) across all namespaces. Namespace in cur
 -->
 如果存在，则列举所有命名空间中请求的对象。
 即使使用 <code>--namespace</code> 指定，当前上下文中的命名空间也会被忽略。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -157,7 +159,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -172,7 +175,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 -->
 过滤所用的选择算符（字段查询），支持 '='、'==' 和 '!='。
 （例如 --field-selector key1=value1,key2=value2）。服务器针对每种类型仅支持有限数量的字段查询。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -185,7 +189,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 identifying the resource.
 -->
 使用文件名来区分不同的资源。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -217,7 +222,8 @@ The condition to wait on: [create|delete|condition=condition-name[=condition-val
 help for wait
 -->
 关于 wait 的帮助信息。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -231,7 +237,8 @@ help for wait
 If true, annotation will NOT contact api-server but run locally.
 -->
 如果为 true，则注解不会与 api-server 通信，而是在本地运行。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -246,7 +253,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -260,7 +268,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 <code>-f</code>、<code>--filename</code> 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -275,7 +284,8 @@ Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=
 -->
 过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
 （例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -289,7 +299,8 @@ Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -304,7 +315,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当指定 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -318,7 +330,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 The length of time to wait before giving up. Zero means check once and don't wait, negative means wait for a week.
 -->
 放弃前等待的时间长度。0 表示检查一次，不等待，负数表示等待一周。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 </tbody>
@@ -344,7 +357,8 @@ The length of time to wait before giving up. Zero means check once and don't wai
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -358,7 +372,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -372,7 +387,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -386,7 +402,8 @@ UID to impersonate for the operation.
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 -->
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -400,7 +417,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -414,7 +432,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -428,7 +447,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -442,7 +462,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -456,7 +477,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 集群的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -470,7 +492,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -484,7 +507,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -498,7 +522,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -511,7 +536,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -595,6 +621,20 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
@@ -644,7 +684,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -657,7 +698,8 @@ database name
 database host:port
 -->
 数据库 host:port
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
@@ -670,7 +712,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>  
+</td>  
 </tr>
 
 <tr>
