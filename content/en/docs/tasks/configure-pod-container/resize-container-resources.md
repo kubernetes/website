@@ -54,7 +54,7 @@ must be enabled for your control plane.
 
 To dynamically resize memory-backed (`medium: Memory`) `emptyDir` volumes, the `InPlacePodVerticalScalingMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your control plane and nodes, and the underlying nodes must be running cgroup v2.
 
-To allow pods with certain resource characteristics to be granted increased CPU affinity and exclusivity on the node, the CPU Manager Policy must be set to [static](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) for your ndodes.
+To allow pods with certain resource characteristics to be granted increased CPU affinity and exclusivity on the node, the CPU Manager Policy must be set to [static](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) for your nodes.
 
 To resize In-place CPU resource of [Pods with Guaranteed Quality of Service](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#guaranteed)(QoS) class which make use of exclusive CPUs using the [static](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy, the `InPlacePodVerticalScalingExclusiveCPUs`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must also be enabled for your nodes.
 
@@ -178,7 +178,7 @@ You can resize several containers of a Pod in a single resize request, unless th
 
 ### Use cases
 
-For a running container in a Guaranteed Pod, the user can attempt a resize by updating both CPU `limit` and CPU `requests` for the container. Please note that CPU `limit` and CPU `request` must fullfill [Pod QoS Guaranteed Criteria](docs/concepts/workloads/pods/pod-qos/#criteria)
+For a running container in a Guaranteed Pod, the user can attempt a resize by updating both CPU `limit` and CPU `requests` for the container. Please note that CPU `limit` and CPU `request` must fullfill [Pod QoS Guaranteed Criteria](/docs/concepts/workloads/pods/pod-qos/#criteria)
 
 #### CPU increase
 
@@ -247,7 +247,7 @@ When `InPlacePodVerticalScalingExclusiveCPUs` is enabled, resizing CPUs of Guara
 - Cannot move container from exclusive to shared pool.
 - Not allowed to resize non-restartable init-container with exclusively allocated pool.
 - Not allowed to reduce container exclusively allocated pool below baseline.
-- Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
+- Not allowed to resize multiple containers per operation ( batch-resize ) when topology management policy of node is [pod topology manager scope](/docs/tasks/administer-cluster/topology-manager/#pod-scope) with [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) and [single-numa-mode](/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node) topology manager policy. Only single single container scaling is allowed. 
 {{< /note >}}
 
 These restrictions might be relaxed in future Kubernetes versions.
