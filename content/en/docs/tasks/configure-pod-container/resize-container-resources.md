@@ -178,17 +178,19 @@ You can resize several containers of a Pod in a single resize request, unless th
 
 ### Use cases
 
-#### CPU limit increase
+For a running container in a Guaranteed Pod, the user can attempt a resize by updating both CPU `limit` and CPU `requests` for the container. Please note that CPU `limit` and CPU `request` must fullfill [Pod QoS Guaranteed Criteria](docs/concepts/workloads/pods/pod-qos/#criteria)
 
-  During CPU limit increase ( upsize or scale up ) of a running container of a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
-  - ensures that "assigned CPUs" of a running container of a Guaranteed Pod CPUs managed by static CPU policies are kept.
+#### CPU increase
+
+  During CPU increase (upsize or scale up) of a running container in a Guaranteed Pod managed by Static CPU Policy, the Kubelet:
+  - ensures that "assigned CPUs" of a running container are kept.
   - attempt of allocating additional CPUs should adhere to the combination of Topology/Memory/CPU/Device/kubelet reservation policies.
 
 If any of above are not possible upsize will fail, `resized CPUs` will be equal to `assigned CPUs` and update status to `Infeasible` (the condition's `message` will explain why it failed).
 
-#### CPU limit decrease
+#### CPU decrease
 
-  During CPU limit decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet:
+  During CPU decrease of a running container of a Guaranteed Pod managed of Static CPU Policy, the Kubelet:
   - ensures `resized CPUs` must be a superset of the "baseline CPUs" and a subset of the "assigned CPUs"
   - applies same rules for NUMA Topology applicable for CPU Limit increase for CPU Limit decrease
   - does not need downize to be an upsize in reverse for example below is a valid flow.
