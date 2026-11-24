@@ -168,7 +168,7 @@ You can monitor the resize progress using the Pod's status conditions (`PodResiz
 
 When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the Pod `/resize` subresource supports in-place updating the CPUs of Guaranteed QoS Pods managed by [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/). Otherwise, any attempt to resize such pods is rejected by the kubelet, which sets the `PodResizePending` condition with reason `Infeasible`.
 
-You can resize several containers of a Pod in a single resize request, unless the Pod runs on a node where the [Topology Manager scope is pod](/docs/tasks/administer-cluster/topology-manager/#pod-scope) and the Topology Manager policy is either [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) or [single-numa-node](/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node). In that case, to resize several containers, you need to send one request per container.
+You can resize several containers of a Pod in a single resize request, unless the Pod runs on a node where the Topology Manager scope is [pod](/docs/tasks/administer-cluster/topology-manager/#pod-scope) and the Topology Manager policy is either [restricted](/docs/tasks/administer-cluster/topology-manager/#policy-restricted) or [single-numa-node](/docs/tasks/administer-cluster/topology-manager/#policy-single-numa-node). In that case, to resize several containers, you need to send one request per container.
 
 ### Key concepts 
 
