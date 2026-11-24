@@ -282,18 +282,18 @@ kubectl get pod resize-demo --output=yaml -n rcr-example
 Observe the `spec.containers[0].resources` and `status.containerStatuses[0].resources`.
 They should match the manifest (700m CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 
-Check the pod logs to verify which CPUs are also assigned.
+Check the CPUs used for the pod.
 
 ```shell
-kubectl logs resize-demo -n rcr-example
+kubectl -n rcr-example exec resize-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to (exact number will depending on nodes CPUs , below example is from a node with 5 CPUs)
 ```
-Shared pool CPUs assigned during admission = 0-4
+Cpus_allowed_list:      0-4
 ```
 
-Note that above are a confirmation that the container is using CPUs from the shared pool.
+The pod uses CPUs from the shared CPU pool, In this example, the shared CPU pool is `0-4`.
 
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
@@ -323,16 +323,16 @@ You should see:
 * `status.containerStatuses[0].resources` also shows `cpu: 800m`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
-Check the pod logs to verify that container is still using CPUs from the shared pool.
+Check the CPUs used for the pod.
 
 ```shell
-kubectl logs resize-demo -n rcr-example
+kubectl -n rcr-example exec resize-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see the same output as in the previous step unchanged.
 
 ```
-Shared pool CPUs assigned during admission = 0-4
+Cpus_allowed_list:      0-4
 ```
 
 ## Example 2: Resizing memory with restart
@@ -407,7 +407,6 @@ Keep this pod running and proceed with next example.
 
 ## Example 3: Resizing CPU without restart, alongside Static CPU Management policy
 
-
 ### Create a pod using two exclusive CPUs
 
 First, create a guaranteed Pod using exclusive CPUs designed for in-place CPU resize.
@@ -431,30 +430,33 @@ Observe `spec.containers[0].resources` , `status.containerStatuses[0].resources`
 
 They should match the manifest (2 CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 
-Check first the newly created pod logs to verify exclusive CPUs are also assigned.
+Check the exclusive CPUs assigned to the newly created pod.
 
 ```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
+kubectl -n rcr-example exec resize-exclusive-cpus-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to:
 ```
-baseline CPUs = 1-2
+Cpus_allowed_list:      1-2
 ```
+
+These are the baseline CPUs. They remain assigned to the container until the Pod is deleted.
 
 The CPUs allocated might be different depending on your node, what is important is to notice that two CPUs are allocated.
 
-Now check the pod we created in the previous steps and is still running. 
+Now check the pod `resize-demo` to get the shared CPU pool.
 
 ```shell
-kubectl logs resize-demo -n rcr-example
+kubectl -n rcr-example exec resize-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to:
 ```
-Shared pool CPUs assigned during admission = 0-4
-Shared pool CPUs changed from 0-4 to 0,3-4
+Cpus_allowed_list:      0,3-4
 ```
+
+Shared pool CPUs changed from 0-4 to 0,3-4.
 
 Observe that after the creation of `resize-exclusive-cpus-demo` pod, shared pool
 is updated. In above example default CPUs was 0,1,2,3,4 used by `resize-demo`pod, 
@@ -469,10 +471,10 @@ to free up CPUs.
 kubectl delete pod resize-demo -n rcr-example
 ```
 
-Now check that the pod is deleted checking the logs.
+Now check that the pod is deleted checking the CPUs.
 
 ```shell
-kubectl logs resize-demo -n rcr-example
+kubectl -n rcr-example exec resize-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to:
@@ -501,16 +503,15 @@ You should see:
 * `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
-Check the pod logs to verify CPUs are also assigned.
+Check the exclusive CPUs assigned to the pod.
 
 ```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
+kubectl -n rcr-example exec resize-exclusive-cpus-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-baseline CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
+Cpus_allowed_list:      1-3
 ```
 
 Observe that the CPUs are now increase by one, in the above example from CPUs 1-2, to CPUs 1,2,3 maintaining the baseline CPUs 1-2
@@ -538,20 +539,18 @@ You should see:
 * `status.containerStatuses[0].resources` also shows `cpu: 2`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
-Check the pod logs to verify CPUs are also assigned.
+Check the exclusive CPUs assigned to the pod.
 
 ```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
+kubectl -n rcr-example exec resize-exclusive-cpus-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-baseline CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
-assigned CPUs before resize = 1-3, resized CPUs = 1-2
+Cpus_allowed_list:      1-2
 ```
 
-Observe that the CPUs are now reduced from 1-3 to 1-2, equal to baseline CPUs 1-2
+Observe that the CPUs are now reduced from 1-3 to 1-2, equal to baseline CPUs 1-2.
 
 
 ### Troubleshooting, attempting to resize below baseline CPUs
@@ -578,18 +577,18 @@ You'll see changes indicating the problem:
   because the resize was not applied by the Kubelet.
 * The `restartCount` will not have changed due to this failed attempt.
 
-Check the pod logs to verify that CPUs were not updated
+Check the exclusive CPUs assigned to the pod.
 
 ```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
+kubectl -n rcr-example exec resize-exclusive-cpus-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-baseline CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
-assigned CPUs before resize = 1-3, resized CPUs = 1-2
+Cpus_allowed_list:      1-2
 ```
+
+The assigned CPUs remains unchanged at 1-2 after the failed resize attempt.
 
 ### Troubleshooting a non feasible CPU increase attempting to move from exclusive to a shared pool CPUs
 
@@ -635,23 +634,22 @@ You should see:
 * `status.containerStatuses[0].resources` also shows `cpu: 3`, indicating the resize was successful on the node.
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 
-Check the pod logs to verify that CPUs were not updated
+Check the exclusive CPUs assigned to the pod.
 
 ```shell
-kubectl logs resize-exclusive-cpus-demo -n rcr-example
+kubectl -n rcr-example exec resize-exclusive-cpus-demo -- grep Cpus_allowed_list /proc/1/status
 ```
 
 You should see an output similar to ( exact numbers depends on your node):
 ```
-baseline CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
-assigned CPUs before resize = 1-3, resized CPUs = 1-2
-assigned CPUs before resize = 1-2, resized CPUs = 1-3
+Cpus_allowed_list:      1-3
 ```
+
+The resized CPUs are now increase from CPUs 1-2 to CPUs 1,2,3.
 
 ### Troubelshooting a non feasible CPU increase attempting to allocate CPUs beyond nodes capacity
 
-Next, try requesting one thousand CPUs, an extreme number
+Next, try requesting one thousand CPUs, an extreme number.
 
 ```shell
 # Attempt to patch with an excessively large CPU request one thousand CPUs
