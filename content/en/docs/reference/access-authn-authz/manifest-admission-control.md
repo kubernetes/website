@@ -114,6 +114,66 @@ Each admission plugin uses a specific configuration kind:
 | `MutatingAdmissionPolicy` | `apiserver.config.k8s.io/v1` | `MutatingAdmissionPolicyConfiguration` |
 {{< /table >}}
 
+### Ordering mutating webhooks {#static-order}
+
+{{< feature-state for_k8s_version="v1.38" state="beta" >}}
+
+Mutating webhooks are called one after another. By default, manifest-based
+mutating webhooks run before all API-based mutating webhooks, so moving a
+webhook from a MutatingWebhookConfiguration object to a manifest file can
+change the order in which webhooks run. To control this, set the `staticOrder` field
+next to `staticManifestsDir` in the `MutatingAdmissionWebhook` plugin
+configuration:
+
+{{% code_sample language="yaml" file="access/manifest-admission-control/mutating-webhook-static-order.yaml" %}}
+
+`staticOrder` accepts the following values:
+
+{{< table caption="Values for staticOrder" >}}
+| Value | Behavior |
+|:------|:---------|
+| `StaticFirst` | Manifest-based webhooks run before all API-based webhooks. This is the default, and is also used when the field is empty. |
+| `StaticLast` | Manifest-based webhooks run after all API-based webhooks. |
+| `ByName` | Manifest-based and API-based webhooks are sorted together by the name of the configuration that contains them, the same way API-based webhooks are ordered relative to each other. |
+{{< /table >}}
+
+With `ByName`, naming a manifest-based configuration after the API-based
+configuration it replaces, with the `.static.k8s.io` suffix appended, usually
+keeps its position. For example, `foo.static.k8s.io` replaces `foo`. The
+position is not kept relative to configurations whose names start with `foo-`,
+or that start with `foo.` and sort before `foo.static.k8s.io`, such as
+`foo-bar` and `foo.bar.io`.
+
+{{< caution >}}
+`StaticFirst` guarantees that manifest-based webhooks see an object before any
+API-based webhook does. With `StaticLast` or `ByName`, a webhook registered by a
+user who can write MutatingWebhookConfiguration objects can mutate the object
+before a manifest-based webhook sees it. Setting `reinvocationPolicy: IfNeeded`
+on a manifest-based webhook gives it another chance to see mutations made after
+it runs, but
+[reinvocation is not guaranteed](/docs/reference/access-authn-authz/extensible-admission-controllers/#reinvocation-policy).
+To enforce a constraint on the final object, use a manifest-based validating
+webhook or ValidatingAdmissionPolicy instead.
+{{< /caution >}}
+
+The following rules apply to `staticOrder`:
+
+- It requires `staticManifestsDir` to be set in the same plugin configuration
+  and the `ManifestBasedAdmissionControlConfig` feature gate to be enabled.
+- It only applies to the `MutatingAdmissionWebhook` plugin. On the
+  `ValidatingAdmissionWebhook` plugin, any value other than `StaticFirst` is a
+  configuration error and the API server fails to start, because validating
+  webhooks are called in parallel and their order does not matter.
+- It is not a field of the `ValidatingAdmissionPolicy` or
+  `MutatingAdmissionPolicy` plugin configuration. Setting it there is an
+  unknown-field error and the API server fails to start. Manifest-based policies
+  are always evaluated before API-based policies.
+- Unrecognized values are rejected.
+
+When `staticManifestsDir` is set for the `MutatingAdmissionWebhook` plugin, the
+kube-apiserver logs the configured order at startup. Compare this across API
+servers in a high availability cluster.
+
 ## Writing manifest files {#manifest-files}
 
 Manifest files contain standard Kubernetes resource definitions. You can include
@@ -202,6 +262,10 @@ You can use `v1.List` to group related resources together in a single document:
 Manifest-based configurations are evaluated before API-based configurations.
 This ensures that platform-level policies enforced via static configuration take
 precedence over API-based policies.
+
+The exception is mutating webhooks. Their relative order is set by the
+[`staticOrder`](#static-order) field in the `MutatingAdmissionWebhook` plugin
+configuration, and defaults to manifest-based webhooks first.
 
 For admission configuration resources themselves (ValidatingAdmissionPolicy,
 MutatingAdmissionPolicy, ValidatingAdmissionPolicyBinding,
@@ -295,6 +359,9 @@ high availability setups with multiple API server instances:
 - The `apiserver_manifest_admission_config_controller_last_config_info` metric
   exposes a `hash` label that you can use to detect configuration drift across
   API server instances.
+- Set the same `staticOrder` value on all API servers. If the values differ,
+  mutating webhooks run in a different order depending on which API server
+  handles the request.
 
 This behavior is similar to other file-based kube-apiserver configurations such as
 [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) and
@@ -318,6 +385,14 @@ Downgrading without removing the `staticManifestsDir` configuration causes the
 API server to fail to start due to unknown configuration fields.
 {{< /warning >}}
 
+The `staticOrder` field was added in Kubernetes v1.38. Earlier versions do not
+recognize it, so remove it from the `MutatingAdmissionWebhook` plugin
+configuration before downgrading to v1.37 or earlier, or the API server fails
+to start. After the downgrade, mutating webhooks run in `StaticFirst` order.
+When upgrading a cluster with multiple API servers, set `staticOrder` only after
+all of them run v1.38 or later: a v1.37 API server fails to start with the
+field set.
+
 ## Troubleshooting {#troubleshooting}
 
 {{< table caption="Common issues and their resolution" >}}
@@ -327,6 +402,7 @@ API server to fail to start due to unknown configuration fields.
 | API server fails to start | Duplicate object names across manifest files | Ensure all object names within a plugin's `staticManifestsDir` are unique. |
 | Policies not enforced after file update | Reload validation failure | Check `automatic_reloads_total{status="failure"}` metric and API server logs. Fix the manifest and wait for the next reload cycle. |
 | Webhook requests failing | Webhook URL not reachable | Verify that the URL specified in `clientConfig.url` is accessible from the kube-apiserver. |
+| API server fails to start with an error about `staticOrder` | `staticOrder` is set on the `ValidatingAdmissionWebhook` plugin to a value other than `StaticFirst`, is set on a `ValidatingAdmissionPolicy` or `MutatingAdmissionPolicy` plugin configuration, is set without `staticManifestsDir`, has an unrecognized value, or is set while the feature gate is disabled | Remove the field or correct it. See [Ordering mutating webhooks](#static-order). |
 | Cannot create API objects with `.static.k8s.io` suffix | Name suffix reserved by feature gate | The `.static.k8s.io` suffix is reserved for manifest-based configurations when the feature gate is enabled. Use a different name for API-based objects. |
 {{< /table >}}
 
