@@ -8,8 +8,6 @@ min-kubernetes-server-version: 1.33
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
-
 This page explains how to change the CPU and memory resource requests and limits
 assigned to a container *without recreating the Pod*.
 
@@ -47,9 +45,7 @@ and actual requests from the status when making scheduling decisions.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled
-for your control plane and for all nodes in your cluster.
+In-place pod resize is generally available and enabled by default; it requires no additional configuration.
 
 To enable automatic scheduler preemption for deferred resize requests, the
 `InPlacePodVerticalScalingSchedulerPreemption`
@@ -187,8 +183,15 @@ to a race condition where memory usage may spike right after the check is perfor
 * **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
   they can only be changed to different values.
 * **Operating System:** Windows pods do not support in-place resize.
-* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
-  cannot be resized in-place.
+* **Static CPU manager policy:** By default, pods managed by the
+  [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/)
+  cannot resize CPU in-place. When the `InPlacePodVerticalScalingExclusiveCPUs`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+  the kubelet can in-place resize the exclusive CPUs of Guaranteed pods. For details, see
+  [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
+* **Static memory manager policy:** Pods managed by the
+  [static memory manager policy](/docs/tasks/administer-cluster/memory-manager/)
+  cannot resize memory in-place.
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
   unless the `resizePolicy` for memory is `RestartContainer`.
 * **Memory-Backed Volume Resizing:** Resizing memory-backed (`medium: Memory`) `emptyDir` volumes in-place requires nodes running cgroup v2. On cgroup v1 nodes, in-place volume resize requests are rejected as infeasible. Disk-backed `emptyDir` volumes and persistent volumes cannot be resized via the Pod `/resize` subresource.
@@ -322,6 +325,7 @@ kubectl delete namespace qos-example
 
 ### For cluster administrators
 
+* [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/)
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)

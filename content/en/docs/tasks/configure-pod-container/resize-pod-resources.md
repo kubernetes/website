@@ -71,6 +71,20 @@ Additionally, the following constraint is specific to Pod-level resource resize:
   the sum of container limits is permitted to exceed the Pod-level limit, enabling
   resource sharing across containers within the Pod.
 
+* Exclusive CPUs: If your nodes use the
+  [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/)
+  and both the `InPlacePodVerticalScalingExclusiveCPUs` and the `PodLevelResourceManagers`
+  [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) are enabled,
+  the kubelet rejects as infeasible any resize that changes the number of exclusive CPUs
+  of a Guaranteed pod with pod-level resources. This affects the pod-level CPU request and
+  the CPU request of each container whenever the previous or the new value is an integer
+  number of CPUs. For example, resizes from 2 to 3 CPUs, from 800m to 2, or from
+  2 to 1500m are infeasible. Fractional-to-fractional resizes, such as 200m to 300m,
+  are unaffected. Adding or removing a container that uses exclusive CPUs is also infeasible
+  even when you do not enable the `PodLevelResourceManagers` feature gate.
+  For more information, see
+  [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
+
 ## Example: Resizing Pod-Level Resources
 
 First, create a Pod designed for in-place CPU resize and restart-required memory resize.
