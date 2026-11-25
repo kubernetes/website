@@ -99,4 +99,4 @@ Kubernetesドキュメントへの貢献の詳細については、以下を参�
 
 - [Contributing new content](/docs/contribute/new-content/overview/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
-- [ドキュメントスタイルの概要](/ja/docs/contribute/style/)
+- [ドキュメントスタイルの概要](/docs/contribute/style/)
