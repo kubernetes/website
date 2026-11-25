@@ -41,7 +41,7 @@ scheduling flexibility and cluster utilization.
 
 As DRA becomes the standard for resource allocation, bridging the gap with legacy systems
 is crucial. The DRA
-[Extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource)
+[Extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource)
 feature allows users to request resources via traditional extended resources on a Pod.
 This allows for a gradual transition to DRA, meaning cluster operators can migrate clusters
 to DRA but let application developers adopt the ResourceClaim API on their own schedule.
@@ -146,7 +146,7 @@ generates names that reflect the exact device ordering specified by the driver a
 Workloads running on nodes with DRA devices often need to discover details about
 their allocated devices, such as PCI bus addresses or network
 interface configuration, without querying the Kubernetes API. With
-[Device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#device-metadata),
+[Device metadata](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#device-metadata),
 Kubernetes defines a standard protocol for how DRA drivers expose device
 attributes to containers as versioned JSON files at well-known paths. Drivers
 built with the

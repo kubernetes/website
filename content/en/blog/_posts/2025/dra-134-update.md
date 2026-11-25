@@ -58,7 +58,7 @@ to develop new features and integrations.
 
 Kubernetes 1.34 also introduces several new alpha features that give us a glimpse into the future of resource management with DRA.
 
-[Extended resource mapping](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource) support in DRA allows
+[Extended resource mapping](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource) support in DRA allows
 cluster administrators to advertise DRA-managed resources as _extended resources_, allowing developers to consume them using
 the familiar, simpler request syntax while still benefiting from dynamic allocation. This makes it possible for existing
 workloads to start using DRA without modifications, simplifying the transition to DRA for both application developers and
