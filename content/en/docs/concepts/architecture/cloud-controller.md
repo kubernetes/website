@@ -198,7 +198,7 @@ rules:
 
 ## {{% heading "whatsnext" %}}
 
-* [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+* [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager)
   has instructions on running and managing the cloud controller manager.
 
 * To upgrade a HA control plane to use the cloud controller manager, see 

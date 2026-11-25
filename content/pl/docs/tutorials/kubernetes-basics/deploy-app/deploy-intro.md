@@ -143,8 +143,8 @@ naciśnięcie control-C - podczas działania nie wyświetla ono żadnych komunik
 ```shell
 kubectl proxy
 ```
-Mamy teraz połączenie pomiędzy naszym hostem (terminalem) a klastrem
-Kubernetesa. Proxy umożliwia bezpośredni dostęp do API z tych terminali.
+Proxy łączy twój host z klastrem Kubernetesa. Pozostaw je
+uruchomione w drugim terminalu. Wróć do pierwszego i wykonaj poniższe polecenia.
 
 Możesz zobaczyć wszystkie te interfejsy API hostowane przez punkt końcowy serwera proxy.
 Na przykład możemy bezpośrednio zapytać o wersję za pomocą polecenia `curl`:

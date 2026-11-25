@@ -294,7 +294,7 @@ est générée pour tout conteneur partageant un nom avec un autre.
 
 * La plus haute requête ou limite particulière de ressource définie pour tous les init containers
 est la *limite/requête d'initialisation effective*
-* La *limite/requête effective* d'un Pod pour une ressource est la plus haute parmis :
+* La *limite/requête effective* d'un Pod pour une ressource est la plus haute parmi :
   * la somme de toutes les requêtes/limites des conteneurs d'application pour une ressource
   * la limite/requête d'initialisation effective pour une ressource
 * Le Scheduling est effectué sur la base des requêtes/limites effectives, ce qui signifie

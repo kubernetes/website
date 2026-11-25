@@ -429,7 +429,7 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 <!--
 ## Cassandra container environment variables
 
-The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
 The Docker image above is based on [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)
 and includes OpenJDK 8.
@@ -440,7 +440,7 @@ By using environment variables you can change values that are inserted into `cas
 ## Cassandra 容器环境变量
 
 本教程中的 Pod 使用来自 Google [容器镜像库](https://cloud.google.com/container-registry/docs/)的
-[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/databases/cassandra/image/Dockerfile)
 镜像。上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
 并且包含 OpenJDK 8。
 
@@ -460,10 +460,10 @@ By using environment variables you can change values that are inserted into `cas
 
 <!--
 * Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
-* See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+* See more custom [Seed Provider Configurations](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)
 -->
 * 了解如何[扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
-* 了解有关 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+* 了解有关 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
   的更多信息
-* 查看更多自定义 [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+* 查看更多自定义 [Seed Provider Configurations](https://github.com/kubernetes/examples/blob/master/databases/cassandra/java/README.md)

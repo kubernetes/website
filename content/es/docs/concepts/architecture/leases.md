@@ -20,7 +20,7 @@ que se utilizan para capacidades críticas del sistema, como los heartbeats del 
 
 Kubernetes utiliza la API Lease para comunicar los heartbeats de los nodos kubelet al servidor API de Kubernetes.
 Para cada `Nodo` , existe un objeto `Lease` con un nombre que coincide en el espacio de nombres `kube-node-lease`.
-Analizando a detalle, cada hearbeat es una solicitud **update** a este objeto `Lease`, actualizando
+Analizando a detalle, cada heartbeat es una solicitud **update** a este objeto `Lease`, actualizando
 el campo `spec.renewTime` del objeto Lease. El plano de control de Kubernetes utiliza la marca de tiempo de este campo
 para determinar la disponibilidad de este «Nodo».
 

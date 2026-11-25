@@ -336,7 +336,7 @@ configuration.
 
 {{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
-Apres quelques minutes, les évènements apparaîtront dans l'interface de
+Après quelques minutes, les évènements apparaîtront dans l'interface de
 Stackdriver.
 
 Ce n'est qu'un exemple et vous pouvez remplacer fluentd par n'importe quel

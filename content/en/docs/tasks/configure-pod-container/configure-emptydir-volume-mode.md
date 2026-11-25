@@ -67,4 +67,4 @@ owners can delete their own files:
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about [`emptyDir` volumes](/docs/concepts/storage/volumes/#emptydir)
+- Learn more about [`emptyDir` volumes](/docs/reference/storage/volume-types/#emptydir)

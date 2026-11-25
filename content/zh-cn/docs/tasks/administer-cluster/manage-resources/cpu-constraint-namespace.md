@@ -22,12 +22,12 @@ description: >-
 This page shows how to set minimum and maximum values for the CPU resources used by containers
 and Pods in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. You specify minimum
 and maximum CPU values in a
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/docs/reference/kubernetes-api/core/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 -->
 本页介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中的容器和 Pod
-设置其所使用的 CPU 资源的最小和最大值。你可以通过 [LimitRange](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+设置其所使用的 CPU 资源的最小和最大值。你可以通过 [LimitRange](/zh-cn/docs/reference/kubernetes-api/core/limit-range-v1/)
 对象声明 CPU 的最小和最大值.
 如果 Pod 不能满足 LimitRange 的限制，就无法在该命名空间中被创建。
 

@@ -3,6 +3,9 @@ title: 基于清单的准入控制
 content_type: concept
 ---
 <!--
+reviewers:
+- liggitt
+- jpbetz
 title: Manifest-Based Admission Control
 content_type: concept
 -->
@@ -28,25 +31,25 @@ protect API-based admission resources from modification.
 并且可以保护基于 API 的准入资源免受修改。
 
 <!--
-To use the feature, enable the `ManifestBasedAdmissionControlConfig`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) and
-configure the `staticManifestsDir` field in the
+To use the feature, configure the `staticManifestsDir` field in the
 [AdmissionConfiguration](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-AdmissionConfiguration)
 file passed to the kube-apiserver via `--admission-control-config-file`.
+The `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)
+must be enabled; it is enabled by default since Kubernetes v1.37.
 -->
-要使用此功能，请在 kube-apiserver 上启用
-`ManifestBasedAdmissionControlConfig`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)，
-并在通过 `--admission-control-config-file` 传递给 kube-apiserver 的
+要使用此功能，请在通过 `--admission-control-config-file` 传递给 kube-apiserver 的
 [AdmissionConfiguration](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-AdmissionConfiguration)
-文件中配置 `staticManifestsDir` 字段。
+文件中配置 `staticManifestsDir` 字段。`ManifestBasedAdmissionControlConfig`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)必须启用；
+自 Kubernetes v1.37 起该门控默认启用。
 
 <!-- body -->
 
 <!--
 ## Why use manifest-based admission control?
 -->
-## 为什么要使用基于清单的准入控制？
+## 为什么要使用基于清单的准入控制？    {#why-use-manifest-based-admission-control}
 
 <!--
 Admission policies and webhooks registered through the Kubernetes API (such as
@@ -73,8 +76,7 @@ MutatingWebhookConfiguration）有几个固有局限性：
 - **引导间隙**：基于 REST 的策略执行需要由动态准入控制器创建和加载
   API 对象。在此之前，策略不会被执行。
 - **自我保护间隙**：准入配置资源（如 ValidatingWebhookConfiguration）
-  本身不受 Webhook 准入控制，以防止循环依赖。
-  具有足够权限的用户可以删除或修改关键准入策略。
+  本身不受 Webhook 准入控制，以防止循环依赖。具有足够权限的用户可以删除或修改关键准入策略。
 - **etcd 依赖**：基于 REST 的准入配置依赖于 etcd 的可用性。
   如果 etcd 不可用或损坏，准入策略可能无法正确加载。
 
@@ -87,8 +89,7 @@ configurations from files on disk. These configurations are:
 - Independent of etcd availability
 - Able to intercept operations on API-based admission resources themselves
 -->
-基于清单的准入控制通过从磁盘上的文件加载配置来解决这些局限性。
-这些配置具有以下特点：
+基于清单的准入控制通过从磁盘上的文件加载配置来解决这些局限性。这些配置具有以下特点：
 
 - 从 API 服务器准备好提供请求服务的那一刻起就处于活跃状态
 - 通过 Kubernetes API 无法查看或更改
@@ -98,7 +99,7 @@ configurations from files on disk. These configurations are:
 <!--
 ## Supported resource types
 -->
-## 支持的资源类型 
+## 支持的资源类型    {#supported-resource-types}
 
 <!--
 You can include the following resource types in manifest files. Only the
@@ -150,7 +151,7 @@ ValidatingAdmissionPolicy 和 ValidatingAdmissionPolicyBinding 资源。
 To enable manifest-based admission control, you need:
 
 1. The `ManifestBasedAdmissionControlConfig` feature gate enabled on the
-   kube-apiserver.
+   kube-apiserver (enabled by default since Kubernetes v1.37).
 1. An `AdmissionConfiguration` file with `staticManifestsDir` fields pointing
    to directories containing your manifest files.
 1. The manifest files themselves on disk, accessible to the kube-apiserver
@@ -158,14 +159,12 @@ To enable manifest-based admission control, you need:
 -->
 要启用基于清单的准入控制，你需要：
 
-1. 在 kube-apiserver 上启用 `ManifestBasedAdmissionControlConfig` 特性门控。
+1. 在 kube-apiserver 上启用 `ManifestBasedAdmissionControlConfig`
+   特性门控（自 Kubernetes v1.37 起默认启用）。
 2. 一个 `AdmissionConfiguration` 文件，其 `staticManifestsDir`
    字段指向包含清单文件的目录。
 3. 清单文件本身在磁盘上，且 kube-apiserver 进程可以访问。
 
-<!--
-### AdmissionConfiguration
--->
 ### AdmissionConfiguration
 
 <!--
@@ -174,6 +173,8 @@ that should load manifests from disk. Each plugin requires its own directory.
 -->
 为每个需要从磁盘加载清单的准入插件在插件配置中添加 `staticManifestsDir`。
 每个插件都需要自己的目录。
+
+{{% code_sample language="yaml" file="access/manifest-admission-control/admission-configuration.yaml" %}}
 
 <!--
 The `staticManifestsDir` field accepts an absolute path to a directory. All
@@ -193,7 +194,7 @@ flag.
 <!--
 ### Configuration types
 -->
-### 配置类型
+### 配置类型    {#configuration-types}
 
 <!--
 Each admission plugin uses a specific configuration kind:
@@ -263,12 +264,15 @@ API 服务器启动失败，显示描述性错误。
 <!--
 ### Restrictions
 -->
-### 限制
+### 限制    {#restrictions}
 
 <!--
 Manifest-based admission configurations exist in isolation and cannot
 reference API resources. The following restrictions apply:
+-->
+基于清单的准入配置独立存在，不能引用 API 资源。适用以下限制：
 
+<!--
 - **Webhooks**: Must use `clientConfig.url`. The `clientConfig.service` field is
   not allowed because the service network may not be available at API server
   startup.
@@ -277,13 +281,7 @@ reference API resources. The following restrictions apply:
 - **Bindings**: The `spec.paramRef` field is not allowed. The `spec.policyName`
   must reference a policy defined in the same manifest file set and must end
   with `.static.k8s.io`.
-
-Manifest files are decoded using the strict decoder, which rejects files
-containing duplicate fields or unknown fields. Each object undergoes the same
-defaulting and validation that the REST API applies.
 -->
-基于清单的准入配置独立存在，不能引用 API 资源。适用以下限制：
-
 - **Webhook**：必须使用 `clientConfig.url`。不允许使用 `clientConfig.service`
   字段，因为服务网络可能在 API 服务器启动时不可用。
 - **策略**：不允许使用 `spec.paramKind` 字段。策略不能引用 ConfigMap
@@ -291,6 +289,11 @@ defaulting and validation that the REST API applies.
 - **绑定**：不允许使用 `spec.paramRef` 字段。`spec.policyName`
   必须引用在同一清单文件集中定义的策略，且必须以 `.static.k8s.io` 结尾。
 
+<!--
+Manifest files are decoded using the strict decoder, which rejects files
+containing duplicate fields or unknown fields. Each object undergoes the same
+defaulting and validation that the REST API applies.
+-->
 清单文件使用严格解码器进行解码，该解码器会拒绝包含重复字段或未知字段的文件。
 每个对象都会经历与 REST API 相同的默认设置和验证。
 
@@ -324,33 +327,40 @@ ValidatingWebhookConfiguration、MutatingWebhookConfiguration 及其绑定）。
 
 以下示例防止删除或修改带有 `platform.example.com/protected: "true"` 标签的准入资源：
 
+{{% code_sample language="yaml" file="access/manifest-admission-control/protect-admission-resources.yaml" %}}
+
 <!--
 ### Enforcing a ValidatingAdmissionPolicy from disk
 -->
-### 从磁盘强制执行 ValidatingAdmissionPolicy
+### 从磁盘强制执行 ValidatingAdmissionPolicy    {#enforcing-a-validatingadmissionpolicy-from-disk}
 
 <!--
 The following example defines a policy that denies privileged containers in all
 namespaces except `kube-system`:
+-->
+以下示例定义了一个策略，除 `kube-system` 外拒绝所有名字空间中的特权容器：
 
+{{% code_sample language="yaml" file="access/manifest-admission-control/deny-privileged-policy.yaml" %}}
+
+<!--
 Place this file in the directory configured as `staticManifestsDir` for the
 `ValidatingAdmissionPolicy` plugin. The policy and its binding are loaded
 together atomically.
 -->
-以下示例定义了一个策略，除 `kube-system` 外拒绝所有名字空间中的特权容器：
-
 将此文件放入为 `ValidatingAdmissionPolicy` 插件配置的
 `staticManifestsDir` 目录中。策略及其绑定会被一起原子性地加载。
 
 <!--
 ### Configuring a ValidatingWebhookConfiguration from disk
 -->
-### 从磁盘配置 ValidatingWebhookConfiguration
+### 从磁盘配置 ValidatingWebhookConfiguration    {#configuring-a-validatingwebhookconfiguration-from-disk}
 
 <!--
 The following example configures a validating webhook that calls an external URL:
 -->
 以下示例配置了一个调用外部 URL 的验证 Webhook：
+
+{{% code_sample language="yaml" file="access/manifest-admission-control/validating-webhook.yaml" %}}
 
 {{< note >}}
 <!--
@@ -361,22 +371,23 @@ manifest-based webhook configurations.
 Webhook URL 必须在启动时从 kube-apiserver 可达。仅支持基于 URL 的端点；
 在基于清单的 Webhook 配置中不允许使用服务引用。
 {{< /note >}}
--->
 
 <!--
 ### Using the List format
 -->
-### 使用 List 格式
+### 使用 List 格式    {#using-the-list-format}
 
 <!--
 You can use `v1.List` to group related resources together in a single document:
 -->
 你可以使用 `v1.List` 将相关资源分组在单个文档中：
 
+{{% code_sample language="yaml" file="access/manifest-admission-control/list-format-policy.yaml" %}}
+
 <!--
 ## Evaluation order
 -->
-## 评估顺序
+## 评估顺序    {#evaluation-order}
 
 <!--
 Manifest-based configurations are evaluated before API-based configurations.
@@ -398,6 +409,20 @@ MutatingAdmissionPolicy、ValidatingAdmissionPolicyBinding、
 MutatingAdmissionPolicyBinding、ValidatingWebhookConfiguration、
 MutatingWebhookConfiguration），只评估基于清单的准入钩子。
 为防止循环依赖，这些资源类型会跳过基于 API 的钩子。
+
+{{< note >}}
+<!--
+The non-persisted (virtual) authentication and authorization resources, such as
+TokenReview and SubjectAccessReview, are excluded from
+[admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+and admission policies alike. Manifest-based configurations cannot intercept
+them either, because doing so could lock the cluster out of its own
+authentication and authorization path.
+-->
+非持久化的（虚拟）身份认证和授权资源（例如 TokenReview 和 SubjectAccessReview）
+会被同时排除在[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#excluded-virtual-resources)
+和准入策略之外。基于清单的配置也无法拦截它们，因为这样做可能会使集群无法访问自己的身份认证和授权路径。
+{{< /note >}}
 
 <!--
 ## File watching and dynamic reloading {#dynamic-reloading}
@@ -467,7 +492,7 @@ valid configuration is retained and the error is logged.
 <!--
 ### Metrics
 -->
-### 指标
+### 指标    {#metrics}
 
 <!--
 Manifest-based admission control provides the following metrics for monitoring
@@ -512,7 +537,7 @@ identify manifest-based decisions by filtering on the `name` label.
 <!--
 ### Audit annotations
 -->
-### 审计注解
+### 审计注解    {#audit-annotations}
 
 <!--
 Existing audit annotations (such as
@@ -621,10 +646,7 @@ API server to fail to start due to unknown configuration fields.
 | 无法创建带有 `.static.k8s.io` 后缀的 API 对象 | 名称后缀被特性门控保留 | 当特性门控启用时，`.static.k8s.io` 后缀保留用于基于清单的配置。为基于 API 的对象使用其他名称。 |
 {{< /table >}}
 
-<!--
 ## {{% heading "whatsnext" %}}
--->
-## 接下来    {#whatsnext}
 
 <!--
 - Learn about [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)

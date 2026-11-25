@@ -1,5 +1,7 @@
 ---
 title: Tableau de bord (Dashboard)
+description: >-
+  Déployer l'interface web (Tableau de bord Kubernetes) et y accéder.
 content_type: concept
 weight: 10
 card:
@@ -7,6 +9,18 @@ card:
   weight: 30
   title: Utiliser le tableau de bord (Dashboard)
 ---
+
+{{% pageinfo color="primary" %}}
+**Le Tableau de bord Kubernetes est déprécié et n'est plus maintenu.**
+
+Le projet a été archivé et n'est plus maintenu.
+Pour les nouvelles installations, préférez [Headlamp](https://headlamp.dev/).
+{{% /pageinfo %}}
+
+{{< note >}}
+Pour les déploiements intra-cluster similaires au Tableau de bord Kubernetes, se référer à
+[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
+{{< /note >}}
 
 <!-- overview -->
 
@@ -189,7 +203,7 @@ La vue répertorie les applications par type de charge de travail. (e.g., Deploy
 Les listes récapitulent les informations exploitables sur les charges de travail, telles que le nombre de Pods prêts pour un Replica Set ou l'utilisation actuelle de la mémoire pour un Pod.
 
 Les vues détaillées des charges de travail affichent des informations sur l'état et les spécifications, ainsi que les relations de surface entre les objets.
-Par exemple, les Pods qu'un Replica Set controle ou bien les nouveaux Replica Sets et Horizontal Pod Autoscalers pour les Deployments.
+Par exemple, les Pods qu'un Replica Set contrôle ou bien les nouveaux Replica Sets et Horizontal Pod Autoscalers pour les Deployments.
 
 #### Services
 

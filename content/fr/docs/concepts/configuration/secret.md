@@ -305,7 +305,7 @@ secretGenerator:
 EOF
 ```
 
-Appliquer le repertoire kustomization pour créer l'objet secret.
+Appliquer le répertoire kustomization pour créer l'objet secret.
 
 ```shell
 $ kubectl apply -k .

@@ -41,11 +41,6 @@ installation instructions. The list does not try to be exhaustive.
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly
   connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
   CNI-Genie is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/cni-genie/).
-* [Contiv](https://contivpp.io/) provides configurable networking (native L3 using BGP,
-  overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich
-  policy framework. Contiv project is fully [open sourced](https://github.com/contiv).
-  The [installer](https://github.com/contiv/install) provides both kubeadm and
-  non-kubeadm based installation options.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/),
   based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud
   network virtualization and policy management platform. Contrail and Tungsten
@@ -67,7 +62,7 @@ installation instructions. The list does not try to be exhaustive.
   is used in both k0s and k3s.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
   multiple network support in Kubernetes to support all CNI plugins
-  (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and
+  (e.g. Calico, Cilium, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and
   VPP based workloads in Kubernetes.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking
   provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/),

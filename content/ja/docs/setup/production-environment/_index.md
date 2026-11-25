@@ -47,7 +47,7 @@ no_list: true
 
 永続性や高可用性のクラスターが必要であれば、コントロールプレーンの拡張方法を考えなければいけません。設計上、単一のマシンで動作するコントロールプレーンサービスは高可用性ではありません。クラスターを常に稼働させ、何か問題が発生した場合に修復できる保証が重要な場合は、以下のステップを考えてください。
 
-- *デプロイツールの選択*: kubeadm、kopsやkubesprayなどのツールを使ってコントロールプレーンをデプロイできます。これらのデプロイメント方法を使用したプロダクション環境向けののデプロイのヒントを学ぶために[デプロイツールによるKubernetesのインストール](/ja/docs/setup/production-environment/tools/)をご覧になってください。異なる[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)をデプロイに使用することができます。
+- *デプロイツールの選択*: kubeadm、kopsやkubesprayなどのツールを使ってコントロールプレーンをデプロイできます。これらのデプロイメント方法を使用したプロダクション環境向けのデプロイのヒントを学ぶために[デプロイツールによるKubernetesのインストール](/ja/docs/setup/production-environment/tools/)をご覧になってください。異なる[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)をデプロイに使用することができます。
 - *証明書の管理*: コントロールプレーンサービス間の安全な通信は証明書を使用して実装されています。証明書はデプロイ時に自動で生成したり、独自の認証局を使用し生成することができます。詳細は[PKI証明書と要件](/ja/docs/setup/best-practices/certificates/)をご覧ください。
 - *APIサーバー用のロードバランサーの構成*: 外部からのAPIリクエストを異なるノード上で稼働しているAPIサーバーサービスインスタンスに分散させるためにロードバランサーを設定します。詳細は [外部ロードバランサーの作成](/docs/tasks/access-application-cluster/create-external-load-balancer/)をご覧ください。
 - *etcdサービスの分離とバックアップ*: etcdサービスは他のコントロールプレーンサービスと同じマシン上で動作させることも、追加のセキュリティと可用性のために別のマシン上で動作させることもできます。etcdはクラスターの構成データを格納しており、必要に応じてデータベースを修復できるようにするためにetcdデータベースのバックアップは定期的に行うべきです。etcdの構成と使用に関する詳細は[etcd FAQ](https://etcd.io/docs/v3.5/faq/)をご覧ください。また、[Kubernetes向けのetcdクラスターの運用](/ja/docs/tasks/administer-cluster/configure-upgrade-etcd/)と[kubeadmを使用した高可用性etcdクラスターのセットアップ](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)もご覧ください。

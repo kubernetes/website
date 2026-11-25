@@ -215,7 +215,7 @@ Print the sum of the resource usage
 </tr>
 
 <tr>
-<td colspan="2">--use-protocol-buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默认值：true</td>
+<td colspan="2">--use-protocol-buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
 <td></td>
@@ -298,7 +298,7 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td>
@@ -521,6 +521,20 @@ Name of the file to write the profile to
 性能分析信息要写入的目标文件的名称。
 </p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>

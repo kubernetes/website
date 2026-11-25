@@ -120,12 +120,7 @@ default   1          1d
 You can create additional ServiceAccount objects like this:
 
 ```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: build-robot
-EOF
+kubectl create serviceaccount build-robot
 ```
 
 The name of a ServiceAccount object must be a valid
@@ -422,7 +417,7 @@ token. The token will also become invalid against the API when either the Pod
 or the ServiceAccount is deleted.
 
 You can configure this behavior for the `spec` of a Pod using a
-[projected volume](/docs/concepts/storage/volumes/#projected) type called
+[projected volume](/docs/reference/storage/volume-types/#projected) type called
 `ServiceAccountToken`.
 
 The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).

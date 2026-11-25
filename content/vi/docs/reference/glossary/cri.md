@@ -1,17 +1,21 @@
 ---
-title: Container runtime interface (CRI)
+title: Container Runtime Interface (CRI)
 id: cri
-full_link: /docs/concepts/overview/components/#container-runtime
+full_link: /docs/concepts/architecture/cri
 short_description: >
-  Một API phục vụ cho việc tích hợp container runtimes với kubelet.
+  Giao thức giao tiếp giữa kubelet và container runtime cục bộ.
 
 aka:
 tags:
   - fundamental
 ---
 
-Container runetime interface (CRI) là một API phục vụ cho việc tích hợp container runtimes với kubelet trên một node.
+Giao thức chính cho việc giao tiếp giữa {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} và Container Runtime.
 
 <!--more-->
 
-Để biết thêm chi tiết, đọc thêm về [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) API.
+Container Runtime Interface (CRI) của Kubernetes định nghĩa giao thức
+[gRPC](https://grpc.io) chính cho việc giao tiếp giữa
+[các thành phần node](/docs/concepts/architecture/#node-components) là
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} và
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.

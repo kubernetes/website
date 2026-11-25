@@ -21,7 +21,7 @@ maturity and the feature gate that enables it.
 
 Devices represented in DRA don't necessarily have to be a single unit connected to a single machine,
 but can also be a logical device comprised of multiple devices connected to multiple machines.
-These devices might consume overlapping resources of the underlying phyical devices,
+These devices might consume overlapping resources of the underlying physical devices,
 meaning that when one logical device is allocated other devices will no longer be available.
 
 In the ResourceSlice API, this is represented as a list of named CounterSets, each of which

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating pod-level scope where one container gets exclusive resources and others share the remaining pod resources in a shared pool."
+spec:
+  # 在 Pod 级别，该 Pod 的 CPU request 等于 limits，内存 request 也等于内存 limits。
+  # main-app 容器在容器级别满足 Guaranteed QoS 类的要求，而各边车容器未指定任何资源 request。
+  # 在 pod 范围下，这意味着 kubelet 可以静态地为整个 Pod 分配
+  # 4 个 CPU，其中 2 个独占分配给 main-app 容器，剩余的 2 个由边车在该 Pod 的共享池中共享。
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: metrics-sidecar
+    # 注意：这是仅用于演示的占位镜像，并不是真正的 metrics 助手。
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+  - name: logging-sidecar
+    # 注意：这是仅用于演示的占位镜像，并不是真正的日志代理。
+    image: registry.k8s.io/pause:3.9
+    restartPolicy: Always
+  containers:
+  - name: main-app
+    # 注意：这是仅用于演示的占位镜像。
+    image: registry.k8s.io/pause:3.9
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"

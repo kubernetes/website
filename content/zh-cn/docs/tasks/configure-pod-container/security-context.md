@@ -57,20 +57,32 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 <!--
 * `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
-  its parent process. This bool directly controls whether the
+  its parent process, for example, by executing a [setuid binary](https://en.wikipedia.org/wiki/Setuid).
+  This boolean value directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
-  flag gets set on the container process.
-  `allowPrivilegeEscalation` is always true when the container:
+  flag gets set on the container process, though note that the value is
+  inverted: if `allowPrivilegeEscalation` is true, then `no_new_privs` will be
+  set to false.
+
+  If `allowPrivilegeEscalation` is not defined in the `securityContext` field of a container specification, then it will default to true.
+
+  `allowPrivilegeEscalation: false` is inconsistent, and therefore cannot be set in combination, with a container that:
 
   - is run as privileged, or
-  - has `CAP_SYS_ADMIN`
+  - has the capability `CAP_SYS_ADMIN`
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 -->
 * `allowPrivilegeEscalation`：控制进程是否可以获得超出其父进程的特权。
-  此布尔值直接控制是否为容器进程设置
-  [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)标志。
-  当容器满足一下条件之一时，`allowPrivilegeEscalation` 总是为 true：
+  例如，通过执行 [setuid 可执行文件](https://en.wikipedia.org/wiki/Setuid)来提升权限。
+
+  该布尔值直接控制是否为容器进程设置 [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) 标志。
+  但需要注意的是，两者的取值逻辑是相反的：如果 `allowPrivilegeEscalation` 设置为 true，
+  则 `no_new_privs` 将被设置为 false。
+
+  如果在容器规范的 `securityContext` 字段中未定义 `allowPrivilegeEscalation`，则其默认值为 true。
+
+  `allowPrivilegeEscalation: false` 与具有以下配置的容器存在冲突，因此不能同时设置：
 
   - 以特权模式运行，或者
   - 具有 `CAP_SYS_ADMIN` 权能

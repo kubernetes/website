@@ -33,7 +33,7 @@ Berikut merupakan contoh konfigurasi Job. Job ini melakukan komputasi π hingga
 digit ke 2000 kemudian memberikan hasilnya sebagai keluaran. Job tersebut memerlukan 
 waktu 10 detik untuk dapat diselesaikan.
 
-{{% codenew file="controllers/job.yaml" %}}
+{{% code_sample file="controllers/job.yaml" %}}
 
 Kamu dapat menjalankan contoh tersebut dengan menjalankan perintah berikut:
 

@@ -285,7 +285,7 @@ Si vous ne spécifiez pas de limite de mémoire pour un conteneur, l'une des sit
 * Le conteneur n'a pas de limite maximale quant à la quantité de mémoire qu'il utilise. Le conteneur
 pourrait utiliser toute la mémoire disponible sur le nœud où il est en cours d'exécution, ce qui pourrait à son tour invoquer le OOM killer. De plus, dans le cas d'un OOM Kill, un conteneur sans limite de ressources aura plus de chance d'être stoppé.
 
-* Le conteneur s'exécute dans un namespace qui a une limite de mémoire par défaut, d'ou le conteneur est automatiquement affecté cette limite par defaut. Les administrateurs du cluster peuvent utiliser un [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+* Le conteneur s'exécute dans un namespace qui a une limite de mémoire par défaut, d'où le conteneur est automatiquement affecté cette limite par défaut. Les administrateurs du cluster peuvent utiliser un [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
 pour spécifier une valeur par défaut pour la limite de mémoire.
 
 ## Motivation pour les demandes et les limites de mémoire

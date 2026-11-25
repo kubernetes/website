@@ -175,7 +175,7 @@ peut varier par rapport à l'exemple présenté.
 
 ## Arrêt de la charge {#stop-load}
 
-Pour finir cet exemple, nous allons arrêter d'envoyer des requètes.
+Pour finir cet exemple, nous allons arrêter d'envoyer des requêtes.
 
 Dans le terminal utilisé pour créer le Pod qui exécute une image `busybox`, arrêtez la charge en entrant `<Ctrl> +C`.
 

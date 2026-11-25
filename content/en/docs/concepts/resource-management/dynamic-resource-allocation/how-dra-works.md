@@ -271,7 +271,7 @@ The `nodeAllocatableResources` field supports two different use cases:
 #### Example: CPU DRA Driver (Mapping)
 
 Here is an example where a CPU DRA driver exposes a CPU socket as a pool of 128
-CPUs using [DRA consumable capacity](#consumable-capacity). The `capacityKey` links the consumed
+CPUs using [DRA consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity). The `capacityKey` links the consumed
 `cpu.example.com/cpu` capacity directly to the node's standard `cpu`
 allocatable resource:
 
