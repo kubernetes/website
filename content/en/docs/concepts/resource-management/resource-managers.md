@@ -194,42 +194,9 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 ##### Static policy options {#cpu-policy-static--options}
 
-Here are the available policy options for the static CPU management policy,
-listed in alphabetical order:
-
-`align-by-socket` (alpha, hidden by default)
-: Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries
-  (available since Kubernetes v1.25)
-
-`distribute-cpus-across-cores` (alpha, hidden by default)
-: Allocate virtual cores, sometimes called hardware threads, across different physical cores
-  (available since Kubernetes v1.31)
-
-`distribute-cpus-across-numa` (beta, visible by default)
-: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
-  (available since Kubernetes v1.23)
-
-`full-pcpus-only` (GA, visible by default)
-: Always allocate full physical cores (available since Kubernetes v1.22, GA since Kubernetes v1.33)
-
-`strict-cpu-reservation` (GA, visible by default)
-: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
-  (available since Kubernetes v1.32, GA since Kubernetes v1.35)
-
-`prefer-align-cpus-by-uncorecache` (GA, visible by default)
-: Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
-  (available since Kubernetes v1.32)
-
-You can toggle groups of options on and off based upon their maturity level
-using the following feature gates:
-
-* `CPUManagerPolicyBetaOptions` (default enabled). Disable to hide beta-level options.
-* `CPUManagerPolicyAlphaOptions` (default disabled). Enable to show alpha-level options.
-
-You will still have to enable each option using the `cpuManagerPolicyOptions` field in the
-kubelet configuration file.
-
-For more detail about the individual options you can configure, read on.
+The [CPU Manager policy options reference](/docs/reference/node/cpu-manager-policy-options/)
+lists the available options, their feature stages, and which options you can combine.
+The following sections explain how each option affects CPU placement.
 
 ###### `full-pcpus-only`
 

@@ -22,6 +22,8 @@ This section contains the following reference topics about nodes:
 
 * [Linux Node Swap Behaviors](/docs/reference/node/swap-behavior/)
 
+* [CPU Manager Policy Options](/docs/reference/node/cpu-manager-policy-options/)
+
 * [Seccomp information](/docs/reference/node/seccomp/)
 
 * [What happens after a node restart](/docs/reference/node/what-happens-on-restart/)
