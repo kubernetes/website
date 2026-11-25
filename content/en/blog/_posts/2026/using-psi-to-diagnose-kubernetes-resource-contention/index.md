@@ -2,7 +2,7 @@
 layout: blog
 title: "Beyond CPU Utilization: Using PSI to Diagnose Kubernetes Resource Contention"
 slug: using-psi-to-diagnose-kubernetes-resource-contention
-draft: true
+draft: 2026-12-01
 author: >
   [Nitin Ware](https://github.com/nitinware)
 ---
