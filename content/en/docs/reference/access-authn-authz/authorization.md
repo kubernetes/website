@@ -477,10 +477,10 @@ admission phases work together to enforce fine-grained policies:
 
 ### Built-in CEL evaluation {#built-in-cel-evaluation}
 
-Conditions using the built-in `authorizer.kubernetes.io/cel` type can be handled by the
-API server's own CEL evaluator, avoiding the webhook callback and improving performance
-while maintaining the same security guarantees. The API server may also send an
-`AuthorizationConditionsReview` to a webhook to evaluate this well-known condition type.
+Conditions using the built-in `authorizer.kubernetes.io/cel` type can be handled by
+Kubernetes API server's own CEL evaluator, avoiding the webhook callback and improving
+performance while maintaining the same security guarantees. The API server may also send
+an `AuthorizationConditionsReview` to a webhook to evaluate this well-known condition type.
 
 To use custom condition types, a custom webhook may be used. Configure
 `AuthorizationConfiguration.conditionsReview` as seen in the [above example](#authz-config-example).
@@ -509,38 +509,6 @@ A conditions map (`conditionsMap`) is a map of conditions where each
 condition is unique, and has an `Allow`, `Deny` or `NoOpinion` effect.
 
 #### How are conditions evaluated? {#conditions-how-are-evaluated}
-
-```mermaid
-graph LR
-    Start([Evaluate Conditions]) --> Q1{Any effect=Deny<br>evaluates to true?}
-
-    Q1 -- Yes --> DENY((DENY))
-    Q1 -- No --> Q2{Any effect=Deny<br>evaluates to error?}
-
-    Q2 -- "Yes (with error)" --> DENY
-    Q2 -- No --> Q3{Any effect=NoOpinion<br>evaluates to true?}
-
-    Q3 -- Yes --> NO_OPINION((NO OPINION))
-    Q3 -- No --> Q4{Any effect=NoOpinion<br>evaluates to error?}
-
-    Q4 -- "Yes (with error)" --> NO_OPINION
-    Q4 -- No --> Q5{Any effect=Allow<br>evaluates to true?}
-
-    Q5 -- Yes --> ALLOW((ALLOW))
-    Q5 -- No --> NO_OPINION
-
-    %% Styling
-    style Start fill:#dcf0d1,stroke:#333
-    style Q1 fill:#fce4e4,stroke:#333
-    style Q2 fill:#f9b19e,stroke:#333
-    style Q3 fill:#8e246d,stroke:#333,color:#fff
-    style Q4 fill:#58264e,stroke:#333,color:#fff
-    style Q5 fill:#dcf0d1,stroke:#333
-
-    style DENY fill:#a63228,stroke:#333,color:#fff
-    style NO_OPINION fill:#912671,stroke:#333,color:#fff
-    style ALLOW fill:#2e5a3d,stroke:#333,color:#fff
-```
 
 A condition's effect is determined by which list it appears in within `conditionsMap`
 (`allowConditions`, `denyConditions`, or `noOpinionConditions`):
@@ -575,6 +543,38 @@ request is denied.
 
 When a review API reports this combined result, it does so as a `Union` decision. See
 [Checking API access](#checking-api-access) for an example.
+
+```mermaid
+graph LR
+    Start([Evaluate Conditions]) --> Q1{Any effect=Deny<br>evaluates to true?}
+
+    Q1 -- Yes --> DENY((DENY))
+    Q1 -- No --> Q2{Any effect=Deny<br>evaluates to error?}
+
+    Q2 -- "Yes (with error)" --> DENY
+    Q2 -- No --> Q3{Any effect=NoOpinion<br>evaluates to true?}
+
+    Q3 -- Yes --> NO_OPINION((NO OPINION))
+    Q3 -- No --> Q4{Any effect=NoOpinion<br>evaluates to error?}
+
+    Q4 -- "Yes (with error)" --> NO_OPINION
+    Q4 -- No --> Q5{Any effect=Allow<br>evaluates to true?}
+
+    Q5 -- Yes --> ALLOW((ALLOW))
+    Q5 -- No --> NO_OPINION
+
+    %% Styling
+    style Start fill:#dcf0d1,stroke:#333
+    style Q1 fill:#fce4e4,stroke:#333
+    style Q2 fill:#f9b19e,stroke:#333
+    style Q3 fill:#8e246d,stroke:#333,color:#fff
+    style Q4 fill:#58264e,stroke:#333,color:#fff
+    style Q5 fill:#dcf0d1,stroke:#333
+
+    style DENY fill:#a63228,stroke:#333,color:#fff
+    style NO_OPINION fill:#912671,stroke:#333,color:#fff
+    style ALLOW fill:#2e5a3d,stroke:#333,color:#fff
+```
 
 #### Understanding NoOpinion effect {#understanding-noopinion-effect}
 

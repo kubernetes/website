@@ -305,7 +305,7 @@ participate in conditional authorization.
 {{< /note >}}
 
 The `authorizationOptions` field controls whether conditional responses are supported.
-Instead of an on/off boolean, the client declares the decision types it can handle via
+The client declares the decision types it can handle via
 `authorizationOptions.handledDecisionTypes` (a set), and support is determined by
 whether that set includes the conditional types:
 
@@ -372,9 +372,9 @@ The example above omits `type`, which is valid because `type` is optional. Setti
 want to declare the condition language, as shown in the
 [`AuthorizationConditionsReview` request](#authorization-conditions-review) example below.
 
-A condition's _effect_ comes from which list it appears in — `allowConditions`,
-`denyConditions`, or `noOpinionConditions` — not from a field on the condition itself.
-For what each effect means and how a `conditionsMap` resolves to a single verdict, see
+A condition's _effect_ comes from the type of list a condition appears in —
+`allowConditions`, `denyConditions`, or `noOpinionConditions`. For what each effect
+means and how a `conditionsMap` resolves to a single verdict, see
 [Condition evaluation](/docs/reference/access-authn-authz/authorization/#condition-evaluation).
 
 Conditions are evaluated during the admission phase, against the actual request and
@@ -452,20 +452,21 @@ first conclusive decision wins; for the full rules, see
 {{< feature-state feature_gate_name="ConditionalAuthorization" >}}
 
 When a webhook authorizer returns conditional responses, Kubernetes needs to evaluate
-those conditions during the admission phase. It does so either in-process or by calling
-the webhook back through the `AuthorizationConditionsReview` API, as described in
+those conditions during the admission phase. The Kubernetes API Server does so either
+in-process or by calling the webhook back through the
+`AuthorizationConditionsReview` API, as described in
 [Built-in CEL evaluation](/docs/reference/access-authn-authz/authorization/#built-in-cel-evaluation).
 Because the API server may call back for any condition, including well-known types, a
 webhook must be able to evaluate every condition it authors.
 
 Webhooks that support conditional authorization must implement the
-`AuthorizationConditionsReview` API at the endpoint specified by
-`.conditionsReview.kubeConfigContextName` in the webhook configuration. If this endpoint
-is not configured, the webhook cannot return conditional responses.
+`AuthorizationConditionsReview` API responses. This can be either a separate endpoint,
+or the same endpoint that serves `SubjectAccessReview` API responses. The user needs
+to configure `.conditionsReview` to point to the correct endpoint.
 
 ### Request format
 
-The API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
+The Kubernetes API server POSTs a JSON-serialized `AuthorizationConditionsReview` request:
 
 ```json
 {
