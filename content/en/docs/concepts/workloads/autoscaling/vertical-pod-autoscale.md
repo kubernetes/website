@@ -59,8 +59,8 @@ The current stable API version is `autoscaling.k8s.io/v1`. More details about th
 Kubernetes implements vertical pod autoscaling through multiple cooperating components that run intermittently (it is not a continuous process). The VPA consists of three main components: 
 
 * The _recommender_, which analyzes resource usage and provides recommendations.
-* The _updater_, that Pod resource requests either by evicting Pods or modifying them in place.
-* And the VPA _admission controller_ webhook, which applies resource recommendations to new or recreated Pods.
+* The _updater_, which updates Pod resource requests either by evicting Pods or modifying them in place.
+* The VPA _admission controller_ webhook, which applies resource recommendations to new or recreated Pods.
 
 Once during each period, the Recommender queries the resource utilization for Pods targeted by each VerticalPodAutoscaler definition. The Recommender finds the target resource defined by the `targetRef`, then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from the resource metrics API to analyze actual CPU and memory consumption.
 
