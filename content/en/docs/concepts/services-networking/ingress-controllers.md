@@ -76,6 +76,8 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Voyager](https://voyagermesh.com) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
+* [wxingress](https://github.com/wx-one/wxingress) is an [NGINX](https://nginx.org/)-based ingress controller
+  that also implements the [Gateway API](https://gateway-api.sigs.k8s.io/) and reads the annotations and ConfigMap keys of ingress-nginx.
 
 ## Using multiple Ingress controllers
 
