@@ -59,7 +59,11 @@ kind: ClusterConfiguration
 encryptionAlgorithm: <ALGORITHM>
 ```
 
-`<ALGORITHM>` can be one of `RSA-2048` (default), `RSA-3072`, `RSA-4096` or `ECDSA-P256`.
+`<ALGORITHM>` can be one of `RSA-2048` (default), `RSA-3072`, `RSA-4096`,
+`ECDSA-P256`, `ECDSA-P384`, `ML-DSA-44`, `ML-DSA-65` or `ML-DSA-87`.
+
+If you choose an ML-DSA algorithm, other cluster components such as kube-apiserver and etcd
+must also support ML-DSA; otherwise, cluster creation can fail.
 
 ## Choosing certificate validity period {#choosing-cert-validity-period}
 
