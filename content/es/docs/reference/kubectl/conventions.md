@@ -42,7 +42,7 @@ Para que `kubectl run` satisfaga la infraestructura como código:
 
 * Etiqueta la imagen con una etiqueta de una versión específica y no muevas esa etiqueta a una nueva versión. Por ejemplo, utiliza `:v1234`, `v1.2.3`, `r03062016-1-4`, por encima de `:latest` (Para más información, mira [Buenas prácticas de configuración de Kubernetes](/blog/2025/11/25/configuration-good-practices/)).
 * Revisa en el script si hay una imagen que esté fuertemente parametrizada.
-* Recurre a utilizar archivos de configuración versionados en el control de versiones para aquellas características que son necesarias, pero que no puedan expresarse mediante flags de `kubectl run`.
+* Recurre a utilizar archivos de configuración registrados en el control de versiones para aquellas características que son necesarias, pero que no puedan expresarse mediante flags de `kubectl run`.
 
 Puedes utilizar el flag `--dry-run=client` para previsualizar el objeto que sería enviado a tu clúster, sin realmente enviarlo.
 
