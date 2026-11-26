@@ -168,8 +168,9 @@ to perform the same operations over and over again. The [Opportunistic Batching]
 feature allows the scheduler to reuse the filtering and scoring results between scheduling cycles
 which greatly speeds up the scheduling process.
 
-With rescoring, the scheduler can continue batching in that situation. When the next Pod can still fit on
-the previously chosen Node, the scheduler updates that Node's score and puts it back into the cached candidate list.
+With rescoring, the scheduler can continue batching even when more than one Pod fits on the same Node.
+When the next Pod can still fit on the previously chosen Node, the scheduler updates that Node's score
+and puts it back into the cached candidate list.
 If rescoring does not succeed, the scheduler falls back to the existing behavior and flushes the cache.
 
 Basically, this feature works like:
