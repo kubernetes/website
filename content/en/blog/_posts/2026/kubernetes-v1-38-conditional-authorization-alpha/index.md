@@ -237,17 +237,3 @@ Finally, I want to thank everyone that's been contributing to this feature along
 [SIG Auth biweekly meeting]: https://github.com/kubernetes/community/tree/main/sig-auth
 [the meeting agenda]: https://docs.google.com/document/d/1BiW9kcQYDeMtaItFMz5qG1XdCd5jNeJcQMRdb3UORdI/edit?tab=t.0#heading=h.ucn6b5acqauf
 [Authenticator Provided Authorization Constraints]: https://github.com/kubernetes/enhancements/pull/5918
-
-Outline:
-- Problem statement and proposed solution
-- History/Context
-  - Link to my and Micah's talk
-  - Link to KEP
-- How to use this
-- What this is and isn't
-  - Not RBAC++, that's next
-  - Not reads, only writes
-- What's next
-
-Thank the reviewers, etc.
-
