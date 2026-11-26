@@ -7,9 +7,9 @@ weight: 20
 <!-- overview -->
 
 As with any program, you might run into an error installing or running kubeadm.
-This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
+This page lists some common failure scenarios and provides steps that can help you understand and fix the problem.
 
-If your problem is not listed below, please follow the following steps:
+If your problem is not listed below, please follow these steps:
 
 - If you think your problem is a bug with kubeadm:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
