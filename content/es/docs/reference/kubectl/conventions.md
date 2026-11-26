@@ -18,7 +18,7 @@ Convenciones de uso recomendadas para `kubectl`.
 Para una salida estable en un script:
 
 * Solicita uno de los formatos de salida orientados a máquinas, como `-o name`, `-o json`, `-o yaml`, `-o go-template`, o `-o jsonpath`.
-* Especifica la versión completa. Por ejemplo, `jobs.v1.batch/myjob`. Esto asegurará que kubectl no utilice la versión por predeterminado que cambia en el tiempo.
+* Especifica el nombre completo. Por ejemplo, `jobs.v1.batch/myjob`. Esto asegurará que kubectl no utilice la versión por predeterminado que cambia en el tiempo.
 * No dependas del contexto, de las preferencias, u otros estados implícitos.
 
 ## Subrecursos
