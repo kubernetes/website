@@ -226,7 +226,7 @@ You can see how Kubernetes varies the rate at which disruptions
 can happen, according to:
 
 - how many replicas an application needs
-- how long it takes to gracefully shutdown an instance
+- how long it takes to gracefully shut down an instance
 - how long it takes a new instance to start up
 - the type of controller
 - the cluster's resource capacity
