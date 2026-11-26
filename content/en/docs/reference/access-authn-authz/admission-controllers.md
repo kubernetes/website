@@ -754,6 +754,20 @@ PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also s
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
+### PodResizeValidator {#podresizevalidator}
+
+{{< feature-state for_k8s_version="v1.36" state="stable" >}}
+
+**Type**: Validating.
+
+The PodResizeValidator admission controller validates in-place Pod resize requests
+against the capacity of the node to which the Pod is assigned. It rejects
+resize requests when the Pod's total CPU or memory requests exceed the node's
+allocatable capacity, or when the node runs an unsupported operating system.
+
+For more information about in-place Pod resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
 ### PodSecurity {#podsecurity}
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}

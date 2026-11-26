@@ -183,7 +183,8 @@ For more details, see [Disruptions](/docs/concepts/workloads/pods/disruptions/).
 The kubelet updates the Pod's status conditions to indicate the state of a resize request:
 
 - `type: PodResizePending`: The kubelet cannot immediately grant the request. The `message` field provides an explanation of why.
-  - `reason: Infeasible`: The requested resize is impossible on the current node (for example, requesting more resources than the node has).
+  - `reason: Infeasible`: The requested resize is impossible on the current node
+    (for example, in-place resizing of memory requests is not supported for Pods that use swap).
   - `reason: Deferred`: The requested resize is currently not possible, but might become feasible later (for example if another pod is removed). The kubelet will retry the resize.
 - `type: PodResizeInProgress`: The kubelet has accepted the resize and allocated resources, but the changes are still being applied. This is usually brief but might take longer depending on the resource type and runtime behavior. Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
