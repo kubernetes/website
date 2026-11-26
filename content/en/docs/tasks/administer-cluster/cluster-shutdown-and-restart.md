@@ -41,13 +41,13 @@ If your Kubernetes cluster uses etcd as its backing store, make sure to create a
 
 {{< note >}}
 - This procedure terminates workloads normally to prevent data corruption, but if necessary, back up the workloads. Check the backup method for each workload.
-- Cluster shutdown will be executed by the cluster administrator, but workload backups may needed be executed by the people responsible for each individual workload.
+- Cluster shutdown will be executed by the cluster administrator, but workload backups may need to be executed by the people responsible for each individual workload.
   As a cluster administrator, you should establish management processes for cluster shutdown, such as notifying users in advance.
 {{< /note >}}
 
 ## Shut down the nodes in your cluster {#node-shutdown}
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will typically allow you to gracefully restart the cluster for later use. While [node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart. The procedure involves first shutting down the worker nodes, and then shutting down the control plane.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will typically allow you to gracefully restart the cluster for later use. While [node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shut down until cluster restart. The procedure involves first shutting down the worker nodes, and then shutting down the control plane.
 
 ### Mark worker nodes unschedulable
 
@@ -62,7 +62,7 @@ kubectl cordon --selector='node-role.kubernetes.io/control-plane'
 
 Evict all the pods using `kubectl drain`
 
-While `kubectl drain` should basically be enough due to it capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`.
+While `kubectl drain` should basically be enough because it is capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`.
 First, drain the worker nodes, then drain the control plane nodes.
 
 ```bash
@@ -89,7 +89,7 @@ After all nodes have successfully shut down, shut down any other cluster depende
 
 ## Restart the cluster
 
-This section describes the process you need to restart the cluster after being gracefully shutdown.
+This section describes the process you need to restart the cluster after being gracefully shut down.
 
 If the cluster fails to recover, restore the cluster to its previous state using the [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#restoring-an-etcd-cluster).
 
