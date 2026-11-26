@@ -4,10 +4,13 @@ title: "Inspect Agones game servers faster with Headlamp"
 draft: true
 slug: agones-headlamp-plugin
 author: >
-  [Ashwani Yadav](https://github.com/NAME-ASHWANIYADAV) (independent)
+  [Ashwani Yadav](https://github.com/NAME-ASHWANIYADAV)
 ---
 
-[Agones](https://agones.dev/) is an open source platform for running and scaling dedicated multiplayer game servers on Kubernetes. [Headlamp](https://headlamp.dev/) is an extensible Kubernetes web UI and a [Kubernetes SIG UI](https://github.com/kubernetes/community/tree/master/sig-ui) project. The [Agones plugin for Headlamp](https://github.com/agones-dev/headlamp-plugin) brings Agones resources into the Headlamp interface, so you can operate a game server platform without reconstructing its state from YAML in a terminal.
+[Agones](https://agones.dev/) is an open source platform for running and scaling dedicated multiplayer game servers on Kubernetes.
+[Headlamp](https://headlamp.dev/) is an extensible Kubernetes web UI and a [Kubernetes SIG UI](https://www.kubernetes.dev/community/community-groups/sigs/ui/) project.
+The [Agones plugin for Headlamp](https://github.com/agones-dev/headlamp-plugin) brings Agones resources into the Headlamp interface,
+so you can operate a game server platform without reconstructing its state from YAML in a terminal.
 
 Watch this short walkthrough to see the Agones plugin in Headlamp:
 
