@@ -541,8 +541,8 @@ first conclusive one wins:
 If every authorizer returns `NoOpinion`, the chain as a whole has no opinion and the
 request is denied.
 
-When a review API reports this combined result, it does so as a `Union` decision. See
-[Checking API access](#checking-api-access) for an example.
+When the union authorizer reports this combined result, it does so as a `Union` 
+decision. See [Checking API access](#checking-api-access) for an example.
 
 ```mermaid
 graph LR
