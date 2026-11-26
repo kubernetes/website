@@ -61,7 +61,7 @@ Pod:
 
 Como arriba se muestra, has definido correctamente la referencia de dependencia en `SERVICE_ADDRESS`, una referencia de dependencia incorrecta en `UNCHANGED_REFERENCE` y la omisión de una referencia dependiente en `ESCAPED_REFERENCE`.
 
-Cuando una variable de entorno está definida cuando es referenciada,
+Cuando una variable de entorno está definida cuando esta siendo referenciada,
 la referencia se resuelve correctamente, como en el caso de `SERVICE_ADDRESS`.
 
 Nota que el orden importa en la lista `env`. Una variable de entorno no es considerada
