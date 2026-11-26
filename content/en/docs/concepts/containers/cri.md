@@ -49,13 +49,13 @@ container runtime is correctly configured.
 The standard CRI list RPCs (`ListContainers`, `ListPodSandbox`, `ListImages`) return
 all results in a single unary response. On nodes with a large number of containers
 (for example, more than roughly 10,000 including both running and stopped), these
-responses can exceed gRPC's default 16 MiB message size limit, causing the kubelet
-to fail when reconciling state with the container runtime.
+responses can exceed the 16 MiB message size limit set by the CRI client library,
+causing the kubelet to fail when reconciling state with the container runtime.
 
 With the `CRIListStreaming` feature gate enabled, the kubelet uses server-side
 streaming RPCs (such as `StreamContainers`, `StreamPodSandboxes`,
 `StreamImages`) that allow the container runtime to divide results across
-multiple response messages, bypassing the per-message size limit. This is
+multiple response messages, keeping each message within the size limit. This is
 particularly useful for:
 
 - High container churn environments (CI/CD systems)
@@ -63,7 +63,10 @@ particularly useful for:
 
 If the container runtime does not support streaming RPCs, the kubelet
 automatically falls back to the standard unary RPCs for backward
-compatibility.
+compatibility. This fallback is cached per service until the kubelet restarts.
+
+To disable list streaming, set `CRIListStreaming=false` in the kubelet's
+feature gate configuration and restart the kubelet.
 
 ## {{% heading "whatsnext" %}}
 
