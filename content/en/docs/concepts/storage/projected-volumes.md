@@ -88,8 +88,9 @@ To select by name, use the `name` field to designate a single ClusterTrustBundle
 
 To select by signer name, use the `signerName` field (and optionally the
 `labelSelector` field) to designate a set of ClusterTrustBundle objects that use
-the given signer name. If `labelSelector` is not present, then all
-ClusterTrustBundles for that signer are selected.
+the given signer name. If `labelSelector` is not present, then no
+ClusterTrustBundles are selected. Set `labelSelector` to an empty object (`{}`)
+to select all ClusterTrustBundles for that signer.
 
 The kubelet deduplicates the certificates in the selected ClusterTrustBundle objects,
 normalizes the PEM representations (discarding comments and headers), reorders the certificates,
