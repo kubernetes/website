@@ -144,9 +144,13 @@ var kub = (function () {
     }
 
     function toggleMenu() {
+        var hamburger = document.getElementById('hamburger');
         // Clickable for Bootstrap "lg" and narrower
         if (window.innerWidth < 992) {
             pushmenu.show('primary');
+            if (hamburger) {
+                hamburger.setAttribute('aria-expanded', 'true');
+            }
         }
 
         else {
@@ -158,6 +162,10 @@ var kub = (function () {
 
             header.css({height: px(newHeight)});
             html.toggleClass('open-nav');
+            if (hamburger) {
+                var isOpen = html.hasClass('open-nav');
+                hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
         }
     }
 
@@ -466,6 +474,11 @@ var pushmenu = (function(){
 
         function closeMe(e) {
             if (e.target == sled) return;
+
+            var hamburger = document.getElementById('hamburger');
+            if (hamburger) {
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
 
             $(el).removeClass('on');
             setTimeout(function(){
