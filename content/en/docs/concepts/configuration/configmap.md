@@ -209,13 +209,13 @@ A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#usin
 {{< /note >}}
 
 
-### Using Configmaps as environment variables
+### Using ConfigMaps as environment variables
 
-To use a Configmap in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
+To use a ConfigMap in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
 in a Pod:
 
 1. For each container in your Pod specification, add an environment variable
-   for each Configmap key that you want to use to the
+   for each ConfigMap key that you want to use to the
    `env[].valueFrom.configMapKeyRef` field.
 1. Modify your image and/or command line so that the program looks for values
    in the specified environment variables.
