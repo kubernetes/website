@@ -66,7 +66,6 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
 apiServer:
   extraArgs:
   - name: "enable-admission-plugins"
@@ -84,13 +83,12 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
 controllerManager:
   extraArgs:
   - name: "cluster-signing-key-file"
     value: "/home/johndoe/keys/ca.key"
-  - name: "deployment-controller-sync-period"
-    value: "50"
+  - name: "concurrent-deployment-syncs"
+    value: "10"
 ```
 
 ### Scheduler flags
@@ -102,7 +100,6 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
   - name: "config"
@@ -128,7 +125,7 @@ etcd:
   local:
     extraArgs:
     - name: "election-timeout"
-      value: 1000
+      value: "1000"
 ```
 
 ## Customizing with patches {#patches}
@@ -244,7 +241,7 @@ dns:
 Also, by executing the following command:
 
 ```shell
-kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
+kubeadm init phase addon coredns --print-manifest --config my-config.yaml
 ```
 
 you can obtain the manifest file kubeadm would create for CoreDNS on your setup.
