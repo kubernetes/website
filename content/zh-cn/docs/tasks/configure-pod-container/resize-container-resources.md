@@ -13,8 +13,6 @@ min-kubernetes-server-version: 1.33
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
-
 <!--
 This page explains how to change the CPU and memory resource requests and limits
 assigned to a container *without recreating the Pod*.
@@ -80,9 +78,7 @@ and actual requests from the status when making scheduling decisions.
 ## {{% heading "prerequisites" %}}
 
 <!--
-The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled
-for your control plane and for all nodes in your cluster.
+In-place pod resize is generally available and enabled by default; it requires no additional configuration.
 
 To enable automatic scheduler preemption for deferred resize requests, the
 `InPlacePodVerticalScalingSchedulerPreemption`
@@ -96,8 +92,7 @@ The `kubectl` client version must be at least v1.32 to use the `--subresource=re
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-你需要在控制平面和集群中的所有节点上启用 `InPlacePodVerticalScaling`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。  
+原地 Pod 资源调整已正式发布并默认启用，不需要额外配置。
 
 要为被延后的资源调整请求启用调度器自动抢占功能，还必须为你的控制平面启用
 `InPlacePodVerticalScalingSchedulerPreemption` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
@@ -385,11 +380,25 @@ to a race condition where memory usage may spike right after the check is perfor
 * **操作系统**：Windows Pod 不支持原地调整大小。
 
 <!--
-* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
-  cannot be resized in-place.
+* **Static CPU manager policy:** By default, pods managed by the
+  [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/)
+  cannot resize CPU in-place. When the `InPlacePodVerticalScalingExclusiveCPUs`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+  the kubelet can in-place resize the exclusive CPUs of Guaranteed pods. For details, see
+  [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
+* **Static memory manager policy:** Pods managed by the
+  [static memory manager policy](/docs/tasks/administer-cluster/memory-manager/)
+  cannot resize memory in-place.
 -->
-* **节点策略**：由[静态 CPU 或内存管理器策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)管理的
-  Pod 不能原地调整大小。
+* **`static` CPU 管理器策略**：默认情况下，由
+  [`static` CPU 管理器策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)管理的
+  Pod 不能原地调整 CPU。启用 `InPlacePodVerticalScalingExclusiveCPUs`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
+  kubelet 可以原地调整 Guaranteed Pod 的独占 CPU。有关详细信息，请参阅
+  [调整使用独占 CPU 的 Pod 的 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/resize-exclusive-cpus/)。
+* **`static` 内存管理器策略**：由
+  [`static` 内存管理器策略](/zh-cn/docs/tasks/administer-cluster/memory-manager/)管理的
+  Pod 不能原地调整内存。
 
 <!--
 * **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
@@ -641,6 +650,7 @@ kubectl delete namespace qos-example
 <!--
 ### For cluster administrators
 
+* [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/)
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
@@ -653,6 +663,7 @@ kubectl delete namespace qos-example
 -->
 ### 对于集群管理员
 
+* [调整使用独占 CPU 的 Pod 的 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/resize-exclusive-cpus/)
 * [为名字空间配置默认内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [为名字空间配置默认 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)

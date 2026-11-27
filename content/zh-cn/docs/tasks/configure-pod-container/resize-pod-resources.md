@@ -130,6 +130,20 @@ Additionally, the following constraint is specific to Pod-level resource resize:
   The Pod-level limit serves as a boundary that no single container may exceed, but
   the sum of container limits is permitted to exceed the Pod-level limit, enabling
   resource sharing across containers within the Pod.
+
+* Exclusive CPUs: If your nodes use the
+  [static CPU manager policy](/docs/tasks/administer-cluster/cpu-management-policies/)
+  and both the `InPlacePodVerticalScalingExclusiveCPUs` and the `PodLevelResourceManagers`
+  [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) are enabled,
+  the kubelet rejects as infeasible any resize that changes the number of exclusive CPUs
+  of a Guaranteed pod with pod-level resources. This affects the pod-level CPU request and
+  the CPU request of each container whenever the previous or the new value is an integer
+  number of CPUs. For example, resizes from 2 to 3 CPUs, from 800m to 2, or from
+  2 to 1500m are infeasible. Fractional-to-fractional resizes, such as 200m to 300m,
+  are unaffected. Adding or removing a container that uses exclusive CPUs is also infeasible
+  even when you do not enable the `PodLevelResourceManagers` feature gate.
+  For more information, see
+  [Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
 -->
 ## 限制   {#limitations}
 
@@ -144,6 +158,18 @@ Additionally, the following constraint is specific to Pod-level resource resize:
 * 容器限制验证：当单个容器限制小于或等于 Pod 级别资源限制（`spec.resources.limits`）时，
   允许调整。Pod 级别限制作为一个边界，任何单个容器都不能超过，但容器限制之和允许超过
   Pod 级别限制，从而实现 Pod 内容器之间的资源共享。
+
+* 独占 CPU：如果节点使用
+  [`static` CPU 管理器策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)，
+  并且同时启用了 `InPlacePodVerticalScalingExclusiveCPUs` 和 `PodLevelResourceManagers`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+  则 kubelet 会拒绝任何更改具有 Pod 级别资源的 Guaranteed Pod 的独占 CPU 数量的调整，
+  并将其视为不可行。只要调整前或调整后的值是整数 CPU，此限制就会影响 Pod 级别 CPU
+  请求和每个容器的 CPU 请求。例如，从 2 个 CPU 调整到 3 个 CPU、从 800m 调整到 2
+  或从 2 调整到 1500m 都是不可行的。非整数到非整数的调整（例如从 200m 到 300m）不受影响。
+  即使没有启用 `PodLevelResourceManagers` 特性门控，添加或删除使用独占 CPU 的容器也不可行。
+  有关详细信息，请参阅
+  [调整使用独占 CPU 的 Pod 的 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/resize-exclusive-cpus/)。
 
 <!--
 ## Example: Resizing Pod-Level Resources

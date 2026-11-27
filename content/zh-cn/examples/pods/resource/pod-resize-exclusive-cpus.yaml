@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resize-exclusive-cpus-demo
+  namespace: cpu-exclusive-example
+spec:
+  containers:
+  - name: app-container
+    image: busybox:1.28
+    command:
+    - sh
+    - -c
+    - while true; do sleep 3600; done
+    resizePolicy:
+    - resourceName: cpu
+      restartPolicy: NotRequired # the default, but explicit here
+    resources:
+      requests:
+        cpu: "2"
+        memory: "200Mi"
+      limits:
+        cpu: "2"
+        memory: "200Mi"

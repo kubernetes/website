@@ -245,6 +245,20 @@ exclusive CPUs.
 `Guaranteed` Pod 中的容器，如果声明了非整数值的 CPU `requests`，也将运行在共享池的 CPU 上。
 只有 `Guaranteed` Pod 中，指定了整数型 CPU `requests` 的容器，才会被分配独占 CPU 资源。
 
+<!--
+By default, the kubelet rejects as infeasible any in-place CPU resize of a `Guaranteed`
+pod on a node that uses this policy, including pods with fractional CPU `requests`.
+When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the kubelet
+can resize the exclusive CPUs of containers in `Guaranteed` pods in place, subject to
+limitations. For details, see
+[Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
+-->
+默认情况下，对于使用此策略的节点上的 `Guaranteed` Pod，kubelet 会拒绝任何原地 CPU
+调整，并将其视为不可行，包括使用非整数 CPU `requests` 的 Pod。
+启用 `InPlacePodVerticalScalingExclusiveCPUs` 特性门控后，kubelet
+可以在限制条件下原地调整 `Guaranteed` Pod 中容器的独占 CPU。有关详细信息，请参阅
+[调整使用独占 CPU 的 Pod 的 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/resize-exclusive-cpus/)。
+
 {{< note >}}
 <!--
 The kubelet requires a CPU reservation greater than zero be made
