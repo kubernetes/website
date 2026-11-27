@@ -7,7 +7,7 @@ functions = "functions"
 command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
 
 [build.environment]
-NODE_VERSION = "20.17.0"
+NODE_VERSION = "24.22.2"
 HUGO_VERSION = "0.144.2"
 
 [context.deploy-preview]
