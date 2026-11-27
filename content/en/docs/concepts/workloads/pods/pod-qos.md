@@ -133,7 +133,8 @@ their requests equal their limits.
 ### Configuring memory reservation
 
 Memory reservation is controlled via the kubelet configuration field
-`memoryReservationPolicy`:
+`memoryReservationPolicy`. The kubelet applies the policy to every Pod on the
+node, and individual Pods cannot opt in or out.
 
 - `None` (default): the kubelet does not set `memory.min` or `memory.low` for
   containers and pods. No memory is hard-locked by the kernel.
@@ -144,6 +145,19 @@ Memory reservation is controlled via the kubelet configuration field
   - **Burstable** pods: `memory.low` is set to memory requests. The kernel
     preferentially retains this memory but may reclaim it under extreme pressure.
   - **BestEffort** pods: no memory protection is set.
+- `Soft`: the kubelet sets `memory.low` for the memory requests of
+  **Guaranteed** and **Burstable** pods and containers. The kernel
+  preferentially retains this memory but may reclaim it under extreme pressure.
+  This policy requires the `NodeMemoryReservationPolicy` feature gate.
+- `Hard`: the kubelet sets `memory.min` for the memory requests of
+  **Guaranteed** and **Burstable** pods and containers. The kernel does not
+  reclaim this memory. This policy requires the `NodeMemoryReservationPolicy`
+  feature gate.
+
+{{< feature-state feature_gate_name="NodeMemoryReservationPolicy" >}}
+
+Enabling the `NodeMemoryReservationPolicy` feature gate requires the
+`MemoryQoS` feature gate to be enabled.
 
 For example, the following kubelet configuration enables memory throttling with
 a factor of `0.9` and tiered memory protection:
@@ -159,28 +173,74 @@ You can configure either field independently. Omit `memoryThrottlingFactor` so
 that the kubelet does not set `memory.high`, or set
 `memoryReservationPolicy: None` to disable memory protection.
 
+To use the `Soft` or `Hard` policy, enable the `NodeMemoryReservationPolicy`
+feature gate. For example:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  MemoryQoS: true
+  NodeMemoryReservationPolicy: true
+memoryReservationPolicy: Hard
+```
+
 Because cgroup v2 memory protection is hierarchical, the kubelet also configures
-the ancestor cgroups. It sets `memory.min` on the kubepods root cgroup to the sum
+the ancestor cgroups. With `TieredReservation`, it sets `memory.min` on the kubepods root cgroup to the sum
 of the memory requests for Guaranteed and Burstable Pods. It sets `memory.low`
 on the kubepods root cgroup and the Burstable QoS cgroup to the sum of the
-memory requests for Burstable Pods. Without this ancestor coverage, the
+memory requests for Burstable Pods.
+With `Soft` or `Hard`, the kubelet sets only `memory.low` or `memory.min`,
+respectively, on these ancestor cgroups: the sum of Guaranteed and Burstable
+memory requests on the kubepods root, and the sum of Burstable memory requests
+on the Burstable QoS cgroup. Without this ancestor coverage, the
 per-Pod and per-container protection would be ineffective.
 
 {{< caution >}}
 For a Guaranteed Pod, memory requests equal memory limits. With
-`memoryReservationPolicy: TieredReservation`, `memory.min` therefore equals
+`memoryReservationPolicy: TieredReservation` or `Hard`, `memory.min` therefore equals
 `memory.max`. For a workload that uses a large page cache, the kernel might be
 unable to reclaim enough page cache before the cgroup reaches `memory.max`,
 which can result in an OOM kill. Size the memory limit to include sufficient
 headroom for page cache.
 {{< /caution >}}
 
+{{< caution >}}
+On systems that use `memory_recursiveprot` (the systemd default since v247), the kernel can
+share a parent cgroup's unclaimed memory protection with all of its
+children, including `BestEffort` cgroups. When `TieredReservation`, `Soft`, or
+`Hard` is enabled, the kubepods root cgroup is protected for the total memory
+requests of `Guaranteed` and `Burstable` pods. With `Hard` or `Soft`, if those pods use less than their
+requests, the unused protection can reduce reclaim of `BestEffort` page cache.
+Under `TieredReservation`, Burstable pods receive `memory.low` and do not claim
+the root's `memory.min`. The protection corresponding to all Burstable requests
+can therefore be shared with BestEffort, even when Burstable pods use their full requests.
+With `Hard` or `TieredReservation`, the unused protection is hard protection, so
+the kernel does not reclaim the `BestEffort` memory that it covers. With `Soft`,
+the unused protection is soft, so the kernel reclaims it only after it has
+reclaimed other, unprotected memory. Leave sufficient memory headroom on the
+node and validate the reclaim behavior for your workload mix. The `None` policy
+avoids this effect.
+{{< /caution >}}
+
+### Changing the memory reservation policy
+
+Restart the kubelet after changing `memoryReservationPolicy`. Recreate affected
+Pods when enabling protection or switching between `TieredReservation`, `Soft`,
+and `Hard`, because existing Pod and container cgroups are not reconfigured.
+
+When switching to `TieredReservation`, existing Guaranteed Pods and containers
+from `Soft` retain `memory.low` instead of receiving `memory.min`; Burstable
+Pods and containers from `Hard` retain `memory.min` instead of receiving
+`memory.low`. Stale Guaranteed `memory.low` can reduce Burstable protection by
+sharing the kubepods root's soft protection.
+
 ### Disabling or rolling back Memory QoS
 
 To disable Memory QoS, set the `MemoryQoS` feature gate to `false`, ensure that
 `memoryReservationPolicy` is unset or set to `None`, and restart the kubelet.
 At startup, the kubelet resets `memory.min` and `memory.low` on the kubepods
-root cgroup, and `memory.low` on the Burstable QoS cgroup, to zero. Pod-level
+root cgroup and on the Burstable and BestEffort QoS cgroups to zero. Pod-level
 and container-level `memory.min` and `memory.low` values can remain, but they
 are ineffective because the corresponding ancestor protection is zero.
 
@@ -189,6 +249,20 @@ the container runtime applies a resource configuration to a new, restarted, or
 in-place resized container. An already running container that is not restarted
 or resized can retain its previous `memory.high` value until the next restart or
 in-place resize.
+
+To disable only `NodeMemoryReservationPolicy` feature gate, set `memoryReservationPolicy` to
+`TieredReservation` or `None`, set the gate to `false`, and restart the kubelet.
+
+### Downgrading the kubelet
+
+Before downgrading to a version that does not support `Soft` or `Hard`, set
+`memoryReservationPolicy` to `TieredReservation` or `None` and remove
+`NodeMemoryReservationPolicy` from the kubelet configuration and any
+`--feature-gates` flags, even if set to `false`.
+
+If the node used `Hard`, restart the current kubelet with the updated
+configuration and verify the Burstable QoS cgroup's `memory.min` is zero before
+downgrading. Versions that do not support `Hard` do not clear this value.
 
 ### System requirements
 
