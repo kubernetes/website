@@ -90,9 +90,76 @@ spec:
   nodeAllocatableUpdatePeriodSeconds: 60
 ```
 
-Kubelet will periodically call the corresponding CSI driver’s `NodeGetInfo` endpoint to refresh the maximum number of attachable volumes, using the interval specified in `nodeAllocatableUpdatePeriodSeconds`. The minimum allowed value for this field is 10 seconds.
+Kubernetes will periodically call the corresponding CSI driver’s `NodeGetInfo` endpoint (`ControllerGetNodeInfo` instead, when the driver uses [controller-side node information](#controller-side-node-information)) to refresh the maximum number of attachable volumes, using the interval specified in `nodeAllocatableUpdatePeriodSeconds`.
+The minimum allowed value for this field is 10 seconds.
 
 If a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node. Additionally, kubelet marks affected pods as Failed, allowing their controllers to handle recreation. This prevents pods from getting stuck indefinitely in the `ContainerCreating` state.
+
+### Controller-side node information
+
+{{< feature-state feature_gate_name="CSIControllerGetNodeInfo" >}}
+
+By default, the CSI node plugin on each Node reports the Node's topology and
+maximum number of attachable volumes. Some CSI drivers need cloud API
+credentials on every Node to do this. With this feature, the node plugin
+reports only the Node's ID, which it still gets from local information such as
+instance metadata, and the driver's controller reports the topology and volume
+limit with `ControllerGetNodeInfo`, so the node plugin does not need cloud API
+credentials.
+
+To use this feature:
+
+- The CSI node plugin advertises the `NODE_INFO_FROM_CONTROLLER` capability,
+  and the controller plugin advertises `GET_NODE_INFO` and
+  `PUBLISH_UNPUBLISH_VOLUME`.
+- The driver requires attach (`attachRequired` in its CSIDriver is not
+  `false`).
+- Enable the `CSIControllerGetNodeInfo` feature gate on `kube-apiserver` and on
+  the driver's [`external-attacher`](https://github.com/kubernetes-csi/external-attacher)
+  sidecar first, then on `kubelet`.
+
+When a driver uses this feature, `external-attacher` takes over the periodic and
+`ResourceExhausted`
+[updates](#mutable-csi-node-allocatable-count) of the Node's volume limit from
+`kubelet`. At initial registration it writes the topology it got from
+`ControllerGetNodeInfo` as Node labels and creates the driver's `spec.drivers`
+entry in the CSINode, which needs extra RBAC permissions to update Node and
+CSINode objects. Afterwards it only updates `allocatable.count` of that entry.
+`kubelet` still marks affected Pods as Failed when an attach fails with
+`ResourceExhausted`. If the driver reports the volumes attached to the Node,
+`external-attacher` subtracts the ones that have no VolumeAttachment, such as a
+boot disk, from the limit.
+
+{{< alert color="info" title="Note" >}}
+Enabling the feature, or restarting `kubelet`, does not make the controller
+report the Node's information again. Values the node plugin reported earlier
+stay until a periodic or `ResourceExhausted` refresh; without
+`nodeAllocatableUpdatePeriodSeconds` they can stay indefinitely. To get the new
+accounting, restart the CSI node plugin so that the driver registers again.
+
+Some drivers adjust the limit on the node, for example with a node plugin option
+that reserves attachments. This feature does not forward such node-side
+settings, so the reported limit may differ from what the node plugin would
+report. Prefer the automatic subtraction of volumes attached outside Kubernetes;
+if the driver has an equivalent controller-side setting, set it there instead.
+{{< /alert >}}
+
+To check whether a driver uses this feature on a Node, look for the driver in
+`spec.driverRegistrations` of the Node's CSINode:
+
+```shell
+kubectl get csinode <node-name> -o jsonpath='{.spec.driverRegistrations}'
+```
+
+When `external-attacher` has filled in the topology and volume limit,
+the driver also appears in `spec.drivers`.
+`external-attacher` records an event on the CSINode each time it registers or
+updates the driver, and a warning event if that fails.
+Use `kubectl describe csinode <node-name>` to see them.
+
+To turn the feature off, first restore any configuration that the driver needs
+on Nodes (such as cloud API credentials), then disable the feature gate on
+`kubelet`, then on `external-attacher` and `kube-apiserver`.
 
 ### Preventing Pod placement without CSI driver
 
