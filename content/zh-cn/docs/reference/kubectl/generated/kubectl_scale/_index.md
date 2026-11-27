@@ -51,25 +51,25 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql
   
 # Scale multiple replication controllers
 kubectl scale --replicas=5 rc/example1 rc/example2 rc/example3
-  
+
 # Scale stateful set named 'web' to 3
 kubectl scale --replicas=3 statefulset/web
 ```
 -->
 ```shell
-# 将名为 “foo” 的 ReplicaSet 扩缩容到 3 个副本
+# 将名为 "foo" 的 ReplicaSet 扩缩容到 3 个副本
 kubectl scale --replicas=3 rs/foo
-  
+
 # 将 "foo.yaml" 中以 type 和 name 指定的某资源扩缩容到 3 个副本
 kubectl scale --replicas=3 -f foo.yaml
-  
+
 # 如果名为 mysql 的 Deployment 当前有 2 个副本，则将 mysql 扩容到 3 个副本
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql
-  
+
 # 扩缩容多个 ReplicationController
 kubectl scale --replicas=5 rc/example1 rc/example2 rc/example3
-  
-# 将名为 “web” 的 StatefulSet 扩缩容到 3 个副本
+
+# 将名为 "web" 的 StatefulSet 扩缩容到 3 个副本
 kubectl scale --replicas=3 statefulset/web
 ```
 
@@ -577,6 +577,20 @@ Name of the file to write the profile to
 性能分析信息要写入的目标文件的名称。
 </p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>

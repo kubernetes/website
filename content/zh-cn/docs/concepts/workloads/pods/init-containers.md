@@ -95,14 +95,14 @@ Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态�
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resource sharing within containers](#resource-sharing-within-containers).
+as documented in [Resource requests and limits](#resource-sharing-within-containers).
 -->
 ### 与普通容器的不同之处   {#differences-from-regular-containers}
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、
 [数据卷](/zh-cn/docs/concepts/storage/volumes/)和安全设置。
 然而，Init 容器对资源请求和限制的处理稍有不同，
-在下面[容器内的资源共享](#resource-sharing-within-containers)节有说明。
+在下面[资源请求和限制](#resource-sharing-within-containers)节有说明。
 
 <!--
 Regular init containers (in other words: excluding sidecar containers) do not support the
@@ -143,12 +143,12 @@ Init containers run to completion sequentially, and the main container does not 
 until all the init containers have successfully completed.
 
 init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
-`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/probes/#types-of-probe) to control their lifecycle.
 -->
 Init 容器按顺序完成运行，等到所有 Init 容器成功完成之后，主容器才会启动。
 
 Init 容器不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 或 `startupProbe`，
-而边车容器支持所有这些[探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)以控制其生命周期。
+而边车容器支持所有这些[探针](/zh-cn/docs/concepts/workloads/pods/probes/#types-of-probe)以控制其生命周期。
 
 <!--
 Init containers share the same resources (CPU, memory, network) with the main application
@@ -200,6 +200,7 @@ have some advantages for start-up related code:
 
 * Init 容器可以安全地运行实用程序或自定义代码，而在其他方式下运行这些实用程序或自定义代码可能会降低应用容器镜像的安全性。
   通过将不必要的工具分开，你可以限制应用容器镜像的被攻击范围。
+
 <!--
 ### Examples
 
@@ -212,7 +213,8 @@ Here are some ideas for how to use init containers:
 
 下面是一些如何使用 Init 容器的想法：
 
-* 等待一个 Service 完成创建，通过类似如下 Shell 命令：
+* 使用类似如下一行 Shell 命令，等待
+  {{< glossary_tooltip text="Service" term_id="service">}} 完成创建：
 
   ```shell
   for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
@@ -221,7 +223,7 @@ Here are some ideas for how to use init containers:
 <!--
 * Register this Pod with a remote server from the downward API with a command like:
 -->
-* 注册这个 Pod 到远程服务器，通过在命令中调用 API，类似如下：
+* 使用类似如下的命令，从 Downward API 注册此 Pod 到远程服务器：
 
   ```shell
   curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
@@ -230,7 +232,7 @@ Here are some ideas for how to use init containers:
 <!--
 * Wait for some time before starting the app container with a command like
 -->
-* 在启动应用容器之前等一段时间，使用类似命令：
+* 使用类似命令，在启动应用容器之前等一段时间：
 
   ```shell
   sleep 60
@@ -256,7 +258,7 @@ This example defines a simple Pod that has two init containers.
 The first waits for `myservice`, and the second waits for `mydb`. Once both
 init containers complete, the Pod runs the app container from its `spec` section.
 -->
-### 使用 Init 容器的情况   {#init-containers-in-use}
+#### 使用 Init 容器的情况   {#init-containers-in-use}
 
 下面的例子定义了一个具有 2 个 Init 容器的简单 Pod。 第一个等待 `myservice` 启动，
 第二个等待 `mydb` 启动。 一旦这两个 Init 容器都启动完成，Pod 将启动 `spec` 节中的应用容器。
@@ -285,7 +287,7 @@ spec:
 <!--
 You can start this Pod by running:
 -->
-你通过运行下面的命令启动 Pod：
+你可以运行下面的命令启动 Pod：
 
 ```shell
 kubectl apply -f myapp.yaml
@@ -386,7 +388,7 @@ Here's a configuration you can use to make those Services appear:
 在这一刻，Init 容器将会等待至发现名称为 `mydb` 和 `myservice`
 的{{< glossary_tooltip text="服务" term_id="service" >}}。
 
-如下为创建这些 Service 的配置文件：
+如下为创建这些 Service 所需的配置文件：
 
 ```yaml
 ---
@@ -414,7 +416,7 @@ spec:
 <!--
 To create the `mydb` and `myservice` services:
 -->
-创建 `mydb` 和 `myservice` 服务的命令：
+创建 `mydb` 和 `myservice` 服务：
 
 ```shell
 kubectl apply -f services.yaml
@@ -434,7 +436,7 @@ service/mydb created
 You'll then see that those init containers complete, and that the `myapp-pod`
 Pod moves into the Running state:
 -->
-这样你将能看到这些 Init 容器执行完毕，随后 `my-app` 的 Pod 进入 `Running` 状态：
+这样你将能看到这些 Init 容器执行完毕，随后 `myapp-pod` 进入 `Running` 状态：
 
 ```shell
 kubectl get -f myapp.yaml
@@ -442,7 +444,6 @@ kubectl get -f myapp.yaml
 <!--
 The output is similar to this:
 -->
-
 输出类似于：
 
 ```
@@ -455,7 +456,7 @@ This simple example should provide some inspiration for you to create your own
 init containers. [What's next](#what-s-next) contains a link to a more detailed example.
 -->
 这个简单例子应该能为你创建自己的 Init 容器提供一些启发。
-[接下来](#what-s-next)节提供了更详细例子的链接。
+[接下来](#what-s-next)一节提供了更详细例子的链接。
 
 <!--
 ## Detailed behavior
@@ -492,7 +493,7 @@ must execute again.
 -->
 在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
 Init 容器的端口将不会在 Service 中进行聚集。正在初始化中的 Pod 处于 `Pending` 状态，
-但会将状况 `Initializing` 设置为 false。
+但会将状况 `Initialized` 设置为 false。
 
 如果 Pod [重启](#pod-restart-reasons)，所有 Init 容器必须重新执行。
 
@@ -505,16 +506,19 @@ have an effect on how the Pod boots up.
 For a [pod template](/docs/concepts/workloads/pods/#pod-templates)
 you can typically change any field for an init container; the impact of making
 that change depends on where the pod template is used.
+-->
+对 Init 容器规约的修改仅限于容器的 `image` 字段。
+直接更改 Init 容器的 `image` 字段**不会**重启该 Pod 或触发其重新创建。
+如果该 Pod 尚未启动，则该更改可能会影响 Pod 的启动方式。
 
+对于 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，你通常可以更改
+Init 容器的任何字段；更改的影响取决于 Pod 模板的使用位置。
+
+<!--
 Because init containers can be restarted, retried, or re-executed, init container
 code should be idempotent. In particular, code that writes into any `emptyDir` volume
 should be prepared for the possibility that an output file already exists.
 -->
-对 Init 容器规约的修改仅限于容器的 `image` 字段。
-直接更改 Init 容器的 `image` 字段**不会**重启该 Pod 或触发其重新创建。如果该 Pod 尚未启动，则该更改可能会影响 Pod 的启动方式。
-
-对于 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，你通常可以更改 Init 容器的任何字段；更改的影响取决于 Pod 模板的使用位置。
-
 因为 Init 容器可能会被重启、重试或者重新执行，所以 Init 容器的代码应该是幂等的。
 特别地，向任何 `emptyDir` 卷写入数据的代码应该对输出文件可能已经存在做好准备。
 
@@ -537,10 +541,9 @@ The Pod which is already running correctly would be killed by `activeDeadlineSec
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 -->
-在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
-Init 容器一直重复失败。
+在 Pod 上使用 `activeDeadlineSeconds` 可以避免 Init 容器一直重复失败。
 `activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
-但建议仅在团队将其应用程序部署为 Job 时才使用 `activeDeadlineSeconds`，
+但建议仅在团队将其应用部署为 Job 时才使用 `activeDeadlineSeconds`，
 因为 `activeDeadlineSeconds` 在 Init 容器结束后仍有效果。
 如果你设置了 `activeDeadlineSeconds`，已经在正常运行的 Pod 会被杀死。
 
@@ -548,53 +551,39 @@ Init 容器一直重复失败。
 与任何其它容器共享同一个名称，会在校验时抛出错误。
 
 <!--
-#### Resource sharing within containers
+### Resource requests and limits {#resource-sharing-within-containers}
 
-Given the order of execution for init, sidecar and app containers, the following rules
-for resource usage apply:
+The scheduler places a Pod on a node based on how much of each resource the Pod
+requests as a whole, so the requests that you set on init containers can affect
+whether and where the Pod can be scheduled.
 -->
-#### 容器内的资源共享   {#resource-sharing-within-containers}
+### 资源请求和限制   {#resource-sharing-within-containers}
 
-在给定的 Init、边车和应用容器执行顺序下，资源使用适用于如下规则：
+调度器根据 Pod 整体请求的每种资源的数量来决定把 Pod 放置到哪个节点上，
+因此你在 Init 容器上设置的请求会影响到 Pod 能否被调度以及被调度到何处。
 
 <!--
-* The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*. If any resource has no
-  resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the higher of:
-  * the sum of all app containers request/limit for a resource
-  * the effective init request/limit for a resource
-* Scheduling is done based on effective requests/limits, which means
-  init containers can reserve resources for initialization that are not used
-  during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for init containers and app containers alike.
+Init containers run one at a time and finish before the app containers start,
+so Kubernetes does not add their requests to each other or to those of the app containers.
+Instead, the Pod requests enough resources to run its largest init container.
+If the largest init container request is more than the sum of the requests of the
+containers that run after initialization, the request of the Pod is based on that
+init container request.
+The node keeps this larger request reserved for the Pod even after initialization finishes.
 -->
-* 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为
-  Pod **有效初始 request/limit**。
-  如果任何资源没有指定资源限制，这被视为最高限制。
-* Pod 对资源的 **有效 limit/request** 是如下两者中的较大者：
-  * 所有应用容器对某个资源的 limit/request 之和
-  * 对某个资源的有效初始 limit/request
-* 基于有效 limit/request 完成调度，这意味着 Init 容器能够为初始化过程预留资源，
-  这些资源在 Pod 生命周期过程中并没有被使用。
-* Pod 的 **有效 QoS 层**，与 Init 容器和应用容器的一样。
+Init 容器逐个运行，并在应用容器启动之前结束，
+因此 Kubernetes 不会把它们的请求相互累加，也不会累加到应用容器的请求上。
+相反，Pod 会请求足以运行其中最大 Init 容器的资源量。
+如果最大的 Init 容器的请求量超过了初始化之后运行的各个容器的请求量之和，
+则 Pod 的请求量以该 Init 容器的请求量为准。
+即使初始化已经完成，节点仍会为这个 Pod 保留这一较大的请求量。
 
 <!--
-Quota and limits are applied based on the effective Pod request and
-limit.
+See [Effective Pod requests and limits](/docs/concepts/resource-management/effective-pod-requests-limits/)
+to learn how Kubernetes calculates the requests and limits of a Pod, with examples.
 -->
-配额和限制适用于有效 Pod 的请求和限制值。
-
-<!--
-### Init containers and Linux cgroups {#cgroups}
-
-On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
-request and limit, the same as the scheduler.
--->
-### Init 容器和 Linux cgroup    {#cgroups}
-
-在 Linux 上，Pod 级别的 CGroup 资源分配基于 Pod 的有效请求和限制值，与调度程序相同。
+参阅[有效的 Pod 请求和限制](/docs/concepts/resource-management/effective-pod-requests-limits/)，
+了解 Kubernetes 如何计算 Pod 的请求和限制，其中附有示例。
 
 <!--
 ### Pod restart reasons
@@ -605,15 +594,6 @@ reasons:
 ### Pod 重启的原因  {#pod-restart-reasons}
 
 Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
-
-{{< comment >}}
-<!--
-This section also present under [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) page.
-If you're editing this section, change both places.
--->
-这部分内容也出现在[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)页面上。
-如果你正在编辑这部分内容，请同时修改两处。
-{{< /comment >}}
 
 <!--
 * The Pod infrastructure container is restarted. This is uncommon and would
@@ -646,7 +626,7 @@ Learn more about the following:
 * [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * [Debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/).
 * Overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/).
-* [Types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* [Types of probes](/docs/concepts/workloads/pods/probes/#types-of-probe): liveness, readiness, startup probe.
 * [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers).
 -->
 进一步了解以下内容：
@@ -655,6 +635,6 @@ Learn more about the following:
 * [调试 Init 容器](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/)
 * [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 和
   [kubectl](/zh-cn/docs/reference/kubectl/) 的概述。
-* [探针类型](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)：
+* [探针类型](/zh-cn/docs/concepts/workloads/pods/probes/#types-of-probe)：
   存活态探针、就绪态探针、启动探针。
 * [边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers)。

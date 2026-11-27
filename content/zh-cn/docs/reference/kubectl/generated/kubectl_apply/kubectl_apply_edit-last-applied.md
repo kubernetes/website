@@ -74,7 +74,8 @@ kubectl apply edit-last-applied -f deploy.yaml -o json
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
@@ -86,10 +87,11 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 
 <tr>
-<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "kubectl-client-side-apply"-->默认值："kubectl-client-side-apply"</td>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-client-side-apply"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Name of the manager used to track field ownership.
@@ -103,7 +105,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Filename, directory, or URL to files to use to edit the resource
@@ -117,7 +120,8 @@ Filename, directory, or URL to files to use to edit the resource
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 help for edit-last-applied
@@ -131,7 +135,8 @@ help for edit-last-applied
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
@@ -145,7 +150,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
@@ -160,7 +166,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
@@ -174,7 +181,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -188,7 +196,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
@@ -203,7 +212,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："strict"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Must be one of: strict (or true), warn, ignore (or false).
@@ -230,7 +240,8 @@ silently dropping any unknown or duplicate fields.
 <td colspan="2">--windows-line-endings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Only relevant if --edit=true. Defaults to the line ending native to your platform.
@@ -270,7 +281,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
@@ -284,7 +296,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 UID to impersonate for the operation.
@@ -298,7 +311,8 @@ UID to impersonate for the operation.
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
@@ -309,10 +323,11 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Default cache directory
@@ -326,7 +341,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Path to a cert file for the certificate authority
@@ -340,7 +356,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Path to a client certificate file for TLS
@@ -354,7 +371,8 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Path to a client key file for TLS
@@ -368,7 +386,8 @@ TLS 客户端密钥文件的路径。
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 The name of the kubeconfig cluster to use
@@ -382,7 +401,8 @@ The name of the kubeconfig cluster to use
 <td colspan="2">--context string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 The name of the kubeconfig context to use
@@ -396,7 +416,8 @@ The name of the kubeconfig context to use
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 If true, opt-out of response compression for all requests to the server
@@ -410,7 +431,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
@@ -424,7 +446,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
@@ -517,10 +540,26 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -534,7 +573,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 The address and port of the Kubernetes API server
@@ -548,7 +588,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
@@ -562,7 +603,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 database name
@@ -576,7 +618,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 database host:port
@@ -590,7 +633,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 database password
@@ -604,7 +648,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 use secure connection with database
@@ -618,7 +663,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 table name
@@ -632,7 +678,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 database username
@@ -646,7 +693,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
@@ -660,7 +708,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Bearer token for authentication to the API server
@@ -674,7 +723,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 The name of the kubeconfig user to use
@@ -688,7 +738,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 Username for basic authentication to the API server
@@ -702,7 +753,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">    
 <p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
@@ -716,7 +768,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code

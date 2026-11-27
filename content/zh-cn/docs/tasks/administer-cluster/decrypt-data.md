@@ -148,14 +148,14 @@ other API kinds, adjust the steps to match.
 First, find the API server configuration files. On each control plane node, static Pod manifest
 for the kube-apiserver specifies a command line argument, `--encryption-provider-config`.
 You are likely to find that this file is mounted into the static Pod using a
-[`hostPath`](/docs/concepts/storage/volumes/#hostpath) volume mount. Once you locate the volume
+[`hostPath`](/docs/reference/storage/volume-types/#hostpath) volume mount. Once you locate the volume
 you can find the file on the node filesystem and inspect it.
 -->
 ### 找到加密配置文件   {#locate-encryption-configuration-file}
 
 首先，找到 API 服务器的配置文件。在每个控制平面节点上，kube-apiserver 的静态 Pod
 清单指定了一个命令行参数 `--encryption-provider-config`。你很可能会发现此文件通过
-[`hostPath`](/zh-cn/docs/concepts/storage/volumes/#hostpath) 卷挂载到静态 Pod 中。
+[`hostPath`](/zh-cn/docs/reference/storage/volume-types/#hostpath) 卷挂载到静态 Pod 中。
 一旦你找到到此卷，就可以在节点文件系统中找到此文件并对其进行检查。
 
 <!--

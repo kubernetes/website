@@ -281,7 +281,7 @@ Pour faciliter l'évolution et l'extension de son API, Kubernetes implémente
 [des groupes d'API](/docs/reference/using-api/#api-groups) qui peuvent être
 [activés ou désactivés](/docs/reference/using-api/#enabling-or-disabling).
 
-Les ressources de l'API sont distinguées par leur groupe d'API, leur type de ressource, leur namepaces
+Les ressources de l'API sont distinguées par leur groupe d'API, leur type de ressource, leur namespace
 (pour les ressources avec namespace) et leur nom. Le serveur API gère la conversion entre
 les versions d'API de manière transparente : toutes les différentes versions sont en réalité des représentations
 des mêmes données persistées. Le serveur API peut servir les mêmes données sous plusieurs versions d'API.
