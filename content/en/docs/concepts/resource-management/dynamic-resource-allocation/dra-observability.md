@@ -311,9 +311,7 @@ The `partitionSummary` view is controlled by the
 [`DRAPartitionableDevicesType` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevicesType)
 in the `kube-apiserver` and `kube-controller-manager`, which in turn requires the
 [`DRAResourcePoolStatus`](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
-and
-[`DRAPartitionableDevices`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-feature gates to be enabled.
+feature gate to be enabled.
 
 ### Shareable summary {#resource-pool-shareable-summary}
 

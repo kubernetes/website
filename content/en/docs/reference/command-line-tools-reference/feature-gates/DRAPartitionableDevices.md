@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.38"
 ---
 Enables support for requesting [Partitionable Devices](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
 for DRA. This lets drivers advertise multiple devices that maps to the same resources

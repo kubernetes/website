@@ -14,4 +14,4 @@ Enables support for [device compatibility groups](/docs/concepts/resource-manage
 in DRA. Drivers can declare opaque compatibility groups on each
 `consumesCounters` entry of a device in a ResourceSlice, and the scheduler
 only co-allocates devices drawing from the same counter set when their
-declared groups intersect. Requires `DRAPartitionableDevices` to be enabled.
+declared groups intersect.
