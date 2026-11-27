@@ -112,7 +112,7 @@ async function loadSearch() {
             return;
           }
 
-          const query = $(this).val();
+          const query = $(this).val().replace(/^(\s*)env(\s+)(\S+)(.*)$/i, '$1$3$2env$4');
           document.location = $(this).data('search-page') + "?q=" + query;
 
           return false;
