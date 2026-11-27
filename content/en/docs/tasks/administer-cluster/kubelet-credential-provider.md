@@ -115,8 +115,8 @@ providers:
     #
     # A match exists between an image and a matchImage when all of the below are true:
     # - Both contain the same number of domain parts and each part matches.
-    # - The URL path of an matchImages must be a prefix of the target image URL path.
-    # - If the matchImages contains a port, then the port must match in the image as well.
+    # - The URL path of a matchImage must be a prefix of the target image URL path.
+    # - If the matchImage contains a port, then the port must match in the image as well.
     #
     # Example values of matchImages:
     # - 123456789.dkr.ecr.us-east-1.amazonaws.com
