@@ -13,15 +13,15 @@ Clientes, como ferramentas e bibliotecas, podem recuperar esses metadados.
 <!-- body -->
 ## Anexando metadados a objetos {#attaching-metadata-to-objects}
 
-Você pode usar tanto labels quanto anotações para anexar metadados a objetos
-do Kubernetes. As labels podem ser usadas para selecionar objetos e para
+Você pode usar tanto rótulos (labels) quanto anotações para anexar metadados a objetos
+do Kubernetes. Os rótulos podem ser usados para selecionar objetos e para
 encontrar coleções de objetos que satisfaçam determinadas condições. Por outro
 lado, as anotações não são usadas para identificar e selecionar objetos. Os
 metadados de uma anotação podem ser pequenos ou grandes, estruturados ou não
-estruturados, e podem incluir caracteres que não são permitidos em labels. É
-possível usar labels e anotações nos metadados de um mesmo objeto.
+estruturados, e podem incluir caracteres que não são permitidos em rótulos. É
+possível usar rótulos e anotações nos metadados de um mesmo objeto.
 
-As anotações, assim como as labels, são mapas de chave/valor:
+As anotações, assim como os rótulos, são mapas de chave/valor:
 
 ```json
 "metadata": {
@@ -43,10 +43,11 @@ Aqui estão alguns exemplos de informações que podem ser registradas em anota�
 * Campos gerenciados por uma camada de configuração declarativa. Anexar esses
   campos como anotações os diferencia dos valores padrão definidos por clientes
   ou servidores, e também dos campos gerados automaticamente e dos campos
-  definidos por sistemas de dimensionamento automático ou de auto-scaling.
+  definidos por sistemas de dimensionamento automático ou de escalonamento
+  automático.
 
-* Informações de build, release ou imagem, como registros de data e hora, IDs
-  de release, branch do git, números de PR, hashes de imagem e endereço do
+* Informações de build, versão ou imagem, como registros de data e hora, IDs
+  da versão, branch do git, números de PR, hashes de imagem e endereço do
   registro.
 
 * Ponteiros para repositórios de logs, monitoramento, análise ou auditoria.
@@ -58,7 +59,7 @@ Aqui estão alguns exemplos de informações que podem ser registradas em anota�
   objetos relacionados de outros componentes do ecossistema.
 
 * Metadados de ferramentas leves de implantação gradual: por exemplo,
-  configurações ou checkpoints.
+  configurações ou pontos de controle.
 
 * Números de telefone ou de pager das pessoas responsáveis, ou entradas de
   diretório que indiquem onde essa informação pode ser encontrada, como o site
@@ -74,13 +75,13 @@ gerenciamento, introspecção e afins.
 
 ## Sintaxe e conjunto de caracteres {#syntax-and-character-set}
 
-_Anotações_ são pares de chave/valor. Chaves de anotação válidas têm dois segmentos: um prefixo opcional e um nome, separados por uma barra (`/`). O segmento de nome é obrigatório e deve ter no máximo 63 caracteres, começando e terminando com um caractere alfanumérico (`[a-z0-9A-Z]`), podendo conter hifens (`-`), sublinhados (`_`), pontos (`.`) e caracteres alfanuméricos entre eles. O prefixo é opcional. Se especificado, o prefixo deve ser um subdomínio DNS: uma série de rótulos DNS separados por pontos (`.`), com no máximo 253 caracteres no total, seguida de uma barra (`/`).
+Anotações são pares de chave/valor. Chaves de anotação válidas têm dois segmentos: um prefixo opcional e um nome, separados por uma barra (`/`). O segmento de nome é obrigatório e deve ter no máximo 63 caracteres, começando e terminando com um caractere alfanumérico (`[a-z0-9A-Z]`), podendo conter hifens (`-`), sublinhados (`_`), pontos (`.`) e caracteres alfanuméricos entre eles. O prefixo é opcional. Se especificado, o prefixo deve ser um subdomínio DNS: uma série de rótulos DNS separados por pontos (`.`), com no máximo 253 caracteres no total, seguida de uma barra (`/`).
 
 Se o prefixo for omitido, presume-se que a chave da anotação é privada para o usuário. Componentes automatizados do sistema (por exemplo, `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl` ou outras automações de terceiros) que adicionam anotações a objetos do usuário final devem especificar um prefixo.
 
 Os prefixos `kubernetes.io/` e `k8s.io/` são reservados para os componentes principais do Kubernetes.
 
-Valores de anotação válidos não têm restrições de conjunto de caracteres — diferentemente dos valores de labels, os valores de anotações podem conter qualquer string, incluindo caracteres especiais, espaços em branco e dados estruturados, como JSON ou YAML.
+Valores de anotação válidos não têm restrições de conjunto de caracteres — diferentemente dos valores de rótulos, os valores de anotações podem conter qualquer string, incluindo caracteres especiais, espaços em branco e dados estruturados, como JSON ou YAML.
 Se você planeja armazenar dados binários (como [CBOR](https://cbor.io/)),
 o projeto Kubernetes recomenda que você os codifique em base64.
 No entanto, o tamanho total de **todas** as anotações de um único objeto (chaves e valores somados) não deve ultrapassar 256 KiB.
@@ -104,5 +105,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-- Saiba mais sobre [Labels e Seletores](/docs/concepts/overview/working-with-objects/labels/).
-- Consulte [Labels, Anotações e Taints conhecidos](/docs/reference/labels-annotations-taints/).
+- Saiba mais sobre [Rótulos e Seletores](/docs/concepts/overview/working-with-objects/labels/).
+- Consulte [Rótulos, Anotações e Taints conhecidos](/docs/reference/labels-annotations-taints/).
