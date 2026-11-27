@@ -515,11 +515,24 @@ language_alternatives = ["en"]
 description = "Довершена система оркестрування контейнерів"
 languageNameLatinScript = "Ukrainian"
 
+[languages.uz]
+title = "Kubernetes"
+languageName = "Oʻzbekcha (Uzbek)"
+weight = 17
+contentDir = "content/uz"
+languagedirection = "ltr"
+
+[languages.uz.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Ishlab chiqarish darajasidagi konteyner orkestratsiyasi"
+languageNameLatinScript = "Oʻzbekcha"
+
 [languages.vi]
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 17
+weight = 18
 languagedirection = "ltr"
 
 [languages.vi.params]
@@ -598,6 +611,10 @@ source = "i18n/uk"
 target = "i18n"
 
 [[module.mounts]]
+source = "i18n/uz"
+target = "i18n"
+
+[[module.mounts]]
 source = "i18n/vi"
 target = "i18n"
 
@@ -657,6 +674,9 @@ target = "i18n"
   [segments.uk]
     [[segments.uk.includes]]
       lang = 'uk'
+  [segments.uz]
+    [[segments.uz.includes]]
+      lang = 'uz'
   [segments.vi]
     [[segments.vi.includes]]
       lang = 'vi'

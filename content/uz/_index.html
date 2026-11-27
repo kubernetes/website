@@ -1,0 +1,68 @@
+---
+title: "Ishlab chiqarish darajasidagi konteyner orkestratsiyasi"
+abstract: "Konteynerlarni avtomatlashtirilgan joylashtirish, masshtablash va boshqarish"
+cid: home
+layout: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+K8s nomi bilan ham tanilgan [Kubernetes]({{< relref "/docs/concepts/overview/" >}}) konteynerlashtirilgan ilovalarni joylashtirish, masshtablash va boshqarishni avtomatlashtiradigan ochiq manbali tizimdir.
+
+U ilovani tashkil etuvchi konteynerlarni oson boshqarish va topish uchun mantiqiy birliklarga guruhlaydi. Kubernetes [Google kompaniyasida ishlab chiqarish yuklamalarini 15 yil davomida yuritish tajribasi](https://queue.acm.org/detail.cfm?id=2898444) asosida qurilgan boʻlib, hamjamiyatdagi eng sara gʻoyalar va amaliyotlar bilan uygʻunlashgan.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Sayyora miqyosi
+
+Google ga haftasiga milliardlab konteynerlarni ishga tushirish imkonini beradigan oʻsha tamoyillar asosida loyihalangan Kubernetes operatsion jamoangizni kattalashtirmasdan masshtablana oladi.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Oʻsib ketmaysiz
+
+Mahalliy sinovdan oʻtkazayapsizmi yoki global korxonani yuritayapsizmi, Kubernetes moslashuvchanligi siz bilan birga oʻsadi va ehtiyojingiz qanchalik murakkab boʻlmasin, ilovalaringizni izchil hamda oson yetkazib beradi.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s ni istalgan joyda ishga tushiring
+
+Kubernetes ochiq manbali boʻlib, sizga oʻz infratuzilmangiz, gibrid yoki ommaviy bulut infratuzilmasidan foydalanish erkinligini beradi hamda yuklamalarni siz uchun muhim boʻlgan joyga oson koʻchirish imkonini beradi.
+
+Kubernetesni yuklab olish uchun [yuklab olish](/releases/download/) boʻlimiga oʻting.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>Cloud Native boʻyicha mutlaqo yangi boshlovchilar qoʻllanmasi</h2>
+    <p class="presenter-byline">mualliflar: Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Videoni koʻrish</button>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Yaqinlashayotgan KubeCon + CloudNativeCon tadbirlarida qatnashing</h2>
+<!--
+  {{< kubecon-events >}} data/events/kubecon.yaml faylidan tadbir roʻyxatlarini chiqaradi.
+  Mahalliylashtirish uchun eslatma:
+  - Region nomlari kubecon_region_* kalitlari orqali i18n ni qoʻllab-quvvatlaydi.
+  - Shahar nomlari ingliz tilida qoladi.
+  - Sanalar ISO 8601 formatida saqlanadi va Hugo ning time.Format funksiyasi bilan formatlanadi.
+  - Mahalliylashtirilgan sahifalar kerak boʻlsa, ushbu shortcode ni toʻliq mahalliylashtirilgan statik versiya bilan almashtirishi mumkin.
+  - Agar statik versiya ishlatilsa, tadbir maʼlumotini yangilab turish mahalliylashtirish jamoasining zimmasida boʻladi.
+-->
+{{< kubecon-events >}}
+
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
