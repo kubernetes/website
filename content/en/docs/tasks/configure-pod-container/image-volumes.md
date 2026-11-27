@@ -66,6 +66,13 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
    2
    ```
 
+1. Exit the container shell with `exit`, then delete the Pod from your terminal.
+   The next example uses the same Pod name with a different volume mount.
+
+   ```shell
+   kubectl delete pod image-volume
+   ```
+
 ## Use `subPath` (or `subPathExpr`)
 
 It is possible to utilize
