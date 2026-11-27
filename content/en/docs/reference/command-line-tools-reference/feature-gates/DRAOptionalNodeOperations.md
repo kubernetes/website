@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Enables support for optional node-local operations in Dynamic Resource
 Allocation (DRA). This allows drivers to declare that specific node operations
