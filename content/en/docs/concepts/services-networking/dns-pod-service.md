@@ -379,7 +379,7 @@ this problem.
   Windows treats all names with a `.` as a FQDN and skips FQDN resolution.
 - On Windows, there are multiple DNS resolvers that can be used. As these come with
   slightly different behaviors, using the
-  [`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
+  [`Resolve-DNSName`](https://learn.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
   powershell cmdlet for name query resolutions is recommended.
 - On Linux, you have a DNS suffix list, which is used after resolution of a name as fully
   qualified has failed.
