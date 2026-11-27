@@ -105,7 +105,6 @@ Leader Migration can be enabled without a configuration. Please see
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
     component: kube-controller-manager
@@ -114,6 +113,8 @@ controllerLeaders:
   - name: cloud-node-lifecycle
     component: kube-controller-manager
 ```
+
+The `v1` configuration always uses Lease locks and does not accept a `resourceLock` field.
 
 Alternatively, because the controllers can run under either controller managers,
 setting `component` to `*` for both sides makes the configuration file consistent
@@ -124,14 +125,13 @@ between both parties of the migration.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
-    component: *
+    component: "*"
   - name: service
-    component: *
+    component: "*"
   - name: cloud-node-lifecycle
-    component: *
+    component: "*"
 ```
 
 On each control plane node, save the content to `/etc/leadermigration.conf`, and
@@ -158,7 +158,6 @@ which has the same effect.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
     component: cloud-controller-manager
@@ -238,16 +237,15 @@ controllers.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
-resourceLock: leases
 controllerLeaders:
   - name: route
-    component: *
+    component: "*"
   - name: service
-    component: *
+    component: "*"
   - name: cloud-node-lifecycle
-    component: *
+    component: "*"
   - name: nodeipam
--   component: *
+    component: "*"
 ```
 
 ## {{% heading "whatsnext" %}}
