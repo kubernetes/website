@@ -1,6 +1,6 @@
-{{/* 
+{{/*
 
-This shortcode lists pages that have a "feature" section configured in front matter. 
+This shortcode lists pages that have a "feature" section configured in front matter.
 
 This creates a set of feature boxes as seen on the home page.
 
@@ -15,21 +15,17 @@ Note that markdown can be used in the description.
 
  */}}
 <section class="features-container" id="features">
-    {{- with resources.Get "images/wheel.svg" -}}
-    <img class="kubernetes-logo wheel" src="{{ .RelPermalink }}" alt="">
-    {{- end -}}
-
     <h2 class="k8s-features-heading">{{ T "main_kubernetes_features" }}</h2>
-    <div>
+    <div class="features-grid">
         {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
         {{ range $i, $p := $pages }}
-            <div class="feature-box">
+            <a class="feature-box" href="{{ $p.RelPermalink}}{{ with .Params.feature.anchor }}#{{ . | anchorize }}{{ end }}">
                 {{ with .Params.feature }}
-                <h3><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h3>
+                <h3>{{ .title }}</h3>
                 {{ $description := .description | default $p.Params.description }}
                 {{ $description | markdownify }}
                 {{ end }}
-            </div>
+            </a>
         {{ end }}
     </div>
 </section>
