@@ -120,6 +120,13 @@ A `PodDisruptionBudget` has three fields:
 An empty selector (`{}`) matches every pod in the namespace.
 {{< /note >}}
 
+{{< caution >}}
+Do not use overlapping PDB selectors that select the same Pod. If a Pod matches more than
+one PodDisruptionBudget, the eviction API rejects eviction of that Pod. Overlapping
+selectors are unsupported except for a short, intentional migration between PDBs
+(see [Arbitrary workloads and arbitrary selectors](#arbitrary-controllers-and-selectors)).
+{{< /caution >}}
+
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`.
 `maxUnavailable` can only be used to control the eviction of pods
 that all have the same associated controller managing them. In the examples below, "desired replicas"
@@ -293,6 +300,16 @@ It is not possible to use other availability configurations,
 because Kubernetes cannot derive a total number of pods without a supported owning resource.
 
 You can use a selector which selects a subset or superset of the pods belonging to a
-workload resource. The eviction API will disallow eviction of any pod covered by multiple PDBs,
-so most users will want to avoid overlapping selectors. One reasonable use of overlapping
-PDBs is when pods are being transitioned from one PDB to another.
+workload resource. Prefer selectors that do not overlap with other PodDisruptionBudgets in
+the same namespace.
+
+{{< caution >}}
+If a Pod matches more than one PodDisruptionBudget, the eviction API disallows eviction of
+that Pod. Kubernetes does not support overlapping PDBs as an ongoing way to protect the same
+Pods.
+{{< /caution >}}
+
+One intentional exception is a short migration, when you transition Pods from one PDB to
+another and selectors briefly overlap. During that window those Pods cannot be evicted via
+the eviction API until only one PDB continues to match them. Each matching PDB still
+selects the Pods and updates its own status.
