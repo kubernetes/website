@@ -58,10 +58,12 @@ for the new allocations to be refrelected.
 
 ## API
 
-Huge pages can be consumed via container level resource requirements using the
+Huge pages can be consumed via container-level or
+[Pod-level](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)
+(`spec.resources`) resource requirements using the
 resource name `hugepages-<size>`, where `<size>` is the most compact binary
 notation using integer values supported on a particular node. For example, if a
-node supports 2048KiB and 1048576KiB page sizes, it will expose a schedulable
+node supports 2048KiB and 1048576KiB page sizes, it will expose schedulable
 resources `hugepages-2Mi` and `hugepages-1Gi`. Unlike CPU or memory, huge pages
 do not support overcommit. Note that when requesting hugepage resources, either
 memory or CPU resources must be requested as well.
@@ -134,8 +136,13 @@ spec:
 
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own
-  limit on their cgroup sandbox as requested in a container spec.
+- When specified at the container level, huge pages are isolated at a container
+  scope, so each container has its own limit on its cgroup sandbox as requested
+  in its container spec. When specified at the Pod level (`spec.resources`),
+  the Pod's `hugetlb` cgroup enforces the Pod-level huge page limit across all
+  containers in the Pod (and the Pod-level huge page limit must be greater than
+  or equal to the aggregate container huge page limits). Containers still need
+  to mount a huge page `emptyDir` volume to access the huge page filesystem.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must

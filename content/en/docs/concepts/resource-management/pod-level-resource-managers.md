@@ -11,8 +11,8 @@ min-kubernetes-server-version: v1.36
 
 Pod-level resource support for the existing resource managers (Topology, CPU,
 and Memory) extends them to handle pod-level resource specifications. When
-enabled (via the `PodLevelResources` and `PodLevelResourceManagers` feature
-gates), the resource managers can use `.spec.resources` directly as the basis
+enabled (via the `PodLevelResourceManagers` feature
+gate), the resource managers can use `.spec.resources` directly as the basis
 for their allocation decisions, evolving from a strictly per-container
 allocation model to a
 {{< glossary_tooltip term_id="pod" >}}-centric one. This partitioning scheme

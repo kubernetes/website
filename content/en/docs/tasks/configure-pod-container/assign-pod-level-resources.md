@@ -22,26 +22,17 @@ pod-level limits are prioritized when both are present. This allows for flexible
 resource management, enabling you to control resource allocation at both the pod and
 container levels.
 
-In order to specify the resources at pod-level, it is required to enable
-`PodLevelResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
 For Pod Level Resources:
 * Priority: When both pod-level and container-level resources are specified,
   pod-level resources take precedence.
 * QoS: Pod-level resources take precedence in influencing the QoS class of the pod.
 * OOM Score: The OOM score adjustment calculation considers both pod-level and
   container-level resources.
-* Compatibility: Pod-level resources are designed to be compatible with existing
-  features.
 
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-The `PodLevelResources` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
-for your control plane and for all nodes in your cluster.
 
 ## Limitations
 
@@ -61,10 +52,6 @@ following limitations:
   is enabled. See [Pod-level resource managers](/docs/concepts/resource-management/resource-managers/#pod-level-resource-managers)
   for more details. Without this feature gate enabled, they do not align pods
   and containers based on pod-level resources.
-* **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
-  of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
-  which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
-  [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 
 <!-- steps -->
 
@@ -199,7 +186,7 @@ NAME                        CPU(cores)   MEMORY(bytes)
 cpu-demo                    974m         <something>
 ```
 
-Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2
+Recall that by setting `-cpus "2"`, you configured the Container to attempt to use 2
 CPUs, but the Container is only being allowed to use about 1 CPU. The container's
 CPU use is being throttled, because the container is attempting to use more CPU
 resources than the Pod CPU limit.
@@ -271,7 +258,7 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 ```
 
 Since pod-level requests and limits are specified, the request guarantees for both
-containers in the pod will be equal 1 core or CPU and 100Mi of memory. Additionally,
+containers in the pod will be equal to 1 core of CPU and 100 MiB of memory. Additionally,
 both containers together won't be able to use more resources than specified in the
 pod-level limits, ensuring they cannot exceed a combined total of 200 MiB of memory
 and 1 core of CPU.
@@ -294,6 +281,8 @@ kubectl delete namespace pod-resources-example
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+
+* [Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources/)
 
 ### For cluster administrators
 
