@@ -108,9 +108,9 @@ the `.spec.nodeName` field and to use a node selector instead.
 
 {{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
 
-Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding until
-external resources, such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed
-to be ready.
+_Device binding conditions_ allow the Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}
+to delay Pod binding until external {{< glossary_tooltip text="resources" term_id="infrastructure-resource" >}},
+such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed to be ready.
 
 This waiting behavior is implemented in the 
 [PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind)
