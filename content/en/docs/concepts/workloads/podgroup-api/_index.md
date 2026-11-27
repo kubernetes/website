@@ -45,17 +45,16 @@ spec:
       minCount: 4
 ```
 
-### Template reference
+### Workload reference
 
-The optional `spec.podGroupTemplateRef` links the PodGroup back to the PodGroupTemplate
+The optional `spec.workloadRef` links the PodGroup back to the PodGroupTemplate
 in the Workload it was created from. This is useful for observability and tooling.
 
 ```yaml
 spec:
-  podGroupTemplateRef:
-    workload:
-      workloadName: training-policy
-      podGroupTemplateName: worker
+  workloadRef:
+    workloadName: training-policy
+    templateName: worker
 ```
 
 ### Priority and Disruption mode
@@ -197,10 +196,9 @@ kind: PodGroup
 metadata:
   name: training-worker-0
 spec:
-  podGroupTemplateRef:
-    workload:
-      workloadName: training-policy
-      podGroupTemplateName: worker
+  workloadRef:
+    workloadName: training-policy
+    templateName: worker
   schedulingPolicy:
     gang:
       minCount: 4

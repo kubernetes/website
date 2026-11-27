@@ -16,7 +16,7 @@ carry policies and hierarchy references for a specific workload instance.
 
 ## What is a CompositePodGroup?
 
-The `CompositePodGroup` API resource is part of the `scheduling.k8s.io/v1alpha3`
+The `CompositePodGroup` API resource is part of the `scheduling.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}. Your cluster must have that API
 group enabled, as well as the `CompositePodGroup`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
@@ -48,6 +48,10 @@ spec:
       minGroupCount: 2
 ```
 
+While the policy type itself (`basic` or `gang`) cannot be changed after creation, `minGroupCount`
+is mutable to support workload scaling. Updates to `minGroupCount` only apply to future scheduling
+cycles and do not affect already-scheduled Pods.
+
 ### Parent group reference
 
 Non-root `CompositePodGroup` resources specify their parent group using
@@ -60,7 +64,7 @@ spec:
 
 ### Workload reference
 
-The `spec.workloadRef` field links the `CompositePodGroup` back to the
+The required `spec.workloadRef` field links the `CompositePodGroup` back to the
 `CompositePodGroupTemplate` in the `Workload` object it was derived from.
 
 ```yaml
@@ -72,10 +76,19 @@ spec:
 
 ### Status
 
-The `CompositePodGroup` API schema includes a `status` subresource. In the alpha release,
-the `status` field is present in the API type, but `kube-scheduler` does not update or
-populate status conditions for `CompositePodGroup` objects. Status tracking for composite
-groups will be implemented in future releases.
+The scheduler updates `status.conditions` on each `CompositePodGroup` to report whether the
+scheduling requirements for the subtree under that `CompositePodGroup` have been satisfied. The
+primary condition is `CompositePodGroupInitiallyScheduled`, which is `True` when all required child
+groups have been placed and `False` when scheduling fails.
+
+{{< note >}}
+The `CompositePodGroupInitiallyScheduled` condition reflects the initial scheduling decision only.
+The scheduler does not update it if Pods or child groups later fail, are deleted, or are evicted.
+{{< /note >}}
+
+See the
+[CompositePodGroup conditions](/docs/concepts/scheduling-eviction/podgroup-scheduling/#compositepodgroup-conditions)
+section for the full list of conditions and reasons.
 
 ## Creating a CompositePodGroup
 
@@ -86,7 +99,7 @@ The following manifest creates a root `CompositePodGroup` with a gang scheduling
 that requires at least 2 child groups to be schedulable simultaneously:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: root-group-0
@@ -127,7 +140,7 @@ Pods follows this pattern:
 The following example illustrates a complete manifest hierarchy for a two-level workload:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: hierarchical-workload
@@ -148,7 +161,7 @@ spec:
         gang:
           minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: CompositePodGroup
 metadata:
   name: root-group-0
@@ -161,7 +174,7 @@ spec:
     gang:
       minGroupCount: 2
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: workers-a-0
@@ -175,7 +188,7 @@ spec:
     gang:
       minCount: 4
 ---
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PodGroup
 metadata:
   name: workers-b-0
@@ -211,4 +224,5 @@ The `Workload` acts as a long-lived policy template, while `CompositePodGroup` a
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/) and template definitions.
 * See how leaf groups are structured in the [PodGroup API](/docs/concepts/workloads/podgroup-api/).
 * Read about [PodGroup scheduling policies](/docs/concepts/workloads/workload-api/policies/).
+* Understand [hierarchical scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/#hierarchical-scheduling-with-compositepodgroups) and [workload design recommendations](/docs/concepts/scheduling-eviction/podgroup-scheduling/#workload-design-recommendations) for `CompositePodGroup` hierarchies.
 * Learn about [Workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/).

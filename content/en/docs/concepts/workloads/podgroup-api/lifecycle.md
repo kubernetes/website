@@ -36,7 +36,7 @@ Controllers must create objects in this order:
 2. `PodGroup` — the runtime instance.
 3. `Pods` — with `spec.schedulingGroup.podGroupName` pointing to the `PodGroup`.
 
-If a `PodGroup` includes a `podGroupTemplateRef` that points to a `Workload` that does
+If a `PodGroup` includes a `spec.workloadRef` that points to a `Workload` that does
 not exist (or is being deleted), the API server rejects the `PodGroup` creation request.
 The referenced `Workload` must exist before the `PodGroup` can be created.
 
