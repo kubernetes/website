@@ -69,7 +69,7 @@ it will then have a registered [service control handler](https://learn.microsoft
 to delay the preshutdown event with a given duration.
 {{</ note >}}
 
-Windows graceful node shutdown can not be cancelled.
+Windows graceful node shutdown cannot be cancelled.
 
 If kubelet is not running as a Windows service, it will not be able to set and monitor
 the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
