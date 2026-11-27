@@ -1652,12 +1652,19 @@ Any
 
 Most recent
 : Return data at the most recent resource version. The returned data must be
-  consistent (in detail: served from etcd via a quorum read).
-  For etcd v3.4.31+ and v3.5.13+, Kubernetes {{< skew currentVersion >}} serves “most recent” reads from the _watch cache_:
-  an internal, in-memory store within the API server that caches and mirrors the state of data
-  persisted into etcd. Kubernetes requests progress notification to maintain cache consistency against
-  the etcd persistence layer. Kubernetes v1.28 through to v1.30 also supported this
-  feature, although as Alpha it was not recommended for production nor enabled by default until the v1.31 release.
+  consistent (equivalent to serving from etcd via a quorum read).
+  For etcd v3.4.31+ and v3.5.13+ (or later), Kubernetes {{< skew currentVersion >}} serves “most recent” **list**
+  requests from the _watch cache_, an internal in-memory store within the API server
+  that caches and mirrors the state of data persisted into etcd. Kubernetes requests
+  watch progress notifications to maintain cache consistency against the etcd persistence
+  layer. Support for consistent **list** from the watch cache was Alpha in v1.28 through
+  v1.30, graduated to Beta enabled by default in v1.31, and graduated to Stable in v1.34.
+  With the [`ConsistentGetFromCache`](/docs/reference/command-line-tools-reference/feature-gates/#ConsistentGetFromCache)
+  feature gate enabled by default (Beta in v1.38), Kubernetes {{< skew currentVersion >}} also serves
+  “most recent” **get** requests (`resourceVersion` unset) from the _watch cache_, unless
+  the resource uses a storage value transformer (such as encryption at rest), the watch
+  cache is unready, or waiting for cache freshness times out, in which cases the API server
+  falls back to etcd.
 
 Not older than
 : Return data at least as new as the provided `resourceVersion`. The newest
@@ -1800,3 +1807,23 @@ To prevent control plane overload and API Priority and Fairness (APF) starvation
   * **Safe paginated reads**: Only **`GET` requests** and **paginated, unfiltered `LIST` requests** (`limit` > 0 with no label or field selector) are delegated directly to etcd as a safe fallback.
 
 Clients (including custom controllers and operators) should be designed to handle HTTP `429 Too Many Requests` responses gracefully by respecting `Retry-After` headers and implementing exponential backoff.
+
+### Consistent reads and write conflict recovery from watch cache {#consistent-get-from-cache}
+
+{{< feature-state feature_gate_name="ConsistentGetFromCache" >}}
+
+With `ConsistentGetFromCache` enabled (Beta and enabled by default in Kubernetes v1.38), `kube-apiserver` routes both consistent **get** requests (`resourceVersion` unset) and optimistic concurrency reads for `UPDATE`, `PATCH`, and `DELETE` operations through the _watch cache_:
+
+- **Consistent `GET` requests**: When a client issues a **get** without setting `resourceVersion`, `kube-apiserver` checks watch cache freshness using etcd watch progress notifications (`v3.4.31+`, `v3.5.13+`, or later) and returns the already-decoded object from the watch cache instead of issuing a quorum `Range` read to etcd.
+- **Write and delete conflict retries**: When an optimistic concurrency write or delete conflicts in etcd, `kube-apiserver` waits for the watch cache to reach the revision returned by the failed etcd transaction and retrieves the updated object from the watch cache rather than re-fetching and decoding raw bytes directly from etcd. Serving conflict retries from cache eliminates redundant per-conflict deserialization allocations and paces retries against watch cache ingestion during high write contention.
+
+The API server skips the watch cache and falls back to etcd for consistent **get** requests and conflict retries in any of these cases:
+
+- The resource has a storage value transformer configured (such as [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)).
+- The watch cache for that resource is not yet initialized.
+- The backing etcd cluster does not support watch progress notifications.
+- Waiting for the watch cache to reach the required revision exceeds the 3-second wait timeout.
+
+{{< alert color="info" title="Note" >}}
+Routing consistent **get** requests and write conflict retries through the watch cache puts the watch cache on the critical path for those operations, trading slightly higher single-object tail latency when the watch cache lags behind etcd in order to lower memory allocations and avoid etcd overload. Operators can monitor cache freshness waits and fallbacks with the `apiserver_watch_cache_read_wait_seconds`, `apiserver_watch_cache_consistent_read_total`, and `apiserver_request_duration_seconds` metrics, and can disable this behavior with `--feature-gates=ConsistentGetFromCache=false` on `kube-apiserver`.
+{{< /alert >}}
