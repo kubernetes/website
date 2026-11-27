@@ -11,10 +11,11 @@ stages:
     fromVersion: "1.38"
 ---
 Enables the kubelet to find [CSI](/docs/concepts/storage/volumes/#csi) volumes that
-are still staged after a kubelet restart or a node reboot, but that no Pod directory
-describes anymore. Without this feature gate, such a volume is missing from the Node's
-`.status.volumesInUse`, and the attach/detach controller may attach it to another node
-before it is unstaged. With the feature gate enabled, the kubelet keeps each such
-volume in `.status.volumesInUse` until it has unstaged it. After a kubelet restart, it
-also reads the copy of `vol_data.json` beside the global mount when the Pod's copy is
-missing or corrupt. Only CSI drivers that implement `NodeStageVolume` are affected.
+are still staged on a node after a kubelet restart or a node reboot, so that Kubernetes
+does not detach them before the kubelet unstages them. A staged volume is one that a
+CSI driver has set up on the node (`NodeStageVolume`) and has not yet released
+(`NodeUnstageVolume`). Without this feature gate, the kubelet can lose track of such a
+volume. Kubernetes can then detach the volume (`ControllerUnpublishVolume` in CSI
+terms) without unstaging it first, which can corrupt the data on the volume or leave
+the storage backend in an inconsistent state. This feature gate only affects CSI
+drivers that advertise the `STAGE_UNSTAGE_VOLUME` node capability.
