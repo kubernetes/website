@@ -6,7 +6,9 @@ slug: kubernetes-v1-38-workload-aware-scheduling
 author: >
   TBD,
   Heba Elayoty (Microsoft),
-  Matt Matejczyk (Google)
+  Matt Matejczyk (Google),
+  Dominik Marciński (Google),
+  Antoni Zawodny (Google)
 # TODO: list the PR author and the remaining area section owners as "Name (Organization)".
 ---
 
@@ -57,7 +59,7 @@ and the cost of topology-aware placement stays bounded in large clusters.
 | [Gang scheduling, Workload and PodGroup APIs](#gang-scheduling) | [KEP-4671](https://www.kubernetes.dev/resources/keps/4671/) | Beta | `GenericWorkload` | Stays in Beta |
 | [Workload-aware preemption](#workload-aware-preemption) | [KEP-5710](https://www.kubernetes.dev/resources/keps/5710/) | Beta | `GenericWorkload` | Stays in Beta; the PodGroup `preemptionPolicy` field joins the Beta |
 | [Topology-aware scheduling](#topology-aware-scheduling) | [KEP-5732](https://www.kubernetes.dev/resources/keps/5732/) | Beta | `TopologyAwareWorkloadScheduling` | Graduates from Alpha |
-| [CompositePodGroup API](#compositepodgroup-api) | [KEP-6012](https://www.kubernetes.dev/resources/keps/6012/) | Beta | `CompositePodGroup` | Graduates from Alpha; moves from `v1alpha3` to `v1beta1` |
+| [CompositePodGroup API](#compositepodgroup-api) | [KEP-6012](https://www.kubernetes.dev/resources/keps/6012/) | Beta | `CompositePodGroup` | Graduates from Alpha; now served in `v1beta1` |
 | [Controller integration APIs](#controller-integration-apis) | [KEP-6089](https://www.kubernetes.dev/resources/keps/6089/) | Beta | None of its own | Graduates from Alpha; building blocks move to `scheduling.k8s.io/v1` |
 | [Job controller integration](#job-integration) | [KEP-5547](https://www.kubernetes.dev/resources/keps/5547/) | Beta | `WorkloadWithJob` | Graduates from Alpha |
 | [Deployment controller integration](#deployment-integration) | [KEP-6276](https://www.kubernetes.dev/resources/keps/6276/) | Alpha | `WorkloadWithDeployment` | New in v1.38 |
@@ -360,82 +362,74 @@ for example an out-of-tree one.
 
 <!-- Area section owned by the KEP-6012 owners. -->
 
-The CompositePodGroup API, introduced in v1.37, describes a workload made of several groups as a tree:
-CompositePodGroups group other groups, and PodGroups at the leaves group Pods.
-Typical examples are the replicated jobs of a JobSet,
-or the leader and worker groups of a disaggregated inference deployment.
-`kube-scheduler` schedules such a tree as a single unit,
-with gang scheduling, topology constraints and preemption rules at every level.
+The CompositePodGroup API, introduced in v1.37, lets you express multi-level scheduling requirements
+by organizing a workload in a tree-shaped hierarchy consisting of CompositePodGroups (which group
+other groups) and PodGroups (which group Pods). `kube-scheduler` treats such a tree as a single
+scheduling unit and attempts to satisfy the scheduling requirements specified at every level.
 
-In v1.38, the CompositePodGroup API graduates to Beta and moves to `scheduling.k8s.io/v1beta1`,
-behind the `CompositePodGroup` feature gate.
-The Beta makes hierarchies observable, elastic, and harder to get wrong.
+In v1.38, the CompositePodGroup API graduates to Beta and is now served in `scheduling.k8s.io/v1beta1`
+behind the `CompositePodGroup` feature gate. The Beta brings improvements in elasticity, performance,
+observability and validation mechanisms of the feature.
 
 ### Status at every level of the hierarchy
 
-In v1.37, the scheduler didn't populate the `status` of CompositePodGroups.
-Now it sets a `CompositePodGroupInitiallyScheduled` condition on every CompositePodGroup in a hierarchy,
-with one of the `Scheduled`, `Unschedulable`, `CompositePodGroupError` or `SchedulerError` reasons:
+In v1.38, `kube-scheduler` populates `status.conditions` on every CompositePodGroup in a hierarchy.
+After each scheduling attempt, the scheduler sets the `CompositePodGroupInitiallyScheduled` condition
+with an appropriate reason, indicating if the group has been initially scheduled. Once set to `True`,
+the condition does not revert to `False` if Pods or child groups are later evicted or fail in
+subsequent scheduling cycles.
 
-```shell
-kubectl get compositepodgroup training-root -o jsonpath='{.status.conditions}'
-```
-
-Failures are also propagated down the tree.
-A child group can fit on its own and still not be scheduled, because a requirement of its parent wasn't met.
-In that case, the scheduler marks the affected descendant groups and Pods as `Unschedulable`,
-with a message that names the failed ancestor,
-so you don't have to walk up the tree to find the cause.
+Scheduling failures are also propagated down the group tree. When an ancestor CompositePodGroup
+cannot be scheduled, descendant groups that fit on their own (or were skipped, once the ancestor's
+policy could no longer be satisfied) cannot be bound either. The scheduler marks those descendant
+groups `Unschedulable` with a message naming the failed ancestor.
 
 ### Elastic hierarchies with a mutable `minGroupCount`
 
-`minGroupCount` in the `gang` policy of a CompositePodGroup, and of a `CompositePodGroupTemplate` in a Workload,
-is now mutable, matching `minCount` on PodGroups.
-A controller can lower it to let a smaller part of a multi-level workload start,
-or raise it as the workload grows.
-Changes apply to future scheduling cycles and don't affect Pods that are already scheduled;
-when `minGroupCount` decreases, the scheduler re-queues the pending hierarchy for another attempt.
+`minGroupCount` field in the `gang` scheduling policy of CompositePodGroup and
+CompositePodGroupTemplate is now mutable, matching the mutability of `minCount` in the PodGroup API.
+A workload controller can now lower its value to fit a smaller portion of a multi-level workload or
+raise it as the workload grows.
+
+Changes apply to future scheduling cycles and don't affect Pods that are already scheduled. When
+`minGroupCount` is decreased, the scheduler re-queues the pending hierarchy for another scheduling
+attempt.
 
 ### Stricter validation and deletion protection
 
-* At creation time, `kube-apiserver` rejects Workloads whose templates break the parent-child rules:
-  children of a `CompositePodGroupTemplate` with the `gang` policy must use the `gang` policy too,
-  and children of a template with the `all` disruption mode must use `all` as well.
-* Before scheduling, `kube-scheduler` validates the runtime hierarchy:
-  all groups must refer to the same Workload, all groups and Pods must share the same
-  `schedulerName`, `priority` and `preemptionPolicy`, and policies, disruption modes and depth must be valid.
-  It reports violations with the `CompositePodGroupError` and `PodGroupError` reasons
-  instead of trying to schedule the hierarchy.
-* The maximum depth of a hierarchy increases from 4 to 5 levels
-  (up to 4 levels of CompositePodGroups above the leaf PodGroups),
-  and each template list still holds up to 8 entries.
-* The `scheduling.k8s.io/compositepodgroup-protection` finalizer keeps a CompositePodGroup from being deleted
-  while child groups still refer to it, so hierarchies are always cleaned up bottom-up.
+* `kube-apiserver` rejects Workloads whose templates break the parent-child rules: child templates
+  of a `CompositePodGroupTemplate` with the `gang` policy must use the `gang` policy too, and child
+  templates of a template with the `all` disruption mode must use the `all` mode as well.
+* `kube-scheduler` extends the runtime hierarchy validation: all groups must refer to the same
+  Workload, all Pods must share the same `schedulerName`, all groups and Pods must share the same
+  `priority` and `preemptionPolicy`. Policies and disruption modes must satisfy the same parent-child
+  constraints as templates in the Workload API. Violations are reported in the group statuses with
+  the `CompositePodGroupError` and `PodGroupError` reasons.
+* The maximum depth of a hierarchy increases from 4 to 5 levels, allowing up to 4 levels of
+  CompositePodGroups above the leaf PodGroups.
+* The `scheduling.k8s.io/compositepodgroup-protection` finalizer, added automatically at admission
+  and removed by `kube-controller-manager`, prevents a CompositePodGroup from being deleted while
+  child groups still refer to it, so hierarchies are always cleaned up bottom-up.
 
 ### Designing hierarchies that schedule well
 
-Finding an optimal placement for a multi-level workload is NP-hard,
-so `kube-scheduler` evaluates sibling groups greedily, in a single pass, without backtracking.
-When heterogeneous siblings compete for the same capacity,
-the order of evaluation can decide whether a placement is found.
+Finding a valid placement for a multi-level workload is an NP-hard problem, so `kube-scheduler`
+evaluates sibling groups greedily, in a single pass without backtracking. When heterogeneous sibling
+groups compete for the same capacity, the order of evaluation can determine whether a placement is
+found.
+
 The documentation now includes
 [workload design recommendations](/docs/concepts/scheduling-eviction/podgroup-scheduling/#workload-design-recommendations)
-that make such failures much less likely:
-
-* Keep each PodGroup homogeneous, and split distinct roles, such as a driver and its workers,
-  into separate PodGroups under a common parent.
-* Steer heterogeneous groups that don't need the same hardware onto disjoint sets of nodes,
-  using node selectors, node affinity, or taints and tolerations.
-* Attach topology constraints only to the subtrees that need co-location,
-  rather than to the root of the hierarchy by default.
+to improve the chances of successfully placing a workload in a resource-constrained cluster.
 
 **Upgrading from v1.37:**
 
 * Switch CompositePodGroup manifests and clients from `scheduling.k8s.io/v1alpha3`
-  to `scheduling.k8s.io/v1beta1`.
-* Existing hierarchies that combine a `gang` parent with `basic` children,
-  or an `all` parent with `single` children, are no longer scheduled;
-  `kube-scheduler` reports `CompositePodGroupError` for them.
+  to `scheduling.k8s.io/v1beta1`. Once migrated, you no longer need to enable the
+  `scheduling.k8s.io/v1alpha3` API version.
+* Existing hierarchies that violate the runtime validation rules above are no longer scheduled;
+  `kube-scheduler` reports the `CompositePodGroupError` reason on affected CompositePodGroups
+  and `PodGroupError` on leaf PodGroups.
 
 ## Controller integration APIs {#controller-integration-apis}
 
