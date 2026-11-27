@@ -178,7 +178,7 @@ With the certificate created, it is time to define the Role and RoleBinding for 
 This is a sample command to create a Role for this new user:
 
 ```shell
-kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
+kubectl create role developer --verb=create,get,list,update,delete --resource=pods
 ```
 
 Equivalent YAML:
