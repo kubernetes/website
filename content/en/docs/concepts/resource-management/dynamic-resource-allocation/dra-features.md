@@ -338,6 +338,54 @@ by ensuring devices are distributed based on their attributes. For example, you 
 use it to distribute devices across different NUMA nodes to optimize memory bandwidth
 and reduce contention.
 
+### Fractional capacity range {#fractional-capacity-range}
+
+{{< feature-state feature_gate_name="DRAFractionalCapacityRange" >}}
+
+The fractional capacity range feature allows the `min`, `max`, and `step` fields of a capacity's
+`requestPolicy.validRange`, as well as its `default`, to be fractional quantities, such as `100m` (0.1).
+This allows drivers to describe, and workloads to request, more fine-grained portions of a device's capacity.
+It builds on the [consumable capacity](#consumable-capacity) feature.
+
+Fractional values must be expressed as milli-values, that is, with up to three decimal places
+(for example `250m` or `0.25`). The `default` value must also be a milli-value when the feature is enabled.
+If at least one of `min`, `max`, or `step` is fractional, the
+scheduler uses milli-unit arithmetic. The largest supported value is then 1000 times smaller
+than when using 64-bit integers.
+
+Here is an example of a device whose `cores` capacity can be consumed in increments of 0.25:
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: accelerator-0
+    allowMultipleAllocations: true
+    capacity:
+      cores:
+        requestPolicy:
+          default: "500m"
+          validRange:
+            min: "250m"
+            step: "250m"
+        value: "8"
+```
+
+A request for `cores: 300m` is rounded up to `500m`, the next value equal to `min + (n * step)`.
+
+In Kubernetes 1.37, the `DRAFractionalCapacityRange` feature gate is enabled by default only when
+the control plane's minimum compatibility version (`--min-compatibility-version`) is 1.37 or later.
+With a lower minimum compatibility version, the feature gate is disabled by default and must be
+enabled explicitly.
 
 ## Granular status authorization {#granular-status-authorization}
 
