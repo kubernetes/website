@@ -115,6 +115,14 @@ The `ready` condition is essentially a shortcut for checking
 `true` for Services with `spec.publishNotReadyAddresses` set to
 `true`).
 
+For Services with a selector, the EndpointSlice controller includes Pods that
+match the selector in the Service's namespace, have an IP address in one of the
+Service's IP families, and are not in the `Succeeded` or `Failed` phase. These
+Pods remain listed in EndpointSlices even when their `Ready` condition is not
+`True`. Unless the Service sets `spec.publishNotReadyAddresses` to `true`,
+endpoints backed by these unready Pods have their `ready` condition set to
+`false`, and Service proxies normally exclude them from traffic.
+
 ### Topology information {#topology}
 
 Each endpoint within an EndpointSlice can contain relevant topology information.
