@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Enables TLS support for gRPC container probes. When enabled,
 you can add the `mode` field to the `grpc` field in gRPC probes. Setting

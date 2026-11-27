@@ -40,7 +40,8 @@ The process follows these steps for each PodGroup:
 
 2. Once the quorum is met, the scheduler attempts to find placements for all unscheduled Pods in the group.
    It utilizes the [PodGroup scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/) cycle to make a single,
-   atomic scheduling decision. The `GangScheduling` plugin implements a `PlacementFeasible` extension point that is invoked for each
+   atomic scheduling decision. The `GangScheduling` plugin implements the configurable
+   [`PlacementFeasible`](/docs/reference/scheduling/config/#extension-points) extension point, which is invoked for each
    evaluated Pod during the cycle. This is used to determine whether the `minCount` constraint is satisfied
    by comparing the number of successfully placed Pods (including those already scheduled in previous cycles) against the `minCount` value.
 
@@ -50,12 +51,19 @@ The process follows these steps for each PodGroup:
    Instead, they are moved to the unschedulable queue to wait for cluster resources to free up,
    allowing other workloads to be scheduled in the meantime.
 
+{{< note >}}
+Starting in Kubernetes v1.38, the `GangScheduling` plugin no longer implements the `Permit`
+extension point; it operates exclusively through `PreEnqueue` and `PlacementFeasible`.
+If a custom `KubeSchedulerConfiguration` explicitly lists `GangScheduling` under `plugins.permit.enabled`,
+remove that entry before upgrading—otherwise `kube-scheduler` fails to start.
+{{< /note >}}
+
 ## Hierarchical gang scheduling with CompositePodGroups
 
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, gang scheduling extends its support to `CompositePodGroups`.
 
 Contrary to `PodGroups` that group Pods, `CompositePodGroups` group child groups together - either

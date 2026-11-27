@@ -71,7 +71,7 @@ directly on the PodGroup itself.
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, `CompositePodGroupTemplates` in a Workload and the `CompositePodGroup` objects also
 declare a scheduling policy.
 
@@ -97,13 +97,20 @@ schedulingPolicy:
     minGroupCount: 2
 ```
 
+{{< note >}}
+A `CompositePodGroup` with the `gang` scheduling policy can only have child groups with the `gang`
+scheduling policy as well.
+
+If a `Workload` object does not satisfy this condition, `kube-apiserver` rejects it at creation
+time. Similarly, `kube-scheduler` does not proceed to scheduling `CompositePodGroup` hierarchies
+not adhering to this constraint.
+{{< /note >}}
+
 ### Setting composite policies via templates
 
 When using the [Workload API](/docs/concepts/workloads/workload-api/), scheduling policies for
 `CompositePodGroups` are defined inside `CompositePodGroupTemplates`. Workload controllers copy the
 `schedulingPolicy` specified in the templates into each `CompositePodGroup` created at runtime.
-Unlike leaf `PodGroupTemplates` where `minCount` can be updated, `minGroupCount` in a
-`CompositePodGroupTemplate` is immutable.
 
 ## {{% heading "whatsnext" %}}
 

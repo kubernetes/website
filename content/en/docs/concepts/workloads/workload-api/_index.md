@@ -10,9 +10,9 @@ simple_list: true
 The `Workload` API resource defines the scheduling requirements and structure of a multi-Pod
 application. While workload controllers such as [Job](/docs/concepts/workloads/controllers/job/)
 manage the application's runtime state, the `Workload` specifies how groups of `Pods`
-should be scheduled. The Job controller is the only built-in controller that creates
-[PodGroup](/docs/concepts/workloads/podgroup-api/) objects from the `Workload`'s
-`PodGroupTemplates` at runtime.
+should be scheduled. With their respective feature gates enabled, the Job and ReplicaSet controllers
+create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from the
+Workload's `podGroupTemplates` at runtime.
 
 <!-- body -->
 
@@ -31,9 +31,11 @@ objects, which controllers create from the `Workload`'s `PodGroupTemplates`.
 
 ## API structure
 
-A `Workload` consists of two fields: a list of `PodGroupTemplates` and an optional controller
-reference. The entire `Workload` spec is immutable after creation: you cannot modify
-existing templates, add new templates, or remove templates from `podGroupTemplates`.
+A `Workload` consists of a list of group templates (`podGroupTemplates` or, when the
+`CompositePodGroup` feature gate is enabled, `compositePodGroupTemplates`) and an optional
+controller reference. After creation, you cannot add or remove templates, and most fields in the
+`Workload` spec are immutable; only `minCount` in a `PodGroupTemplate`'s `gang` scheduling policy
+(and `minGroupCount` in a `CompositePodGroupTemplate`'s `gang` scheduling policy) can be updated.
 
 ### PodGroupTemplates
 
@@ -41,7 +43,7 @@ The `spec.podGroupTemplates` list defines the distinct components of your worklo
 For example, a machine learning job might have a `driver` template and a `worker` template.
 
 Each entry in `podGroupTemplates` must have:
-1. A unique `name` that will be used to reference the template in the `PodGroup`'s `spec.podGroupTemplateRef`.
+1. A unique `name` that will be used to reference the template in the `PodGroup`'s `spec.workloadRef.templateName`.
 2. A [scheduling policy](/docs/concepts/workloads/workload-api/policies/) (`basic` or `gang`).
 
 Each entry can also have
@@ -95,7 +97,7 @@ This data is not used to schedule or manage the Workload.
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, you can use `CompositePodGroupTemplates` to define multi-level, hierarchical scheduling
 requirements in a `Workload`. These requirements can include enforcing nested topology constraints
 across different layers of cluster infrastructure (multi-level topology-aware scheduling),
@@ -132,20 +134,22 @@ hierarchy tree. Each entry represents a template for a `CompositePodGroup` and c
   [topology constraints](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
   for multi-level topology-aware scheduling.
 - **Priority, preemption policy and disruption mode**: Optional `priorityClassName`,
-  `disruptionMode` (`Single` or `All`) and `preemptionPolicy` for
+  `disruptionMode` (`single` or `all`) and `preemptionPolicy` for
   [workload-aware preemption](/docs/concepts/workloads/workload-api/disruption-and-priority/).
 
 To ensure cluster stability and control-plane efficiency, the group-template hierarchy
 enforces the following limits:
 
 - **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of
-  4 levels.
+  5 levels.
 - **List limit**: Every `compositePodGroupTemplates` and `podGroupTemplates` list is strictly
   capped at a maximum of 8 items.
 
 {{< note >}}
-Right now, you cannot add new or remove existing `CompositePodGroupTemplates`. You can only change
-the `minCount` value in the gang scheduling policy defined in the leaf `PodGroupTemplates`.
+Right now, you cannot add new or remove existing `CompositePodGroupTemplates` or
+`PodGroupTemplates`. You can only change the `minGroupCount` value specified in the gang scheduling
+policy in `CompositePodGroupTemplates` and the `minCount` value in the gang scheduling policy
+defined in the leaf `PodGroupTemplates`.
 {{< /note >}}
 
 #### Example
@@ -155,7 +159,7 @@ that enforces gang scheduling across two child `PodGroup` templates (`minGroupCo
 each specifying its own gang scheduling policy:
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha3
+apiVersion: scheduling.k8s.io/v1beta1
 kind: Workload
 metadata:
   name: gang-of-gangs-workload
@@ -202,6 +206,28 @@ Other workload controllers (such as JobSet) may manage their own `Workload` and
 
 For the full set of scheduling fields and examples, see
 [Integrate with Workload APIs](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis).
+
+## Gang scheduling with Deployments
+
+{{< feature-state feature_gate_name="WorkloadWithDeployment" >}}
+
+When the
+[`WorkloadWithDeployment`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithDeployment)
+feature gate is enabled, a
+[Deployment](/docs/concepts/workloads/controllers/deployment/) can express
+scheduling requirements through its `.spec.scheduling` field.
+The Deployment controller creates one Workload, and the ReplicaSet controller
+creates one PodGroup per active ReplicaSet revision before creating its Pods.
+
+To request gang scheduling, set `.spec.scheduling.schedulingPolicy.gang` and use
+the Recreate deployment strategy. For a positive replica count, an omitted
+`gang.minCount` defaults to the Deployment's `.spec.replicas`.
+
+When `.spec.scheduling` is omitted, the controllers do not create Workload or
+PodGroup objects, and the Deployment's scheduling behavior is unchanged.
+
+For scheduling fields, examples, and limitations, see
+[Automatic PodGroup management](/docs/concepts/workloads/controllers/deployment/#automatic-podgroup-management).
 
 ## {{% heading "whatsnext" %}}
 

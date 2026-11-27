@@ -664,9 +664,11 @@ to and validates whether your current cluster is upgradeable.
 
 ### kubeadm upgrade diff
 
-This shows what differences would be applied to existing static pod manifests for control plane nodes.
+This shows what differences would be applied to existing static Pod manifests for control plane nodes,
+including the etcd manifest if etcd is managed by kubeadm and the desired etcd version is not older
+than the installed version.
 A more verbose way to do the same thing is running `kubeadm upgrade apply --dry-run` or
-`kubeadm upgrade node --dry-run`.
+`kubeadm upgrade node --dry-run`, which skip the etcd manifest if the etcd upgrade is disabled.
 
 ### kubeadm upgrade apply
 

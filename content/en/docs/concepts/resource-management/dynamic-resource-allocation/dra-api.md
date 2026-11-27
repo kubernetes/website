@@ -636,3 +636,89 @@ in the `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, and `kubel
 
 For a hands-on walkthrough of requesting extended resources, see
 [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/).
+
+### Capacity requests for extended resources {#extended-resource-capacity}
+
+{{< feature-state feature_gate_name="DRAExtendedResourceCapacity" >}}
+
+A device that supports
+[consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#consumable-capacity)
+can be shared by several Pods, with each allocation consuming part of the
+device's capacity. When the scheduler satisfies an extended resource through DRA,
+the device requests that it creates do not request any capacity. Each allocation
+of a shareable device then consumes the default amount of each capacity, which is
+the `requestPolicy.default` that the driver defines for that capacity, or the
+entire capacity if the driver defines no default.
+
+You can set `extendedResourceRequest` in a DeviceClass to choose how much capacity
+each allocation consumes instead. The scheduler copies `extendedResourceRequest.capacity`
+unmodified into each device request that it creates for the extended resource of that
+DeviceClass. The capacity has the same meaning as `spec.devices.requests[].exactly.capacity`
+in a ResourceClaim: it applies to each device allocation. The quantity in the Pod is the
+number of allocations, so a Pod that requests `example.com/gpu-share: 2` gets two
+allocations that each consume the configured capacity, not one allocation with twice
+that capacity.
+
+In the following example, each unit of the extended resource `example.com/gpu-share`
+consumes 10 `shares` of a shareable device:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: DeviceClass
+metadata:
+  name: gpu-share.example.com
+spec:
+  selectors:
+  - cel:
+      expression: device.driver == 'gpu.example.com' && device.allowMultipleAllocations == true
+  extendedResourceName: example.com/gpu-share
+  extendedResourceRequest:
+    capacity:
+      requests:
+        shares: "10"
+```
+
+For a Pod with one container that requests `example.com/gpu-share: 1`, the scheduler
+creates a ResourceClaim with the following device request:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaim
+...
+spec:
+  devices:
+    requests:
+    - name: container-0-request-0
+      exactly:
+        deviceClassName: gpu-share.example.com
+        allocationMode: ExactCount
+        count: 1
+        capacity:
+          requests:
+            shares: "10"
+```
+
+The devices that the DeviceClass selects must have the capacities that
+`extendedResourceRequest` refers to. Otherwise, the scheduler cannot satisfy the
+extended resource requests, in the same way as when the selectors of the DeviceClass
+match no devices. The capacity also applies when a Pod requests the DeviceClass with
+the `deviceclass.resource.kubernetes.io/` prefix. On nodes where a device plugin
+provides the extended resource, the scheduler uses the device plugin, and the
+capacity does not apply.
+
+Capacity requests for extended resources are controlled by the
+[`DRAExtendedResourceCapacity` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResourceCapacity)
+in the `kube-apiserver` and `kube-scheduler`. This feature gate depends on the
+[`DRAConsumableCapacity` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAConsumableCapacity).
+
+When the feature is disabled in the `kube-apiserver`, the API server drops
+`extendedResourceRequest` from a DeviceClass that you create, or that you update
+without the field already being set. DeviceClasses that already have the field keep it.
+
+When the feature is disabled in the `kube-scheduler`, the scheduler does not
+allocate devices without the capacity that a DeviceClass requests. For a Pod that
+requests the extended resource of a DeviceClass with `extendedResourceRequest`,
+the scheduler rejects every node where DRA would have to provide that extended
+resource, and reports that the DeviceClass requires the `DRAExtendedResourceCapacity`
+feature. Nodes where a device plugin provides the extended resource remain available
+to the Pod.

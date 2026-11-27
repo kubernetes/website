@@ -255,6 +255,27 @@ Here is an example of a correct configuration that uses `reservedMemory`:
 ```
 {{< /note >}}
 
+For each hugepage size, the sum of `reservedMemory` limits across all NUMA
+nodes must equal the combined `kubeReserved` and `systemReserved` values for
+that size. The `evictionHard` threshold does not apply to hugepages.
+
+For example, on a Linux node with two 1GiB hugepages on NUMA node 1, the
+following configuration reserves both pages for system daemons. It also reserves
+100MiB of memory on NUMA node 0 for the default hard eviction threshold.
+
+```yaml
+  memoryManagerPolicy: Static
+  systemReserved:
+    hugepages-1Gi: "2Gi"
+  reservedMemory:
+  - numaNode: 0
+    limits:
+      memory: "100Mi"
+  - numaNode: 1
+    limits:
+      hugepages-1Gi: "2Gi"
+```
+
 ### Configurations to avoid {#reserved-memory-configurations-to-avoid}
 
 Avoid the following configurations:

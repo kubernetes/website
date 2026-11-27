@@ -70,7 +70,7 @@ For more details about how internal scheduler queues work, read
 
 EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
-Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
+Plugins that implement PreEnqueue, PreFilter, Filter, Reserve, Permit or PlacementFeasible should implement this interface.
 
 ### QueueingHint
 
@@ -81,6 +81,28 @@ It's executed every time a certain kind of event or change happens in the cluste
 When the QueueingHint finds that the event might make the Pod schedulable,
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
+
+### PreQueueingHint
+
+{{< feature-state feature_gate_name="SchedulerPreQueueingHints" >}}
+
+PreQueueingHint is an optional callback that a plugin registers for an event
+to narrow down which unschedulable Pods its QueueingHint checks.
+It runs once per event, before any per-Pod QueueingHint,
+so the scheduler doesn't have to evaluate every unschedulable Pod
+for that plugin.
+When the event happens, the PreQueueingHint returns the Pods
+that the event might make schedulable,
+and the scheduler runs that plugin's QueueingHint
+only for the unschedulable Pods it rejected that are in that set.
+If the PreQueueingHint requests evaluating all Pods or returns an error,
+the scheduler checks all the Pods that the plugin rejected.
+Plugins without a PreQueueingHint still check all the Pods they rejected.
+
+For example, for a ResourceClaim event,
+the `DynamicResources` plugin returns only the Pods that reference that claim,
+or requests evaluating all Pods
+when the claim is deallocated or is deleted while allocated.
 
 ### QueueSort {#queue-sort}
 

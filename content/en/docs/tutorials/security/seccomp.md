@@ -33,6 +33,7 @@ profiles that give only the necessary privileges to your container processes.
 * Observe a violation of a seccomp profile
 * Learn how to create fine-grained seccomp profiles
 * Learn how to apply a container runtime default seccomp profile
+* Learn how to use a seccomp profile from an OCI registry
 
 ## {{% heading "prerequisites" %}}
 
@@ -524,6 +525,82 @@ docker exec -it kind-worker bash -c \
   ]
 }
 ```
+
+## Create a Pod with a seccomp profile from an OCI registry {#seccomp-oci}
+
+{{< feature-state feature_gate_name="SecurityProfileOCI" >}}
+
+Instead of copying a profile to every node, you can publish it to an OCI
+registry and reference it by digest. This needs the `SecurityProfileOCI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled on the API server and on the kubelet, and a container runtime that
+implements the security profile calls of the
+{{< glossary_tooltip text="CRI" term_id="cri" >}}. The cluster that `kind`
+creates in this tutorial does not support it, because its container runtime
+cannot pull seccomp profiles yet.
+
+Publish the `fine-grained.json` profile from the earlier steps as an OCI
+artifact, for example with [ORAS](https://oras.land/):
+
+```shell
+oras push registry.example.com/profiles/fine-grained:v1 \
+  --config /dev/null:application/vnd.cncf.seccomp-profile.config.v1+json \
+  profiles/fine-grained.json:application/json
+```
+
+The artifact holds the profile as its only layer, stored as is, and the config
+media type tells the container runtime that the artifact is a seccomp profile
+(see [seccomp profiles from OCI registries](/docs/concepts/security/linux-kernel-security-constraints/#seccomp-oci)
+for the format). ORAS prints the digest of the pushed artifact. The Pod
+references the profile by that digest, because tags are not accepted:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: oci-pod
+  labels:
+    app: oci-pod
+spec:
+  securityContext:
+    seccompProfile:
+      type: OCI
+      oci:
+        ref: registry.example.com/profiles/fine-grained@sha256:<digest>
+  containers:
+  - name: test-container
+    image: hashicorp/http-echo:1.0
+    args:
+    - "-text=just made some syscalls!"
+    securityContext:
+      allowPrivilegeEscalation: false
+```
+
+Before the kubelet creates the Pod, it asks the container runtime to pull the
+profile with the same credentials that it uses for the Pod's container images,
+and records a `SecurityProfilePulled` event on the Pod. The runtime merges the
+pulled profile with its default seccomp profile, so the effective profile can
+only be stricter than the default. If the profile cannot be pulled, the Pod
+stays `Pending` with a `SecurityProfilePullFailed` event and the kubelet
+retries; a profile that the runtime rejects as invalid fails the Pod instead,
+with the reason `SecurityProfileRejected`.
+
+To merge the pulled profile with a profile on the node instead of the runtime
+default, set `oci.baseProfile`:
+
+```yaml
+    seccompProfile:
+      type: OCI
+      oci:
+        ref: registry.example.com/profiles/fine-grained@sha256:<digest>
+        baseProfile:
+          type: Localhost
+          localhostProfile: profiles/audit.json
+```
+
+The `localhostProfile` path is relative to the kubelet's seccomp profile
+directory, like for `type: Localhost`. A `Localhost` base profile takes the
+place of the runtime default in the merge.
 
 ## {{% heading "whatsnext" %}}
 

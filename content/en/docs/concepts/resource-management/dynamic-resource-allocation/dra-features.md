@@ -338,6 +338,54 @@ by ensuring devices are distributed based on their attributes. For example, you 
 use it to distribute devices across different NUMA nodes to optimize memory bandwidth
 and reduce contention.
 
+### Fractional capacity range {#fractional-capacity-range}
+
+{{< feature-state feature_gate_name="DRAFractionalCapacityRange" >}}
+
+The fractional capacity range feature allows the `min`, `max`, and `step` fields of a capacity's
+`requestPolicy.validRange`, as well as its `default`, to be fractional quantities, such as `100m` (0.1).
+This allows drivers to describe, and workloads to request, more fine-grained portions of a device's capacity.
+It builds on the [consumable capacity](#consumable-capacity) feature.
+
+Fractional values must be expressed as milli-values, that is, with up to three decimal places
+(for example `250m` or `0.25`). The `default` value must also be a milli-value when the feature is enabled.
+If at least one of `min`, `max`, or `step` is fractional, the
+scheduler uses milli-unit arithmetic. The largest supported value is then 1000 times smaller
+than when using 64-bit integers.
+
+Here is an example of a device whose `cores` capacity can be consumed in increments of 0.25:
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: accelerator-0
+    allowMultipleAllocations: true
+    capacity:
+      cores:
+        requestPolicy:
+          default: "500m"
+          validRange:
+            min: "250m"
+            step: "250m"
+        value: "8"
+```
+
+A request for `cores: 300m` is rounded up to `500m`, the next value equal to `min + (n * step)`.
+
+In Kubernetes 1.37, the `DRAFractionalCapacityRange` feature gate is enabled by default only when
+the control plane's minimum compatibility version (`--min-compatibility-version`) is 1.37 or later.
+With a lower minimum compatibility version, the feature gate is disabled by default and must be
+enabled explicitly.
 
 ## Granular status authorization {#granular-status-authorization}
 
@@ -463,3 +511,79 @@ scheduling the Pod.
 Optional node operations is controlled by the
 [`DRAOptionalNodeOperations`](/docs/reference/command-line-tools-reference/feature-gates/#DRAOptionalNodeOperations)
 feature gate in the `kube-apiserver`, `kube-scheduler`, and `kubelet`.
+
+
+## Preemption {#preemption}
+
+{{< feature-state feature_gate_name="DRAPreemption" >}}
+
+By default, `kube-scheduler` does not preempt lower-priority Pods to free DRA
+devices. Enabling the `DRAPreemption` feature gate allows `kube-scheduler` to
+preempt lower-priority Pods using the standard
+[Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+workflow. This feature introduces no new API types or fields, and respects
+`preemptionPolicy: Never`.
+
+### Limitations {#preemption-limitations}
+
+`DRAPreemption` has the following constraints:
+
+- **Pod-owned ResourceClaims only**: Unallocated claims needed by the preemptor
+  must be owned by the Pod (for example, generated from a
+  ResourceClaimTemplate). For victims, only claims owned by the victim Pod and
+  not reserved by other consumers are simulated as released.
+- **Node-local devices only**: Only claims whose allocated devices are
+  restricted to a single node (`spec.nodeName` on the ResourceSlice, or
+  per-device `nodeName` when `spec.perDeviceNodeSelection` is `true`) are
+  released. Claims containing devices using `nodeSelector` or `allNodes` are
+  skipped.
+- **Exclusively allocated devices only**: Shared allocations through
+  [consumable capacity](#consumable-capacity) (`shareID` and `consumedCapacity`)
+  and request-dependent counter consumption (`consumedCounters`) are still
+  treated as consumed and are not released or held. Allocations with
+  `adminAccess: true` are ignored.
+- **No DRA-backed extended resources**: Preemption by or of Pods using
+  [extended resource allocation by DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource)
+  is not supported.
+- **No PodGroups**: Pods belonging to a PodGroup (`.spec.schedulingGroup`) do
+  not trigger DRA preemption and are not simulated as releasing DRA devices.
+- **In-memory state only**: Device holds and tracked victim claims (see
+  [How it works](#preemption-how-it-works)) live only in `kube-scheduler` memory
+  and are lost on restart (freed devices may be taken by another Pod, or the
+  preemptor may preempt again). Multiple schedulers do not share this state, and
+  external components such as Cluster Autoscaler can see
+  `.status.nominatedNodeName` but not which devices are held.
+
+### How it works {#preemption-how-it-works}
+
+When a higher-priority Pod cannot allocate its ResourceClaims on any node,
+`kube-scheduler` evaluates candidate nodes for preemption:
+
+- **Simulation**: On each candidate node, the scheduler simulates removing
+  lower-priority Pods and releasing their eligible ResourceClaims (including
+  fixed shared counters for [partitionable devices](#partitionable-devices)),
+  reprieving any victim not needed to fit the pending Pod.
+- **Eviction**: Bound victim Pods are deleted with their normal graceful
+  termination period. A victim Pod still waiting in `PreBind` (for example, on
+  [device binding conditions](/docs/concepts/resource-management/dynamic-resource-allocation/how-dra-works/#device-binding-conditions))
+  has its binding canceled, returns to the scheduling queue instead of being
+  deleted, and has its claim deallocated.
+- **Deallocation settling**: After a victim Pod is deleted, the ResourceClaim
+  controller in `kube-controller-manager` deallocates its ResourceClaims
+  asynchronously. `kube-scheduler` tracks those claims in memory per node and
+  prevents the nominated preemptor from starting another preemption while any of
+  them remain allocated. If the controller is unhealthy or lagging, the
+  preemptor stays `Pending` with `.status.nominatedNodeName` set (and its
+  `PodScheduled` condition reports that it is waiting for deallocation) rather
+  than preempting additional Pods on other nodes.
+- **Device holds**: While the preemptor is nominated to a node,
+  `kube-scheduler` holds its simulated exclusively allocated devices in memory
+  so lower- or equal-priority Pods cannot take them. Higher-priority Pods can
+  still claim the freed devices once deallocated. The hold ends when the
+  preemptor is scheduled, deleted, or its nomination is cleared or replaced.
+
+DRA preemption is controlled by the
+[`DRAPreemption`](/docs/reference/command-line-tools-reference/feature-gates/#DRAPreemption)
+feature gate in `kube-scheduler`. It does not need to be enabled on
+`kube-apiserver`, `kube-controller-manager`, or `kubelet`. Disabling the gate
+discards in-memory holds with no persisted state to clean up.

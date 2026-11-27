@@ -40,26 +40,57 @@ If a group references a parent `CompositePodGroup` that does not exist, or if a 
 a `PodGroup` that has not yet been created, the scheduler holds off scheduling until all parent
 resources in the hierarchy exist.
 
+## Deletion protection
+
+A `CompositePodGroup` cannot be fully deleted while any of its child groups still exist. A dedicated
+finalizer ensures that deletion is blocked until all groups referencing the `CompositePodGroup` have
+been deleted.
+
 ## Limitations and validation rules
 
+### API validation and limits
+
+`kube-apiserver` enforces the following constraints at creation or update time:
+
+- **List item limit**: Each `compositePodGroupTemplates` and `podGroupTemplates` list at any level
+  of a `Workload` is capped at a maximum of 8 items.
+- **Required Workload reference**: Every `CompositePodGroup`, as well as any `PodGroup` that sets
+  `spec.parentCompositePodGroupName`, must specify `spec.workloadRef`.
+- **Immutable hierarchy references**: `spec.parentCompositePodGroupName` and `spec.workloadRef` on
+  groups, as well as `spec.schedulingGroup` on Pods, are immutable after creation.
+- **Compatibility of disruption mode and scheduling policy**: A `CompositePodGroup`, `PodGroup`
+  or a group template with the `basic` scheduling policy cannot specify the `all` disruption mode.
+
+`kube-apiserver` also validates priority consistency, preemption policy consistency, parent-child
+configuration constraints, and the maximum nesting depth of 5 levels (up to 4 levels of
+`CompositePodGroupTemplate` plus the leaf `PodGroupTemplate` level) on `Workload` templates at
+creation time.
+
+### Runtime hierarchy validation
+
+Before scheduling a `CompositePodGroup` hierarchy, `kube-scheduler` validates the following rules
+across all runtime objects in the hierarchy:
+
 - **Consistent scheduler name**: All Pods across an entire `CompositePodGroup` hierarchy must use
-  the same `spec.schedulerName`. If a mismatch is detected, the scheduler rejects the hierarchy as
-  unschedulable.
-- **Consistent priority**: All Pods across an entire `CompositePodGroup` hierarchy must specify the
-  same value of `spec.priority` which must be equal to the priority specified by the root group. If
-  a mismatch is detected, the scheduler rejects the hierarchy as unschedulable.
-- **Consistent preemption policy**: All Pods across an entire `CompositePodGroup` hierarchy must use
-  the same `spec.preemptionPolicy`. In addition, when the
-  [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy/)
-  feature gate is enabled, the root group's preemption policy must be equal to the one specified by
-  the Pods. If a mismatch is detected, the scheduler rejects the hierarchy as unschedulable.
-- **Maximum nesting depth**: The group-template hierarchy supports a maximum depth of 4 levels.
-- **List item limit**: The maximum number of child `CompositePodGroupTemplates` and
-  `PodGroupTemplates` at any level of a `Workload` is 8.
-- **Immutable gang group count**: The `spec.schedulingPolicy.gang.minGroupCount` field on a
-  `CompositePodGroup` is immutable after creation.
-- **Immutable hierarchy references**: `spec.parentCompositePodGroupName` on groups and
-  `spec.schedulingGroup` on Pods are immutable once set.
+  the same `spec.schedulerName`.
+- **Consistent priority**: All Pods and all groups across an entire `CompositePodGroup` hierarchy
+  must specify the same value of `spec.priority`.
+- **Parent-child configuration constraints**: Child groups of a `CompositePodGroup` with the `gang`
+  scheduling policy must have the `gang` scheduling policy as well. Similarly, child groups of a
+  `CompositePodGroup` with the `all` disruption mode must have the `all` disruption mode as well.
+- **Consistent Workload references**: All groups in a group hierarchy must refer to the same
+  `Workload` object in the `spec.workloadRef.workloadName` field.
+- **Consistent preemption policy**: All Pods and all groups across an entire `CompositePodGroup`
+  hierarchy must specify the same `spec.preemptionPolicy`.
+- **Maximum nesting depth**: Runtime group hierarchies support a maximum depth of 5 levels (up to 4
+  levels of `CompositePodGroup` plus the leaf `PodGroup` level).
+
+If `kube-scheduler` detects any of these runtime validation violations, it refrains from scheduling
+the hierarchy. It sets the
+[`CompositePodGroupInitiallyScheduled`](/docs/concepts/scheduling-eviction/podgroup-scheduling/#compositepodgroup-conditions)
+condition to `False` with reason `CompositePodGroupError` on `CompositePodGroup` objects and the
+[`PodGroupInitiallyScheduled`](/docs/concepts/scheduling-eviction/podgroup-scheduling/#podgroup-conditions)
+condition to `False` with reason `PodGroupError` on `PodGroup` objects in the hierarchy.
 
 ## {{% heading "whatsnext" %}}
 

@@ -34,7 +34,8 @@ spec:
 ```
 
 The `schedulingGroup` field is immutable. Once set, a `Pod` cannot be moved to a
-different `PodGroup`.
+different `PodGroup`. Do not reuse `PodGroup` names across separate runtime instances, as the
+scheduler cannot distinguish instances that share the same namespace and name.
 
 ## Behavior
 

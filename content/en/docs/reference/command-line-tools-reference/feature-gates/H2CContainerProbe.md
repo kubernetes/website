@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.37"
+    toVersion: "1.37"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.38"
 ---
 Enables HTTP/2 cleartext (h2c) support for HTTP container probes. When enabled,
 you can add the `protocol` field to the `httpGet` field in HTTP probes. Setting

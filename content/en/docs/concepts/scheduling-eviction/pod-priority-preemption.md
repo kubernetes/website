@@ -202,8 +202,9 @@ When the `CompositePodGroup` feature gate is enabled, the scheduler treats the f
 units of scheduling that can be enqueued:
 
 - Standalone Pods - Pods that are not part of any PodGroup,
-- Standalone PodGroups - PodGroups that do not specify `ParentCompositePodGroup`,
-- Root CompositePodGroups - CompositePodGroups that do not specify `ParentCompositePodGroup`.
+- Standalone PodGroups - PodGroups that do not specify `spec.parentCompositePodGroupName`,
+- Root CompositePodGroups - CompositePodGroups that do not specify
+  `spec.parentCompositePodGroupName`.
 
 These objects specify a `priority` field value of which is used to determine their position in the
 active scheduling queue.
@@ -404,6 +405,21 @@ Constraints and validation rules:
   list contains at least one entry.
   If the list is empty or the `podPreemptionPolicy` field is omitted,
   preemption for in-place resize is enabled on the node.
+
+### Preemption for Dynamic Resource Allocation (DRA) {#dra-preemption}
+
+{{< feature-state feature_gate_name="DRAPreemption" >}}
+
+By default, `kube-scheduler` does not preempt lower-priority Pods to free
+devices allocated through
+[Dynamic Resource Allocation (DRA)](/docs/concepts/resource-management/dynamic-resource-allocation/).
+When the `DRAPreemption` feature gate is enabled on `kube-scheduler`, the
+scheduler can preempt lower-priority Pods that hold exclusively allocated,
+node-local DRA devices using Pod-owned ResourceClaims (such as claims generated
+from a ResourceClaimTemplate).
+
+For more details and limitations, see
+[Preemption for DRA](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#preemption).
 
 ## Troubleshooting
 

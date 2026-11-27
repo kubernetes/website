@@ -94,7 +94,7 @@ another potential victim until all victims are processed.
 {{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 When the [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
-feature gate and the `scheduling.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+feature gate and the `scheduling.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled, workload-aware preemption provides support for `CompositePodGroups` as well.
 
 The underlying preemption mechanism is the same as for `PodGroups` - if the scheduler needs to free

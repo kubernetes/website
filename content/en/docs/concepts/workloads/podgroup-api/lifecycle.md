@@ -21,6 +21,13 @@ automatically garbage collected.
 `PodGroup` names must be unique within a namespace and must be valid
 [DNS subdomains](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
+{{< caution >}}
+The scheduler cannot distinguish between `PodGroup` runtime instances that reuse the same
+namespace and name. Always use a new `PodGroup` name for each runtime instance (for example,
+by including the owning object's UID); reusing a name for a `PodGroup` with different scheduling
+policies can result in Pod placement that does not conform to the expected policy.
+{{< /caution >}}
+
 ## Creation ordering
 
 Controllers must create objects in this order:
@@ -29,7 +36,7 @@ Controllers must create objects in this order:
 2. `PodGroup` — the runtime instance.
 3. `Pods` — with `spec.schedulingGroup.podGroupName` pointing to the `PodGroup`.
 
-If a `PodGroup` includes a `podGroupTemplateRef` that points to a `Workload` that does
+If a `PodGroup` includes a `spec.workloadRef` that points to a `Workload` that does
 not exist (or is being deleted), the API server rejects the `PodGroup` creation request.
 The referenced `Workload` must exist before the `PodGroup` can be created.
 
@@ -55,11 +62,16 @@ If you need more control over naming and lifecycle, you can create `PodGroup` ob
 ## Limitations
 
 * All Pods in a `PodGroup` must use the same `.spec.schedulerName`.
-  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
-* All Pods in a `PodGroup` must use the same `.spec.priority`.
-  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
-* All Pods in a `PodGroup` must use the same `.spec.preemptionPolicy`.
-  If a mismatch is detected, the scheduler rejects all Pods in the group as unschedulable.
+  If a mismatch is detected, the scheduler sets the `PodGroupInitiallyScheduled=False` condition with reason
+  `PodGroupError` and does not schedule the group.
+* All Pods in a `PodGroup` must have the same `.spec.priority` as the `PodGroup`.
+  If a mismatch is detected, the scheduler sets the `PodGroupInitiallyScheduled=False` condition with reason
+  `PodGroupError` and does not schedule the group.
+* All Pods in a `PodGroup` must have the same `.spec.preemptionPolicy` as the `PodGroup`
+  (or, for legacy `PodGroup` objects without `preemptionPolicy` set, all Pods in the group
+  must share the same `.spec.preemptionPolicy`).
+  If a mismatch is detected, the scheduler sets the `PodGroupInitiallyScheduled=False` condition with reason
+  `PodGroupError` and does not schedule the group.
 * The `spec.schedulingGroup` field on a Pod is immutable.
   Once set, a Pod cannot move to a different PodGroup.
 * The maximum number of `PodGroupTemplates` in a single `Workload` is 8.

@@ -89,7 +89,7 @@ be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
 
-- **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
+- **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, hugepages-2Mi: 512Mi, pid: "1000"}`
 - **KubeletConfiguration Setting**: `kubeReservedCgroup: ""`
 
 `kubeReserved` is meant to capture resource reservation for kubernetes system
@@ -97,8 +97,8 @@ daemons like the `kubelet`, `container runtime`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
 `kubeReserved` is typically a function of `pod density` on the nodes.
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for
+In addition to `cpu`, `memory`, `ephemeral-storage`, and `hugepages-<size>`,
+`pid` may be specified to reserve the specified number of process IDs for
 kubernetes system daemons.
 
 To optionally enforce `kubeReserved` on kubernetes system daemons, specify the parent
@@ -119,7 +119,7 @@ with `.slice` appended.
 
 ### System Reserved
 
-- **KubeletConfiguration Setting**: `systemReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
+- **KubeletConfiguration Setting**: `systemReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, hugepages-2Mi: 512Mi, pid: "1000"}`
 - **KubeletConfiguration Setting**: `systemReservedCgroup: ""`
 
 `systemReserved` is meant to capture resource reservation for OS system daemons
@@ -128,9 +128,9 @@ like `sshd`, `udev`, etc. `systemReserved` should reserve `memory` for the
 Reserving resources for user login sessions is also recommended (`user.slice` in
 systemd world).
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for OS system
-daemons.
+In addition to `cpu`, `memory`, `ephemeral-storage`, and `hugepages-<size>`,
+`pid` may be specified to reserve the specified number of process IDs for OS
+system daemons.
 
 To optionally enforce `systemReserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `systemReservedCgroup` setting,
@@ -191,9 +191,9 @@ available for pods.
 
 The scheduler treats 'Allocatable' as the available `capacity` for pods.
 
-`kubelet` enforce 'Allocatable' across pods by default. Enforcement is performed
-by evicting pods whenever the overall usage across all pods exceeds
-'Allocatable'. More details on eviction policy can be found
+The kubelet enforces 'Allocatable' across pods by default. For memory and
+ephemeral storage, the kubelet evicts pods when total usage across all pods
+exceeds 'Allocatable' for that resource. More details on eviction policy can be found
 on the [node pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 page. This enforcement is controlled by
 specifying `pods` value to the KubeletConfiguration setting `enforceNodeAllocatable`.
@@ -205,6 +205,14 @@ specifying `kube-reserved-compressible` and `system-reserved-compressible`.
 Note that to enforce `kubeReserved` or `systemReserved`,
 `kubeReservedCgroup` or `systemReservedCgroup` needs to be specified
 respectively.
+
+For `hugepages-<size>` resources, the kubelet enforces reservations through cgroup
+limits without evicting pods. With `pods` enforcement, the kubelet limits the
+total usage across all pods to the allocatable amount for each reserved page size.
+With `kube-reserved` or `system-reserved` enforcement, the kubelet limits the
+corresponding cgroup to the reserved amount for that page size. The
+`kube-reserved-compressible` and `system-reserved-compressible` options do not
+enforce hugepage limits.
 
 ## General Guidelines
 
