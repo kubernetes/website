@@ -42,6 +42,7 @@ are incompatible and disallowed for ephemeral containers.
 - Ephemeral containers may not have ports, so fields such as `ports`,
   `livenessProbe`, `readinessProbe` are disallowed.
 - Pod resource allocations are immutable, so setting `resources` is disallowed.
+- Setting container-level namespace options such as `hostCgroupNamespace` is also disallowed.
 - For a complete list of allowed fields, see the [EphemeralContainer reference
   documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core).
 
