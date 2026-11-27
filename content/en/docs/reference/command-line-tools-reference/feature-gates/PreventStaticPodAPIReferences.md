@@ -10,6 +10,8 @@ stages:
 - stage: beta
   defaultValue: true
   fromVersion: "1.34"
+  toVersion: "1.36"
 
+removed: true
 ---
 Denies Pod admission if static Pods reference other API objects.

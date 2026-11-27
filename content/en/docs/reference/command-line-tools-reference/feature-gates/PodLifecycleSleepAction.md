@@ -18,5 +18,8 @@ stages:
     locked: true
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.36"
+
+removed: true
 ---
 Enables the `sleep` action in Container lifecycle hooks (`preStop` and `postStart`).

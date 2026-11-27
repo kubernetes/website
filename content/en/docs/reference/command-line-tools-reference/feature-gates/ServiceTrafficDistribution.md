@@ -19,7 +19,9 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.35"
 
+removed: true
 ---
 Allows usage of the optional `spec.trafficDistribution` field in Services. The
 field offers a way to express preferences for how traffic is distributed to

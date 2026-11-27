@@ -18,5 +18,8 @@ stages:
     locked: true
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.36"
+
+removed: true
 ---
 While deleting namespace, the pods resources is going to be deleted before the rest of resources.
