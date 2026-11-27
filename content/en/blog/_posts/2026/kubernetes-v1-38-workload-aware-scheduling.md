@@ -10,15 +10,17 @@ author: >
 
 <!--
   Notes for reviewers (remove before publication):
-  * Shared sections: the introduction, "The workload-aware scheduling core in v1.38",
+  * Shared sections: the introduction, "Workload-aware scheduling in v1.38 at a glance",
     "What's next?", "Getting started" and "Learn more".
   * Area sections are self-contained and owned by the respective KEP owners:
     gang scheduling (KEP-4671), workload-aware preemption (KEP-5710),
-    topology-aware scheduling (KEP-5732) and the CompositePodGroup API (KEP-6012).
+    topology-aware scheduling (KEP-5732), the CompositePodGroup API (KEP-6012)
+    and the controller integration APIs (KEP-6089).
     Please propose changes to your area in dedicated commits.
   * Shared sections link to the area sections only through the explicit heading IDs
-    {#gang-scheduling}, {#workload-aware-preemption}, {#topology-aware-scheduling} and
-    {#compositepodgroup-api}. Keep those IDs if you rename a heading.
+    {#gang-scheduling}, {#workload-aware-preemption}, {#topology-aware-scheduling},
+    {#compositepodgroup-api} and {#controller-integration-apis}.
+    Keep those IDs if you rename a heading.
 -->
 
 AI/ML training, batch processing and other distributed workloads need the scheduler
@@ -34,6 +36,8 @@ They join the Workload and PodGroup APIs, [gang scheduling](#gang-scheduling) an
 [workload-aware preemption](#workload-aware-preemption), which reached Beta in v1.37.
 For the first time, the entire WAS core is Beta,
 and all of its APIs are served from `scheduling.k8s.io/v1beta1`.
+The [controller integration APIs](#controller-integration-apis), which let workload controllers
+expose these capabilities in their own APIs, graduate to Beta as well.
 
 This release is less about new concepts and more about making the existing ones dependable.
 `kube-apiserver` and `kube-scheduler` now enforce the same consistency rules at every level of a workload,
@@ -41,7 +45,7 @@ scheduling failures are reported on the objects you would check first,
 preemption prefers cheaper victims,
 and the cost of topology-aware placement stays bounded in large clusters.
 
-## The workload-aware scheduling core in v1.38 {#was-core}
+## Workload-aware scheduling in v1.38 at a glance {#was-core}
 
 | Area | KEP | Stage in v1.38 | Feature gate | Change since v1.37 |
 | --- | --- | --- | --- | --- |
@@ -49,6 +53,7 @@ and the cost of topology-aware placement stays bounded in large clusters.
 | [Workload-aware preemption](#workload-aware-preemption) | [KEP-5710](https://www.kubernetes.dev/resources/keps/5710/) | Beta | `GenericWorkload` | Stays in Beta; the PodGroup `preemptionPolicy` field joins the Beta |
 | [Topology-aware scheduling](#topology-aware-scheduling) | [KEP-5732](https://www.kubernetes.dev/resources/keps/5732/) | Beta | `TopologyAwareWorkloadScheduling` | Graduates from Alpha |
 | [CompositePodGroup API](#compositepodgroup-api) | [KEP-6012](https://www.kubernetes.dev/resources/keps/6012/) | Beta | `CompositePodGroup` | Graduates from Alpha; moves from `v1alpha3` to `v1beta1` |
+| [Controller integration APIs](#controller-integration-apis) | [KEP-6089](https://www.kubernetes.dev/resources/keps/6089/) | Beta | None of its own | Graduates from Alpha; building blocks move to `scheduling.k8s.io/v1` |
 
 All of these feature gates are disabled by default, and so is the `scheduling.k8s.io/v1beta1` API group;
 [Getting started](#getting-started) lists what to enable.
@@ -60,13 +65,6 @@ and GA is now targeted for v1.39.
 
 If you tried any of these features in v1.37, each area section below ends with
 the behavior changes to check before you upgrade.
-
-Outside the scope of this article, the integrations that let built-in controllers use the WAS core
-also progressed in v1.38:
-the [Job controller integration](https://www.kubernetes.dev/resources/keps/5547/) and the
-[controller integration APIs](https://www.kubernetes.dev/resources/keps/6089/) graduate to Beta,
-and the Deployment and ReplicaSet controllers gain an
-[Alpha integration](https://www.kubernetes.dev/resources/keps/6276/).
 
 ## Gang scheduling and the Workload and PodGroup APIs {#gang-scheduling}
 
@@ -432,20 +430,129 @@ that make such failures much less likely:
   or an `all` parent with `single` children, are no longer scheduled;
   `kube-scheduler` reports `CompositePodGroupError` for them.
 
+## Controller integration APIs {#controller-integration-apis}
+
+<!-- Area section owned by the KEP-6089 owners. -->
+
+Most people won't create Workloads and PodGroups by hand:
+they expect the controllers they already use, such as Job, JobSet or a training operator,
+to do it for them.
+The controller integration APIs, introduced in v1.37, give controller authors two tools for that:
+
+* reusable API _building blocks_ for the scheduling policy, scheduling constraints, disruption mode
+  and shared ResourceClaims, which a controller embeds in its own API,
+  so that users configure workload-aware scheduling the same way across controllers;
+* the `workloadbuilder` Go library, which validates that configuration
+  and compiles it into Workload, PodGroup and CompositePodGroup objects.
+
+In v1.38, the controller integration APIs graduate to Beta.
+
+### Building blocks move to `scheduling.k8s.io/v1`
+
+The building blocks are meant to be embedded in stable APIs,
+such as the `spec.scheduling` field of a Job in `batch/v1`.
+Changing the Go import path of an embedded type would break client libraries,
+and fields of `v1` resources are expected to keep their wire format.
+So instead of passing through a `v1beta1` package, the building blocks graduate directly
+into the `k8s.io/api/scheduling/v1` package.
+This is how the Job API composes them:
+
+```go
+import schedulingv1 "k8s.io/api/scheduling/v1"
+
+// JobSchedulingConfiguration is the type of the spec.scheduling field of a Job.
+type JobSchedulingConfiguration struct {
+    SchedulingPolicy      *schedulingv1.WorkloadPodGroupSchedulingPolicy
+    SchedulingConstraints *schedulingv1.WorkloadPodGroupSchedulingConstraints
+    DisruptionMode        *schedulingv1.WorkloadPodGroupDisruptionMode
+    ResourceClaims        []schedulingv1.WorkloadPodGroupResourceClaim
+}
+```
+
+The types in `k8s.io/api/scheduling/v1alpha3` remain as Go type aliases of the new ones,
+so existing controllers keep compiling while they update their imports.
+The leaf (`WorkloadPodGroup...`) and composite (`WorkloadCompositePodGroup...`) constraint blocks
+now share a single `WorkloadTopologyConstraint` type.
+The building blocks are not API resources and have no feature gate of their own;
+users see them through the controllers that embed them.
+
+### A stricter, more helpful `workloadbuilder`
+
+In v1.38, the library:
+
+* compiles all objects to `scheduling.k8s.io/v1beta1`, CompositePodGroups included;
+* validates the hierarchy rules that `kube-apiserver` enforces for Workloads:
+  depth and size limits, `gang` children under `gang` parents, `all` children under `all` parents,
+  and a single priority class name across the whole tree.
+  Errors point at the fields of the controller's own API,
+  so the controller can reject invalid input before it creates any scheduling objects;
+* copies the `preemptionPolicy` of a template to the PodGroups and CompositePodGroups created from it;
+* provides `GenerateWorkloadName` and `GeneratePodGroupName`, which derive deterministic names
+  from the owner's UID, so a re-created owner doesn't collide with objects left over by its predecessor,
+  and sibling owners that use the same template get separate PodGroups.
+
+One thing to keep in mind: `kube-apiserver` silently drops compiled fields whose feature gates are disabled,
+for example `schedulingConstraints` when `TopologyAwareWorkloadScheduling` is off,
+so a successful create doesn't mean that every field was stored.
+
+### Delegating group creation across controllers
+
+Some controllers create objects that other controllers turn into Pods.
+For example, a Kubeflow TrainJob creates a JobSet, which in turn creates Jobs.
+The TrainJob controller can compile the Workload for the whole training run,
+but it can't give each of those Jobs its own PodGroup, because it doesn't create the Jobs.
+In such chains, the parent controller passes the details down
+as well-known annotations on the object it creates,
+and the lower-level controller creates the groups:
+
+* `scheduling.k8s.io/workload-name`, new in v1.38, names the Workload that holds the template,
+  so a controller at any depth can fetch it directly instead of walking owner references;
+* `scheduling.k8s.io/group-template-name` names the template to create the groups from;
+* `scheduling.k8s.io/parent-compositepodgroup` names the CompositePodGroup that the new groups attach to.
+
+The lower-level controller reads these annotations, fetches the Workload,
+and calls `NewBuilderFromExistingWorkload` to create PodGroups or CompositePodGroups
+from the named template, without recompiling the Workload.
+The built-in Job, Deployment and ReplicaSet controllers honor the Workload and template annotations,
+and the Job controller also honors the parent annotation.
+
+### Adoption
+
+Since the Alpha release, controllers across the ecosystem, including JobSet, LeaderWorkerSet,
+Kubeflow Trainer and the Spark Operator, have designed or started implementing integrations
+based on the building blocks.
+Inside Kubernetes, the
+[Job controller integration](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis)
+graduates to Beta in v1.38, behind the `WorkloadWithJob` feature gate,
+and the Deployment and ReplicaSet controllers gain an
+[Alpha integration](/docs/concepts/workloads/controllers/deployment/#automatic-podgroup-management),
+behind the `WorkloadWithDeployment` feature gate.
+
+**Upgrading from v1.37 (for controller authors):**
+
+* Import the building blocks from `k8s.io/api/scheduling/v1`.
+  The `v1alpha3` aliases keep existing code compiling, but new code should use `v1`.
+* The constraint blocks now hold `WorkloadTopologyConstraint` values
+  instead of `v1alpha3.TopologyConstraint`; update code that builds them.
+* `NewCompositePodGroup` now returns a `scheduling.k8s.io/v1beta1` CompositePodGroup.
+* `Validate` now rejects trees that `kube-apiserver` would reject anyway,
+  such as `basic` children under a `gang` parent or mixed priority class names.
+
 ## What's next? {#whats-next}
 
 With the entire core in Beta, the focus of the
 [Workload-Aware Scheduling Working Group](https://www.kubernetes.dev/community/community-groups/wg/workload-aware-scheduling/)
 shifts to maturity and adoption:
 
-* **GA for the foundation:** the Workload and PodGroup APIs, gang scheduling and workload-aware preemption
-  are targeted to graduate to GA in v1.39,
+* **GA for the foundation:** the Workload and PodGroup APIs, gang scheduling, workload-aware preemption
+  and the controller integration APIs are targeted to graduate to GA in v1.39,
   with topology-aware scheduling and the CompositePodGroup API following as they mature.
-* **Ecosystem integration:** helping hierarchical orchestrators such as
+* **Ecosystem integration:** helping controllers such as
   [JobSet](https://github.com/kubernetes-sigs/jobset) and
-  [LeaderWorkerSet](https://github.com/kubernetes-sigs/lws), and queueing systems such as
-  [Kueue](https://kueue.sigs.k8s.io/), build on these APIs
-  instead of implementing gang scheduling and topology-aware placement on their own.
+  [LeaderWorkerSet](https://github.com/kubernetes-sigs/lws) complete their integrations
+  based on the controller integration APIs, and aligning queueing systems such as
+  [Kueue](https://kueue.sigs.k8s.io/) with workload-aware scheduling,
+  so that none of them has to implement gang scheduling and topology-aware placement on its own.
 * **Your feedback:** Beta is the best time to tell us what doesn't work for your workloads,
   while the APIs can still change.
 
@@ -453,7 +560,7 @@ The priority and order of this work are subject to change.
 
 ## Getting started {#getting-started}
 
-All of the features in this article are Beta and disabled by default.
+The scheduling features in this article are Beta and disabled by default.
 To try them out in a test cluster:
 
 1. Enable the `scheduling.k8s.io/v1beta1`
@@ -470,17 +577,29 @@ To try them out in a test cluster:
      on `kube-apiserver`, `kube-controller-manager` and `kube-scheduler` enables the CompositePodGroup API.
      It requires both `GenericWorkload` and `TopologyAwareWorkloadScheduling`
      on every component where you enable it.
+   * [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/#WorkloadWithJob)
+     on `kube-apiserver` and `kube-controller-manager` lets Jobs request these features
+     through `spec.scheduling`. It requires `GenericWorkload`.
 
 For example, to enable all of them:
 
 ```shell
 # kube-apiserver
 --runtime-config=scheduling.k8s.io/v1beta1=true
---feature-gates=GenericWorkload=true,TopologyAwareWorkloadScheduling=true,CompositePodGroup=true
+--feature-gates=GenericWorkload=true,TopologyAwareWorkloadScheduling=true,CompositePodGroup=true,WorkloadWithJob=true
 
-# kube-controller-manager and kube-scheduler
+# kube-controller-manager
+--feature-gates=GenericWorkload=true,TopologyAwareWorkloadScheduling=true,CompositePodGroup=true,WorkloadWithJob=true
+
+# kube-scheduler
 --feature-gates=GenericWorkload=true,TopologyAwareWorkloadScheduling=true,CompositePodGroup=true
 ```
+
+If you maintain a workload controller, the building blocks are in the `k8s.io/api/scheduling/v1` package,
+and the `workloadbuilder` library, together with usage examples, is in
+[`k8s.io/component-helpers`](https://github.com/kubernetes/component-helpers/tree/master/scheduling/schedulingv1/workloadbuilder).
+Neither needs a feature gate of its own, but the objects that the library compiles
+are only served when the API group and feature gates above are enabled.
 
 We encourage you to try out workload-aware scheduling in your test clusters
 and share your experiences to help shape the future of Kubernetes scheduling.
@@ -502,6 +621,7 @@ To learn how to use these features, read the documentation:
   [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
 * [Workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [Topology-aware workload scheduling](/docs/concepts/workloads/workload-api/topology-aware-scheduling/)
+* [Scheduling building block APIs and the `workloadbuilder` library](/docs/concepts/workloads/workload-api/workloadbuilder/)
 
 To dive deeper into the architecture and design of these features, read the KEPs:
 
@@ -509,3 +629,4 @@ To dive deeper into the architecture and design of these features, read the KEPs
 * [KEP-5710: Workload-aware preemption](https://www.kubernetes.dev/resources/keps/5710/)
 * [KEP-5732: Topology-aware workload scheduling](https://www.kubernetes.dev/resources/keps/5732/)
 * [KEP-6012: CompositePodGroup API](https://www.kubernetes.dev/resources/keps/6012/)
+* [KEP-6089: WAS: Controller Integration APIs](https://www.kubernetes.dev/resources/keps/6089/)
