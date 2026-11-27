@@ -210,10 +210,13 @@ Modifying the pod template or switching to a new pod template has no direct effe
 on the Pods that already exist. If you change the pod template for a workload
 resource, that resource needs to create replacement Pods that use the updated template.
 
-For example, the StatefulSet controller ensures that the running Pods match the current
-pod template for each StatefulSet object. If you edit the StatefulSet to change its pod
-template, the StatefulSet starts to create new Pods based on the updated template.
-Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
+For example, the StatefulSet controller handles pod template changes according to
+the StatefulSet's update strategy. With the default `RollingUpdate` strategy, it
+automatically replaces Pods to use the updated template, subject to any configured
+partition and Pod readiness requirements. With `OnDelete`, it does not automatically
+replace existing Pods when the template changes; you must delete those Pods for the
+controller to create replacements. A template change therefore does not guarantee
+that all existing Pods will be replaced automatically.
 
 Each workload resource implements its own rules for handling changes to the Pod template.
 If you want to read more about StatefulSet specifically, read
