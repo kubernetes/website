@@ -111,6 +111,9 @@ other = "YouTube"
 [conjunction_1]
 other = "and"
 
+[code_sample_variant_group]
+other = "Show this code sample as"
+
 [copy_sample_to_clipboard]
 other = "Copy {{ .filename }} to clipboard"
 
