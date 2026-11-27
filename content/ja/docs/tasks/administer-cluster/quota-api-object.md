@@ -12,7 +12,7 @@ weight: 130
 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)を使用してクォータを設定できます。
 
 
-## {{% heading "prerequisites" %}}
+## {{% heading "prerequisites" %}} {#before-you-begin}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -131,7 +131,7 @@ kubectl delete namespace quota-object-example
 ```
 
 
-## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}} {#what-s-next}
 
 
 ### クラスター管理者向け {#for-cluster-administrators}
