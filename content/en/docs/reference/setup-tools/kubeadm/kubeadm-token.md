@@ -15,6 +15,8 @@ the cluster and a control-plane node, as described in [authenticating with boots
 such a token and also to create and manage new ones.
 
 <!-- body -->
+{{< include "kubeadm-inherited-global-flags.md" >}}
+
 ## kubeadm token create {#cmd-token-create}
 {{< include "generated/kubeadm_token/kubeadm_token_create.md" >}}
 

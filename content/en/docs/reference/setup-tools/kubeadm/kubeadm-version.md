@@ -11,3 +11,5 @@ This command prints the version of kubeadm.
 
 <!-- body -->
 {{< include "generated/kubeadm_version/_index.md" >}}
+
+{{< include "kubeadm-inherited-global-flags.md" >}}
