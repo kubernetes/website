@@ -74,6 +74,14 @@ software bug.
    pairs, the delay between attempts increases with each retry. As a result,
    this example would take at least 9 minutes before the Job fails.
 
+If you enable the alpha `PodFailurePolicyName` feature gate, you can also set an
+optional `name` on a `FailJob` rule (for example, `name: exit-code-42`). When
+that rule matches, the Job controller appends the rule name in parentheses after
+the rule index in the `FailureTarget` and `Failed` condition messages, while
+keeping the `reason` as `PodFailurePolicy`. See
+[Naming Pod failure policy rules](/docs/concepts/workloads/controllers/job/#pod-failure-policy-rule-names)
+for details.
+
 #### Clean up
 
 Delete the Job you created:
