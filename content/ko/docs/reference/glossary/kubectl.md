@@ -1,7 +1,7 @@
 ---
 title: Kubectl
 id: kubectl
-full_link: /docs/user-guide/kubectl-overview/
+full_link: /docs/reference/kubectl/
 short_description: >
   쿠버네티스 클러스터와 통신하기 위한 커맨드라인 툴.
 
