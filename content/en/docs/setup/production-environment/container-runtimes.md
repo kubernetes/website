@@ -96,9 +96,8 @@ There are two cgroup drivers available:
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
- When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
- the cgroup filesystem to configure cgroups.
+When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
+the cgroup filesystem to configure cgroups.
 
 The `cgroupfs` driver is **not** recommended when
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
@@ -124,37 +123,37 @@ unstable under resource pressure.
 The approach to mitigate this instability is to use `systemd` as the cgroup driver for
 the kubelet and the container runtime when systemd is the selected init system.
 
-To set `systemd` as the cgroup driver, edit the
-[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
-option of `cgroupDriver` and set it to `systemd`. For example:
-
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-...
-cgroupDriver: systemd
-```
-
-If you configure `systemd` as the cgroup driver for the kubelet, you must also
-configure `systemd` as the cgroup driver for the container runtime. Refer to
+To set `systemd` as the cgroup driver, configure it in the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
 
-Kubernetes expects that you're using a container runtime with support for
-the `RuntimeConfig` CRI RPC. If so, the kubelet automatically detects the appropriate
+Kubernetes requires a container runtime with support for
+the `RuntimeConfig` CRI RPC. The kubelet automatically detects the appropriate
 cgroup driver from the runtime. Before the `RuntimeConfig` CRI RPC was defined,
 old versions of Kubernetes instead set the cgroup driver using the `cgroupDriver`
-setting within the kubelet configuration.
+setting within the kubelet configuration. That setting is deprecated, and by default
+the kubelet does not start if it is set.
 
-However, older versions of container runtimes (specifically,
+Older versions of container runtimes (specifically,
 containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
-may not respond correctly to this query, and thus the Kubelet falls back to using the
-value in its own `--cgroup-driver` flag.
+by default the kubelet does not start with them.
+To keep such a node running while you upgrade its container runtime, enable the deprecated
+`LegacyCgroupDriverFallback`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+and set `cgroupDriver` in the
+[kubelet configuration](/docs/tasks/administer-cluster/kubelet-config-file/)
+to the cgroup driver of the runtime:
 
-In a future release of Kubernetes, this fallback behavior will be dropped, and
-older versions of containerd will fail with newer kubelets.
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+...
+featureGates:
+  LegacyCgroupDriverFallback: true
+cgroupDriver: systemd
+```
 
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
@@ -279,9 +278,7 @@ cgroup_manager = "cgroupfs"
 ```
 
 You should also note the changed `conmon_cgroup`, which has to be set to the value
-`pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
-cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
-in sync.
+`pod` when using CRI-O with `cgroupfs`.
 
 The kubelet detects the cgroup driver automatically. See [systemd cgroup driver](#systemd-cgroup-driver) for more details.
 
