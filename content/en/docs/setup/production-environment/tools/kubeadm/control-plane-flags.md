@@ -184,6 +184,7 @@ node:
 
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
+Patch files in sub-directories are also read, recursively and in lexical order (depth-first).
 
 - `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
 `kubeletconfiguration` and `corednsdeployment`.
