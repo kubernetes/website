@@ -5,27 +5,28 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
 
 SIG Docs는 쿠버네티스 프로젝트의
-[분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
+[분과회(special interest group)](https://github.com/kubernetes/community/blob/main/sig-list.md)
 중 하나로, 쿠버네티스 전반에 대한 문서를 작성하고, 업데이트하며 유지보수하는 일을 주로 수행한다.
 분과회에 대한 보다 자세한 정보는
-[커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs)
+[커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs)
 를 참조한다.
 
 SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 누구나 풀 리퀘스트(PR)를 요청할 수 있고,
 누구나 콘텐츠에 대해 이슈를 등록하거나 진행 중인 풀 리퀘스트에 코멘트를 등록할 수 있다.
 
-[멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버),
-[리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/#리뷰어), 또는
-[승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)가 될 수 있다.
+[멤버](/docs/contribute/participate/roles-and-responsibilities/#멤버),
+[리뷰어](/docs/contribute/participate/roles-and-responsibilities/#리뷰어), 또는
+[승인자](/docs/contribute/participate/roles-and-responsibilities/#승인자)가 될 수 있다.
 이런 역할은 변경을 승인하고 커밋할 수 있도록 보다 많은 접근 권한과 이에 상응하는 책임이 수반된다.
 쿠버네티스 커뮤니티 내에서 멤버십이 운영되는 방식에 대한 보다 많은 정보를 확인하려면
-[커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
+[커뮤니티 멤버십](https://github.com/kubernetes/community/blob/main/community-membership.md)
 문서를 확인한다.
 
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
@@ -40,7 +41,7 @@ SIG Docs를 포함한 각 SIG는, 한 명 이상의 SIG 멤버가 의장 역할�
 다른 쿠버네티스 조직 간 연락책(point of contact)이 된다. 이들은 쿠버네티스 프로젝트 전반의 조직과
 그 안에서 SIG Docs가 어떻게 운영되는지에 대한 폭넓은 지식을 갖추어야한다.
 현재 의장의 목록을 확인하려면
-[리더십](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
+[리더십](https://github.com/kubernetes/community/tree/main/sig-docs#leadership)
 문서를 참조한다.
 
 ## SIG Docs 팀과 자동화
@@ -81,7 +82,7 @@ GitHub의 SIG Docs [팀](https://github.com/orgs/kubernetes/teams?query=sig-docs
 OWNERS 파일은 SIG Docs 리뷰어와 승인자의 목록을 포함한다. OWNERS 파일은 하위 디렉터리에 있을 수
 있고, 해당 하위 디렉터리와 그 이하의 파일에 대해 리뷰어와 승인자 역할을 수행할 사람을 새로 지정할 수 있다.
 일반적인 OWNERS 파일에 대한 보다 많은 정보는
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
+[OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md)
 문서를 참고한다.
 
 추가로, 개별 마크다운(Markdown) 파일 내 전문에
@@ -105,16 +106,21 @@ PR 소유자에게 조언하는데 활용된다.
 - 모든 쿠버네티스 멤버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
 - SIG Docs 승인자들만이 코멘트에 `/approve` 를
   추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
-  [PR Wrangler](/ko/docs/contribute/participate/pr-wranglers/) 또는 [SIG Docs 의장](#sig-docs-의장)과
+  [PR Wrangler](/docs/contribute/participate/pr-wranglers/) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
 
 
 ## {{% heading "whatsnext" %}}
 
+SIG Docs 참여에 대해 더 알아보려면 다음을 참고한다.
+
+- [역할과 책임](/docs/contribute/participate/roles-and-responsibilities/)
+- [이슈 랭글러(Issue Wrangler)](/docs/contribute/participate/issue-wrangler/)
+- [PR 랭글러(PR Wrangler)](/docs/contribute/participate/pr-wranglers/)
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
-- [신규 콘텐츠 기여하기](/ko/docs/contribute/new-content/)
-- [콘텐츠 검토하기](/ko/docs/contribute/review/reviewing-prs/)
-- [문서 스타일 가이드](/ko/docs/contribute/style/)
+- [신규 콘텐츠 기여하기](/docs/contribute/new-content/)
+- [콘텐츠 검토하기](/docs/contribute/review/reviewing-prs/)
+- [문서 스타일 가이드](/docs/contribute/style/)
