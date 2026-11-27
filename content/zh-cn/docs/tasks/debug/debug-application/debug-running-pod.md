@@ -512,6 +512,117 @@ https://github.com/GoogleContainerTools/distroless).
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
 
 <!--
+### Permissions for ephemeral containers {#ephemeral-container-permissions}
+
+For security reasons, adding an ephemeral container to a running Pod uses the Pod's
+`ephemeralcontainers` subresource. At the API level this is an
+**update** request on `pods/ephemeralcontainers`. Just being authorized to **patch**
+a Pod does not allow users to add ephemeral containers to that Pod.
+-->
+### 临时容器的权限 {#ephemeral-container-permissions}
+
+出于安全考虑，向运行中的 Pod 添加临时容器时，会使用该 Pod 的 `ephemeralcontainers`
+子资源。在 API 层面，这是对 `pods/ephemeralcontainers` 的 **update** 请求。
+仅仅拥有对 Pod 执行 **patch** 的权限，并不允许用户向该 Pod 添加临时容器。
+
+<!--
+The `pods/ephemeralcontainers` subresource is intentionally not part of the
+default `admin` and `edit`
+[user-facing ClusterRoles](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
+For background on why, see
+[Ephemeral Containers: Access control](/docs/concepts/workloads/pods/ephemeral-containers/#access-control).
+
+If you run `kubectl debug` to add an ephemeral container without the required
+permission, you will see an error similar to:
+-->
+`pods/ephemeralcontainers` 子资源有意不包含在默认的 `admin` 和 `edit`
+[面向用户的 ClusterRole](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+中。如需了解背后的原因，请参阅[临时容器：访问控制](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/#access-control)。
+
+如果在缺少所需权限的情况下运行 `kubectl debug` 添加临时容器，
+你会看到类似以下的错误：
+
+```
+Error from server (Forbidden): pods "example" is forbidden: User "alice" cannot
+patch resource "pods/ephemeralcontainers" in API group "" in the namespace "example-ns"
+```
+
+<!--
+If you're managing cluster access and your cluster uses [Kubernetes RBAC](/docs/reference/access-authn-authz/bac/), you can grant this permission in one of two ways.
+
+To extend the built-in `edit` and `admin` ClusterRoles cluster-wide, create an
+aggregated ClusterRole labeled for
+[ClusterRole aggregation](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles).
+The `aggregate-to-edit` label is sufficient because the default `edit`
+ClusterRole itself aggregates into `admin`:
+-->
+如果你负责管理集群的访问控制，且集群使用
+[Kubernetes RBAC](/zh-cn/docs/reference/access-authn-authz/bac/)，
+则可以通过两种方式之一授予此权限。
+
+若要在集群范围内扩展内置的 `edit` 和 `admin` ClusterRole，请创建一个聚合 ClusterRole
+并添加 [ClusterRole 聚合](/zh-cn/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles)所需的标签。
+使用 `aggregate-to-edit` 标签即可，因为默认的 `edit` ClusterRole
+本身会聚合到 `admin` 中：
+
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: aggregate-ephemeralcontainers-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+<!--
+To grant the permission only to specific users or groups (for example, a
+dedicated debugging or SRE group), create a narrower ClusterRole and bind it
+directly:
+-->
+如果只想将该权限授予特定用户或用户组（例如专门的调试组或 SRE 组），
+请创建一个权限范围更窄的 ClusterRole 并直接绑定：
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: debug-ephemeralcontainers
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+{{< note >}}
+<!--
+Ephemeral containers are evaluated by [Pod Security admission](/docs/concepts/security/pod-security-admission/)
+against the same [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+as regular containers. When granting permission to add ephemeral containers to
+Pods governed by the `baseline` or `restricted` policy, choose a matching
+[debugging profile](#debugging-profiles) such as `--profile=baseline` or
+`--profile=restricted` with `kubectl debug`.
+
+Any admission webhooks or admission policies in your cluster, that do not evaluate
+the `ephemeralContainers` field, may also need updating to intercept the
+`pods/ephemeralcontainers` resource and evaluate the `ephemeralContainers` field in a Pod's spec.
+-->
+临时容器由
+[Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)按照与常规容器相同的
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)进行评估。
+在为受 `baseline` 或 `restricted` 策略管控的 Pod 授予添加临时容器的权限时，请在使用
+`kubectl debug` 时选择匹配的[调试配置](#debugging-profiles)，例如 `--profile=baseline`
+或 `--profile=restricted`。
+
+如果集群中的准入 Webhook 或准入策略未评估 `ephemeralContainers` 字段，则可能还需要更新它们，
+以拦截 `pods/ephemeralcontainers` 资源并评估 Pod spec 中的 `ephemeralContainers` 字段。
+{{< /note >}}
+
+<!--
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
