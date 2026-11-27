@@ -28,7 +28,7 @@ Your cluster must be configured to use the CoreDNS
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 
 services depends on the namespace of the pod. For more information, review
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#dns-records). 
 {{< /note >}}
 
 Use that manifest to create a Pod:
@@ -317,7 +317,7 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
 
 To learn more about name resolution, see 
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#dns-records). 
 
 ## Known issues
 
