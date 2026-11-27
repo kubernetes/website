@@ -38,3 +38,4 @@ of terminating one or more Pods on Nodes.
 * [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 * [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+* [EvictionRequest API](/docs/concepts/scheduling-eviction/evictionrequest-api/)
