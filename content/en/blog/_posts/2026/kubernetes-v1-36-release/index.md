@@ -361,7 +361,7 @@ while [device taints and tolerations](/docs/concepts/resource-management/dynamic
 
 Now, users benefit from a much more reliable and observable resource lifecycle through [ResourceClaim device status](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resourceclaim-device-status)
 and the ability to ensure device attachment before Pod scheduling.
-By integrating these features with [extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#extended-resource) support,
+By integrating these features with [extended resource](/docs/concepts/resource-management/dynamic-resource-allocation/dra-api/#extended-resource) support,
 Kubernetes provides a robust production-ready alternative to the legacy device plugin system,
 enabling complex AI and HPC workloads to manage hardware with unprecedented precision and operational safety.
 
