@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Les définitions de ressources personnalisées permettent s'ajoutent aux ressouces natives (ou "d'origine", "de base") de Kubernetes quand celles-ci ne peuvent répondre à vos besoins.
+Les définitions de ressources personnalisées permettent s'ajoutent aux ressources natives (ou "d'origine", "de base") de Kubernetes quand celles-ci ne peuvent répondre à vos besoins.

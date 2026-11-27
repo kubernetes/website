@@ -119,17 +119,46 @@ including the following:
 Although you can only specify requests and limits for individual containers,
 it is also useful to think about the overall resource requests and limits for
 a Pod.
-For a particular resource, a *Pod resource request/limit* is the sum of the
-resource requests/limits of that type for each container in the Pod.
+For a particular resource, the Pod's *effective request/limit* aggregates that resource across
+its containers. Because init containers run before the other containers, this is not a plain
+sum; see
+[Resource sharing within containers](/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
+for how it is calculated. Any [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) is added
+on top, and [Pod-level resources](#pod-level-resource-specification), if you set them, replace
+the aggregate for the resources they name.
+
+### Unspecified and zero limits {#unspecified-and-zero-limits}
+
+When a container's limit is left unspecified or set to `0`, the behavior depends on the
+resource:
+
+* For `cpu` and `memory`, the kubelet treats a limit of `0` the same as not specifying a
+  limit at all.
+  If the Pod sets a Pod-level limit for that resource, the kubelet gives the container the
+  Pod-level limit. If not, nothing limits that container.
+* For `hugepages-<size>`, not specifying a limit means the same as a limit of `0`, and the
+  container cannot allocate huge pages of that size — unless the Pod specifies a
+  [Pod-level](#pod-level-resource-specification) `hugepages-<size>` limit, which the container
+  then inherits. You cannot overcommit huge pages, so a container that needs them must have a
+  limit, either its own or the Pod's.
+
+The kubelet also sets cgroup limits for the Pod as a whole. If you do not specify
+Pod-level limits, it derives them from the container limits:
+
+* For `cpu` and `memory`, the aggregate of the container limits applies only if every init
+  container and every regular container specifies a limit for that resource. If any of them
+  leaves the limit unspecified or sets it to `0`, that container can use as much as the node
+  allows, so the Pod as a whole is not limited for that resource either.
+* For `hugepages-<size>`, the Pod gets the aggregate amount for that page size. Huge pages
+  cannot be overcommitted, so every container's request and limit are equal and there is no
+  partially specified case.
 
 ## Pod-level resource specification
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-Provided your cluster has the `PodLevelResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
-you can specify resource requests and limits at
-the Pod level. At the Pod level, Kubernetes {{< skew currentVersion >}}
+You can specify resource requests and limits at the Pod level.
+At the Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
 or `memory` and / or `hugepages`. With this feature, Kubernetes allows you to declare an overall resource
 budget for the Pod, which is especially helpful when dealing with a large number of
@@ -234,8 +263,6 @@ spec:
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-This feature can be enabled by setting the `PodLevelResources` 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
 explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
 container has explicit requests and limits set. However, the
@@ -392,8 +419,9 @@ If you are administering a cluster or namespace, you can also set
 [ResourceQuota](/docs/concepts/policy/resource-quotas/) that limits memory use;
 you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
 for additional enforcement.
-If you specify a `spec.containers[].resources.limits.memory` for each Pod,
-then the maximum size of an `emptyDir` volume will be the pod's memory limit.
+If every container in a Pod specifies a memory limit, or the Pod itself specifies one, then
+the maximum size of a memory-backed `emptyDir` volume is the Pod's memory limit. Otherwise
+the volume can grow up to the node's allocatable memory.
 
 As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as

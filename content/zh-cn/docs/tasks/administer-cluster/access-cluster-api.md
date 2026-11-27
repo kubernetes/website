@@ -382,7 +382,7 @@ to see which versions are supported.
 
 The Java client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this
-[example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+[example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-latest/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
 -->
 参阅 [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)
 了解当前支持的版本。
@@ -390,7 +390,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this
 Java 客户端可以使用 kubectl 命令行所使用的
 [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 以定位 API 服务器并向其认证身份。
-参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
+参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-latest/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
 
 ```java
 package io.kubernetes.client.examples;

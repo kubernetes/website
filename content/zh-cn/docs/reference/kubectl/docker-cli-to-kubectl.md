@@ -26,7 +26,8 @@ You can use the Kubernetes command line tool `kubectl` to interact with the API 
 <!--
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 -->
-要运行 nginx 部署并将其暴露，请参见 [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
+要运行 nginx 部署并将其暴露，请参见
+[kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
 
 <!--
 docker:
@@ -69,7 +70,7 @@ deployment.apps/nginx-app created
 
 ```shell
 # 添加 env 到 nginx-app
-kubectl set env deployment/nginx-app  DOMAIN=cluster
+kubectl set env deployment/nginx-app DOMAIN=cluster
 ```
 ```
 deployment.apps/nginx-app env updated
@@ -79,7 +80,8 @@ deployment.apps/nginx-app env updated
 <!--
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
 -->
-`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，你可以公开新的 Service。
+`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。
+部署后，你可以公开新的 Service。
 {{< /note >}}
 
 <!--
@@ -108,7 +110,8 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
 默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果你想在前台运行，
-使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod：
+使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run)
+在前台运行 Pod：
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -118,8 +121,10 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
-与 `docker run ...` 不同的是，如果指定了 `--attach`，我们将连接到 `stdin`、`stdout` 和 `stderr`，
-而不能控制具体连接到哪个输出流（`docker -a ...`）。要从容器中退出，可以输入 Ctrl + P，然后按 Ctrl + Q。
+与 `docker run ...` 不同的是，如果指定了 `--attach`，
+我们将连接到 `stdin`、`stdout` 和 `stderr`，
+而不能控制具体连接到哪个输出流（`docker -a ...`）。
+要从容器中退出，可以输入 Ctrl + P，然后按 Ctrl + Q。
 
 <!--
 Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
@@ -134,7 +139,8 @@ To destroy the Deployment and its pods you need to run `kubectl delete deploymen
 <!--
 To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get).
 -->
-如何列出哪些正在运行？查看 [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get)。
+如何列出哪些正在运行？查看
+[kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get)。
 
 <!--
 docker:
@@ -211,14 +217,15 @@ kubectl attach -it nginx-app-5jyvm
 <!--
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
-要从容器中分离，可以输入 Ctrl + P，然后按 Ctrl + Q。
+要从容器中分离，可以输入 Ctrl+P，然后按 Ctrl+Q。
 
 ## docker exec
 
 <!--
 To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
 -->
-如何在容器中执行命令？查看 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
+如何在容器中执行命令？查看
+[kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
 
 <!--
 docker:
@@ -294,7 +301,8 @@ For more information, see [Get a Shell to a Running Container](/docs/tasks/debug
 <!--
 To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs).
 -->
-如何查看运行中进程的 stdout/stderr？查看 [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs)。
+如何查看运行中进程的 stdout/stderr？查看
+[kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs)。
 
 <!--
 docker:
@@ -346,12 +354,13 @@ For more information, see [Logging Architecture](/docs/concepts/cluster-administ
 <!--
 ## docker stop and docker rm
 -->
-## docker stop 和 docker rm   {#docker-stop-and-docker-rm}
+## `docker stop` 和 `docker rm`   {#docker-stop-and-docker-rm}
 
 <!--
 To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete).
 -->
-如何停止和删除运行中的进程？查看 [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete)。
+如何停止和删除运行中的进程？查看
+[kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete)。
 
 <!--
 docker:
@@ -433,7 +442,8 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 <!--
 To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version).
 -->
-如何查看客户端和服务端的版本？查看 [kubectl version](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#version)。
+如何查看客户端和服务端的版本？查看
+[kubectl version](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#version)。
 
 <!--
 docker:
@@ -474,7 +484,8 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 <!--
 To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 -->
-如何获取有关环境和配置的各种信息？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
+如何获取有关环境和配置的各种信息？查看
+[kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
 
 <!--
 docker:
@@ -513,7 +524,7 @@ kubectl cluster-info
 ```
 ```
 Kubernetes master is running at https://203.0.113.141
-KubeDNS is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
+CoreDNS is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
 kubernetes-dashboard is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
 Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy

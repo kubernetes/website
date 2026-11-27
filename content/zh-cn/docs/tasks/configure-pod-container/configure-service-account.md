@@ -201,12 +201,7 @@ You can create additional ServiceAccount objects like this:
 你可以像这样来创建额外的 ServiceAccount 对象：
 
 ```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: build-robot
-EOF
+kubectl create serviceaccount build-robot
 ```
 
 <!--
@@ -686,10 +681,10 @@ kubelet 还可以将 ServiceAccount 令牌投射到 Pod 中。你可以指定令
 
 <!--
 You can configure this behavior for the `spec` of a Pod using a
-[projected volume](/docs/concepts/storage/volumes/#projected) type called
+[projected volume](/docs/reference/storage/volume-types/#projected) type called
 `ServiceAccountToken`.
 -->
-你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)来为
+你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/reference/storage/volume-types/#projected)来为
 Pod 的 `spec` 配置此行为。
 
 <!--

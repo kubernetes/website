@@ -27,7 +27,8 @@ your Kubernetes cluster.
 -->
 * 本指南假设你的节点使用 AMD64 或 Intel 64 CPU 架构
 
-* 确保 [Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/) 已启用。
+* 确保 [Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+  已启用。
 
 <!-- steps -->
 
@@ -119,7 +120,8 @@ where `<your-deployment-name>` is the name of your DNS Deployment. For example, 
 the name of your Deployment for DNS is coredns, your scale target is Deployment/coredns.
 -->
 其中 `<your-deployment-name>` 是 DNS Deployment 的名称。
-例如，如果你的 DNS Deployment 名称是 `coredns`，则你的扩展目标是 Deployment/coredns。
+例如，如果你的 DNS Deployment 名称是 `coredns`，则你的扩展目标是
+Deployment/coredns。
 
 {{< note >}}
 <!--
@@ -132,14 +134,14 @@ CoreDNS 是 Kubernetes 的默认 DNS 服务。CoreDNS 设置标签 `k8s-app=kube
 {{< /note >}}
 
 <!--
-## Enable DNS horizontal autoscaling {#enablng-dns-horizontal-autoscaling}
+## Enable DNS horizontal autoscaling {#enabling-dns-horizontal-autoscaling}
 
 In this section, you create a new Deployment. The Pods in the Deployment run a
 container based on the `cluster-proportional-autoscaler-amd64` image.
 
 Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 -->
-## 启用 DNS 水平自动扩缩   {#enablng-dns-horizontal-autoscaling}
+## 启用 DNS 水平自动扩缩   {#enabling-dns-horizontal-autoscaling}
 
 在本节，我们创建一个新的 Deployment。Deployment 中的 Pod 运行一个基于
 `cluster-proportional-autoscaler-amd64` 镜像的容器。
@@ -183,7 +185,8 @@ Verify that the kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_i
 -->
 ## 调优 DNS 自动扩缩参数   {#tuning-autoscaling-parameters}
 
-验证 kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 是否存在：
+验证 kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+是否存在：
 
 ```shell
 kubectl get configmap --namespace=kube-system
@@ -224,7 +227,7 @@ Modify the fields according to your needs. The "min" field indicates the
 minimal number of DNS backends. The actual number of backends is
 calculated using this equation:
 -->
-根据需要修改对应的字段。“min” 字段表明 DNS 后端的最小数量。
+根据需要修改对应的字段。`min` 字段表明 DNS 后端的最小数量。
 实际后端的数量通过使用如下公式来计算：
 
 ```
@@ -370,7 +373,8 @@ number of nodes and cores in the cluster.
 
 * cluster-proportional-autoscaler 应用独立于 DNS 服务部署。
 
-* autoscaler Pod 运行一个客户端，它通过轮询 Kubernetes API 服务器获取集群中节点和核心的数量。
+* autoscaler Pod 运行一个客户端，它通过轮询 Kubernetes API
+  服务器获取集群中节点和核心的数量。
 
 <!--
 * A desired replica count is calculated and applied to the DNS backends based on
