@@ -13,7 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.36"
-removed: false
+    toVersion: "1.37"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.38"
 ---
 Enable the ability to patch pod templates for suspended Jobs, in order to change requests or limits for infrastructure resources.
 
