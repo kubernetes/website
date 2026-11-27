@@ -14,6 +14,7 @@ weight: 290
 -->
 
 <!-- overview -->
+  
 <!--
 Kubernetes nodes can be scheduled to `Capacity`. Pods can consume all the
 available capacity on a node by default. This is an issue because nodes
@@ -21,16 +22,17 @@ typically run quite a few system daemons that power the OS and Kubernetes
 itself. Unless resources are set aside for these system daemons, pods and system
 daemons compete for resources and lead to resource starvation issues on the
 node.
-
-The `kubelet` exposes a feature named 'Node Allocatable' that helps to reserve
-compute resources for system daemons. Kubernetes recommends cluster
-administrators to configure 'Node Allocatable' based on their workload density
-on each node.
 -->
 Kubernetes 的节点可以按照 `Capacity` 调度。默认情况下 pod 能够使用节点全部可用容量。
 这是个问题，因为节点自己通常运行了不少驱动 OS 和 Kubernetes 的系统守护进程。
 除非为这些系统守护进程留出资源，否则它们将与 Pod 争夺资源并导致节点资源短缺问题。
 
+<!--
+The `kubelet` exposes a feature named 'Node Allocatable' that helps to reserve
+compute resources for system daemons. Kubernetes recommends cluster
+administrators to configure 'Node Allocatable' based on their workload density
+on each node.
+-->
 `kubelet` 公开了一个名为 'Node Allocatable' 的特性，有助于为系统守护进程预留计算资源。
 Kubernetes 推荐集群管理员按照每个节点上的工作负载密度配置 'Node Allocatable'。
 
@@ -58,8 +60,6 @@ that are available for pods. The scheduler does not over-subscribe
 
 Node Allocatable is exposed as part of `v1.Node` object in the API and as part
 of `kubectl describe node` in the CLI.
-
-Resources can be reserved for two categories of system daemons in the `kubelet`.
 -->
 ## 节点可分配资源   {#node-allocatable}
 
@@ -72,6 +72,44 @@ Kubernetes 节点上的 'Allocatable' 被定义为 Pod 可用计算资源量。
 可分配的节点暴露为 API 中 `v1.Node` 对象的一部分，也是 CLI 中
 `kubectl describe node` 的一部分。
 
+<!--
+The `kubelet` calculates 'Allocatable' by subtracting `kubeReserved`,
+`systemReserved`, and the eviction thresholds from the node's `Capacity`. For
+`memory`, the `kubelet` also subtracts any pre-allocated hugepages, which the
+`kubelet` reports as separate `hugepages-<size>` resources.
+-->
+`kubelet` 通过从节点的 `Capacity` 中减去
+`kubeReserved`、`systemReserved` 和驱逐阈值来计算 `Allocatable`。
+对于 `memory`，`kubelet` 还会减去预先分配的巨页（hugepages），这些巨页由
+`kubelet` 作为独立的 `hugepages-<size>` 资源上报。
+
+{{< note >}}
+<!--
+For `memory`, the node's `Capacity` is the `MemTotal` value from
+`/proc/meminfo`, not the physical memory installed in the machine. The kernel
+excludes memory that it reserves at boot, such as the kernel image and
+`crashkernel`, and memory that firmware or hardware claims.
+
+The node's `Capacity` can change when the boot-time reservation changes, which
+also changes 'Allocatable' without any change to `kubeReserved` or
+`systemReserved`. A kernel update can cause a large change. Even a plain reboot
+of the same kernel can change the node's `Capacity` slightly, typically by a few
+kilobytes.
+-->
+对于 `memory`，节点的 `Capacity` 取自 `/proc/meminfo`
+中的 `MemTotal` 值，而非机器中实际安装的物理内存。
+内核会从中扣除启动时预留的内存（例如内核映像和 `crashkernel`），
+以及固件或硬件保留的内存。
+
+当启动时的预留发生变化时，节点的 `Capacity` 也可能随之改变；
+即便 `kubeReserved` 和 `systemReserved` 均未变化，`Allocatable`
+也会因此改变。内核更新可能导致较大幅度的变化。即使使用同一内核正常重启，
+节点的 `Capacity` 也可能发生小幅变化，通常在数千字节量级。
+{{< /note >}}
+
+<!--
+Resources can be reserved for two categories of system daemons in the `kubelet`.
+-->
 在 `kubelet` 中，可以为两类系统守护进程预留资源。
 
 <!--
@@ -100,12 +138,6 @@ The supported values are the following:
 cgroup filesystem on the host in order to manage cgroup sandboxes.
 * `systemd` is an alternative driver that manages cgroup sandboxes using
 transient slices for resources that are supported by that init system.
-
-Depending on the configuration of the associated container runtime,
-operators may have to choose a particular cgroup driver to ensure
-proper system behavior. For example, if operators use the `systemd`
-cgroup driver provided by the `containerd` runtime, the `kubelet` must
-be configured to use the `systemd` cgroup driver.
 -->
 ### 配置 CGroup 驱动  {#configuring-a-cgroup-driver}
 
@@ -119,6 +151,13 @@ be configured to use the `systemd` cgroup driver.
 * `systemd` 是可选的驱动，使用 Init 系统支持的资源的瞬时切片管理
   CGroup 沙箱。
 
+<!--
+Depending on the configuration of the associated container runtime,
+operators may have to choose a particular cgroup driver to ensure
+proper system behavior. For example, if operators use the `systemd`
+cgroup driver provided by the `containerd` runtime, the `kubelet` must
+be configured to use the `systemd` cgroup driver.
+-->
 取决于相关容器运行时的配置，操作员可能需要选择一个特定的 CGroup 驱动来保证系统正常运行。
 例如，如果操作员使用 `containerd` 运行时提供的 `systemd` CGroup 驱动时，
 必须配置 `kubelet` 使用 `systemd` CGroup 驱动。
@@ -128,7 +167,14 @@ be configured to use the `systemd` cgroup driver.
 
 - **KubeletConfiguration Setting**: `kubeReserved: {}`. Example value `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
 - **KubeletConfiguration Setting**: `kubeReservedCgroup: ""`
+-->
+### Kube 预留值  {#kube-reserved}
 
+- **KubeletConfiguration 设置**：`kubeReserved: {}`。
+  示例值 `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
+- **KubeletConfiguration 设置**：`kubeReservedCgroup: ""`
+
+<!--
 `kubeReserved` is meant to capture resource reservation for kubernetes system
 daemons like the `kubelet`, `container runtime`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
@@ -138,12 +184,6 @@ In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
 specified to reserve the specified number of process IDs for
 kubernetes system daemons.
 -->
-### Kube 预留值  {#kube-reserved}
-
-- **KubeletConfiguration 设置**：`kubeReserved: {}`。
-  示例值 `{cpu: 100m, memory: 100Mi, ephemeral-storage: 1Gi, pid=1000}`
-- **KubeletConfiguration 设置**：`kubeReservedCgroup: ""`
-
 `kubeReserved` 用来给诸如 `kubelet`、容器运行时等
 Kubernetes 系统守护进程记述其资源预留值。
 该配置并非用来给以 Pod 形式运行的系统守护进程预留资源。`kubeReserved`
@@ -259,19 +299,22 @@ with `.slice` appended.
 kubernetes system daemons. `reservedSystemCPUs` is for systems that do not intend to
 define separate top level cgroups for OS system daemons and kubernetes system daemons
 with regard to cpuset resource.
-If the Kubelet **does not** have `kubeReservedCgroup` and `systemReservedCgroup`,
-the explicit cpuset provided by `reservedSystemCPUs` will take precedence over the CPUs
-defined by `kubeReservedCgroup` and `systemReservedCgroup` options.
+You cannot use `reservedSystemCPUs` with `kubeReservedCgroup` or
+`systemReservedCgroup`. When you set `reservedSystemCPUs`, its number of CPUs
+replaces the CPU quantities specified by `kubeReserved` and `systemReserved`
+for the kubelet's resource reservation.
 -->
 `reservedSystemCPUs` 旨在为操作系统守护程序和 Kubernetes 系统守护程序预留一组明确指定编号的 CPU。
 `reservedSystemCPUs` 适用于不打算针对 cpuset 资源为操作系统守护程序和 Kubernetes
 系统守护程序定义独立的顶级 cgroups 的系统。
-如果 Kubelet **没有** 指定参数 `kubeReservedCgroup` 和 `systemReservedCgroup`，
-则 `reservedSystemCPUs` 的设置将优先于 `kubeReservedCgroup` 和 `systemReservedCgroup` 选项。
+不能将 `reservedSystemCPUs` 与 `kubeReservedCgroup` 或
+`systemReservedCgroup` 一起使用。设置 `reservedSystemCPUs` 后，
+其 CPU 数量会取代 `kubeReserved` 和 `systemReserved` 中为
+kubelet 资源预留所指定的 CPU 数量。
 
 <!--
 This option is specifically designed for Telco/NFV use cases where uncontrolled
-interrupts/timers may impact the workload performance. you can use this option
+interrupts/timers may impact the workload performance. You can use this option
 to define the explicit cpuset for the system/kubernetes daemons as well as the
 interrupts/timers, so the rest CPUs on the system can be used exclusively for
 workloads, with less impact from uncontrolled interrupts/timers. To move the
@@ -290,7 +333,14 @@ cpuset 上，应使用 Kubernetes 之外的其他机制。
 ### Eviction Thresholds
 
 **KubeletConfiguration Setting**: `evictionHard: {memory.available: "100Mi", nodefs.available: "10%", nodefs.inodesFree: "5%", imagefs.available: "15%"}`. Example value: `{memory.available: "<500Mi"}`
+-->
+### 驱逐阈值   {#eviction-Thresholds}
 
+**KubeletConfiguration 设置**：
+`evictionHard: {memory.available: "100Mi", nodefs.available: "10%", nodefs.inodesFree: "5%", imagefs.available: "15%"}`。
+示例值：`{memory.available: "<500Mi"}`
+
+<!--
 Memory pressure at the node level leads to System OOMs which affects the entire
 node and all pods running on it. Nodes can go offline temporarily until memory
 has been reclaimed. To avoid (or reduce the probability of) system OOMs kubelet
@@ -303,12 +353,6 @@ system daemons did not exist on a node, pods cannot use more than `capacity -
 eviction-hard`. For this reason, resources reserved for evictions are not
 available for pods.
 -->
-### 驱逐阈值   {#eviction-Thresholds}
-
-**KubeletConfiguration 设置**：
-`evictionHard: {memory.available: "100Mi", nodefs.available: "10%", nodefs.inodesFree: "5%", imagefs.available: "15%"}`。
-示例值: `{memory.available: "<500Mi"}`
-
 节点级别的内存压力将导致系统内存不足，这将影响到整个节点及其上运行的所有 Pod。
 节点可以暂时离线直到内存已经回收为止。为了防止系统内存不足（或减少系统内存不足的可能性），
 kubelet 提供了[资源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)管理。
