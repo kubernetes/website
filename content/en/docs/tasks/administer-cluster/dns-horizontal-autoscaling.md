@@ -148,7 +148,7 @@ There are other supported scaling patterns. For details, see
 
 ## Disable DNS horizontal autoscaling
 
-There are a few options for tuning DNS horizontal autoscaling. Which option to
+There are a few options for disabling DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 
 ### Option 1: Scale down the kube-dns-autoscaler deployment to 0 replicas
