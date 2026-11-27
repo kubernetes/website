@@ -397,8 +397,8 @@ kubectl get deployments
 ```shell
 NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 frontend        3/3     3            3           3h27m
-redis-master    1/1     1            1           3h27m
-redis-slave     2/2     2            2           3h27m
+redis-leader    1/1     1            1           3h27m
+redis-follower     2/2     2            2           3h27m
 ```
 
 frontendのPodを2つにスケールダウンします。

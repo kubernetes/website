@@ -37,7 +37,7 @@ version: "2"
 
 services:
 
-  redis-master:
+  redis-leader:
 
     image: gcr.io/google\_containers/redis:e2e
 
@@ -45,7 +45,7 @@ services:
 
       - "6379"
 
-  redis-slave:
+  redis-follower:
 
     image: gcr.io/google\_samples/gb-redisslave:v1
 
@@ -71,7 +71,7 @@ services:
  ```
 
 
-It consists of three services. A redis-master node, a set of redis-slave that can be scaled and find the redis-master via its DNS name. And a PHP frontend that exposes itself on port 80. The resulting application allows you to leave short messages which are stored in the redis cluster.  
+It consists of three services. A redis-leader node, a set of redis-follower that can be scaled and find the redis-leader via its DNS name. And a PHP frontend that exposes itself on port 80. The resulting application allows you to leave short messages which are stored in the redis cluster.  
 
 To get it started with docker-compose on a vanilla Docker host do:  
 
@@ -81,11 +81,11 @@ $ docker-compose -f docker-guestbook.yml up -d
 
 Creating network "examples\_default" with the default driver
 
-Creating examples\_redis-slave\_1
+Creating examples\_redis-follower\_1
 
 Creating examples\_frontend\_1
 
-Creating examples\_redis-master\_1
+Creating examples\_redis-leader\_1
  ```
 
 
@@ -112,15 +112,15 @@ If you need more kind of controllers, use 'kompose convert' and 'kubectl create 
 
 
 
-INFO[0000] Successfully created service: redis-master
+INFO[0000] Successfully created service: redis-leader
 
-INFO[0000] Successfully created service: redis-slave
+INFO[0000] Successfully created service: redis-follower
 
 INFO[0000] Successfully created service: frontend
 
-INFO[0000] Successfully created deployment: redis-master
+INFO[0000] Successfully created deployment: redis-leader
 
-INFO[0000] Successfully created deployment: redis-slave
+INFO[0000] Successfully created deployment: redis-follower
 
 INFO[0000] Successfully created deployment: frontend
 
@@ -146,17 +146,17 @@ NAME                             READY        STATUS        RESTARTS     AGE
 
 frontend-3780173733-0ayyx        1/1          Running       0            1m
 
-redis-master-3028862641-8miqn    1/1          Running       0            1m
+redis-leader-3028862641-8miqn    1/1          Running       0            1m
 
-redis-slave-3788432149-t3ejp     1/1          Running       0            1m
+redis-follower-3788432149-t3ejp     1/1          Running       0            1m
 
 NAME                             CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 
 frontend                         10.0.0.34    \<none\>        80/TCP       1m
 
-redis-master                     10.0.0.219   \<none\>        6379/TCP     1m
+redis-leader                     10.0.0.219   \<none\>        6379/TCP     1m
 
-redis-slave                      10.0.0.84    \<none\>        6379/TCP     1m
+redis-follower                      10.0.0.84    \<none\>        6379/TCP     1m
 
 NAME                             DESIRED      CURRENT       UP-TO-DATE
 
@@ -166,9 +166,9 @@ AVAILABLE   AGE
 
 frontend                         1            1             1            1           1m
 
-redis-master                     1            1             1            1           1m
+redis-leader                     1            1             1            1           1m
 
-redis-slave                      1            1             1            1           1m
+redis-follower                      1            1             1            1           1m
  ```
 
 Indeed you see the three services, the three deployments and the resulting three pods. To access the application quickly, access the _frontend_ service locally and enjoy the Guestbook application, but this time started from a Docker-compose file.  

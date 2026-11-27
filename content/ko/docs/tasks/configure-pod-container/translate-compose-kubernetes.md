@@ -97,12 +97,12 @@ brew install kompose
 
    services:
 
-     redis-master:
+     redis-leader:
        image: registry.k8s.io/redis:e2e
        ports:
          - "6379"
 
-     redis-slave:
+     redis-follower:
        image: gcr.io/google_samples/gb-redisslave:v3
        ports:
          - "6379"
@@ -132,36 +132,36 @@ brew install kompose
    INFO Kubernetes file "frontend-service.yaml" created
       INFO Kubernetes file "frontend-service.yaml" created
    INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-      INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-      INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
+   INFO Kubernetes file "redis-leader-service.yaml" created
+      INFO Kubernetes file "redis-leader-service.yaml" created
+   INFO Kubernetes file "redis-leader-service.yaml" created
+   INFO Kubernetes file "redis-follower-service.yaml" created
+      INFO Kubernetes file "redis-follower-service.yaml" created
+   INFO Kubernetes file "redis-follower-service.yaml" created
    INFO Kubernetes file "frontend-deployment.yaml" created
       INFO Kubernetes file "frontend-deployment.yaml" created
    INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-      INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
-      INFO Kubernetes file "redis-slave-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
+   INFO Kubernetes file "redis-leader-deployment.yaml" created
+      INFO Kubernetes file "redis-leader-deployment.yaml" created
+   INFO Kubernetes file "redis-leader-deployment.yaml" created
+   INFO Kubernetes file "redis-follower-deployment.yaml" created
+      INFO Kubernetes file "redis-follower-deployment.yaml" created
+   INFO Kubernetes file "redis-follower-deployment.yaml" created
    ```
 
    ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+    kubectl apply -f frontend-service.yaml,redis-leader-service.yaml,redis-follower-service.yaml,frontend-deployment.yaml,redis-leader-deployment.yaml,redis-follower-deployment.yaml
    ```
 
    결과는 다음과 같다.
 
    ```none
    service/frontend created
-   service/redis-master created
-   service/redis-slave created
+   service/redis-leader created
+   service/redis-follower created
    deployment.apps/frontend created
-   deployment.apps/redis-master created
-   deployment.apps/redis-slave created
+   deployment.apps/redis-leader created
+   deployment.apps/redis-follower created
    ```
 
     디플로이먼트들은 쿠버네티스에서 실행된다.
@@ -260,14 +260,14 @@ kompose -f docker-compose.yml -f docker-guestbook.yml convert
 INFO Kubernetes file "frontend-service.yaml" created         
 INFO Kubernetes file "mlbparks-service.yaml" created         
 INFO Kubernetes file "mongodb-service.yaml" created          
-INFO Kubernetes file "redis-master-service.yaml" created     
-INFO Kubernetes file "redis-slave-service.yaml" created      
+INFO Kubernetes file "redis-leader-service.yaml" created     
+INFO Kubernetes file "redis-follower-service.yaml" created      
 INFO Kubernetes file "frontend-deployment.yaml" created      
 INFO Kubernetes file "mlbparks-deployment.yaml" created      
 INFO Kubernetes file "mongodb-deployment.yaml" created       
 INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
-INFO Kubernetes file "redis-master-deployment.yaml" created  
-INFO Kubernetes file "redis-slave-deployment.yaml" created   
+INFO Kubernetes file "redis-leader-deployment.yaml" created  
+INFO Kubernetes file "redis-follower-deployment.yaml" created   
 ```
 
 ```shell
@@ -275,10 +275,10 @@ ls
 ```
 
 ```none
-mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
-frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
-frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
-redis-master-deployment.yaml
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-follower-service.jsonmlbparks-service.yaml  
+frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-leader-service.yaml
+frontend-service.yaml     mongodb-deployment.yaml                    redis-follower-deployment.yaml
+redis-leader-deployment.yaml
 ```
 
 만약 여러 도커 컴포즈 파일들이 명시되면 설정들은 병합된다. 공통적인 설정들은 그 다음 파일의 내용으로 덮어씌워진다.
