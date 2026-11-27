@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.37"
 ---
 Enables the `PartitionTypeAttribute` field on ResourceSlices, which opts a
-[partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/dra-features/#partitionable-devices)
+[partitionable](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#partitionable-devices)
 resource pool into the typed partition summary view of
 [ResourcePoolStatusRequest](/docs/concepts/resource-management/dynamic-resource-allocation/dra-observability/#resource-pool-partition-summary).
 The field names a device attribute (such as a MIG profile) whose value groups

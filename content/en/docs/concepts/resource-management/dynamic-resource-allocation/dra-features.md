@@ -19,74 +19,13 @@ maturity and the feature gate that enables it.
 
 {{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
 
-Devices represented in DRA don't necessarily have to be a single unit connected to a single machine,
-but can also be a logical device comprised of multiple devices connected to multiple machines.
-These devices might consume overlapping resources of the underlying physical devices,
-meaning that when one logical device is allocated other devices will no longer be available.
-
-In the ResourceSlice API, this is represented as a list of named CounterSets, each of which
-contains a set of named counters. The counters represent the resources available on the physical
-device that are used by the logical devices advertised through DRA.
-
-Logical devices can specify the ConsumesCounters list. Each entry contains a reference to a CounterSet
-and a set of named counters with the amounts they will consume. So for a device to be allocatable,
-the referenced counter sets must have sufficient quantity for the counters referenced by the device.
-
-CounterSets must be specified in separate ResourceSlices from devices.
-Devices can consume counters from any CounterSet defined in the same resource pool as the device.
-
-Here is an example of two devices, each consuming 6Gi of memory from a shared counter with 8Gi of memory.
-Thus, only one of the devices can be allocated at any point in time.
-The scheduler handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceSlice
-metadata:
-  name: resourceslice-with-countersets
-spec:
-  nodeName: worker-1
-  pool:
-    name: pool
-    generation: 1
-    resourceSliceCount: 2
-  driver: dra.example.com
-  sharedCounters:
-  - name: gpu-1-counters
-    counters:
-      memory:
-        value: 8Gi
----
-apiVersion: resource.k8s.io/v1
-kind: ResourceSlice
-metadata:
-  name: resourceslice-with-devices
-spec:
-  nodeName: worker-1
-  pool:
-    name: pool
-    generation: 1
-    resourceSliceCount: 2
-  driver: dra.example.com
-  devices:
-  - name: device-1
-    consumesCounters:
-    - counterSet: gpu-1-counters
-      counters:
-        memory:
-          value: 6Gi
-  - name: device-2
-    consumesCounters:
-    - counterSet: gpu-1-counters
-      counters:
-        memory:
-          value: 6Gi
-```
-
-Partitionable devices is controlled by the
-[`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
-in the `kube-apiserver` and `kube-scheduler`.
-
+A driver can advertise logical devices that draw from the same physical
+resources, such as GPU partitions that share a memory budget. The driver
+publishes the available resources as shared counters in a resource pool and
+defines the fixed amounts each logical device consumes. The scheduler uses
+the remaining counter values to determine which devices can be allocated
+together.
+See [Partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#partitionable-devices) for configuration and examples.
 
 ## Device compatibility groups {#device-compatibility-groups}
 
@@ -106,7 +45,7 @@ they consume overlapping physical resources in incompatible ways. By declaring
 `compatibilityGroups`, the driver makes this constraint visible to the
 scheduler.
 
-This feature builds on [partitionable devices](#partitionable-devices): the
+This feature builds on [partitionable devices](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#partitionable-devices): the
 `compatibilityGroups` field lives on `device.consumesCounters[]` entries, which
 only exist for partitionable devices. Both the `DRADeviceCompatibilityGroups`
 and `DRAPartitionableDevices` feature gates must be enabled in the
@@ -229,115 +168,28 @@ in the kube-apiserver and kube-scheduler. The
 [`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
 must also be enabled.
 
-## Consumable capacity
+## Consumable capacity {#consumable-capacity}
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
-The consumable capacity feature allows the same devices to be consumed by multiple independent ResourceClaims,
-with the Kubernetes scheduler managing how much of the device's capacity is used up by each claim.
-This is analogous to how Pods can share the resources on a Node; ResourceClaims can share the resources on a Device.
+Consumable capacity lets multiple ResourceClaims each use a portion of the same
+device, much as multiple Pods share the resources of a Node. The scheduler tracks
+how much capacity each claim uses and keeps the total within the device's capacity.
+See [Consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity)
+for configuration and examples.
 
-The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice`
-to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
+## Shared consumable capacity {#consumable-capacity-shared}
 
-When requesting exactly one kind of device in a `ResourceClaim`, set
-`spec.devices.requests[].exactly.capacity` to specify the device resource
-requirements for each allocation. For a prioritized list of different alternatives, set `capacity` within
-the relevant `spec.devices.requests[].firstAvailable[]` entries.
+{{< feature-state feature_gate_name="DRASharedConsumableCapacity" >}}
 
-For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity,
-a concept known as **consumable capacity**.
-Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity.
-Furthermore, driver authors can use the `requestPolicy` constraints on individual device capacities to control
-how those capacities are consumed.
-For example, the driver author can specify that a given capacity is only consumed in increments of 1Gi.
-
-Here is an example of a network device which allows multiple allocations and contains a consumable bandwidth capacity.
-
-```yaml
-kind: ResourceSlice
-apiVersion: resource.k8s.io/v1
-metadata:
-  name: resourceslice
-spec:
-  nodeName: worker-1
-  pool:
-    name: pool
-    generation: 1
-    resourceSliceCount: 1
-  driver: dra.example.com
-  devices:
-  - name: eth1
-    allowMultipleAllocations: true
-    attributes:
-      name:
-        string: "eth1"
-    capacity:
-      bandwidth:
-        requestPolicy:
-          default: "1M"
-          validRange:
-            min: "1M"
-            step: "8"
-        value: "10G"
-```
-
-The consumable capacity can be requested as shown in the below example.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceClaimTemplate
-metadata:
-  name: bandwidth-claim-template
-spec:
-  spec:
-    devices:
-      requests:
-      - name: req-0
-        exactly:
-          deviceClassName: resource.example.com
-          capacity:
-            requests:
-              bandwidth: 1G
-```
-
-The allocation result will include the consumed capacity and the identifier of the share.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceClaim
-...
-status:
-  allocation:
-    devices:
-      results:
-      - consumedCapacity:
-          bandwidth: 1G
-        device: eth1
-        shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
-```
-
-In this example, a multiply-allocatable device was chosen. However, any `resource.example.com` device
-with at least the requested 1G bandwidth could have met the requirement.
-If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device.
-To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
-
-### DistinctAttribute constraint
-
-When requesting multiple devices in a ResourceClaim, you can use the DistinctAttribute
-constraint to ensure that each allocated device has a different value for a specified
-attribute. This constraint was introduced with the consumable capacity feature.
-
-The DistinctAttribute constraint is particularly useful when working with
-multiply-allocatable devices. It prevents the scheduler from allocating the same
-device multiple times within a single ResourceClaim, even when that device allows
-multiple allocations.
-
-Beyond preventing duplicate allocations, this constraint helps optimize performance
-by ensuring devices are distributed based on their attributes. For example, you can
-use it to distribute devices across different NUMA nodes to optimize memory bandwidth
-and reduce contention.
-
+Shared consumable capacity builds on [partitionable devices](#partitionable-devices)
+and uses the same ResourceClaim capacity requests as
+[consumable capacity](#consumable-capacity). For example, workloads can request
+different amounts of bandwidth from virtual functions that share one physical
+network link. The scheduler tracks each allocation against the same shared
+counter to keep total usage within the link's bandwidth budget.
+See [Shared consumable capacity](/docs/concepts/resource-management/dynamic-resource-allocation/capacity-sharing/#consumable-capacity-shared)
+for configuration and examples.
 
 ## Granular status authorization {#granular-status-authorization}
 
