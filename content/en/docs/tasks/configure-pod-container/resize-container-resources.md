@@ -67,7 +67,7 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
 * `type: PodResizePending`: The Kubelet cannot immediately grant the request.
   The `message` field provides an explanation of why.
     * `reason: Infeasible`: The requested resize is impossible on the current node
-      (for example, requesting more resources than the node has).
+      (for example, in-place resizing of memory requests is not supported for Pods that use swap).
     * `reason: Deferred`: The requested resize is currently not possible,
       but might become feasible later (for example if another pod is removed).
       The Kubelet will retry the resize.
@@ -75,6 +75,10 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   but the changes are still being applied.
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
+
+If a Pod's total CPU or memory requests exceed the node's allocatable resources,
+the API server rejects the resize request during admission rather than reporting
+the failure through the Pod's status conditions.
 
 ### How deferred resizes are retried and preempted
 
@@ -276,7 +280,7 @@ You should now observe:
 
 ## Troubleshooting: Infeasible resize request
 
-Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (written as `"1000"` instead of `"1000m"` for millicores), which likely exceeds node capacity.
+Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (written as `"1000"` instead of `"1000m"` for millicores), which likely exceeds the node's allocatable resources.
 
 ```shell
 # Attempt to patch with an excessively large CPU request
@@ -284,22 +288,13 @@ kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
-Query the Pod's details:
+If the request exceeds the node's allocatable resources, you should see output similar to:
 
 ```shell
-kubectl get pod resize-demo --output=yaml --namespace=qos-example
+Error from server (Forbidden): pods "resize-demo" is forbidden: node didn't have enough allocatable resources: cpu, requested: 1000000, allocatable: 18000
 ```
 
-You'll see changes indicating the problem:
-
-* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1000"`).
-* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
-* The condition's `message` will explain why (`Node didn't have enough capacity: cpu, requested: 800000, capacity: ...`)
-* Crucially, `status.containerStatuses[0].resources` will *still show the previous values* (`cpu: 800m`, `memory: 300Mi`),
-  because the infeasible resize was not applied by the Kubelet.
-* The `restartCount` will not have changed due to this failed attempt.
-
-To fix this, you would need to patch the pod again with feasible resource values.
+The API server rejected the resize request.
 
 ## Clean up
 
