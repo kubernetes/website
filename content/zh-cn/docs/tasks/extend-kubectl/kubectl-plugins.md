@@ -568,7 +568,7 @@ Krew 也维护一个[插件索引（plugin index）](https://krew.sigs.k8s.io/pl
 <!--
 ### Native / platform specific package management {#distributing-native}
 
-Alternatively, you can use traditional package managers such as, `apt` or `yum`
+Alternatively, you can use traditional package managers such as, `apt` or `dnf`
 on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
@@ -578,7 +578,7 @@ platforms for each release.
 -->
 ### 原生的与特定平台的包管理     {#distributing-native}
 
-另一种方式是，你可以使用传统的包管理器（例如 Linux 上 的 `apt` 或 `yum`，
+另一种方式是，你可以使用传统的包管理器（例如 Linux 上 的 `apt` 或 `dnf`，
 Windows 上的 Chocolatey、macOs 上的 Homebrew）。
 只要能够将新的可执行文件放到用户的 `PATH` 路径上某处，这种包管理器就符合需要。
 作为一个插件作者，如果你选择这种方式来分发，你就需要自己来管理和更新
