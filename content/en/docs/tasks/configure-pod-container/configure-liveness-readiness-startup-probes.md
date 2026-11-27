@@ -174,8 +174,9 @@ By default the `kubelet` sends HTTP/1.1 requests when executing an HTTP probe.
 If your application serves health endpoints only over HTTP/2 cleartext (h2c),
 you can add the `protocol` field to the `httpGet` field in the probe specification and
 specify a value of `HTTP2`. This requires the `H2CContainerProbe`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled on both the `kube-apiserver` and the `kubelet`.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(enabled by default as of v1.38) to be enabled on both the `kube-apiserver`
+and the `kubelet`.
 
 {{% code_sample file="pods/probe/h2c-liveness.yaml" %}}
 
@@ -188,6 +189,19 @@ supported:
 
 If the feature gate is disabled, the API server removes the `protocol`
 field from new or updated Pods.
+
+If the feature gate is disabled on the kubelet, for example on a node that
+runs a kubelet older than v1.38, the kubelet ignores the `protocol` field and
+probes over HTTP/1.1. A container that serves its health endpoint only over
+h2c then fails the probe. Before you set `protocol: HTTP2`, make sure that
+every node that can run the Pod has the feature gate enabled.
+
+To see how many HTTP probes on a node use each protocol, check the
+`kubelet_active_probes` metric, labeled by `protocol`, that the `kubelet`
+exposes at `/metrics/probes`. The `protocol` label shows the protocol that the
+kubelet uses: a probe with `protocol: HTTP2` is counted as `HTTP1` if the
+feature gate is disabled on that kubelet. For the stability level of this metric, see
+[Kubernetes Metrics Reference](/docs/reference/instrumentation/metrics/).
 
 ## Define a TCP liveness probe
 
