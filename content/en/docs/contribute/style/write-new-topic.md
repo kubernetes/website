@@ -137,7 +137,9 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 ### Showing a KYAML variant {#kyaml-examples}
 
 To also show a code sample in [KYAML](/docs/reference/encodings/kyaml/), add
-`variants="kyaml"` to its `code_sample` shortcode, then run:
+`variants="kyaml"` to its `code_sample` shortcode (see
+[code sample variants](/docs/contribute/style/hugo-shortcodes/#code-sample-variants)),
+then run:
 
 ```shell
 make kyaml
