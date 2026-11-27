@@ -346,25 +346,70 @@ preemption in several key ways:
 
 * **Node restriction**: Preemption is strictly restricted to the Pod's currently
   assigned node. The scheduler does not evaluate other candidate nodes across
-  the cluster.
-* **Resource delta calculation**: Required preemption capacity is calculated
-  based on the resource delta (the difference between the desired resources and
-  currently allocated resources), rather than the total Pod request.
+  the cluster, and placement constraints unrelated to resource fit (such as node
+  affinity or topology spread constraints) are bypassed.
+* **Resource delta and victim reprieval accounting**: The resizing Pod is
+  evaluated at `max(desired, allocated, actual)` so only the resource delta
+  above its current footprint needs to be freed. When reprieving candidate
+  victim Pods on the node, `kube-scheduler` evaluates other Pods at
+  `max(allocated, actual)` (ignoring unfulfilled desired resize requests on
+  other `Deferred` Pods) to avoid preempting more lower-priority Pods than
+  physically necessary.
 * **Resource blocking**: The requested resources of the resizing Pod are
   considered already consumed for scheduler resource accounting on that node,
   blocking other lower-priority Pods from using them until the resize is
-  eventually performed or the deferred status is removed by the Kubelet.
-* **Nominated node status**: The `nominatedNodeName` field in the Pod's status
-  is not set, because the Pod is already assigned to and running on its target node.
-* **Kubelet actuation**: The scheduler triggers preemption to free up node
-  capacity, but does not re-bind the Pod. The Kubelet detects the newly freed
-  capacity on the node and performs the actual in-place resize actuation.
+  eventually performed or the deferred status is removed by the kubelet.
+* **Duplicate preemption suppression without `nominatedNodeName`**: The
+  `nominatedNodeName` field in the Pod's status is not set because the Pod is
+  already bound to its target node. Instead, `kube-scheduler` inspects the
+  resizing Pod's `spec.nodeName`: while any lower-priority Pod on that node is
+  already terminating due to scheduler preemption (marked with the
+  `DisruptionTarget` condition), duplicate preemption attempts are suppressed
+  across victim termination grace periods and scheduler restarts.
+* **Scheduler-kubelet handoff (`SchedulerEvaluationCompleted`)**: Once
+  `kube-scheduler` determines that the resize fits on the node (either
+  immediately or on a subsequent scheduling cycle after preempted victims finish
+  terminating and are deleted), it sets the `SchedulerEvaluationCompleted` Pod
+  condition (`status: "True"`, `reason: DeferredPodResize`) and removes the Pod
+  from the scheduling queue without re-binding it. When the kubelet re-evaluates
+  the resize, it actuates the change and clears both `PodResizePending` and
+  `SchedulerEvaluationCompleted`. If freed capacity was consumed before
+  actuation (for example, by a higher-priority resize or static Pod), the
+  kubelet keeps `PodResizePending` (`reason: Deferred`) and clears
+  `SchedulerEvaluationCompleted`, prompting `kube-scheduler` to re-enqueue the
+  Pod for another evaluation cycle.
+* **Single preemption authority**: When this feature gate is enabled, the
+  kubelet bypasses node-local admission preemption for resize requests and marks
+  insufficient-capacity resizes as `Deferred`, centralizing all resize
+  preemption decisions (including PriorityClass rules, graceful termination,
+  PodDisruptionBudgets, and node-level preemption policies) in `kube-scheduler`.
+* **Workload-aware scheduling interaction**: Deferred resize Pods belonging to a
+  `PodGroup` are evaluated and preempted individually on their assigned node,
+  while candidate victim selection honors workload-aware preemption rules (such
+  as preferring standalone Pods for eviction over disrupting an entire
+  `PodGroup`).
 * **Node-level preemption policy**: Preemption can be disabled specifically for
   in-place resizes on specific nodes using the Node spec's
   `spec.podPreemptionPolicy.disableResizePreemption` field.
   Unlike standard preemption, which can only be disabled per-priority-class
   using `preemptionPolicy: Never`, this allows operators or autoscaling systems
   to disable preemption on individual nodes.
+
+#### Observability for in-place resize preemption {#observability-for-in-place-resize-preemption}
+
+* **Events**: `kube-scheduler` emits `FailedScheduling` warning events on the
+  resizing Pod when preemption cannot proceed (for example, when resize
+  preemption is disabled on the node or evicting lower-priority Pods still
+  cannot satisfy the deficit). Preempted victim Pods receive a `Preempted` event
+  and the `DisruptionTarget` condition (`reason: PreemptionByScheduler`).
+* **Metrics**: `kube-scheduler` exposes dedicated metrics for deferred resize
+  cycles (`scheduler_resize_preemption_attempts_total`,
+  `scheduler_resize_preemption_victims`, and
+  `scheduler_resize_scheduling_algorithm_duration_seconds`), labels queueing and
+  preemption metrics (such as `scheduler_queued_entities` and
+  `scheduler_preemption_evaluation_duration_seconds`) with
+  `operation="pod_resize"` versus `operation="initial_placement"`, and records
+  `event="AssignedPodResize"` on incoming queue metrics.
 
 For more details on in-place Pod resizing, see
 [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
