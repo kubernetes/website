@@ -77,24 +77,30 @@ will take over existing Leases using a new holder identity, as opposed to instan
 hostname used by kube-apiserver by checking the value of the `kubernetes.io/hostname` label:
 
 ```shell
-kubectl -n kube-system get lease apiserver-07a5ea9b9b072c4a5f3d1c3702 -o yaml
+kubectl -n kube-system get lease apiserver-07a5ea9b9b072c4a5f3d1c3702 -o kyaml
 ```
 ```yaml
-apiVersion: coordination.k8s.io/v1
-kind: Lease
-metadata:
-  creationTimestamp: "2023-07-02T13:16:48Z"
-  labels:
-    apiserver.kubernetes.io/identity: kube-apiserver
-    kubernetes.io/hostname: master-1
-  name: apiserver-07a5ea9b9b072c4a5f3d1c3702
-  namespace: kube-system
-  resourceVersion: "334899"
-  uid: 90870ab5-1ba9-4523-b215-e4d4e662acb1
-spec:
-  holderIdentity: apiserver-07a5ea9b9b072c4a5f3d1c3702_0c8914f7-0f35-440e-8676-7844977d3a05
-  leaseDurationSeconds: 3600
-  renewTime: "2023-07-04T21:58:48.065888Z"
+---
+{
+  apiVersion: "coordination.k8s.io/v1",
+  kind: "Lease",
+  metadata: {
+    creationTimestamp: "2026-07-02T13:16:48Z",
+    labels: {
+      apiserver.kubernetes.io/identity: "kube-apiserver",
+      kubernetes.io/hostname: "master-1",
+    },
+    name: "apiserver-07a5ea9b9b072c4a5f3d1c3702",
+    namespace: "kube-system",
+    resourceVersion: "334899",
+    uid: "90870ab5-1ba9-4523-b215-e4d4e662acb1",
+  },
+  spec: {
+    holderIdentity: "apiserver-07a5ea9b9b072c4a5f3d1c3702_0c8914f7-0f35-440e-8676-7844977d3a05",
+    leaseDurationSeconds: 3600,
+    renewTime: "2026-07-04T21:58:48.065888Z",
+  },
+}
 ```
 
 Expired leases from kube-apiservers that no longer exist are garbage collected by new kube-apiservers after 1 hour.

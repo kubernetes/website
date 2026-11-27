@@ -84,19 +84,30 @@ For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: label-demo
-  labels:
-    environment: production
-    app: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx:1.14.2
-    ports:
-    - containerPort: 80
+---
+{
+  apiVersion: "v1",
+  kind: "Pod",
+  metadata: {
+    name: "label-demo",
+    labels: {
+      environment: "production",
+
+      # this is an example; the label "app.kubernetes.io/name" is a better fit
+      # for real workloads
+      app: "nginx",
+    },
+  },
+  spec: {
+    containers: [{
+      name: "nginx",
+      image: "nginx:1.14.2",
+      ports: [{
+        containerPort: 80,
+      }],
+    }],
+  },
+}
 ```
 
 ## Label selectors
@@ -150,19 +161,28 @@ node selection criteria. For example, the sample Pod below selects nodes where
 the `accelerator` label exists and is set to `nvidia-tesla-p100`.
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: cuda-test
-spec:
-  containers:
-    - name: cuda-test
-      image: "registry.k8s.io/cuda-vector-add:v0.1"
-      resources:
-        limits:
-          nvidia.com/gpu: 1
-  nodeSelector:
-    accelerator: nvidia-tesla-p100
+---
+{
+  apiVersion: "v1",
+  kind: "Pod",
+  metadata: {
+    name: "cuda-test",
+  },
+  spec: {
+    containers: [{
+      name: "cuda-test",
+      image: "registry.k8s.io/cuda-vector-add:v0.1",
+      resources: {
+        limits: {
+          nvidia.com/gpu: 1,
+        },
+      },
+    }],
+    nodeSelector: {
+      accelerator: "nvidia-tesla-p100",
+    },
+  },
+}
 ```
 
 ### _Set-based_ requirement
