@@ -1,1 +1,9 @@
-{{ template "_default/_markup/td-render-heading.html" . -}}
+{{- /* Inlined from docsy 0.11.0 layouts/_default/_markup/td-render-heading.html.
+       Hugo >= 0.146 skips non render-* templates inside _markup (gohugoio/hugo#13577),
+       so the old {{ template "_default/_markup/td-render-heading.html" . }} delegation
+       no longer resolves. Docsy >= 0.12.0 offers {{ partial "td/render-heading.html" . }}
+       instead (google/docsy#2223). */ -}}
+<h{{ .Level }} id="{{- .Anchor | safeURL -}}">
+  {{- .Text | safeHTML -}}
+  <a class="td-heading-self-link" href="#{{ .Anchor | safeURL }}" aria-label="Heading self-link"></a>
+</h{{ .Level }}>
