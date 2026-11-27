@@ -1,6 +1,17 @@
 {{ range $releaseInfo := .Site.Data.releases.schedule.schedules }}
 {{- $version := printf "%s" $releaseInfo.release -}}
 {{- $dataIdVersion := replace ( printf "%s" $releaseInfo.release ) "." "-" | anchorize -}}
+{{- /* x.y.0 is a minor release, not a patch release: fail the build if one appears in the patch data */ -}}
+{{- range $patch := $releaseInfo.previousPatches -}}
+  {{- if strings.HasSuffix (printf "%s" $patch.release) ".0" -}}
+    {{- errorf "data/releases/schedule.yaml: %q is listed under previousPatches for %s; x.y.0 is a minor release, so the patch list must start at x.y.1" $patch.release $version -}}
+  {{- end -}}
+{{- end -}}
+{{- with $releaseInfo.next -}}
+  {{- if strings.HasSuffix (printf "%s" .release) ".0" -}}
+    {{- errorf "data/releases/schedule.yaml: %q is listed as the next patch release for %s; x.y.0 is a minor release, so patch releases must start at x.y.1" .release $version -}}
+  {{- end -}}
+{{- end -}}
 
 <h3 id="{{ $dataIdVersion }}">{{ $version }}</h3>
 <p>
