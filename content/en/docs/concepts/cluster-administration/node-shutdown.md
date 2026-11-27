@@ -73,7 +73,7 @@ Windows graceful node shutdown can not be cancelled.
 
 If kubelet is not running as a Windows service, it will not be able to set and monitor
 the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
-the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure described below.
 
 In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
 running as a Windows service, the kubelet will continue running instead of failing. However,
@@ -331,4 +331,4 @@ Learn more about the following:
 - Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
 - Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).
 
-For how to shutdown a cluster see [Shutting Down and Restarting Clusters](/docs/task/administer-cluster/cluster-shutdown-and-restart/).
+For how to shutdown a cluster see [Shutting Down and Restarting Clusters](/docs/tasks/administer-cluster/cluster-shutdown-and-restart/).
