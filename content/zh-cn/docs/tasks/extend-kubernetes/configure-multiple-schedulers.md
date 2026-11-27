@@ -172,13 +172,24 @@ detailed description of other customizable `kube-scheduler` configurations.
 
 <!--
 ## Run the second scheduler in the cluster
-
-In order to run your scheduler in a Kubernetes cluster, create the deployment
-specified in the config above in a Kubernetes cluster:
 -->
 ## 在集群中运行第二个调度器
 
-为了在 Kubernetes 集群中运行我们的第二个调度器，在 Kubernetes 集群中创建上面配置中指定的 Deployment：
+{{< caution >}}
+<!--
+Before you deploy multiple schedulers or scheduling profiles, see [Running multiple schedulers](/docs/concepts/scheduling-eviction/running-multiple-schedulers/) to understand the different deployment strategies and how to avoid resource scheduling conflicts.
+-->
+在部署多个调度器或调度配置文件（SchedulingProfile）之前，
+请参阅[运行多个调度器](/zh-cn/docs/concepts/scheduling-eviction/running-multiple-schedulers/)，
+了解不同的部署策略以及如何避免资源调度冲突。
+{{< /caution >}}
+
+<!--
+In order to run your scheduler in a Kubernetes cluster, create the deployment
+specified in the config above in a Kubernetes cluster:
+-->
+为了在 Kubernetes 集群中运行我们的第二个调度器，在 Kubernetes
+集群中创建上面配置中指定的 Deployment：
 
 ```shell
 kubectl create -f my-scheduler.yaml
@@ -206,9 +217,8 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
 -->
-此列表中，除了默认的 `kube-scheduler` Pod 之外，你应该还能看到处于 “Running” 状态的
+此列表中，除了默认的 `kube-scheduler` Pod 之外，你应该还能看到处于 `Running` 状态的
 `my-scheduler` Pod。
-
 
 <!--
 ### Enable leader election
@@ -221,7 +231,8 @@ Update the following fields for the KubeSchedulerConfiguration in the `my-schedu
 
 要在启用了 leader 选举的情况下运行多调度器，你必须执行以下操作：
 
-更新你的 YAML 文件中的 `my-scheduler-config` ConfigMap 里的 KubeSchedulerConfiguration 相关字段如下：
+更新你的 YAML 文件中的 `my-scheduler-config` ConfigMap 里的
+KubeSchedulerConfiguration 相关字段如下：
 
 * `leaderElection.leaderElect` to `true`
 * `leaderElection.resourceNamespace` to `<lock-object-namespace>`
@@ -241,7 +252,7 @@ If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` 
 Add your scheduler name to the resourceNames of the rule applied for `endpoints` and `leases` resources, as in the following example:
 -->
 如果在集群上启用了 RBAC，则必须更新 `system：kube-scheduler` 集群角色。
-将调度器名称添加到应用了 `endpoints` 和 `leases` 资源的规则的 resourceNames 中，如以下示例所示：
+将调度器名称添加到应用了 `endpoints` 和 `leases` 资源的规则的 `resourceNames` 中，如以下示例所示：
 
 ```shell
 kubectl edit clusterrole system:kube-scheduler
@@ -261,7 +272,7 @@ In order to schedule a given pod using a specific scheduler, specify the name of
 scheduler in that pod spec. Let's look at three examples.
 -->
 现在第二个调度器正在运行，创建一些 Pod，并指定它们由默认调度器或部署的调度器进行调度。
-为了使用特定的调度器调度给定的 Pod，在那个 Pod 的 spec 中指定调度器的名称。让我们看看三个例子。
+为了使用特定的调度器调度给定的 Pod，在那个 Pod 的 `spec` 中指定调度器的名称。让我们看看三个例子。
 
 <!--
 - Pod spec without any scheduler name
@@ -321,7 +332,8 @@ scheduler in that pod spec. Let's look at three examples.
   in the `schedulerName` field of the mapping `KubeSchedulerProfile`.
   -->
   在这种情况下，我们指定此 Pod 使用我们部署的 `my-scheduler` 来调度。
-  请注意，`spec.schedulerName` 参数的值应该与调度器提供的 `KubeSchedulerProfile` 中的 `schedulerName` 字段相匹配。
+  请注意，`spec.schedulerName` 参数的值应该与调度器提供的 `KubeSchedulerProfile`
+  中的 `schedulerName` 字段相匹配。
 
   <!--
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
@@ -362,8 +374,7 @@ scheduled as well.
 我们可以通过更改 Pod 的顺序和上面的部署配置提交来验证这一点。
 如果我们在提交调度器部署配置之前将所有 Pod 配置提交给 Kubernetes 集群，
 我们将看到注解了 `annotation-second-scheduler` 的 Pod 始终处于 `Pending` 状态，
-而其他两个 Pod 被调度。
-一旦我们提交调度器部署配置并且我们的新调度器开始运行，注解了
+而其他两个 Pod 被调度。一旦我们提交调度器部署配置并且我们的新调度器开始运行，注解了
 `annotation-second-scheduler` 的 Pod 就能被调度。
 <!--
 Alternatively, you can look at the "Scheduled" entries in the event logs to
