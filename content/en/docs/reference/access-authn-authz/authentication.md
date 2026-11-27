@@ -1666,9 +1666,28 @@ environment variable. This input contains helpful information like the expected 
 of the returned `ExecCredential` object and whether or not the plugin can use `stdin` to interact
 with the user.
 
-When run from an interactive session (i.e., a terminal), `stdin` can be exposed directly
+The value of `KUBERNETES_EXEC_INFO` is a JSON-encoded [ExecCredential](/docs/reference/config-api/client-authentication.v1/#client-authentication-k8s-io-v1-ExecCredential) object.
+The `apiVersion` matches the `user.exec.apiVersion` that you set in the kubeconfig, and the
+`spec` field describes the request. For example, when the plugin is not running interactively and
+`provideClusterInfo` is not set, the plugin receives:
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "spec": {
+    "interactive": false
+  }
+}
+```
+
+For the full list of fields that can appear in this object, see the
+[`ExecCredentialSpec`](/docs/reference/config-api/client-authentication.v1/#client-authentication-k8s-io-v1-ExecCredentialSpec)
+reference for `client.authentication.k8s.io/v1`.
+
+When run from an interactive session (for example, a terminal), standard input ("stdin") can be exposed directly
 to the plugin. Plugins should use the `spec.interactive` field of the input
-`ExecCredential` object from the `KUBERNETES_EXEC_INFO` environment variable in order to
+[ExecCredential](/docs/reference/config-api/client-authentication.v1/#client-authentication-k8s-io-v1-ExecCredential) from the `KUBERNETES_EXEC_INFO` environment variable in order to
 determine if `stdin` has been provided. A plugin's `stdin` requirements (i.e., whether
 `stdin` is optional, strictly required, or never used in order for the plugin
 to run successfully) is declared via the `user.exec.interactiveMode` field in the
