@@ -54,9 +54,9 @@ and their containers.
 
 PID limiting is an important sibling to [compute
 resource](/docs/concepts/configuration/manage-resources-containers/) requests
-and limits. However, you specify it in a different way: rather than defining a
-Pod's resource limit in the `.spec` for a Pod, you configure the limit as a
-setting on the kubelet. Pod-defined PID limits are not currently supported.
+and limits. You can limit PIDs at the node level (via kubelet configuration) or,
+with the `PerPodPIDLimit` feature gate enabled on cgroup v2 nodes, at the
+individual Pod level using `spec.resources.limits.pids`.
 
 {{< caution >}}
 This means that the limit that applies to a Pod may be different depending on
@@ -75,12 +75,73 @@ respectively.
 
 ## Pod PID limits
 
-Kubernetes allows you to limit the number of processes running in a Pod. You
-specify this limit at the node level, rather than configuring it as a resource
-limit for a particular Pod. Each Node can have a different PID limit.  
+Kubernetes allows you to limit the number of processes running in a Pod.
+You set this limit at the node level, and each Node can have a different PID limit.
 To configure the limit, you can specify the command line parameter `--pod-max-pids`
 to the kubelet, or set `PodPidsLimit` in the kubelet
 [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
+
+## Per-pod PID limits
+
+{{< feature-state feature_gate_name="PerPodPIDLimit" >}}
+
+In addition to the node-level limit set by the kubelet, you can set a PID limit
+for an individual Pod using `spec.resources.limits.pids`. All containers in the
+Pod share this limit, which the kubelet applies to the Pod's cgroup.
+
+{{< note >}}
+Per-pod PID limits require the `PerPodPIDLimit`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled on the API server and on the kubelet, and the node must use
+[cgroup v2](/docs/concepts/architecture/cgroups/).
+{{< /note >}}
+
+When the node has a positive `podPidsLimit`, the kubelet enforces the lower of
+the two limits:
+
+```
+min(node podPidsLimit, pod pids limit)
+```
+
+A Pod can only restrict its PID limit further. It cannot exceed the node's
+`podPidsLimit`. If the Pod's limit is higher than the node's `podPidsLimit`, the
+kubelet applies the node's limit and emits a `PIDLimitCapped` warning event on
+the Pod, for example:
+
+```
+Requested PID limit 8192 exceeds node podPidsLimit; capped to 4096
+```
+
+If the node's `podPidsLimit` is `-1` (no node limit), the Pod's limit is
+applied directly without capping.
+
+If a Pod does not set `limits.pids`, the node's `podPidsLimit` applies
+(or no limit if `podPidsLimit` is `-1`).
+
+### Constraints
+
+- `pids` can only be set at the Pod level, under `spec.resources.limits`.
+  You cannot set it in a container's `resources`, and you cannot set `requests.pids`.
+- The value must be an integer from 128 to 16384.
+- `pids` does not affect the Pod's QoS class or resource quota, and the
+  scheduler does not count it as a resource request.
+- You cannot change `pids` with in-place Pod resize.
+- `pids` is not supported in [LimitRange](/docs/concepts/policy/limit-range/).
+- The kubelet rejects a Pod that sets `limits.pids` if the node does not use
+  cgroup v2, if the `PerPodPIDLimit` feature gate is disabled on that node, or
+  if the node runs Windows.
+- The scheduler does not place a Pod that sets `limits.pids` on a node where
+  the `PerPodPIDLimit` feature gate is disabled. This uses
+  [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/),
+  which is enabled by default. The scheduler does not check the node's cgroup
+  version, so a Pod can still be scheduled to a cgroup v1 node with the feature
+  gate enabled, where the kubelet rejects it.
+- If the kubelet runs with `cgroupsPerQOS: false`, it does not create Pod-level
+  cgroups, so the per-pod PID limit is not enforced. The Pod is still admitted
+  and runs without the limit.
+
+See [Assign a PID limit to a Pod](/docs/tasks/configure-pod-container/assign-pod-pid-limit/)
+for step-by-step instructions.
 
 ## PID based eviction
 
