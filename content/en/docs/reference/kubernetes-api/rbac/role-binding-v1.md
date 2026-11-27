@@ -52,7 +52,7 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
       <td>roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.</td>
     </tr>
     <tr>
-      <td><code>subjects</code><br/><em><a href="{{< ref "../flowcontrol/flow-schema-v1#Subject" >}}">Subject array</a></em></td>
+      <td><code>subjects</code><br/><em><a href="{{< ref "../definitions/subject-v1-rbac#Subject" >}}">Subject array</a></em></td>
       <td>subjects holds references to the objects the role applies to.</td>
     </tr>
   </tbody>
