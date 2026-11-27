@@ -143,6 +143,29 @@ The storage version in this case is more than just the binary encoding of the
 object. As long as what is stored can be somehow converted into the API object,
 it can be used as a storage version.
 
+## How storage versions are relevant to compression
+
+{{< feature-state for_k8s_version="v1.38" state="alpha" >}}
+
+The API server can also [compress stored
+data](/docs/tasks/administer-cluster/compress-data/) for resources you select.
+Compression runs on the serialized object before any encryption at rest, so when
+encryption is configured, the encrypted value wraps the compressed one and the
+`k8s:enc:` prefix stays outermost in etcd. A compressed value starts with a short
+header that marks it, so a kube-apiserver at v1.38 or later reads both forms,
+whatever its own compression configuration says. Older releases can't read
+compressed values.
+
+Changing the compression configuration only changes how the API server writes
+values from then on. Objects already in etcd keep the form they were written in
+until something rewrites them, just as they do after a change of storage version
+or encryption key. A [storage version
+migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration/)
+rewrites each object of a resource that isn't in the form the configuration
+asks for. See
+[Roll back to a release older than v1.38](/docs/tasks/administer-cluster/compress-data/#downgrade)
+for why that matters before a downgrade.
+
 ## Migrating to a different storage version
 
 Multiple storage versions for a single resource can pose problems for cluster
@@ -159,7 +182,11 @@ above. Since a resource must be actively in use to update the storage version,
 when a key rotation is done, both the old encryption key and the new encryption
 key must remain in use until the administrator is sure all objects have been
 written to at least once. This poses both security risks and usability issues,
-since a key cannot be fully removed from use until then. 
+since a key cannot be fully removed from use until then.
+[Storage compression](/docs/tasks/administer-cluster/compress-data/) has a
+smaller version of this problem. Each object keeps its compressed or
+uncompressed form until it's next written, so you can't roll back below v1.38
+until every compressed object has been rewritten.
 
 See [storage version
 migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration) on
