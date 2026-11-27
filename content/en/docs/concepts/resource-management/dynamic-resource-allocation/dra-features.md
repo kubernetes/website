@@ -387,6 +387,13 @@ the control plane's minimum compatibility version (`--min-compatibility-version`
 With a lower minimum compatibility version, the feature gate is disabled by default and must be
 enabled explicitly.
 
+<!--
+TODO (KEP-5981): Document DRA sharing affinity for consumable capacity in
+Kubernetes v1.38, including feature gate configuration, driver-provided affinity
+extractors, and examples of claims sharing a device with matching configuration.
+Tracking issue: https://github.com/kubernetes/enhancements/issues/5981
+-->
+
 ## Granular status authorization {#granular-status-authorization}
 
 {{< feature-state feature_gate_name="DRAResourceClaimGranularStatusAuthorization" >}}
