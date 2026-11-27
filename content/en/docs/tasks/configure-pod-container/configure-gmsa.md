@@ -275,7 +275,7 @@ to `exec` into one of your Pods and check the output of the `nltest.exe /parentd
 In the example below the Pod did not get the credspec correctly:
 
 ```PowerShell
-kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
+kubectl exec -it iis-auth-7776966999-n5nzr -- powershell.exe
 ```
 
 `nltest.exe /parentdomain` results in the following error:
