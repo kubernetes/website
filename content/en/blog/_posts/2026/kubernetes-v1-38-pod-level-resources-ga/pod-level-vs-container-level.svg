@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 492" width="920" height="492" role="img" aria-labelledby="title desc">
+  <title id="title">Container-Level Only vs. Pod-Level Resources</title>
+  <desc id="desc">Comparison of a two-container Pod where app peaks at 1.0 CPU at T1 and sidecar peaks at 1.4 CPUs at T2, while combined usage stays under 2.0 CPUs. Without Pod-level resources, each container must be estimated and sized individually for its peak (1.0 plus 1.4 equals 2.4 CPUs total), leaving unused CPU trapped during each phase. With Pod-level resources, you specify one shared 2.0 CPU Pod pool without estimating per-container sizes, simplifying configuration and saving 0.4 CPU.</desc>
+
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="920" height="492" fill="#ffffff" rx="12"/>
+
+  <!-- Header -->
+  <text x="460" y="34" font-size="18.5" font-weight="bold" fill="#111827" text-anchor="middle">Container-Level Only vs. Pod-Level Resources</text>
+  <text x="460" y="56" font-size="12.5" fill="#4b5563" text-anchor="middle">Uncoordinated peaks: app peaks at 1.0 CPU (T1), sidecar peaks at 1.4 CPUs (T2), combined usage stays ≤ 2.0 CPUs</text>
+
+  <!-- ================= LEFT PANEL ================= -->
+  <rect x="22" y="74" width="428" height="398" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="236" y="102" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Without Pod-Level Resources</text>
+  <text x="236" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Must estimate &amp; configure each container for its own peak</text>
+
+  <!-- Config card left -->
+  <rect x="40" y="136" width="392" height="86" rx="8" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="54" y="156" font-size="11.5" font-weight="bold" fill="#991b1b">Per-container config (must size every container):</text>
+  <rect x="54" y="165" width="364" height="22" rx="4" fill="#fef2f2"/>
+  <text x="64" y="180" font-size="10.5" fill="#7f1d1d" class="mono">containers[app].resources:     1.0 CPU  (peak)</text>
+  <rect x="54" y="191" width="364" height="22" rx="4" fill="#fef2f2"/>
+  <text x="64" y="206" font-size="10.5" fill="#7f1d1d" class="mono">containers[sidecar].resources: 1.4 CPUs (peak)</text>
+
+  <!-- Usage bars card left -->
+  <rect x="40" y="234" width="392" height="176" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="54" y="255" font-size="12" font-weight="bold" fill="#1f2937">Total Pod Allocation = 2.4 CPUs (1.0 + 1.4)</text>
+
+  <!-- T1 Left: app 1.0/1.0, sidecar 0.5/1.4 (0.9 unused) -->
+  <text x="54" y="279" font-size="11.5" font-weight="bold" fill="#374151">T1 — app peaks (1.5 / 2.4 CPUs used; 0.9 unused)</text>
+  <!-- app 1.0 = 145px -->
+  <rect x="54" y="287" width="145" height="28" rx="4" fill="#326ce5"/>
+  <text x="126" y="305" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">app: 1.0 (peak)</text>
+  <!-- wall -->
+  <line x1="202" y1="284" x2="202" y2="318" stroke="#dc2626" stroke-width="2" stroke-dasharray="3 2"/>
+  <!-- sidecar 1.4 = 203px: 0.5 used (73px) + 0.9 unused (130px) -->
+  <rect x="205" y="287" width="203" height="28" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+  <rect x="205" y="287" width="73" height="28" rx="4" fill="#059669"/>
+  <text x="241" y="305" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">0.5</text>
+  <text x="343" y="305" font-size="10.5" fill="#991b1b" text-anchor="middle">0.9 idle (trapped)</text>
+
+  <!-- T2 Left: app 0.5/1.0 (0.5 unused), sidecar 1.4/1.4 -->
+  <text x="54" y="338" font-size="11.5" font-weight="bold" fill="#374151">T2 — sidecar peaks (1.9 / 2.4 CPUs used; 0.5 unused)</text>
+  <!-- app 1.0 = 145px: 0.5 used (73px) + 0.5 unused (72px) -->
+  <rect x="54" y="346" width="145" height="28" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+  <rect x="54" y="346" width="73" height="28" rx="4" fill="#326ce5"/>
+  <text x="90" y="364" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">0.5</text>
+  <text x="163" y="364" font-size="10.5" fill="#991b1b" text-anchor="middle">0.5 idle</text>
+  <!-- wall -->
+  <line x1="202" y1="343" x2="202" y2="377" stroke="#dc2626" stroke-width="2" stroke-dasharray="3 2"/>
+  <!-- sidecar 1.4 = 203px -->
+  <rect x="205" y="346" width="203" height="28" rx="4" fill="#059669"/>
+  <text x="306" y="364" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">sidecar: 1.4 (peak)</text>
+
+  <text x="236" y="399" font-size="11" fill="#6b7280" text-anchor="middle">Idle CPU in one container cannot be used by the other</text>
+
+  <!-- Summary pill left -->
+  <rect x="40" y="422" width="392" height="36" rx="6" fill="#fee2e2"/>
+  <text x="236" y="445" font-size="11.8" font-weight="bold" fill="#991b1b" text-anchor="middle">Pod total: 2.4 CPUs (+0.4 over-allocated) + per-container tuning</text>
+
+  <!-- ================= RIGHT PANEL ================= -->
+  <rect x="470" y="74" width="428" height="398" rx="10" fill="#f0f7ff" stroke="#326ce5" stroke-width="1.5"/>
+  <text x="684" y="102" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">With Pod-Level Resources (GA in v1.38)</text>
+  <text x="684" y="121" font-size="12" fill="#1e40af" text-anchor="middle">Set one Pod-level spec — simpler config &amp; dynamic sharing</text>
+
+  <!-- Config card right -->
+  <rect x="488" y="136" width="392" height="86" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="502" y="156" font-size="11.5" font-weight="bold" fill="#1e3a8a">Simplified Pod config (no per-container guesswork):</text>
+  <rect x="502" y="165" width="364" height="22" rx="4" fill="#dbeafe"/>
+  <text x="512" y="180" font-size="10.5" fill="#1e3a8a" font-weight="bold" class="mono">spec.resources:                2.0 CPUs (Pod pool)</text>
+  <rect x="502" y="191" width="364" height="22" rx="4" fill="#eff6ff"/>
+  <text x="512" y="206" font-size="10.5" fill="#374151" class="mono">containers[app, sidecar]:      unset (optional)</text>
+
+  <!-- Usage bars card right -->
+  <rect x="488" y="234" width="392" height="176" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="2"/>
+  <text x="502" y="255" font-size="12" font-weight="bold" fill="#1e3a8a">Total Pod Allocation = 2.0 CPUs (shared pool)</text>
+
+  <!-- T1 Right: 2.0 CPUs = 290px (1.0 app = 145px + 0.5 sidecar = 73px + 0.5 free = 72px), plus 0.4 saved = 58px -->
+  <text x="502" y="279" font-size="11.5" font-weight="bold" fill="#374151">T1 — app peaks (1.5 / 2.0 CPUs used)</text>
+  <rect x="502" y="287" width="290" height="28" rx="4" fill="#f3f4f6" stroke="#326ce5" stroke-width="1.5"/>
+  <rect x="502" y="287" width="145" height="28" rx="4" fill="#326ce5"/>
+  <text x="574" y="305" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">app: 1.0 (peak)</text>
+  <rect x="647" y="287" width="73" height="28" rx="2" fill="#059669"/>
+  <text x="683" y="305" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">0.5</text>
+  <text x="756" y="305" font-size="10.5" fill="#4b5563" text-anchor="middle">0.5 free</text>
+  <!-- 0.4 saved callout aligned to 2.4 scale -->
+  <rect x="798" y="287" width="58" height="28" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="827" y="300" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">0.4 CPU</text>
+  <text x="827" y="311" font-size="9.5" fill="#047857" text-anchor="middle">saved</text>
+
+  <!-- T2 Right: 2.0 CPUs = 290px (0.5 app = 73px + 1.4 sidecar = 203px + 0.1 free = 14px), plus 0.4 saved = 58px -->
+  <text x="502" y="338" font-size="11.5" font-weight="bold" fill="#374151">T2 — sidecar peaks (1.9 / 2.0 CPUs used)</text>
+  <rect x="502" y="346" width="290" height="28" rx="4" fill="#f3f4f6" stroke="#326ce5" stroke-width="1.5"/>
+  <rect x="502" y="346" width="73" height="28" rx="4" fill="#326ce5"/>
+  <text x="538" y="364" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">0.5</text>
+  <rect x="575" y="346" width="203" height="28" rx="2" fill="#059669"/>
+  <text x="676" y="364" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">sidecar: 1.4 (peak)</text>
+  <!-- 0.4 saved callout aligned to 2.4 scale -->
+  <rect x="798" y="346" width="58" height="28" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="827" y="359" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">0.4 CPU</text>
+  <text x="827" y="370" font-size="9.5" fill="#047857" text-anchor="middle">saved</text>
+
+  <text x="684" y="399" font-size="11" fill="#1e40af" text-anchor="middle">Containers dynamically share the 2.0 CPU Pod pool</text>
+
+  <!-- Summary pill right -->
+  <rect x="488" y="422" width="392" height="36" rx="6" fill="#d1fae5"/>
+  <text x="684" y="445" font-size="11.8" font-weight="bold" fill="#065f46" text-anchor="middle">Pod total: 2.0 CPUs — simpler config &amp; 0.4 CPU saved</text>
+</svg>
