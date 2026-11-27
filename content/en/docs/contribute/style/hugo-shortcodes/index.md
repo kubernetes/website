@@ -344,6 +344,10 @@ same path under `content/<LANG>/examples-<VARIANT>/`, then list the variants:
 {{%/* code_sample file="pods/simple-pod.yaml" variants="kyaml" */%}}
 ```
 
+The output is:
+
+{{% code_sample file="pods/simple-pod.yaml" variants="kyaml" %}}
+
 The shortcode shows one tab per serialization. The first tab is the original
 file, labeled with its file extension. A reader's choice of tab applies to
 every code sample on the site. If a listed variant file is missing, the site
