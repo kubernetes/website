@@ -7,7 +7,7 @@ description: >-
 ---
 
 The state of Kubernetes objects in the Kubernetes API can be exposed as metrics.
-An add-on agent called [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) can connect to the Kubernetes API server and expose a HTTP endpoint with metrics generated from the state of individual objects in the cluster.
+An add-on agent called [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) can connect to the Kubernetes API server and expose an HTTP endpoint with metrics generated from the state of individual objects in the cluster.
 It exposes various information about the state of objects like labels and annotations, startup and termination times, status or the phase the object currently is in.
 For example, containers running in pods create a `kube_pod_container_info` metric.
 This includes the name of the container, the name of the pod it is part of, the {{< glossary_tooltip text="namespace" term_id="namespace" >}} the pod is running in, the name of the container image, the ID of the image, the image name from the spec of the container, the ID of the running container and the ID of the pod as labels.
