@@ -26,7 +26,7 @@ If you use Prometheus or another tool that uses the same query language, the fol
 count(kube_pod_status_ready{condition="false"}) by (namespace, pod)
 ```
 
-## Example: alerting based on from kube-state-metrics {#example-kube-state-metrics-alert-1}
+## Example: alerting based on kube-state-metrics {#example-kube-state-metrics-alert-1}
 
 Metrics generated from kube-state-metrics also allow for alerting on issues in the cluster.
 
