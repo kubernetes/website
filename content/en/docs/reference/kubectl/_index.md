@@ -85,10 +85,17 @@ If you need help, run `kubectl help` from the terminal window.
 
 ## In-cluster authentication and namespace overrides
 
-By default `kubectl` will first determine if it is running within a pod, and thus in a cluster.
-It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment
-variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
-If all three are found in-cluster authentication is assumed.
+By default `kubectl` first loads its client configuration from
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files
+(`$HOME/.kube/config`, the files named in `KUBECONFIG`, or the `--kubeconfig` flag), together with any
+command-line overrides. If the resulting configuration is not empty and differs from the built-in
+defaults, `kubectl` uses it, even when running inside a pod.
+
+Only when the configuration is empty or equal to the defaults does `kubectl` check whether it is
+running within a pod, and thus in a cluster. It does this by checking for the
+`KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a
+service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+If all three are found, in-cluster authentication is assumed.
 
 To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set
 during in-cluster authentication it will override the default namespace from the
@@ -125,6 +132,10 @@ following command:
 ```shell
 kubectl config set-context --current --namespace=<namespace-name>
 ```
+
+The namespace is determined separately from authentication. If your kubeconfig's current
+context sets a namespace explicitly, that namespace is used. Otherwise, when running in a pod,
+`kubectl` uses the namespace from the service account (or `POD_NAMESPACE`, if set).
 
 ## Operations
 
