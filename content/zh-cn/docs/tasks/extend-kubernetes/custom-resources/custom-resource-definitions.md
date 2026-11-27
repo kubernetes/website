@@ -56,8 +56,8 @@ For example, if you save the following CustomResourceDefinition to `resourcedefi
 -->
 ## 创建 CustomResourceDefinition  {#create-a-customresourcedefinition}
 
-当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API 服务器会为你所指定的每个版本生成一个新的
-RESTful 资源路径。
+当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API
+服务器会为你所指定的每个版本生成一个新的 RESTful 资源路径。
 基于 CRD 对象所创建的自定义资源可以是名字空间作用域的，也可以是集群作用域的，
 取决于 CRD 对象 `spec.scope` 字段的设置。
 
@@ -178,15 +178,19 @@ The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
 It might take a few seconds for the endpoint to be created.
-You can watch the `Established` condition of your CustomResourceDefinition
-to be true or watch the discovery information of the API server for your
-resource to show up.
+Once the `Established` condition of your CustomResourceDefinition
+becomes true and this is observed by the handling code, the endpoint serving starts.
+Watching the [discovery information of the API server](/docs/concepts/overview/kubernetes-api/#discovery-api) for your
+resource to show up is the reliable way to determine if it is ready for use.
 -->
 此端点 URL 自此可以用来创建和管理定制对象。对象的 `kind`
 将是来自你上面创建时所用的规约中指定的 `CronTab`。
 
-创建端点的操作可能需要几秒钟。你可以监测你的 CustomResourceDefinition 的
-`Established` 状况变为 true，或者监测 API 服务器的发现信息等待你的资源出现在那里。
+创建端点的操作可能需要几秒钟。
+一旦你的 CustomResourceDefinition 的 `Established` 条件变为
+true，且处理代码观察到这一状态，提供服务的端点随即启动。监视
+[API 服务器的发现信息](/zh-cn/docs/concepts/overview/kubernetes-api/#discovery-api)，
+确认你的资源出现，是判断其是否已就绪可用的可靠方式。
 
 <!--
 ## Create custom objects
@@ -1209,7 +1213,8 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
 - `x-kubernetes-validations`
 
   在 Kubernetes 1.28 中，CRD [验证规则](#validation-rules)被逐步升级所忽略。
-  从 Kubernetes 1.29 中 Alpha 2 开始，`x-kubernetes-validations` 仅在不引用 `oldSelf` 时才会进行调整。
+  从 Kubernetes 1.29 中 Alpha 2 开始，`x-kubernetes-validations`
+  仅在不引用 `oldSelf` 时才会进行调整。
 
   转换规则（Transition Rules）永远不会被逐步升级机制处理：只有那些不使用
   `oldSelf` 的规则引发的错误会在其值未更改时自动按逐步升级机制处理。
@@ -1530,8 +1535,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all
   entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
 -->
-- 如果规则的作用域是一个带有 additionalProperties 的对象（即 map），那么 map 的值
-  可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
+- 如果规则的作用域是一个带有 additionalProperties 的对象（即 map），那么 map
+  的值可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
   map 中的所有条目可以通过 CEL 宏和函数如 `self.all(...)` 访问。
 
   ```yaml
@@ -1808,8 +1813,9 @@ the CEL expression defined in `messageExpression` generates an empty string, or 
 breaks.
 -->
 `messageExpression` 必须计算为一个字符串，并且在编写 CRD 时进行检查。
-请注意，可以在同一个规则上设置 `message` 和 `messageExpression`，如果两者都存在，则将使用 `messageExpression`。
-但是，如果 `messageExpression` 计算出错，则将使用 `message` 中定义的字符串，而 `messageExpression` 的错误将被打印到日志。
+请注意，可以在同一个规则上设置 `message` 和 `messageExpression`，如果两者都存在，
+则将使用 `messageExpression`。但是，如果 `messageExpression` 计算出错，
+则将使用 `message` 中定义的字符串，而 `messageExpression` 的错误将被打印到日志。
 如果在 `messageExpression` 中定义的 CEL 表达式产生一个空字符串或包含换行符的字符串，也会发生这种回退。
 
 <!--
@@ -1987,10 +1993,7 @@ Example Usage:
 
 <!--
 #### Validation functions {#available-validation-functions}
--->
-#### 验证函数   {#available-validation-functions}
 
-<!--
 Functions available include:
 
 - CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
@@ -1998,6 +2001,8 @@ Functions available include:
 - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
 - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
 -->
+#### 验证函数   {#available-validation-functions}
+
 可用的函数包括：
 
 - CEL 标准函数，在[标准定义列表](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)中定义
@@ -2007,14 +2012,13 @@ Functions available include:
 
 <!--
 #### Transition rules
--->
-#### 转换规则
 
-<!--
 A rule that contains an expression referencing the identifier `oldSelf` is implicitly considered a
 _transition rule_. Transition rules allow schema authors to prevent certain transitions between two
 otherwise valid states. For example:
 -->
+#### 转换规则
+
 包含引用标识符 `oldSself` 的表达式的规则被隐式视为 **转换规则（Transition Rule）**。
 转换规则允许模式作者阻止两个原本有效的状态之间的某些转换。例如：
 
@@ -2286,7 +2290,8 @@ Avoid nested lists and maps if possible where validation rules are used.
 <!--
 To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
 -->
-要使用设置默认值功能，你的 CustomResourceDefinition 必须使用 API 版本 `apiextensions.k8s.io/v1`。
+要使用设置默认值功能，你的 CustomResourceDefinition 必须使用 API 版本
+`apiextensions.k8s.io/v1`。
 {{< /note >}}
 
 <!--
@@ -2497,7 +2502,6 @@ Kubernetes API 服务器上作为
 所发布的模式还可被用于其他目的，例如生成客户端或者生成文档。
 
 <!--
-
 #### Compatibility with OpenAPI V2
 
 For compatibility with OpenAPI V2, the OpenAPI v3 validation schema performs a lossy conversion
@@ -2509,7 +2513,7 @@ kubectl in previous 1.13 version. These modifications prevent kubectl from being
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.
 -->
-#### Compatibility with OpenAPI V2
+#### 与 OpenAPI V2 兼容   {#openapi-v2-compatibility}
 
 为了与 OpenAPI V2 兼容，OpenAPI v3 验证模式会对 OpenAPI v2 模式进行有损转换。
 该模式显示在 [OpenAPI v2 规范](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)中的
@@ -2550,8 +2554,8 @@ Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 -->
 ### 额外的打印列    {#additional-printer-columns}
 
-`kubectl` 工具依赖服务器端的输出格式化。你的集群的 API 服务器决定 `kubectl
-get` 命令要显示的列有哪些。
+`kubectl` 工具依赖服务器端的输出格式化。你的集群的 API 服务器决定 `kubectl get`
+命令要显示的列有哪些。
 你可以为 CustomResourceDefinition 定制这些要打印的列。
 下面的例子添加了 `Spec`、`Replicas` 和 `Age` 列：
 
@@ -2725,7 +2729,8 @@ selectors.
 -->
 ### 字段选择算符  {#field-selectors}
 
-[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)允许客户端根据一个或多个资源字段的值选择自定义资源。
+[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)
+允许客户端根据一个或多个资源字段的值选择自定义资源。
 
 所有自定义资源都支持 `metadata.name` 和 `metadata.namespace` 字段选择器。
 
@@ -2885,11 +2890,11 @@ When the status subresource is enabled, the `/status` subresource for the custom
 
 当启用了 status 子资源时，对应定制资源的 `/status` 子资源会被暴露出来。
 
-- status 和 spec 内容分别用定制资源内的 `.status` 和 `.spec` JSON 路径来表达；
+- `status` 和 `spec` 内容分别用定制资源内的 `.status` 和 `.spec` JSON 路径来表达；
 - 对 `/status` 子资源的 `PUT` 请求要求使用定制资源对象作为其输入，但会忽略
-  status 之外的所有内容。
-- 对 `/status` 子资源的 `PUT` 请求仅对定制资源的 status 内容进行合法性检查。
-- 对定制资源的 `PUT`、`POST`、`PATCH` 请求会忽略 status 内容的改变。
+  `status` 之外的所有内容。
+- 对 `/status` 子资源的 `PUT` 请求仅对定制资源的 `status` 内容进行合法性检查。
+- 对定制资源的 `PUT`、`POST`、`PATCH` 请求会忽略 `status` 内容的改变。
 - 对所有变更请求，除非改变是针对 `.metadata` 或 `.status` 的，`.metadata.generation`
   的取值都会增加。
 - 在 CRD OpenAPI 合法性检查模式定义的根节点，只允许存在以下结构：
@@ -2925,10 +2930,10 @@ To enable the scale subresource, the following fields are defined in the CustomR
 -->
 #### scale 子资源   {#scale-subresource}
 
-当启用了 scale 子资源时，定制资源的 `/scale` 子资源就被暴露出来。
+当启用了 `scale` 子资源时，定制资源的 `/scale` 子资源就被暴露出来。
 针对 `/scale` 所发送的对象是 `autoscaling/v1.Scale`。
 
-为了启用 scale 子资源，CustomResourceDefinition 定义了以下字段：
+为了启用 `scale` 子资源，CustomResourceDefinition 定义了以下字段：
 
 <!--
 - `specReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `scale.spec.replicas`.
@@ -3137,7 +3142,7 @@ kubectl apply -f my-crontab.yaml
 <!--
 Then new namespaced RESTful API endpoints are created at:
 -->
-那么会创建新的、命名空间作用域的 RESTful  API 端点：
+那么会创建新的、命名空间作用域的 RESTful API 端点：
 
 ```none
 /apis/stable.example.com/v1/namespaces/*/crontabs/status
