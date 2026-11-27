@@ -55,11 +55,14 @@ with a few differences:
    [priority and disruption mode](/docs/concepts/workloads/workload-api/disruption-and-priority/) of a PodGroup
    to evaluate if and how its pods can be preempted during preemption events.
 
-4. Performance and optimality considerations: For the performance reasons,
-   the workload-aware preemption first simulates removal all potential victims and 
-   runs the scheduling once. It then tries to reprieve as many victims as possible
-   for selected placement. This trade off means that there may exists an alternative placement
-   causing less preemptions, but it is not selected by the scheduler due to performance reasons.
+4. Performance and optimality considerations: For performance reasons,
+   workload-aware preemption first simulates removing all potential victims and
+   runs the PodGroup scheduling algorithm once, using
+   [victim-aware node ranking](#victim-aware-node-ranking) to guide placement toward nodes
+   with lower preemption cost. It then runs the [reprieval algorithm](#reprieval-algorithm)
+   to reprieve as many victims as possible for the selected placement. Because the scheduler
+   evaluates a single greedy pass rather than all possible placements, an alternative
+   placement causing fewer preemptions may still exist.
 
 {{< note >}}
 When scheduling a single Pod, the default pod preemption applies.
@@ -69,10 +72,39 @@ respect the `priority` or `disruptionMode` fields of that PodGroup.
 This limitation no longer applies in v1.37.
 {{< /note >}}
 
+### Victim-aware node ranking
+
+During the simulated scheduling pass (after potential victims are removed from the cluster
+snapshot), the `DefaultPreemption` plugin ranks candidate nodes by their preemption cost before
+each Pod in the PodGroup is filtered and scored:
+
+1. Nodes with no surviving potential victims receive the best rank (`0`). This includes nodes
+   without lower-priority victim Pods as well as nodes whose victims have already been condemned by
+   earlier Pods in the same PodGroup—for example, the remaining nodes spanned by a multi-node
+   PodGroup with the `all` disruption mode once one of its nodes has been chosen.
+2. Nodes with surviving victims are ordered by preemption cost:
+   * Fewer PodDisruptionBudget (PDB) violations.
+   * Comparing victims from highest priority downward: lower priority, then fewer total evicted
+     Pods at that priority.
+   * When priority bands and Pod counts match, lower structural importance
+     (standalone Pods before PodGroups, PodGroups before CompositePodGroups, and smaller groups
+     before larger ones).
+3. The scheduler evaluates candidate nodes in rank order and runs `Score` plugins only to break
+   ties among feasible nodes in the lowest (best) available rank.
+4. When a preemptor Pod is tentatively reserved on a node, `DefaultPreemption` marks the surviving
+   victims on that node as condemned, so subsequent Pods in the PodGroup see updated node ranks.
+
+{{< note >}}
+Victim-aware node ranking requires `DefaultPreemption` to be enabled at both the
+`PodGroupPostFilter` and `Reserve` extension points (the default when `GenericWorkload` is
+enabled). If a custom `KubeSchedulerConfiguration` disables `DefaultPreemption` at `Reserve`,
+the scheduler falls back to unranked node selection during preemption.
+{{< /note >}}
+
 ### Reprieval algorithm
 
-When running workload-aware preemption, the scheduler runs the simulation where it removes potential preemption victims
-and runs the pod group scheduling algorithm. It then tries to reprieve as many victims as possible for returned placement.
+After the simulated scheduling pass returns a placement, the scheduler tries to reprieve as many
+victims as possible for that placement.
 To do that, the scheduler reuses the CycleStates from pod group scheduling. For each of the potential victims,
 sorted by their importance, the scheduler:
 1. Adds victim pods back to their nodes and CycleStates of preemptor pods.

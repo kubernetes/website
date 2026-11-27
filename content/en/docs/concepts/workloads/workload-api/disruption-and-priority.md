@@ -9,9 +9,9 @@ weight: 10
 
 PodGroup can declare a disruption mode. This mode dictates how
 the scheduler can disrupt a running PodGroup, for example to accommodate
-a higher priority PodGroup. A PodGroup also has a priority,
-which overrides the priority of the individual pods from the group
-for [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
+a higher priority PodGroup. A PodGroup also has a priority and preemption policy,
+which must be matched by those of the individual Pods in the group and are used for scheduling queue
+ordering and [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
 
 <!-- body -->
 
@@ -80,19 +80,49 @@ If there is no PriorityClass with `globalDefault` set true, a PodGroup with no `
 
 The priority of the PodGroup is an authoritative priority for all pods in the group during [workload-aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/) events.
 This value is also used for the ordering of PodGroups in the scheduling queue.
-When the priorities of individual pods forming this PodGroup differ from PodGroup priority
-the PodGroup will not be scheduled with `all pods in a single pod group should have the same priority as the pod group` error.
+All Pods in the PodGroup must have the same `priority` as the PodGroup; otherwise, the scheduler
+does not schedule the PodGroup and sets `PodGroupInitiallyScheduled` to `False` with reason
+`PodGroupError`.
 
-When the [PodGroupPreemptionPolicy](/docs/reference/command-line-tools-reference/feature-gates/#PodGroupPreemptionPolicy/)
-feature gate is enabled, PodGroup has also `preemptionPolicy` field. This field is also taken from the PriorityClass.
-It is an authoritative field for all pods in the group and it decides whether the PodGroup can perform a preemption of
-lower priority pods and pod groups to accommodate a place for itself.  When the feature gate is enabled all pods in the PodGroup
-must have the same `preemptionPolicy` as PodGroup. Otherwise the PodGroup will not be scheduled with
-`all pods in a single pod group should have the same preemption policy as the pod group's preemption policy` error.
-When PodGroup has `preemptionPolicy: Never` it will not perform workload aware preemption.
-If the feature flag is disabled, all pods forming PodGroup must have the same `preemptionPolicy`.
-Otherwise the PodGroup will not be scheduled with
-`all pods in a single pod group should have the same preemption policy` error.
+A PodGroup also has a `preemptionPolicy` field.
+
+- When `spec.preemptionPolicy` is omitted on a
+PodGroup, the priority admission controller resolves it from the referenced PriorityClass, the
+`globalDefault` PriorityClass when `priorityClassName` is unset, or `PreemptLowerPriority` when
+no `globalDefault` PriorityClass exists.
+- If `spec.preemptionPolicy` is explicitly set on the
+PodGroup to a value that differs from that resolved policy, the priority admission controller
+rejects the PodGroup.
+- If the PriorityClass itself omits `preemptionPolicy`, the priority admission
+controller leaves `spec.preemptionPolicy` unset and `kube-scheduler` falls back to
+`PreemptLowerPriority` (unless the Pods specify `Never`).
+
+This field is the authoritative preemption policy for the group and decides whether the PodGroup
+can preempt lower-priority Pods and PodGroups to make room for itself:
+
+- `PreemptLowerPriority` allows preempting lower-priority victims.
+- `Never` disables workload-aware preemption for the PodGroup.
+
+All Pods in the PodGroup must have the same `preemptionPolicy` as the PodGroup; otherwise, the
+scheduler does not schedule the PodGroup and sets `PodGroupInitiallyScheduled` to `False` with
+reason `PodGroupError`.
+
+When creating a `Workload`, all `PodGroupTemplates` and `CompositePodGroupTemplates` in the
+`Workload` must share the same `priorityClassName`, `priority`, and `preemptionPolicy` values;
+`kube-apiserver` rejects newly created `Workload` objects whose templates specify differing
+values.
+
+{{< note >}}
+In v1.37, the `preemptionPolicy` field on PodGroups, CompositePodGroups, and Workload templates
+was gated by the alpha
+[`PodGroupPreemptionPolicy`](/docs/reference/command-line-tools-reference/feature-gates-removed/#PodGroupPreemptionPolicy)
+feature gate. In v1.38, this feature gate was removed and merged into
+[`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
+(and [`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup)
+for CompositePodGroups). For existing PodGroups created in v1.37 without `preemptionPolicy` set,
+the scheduler falls back to requiring all Pods in the group to share the same `preemptionPolicy`
+and uses that value as the group's preemption policy.
+{{< /note >}}
 
 The following YAML is an example of a PodGroup configuration that uses the `high-priority` PriorityClass,
 which maps to the integer priority value of 1000000.
@@ -125,7 +155,7 @@ active queue.
 
 ### PreemptionPolicy in CompositePodGroup
 
-{{< feature-state feature_gate_name="PodGroupPreemptionPolicy" >}}
+{{< feature-state feature_gate_name="CompositePodGroup" >}}
 
 The `CompositePodGroup` API has the `preemptionPolicy` field as well and its resolution is performed
 in the exact same way as for the `PodGroup` API.
@@ -137,15 +167,16 @@ invoked to fit its Pods during scheduling if needed:
 - `PreemptLowerPriority` policy allows preempting victims with lower priority,
 - `Never` policy disables workload-aware preemption for that root `CompositePodGroup`.
 
-All Pods within a single group hierarchy must share the exact same preemption policy which must be
-equal to the preemption policy of the root `CompositePodGroup`.
-
-If the feature flag is disabled, the root `CompositePodGroup` will be allowed to perform preemption
-unless one of the Pods that belongs to the group hierarchy has `preemptionPolicy` set to `Never`.
+All Pods and all groups within a single group hierarchy must share the exact same preemption policy.
 
 {{< note >}}
-In v1.37, when the feature gate is enabled, the scheduler doesn't validate if the non-root groups
-have preemption policy that is equal to the preemption policy of the root `CompositePodGroup`.
+In v1.37, the `preemptionPolicy` field on `CompositePodGroup` was gated by the alpha
+[`PodGroupPreemptionPolicy`](/docs/reference/command-line-tools-reference/feature-gates-removed/#PodGroupPreemptionPolicy)
+feature gate, which was removed in v1.38 and merged into
+[`CompositePodGroup`](/docs/reference/command-line-tools-reference/feature-gates/#CompositePodGroup).
+For existing root `CompositePodGroup` objects created in v1.37 without `preemptionPolicy` set, the
+scheduler falls back to requiring all Pods (and any child groups with `preemptionPolicy` set) in
+the hierarchy to share the same preemption policy and uses that value for the hierarchy.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
