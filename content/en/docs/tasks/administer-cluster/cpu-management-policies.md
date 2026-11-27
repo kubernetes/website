@@ -75,20 +75,6 @@ frequency is set through a new Kubelet configuration value
 `--cpu-manager-reconcile-period`. If not specified, it defaults to the same
 duration as `--node-status-update-frequency`.
 
-The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
-The flag takes a comma-separated list of `key=value` policy options.
-If you disable the `CPUManagerPolicyOptions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-then you cannot fine-tune CPU manager policies. In that case, the CPU manager
-operates only using its default settings.
-
-In addition to the top-level `CPUManagerPolicyOptions` feature gate, the policy options are split
-into two groups: alpha quality (hidden by default) and beta quality (visible by default).
-The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
-and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
-feature gates guard groups of options, because it would have been too cumbersome to add a feature
-gate for each individual option.
-
 ## Changing the CPU Manager Policy
 
 Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
@@ -144,46 +130,23 @@ pool to become empty.
 
 ### Static policy options {#cpu-policy-static--options}
 
-You can toggle groups of options on and off based upon their maturity level
-using the following feature gates:
-* `CPUManagerPolicyBetaOptions` default enabled. Disable to hide beta-level options.
-* `CPUManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
-You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
+Set individual options in the `cpuManagerPolicyOptions` field of the kubelet
+configuration. This example enables allocation of whole physical cores.
 
-The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
-* `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
-* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
-* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
-* `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
-* `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
+```yaml
+cpuManagerPolicy: static
+cpuManagerPolicyOptions:
+  full-pcpus-only: "true"
+```
 
-The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
-the CPUManager policy options.
-Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
-`distribute-cpus-across-numa=true` to the CPUManager policy options.
-When both are set, they are "additive" in the sense that CPUs will be
-distributed across NUMA nodes in chunks of full-pcpus rather than individual
-cores.
-The `align-by-socket` policy option can be enabled by adding `align-by-socket=true`
-to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
-and `distribute-cpus-across-numa` policy options.
+The deprecated kubelet flag `--cpu-manager-policy-options` accepts the same
+options as a comma-separated list of `key=value` pairs.
+See [CPU Manager policy options](/docs/reference/node/cpu-manager-policy-options/)
+for the available options, required feature gates, and compatible combinations.
 
-The `distribute-cpus-across-cores` option can be enabled by adding
-`distribute-cpus-across-cores=true` to the `CPUManager` policy options.
-It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
-options together at this moment.
-
-The `strict-cpu-reservation` option can be enabled by adding `strict-cpu-reservation=true` to
-the CPUManager policy options followed by removing the `/var/lib/kubelet/cpu_manager_state` file and restart kubelet.
-
-The `prefer-align-cpus-by-uncorecache` option can be enabled by adding the
-`prefer-align-cpus-by-uncorecache` to the `CPUManager` policy options. If 
-incompatible options are used, the kubelet will fail to start with the error 
-explained in the logs.
-
-For mode detail about the behavior of the individual options you can configure, please refer to the
-[Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
+When enabling `strict-cpu-reservation` on a node that already uses the static
+policy, [drain the node and reset the CPU Manager state](#changing-the-cpu-manager-policy)
+before restarting the kubelet.
 
 ## {{% heading "whatsnext" %}}
 
