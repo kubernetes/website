@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-tcp-socket-healthcheck
+spec:
+  containers:
+  - name: redis
+    image: redis
+    # визначає перевірку стану
+    livenessProbe:
+      # проба TCP-сокета
+      tcpSocket:
+        port: 6379
+      # скільки чекати на ініціалізацію Podʼа
+      # після його запуску, перш ніж застосовувати перевірку стану
+      initialDelaySeconds: 30
+      timeoutSeconds: 1
+    ports:
+    - containerPort: 6379
