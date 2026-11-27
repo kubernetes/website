@@ -396,6 +396,14 @@ users:
     user:
       client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
       client-key: /path/to/key.pem          # key matching the cert
+
+# kubeconfig files require a context. Provide one for the API server.
+current-context: webhook
+contexts:
+- context:
+    cluster: name-of-remote-imagepolicy-service
+    user: name-of-api-server
+  name: webhook
 ```
 
 For additional HTTP configuration, refer to the
