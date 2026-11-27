@@ -95,7 +95,7 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 
 ### Key results
 
-{{< figure src="inference-extension-benchmark.png" alt="Endpoint Extension Scheduling" class="diagram-large" clicktozoom="true" >}}
+{{< figure src="inference-extension-benchmark.png" alt="Benchmark results" class="diagram-large" clicktozoom="true" >}}
 
 - **Comparable Throughput**: Throughout the tested QPS range, the ESE delivered throughput roughly on par with a standard
   Kubernetes Service.
