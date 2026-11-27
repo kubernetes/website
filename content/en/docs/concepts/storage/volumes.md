@@ -72,6 +72,12 @@ volume type used.
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
 
+{{< note >}}
+{{< feature-state feature_gate_name="DynamicNodeLocalEphemeralVolumes" >}}
+
+When the `DynamicNodeLocalEphemeralVolumes` feature gate is enabled, you can dynamically add and remove node-local ephemeral volumes (`emptyDir`, `configMap`, `secret`, `projected`, and `image`) and update container `volumeMounts` on a running Pod via the Pod `/dynamic` subresource without recreating the Pod. For details, see [Dynamically Add and Remove Ephemeral Volumes](/docs/tasks/configure-pod-container/configure-dynamic-volumes/).
+{{< /note >}}
+
 When a Pod is launched, a process in the container sees a filesystem view composed from the initial contents of
 the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
 (if defined) mounted inside the container.

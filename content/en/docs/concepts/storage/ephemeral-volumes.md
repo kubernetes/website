@@ -259,11 +259,34 @@ The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#sto
 still applies, so even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 
+### Dynamically adding and removing node-local ephemeral volumes {#dynamic-ephemeral-volumes}
+
+{{< feature-state feature_gate_name="DynamicNodeLocalEphemeralVolumes" >}}
+
+When the `DynamicNodeLocalEphemeralVolumes` feature gate is enabled, you can
+dynamically add and remove supported node-local ephemeral volumes (`emptyDir`,
+`configMap`, `secret`, `projected`, and `image`) in `.spec.volumes` and update
+`.spec.containers[*].volumeMounts` on a running Pod using the Pod `/dynamic`
+subresource, without recreating the Pod.
+
+Modifying `volumeMounts` on an existing container requires setting
+`dynamicVolumeMountPolicy.restartPolicy: RestartContainer` on that container so
+the kubelet restarts the container in-place to actuate the updated mounts. You
+can also mount newly added volumes into newly added ephemeral containers (or
+dynamically added containers when `DynamicContainers` is enabled). Host-level
+preparation and teardown progress for supported volumes is reported in
+`status.volumeStatuses[*].hostPhase` (`Pending`, `HostMounted`, `Unmounting`).
+
+For step-by-step instructions and validation constraints, see
+[Dynamically Add and Remove Ephemeral Volumes](/docs/tasks/configure-pod-container/configure-dynamic-volumes/).
+
 ## {{% heading "whatsnext" %}}
 
 ### Ephemeral volumes managed by kubelet
 
-See [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
+- See [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
+- See [Dynamically Add and Remove Ephemeral Volumes](/docs/tasks/configure-pod-container/configure-dynamic-volumes/)
+  and [KEP-6395: Dynamic Node-Local Ephemeral Volumes](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/6395-dynamic-node-local-ephemeral-volumes).
 
 ### CSI ephemeral volumes
 
