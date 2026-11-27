@@ -135,6 +135,13 @@ CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 
+By default, the kubelet rejects as infeasible any in-place CPU resize of a `Guaranteed`
+pod on a node that uses this policy, including pods with fractional CPU `requests`.
+When the `InPlacePodVerticalScalingExclusiveCPUs` feature gate is enabled, the kubelet
+can resize the exclusive CPUs of containers in `Guaranteed` pods in place, subject to
+limitations. For details, see
+[Resize CPU Resources of Pods with Exclusive CPUs](/docs/tasks/configure-pod-container/resize-exclusive-cpus/).
+
 {{< note >}}
 The kubelet requires a CPU reservation greater than zero be made
 using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when
