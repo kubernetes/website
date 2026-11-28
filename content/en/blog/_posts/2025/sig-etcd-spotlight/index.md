@@ -142,7 +142,7 @@ cloud-native world is evolving so fast that scaling to meet those demands is a c
 
 ## Getting involved
 
-**Frederico: We're almost at the end of our conversation, but for those interested in in etcd, how
+**Frederico: We're almost at the end of our conversation, but for those interested in etcd, how
 can they get involved?**
 
 **Marek**: We'd love to have them! The best way to start is to join our 
