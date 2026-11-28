@@ -61,56 +61,56 @@ owners can delete their own files:
 <!--
 1. Create the pod on your cluster:
 -->
-1.  在你的集群上创建 Pod：
+1. 在你的集群上创建 Pod：
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/emptydir-volume-mode.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/emptydir-volume-mode.yaml
+   ```
 
 <!--
 1. Verify the pod is running:
 -->
-2.  验证 Pod 正在运行：
+2. 验证 Pod 正在运行：
 
-    ```shell
-    kubectl get pod emptydir-mode-demo
-    ```
+   ```shell
+   kubectl get pod emptydir-mode-demo
+   ```
 
 <!--
 1. Check the permissions on the mounted volume:
 -->
-3.  检查已挂载卷的权限：
+3. 检查已挂载卷的权限：
 
-    ```shell
-    kubectl exec emptydir-mode-demo -- ls -ld /tmp
-    ```
+   ```shell
+   kubectl exec emptydir-mode-demo -- ls -ld /tmp
+   ```
 
-    <!--
+   <!--
    The output is similar to:
-    -->
-    输出类似于：
+   -->
+   输出类似于：
 
-    ```none
-    drwxrwxrwt 2 root root 4096 Jul 28 00:00 /tmp
-    ```
+   ```none
+   drwxrwxrwt 2 root root 4096 Jul 28 00:00 /tmp
+   ```
 
-    <!--
+   <!--
    The `t` at the end confirms the sticky bit is set.
-    -->
-    末尾的 `t` 确认粘滞位已设置。
+   -->
+   末尾的 `t` 确认粘滞位已设置。
 
 <!--
 1. Delete the Pod that you created for this exercise:
 -->
-4.  删除你为这个练习创建的 Pod：
+4. 删除你为这个练习创建的 Pod：
 
-    ```shell
-    kubectl delete pod emptydir-mode-demo
-    ```
+   ```shell
+   kubectl delete pod emptydir-mode-demo
+   ```
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-- Learn more about [`emptyDir` volumes](/docs/concepts/storage/volumes/#emptydir)
+- Learn more about [`emptyDir` volumes](/docs/reference/storage/volume-types/#emptydir)
 -->
-- 了解更多关于 [`emptyDir` 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)的信息
+- 了解更多关于 [`emptyDir` 卷](/zh-cn/docs/reference/storage/volume-types/#emptydir)的信息

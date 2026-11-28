@@ -36,14 +36,14 @@ applications, such as key-value stores (such as Redis) and databases.
 
 In this exercise, you create a Pod that runs one Container. This Pod has a
 Volume of type
-[emptyDir](/docs/concepts/storage/volumes/#emptydir)
+[emptyDir](/docs/reference/storage/volume-types/#emptydir)
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 -->
 ## 为 Pod 配置卷   {#configure-a-volume-for-a-pod}
 
 在本练习中，你将创建一个运行 Pod，该 Pod 仅运行一个容器并拥有一个类型为
-[emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir) 的卷，
+[emptyDir](/zh-cn/docs/reference/storage/volume-types/#emptydir) 的卷，
 在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
 
 {{% code_sample file="pods/storage/redis.yaml" %}}

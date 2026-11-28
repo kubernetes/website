@@ -314,7 +314,7 @@ kubectl autoscale rs frontend --max=10
 
 Le [`Deployment`](/docs/concepts/workloads/controllers/deployment/) est un object qui peut posséder les ReplicaSets et les mettres à jour ainsi que leurs Pods de façon déclarative, côté serveur et avec des rolling updates.
 
-Alors que les ReplicaSets peuvent être utilisés indépendamment, ils sont principalement utilisés aujourd'hui par Deployments comme mécanisme pour orchestrer la création, suppresion et mises à jour des Pods.
+Alors que les ReplicaSets peuvent être utilisés indépendamment, ils sont principalement utilisés aujourd'hui par Deployments comme mécanisme pour orchestrer la création, suppression et mises à jour des Pods.
 Lorsque vous utilisez des Deployments, vous n’aurez plus à vous soucier de la gestion des ReplicaSets ainsi créés.
 Les déploiements possèdent et gèrent leurs ReplicaSets.
 C'est pourquoi il est recommandé d’utiliser les déploiements lorsque vous voulez des ReplicaSets.

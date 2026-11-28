@@ -40,7 +40,7 @@ To follow this guide, you need:
 You also need to use a version of `kubeadm` that can deploy the version
 of Kubernetes that you want to use in your new cluster.
 
-[Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions)
+[Kubernetes' version and version skew support policy](/releases/version-skew-policy/#supported-versions)
 applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
@@ -340,7 +340,7 @@ kubectl apply -f <add-on.yaml>
 
 {{< note >}}
 Only a few CNI plugins support Windows. More details and setup instructions can be found
-in [Adding Windows worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-config).
+in [Adding Windows worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-configuration).
 {{< /note >}}
 
 You can install only one Pod network per cluster.

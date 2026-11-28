@@ -264,7 +264,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # エディターを指定
 ## リソースのスケーリング
 
 ```bash
-kubectl scale --replicas=3 rs/foo                                 # 「foo」という名前のレプリカセットを3にスケーリングします
+kubectl scale --replicas=3 rs/foo                                 # 「foo」という名前のReplicaSetを3にスケーリングします
 kubectl scale --replicas=3 -f foo.yaml                            # 「foo.yaml」で指定されたリソースを3にスケーリングします
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysqlと名付けられたdeploymentの現在のサイズが2であれば、mysqlを3にスケーリングします
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 複数のReplication controllerをスケーリングします
@@ -378,7 +378,7 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 `--v=1`       | ログレベルが必要ない場合に、妥当なデフォルトのログレベルです
 `--v=2`       | サービスに関する重要な定常状態情報と、システムの重要な変更に関連する可能性がある重要なログメッセージを表示します。 これは、ほとんどのシステムで推奨されるデフォルトのログレベルです。
 `--v=3`       | 変更に関するより詳細なログレベルを表示します
-`--v=4`       | デバックにむいたログレベルで表示します
+`--v=4`       | デバッグに向いたログレベルで表示します
 `--v=6`       | 要求されたリソースを表示します
 `--v=7`       | HTTPリクエストのヘッダを表示します
 `--v=8`       | HTTPリクエストのコンテンツを表示します

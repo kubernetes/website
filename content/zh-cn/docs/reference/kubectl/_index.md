@@ -117,19 +117,19 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 <!--
   * To specify resources by type and name:
 
-    * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
+    * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`.<br/>
       Example: `kubectl get pod example-pod1 example-pod2`
 
-    * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
+    * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
       Example: `kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
-  * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
+  * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
 
     * Use YAML rather than JSON
       since YAML tends to be more user-friendly, especially for configuration files.<br/>
       Example: `kubectl get -f ./pod.yaml`
 -->
-  
+
   * 要按类型和名称指定资源：
 
     * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
@@ -252,7 +252,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 
 <!--
 ## Operations
-  
+
 The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
 -->
 ## 操作   {#operations}
@@ -362,7 +362,7 @@ To learn more about command operations, see the [kubectl](/docs/reference/kubect
 
 <!--
 ## Resource types
-  
+
 The following table includes a list of all the supported resource types and their abbreviated aliases.
 -->
 ## 资源类型   {#resource-types}
@@ -439,25 +439,25 @@ The following table includes a list of all the supported resource types and thei
 
 <!--
 ## Output options
-  
+
 Use the following sections for information about how you can format or sort the output
 of certain commands. For details about which commands support the various output options,
 see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
 ## 输出选项   {#output-options}
-  
+
 有关如何格式化或排序某些命令的输出的信息，请参阅以下章节。有关哪些命令支持不同输出选项的详细信息，
 请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ### Formatting output
-  
+
 The default output format for all `kubectl` commands is the human readable plain-text format.
 To output details to your terminal window in a specific format, you can add either the `-o`
 or `--output` flags to a supported `kubectl` command.
 -->
 ### 格式化输出   {#formatting-output}
-  
+
 所有 `kubectl` 命令的默认输出格式都是人类可读的纯文本格式。要以特定格式在终端窗口输出详细信息，
 可以将 `-o` 或 `--output` 参数添加到受支持的 `kubectl` 命令中。
 
@@ -483,10 +483,10 @@ Output format | Description
 `-o json`     | Output a JSON formatted API object.
 `-o jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 `-o jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
-`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object (beta).
+`-o kyaml`    | Output a [KYAML](/docs/reference/encodings/kyaml/) formatted API object.
 `-o name`     | Print only the resource name and nothing else.
 `-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o yaml`     | Output a YAML formatted API object. KYAML is an experimental Kubernetes-specific dialect of YAML, and can be parsed as YAML.
+`-o yaml`     | Output a YAML formatted API object. KYAML is a Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 -->
 输出格式                             |  描述
 ------------------------------------| -----------
@@ -495,7 +495,7 @@ Output format | Description
 `-o json`                           | 输出 JSON 格式的 API 对象。
 `-o jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
 `-o jsonpath-file=<filename>`       | 打印 `<filename>` 文件中 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
-`-o kyaml`                          | 输出 [KYAML](/zh-cn/docs/reference/encodings/kyaml/) 格式的 API 对象（Beta）。
+`-o kyaml`                          | 输出 [KYAML](/zh-cn/docs/reference/encodings/kyaml/) 格式的 API 对象。
 `-o name`                           | 仅打印资源名称而不打印任何其他内容。
 `-o wide`                           | 以纯文本格式输出，包含所有附加信息。对于 Pod 包含节点名。
 `-o yaml`                           | 输出 YAML 格式的 API 对象。KYAML 是 YAML 的一种实验性的 Kubernetes 专用方言，可以像 YAML 一样进行解析。
@@ -522,19 +522,19 @@ for details about which output format is supported by each command.
 
 <!--
 #### Custom columns
-  
+
 To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option.
 You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 -->
 #### 自定义列   {#custom-columns}
-  
+
 要定义自定义列并仅将所需的详细信息输出到表中，可以使用 `custom-columns` 选项。
 你可以选择内联定义自定义列或使用模板文件：`-o custom-columns=<spec>` 或
 `-o custom-columns-file=<filename>`。
 
 <!--
 ##### Examples
-  
+
 Inline:
 -->
 ##### 示例
@@ -581,7 +581,7 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 -->
-#### Server-side 列
+#### server-side 列
 
 `kubectl` 支持从服务器接收关于对象的特定列信息。
 这意味着对于任何给定的资源，服务器将返回与该资源相关的列和行，以便客户端打印。
@@ -619,13 +619,13 @@ pod-name   1m
 
 <!--
 ### Sorting list objects
-  
+
 To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag
 to a supported `kubectl` command. Sort your objects by specifying any numeric or string field
 with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 -->
 ### 排序列表对象
-  
+
 要将对象排序后输出到终端窗口，可以将 `--sort-by` 参数添加到支持的 `kubectl` 命令。
 通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。
 要指定字段，请使用 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式。
@@ -641,7 +641,7 @@ kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
 
 <!--
 ##### Example
-  
+
 To print a list of pods sorted by name, you run:
 -->
 ##### 示例
@@ -713,7 +713,6 @@ kubectl get ds
 # List all pods running on node server01
 kubectl get pods --field-selector=spec.nodeName=server01
 -->
-
 ```shell
 # 以纯文本输出格式列出所有 Pod。
 kubectl get pods
@@ -786,8 +785,10 @@ the pods running on it, the events generated for the node etc.
 `kubectl get` 命令通常用于检索同一资源类别的一个或多个资源。
 它具有丰富的参数，允许你使用 `-o` 或 `--output` 参数自定义输出格式。
 你可以指定 `-w` 或 `--watch` 参数以开始监测特定对象的更新。
-`kubectl describe` 命令更侧重于描述指定资源的许多相关方面。它可以调用对 `API 服务器` 的多个 API 调用来为用户构建视图。
-例如，该 `kubectl describe node` 命令不仅检索有关节点的信息，还检索在其上运行的 Pod 的摘要，为节点生成的事件等。
+`kubectl describe` 命令更侧重于描述指定资源的许多相关方面。
+它可以调用对 `API 服务器` 的多个 API 调用来为用户构建视图。
+例如，该 `kubectl describe node` 命令不仅检索有关节点的信息，
+还检索在其上运行的 Pod 的摘要，为节点生成的事件等。
 
 {{< /note >}}
 
@@ -881,7 +882,7 @@ cat service.yaml | kubectl diff -f -
 `kubectl diff` - 查看集群建议更新的差异。
 
 ```shell
-# “pod.json” 中包含的差异资源。
+# "pod.json" 中包含的差异资源。
 kubectl diff -f pod.json
 
 # 从标准输入读取的差异文件。
@@ -919,7 +920,6 @@ cat ./kubectl-hello
 echo "hello world"
 ```
 -->
-
 ```shell
 #!/bin/sh
 

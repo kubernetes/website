@@ -30,7 +30,7 @@ a simple nginx web server to demonstrate the concept.
 ## Example flow with endpoint termination
 
 The following is the example flow described in the 
-[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+[Termination of Pods](/docs/concepts/workloads/pods/pod-termination/)
 document.
 
 Let's say you have a Deployment containing a single `nginx` replica

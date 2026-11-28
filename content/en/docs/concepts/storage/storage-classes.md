@@ -293,6 +293,8 @@ In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-c
 For more information on the CSI provisioner, see
 [Kubernetes vSphere CSI Driver](https://sigs.k8s.io/vsphere-csi-driver) and
 [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+[Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
+[migrating from in-tree plugins to CSI drivers](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 

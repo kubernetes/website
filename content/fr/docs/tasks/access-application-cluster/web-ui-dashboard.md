@@ -203,7 +203,7 @@ La vue répertorie les applications par type de charge de travail. (e.g., Deploy
 Les listes récapitulent les informations exploitables sur les charges de travail, telles que le nombre de Pods prêts pour un Replica Set ou l'utilisation actuelle de la mémoire pour un Pod.
 
 Les vues détaillées des charges de travail affichent des informations sur l'état et les spécifications, ainsi que les relations de surface entre les objets.
-Par exemple, les Pods qu'un Replica Set controle ou bien les nouveaux Replica Sets et Horizontal Pod Autoscalers pour les Deployments.
+Par exemple, les Pods qu'un Replica Set contrôle ou bien les nouveaux Replica Sets et Horizontal Pod Autoscalers pour les Deployments.
 
 #### Services
 

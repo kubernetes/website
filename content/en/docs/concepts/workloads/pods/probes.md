@@ -86,7 +86,7 @@ If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; when the Pod is deleted, the corresponding
 endpoint in the EndpointSlice will update its [conditions](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/#conditions): the endpoint ready
 condition will be set to false, so load balancers will not use the Pod for
-regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+regular traffic. See [Pod termination](/docs/concepts/workloads/pods/pod-termination/)
 for more information about how the kubelet handles Pod deletion.
 {{< /note >}}
 
@@ -220,7 +220,8 @@ metadata:
 spec:
   containers:
   - name: app
-    image: registry.k8s.io/e2e-test-images/agnhost:2.40
+    image: registry.k8s.io/e2e-test-images/agnhost:2.66.1
+    args: ["netexec", "--http-port=8080"]
     ports:
     - containerPort: 8080
     startupProbe:
@@ -239,7 +240,7 @@ spec:
       failureThreshold: 3
     readinessProbe:
       httpGet:
-        path: /ready
+        path: /readyz
         port: 8080
       periodSeconds: 5
 ```

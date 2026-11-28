@@ -215,7 +215,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-## kubectl apply
+## `kubectl apply`
 
 `apply` 通过定义 Kubernetes 资源的文件来管理应用。
 它通过运行 `kubectl apply` 在集群中创建和更新资源。
@@ -300,7 +300,7 @@ kubectl create deployment nginx --image=nginx        # 启动单实例 nginx
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World" 
 
 # 创建一个打印 "Hello World" 间隔 1 分钟的 CronJob
-kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
+kubectl create cronjob hello --image=busybox:1.28  --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                          # 获取 Pod 清单的文档说明
 
@@ -931,7 +931,7 @@ Output format | Description
 `-o=json`     | Output a JSON formatted API object
 `-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
 `-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
-`-o=kyaml` (beta) | Output a [KYAML](/docs/reference/encodings/kyaml) formatted API object. KYAML is an Kubernetes-specific dialect of YAML, and can be parsed as YAML.
+`-o=kyaml` | Output a [KYAML](/docs/reference/encodings/kyaml) formatted API object. KYAML is an Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
@@ -945,7 +945,7 @@ Output format | Description
 `-o=json`                           | 输出 JSON 格式的 API 对象
 `-o=jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式中定义的字段
 `-o=jsonpath-file=<filename>`       | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式所指定的字段
-`-o=kyaml` (beta)                   | 输出 [KYAML](/zh-cn/docs/reference/encodings/kyaml) 格式的 API 对象。KYAML 是一种特定于 Kubernetes 的 YAML 方言，可以作为 YAML 解析。
+`-o=kyaml`                          | 输出 [KYAML](/zh-cn/docs/reference/encodings/kyaml) 格式的 API 对象。KYAML 是一种特定于 Kubernetes 的 YAML 方言，可以作为 YAML 解析。
 `-o=name`                           | 仅打印资源名称而不打印其他内容
 `-o=wide`                           | 以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称
 `-o=yaml`                           | 输出 YAML 格式的 API 对象
@@ -1041,7 +1041,8 @@ Verbosity | Description
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
 * 了解 [kubectl 概述](/zh-cn/docs/concepts/overview/kubectl/)及其在 Kubernetes 生态系统中的作用。
-* 阅读 [kubectl 参考](/zh-cn//docs/reference/kubectl/)并了解 [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
+* 阅读 [kubectl 参考](/zh-cn//docs/reference/kubectl/)并了解
+  [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
 * 参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 选项。
 * 参阅 [kuberc](/zh-cn/docs/reference/kubectl/kuberc) 选项。
 * 参阅 [kubectl 使用约定](/zh-cn/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。

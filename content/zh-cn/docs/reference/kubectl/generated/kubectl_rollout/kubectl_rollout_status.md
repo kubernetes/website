@@ -63,7 +63,8 @@ kubectl rollout status deployment/nginx
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Filename, directory, or URL to files identifying the resource to get from a server.
@@ -77,7 +78,8 @@ Filename, directory, or URL to files identifying the resource to get from a serv
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 help for status
@@ -91,7 +93,8 @@ help for status
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
@@ -106,7 +109,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
@@ -120,7 +124,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">--revision int</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Pin to a specific revision for showing its status. Defaults to 0 (last revision).
@@ -150,7 +155,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <td colspan="2">--timeout duration</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 The length of time to wait before ending watch, zero means never. Any other values should contain a corresponding time unit (e.g. 1s, 2m, 3h).
@@ -164,7 +170,8 @@ The length of time to wait before ending watch, zero means never. Any other valu
 <td colspan="2">-w, --watch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Watch the status of the rollout until it's done.
@@ -190,7 +197,8 @@ Watch the status of the rollout until it's done.
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
@@ -204,7 +212,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
@@ -218,7 +227,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 UID to impersonate for the operation.
@@ -232,7 +242,8 @@ UID to impersonate for the operation.
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--  
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
@@ -246,7 +257,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Default cache directory
@@ -260,7 +272,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to a cert file for the certificate authority
@@ -274,7 +287,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to a client certificate file for TLS
@@ -288,7 +302,8 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>  
+<td style="line-height: 130%; word-wrap: break-word;">  
 <p>
 <!--
 Path to a client key file for TLS
@@ -451,6 +466,20 @@ Name of the file to write the profile to
 性能分析信息要写入的目标文件的名称。
 </p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>  
+<!--  
+Proxy URL to use for requests to the API server
+-->
+用于向 API 服务器发送请求的代理 URL。
+</p>  
+</td>  
 </tr>
 
 <tr>
