@@ -43,9 +43,9 @@ To effectively tune swap behavior, Linux provides several kernel parameters that
 - `vm.swappiness`: This is the most well-known parameter. It is a value from 0 to 200 (100 in older kernels) that controls the kernel's preference for swapping anonymous memory pages versus reclaiming file-backed memory pages (page cache).
   - **High value (eg: 90+)**: The kernel will be aggressive in swapping out less-used anonymous memory to make room for file-cache.
   - **Low value (eg: < 10)**: The kernel will strongly prefer dropping file cache pages over swapping anonymous memory.
-- `vm.min_free_kbytes`: This parameter tells the kernel to keep a minimum amount of memory free as a buffer. When the amount of free memory drops below the this safety buffer, the kernel starts more aggressively reclaiming pages (swapping, and eventually handling OOM kills).
+- `vm.min_free_kbytes`: This parameter tells the kernel to keep a minimum amount of memory free as a buffer. When the amount of free memory drops below this safety buffer, the kernel starts more aggressively reclaiming pages (swapping, and eventually handling OOM kills).
   - **Function:** It acts as a safety lever to ensure the kernel has enough memory for critical allocation requests that cannot be deferred.
-  - **Impact on swap**: Setting a higher `min_free_kbytes` effectively raises the floor for for free memory, causing the kernel to initiate swap earlier under memory pressure.
+  - **Impact on swap**: Setting a higher `min_free_kbytes` effectively raises the floor for free memory, causing the kernel to initiate swap earlier under memory pressure.
 - `vm.watermark_scale_factor`: This setting controls the gap between different watermarks: `min`, `low` and `high`, which are calculated based on `min_free_kbytes`.
   - **Watermarks explained**:
     - `low`: When free memory is below this mark, the `kswapd` kernel process wakes up to reclaim pages in the background. This is when a swapping cycle begins.

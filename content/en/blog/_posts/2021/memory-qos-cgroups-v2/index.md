@@ -87,7 +87,7 @@ For memory limits, in addition to the original way of limiting memory usage, Mem
 ![](./container-memory-high.svg)  
 <sub>i: the i<sup>th</sup> container in one pod</sub>
 
-This can can help improve stability when pod memory usage increases, ensuring that memory is throttled as it approaches the memory limit.
+This can help improve stability when pod memory usage increases, ensuring that memory is throttled as it approaches the memory limit.
 
 ## How do I use it?
 Here are the prerequisites for enabling Memory QoS on your Linux node, some of these are related to [Kubernetes support for cgroup v2](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2254-cgroup-v2).

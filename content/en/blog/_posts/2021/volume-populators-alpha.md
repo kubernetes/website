@@ -64,7 +64,7 @@ sees one, it creates a temporary PVC of the same size, volume mode, storage clas
 and even on the same topology (if topology is used) as the original PVC. The populator
 controller creates a worker pod that attaches to the volume and writes the necessary
 data to it, then detaches from the volume and the populator controller rebinds the PV
-from the temporary PVC to the orignal PVC.
+from the temporary PVC to the original PVC.
 
 ## Trying it out
 
